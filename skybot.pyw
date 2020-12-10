@@ -351,8 +351,8 @@ else:
     NEXT_MONTH = repr(int(CURRENT_MONTH) + 1)
     MONTH_AFTER_NEXT = repr(int(CURRENT_MONTH) + 2)
 
-CENTERVAL_UPPER = GOLDEN_RATIO
-CENTERVAL_LOWER = GOLDEN_RATIO
+CENTER_VAL_PLUS1 = GOLDEN_RATIO
+CENTER_VAL_MINUS1 = GOLDEN_RATIO
 
 pre_진성맥점 = [1.20, 2.50, 3.50, 4.85, 5.10, 5.50, 6.85, 7.10, 8.10]
 
@@ -843,16 +843,16 @@ kp200_고가 = 0
 
 CENTER_VAL = 0
 
-CENTER_VAL1 = 0
-CENTER_VAL2 = 0
-CENTER_VAL3 = 0
-CENTER_VAL4 = 0
-CENTER_VAL5 = 0
-CENTER_VAL6 = 0
-CENTER_VAL7 = 0
-CENTER_VAL8 = 0
-CENTER_VAL9 = 0
-CENTER_VAL10 = 0
+CENTER_VAL_PLUS5 = 0
+CENTER_VAL_PLUS4 = 0
+CENTER_VAL_PLUS3 = 0
+CENTER_VAL_PLUS2 = 0
+CENTER_VAL_PLUS1 = 0
+CENTER_VAL_MINUS1 = 0
+CENTER_VAL_MINUS2 = 0
+CENTER_VAL_MINUS3 = 0
+CENTER_VAL_MINUS4 = 0
+CENTER_VAL_MINUS5 = 0
 
 dongsi_hoga = False
 flag_kp200_start_set = False
@@ -2373,9 +2373,9 @@ class screen_update_worker(QThread):
 
         while True:
 
-            str = 'Main UI Update...'                
+            txt = 'Main UI Update...'                
 
-            self.finished.emit(str)
+            self.finished.emit(txt)
             #self.msleep(MAIN_UPDATE_INTERVAL)
             QTest.qWait(main_ui_update_interval)    
 ########################################################################################################################
@@ -2395,7 +2395,7 @@ class telegram_send_worker(QThread):
             global telegram_toggle, FLAG_ASYM, FLAG_NODE, FLAG_OLOH
             global FLAG_GUEST_CONTROL
 
-            # 텔레그램 Webhook 등록여부를 체크한다.
+            # 텔레그램 Webhook 등록여부를 체크한다.c8
             chk_webhook = Check_Webhook()
 
             if chk_webhook is not None:
@@ -2405,16 +2405,16 @@ class telegram_send_worker(QThread):
                     # Webhook을 삭제한다.
                     Delete_Webhook()
 
-                    str = '웹훅 삭제...'
-                    print(str)
+                    txt = '웹훅 삭제...'
+                    print(txt)
                 else:
-                    str = 'None'
+                    txt = 'None'
             else:
-                str = 'None' 
+                txt = 'None' 
 
             telegram_toggle = not telegram_toggle
 
-            #str = 'None'
+            #txt = 'None'
             
             # 텔레그램 명령어 파싱
             element = telegram_command.split()
@@ -2524,31 +2524,31 @@ class telegram_send_worker(QThread):
 
                         # 선물 OL/OH 알람
                         if fut_oloh_str != '' and FLAG_OLOH:
-                            str = fut_oloh_str
-                            ToYourTelegram(str)
+                            txt = fut_oloh_str
+                            ToYourTelegram(txt)
                         else:
                             pass
 
                         # 차월물 옵션 OLOH 보고
                         if nm_call_oloh_str != '' and nm_put_oloh_str == '':
-                            str = nm_call_oloh_str
-                            ToYourTelegram(str)
+                            txt = nm_call_oloh_str
+                            ToYourTelegram(txt)
                         elif nm_call_oloh_str == '' and nm_put_oloh_str != '':
-                            str = nm_put_oloh_str
-                            ToYourTelegram(str)
+                            txt = nm_put_oloh_str
+                            ToYourTelegram(txt)
                         elif nm_call_oloh_str != '' and nm_put_oloh_str != '':
-                            str = nm_call_oloh_str + ', ' + nm_put_oloh_str
-                            ToYourTelegram(str)
+                            txt = nm_call_oloh_str + ', ' + nm_put_oloh_str
+                            ToYourTelegram(txt)
                         else:
                             pass
 
                         # 원웨이 알람
                         if flag_call_oneway:
-                            str = "[{0:02d}:{1:02d}:{2:02d}] ★ Call OneWay({3:.2f}/{4:.2f}) !!!".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
-                            ToYourTelegram(str)
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] ★ Call OneWay({3:.2f}/{4:.2f}) !!!".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
+                            ToYourTelegram(txt)
                         elif flag_put_oneway:
-                            str = "[{0:02d}:{1:02d}:{2:02d}] ★ Put OneWay({3:.2f}/{4:.2f}) !!!".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
-                            ToYourTelegram(str)
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] ★ Put OneWay({3:.2f}/{4:.2f}) !!!".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
+                            ToYourTelegram(txt)
                         else:
                             pass
 
@@ -2556,64 +2556,64 @@ class telegram_send_worker(QThread):
                         '''
                         if call_low_node_str != '' and FLAG_NODE:
 
-                            str = call_low_node_str
-                            ToYourTelegram(str)
+                            txt = call_low_node_str
+                            ToYourTelegram(txt)
                         else:
                             pass
 
                         if call_high_node_str != '' and FLAG_NODE:
 
-                            str = call_high_node_str
-                            ToYourTelegram(str)
+                            txt = call_high_node_str
+                            ToYourTelegram(txt)
                         else:
                             pass
 
                         if put_low_node_str != '' and FLAG_NODE:
 
-                            str = put_low_node_str
-                            ToYourTelegram(str)
+                            txt = put_low_node_str
+                            ToYourTelegram(txt)
                         else:
                             pass
 
                         if put_high_node_str != '' and FLAG_NODE:
 
-                            str = put_high_node_str
-                            ToYourTelegram(str)
+                            txt = put_high_node_str
+                            ToYourTelegram(txt)
                         else:
                             pass                        
 
                         if telegram_send_str_call_low != '' and FLAG_NODE:
 
-                            str = telegram_send_str_call_low
-                            ToYourTelegram(str)
+                            txt = telegram_send_str_call_low
+                            ToYourTelegram(txt)
                         else:
                             pass
 
                         if telegram_send_str_call_high != '' and FLAG_NODE:
 
-                            str = telegram_send_str_call_high
-                            ToYourTelegram(str)
+                            txt = telegram_send_str_call_high
+                            ToYourTelegram(txt)
                         else:
                             pass
 
                         if telegram_send_str_put_low != '' and FLAG_NODE:
 
-                            str = telegram_send_str_put_low
-                            ToYourTelegram(str)
+                            txt = telegram_send_str_put_low
+                            ToYourTelegram(txt)
                         else:
                             pass
 
                         if telegram_send_str_put_high != '' and FLAG_NODE:
 
-                            str = telegram_send_str_put_high
-                            ToYourTelegram(str)
+                            txt = telegram_send_str_put_high
+                            ToYourTelegram(txt)
                         else:
                             pass                               
                         
                         # 비대칭장(장의 형태) 알람
                         if 비대칭장 != '' and FLAG_ASYM:
-                            str = 비대칭장
-                            ToYourTelegram(str)
+                            txt = 비대칭장
+                            ToYourTelegram(txt)
                         else:
                             pass
                         '''
@@ -2625,15 +2625,15 @@ class telegram_send_worker(QThread):
                         # kp200 맥점 알람
                         if kp200_low_node_str != '' and FLAG_NODE:
 
-                            str = kp200_low_node_str
-                            ToYourTelegram(str)
+                            txt = kp200_low_node_str
+                            ToYourTelegram(txt)
                         else:
                             pass
 
                         if kp200_high_node_str != '' and FLAG_NODE:
 
-                            str = kp200_high_node_str
-                            ToYourTelegram(str)
+                            txt = kp200_high_node_str
+                            ToYourTelegram(txt)
                         else:
                             pass
                     else:
@@ -2643,7 +2643,7 @@ class telegram_send_worker(QThread):
             else:
                 pass            
 
-            self.finished.emit(str)
+            self.finished.emit(txt)
             #self.msleep(1000 * TELEGRAM_SEND_INTERVAL)
             QTest.qWait(1000 * TELEGRAM_SEND_INTERVAL)
 ########################################################################################################################
@@ -2661,16 +2661,16 @@ class telegram_listen_worker(QThread):
 
                 # 텔레그램 메시지 수신
                 if SELFID == 'soojin65':
-                    #str = FromMyTelegram()
+                    #txt = FromMyTelegram()
                     print('텔레그램 수신 메시지 =', str)
                     pass
                 else:
-                    str = FromYourTelegram()
+                    txt = FromYourTelegram()
                     #print('텔레그램 수신 메시지 =', str)
             else:
-                str = 'Stopped by Tool...'
+                txt = 'Stopped by Tool...'
 
-            self.finished.emit(str)
+            self.finished.emit(txt)
             #self.msleep(1000 * TELEGRAM_POLLING_INTERVAL)
             QTest.qWait(1000 * TELEGRAM_POLLING_INTERVAL)
 ########################################################################################################################
@@ -3932,13 +3932,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.datetime.now()
         
         if int(current_str[0:2]) < 12:
-            str = '[{0:02d}:{1:02d}:{2:02d}] ♣♣♣ Good Morning! Have a Good Day ♣♣♣\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] ♣♣♣ Good Morning! Have a Good Day ♣♣♣\r'.format(dt.hour, dt.minute, dt.second)
         else:
-            str = '[{0:02d}:{1:02d}:{2:02d}] ♣♣♣ Good Afternoon! Have a Good Day ♣♣♣\r'.format(dt.hour, dt.minute, dt.second)
-        self.textBrowser.append(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] ♣♣♣ Good Afternoon! Have a Good Day ♣♣♣\r'.format(dt.hour, dt.minute, dt.second)
+        self.textBrowser.append(txt)
         
-        str = '[{0:02d}:{1:02d}:{2:02d}] OS Type : {3}\r'.format(dt.hour, dt.minute, dt.second, os_type)
-        self.textBrowser.append(str) 
+        txt = '[{0:02d}:{1:02d}:{2:02d}] OS Type : {3}\r'.format(dt.hour, dt.minute, dt.second, os_type)
+        self.textBrowser.append(txt) 
         
         if TARGET_MONTH_SELECT == 1:
 
@@ -3976,13 +3976,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     Delete_Webhook()
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 웹훅을 삭제합니다.\r'.format(adj_hour, adj_min, adj_sec)
-                    self.textBrowser.append(str)
-                    print(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 웹훅을 삭제합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    self.textBrowser.append(txt)
+                    print(txt)
                 else:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 웹훅이 없습니다.\r'.format(adj_hour, adj_min, adj_sec)
-                    self.textBrowser.append(str)
-                    print(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 웹훅이 없습니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    self.textBrowser.append(txt)
+                    print(txt)
             else:
                 pass
 
@@ -4064,11 +4064,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.setWindowTitle(widget_title)
         
         if SELFID == 'soojin65':
-            str = '[{0:02d}:{1:02d}:{2:02d}] COREVAL = {3}\r'.format(adj_hour, adj_min, adj_sec, COREVAL)
-            self.textBrowser.append(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] COREVAL = {3}\r'.format(adj_hour, adj_min, adj_sec, COREVAL)
+            self.textBrowser.append(txt)
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] ResizeRowsToContents = {3}\r'.format(adj_hour, adj_min, adj_sec, ResizeRowsToContents)
-            self.textBrowser.append(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] ResizeRowsToContents = {3}\r'.format(adj_hour, adj_min, adj_sec, ResizeRowsToContents)
+            self.textBrowser.append(txt)
         else:
             pass
         
@@ -4093,9 +4093,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             for i in range(len(new_node)):
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] {3}번째 동적맥점 {4:.2f}(발생빈도수 = {5}) 추가됨...\r'.format \
+                txt = '[{0:02d}:{1:02d}:{2:02d}] {3}번째 동적맥점 {4:.2f}(발생빈도수 = {5}) 추가됨...\r'.format \
                     (dt.hour, dt.minute, dt.second, i + 1, new_node[i][0], new_node[i][1])
-                #self.textBrowser.append(str)
+                #self.textBrowser.append(txt)
 
                 item = QTableWidgetItem("{0:.2f}\n({1})".format(new_node[i][0], new_node[i][1]))
                 item.setTextAlignment(Qt.AlignCenter)
@@ -4112,11 +4112,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if bms_node_list:
             bms_node_list.sort()
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 오늘의 중요맥점은'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 오늘의 중요맥점은'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, bms_node_list)
-            self.textBrowser.append(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, bms_node_list)
+            self.textBrowser.append(txt)
         else:
             pass
 
@@ -4193,14 +4193,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if ctypes.windll.shell32.IsUserAnAdmin():
             print('관리자권한으로 실행된 프로세스입니다.')
-            str = '[{0:02d}:{1:02d}:{2:02d}] 관리자권한으로 실행된 프로세스입니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 관리자권한으로 실행된 프로세스입니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
             return True
         else:
             '''
             print('일반권한으로 실행된 프로세스입니다.')
-            str = '[{0:02d}:{1:02d}:{2:02d}] 일반권한으로 실행된 프로세스입니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 일반권한으로 실행된 프로세스입니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
             '''
             return False
 
@@ -4253,15 +4253,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 output = "Monitor{} {}.png".format(num, times)
                 img.save(output)
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] {3}번째 화면을 캡처했습니다.\r'.format(now.tm_hour, now.tm_min, now.tm_sec, num)
-                self.textBrowser.append(str)
-                print(str)    
+                txt = '[{0:02d}:{1:02d}:{2:02d}] {3}번째 화면을 캡처했습니다.\r'.format(now.tm_hour, now.tm_min, now.tm_sec, num)
+                self.textBrowser.append(txt)
+                print(txt)    
 
     def timeout(self):
         
         dt = datetime.datetime.now()
-        str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
-        self.label_msg.setText(str)
+        txt = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
+        self.label_msg.setText(txt)
 
     def checkBox_HS_checkState(self):
 
@@ -4281,25 +4281,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             #main_ui_update_interval = 1000
             plot_update_interval = 1000
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 화면갱신주기를 0.5초 --> 1초로 늘립니다.\r'.format(adj_hour, adj_min, adj_sec)
-            self.textBrowser.append(str)            
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 화면갱신주기를 0.5초 --> 1초로 늘립니다.\r'.format(adj_hour, adj_min, adj_sec)
+            self.textBrowser.append(txt)            
                         
             if not NightTime:
                 
-                str = '[{0:02d}:{1:02d}:{2:02d}] S3, BM, PM요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
-                self.textBrowser.append(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] S3, BM, PM요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                self.textBrowser.append(txt)
 
                 self.real_data_worker.UnadviseRealDataEtc()
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 호가요청을 등가중심 10개만 합니다.\r'.format(adj_hour, adj_min, adj_sec)
-                self.textBrowser.append(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 호가요청을 등가중심 10개만 합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                self.textBrowser.append(txt)
 
                 self.real_data_worker.AdviseRealData_HS_ON()
             else:
                 pass            
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 중지합니다.\r'.format(adj_hour, adj_min, adj_sec)
-            self.textBrowser.append(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 중지합니다.\r'.format(adj_hour, adj_min, adj_sec)
+            self.textBrowser.append(txt)
 
             if self.telegram_send_worker.isRunning():
                 self.telegram_send_worker.terminate()
@@ -4319,24 +4319,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             #main_ui_update_interval = 500
             plot_update_interval = 500
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 화면갱신주기를 0.5초로 복구합니다.\r'.format(adj_hour, adj_min, adj_sec)
-            self.textBrowser.append(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 화면갱신주기를 0.5초로 복구합니다.\r'.format(adj_hour, adj_min, adj_sec)
+            self.textBrowser.append(txt)
             
             if not NightTime:
-                str = '[{0:02d}:{1:02d}:{2:02d}] S3, BM, PM을 재요청합니다.\r'.format(adj_hour, adj_min, adj_sec)
-                self.textBrowser.append(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] S3, BM, PM을 재요청합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                self.textBrowser.append(txt)
                 
                 self.real_data_worker.AdviseRealDataEtc()
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 호가요청을 원복합니다.\r'.format(adj_hour, adj_min, adj_sec)
-                self.textBrowser.append(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 호가요청을 원복합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                self.textBrowser.append(txt)
 
                 self.real_data_worker.AdviseRealData_HS_OFF()                
             else:
                 pass            
             
-            str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 재기동합니다.\r'.format(adj_hour, adj_min, adj_sec)
-            self.textBrowser.append(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 재기동합니다.\r'.format(adj_hour, adj_min, adj_sec)
+            self.textBrowser.append(txt)
             
             self.telegram_send_worker.daemon = True
             self.telegram_send_worker.start()
@@ -4742,43 +4742,43 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if 콜매수 != '콜매수':
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 콜매수 {3} 진입...\r'.format(adj_hour, adj_min, adj_sec, 콜매수)
-                        self.textBrowser.append(str)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 콜매수 {3} 진입...\r'.format(adj_hour, adj_min, adj_sec, 콜매수)
+                        self.textBrowser.append(txt)
                     else:
                         pass
 
                     if 콜매도 != '콜매도':
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 콜매도 {3} 진입...\r'.format(adj_hour, adj_min, adj_sec, 콜매도)
-                        self.textBrowser.append(str)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 콜매도 {3} 진입...\r'.format(adj_hour, adj_min, adj_sec, 콜매도)
+                        self.textBrowser.append(txt)
                     else:
                         pass
 
                     if 풋매수 != '풋매수':
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 풋매수 {3} 진입...\r'.format(adj_hour, adj_min, adj_sec, 풋매수)
-                        self.textBrowser.append(str)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 풋매수 {3} 진입...\r'.format(adj_hour, adj_min, adj_sec, 풋매수)
+                        self.textBrowser.append(txt)
                     else:
                         pass
 
                     if 풋매도 != '풋매도':
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 풋매도 {3} 진입...\r'.format(adj_hour, adj_min, adj_sec, 풋매도)
-                        self.textBrowser.append(str)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 풋매도 {3} 진입...\r'.format(adj_hour, adj_min, adj_sec, 풋매도)
+                        self.textBrowser.append(txt)
                     else:
                         pass
 
                     if 손절 != '손절':
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 손절 {3}틱 설정됨\r'.format(adj_hour, adj_min, adj_sec, 손절)
-                        self.textBrowser.append(str)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 손절 {3}틱 설정됨\r'.format(adj_hour, adj_min, adj_sec, 손절)
+                        self.textBrowser.append(txt)
                     else:
                         pass
 
                     if 익절 != '익절':
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 익절 {3}틱 설정됨\r'.format(adj_hour, adj_min, adj_sec, 익절)
-                        self.textBrowser.append(str)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 익절 {3}틱 설정됨\r'.format(adj_hour, adj_min, adj_sec, 익절)
+                        self.textBrowser.append(txt)
                     else:
                         pass
 
@@ -4786,8 +4786,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 전송이 예약되었습니다.\r'.format(adj_hour, adj_min, adj_sec)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 전송이 예약되었습니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    self.textBrowser.append(txt)
                 else:
                     item = QTableWidgetItem("{0}".format('T'))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -4831,8 +4831,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(흰색))
                     self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 전송예약이 취소되었습니다.\r'.format(adj_hour, adj_min, adj_sec)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 전송예약이 취소되었습니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    self.textBrowser.append(txt)
             else:
                 pass
 
@@ -5059,8 +5059,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             dt = datetime.datetime.now()
 
             if market_service:
-                str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Send Message = {3}\r'.format(adj_hour, adj_min, adj_sec, str)
-                print(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Send Message = {3}\r'.format(adj_hour, adj_min, adj_sec, str)
+                print(txt)
             else:
                 pass
         except:
@@ -5080,16 +5080,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     telegram_command = str
                     
                     if SELFID == 'soojin65':
-                        str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command is {3}\r'.format(adj_hour, adj_min, adj_sec, telegram_command)                        
-                        print(str)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command is {3}\r'.format(adj_hour, adj_min, adj_sec, telegram_command)                        
+                        print(txt)
                     else:
-                        str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message is {3}, {4:.2f}({5:.2f}) ms\r'.format \
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message is {3}, {4:.2f}({5:.2f}) ms\r'.format \
                             (adj_hour, adj_min, adj_sec, telegram_command, main_ui_update_time, bc_ui_update_time)
-                        self.textBrowser.append(str)
+                        self.textBrowser.append(txt)
                 else:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message is None, {3:.2f}({4:.2f}) ms\r'.format \
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message is None, {3:.2f}({4:.2f}) ms\r'.format \
                         (adj_hour, adj_min, adj_sec, main_ui_update_time, bc_ui_update_time)
-                    self.textBrowser.append(str)                
+                    self.textBrowser.append(txt)                
             else:
                 pass
         except:
@@ -5276,9 +5276,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 15 Minute resample
         #df_gold_ohlc_15min = df.resample('15T').ohlc()        
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] OHLC_Gen Update : {3:.2f} ms...\r'.format(\
+        txt = '[{0:02d}:{1:02d}:{2:02d}] OHLC_Gen Update : {3:.2f} ms...\r'.format(\
                     adj_hour, adj_min, adj_sec, (timeit.default_timer() - start_time) * 1000)
-        print(str)
+        print(txt)
 
     #@pyqtSlot(dict)
     @pyqtSlot(str)
@@ -5322,16 +5322,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 # t8416 선물요청
                 if TARGET_MONTH_SELECT == 1:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] t8416 본월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, gmshcode)
-                    self.textBrowser.append(str)
-                    print(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 본월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, gmshcode)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
                     self.t8416_fut_request(gmshcode)
                     
                 elif TARGET_MONTH_SELECT == 2:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] t8416 차월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, cmshcode)
-                    self.textBrowser.append(str)
-                    print(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 차월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, cmshcode)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
                     self.t8416_fut_request(cmshcode)
                 else:
@@ -5457,9 +5457,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 flag_call_cross_coloring = True
 
-                                str = '[{0:02d}:{1:02d}:{2:02d}] Call 교차컬러링을 수행합니다.\r'.format(adj_hour, adj_min, adj_sec)
-                                self.textBrowser.append(str)
-                                print(str)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] Call 교차컬러링을 수행합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                                self.textBrowser.append(txt)
+                                print(txt)
 
                                 if not flag_clear:
                                     
@@ -5485,9 +5485,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 flag_put_cross_coloring = True
 
-                                str = '[{0:02d}:{1:02d}:{2:02d}] Put 교차컬러링을 수행합니다.\r'.format(adj_hour, adj_min, adj_sec)
-                                self.textBrowser.append(str)
-                                print(str)                                        
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] Put 교차컬러링을 수행합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                                self.textBrowser.append(txt)
+                                print(txt)                                        
                                 
                                 if not flag_clear:
 
@@ -5695,45 +5695,45 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         GOLD_당일종가 = GOLD_현재가
 
                         # 다음날 해외선물 피봇계산을 위해 종료시(오전 6시) 마지막 값 저장
-                        str = '[{0:02d}:{1:02d}:{2:02d}] CME 종가 = {3:.2f}\r'.format(adj_hour, adj_min, adj_sec, CME_당일종가)
-                        self.textBrowser.append(str)
-                        print(str)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] CME 종가 = {3:.2f}\r'.format(adj_hour, adj_min, adj_sec, CME_당일종가)
+                        self.textBrowser.append(txt)
+                        print(txt)
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] SP500 Low = {3:.2f}, SP500 High = {4:.2f}, SP500 Close = {5:.2f}\r'.format \
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] SP500 Low = {3:.2f}, SP500 High = {4:.2f}, SP500 Close = {5:.2f}\r'.format \
                             (adj_hour, 
                             adj_min, 
                             adj_sec,
                             SP500_저가, SP500_고가, SP500_당일종가)
-                        self.textBrowser.append(str)
-                        print(str)
+                        self.textBrowser.append(txt)
+                        print(txt)
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] DOW Low = {3:0.1f}, DOW High = {4:0.1f}, DOW Close = {5:0.1f}\r'.format \
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] DOW Low = {3:0.1f}, DOW High = {4:0.1f}, DOW Close = {5:0.1f}\r'.format \
                             (adj_hour, 
                             adj_min, 
                             adj_sec,
                             DOW_저가, DOW_고가, DOW_당일종가)
-                        self.textBrowser.append(str)
-                        print(str)
+                        self.textBrowser.append(txt)
+                        print(txt)
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ Low = {3:.2f}, NASDAQ High = {4:.2f}, NASDAQ Close = {5:.2f}\r'.format \
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ Low = {3:.2f}, NASDAQ High = {4:.2f}, NASDAQ Close = {5:.2f}\r'.format \
                             (adj_hour, 
                             adj_min, 
                             adj_sec,
                             NASDAQ_저가, NASDAQ_고가, NASDAQ_당일종가)
-                        self.textBrowser.append(str)
-                        print(str)
+                        self.textBrowser.append(txt)
+                        print(txt)
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] WTI Low = {3:.2f}, WTI High = {4:.2f}, WTI Close = {5:.2f}\r'.format \
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] WTI Low = {3:.2f}, WTI High = {4:.2f}, WTI Close = {5:.2f}\r'.format \
                             (adj_hour, 
                             adj_min, 
                             adj_sec,
                             WTI_저가, WTI_고가, WTI_당일종가)
-                        self.textBrowser.append(str)
-                        print(str)
+                        self.textBrowser.append(txt)
+                        print(txt)
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 야간장 주요정보를 저징합니다...\r'.format(adj_hour, adj_min, adj_sec)
-                        self.textBrowser.append(str)
-                        print(str)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 야간장 주요정보를 저징합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                        self.textBrowser.append(txt)
+                        print(txt)
                         
                         # 야간장의 주요정보를 저장
                         with open('nighttime.txt', mode='w') as nighttime_file:
@@ -5797,9 +5797,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             nighttime_file.write(file_str)
                             nighttime_file.close()
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(adj_hour, adj_min, adj_sec)
-                        self.textBrowser.append(str)
-                        print(str)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                        self.textBrowser.append(txt)
+                        print(txt)
 
                         if not flag_offline:
                             flag_offline = True                            
@@ -5810,8 +5810,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.parent.statusbar.showMessage("오프라인")
 
                         if not flag_logfile:
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
-                            self.textBrowser.append(str)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                            self.textBrowser.append(txt)
 
                             file = open('skybot.log', 'w')
                             text = self.textBrowser.toPlainText()
@@ -5829,9 +5829,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if self.parent.connection.IsConnected():
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(adj_hour, adj_min, adj_sec)
-                        self.textBrowser.append(str)
-                        print(str)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                        self.textBrowser.append(txt)
+                        print(txt)
 
                         if not flag_offline:
                             flag_offline = True                            
@@ -5842,8 +5842,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.parent.statusbar.showMessage("오프라인")
 
                         if not flag_logfile:
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
-                            self.textBrowser.append(str)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                            self.textBrowser.append(txt)
 
                             file = open('skybot.log', 'w')
                             text = self.textBrowser.toPlainText()
@@ -5862,13 +5862,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if flag_checkBox_HS and dt.second % 10 == 0 and self.alternate_flag:
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f}({4:.2f}) ms, Drop Count = {5}\r'.format(\
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f}({4:.2f}) ms, Drop Count = {5}\r'.format(\
                         dt.hour, dt.minute, dt.second, main_ui_update_time, bc_ui_update_time, queue_input_drop_count)
-                    self.textBrowser.append(str)
+                    self.textBrowser.append(txt)
                 else:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f} ms, Drop Count = {4}\r'.format(\
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f} ms, Drop Count = {4}\r'.format(\
                         dt.hour, dt.minute, dt.second, main_ui_update_time, queue_input_drop_count)
-                    print(str)
+                    print(txt)
             else:
                 pass
             
@@ -5881,9 +5881,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global flag_heartbeat
         
-        str = '[{0:02d}:{1:02d}:{2:02d}] Heartbeat({3}, 시간차 = {4}초)수신, Drop Count = {5}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, 시스템_서버_시간차, queue_input_drop_count)
-        self.textBrowser.append(str)
-        #print(str)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Heartbeat({3}, 시간차 = {4}초)수신, Drop Count = {5}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, 시스템_서버_시간차, queue_input_drop_count)
+        self.textBrowser.append(txt)
+        #print(txt)
         
         self.tableWidget_fut.resizeRowsToContents()
         self.tableWidget_fut.resizeColumnsToContents()
@@ -5969,9 +5969,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] 동적 맥점 탐색을 시작합니다.\r'.format(adj_hour, adj_min, adj_sec)
-        self.textBrowser.append(str)
-        print(str)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 동적 맥점 탐색을 시작합니다.\r'.format(adj_hour, adj_min, adj_sec)
+        self.textBrowser.append(txt)
+        print(txt)
                 
         동적맥점_리스트 = []
         동적맥점_빈도수_리스트 = []
@@ -5982,45 +5982,45 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         '''
         if not flag_first_search:
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] call_저가 list = {3}\r'.format(adj_hour, adj_min, adj_sec, call_저가)
-            self.textBrowser.append(str)
-            print(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] call_저가 list = {3}\r'.format(adj_hour, adj_min, adj_sec, call_저가)
+            self.textBrowser.append(txt)
+            print(txt)
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] call low list = {3}\r'.format(adj_hour, adj_min, adj_sec, call_low_list)
-            self.textBrowser.append(str)
-            print(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] call low list = {3}\r'.format(adj_hour, adj_min, adj_sec, call_low_list)
+            self.textBrowser.append(txt)
+            print(txt)
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] call_고가 list = {3}\r'.format(adj_hour, adj_min, adj_sec, call_고가)
-            self.textBrowser.append(str)
-            print(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] call_고가 list = {3}\r'.format(adj_hour, adj_min, adj_sec, call_고가)
+            self.textBrowser.append(txt)
+            print(txt)
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] call high list = {3}\r'.format(adj_hour, adj_min, adj_sec, call_high_list)
-            self.textBrowser.append(str)
-            print(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] call high list = {3}\r'.format(adj_hour, adj_min, adj_sec, call_high_list)
+            self.textBrowser.append(txt)
+            print(txt)
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] put_저가 list = {3}\r'.format(adj_hour, adj_min, adj_sec, put_저가)
-            self.textBrowser.append(str)
-            print(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] put_저가 list = {3}\r'.format(adj_hour, adj_min, adj_sec, put_저가)
+            self.textBrowser.append(txt)
+            print(txt)
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] put low list = {3}\r'.format(adj_hour, adj_min, adj_sec, put_low_list)
-            self.textBrowser.append(str)
-            print(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] put low list = {3}\r'.format(adj_hour, adj_min, adj_sec, put_low_list)
+            self.textBrowser.append(txt)
+            print(txt)
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] put_고가 list = {3}\r'.format(adj_hour, adj_min, adj_sec, put_고가)
-            self.textBrowser.append(str)
-            print(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] put_고가 list = {3}\r'.format(adj_hour, adj_min, adj_sec, put_고가)
+            self.textBrowser.append(txt)
+            print(txt)
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] put high list = {3}\r'.format(adj_hour, adj_min, adj_sec, put_high_list)
-            self.textBrowser.append(str)
-            print(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] put high list = {3}\r'.format(adj_hour, adj_min, adj_sec, put_high_list)
+            self.textBrowser.append(txt)
+            print(txt)
 
             flag_first_search = True
         else:
             pass
         '''
-        str = '[{0:02d}:{1:02d}:{2:02d}] high low list in search_moving_node = {3}\r'.format(adj_hour, adj_min, adj_sec, high_low_list)
-        #self.textBrowser.append(str)
-        print(str)        
+        txt = '[{0:02d}:{1:02d}:{2:02d}] high low list in search_moving_node = {3}\r'.format(adj_hour, adj_min, adj_sec, high_low_list)
+        #self.textBrowser.append(txt)
+        print(txt)        
 
         # 1st search
         동적맥점1, 동적맥점1_빈도수 = self.get_maxval_info(moving_list)
@@ -6104,9 +6104,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         new_node = sorted(listsum, key=operator.itemgetter(0))
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] new node list = {3}\r'.format(adj_hour, adj_min, adj_sec, new_node)
-        self.textBrowser.append(str)
-        print(str)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] new node list = {3}\r'.format(adj_hour, adj_min, adj_sec, new_node)
+        self.textBrowser.append(txt)
+        print(txt)
         
         for i in range(len(new_node)):
 
@@ -6125,10 +6125,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if high_low_list is not None and new_node[i][0] in high_low_list:
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] {3}번째 동적맥점 {4:.2f}(빈도수 = {5}) 발생 !!!\r'.format \
+                txt = '[{0:02d}:{1:02d}:{2:02d}] {3}번째 동적맥점 {4:.2f}(빈도수 = {5}) 발생 !!!\r'.format \
                     (adj_hour, adj_min, adj_sec, i + 1, new_node[i][0], new_node[i][1])
-                self.textBrowser.append(str)
-                print(str)
+                self.textBrowser.append(txt)
+                print(txt)
 
                 진성맥점.append(new_node[i][0])
 
@@ -6161,8 +6161,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             new_list = list(set(진성맥점) - set(DEFAULT_NODE_LIST))
             new_list.sort()
-            str = '[{0:02d}:{1:02d}:{2:02d}] 탐색된 진성맥점 = {3}\r'.format(adj_hour, adj_min, adj_sec, new_list)
-            self.textBrowser.append(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 탐색된 진성맥점 = {3}\r'.format(adj_hour, adj_min, adj_sec, new_list)
+            self.textBrowser.append(txt)
         else:
             pass            
 
@@ -6175,7 +6175,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 해외선물 한국시간 표시
         if OVC_체결시간 == '000000':
 
-            str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
+            txt = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
         else:
             시스템시간 = dt.hour * 3600 + dt.minute * 60 + dt.second
             adj_time = 시스템시간 - 시스템_서버_시간차
@@ -6184,7 +6184,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             adj_min = (adj_time - adj_hour * 3600) // 60
             adj_sec = adj_time - (adj_hour * 3600 + adj_min * 60)
 
-            str = '{0:02d}:{1:02d}:{2:02d}({3:+d})'.format(adj_hour, adj_min, adj_sec, 시스템_서버_시간차)
+            txt = '{0:02d}:{1:02d}:{2:02d}({3:+d})'.format(adj_hour, adj_min, adj_sec, 시스템_서버_시간차)
         
         # 클래스간 데이타 교환
         
@@ -6192,8 +6192,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         '''
         if 화면_뉴스.news_on:
 
-            str = 'sky...\r'
-            화면_뉴스.testcode(str)
+            txt = 'sky...\r'
+            화면_뉴스.testcode(txt)
         else:
             pass
         '''
@@ -6282,7 +6282,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.label_msg.setStyleSheet('background-color: black; color: lawngreen')            
         
         self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))    
-        self.label_msg.setText(str)
+        self.label_msg.setText(txt)
     
     def call_scroll_coloring(self):
 
@@ -6309,14 +6309,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if market_service:
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check : {3:.2f} ms\r'.format(\
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check : {3:.2f} ms\r'.format(\
                 adj_hour, adj_min, adj_sec, process_time)
-            self.textBrowser.append(str)
-            print(str)
+            self.textBrowser.append(txt)
+            print(txt)
         else:
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check : {3:.2f} ms\r'.format(adj_hour, adj_min, adj_sec, process_time)
-            self.textBrowser.append(str)
-            print(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check : {3:.2f} ms\r'.format(adj_hour, adj_min, adj_sec, process_time)
+            self.textBrowser.append(txt)
+            print(txt)
 
     def call_low_node_coloring(self):
 
@@ -6332,9 +6332,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] Call Low Node Color Check : {3:.2f} ms\r'.format(\
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Call Low Node Color Check : {3:.2f} ms\r'.format(\
             adj_hour, adj_min, adj_sec, process_time)
-        self.textBrowser.append(str)
+        self.textBrowser.append(txt)
 
     def call_high_node_coloring(self):
 
@@ -6350,9 +6350,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] Call High Node Color Check : {3:.2f} ms\r'.format(\
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Call High Node Color Check : {3:.2f} ms\r'.format(\
             adj_hour, adj_min, adj_sec, process_time)
-        self.textBrowser.append(str)            
+        self.textBrowser.append(txt)            
     
     def put_scroll_coloring(self):
 
@@ -6379,15 +6379,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if market_service:
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check : {3:.2f} ms\r'.format(\
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check : {3:.2f} ms\r'.format(\
                 adj_hour, adj_min, adj_sec, process_time)
-            self.textBrowser.append(str)
-            print(str)                                 
+            self.textBrowser.append(txt)
+            print(txt)                                 
         else:
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check : {3:.2f} ms\r'.format(adj_hour, adj_min, adj_sec, process_time)
-            self.textBrowser.append(str)
-            print(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check : {3:.2f} ms\r'.format(adj_hour, adj_min, adj_sec, process_time)
+            self.textBrowser.append(txt)
+            print(txt)
 
     def put_low_node_coloring(self):
 
@@ -6403,9 +6403,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] Put Low Node Color Check : {3:.2f} ms\r'.format(\
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Put Low Node Color Check : {3:.2f} ms\r'.format(\
             adj_hour, adj_min, adj_sec, process_time)
-        self.textBrowser.append(str)
+        self.textBrowser.append(txt)
 
     def put_high_node_coloring(self):
 
@@ -6421,9 +6421,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] Put High Node Color Check : {3:.2f} ms\r'.format(\
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Put High Node Color Check : {3:.2f} ms\r'.format(\
             adj_hour, adj_min, adj_sec, process_time)
-        self.textBrowser.append(str)            
+        self.textBrowser.append(txt)            
 
 
     # 탐색순서가 중요(교차탐색) !!!
@@ -6470,9 +6470,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Node Color Check : {3:.2f} ms\r'.format(adj_hour, adj_min, adj_sec, process_time)
-        self.textBrowser.append(str)
-        print(str)        
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Node Color Check : {3:.2f} ms\r'.format(adj_hour, adj_min, adj_sec, process_time)
+        self.textBrowser.append(txt)
+        print(txt)        
 
     def display_atm(self, blink):
 
@@ -6533,9 +6533,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if FLAG_ATM:            
 
             if 장시작_양합 > 0:
-                str = '{0}({1:.2f}:{2})'.format(basis, 장시작_양합, abs(atm_zero_cha))
+                txt = '{0}({1:.2f}:{2})'.format(basis, 장시작_양합, abs(atm_zero_cha))
             else :
-                str = '{0}({1}:{2})'.format(basis, atm_zero_sum, abs(atm_zero_cha))
+                txt = '{0}({1}:{2})'.format(basis, atm_zero_sum, abs(atm_zero_cha))
 
             if basis < 0:
                 self.label_atm.setStyleSheet('background-color: black; color: yellow')
@@ -6544,7 +6544,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.label_atm.setStyleSheet('background-color: yellow; color: black')
                 self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
 
-            self.label_atm.setText(str)
+            self.label_atm.setText(txt)
         else:
             pass
 
@@ -6559,8 +6559,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             CENTER_VAL = call_atm_value
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 등가 {3}에서 교차 중심가 {4} 발생 !!!\r'.format(adj_hour, adj_min, adj_sec, atm_str, CENTER_VAL)
-            self.textBrowser.append(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 등가 {3}에서 교차 중심가 {4} 발생 !!!\r'.format(adj_hour, adj_min, adj_sec, atm_str, CENTER_VAL)
+            self.textBrowser.append(txt)
         
         item = QTableWidgetItem("{0:.2f}".format(CENTER_VAL))
         item.setTextAlignment(Qt.AlignCenter)
@@ -6601,49 +6601,49 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         min_index = atm_list.index(min(atm_list)) + atm_index - 5
 
         #중심가 계산
-        CENTER_VAL1 = round((df_call.at[atm_index - 5, '현재가'] + df_put.at[atm_index - 5, '현재가'])/2, 2)
-        CENTER_VAL2 = round((df_call.at[atm_index - 4, '현재가'] + df_put.at[atm_index - 4, '현재가'])/2, 2)
-        CENTER_VAL3 = round((df_call.at[atm_index - 3, '현재가'] + df_put.at[atm_index - 3, '현재가'])/2, 2)
-        CENTER_VAL4 = round((df_call.at[atm_index - 2, '현재가'] + df_put.at[atm_index - 2, '현재가'])/2, 2)
-        CENTER_VAL5 = round((df_call.at[atm_index - 1, '현재가'] + df_put.at[atm_index - 1, '현재가'])/2 , 2)
+        CENTER_VAL_PLUS5 = round((df_call.at[atm_index - 5, '현재가'] + df_put.at[atm_index - 5, '현재가'])/2, 2)
+        CENTER_VAL_PLUS4 = round((df_call.at[atm_index - 4, '현재가'] + df_put.at[atm_index - 4, '현재가'])/2, 2)
+        CENTER_VAL_PLUS3 = round((df_call.at[atm_index - 3, '현재가'] + df_put.at[atm_index - 3, '현재가'])/2, 2)
+        CENTER_VAL_PLUS2 = round((df_call.at[atm_index - 2, '현재가'] + df_put.at[atm_index - 2, '현재가'])/2, 2)
+        CENTER_VAL_PLUS1 = round((df_call.at[atm_index - 1, '현재가'] + df_put.at[atm_index - 1, '현재가'])/2 , 2)
         #CENTER_VAL = round((df_call.at[atm_index, '현재가'] + df_put.at[atm_index, '현재가'])/2 , 2)
-        CENTER_VAL6 = round((df_call.at[atm_index + 1, '현재가'] + df_put.at[atm_index + 1, '현재가'])/2 , 2)
-        CENTER_VAL7 = round((df_call.at[atm_index + 2, '현재가'] + df_put.at[atm_index + 2, '현재가'])/2 , 2)
-        CENTER_VAL8 = round((df_call.at[atm_index + 3, '현재가'] + df_put.at[atm_index + 3, '현재가'])/2 , 2)
-        CENTER_VAL9 = round((df_call.at[atm_index + 4, '현재가'] + df_put.at[atm_index + 4, '현재가'])/2 , 2)
-        CENTER_VAL10 = round((df_call.at[atm_index + 5, '현재가'] + df_put.at[atm_index + 5, '현재가'])/2 , 2)
+        CENTER_VAL_MINUS1 = round((df_call.at[atm_index + 1, '현재가'] + df_put.at[atm_index + 1, '현재가'])/2 , 2)
+        CENTER_VAL_MINUS2 = round((df_call.at[atm_index + 2, '현재가'] + df_put.at[atm_index + 2, '현재가'])/2 , 2)
+        CENTER_VAL_MINUS3 = round((df_call.at[atm_index + 3, '현재가'] + df_put.at[atm_index + 3, '현재가'])/2 , 2)
+        CENTER_VAL_MINUS4 = round((df_call.at[atm_index + 4, '현재가'] + df_put.at[atm_index + 4, '현재가'])/2 , 2)
+        CENTER_VAL_MINUS5 = round((df_call.at[atm_index + 5, '현재가'] + df_put.at[atm_index + 5, '현재가'])/2 , 2)
 
         # 콜에 중심가 표시
         val = df_call.at[atm_index - 5, '기준가']
-        item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL1))
+        item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS5))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
         self.tableWidget_call.setItem(atm_index - 5, Option_column.기준가.value, item) 
 
         val = df_call.at[atm_index - 4, '기준가']
-        item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL2))
+        item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS4))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
         self.tableWidget_call.setItem(atm_index - 4, Option_column.기준가.value, item) 
 
         val = df_call.at[atm_index - 3, '기준가']
-        item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL3))
+        item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS3))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
         self.tableWidget_call.setItem(atm_index - 3, Option_column.기준가.value, item) 
 
         val = df_call.at[atm_index - 2, '기준가']
-        item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL4))
+        item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS2))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
         self.tableWidget_call.setItem(atm_index - 2, Option_column.기준가.value, item)  
 
         val = df_call.at[atm_index - 1, '기준가']
-        item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL5))
+        item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS1))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
@@ -6657,35 +6657,35 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_call.setItem(atm_index, Option_column.기준가.value, item)            
 
         val = df_call.at[atm_index + 1, '기준가']
-        item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL6))
+        item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS1))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
         self.tableWidget_call.setItem(atm_index + 1, Option_column.기준가.value, item)
 
         val = df_call.at[atm_index + 2, '기준가']
-        item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL7))
+        item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS2))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
         self.tableWidget_call.setItem(atm_index + 2, Option_column.기준가.value, item)
 
         val = df_call.at[atm_index + 3, '기준가']
-        item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL8))
+        item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS3))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
         self.tableWidget_call.setItem(atm_index + 3, Option_column.기준가.value, item)
 
         val = df_call.at[atm_index + 4, '기준가']
-        item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL9))
+        item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS4))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
         self.tableWidget_call.setItem(atm_index + 4, Option_column.기준가.value, item)
 
         val = df_call.at[atm_index + 5, '기준가']
-        item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL10))
+        item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS5))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
@@ -6855,8 +6855,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #saveas = "Screenshot {}{}".format(times, '.png')
         #img.save(saveas)
 
-        #str = '[{0:02d}:{1:02d}:{2:02d}] 화면을 캡처했습니다.\r'.format(now.tm_hour, now.tm_min, now.tm_sec)
-        #self.textBrowser.append(str)
+        #txt = '[{0:02d}:{1:02d}:{2:02d}] 화면을 캡처했습니다.\r'.format(now.tm_hour, now.tm_min, now.tm_sec)
+        #self.textBrowser.append(txt)
     '''
 
     # 현재가 클리어
@@ -7003,8 +7003,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))                            
 
                             if dt.second % 10 == 0:
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 매우 높음(★★★★★)\r'.format(adj_hour, adj_min, adj_sec)
-                                self.textBrowser.append(str)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 매우 높음(★★★★★)\r'.format(adj_hour, adj_min, adj_sec)
+                                self.textBrowser.append(txt)
                             else:
                                 pass
 
@@ -7026,8 +7026,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if blink:                            
 
                             if dt.second % 10 == 0:
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 높음(★★★★)\r'.format(adj_hour, adj_min, adj_sec)
-                                self.textBrowser.append(str)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 높음(★★★★)\r'.format(adj_hour, adj_min, adj_sec)
+                                self.textBrowser.append(txt)
                             else:
                                 pass
 
@@ -7053,8 +7053,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     put_oneway_level5 = False                    
 
                     if dt.second % 10 == 0:
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성(★★★)\r'.format(adj_hour, adj_min, adj_sec)
-                        self.textBrowser.append(str)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성(★★★)\r'.format(adj_hour, adj_min, adj_sec)
+                        self.textBrowser.append(txt)
                     else:
                         pass
 
@@ -7075,8 +7075,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     oneway_str = ''                    
 
                     if dt.second % 10 == 0:
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성(★★)\r'.format(adj_hour, adj_min, adj_sec)
-                        self.textBrowser.append(str)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성(★★)\r'.format(adj_hour, adj_min, adj_sec)
+                        self.textBrowser.append(txt)
                     else:
                         pass                   
                 else:
@@ -7108,8 +7108,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))                            
 
                             if dt.second % 10 == 0:
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 매우 높음(★★★★★)\r'.format(adj_hour, adj_min, adj_sec)
-                                self.textBrowser.append(str)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 매우 높음(★★★★★)\r'.format(adj_hour, adj_min, adj_sec)
+                                self.textBrowser.append(txt)
                             else:
                                 pass
 
@@ -7131,8 +7131,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if blink:                            
 
                             if dt.second % 10 == 0:
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 높음(★★★★)\r'.format(adj_hour, adj_min, adj_sec)
-                                self.textBrowser.append(str)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 높음(★★★★)\r'.format(adj_hour, adj_min, adj_sec)
+                                self.textBrowser.append(txt)
                             else:
                                 pass
 
@@ -7158,8 +7158,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     call_oneway_level5 = False                    
 
                     if dt.second % 10 == 0:
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성(★★★)\r'.format(adj_hour, adj_min, adj_sec)
-                        self.textBrowser.append(str)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성(★★★)\r'.format(adj_hour, adj_min, adj_sec)
+                        self.textBrowser.append(txt)
                     else:
                         pass
 
@@ -7180,8 +7180,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     oneway_str = ''                    
 
                     if dt.second % 10 == 0:
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성(★★)\r'.format(adj_hour, adj_min, adj_sec)
-                        self.textBrowser.append(str)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성(★★)\r'.format(adj_hour, adj_min, adj_sec)
+                        self.textBrowser.append(txt)
                     else:
                         pass
                 else:
@@ -7252,9 +7252,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if dt.second % 10 == 0 and not blink:
 
                         self.textBrowser.append(비대칭장)
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 시가갭 = {3:.2f}:{4:.2f}\r'.format \
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 시가갭 = {3:.2f}:{4:.2f}\r'.format \
                             (adj_hour, adj_min, adj_sec, 콜시가갭합, 풋시가갭합)
-                        self.textBrowser.append(str)
+                        self.textBrowser.append(txt)
                     else:
                         pass
                     '''
@@ -7291,9 +7291,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if dt.second % 10 == 0 and not blink:
 
                         self.textBrowser.append(비대칭장)
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 시가갭 = {3:.2f}:{4:.2f}\r'.format \
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 시가갭 = {3:.2f}:{4:.2f}\r'.format \
                             (adj_hour, adj_min, adj_sec, 콜시가갭합, 풋시가갭합)
-                        self.textBrowser.append(str)
+                        self.textBrowser.append(txt)
                     else:
                         pass
                     '''
@@ -7425,9 +7425,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if dt.second % 10 == 0 and not blink:
 
                         self.textBrowser.append(비대칭장)
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 시가갭 = {3:.2f}:{4:.2f}\r'.format \
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 시가갭 = {3:.2f}:{4:.2f}\r'.format \
                             (adj_hour, adj_min, adj_sec, 콜시가갭합, 풋시가갭합)
-                        self.textBrowser.append(str)
+                        self.textBrowser.append(txt)
                     else:
                         pass
                     '''
@@ -7464,9 +7464,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if dt.second % 10 == 0 and not blink:
 
                         self.textBrowser.append(비대칭장)
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 시가갭 = {3:.2f}:{4:.2f}\r'.format \
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 시가갭 = {3:.2f}:{4:.2f}\r'.format \
                             (adj_hour, adj_min, adj_sec, 콜시가갭합, 풋시가갭합)
-                        self.textBrowser.append(str)
+                        self.textBrowser.append(txt)
                     else:
                         pass
                     '''
@@ -7817,15 +7817,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             if kospi_text_color != kosdaq_text_color:
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] KOSPI, KOSDAQ의 극성이 상이합니다... \r'.format(adj_hour, adj_min, adj_sec)
-                self.textBrowser.append(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI, KOSDAQ의 극성이 상이합니다... \r'.format(adj_hour, adj_min, adj_sec)
+                self.textBrowser.append(txt)
             else:
                 pass
             
             if dow_text_color != nasdaq_text_color:
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] DOW, NASDAQ의 극성이 상이합니다... \r'.format(adj_hour, adj_min, adj_sec)
-                self.textBrowser.append(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] DOW, NASDAQ의 극성이 상이합니다... \r'.format(adj_hour, adj_min, adj_sec)
+                self.textBrowser.append(txt)
             else:
                 pass                
         else:
@@ -8491,8 +8491,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
                     self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(대맥점색))
                     
-                    str = '[{0:02d}:{1:02d}:{2:02d}] call low 진성맥점 = {3}, low = {4}\r'.format(adj_hour, adj_min, adj_sec, 진성맥점, 저가)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] call low 진성맥점 = {3}, low = {4}\r'.format(adj_hour, adj_min, adj_sec, 진성맥점, 저가)
+                    self.textBrowser.append(txt)
 
                     flag_call_low_coreval = True
 
@@ -8522,8 +8522,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
                     self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(대맥점색))
                     
-                    str = '[{0:02d}:{1:02d}:{2:02d}] call high 진성맥점 = {3}, high = {4}\r'.format(adj_hour, adj_min, adj_sec, 진성맥점, 고가)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] call high 진성맥점 = {3}, high = {4}\r'.format(adj_hour, adj_min, adj_sec, 진성맥점, 고가)
+                    self.textBrowser.append(txt)
 
                     flag_call_high_coreval = True
 
@@ -11034,8 +11034,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
                     self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(대맥점색))
                     
-                    str = '[{0:02d}:{1:02d}:{2:02d}] put low 진성맥점 = {3}, low = {4}\r'.format(adj_hour, adj_min, adj_sec, 진성맥점, 저가)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] put low 진성맥점 = {3}, low = {4}\r'.format(adj_hour, adj_min, adj_sec, 진성맥점, 저가)
+                    self.textBrowser.append(txt)
 
                     flag_put_low_coreval = True
 
@@ -11065,8 +11065,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
                     self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(대맥점색))
                     
-                    str = '[{0:02d}:{1:02d}:{2:02d}] put high 진성맥점 = {3}, high = {4}\r'.format(adj_hour, adj_min, adj_sec, 진성맥점, 고가)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] put high 진성맥점 = {3}, high = {4}\r'.format(adj_hour, adj_min, adj_sec, 진성맥점, 고가)
+                    self.textBrowser.append(txt)
 
                     flag_put_high_coreval = True
 
@@ -11571,8 +11571,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         # 선물 맥점 컬러링
-        str = '[{0:02d}:{1:02d}:{2:02d}] KP200 맥점 컬러링을 완료했습니다.\r'.format(adj_hour, adj_min, adj_sec)
-        self.textBrowser.append(str)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] KP200 맥점 컬러링을 완료했습니다.\r'.format(adj_hour, adj_min, adj_sec)
+        self.textBrowser.append(txt)
 
     def fut_node_coloring(self):
 
@@ -11742,8 +11742,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         # 선물 맥점 컬러링
-        str = '[{0:02d}:{1:02d}:{2:02d}] 선물 맥점 컬러링을 완료했습니다.\r'.format(adj_hour, adj_min, adj_sec)
-        #self.textBrowser.append(str)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 맥점 컬러링을 완료했습니다.\r'.format(adj_hour, adj_min, adj_sec)
+        #self.textBrowser.append(txt)
 
     # 선물표시	
     def fut_update(self, result):        
@@ -11801,24 +11801,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             telegram_send_worker_on_time = fut_first_arrive_time 
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] telegram send worker({3})가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second, telegram_send_worker_on_time)
-            self.textBrowser.append(str)
-            print(str) 
+            txt = '[{0:02d}:{1:02d}:{2:02d}] telegram send worker({3})가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second, telegram_send_worker_on_time)
+            self.textBrowser.append(txt)
+            print(txt) 
 
             if TARGET_MONTH_SELECT == 1:
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] CM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                ToYourTelegram(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] CM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                ToYourTelegram(txt)
 
             elif TARGET_MONTH_SELECT == 2:
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] NM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                ToYourTelegram(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] NM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                ToYourTelegram(txt)
 
             elif TARGET_MONTH_SELECT == 3:
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] MAN 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                ToYourTelegram(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] MAN 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                ToYourTelegram(txt)
                 
                 self.telegram_listen_worker.daemon = True
                 self.telegram_listen_worker.start()
@@ -11846,8 +11846,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if TARGET_MONTH_SELECT == 1:
 
                     if SELFID == 'soojin65':
-                        str = '[{0:02d}:{1:02d}:{2:02d}] ***님 텔레그램 Polling이 시작됩니다.'.format(dt.hour, dt.minute, dt.second)
-                        #ToMyTelegram(str)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] ***님 텔레그램 Polling이 시작됩니다.'.format(dt.hour, dt.minute, dt.second)
+                        #ToMyTelegram(txt)
                     else:
                         ToYourTelegram("CM 텔레그램 Polling이 시작됩니다.")
 
@@ -12124,9 +12124,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             flag_fut_low = True
 
-            str = '{0:.2f}'.format(선물_저가) + '\n' + '({0:.2f})'.format(선물_시가 - k_value)
+            txt = '{0:.2f}'.format(선물_저가) + '\n' + '({0:.2f})'.format(선물_시가 - k_value)
 
-            item = QTableWidgetItem(str)
+            item = QTableWidgetItem(txt)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(회색))            
 
@@ -12142,9 +12142,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if 선물_전저 >= 선물_저가:
 
-                str = '{0:.2f}'.format(선물_전저) + '\n▼'
+                txt = '{0:.2f}'.format(선물_전저) + '\n▼'
 
-                item = QTableWidgetItem(str)
+                item = QTableWidgetItem(txt)
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setForeground(QBrush(청색))  
 
@@ -12159,8 +12159,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.fut_oloh_check()
             self.fut_node_coloring()
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 선물 저가 {3} Update...\r'.format(adj_hour, adj_min, adj_sec, 선물_저가)
-            self.textBrowser.append(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 저가 {3} Update...\r'.format(adj_hour, adj_min, adj_sec, 선물_저가)
+            self.textBrowser.append(txt)
             
             진폭 = 선물_고가 - 선물_저가
 
@@ -12190,9 +12190,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             flag_fut_high = True
 
-            str = '{0:.2f}'.format(선물_고가) + '\n' + '({0:.2f})'.format(선물_시가 + k_value)
+            txt = '{0:.2f}'.format(선물_고가) + '\n' + '({0:.2f})'.format(선물_시가 + k_value)
 
-            item = QTableWidgetItem(str)
+            item = QTableWidgetItem(txt)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(회색))            
 
@@ -12208,9 +12208,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if 선물_전고 <= 선물_고가:
 
-                str = '{0:.2f}'.format(선물_전고) + '\n▲'
+                txt = '{0:.2f}'.format(선물_전고) + '\n▲'
 
-                item = QTableWidgetItem(str)
+                item = QTableWidgetItem(txt)
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setForeground(QBrush(적색))  
 
@@ -12225,8 +12225,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.fut_oloh_check()
             self.fut_node_coloring()
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 선물 고가 {3} Update...\r'.format(adj_hour, adj_min, adj_sec, 선물_고가)
-            self.textBrowser.append(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 고가 {3} Update...\r'.format(adj_hour, adj_min, adj_sec, 선물_고가)
+            self.textBrowser.append(txt)
             
             진폭 = 선물_고가 - 선물_저가
 
@@ -12662,9 +12662,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Call Open List = {3}\r'.format \
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Call Open List = {3}\r'.format \
                 (adj_hour, adj_min, adj_sec, call_open_list)
-            self.textBrowser.append(str)
+            self.textBrowser.append(txt)
             
             if not NightTime and index > atm_index:
                 call_itm_count += 1
@@ -12773,15 +12773,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             call_피봇 = df_call['피봇'].values.tolist()
             call_피봇_node_list = self.make_node_list(call_피봇)
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Call {3:.2f} Open Update !!!\r'.format \
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Call {3:.2f} Open Update !!!\r'.format \
                 (adj_hour, adj_min, adj_sec, 콜시가)
-            self.textBrowser.append(str)
+            self.textBrowser.append(txt)
             
             if index == option_pairs_count - 1:
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] 콜 최대 시작가 {3} 오픈되었습니다.\r'.format \
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 콜 최대 시작가 {3} 오픈되었습니다.\r'.format \
                     (adj_hour, adj_min, adj_sec, 콜시가)
-                self.textBrowser.append(str)
+                self.textBrowser.append(txt)
             else:
                 pass
         else:
@@ -12888,10 +12888,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if 콜전저 >= 콜저가:
 
-                    str = '{0:.2f}'.format(콜전저) + '\n' + '▼'
+                    txt = '{0:.2f}'.format(콜전저) + '\n' + '▼'
 
                     if str != self.tableWidget_call.item(index, Option_column.전저.value).text():
-                        item = QTableWidgetItem(str)
+                        item = QTableWidgetItem(txt)
                         item.setTextAlignment(Qt.AlignCenter)
 
                         if DARK_STYLESHEET:
@@ -12907,10 +12907,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if 콜월저 >= 콜저가:
 
-                    str = '{0:.2f}'.format(콜월저) + '\n' + '▼'
+                    txt = '{0:.2f}'.format(콜월저) + '\n' + '▼'
 
                     if str != self.tableWidget_call.item(index, Option_column.월저.value).text():
-                        item = QTableWidgetItem(str)
+                        item = QTableWidgetItem(txt)
                         item.setTextAlignment(Qt.AlignCenter)
 
                         if DARK_STYLESHEET:
@@ -12929,10 +12929,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if atm_index - 3 <= index <= atm_index + 3:
                         pass
                     else:
-                        str = '{0:.2f}'.format(콜기준가) + '\n' + '▼'
+                        txt = '{0:.2f}'.format(콜기준가) + '\n' + '▼'
 
                         if str != self.tableWidget_call.item(index, Option_column.기준가.value).text():
-                            item = QTableWidgetItem(str)
+                            item = QTableWidgetItem(txt)
                             item.setTextAlignment(Qt.AlignCenter)
 
                             if DARK_STYLESHEET:
@@ -12960,10 +12960,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 process_time = (timeit.default_timer() - start_time) * 1000
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가 {3} Update : {4:.2f} ms\r'.format \
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Call 저가 {3} Update : {4:.2f} ms\r'.format \
                     (adj_hour, adj_min, adj_sec, 콜저가, process_time)
-                self.textBrowser.append(str)
-                print(str) 
+                self.textBrowser.append(txt)
+                print(txt) 
             else:
                 pass             
 
@@ -12990,10 +12990,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if 콜전고 <= 콜고가:
 
-                    str = '{0:.2f}'.format(콜전고) + '\n' + '▲'
+                    txt = '{0:.2f}'.format(콜전고) + '\n' + '▲'
 
                     if str != self.tableWidget_call.item(index, Option_column.전고.value).text():
-                        item = QTableWidgetItem(str)
+                        item = QTableWidgetItem(txt)
                         item.setTextAlignment(Qt.AlignCenter)
                         item.setForeground(QBrush(magenta))             
                         self.tableWidget_call.setItem(index, Option_column.전고.value, item)
@@ -13004,10 +13004,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if 콜월고 <= 콜고가:
 
-                    str = '{0:.2f}'.format(콜월고) + '\n' + '▲'
+                    txt = '{0:.2f}'.format(콜월고) + '\n' + '▲'
 
                     if str != self.tableWidget_call.item(index, Option_column.월고.value).text():
-                        item = QTableWidgetItem(str)
+                        item = QTableWidgetItem(txt)
                         item.setTextAlignment(Qt.AlignCenter)
                         item.setForeground(QBrush(magenta))             
                         self.tableWidget_call.setItem(index, Option_column.월고.value, item)
@@ -13030,10 +13030,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 process_time = (timeit.default_timer() - start_time) * 1000
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가 {3} Update : {4:.2f} ms\r'.format \
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Call 고가 {3} Update : {4:.2f} ms\r'.format \
                     (adj_hour, adj_min, adj_sec, 콜고가, process_time)
-                self.textBrowser.append(str)
-                print(str) 
+                self.textBrowser.append(txt)
+                print(txt) 
             else:
                 pass
         else:
@@ -13760,9 +13760,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Put Open List = {3}\r'.format \
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Put Open List = {3}\r'.format \
                 (adj_hour, adj_min, adj_sec, put_open_list)
-            self.textBrowser.append(str)
+            self.textBrowser.append(txt)
             
             if not NightTime and index < atm_index:
                 put_itm_count += 1
@@ -13871,15 +13871,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             put_피봇 = df_put['피봇'].values.tolist()
             put_피봇_node_list = self.make_node_list(put_피봇)
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Put {3:.2f} Open Update !!!\r'.format \
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Put {3:.2f} Open Update !!!\r'.format \
                 (adj_hour, adj_min, adj_sec, 풋시가)
-            self.textBrowser.append(str)
+            self.textBrowser.append(txt)
             
             if index == 0:
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] 풋 최대 시작가 {3} 오픈되었습니다.\r'.format \
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 풋 최대 시작가 {3} 오픈되었습니다.\r'.format \
                     (adj_hour, adj_min, adj_sec, 시가)
-                self.textBrowser.append(str)
+                self.textBrowser.append(txt)
             else:
                 pass  
         else:
@@ -13986,10 +13986,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if 풋전저 >= 풋저가:
 
-                    str = '{0:.2f}'.format(풋전저) + '\n' + '▼'
+                    txt = '{0:.2f}'.format(풋전저) + '\n' + '▼'
 
                     if str != self.tableWidget_put.item(index, Option_column.전저.value).text():
-                        item = QTableWidgetItem(str)
+                        item = QTableWidgetItem(txt)
                         item.setTextAlignment(Qt.AlignCenter)
 
                         if DARK_STYLESHEET:
@@ -14005,10 +14005,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if 풋월저 >= 풋저가:
 
-                    str = '{0:.2f}'.format(풋월저) + '\n' + '▼'
+                    txt = '{0:.2f}'.format(풋월저) + '\n' + '▼'
 
                     if str != self.tableWidget_put.item(index, Option_column.월저.value).text():
-                        item = QTableWidgetItem(str)
+                        item = QTableWidgetItem(txt)
                         item.setTextAlignment(Qt.AlignCenter)
 
                         if DARK_STYLESHEET:
@@ -14027,10 +14027,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if atm_index - 3 <= index <= atm_index + 3:
                         pass
                     else:
-                        str = '{0:.2f}'.format(풋기준가) + '\n' + '▼'
+                        txt = '{0:.2f}'.format(풋기준가) + '\n' + '▼'
 
                         if str != self.tableWidget_put.item(index, Option_column.기준가.value).text():
-                            item = QTableWidgetItem(str)
+                            item = QTableWidgetItem(txt)
                             item.setTextAlignment(Qt.AlignCenter)
 
                             if DARK_STYLESHEET:
@@ -14058,10 +14058,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 process_time = (timeit.default_timer() - start_time) * 1000
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가 {3} Update : {4:.2f} ms\r'.format \
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Put 저가 {3} Update : {4:.2f} ms\r'.format \
                     (adj_hour, adj_min, adj_sec, 풋저가, process_time)
-                self.textBrowser.append(str)
-                print(str) 
+                self.textBrowser.append(txt)
+                print(txt) 
             else:
                 pass
 
@@ -14088,10 +14088,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if 풋전고 <= 풋고가:
 
-                    str = '{0:.2f}'.format(풋전고) + '\n' + '▲'
+                    txt = '{0:.2f}'.format(풋전고) + '\n' + '▲'
 
                     if str != self.tableWidget_put.item(index, Option_column.전고.value).text():
-                        item = QTableWidgetItem(str)
+                        item = QTableWidgetItem(txt)
                         item.setTextAlignment(Qt.AlignCenter)
                         item.setForeground(QBrush(magenta))             
                         self.tableWidget_put.setItem(index, Option_column.전고.value, item)
@@ -14102,10 +14102,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if 풋월고 <= 풋고가:
 
-                    str = '{0:.2f}'.format(풋월고) + '\n' + '▲'
+                    txt = '{0:.2f}'.format(풋월고) + '\n' + '▲'
 
                     if str != self.tableWidget_put.item(index, Option_column.월고.value).text():
-                        item = QTableWidgetItem(str)
+                        item = QTableWidgetItem(txt)
                         item.setTextAlignment(Qt.AlignCenter)
                         item.setForeground(QBrush(magenta))             
                         self.tableWidget_put.setItem(index, Option_column.월고.value, item)
@@ -14128,10 +14128,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 process_time = (timeit.default_timer() - start_time) * 1000
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가 {3} Update : {4:.2f} ms\r'.format \
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Put 고가 {3} Update : {4:.2f} ms\r'.format \
                     (adj_hour, adj_min, adj_sec, 풋고가, process_time)
-                self.textBrowser.append(str)
-                print(str) 
+                self.textBrowser.append(txt)
+                print(txt) 
             else:
                 pass
         else:
@@ -14959,23 +14959,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 XQ = t8432(parent=self)
                 XQ.Query(구분='F')
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] t8432 지수선물 마스터 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] t8432 지수선물 마스터 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
                 
                 # 지수옵션 마스터조회 API용
                 XQ = t8433(parent=self)
                 XQ.Query()
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] t8433 지수옵션 마스터 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] t8433 지수옵션 마스터 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
 
                 QTest.qWait(500)                
             else:
                 self.pushButton_start.setText(' Refreshing... ')
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] OLD 진성맥점 = {3}\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
-                self.textBrowser.append(str)
-                print(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] OLD 진성맥점 = {3}\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
+                self.textBrowser.append(txt)
+                print(txt)
 
                 if bms_node_list:
 
@@ -15043,9 +15043,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 진성맥점 = pre_진성맥점[:]
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] 진성맥점을 초기화({3})합니다.\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
-                self.textBrowser.append(str)
-                print(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 진성맥점을 초기화({3})합니다.\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
+                self.textBrowser.append(txt)
+                print(txt)
 
             if not NightTime:
 
@@ -15069,8 +15069,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     t2301_month_info = CURRENT_MONTH
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 주간옵션 전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
-                self.textBrowser.append(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 주간옵션 전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
+                self.textBrowser.append(txt)
 
             elif TARGET_MONTH_SELECT == 2:
 
@@ -15079,8 +15079,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     t2301_month_info = NEXT_MONTH   
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 주간옵션 전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
-                self.textBrowser.append(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 주간옵션 전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
+                self.textBrowser.append(txt)
 
             elif TARGET_MONTH_SELECT == 3:
 
@@ -15089,8 +15089,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     t2301_month_info = MONTH_AFTER_NEXT 
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] 차차월물({3}) 주간옵션 전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
-                self.textBrowser.append(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 차차월물({3}) 주간옵션 전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
+                self.textBrowser.append(txt)
             else:
                 pass
 
@@ -15112,13 +15112,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.high_low_list_save_to_file()
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] High-Low 리스트파일을 갱신했습니다.\r'.format(adj_hour, adj_min, adj_sec)
-        self.textBrowser.append(str)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] High-Low 리스트파일을 갱신했습니다.\r'.format(adj_hour, adj_min, adj_sec)
+        self.textBrowser.append(txt)
 
         # 해외선물 지수요청 취소
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
-        self.textBrowser.append(str)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
+        self.textBrowser.append(txt)
 
         if CSV_FILE:
 
@@ -15127,8 +15127,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 futures_graph_csv = "Futures {}{}".format(times, '.csv')
                 df_futures_graph.to_csv(futures_graph_csv, encoding='ms949')
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] 국내선물 Graph 파일을 저장했습니다.\r'.format(adj_hour, adj_min, adj_sec)
-                self.textBrowser.append(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 국내선물 Graph 파일을 저장했습니다.\r'.format(adj_hour, adj_min, adj_sec)
+                self.textBrowser.append(txt)
             else:
                 pass  
 
@@ -15144,14 +15144,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             wti_graph_csv = "WTI {}{}".format(times, '.csv')
             df_wti_graph.to_csv(wti_graph_csv, encoding='ms949')
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 Graph 파일을 저장했습니다.\r'.format(adj_hour, adj_min, adj_sec)
-            self.textBrowser.append(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 Graph 파일을 저장했습니다.\r'.format(adj_hour, adj_min, adj_sec)
+            self.textBrowser.append(txt)
         else:
             pass
         
         if not flag_logfile:
-            str = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
-            self.textBrowser.append(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
+            self.textBrowser.append(txt)
 
             file = open('skybot.log', 'w')
             text = self.textBrowser.toPlainText()
@@ -15177,17 +15177,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if chk_webhook.url != '':
             
-            str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook = {3}\r'.format(adj_hour, adj_min, adj_sec, chk_webhook)
-            self.textBrowser.append(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook = {3}\r'.format(adj_hour, adj_min, adj_sec, chk_webhook)
+            self.textBrowser.append(txt)
 
             # Webhook을 삭제한다.
             Delete_Webhook()
             
-            str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook을 삭제합니다.\r'.format(adj_hour, adj_min, adj_sec)
-            self.textBrowser.append(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook을 삭제합니다.\r'.format(adj_hour, adj_min, adj_sec)
+            self.textBrowser.append(txt)
         else:
-            str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook이 없습니다.\r'.format(adj_hour, adj_min, adj_sec)
-            self.textBrowser.append(str) 
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook이 없습니다.\r'.format(adj_hour, adj_min, adj_sec)
+            self.textBrowser.append(txt) 
         
         if TELEGRAM_SERVICE and not flag_telegram_send_worker:
 
@@ -15196,8 +15196,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.telegram_send_worker.daemon = True
             self.telegram_send_worker.start()
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Send Worker를 재시작합니다.\r'.format(adj_hour, adj_min, adj_sec)
-            self.textBrowser.append(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Send Worker를 재시작합니다.\r'.format(adj_hour, adj_min, adj_sec)
+            self.textBrowser.append(txt)
 
             flag_telegram_send_worker = True
         else:
@@ -15210,8 +15210,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.telegram_listen_worker.daemon = True
             self.telegram_listen_worker.start()
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Polling이 시작됩니다.\r'.format(adj_hour, adj_min, adj_sec)
-            self.textBrowser.append(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Polling이 시작됩니다.\r'.format(adj_hour, adj_min, adj_sec)
+            self.textBrowser.append(txt)
 
             if TARGET_MONTH_SELECT == 1:
 
@@ -15239,17 +15239,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if TARGET_MONTH_SELECT == 1:
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] CM 텔레그램 Polling을 중지합니다.\r'.format(adj_hour, adj_min, adj_sec)
-                self.textBrowser.append(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] CM 텔레그램 Polling을 중지합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                self.textBrowser.append(txt)
 
             elif TARGET_MONTH_SELECT == 2:
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] NM 텔레그램 Polling을 중지합니다.\r'.format(adj_hour, adj_min, adj_sec)
-                self.textBrowser.append(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] NM 텔레그램 Polling을 중지합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                self.textBrowser.append(txt)
 
             else:
-                str = '[{0:02d}:{1:02d}:{2:02d}] MAN 텔레그램 Polling을 중지합니다.\r'.format(adj_hour, adj_min, adj_sec)
-                self.textBrowser.append(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] MAN 텔레그램 Polling을 중지합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                self.textBrowser.append(txt)
 
             self.pushButton_telegram.setStyleSheet('QPushButton {background-color: white; color: black} QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
             
@@ -15356,16 +15356,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.t2835_event_loop.exit()
 
-                str = 't2835_event_loop success exit...\r'
-                print(str)
+                txt = 't2835_event_loop success exit...\r'
+                print(txt)
             else:                   
                 flag_t2835_eventloop = False
 
                 self.t2835_event_loop.exit()
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] t2835_event_loop fail exit...\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(str)
-                print(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] t2835_event_loop fail exit...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
+                print(txt)
             
         elif ClassName == 't2301':
 
@@ -15378,16 +15378,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.t2301_event_loop.exit()
 
-                str = 't2301_event_loop success exit...\r'
-                print(str)
+                txt = 't2301_event_loop success exit...\r'
+                print(txt)
             else:                   
                 flag_t2301_eventloop = False
 
                 self.t2301_event_loop.exit()
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] t2301_event_loop fail exit...\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(str)
-                print(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] t2301_event_loop fail exit...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
+                print(txt)
             
         elif ClassName == 't8416':
             
@@ -15487,7 +15487,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 콜대비_퍼센트_평균, 풋대비_퍼센트_평균
         global atm_zero_sum, atm_zero_cha
         global 선물_전일종가
-        global CENTER_VAL, CENTER_VAL1, CENTER_VAL2, CENTER_VAL3, CENTER_VAL4, CENTER_VAL5, CENTER_VAL6, CENTER_VAL7, CENTER_VAL8, CENTER_VAL9, CENTER_VAL10
+        global CENTER_VAL, CENTER_VAL_PLUS5, CENTER_VAL_PLUS4, CENTER_VAL_PLUS3, CENTER_VAL_PLUS2, CENTER_VAL_PLUS1, CENTER_VAL_MINUS1, CENTER_VAL_MINUS2, CENTER_VAL_MINUS3, CENTER_VAL_MINUS4, CENTER_VAL_MINUS5
 
         global df_futures_graph, df_kp200_graph
         global t8416_call_count, t8416_put_count
@@ -15527,9 +15527,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 ovc_x_idx = (SERVER_HOUR - DayTime_PreStart_Hour) * 60 + SERVER_MIN + 1
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 서버시간({3})을 수신하였습니다.(시간차 = {4}초)\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, 시스템_서버_시간차)
-            self.textBrowser.append(str)
-            print(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 서버시간({3})을 수신하였습니다.(시간차 = {4}초)\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, 시스템_서버_시간차)
+            self.textBrowser.append(txt)
+            print(txt)
 
             flag_heartbeat = True
 
@@ -15595,11 +15595,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 call_atm_value = df_call.at[atm_index, '현재가']
                 put_atm_value = df_put.at[atm_index, '현재가']
                 
-                str = '{0:.2f}({1:.2f}:{2:.2f})'.format(
+                txt = '{0:.2f}({1:.2f}:{2:.2f})'.format(
                     fut_realdata['현재가'] - fut_realdata['KP200'],
                     call_atm_value + put_atm_value,
                     abs(call_atm_value - put_atm_value))
-                self.label_atm.setText(str) 
+                self.label_atm.setText(txt) 
                 
                 df_futures_graph.at[0, 'drate'] = 0
                 df_dow_graph.at[0, 'drate'] = 0
@@ -16198,8 +16198,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 print('t2301 주간 전광판 콜 데이타 = \r', df_call)
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] {3} 월물 Call 전광판 데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
-                self.textBrowser.append(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] {3} 월물 Call 전광판 데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
+                self.textBrowser.append(txt)
 
                 # 풋처리
                 for i in range(option_pairs_count):
@@ -16531,32 +16531,32 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 print('t2301 주간 전광판 풋 데이타 = \r', df_put)
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] {3} 월물 Put 전광판 데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
-                self.textBrowser.append(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] {3} 월물 Put 전광판 데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
+                self.textBrowser.append(txt)
                 
                 call_저가 = df_call['저가'].values.tolist()
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] call_저가 list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, call_저가)
-                #self.textBrowser.append(str)
-                print(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] call_저가 list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, call_저가)
+                #self.textBrowser.append(txt)
+                print(txt)
 
                 call_고가 = df_call['고가'].values.tolist()
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] call_고가 list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, call_고가)
-                #self.textBrowser.append(str)
-                print(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] call_고가 list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, call_고가)
+                #self.textBrowser.append(txt)
+                print(txt)
 
                 put_저가 = df_put['저가'].values.tolist()
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] put_저가 list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, put_저가)
-                #self.textBrowser.append(str)
-                print(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] put_저가 list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, put_저가)
+                #self.textBrowser.append(txt)
+                print(txt)
 
                 put_고가 = df_put['고가'].values.tolist()
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] put_고가 list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, put_고가)
-                #self.textBrowser.append(str)
-                print(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] put_고가 list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, put_고가)
+                #self.textBrowser.append(txt)
+                print(txt)
                 
                 if not pre_start:
 
@@ -16604,9 +16604,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.opt_high_low_list_update()
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] high low list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
-                #self.textBrowser.append(str)
-                print(str) 
+                txt = '[{0:02d}:{1:02d}:{2:02d}] high low list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
+                #self.textBrowser.append(txt)
+                print(txt) 
 
                 df_call_total_graph.at[0, 'volume'] = 0
                 df_put_total_graph.at[0, 'volume'] = 0
@@ -16642,9 +16642,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     콜_순미결퍼센트 = (콜_순미결합 / 순미결합) * 100
                     풋_순미결퍼센트 = 100 - 콜_순미결퍼센트
                     
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Call/Put OI 순미결 초기값 : {3}/{4}\r'.format(dt.hour,
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] Call/Put OI 순미결 초기값 : {3}/{4}\r'.format(dt.hour,
                                             dt.minute, dt.second, format(콜_순미결합, ','), format(풋_순미결합, ','))
-                    self.textBrowser.append(str)
+                    self.textBrowser.append(txt)
                 else:
                     pass
 
@@ -16661,9 +16661,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_call_total_graph.at[0, 'open_interest'] = call_oi_init_percent
                     df_put_total_graph.at[0, 'open_interest'] = put_oi_init_percent
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Call/Put OI 수정미결 초기값 : {3}/{4}\r'.format(dt.hour,
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] Call/Put OI 수정미결 초기값 : {3}/{4}\r'.format(dt.hour,
                                             dt.minute, dt.second, format(콜_수정미결합, ','), format(풋_수정미결합, ','))
-                    self.textBrowser.append(str)
+                    self.textBrowser.append(txt)
                     
                     oi_str = '{0}k:{1}k'.format(format(int(콜_수정미결합/1000), ','), format(int(풋_수정미결합/1000), ','))
 
@@ -16673,22 +16673,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # 장운영정보 요청
-                #str = '[{0:02d}:{1:02d}:{2:02d}] 장운영 정보를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                #self.textBrowser.append(str)
+                #txt = '[{0:02d}:{1:02d}:{2:02d}] 장운영 정보를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                #self.textBrowser.append(txt)
 
                 XQ = t2101(parent=self)
                 XQ.Query(종목코드=fut_code)
 
                 if fut_code == gmshcode:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] t2101 본월물 주간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 본월물 주간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 elif fut_code == cmshcode:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] t2101 차월물 주간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 차월물 주간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 elif fut_code == ccmshcode:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] t2101 차차월물 주간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 차차월물 주간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 else:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 잘못된 선물코드({3})입니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 잘못된 선물코드({3})입니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
 
-                self.textBrowser.append(str)
+                self.textBrowser.append(txt)
 
                 #time.sleep(0.1)
                 QTest.qWait(100)
@@ -16697,15 +16697,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 XQ.Query(종목코드=fut_code)
 
                 if fut_code == gmshcode:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] t2801 본월물 야간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] t2801 본월물 야간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 elif fut_code == cmshcode:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] t2801 차월물 야간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] t2801 차월물 야간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 elif fut_code == ccmshcode:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] t2801 차차월물 야간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] t2801 차차월물 야간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 else:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 잘못된 선물코드({3})입니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 잘못된 선물코드({3})입니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
 
-                self.textBrowser.append(str)
+                self.textBrowser.append(txt)
 
                 if not NightTime:        
 
@@ -16716,13 +16716,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     print('\r')
 
                     # 주간 실시간테이타 요청                
-                    #str = '[{0:02d}:{1:02d}:{2:02d}] 주간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    #self.textBrowser.append(str)                    
+                    #txt = '[{0:02d}:{1:02d}:{2:02d}] 주간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    #self.textBrowser.append(txt)                    
                 else:
                     pass
                     # 야간 실시간테이타 요청                
-                    #str = '[{0:02d}:{1:02d}:{2:02d}] 야간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    #self.textBrowser.append(str)                    
+                    #txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    #self.textBrowser.append(txt)                    
 
                 # 실시간데이타는 스레드를 통해 수신함
                 if not MULTIPROCESS:
@@ -16756,8 +16756,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if not NightTime:
 
                     if not flag_checkBox_HS:                
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 주간옵션 전광판을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(str)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 주간옵션 전광판을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)
                     else:
                         pass
 
@@ -17069,25 +17069,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.opt_high_low_list_update()
 
                     '''
-                    str = '[{0:02d}:{1:02d}:{2:02d}] call_저가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, call_저가)
-                    #self.textBrowser.append(str)
-                    print(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] call_저가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, call_저가)
+                    #self.textBrowser.append(txt)
+                    print(txt)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] call_고가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, call_고가)
-                    #self.textBrowser.append(str)
-                    print(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] call_고가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, call_고가)
+                    #self.textBrowser.append(txt)
+                    print(txt)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] put_저가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, put_저가)
-                    #self.textBrowser.append(str)
-                    print(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] put_저가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, put_저가)
+                    #self.textBrowser.append(txt)
+                    print(txt)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] put_고가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, put_고가)
-                    #self.textBrowser.append(str)
-                    print(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] put_고가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, put_고가)
+                    #self.textBrowser.append(txt)
+                    print(txt)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] high low list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
-                    #self.textBrowser.append(str)
-                    print(str) 
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] high low list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
+                    #self.textBrowser.append(txt)
+                    print(txt) 
                     '''
 
                     if not flag_checkBox_HS:
@@ -17188,8 +17188,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         XQ = t2101(parent=self)
                         XQ.Query(종목코드=fut_code)
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(str)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)
 
                         #time.sleep(0.1)
                         QTest.qWait(100)
@@ -17197,8 +17197,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         XQ = t2801(parent=self)
                         XQ.Query(종목코드=fut_code)
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(str)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)
 
                         #time.sleep(0.1)
                         QTest.qWait(100)                        
@@ -17210,8 +17210,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     XQ = t2835(parent=self)
                     XQ.Query(월물=t2835_month_info)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
 
             self.pushButton_start.setStyleSheet('QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
             self.pushButton_start.setText('Refresh')                    
@@ -17373,11 +17373,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             call_atm_value = df_call.at[atm_index, '현재가']
             put_atm_value = df_put.at[atm_index, '현재가']
 
-            str = '{0:.2f}({1:.2f}:{2:.2f})'.format(
+            txt = '{0:.2f}({1:.2f}:{2:.2f})'.format(
                 fut_realdata['현재가'] - fut_realdata['KP200'],
                 call_atm_value + put_atm_value,
                 abs(call_atm_value - put_atm_value))
-            self.label_atm.setText(str)
+            self.label_atm.setText(txt)
             
             if NightTime:
                 
@@ -17663,8 +17663,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if refresh_flag:
             
                 # 옵션 맥점 컬러링                
-                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션맥점 Refresh 컬러링을 시작합니다.\r'.format(adj_hour, adj_min, adj_sec)
-                self.textBrowser.append(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션맥점 Refresh 컬러링을 시작합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                self.textBrowser.append(txt)
 
                 self.opt_all_node_coloring()    
                 
@@ -18386,11 +18386,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 call_atm_value = df_call.at[atm_index, '현재가']
                 put_atm_value = df_put.at[atm_index, '현재가']
 
-                str = '{0:.2f}({1:.2f}:{2:.2f})'.format(
+                txt = '{0:.2f}({1:.2f}:{2:.2f})'.format(
                     fut_realdata['현재가'] - fut_realdata['KP200'],
                     call_atm_value + put_atm_value,
                     abs(call_atm_value - put_atm_value))
-                self.label_atm.setText(str)             
+                self.label_atm.setText(txt)             
 
                 call_전저 = df_call['전저'].values.tolist()
                 call_전저_node_list = self.make_node_list(call_전저)
@@ -18450,22 +18450,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.opt_high_low_list_update()
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] high low list in t2835 = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
-                #self.textBrowser.append(str)
-                print(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] high low list in t2835 = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
+                #self.textBrowser.append(txt)
+                print(txt)
 
                 #중심가 계산
-                CENTER_VAL1 = round((df_call.at[atm_index - 5, '종가'] + df_put.at[atm_index - 5, '종가'])/2, 2)
-                CENTER_VAL2 = round((df_call.at[atm_index - 4, '종가'] + df_put.at[atm_index - 4, '종가'])/2, 2)
-                CENTER_VAL3 = round((df_call.at[atm_index - 3, '종가'] + df_put.at[atm_index - 3, '종가'])/2, 2)
-                CENTER_VAL4 = round((df_call.at[atm_index - 2, '종가'] + df_put.at[atm_index - 2, '종가'])/2, 2)
-                CENTER_VAL5 = round((df_call.at[atm_index - 1, '종가'] + df_put.at[atm_index - 1, '종가'])/2 , 2)
+                CENTER_VAL_PLUS5 = round((df_call.at[atm_index - 5, '종가'] + df_put.at[atm_index - 5, '종가'])/2, 2)
+                CENTER_VAL_PLUS4 = round((df_call.at[atm_index - 4, '종가'] + df_put.at[atm_index - 4, '종가'])/2, 2)
+                CENTER_VAL_PLUS3 = round((df_call.at[atm_index - 3, '종가'] + df_put.at[atm_index - 3, '종가'])/2, 2)
+                CENTER_VAL_PLUS2 = round((df_call.at[atm_index - 2, '종가'] + df_put.at[atm_index - 2, '종가'])/2, 2)
+                CENTER_VAL_PLUS1 = round((df_call.at[atm_index - 1, '종가'] + df_put.at[atm_index - 1, '종가'])/2 , 2)
                 CENTER_VAL = round((df_call.at[atm_index, '종가'] + df_put.at[atm_index, '종가'])/2 , 2)
-                CENTER_VAL6 = round((df_call.at[atm_index + 1, '종가'] + df_put.at[atm_index + 1, '종가'])/2 , 2)
-                CENTER_VAL7 = round((df_call.at[atm_index + 2, '종가'] + df_put.at[atm_index + 2, '종가'])/2 , 2)
-                CENTER_VAL8 = round((df_call.at[atm_index + 3, '종가'] + df_put.at[atm_index + 3, '종가'])/2 , 2)
-                CENTER_VAL9 = round((df_call.at[atm_index + 4, '종가'] + df_put.at[atm_index + 4, '종가'])/2 , 2)
-                CENTER_VAL10 = round((df_call.at[atm_index + 5, '종가'] + df_put.at[atm_index + 5, '종가'])/2 , 2)
+                CENTER_VAL_MINUS1 = round((df_call.at[atm_index + 1, '종가'] + df_put.at[atm_index + 1, '종가'])/2 , 2)
+                CENTER_VAL_MINUS2 = round((df_call.at[atm_index + 2, '종가'] + df_put.at[atm_index + 2, '종가'])/2 , 2)
+                CENTER_VAL_MINUS3 = round((df_call.at[atm_index + 3, '종가'] + df_put.at[atm_index + 3, '종가'])/2 , 2)
+                CENTER_VAL_MINUS4 = round((df_call.at[atm_index + 4, '종가'] + df_put.at[atm_index + 4, '종가'])/2 , 2)
+                CENTER_VAL_MINUS5 = round((df_call.at[atm_index + 5, '종가'] + df_put.at[atm_index + 5, '종가'])/2 , 2)
                 
                 # 옵션 양합표시
                 atm_minus_5 = round((df_call.at[atm_index - 5, '현재가'] + df_put.at[atm_index - 5, '현재가']), 2)
@@ -18498,35 +18498,35 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # 콜에 중심가 표시
                 val = df_call.at[atm_index - 5, '기준가']
-                item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL1))
+                item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS5))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
                 self.tableWidget_call.setItem(atm_index - 5, Option_column.기준가.value, item) 
 
                 val = df_call.at[atm_index - 4, '기준가']
-                item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL2))
+                item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS4))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
                 self.tableWidget_call.setItem(atm_index - 4, Option_column.기준가.value, item) 
 
                 val = df_call.at[atm_index - 3, '기준가']
-                item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL3))
+                item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS3))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
                 self.tableWidget_call.setItem(atm_index - 3, Option_column.기준가.value, item) 
 
                 val = df_call.at[atm_index - 2, '기준가']
-                item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL4))
+                item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS2))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
                 self.tableWidget_call.setItem(atm_index - 2, Option_column.기준가.value, item)  
 
                 val = df_call.at[atm_index - 1, '기준가']
-                item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL5))
+                item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS1))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
@@ -18540,35 +18540,35 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.setItem(atm_index, Option_column.기준가.value, item)            
 
                 val = df_call.at[atm_index + 1, '기준가']
-                item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL6))
+                item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS1))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
                 self.tableWidget_call.setItem(atm_index + 1, Option_column.기준가.value, item)
 
                 val = df_call.at[atm_index + 2, '기준가']
-                item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL7))
+                item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS2))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
                 self.tableWidget_call.setItem(atm_index + 2, Option_column.기준가.value, item)
 
                 val = df_call.at[atm_index + 3, '기준가']
-                item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL8))
+                item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS3))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
                 self.tableWidget_call.setItem(atm_index + 3, Option_column.기준가.value, item)
 
                 val = df_call.at[atm_index + 4, '기준가']
-                item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL9))
+                item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS4))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
                 self.tableWidget_call.setItem(atm_index + 4, Option_column.기준가.value, item)
 
                 val = df_call.at[atm_index + 5, '기준가']
-                item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL10))
+                item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS5))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
@@ -18661,9 +18661,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass                
                 
-                str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(str)
-                print(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
+                print(txt)
 
                 ui_start_time = dt.hour * 3600 + dt.minute * 60 + dt.second
                 print('야간 ui_start_time =', ui_start_time)
@@ -18696,8 +18696,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 # Refresh
                 if not flag_checkBox_HS:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판을 갱신합니다.\r'.format(adj_hour, adj_min, adj_sec)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판을 갱신합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    self.textBrowser.append(txt)
                 else:
                     pass
 
@@ -18911,9 +18911,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if not flag_checkBox_HS:
                     
-                    str = '[{0:02d}:{1:02d}:{2:02d}] high low list in t2835 refresh = {3}\r'.format(adj_hour, adj_min, adj_sec, high_low_list)
-                    #self.textBrowser.append(str)
-                    print(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] high low list in t2835 refresh = {3}\r'.format(adj_hour, adj_min, adj_sec, high_low_list)
+                    #self.textBrowser.append(txt)
+                    print(txt)
 
                     for i in range(option_pairs_count):
 
@@ -19062,8 +19062,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             print('[CME_전일종가] = \r', CME_전일종가)
             print('\r')
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 야간선물 전일데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(str)           
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 야간선물 전일데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)           
 
         elif szTrCode == 't8415':
 
@@ -19105,8 +19105,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.label_msg.setStyleSheet('background-color: black; color: lawngreen')
             self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
             
-            str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
-            self.label_msg.setText(str)
+            txt = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
+            self.label_msg.setText(txt)
             
             if new_actval_up_count == 0 and new_actval_down_count == 0:
 
@@ -19152,9 +19152,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     new_actval_up_count += 1
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 상방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_up_count)
-                    #self.textBrowser.append(str)
-                    print(str) 
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 새로운 상방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_up_count)
+                    #self.textBrowser.append(txt)
+                    print(txt) 
 
                     # 추가된 행사가 갯수 표시
                     item_str = '(+' + '{0:d})'.format(new_actval_up_count) + '\n' + '{0:d}'.format(real_option_pairs_count)
@@ -19190,9 +19190,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     new_actval_down_count += 1 
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 하방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_down_count)
-                    #self.textBrowser.append(str) 
-                    print(str)  
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 새로운 하방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_down_count)
+                    #self.textBrowser.append(txt) 
+                    print(txt)  
 
                     # 추가된 행사가 갯수 표시
                     item_str =  '{0:d}'.format(real_option_pairs_count) + '\n' + '(+' + '{0:d})'.format(new_actval_down_count)
@@ -19250,9 +19250,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             print('Call 전체 행사가 수신완료')
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] Call 전체 행사가 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
-                            self.textBrowser.append(str)
-                            print(str)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] Call 전체 행사가 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
+                            self.textBrowser.append(txt)
+                            print(txt)
 
                             flag_t8416_call_done = True
                             print('flag_t8416_call_done =', flag_t8416_call_done)                           
@@ -19290,9 +19290,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 fut_avg_noise_ratio = df_fut_t8416['noise_ratio'].sum() / len(df_fut_t8416)
                 k_value = (선물_전고 - 선물_전저) * fut_avg_noise_ratio
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] noise_ratio 평균 = {3:.2f}, k_value = {4:.2f}\r'.format(dt.hour, dt.minute, dt.second, fut_avg_noise_ratio, k_value)
-                self.textBrowser.append(str)
-                print(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] noise_ratio 평균 = {3:.2f}, k_value = {4:.2f}\r'.format(dt.hour, dt.minute, dt.second, fut_avg_noise_ratio, k_value)
+                self.textBrowser.append(txt)
+                print(txt)
                 
                 item = QTableWidgetItem("{0}\n({1:.2f})".format('주간', k_value))
                 item.setTextAlignment(Qt.AlignCenter)
@@ -19306,9 +19306,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if new_actval_up_count > 0:
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 상방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_up_count)
-                    #self.textBrowser.append(str)
-                    print(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 새로운 상방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_up_count)
+                    #self.textBrowser.append(txt)
+                    print(txt)
                 else:
                     pass
 
@@ -19419,9 +19419,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    #str = '[{0:02d}:{1:02d}:{2:02d}] t2301과 t8416의 콜[{3}] 종가가 상이합니다. !!!\r'.format(dt.hour, dt.minute, dt.second, t8416_call_count + 1)
-                    #self.textBrowser.append(str)
-                    #print(str)
+                    #txt = '[{0:02d}:{1:02d}:{2:02d}] t2301과 t8416의 콜[{3}] 종가가 상이합니다. !!!\r'.format(dt.hour, dt.minute, dt.second, t8416_call_count + 1)
+                    #self.textBrowser.append(txt)
+                    #print(txt)
                 else:
                     pass                
 
@@ -19483,11 +19483,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] Call 행사가 {3}개중 {4}개를 수신했습니다.\r'.\
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Call 행사가 {3}개중 {4}개를 수신했습니다.\r'.\
                     format(dt.hour, dt.minute, dt.second, option_pairs_count, t8416_call_count + 1)
 
-                self.textBrowser.append(str)
-                print(str)
+                self.textBrowser.append(txt)
+                print(txt)
                 
                 # to be checked !!!
                 if t8416_call_count == option_pairs_count - 1:
@@ -19518,9 +19518,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         print('Call 전체 행사가 수신완료')
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] Call 전체 행사가 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(str)
-                        print(str)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] Call 전체 행사가 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)
+                        print(txt)
                             
                         flag_t8416_call_done = True
                         print('flag_t8416_call_done =', flag_t8416_call_done) 
@@ -19544,9 +19544,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if new_actval_down_count > 0:
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 하방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_down_count)
-                    #self.textBrowser.append(str)
-                    print(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 새로운 하방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_down_count)
+                    #self.textBrowser.append(txt)
+                    print(txt)
                 else:
                     pass
 
@@ -19657,9 +19657,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    #str = '[{0:02d}:{1:02d}:{2:02d}] t2301과 t8416의 풋[{3}] 종가가 상이합니다. !!!\r'.format(dt.hour, dt.minute, dt.second, t8416_put_count + 1)
-                    #self.textBrowser.append(str)
-                    #print(str)
+                    #txt = '[{0:02d}:{1:02d}:{2:02d}] t2301과 t8416의 풋[{3}] 종가가 상이합니다. !!!\r'.format(dt.hour, dt.minute, dt.second, t8416_put_count + 1)
+                    #self.textBrowser.append(txt)
+                    #print(txt)
                 else:
                     pass                
 
@@ -19721,10 +19721,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] Put 행사가 {3}개중 {4}개를 수신했습니다.\r'.format(dt.hour, dt.minute, dt.second, 
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Put 행사가 {3}개중 {4}개를 수신했습니다.\r'.format(dt.hour, dt.minute, dt.second, 
                     option_pairs_count, t8416_put_count + 1)
-                self.textBrowser.append(str)
-                print(str)
+                self.textBrowser.append(txt)
+                print(txt)
 
                 #t8416_put_count += 1
 
@@ -19734,9 +19734,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if t8416_put_count == (option_pairs_count - 1) - new_actval_down_count:
                     
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Put 전체 행사가 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)
-                    print(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] Put 전체 행사가 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
                     flag_t8416_put_done = True
                     print('flag_t8416_put_done =', flag_t8416_put_done)
@@ -19789,36 +19789,36 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                     if new_actval_up_count > 0:
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 상방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_up_count)
-                        self.textBrowser.append(str)
-                        print(str)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 새로운 상방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_up_count)
+                        self.textBrowser.append(txt)
+                        print(txt)
                     else:
                         pass
 
                     if new_actval_down_count > 0:
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 하방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_down_count)
-                        self.textBrowser.append(str)
-                        print(str)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 새로운 하방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_down_count)
+                        self.textBrowser.append(txt)
+                        print(txt)
                     else:
                         pass                                    
                     
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 만기일은 {3}일 남았습니다.\r'.format(dt.hour, dt.minute, dt.second, 옵션잔존일)
-                    self.textBrowser.append(str)
-                    print(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 만기일은 {3}일 남았습니다.\r'.format(dt.hour, dt.minute, dt.second, 옵션잔존일)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
                     #중심가 계산
-                    CENTER_VAL1 = round((df_call.at[atm_index - 5, '종가'] + df_put.at[atm_index - 5, '종가'])/2, 2)
-                    CENTER_VAL2 = round((df_call.at[atm_index - 4, '종가'] + df_put.at[atm_index - 4, '종가'])/2, 2)
-                    CENTER_VAL3 = round((df_call.at[atm_index - 3, '종가'] + df_put.at[atm_index - 3, '종가'])/2, 2)
-                    CENTER_VAL4 = round((df_call.at[atm_index - 2, '종가'] + df_put.at[atm_index - 2, '종가'])/2, 2)
-                    CENTER_VAL5 = round((df_call.at[atm_index - 1, '종가'] + df_put.at[atm_index - 1, '종가'])/2 , 2)
+                    CENTER_VAL_PLUS5 = round((df_call.at[atm_index - 5, '종가'] + df_put.at[atm_index - 5, '종가'])/2, 2)
+                    CENTER_VAL_PLUS4 = round((df_call.at[atm_index - 4, '종가'] + df_put.at[atm_index - 4, '종가'])/2, 2)
+                    CENTER_VAL_PLUS3 = round((df_call.at[atm_index - 3, '종가'] + df_put.at[atm_index - 3, '종가'])/2, 2)
+                    CENTER_VAL_PLUS2 = round((df_call.at[atm_index - 2, '종가'] + df_put.at[atm_index - 2, '종가'])/2, 2)
+                    CENTER_VAL_PLUS1 = round((df_call.at[atm_index - 1, '종가'] + df_put.at[atm_index - 1, '종가'])/2 , 2)
                     CENTER_VAL = round((df_call.at[atm_index, '종가'] + df_put.at[atm_index, '종가'])/2 , 2)
-                    CENTER_VAL6 = round((df_call.at[atm_index + 1, '종가'] + df_put.at[atm_index + 1, '종가'])/2 , 2)
-                    CENTER_VAL7 = round((df_call.at[atm_index + 2, '종가'] + df_put.at[atm_index + 2, '종가'])/2 , 2)
-                    CENTER_VAL8 = round((df_call.at[atm_index + 3, '종가'] + df_put.at[atm_index + 3, '종가'])/2 , 2)
-                    CENTER_VAL9 = round((df_call.at[atm_index + 4, '종가'] + df_put.at[atm_index + 4, '종가'])/2 , 2)
-                    CENTER_VAL10 = round((df_call.at[atm_index + 5, '종가'] + df_put.at[atm_index + 5, '종가'])/2 , 2)
+                    CENTER_VAL_MINUS1 = round((df_call.at[atm_index + 1, '종가'] + df_put.at[atm_index + 1, '종가'])/2 , 2)
+                    CENTER_VAL_MINUS2 = round((df_call.at[atm_index + 2, '종가'] + df_put.at[atm_index + 2, '종가'])/2 , 2)
+                    CENTER_VAL_MINUS3 = round((df_call.at[atm_index + 3, '종가'] + df_put.at[atm_index + 3, '종가'])/2 , 2)
+                    CENTER_VAL_MINUS4 = round((df_call.at[atm_index + 4, '종가'] + df_put.at[atm_index + 4, '종가'])/2 , 2)
+                    CENTER_VAL_MINUS5 = round((df_call.at[atm_index + 5, '종가'] + df_put.at[atm_index + 5, '종가'])/2 , 2)
                     
                     # 옵션 양합표시
                     atm_minus_5 = round((df_call.at[atm_index - 5, '현재가'] + df_put.at[atm_index - 5, '현재가']), 2)
@@ -19851,35 +19851,35 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     # 콜에 중심가 표시
                     val = df_call.at[atm_index - 5, '기준가']
-                    item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL1))
+                    item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS5))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(atm_index - 5, Option_column.기준가.value, item) 
 
                     val = df_call.at[atm_index - 4, '기준가']
-                    item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL2))
+                    item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS4))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(atm_index - 4, Option_column.기준가.value, item) 
 
                     val = df_call.at[atm_index - 3, '기준가']
-                    item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL3))
+                    item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS3))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(atm_index - 3, Option_column.기준가.value, item) 
 
                     val = df_call.at[atm_index - 2, '기준가']
-                    item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL4))
+                    item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS2))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(atm_index - 2, Option_column.기준가.value, item)  
 
                     val = df_call.at[atm_index - 1, '기준가']
-                    item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL5))
+                    item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS1))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
@@ -19893,35 +19893,35 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.setItem(atm_index, Option_column.기준가.value, item)            
 
                     val = df_call.at[atm_index + 1, '기준가']
-                    item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL6))
+                    item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS1))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(atm_index + 1, Option_column.기준가.value, item)
 
                     val = df_call.at[atm_index + 2, '기준가']
-                    item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL7))
+                    item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS2))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(atm_index + 2, Option_column.기준가.value, item)
 
                     val = df_call.at[atm_index + 3, '기준가']
-                    item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL8))
+                    item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS3))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(atm_index + 3, Option_column.기준가.value, item)
 
                     val = df_call.at[atm_index + 4, '기준가']
-                    item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL9))
+                    item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS4))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(atm_index + 4, Option_column.기준가.value, item)
 
                     val = df_call.at[atm_index + 5, '기준가']
-                    item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL10))
+                    item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS5))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
@@ -20020,16 +20020,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         QTest.qWait(1000)                       
 
                         if TARGET_MONTH_SELECT == 1:
-                            str = '[{0:02d}:{1:02d}:{2:02d}] t8416 본월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, gmshcode)
-                            self.textBrowser.append(str)
-                            print(str)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 본월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, gmshcode)
+                            self.textBrowser.append(txt)
+                            print(txt)
 
                             self.t8416_fut_request(gmshcode)
 
                         elif TARGET_MONTH_SELECT == 2:
-                            str = '[{0:02d}:{1:02d}:{2:02d}] t8416 차월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, cmshcode)
-                            self.textBrowser.append(str)
-                            print(str)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 차월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, cmshcode)
+                            self.textBrowser.append(txt)
+                            print(txt)
 
                             self.t8416_fut_request(cmshcode)
                         else:
@@ -20037,9 +20037,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 실시간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)
-                    print(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 실시간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
                     if NightTime:                        
 
@@ -20053,8 +20053,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 t2835_month_info = CURRENT_MONTH
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] EUREX(t2835) 본월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                            self.textBrowser.append(str) 
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] EUREX(t2835) 본월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                            self.textBrowser.append(txt) 
 
                         elif TARGET_MONTH_SELECT == 2:
 
@@ -20063,8 +20063,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 t2835_month_info = NEXT_MONTH
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] EUREX(t2835) 차월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                            self.textBrowser.append(str)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] EUREX(t2835) 차월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                            self.textBrowser.append(txt)
 
                         else:
                             if MANGI_YAGAN:
@@ -20073,8 +20073,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 t2835_month_info = MONTH_AFTER_NEXT
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] EUREX(t2835) 차차월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                            self.textBrowser.append(str)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] EUREX(t2835) 차차월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                            self.textBrowser.append(txt)
 
                         XQ.Query(월물=t2835_month_info)
                     else:
@@ -20125,8 +20125,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.tableWidget_put.setItem(i, Option_column.OID.value, item)                        
 
                         # 옵션 맥점 컬러링
-                        str = '[{0:02d}:{1:02d}:{2:02d}] t8416종료 주간 옵션 맥점 컬러링을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(str)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] t8416종료 주간 옵션 맥점 컬러링을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)
                         
                         self.opt_all_node_coloring() 
 
@@ -20151,9 +20151,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.screen_update_worker.daemon = True
                         self.screen_update_worker.start()
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(str)
-                        print(str)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)
+                        print(txt)
                         
                         ui_start_time = dt.hour * 3600 + dt.minute * 60 + dt.second
                         print('주간 ui_start_time =', ui_start_time)
@@ -20191,20 +20191,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 cmshcode = 차월물선물코드
                 ccmshcode = 차차월물선물코드
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 선물 본월물코드 = {3}\r'.format(dt.hour, dt.minute, dt.second, gmshcode)
-            self.textBrowser.append(str)
-            print(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 본월물코드 = {3}\r'.format(dt.hour, dt.minute, dt.second, gmshcode)
+            self.textBrowser.append(txt)
+            print(txt)
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 선물 차월물코드 = {3}\r'.format(dt.hour, dt.minute, dt.second, cmshcode)
-            self.textBrowser.append(str)
-            print(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 차월물코드 = {3}\r'.format(dt.hour, dt.minute, dt.second, cmshcode)
+            self.textBrowser.append(txt)
+            print(txt)
 
             if TARGET_MONTH_SELECT == 1:
 
                 fut_code = gmshcode
-                str = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, current_month, fut_code)
-                self.textBrowser.append(str)
-                print(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, current_month, fut_code)
+                self.textBrowser.append(txt)
+                print(txt)
                 
                 fut_realdata['전저'] = df.at[0, '전일저가']
                 선물_전저 = df.at[0, '전일저가']
@@ -20230,9 +20230,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             elif TARGET_MONTH_SELECT == 2:
 
                 fut_code = cmshcode
-                str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, next_month, fut_code)
-                self.textBrowser.append(str)
-                print(str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, next_month, fut_code)
+                self.textBrowser.append(txt)
+                print(txt)
 
                 fut_realdata['전저'] = df.at[1, '전일저가']
                 선물_전저 = df.at[0, '전일저가']
@@ -20257,9 +20257,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             else:
                 fut_code = ccmshcode
-                str = '[{0:02d}:{1:02d}:{2:02d}] 차차월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, month_after_next, fut_code)
-                self.textBrowser.append(str)
-                print(str) 
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 차차월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, month_after_next, fut_code)
+                self.textBrowser.append(txt)
+                print(txt) 
 
                 fut_realdata['전저'] = df.at[2, '전일저가']
                 선물_전저 = df.at[0, '전일저가']
@@ -20397,13 +20397,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             print('df nm call = {0}\r'.format(df_nm_call))
             print('df nm put = {0}\r'.format(df_nm_put))
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 옵션크기 = {4}\r'.format(dt.hour, dt.minute, dt.second, CM_OPTCODE, cm_opt_length)
-            self.textBrowser.append(str)
-            print(str) 
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 옵션크기 = {4}\r'.format(dt.hour, dt.minute, dt.second, CM_OPTCODE, cm_opt_length)
+            self.textBrowser.append(txt)
+            print(txt) 
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 옵션크기 = {4}\r'.format(dt.hour, dt.minute, dt.second, NM_OPTCODE, nm_opt_length)
-            self.textBrowser.append(str)
-            print(str)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 옵션크기 = {4}\r'.format(dt.hour, dt.minute, dt.second, NM_OPTCODE, nm_opt_length)
+            self.textBrowser.append(txt)
+            print(txt)
 
         elif szTrCode == 'o3126':
 
@@ -20551,32 +20551,32 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if szTrCode == 'NWS':
                 
-                str = '[{0}] {1}\r'.format(result['시간'], result['제목'])
-                self.textBrowser.append(str)
+                txt = '[{0}] {1}\r'.format(result['시간'], result['제목'])
+                self.textBrowser.append(txt)
 
             elif szTrCode == 'JIF':
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] 장구분[{3}], 장상태[{4}]\r'.format(\
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 장구분[{3}], 장상태[{4}]\r'.format(\
                     adj_hour, adj_min, adj_sec, result['장구분'], result['장상태'])
-                self.textBrowser.append(str)
+                self.textBrowser.append(txt)
 
                 # 장시작 10분전
                 if result['장구분'] == '5' and result['장상태'] == '25':
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 장시작 10분전입니다.\r'.format(adj_hour, adj_min, adj_sec)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 장시작 10분전입니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    self.textBrowser.append(txt)
 
                 # 현물장 시작 10초전
                 elif result['장구분'] == '1' and result['장상태'] == '22':
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 현물장 시작 10초전입니다.\r'.format(adj_hour, adj_min, adj_sec)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 현물장 시작 10초전입니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    self.textBrowser.append(txt)
 
                 # 선물장 시작 10초전
                 elif result['장구분'] == '5' and result['장상태'] == '22':
                     
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 선물장 시작 10초전입니다.\r'.format(adj_hour, adj_min, adj_sec)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 선물장 시작 10초전입니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    self.textBrowser.append(txt)
 
                 # 주간 선물/옵션장 시작
                 elif result['장구분'] == '5' and result['장상태'] == '21':
@@ -20588,14 +20588,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     DOW_주간_시작가 = DOW_현재가
                     WTI_주간_시작가 = WTI_현재가
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간장이 시작됩니다.\r'.format(adj_hour, adj_min, adj_sec)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장이 시작됩니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    self.textBrowser.append(txt)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] DOW 주간시작가 = {3}\r'.format(adj_hour, adj_min, adj_sec, DOW_주간_시작가)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] DOW 주간시작가 = {3}\r'.format(adj_hour, adj_min, adj_sec, DOW_주간_시작가)
+                    self.textBrowser.append(txt)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] WTI 주간시작가 = {3}\r'.format(adj_hour, adj_min, adj_sec, WTI_주간_시작가)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] WTI 주간시작가 = {3}\r'.format(adj_hour, adj_min, adj_sec, WTI_주간_시작가)
+                    self.textBrowser.append(txt)
 
                     if TTS:
                         #Speak("주간장이 시작됩니다.")
@@ -20608,8 +20608,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                     market_service = True
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 시작됩니다.\r'.format(adj_hour, adj_min, adj_sec)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 시작됩니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    self.textBrowser.append(txt)
 
                     DOW_야간_시작가 = DOW_현재가
                     WTI_야간_시작가 = WTI_현재가
@@ -20618,23 +20618,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.label_kospi.setText(jisu_str)
                     self.label_kospi.setStyleSheet('background-color: black ; color: yellow')
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] DOW 야간시작가 = {3}\r'.format(adj_hour, adj_min, adj_sec, DOW_야간_시작가)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] DOW 야간시작가 = {3}\r'.format(adj_hour, adj_min, adj_sec, DOW_야간_시작가)
+                    self.textBrowser.append(txt)
 
                     jisu_str = "WTI 야간시작가: {0}".format(WTI_야간_시작가)
                     self.label_kosdaq.setText(jisu_str)
                     self.label_kosdaq.setStyleSheet('background-color: black ; color: yellow')
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] WTI 야간시작가 = {3}\r'.format(adj_hour, adj_min, adj_sec, WTI_야간_시작가)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] WTI 야간시작가 = {3}\r'.format(adj_hour, adj_min, adj_sec, WTI_야간_시작가)
+                    self.textBrowser.append(txt)
 
                 # 야간 옵션장 시작
                 elif result['장구분'] == '8' and result['장상태'] == '21':
 
                     market_service = True
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 시작됩니다.\r'.format(adj_hour, adj_min, adj_sec)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 시작됩니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    self.textBrowser.append(txt)
 
                     DOW_야간_시작가 = DOW_현재가
                     WTI_야간_시작가 = WTI_현재가
@@ -20643,38 +20643,38 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.label_kospi.setText(jisu_str)
                     self.label_kospi.setStyleSheet('background-color: black ; color: yellow')
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] DOW 야간시작가 = {3}\r'.format(adj_hour, adj_min, adj_sec, DOW_야간_시작가)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] DOW 야간시작가 = {3}\r'.format(adj_hour, adj_min, adj_sec, DOW_야간_시작가)
+                    self.textBrowser.append(txt)
 
                     jisu_str = "WTI 야간시작가: {0}".format(WTI_야간_시작가)
                     self.label_kosdaq.setText(jisu_str)
                     self.label_kosdaq.setStyleSheet('background-color: black ; color: yellow')
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] WTI 야간시작가 = {3}\r'.format(adj_hour, adj_min, adj_sec, WTI_야간_시작가)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] WTI 야간시작가 = {3}\r'.format(adj_hour, adj_min, adj_sec, WTI_야간_시작가)
+                    self.textBrowser.append(txt)
 
                 # 현물 장마감 5분전
                 elif result['장구분'] == '1' and result['장상태'] == '44':
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 현물 장마감 5분전입니다.\r'.format(adj_hour, adj_min, adj_sec)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 현물 장마감 5분전입니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    self.textBrowser.append(txt)
 
                 # 현물 장마감 1분전
                 elif result['장구분'] == '1' and result['장상태'] == '43':
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 현물 장마감 1분전입니다.\r'.format(adj_hour, adj_min, adj_sec)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 현물 장마감 1분전입니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    self.textBrowser.append(txt)
                     
                 # 장후 동시호가 시작
                 elif result['장구분'] == '5' and result['장상태'] == '31':
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 장후 동시호가가 시작되었습니다.\r'.format(adj_hour, adj_min, adj_sec)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 장후 동시호가가 시작되었습니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    self.textBrowser.append(txt)
 
                     dongsi_hoga = True
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(adj_hour, adj_min, adj_sec)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    self.textBrowser.append(txt)
 
                     if self.telegram_send_worker.isRunning():
                         self.telegram_send_worker.terminate()
@@ -20689,20 +20689,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 주간 선물/옵션장 종료
                 elif result['장구분'] == '5' and result['장상태'] == '41':
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물/옵션장이 종료되었습니다.\r'.format(adj_hour, adj_min, adj_sec)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물/옵션장이 종료되었습니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    self.textBrowser.append(txt)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 S&P 500 지수 = {3}\r'.format(adj_hour, adj_min, adj_sec, SP500_현재가)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 S&P 500 지수 = {3}\r'.format(adj_hour, adj_min, adj_sec, SP500_현재가)
+                    self.textBrowser.append(txt)
                     
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 DOW 지수 = {3}\r'.format(adj_hour, adj_min, adj_sec, DOW_현재가)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 DOW 지수 = {3}\r'.format(adj_hour, adj_min, adj_sec, DOW_현재가)
+                    self.textBrowser.append(txt)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 NASDAQ 지수 = {3}\r'.format(adj_hour, adj_min, adj_sec, NASDAQ_현재가)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 NASDAQ 지수 = {3}\r'.format(adj_hour, adj_min, adj_sec, NASDAQ_현재가)
+                    self.textBrowser.append(txt)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 WTI 지수 = {3}\r'.format(adj_hour, adj_min, adj_sec, WTI_현재가)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 WTI 지수 = {3}\r'.format(adj_hour, adj_min, adj_sec, WTI_현재가)
+                    self.textBrowser.append(txt)
 
                     if market_service:
                         
@@ -20783,26 +20783,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 야간 선물장 종료
                 elif result['장구분'] == '7' and result['장상태'] == '41':
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 종료되었습니다.\r'.format(adj_hour, adj_min, adj_sec)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 종료되었습니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    self.textBrowser.append(txt)
 
                     CME_당일종가 = cme_realdata['현재가']
                     
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 S&P 500 지수 = {3}\r'.format \
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 S&P 500 지수 = {3}\r'.format \
                         (adj_hour, adj_min, adj_sec, SP500_현재가)
-                    self.textBrowser.append(str)
+                    self.textBrowser.append(txt)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 DOW 지수 = {3}\r'.format \
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 DOW 지수 = {3}\r'.format \
                         (adj_hour, adj_min, adj_sec, DOW_현재가)
-                    self.textBrowser.append(str)
+                    self.textBrowser.append(txt)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 NASDAQ 지수 = {3}\r'.format \
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 NASDAQ 지수 = {3}\r'.format \
                         (adj_hour, adj_min, adj_sec, NASDAQ_현재가)
-                    self.textBrowser.append(str)
+                    self.textBrowser.append(txt)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 WTI 지수 = {3}\r'.format \
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 WTI 지수 = {3}\r'.format \
                         (adj_hour, adj_min, adj_sec, WTI_현재가)
-                    self.textBrowser.append(str)
+                    self.textBrowser.append(txt)
 
                     if market_service:
 
@@ -20815,8 +20815,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.pushButton_start.setStyleSheet('QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}') 
                         self.pushButton_start.setText('ScrShot')
                         
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(adj_hour, adj_min, adj_sec)
-                        self.textBrowser.append(str)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                        self.textBrowser.append(txt)
 
                         if self.telegram_send_worker.isRunning():
                             self.telegram_send_worker.terminate()
@@ -20835,8 +20835,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 야간 옵션장 종료(선물장보다 1시간 먼저 종료됨)
                 elif result['장구분'] == '8' and result['장상태'] == '41':
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 종료되었습니다.\r'.format(adj_hour, adj_min, adj_sec)
-                    self.textBrowser.append(str)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 종료되었습니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    self.textBrowser.append(txt)
                     '''
                     file = open('skybot.log', 'w')
                     text = self.textBrowser.toPlainText()
@@ -20991,9 +20991,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     yoc_stop = True
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 지수옵션 예상체결 요청을 취소합니다.\r'.format \
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 지수옵션 예상체결 요청을 취소합니다.\r'.format \
                         (int(result['예상체결시간'][0:2]), int(result['예상체결시간'][2:4]), int(result['예상체결시간'][4:6]))
-                    self.textBrowser.append(str)
+                    self.textBrowser.append(txt)
                 else:
                     pass
                 '''
@@ -21278,12 +21278,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
                     '''
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Wrong [{3}] 수신... \r'.format(
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] Wrong [{3}] 수신... \r'.format(
                         int(result['예상체결시간'][0:2]),
                         int(result['예상체결시간'][2:4]),
                         int(result['예상체결시간'][4:6]),
                         szTrCode)
-                    self.textBrowser.append(str)
+                    self.textBrowser.append(txt)
                     '''
 
             elif szTrCode == 'YFC':
@@ -21361,12 +21361,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_fut.resizeRowsToContents()
                         #self.tableWidget_fut.resizeColumnsToContents()                             
                         
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 선물 등락율 = {3:.2f}, DOW 등락율 = {4:.2f}\r'.format(\
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 등락율 = {3:.2f}, DOW 등락율 = {4:.2f}\r'.format(\
                                         int(result['예상체결시간'][0:2]),
                                         int(result['예상체결시간'][2:4]),
                                         int(result['예상체결시간'][4:6]),
                                         선물_등락율, DOW_등락율)
-                        self.textBrowser.append(str)                        
+                        self.textBrowser.append(txt)                        
                     else:
                         pass
 
@@ -21689,12 +21689,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.tableWidget_fut.setItem(2, Futures_column.시가갭.value, item)
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] KP200 시작가 {3:.2f}를 수신했습니다.\r'.format(
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] KP200 시작가 {3:.2f}를 수신했습니다.\r'.format(
                             int(result['시간'][0:2]),
                             int(result['시간'][2:4]),
                             int(result['시간'][4:6]),
                             kp200_시가)
-                        self.textBrowser.append(str)
+                        self.textBrowser.append(txt)
 
                         if KP200_전저 > 0 and KP200_전고 > 0:
 
@@ -21766,12 +21766,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         KP200_COREVAL.sort()
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] KP200 맥점리스트 = {3}\r'.format(
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] KP200 맥점리스트 = {3}\r'.format(
                             int(result['시간'][0:2]),
                             int(result['시간'][2:4]),
                             int(result['시간'][4:6]),
                             KP200_COREVAL)
-                        self.textBrowser.append(str)                         
+                        self.textBrowser.append(txt)                         
                     else:
                         pass
 
@@ -21792,11 +21792,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.kp200_low_node_coloring()
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] kp200 저가 {3} Update...\r'.format(
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] kp200 저가 {3} Update...\r'.format(
                             int(result['시간'][0:2]),
                             int(result['시간'][2:4]),
                             int(result['시간'][4:6]), kp200_realdata['저가'])
-                        self.textBrowser.append(str)
+                        self.textBrowser.append(txt)
                     else:
                         pass
 
@@ -21817,11 +21817,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.kp200_high_node_coloring()
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] kp200 고가 {3} Update...\r'.format(
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] kp200 고가 {3} Update...\r'.format(
                             int(result['시간'][0:2]),
                             int(result['시간'][2:4]),
                             int(result['시간'][4:6]), kp200_realdata['고가'])
-                        self.textBrowser.append(str)
+                        self.textBrowser.append(txt)
                     else:
                         pass
 
@@ -22484,24 +22484,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         telegram_send_worker_on_time = opt_time 
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] telegram send worker({3})가 시작됩니다...\r'.format(dt.hour, dt.minute, dt.second, telegram_send_worker_on_time)
-                        self.textBrowser.append(str)
-                        print(str) 
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] telegram send worker({3})가 시작됩니다...\r'.format(dt.hour, dt.minute, dt.second, telegram_send_worker_on_time)
+                        self.textBrowser.append(txt)
+                        print(txt) 
 
                         if TARGET_MONTH_SELECT == 1:
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] CM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                            ToYourTelegram(str)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] CM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                            ToYourTelegram(txt)
 
                         elif TARGET_MONTH_SELECT == 2:
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] NM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                            ToYourTelegram(str)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] NM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                            ToYourTelegram(txt)
 
                         elif TARGET_MONTH_SELECT == 3:
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] MAN 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                            ToYourTelegram(str)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] MAN 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                            ToYourTelegram(txt)
                             
                             self.telegram_listen_worker.daemon = True
                             self.telegram_listen_worker.start()
@@ -22529,8 +22529,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             if TARGET_MONTH_SELECT == 1:                        
 
                                 if SELFID == 'soojin65':
-                                    str = '[{0:02d}:{1:02d}:{2:02d}] ***님 텔레그램 Polling이 시작됩니다.'.format(dt.hour, dt.minute, dt.second)
-                                    #ToMyTelegram(str)
+                                    txt = '[{0:02d}:{1:02d}:{2:02d}] ***님 텔레그램 Polling이 시작됩니다.'.format(dt.hour, dt.minute, dt.second)
+                                    #ToMyTelegram(txt)
                                 else:
                                     ToYourTelegram("CM 텔레그램 Polling이 시작됩니다.")
 
@@ -22889,9 +22889,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_wti_graph.at[ovc_x_idx, 'close'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
                     df_wti_graph.at[ovc_x_idx, 'price'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
 
-                    #str = '[{0:02d}:{1:02d}:{2:02d}] NaN 방어기능 작동 at {3:d}\r'.format(adj_hour, adj_min, adj_sec, ovc_x_idx)
-                    #self.textBrowser.append(str)
-                    #print(str)
+                    #txt = '[{0:02d}:{1:02d}:{2:02d}] NaN 방어기능 작동 at {3:d}\r'.format(adj_hour, adj_min, adj_sec, ovc_x_idx)
+                    #self.textBrowser.append(txt)
+                    #print(txt)
                 else:
                     pass
 
@@ -24197,11 +24197,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                     print('KRWUSD 매수잔량 = {0}, 매도잔량 = {1}\r'.format(매수잔량, 매도잔량))
 
-                    str = '환율: {0} at {1}\r'.format(result['현재가'], result['한국시간'])
-                    print(str)
+                    txt = '환율: {0} at {1}\r'.format(result['현재가'], result['한국시간'])
+                    print(txt)
 
                     if not NightTime:
-                        self.label_kosdaq.setText(str)
+                        self.label_kosdaq.setText(txt)
                         self.label_kosdaq.setStyleSheet('background-color: black ; color: yellow')
                     else:
                         pass
@@ -24301,9 +24301,9 @@ class bigchart_update_worker(QThread):
 
         while True:
 
-            str = 'Big Chart Update...'                
+            txt = 'Big Chart Update...'                
 
-            self.finished.emit(str)
+            self.finished.emit(txt)
             #self.msleep(BIGCHART_UPDATE_INTERVAL)
             QTest.qWait(plot_update_interval)
 ########################################################################################################################
@@ -25385,8 +25385,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot_x = int(mousePoint.x())
             plot_y = mousePoint.y()          
 
-            str = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
-            self.label_p1_1.setText(str) 
+            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
+            self.label_p1_1.setText(txt) 
 
             if comboindex1 == 6:
 
@@ -25397,8 +25397,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     Low = df_futures_graph.at[plot_x, 'low']
                     Close = df_futures_graph.at[plot_x, 'close']
 
-                    str = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p1_1.setText(str)
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
                 else:
                     pass
 
@@ -25411,8 +25411,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     Low = df_sp500_graph.at[plot_x, 'low']
                     Close = df_sp500_graph.at[plot_x, 'close']
 
-                    str = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p1_1.setText(str)
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
                 else:
                     pass
 
@@ -25425,8 +25425,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     Low = df_dow_graph.at[plot_x, 'low']
                     Close = df_dow_graph.at[plot_x, 'close']
 
-                    str = " X: {0:d}\n O: {1:.0f}\n H: {2:.0f}\n L: {3:.0f}\n C: {4:.0f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p1_1.setText(str)
+                    txt = " X: {0:d}\n O: {1:.0f}\n H: {2:.0f}\n L: {3:.0f}\n C: {4:.0f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
                 else:
                     pass
 
@@ -25439,8 +25439,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     Low = df_nasdaq_graph.at[plot_x, 'low']
                     Close = df_nasdaq_graph.at[plot_x, 'close']
 
-                    str = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p1_1.setText(str)
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
                 else:
                     pass
 
@@ -25453,8 +25453,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     Low = df_wti_graph.at[plot_x, 'low']
                     Close = df_wti_graph.at[plot_x, 'close']
 
-                    str = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p1_1.setText(str)
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
                 else:
                     pass
             else:
@@ -25477,8 +25477,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot_x = int(mousePoint.x())
             plot_y = mousePoint.y()
 
-            str = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
-            self.label_p2_1.setText(str)
+            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
+            self.label_p2_1.setText(txt)
 
             if comboindex2 == 8:
 
@@ -25489,8 +25489,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     Low = df_sp500_graph.at[plot_x, 'low']
                     Close = df_sp500_graph.at[plot_x, 'close']
 
-                    str = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p2_1.setText(str)
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p2_1.setText(txt)
                 else:
                     pass
 
@@ -25503,8 +25503,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     Low = df_dow_graph.at[plot_x, 'low']
                     Close = df_dow_graph.at[plot_x, 'close']
 
-                    str = " X: {0:d}\n O: {1:.0f}\n H: {2:.0f}\n L: {3:.0f}\n C: {4:.0f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p2_1.setText(str)
+                    txt = " X: {0:d}\n O: {1:.0f}\n H: {2:.0f}\n L: {3:.0f}\n C: {4:.0f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p2_1.setText(txt)
                 else:
                     pass
 
@@ -25517,8 +25517,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     Low = df_nasdaq_graph.at[plot_x, 'low']
                     Close = df_nasdaq_graph.at[plot_x, 'close']
 
-                    str = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p2_1.setText(str)
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p2_1.setText(txt)
                 else:
                     pass
 
@@ -25531,8 +25531,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     Low = df_wti_graph.at[plot_x, 'low']
                     Close = df_wti_graph.at[plot_x, 'close']
 
-                    str = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p2_1.setText(str)
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p2_1.setText(txt)
                 else:
                     pass
             else:
@@ -25555,8 +25555,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot_x = int(mousePoint.x())
             plot_y = mousePoint.y()
 
-            str = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
-            self.label_p3_1.setText(str)
+            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
+            self.label_p3_1.setText(txt)
 
             if comboindex3 == 8:
 
@@ -25567,8 +25567,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     Low = df_sp500_graph.at[plot_x, 'low']
                     Close = df_sp500_graph.at[plot_x, 'close']
 
-                    str = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p3_1.setText(str)
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p3_1.setText(txt)
                 else:
                     pass
 
@@ -25581,8 +25581,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     Low = df_dow_graph.at[plot_x, 'low']
                     Close = df_dow_graph.at[plot_x, 'close']
 
-                    str = " X: {0:d}\n O: {1:.0f}\n H: {2:.0f}\n L: {3:.0f}\n C: {4:.0f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p3_1.setText(str)
+                    txt = " X: {0:d}\n O: {1:.0f}\n H: {2:.0f}\n L: {3:.0f}\n C: {4:.0f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p3_1.setText(txt)
                 else:
                     pass
 
@@ -25595,8 +25595,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     Low = df_nasdaq_graph.at[plot_x, 'low']
                     Close = df_nasdaq_graph.at[plot_x, 'close']
 
-                    str = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p3_1.setText(str)
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p3_1.setText(txt)
                 else:
                     pass
 
@@ -25609,8 +25609,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     Low = df_wti_graph.at[plot_x, 'low']
                     Close = df_wti_graph.at[plot_x, 'close']
 
-                    str = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p3_1.setText(str)
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p3_1.setText(txt)
                 else:
                     pass
             else:
@@ -25633,8 +25633,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot_x = int(mousePoint.x())
             plot_y = mousePoint.y()          
 
-            str = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
-            self.label_p4_1.setText(str) 
+            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
+            self.label_p4_1.setText(txt) 
 
             if comboindex4 == 6:
 
@@ -25645,8 +25645,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     Low = df_futures_graph.at[plot_x, 'low']
                     Close = df_futures_graph.at[plot_x, 'close']
 
-                    str = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p4_1.setText(str)
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p4_1.setText(txt)
                 else:
                     pass
 
@@ -25659,8 +25659,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     Low = df_sp500_graph.at[plot_x, 'low']
                     Close = df_sp500_graph.at[plot_x, 'close']
 
-                    str = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p4_1.setText(str)
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p4_1.setText(txt)
                 else:
                     pass
 
@@ -25673,8 +25673,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     Low = df_dow_graph.at[plot_x, 'low']
                     Close = df_dow_graph.at[plot_x, 'close']
 
-                    str = " X: {0:d}\n O: {1:.0f}\n H: {2:.0f}\n L: {3:.0f}\n C: {4:.0f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p4_1.setText(str)
+                    txt = " X: {0:d}\n O: {1:.0f}\n H: {2:.0f}\n L: {3:.0f}\n C: {4:.0f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p4_1.setText(txt)
                 else:
                     pass
 
@@ -25687,8 +25687,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     Low = df_nasdaq_graph.at[plot_x, 'low']
                     Close = df_nasdaq_graph.at[plot_x, 'close']
 
-                    str = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p4_1.setText(str)
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p4_1.setText(txt)
                 else:
                     pass
 
@@ -25701,8 +25701,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     Low = df_wti_graph.at[plot_x, 'low']
                     Close = df_wti_graph.at[plot_x, 'close']
 
-                    str = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p4_1.setText(str)
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p4_1.setText(txt)
                 else:
                     pass
             else:
@@ -25723,8 +25723,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot_x = int(mousePoint.x())
             plot_y = mousePoint.y()
 
-            str = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
-            self.label_p5_1.setText(str)
+            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
+            self.label_p5_1.setText(txt)
 
             if comboindex5 == 8:
 
@@ -25735,8 +25735,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     Low = df_sp500_graph.at[plot_x, 'low']
                     Close = df_sp500_graph.at[plot_x, 'close']
 
-                    str = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p5_1.setText(str)
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p5_1.setText(txt)
                 else:
                     pass
 
@@ -25749,8 +25749,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     Low = df_dow_graph.at[plot_x, 'low']
                     Close = df_dow_graph.at[plot_x, 'close']
 
-                    str = " X: {0:d}\n O: {1:.0f}\n H: {2:.0f}\n L: {3:.0f}\n C: {4:.0f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p5_1.setText(str)
+                    txt = " X: {0:d}\n O: {1:.0f}\n H: {2:.0f}\n L: {3:.0f}\n C: {4:.0f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p5_1.setText(txt)
                 else:
                     pass
 
@@ -25763,8 +25763,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     Low = df_nasdaq_graph.at[plot_x, 'low']
                     Close = df_nasdaq_graph.at[plot_x, 'close']
 
-                    str = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p5_1.setText(str)
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p5_1.setText(txt)
                 else:
                     pass
 
@@ -25777,8 +25777,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     Low = df_wti_graph.at[plot_x, 'low']
                     Close = df_wti_graph.at[plot_x, 'close']
 
-                    str = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p5_1.setText(str)
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p5_1.setText(txt)
                 else:
                     pass
             else:
@@ -25801,8 +25801,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot_x = int(mousePoint.x())
             plot_y = mousePoint.y()
 
-            str = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
-            self.label_p6_1.setText(str)
+            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
+            self.label_p6_1.setText(txt)
 
             if comboindex6 == 8:
 
@@ -25813,8 +25813,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     Low = df_sp500_graph.at[plot_x, 'low']
                     Close = df_sp500_graph.at[plot_x, 'close']
 
-                    str = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p6_1.setText(str)
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p6_1.setText(txt)
                 else:
                     pass
 
@@ -25827,8 +25827,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     Low = df_dow_graph.at[plot_x, 'low']
                     Close = df_dow_graph.at[plot_x, 'close']
 
-                    str = " X: {0:d}\n O: {1:.0f}\n H: {2:.0f}\n L: {3:.0f}\n C: {4:.0f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p6_1.setText(str)
+                    txt = " X: {0:d}\n O: {1:.0f}\n H: {2:.0f}\n L: {3:.0f}\n C: {4:.0f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p6_1.setText(txt)
                 else:
                     pass
 
@@ -25841,8 +25841,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     Low = df_nasdaq_graph.at[plot_x, 'low']
                     Close = df_nasdaq_graph.at[plot_x, 'close']
 
-                    str = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p6_1.setText(str)
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p6_1.setText(txt)
                 else:
                     pass
 
@@ -25855,8 +25855,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     Low = df_wti_graph.at[plot_x, 'low']
                     Close = df_wti_graph.at[plot_x, 'close']
 
-                    str = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p6_1.setText(str)
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p6_1.setText(txt)
                 else:
                     pass
             else:
@@ -26484,34 +26484,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot1_ovc_high_line.setValue(선물_고가)
             plot1_ovc_close_line.setValue(선물_고가)
 
-            str = ' {0} '.format(선물_전저)
-            self.label_11.setText(str) 
+            txt = ' {0} '.format(선물_전저)
+            self.label_11.setText(txt) 
             plot1_fut_jl_line.setValue(선물_전저)
             
-            str = ' {0} '.format(선물_전고)
-            self.label_12.setText(str)
+            txt = ' {0} '.format(선물_전고)
+            self.label_12.setText(txt)
             plot1_fut_jh_line.setValue(선물_전고) 
             
-            str = ' {0} '.format(선물_피봇)
-            self.label_14.setText(str)
+            txt = ' {0} '.format(선물_피봇)
+            self.label_14.setText(txt)
             plot1_fut_pivot_line.setValue(선물_피봇)
 
-            str = ' {0} '.format(선물_시가)
-            self.label_15.setText(str)
+            txt = ' {0} '.format(선물_시가)
+            self.label_15.setText(txt)
             plot1_fut_open_line.setValue(선물_시가)
 
-            str = ' {0} '.format(선물_저가)
-            self.label_16.setText(str)
+            txt = ' {0} '.format(선물_저가)
+            self.label_16.setText(txt)
             plot1_fut_low_line.setValue(선물_저가)
             
             self.label_17.setText(" 000.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' {0} '.format(선물_고가)
-            self.label_18.setText(str)
+            txt = ' {0} '.format(선물_고가)
+            self.label_18.setText(txt)
             plot1_fut_high_line.setValue(선물_고가)
             
-            str = ' {0} '.format(선물_종가)
-            self.label_13.setText(str)
+            txt = ' {0} '.format(선물_종가)
+            self.label_13.setText(txt)
             plot1_fut_close_line.setValue(선물_종가)
 
         # 분리선
@@ -26597,34 +26597,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
                 
-            str = ' {0} '.format(format(SP500_전저, ','))
-            self.label_11.setText(str)
+            txt = ' {0} '.format(format(SP500_전저, ','))
+            self.label_11.setText(txt)
             plot1_ovc_jl_line.setValue(SP500_전저)
 
-            str = ' {0} '.format(format(SP500_전고, ','))
-            self.label_12.setText(str)
+            txt = ' {0} '.format(format(SP500_전고, ','))
+            self.label_12.setText(txt)
             plot1_ovc_jh_line.setValue(SP500_전고)
             
-            str = ' {0} '.format(format(SP500_종가, ','))
-            self.label_13.setText(str)
+            txt = ' {0} '.format(format(SP500_종가, ','))
+            self.label_13.setText(txt)
             plot1_ovc_close_line.setValue(SP500_종가)
 
-            str = ' {0} '.format(format(SP500_피봇, ','))
-            self.label_14.setText(str)
+            txt = ' {0} '.format(format(SP500_피봇, ','))
+            self.label_14.setText(txt)
             plot1_ovc_pivot_line.setValue(SP500_피봇)
             
-            str = ' {0} '.format(format(SP500_시가, ','))
-            self.label_15.setText(str)
+            txt = ' {0} '.format(format(SP500_시가, ','))
+            self.label_15.setText(txt)
             plot1_ovc_open_line.setValue(SP500_시가)
 
-            str = ' {0} '.format(format(SP500_저가, ','))
-            self.label_16.setText(str)
+            txt = ' {0} '.format(format(SP500_저가, ','))
+            self.label_16.setText(txt)
             plot1_ovc_low_line.setValue(SP500_저가)
 
             self.label_17.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' {0} '.format(format(SP500_고가, ','))
-            self.label_18.setText(str)
+            txt = ' {0} '.format(format(SP500_고가, ','))
+            self.label_18.setText(txt)
             plot1_ovc_high_line.setValue(SP500_고가)
 
         # DOW   
@@ -26705,34 +26705,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
                 
-            str = ' {0} '.format(format(DOW_전저, ','))
-            self.label_11.setText(str)
+            txt = ' {0} '.format(format(DOW_전저, ','))
+            self.label_11.setText(txt)
             plot1_ovc_jl_line.setValue(DOW_전저)
 
-            str = ' {0} '.format(format(DOW_전고, ','))
-            self.label_12.setText(str)
+            txt = ' {0} '.format(format(DOW_전고, ','))
+            self.label_12.setText(txt)
             plot1_ovc_jh_line.setValue(DOW_전고)
             
-            str = ' {0} '.format(format(DOW_종가, ','))
-            self.label_13.setText(str)
+            txt = ' {0} '.format(format(DOW_종가, ','))
+            self.label_13.setText(txt)
             plot1_ovc_close_line.setValue(DOW_종가)
 
-            str = ' {0} '.format(format(DOW_피봇, ','))
-            self.label_14.setText(str)
+            txt = ' {0} '.format(format(DOW_피봇, ','))
+            self.label_14.setText(txt)
             plot1_ovc_pivot_line.setValue(DOW_피봇)
             
-            str = ' {0} '.format(format(DOW_시가, ','))
-            self.label_15.setText(str)
+            txt = ' {0} '.format(format(DOW_시가, ','))
+            self.label_15.setText(txt)
             plot1_ovc_open_line.setValue(DOW_시가)
 
-            str = ' {0} '.format(format(DOW_저가, ','))
-            self.label_16.setText(str)
+            txt = ' {0} '.format(format(DOW_저가, ','))
+            self.label_16.setText(txt)
             plot1_ovc_low_line.setValue(DOW_저가)
 
             self.label_17.setText(" 00,000 (전일대비, 등락율, 진폭) ")
 
-            str = ' {0} '.format(format(DOW_고가, ','))
-            self.label_18.setText(str)
+            txt = ' {0} '.format(format(DOW_고가, ','))
+            self.label_18.setText(txt)
             plot1_ovc_high_line.setValue(DOW_고가)
 
         # NASDAQ
@@ -26813,34 +26813,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
                 
-            str = ' {0} '.format(format(NASDAQ_전저, ','))
-            self.label_11.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_전저, ','))
+            self.label_11.setText(txt)
             plot1_ovc_jl_line.setValue(NASDAQ_전저)
 
-            str = ' {0} '.format(format(NASDAQ_전고, ','))
-            self.label_12.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_전고, ','))
+            self.label_12.setText(txt)
             plot1_ovc_jh_line.setValue(NASDAQ_전고)
             
-            str = ' {0} '.format(format(NASDAQ_종가, ','))
-            self.label_13.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_종가, ','))
+            self.label_13.setText(txt)
             plot1_ovc_close_line.setValue(NASDAQ_종가)
 
-            str = ' {0} '.format(format(NASDAQ_피봇, ','))
-            self.label_14.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_피봇, ','))
+            self.label_14.setText(txt)
             plot1_ovc_pivot_line.setValue(NASDAQ_피봇)
             
-            str = ' {0} '.format(format(NASDAQ_시가, ','))
-            self.label_15.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_시가, ','))
+            self.label_15.setText(txt)
             plot1_ovc_open_line.setValue(NASDAQ_시가)
 
-            str = ' {0} '.format(format(NASDAQ_저가, ','))
-            self.label_16.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_저가, ','))
+            self.label_16.setText(txt)
             plot1_ovc_low_line.setValue(NASDAQ_저가)
 
             self.label_17.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' {0} '.format(format(NASDAQ_고가, ','))
-            self.label_18.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_고가, ','))
+            self.label_18.setText(txt)
             plot1_ovc_high_line.setValue(NASDAQ_고가)            
 
         # WTI   
@@ -26921,34 +26921,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
                 
-            str = ' {0} '.format(format(WTI_전저, ','))
-            self.label_11.setText(str)
+            txt = ' {0} '.format(format(WTI_전저, ','))
+            self.label_11.setText(txt)
             plot1_ovc_jl_line.setValue(WTI_전저)
 
-            str = ' {0} '.format(format(WTI_전고, ','))
-            self.label_12.setText(str)
+            txt = ' {0} '.format(format(WTI_전고, ','))
+            self.label_12.setText(txt)
             plot1_ovc_jh_line.setValue(WTI_전고)
             
-            str = ' {0} '.format(format(WTI_종가, ','))
-            self.label_13.setText(str)
+            txt = ' {0} '.format(format(WTI_종가, ','))
+            self.label_13.setText(txt)
             plot1_ovc_close_line.setValue(WTI_종가)
 
-            str = ' {0} '.format(format(WTI_피봇, ','))
-            self.label_14.setText(str)
+            txt = ' {0} '.format(format(WTI_피봇, ','))
+            self.label_14.setText(txt)
             plot1_ovc_pivot_line.setValue(WTI_피봇)
             
-            str = ' {0} '.format(format(WTI_시가, ','))
-            self.label_15.setText(str)
+            txt = ' {0} '.format(format(WTI_시가, ','))
+            self.label_15.setText(txt)
             plot1_ovc_open_line.setValue(WTI_시가)
 
-            str = ' {0} '.format(format(WTI_저가, ','))
-            self.label_16.setText(str)
+            txt = ' {0} '.format(format(WTI_저가, ','))
+            self.label_16.setText(txt)
             plot1_ovc_low_line.setValue(WTI_저가)
 
             self.label_17.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' {0} '.format(format(WTI_고가, ','))
-            self.label_18.setText(str)
+            txt = ' {0} '.format(format(WTI_고가, ','))
+            self.label_18.setText(txt)
             plot1_ovc_high_line.setValue(WTI_고가)
         else:
             pass
@@ -27366,9 +27366,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_mv_line[7].setValue(0)
             plot2_mv_line[8].setValue(0)
             
-            plot2_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_LOWER)
+            plot2_center_val_lower_line.setValue(CENTER_VAL - CENTER_VAL_MINUS1)
             plot2_center_val_line.setValue(CENTER_VAL)
-            plot2_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_UPPER)
+            plot2_center_val_upper_line.setValue(CENTER_VAL + CENTER_VAL_PLUS1)
 
         # 분리선
         elif comboindex2 == 6:
@@ -27452,34 +27452,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_center_val_line.setValue(SP500_고가)
             plot2_center_val_upper_line.setValue(SP500_고가)
                 
-            str = ' {0} '.format(format(SP500_전저, ','))
-            self.label_21.setText(str)
+            txt = ' {0} '.format(format(SP500_전저, ','))
+            self.label_21.setText(txt)
             plot2_ovc_jl_line.setValue(SP500_전저)
 
-            str = ' {0} '.format(format(SP500_전고, ','))
-            self.label_22.setText(str)
+            txt = ' {0} '.format(format(SP500_전고, ','))
+            self.label_22.setText(txt)
             plot2_ovc_jh_line.setValue(SP500_전고)
             
-            str = ' {0} '.format(format(SP500_종가, ','))
-            self.label_23.setText(str)
+            txt = ' {0} '.format(format(SP500_종가, ','))
+            self.label_23.setText(txt)
             plot2_ovc_close_line.setValue(SP500_종가)
 
-            str = ' {0} '.format(format(SP500_피봇, ','))
-            self.label_24.setText(str)
+            txt = ' {0} '.format(format(SP500_피봇, ','))
+            self.label_24.setText(txt)
             plot2_ovc_pivot_line.setValue(SP500_피봇)
             
-            str = ' {0} '.format(format(SP500_시가, ','))
-            self.label_25.setText(str)
+            txt = ' {0} '.format(format(SP500_시가, ','))
+            self.label_25.setText(txt)
             plot2_ovc_open_line.setValue(SP500_시가)
 
-            str = ' {0} '.format(format(SP500_저가, ','))
-            self.label_26.setText(str)
+            txt = ' {0} '.format(format(SP500_저가, ','))
+            self.label_26.setText(txt)
             plot2_ovc_low_line.setValue(SP500_저가)
 
             self.label_27.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' {0} '.format(format(SP500_고가, ','))
-            self.label_28.setText(str)
+            txt = ' {0} '.format(format(SP500_고가, ','))
+            self.label_28.setText(txt)
             plot2_ovc_high_line.setValue(SP500_고가)
 
         # DOW
@@ -27559,34 +27559,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_center_val_line.setValue(DOW_고가)
             plot2_center_val_upper_line.setValue(DOW_고가)
                 
-            str = ' {0} '.format(format(DOW_전저, ','))
-            self.label_21.setText(str)
+            txt = ' {0} '.format(format(DOW_전저, ','))
+            self.label_21.setText(txt)
             plot2_ovc_jl_line.setValue(DOW_전저)
 
-            str = ' {0} '.format(format(DOW_전고, ','))
-            self.label_22.setText(str)
+            txt = ' {0} '.format(format(DOW_전고, ','))
+            self.label_22.setText(txt)
             plot2_ovc_jh_line.setValue(DOW_전고)
             
-            str = ' {0} '.format(format(DOW_종가, ','))
-            self.label_23.setText(str)
+            txt = ' {0} '.format(format(DOW_종가, ','))
+            self.label_23.setText(txt)
             plot2_ovc_close_line.setValue(DOW_종가)
 
-            str = ' {0} '.format(format(DOW_피봇, ','))
-            self.label_24.setText(str)
+            txt = ' {0} '.format(format(DOW_피봇, ','))
+            self.label_24.setText(txt)
             plot2_ovc_pivot_line.setValue(DOW_피봇)
             
-            str = ' {0} '.format(format(DOW_시가, ','))
-            self.label_25.setText(str)
+            txt = ' {0} '.format(format(DOW_시가, ','))
+            self.label_25.setText(txt)
             plot2_ovc_open_line.setValue(DOW_시가)
 
-            str = ' {0} '.format(format(DOW_저가, ','))
-            self.label_26.setText(str)
+            txt = ' {0} '.format(format(DOW_저가, ','))
+            self.label_26.setText(txt)
             plot2_ovc_low_line.setValue(DOW_저가)
 
             self.label_27.setText(" 00,000 (전일대비, 등락율, 진폭) ")
 
-            str = ' {0} '.format(format(DOW_고가, ','))
-            self.label_28.setText(str)
+            txt = ' {0} '.format(format(DOW_고가, ','))
+            self.label_28.setText(txt)
             plot2_ovc_high_line.setValue(DOW_고가)
 
         # NASDAQ
@@ -27666,34 +27666,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_center_val_line.setValue(NASDAQ_고가)
             plot2_center_val_upper_line.setValue(NASDAQ_고가)
             
-            str = ' {0} '.format(format(NASDAQ_전저, ','))
-            self.label_21.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_전저, ','))
+            self.label_21.setText(txt)
             plot2_ovc_jl_line.setValue(NASDAQ_전저)
 
-            str = ' {0} '.format(format(NASDAQ_전고, ','))
-            self.label_22.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_전고, ','))
+            self.label_22.setText(txt)
             plot2_ovc_jh_line.setValue(NASDAQ_전고)
             
-            str = ' {0} '.format(format(NASDAQ_종가, ','))
-            self.label_23.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_종가, ','))
+            self.label_23.setText(txt)
             plot2_ovc_close_line.setValue(NASDAQ_종가)
 
-            str = ' {0} '.format(format(NASDAQ_피봇, ','))
-            self.label_24.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_피봇, ','))
+            self.label_24.setText(txt)
             plot2_ovc_pivot_line.setValue(NASDAQ_피봇)
             
-            str = ' {0} '.format(format(NASDAQ_시가, ','))
-            self.label_25.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_시가, ','))
+            self.label_25.setText(txt)
             plot2_ovc_open_line.setValue(NASDAQ_시가)
 
-            str = ' {0} '.format(format(NASDAQ_저가, ','))
-            self.label_26.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_저가, ','))
+            self.label_26.setText(txt)
             plot2_ovc_low_line.setValue(NASDAQ_저가)
 
             self.label_27.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' {0} '.format(format(NASDAQ_고가, ','))
-            self.label_28.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_고가, ','))
+            self.label_28.setText(txt)
             plot2_ovc_high_line.setValue(NASDAQ_고가)            
 
         # WTI  
@@ -27773,34 +27773,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_center_val_line.setValue(WTI_고가)
             plot2_center_val_upper_line.setValue(WTI_고가) 
                 
-            str = ' {0} '.format(format(WTI_전저, ','))
-            self.label_21.setText(str)
+            txt = ' {0} '.format(format(WTI_전저, ','))
+            self.label_21.setText(txt)
             plot2_ovc_jl_line.setValue(WTI_전저)
 
-            str = ' {0} '.format(format(WTI_전고, ','))
-            self.label_22.setText(str)
+            txt = ' {0} '.format(format(WTI_전고, ','))
+            self.label_22.setText(txt)
             plot2_ovc_jh_line.setValue(WTI_전고)
             
-            str = ' {0} '.format(format(WTI_종가, ','))
-            self.label_23.setText(str)
+            txt = ' {0} '.format(format(WTI_종가, ','))
+            self.label_23.setText(txt)
             plot2_ovc_close_line.setValue(WTI_종가)
 
-            str = ' {0} '.format(format(WTI_피봇, ','))
-            self.label_24.setText(str)
+            txt = ' {0} '.format(format(WTI_피봇, ','))
+            self.label_24.setText(txt)
             plot2_ovc_pivot_line.setValue(WTI_피봇)
             
-            str = ' {0} '.format(format(WTI_시가, ','))
-            self.label_25.setText(str)
+            txt = ' {0} '.format(format(WTI_시가, ','))
+            self.label_25.setText(txt)
             plot2_ovc_open_line.setValue(WTI_시가)
 
-            str = ' {0} '.format(format(WTI_저가, ','))
-            self.label_26.setText(str)
+            txt = ' {0} '.format(format(WTI_저가, ','))
+            self.label_26.setText(txt)
             plot2_ovc_low_line.setValue(WTI_저가)
 
             self.label_27.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' {0} '.format(format(WTI_고가, ','))
-            self.label_28.setText(str)
+            txt = ' {0} '.format(format(WTI_고가, ','))
+            self.label_28.setText(txt)
             plot2_ovc_high_line.setValue(WTI_고가)            
         else:
             pass
@@ -28218,9 +28218,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_mv_line[7].setValue(0)
             plot3_mv_line[8].setValue(0)
 
-            plot3_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_LOWER)
+            plot3_center_val_lower_line.setValue(CENTER_VAL - CENTER_VAL_MINUS1)
             plot3_center_val_line.setValue(CENTER_VAL)
-            plot3_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_UPPER)
+            plot3_center_val_upper_line.setValue(CENTER_VAL + CENTER_VAL_PLUS1)
 
         # 분리선
         elif comboindex3 == 6:
@@ -28304,34 +28304,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_center_val_line.setValue(SP500_고가)
             plot3_center_val_upper_line.setValue(SP500_고가)
                 
-            str = ' {0} '.format(format(SP500_전저, ','))
-            self.label_31.setText(str)
+            txt = ' {0} '.format(format(SP500_전저, ','))
+            self.label_31.setText(txt)
             plot3_ovc_jl_line.setValue(SP500_전저)
 
-            str = ' {0} '.format(format(SP500_전고, ','))
-            self.label_32.setText(str)
+            txt = ' {0} '.format(format(SP500_전고, ','))
+            self.label_32.setText(txt)
             plot3_ovc_jh_line.setValue(SP500_전고)
             
-            str = ' {0} '.format(format(SP500_종가, ','))
-            self.label_33.setText(str)
+            txt = ' {0} '.format(format(SP500_종가, ','))
+            self.label_33.setText(txt)
             plot3_ovc_close_line.setValue(SP500_종가)
 
-            str = ' {0} '.format(format(SP500_피봇, ','))
-            self.label_34.setText(str)
+            txt = ' {0} '.format(format(SP500_피봇, ','))
+            self.label_34.setText(txt)
             plot3_ovc_pivot_line.setValue(SP500_피봇)
             
-            str = ' {0} '.format(format(SP500_시가, ','))
-            self.label_35.setText(str)
+            txt = ' {0} '.format(format(SP500_시가, ','))
+            self.label_35.setText(txt)
             plot3_ovc_open_line.setValue(SP500_시가)
 
-            str = ' {0} '.format(format(SP500_저가, ','))
-            self.label_36.setText(str)
+            txt = ' {0} '.format(format(SP500_저가, ','))
+            self.label_36.setText(txt)
             plot3_ovc_low_line.setValue(SP500_저가)
 
             self.label_37.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' {0} '.format(format(SP500_고가, ','))
-            self.label_38.setText(str)
+            txt = ' {0} '.format(format(SP500_고가, ','))
+            self.label_38.setText(txt)
             plot3_ovc_high_line.setValue(SP500_고가)
 
         # DOW
@@ -28411,34 +28411,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_center_val_line.setValue(DOW_고가)
             plot3_center_val_upper_line.setValue(DOW_고가)
                 
-            str = ' {0} '.format(format(DOW_전저, ','))
-            self.label_31.setText(str)
+            txt = ' {0} '.format(format(DOW_전저, ','))
+            self.label_31.setText(txt)
             plot3_ovc_jl_line.setValue(DOW_전저)
 
-            str = ' {0} '.format(format(DOW_전고, ','))
-            self.label_32.setText(str)
+            txt = ' {0} '.format(format(DOW_전고, ','))
+            self.label_32.setText(txt)
             plot3_ovc_jh_line.setValue(DOW_전고)
             
-            str = ' {0} '.format(format(DOW_종가, ','))
-            self.label_33.setText(str)
+            txt = ' {0} '.format(format(DOW_종가, ','))
+            self.label_33.setText(txt)
             plot3_ovc_close_line.setValue(DOW_종가)
 
-            str = ' {0} '.format(format(DOW_피봇, ','))
-            self.label_34.setText(str)
+            txt = ' {0} '.format(format(DOW_피봇, ','))
+            self.label_34.setText(txt)
             plot3_ovc_pivot_line.setValue(DOW_피봇)
             
-            str = ' {0} '.format(format(DOW_시가, ','))
-            self.label_35.setText(str)
+            txt = ' {0} '.format(format(DOW_시가, ','))
+            self.label_35.setText(txt)
             plot3_ovc_open_line.setValue(DOW_시가)
 
-            str = ' {0} '.format(format(DOW_저가, ','))
-            self.label_36.setText(str)
+            txt = ' {0} '.format(format(DOW_저가, ','))
+            self.label_36.setText(txt)
             plot3_ovc_low_line.setValue(DOW_저가)
 
             self.label_37.setText(" 00,000 (전일대비, 등락율, 진폭) ")
 
-            str = ' {0} '.format(format(DOW_고가, ','))
-            self.label_38.setText(str)
+            txt = ' {0} '.format(format(DOW_고가, ','))
+            self.label_38.setText(txt)
             plot3_ovc_high_line.setValue(DOW_고가)
 
         # NASDAQ
@@ -28518,34 +28518,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_center_val_line.setValue(NASDAQ_고가)
             plot3_center_val_upper_line.setValue(NASDAQ_고가)
                 
-            str = ' {0} '.format(format(NASDAQ_전저, ','))
-            self.label_31.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_전저, ','))
+            self.label_31.setText(txt)
             plot3_ovc_jl_line.setValue(NASDAQ_전저)
 
-            str = ' {0} '.format(format(NASDAQ_전고, ','))
-            self.label_32.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_전고, ','))
+            self.label_32.setText(txt)
             plot3_ovc_jh_line.setValue(NASDAQ_전고)
             
-            str = ' {0} '.format(format(NASDAQ_종가, ','))
-            self.label_33.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_종가, ','))
+            self.label_33.setText(txt)
             plot3_ovc_close_line.setValue(NASDAQ_종가)
 
-            str = ' {0} '.format(format(NASDAQ_피봇, ','))
-            self.label_34.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_피봇, ','))
+            self.label_34.setText(txt)
             plot3_ovc_pivot_line.setValue(NASDAQ_피봇)
             
-            str = ' {0} '.format(format(NASDAQ_시가, ','))
-            self.label_35.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_시가, ','))
+            self.label_35.setText(txt)
             plot3_ovc_open_line.setValue(NASDAQ_시가)
 
-            str = ' {0} '.format(format(NASDAQ_저가, ','))
-            self.label_36.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_저가, ','))
+            self.label_36.setText(txt)
             plot3_ovc_low_line.setValue(NASDAQ_저가)
 
             self.label_37.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' {0} '.format(format(NASDAQ_고가, ','))
-            self.label_38.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_고가, ','))
+            self.label_38.setText(txt)
             plot3_ovc_high_line.setValue(NASDAQ_고가)            
 
         # WTI
@@ -28625,34 +28625,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_center_val_line.setValue(WTI_고가)
             plot3_center_val_upper_line.setValue(WTI_고가) 
                 
-            str = ' {0} '.format(format(WTI_전저, ','))
-            self.label_31.setText(str)
+            txt = ' {0} '.format(format(WTI_전저, ','))
+            self.label_31.setText(txt)
             plot3_ovc_jl_line.setValue(WTI_전저)
 
-            str = ' {0} '.format(format(WTI_전고, ','))
-            self.label_32.setText(str)
+            txt = ' {0} '.format(format(WTI_전고, ','))
+            self.label_32.setText(txt)
             plot3_ovc_jh_line.setValue(WTI_전고)
             
-            str = ' {0} '.format(format(WTI_종가, ','))
-            self.label_33.setText(str)
+            txt = ' {0} '.format(format(WTI_종가, ','))
+            self.label_33.setText(txt)
             plot3_ovc_close_line.setValue(WTI_종가)
 
-            str = ' {0} '.format(format(WTI_피봇, ','))
-            self.label_34.setText(str)
+            txt = ' {0} '.format(format(WTI_피봇, ','))
+            self.label_34.setText(txt)
             plot3_ovc_pivot_line.setValue(WTI_피봇)
             
-            str = ' {0} '.format(format(WTI_시가, ','))
-            self.label_35.setText(str)
+            txt = ' {0} '.format(format(WTI_시가, ','))
+            self.label_35.setText(txt)
             plot3_ovc_open_line.setValue(WTI_시가)
 
-            str = ' {0} '.format(format(WTI_저가, ','))
-            self.label_36.setText(str)
+            txt = ' {0} '.format(format(WTI_저가, ','))
+            self.label_36.setText(txt)
             plot3_ovc_low_line.setValue(WTI_저가)
 
             self.label_37.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' {0} '.format(format(WTI_고가, ','))
-            self.label_38.setText(str)
+            txt = ' {0} '.format(format(WTI_고가, ','))
+            self.label_38.setText(txt)
             plot3_ovc_high_line.setValue(WTI_고가)            
         else:
             pass
@@ -29092,34 +29092,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_ovc_high_line.setValue(선물_고가)
             plot4_ovc_close_line.setValue(선물_고가)
 
-            str = ' {0} '.format(선물_전저)
-            self.label_41.setText(str) 
+            txt = ' {0} '.format(선물_전저)
+            self.label_41.setText(txt) 
             plot4_fut_jl_line.setValue(선물_전저)
             
-            str = ' {0} '.format(선물_전고)
-            self.label_42.setText(str)
+            txt = ' {0} '.format(선물_전고)
+            self.label_42.setText(txt)
             plot4_fut_jh_line.setValue(선물_전고) 
             
-            str = ' {0} '.format(선물_피봇)
-            self.label_44.setText(str)
+            txt = ' {0} '.format(선물_피봇)
+            self.label_44.setText(txt)
             plot4_fut_pivot_line.setValue(선물_피봇)
 
-            str = ' {0} '.format(선물_시가)
-            self.label_45.setText(str)
+            txt = ' {0} '.format(선물_시가)
+            self.label_45.setText(txt)
             plot4_fut_open_line.setValue(선물_시가)
 
-            str = ' {0} '.format(선물_저가)
-            self.label_46.setText(str)
+            txt = ' {0} '.format(선물_저가)
+            self.label_46.setText(txt)
             plot4_fut_low_line.setValue(선물_저가)
             
             self.label_47.setText(" 000.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' {0} '.format(선물_고가)
-            self.label_48.setText(str)
+            txt = ' {0} '.format(선물_고가)
+            self.label_48.setText(txt)
             plot4_fut_high_line.setValue(선물_고가)
             
-            str = ' {0} '.format(선물_종가)
-            self.label_43.setText(str)
+            txt = ' {0} '.format(선물_종가)
+            self.label_43.setText(txt)
             plot4_fut_close_line.setValue(선물_종가)
 
         # 분리선
@@ -29205,34 +29205,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
                 
-            str = ' {0} '.format(format(SP500_전저, ','))
-            self.label_41.setText(str)
+            txt = ' {0} '.format(format(SP500_전저, ','))
+            self.label_41.setText(txt)
             plot4_ovc_jl_line.setValue(SP500_전저)
 
-            str = ' {0} '.format(format(SP500_전고, ','))
-            self.label_42.setText(str)
+            txt = ' {0} '.format(format(SP500_전고, ','))
+            self.label_42.setText(txt)
             plot4_ovc_jh_line.setValue(SP500_전고)
             
-            str = ' {0} '.format(format(SP500_종가, ','))
-            self.label_43.setText(str)
+            txt = ' {0} '.format(format(SP500_종가, ','))
+            self.label_43.setText(txt)
             plot4_ovc_close_line.setValue(SP500_종가)
 
-            str = ' {0} '.format(format(SP500_피봇, ','))
-            self.label_44.setText(str)
+            txt = ' {0} '.format(format(SP500_피봇, ','))
+            self.label_44.setText(txt)
             plot4_ovc_pivot_line.setValue(SP500_피봇)
             
-            str = ' {0} '.format(format(SP500_시가, ','))
-            self.label_45.setText(str)
+            txt = ' {0} '.format(format(SP500_시가, ','))
+            self.label_45.setText(txt)
             plot4_ovc_open_line.setValue(SP500_시가)
 
-            str = ' {0} '.format(format(SP500_저가, ','))
-            self.label_46.setText(str)
+            txt = ' {0} '.format(format(SP500_저가, ','))
+            self.label_46.setText(txt)
             plot4_ovc_low_line.setValue(SP500_저가)
 
             self.label_47.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' {0} '.format(format(SP500_고가, ','))
-            self.label_48.setText(str)
+            txt = ' {0} '.format(format(SP500_고가, ','))
+            self.label_48.setText(txt)
             plot4_ovc_high_line.setValue(SP500_고가)
 
         # DOW    
@@ -29313,34 +29313,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
                 
-            str = ' {0} '.format(format(DOW_전저, ','))
-            self.label_41.setText(str)
+            txt = ' {0} '.format(format(DOW_전저, ','))
+            self.label_41.setText(txt)
             plot4_ovc_jl_line.setValue(DOW_전저)
 
-            str = ' {0} '.format(format(DOW_전고, ','))
-            self.label_42.setText(str)
+            txt = ' {0} '.format(format(DOW_전고, ','))
+            self.label_42.setText(txt)
             plot4_ovc_jh_line.setValue(DOW_전고)
             
-            str = ' {0} '.format(format(DOW_종가, ','))
-            self.label_43.setText(str)
+            txt = ' {0} '.format(format(DOW_종가, ','))
+            self.label_43.setText(txt)
             plot4_ovc_close_line.setValue(DOW_종가)
 
-            str = ' {0} '.format(format(DOW_피봇, ','))
-            self.label_44.setText(str)
+            txt = ' {0} '.format(format(DOW_피봇, ','))
+            self.label_44.setText(txt)
             plot4_ovc_pivot_line.setValue(DOW_피봇)
             
-            str = ' {0} '.format(format(DOW_시가, ','))
-            self.label_45.setText(str)
+            txt = ' {0} '.format(format(DOW_시가, ','))
+            self.label_45.setText(txt)
             plot4_ovc_open_line.setValue(DOW_시가)
 
-            str = ' {0} '.format(format(DOW_저가, ','))
-            self.label_46.setText(str)
+            txt = ' {0} '.format(format(DOW_저가, ','))
+            self.label_46.setText(txt)
             plot4_ovc_low_line.setValue(DOW_저가)
 
             self.label_47.setText(" 00,000 (전일대비, 등락율, 진폭) ")
 
-            str = ' {0} '.format(format(DOW_고가, ','))
-            self.label_48.setText(str)
+            txt = ' {0} '.format(format(DOW_고가, ','))
+            self.label_48.setText(txt)
             plot4_ovc_high_line.setValue(DOW_고가)
 
         # NASDAQ
@@ -29421,34 +29421,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
                 
-            str = ' {0} '.format(format(NASDAQ_전저, ','))
-            self.label_41.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_전저, ','))
+            self.label_41.setText(txt)
             plot4_ovc_jl_line.setValue(NASDAQ_전저)
 
-            str = ' {0} '.format(format(NASDAQ_전고, ','))
-            self.label_42.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_전고, ','))
+            self.label_42.setText(txt)
             plot4_ovc_jh_line.setValue(NASDAQ_전고)
             
-            str = ' {0} '.format(format(NASDAQ_종가, ','))
-            self.label_43.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_종가, ','))
+            self.label_43.setText(txt)
             plot4_ovc_close_line.setValue(NASDAQ_종가)
 
-            str = ' {0} '.format(format(NASDAQ_피봇, ','))
-            self.label_44.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_피봇, ','))
+            self.label_44.setText(txt)
             plot4_ovc_pivot_line.setValue(NASDAQ_피봇)
             
-            str = ' {0} '.format(format(NASDAQ_시가, ','))
-            self.label_45.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_시가, ','))
+            self.label_45.setText(txt)
             plot4_ovc_open_line.setValue(NASDAQ_시가)
 
-            str = ' {0} '.format(format(NASDAQ_저가, ','))
-            self.label_46.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_저가, ','))
+            self.label_46.setText(txt)
             plot4_ovc_low_line.setValue(NASDAQ_저가)
 
             self.label_47.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' {0} '.format(format(NASDAQ_고가, ','))
-            self.label_48.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_고가, ','))
+            self.label_48.setText(txt)
             plot4_ovc_high_line.setValue(NASDAQ_고가)            
 
         # WTI    
@@ -29529,34 +29529,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
                 
-            str = ' {0} '.format(format(WTI_전저, ','))
-            self.label_41.setText(str)
+            txt = ' {0} '.format(format(WTI_전저, ','))
+            self.label_41.setText(txt)
             plot4_ovc_jl_line.setValue(WTI_전저)
 
-            str = ' {0} '.format(format(WTI_전고, ','))
-            self.label_42.setText(str)
+            txt = ' {0} '.format(format(WTI_전고, ','))
+            self.label_42.setText(txt)
             plot4_ovc_jh_line.setValue(WTI_전고)
             
-            str = ' {0} '.format(format(WTI_종가, ','))
-            self.label_43.setText(str)
+            txt = ' {0} '.format(format(WTI_종가, ','))
+            self.label_43.setText(txt)
             plot4_ovc_close_line.setValue(WTI_종가)
 
-            str = ' {0} '.format(format(WTI_피봇, ','))
-            self.label_44.setText(str)
+            txt = ' {0} '.format(format(WTI_피봇, ','))
+            self.label_44.setText(txt)
             plot4_ovc_pivot_line.setValue(WTI_피봇)
             
-            str = ' {0} '.format(format(WTI_시가, ','))
-            self.label_45.setText(str)
+            txt = ' {0} '.format(format(WTI_시가, ','))
+            self.label_45.setText(txt)
             plot4_ovc_open_line.setValue(WTI_시가)
 
-            str = ' {0} '.format(format(WTI_저가, ','))
-            self.label_46.setText(str)
+            txt = ' {0} '.format(format(WTI_저가, ','))
+            self.label_46.setText(txt)
             plot4_ovc_low_line.setValue(WTI_저가)
 
             self.label_47.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' {0} '.format(format(WTI_고가, ','))
-            self.label_48.setText(str)
+            txt = ' {0} '.format(format(WTI_고가, ','))
+            self.label_48.setText(txt)
             plot4_ovc_high_line.setValue(WTI_고가)
         else:
             pass
@@ -29974,9 +29974,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_mv_line[7].setValue(0)
             plot5_mv_line[8].setValue(0)
 
-            plot5_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_LOWER)
+            plot5_center_val_lower_line.setValue(CENTER_VAL - CENTER_VAL_MINUS1)
             plot5_center_val_line.setValue(CENTER_VAL)
-            plot5_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_UPPER)
+            plot5_center_val_upper_line.setValue(CENTER_VAL + CENTER_VAL_PLUS1)
 
         # 분리선
         elif comboindex5 == 6:
@@ -30060,34 +30060,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_center_val_line.setValue(SP500_고가)
             plot5_center_val_upper_line.setValue(SP500_고가)
                 
-            str = ' {0} '.format(format(SP500_전저, ','))
-            self.label_51.setText(str)
+            txt = ' {0} '.format(format(SP500_전저, ','))
+            self.label_51.setText(txt)
             plot5_ovc_jl_line.setValue(SP500_전저)
 
-            str = ' {0} '.format(format(SP500_전고, ','))
-            self.label_52.setText(str)
+            txt = ' {0} '.format(format(SP500_전고, ','))
+            self.label_52.setText(txt)
             plot5_ovc_jh_line.setValue(SP500_전고)
             
-            str = ' {0} '.format(format(SP500_종가, ','))
-            self.label_53.setText(str)
+            txt = ' {0} '.format(format(SP500_종가, ','))
+            self.label_53.setText(txt)
             plot5_ovc_close_line.setValue(SP500_종가)
 
-            str = ' {0} '.format(format(SP500_피봇, ','))
-            self.label_54.setText(str)
+            txt = ' {0} '.format(format(SP500_피봇, ','))
+            self.label_54.setText(txt)
             plot5_ovc_pivot_line.setValue(SP500_피봇)
             
-            str = ' {0} '.format(format(SP500_시가, ','))
-            self.label_55.setText(str)
+            txt = ' {0} '.format(format(SP500_시가, ','))
+            self.label_55.setText(txt)
             plot5_ovc_open_line.setValue(SP500_시가)
 
-            str = ' {0} '.format(format(SP500_저가, ','))
-            self.label_56.setText(str)
+            txt = ' {0} '.format(format(SP500_저가, ','))
+            self.label_56.setText(txt)
             plot5_ovc_low_line.setValue(SP500_저가)
 
             self.label_57.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' {0} '.format(format(SP500_고가, ','))
-            self.label_58.setText(str)
+            txt = ' {0} '.format(format(SP500_고가, ','))
+            self.label_58.setText(txt)
             plot5_ovc_high_line.setValue(SP500_고가)
 
         # DOW
@@ -30167,34 +30167,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_center_val_line.setValue(DOW_고가)
             plot5_center_val_upper_line.setValue(DOW_고가)
                 
-            str = ' {0} '.format(format(DOW_전저, ','))
-            self.label_51.setText(str)
+            txt = ' {0} '.format(format(DOW_전저, ','))
+            self.label_51.setText(txt)
             plot5_ovc_jl_line.setValue(DOW_전저)
 
-            str = ' {0} '.format(format(DOW_전고, ','))
-            self.label_52.setText(str)
+            txt = ' {0} '.format(format(DOW_전고, ','))
+            self.label_52.setText(txt)
             plot5_ovc_jh_line.setValue(DOW_전고)
             
-            str = ' {0} '.format(format(DOW_종가, ','))
-            self.label_53.setText(str)
+            txt = ' {0} '.format(format(DOW_종가, ','))
+            self.label_53.setText(txt)
             plot5_ovc_close_line.setValue(DOW_종가)
 
-            str = ' {0} '.format(format(DOW_피봇, ','))
-            self.label_54.setText(str)
+            txt = ' {0} '.format(format(DOW_피봇, ','))
+            self.label_54.setText(txt)
             plot5_ovc_pivot_line.setValue(DOW_피봇)
             
-            str = ' {0} '.format(format(DOW_시가, ','))
-            self.label_55.setText(str)
+            txt = ' {0} '.format(format(DOW_시가, ','))
+            self.label_55.setText(txt)
             plot5_ovc_open_line.setValue(DOW_시가)
 
-            str = ' {0} '.format(format(DOW_저가, ','))
-            self.label_56.setText(str)
+            txt = ' {0} '.format(format(DOW_저가, ','))
+            self.label_56.setText(txt)
             plot5_ovc_low_line.setValue(DOW_저가)
 
             self.label_57.setText(" 00,000 (전일대비, 등락율, 진폭) ")
 
-            str = ' {0} '.format(format(DOW_고가, ','))
-            self.label_58.setText(str)
+            txt = ' {0} '.format(format(DOW_고가, ','))
+            self.label_58.setText(txt)
             plot5_ovc_high_line.setValue(DOW_고가)
 
         # NASDAQ
@@ -30274,34 +30274,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_center_val_line.setValue(NASDAQ_고가)
             plot5_center_val_upper_line.setValue(NASDAQ_고가)
                 
-            str = ' {0} '.format(format(NASDAQ_전저, ','))
-            self.label_51.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_전저, ','))
+            self.label_51.setText(txt)
             plot5_ovc_jl_line.setValue(NASDAQ_전저)
 
-            str = ' {0} '.format(format(NASDAQ_전고, ','))
-            self.label_52.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_전고, ','))
+            self.label_52.setText(txt)
             plot5_ovc_jh_line.setValue(NASDAQ_전고)
             
-            str = ' {0} '.format(format(NASDAQ_종가, ','))
-            self.label_53.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_종가, ','))
+            self.label_53.setText(txt)
             plot5_ovc_close_line.setValue(NASDAQ_종가)
 
-            str = ' {0} '.format(format(NASDAQ_피봇, ','))
-            self.label_54.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_피봇, ','))
+            self.label_54.setText(txt)
             plot5_ovc_pivot_line.setValue(NASDAQ_피봇)
             
-            str = ' {0} '.format(format(NASDAQ_시가, ','))
-            self.label_55.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_시가, ','))
+            self.label_55.setText(txt)
             plot5_ovc_open_line.setValue(NASDAQ_시가)
 
-            str = ' {0} '.format(format(NASDAQ_저가, ','))
-            self.label_56.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_저가, ','))
+            self.label_56.setText(txt)
             plot5_ovc_low_line.setValue(NASDAQ_저가)
 
             self.label_57.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' {0} '.format(format(NASDAQ_고가, ','))
-            self.label_58.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_고가, ','))
+            self.label_58.setText(txt)
             plot5_ovc_high_line.setValue(NASDAQ_고가)            
 
         # WTI
@@ -30381,34 +30381,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_center_val_line.setValue(WTI_고가)
             plot5_center_val_upper_line.setValue(WTI_고가) 
                 
-            str = ' {0} '.format(format(WTI_전저, ','))
-            self.label_51.setText(str)
+            txt = ' {0} '.format(format(WTI_전저, ','))
+            self.label_51.setText(txt)
             plot5_ovc_jl_line.setValue(WTI_전저)
 
-            str = ' {0} '.format(format(WTI_전고, ','))
-            self.label_52.setText(str)
+            txt = ' {0} '.format(format(WTI_전고, ','))
+            self.label_52.setText(txt)
             plot5_ovc_jh_line.setValue(WTI_전고)
             
-            str = ' {0} '.format(format(WTI_종가, ','))
-            self.label_53.setText(str)
+            txt = ' {0} '.format(format(WTI_종가, ','))
+            self.label_53.setText(txt)
             plot5_ovc_close_line.setValue(WTI_종가)
 
-            str = ' {0} '.format(format(WTI_피봇, ','))
-            self.label_54.setText(str)
+            txt = ' {0} '.format(format(WTI_피봇, ','))
+            self.label_54.setText(txt)
             plot5_ovc_pivot_line.setValue(WTI_피봇)
             
-            str = ' {0} '.format(format(WTI_시가, ','))
-            self.label_55.setText(str)
+            txt = ' {0} '.format(format(WTI_시가, ','))
+            self.label_55.setText(txt)
             plot5_ovc_open_line.setValue(WTI_시가)
 
-            str = ' {0} '.format(format(WTI_저가, ','))
-            self.label_56.setText(str)
+            txt = ' {0} '.format(format(WTI_저가, ','))
+            self.label_56.setText(txt)
             plot5_ovc_low_line.setValue(WTI_저가)
 
             self.label_57.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' {0} '.format(format(WTI_고가, ','))
-            self.label_58.setText(str)
+            txt = ' {0} '.format(format(WTI_고가, ','))
+            self.label_58.setText(txt)
             plot5_ovc_high_line.setValue(WTI_고가)            
         else:
             pass
@@ -30826,9 +30826,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_mv_line[7].setValue(0)
             plot6_mv_line[8].setValue(0)
 
-            plot6_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_LOWER)
+            plot6_center_val_lower_line.setValue(CENTER_VAL - CENTER_VAL_MINUS1)
             plot6_center_val_line.setValue(CENTER_VAL)
-            plot6_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_UPPER)
+            plot6_center_val_upper_line.setValue(CENTER_VAL + CENTER_VAL_PLUS1)
 
         # 분리선
         elif comboindex6 == 6:
@@ -30912,34 +30912,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_center_val_line.setValue(SP500_고가)
             plot6_center_val_upper_line.setValue(SP500_고가)
                 
-            str = ' {0} '.format(format(SP500_전저, ','))
-            self.label_61.setText(str)
+            txt = ' {0} '.format(format(SP500_전저, ','))
+            self.label_61.setText(txt)
             plot6_ovc_jl_line.setValue(SP500_전저)
 
-            str = ' {0} '.format(format(SP500_전고, ','))
-            self.label_62.setText(str)
+            txt = ' {0} '.format(format(SP500_전고, ','))
+            self.label_62.setText(txt)
             plot6_ovc_jh_line.setValue(SP500_전고)
             
-            str = ' {0} '.format(format(SP500_종가, ','))
-            self.label_63.setText(str)
+            txt = ' {0} '.format(format(SP500_종가, ','))
+            self.label_63.setText(txt)
             plot6_ovc_close_line.setValue(SP500_종가)
 
-            str = ' {0} '.format(format(SP500_피봇, ','))
-            self.label_64.setText(str)
+            txt = ' {0} '.format(format(SP500_피봇, ','))
+            self.label_64.setText(txt)
             plot6_ovc_pivot_line.setValue(SP500_피봇)
             
-            str = ' {0} '.format(format(SP500_시가, ','))
-            self.label_65.setText(str)
+            txt = ' {0} '.format(format(SP500_시가, ','))
+            self.label_65.setText(txt)
             plot6_ovc_open_line.setValue(SP500_시가)
 
-            str = ' {0} '.format(format(SP500_저가, ','))
-            self.label_66.setText(str)
+            txt = ' {0} '.format(format(SP500_저가, ','))
+            self.label_66.setText(txt)
             plot6_ovc_low_line.setValue(SP500_저가)
 
             self.label_67.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' {0} '.format(format(SP500_고가, ','))
-            self.label_68.setText(str)
+            txt = ' {0} '.format(format(SP500_고가, ','))
+            self.label_68.setText(txt)
             plot6_ovc_high_line.setValue(SP500_고가)
 
         # DOW
@@ -31019,34 +31019,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_center_val_line.setValue(DOW_고가)
             plot6_center_val_upper_line.setValue(DOW_고가)
                 
-            str = ' {0} '.format(format(DOW_전저, ','))
-            self.label_61.setText(str)
+            txt = ' {0} '.format(format(DOW_전저, ','))
+            self.label_61.setText(txt)
             plot6_ovc_jl_line.setValue(DOW_전저)
 
-            str = ' {0} '.format(format(DOW_전고, ','))
-            self.label_62.setText(str)
+            txt = ' {0} '.format(format(DOW_전고, ','))
+            self.label_62.setText(txt)
             plot6_ovc_jh_line.setValue(DOW_전고)
             
-            str = ' {0} '.format(format(DOW_종가, ','))
-            self.label_63.setText(str)
+            txt = ' {0} '.format(format(DOW_종가, ','))
+            self.label_63.setText(txt)
             plot6_ovc_close_line.setValue(DOW_종가)
 
-            str = ' {0} '.format(format(DOW_피봇, ','))
-            self.label_64.setText(str)
+            txt = ' {0} '.format(format(DOW_피봇, ','))
+            self.label_64.setText(txt)
             plot6_ovc_pivot_line.setValue(DOW_피봇)
             
-            str = ' {0} '.format(format(DOW_시가, ','))
-            self.label_65.setText(str)
+            txt = ' {0} '.format(format(DOW_시가, ','))
+            self.label_65.setText(txt)
             plot6_ovc_open_line.setValue(DOW_시가)
 
-            str = ' {0} '.format(format(DOW_저가, ','))
-            self.label_66.setText(str)
+            txt = ' {0} '.format(format(DOW_저가, ','))
+            self.label_66.setText(txt)
             plot6_ovc_low_line.setValue(DOW_저가)
 
             self.label_67.setText(" 00,000 (전일대비, 등락율, 진폭) ")
 
-            str = ' {0} '.format(format(DOW_고가, ','))
-            self.label_68.setText(str)
+            txt = ' {0} '.format(format(DOW_고가, ','))
+            self.label_68.setText(txt)
             plot6_ovc_high_line.setValue(DOW_고가)
 
         # NASDAQ
@@ -31126,34 +31126,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_center_val_line.setValue(NASDAQ_고가)
             plot6_center_val_upper_line.setValue(NASDAQ_고가)
                 
-            str = ' {0} '.format(format(NASDAQ_전저, ','))
-            self.label_61.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_전저, ','))
+            self.label_61.setText(txt)
             plot6_ovc_jl_line.setValue(NASDAQ_전저)
 
-            str = ' {0} '.format(format(NASDAQ_전고, ','))
-            self.label_62.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_전고, ','))
+            self.label_62.setText(txt)
             plot6_ovc_jh_line.setValue(NASDAQ_전고)
             
-            str = ' {0} '.format(format(NASDAQ_종가, ','))
-            self.label_63.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_종가, ','))
+            self.label_63.setText(txt)
             plot6_ovc_close_line.setValue(NASDAQ_종가)
 
-            str = ' {0} '.format(format(NASDAQ_피봇, ','))
-            self.label_64.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_피봇, ','))
+            self.label_64.setText(txt)
             plot6_ovc_pivot_line.setValue(NASDAQ_피봇)
             
-            str = ' {0} '.format(format(NASDAQ_시가, ','))
-            self.label_65.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_시가, ','))
+            self.label_65.setText(txt)
             plot6_ovc_open_line.setValue(NASDAQ_시가)
 
-            str = ' {0} '.format(format(NASDAQ_저가, ','))
-            self.label_66.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_저가, ','))
+            self.label_66.setText(txt)
             plot6_ovc_low_line.setValue(NASDAQ_저가)
 
             self.label_67.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' {0} '.format(format(NASDAQ_고가, ','))
-            self.label_68.setText(str)
+            txt = ' {0} '.format(format(NASDAQ_고가, ','))
+            self.label_68.setText(txt)
             plot6_ovc_high_line.setValue(NASDAQ_고가)            
 
         # WTI
@@ -31233,34 +31233,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_center_val_line.setValue(WTI_고가)
             plot6_center_val_upper_line.setValue(WTI_고가) 
                 
-            str = ' {0} '.format(format(WTI_전저, ','))
-            self.label_61.setText(str)
+            txt = ' {0} '.format(format(WTI_전저, ','))
+            self.label_61.setText(txt)
             plot6_ovc_jl_line.setValue(WTI_전저)
 
-            str = ' {0} '.format(format(WTI_전고, ','))
-            self.label_62.setText(str)
+            txt = ' {0} '.format(format(WTI_전고, ','))
+            self.label_62.setText(txt)
             plot6_ovc_jh_line.setValue(WTI_전고)
             
-            str = ' {0} '.format(format(WTI_종가, ','))
-            self.label_63.setText(str)
+            txt = ' {0} '.format(format(WTI_종가, ','))
+            self.label_63.setText(txt)
             plot6_ovc_close_line.setValue(WTI_종가)
 
-            str = ' {0} '.format(format(WTI_피봇, ','))
-            self.label_64.setText(str)
+            txt = ' {0} '.format(format(WTI_피봇, ','))
+            self.label_64.setText(txt)
             plot6_ovc_pivot_line.setValue(WTI_피봇)
             
-            str = ' {0} '.format(format(WTI_시가, ','))
-            self.label_65.setText(str)
+            txt = ' {0} '.format(format(WTI_시가, ','))
+            self.label_65.setText(txt)
             plot6_ovc_open_line.setValue(WTI_시가)
 
-            str = ' {0} '.format(format(WTI_저가, ','))
-            self.label_66.setText(str)
+            txt = ' {0} '.format(format(WTI_저가, ','))
+            self.label_66.setText(txt)
             plot6_ovc_low_line.setValue(WTI_저가)
 
             self.label_67.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' {0} '.format(format(WTI_고가, ','))
-            self.label_68.setText(str)
+            txt = ' {0} '.format(format(WTI_고가, ','))
+            self.label_68.setText(txt)
             plot6_ovc_high_line.setValue(WTI_고가)            
         else:
             pass 
@@ -31280,9 +31280,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         '''
         if flag_offline:
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] BigChart UI 쓰레드를 종료합니다. : {3:.2f} ms...\r'.format(\
+            txt = '[{0:02d}:{1:02d}:{2:02d}] BigChart UI 쓰레드를 종료합니다. : {3:.2f} ms...\r'.format(\
             dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
-            print(str)
+            print(txt)
 
             self.bigchart_update_worker.terminate()
         else:
@@ -31292,11 +31292,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         # 해외선물 한국시간 표시
         if OVC_체결시간 == '000000':
 
-            str = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
+            txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
         else:
-            str = ' {0:02d}:{1:02d}:{2:02d}({3:d}) '.format(adj_hour, adj_min, adj_sec, ovc_x_idx)
+            txt = ' {0:02d}:{1:02d}:{2:02d}({3:d}) '.format(adj_hour, adj_min, adj_sec, ovc_x_idx)
    
-        self.label_time.setText(str)
+        self.label_time.setText(txt)
 
         if not flag_produce_queue_empty:
             print('flag_produce_queue_empty in update_bigchart =', flag_produce_queue_empty)
@@ -31327,7 +31327,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot1 그래프 그리기
             if comboindex1 == 0 and market_service:
 
-                str = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
+                txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
                     df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
                     df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
@@ -31339,29 +31339,29 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     self.label_17.setStyleSheet('background-color: yellow ; color: black')
 
-                self.label_17.setText(str)
+                self.label_17.setText(txt)
 
                 plot1_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'])
                 plot1_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'])
 
             elif comboindex1 == 1 and market_service:
 
-                str = " {0:.0f} ".format(df_put_total_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_put_total_graph.at[ovc_x_idx, 'volume'])
                 self.label_16.setStyleSheet('background-color: blue ; color: white')
-                self.label_16.setText(str)
+                self.label_16.setText(txt)
 
-                str = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
                 if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
                     self.label_17.setStyleSheet('background-color: red ; color: white')
                 else:
                     self.label_17.setStyleSheet('background-color: blue ; color: white')
 
-                self.label_17.setText(str)
+                self.label_17.setText(txt)
                 
-                str = " {0:.0f} ".format(df_call_total_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_call_total_graph.at[ovc_x_idx, 'volume'])
                 self.label_18.setStyleSheet('background-color: red ; color: white')
-                self.label_18.setText(str)
+                self.label_18.setText(txt)
 
                 plot1_call_volume_curve.setData(df_call_total_graph['volume'])
                 plot1_put_volume_curve.setData(df_put_total_graph['volume'])
@@ -31370,13 +31370,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex1 == 2 and market_service:
                 
-                str = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_total_graph.at[ovc_x_idx, 'ms_hoga'], df_put_total_graph.at[ovc_x_idx, 'md_hoga'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_total_graph.at[ovc_x_idx, 'ms_hoga'], df_put_total_graph.at[ovc_x_idx, 'md_hoga'])
                 self.label_16.setStyleSheet('background-color: blue ; color: white')
-                self.label_16.setText(str)
+                self.label_16.setText(txt)
                 
-                str = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_total_graph.at[ovc_x_idx, 'ms_hoga'], df_call_total_graph.at[ovc_x_idx, 'md_hoga'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_total_graph.at[ovc_x_idx, 'ms_hoga'], df_call_total_graph.at[ovc_x_idx, 'md_hoga'])
                 self.label_18.setStyleSheet('background-color: red ; color: white')
-                self.label_18.setText(str)
+                self.label_18.setText(txt)
 
                 plot1_call_hoga_curve.setData(df_call_total_graph['hoga_remainder_ratio'])
                 plot1_put_hoga_curve.setData(df_put_total_graph['hoga_remainder_ratio'])
@@ -31390,27 +31390,27 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex1 == 4 and market_service:
 
-                str = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_16.setStyleSheet('background-color: blue ; color: white')
-                self.label_16.setText(str)
+                self.label_16.setText(txt)
                 '''
                 if df_call_total_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
 
-                    str = ' ▲ '
+                    txt = ' ▲ '
                     self.label_17.setStyleSheet('background-color: red ; color: white')
-                    self.label_17.setText(str)
+                    self.label_17.setText(txt)
 
                 elif df_put_total_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_percent:
 
-                    str = ' ▼ '
+                    txt = ' ▼ '
                     self.label_17.setStyleSheet('background-color: blue ; color: white')
-                    self.label_17.setText(str)
+                    self.label_17.setText(txt)
                 else:
                     pass
                 '''
-                str = " {0:.2f}({1:.2f}) ".format(df_call_total_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(df_call_total_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
                 self.label_18.setStyleSheet('background-color: red ; color: white')
-                self.label_18.setText(str)
+                self.label_18.setText(txt)
 
                 plot1_call_oi_curve.setData(df_call_total_graph['open_interest'])
                 plot1_put_oi_curve.setData(df_put_total_graph['open_interest'])
@@ -31433,8 +31433,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red ; color: white')
 
-                    str = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_graph.at[ovc_x_idx, 'PSAR'], 선물_호가순매수)
-                    self.label_p1_2.setText(str)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_graph.at[ovc_x_idx, 'PSAR'], 선물_호가순매수)
+                    self.label_p1_2.setText(txt)
                 else:
                     pass
                 
@@ -31445,8 +31445,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red ; color: white')
 
-                    str = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'OE_CONV'], df_futures_graph.at[ovc_x_idx, 'OE_BASE'])
-                    self.label_p1_3.setText(str)
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'OE_CONV'], df_futures_graph.at[ovc_x_idx, 'OE_BASE'])
+                    self.label_p1_3.setText(txt)
                 else:
                     pass
 
@@ -31461,8 +31461,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_4.setStyleSheet('background-color: lime ; color: black')
 
-                    str = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'MAMA'], df_futures_graph.at[ovc_x_idx, 'FAMA'])
-                    self.label_p1_4.setText(str)
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'MAMA'], df_futures_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p1_4.setText(txt)
                 else:
                     pass
                 
@@ -31498,15 +31498,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot1_ovc_close_line.setValue(선물_고가)
                 plot1_fut_high_line.setValue(선물_고가)
 
-                str = ' {0} '.format(선물_저가)
+                txt = ' {0} '.format(선물_저가)
                 self.label_16.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_16.setText(str)       
+                self.label_16.setText(txt)       
 
                 value = self.label_17.text().split()[0]
 
                 if 선물_현재가 > float(value):
 
-                    str = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
+                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
 
                     if 선물_전일대비 > 0:
                         self.label_17.setStyleSheet('background-color: pink ; color: red')
@@ -31515,11 +31515,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_17.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_17.setText(str)
+                    self.label_17.setText(txt)
 
                 elif 선물_현재가 < float(value):
 
-                    str = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
+                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
 
                     if 선물_전일대비 > 0:
                         self.label_17.setStyleSheet('background-color: skyblue ; color: red')
@@ -31528,13 +31528,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_17.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_17.setText(str)
+                    self.label_17.setText(txt)
                 else:
                     pass
 
-                str = ' {0} '.format(선물_고가)
+                txt = ' {0} '.format(선물_고가)
                 self.label_18.setStyleSheet('background-color: pink ; color: red')
-                self.label_18.setText(str)   
+                self.label_18.setText(txt)   
 
                 #plot1_kp200_curve.setData(df_futures_graph['kp200'])
                 plot1_kp200_curve.setData(df_kp200_graph['price'])
@@ -31588,8 +31588,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red ; color: white')
 
-                    str = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
-                    self.label_p1_2.setText(str)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
+                    self.label_p1_2.setText(txt)
                 else:
                     pass
                 
@@ -31600,8 +31600,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red ; color: white')
 
-                    str = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
-                    self.label_p1_3.setText(str)
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
+                    self.label_p1_3.setText(txt)
                 else:
                     pass
 
@@ -31616,8 +31616,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_4.setStyleSheet('background-color: lime ; color: black')
 
-                    str = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
-                    self.label_p1_4.setText(str)
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p1_4.setText(txt)
                 else:
                     pass
 
@@ -31629,16 +31629,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot1_ovc_low_line.setValue(SP500_저가)
                 plot1_ovc_high_line.setValue(SP500_고가)
 
-                str = ' {0} '.format(format(SP500_저가, ','))
+                txt = ' {0} '.format(format(SP500_저가, ','))
                 self.label_16.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_16.setText(str)
+                self.label_16.setText(txt)
 
                 tmp = self.label_17.text().split()[0]
                 value = tmp.replace(',', '')               
 
                 if SP500_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
                     if SP500_전일대비 > 0:
@@ -31648,11 +31648,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_17.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_17.setText(str)
+                    self.label_17.setText(txt)
 
                 elif SP500_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
                     if SP500_전일대비 > 0:
@@ -31662,13 +31662,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_17.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_17.setText(str)
+                    self.label_17.setText(txt)
                 else:
                     pass
 
-                str = ' {0} '.format(format(SP500_고가, ','))
+                txt = ' {0} '.format(format(SP500_고가, ','))
                 self.label_18.setStyleSheet('background-color: pink ; color: red')
-                self.label_18.setText(str)   
+                self.label_18.setText(txt)   
 
                 plot1_sp500_curve.setData(df_sp500_graph['price'])
 
@@ -31716,8 +31716,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red ; color: white')
 
-                    str = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
-                    self.label_p1_2.setText(str)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
+                    self.label_p1_2.setText(txt)
                 else:
                     pass
                 
@@ -31728,8 +31728,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red ; color: white')
 
-                    str = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
-                    self.label_p1_3.setText(str)
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
+                    self.label_p1_3.setText(txt)
                 else:
                     pass
 
@@ -31744,8 +31744,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_4.setStyleSheet('background-color: lime ; color: black')
 
-                    str = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
-                    self.label_p1_4.setText(str)
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p1_4.setText(txt)
                 else:
                     pass
 
@@ -31757,16 +31757,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot1_ovc_low_line.setValue(DOW_저가)
                 plot1_ovc_high_line.setValue(DOW_고가)
 
-                str = ' {0} '.format(format(DOW_저가, ','))
+                txt = ' {0} '.format(format(DOW_저가, ','))
                 self.label_16.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_16.setText(str)
+                self.label_16.setText(txt)
 
                 tmp = self.label_17.text().split()[0]
                 value = tmp.replace(',', '')
 
                 if DOW_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
                     if DOW_전일대비 > 0:
@@ -31776,11 +31776,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_17.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_17.setText(str)
+                    self.label_17.setText(txt)
 
                 elif DOW_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
                     if DOW_전일대비 > 0:
@@ -31790,13 +31790,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_17.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_17.setText(str)
+                    self.label_17.setText(txt)
                 else:
                     pass
                 
-                str = ' {0} '.format(format(DOW_고가, ','))
+                txt = ' {0} '.format(format(DOW_고가, ','))
                 self.label_18.setStyleSheet('background-color: pink ; color: red')
-                self.label_18.setText(str)                      
+                self.label_18.setText(txt)                      
 
                 plot1_dow_curve.setData(df_dow_graph['price'])
 
@@ -31844,8 +31844,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red ; color: white')
 
-                    str = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
-                    self.label_p1_2.setText(str)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
+                    self.label_p1_2.setText(txt)
                 else:
                     pass
                 
@@ -31856,8 +31856,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red ; color: white')
 
-                    str = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
-                    self.label_p1_3.setText(str)
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
+                    self.label_p1_3.setText(txt)
                 else:
                     pass
 
@@ -31872,8 +31872,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_4.setStyleSheet('background-color: lime ; color: black')
 
-                    str = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
-                    self.label_p1_4.setText(str)
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p1_4.setText(txt)
                 else:
                     pass
 
@@ -31885,16 +31885,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot1_ovc_low_line.setValue(NASDAQ_저가)
                 plot1_ovc_high_line.setValue(NASDAQ_고가)
 
-                str = ' {0} '.format(format(NASDAQ_저가, ','))
+                txt = ' {0} '.format(format(NASDAQ_저가, ','))
                 self.label_16.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_16.setText(str)
+                self.label_16.setText(txt)
 
                 tmp = self.label_17.text().split()[0]
                 value = tmp.replace(',', '')                
 
                 if NASDAQ_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
                     if NASDAQ_전일대비 > 0:
@@ -31904,11 +31904,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_17.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_17.setText(str)
+                    self.label_17.setText(txt)
 
                 elif NASDAQ_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
                     if NASDAQ_전일대비 > 0:
@@ -31918,13 +31918,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_17.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_17.setText(str)
+                    self.label_17.setText(txt)
                 else:
                     pass
 
-                str = ' {0} '.format(format(NASDAQ_고가, ','))
+                txt = ' {0} '.format(format(NASDAQ_고가, ','))
                 self.label_18.setStyleSheet('background-color: pink ; color: red')
-                self.label_18.setText(str) 
+                self.label_18.setText(txt) 
 
                 plot1_nasdaq_curve.setData(df_nasdaq_graph['price'])
 
@@ -31972,8 +31972,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red ; color: white')
 
-                    str = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
-                    self.label_p1_2.setText(str)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
+                    self.label_p1_2.setText(txt)
                 else:
                     pass
                 
@@ -31984,8 +31984,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red ; color: white')
 
-                    str = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
-                    self.label_p1_3.setText(str)
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
+                    self.label_p1_3.setText(txt)
                 else:
                     pass
 
@@ -32000,8 +32000,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_4.setStyleSheet('background-color: lime ; color: black')
 
-                    str = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
-                    self.label_p1_4.setText(str)
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p1_4.setText(txt)
                 else:
                     pass
 
@@ -32013,15 +32013,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot1_ovc_low_line.setValue(WTI_저가)
                 plot1_ovc_high_line.setValue(WTI_고가)
 
-                str = ' {0} '.format(format(WTI_저가, ','))
+                txt = ' {0} '.format(format(WTI_저가, ','))
                 self.label_16.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_16.setText(str)
+                self.label_16.setText(txt)
 
                 value = self.label_17.text().split()[0]     
 
                 if WTI_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -32031,11 +32031,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_17.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_17.setText(str)
+                    self.label_17.setText(txt)
 
                 elif WTI_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -32045,13 +32045,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_17.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_17.setText(str)
+                    self.label_17.setText(txt)
                 else:
                     pass
 
-                str = ' {0} '.format(format(WTI_고가, ','))
+                txt = ' {0} '.format(format(WTI_고가, ','))
                 self.label_18.setStyleSheet('background-color: pink ; color: red')
-                self.label_18.setText(str) 
+                self.label_18.setText(txt) 
 
                 plot1_wti_curve.setData(df_wti_graph['price'])
 
@@ -32086,22 +32086,22 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot2 그래프 그리기
             if comboindex2 == 0 and market_service:
 
-                str = " {0:.0f} ".format(df_put_total_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_put_total_graph.at[ovc_x_idx, 'volume'])
                 self.label_26.setStyleSheet('background-color: blue ; color: white')
-                self.label_26.setText(str)
+                self.label_26.setText(txt)
 
-                str = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
                 if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
                     self.label_27.setStyleSheet('background-color: red ; color: white')
                 else:
                     self.label_27.setStyleSheet('background-color: blue ; color: white')
 
-                self.label_27.setText(str)
+                self.label_27.setText(txt)
                 
-                str = " {0:.0f} ".format(df_call_total_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_call_total_graph.at[ovc_x_idx, 'volume'])
                 self.label_28.setStyleSheet('background-color: red ; color: white')
-                self.label_28.setText(str)
+                self.label_28.setText(txt)
 
                 plot2_call_volume_curve.setData(df_call_total_graph['volume'])
                 plot2_put_volume_curve.setData(df_put_total_graph['volume'])
@@ -32110,20 +32110,20 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex2 == 1 and market_service:
 
-                str = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_total_graph.at[ovc_x_idx, 'ms_hoga'], df_put_total_graph.at[ovc_x_idx, 'md_hoga'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_total_graph.at[ovc_x_idx, 'ms_hoga'], df_put_total_graph.at[ovc_x_idx, 'md_hoga'])
                 self.label_26.setStyleSheet('background-color: blue ; color: white')
-                self.label_26.setText(str)
+                self.label_26.setText(txt)
                 
-                str = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_total_graph.at[ovc_x_idx, 'ms_hoga'], df_call_total_graph.at[ovc_x_idx, 'md_hoga'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_total_graph.at[ovc_x_idx, 'ms_hoga'], df_call_total_graph.at[ovc_x_idx, 'md_hoga'])
                 self.label_28.setStyleSheet('background-color: red ; color: white')
-                self.label_28.setText(str)
+                self.label_28.setText(txt)
 
                 plot2_call_hoga_curve.setData(df_call_total_graph['hoga_remainder_ratio'])
                 plot2_put_hoga_curve.setData(df_put_total_graph['hoga_remainder_ratio'])        
 
             elif comboindex2 == 2 and market_service:
 
-                str = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
+                txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
                     df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
                     df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
@@ -32135,7 +32135,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     self.label_27.setStyleSheet('background-color: yellow ; color: black')
 
-                self.label_27.setText(str)
+                self.label_27.setText(txt)
 
                 plot2_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'])
                 plot2_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'])
@@ -32149,27 +32149,27 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex2 == 4 and market_service:
 
-                str = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_26.setStyleSheet('background-color: blue ; color: white')
-                self.label_26.setText(str)
+                self.label_26.setText(txt)
                 '''
                 if df_call_total_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
 
-                    str = ' ▲ '
+                    txt = ' ▲ '
                     self.label_27.setStyleSheet('background-color: red ; color: white')
-                    self.label_27.setText(str)
+                    self.label_27.setText(txt)
 
                 elif df_put_total_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_percent:
 
-                    str = ' ▼ '
+                    txt = ' ▼ '
                     self.label_27.setStyleSheet('background-color: blue ; color: white')
-                    self.label_27.setText(str)
+                    self.label_27.setText(txt)
                 else:
                     pass
                 '''
-                str = " {0:.2f}({1:.2f}) ".format(df_call_total_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(df_call_total_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
                 self.label_28.setStyleSheet('background-color: red ; color: white')
-                self.label_28.setText(str)
+                self.label_28.setText(txt)
 
                 plot2_call_oi_curve.setData(df_call_total_graph['open_interest'])
                 plot2_put_oi_curve.setData(df_put_total_graph['open_interest'])
@@ -32253,34 +32253,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         pass
 
-                plot2_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_LOWER)
+                plot2_center_val_lower_line.setValue(CENTER_VAL - CENTER_VAL_MINUS1)
                 plot2_center_val_line.setValue(CENTER_VAL)
-                plot2_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_UPPER)
+                plot2_center_val_upper_line.setValue(CENTER_VAL + CENTER_VAL_PLUS1)
 
                 # 중심가 그리기
                 plot2_center_val_curve.setData(df_call_total_graph['centerval'])
 
                 # 등가표시
-                str = ' 등가: {0} '.format(atm_str)
-                self.label_21.setText(str)
+                txt = ' 등가: {0} '.format(atm_str)
+                self.label_21.setText(txt)
                 
-                str = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
-                self.label_22.setText(str)
+                txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
+                self.label_22.setText(txt)
 
-                str = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - CENTERVAL_LOWER)
-                self.label_23.setText(str)
+                txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - CENTER_VAL_MINUS1)
+                self.label_23.setText(txt)
 
-                str = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + CENTERVAL_UPPER)
-                self.label_24.setText(str)
+                txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + CENTER_VAL_PLUS1)
+                self.label_24.setText(txt)
 
-                str = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (put_atm_value / df_put.at[atm_index, '시가'] - 1) * 100)
-                self.label_26.setText(str)
+                txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (put_atm_value / df_put.at[atm_index, '시가'] - 1) * 100)
+                self.label_26.setText(txt)
 
-                str = ' 중심가: {0:.2f} '.format(CENTER_VAL)
-                self.label_27.setText(str)
+                txt = ' 중심가: {0:.2f} '.format(CENTER_VAL)
+                self.label_27.setText(txt)
 
-                str = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (call_atm_value / df_call.at[atm_index, '시가'] - 1) * 100)
-                self.label_28.setText(str)
+                txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (call_atm_value / df_call.at[atm_index, '시가'] - 1) * 100)
+                self.label_28.setText(txt)
 
             elif comboindex2 == 6:
 
@@ -32304,8 +32304,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red ; color: white')
 
-                    str = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
-                    self.label_p2_2.setText(str)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
+                    self.label_p2_2.setText(txt)
                 else:
                     pass
                 
@@ -32316,8 +32316,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red ; color: white')
 
-                    str = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
-                    self.label_p2_3.setText(str)
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
+                    self.label_p2_3.setText(txt)
                 else:
                     pass
 
@@ -32332,8 +32332,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p2_4.setStyleSheet('background-color: lime ; color: black')
 
-                    str = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
-                    self.label_p2_4.setText(str)
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p2_4.setText(txt)
                 else:
                     pass
 
@@ -32351,16 +32351,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot2_center_val_upper_line.setValue(SP500_고가)
                 plot2_ovc_high_line.setValue(SP500_고가)
 
-                str = ' {0} '.format(format(SP500_저가, ','))
+                txt = ' {0} '.format(format(SP500_저가, ','))
                 self.label_26.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_26.setText(str)
+                self.label_26.setText(txt)
 
                 tmp = self.label_27.text().split()[0]
                 value = tmp.replace(',', '')                
 
                 if SP500_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
                     if SP500_전일대비 > 0:
@@ -32370,11 +32370,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_27.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_27.setText(str)
+                    self.label_27.setText(txt)
 
                 elif SP500_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
                     if SP500_전일대비 > 0:
@@ -32384,13 +32384,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_27.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_27.setText(str)
+                    self.label_27.setText(txt)
                 else:
                     pass
 
-                str = ' {0} '.format(format(SP500_고가, ','))
+                txt = ' {0} '.format(format(SP500_고가, ','))
                 self.label_28.setStyleSheet('background-color: pink ; color: red')
-                self.label_28.setText(str) 
+                self.label_28.setText(txt) 
 
                 plot2_sp500_curve.setData(df_sp500_graph['price'])
 
@@ -32438,8 +32438,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red ; color: white')
 
-                    str = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
-                    self.label_p2_2.setText(str)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
+                    self.label_p2_2.setText(txt)
                 else:
                     pass
                 
@@ -32450,8 +32450,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red ; color: white')
 
-                    str = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
-                    self.label_p2_3.setText(str)
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
+                    self.label_p2_3.setText(txt)
                 else:
                     pass
 
@@ -32466,8 +32466,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p2_4.setStyleSheet('background-color: lime ; color: black')
 
-                    str = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
-                    self.label_p2_4.setText(str)
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p2_4.setText(txt)
                 else:
                     pass
 
@@ -32484,16 +32484,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot2_center_val_upper_line.setValue(DOW_고가)
                 plot2_ovc_high_line.setValue(DOW_고가)
 
-                str = ' {0} '.format(format(DOW_저가, ','))
+                txt = ' {0} '.format(format(DOW_저가, ','))
                 self.label_26.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_26.setText(str)
+                self.label_26.setText(txt)
 
                 tmp = self.label_27.text().split()[0]
                 value = tmp.replace(',', '')               
 
                 if DOW_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
                     if DOW_전일대비 > 0:
@@ -32503,11 +32503,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_27.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_27.setText(str)
+                    self.label_27.setText(txt)
 
                 elif DOW_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
                     if DOW_전일대비 > 0:
@@ -32517,13 +32517,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_27.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_27.setText(str)
+                    self.label_27.setText(txt)
                 else:
                     pass
 
-                str = ' {0} '.format(format(DOW_고가, ','))
+                txt = ' {0} '.format(format(DOW_고가, ','))
                 self.label_28.setStyleSheet('background-color: pink ; color: red')
-                self.label_28.setText(str)                  
+                self.label_28.setText(txt)                  
 
                 plot2_dow_curve.setData(df_dow_graph['price'])
 
@@ -32571,8 +32571,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red ; color: white')
 
-                    str = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
-                    self.label_p2_2.setText(str)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
+                    self.label_p2_2.setText(txt)
                 else:
                     pass
                 
@@ -32583,8 +32583,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red ; color: white')
 
-                    str = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
-                    self.label_p2_3.setText(str)
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
+                    self.label_p2_3.setText(txt)
                 else:
                     pass
 
@@ -32599,8 +32599,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p2_4.setStyleSheet('background-color: lime ; color: black')
 
-                    str = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
-                    self.label_p2_4.setText(str)
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p2_4.setText(txt)
                 else:
                     pass
 
@@ -32617,16 +32617,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot2_center_val_upper_line.setValue(NASDAQ_고가)
                 plot2_ovc_high_line.setValue(NASDAQ_고가)
 
-                str = ' {0} '.format(format(NASDAQ_저가, ','))
+                txt = ' {0} '.format(format(NASDAQ_저가, ','))
                 self.label_26.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_26.setText(str)
+                self.label_26.setText(txt)
 
                 tmp = self.label_27.text().split()[0]
                 value = tmp.replace(',', '')                
 
                 if NASDAQ_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
                     if NASDAQ_전일대비 > 0:
@@ -32636,11 +32636,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_27.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_27.setText(str)
+                    self.label_27.setText(txt)
 
                 elif NASDAQ_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
                     if NASDAQ_전일대비 > 0:
@@ -32650,13 +32650,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_27.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_27.setText(str)
+                    self.label_27.setText(txt)
                 else:
                     pass
 
-                str = ' {0} '.format(format(NASDAQ_고가, ','))
+                txt = ' {0} '.format(format(NASDAQ_고가, ','))
                 self.label_28.setStyleSheet('background-color: pink ; color: red')
-                self.label_28.setText(str)    
+                self.label_28.setText(txt)    
 
                 plot2_nasdaq_curve.setData(df_nasdaq_graph['price'])
 
@@ -32704,8 +32704,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red ; color: white')
 
-                    str = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
-                    self.label_p2_2.setText(str)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
+                    self.label_p2_2.setText(txt)
                 else:
                     pass
                 
@@ -32716,8 +32716,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red ; color: white')
 
-                    str = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
-                    self.label_p2_3.setText(str)
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
+                    self.label_p2_3.setText(txt)
                 else:
                     pass
 
@@ -32732,8 +32732,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p2_4.setStyleSheet('background-color: lime ; color: black')
 
-                    str = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
-                    self.label_p2_4.setText(str)
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p2_4.setText(txt)
                 else:
                     pass
 
@@ -32750,15 +32750,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot2_center_val_upper_line.setValue(WTI_고가)
                 plot2_ovc_high_line.setValue(WTI_고가)
 
-                str = ' {0} '.format(format(WTI_저가, ','))
+                txt = ' {0} '.format(format(WTI_저가, ','))
                 self.label_26.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_26.setText(str)
+                self.label_26.setText(txt)
 
                 value = self.label_27.text().split()[0]             
 
                 if WTI_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -32768,11 +32768,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_27.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_27.setText(str)
+                    self.label_27.setText(txt)
 
                 elif WTI_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -32782,13 +32782,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_27.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_27.setText(str)
+                    self.label_27.setText(txt)
                 else:
                     pass
 
-                str = ' {0} '.format(format(WTI_고가, ','))
+                txt = ' {0} '.format(format(WTI_고가, ','))
                 self.label_28.setStyleSheet('background-color: pink ; color: red')
-                self.label_28.setText(str)    
+                self.label_28.setText(txt)    
 
                 plot2_wti_curve.setData(df_wti_graph['price'])
 
@@ -32823,22 +32823,22 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot3 그래프 그리기
             if comboindex3 == 0 and market_service:
 
-                str = " {0:.0f} ".format(df_put_total_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_put_total_graph.at[ovc_x_idx, 'volume'])
                 self.label_36.setStyleSheet('background-color: blue ; color: white')
-                self.label_36.setText(str)
+                self.label_36.setText(txt)
 
-                str = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
                 if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
                     self.label_37.setStyleSheet('background-color: red ; color: white')
                 else:
                     self.label_37.setStyleSheet('background-color: blue ; color: white')
 
-                self.label_37.setText(str)
+                self.label_37.setText(txt)
                 
-                str = " {0:.0f} ".format(df_call_total_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_call_total_graph.at[ovc_x_idx, 'volume'])
                 self.label_38.setStyleSheet('background-color: red ; color: white')
-                self.label_38.setText(str)
+                self.label_38.setText(txt)
 
                 plot3_call_volume_curve.setData(df_call_total_graph['volume'])
                 plot3_put_volume_curve.setData(df_put_total_graph['volume'])
@@ -32847,20 +32847,20 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex3 == 1 and market_service:
 
-                str = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_total_graph.at[ovc_x_idx, 'ms_hoga'], df_put_total_graph.at[ovc_x_idx, 'md_hoga'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_total_graph.at[ovc_x_idx, 'ms_hoga'], df_put_total_graph.at[ovc_x_idx, 'md_hoga'])
                 self.label_36.setStyleSheet('background-color: blue ; color: white')
-                self.label_36.setText(str)
+                self.label_36.setText(txt)
                 
-                str = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_total_graph.at[ovc_x_idx, 'ms_hoga'], df_call_total_graph.at[ovc_x_idx, 'md_hoga'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_total_graph.at[ovc_x_idx, 'ms_hoga'], df_call_total_graph.at[ovc_x_idx, 'md_hoga'])
                 self.label_38.setStyleSheet('background-color: red ; color: white')
-                self.label_38.setText(str)
+                self.label_38.setText(txt)
 
                 plot3_call_hoga_curve.setData(df_call_total_graph['hoga_remainder_ratio'])
                 plot3_put_hoga_curve.setData(df_put_total_graph['hoga_remainder_ratio'])            
 
             elif comboindex3 == 2 and market_service:
 
-                str = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
+                txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
                     df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
                     df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
@@ -32872,7 +32872,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     self.label_37.setStyleSheet('background-color: yellow ; color: black')
 
-                self.label_37.setText(str)
+                self.label_37.setText(txt)
 
                 plot3_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'])
                 plot3_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'])
@@ -32886,27 +32886,27 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex3 == 4 and market_service:
 
-                str = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_36.setStyleSheet('background-color: blue ; color: white')
-                self.label_36.setText(str)
+                self.label_36.setText(txt)
                 '''
                 if df_call_total_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
 
-                    str = ' ▲ '
+                    txt = ' ▲ '
                     self.label_37.setStyleSheet('background-color: red ; color: white')
-                    self.label_37.setText(str)
+                    self.label_37.setText(txt)
 
                 elif df_put_total_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_percent:
 
-                    str = ' ▼ '
+                    txt = ' ▼ '
                     self.label_37.setStyleSheet('background-color: blue ; color: white')
-                    self.label_37.setText(str)
+                    self.label_37.setText(txt)
                 else:
                     pass
                 '''
-                str = " {0:.2f}({1:.2f}) ".format(df_call_total_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(df_call_total_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
                 self.label_38.setStyleSheet('background-color: red ; color: white')
-                self.label_38.setText(str)
+                self.label_38.setText(txt)
 
                 plot3_call_oi_curve.setData(df_call_total_graph['open_interest'])
                 plot3_put_oi_curve.setData(df_put_total_graph['open_interest'])
@@ -32990,34 +32990,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         pass
                         
-                plot3_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_LOWER)
+                plot3_center_val_lower_line.setValue(CENTER_VAL - CENTER_VAL_MINUS1)
                 plot3_center_val_line.setValue(CENTER_VAL)
-                plot3_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_UPPER)
+                plot3_center_val_upper_line.setValue(CENTER_VAL + CENTER_VAL_PLUS1)
 
                 # 중심가 그리기
                 plot3_center_val_curve.setData(df_call_total_graph['centerval'])
 
                 # 등가표시
-                str = ' 등가: {0} '.format(atm_str)
-                self.label_31.setText(str)
+                txt = ' 등가: {0} '.format(atm_str)
+                self.label_31.setText(txt)
 
-                str = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
-                self.label_32.setText(str)
+                txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
+                self.label_32.setText(txt)
 
-                str = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - CENTERVAL_LOWER)
-                self.label_33.setText(str)
+                txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - CENTER_VAL_MINUS1)
+                self.label_33.setText(txt)
 
-                str = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + CENTERVAL_UPPER)
-                self.label_34.setText(str)
+                txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + CENTER_VAL_PLUS1)
+                self.label_34.setText(txt)
 
-                str = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (put_atm_value / df_put.at[atm_index, '시가'] - 1) * 100)
-                self.label_36.setText(str)
+                txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (put_atm_value / df_put.at[atm_index, '시가'] - 1) * 100)
+                self.label_36.setText(txt)
 
-                str = ' 중심가: {0:.2f} '.format(CENTER_VAL)
-                self.label_37.setText(str)
+                txt = ' 중심가: {0:.2f} '.format(CENTER_VAL)
+                self.label_37.setText(txt)
 
-                str = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (call_atm_value / df_call.at[atm_index, '시가'] - 1) * 100)
-                self.label_38.setText(str)
+                txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (call_atm_value / df_call.at[atm_index, '시가'] - 1) * 100)
+                self.label_38.setText(txt)
 
             elif comboindex3 == 6:
 
@@ -33041,8 +33041,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red ; color: white')
 
-                    str = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
-                    self.label_p3_2.setText(str)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
+                    self.label_p3_2.setText(txt)
                 else:
                     pass
                 
@@ -33053,8 +33053,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red ; color: white')
 
-                    str = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
-                    self.label_p3_3.setText(str)
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
+                    self.label_p3_3.setText(txt)
                 else:
                     pass
 
@@ -33069,8 +33069,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p3_4.setStyleSheet('background-color: lime ; color: black')
 
-                    str = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
-                    self.label_p3_4.setText(str)
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p3_4.setText(txt)
                 else:
                     pass
 
@@ -33088,16 +33088,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot3_center_val_upper_line.setValue(SP500_고가)
                 plot3_ovc_high_line.setValue(SP500_고가)
 
-                str = ' {0} '.format(format(SP500_저가, ','))
+                txt = ' {0} '.format(format(SP500_저가, ','))
                 self.label_36.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_36.setText(str)
+                self.label_36.setText(txt)
 
                 tmp = self.label_37.text().split()[0]
                 value = tmp.replace(',', '')                
 
                 if SP500_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
                     if SP500_전일대비 > 0:
@@ -33107,11 +33107,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_37.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_37.setText(str)
+                    self.label_37.setText(txt)
 
                 elif SP500_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
                     if SP500_전일대비 > 0:
@@ -33121,13 +33121,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_37.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_37.setText(str)
+                    self.label_37.setText(txt)
                 else:
                     pass
 
-                str = ' {0} '.format(format(SP500_고가, ','))
+                txt = ' {0} '.format(format(SP500_고가, ','))
                 self.label_38.setStyleSheet('background-color: pink ; color: red')
-                self.label_38.setText(str) 
+                self.label_38.setText(txt) 
 
                 plot3_sp500_curve.setData(df_sp500_graph['price'])
 
@@ -33175,8 +33175,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red ; color: white')
 
-                    str = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
-                    self.label_p3_2.setText(str)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
+                    self.label_p3_2.setText(txt)
                 else:
                     pass
                 
@@ -33187,8 +33187,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red ; color: white')
 
-                    str = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
-                    self.label_p3_3.setText(str)
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
+                    self.label_p3_3.setText(txt)
                 else:
                     pass
 
@@ -33203,8 +33203,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p3_4.setStyleSheet('background-color: lime ; color: black')
 
-                    str = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
-                    self.label_p3_4.setText(str)
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p3_4.setText(txt)
                 else:
                     pass
 
@@ -33221,16 +33221,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot3_center_val_upper_line.setValue(DOW_고가)
                 plot3_ovc_high_line.setValue(DOW_고가)
 
-                str = ' {0} '.format(format(DOW_저가, ','))
+                txt = ' {0} '.format(format(DOW_저가, ','))
                 self.label_36.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_36.setText(str)
+                self.label_36.setText(txt)
 
                 tmp = self.label_37.text().split()[0]
                 value = tmp.replace(',', '')               
 
                 if DOW_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
                     if DOW_전일대비 > 0:
@@ -33240,11 +33240,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_37.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_37.setText(str)
+                    self.label_37.setText(txt)
 
                 elif DOW_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
                     if DOW_전일대비 > 0:
@@ -33254,13 +33254,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_37.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_37.setText(str)
+                    self.label_37.setText(txt)
                 else:
                     pass
 
-                str = ' {0} '.format(format(DOW_고가, ','))
+                txt = ' {0} '.format(format(DOW_고가, ','))
                 self.label_38.setStyleSheet('background-color: pink ; color: red')
-                self.label_38.setText(str)                  
+                self.label_38.setText(txt)                  
 
                 plot3_dow_curve.setData(df_dow_graph['price'])
 
@@ -33308,8 +33308,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red ; color: white')
 
-                    str = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
-                    self.label_p3_2.setText(str)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
+                    self.label_p3_2.setText(txt)
                 else:
                     pass
                 
@@ -33320,8 +33320,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red ; color: white')
 
-                    str = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
-                    self.label_p3_3.setText(str)
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
+                    self.label_p3_3.setText(txt)
                 else:
                     pass
 
@@ -33336,8 +33336,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p3_4.setStyleSheet('background-color: lime ; color: black')
 
-                    str = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
-                    self.label_p3_4.setText(str)
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p3_4.setText(txt)
                 else:
                     pass
 
@@ -33354,16 +33354,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot3_center_val_upper_line.setValue(NASDAQ_고가)
                 plot3_ovc_high_line.setValue(NASDAQ_고가)
 
-                str = ' {0} '.format(format(NASDAQ_저가, ','))
+                txt = ' {0} '.format(format(NASDAQ_저가, ','))
                 self.label_36.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_36.setText(str)
+                self.label_36.setText(txt)
 
                 tmp = self.label_37.text().split()[0]
                 value = tmp.replace(',', '')                
 
                 if NASDAQ_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
                     if NASDAQ_전일대비 > 0:
@@ -33373,11 +33373,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_37.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_37.setText(str)
+                    self.label_37.setText(txt)
 
                 elif NASDAQ_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
                     if NASDAQ_전일대비 > 0:
@@ -33387,13 +33387,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_37.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_37.setText(str)
+                    self.label_37.setText(txt)
                 else:
                     pass
 
-                str = ' {0} '.format(format(NASDAQ_고가, ','))
+                txt = ' {0} '.format(format(NASDAQ_고가, ','))
                 self.label_38.setStyleSheet('background-color: pink ; color: red')
-                self.label_38.setText(str)    
+                self.label_38.setText(txt)    
 
                 plot3_nasdaq_curve.setData(df_nasdaq_graph['price'])
 
@@ -33441,8 +33441,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red ; color: white')
 
-                    str = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
-                    self.label_p3_2.setText(str)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
+                    self.label_p3_2.setText(txt)
                 else:
                     pass
                 
@@ -33453,8 +33453,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red ; color: white')
 
-                    str = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
-                    self.label_p3_3.setText(str)
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
+                    self.label_p3_3.setText(txt)
                 else:
                     pass
 
@@ -33469,8 +33469,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p3_4.setStyleSheet('background-color: lime ; color: black')
 
-                    str = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
-                    self.label_p3_4.setText(str)
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p3_4.setText(txt)
                 else:
                     pass
 
@@ -33487,15 +33487,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot3_center_val_upper_line.setValue(WTI_고가)
                 plot3_ovc_high_line.setValue(WTI_고가)
 
-                str = ' {0} '.format(format(WTI_저가, ','))
+                txt = ' {0} '.format(format(WTI_저가, ','))
                 self.label_36.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_36.setText(str)
+                self.label_36.setText(txt)
 
                 value = self.label_37.text().split()[0]             
 
                 if WTI_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -33505,11 +33505,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_37.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_37.setText(str)
+                    self.label_37.setText(txt)
 
                 elif WTI_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -33519,13 +33519,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_37.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_37.setText(str)
+                    self.label_37.setText(txt)
                 else:
                     pass
 
-                str = ' {0} '.format(format(WTI_고가, ','))
+                txt = ' {0} '.format(format(WTI_고가, ','))
                 self.label_38.setStyleSheet('background-color: pink ; color: red')
-                self.label_38.setText(str)    
+                self.label_38.setText(txt)    
 
                 plot3_wti_curve.setData(df_wti_graph['price'])
 
@@ -33560,9 +33560,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot4 그래프 그리기
             if comboindex4 == 0 and market_service:
 
-                str = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
-                str = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
+                txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
                     df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
                     df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
@@ -33574,27 +33574,27 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     self.label_47.setStyleSheet('background-color: yellow ; color: black')
 
-                self.label_47.setText(str)
+                self.label_47.setText(txt)
 
                 plot4_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'])
                 plot4_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'])
 
             elif comboindex4 == 1 and market_service:
 
-                str = " {0:.0f} ".format(df_put_total_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_put_total_graph.at[ovc_x_idx, 'volume'])
                 self.label_46.setStyleSheet('background-color: blue ; color: white')
-                self.label_46.setText(str)
+                self.label_46.setText(txt)
 
-                str = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
                 if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
                     self.label_47.setStyleSheet('background-color: red ; color: white')
                 else:
                     self.label_47.setStyleSheet('background-color: blue ; color: white')
                 
-                str = " {0:.0f} ".format(df_call_total_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_call_total_graph.at[ovc_x_idx, 'volume'])
                 self.label_48.setStyleSheet('background-color: red ; color: white')
-                self.label_48.setText(str)                      
+                self.label_48.setText(txt)                      
 
                 plot4_call_volume_curve.setData(df_call_total_graph['volume'])
                 plot4_put_volume_curve.setData(df_put_total_graph['volume'])
@@ -33603,22 +33603,22 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex4 == 2 and market_service:
 
-                str = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
-                str = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_total_graph.at[ovc_x_idx, 'ms_hoga'], df_put_total_graph.at[ovc_x_idx, 'md_hoga'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_total_graph.at[ovc_x_idx, 'ms_hoga'], df_put_total_graph.at[ovc_x_idx, 'md_hoga'])
                 self.label_46.setStyleSheet('background-color: blue ; color: white')
-                self.label_46.setText(str)
+                self.label_46.setText(txt)
                 
-                str = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_total_graph.at[ovc_x_idx, 'ms_hoga'], df_call_total_graph.at[ovc_x_idx, 'md_hoga'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_total_graph.at[ovc_x_idx, 'ms_hoga'], df_call_total_graph.at[ovc_x_idx, 'md_hoga'])
                 self.label_48.setStyleSheet('background-color: red ; color: white')
-                self.label_48.setText(str)
+                self.label_48.setText(txt)
 
                 plot4_call_hoga_curve.setData(df_call_total_graph['hoga_remainder_ratio'])
                 plot4_put_hoga_curve.setData(df_put_total_graph['hoga_remainder_ratio'])
 
             elif comboindex4 == 3 and market_service:
 
-                str = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
                 plot4_fut_drate_curve.setData(df_futures_graph['drate'])
                 plot4_dow_drate_curve.setData(df_dow_graph['drate'])
@@ -33627,27 +33627,27 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex4 == 4 and market_service:
 
-                str = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_46.setStyleSheet('background-color: blue ; color: white')
-                self.label_46.setText(str)
+                self.label_46.setText(txt)
                 '''
                 if df_call_total_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
 
-                    str = ' ▲ '
+                    txt = ' ▲ '
                     self.label_47.setStyleSheet('background-color: red ; color: white')
-                    self.label_47.setText(str)
+                    self.label_47.setText(txt)
 
                 elif df_put_total_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_percent:
 
-                    str = ' ▼ '
+                    txt = ' ▼ '
                     self.label_47.setStyleSheet('background-color: blue ; color: white')
-                    self.label_47.setText(str)
+                    self.label_47.setText(txt)
                 else:
                     pass
                 '''
-                str = " {0:.2f}({1:.2f}) ".format(df_call_total_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(df_call_total_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
                 self.label_48.setStyleSheet('background-color: red ; color: white')
-                self.label_48.setText(str)
+                self.label_48.setText(txt)
 
                 plot4_call_oi_curve.setData(df_call_total_graph['open_interest'])
                 plot4_put_oi_curve.setData(df_put_total_graph['open_interest'])
@@ -33670,8 +33670,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red ; color: white')
 
-                    str = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_graph.at[ovc_x_idx, 'PSAR'], 선물_호가순매수)
-                    self.label_p4_2.setText(str)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_graph.at[ovc_x_idx, 'PSAR'], 선물_호가순매수)
+                    self.label_p4_2.setText(txt)
                 else:
                     pass
                 
@@ -33682,8 +33682,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red ; color: white')
 
-                    str = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'OE_CONV'], df_futures_graph.at[ovc_x_idx, 'OE_BASE'])
-                    self.label_p4_3.setText(str)
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'OE_CONV'], df_futures_graph.at[ovc_x_idx, 'OE_BASE'])
+                    self.label_p4_3.setText(txt)
                 else:
                     pass
 
@@ -33698,8 +33698,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_4.setStyleSheet('background-color: lime ; color: black')
 
-                    str = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'MAMA'], df_futures_graph.at[ovc_x_idx, 'FAMA'])
-                    self.label_p4_4.setText(str)
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'MAMA'], df_futures_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p4_4.setText(txt)
                 else:
                     pass
                 
@@ -33735,15 +33735,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot4_ovc_close_line.setValue(선물_고가)
                 plot4_fut_high_line.setValue(선물_고가)
 
-                str = ' {0} '.format(선물_저가)
+                txt = ' {0} '.format(선물_저가)
                 self.label_46.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_46.setText(str)    
+                self.label_46.setText(txt)    
 
                 value = self.label_47.text().split()[0]
 
                 if 선물_현재가 > float(value):
 
-                    str = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
+                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
 
                     if 선물_전일대비 > 0:
                         self.label_47.setStyleSheet('background-color: pink ; color: red')
@@ -33752,11 +33752,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_47.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_47.setText(str)
+                    self.label_47.setText(txt)
 
                 elif 선물_현재가 < float(value):
 
-                    str = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
+                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
 
                     if 선물_전일대비 > 0:
                         self.label_47.setStyleSheet('background-color: skyblue ; color: red')
@@ -33765,13 +33765,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_47.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_47.setText(str)
+                    self.label_47.setText(txt)
                 else:
                     pass
 
-                str = ' {0} '.format(선물_고가)
+                txt = ' {0} '.format(선물_고가)
                 self.label_48.setStyleSheet('background-color: pink ; color: red')
-                self.label_48.setText(str)   
+                self.label_48.setText(txt)   
 
                 #plot4_kp200_curve.setData(df_futures_graph['kp200'])
                 plot4_kp200_curve.setData(df_kp200_graph['price'])
@@ -33825,8 +33825,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red ; color: white')
 
-                    str = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
-                    self.label_p4_2.setText(str)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
+                    self.label_p4_2.setText(txt)
                 else:
                     pass
                 
@@ -33837,8 +33837,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red ; color: white')
 
-                    str = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
-                    self.label_p4_3.setText(str)
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
+                    self.label_p4_3.setText(txt)
                 else:
                     pass
 
@@ -33853,8 +33853,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_4.setStyleSheet('background-color: lime ; color: black')
 
-                    str = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
-                    self.label_p4_4.setText(str)
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p4_4.setText(txt)
                 else:
                     pass
 
@@ -33866,16 +33866,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot4_ovc_low_line.setValue(SP500_저가)
                 plot4_ovc_high_line.setValue(SP500_고가)
 
-                str = ' {0} '.format(format(SP500_저가, ','))
+                txt = ' {0} '.format(format(SP500_저가, ','))
                 self.label_46.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_46.setText(str)
+                self.label_46.setText(txt)
                 
                 tmp = self.label_47.text().split()[0]
                 value = tmp.replace(',', '')               
 
                 if SP500_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
                     if SP500_전일대비 > 0:
@@ -33885,11 +33885,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_47.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_47.setText(str)
+                    self.label_47.setText(txt)
 
                 elif SP500_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
                     if SP500_전일대비 > 0:
@@ -33899,13 +33899,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_47.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_47.setText(str)
+                    self.label_47.setText(txt)
                 else:
                     pass
 
-                str = ' {0} '.format(format(SP500_고가, ','))
+                txt = ' {0} '.format(format(SP500_고가, ','))
                 self.label_48.setStyleSheet('background-color: pink ; color: red')
-                self.label_48.setText(str)   
+                self.label_48.setText(txt)   
 
                 plot4_sp500_curve.setData(df_sp500_graph['price'])
 
@@ -33953,8 +33953,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red ; color: white')
 
-                    str = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
-                    self.label_p4_2.setText(str)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
+                    self.label_p4_2.setText(txt)
                 else:
                     pass
                 
@@ -33965,8 +33965,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red ; color: white')
 
-                    str = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
-                    self.label_p4_3.setText(str)
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
+                    self.label_p4_3.setText(txt)
                 else:
                     pass
 
@@ -33981,8 +33981,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_4.setStyleSheet('background-color: lime ; color: black')
 
-                    str = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
-                    self.label_p4_4.setText(str)
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p4_4.setText(txt)
                 else:
                     pass
 
@@ -33994,16 +33994,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot4_ovc_low_line.setValue(DOW_저가)
                 plot4_ovc_high_line.setValue(DOW_고가)
 
-                str = ' {0} '.format(format(DOW_저가, ','))
+                txt = ' {0} '.format(format(DOW_저가, ','))
                 self.label_46.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_46.setText(str)
+                self.label_46.setText(txt)
 
                 tmp = self.label_47.text().split()[0]
                 value = tmp.replace(',', '')
 
                 if DOW_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
                     if DOW_전일대비 > 0:
@@ -34013,11 +34013,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_47.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_47.setText(str)
+                    self.label_47.setText(txt)
 
                 elif DOW_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
                     if DOW_전일대비 > 0:
@@ -34027,13 +34027,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_47.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_47.setText(str)
+                    self.label_47.setText(txt)
                 else:
                     pass
                 
-                str = ' {0} '.format(format(DOW_고가, ','))
+                txt = ' {0} '.format(format(DOW_고가, ','))
                 self.label_48.setStyleSheet('background-color: pink ; color: red')
-                self.label_48.setText(str)                      
+                self.label_48.setText(txt)                      
 
                 plot4_dow_curve.setData(df_dow_graph['price'])
 
@@ -34081,8 +34081,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red ; color: white')
 
-                    str = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
-                    self.label_p4_2.setText(str)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
+                    self.label_p4_2.setText(txt)
                 else:
                     pass
                 
@@ -34093,8 +34093,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red ; color: white')
 
-                    str = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
-                    self.label_p4_3.setText(str)
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
+                    self.label_p4_3.setText(txt)
                 else:
                     pass
 
@@ -34109,8 +34109,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_4.setStyleSheet('background-color: lime ; color: black')
 
-                    str = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
-                    self.label_p4_4.setText(str)
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p4_4.setText(txt)
                 else:
                     pass
 
@@ -34122,16 +34122,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot4_ovc_low_line.setValue(NASDAQ_저가)
                 plot4_ovc_high_line.setValue(NASDAQ_고가)
 
-                str = ' {0} '.format(format(NASDAQ_저가, ','))
+                txt = ' {0} '.format(format(NASDAQ_저가, ','))
                 self.label_46.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_46.setText(str)
+                self.label_46.setText(txt)
 
                 tmp = self.label_47.text().split()[0]
                 value = tmp.replace(',', '')                
 
                 if NASDAQ_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
                     if NASDAQ_전일대비 > 0:
@@ -34141,11 +34141,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_47.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_47.setText(str)
+                    self.label_47.setText(txt)
 
                 elif NASDAQ_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
                     if NASDAQ_전일대비 > 0:
@@ -34155,13 +34155,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_47.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_47.setText(str)
+                    self.label_47.setText(txt)
                 else:
                     pass
 
-                str = ' {0} '.format(format(NASDAQ_고가, ','))
+                txt = ' {0} '.format(format(NASDAQ_고가, ','))
                 self.label_48.setStyleSheet('background-color: pink ; color: red')
-                self.label_48.setText(str) 
+                self.label_48.setText(txt) 
 
                 plot4_nasdaq_curve.setData(df_nasdaq_graph['price'])
 
@@ -34209,8 +34209,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red ; color: white')
 
-                    str = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
-                    self.label_p4_2.setText(str)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
+                    self.label_p4_2.setText(txt)
                 else:
                     pass
                 
@@ -34221,8 +34221,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red ; color: white')
 
-                    str = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
-                    self.label_p4_3.setText(str)
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
+                    self.label_p4_3.setText(txt)
                 else:
                     pass
 
@@ -34237,8 +34237,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_4.setStyleSheet('background-color: lime ; color: black')
 
-                    str = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
-                    self.label_p4_4.setText(str)
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p4_4.setText(txt)
                 else:
                     pass
 
@@ -34250,15 +34250,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot4_ovc_low_line.setValue(WTI_저가)
                 plot4_ovc_high_line.setValue(WTI_고가)
 
-                str = ' {0} '.format(format(WTI_저가, ','))
+                txt = ' {0} '.format(format(WTI_저가, ','))
                 self.label_46.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_46.setText(str)
+                self.label_46.setText(txt)
 
                 value = self.label_47.text().split()[0]     
 
                 if WTI_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -34268,11 +34268,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_47.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_47.setText(str)
+                    self.label_47.setText(txt)
 
                 elif WTI_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -34282,13 +34282,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_47.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_47.setText(str)
+                    self.label_47.setText(txt)
                 else:
                     pass
 
-                str = ' {0} '.format(format(WTI_고가, ','))
+                txt = ' {0} '.format(format(WTI_고가, ','))
                 self.label_48.setStyleSheet('background-color: pink ; color: red')
-                self.label_48.setText(str) 
+                self.label_48.setText(txt) 
 
                 plot4_wti_curve.setData(df_wti_graph['price'])
 
@@ -34323,22 +34323,22 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot5 그래프 그리기
             if comboindex5 == 0 and market_service:
 
-                str = " {0:.0f} ".format(df_put_total_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_put_total_graph.at[ovc_x_idx, 'volume'])
                 self.label_56.setStyleSheet('background-color: blue ; color: white')
-                self.label_56.setText(str)
+                self.label_56.setText(txt)
 
-                str = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
                 if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
                     self.label_57.setStyleSheet('background-color: red ; color: white')
                 else:
                     self.label_57.setStyleSheet('background-color: blue ; color: white')
 
-                self.label_57.setText(str)
+                self.label_57.setText(txt)
                 
-                str = " {0:.0f} ".format(df_call_total_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_call_total_graph.at[ovc_x_idx, 'volume'])
                 self.label_58.setStyleSheet('background-color: red ; color: white')
-                self.label_58.setText(str)
+                self.label_58.setText(txt)
 
                 plot5_call_volume_curve.setData(df_call_total_graph['volume'])
                 plot5_put_volume_curve.setData(df_put_total_graph['volume'])
@@ -34347,20 +34347,20 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex5 == 1 and market_service:
 
-                str = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_total_graph.at[ovc_x_idx, 'ms_hoga'], df_put_total_graph.at[ovc_x_idx, 'md_hoga'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_total_graph.at[ovc_x_idx, 'ms_hoga'], df_put_total_graph.at[ovc_x_idx, 'md_hoga'])
                 self.label_56.setStyleSheet('background-color: blue ; color: white')
-                self.label_56.setText(str)
+                self.label_56.setText(txt)
                 
-                str = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_total_graph.at[ovc_x_idx, 'ms_hoga'], df_call_total_graph.at[ovc_x_idx, 'md_hoga'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_total_graph.at[ovc_x_idx, 'ms_hoga'], df_call_total_graph.at[ovc_x_idx, 'md_hoga'])
                 self.label_58.setStyleSheet('background-color: red ; color: white')
-                self.label_58.setText(str)
+                self.label_58.setText(txt)
 
                 plot5_call_hoga_curve.setData(df_call_total_graph['hoga_remainder_ratio'])
                 plot5_put_hoga_curve.setData(df_put_total_graph['hoga_remainder_ratio'])        
 
             elif comboindex5 == 2 and market_service:
 
-                str = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
+                txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
                     df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
                     df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
@@ -34372,7 +34372,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     self.label_57.setStyleSheet('background-color: yellow ; color: black')
 
-                self.label_57.setText(str)
+                self.label_57.setText(txt)
 
                 plot5_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'])
                 plot5_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'])
@@ -34386,27 +34386,27 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex5 == 4 and market_service:
 
-                str = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_56.setStyleSheet('background-color: blue ; color: white')
-                self.label_56.setText(str)
+                self.label_56.setText(txt)
                 '''
                 if df_call_total_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
 
-                    str = ' ▲ '
+                    txt = ' ▲ '
                     self.label_57.setStyleSheet('background-color: red ; color: white')
-                    self.label_57.setText(str)
+                    self.label_57.setText(txt)
 
                 elif df_put_total_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_percent:
 
-                    str = ' ▼ '
+                    txt = ' ▼ '
                     self.label_57.setStyleSheet('background-color: blue ; color: white')
-                    self.label_57.setText(str)
+                    self.label_57.setText(txt)
                 else:
                     pass
                 '''
-                str = " {0:.2f}({1:.2f}) ".format(df_call_total_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(df_call_total_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
                 self.label_58.setStyleSheet('background-color: red ; color: white')
-                self.label_58.setText(str)
+                self.label_58.setText(txt)
 
                 plot5_call_oi_curve.setData(df_call_total_graph['open_interest'])
                 plot5_put_oi_curve.setData(df_put_total_graph['open_interest'])
@@ -34490,34 +34490,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         pass
                         
-                plot5_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_LOWER)
+                plot5_center_val_lower_line.setValue(CENTER_VAL - CENTER_VAL_MINUS1)
                 plot5_center_val_line.setValue(CENTER_VAL)
-                plot5_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_UPPER)
+                plot5_center_val_upper_line.setValue(CENTER_VAL + CENTER_VAL_PLUS1)
 
                 # 중심가 그리기
                 plot5_center_val_curve.setData(df_call_total_graph['centerval'])
 
                 # 등가표시
-                str = ' 등가: {0} '.format(atm_str)
-                self.label_51.setText(str)
+                txt = ' 등가: {0} '.format(atm_str)
+                self.label_51.setText(txt)
 
-                str = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
-                self.label_52.setText(str)
+                txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
+                self.label_52.setText(txt)
 
-                str = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - CENTERVAL_LOWER)
-                self.label_53.setText(str)
+                txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - CENTER_VAL_MINUS1)
+                self.label_53.setText(txt)
 
-                str = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + CENTERVAL_UPPER)
-                self.label_54.setText(str)
+                txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + CENTER_VAL_PLUS1)
+                self.label_54.setText(txt)
 
-                str = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (put_atm_value / df_put.at[atm_index, '시가'] - 1) * 100)
-                self.label_56.setText(str)
+                txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (put_atm_value / df_put.at[atm_index, '시가'] - 1) * 100)
+                self.label_56.setText(txt)
 
-                str = ' 중심가: {0:.2f} '.format(CENTER_VAL)
-                self.label_57.setText(str)
+                txt = ' 중심가: {0:.2f} '.format(CENTER_VAL)
+                self.label_57.setText(txt)
 
-                str = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (call_atm_value / df_call.at[atm_index, '시가'] - 1) * 100)
-                self.label_58.setText(str)
+                txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (call_atm_value / df_call.at[atm_index, '시가'] - 1) * 100)
+                self.label_58.setText(txt)
 
             elif comboindex5 == 6:
 
@@ -34541,8 +34541,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red ; color: white')
 
-                    str = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
-                    self.label_p5_2.setText(str)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
+                    self.label_p5_2.setText(txt)
                 else:
                     pass
                 
@@ -34553,8 +34553,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red ; color: white')
 
-                    str = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
-                    self.label_p5_3.setText(str)
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
+                    self.label_p5_3.setText(txt)
                 else:
                     pass
 
@@ -34569,8 +34569,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p5_4.setStyleSheet('background-color: lime ; color: black')
 
-                    str = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
-                    self.label_p5_4.setText(str)
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p5_4.setText(txt)
                 else:
                     pass
 
@@ -34588,16 +34588,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot5_center_val_upper_line.setValue(SP500_고가)
                 plot5_ovc_high_line.setValue(SP500_고가)
 
-                str = ' {0} '.format(format(SP500_저가, ','))
+                txt = ' {0} '.format(format(SP500_저가, ','))
                 self.label_56.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_56.setText(str)
+                self.label_56.setText(txt)
 
                 tmp = self.label_57.text().split()[0]
                 value = tmp.replace(',', '')                
 
                 if SP500_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
                     if SP500_전일대비 > 0:
@@ -34607,11 +34607,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_57.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_57.setText(str)
+                    self.label_57.setText(txt)
 
                 elif SP500_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
                     if SP500_전일대비 > 0:
@@ -34621,13 +34621,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_57.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_57.setText(str)
+                    self.label_57.setText(txt)
                 else:
                     pass
 
-                str = ' {0} '.format(format(SP500_고가, ','))
+                txt = ' {0} '.format(format(SP500_고가, ','))
                 self.label_58.setStyleSheet('background-color: pink ; color: red')
-                self.label_58.setText(str) 
+                self.label_58.setText(txt) 
 
                 plot5_sp500_curve.setData(df_sp500_graph['price'])
 
@@ -34675,8 +34675,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red ; color: white')
 
-                    str = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
-                    self.label_p5_2.setText(str)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
+                    self.label_p5_2.setText(txt)
                 else:
                     pass
                 
@@ -34687,8 +34687,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red ; color: white')
 
-                    str = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
-                    self.label_p5_3.setText(str)
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
+                    self.label_p5_3.setText(txt)
                 else:
                     pass
 
@@ -34703,8 +34703,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p5_4.setStyleSheet('background-color: lime ; color: black')
 
-                    str = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
-                    self.label_p5_4.setText(str)
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p5_4.setText(txt)
                 else:
                     pass
 
@@ -34721,16 +34721,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot5_center_val_upper_line.setValue(DOW_고가)
                 plot5_ovc_high_line.setValue(DOW_고가)
 
-                str = ' {0} '.format(format(DOW_저가, ','))
+                txt = ' {0} '.format(format(DOW_저가, ','))
                 self.label_56.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_56.setText(str)
+                self.label_56.setText(txt)
 
                 tmp = self.label_57.text().split()[0]
                 value = tmp.replace(',', '')               
 
                 if DOW_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
                     if DOW_전일대비 > 0:
@@ -34740,11 +34740,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_57.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_57.setText(str)
+                    self.label_57.setText(txt)
 
                 elif DOW_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
                     if DOW_전일대비 > 0:
@@ -34754,13 +34754,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_57.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_57.setText(str)
+                    self.label_57.setText(txt)
                 else:
                     pass
 
-                str = ' {0} '.format(format(DOW_고가, ','))
+                txt = ' {0} '.format(format(DOW_고가, ','))
                 self.label_58.setStyleSheet('background-color: pink ; color: red')
-                self.label_58.setText(str)                  
+                self.label_58.setText(txt)                  
 
                 plot5_dow_curve.setData(df_dow_graph['price'])
 
@@ -34808,8 +34808,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red ; color: white')
 
-                    str = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
-                    self.label_p5_2.setText(str)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
+                    self.label_p5_2.setText(txt)
                 else:
                     pass
                 
@@ -34820,8 +34820,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red ; color: white')
 
-                    str = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
-                    self.label_p5_3.setText(str)
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
+                    self.label_p5_3.setText(txt)
                 else:
                     pass
 
@@ -34836,8 +34836,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p5_4.setStyleSheet('background-color: lime ; color: black')
 
-                    str = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
-                    self.label_p5_4.setText(str)
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p5_4.setText(txt)
                 else:
                     pass
 
@@ -34854,16 +34854,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot5_center_val_upper_line.setValue(NASDAQ_고가)
                 plot5_ovc_high_line.setValue(NASDAQ_고가)
 
-                str = ' {0} '.format(format(NASDAQ_저가, ','))
+                txt = ' {0} '.format(format(NASDAQ_저가, ','))
                 self.label_56.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_56.setText(str)
+                self.label_56.setText(txt)
 
                 tmp = self.label_57.text().split()[0]
                 value = tmp.replace(',', '')                
 
                 if NASDAQ_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
                     if NASDAQ_전일대비 > 0:
@@ -34873,11 +34873,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_57.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_57.setText(str)
+                    self.label_57.setText(txt)
 
                 elif NASDAQ_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
                     if NASDAQ_전일대비 > 0:
@@ -34887,13 +34887,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_57.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_57.setText(str)
+                    self.label_57.setText(txt)
                 else:
                     pass
 
-                str = ' {0} '.format(format(NASDAQ_고가, ','))
+                txt = ' {0} '.format(format(NASDAQ_고가, ','))
                 self.label_58.setStyleSheet('background-color: pink ; color: red')
-                self.label_58.setText(str)    
+                self.label_58.setText(txt)    
 
                 plot5_nasdaq_curve.setData(df_nasdaq_graph['price'])
 
@@ -34941,8 +34941,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red ; color: white')
 
-                    str = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
-                    self.label_p5_2.setText(str)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
+                    self.label_p5_2.setText(txt)
                 else:
                     pass
                 
@@ -34953,8 +34953,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red ; color: white')
 
-                    str = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
-                    self.label_p5_3.setText(str)
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
+                    self.label_p5_3.setText(txt)
                 else:
                     pass
 
@@ -34969,8 +34969,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p5_4.setStyleSheet('background-color: lime ; color: black')
 
-                    str = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
-                    self.label_p5_4.setText(str)
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p5_4.setText(txt)
                 else:
                     pass
 
@@ -34987,15 +34987,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot5_center_val_upper_line.setValue(WTI_고가)
                 plot5_ovc_high_line.setValue(WTI_고가)
 
-                str = ' {0} '.format(format(WTI_저가, ','))
+                txt = ' {0} '.format(format(WTI_저가, ','))
                 self.label_56.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_56.setText(str)
+                self.label_56.setText(txt)
 
                 value = self.label_57.text().split()[0]             
 
                 if WTI_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -35005,11 +35005,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_57.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_57.setText(str)
+                    self.label_57.setText(txt)
 
                 elif WTI_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -35019,13 +35019,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_57.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_57.setText(str)
+                    self.label_57.setText(txt)
                 else:
                     pass
 
-                str = ' {0} '.format(format(WTI_고가, ','))
+                txt = ' {0} '.format(format(WTI_고가, ','))
                 self.label_58.setStyleSheet('background-color: pink ; color: red')
-                self.label_58.setText(str)    
+                self.label_58.setText(txt)    
 
                 plot5_wti_curve.setData(df_wti_graph['price'])
 
@@ -35060,22 +35060,22 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot6 그래프 그리기
             if comboindex6 == 0 and market_service:
 
-                str = " {0:.0f} ".format(df_put_total_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_put_total_graph.at[ovc_x_idx, 'volume'])
                 self.label_66.setStyleSheet('background-color: blue ; color: white')
-                self.label_66.setText(str)
+                self.label_66.setText(txt)
 
-                str = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
                 if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
                     self.label_67.setStyleSheet('background-color: red ; color: white')
                 else:
                     self.label_67.setStyleSheet('background-color: blue ; color: white')
 
-                self.label_67.setText(str)
+                self.label_67.setText(txt)
                 
-                str = " {0:.0f} ".format(df_call_total_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_call_total_graph.at[ovc_x_idx, 'volume'])
                 self.label_68.setStyleSheet('background-color: red ; color: white')
-                self.label_68.setText(str)
+                self.label_68.setText(txt)
 
                 plot6_call_volume_curve.setData(df_call_total_graph['volume'])
                 plot6_put_volume_curve.setData(df_put_total_graph['volume'])
@@ -35084,20 +35084,20 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex6 == 1 and market_service:
 
-                str = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_total_graph.at[ovc_x_idx, 'ms_hoga'], df_put_total_graph.at[ovc_x_idx, 'md_hoga'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_total_graph.at[ovc_x_idx, 'ms_hoga'], df_put_total_graph.at[ovc_x_idx, 'md_hoga'])
                 self.label_66.setStyleSheet('background-color: blue ; color: white')
-                self.label_66.setText(str)
+                self.label_66.setText(txt)
                 
-                str = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_total_graph.at[ovc_x_idx, 'ms_hoga'], df_call_total_graph.at[ovc_x_idx, 'md_hoga'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_total_graph.at[ovc_x_idx, 'ms_hoga'], df_call_total_graph.at[ovc_x_idx, 'md_hoga'])
                 self.label_68.setStyleSheet('background-color: red ; color: white')
-                self.label_68.setText(str)
+                self.label_68.setText(txt)
 
                 plot6_call_hoga_curve.setData(df_call_total_graph['hoga_remainder_ratio'])
                 plot6_put_hoga_curve.setData(df_put_total_graph['hoga_remainder_ratio'])        
 
             elif comboindex6 == 2 and market_service:
 
-                str = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
+                txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
                     df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
                     df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
@@ -35109,7 +35109,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     self.label_67.setStyleSheet('background-color: yellow ; color: black')
 
-                self.label_67.setText(str)
+                self.label_67.setText(txt)
 
                 plot6_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'])
                 plot6_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'])
@@ -35123,27 +35123,27 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex6 == 4 and market_service:
 
-                str = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_66.setStyleSheet('background-color: blue ; color: white')
-                self.label_66.setText(str)
+                self.label_66.setText(txt)
                 '''
                 if df_call_total_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
 
-                    str = ' ▲ '
+                    txt = ' ▲ '
                     self.label_67.setStyleSheet('background-color: red ; color: white')
-                    self.label_67.setText(str)
+                    self.label_67.setText(txt)
 
                 elif df_put_total_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_percent:
 
-                    str = ' ▼ '
+                    txt = ' ▼ '
                     self.label_67.setStyleSheet('background-color: blue ; color: white')
-                    self.label_67.setText(str)
+                    self.label_67.setText(txt)
                 else:
                     pass
                 '''
-                str = " {0:.2f}({1:.2f}) ".format(df_call_total_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(df_call_total_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
                 self.label_68.setStyleSheet('background-color: red ; color: white')
-                self.label_68.setText(str)
+                self.label_68.setText(txt)
 
                 plot6_call_oi_curve.setData(df_call_total_graph['open_interest'])
                 plot6_put_oi_curve.setData(df_put_total_graph['open_interest'])
@@ -35227,34 +35227,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         pass
                         
-                plot6_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_LOWER)
+                plot6_center_val_lower_line.setValue(CENTER_VAL - CENTER_VAL_MINUS1)
                 plot6_center_val_line.setValue(CENTER_VAL)
-                plot6_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_UPPER)
+                plot6_center_val_upper_line.setValue(CENTER_VAL + CENTER_VAL_PLUS1)
 
                 # 중심가 그리기
                 plot6_center_val_curve.setData(df_call_total_graph['centerval'])
 
                 # 등가표시
-                str = ' 등가: {0} '.format(atm_str)
-                self.label_61.setText(str)
+                txt = ' 등가: {0} '.format(atm_str)
+                self.label_61.setText(txt)
 
-                str = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
-                self.label_62.setText(str)
+                txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
+                self.label_62.setText(txt)
 
-                str = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - CENTERVAL_LOWER)
-                self.label_63.setText(str)
+                txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - CENTER_VAL_MINUS1)
+                self.label_63.setText(txt)
 
-                str = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + CENTERVAL_UPPER)
-                self.label_64.setText(str)
+                txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + CENTER_VAL_PLUS1)
+                self.label_64.setText(txt)
 
-                str = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (put_atm_value / df_put.at[atm_index, '시가'] - 1) * 100)
-                self.label_66.setText(str)
+                txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (put_atm_value / df_put.at[atm_index, '시가'] - 1) * 100)
+                self.label_66.setText(txt)
 
-                str = ' 중심가: {0:.2f} '.format(CENTER_VAL)
-                self.label_67.setText(str)
+                txt = ' 중심가: {0:.2f} '.format(CENTER_VAL)
+                self.label_67.setText(txt)
 
-                str = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (call_atm_value / df_call.at[atm_index, '시가'] - 1) * 100)
-                self.label_68.setText(str)
+                txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (call_atm_value / df_call.at[atm_index, '시가'] - 1) * 100)
+                self.label_68.setText(txt)
 
             elif comboindex6 == 6:
 
@@ -35278,8 +35278,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red ; color: white')
 
-                    str = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
-                    self.label_p6_2.setText(str)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
+                    self.label_p6_2.setText(txt)
                 else:
                     pass
                 
@@ -35290,8 +35290,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red ; color: white')
 
-                    str = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
-                    self.label_p6_3.setText(str)
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
+                    self.label_p6_3.setText(txt)
                 else:
                     pass
 
@@ -35306,8 +35306,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p6_4.setStyleSheet('background-color: lime ; color: black')
 
-                    str = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
-                    self.label_p6_4.setText(str)
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p6_4.setText(txt)
                 else:
                     pass
 
@@ -35325,16 +35325,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot6_center_val_upper_line.setValue(SP500_고가)
                 plot6_ovc_high_line.setValue(SP500_고가)
 
-                str = ' {0} '.format(format(SP500_저가, ','))
+                txt = ' {0} '.format(format(SP500_저가, ','))
                 self.label_66.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_66.setText(str)
+                self.label_66.setText(txt)
 
                 tmp = self.label_67.text().split()[0]
                 value = tmp.replace(',', '')                
 
                 if SP500_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
                     if SP500_전일대비 > 0:
@@ -35344,11 +35344,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_67.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_67.setText(str)
+                    self.label_67.setText(txt)
 
                 elif SP500_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
                     if SP500_전일대비 > 0:
@@ -35358,13 +35358,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_67.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_67.setText(str)
+                    self.label_67.setText(txt)
                 else:
                     pass
 
-                str = ' {0} '.format(format(SP500_고가, ','))
+                txt = ' {0} '.format(format(SP500_고가, ','))
                 self.label_68.setStyleSheet('background-color: pink ; color: red')
-                self.label_68.setText(str) 
+                self.label_68.setText(txt) 
 
                 plot6_sp500_curve.setData(df_sp500_graph['price'])
 
@@ -35412,8 +35412,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red ; color: white')
 
-                    str = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
-                    self.label_p6_2.setText(str)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
+                    self.label_p6_2.setText(txt)
                 else:
                     pass
                 
@@ -35424,8 +35424,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red ; color: white')
 
-                    str = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
-                    self.label_p6_3.setText(str)
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
+                    self.label_p6_3.setText(txt)
                 else:
                     pass
 
@@ -35440,8 +35440,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p6_4.setStyleSheet('background-color: lime ; color: black')
 
-                    str = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
-                    self.label_p6_4.setText(str)
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p6_4.setText(txt)
                 else:
                     pass
 
@@ -35458,16 +35458,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot6_center_val_upper_line.setValue(DOW_고가)
                 plot6_ovc_high_line.setValue(DOW_고가)
 
-                str = ' {0} '.format(format(DOW_저가, ','))
+                txt = ' {0} '.format(format(DOW_저가, ','))
                 self.label_66.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_66.setText(str)
+                self.label_66.setText(txt)
 
                 tmp = self.label_67.text().split()[0]
                 value = tmp.replace(',', '')               
 
                 if DOW_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
                     if DOW_전일대비 > 0:
@@ -35477,11 +35477,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_67.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_67.setText(str)
+                    self.label_67.setText(txt)
 
                 elif DOW_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
                     if DOW_전일대비 > 0:
@@ -35491,13 +35491,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_67.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_67.setText(str)
+                    self.label_67.setText(txt)
                 else:
                     pass
 
-                str = ' {0} '.format(format(DOW_고가, ','))
+                txt = ' {0} '.format(format(DOW_고가, ','))
                 self.label_68.setStyleSheet('background-color: pink ; color: red')
-                self.label_68.setText(str)                  
+                self.label_68.setText(txt)                  
 
                 plot6_dow_curve.setData(df_dow_graph['price'])
 
@@ -35545,8 +35545,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red ; color: white')
 
-                    str = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
-                    self.label_p6_2.setText(str)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
+                    self.label_p6_2.setText(txt)
                 else:
                     pass
                 
@@ -35557,8 +35557,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red ; color: white')
 
-                    str = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
-                    self.label_p6_3.setText(str)
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
+                    self.label_p6_3.setText(txt)
                 else:
                     pass
 
@@ -35573,8 +35573,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p6_4.setStyleSheet('background-color: lime ; color: black')
 
-                    str = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
-                    self.label_p6_4.setText(str)
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p6_4.setText(txt)
                 else:
                     pass
 
@@ -35591,16 +35591,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot6_center_val_upper_line.setValue(NASDAQ_고가)
                 plot6_ovc_high_line.setValue(NASDAQ_고가)
 
-                str = ' {0} '.format(format(NASDAQ_저가, ','))
+                txt = ' {0} '.format(format(NASDAQ_저가, ','))
                 self.label_66.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_66.setText(str)
+                self.label_66.setText(txt)
 
                 tmp = self.label_67.text().split()[0]
                 value = tmp.replace(',', '')                
 
                 if NASDAQ_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
                     if NASDAQ_전일대비 > 0:
@@ -35610,11 +35610,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_67.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_67.setText(str)
+                    self.label_67.setText(txt)
 
                 elif NASDAQ_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
                     if NASDAQ_전일대비 > 0:
@@ -35624,13 +35624,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_67.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_67.setText(str)
+                    self.label_67.setText(txt)
                 else:
                     pass
 
-                str = ' {0} '.format(format(NASDAQ_고가, ','))
+                txt = ' {0} '.format(format(NASDAQ_고가, ','))
                 self.label_68.setStyleSheet('background-color: pink ; color: red')
-                self.label_68.setText(str)    
+                self.label_68.setText(txt)    
 
                 plot6_nasdaq_curve.setData(df_nasdaq_graph['price'])
 
@@ -35678,8 +35678,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red ; color: white')
 
-                    str = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
-                    self.label_p6_2.setText(str)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
+                    self.label_p6_2.setText(txt)
                 else:
                     pass
                 
@@ -35690,8 +35690,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red ; color: white')
 
-                    str = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
-                    self.label_p6_3.setText(str)
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
+                    self.label_p6_3.setText(txt)
                 else:
                     pass
 
@@ -35706,8 +35706,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p6_4.setStyleSheet('background-color: lime ; color: black')
 
-                    str = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
-                    self.label_p6_4.setText(str)
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p6_4.setText(txt)
                 else:
                     pass
 
@@ -35724,15 +35724,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot6_center_val_upper_line.setValue(WTI_고가)
                 plot6_ovc_high_line.setValue(WTI_고가)
 
-                str = ' {0} '.format(format(WTI_저가, ','))
+                txt = ' {0} '.format(format(WTI_저가, ','))
                 self.label_66.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_66.setText(str)
+                self.label_66.setText(txt)
 
                 value = self.label_67.text().split()[0]             
 
                 if WTI_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -35742,11 +35742,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_67.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_67.setText(str)
+                    self.label_67.setText(txt)
 
                 elif WTI_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -35756,13 +35756,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_67.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_67.setText(str)
+                    self.label_67.setText(txt)
                 else:
                     pass
 
-                str = ' {0} '.format(format(WTI_고가, ','))
+                txt = ' {0} '.format(format(WTI_고가, ','))
                 self.label_68.setStyleSheet('background-color: pink ; color: red')
-                self.label_68.setText(str)    
+                self.label_68.setText(txt)    
 
                 plot6_wti_curve.setData(df_wti_graph['price'])
 
@@ -35798,9 +35798,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         bc_ui_update_time = (timeit.default_timer() - start_time) * 1000        
         
-        str = '[{0:02d}:{1:02d}:{2:02d}] BigChart UI Update : {3:.2f} ms...\r'.format(\
+        txt = '[{0:02d}:{1:02d}:{2:02d}] BigChart UI Update : {3:.2f} ms...\r'.format(\
                 dt.hour, dt.minute, dt.second, bc_ui_update_time)
-        print(str)
+        print(txt)
         
         flag_plot_update_is_running = False            
 
@@ -36008,11 +36008,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if TARGET_MONTH_SELECT == 1:
 
                 if SELFID == 'soojin65':
-                    str = '[{0:02d}:{1:02d}:{2:02d}] ***님이 로그아웃 했습니다.'.format(adj_hour, adj_min, adj_sec)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] ***님이 로그아웃 했습니다.'.format(adj_hour, adj_min, adj_sec)
                 else:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 로그아웃 했습니다.'.format(adj_hour, adj_min, adj_sec, SELFID)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 로그아웃 했습니다.'.format(adj_hour, adj_min, adj_sec, SELFID)
 
-                #ToMyTelegram(str)
+                #ToMyTelegram(txt)
             else:
                 pass
 
@@ -36079,15 +36079,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if TARGET_MONTH_SELECT == 1:
 
                 if token != '' and chat_id != 0:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 ({4}/{5}) 로그인 했습니다.'.format( \
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 ({4}/{5}) 로그인 했습니다.'.format( \
                         dt.hour, dt.minute, dt.second, self.id, token, chat_id) 
                 else:
                     if SELFID == 'soojin65':
-                        str = '[{0:02d}:{1:02d}:{2:02d}] ***님이 로그인 했습니다.'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] ***님이 로그인 했습니다.'.format(dt.hour, dt.minute, dt.second)
                     else:
                         pass
                 
-                #ToMyTelegram(str)
+                #ToMyTelegram(txt)
             else:
                 pass            
             
@@ -36171,12 +36171,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 해외선물 개장시간은 국내시장의 2시간 전
                 server_x_idx = (SERVER_HOUR - DayTime_PreStart_Hour) * 60 + SERVER_MIN + 1
 
-            #ovc_x_idx = server_x_idx
-
-            txt = '*** 시스템시간 = [{0:02d}:{1:02d}:{2:02d}], 서버시간 = [{3:02d}:{4:02d}:{5:02d}], 시스템시간 - 서버시간 = {6}초 ***\r'.format\
-                (dt.hour, dt.minute, dt.second, SERVER_HOUR, SERVER_MIN, SERVER_SEC, 시스템_서버_시간차)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] : 시스템시간 = [{3:02d}:{4:02d}:{5:02d}], 시스템시간 - 서버시간 = {6}초\r'.format\
+                (SERVER_HOUR, SERVER_MIN, SERVER_SEC, dt.hour, dt.minute, dt.second, 시스템_서버_시간차)
             self.textBrowser.append(txt)
-            print(txt)
+            #print(txt)
+
+            if flag_call_oneway:
+                txt = "[{0:02d}:{1:02d}:{2:02d}] ★★★ Call OneWay({3:.2f}/{4:.2f}) ★★★\r".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
+                self.textBrowser.append(txt)
+            elif flag_put_oneway:
+                txt = "[{0:02d}:{1:02d}:{2:02d}] ★★★ Put OneWay({3:.2f}/{4:.2f}) ★★★\r".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
+                self.textBrowser.append(txt)
+            else:
+                pass
 
             flag_heartbeat = True                        
         else:
