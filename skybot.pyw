@@ -7010,7 +7010,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if not oneway_first_touch:
 
-                                oneway_str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 매우 높음 !!!\r'.format(adj_hour, adj_min, adj_sec)
+                                oneway_str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay ���능성 매우 높음 !!!\r'.format(adj_hour, adj_min, adj_sec)
                                 oneway_first_touch = True
                             else:
                                 pass
@@ -32149,9 +32149,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         pass
 
-                plot2_center_val_lower_line.setValue(CENTER_VAL - CENTER_VAL_MINUS1)
+                plot2_center_val_lower_line.setValue(CENTER_VAL_MINUS1)
                 plot2_center_val_line.setValue(CENTER_VAL)
-                plot2_center_val_upper_line.setValue(CENTER_VAL + CENTER_VAL_PLUS1)
+                plot2_center_val_upper_line.setValue(CENTER_VAL_PLUS1)
 
                 # 중심가 그리기
                 plot2_center_val_curve.setData(df_call_total_graph['centerval'])
@@ -32166,11 +32166,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if CENTER_VAL < 1.0:
                     txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
                 else:
-                    txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - CENTER_VAL_MINUS1)
+                    txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL_MINUS1)
 
                 self.label_23.setText(txt)
 
-                txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + CENTER_VAL_PLUS1)
+                txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL_PLUS1)
                 self.label_24.setText(txt)
 
                 txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (put_atm_value / df_put.at[atm_index, '시가'] - 1) * 100)
@@ -32890,9 +32890,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         pass
                         
-                plot3_center_val_lower_line.setValue(CENTER_VAL - CENTER_VAL_MINUS1)
+                plot3_center_val_lower_line.setValue(CENTER_VAL_MINUS1)
                 plot3_center_val_line.setValue(CENTER_VAL)
-                plot3_center_val_upper_line.setValue(CENTER_VAL + CENTER_VAL_PLUS1)
+                plot3_center_val_upper_line.setValue(CENTER_VAL_PLUS1)
 
                 # 중심가 그리기
                 plot3_center_val_curve.setData(df_call_total_graph['centerval'])
@@ -32907,11 +32907,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if CENTER_VAL < 1.0:
                     txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
                 else:
-                    txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - CENTER_VAL_MINUS1)
+                    txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL_MINUS1)
 
                 self.label_33.setText(txt)
 
-                txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + CENTER_VAL_PLUS1)
+                txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL_PLUS1)
                 self.label_34.setText(txt)
 
                 txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (put_atm_value / df_put.at[atm_index, '시가'] - 1) * 100)
@@ -34394,9 +34394,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         pass
                         
-                plot5_center_val_lower_line.setValue(CENTER_VAL - CENTER_VAL_MINUS1)
+                plot5_center_val_lower_line.setValue(CENTER_VAL_MINUS1)
                 plot5_center_val_line.setValue(CENTER_VAL)
-                plot5_center_val_upper_line.setValue(CENTER_VAL + CENTER_VAL_PLUS1)
+                plot5_center_val_upper_line.setValue(CENTER_VAL_PLUS1)
 
                 # 중심가 그리기
                 plot5_center_val_curve.setData(df_call_total_graph['centerval'])
@@ -34411,11 +34411,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if CENTER_VAL < 1.0:
                     txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
                 else:
-                    txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - CENTER_VAL_MINUS1)
+                    txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL_MINUS1)
 
                 self.label_53.setText(txt)
 
-                txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + CENTER_VAL_PLUS1)
+                txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL_PLUS1)
                 self.label_54.setText(txt)
 
                 txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (put_atm_value / df_put.at[atm_index, '시가'] - 1) * 100)
@@ -35135,9 +35135,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         pass
                         
-                plot6_center_val_lower_line.setValue(CENTER_VAL - CENTER_VAL_MINUS1)
+                plot6_center_val_lower_line.setValue(CENTER_VAL_MINUS1)
                 plot6_center_val_line.setValue(CENTER_VAL)
-                plot6_center_val_upper_line.setValue(CENTER_VAL + CENTER_VAL_PLUS1)
+                plot6_center_val_upper_line.setValue(CENTER_VAL_PLUS1)
 
                 # 중심가 그리기
                 plot6_center_val_curve.setData(df_call_total_graph['centerval'])
@@ -35152,11 +35152,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if CENTER_VAL < 1.0:
                     txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
                 else:
-                    txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - CENTER_VAL_MINUS1)
+                    txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL_MINUS1)
 
                 self.label_63.setText(txt)
 
-                txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + CENTER_VAL_PLUS1)
+                txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL_PLUS1)
                 self.label_64.setText(txt)
 
                 txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (put_atm_value / df_put.at[atm_index, '시가'] - 1) * 100)
@@ -35754,10 +35754,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
             QMainWindow.__init__(self)
             Ui_MainWindow.__init__(self)
+
+            #self.setWindowFlags(Qt.WindowStaysOnTopHint)
             self.setupUi(self)
             
             self.setWindowTitle("SkyBot ver1.0")
             self.textBrowser.append('Welcome to SkyBot\r')
+
+            currentMouseX, currentMouseY = pyautogui.position()
+
+            self.move(currentMouseX, currentMouseY)
+            self.showNormal()
             
             self.시작시각 = datetime.datetime.now()
         
@@ -35813,14 +35820,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.NEWS = NWS(parent=self)
     else:        
         def __init__(self, *args, **kwargs):
-            super(MainWindow, self).__init__(*args, **kwargs)
+            super(MainWindow, self).__init__(*args, **kwargs)            
 
             QMainWindow.__init__(self)
             Ui_MainWindow.__init__(self)
+
+            #self.setWindowFlags(Qt.WindowStaysOnTopHint)
             self.setupUi(self)
 
             self.setWindowTitle("SkyBot ver1.0")
             self.textBrowser.append('Welcome to SkyBot\r')
+
+            currentMouseX, currentMouseY = pyautogui.position()
+
+            self.move(currentMouseX, currentMouseY)
+            self.showNormal()
 
             self.시작시각 = datetime.datetime.now()
 
@@ -36014,23 +36028,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.NEWS.AdviseRealData()
             else:
                 pass
+            
+            if self.dialog.get('당월물옵션전광판') is not None:
 
-            # 옵션전광판 자동 시작
-            if AUTO_START:                
-                if self.dialog.get('당월물옵션전광판') is not None:
-
-                    try:
-                        self.dialog['당월물옵션전광판'].show()
-                    except Exception as e:
-                        self.dialog['당월물옵션전광판'] = 화면_선물옵션전광판(parent=self)
-                        self.dialog['당월물옵션전광판'].show()
-                else:
+                try:
+                    self.dialog['당월물옵션전광판'].show()
+                except Exception as e:
                     self.dialog['당월물옵션전광판'] = 화면_선물옵션전광판(parent=self)
                     self.dialog['당월물옵션전광판'].show()
-
+            else:
+                self.dialog['당월물옵션전광판'] = 화면_선물옵션전광판(parent=self)
+                self.dialog['당월물옵션전광판'].show()
+            
+            # 옵션전광판 자동 시작                            
+            if AUTO_START:
                 self.dialog['당월물옵션전광판'].RunCode()
             else:
-                pass
+                pass            
         else:
             self.statusbar.showMessage("%s %s" % (code, msg))
 
