@@ -3110,7 +3110,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.showNormal()
 
             if TARGET_MONTH_SELECT == 'CM':
-                self.parent.move(left, top)
+                self.parent.move(left - 10, top)
             else:
                 self.parent.showMaximized()
         else:
@@ -5295,7 +5295,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     @pyqtSlot(str)
     def update_screen(self, data):
 
+        global flag_internet_connection_broken
         global flag_screen_update_is_running
+        
+        global main_ui_update_time
+
+        global flag_fut_low, flag_fut_high
+        global flag_kp200_low, flag_kp200_high
+        global flag_offline, receive_real_ovc            
+
+        global call_plot_data, put_plot_data, centerval_plot_data
+        global selected_call, selected_put, selected_opt_list, old_selected_opt_list
+        global SP500_당일종가, DOW_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가, GOLD_당일종가 
+        global drate_scale_factor
+        global flag_logfile, flag_broken_capture
 
         try:
             flag_screen_update_is_running = True
@@ -5304,19 +5317,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             dt = datetime.datetime.now()
             current_str = dt.strftime('%H:%M:%S')
 
-            global main_ui_update_time
+            # 인터넷연결 확인
+            ipaddress = socket.gethostbyname(socket.gethostname())
 
-            global flag_fut_low, flag_fut_high
-            global flag_kp200_low, flag_kp200_high
-            global flag_offline, receive_real_ovc            
+            if ipaddress == '127.0.0.1':
 
-            global call_plot_data, put_plot_data, centerval_plot_data
-            global selected_call, selected_put, selected_opt_list, old_selected_opt_list
-            global SP500_당일종가, DOW_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가, GOLD_당일종가 
-            global drate_scale_factor
-            global flag_logfile, flag_broken_capture
-
-            if flag_internet_connection_broken:
+                self.parent.statusbar.showMessage("인터넷 연결이 끊겼습니다.")
                 
                 # 모든 쓰레드를 중지시킨다.
                 self.real_data_worker.terminate()
@@ -5332,7 +5338,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 인터넷 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
-                print(txt)                
+                print(txt)
+
+                flag_internet_connection_broken = True                
 
                 file = open('skybot_error.log', 'w')
                 text = self.textBrowser.toPlainText()
@@ -35879,7 +35887,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def OnClockTick(self):
 
-        global flag_internet_connection_broken, flag_service_provider_broken
+        global flag_service_provider_broken
 
         current = datetime.datetime.now()
         current_str = current.strftime('%H:%M:%S')
@@ -35903,16 +35911,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         else:
                             pass
 
+                    if flag_internet_connection_broken:
+                        msg = '인터넷 연결이 끊겼습니다.'
+                    else:
+                        pass
+
                     self.statusbar.showMessage(msg)
-
-                ipaddress = socket.gethostbyname(socket.gethostname())
-                
-                if ipaddress == '127.0.0.1':
-                    self.statusbar.showMessage("인터넷 연결이 끊겼습니다.")
-                    flag_internet_connection_broken = True
-                else:
-                    print('IP Address =', ipaddress)
-
+                    
             except Exception as e:
                 pass
 
