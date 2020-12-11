@@ -7220,19 +7220,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if abs(콜대비_퍼센트_평균/풋대비_퍼센트_평균) >= ONEWAY_RATIO and abs(선물_등락율) > abs(DOW_등락율):
                     pass                
                     '''
-                    if TARGET_MONTH_SELECT == 1 and not call_ms_oneway:
+                    if TARGET_MONTH_SELECT == 'CM' and not call_ms_oneway:
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
                             (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
 
-                    elif TARGET_MONTH_SELECT == 2 and not call_ms_oneway:
+                    elif TARGET_MONTH_SELECT == 'NM' and not call_ms_oneway:
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
-                            (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
-
-                    elif TARGET_MONTH_SELECT == 3 and not call_ms_oneway:
-
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
                             (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
                     else:
                         pass
@@ -7378,19 +7373,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if abs(풋대비_퍼센트_평균/콜대비_퍼센트_평균) >= ONEWAY_RATIO and abs(선물_등락율) > abs(DOW_등락율):
                     pass                
                     '''
-                    if TARGET_MONTH_SELECT == 1 and not put_ms_oneway:
+                    if TARGET_MONTH_SELECT == 'CM' and not put_ms_oneway:
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
                             (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
 
-                    elif TARGET_MONTH_SELECT == 2 and not put_ms_oneway:
+                    elif TARGET_MONTH_SELECT == 'NM' and not put_ms_oneway:
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
-                            (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
-
-                    elif TARGET_MONTH_SELECT == 3 and not put_ms_oneway:
-
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
                             (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
                     else:
                         pass
@@ -8170,17 +8160,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_call.resizeColumnToContents(Option_column.저가.value)
 
-                if TARGET_MONTH_SELECT == 1 and call_low_node_count != call_low_node_old_count:
+                if TARGET_MONTH_SELECT == 'CM' and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
 
-                elif TARGET_MONTH_SELECT == 2 and call_low_node_count != call_low_node_old_count:
+                elif TARGET_MONTH_SELECT == 'NM' and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
-
-                elif TARGET_MONTH_SELECT == 3 and call_low_node_count != call_low_node_old_count:
-
-                    telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜저가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
                 else:
                     pass  
             else:
@@ -8195,17 +8181,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_call.resizeColumnToContents(Option_column.저가.value)
 
-                if TARGET_MONTH_SELECT == 1 and call_low_node_count != call_low_node_old_count:
+                if TARGET_MONTH_SELECT == 'CM' and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
 
-                elif TARGET_MONTH_SELECT == 2 and call_low_node_count != call_low_node_old_count:
+                elif TARGET_MONTH_SELECT == 'NM' and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
-
-                elif TARGET_MONTH_SELECT == 3 and call_low_node_count != call_low_node_old_count:
-
-                    telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜저가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
                 else:
                     pass  
             else:
@@ -8220,17 +8202,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_call.resizeColumnToContents(Option_column.저가.value)
 
-                if TARGET_MONTH_SELECT == 1 and call_low_node_count != call_low_node_old_count:
+                if TARGET_MONTH_SELECT == 'CM' and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
 
-                elif TARGET_MONTH_SELECT == 2 and call_low_node_count != call_low_node_old_count:
+                elif TARGET_MONTH_SELECT == 'NM' and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
-
-                elif TARGET_MONTH_SELECT == 3 and call_low_node_count != call_low_node_old_count:
-
-                    telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜저가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
                 else:
                     pass  
             else:
@@ -8314,17 +8292,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_call.resizeColumnToContents(Option_column.고가.value)
 
-                if TARGET_MONTH_SELECT == 1 and call_high_node_count != call_high_node_old_count:
+                if TARGET_MONTH_SELECT == 'CM' and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
 
-                elif TARGET_MONTH_SELECT == 2 and call_high_node_count != call_high_node_old_count:
+                elif TARGET_MONTH_SELECT == 'NM' and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
-
-                elif TARGET_MONTH_SELECT == 3 and call_high_node_count != call_high_node_old_count:
-
-                    telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜고가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
                 else:
                     pass  
             else:
@@ -8339,17 +8313,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_call.resizeColumnToContents(Option_column.고가.value)
 
-                if TARGET_MONTH_SELECT == 1 and call_high_node_count != call_high_node_old_count:
+                if TARGET_MONTH_SELECT == 'CM' and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
 
-                elif TARGET_MONTH_SELECT == 2 and call_high_node_count != call_high_node_old_count:
+                elif TARGET_MONTH_SELECT == 'NM' and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
-
-                elif TARGET_MONTH_SELECT == 3 and call_high_node_count != call_high_node_old_count:
-
-                    telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜고가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
                 else:
                     pass 
             else:
@@ -8364,17 +8334,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_call.resizeColumnToContents(Option_column.고가.value)
 
-                if TARGET_MONTH_SELECT == 1 and call_high_node_count != call_high_node_old_count:
+                if TARGET_MONTH_SELECT == 'CM' and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
 
-                elif TARGET_MONTH_SELECT == 2 and call_high_node_count != call_high_node_old_count:
+                elif TARGET_MONTH_SELECT == 'NM' and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
-
-                elif TARGET_MONTH_SELECT == 3 and call_high_node_count != call_high_node_old_count:
-
-                    telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜고가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
                 else:
                     pass 
             else:
@@ -10705,17 +10671,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_put.resizeColumnToContents(Option_column.저가.value)
 
-                if TARGET_MONTH_SELECT == 1 and put_low_node_count != put_low_node_old_count:
+                if TARGET_MONTH_SELECT == 'CM' and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
 
-                elif TARGET_MONTH_SELECT == 2 and put_low_node_count != put_low_node_old_count:
+                elif TARGET_MONTH_SELECT == 'NM' and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
-
-                elif TARGET_MONTH_SELECT == 3 and put_low_node_count != put_low_node_old_count:
-
-                    telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋저가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
                 else:
                     pass
             else:
@@ -10730,17 +10692,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_put.resizeColumnToContents(Option_column.저가.value)
 
-                if TARGET_MONTH_SELECT == 1 and put_low_node_count != put_low_node_old_count:
+                if TARGET_MONTH_SELECT == 'CM' and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
 
-                elif TARGET_MONTH_SELECT == 2 and put_low_node_count != put_low_node_old_count:
+                elif TARGET_MONTH_SELECT == 'NM' and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
-
-                elif TARGET_MONTH_SELECT == 3 and put_low_node_count != put_low_node_old_count:
-
-                    telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋저가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
                 else:
                     pass
             else:
@@ -10755,17 +10713,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_put.resizeColumnToContents(Option_column.저가.value)
 
-                if TARGET_MONTH_SELECT == 1 and put_low_node_count != put_low_node_old_count:
+                if TARGET_MONTH_SELECT == 'CM' and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
 
-                elif TARGET_MONTH_SELECT == 2 and put_low_node_count != put_low_node_old_count:
+                elif TARGET_MONTH_SELECT == 'NM' and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
-
-                elif TARGET_MONTH_SELECT == 3 and put_low_node_count != put_low_node_old_count:
-
-                    telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋저가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
                 else:
                     pass
             else:
@@ -10850,17 +10804,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_put.resizeColumnToContents(Option_column.고가.value)
 
-                if TARGET_MONTH_SELECT == 1 and put_high_node_count != put_high_node_old_count:
+                if TARGET_MONTH_SELECT == 'CM' and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
 
-                elif TARGET_MONTH_SELECT == 2 and put_high_node_count != put_high_node_old_count:
+                elif TARGET_MONTH_SELECT == 'NM' and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
-
-                elif TARGET_MONTH_SELECT == 3 and put_high_node_count != put_high_node_old_count:
-
-                    telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋고가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
                 else:
                     pass
             else:
@@ -10875,17 +10825,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_put.resizeColumnToContents(Option_column.고가.value)
 
-                if TARGET_MONTH_SELECT == 1 and put_high_node_count != put_high_node_old_count:
+                if TARGET_MONTH_SELECT == 'CM' and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
 
-                elif TARGET_MONTH_SELECT == 2 and put_high_node_count != put_high_node_old_count:
+                elif TARGET_MONTH_SELECT == 'NM' and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
-
-                elif TARGET_MONTH_SELECT == 3 and put_high_node_count != put_high_node_old_count:
-
-                    telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋고가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
                 else:
                     pass
             else:
@@ -10899,17 +10845,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_put.resizeColumnToContents(Option_column.고가.value)
 
-                if TARGET_MONTH_SELECT == 1 and put_high_node_count != put_high_node_old_count:
+                if TARGET_MONTH_SELECT == 'CM' and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
 
-                elif TARGET_MONTH_SELECT == 2 and put_high_node_count != put_high_node_old_count:
+                elif TARGET_MONTH_SELECT == 'NM' and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
-
-                elif TARGET_MONTH_SELECT == 3 and put_high_node_count != put_high_node_old_count:
-
-                    telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋고가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
                 else:
                     pass
             else:
@@ -11328,19 +11270,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.item(1, Futures_column.저가.value).setBackground(QBrush(적색))
                 self.tableWidget_fut.item(1, Futures_column.저가.value).setForeground(QBrush(흰색))
 
-            if TARGET_MONTH_SELECT == 1 and not flag_fut_ol and not flag_fut_oloh:
+            if TARGET_MONTH_SELECT == 'CM' and not flag_fut_ol and not flag_fut_oloh:
 
                 fut_oloh_str = "[{0:02d}:{1:02d}:{2:02d}] CM 선물 OL ▲".format(adj_hour, adj_min, adj_sec)
                 flag_fut_oloh = True
 
-            elif TARGET_MONTH_SELECT == 2 and not flag_fut_ol and not flag_fut_oloh:
+            elif TARGET_MONTH_SELECT == 'NM' and not flag_fut_ol and not flag_fut_oloh:
 
                 fut_oloh_str = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OL ▲".format(adj_hour, adj_min, adj_sec)
-                flag_fut_oloh = True
-
-            elif TARGET_MONTH_SELECT == 3 and not flag_fut_ol and not flag_fut_oloh:
-
-                fut_oloh_str = "[{0:02d}:{1:02d}:{2:02d}] MAN 선물 OL ▲".format(adj_hour, adj_min, adj_sec)
                 flag_fut_oloh = True
             else:
                 pass
@@ -11371,19 +11308,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.item(1, Futures_column.고가.value).setBackground(QBrush(청색))
                 self.tableWidget_fut.item(1, Futures_column.고가.value).setForeground(QBrush(흰색))
 
-            if TARGET_MONTH_SELECT == 1 and not flag_fut_oh and not flag_fut_oloh:
+            if TARGET_MONTH_SELECT == 'CM' and not flag_fut_oh and not flag_fut_oloh:
 
                 fut_oloh_str = "[{0:02d}:{1:02d}:{2:02d}] CM 선물 OH ▼".format(adj_hour, adj_min, adj_sec)
                 flag_fut_oloh = True
 
-            elif TARGET_MONTH_SELECT == 2 and not flag_fut_oh and not flag_fut_oloh:
+            elif TARGET_MONTH_SELECT == 'NM' and not flag_fut_oh and not flag_fut_oloh:
 
                 fut_oloh_str = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OH ▼".format(adj_hour, adj_min, adj_sec)
-                flag_fut_oloh = True
-
-            elif TARGET_MONTH_SELECT == 3 and not flag_fut_oh and not flag_fut_oloh:
-
-                fut_oloh_str = "[{0:02d}:{1:02d}:{2:02d}] MAN 선물 OH ▼".format(adj_hour, adj_min, adj_sec)
                 flag_fut_oloh = True
             else:
                 pass
@@ -14447,7 +14379,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 put_ol[index] = True
 
-                                if TARGET_MONTH_SELECT == 2 and 시가 < 0.5:
+                                if TARGET_MONTH_SELECT == 'NM' and 시가 < 0.5:
                                     nm_put_ol[index] = True
                                 else:
                                     pass
@@ -14470,7 +14402,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 put_oh[index] = True
 
-                                if TARGET_MONTH_SELECT == 2 and 시가 < 0.5:
+                                if TARGET_MONTH_SELECT == 'NM' and 시가 < 0.5:
                                     nm_put_oh[index] = True
                                 else:
                                     pass
@@ -14488,7 +14420,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 put_ol[index] = False
                                 put_oh[index] = False
 
-                                if TARGET_MONTH_SELECT == 2 and 시가 < 0.5:
+                                if TARGET_MONTH_SELECT == 'NM' and 시가 < 0.5:
                                     nm_put_ol[index] = False
                                     nm_put_oh[index] = False
                                 else:
@@ -14548,7 +14480,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_ol_count = put_ol.count(True)
                 put_oh_count = put_oh.count(True)
 
-                if TARGET_MONTH_SELECT == 2 and not NightTime:
+                if TARGET_MONTH_SELECT == 'NM' and not NightTime:
                     nm_put_ol_count = nm_put_ol.count(True)
                     nm_put_oh_count = nm_put_oh.count(True)
                 else:
@@ -22270,7 +22202,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if result['단축코드'] == fut_code:
                     fut_result = copy.deepcopy(result)
                     self.fut_update(result)
-                elif TARGET_MONTH_SELECT == 1 and result['단축코드'] == cmshcode:
+                elif TARGET_MONTH_SELECT == 'CM' and result['단축코드'] == cmshcode:
                     fut_cm_volume_power = result['매수누적체결량'] - result['매도누적체결량']
 
                     temp = format(fut_cm_volume_power, ',')
@@ -22511,7 +22443,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if result['매도호가총수량'] > 0:
 
                         fut_hoga_rr = result['매수호가총수량'] / result['매도호가총수량']
-                        df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'] = fut_hoga_rr                        
+
+                        if fut_hoga_rr > 10.0:
+                            df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'] = 10.0
+                        else:
+                            df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'] = fut_hoga_rr                        
                     else:
                         pass
 
@@ -22563,7 +22499,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if result['매도호가총수량'] > 0:
                         fut_cms_hoga_rr = result['매수호가총수량'] / result['매도호가총수량']
-                        df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'] = fut_cms_hoga_rr
+
+                        if fut_cms_hoga_rr > 10.0:
+                            df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'] = 10.0
+                        else:
+                            df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'] = fut_cms_hoga_rr
                     else:
                         pass
                 
@@ -31224,8 +31164,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             if comboindex1 == 0 and market_service:
 
                 txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
-                    df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
+                    fut_hoga_rr, df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
+                    fut_cms_hoga_rr, df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
 
                 if energy_direction == 'call':
@@ -32020,8 +31960,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             elif comboindex2 == 2 and market_service:
 
                 txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
-                    df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
+                    fut_hoga_rr, df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
+                    fut_cms_hoga_rr, df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
 
                 if energy_direction == 'call':
@@ -32761,8 +32701,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             elif comboindex3 == 2 and market_service:
 
                 txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
-                    df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
+                    fut_hoga_rr, df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
+                    fut_cms_hoga_rr, df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
 
                 if energy_direction == 'call':
@@ -33467,8 +33407,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
                 txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
-                    df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
+                    fut_hoga_rr, df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
+                    fut_cms_hoga_rr, df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
 
                 if energy_direction == 'call':
@@ -34265,8 +34205,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             elif comboindex5 == 2 and market_service:
 
                 txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
-                    df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
+                    fut_hoga_rr, df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
+                    fut_cms_hoga_rr, df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
 
                 if energy_direction == 'call':
@@ -35006,8 +34946,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             elif comboindex6 == 2 and market_service:
 
                 txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
-                    df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
+                    fut_hoga_rr, df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
+                    fut_cms_hoga_rr, df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
 
                 if energy_direction == 'call':
