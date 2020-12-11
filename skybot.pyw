@@ -3047,7 +3047,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             __init__(parent, flags = Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
         self.setAttribute(Qt.WA_DeleteOnClose)        
 
-        self.parent = parent        
+        self.parent = parent
+        
+        #self.setWindowFlags(window.windowFlags() & ~Qt.WindowStaysOnTopHint)
         self.setupUi(self)
         
         global TARGET_MONTH_SELECT, MONTH_FIRSTDAY
@@ -3081,6 +3083,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             print('{0}번 보조모니터 화면({1}X{2})입니다.'.format(스크린번호, screen_info.width(), screen_info.height()))
         
         left = screen_info.left()
+        right = screen_info.right()
         top = screen_info.top()
 
         if screen_info.width() > 1920:
@@ -3095,12 +3098,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             height = screen_info.height()
 
-        self.setGeometry(left, top + 30, width, height - 60)
+        self.setGeometry(right - 1920, top + 30, width, height - 60)
 
         if screen_info.width() > 1920 and screen_info.height() > 1080:
             self.showNormal()
+            self.parent.showMaximized()
         else:
-            self.showMaximized()
+            self.showMaximized()        
         
         print('current month = %s, month firstday = %s, next month = %s, month after next = %s, next month select = %s, SP500 = %s, DOW = %s, NASDAQ = %s, WTI = %s' \
             % (CURRENT_MONTH, MONTH_FIRSTDAY, NEXT_MONTH, MONTH_AFTER_NEXT, TARGET_MONTH_SELECT, SP500, DOW, NASDAQ, WTI))
@@ -3957,11 +3961,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 buildtime = time.ctime(os.path.getmtime(__file__))
 
         else:
-            if os.path.exists('SkyBot_MAN.exe'):
-
-                buildtime = time.ctime(os.path.getmtime('SkyBot_MAN.exe'))
-            else:
-                buildtime = time.ctime(os.path.getmtime(__file__))
+            pass
         
         if TELEGRAM_SERVICE:
 
@@ -4008,8 +4008,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     ToYourTelegram("{0}월물 주간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
 
                 else:
-                    widget_title = repr(month_after_next) + '월 만기 주간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
-                    ToYourTelegram("{0}월물 주간 선물옵션 SkyBot이 실행되었습니다.".format(repr(month_after_next)))
+                    pass
             else:
                 KSE_START_HOUR = 18            
 
@@ -4056,8 +4055,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         ToYourTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
 
                     else:
-                        widget_title = repr(month_after_next) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
-                        ToYourTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(month_after_next)))
+                        pass
         else:
             pass
         
@@ -12896,7 +12894,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_진폭, 콜대비합, 콜대비합_단위평균, 콜대비_퍼센트_평균
         
         #call_진폭 = df_call['진폭'].values.tolist()
-        #진폭최대값 = max(call_진폭)
+        #진폭최��값 = max(call_진폭)
         진폭최대값 = df_call['진폭'].max()
 
         max_str = '{0:.2f}'.format(진폭최대값)
@@ -15064,7 +15062,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 ToYourTelegram("NM 텔레그램 Polling이 시작됩니다.")
 
             else:
-                ToYourTelegram("MAN 텔레그램 Polling이 시작됩니다.")
+                pass
             
             self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black} QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')            
             flag_telegram_listen_worker = True                       
@@ -15090,8 +15088,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.textBrowser.append(txt)
 
             else:
-                txt = '[{0:02d}:{1:02d}:{2:02d}] MAN 텔레그램 Polling을 중지합니다.\r'.format(adj_hour, adj_min, adj_sec)
-                self.textBrowser.append(txt)
+                pass
 
             self.pushButton_telegram.setStyleSheet('QPushButton {background-color: white; color: black} QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
             
@@ -17284,7 +17281,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if df['시가'] > df['전일종가']:
                     item.setForeground(QBrush(적색))
-                elif df['시가'] < df['전일종가']:
+                elif df['시가'] < df['전일���가']:
                     item.setForeground(QBrush(청색))
                 else:
                     item.setForeground(QBrush(검정색))
@@ -19909,14 +19906,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.textBrowser.append(txt)
 
                         else:
-                            if MANGI_YAGAN:
-                                # to be checked !!!
-                                pass
-                            else:
-                                t2835_month_info = MONTH_AFTER_NEXT
-
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] EUREX(t2835) 차차월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                            self.textBrowser.append(txt)
+                            pass
 
                         XQ.Query(월물=t2835_month_info)
                     else:
@@ -20098,31 +20088,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)
 
             else:
-                fut_code = ccmshcode
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 차차월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, month_after_next, fut_code)
-                self.textBrowser.append(txt)
-                print(txt) 
-
-                fut_realdata['전저'] = df.at[2, '전일저가']
-                선물_전저 = df.at[0, '전일저가']
-
-                item = QTableWidgetItem("{0:.2f}".format(df.at[2, '전일저가']))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_fut.setItem(1, Futures_column.전저.value, item)
-
-                fut_realdata['전고'] = df.at[2, '전일고가']
-                선물_전고 = df.at[0, '전일고가']
-
-                item = QTableWidgetItem("{0:.2f}".format(df.at[2, '전일고가']))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_fut.setItem(1, Futures_column.전고.value, item)
-
-                fut_realdata['종가'] = df.at[2, '전일종가']
-                선물_종가 = df.at[2, '전일종가']
-
-                item = QTableWidgetItem("{0:.2f}".format(df.at[2, '전일종가']))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)           
+                pass          
 
             if os.path.isfile('daytime.txt'):
 
@@ -22578,8 +22544,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif TARGET_MONTH_SELECT == 'NM':
 
-                    item = QTableWidgetItem("{0:.2f}".format(fut_cms_hoga_cr))
-                    
+                    item = QTableWidgetItem("{0:.2f}".format(fut_cms_hoga_cr))                    
                 else:
                     pass
 
@@ -22597,8 +22562,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif TARGET_MONTH_SELECT == 'NM':
 
-                    item = QTableWidgetItem("{0:.2f}".format(fut_cms_hoga_rr))
-                    
+                    item = QTableWidgetItem("{0:.2f}".format(fut_cms_hoga_rr))                    
                 else:
                     pass
                 
@@ -24200,7 +24164,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 widget_title = repr(next_month) + '월 만기 주간 Big Chart'
             else:
-                widget_title = repr(month_after_next) + '월 만기 주간 Big Chart'
+                pass
         else:
             if MANGI_YAGAN:
 
@@ -24223,7 +24187,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     widget_title = repr(next_month) + '월 만기 야간 Big Chart'
 
                 else:
-                    widget_title = repr(month_after_next) + '월 만기 야간 Big Chart'
+                    pass
 
         self.setWindowTitle(widget_title)
 
@@ -35700,14 +35664,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
             self.setWindowTitle("SkyBot ver1.0")
             self.textBrowser.append('Welcome to SkyBot\r')
-
+            '''
             if TARGET_MONTH_SELECT == 'CM':
                 currentMouseX, currentMouseY = pyautogui.position()
                 self.move(currentMouseX, currentMouseY)
                 self.showNormal()
             else:
                 pass
-            
+            '''
             self.시작시각 = datetime.datetime.now()
         
             txt = '시작시간 = {0}\r'.format(self.시작시각)
@@ -35772,14 +35736,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.setWindowTitle("SkyBot ver1.0")
             self.textBrowser.append('Welcome to SkyBot\r')
-
+            '''
             if TARGET_MONTH_SELECT == 'CM':
                 currentMouseX, currentMouseY = pyautogui.position()
                 self.move(currentMouseX, currentMouseY)
                 self.showNormal()
             else:
                 pass
-
+            '''
             self.시작시각 = datetime.datetime.now()
 
             txt = '시작시간 = {0}\r'.format(self.시작시각)
