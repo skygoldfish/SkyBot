@@ -3124,31 +3124,34 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         # label_msg, label_atm 관련 setFont 추후 검토필요!!!
         self.label_msg.setStyleSheet('background-color: lawngreen; color: black')
-        self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
+        #self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
         self.label_msg.setText("🕘")
         
         self.label_atm.setStyleSheet('background-color: yellow; color: black')
         self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
-        self.label_atm.setText("Basis(양합:양차)")
+        self.label_atm.setText("Basis(양합:양차)")        
+                
+        self.label_1st_index.setStyleSheet('background-color: black ; color: yellow')
+        self.label_1st_index.setText("DOW: 가격 (전일대비, 등락율, 진폭)")
         
-        self.label_kospi.setText("KOSPI: 가격 (전일대비, 등락율)")
-        self.label_kospi.setStyleSheet('background-color: black ; color: yellow')
-        self.label_kosdaq.setText("KOSDAQ: 가격 (전일대비, 등락율)")
-        self.label_kosdaq.setStyleSheet('background-color: black ; color: yellow')
+        self.label_2nd_index.setStyleSheet('background-color: black ; color: yellow')
+        self.label_2nd_index.setText("NASDAQ: 가격 (전일대비, 등락율)")
+        
+        self.label_3rd_index.setStyleSheet('background-color: black ; color: yellow')
+        self.label_3rd_index.setText("WTI: 가격 (전일대비, 등락율)")
+        
+        self.label_4th_index.setStyleSheet('background-color: black ; color: yellow')
 
         if NightTime:
             self.label_4th_index.setText("SP500: 가격 (전일대비, 등락율)")
         else:
             self.label_4th_index.setText("SAMSUNG: 가격 (전일대비, 등락율)")
-
-        self.label_4th_index.setStyleSheet('background-color: black ; color: yellow')
-
-        self.label_3rd_index.setText("WTI: 가격 (전일대비, 등락율)")
-        self.label_3rd_index.setStyleSheet('background-color: black ; color: yellow')
-        self.label_1st_index.setText("DOW: 가격 (전일대비, 등락율, 진폭)")
-        self.label_1st_index.setStyleSheet('background-color: black ; color: yellow')
-        self.label_2nd_index.setText("NASDAQ: 가격 (전일대비, 등락율)")
-        self.label_2nd_index.setStyleSheet('background-color: black ; color: yellow')
+        
+        self.label_kospi.setStyleSheet('background-color: black ; color: yellow')
+        self.label_kospi.setText("KOSPI: 가격 (전일대비, 등락율)")
+        
+        self.label_kosdaq.setStyleSheet('background-color: black ; color: yellow')
+        self.label_kosdaq.setText("KOSDAQ: 가격 (전일대비, 등락율)")        
 
         header_stylesheet = '::section{Background-color: black; color: white; border-style: solid; border-width: 1px; border-color: gray}'
         call_header_stylesheet = '::section{Background-color: black; color: lightgreen; border-style: solid; border-width: 1px; border-color: gray}'
@@ -18984,35 +18987,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             txt = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
             self.label_msg.setText(txt)
-            '''
-            if new_actval_up_count == 0 and new_actval_down_count == 0:
-
-                print('............................................')
-
-                item_str = '{0:d}'.format(real_option_pairs_count)
-                item = QTableWidgetItem(item_str)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setHorizontalHeaderItem(0, item)
-
-                if ResizeRowsToContents:
-                    self.tableWidget_call.resizeRowsToContents()
-                else:
-                    pass
-                self.tableWidget_call.resizeColumnsToContents()
-
-                item_str = '{0:d}'.format(real_option_pairs_count)
-                item = QTableWidgetItem(item_str)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setHorizontalHeaderItem(0, item) 
-
-                if ResizeRowsToContents:
-                    self.tableWidget_put.resizeRowsToContents()
-                else:
-                    pass
-                self.tableWidget_put.resizeColumnsToContents()
-            else:
-                pass
-            '''
+            
             if new_actval_up_count > 0 or new_actval_down_count > 0:
                 logger.debug('t8416 단축코드 = %s' % block['단축코드'])
                 logger.debug('t8416 call count = %d' % t8416_call_count)
@@ -19151,11 +19126,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass                    
                 else:
-                    pass              
-            else:
-                pass
+                    pass
             
-            if block['단축코드'][0:3] == '101':
+            elif block['단축코드'][0:3] == '101':
 
                 df_fut_t8416 = df           
 
@@ -20032,8 +20005,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
             else:
                 pass
-            
-            #self.textBrowser.moveCursor(QtGui.QTextCursor.End)
 
         elif szTrCode == 't8432':
 
