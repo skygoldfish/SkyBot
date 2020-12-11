@@ -15560,7 +15560,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             fut_realdata['저가'] = df['저가']
 
-            txt = '{0:.2f}'.format(fut_realdata['저가']) + '\n' + '({0:.2f})'.format(선물_시가 - k_value)
+            txt = '{0:.2f}'.format(fut_realdata['저가']) + '\n' + '({0:.2f})'.format(df['시가'] - k_value)
 
             item = QTableWidgetItem(txt)
             item.setTextAlignment(Qt.AlignCenter)
@@ -15570,7 +15570,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             fut_realdata['고가'] = df['고가']
 
-            txt = '{0:.2f}'.format(fut_realdata['고가']) + '\n' + '({0:.2f})'.format(선물_시가 + k_value)
+            txt = '{0:.2f}'.format(fut_realdata['고가']) + '\n' + '({0:.2f})'.format(df['시가'] + k_value)
 
             item = QTableWidgetItem(txt)
             item.setTextAlignment(Qt.AlignCenter)
@@ -16516,10 +16516,42 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                # 장운영정보 요청
-                #txt = '[{0:02d}:{1:02d}:{2:02d}] 장운영 정보를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                #self.textBrowser.append(txt)
+                # 행사가 갯수 표시
+                item_str = '{0:d}'.format(real_option_pairs_count)
 
+                item = QTableWidgetItem(item_str)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_call.setHorizontalHeaderItem(0, item)
+                
+                item = QTableWidgetItem(item_str)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_put.setHorizontalHeaderItem(0, item)
+
+                # 선물 변동성지수 탐색요청
+                if not flag_option_pair_full:
+
+                    # t8416 선물요청
+                    QTest.qWait(1000)                       
+
+                    if TARGET_MONTH_SELECT == 'CM':
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 변동성지수 본월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, gmshcode)
+                        self.textBrowser.append(txt)
+                        print(txt)
+
+                        self.t8416_fut_request(gmshcode)
+
+                    elif TARGET_MONTH_SELECT == 'NM':
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 변동성지수 차월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, cmshcode)
+                        self.textBrowser.append(txt)
+                        print(txt)
+
+                        self.t8416_fut_request(cmshcode)
+                    else:
+                        pass
+                else:
+                    pass
+
+                # 주간 선물전광판 데이타요청
                 XQ = t2101(parent=self)
                 XQ.Query(종목코드=fut_code)
 
@@ -16537,6 +16569,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 #time.sleep(0.1)
                 QTest.qWait(100)
 
+                # 야간 선물전광판 데이타요청
                 XQ = t2801(parent=self)
                 XQ.Query(종목코드=fut_code)
 
@@ -18951,8 +18984,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             txt = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
             self.label_msg.setText(txt)
-            
+            '''
             if new_actval_up_count == 0 and new_actval_down_count == 0:
+
+                print('............................................')
 
                 item_str = '{0:d}'.format(real_option_pairs_count)
                 item = QTableWidgetItem(item_str)
@@ -18977,7 +19012,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.resizeColumnsToContents()
             else:
                 pass
-            
+            '''
             if new_actval_up_count > 0 or new_actval_down_count > 0:
                 logger.debug('t8416 단축코드 = %s' % block['단축코드'])
                 logger.debug('t8416 call count = %d' % t8416_call_count)
@@ -19855,7 +19890,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_put.item(min_index, Option_column.기준가.value).setForeground(QBrush(노란색))
                     else:
                         pass
-
+                    '''
                     if not flag_option_pair_full:
 
                         # t8416 선물요청
@@ -19878,11 +19913,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
                     else:
                         pass
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 실시간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-                    print(txt)
-
+                    '''
                     if NightTime:                        
 
                         # EUREX 야간옵션 시세전광판
