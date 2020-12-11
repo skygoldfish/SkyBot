@@ -5863,12 +5863,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if flag_checkBox_HS and dt.second % 10 == 0 and self.alternate_flag:
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f}({4:.2f}) ms, Drop Count = {5}\r'.format(\
-                        dt.hour, dt.minute, dt.second, main_ui_update_time, bc_ui_update_time, queue_input_drop_count)
+                    if queue_input_drop_count > 0:
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f}({4:.2f}) ms, Drop Count = {5}\r'.format(\
+                            dt.hour, dt.minute, dt.second, main_ui_update_time, bc_ui_update_time, queue_input_drop_count)
+                    else:
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f}({4:.2f}) ms\r'.format(\
+                            dt.hour, dt.minute, dt.second, main_ui_update_time, bc_ui_update_time)
+
                     self.textBrowser.append(txt)
                 else:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f} ms, Drop Count = {4}\r'.format(\
-                        dt.hour, dt.minute, dt.second, main_ui_update_time, queue_input_drop_count)
+                    if queue_input_drop_count > 0:
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f} ms, Drop Count = {4}\r'.format(\
+                            dt.hour, dt.minute, dt.second, main_ui_update_time, queue_input_drop_count)
+                    else:
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f} ms\r'.format(\
+                            dt.hour, dt.minute, dt.second, main_ui_update_time)
+
                     print(txt)
             else:
                 pass
