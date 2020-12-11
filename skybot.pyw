@@ -15332,6 +15332,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global t8416_call_count, t8416_put_count
         global ui_start_time
         global df_fut_t8416
+        global fut_avg_noise_ratio, k_value
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -15559,7 +15560,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             fut_realdata['저가'] = df['저가']
 
-            item = QTableWidgetItem("{0:.2f}".format(fut_realdata['저가']))
+            txt = '{0:.2f}'.format(fut_realdata['저가']) + '\n' + '({0:.2f})'.format(선물_시가 - k_value)
+
+            item = QTableWidgetItem(txt)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(흰색))
             item.setForeground(QBrush(검정색))
@@ -15567,7 +15570,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             fut_realdata['고가'] = df['고가']
 
-            item = QTableWidgetItem("{0:.2f}".format(fut_realdata['고가']))
+            txt = '{0:.2f}'.format(fut_realdata['고가']) + '\n' + '({0:.2f})'.format(선물_시가 + k_value)
+
+            item = QTableWidgetItem(txt)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(흰색))
             item.setForeground(QBrush(검정색))
@@ -19116,8 +19121,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
             
             if block['단축코드'][0:3] == '101':
-
-                global fut_avg_noise_ratio, k_value
 
                 df_fut_t8416 = df           
 
