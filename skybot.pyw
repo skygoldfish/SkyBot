@@ -42,6 +42,7 @@ from multiprocessing import Process, Queue, Pipe
 #from queue import Queue
 import pyautogui
 from playsound import playsound
+import socket
 #import sqlite3
 #import pythoncom
 #import inspect
@@ -91,6 +92,10 @@ SELFID = ''
 os_type = platform.platform()
 print('\r')
 print('OS 유형 :', os_type)
+
+flag_internet_connection_broken = False
+flag_service_provider_broken = False
+flag_broken_capture = False
 
 MULTIPROCESS = False
 
@@ -3101,8 +3106,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.setGeometry(right - 1920, top + 30, width, height - 60)
 
         if screen_info.width() > 1920 and screen_info.height() > 1080:
+
             self.showNormal()
-            self.parent.showMaximized()
+
+            if TARGET_MONTH_SELECT == 'CM':
+                self.parent.move(left, top)
+            else:
+                self.parent.showMaximized()
         else:
             self.showMaximized()        
         
@@ -5304,7 +5314,57 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global selected_call, selected_put, selected_opt_list, old_selected_opt_list
             global SP500_당일종가, DOW_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가, GOLD_당일종가 
             global drate_scale_factor
-            global flag_logfile
+            global flag_logfile, flag_broken_capture
+
+            if flag_internet_connection_broken:
+                
+                # 모든 쓰레드를 중지시킨다.
+                self.real_data_worker.terminate()
+                self.telegram_send_worker.terminate()
+                self.telegram_listen_worker.terminate()
+                self.screen_update_worker.terminate()
+
+                if TARGET_MONTH_SELECT == 'CM' and not flag_broken_capture:
+                    self.capture_screenshot()
+                    flag_broken_capture = True
+                else:
+                    pass
+                
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 인터넷 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
+                print(txt)                
+
+                file = open('skybot_error.log', 'w')
+                text = self.textBrowser.toPlainText()
+                file.write(text)
+                file.close()
+            else:
+                pass
+
+            if flag_service_provider_broken:
+                
+                # 모든 쓰레드를 중지시킨다.
+                self.real_data_worker.terminate()
+                self.telegram_send_worker.terminate()
+                self.telegram_listen_worker.terminate()
+                self.screen_update_worker.terminate()
+
+                if TARGET_MONTH_SELECT == 'CM' and not flag_broken_capture:
+                    self.capture_screenshot()
+                    flag_broken_capture = True
+                else:
+                    pass
+                
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 증권사 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
+                print(txt)                
+
+                file = open('skybot_error.log', 'w')
+                text = self.textBrowser.toPlainText()
+                file.write(text)
+                file.close()
+            else:
+                pass
 
             if flag_option_pair_full:
                 ui_update_time = dt.hour * 3600 + dt.minute * 60 + dt.second
@@ -6992,7 +7052,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # oneway check
             if (풋대비합 > 0 and 콜대비합 < 0) and (FUT_INSTITUTIONAL_거래대금순매수 > ONEWAY_THRESHOLD or FUT_RETAIL_거래대금순매수 > ONEWAY_THRESHOLD):
 
-                if 선물_거래대금순매수 > 0 and 현물_거래대금순매수 < 0 \
+                if 선물_거래대��순매수 > 0 and 현물_거래대금순매수 < 0 \
                     and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] < 0:
 
                     if blink:
@@ -14970,11 +15030,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         txt = '[{0:02d}:{1:02d}:{2:02d}] High-Low 리스트파일을 갱신했습니다.\r'.format(adj_hour, adj_min, adj_sec)
         self.textBrowser.append(txt)
 
-        # 해외선물 지수요청 취소
-
-        txt = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
-        self.textBrowser.append(txt)
-
         if CSV_FILE:
 
             if not NightTime:
@@ -18615,7 +18670,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         시가갭 = 시가 - 종가
                         df_call.at[i, '시가갭'] = 시가갭
 
-                        피봇 = self.calc_pivot(df_call.at[i, '전저'], df_call.at[i, '전고'], 종가, 시가)
+                        피봇 = self.calc_pivot(df_call.at[i, '전저'], df_call.at[i, '���고'], 종가, 시가)
                         df_call.at[i, '피봇'] = 피봇
 
                         item = QTableWidgetItem("{0:.2f}".format(피봇))
@@ -35824,13 +35879,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def OnClockTick(self):
 
+        global flag_internet_connection_broken, flag_service_provider_broken
+
         current = datetime.datetime.now()
         current_str = current.strftime('%H:%M:%S')
 
         if current.second == 30: # 매 30초(1분 주기)
+
             try:
                 if self.connection is not None:
-                    msg = '오프라인'
+                    #msg = '오프라인'
+
                     if self.connection.IsConnected():
                         msg = "온라인"
 
@@ -35838,7 +35897,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         self.XQ_t0167.Query()
                     else:
                         msg = "오프라인"
+
+                        if not flag_offline:
+                            flag_service_provider_broken = True
+                        else:
+                            pass
+
                     self.statusbar.showMessage(msg)
+
+                ipaddress = socket.gethostbyname(socket.gethostname())
+                
+                if ipaddress == '127.0.0.1':
+                    self.statusbar.showMessage("인터넷 연결이 끊겼습니다.")
+                    flag_internet_connection_broken = True
+                else:
+                    print('IP Address =', ipaddress)
+
             except Exception as e:
                 pass
 
