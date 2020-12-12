@@ -5986,14 +5986,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global flag_heartbeat
         
-        txt = '[{0:02d}:{1:02d}:{2:02d}] Heartbeat({3}, 시간차 = {4}초)수신, Drop Count = {5}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, 시스템_서버_시간차, queue_input_drop_count)
-        self.textBrowser.append(txt)
-        #print(txt)
+        flag_heartbeat = False 
+        
+        if queue_input_drop_count > 0:
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Heartbeat({3}, 시간차 = {4}초)수신, Drop Count = {5}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, 시스템_서버_시간차, queue_input_drop_count)
+            self.textBrowser.append(txt)
+            #print(txt)
+        else:
+            pass        
         
         self.tableWidget_fut.resizeRowsToContents()
         self.tableWidget_fut.resizeColumnsToContents()
-
-        flag_heartbeat = False 
 
     def opt_high_low_list_update(self):
 
