@@ -5339,7 +5339,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             dt = datetime.datetime.now()
             current_str = dt.strftime('%H:%M:%S')
 
-            # 인터넷연결 확인
+            # 인터넷 연결확인
             ipaddress = socket.gethostbyname(socket.gethostname())
 
             if (not flag_main_window_closed and not flag_screen_board_closed and not flag_big_chart_closed) and ipaddress == '127.0.0.1':
@@ -5371,6 +5371,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
+            # 증권사 연결확인
             if (not flag_main_window_closed and not flag_screen_board_closed and not flag_big_chart_closed) and not self.parent.connection.IsConnected():
                 
                 # 모든 쓰레드를 중지시킨다.
@@ -5985,7 +5986,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def heartbeat_check(self):
 
         global flag_heartbeat
-        
+
         flag_heartbeat = False 
         
         if queue_input_drop_count > 0:
