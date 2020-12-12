@@ -23548,15 +23548,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     jisu_str = "SP500: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                if NightTime:
-                                    
-                                    #self.label_4th_index.setStyleSheet('background-color: pink; color: blue')
-                                    self.label_4th_index.setStyleSheet('background-color: pink; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                    self.label_4th_index.setText(jisu_str)
-                                else:
-                                    #self.label_2nd_index.setStyleSheet('background-color: pink; color: blue')
-                                    self.label_2nd_index.setStyleSheet('background-color: pink; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                    self.label_2nd_index.setText(jisu_str)
+                                self.label_4th_index.setStyleSheet('background-color: pink; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.label_4th_index.setText(jisu_str)
 
                                 sp500_text_color = 'blue'                           
 
@@ -23567,15 +23560,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     jisu_str = "SP500: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                if NightTime:
-                                    
-                                    #self.label_4th_index.setStyleSheet('background-color: pink; color: red')
-                                    self.label_4th_index.setStyleSheet('background-color: pink; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                    self.label_4th_index.setText(jisu_str)
-                                else:
-                                    #self.label_2nd_index.setStyleSheet('background-color: pink; color: red')
-                                    self.label_2nd_index.setStyleSheet('background-color: pink; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                    self.label_2nd_index.setText(jisu_str)
+                                self.label_4th_index.setStyleSheet('background-color: pink; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.label_4th_index.setText(jisu_str)
 
                                 sp500_text_color = 'red'
                             else:
@@ -23590,15 +23576,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     jisu_str = "SP500: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                if NightTime:
-                                    
-                                    #self.label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue')
-                                    self.label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                    self.label_4th_index.setText(jisu_str)
-                                else:
-                                    #self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue')
-                                    self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                    self.label_2nd_index.setText(jisu_str)
+                                self.label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.label_4th_index.setText(jisu_str)
 
                                 sp500_text_color = 'blue'                                
 
@@ -23609,15 +23588,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     jisu_str = "SP500: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                if NightTime:
-                                    
-                                    #self.label_4th_index.setStyleSheet('background-color: lightskyblue; color: red')
-                                    self.label_4th_index.setStyleSheet('background-color: lightskyblue; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                    self.label_4th_index.setText(jisu_str)
-                                else:
-                                    #self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red')
-                                    self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                    self.label_2nd_index.setText(jisu_str)
+                                self.label_4th_index.setStyleSheet('background-color: lightskyblue; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.label_4th_index.setText(jisu_str)
 
                                 sp500_text_color = 'red'                                
                             else:
@@ -23904,9 +23876,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     jisu_str = "HANGSENG: {0} ▲ ({1}, {2:.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
 
-                                #self.label_3rd_index.setStyleSheet('background-color: pink; color: blue')
-                                self.label_3rd_index.setStyleSheet('background-color: pink; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.label_3rd_index.setText(jisu_str)
+                                #self.label_2nd_index.setStyleSheet('background-color: pink; color: blue')
+                                self.label_2nd_index.setStyleSheet('background-color: pink; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.label_2nd_index.setText(jisu_str)
                                 hangseng_text_color = 'blue'                                           
 
                             elif HANGSENG_등락율 > 0:
@@ -23916,9 +23888,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     jisu_str = "HANGSENG: {0} ▲ ({1}, {2:.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
 
-                                #self.label_3rd_index.setStyleSheet('background-color: pink; color: red')
-                                self.label_3rd_index.setStyleSheet('background-color: pink; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.label_3rd_index.setText(jisu_str)
+                                #self.label_2nd_index.setStyleSheet('background-color: pink; color: red')
+                                self.label_2nd_index.setStyleSheet('background-color: pink; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.label_2nd_index.setText(jisu_str)
                                 hangseng_text_color = 'red'                                                                             
                             else:
                                 pass
@@ -23932,9 +23904,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     jisu_str = "HANGSENG: {0} ▼ ({1}, {2:.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
 
-                                #self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: blue')
-                                self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.label_3rd_index.setText(jisu_str)
+                                #self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue')
+                                self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.label_2nd_index.setText(jisu_str)
                                 hangseng_text_color = 'blue'
 
                             elif HANGSENG_등락율 > 0:
@@ -23944,9 +23916,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     jisu_str = "HANGSENG: {0} ▼ ({1}, {2:.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
 
-                                #self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: red')
-                                self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.label_3rd_index.setText(jisu_str)
+                                #self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red')
+                                self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.label_2nd_index.setText(jisu_str)
                                 hangseng_text_color = 'red'
                             else:
                                 pass                            
@@ -24019,9 +23991,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     jisu_str = "EUROFX: {0:0.5f} ▲ ({1:0.5f}, {2:.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
 
-                                #self.label_3rd_index.setStyleSheet('background-color: pink; color: blue')
-                                self.label_3rd_index.setStyleSheet('background-color: pink; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.label_3rd_index.setText(jisu_str)
+                                #self.label_2nd_index.setStyleSheet('background-color: pink; color: blue')
+                                self.label_2nd_index.setStyleSheet('background-color: pink; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.label_2nd_index.setText(jisu_str)
                                 eurofx_text_color = 'blue'                                           
 
                             elif EUROFX_등락율 > 0:
@@ -24031,9 +24003,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     jisu_str = "EUROFX: {0:0.5f} ▲ ({1:0.5f}, {2:.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
 
-                                #self.label_3rd_index.setStyleSheet('background-color: pink; color: red')
-                                self.label_3rd_index.setStyleSheet('background-color: pink; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.label_3rd_index.setText(jisu_str)
+                                #self.label_2nd_index.setStyleSheet('background-color: pink; color: red')
+                                self.label_2nd_index.setStyleSheet('background-color: pink; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.label_2nd_index.setText(jisu_str)
                                 eurofx_text_color = 'red'                                                                             
                             else:
                                 pass
@@ -24047,9 +24019,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     jisu_str = "EUROFX: {0:0.5f} ▼ ({1:0.5f}, {2:.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
 
-                                #self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: blue')
-                                self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.label_3rd_index.setText(jisu_str)
+                                #self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue')
+                                self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.label_2nd_index.setText(jisu_str)
                                 eurofx_text_color = 'blue'
 
                             elif EUROFX_등락율 > 0:
@@ -24059,9 +24031,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     jisu_str = "EUROFX: {0:0.5f} ▼ ({1:0.5f}, {2:.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
 
-                                #self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: red')
-                                self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.label_3rd_index.setText(jisu_str)
+                                #self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red')
+                                self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.label_2nd_index.setText(jisu_str)
                                 eurofx_text_color = 'red'
                             else:
                                 pass                            
@@ -24134,9 +24106,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     jisu_str = "GOLD: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
 
-                                #self.label_2nd_index.setStyleSheet('background-color: pink; color: blue')
-                                self.label_2nd_index.setStyleSheet('background-color: pink; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.label_2nd_index.setText(jisu_str)
+                                #self.label_3rd_index.setStyleSheet('background-color: pink; color: blue')
+                                self.label_3rd_index.setStyleSheet('background-color: pink; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.label_3rd_index.setText(jisu_str)
                                 gold_text_color = 'blue'                                           
 
                             elif GOLD_등락율 > 0:
@@ -24146,9 +24118,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     jisu_str = "GOLD: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
 
-                                #self.label_2nd_index.setStyleSheet('background-color: pink; color: red')
-                                self.label_2nd_index.setStyleSheet('background-color: pink; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.label_2nd_index.setText(jisu_str)
+                                #self.label_3rd_index.setStyleSheet('background-color: pink; color: red')
+                                self.label_3rd_index.setStyleSheet('background-color: pink; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.label_3rd_index.setText(jisu_str)
                                 gold_text_color = 'red'                                                                             
                             else:
                                 pass
@@ -24162,9 +24134,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     jisu_str = "GOLD: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
 
-                                #self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue')
-                                self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.label_2nd_index.setText(jisu_str)
+                                #self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: blue')
+                                self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.label_3rd_index.setText(jisu_str)
                                 gold_text_color = 'blue'
 
                             elif GOLD_등락율 > 0:
@@ -24174,9 +24146,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     jisu_str = "GOLD: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
 
-                                #self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red')
-                                self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.label_2nd_index.setText(jisu_str)
+                                #self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: red')
+                                self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.label_3rd_index.setText(jisu_str)
                                 gold_text_color = 'red'
                             else:
                                 pass                            
