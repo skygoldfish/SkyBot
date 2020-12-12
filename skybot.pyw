@@ -5339,106 +5339,107 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             dt = datetime.datetime.now()
             current_str = dt.strftime('%H:%M:%S')
 
+            self.alternate_flag = not self.alternate_flag
+
             # 인터넷 연결확인
             ipaddress = socket.gethostbyname(socket.gethostname())
 
             if (not flag_main_window_closed and not flag_screen_board_closed and not flag_big_chart_closed) and ipaddress == '127.0.0.1':
 
-                self.parent.statusbar.showMessage("인터넷 연결이 끊겼습니다.")
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 인터넷 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.statusbar.showMessage(txt)
                 
-                # 모든 쓰레드를 중지시킨다.
-                self.real_data_worker.terminate()
-                self.telegram_send_worker.terminate()
-                self.telegram_listen_worker.terminate()
-                self.screen_update_worker.terminate()
-
                 if TARGET_MONTH_SELECT == 'CM' and not flag_broken_capture:
-                    self.capture_screenshot()
+
+                    self.capture_screenshot()                   
+
+                    self.textBrowser.append(txt)
+                    print(txt)
+
+                    self.parent.statusbar.showMessage(txt)              
+
+                    file = open('inernet_error.log', 'w')
+                    text = self.textBrowser.toPlainText()
+                    file.write(text)
+                    file.close()
+
                     flag_broken_capture = True
                 else:
                     pass
                 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 인터넷 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(txt)
-                print(txt)
-
                 flag_internet_connection_broken = True                
-
-                file = open('skybot_error.log', 'w')
-                text = self.textBrowser.toPlainText()
-                file.write(text)
-                file.close()
             else:
-                pass
+                flag_internet_connection_broken = False
 
             # 증권사 연결확인
             if (not flag_main_window_closed and not flag_screen_board_closed and not flag_big_chart_closed) and not self.parent.connection.IsConnected():
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 증권사 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.statusbar.showMessage(txt)
+                
+                if TARGET_MONTH_SELECT == 'CM' and not flag_broken_capture:
+
+                    self.capture_screenshot()
+
+                    self.textBrowser.append(txt)
+                    print(txt)
+
+                    self.parent.statusbar.showMessage(txt)              
+
+                    file = open('sc_error.log', 'w')
+                    text = self.textBrowser.toPlainText()
+                    file.write(text)
+                    file.close()
+
+                    flag_broken_capture = True
+                else:
+                    pass
                 
                 # 모든 쓰레드를 중지시킨다.
                 self.real_data_worker.terminate()
                 self.telegram_send_worker.terminate()
                 self.telegram_listen_worker.terminate()
                 self.screen_update_worker.terminate()
-
-                if TARGET_MONTH_SELECT == 'CM' and not flag_broken_capture:
-                    self.capture_screenshot()
-                    flag_broken_capture = True
-                else:
-                    pass
                 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 증권사 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(txt)
-                print(txt)
-
-                flag_service_provider_broken = True                
-
-                file = open('skybot_error.log', 'w')
-                text = self.textBrowser.toPlainText()
-                file.write(text)
-                file.close()
+                flag_service_provider_broken = True
             else:
-                pass
+                flag_service_provider_broken = False
 
-            if flag_option_pair_full:
+            # 옵션 행사가 총합이 200개를 넘을 경우 선물 변동성지수 요청을 위한 로직            
+            if (not flag_internet_connection_broken and not flag_service_provider_broken) and flag_option_pair_full:
+
                 ui_update_time = dt.hour * 3600 + dt.minute * 60 + dt.second
-            else:
-                pass
-            
-            self.alternate_flag = not self.alternate_flag
 
-            if receive_quote:                
-                self.option_quote_update()
-            else:
-                pass
-            
-            # t8416 요청제한이 10분내에 200회, 회피 로직추가
-            if flag_option_pair_full and self.alternate_flag and ui_update_time == ui_start_time + 10 * 60:
-                
-                # t8416 선물요청
-                if TARGET_MONTH_SELECT == 'CM':
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 본월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, gmshcode)
-                    self.textBrowser.append(txt)
-                    print(txt)
+                # t8416 요청제한이 10분내에 200회, 회피 로직추가
+                if flag_option_pair_full and self.alternate_flag and ui_update_time == ui_start_time + 10 * 60:
 
-                    self.t8416_fut_request(gmshcode)
-                    
-                elif TARGET_MONTH_SELECT == 'NM':
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 차월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, cmshcode)
-                    self.textBrowser.append(txt)
-                    print(txt)
+                    # t8416 선물요청
+                    if TARGET_MONTH_SELECT == 'CM':
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 본월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, gmshcode)
+                        self.textBrowser.append(txt)
+                        print(txt)
 
-                    self.t8416_fut_request(cmshcode)
+                        self.t8416_fut_request(gmshcode)
+
+                    elif TARGET_MONTH_SELECT == 'NM':
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 차월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, cmshcode)
+                        self.textBrowser.append(txt)
+                        print(txt)
+
+                        self.t8416_fut_request(cmshcode)
+                    else:
+                        pass
                 else:
                     pass
             else:
-                pass
+                pass            
             
-            # 서버시간 기준으로 1분마다 체크!!!
-            
-            if self.alternate_flag and flag_heartbeat:
+            # 서버시간 기준으로 1분마다 체크!!!            
+            if (not flag_internet_connection_broken and not flag_service_provider_broken) and self.alternate_flag and flag_heartbeat:
                 self.heartbeat_check()
             else:
                 pass
+
             '''
             if flag_checkBox_HS and self.alternate_flag and dt.second % OPTION_BOARD_UPDATE_INTERVAL == 0:                
 
@@ -5460,15 +5461,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             '''
             
             # Market 유형을 시간과 함께 표시
-            self.market_type_display(self.alternate_flag)
+            if (not flag_internet_connection_broken and not flag_service_provider_broken):
+                self.market_type_display(self.alternate_flag)
+            else:
+                pass
             
-            if not flag_produce_queue_empty:
+            if (not flag_internet_connection_broken and not flag_service_provider_broken) and receive_quote:                
+                self.option_quote_update()
+            else:
+                pass
+            
+            if (not flag_internet_connection_broken and not flag_service_provider_broken) and not flag_produce_queue_empty:
                 print('flag_produce_queue_empty in update_screen =', flag_produce_queue_empty)
             else:
                 pass
 
             # 실시간 서비스                     
-            if flag_produce_queue_empty and FLAG_GUEST_CONTROL and receive_real_ovc:
+            if (not flag_internet_connection_broken and not flag_service_provider_broken) and flag_produce_queue_empty and FLAG_GUEST_CONTROL and receive_real_ovc:
                 
                 # 옵션 등락율 scale factor 읽어들임
                 drate_scale_factor = float(self.tableWidget_fut.item(2, Futures_column.진폭.value).text())
@@ -5766,190 +5775,194 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             # 증권사 서버초기화(오전 7시 10분경)전에 프로그램을 미리 오프라인으로 전환하여야 Crash 발생안함
-            if NightTime:
+            if (not flag_internet_connection_broken and not flag_service_provider_broken):
+                
+                if NightTime:
 
-                if 서버시간 == 6 * 3600:
+                    if 서버시간 == 6 * 3600:
 
-                    # 해외선물 지수요청 취소 
-                    pass
-                else:
-                    pass
-
-                # 장종료 1분후에 프로그램을 오프라인으로 전환시킴
-                if yagan_service_terminate and 서버시간 >= (6 * 3600 + 1 * 60):
-
-                    if self.parent.connection.IsConnected():
-
-                        SP500_당일종가 = SP500_현재가
-                        DOW_당일종가 = DOW_현재가
-                        NASDAQ_당일종가 = NASDAQ_현재가
-                        WTI_당일종가 = WTI_현재가
-                        EUROFX_당일종가 = EUROFX_현재가
-                        HANGSENG_당일종가 = HANGSENG_현재가
-                        GOLD_당일종가 = GOLD_현재가
-
-                        # 다음날 해외선물 피봇계산을 위해 종료시(오전 6시) 마지막 값 저장
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] CME 종가 = {3:.2f}\r'.format(adj_hour, adj_min, adj_sec, CME_당일종가)
-                        self.textBrowser.append(txt)
-                        print(txt)
-
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] SP500 Low = {3:.2f}, SP500 High = {4:.2f}, SP500 Close = {5:.2f}\r'.format \
-                            (adj_hour, 
-                            adj_min, 
-                            adj_sec,
-                            SP500_저가, SP500_고가, SP500_당일종가)
-                        self.textBrowser.append(txt)
-                        print(txt)
-
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] DOW Low = {3:0.1f}, DOW High = {4:0.1f}, DOW Close = {5:0.1f}\r'.format \
-                            (adj_hour, 
-                            adj_min, 
-                            adj_sec,
-                            DOW_저가, DOW_고가, DOW_당일종가)
-                        self.textBrowser.append(txt)
-                        print(txt)
-
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ Low = {3:.2f}, NASDAQ High = {4:.2f}, NASDAQ Close = {5:.2f}\r'.format \
-                            (adj_hour, 
-                            adj_min, 
-                            adj_sec,
-                            NASDAQ_저가, NASDAQ_고가, NASDAQ_당일종가)
-                        self.textBrowser.append(txt)
-                        print(txt)
-
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] WTI Low = {3:.2f}, WTI High = {4:.2f}, WTI Close = {5:.2f}\r'.format \
-                            (adj_hour, 
-                            adj_min, 
-                            adj_sec,
-                            WTI_저가, WTI_고가, WTI_당일종가)
-                        self.textBrowser.append(txt)
-                        print(txt)
-
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 야간장 주요정보를 저징합니다...\r'.format(adj_hour, adj_min, adj_sec)
-                        self.textBrowser.append(txt)
-                        print(txt)
-                        
-                        # 야간장의 주요정보를 저장
-                        with open('nighttime.txt', mode='w') as nighttime_file:
-
-                            now = time.localtime()
-
-                            times = "%04d-%02d-%02d-%02d-%02d-%02d" % \
-                                    (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
-
-                            file_str = '{}\n'.format(times)
-                            nighttime_file.write(file_str)
-                            file_str = '\n'
-                            nighttime_file.write(file_str)
-                            file_str = '################# < Futures Index of the Last Night > ###################\n'
-                            nighttime_file.write(file_str)                            
-                            file_str = 'CME FUT Last Close = {0}\n'.format(CME_당일종가)
-                            nighttime_file.write(file_str)
-                            file_str = '##################### < Foreign Futures Index of the Last Night > ####################\n'
-                            nighttime_file.write(file_str)
-                            file_str = 'S&P 500 Last Low = {0}\n'.format(SP500_저가)
-                            nighttime_file.write(file_str)
-                            file_str = 'S&P 500 Last High = {0}\n'.format(SP500_고가)
-                            nighttime_file.write(file_str)
-                            file_str = 'S&P 500 Last Close = {0}\n'.format(SP500_당일종가)
-                            nighttime_file.write(file_str)
-                            file_str = 'DOW Last Low = {0}\n'.format(DOW_저가)
-                            nighttime_file.write(file_str)
-                            file_str = 'DOW Last High = {0}\n'.format(DOW_고가)
-                            nighttime_file.write(file_str)
-                            file_str = 'DOW Last Close = {0}\n'.format(DOW_당일종가)
-                            nighttime_file.write(file_str)
-                            file_str = 'NASDAQ Last Low = {0}\n'.format(NASDAQ_저가)
-                            nighttime_file.write(file_str)
-                            file_str = 'NASDAQ Last High = {0}\n'.format(NASDAQ_고가)
-                            nighttime_file.write(file_str)
-                            file_str = 'NASDAQ Last Close = {0}\n'.format(NASDAQ_당일종가)
-                            nighttime_file.write(file_str)
-                            file_str = 'WTI Last Low = {0}\n'.format(WTI_저가)
-                            nighttime_file.write(file_str)
-                            file_str = 'WTI Last High = {0}\n'.format(WTI_고가)
-                            nighttime_file.write(file_str)
-                            file_str = 'WTI Last Close = {0}\n'.format(WTI_당일종가)
-                            nighttime_file.write(file_str)
-                            file_str = 'EUROFX Last Low = {0}\n'.format(EUROFX_저가)
-                            nighttime_file.write(file_str)
-                            file_str = 'EUROFX Last High = {0}\n'.format(EUROFX_고가)
-                            nighttime_file.write(file_str)
-                            file_str = 'EUROFX Last Close = {0}\n'.format(EUROFX_당일종가)
-                            nighttime_file.write(file_str)
-                            file_str = 'HANGSENG Last Low = {0}\n'.format(HANGSENG_저가)
-                            nighttime_file.write(file_str)
-                            file_str = 'HANGSENG Last High = {0}\n'.format(HANGSENG_고가)
-                            nighttime_file.write(file_str)
-                            file_str = 'HANGSENG Last Close = {0}\n'.format(HANGSENG_당일종가)
-                            nighttime_file.write(file_str)
-                            file_str = 'GOLD Last Low = {0}\n'.format(GOLD_저가)
-                            nighttime_file.write(file_str)
-                            file_str = 'GOLD Last High = {0}\n'.format(GOLD_고가)
-                            nighttime_file.write(file_str)
-                            file_str = 'GOLD Last Close = {0}\n'.format(GOLD_당일종가)
-                            nighttime_file.write(file_str)
-                            nighttime_file.close()
-
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(adj_hour, adj_min, adj_sec)
-                        self.textBrowser.append(txt)
-                        print(txt)
-
-                        if not flag_offline:
-                            flag_offline = True                            
-                            self.parent.connection.disconnect()
-                        else:
-                            pass
+                        # 해외선물 지수요청 취소 
+                        pass
                     else:
-                        self.parent.statusbar.showMessage("오프라인")
+                        pass
 
-                        if not flag_logfile:
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    # 장종료 1분후에 프로그램을 오프라인으로 전환시킴
+                    if yagan_service_terminate and 서버시간 >= (6 * 3600 + 1 * 60):
+
+                        if self.parent.connection.IsConnected():
+
+                            SP500_당일종가 = SP500_현재가
+                            DOW_당일종가 = DOW_현재가
+                            NASDAQ_당일종가 = NASDAQ_현재가
+                            WTI_당일종가 = WTI_현재가
+                            EUROFX_당일종가 = EUROFX_현재가
+                            HANGSENG_당일종가 = HANGSENG_현재가
+                            GOLD_당일종가 = GOLD_현재가
+
+                            # 다음날 해외선물 피봇계산을 위해 종료시(오전 6시) 마지막 값 저장
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] CME 종가 = {3:.2f}\r'.format(adj_hour, adj_min, adj_sec, CME_당일종가)
                             self.textBrowser.append(txt)
+                            print(txt)
 
-                            file = open('skybot.log', 'w')
-                            text = self.textBrowser.toPlainText()
-                            file.write(text)
-                            file.close()
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] SP500 Low = {3:.2f}, SP500 High = {4:.2f}, SP500 Close = {5:.2f}\r'.format \
+                                (adj_hour, 
+                                adj_min, 
+                                adj_sec,
+                                SP500_저가, SP500_고가, SP500_당일종가)
+                            self.textBrowser.append(txt)
+                            print(txt)
 
-                            flag_logfile = True
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] DOW Low = {3:0.1f}, DOW High = {4:0.1f}, DOW Close = {5:0.1f}\r'.format \
+                                (adj_hour, 
+                                adj_min, 
+                                adj_sec,
+                                DOW_저가, DOW_고가, DOW_당일종가)
+                            self.textBrowser.append(txt)
+                            print(txt)
+
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ Low = {3:.2f}, NASDAQ High = {4:.2f}, NASDAQ Close = {5:.2f}\r'.format \
+                                (adj_hour, 
+                                adj_min, 
+                                adj_sec,
+                                NASDAQ_저가, NASDAQ_고가, NASDAQ_당일종가)
+                            self.textBrowser.append(txt)
+                            print(txt)
+
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] WTI Low = {3:.2f}, WTI High = {4:.2f}, WTI Close = {5:.2f}\r'.format \
+                                (adj_hour, 
+                                adj_min, 
+                                adj_sec,
+                                WTI_저가, WTI_고가, WTI_당일종가)
+                            self.textBrowser.append(txt)
+                            print(txt)
+
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 야간장 주요정보를 저징합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                            self.textBrowser.append(txt)
+                            print(txt)
+
+                            # 야간장의 주요정보를 저장
+                            with open('nighttime.txt', mode='w') as nighttime_file:
+
+                                now = time.localtime()
+
+                                times = "%04d-%02d-%02d-%02d-%02d-%02d" % \
+                                        (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+
+                                file_str = '{}\n'.format(times)
+                                nighttime_file.write(file_str)
+                                file_str = '\n'
+                                nighttime_file.write(file_str)
+                                file_str = '################# < Futures Index of the Last Night > ###################\n'
+                                nighttime_file.write(file_str)                            
+                                file_str = 'CME FUT Last Close = {0}\n'.format(CME_당일종가)
+                                nighttime_file.write(file_str)
+                                file_str = '##################### < Foreign Futures Index of the Last Night > ####################\n'
+                                nighttime_file.write(file_str)
+                                file_str = 'S&P 500 Last Low = {0}\n'.format(SP500_저가)
+                                nighttime_file.write(file_str)
+                                file_str = 'S&P 500 Last High = {0}\n'.format(SP500_고가)
+                                nighttime_file.write(file_str)
+                                file_str = 'S&P 500 Last Close = {0}\n'.format(SP500_당일종가)
+                                nighttime_file.write(file_str)
+                                file_str = 'DOW Last Low = {0}\n'.format(DOW_저가)
+                                nighttime_file.write(file_str)
+                                file_str = 'DOW Last High = {0}\n'.format(DOW_고가)
+                                nighttime_file.write(file_str)
+                                file_str = 'DOW Last Close = {0}\n'.format(DOW_당일종가)
+                                nighttime_file.write(file_str)
+                                file_str = 'NASDAQ Last Low = {0}\n'.format(NASDAQ_저가)
+                                nighttime_file.write(file_str)
+                                file_str = 'NASDAQ Last High = {0}\n'.format(NASDAQ_고가)
+                                nighttime_file.write(file_str)
+                                file_str = 'NASDAQ Last Close = {0}\n'.format(NASDAQ_당일종가)
+                                nighttime_file.write(file_str)
+                                file_str = 'WTI Last Low = {0}\n'.format(WTI_저가)
+                                nighttime_file.write(file_str)
+                                file_str = 'WTI Last High = {0}\n'.format(WTI_고가)
+                                nighttime_file.write(file_str)
+                                file_str = 'WTI Last Close = {0}\n'.format(WTI_당일종가)
+                                nighttime_file.write(file_str)
+                                file_str = 'EUROFX Last Low = {0}\n'.format(EUROFX_저가)
+                                nighttime_file.write(file_str)
+                                file_str = 'EUROFX Last High = {0}\n'.format(EUROFX_고가)
+                                nighttime_file.write(file_str)
+                                file_str = 'EUROFX Last Close = {0}\n'.format(EUROFX_당일종가)
+                                nighttime_file.write(file_str)
+                                file_str = 'HANGSENG Last Low = {0}\n'.format(HANGSENG_저가)
+                                nighttime_file.write(file_str)
+                                file_str = 'HANGSENG Last High = {0}\n'.format(HANGSENG_고가)
+                                nighttime_file.write(file_str)
+                                file_str = 'HANGSENG Last Close = {0}\n'.format(HANGSENG_당일종가)
+                                nighttime_file.write(file_str)
+                                file_str = 'GOLD Last Low = {0}\n'.format(GOLD_저가)
+                                nighttime_file.write(file_str)
+                                file_str = 'GOLD Last High = {0}\n'.format(GOLD_고가)
+                                nighttime_file.write(file_str)
+                                file_str = 'GOLD Last Close = {0}\n'.format(GOLD_당일종가)
+                                nighttime_file.write(file_str)
+                                nighttime_file.close()
+
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                            self.textBrowser.append(txt)
+                            print(txt)
+
+                            if not flag_offline:
+                                flag_offline = True                            
+                                self.parent.connection.disconnect()
+                            else:
+                                pass
                         else:
-                            pass
+                            self.parent.statusbar.showMessage("오프라인")
+
+                            if not flag_logfile:
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                                self.textBrowser.append(txt)
+
+                                file = open('skybot.log', 'w')
+                                text = self.textBrowser.toPlainText()
+                                file.write(text)
+                                file.close()
+
+                                flag_logfile = True
+                            else:
+                                pass
+                    else:
+                        pass
                 else:
-                    pass
+                    # 장종료 1분후에 프로그램을 오프라인으로 전환시킴
+                    if jugan_service_terminate and 서버시간 >= (15 * 3600 + 46 * 60):
+
+                        if self.parent.connection.IsConnected():
+
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                            self.textBrowser.append(txt)
+                            print(txt)
+
+                            if not flag_offline:
+                                flag_offline = True                            
+                                self.parent.connection.disconnect()
+                            else:
+                                pass
+                        else:
+                            self.parent.statusbar.showMessage("오프라인")
+
+                            if not flag_logfile:
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                                self.textBrowser.append(txt)
+
+                                file = open('skybot.log', 'w')
+                                text = self.textBrowser.toPlainText()
+                                file.write(text)
+                                file.close()
+
+                                flag_logfile = True
+                            else:
+                                pass
+                    else:
+                        pass
             else:
-                # 장종료 1분후에 프로그램을 오프라인으로 전환시킴
-                if jugan_service_terminate and 서버시간 >= (15 * 3600 + 46 * 60):
+                pass
 
-                    if self.parent.connection.IsConnected():
-
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(adj_hour, adj_min, adj_sec)
-                        self.textBrowser.append(txt)
-                        print(txt)
-
-                        if not flag_offline:
-                            flag_offline = True                            
-                            self.parent.connection.disconnect()
-                        else:
-                            pass
-                    else:
-                        self.parent.statusbar.showMessage("오프라인")
-
-                        if not flag_logfile:
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
-                            self.textBrowser.append(txt)
-
-                            file = open('skybot.log', 'w')
-                            text = self.textBrowser.toPlainText()
-                            file.write(text)
-                            file.close()
-
-                            flag_logfile = True
-                        else:
-                            pass
-                else:
-                    pass  
-            
             if not flag_offline:
 
                 main_ui_update_time = (timeit.default_timer() - start_time) * 1000
@@ -5976,8 +5989,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     print(txt)
             else:
-                pass
-            
+                pass            
         except:
             pass
 
@@ -17293,7 +17305,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     #self.label_kospi.setStyleSheet('background-color: black ; color: lightskyblue')
                     self.label_kospi.setStyleSheet('background-color: black; color: lightskyblue; border-style: solid; border-width: 1px; border-color: lightskyblue; border-radius: 5px')
 
-                elif df['종합지수전일대비구��'] == '2':
+                elif df['종합지수전일대비구분'] == '2':
 
                     jisu_str = "KOSPI: {0} ({1:.2f}, {2:0.1f}%)".format(format(df['종합지수'], ','), df['종합지수전일대비'], df['종합지수등락율'])
                     self.label_kospi.setText(jisu_str)
@@ -36105,16 +36117,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         self.XQ_t0167.Query()
                     else:
                         msg = "오프라인"
-
-                    if flag_internet_connection_broken:
-                        msg = '인터넷 연결이 끊겼습니다.'
-                    else:
-                        pass
-
-                    if flag_service_provider_broken:
-                        msg = '증권사 연결이 끊겼습니다.'
-                    else:
-                        pass
 
                     self.statusbar.showMessage(msg)
                     
