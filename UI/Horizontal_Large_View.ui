@@ -207,7 +207,7 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QLabel" name="label_msg">
+     <widget class="QLabel" name="label_main_time">
       <property name="font">
        <font>
         <weight>75</weight>
