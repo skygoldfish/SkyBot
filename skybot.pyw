@@ -2249,8 +2249,8 @@ plot_update_interval = 500
 
 flag_produce_queue_empty = True
 
-flag_call_oneway = False
-flag_put_oneway = False
+flag_call_strong = False
+flag_put_strong = False
 
 ########################################################################################################################
 def xing_test_func():
@@ -2552,11 +2552,11 @@ class telegram_send_worker(QThread):
                             pass
 
                         # 원웨이 알람
-                        if flag_call_oneway:
-                            txt = "[{0:02d}:{1:02d}:{2:02d}] ★ Call OneWay({3:.2f}/{4:.2f}) !!!".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
+                        if flag_call_strong:
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] ★ Call Strong({3:.2f}/{4:.2f}) !!!".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
                             ToYourTelegram(txt)
-                        elif flag_put_oneway:
-                            txt = "[{0:02d}:{1:02d}:{2:02d}] ★ Put OneWay({3:.2f}/{4:.2f}) !!!".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
+                        elif flag_put_strong:
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] ★ Put Strong({3:.2f}/{4:.2f}) !!!".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
                             ToYourTelegram(txt)
                         else:
                             pass
@@ -6319,17 +6319,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
         '''
 
-        if flag_option_start and not flag_checkBox_HS:
+        if flag_option_start:
 
             # 콜 매수 OneWay장
             if call_ms_oneway:
-                pass
-                '''
+
                 if blink:
-                    self.label_main_time.setStyleSheet('background-color: red; color: white')
+                    #self.label_main_time.setStyleSheet('background-color: red; color: white')
+                    self.label_main_time.setStyleSheet('background-color: red; color: white; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
                 else:
-                    self.label_main_time.setStyleSheet('background-color: white; color: red')
-                '''
+                    #self.label_main_time.setStyleSheet('background-color: white; color: red')
+                    self.label_main_time.setStyleSheet('background-color: white; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+
             # 콜 매수 비대칭장
             elif call_ms_asymmetric:
 
@@ -6356,13 +6357,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             # 풋 매수 OneWay장
             elif put_ms_oneway:
-                pass
-                '''
+
                 if blink:
-                    self.label_main_time.setStyleSheet('background-color: blue; color: white')
+                    #self.label_main_time.setStyleSheet('background-color: blue; color: white')
+                    self.label_main_time.setStyleSheet('background-color: blue; color: white; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
                 else:
-                    self.label_main_time.setStyleSheet('background-color: white; color: blue')
-                '''
+                    #self.label_main_time.setStyleSheet('background-color: white; color: blue')
+                    self.label_main_time.setStyleSheet('background-color: white; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+
             # 풋 매수 비대칭장
             elif put_ms_asymmetric:
 
@@ -6390,9 +6392,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 대칭장
                 #self.label_main_time.setStyleSheet('background-color: lawngreen; color: black')
                 self.label_main_time.setStyleSheet('background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
-
-            # 콜 매수 OneWay장
-            if flag_call_oneway:
+            '''
+            # 콜 Strong 매수장
+            if flag_call_strong:
 
                 if blink:
                     #self.label_main_time.setStyleSheet('background-color: red; color: white')
@@ -6401,8 +6403,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     #self.label_main_time.setStyleSheet('background-color: white; color: red')
                     self.label_main_time.setStyleSheet('background-color: white; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
 
-            # 풋 매수 OneWay장
-            elif flag_put_oneway:
+            # 풋 Strong 매수장
+            elif flag_put_strong:
 
                 if blink:
                     #self.label_main_time.setStyleSheet('background-color: blue; color: white')
@@ -6412,6 +6414,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.label_main_time.setStyleSheet('background-color: white; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
             else:
                 pass
+            '''
         else:
             #self.label_main_time.setStyleSheet('background-color: black; color: lawngreen')
             self.label_main_time.setStyleSheet('background-color: black; color: lawngreen; border-style: solid; border-width: 1px; border-color: lawngreen; border-radius: 5px')            
@@ -7355,20 +7358,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if abs(콜대비_퍼센트_평균/풋대비_퍼센트_평균) >= ASYM_RATIO:
                 
                 if abs(콜대비_퍼센트_평균/풋대비_퍼센트_평균) >= ONEWAY_RATIO and abs(선물_등락율) > abs(DOW_등락율):
-                    pass                
-                    '''
-                    if TARGET_MONTH_SELECT == 'CM' and not call_ms_oneway:
 
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
-                            (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
-
-                    elif TARGET_MONTH_SELECT == 'NM' and not call_ms_oneway:
-
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
-                            (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
-                    else:
-                        pass
-                    
                     # 콜 원웨이(원웨이장은 플래그 세팅을 나중에 해줌 --> 발생시각 표시를 위해)
                     call_ms_oneway = True
                     call_ms_asymmetric = False
@@ -7380,6 +7370,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     put_md_asymmetric = False
                     put_md_all_down = False
                     put_ms_all_up = False
+
+                    '''
+                    if TARGET_MONTH_SELECT == 'CM' and not call_ms_oneway:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
+                            (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                    elif TARGET_MONTH_SELECT == 'NM' and not call_ms_oneway:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
+                            (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                    else:
+                        pass                    
 
                     if dt.second % 10 == 0 and not blink:
 
@@ -7508,20 +7511,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             elif abs(풋대비_퍼센트_평균/콜대비_퍼센트_평균) >= ASYM_RATIO:
 
                 if abs(풋대비_퍼센트_평균/콜대비_퍼센트_평균) >= ONEWAY_RATIO and abs(선물_등락율) > abs(DOW_등락율):
-                    pass                
-                    '''
-                    if TARGET_MONTH_SELECT == 'CM' and not put_ms_oneway:
 
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
-                            (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
-
-                    elif TARGET_MONTH_SELECT == 'NM' and not put_ms_oneway:
-
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
-                            (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
-                    else:
-                        pass
-                    
                     # 풋 원웨이(원웨이장은 플래그 세팅을 나중에 해줌 --> 발생시각 표시를 위해)
                     call_ms_oneway = False
                     call_ms_asymmetric = False
@@ -7533,6 +7523,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     put_md_asymmetric = False
                     put_md_all_down = False
                     put_ms_all_up = False
+
+                    '''
+                    if TARGET_MONTH_SELECT == 'CM' and not put_ms_oneway:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
+                            (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                    elif TARGET_MONTH_SELECT == 'NM' and not put_ms_oneway:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
+                            (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                    else:
+                        pass                    
 
                     if dt.second % 10 == 0 and not blink:
 
@@ -11792,7 +11795,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 선물_현재가_버퍼
         global flag_futures_ohlc_open
         global df_futures_graph
-        global flag_call_oneway, flag_put_oneway
+        global flag_call_strong, flag_put_strong
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -12108,21 +12111,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(선물_대비, 선물_등락율))
             item.setTextAlignment(Qt.AlignCenter)
 
-            if 선물_등락율 > 0 and DOW_등락율 > 0 and 선물_등락율 > DOW_등락율:
+            if abs(선물_등락율) > abs(DOW_등락율) and energy_direction == 'call':
 
-                item.setBackground(QBrush(pink))
-                flag_call_oneway = True
+                item.setBackground(QBrush(red))
+                item.setForeground(QBrush(흰색))
+                flag_call_strong = True
 
-            elif 선물_등락율 < 0 and DOW_등락율 < 0 and 선물_등락율 < DOW_등락율:
+            elif abs(선물_등락율) > abs(DOW_등락율) and energy_direction == 'put':
 
-                item.setBackground(QBrush(lightskyblue))
-                flag_put_oneway = True
-            else:
+                item.setBackground(QBrush(blue))
+                item.setForeground(QBrush(흰색))
+                flag_put_strong = True
+            else:                
                 item.setBackground(QBrush(흰색))
-                flag_call_oneway = False
-                flag_put_oneway = False
-
-            item.setForeground(QBrush(검정색))
+                item.setForeground(QBrush(검정색))
+                flag_call_strong = False
+                flag_put_strong = False
 
             if NightTime:
                 self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
@@ -36284,11 +36288,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.textBrowser.append(txt)
             #print(txt)
 
-            if flag_call_oneway:
-                txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call OneWay({3:.2f}/{4:.2f}) ▲\r".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
+            if flag_call_strong:
+                txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call Strong({3:.2f}/{4:.2f}) ▲\r".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
                 self.textBrowser.append(txt)
-            elif flag_put_oneway:
-                txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Put OneWay({3:.2f}/{4:.2f}) ▼\r".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
+            elif flag_put_strong:
+                txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Put Strong({3:.2f}/{4:.2f}) ▼\r".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
                 self.textBrowser.append(txt)
             else:
                 pass
