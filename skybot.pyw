@@ -5340,11 +5340,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             current_str = dt.strftime('%H:%M:%S')
 
             self.alternate_flag = not self.alternate_flag
-            
+
+            '''
+            if self.parent.connection.IsConnected():
+                print('connection is OK...')
+            else:
+                print('connection is Not OK...')
+            '''
+
             # 인터넷 연결확인
             ipaddress = socket.gethostbyname(socket.gethostname())
 
-            if (not flag_main_window_closed and not flag_screen_board_closed and not flag_big_chart_closed) and ipaddress == '127.0.0.1':
+            if (not flag_main_window_closed and not flag_screen_board_closed) and ipaddress == '127.0.0.1':
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 인터넷 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.statusbar.showMessage(txt)
@@ -5371,8 +5378,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 flag_internet_connection_broken = False
 
-            # 증권사 연결확인
-            if (not flag_main_window_closed and not flag_screen_board_closed and not flag_big_chart_closed) and not self.parent.connection.IsConnected():
+            # 증권사 연결확인(인터넷이 연결된 상태에서만 확인가능)
+            if (not flag_main_window_closed and not flag_screen_board_closed) and not self.parent.connection.IsConnected():
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 증권사 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.statusbar.showMessage(txt)
@@ -5413,14 +5420,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             '''
             # 증권사 및 인터넷 연결 확인
-            if (not flag_main_window_closed and not flag_screen_board_closed and not flag_big_chart_closed) and not self.parent.connection.IsConnected():
+            if (not flag_main_window_closed and not flag_screen_board_closed) and not self.parent.connection.IsConnected():
                 
                 flag_service_provider_broken = True                
 
                 # 인터넷 연결 확인후 증권사 연결확인
                 ipaddress = socket.gethostbyname(socket.gethostname())
 
-                if (not flag_main_window_closed and not flag_screen_board_closed and not flag_big_chart_closed) and ipaddress == '127.0.0.1':
+                if (not flag_main_window_closed and not flag_screen_board_closed) and ipaddress == '127.0.0.1':
 
                     flag_internet_connection_broken = True
 
