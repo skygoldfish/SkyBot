@@ -3146,28 +3146,38 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.pushButton_telegram.clicked.connect(self.telegram_button_clicked)
         
         # label_main_time, label_atm 관련 setFont 추후 검토필요!!!
-        self.label_main_time.setStyleSheet('background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+        self.label_main_time.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+            color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
         #self.label_main_time.setFont(QFont("Consolas", 9, QFont.Bold))
         self.label_main_time.setText("🕘")        
         
-        self.label_atm.setStyleSheet('background-color: yellow; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+        self.label_atm.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:0.5, y1:0.5, x2:1, y2:0.5, stop:0 rgba(255, 199, 0, 255), stop:1 rgba(192, 5, 67, 255)); \
+            color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
         self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
         self.label_atm.setText("Basis(양합:양차)")        
                 
         #self.label_1st_index.setStyleSheet('background-color: black ; color: yellow')
-        self.label_1st_index.setStyleSheet('background-color: black; color: yellow; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+        self.label_1st_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
+            rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
+            color: yellow; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
         self.label_1st_index.setText("DOW: 가격 (전일대비, 등락율, 진폭)")
         
         #self.label_2nd_index.setStyleSheet('background-color: black ; color: yellow')
-        self.label_2nd_index.setStyleSheet('background-color: black; color: yellow; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+        self.label_2nd_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
+            rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
+            color: yellow; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
         self.label_2nd_index.setText("NASDAQ: 가격 (전일대비, 등락율)")
         
         #self.label_3rd_index.setStyleSheet('background-color: black ; color: yellow')
-        self.label_3rd_index.setStyleSheet('background-color: black; color: yellow; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+        self.label_3rd_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
+            rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
+            color: yellow; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
         self.label_3rd_index.setText("WTI: 가격 (전일대비, 등락율)")
         
         #self.label_4th_index.setStyleSheet('background-color: black ; color: yellow')
-        self.label_4th_index.setStyleSheet('background-color: black; color: yellow; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+        self.label_4th_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
+            rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
+            color: yellow; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
 
         if NightTime:
             self.label_4th_index.setText("SP500: 가격 (전일대비, 등락율)")
@@ -3175,11 +3185,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.label_4th_index.setText("SAMSUNG: 가격 (전일대비, 등락율)")
         
         #self.label_kospi.setStyleSheet('background-color: black ; color: yellow')
-        self.label_kospi.setStyleSheet('background-color: black; color: yellow; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')        
+        self.label_kospi.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
+            rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
+            color: yellow; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
         self.label_kospi.setText("KOSPI: 가격 (전일대비, 등락율)")
         
         #self.label_kosdaq.setStyleSheet('background-color: black ; color: yellow')
-        self.label_kosdaq.setStyleSheet('background-color: black; color: yellow; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+        self.label_kosdaq.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
+            rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
+            color: yellow; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
         self.label_kosdaq.setText("KOSDAQ: 가격 (전일대비, 등락율)")        
 
         header_stylesheet = '::section{Background-color: black; color: white; border-style: solid; border-width: 1px; border-color: gray}'
@@ -15351,16 +15365,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if df.at[0, '전일대비구분'] == '5':
 
                     jisu_str = "KOSPI: {0} (-{1:.2f}, {2:0.1f}%)".format(format(df.at[0, '지수'], ','), df.at[0, '전일대비'], df.at[0, '등락율'])
-                    self.label_kospi.setText(jisu_str)
+                    
                     #self.label_kospi.setStyleSheet('background-color: black ; color: lightskyblue')
-                    self.label_kospi.setStyleSheet('background-color: black; color: lightskyblue; border-style: solid; border-width: 1px; border-color: lightskyblue; border-radius: 5px')
+                    self.label_kospi.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
+                                                    rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
+                                                    color: lightskyblue; border-style: solid; border-width: 1px; border-color: lightskyblue; border-radius: 5px')
+                    self.label_kospi.setText(jisu_str)
 
                 elif df.at[0, '전일대비구분'] == '2':
 
                     jisu_str = "KOSPI: {0} ({1:.2f}, {2:0.1f}%)".format(format(df.at[0, '지수'], ','), df.at[0, '전일대비'], df.at[0, '등락율'])
-                    self.label_kospi.setText(jisu_str)
+                    
                     #self.label_kospi.setStyleSheet('background-color: black ; color: pink')
-                    self.label_kospi.setStyleSheet('background-color: black; color: pink; border-style: solid; border-width: 1px; border-color: pink; border-radius: 5px')
+                    self.label_kospi.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
+                                                    rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
+                                                    color: pink; border-style: solid; border-width: 1px; border-color: lightskyblue; border-radius: 5px')
+                    self.label_kospi.setText(jisu_str)
                 else:
                     pass
 
@@ -15369,16 +15389,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if df.at[0, '전일대비구분'] == '5':
 
                     jisu_str = "KOSDAQ: {0} (-{1:.2f}, {2:0.1f}%)".format(format(df.at[0, '지수'], ','), df.at[0, '전일대비'], df.at[0, '등락율'])
-                    self.label_kosdaq.setText(jisu_str)
+                    
                     #self.label_kosdaq.setStyleSheet('background-color: black ; color: lightskyblue')
-                    self.label_kosdaq.setStyleSheet('background-color: black; color: lightskyblue; border-style: solid; border-width: 1px; border-color: lightskyblue; border-radius: 5px')
+                    self.label_kosdaq.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
+                                                    rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
+                                                    color: lightskyblue; border-style: solid; border-width: 1px; border-color: lightskyblue; border-radius: 5px')
+                    self.label_kosdaq.setText(jisu_str)
 
                 elif df.at[0, '전일대비구분'] == '2':
 
                     jisu_str = "KOSDAQ: {0} ({1:.2f}, {2:0.1f}%)".format(format(df.at[0, '지수'], ','), df.at[0, '전일대비'], df.at[0, '등락율'])
-                    self.label_kosdaq.setText(jisu_str)
+                    
                     #self.label_kosdaq.setStyleSheet('background-color: black ; color: pink')
-                    self.label_kosdaq.setStyleSheet('background-color: black; color: pink; border-style: solid; border-width: 1px; border-color: pink; border-radius: 5px')
+                    self.label_kosdaq.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
+                                                    rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
+                                                    color: pink; border-style: solid; border-width: 1px; border-color: lightskyblue; border-radius: 5px')
+                    self.label_kosdaq.setText(jisu_str)
                 else:
                     pass
             else:
@@ -18961,7 +18987,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global flag_t8416_call_done, flag_t8416_put_done
 
             #self.label_main_time.setStyleSheet('background-color: black; color: lawngreen')
-            self.label_main_time.setStyleSheet('background-color: black; color: lawngreen; border-style: solid; border-width: 1px; border-color: lawngreen; border-radius: 5px')
+            self.label_main_time.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                color: lawngreen; border-style: solid; border-width: 1px; border-color: lawngreen; border-radius: 5px')
             self.label_main_time.setFont(QFont("Consolas", 9, QFont.Bold))
             
             txt = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
