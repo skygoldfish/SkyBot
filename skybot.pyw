@@ -5315,10 +5315,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         txt = '[{0:02d}:{1:02d}:{2:02d}] OHLC_Gen Update : {3:.2f} ms...\r'.format(\
                     adj_hour, adj_min, adj_sec, (timeit.default_timer() - start_time) * 1000)
         print(txt)
-
-    #@pyqtSlot(dict)
+    
     @pyqtSlot(str)
-    def update_screen(self, data):
+    def update_screen(self, str):
 
         global flag_internet_connection_broken, flag_service_provider_broken
         global flag_screen_update_is_running
@@ -36357,19 +36356,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def OnReceiveMessage(self, ClassName, systemError, messageCode, message):
 
-        dt = datetime.datetime.now()
-
-        if ClassName == 't0167':
-            pass
-            #print('t0167 =', systemError, messageCode, message)
-        else:
-            pass
-    '''
-    def OnReceiveMessage(self, systemError, messageCode, message):
-        # 클래스이름 = self.__class__.__name__
-        # 함수이름 = inspect.currentframe().f_code.co_name
-        print("%s-%s " % (클래스이름, 함수이름), systemError, messageCode, message)
-    '''
+        print('{0} : {1} {2} {3}'.format(ClassName, systemError, messageCode, message))        
+    
     def OnReceiveData(self, szTrCode, result):
 
         global 서버시간, 시스템_서버_시간차, flag_heartbeat

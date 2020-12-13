@@ -4627,7 +4627,7 @@ class t0167(XAQuery):
     def OnReceiveMessage(self, systemError, messageCode, message):
         클래스이름 = self.__class__.__name__
         함수이름 = inspect.currentframe().f_code.co_name
-        print("%s-%s " % (클래스이름, 함수이름), systemError, messageCode, message)
+        #print("%s-%s " % (클래스이름, 함수이름), systemError, messageCode, message)
 
         if self.parent != None:
             self.parent.OnReceiveMessage(클래스이름, systemError, messageCode, message)
