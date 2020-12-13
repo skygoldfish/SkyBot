@@ -6782,27 +6782,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             txt = '[{0:02d}:{1:02d}:{2:02d}] 등가 {3}에서 교차 중심가 {4} 발생 !!!\r'.format(adj_hour, adj_min, adj_sec, atm_str, CENTER_VAL)
             self.textBrowser.append(txt)
         
-        item = QTableWidgetItem("{0:.2f}".format(CENTER_VAL))
-        item.setTextAlignment(Qt.AlignCenter)
-        '''
-        if abs(atm_zero_cha) <= GOLDEN_RATIO:
-
-            if SELFID != 'soojin65':
-                if blink:
-                    item.setBackground(QBrush(검정색))
-                    item.setForeground(QBrush(대맥점색))
-                else:
-                    item.setBackground(QBrush(대맥점색))
-                    item.setForeground(QBrush(검정색))
-            else:
-                item.setBackground(QBrush(대맥점색))
-                item.setForeground(QBrush(검정색))
-        else:
-            item.setBackground(QBrush(대맥점색))
-            item.setForeground(QBrush(검정색))
-
-        self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
-        '''
         df_call_total_graph.at[ovc_x_idx, 'centerval'] = CENTER_VAL
 
         atm_list = []
@@ -6826,7 +6805,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         CENTER_VAL_PLUS3 = round((df_call.at[atm_index - 3, '현재가'] + df_put.at[atm_index - 3, '현재가'])/2, 2)
         CENTER_VAL_PLUS2 = round((df_call.at[atm_index - 2, '현재가'] + df_put.at[atm_index - 2, '현재가'])/2, 2)
         CENTER_VAL_PLUS1 = round((df_call.at[atm_index - 1, '현재가'] + df_put.at[atm_index - 1, '현재가'])/2 , 2)
-        #CENTER_VAL = round((df_call.at[atm_index, '현재가'] + df_put.at[atm_index, '현재가'])/2 , 2)
+        
         CENTER_VAL_MINUS1 = round((df_call.at[atm_index + 1, '현재가'] + df_put.at[atm_index + 1, '현재가'])/2 , 2)
         CENTER_VAL_MINUS2 = round((df_call.at[atm_index + 2, '현재가'] + df_put.at[atm_index + 2, '현재가'])/2 , 2)
         CENTER_VAL_MINUS3 = round((df_call.at[atm_index + 3, '현재가'] + df_put.at[atm_index + 3, '현재가'])/2 , 2)
@@ -6991,6 +6970,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if min_index != atm_index:
 
+            # 풋에만 컬러링
             #self.tableWidget_call.item(min_index, Option_column.기준가.value).setBackground(QBrush(검정색))
             #self.tableWidget_call.item(min_index, Option_column.기준가.value).setForeground(QBrush(노란색))
             self.tableWidget_put.item(min_index, Option_column.기준가.value).setBackground(QBrush(검정색))
@@ -7056,28 +7036,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         str_atm = '{0:.0f}'.format(temp)
 
         return str_atm
-
-    '''
-    def image_grab(self):
-        
-        now = time.localtime()
-        times = "%04d-%02d-%02d-%02d-%02d-%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
-        
-        hwnd = win32gui.FindWindow(None, widget_title)
-        win32gui.SetForegroundWindow(hwnd)
-        dimensions = win32gui.GetWindowRect(hwnd)
-        img = ImageGrab.grab(dimensions)
-
-        print('ImageGrab dimensions = ', dimensions)
-        
-        #img = self.capture_screenshot()
-
-        #saveas = "Screenshot {}{}".format(times, '.png')
-        #img.save(saveas)
-
-        #txt = '[{0:02d}:{1:02d}:{2:02d}] 화면을 캡처했습니다.\r'.format(now.tm_hour, now.tm_min, now.tm_sec)
-        #self.textBrowser.append(txt)
-    '''
 
     # 현재가 클리어
     def cv_color_clear(self):
@@ -7147,283 +7105,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         for i in range(put_scroll_begin_position, put_scroll_end_position):
 
             self.tableWidget_put.item(i, Option_column.현재가.value).setBackground(QBrush(흰색))
-
-    '''
-    # 선물 현재가 클리어
-    def fut_cv_color_clear(self):
-
-        if NightTime:
-            self.tableWidget_fut.item(0, Futures_column.현재가.value).setBackground(QBrush(옅은회색))
-        else:
-            self.tableWidget_fut.item(1, Futures_column.현재가.value).setBackground(QBrush(옅은회색))
-            self.tableWidget_fut.item(2, Futures_column.현재가.value).setBackground(QBrush(옅은회색))
-
-    # Call 컬러처리
-    def call_cv_color_clear(self):
-
-        if call_scroll_end_position <= option_pairs_count:
-
-            for i in range(call_scroll_begin_position, call_scroll_end_position):
-
-                self.tableWidget_call.item(i, Option_column.현재가.value).setBackground(QBrush(옅은회색))
-        else:
-            pass
     
-    # Put 컬러처리
-    def put_cv_color_clear(self):
-
-        if put_scroll_end_position <= option_pairs_count:
-
-            for i in range(put_scroll_begin_position, put_scroll_end_position):
-
-                self.tableWidget_put.item(i, Option_column.현재가.value).setBackground(QBrush(옅은회색))
-        else:
-            pass
-    '''
-
-    '''
-    def check_oneway(self, blink):
-
-        dt = datetime.datetime.now()
-        current_str = dt.strftime('%H:%M:%S')
-
-        global call_ms_oneway, put_ms_oneway
-        global call_oneway_level1, call_oneway_level2, call_oneway_level3, call_oneway_level4, call_oneway_level5
-        global put_oneway_level1, put_oneway_level2, put_oneway_level3, put_oneway_level4, put_oneway_level5
-        global oneway_first_touch, oneway_str
-
-        if NightTime:
-
-            pass
-        else:
-            # oneway check
-            if (풋대비합 > 0 and 콜대비합 < 0) and (FUT_INSTITUTIONAL_거래대금순매수 > ONEWAY_THRESHOLD or FUT_RETAIL_거래대금순매수 > ONEWAY_THRESHOLD):
-
-                if 선물_거래대��순매수 > 0 and 현물_거래대금순매수 < 0 \
-                    and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] < 0:
-
-                    if blink:
-                        self.label_main_time.setStyleSheet('background-color: blue; color: white')
-                        self.label_main_time.setFont(QFont("Consolas", 9, QFont.Bold))
-                    else:
-                        self.label_main_time.setStyleSheet('background-color: white; color: blue')
-                        self.label_main_time.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                    put_ms_oneway = True
-
-                    # 시가갭 & 퍼센트로 oneway 판단
-                    if 풋시가갭합 > 0 and 풋시가갭합_퍼센트 < 0:
-                        
-                        put_oneway_level3 = False
-                        put_oneway_level4 = False
-                        put_oneway_level5 = True
-
-                        if blink:
-                            self.label_main_time.setStyleSheet('background-color: blue; color: white')
-                            self.label_main_time.setFont(QFont("Consolas", 9, QFont.Bold))                            
-
-                            if dt.second % 10 == 0:
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 매우 높음(★★★★★)\r'.format(adj_hour, adj_min, adj_sec)
-                                self.textBrowser.append(txt)
-                            else:
-                                pass
-
-                            if not oneway_first_touch:
-
-                                oneway_str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay ���능성 매우 높음 !!!\r'.format(adj_hour, adj_min, adj_sec)
-                                oneway_first_touch = True
-                            else:
-                                pass
-                        else:
-                            self.label_main_time.setStyleSheet('background-color: white; color: blue')
-                            self.label_main_time.setFont(QFont("Consolas", 9, QFont.Bold))                        
-                    else:
-                        
-                        put_oneway_level3 = False
-                        put_oneway_level4 = True
-                        put_oneway_level5 = False
-
-                        if blink:                            
-
-                            if dt.second % 10 == 0:
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 높음(★★★★)\r'.format(adj_hour, adj_min, adj_sec)
-                                self.textBrowser.append(txt)
-                            else:
-                                pass
-
-                            if not oneway_first_touch:
-
-                                oneway_str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 높음 !!\r'.format(adj_hour, adj_min, adj_sec)
-                                oneway_first_touch = True
-                            else:
-                                pass                 
-                        else:
-                            pass                 
-
-                elif 선물_거래대금순매수 > 0 and 현물_거래대금순매수 < 0 \
-                    and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] < 0:
-
-                    self.label_main_time.setStyleSheet('background-color: blue; color: white')
-                    self.label_main_time.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                    put_ms_oneway = True
-
-                    put_oneway_level3 = True
-                    put_oneway_level4 = False
-                    put_oneway_level5 = False                    
-
-                    if dt.second % 10 == 0:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성(★★★)\r'.format(adj_hour, adj_min, adj_sec)
-                        self.textBrowser.append(txt)
-                    else:
-                        pass
-
-                    if not oneway_first_touch:
-
-                        oneway_str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 !\r'.format(adj_hour, adj_min, adj_sec)
-                        oneway_first_touch = True
-                    else:
-                        pass
-
-                elif 선물_거래대금순매수 > 0 and 현물_거래대금순매수 < 0 \
-                    and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] < 0:
-
-                    self.label_main_time.setStyleSheet('background-color: blue; color: white')
-                    self.label_main_time.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                    put_ms_oneway = True
-                    oneway_str = ''                    
-
-                    if dt.second % 10 == 0:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성(★★)\r'.format(adj_hour, adj_min, adj_sec)
-                        self.textBrowser.append(txt)
-                    else:
-                        pass                   
-                else:
-                    pass     
-
-            elif (풋대비합 < 0 and 콜대비합 > 0) and (FUT_INSTITUTIONAL_거래대금순매수 < -ONEWAY_THRESHOLD or FUT_RETAIL_거래대금순매수 < -ONEWAY_THRESHOLD):
-
-                if 선물_거래대금순매수 < 0 and 현물_거래대금순매수 > 0 \
-                    and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] > 0:
-
-                    if blink:
-                        self.label_main_time.setStyleSheet('background-color: red; color: white')
-                        self.label_main_time.setFont(QFont("Consolas", 9, QFont.Bold))
-                    else:
-                        self.label_main_time.setStyleSheet('background-color: white; color: red')
-                        self.label_main_time.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                    call_ms_oneway = True
-
-                    # 시가갭 & 퍼센트로 oneway 판단
-                    if 콜시가갭합 > 0 and 콜시가갭합_퍼센트 < 0:
-                        
-                        call_oneway_level3 = False
-                        call_oneway_level4 = False
-                        call_oneway_level5 = True
-
-                        if blink:
-                            self.label_main_time.setStyleSheet('background-color: red; color: white')
-                            self.label_main_time.setFont(QFont("Consolas", 9, QFont.Bold))                            
-
-                            if dt.second % 10 == 0:
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 매우 높음(★★★★★)\r'.format(adj_hour, adj_min, adj_sec)
-                                self.textBrowser.append(txt)
-                            else:
-                                pass
-
-                            if not oneway_first_touch:
-
-                                oneway_str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 매우 높음 !!!\r'.format(adj_hour, adj_min, adj_sec)
-                                oneway_first_touch = True
-                            else:
-                                pass
-                        else:
-                            self.label_main_time.setStyleSheet('background-color: white; color: red')
-                            self.label_main_time.setFont(QFont("Consolas", 9, QFont.Bold))                        
-                    else:
-                        
-                        call_oneway_level3 = False
-                        call_oneway_level4 = True
-                        call_oneway_level5 = False
-
-                        if blink:                            
-
-                            if dt.second % 10 == 0:
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 높음(★★★★)\r'.format(adj_hour, adj_min, adj_sec)
-                                self.textBrowser.append(txt)
-                            else:
-                                pass
-
-                            if not oneway_first_touch:
-
-                                oneway_str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 높음 !!\r'.format(adj_hour, adj_min, adj_sec)
-                                oneway_first_touch = True
-                            else:
-                                pass
-                        else:
-                            pass                 
-
-                elif 선물_거래대금순매수 < 0 and 현물_거래대금순매수 > 0 \
-                    and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] > 0:
-
-                    self.label_main_time.setStyleSheet('background-color: red; color: white')
-                    self.label_main_time.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                    call_ms_oneway = True
-
-                    call_oneway_level3 = True
-                    call_oneway_level4 = False
-                    call_oneway_level5 = False                    
-
-                    if dt.second % 10 == 0:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성(★★★)\r'.format(adj_hour, adj_min, adj_sec)
-                        self.textBrowser.append(txt)
-                    else:
-                        pass
-
-                    if not oneway_first_touch:
-
-                        oneway_str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 !\r'.format(adj_hour, adj_min, adj_sec)
-                        oneway_first_touch = True
-                    else:
-                        pass
-
-                elif 선물_거래대금순매수 < 0 and 현물_거래대금순매수 > 0 \
-                    and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] > 0:
-
-                    self.label_main_time.setStyleSheet('background-color: red; color: white')
-                    self.label_main_time.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                    call_ms_oneway = True
-                    oneway_str = ''                    
-
-                    if dt.second % 10 == 0:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성(★★)\r'.format(adj_hour, adj_min, adj_sec)
-                        self.textBrowser.append(txt)
-                    else:
-                        pass
-                else:
-                    pass
-            else:
-                oneway_str = ''
-
-                put_oneway_level3 = False
-                put_oneway_level4 = False
-                put_oneway_level5 = False
-
-                call_oneway_level3 = False
-                call_oneway_level4 = False
-                call_oneway_level5 = False            
-            
-            if not call_ms_oneway and not put_ms_oneway:
-                self.label_main_time.setStyleSheet('background-color: lawngreen; color: blue')
-                self.label_main_time.setFont(QFont("Consolas", 9, QFont.Bold))
-            else:
-                pass
-    '''    
-
     def asym_detect(self, blink):
         
         global 비대칭장
