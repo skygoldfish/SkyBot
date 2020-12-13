@@ -3193,7 +3193,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_call.horizontalHeader().setStyleSheet(call_header_stylesheet)
         self.tableWidget_call.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.tableWidget_call.setHorizontalHeaderLabels(['C', '행사가', '▲:▼\n✓', '기준가', '월저', '월고', '전저', '전고', 
+        self.tableWidget_call.setHorizontalHeaderLabels(['콜', '행사가', '▲:▼\n✓', '기준가', '월저', '월고', '전저', '전고', 
         '종가\n✓', '피봇\n✓', '시가\n✓', '저가', '현재가', '고가', '시가갭\n(%)', '대비\n(%)', '체결', '진폭', '∑OI', 'OI↕'])
         self.tableWidget_call.verticalHeader().setVisible(False)
 
@@ -3206,7 +3206,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_put.horizontalHeader().setStyleSheet(put_header_stylesheet)
         self.tableWidget_put.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.tableWidget_put.setHorizontalHeaderLabels(['P', '행사가', '▲:▼\n✓', '기준가', '월저', '월고', '전저', '전고', 
+        self.tableWidget_put.setHorizontalHeaderLabels(['풋', '행사가', '▲:▼\n✓', '기준가', '월저', '월고', '전저', '전고', 
         '종가\n✓', '피봇\n✓', '시가\n✓', '저가', '현재가', '고가', '시가갭\n(%)', '대비\n(%)', '체결', '진폭', '∑OI', 'OI↕'])
         self.tableWidget_put.verticalHeader().setVisible(False)
 
@@ -5340,7 +5340,78 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             current_str = dt.strftime('%H:%M:%S')
 
             self.alternate_flag = not self.alternate_flag
+            
+            # 인터넷 연결확인
+            ipaddress = socket.gethostbyname(socket.gethostname())
 
+            if (not flag_main_window_closed and not flag_screen_board_closed and not flag_big_chart_closed) and ipaddress == '127.0.0.1':
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 인터넷 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.statusbar.showMessage(txt)
+                
+                if TARGET_MONTH_SELECT == 'CM' and not flag_broken_capture:                
+
+                    self.textBrowser.append(txt)
+                    print(txt)
+
+                    self.parent.statusbar.showMessage(txt)
+
+                    self.capture_screenshot()              
+
+                    file = open('inernet_error.log', 'w')
+                    text = self.textBrowser.toPlainText()
+                    file.write(text)
+                    file.close()
+
+                    flag_broken_capture = True
+                else:
+                    pass
+                
+                flag_internet_connection_broken = True                
+            else:
+                flag_internet_connection_broken = False
+
+            # 증권사 연결확인
+            if (not flag_main_window_closed and not flag_screen_board_closed and not flag_big_chart_closed) and not self.parent.connection.IsConnected():
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 증권사 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.statusbar.showMessage(txt)
+                
+                if TARGET_MONTH_SELECT == 'CM' and not flag_broken_capture:
+
+                    self.textBrowser.append(txt)
+                    print(txt)
+
+                    self.parent.statusbar.showMessage(txt)
+
+                    self.capture_screenshot()              
+
+                    file = open('sc_error.log', 'w')
+                    text = self.textBrowser.toPlainText()
+                    file.write(text)
+                    file.close()
+
+                    flag_broken_capture = True
+                else:
+                    pass
+                
+                # 모든 쓰레드를 중지시킨다.
+                self.real_data_worker.terminate()
+                self.telegram_send_worker.terminate()
+                self.telegram_listen_worker.terminate()
+                self.screen_update_worker.terminate()
+                
+                flag_service_provider_broken = True
+            else:
+                flag_service_provider_broken = False            
+
+            # 서버시간 기준으로 1분마다 체크!!!            
+            if not flag_internet_connection_broken and self.alternate_flag and flag_heartbeat:
+                self.heartbeat_check()
+            else:
+                pass
+
+            '''
             # 증권사 및 인터넷 연결 확인
             if (not flag_main_window_closed and not flag_screen_board_closed and not flag_big_chart_closed) and not self.parent.connection.IsConnected():
                 
@@ -5405,6 +5476,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 flag_internet_connection_broken = False
                 flag_service_provider_broken = False
+            '''
 
             # 옵션 행사가 총합이 200개를 넘을 경우 선물 변동성지수 요청을 위한 로직            
             if (not flag_internet_connection_broken and not flag_service_provider_broken) and flag_option_pair_full:
@@ -5434,12 +5506,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
             else:
                 pass            
-            
-            # 서버시간 기준으로 1분마다 체크!!!            
-            if (not flag_internet_connection_broken and not flag_service_provider_broken) and self.alternate_flag and flag_heartbeat:
-                self.heartbeat_check()
-            else:
-                pass
 
             '''
             if flag_checkBox_HS and self.alternate_flag and dt.second % OPTION_BOARD_UPDATE_INTERVAL == 0:                
@@ -6000,14 +6066,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global flag_heartbeat
 
+        dt = datetime.datetime.now()
+
         flag_heartbeat = False 
         
         if queue_input_drop_count > 0:
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Heartbeat({3}, 시간차 = {4}초)수신, Drop Count = {5}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, 시스템_서버_시간차, queue_input_drop_count)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Heartbeat({3}), 시스템서버 시간차 = {4}초, Drop Count = {5}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, 시스템_서버_시간차, queue_input_drop_count)
             self.textBrowser.append(txt)
             #print(txt)
         else:
-            pass        
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Heartbeat({3}), 시스템서버 시간차 = {4}초\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, 시스템_서버_시간차)
+            self.textBrowser.append(txt)
+            #print(txt)        
         
         self.tableWidget_fut.resizeRowsToContents()
         self.tableWidget_fut.resizeColumnsToContents()
@@ -36243,12 +36313,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.statusbar.showMessage("연결이 끊겼습니다.")
         self.connection.login(url='demo.ebestsec.co.kr', id=self.id, pwd=self.pwd, cert=self.cert)
 
+    def OnReceiveMessage(self, ClassName, systemError, messageCode, message):
+
+        dt = datetime.datetime.now()
+
+        if ClassName == 't0167':
+            pass
+            #print('t0167 =', systemError, messageCode, message)
+        else:
+            pass
+    '''
     def OnReceiveMessage(self, systemError, messageCode, message):
         # 클래스이름 = self.__class__.__name__
         # 함수이름 = inspect.currentframe().f_code.co_name
-        # print("%s-%s " % (클래스이름, 함수이름), systemError, messageCode, message)
-        pass
-
+        print("%s-%s " % (클래스이름, 함수이름), systemError, messageCode, message)
+    '''
     def OnReceiveData(self, szTrCode, result):
 
         global 서버시간, 시스템_서버_시간차, flag_heartbeat
