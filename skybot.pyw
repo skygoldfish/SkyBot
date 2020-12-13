@@ -1019,7 +1019,8 @@ OVC_SEC = 0
 
 night_time = 0
 
-fut_volume_power = 0
+fut_cm_volume_power = 0
+fut_nm_volume_power = 0
 
 oloh_cutoff = 0.10
 nodelist_low_cutoff = 0.09
@@ -2242,7 +2243,9 @@ flag_option_pair_full = False
 
 fut_avg_noise_ratio = 1
 k_value = 0
-energy_direction = ''
+
+quote_energy_direction = ''
+volume_power_energy_direction = ''
 
 main_ui_update_interval = 500
 plot_update_interval = 500
@@ -11864,7 +11867,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global atm_str, atm_val, atm_index, old_atm_index        
         global 선물_시가, 선물_현재가, 선물_저가, 선물_고가, 선물_피봇
         global flag_fut_low, flag_fut_high 
-        global fut_volume_power
+        global fut_cm_volume_power
         global flag_first_arrive, fut_first_arrive_time
         global telegram_send_worker_on_time, flag_telegram_send_worker, flag_telegram_listen_worker
         global 선물_저가, 선물_현재가, 선물_대비, 선물_전일대비, 선물_등락율, 선물_고가, 선물_진폭
@@ -12141,7 +12144,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             self.tableWidget_fut.resizeColumnToContents(Futures_column.현재가.value)
             
-            if energy_direction == 'call':
+            if quote_energy_direction == 'call':
 
                 if NightTime:
                     self.tableWidget_fut.item(0, 0).setBackground(QBrush(적색))
@@ -12150,7 +12153,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_fut.item(1, 0).setBackground(QBrush(적색))
                     self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
 
-            elif energy_direction == 'put':
+            elif quote_energy_direction == 'put':
 
                 if NightTime:
                     self.tableWidget_fut.item(0, 0).setBackground(QBrush(청색))
@@ -12171,13 +12174,34 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setBackground(QBrush(흰색))
             item.setForeground(QBrush(검정색))
             self.tableWidget_fut.setItem(2, Futures_column.대비.value, item)
+                        
+            item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(선물_대비, 선물_등락율))
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if 선물_등락율 > 0 and DOW_등락율 > 0 and abs(선물_등락율) > abs(DOW_등락율):
+
+                item.setBackground(QBrush(pink))
+                item.setForeground(QBrush(검정색))
+
+            elif 선물_등락율 < 0 and DOW_등락율 < 0 and abs(선물_등락율) > abs(DOW_등락율):
+
+                item.setBackground(QBrush(lightskyblue))
+                item.setForeground(QBrush(검정색))
+            else:                
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+
+            if NightTime:
+                self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
+            else:
+                self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
             
-            선물_진폭비 = (선물_고가 - 선물_저가) / 선물_시가   
-            
+            선물_진폭비 = (선물_고가 - 선물_저가) / 선물_시가            
             선물_DOW_진폭비율 = 선물_진폭비 / DOW_진폭비 
 
             item = QTableWidgetItem("{0:.2f}".format(선물_DOW_진폭비율))
             item.setTextAlignment(Qt.AlignCenter)
+            
             item.setBackground(QBrush(라임))
             item.setForeground(QBrush(검정색))
 
@@ -12185,31 +12209,33 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
             else:
                 self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
-            
-            item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(선물_대비, 선물_등락율))
-            item.setTextAlignment(Qt.AlignCenter)
 
-            if abs(선물_등락율) > abs(DOW_등락율) and energy_direction == 'call':
+            # 종합 에너지방향 표시
+            if TARGET_MONTH_SELECT == 'CM' and not NightTime:
 
-                item.setBackground(QBrush(red))
-                item.setForeground(QBrush(흰색))
-                flag_call_strong = True
+                if abs(선물_등락율) > abs(DOW_등락율) and quote_energy_direction == 'call' and volume_power_energy_direction == 'call':
 
-            elif abs(선물_등락율) > abs(DOW_등락율) and energy_direction == 'put':
+                    item = QTableWidgetItem("CS")
+                    item.setBackground(QBrush(red))
+                    item.setForeground(QBrush(흰색))
+                    flag_call_strong = True
 
-                item.setBackground(QBrush(blue))
-                item.setForeground(QBrush(흰색))
-                flag_put_strong = True
-            else:                
-                item.setBackground(QBrush(흰색))
-                item.setForeground(QBrush(검정색))
-                flag_call_strong = False
-                flag_put_strong = False
+                elif abs(선물_등락율) > abs(DOW_등락율) and quote_energy_direction == 'put' and volume_power_energy_direction == 'put':
 
-            if NightTime:
-                self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
+                    item = QTableWidgetItem("PS")
+                    item.setBackground(QBrush(blue))
+                    item.setForeground(QBrush(흰색))
+                    flag_put_strong = True
+                else:
+                    item = QTableWidgetItem("-")               
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    flag_call_strong = False
+                    flag_put_strong = False
+
+                self.tableWidget_fut.setItem(0, Futures_column.거래량.value, item)
             else:
-                self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)                       
+                pass                   
             
             self.tableWidget_fut.resizeColumnToContents(Futures_column.대비.value)            
         else:
@@ -12348,19 +12374,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         # 장중 거래량 갱신, 장중 거래량은 누적거래량이 아닌 수정거래량 임
-        fut_volume_power = result['매수누적체결량'] - result['매도누적체결량']
-        df_futures_graph.at[ovc_x_idx, 'volume'] = fut_volume_power
+        fut_cm_volume_power = result['매수누적체결량'] - result['매도누적체결량']
+        df_futures_graph.at[ovc_x_idx, 'volume'] = fut_cm_volume_power
 
-        temp = format(fut_volume_power, ',')
+        temp = format(fut_cm_volume_power, ',')
 
         item = QTableWidgetItem(temp)
         item.setTextAlignment(Qt.AlignCenter)
 
-        if fut_volume_power > 0:
+        if fut_cm_volume_power > 0:
 
             item.setBackground(QBrush(적색))
             item.setForeground(QBrush(흰색))
-        elif fut_volume_power < 0:
+        elif fut_cm_volume_power < 0:
 
             item.setBackground(QBrush(청색))
             item.setForeground(QBrush(흰색))
@@ -12370,12 +12396,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if NightTime:
             self.tableWidget_fut.setItem(0, Futures_column.거래량.value, item)
-            #df_fut.at[0, '거래량'] = fut_volume_power 
-            #cme_realdata['거래량'] = fut_volume_power
+            #df_fut.at[0, '거래량'] = fut_cm_volume_power 
+            #cme_realdata['거래량'] = fut_cm_volume_power
         else:
             self.tableWidget_fut.setItem(1, Futures_column.거래량.value, item)
-            #df_fut.at[1, '거래량'] = fut_volume_power 
-            #fut_realdata['거래량'] = fut_volume_power        
+            #df_fut.at[1, '거래량'] = fut_cm_volume_power 
+            #fut_realdata['거래량'] = fut_cm_volume_power        
 
     def fut_etc_update(self, result):
 
@@ -20631,7 +20657,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             global receive_real_ovc, ovc_x_idx, old_ovc_x_idx
             global flag_option_start
-            global energy_direction
+            global quote_energy_direction            
+            global fut_nm_volume_power, volume_power_energy_direction
                         
             start_time = timeit.default_timer()
 
@@ -22503,18 +22530,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     fut_result = copy.deepcopy(result)
                     self.fut_update(result)
                 elif TARGET_MONTH_SELECT == 'CM' and result['단축코드'] == cmshcode:
-                    fut_cm_volume_power = result['매수누적체결량'] - result['매도누적체결량']
 
-                    temp = format(fut_cm_volume_power, ',')
+                    fut_nm_volume_power = result['매수누적체결량'] - result['매도누적체결량']
+
+                    temp = format(fut_nm_volume_power, ',')
 
                     item = QTableWidgetItem(temp)
                     item.setTextAlignment(Qt.AlignCenter)
 
-                    if fut_cm_volume_power > 0:
+                    if fut_nm_volume_power > 0:
 
                         item.setBackground(QBrush(적색))
                         item.setForeground(QBrush(흰색))
-                    elif fut_cm_volume_power < 0:
+                    elif fut_nm_volume_power < 0:
 
                         item.setBackground(QBrush(청색))
                         item.setForeground(QBrush(흰색))
@@ -22522,7 +22550,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item.setBackground(QBrush(흰색))
                         item.setForeground(QBrush(검정색))
 
-                    self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)     
+                    self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
+
+                    if fut_cm_volume_power > 0 and fut_nm_volume_power > 0:
+                        volume_power_energy_direction = 'call'
+                    elif fut_cm_volume_power < 0 and fut_nm_volume_power < 0:
+                        volume_power_energy_direction = 'put'
+                    else:
+                        volume_power_energy_direction = ''        
                 else:
                     pass
 
@@ -22861,14 +22896,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if not NightTime:
                     if TARGET_MONTH_SELECT == 'CM':
                         if fut_cms_hoga_rr > fut_hoga_rr:
-                            energy_direction = 'call'
+                            quote_energy_direction = 'call'
                         else:
-                            energy_direction = 'put'
+                            quote_energy_direction = 'put'
                     elif TARGET_MONTH_SELECT == 'NM':
                         if fut_cms_hoga_rr > 1.0:
-                            energy_direction = 'call'
+                            quote_energy_direction = 'call'
                         else:
-                            energy_direction = 'put'
+                            quote_energy_direction = 'put'
                     else:
                         pass
                 else:
@@ -31482,9 +31517,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     fut_cms_hoga_rr, df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
 
-                if energy_direction == 'call':
+                if quote_energy_direction == 'call':
                     self.label_17.setStyleSheet('background-color: red ; color: white')
-                elif energy_direction == 'put':
+                elif quote_energy_direction == 'put':
                     self.label_17.setStyleSheet('background-color: blue ; color: white')
                 else:
                     self.label_17.setStyleSheet('background-color: yellow ; color: black')
@@ -32278,9 +32313,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     fut_cms_hoga_rr, df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
 
-                if energy_direction == 'call':
+                if quote_energy_direction == 'call':
                     self.label_27.setStyleSheet('background-color: red ; color: white')
-                elif energy_direction == 'put':
+                elif quote_energy_direction == 'put':
                     self.label_27.setStyleSheet('background-color: blue ; color: white')
                 else:
                     self.label_27.setStyleSheet('background-color: yellow ; color: black')
@@ -33019,9 +33054,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     fut_cms_hoga_rr, df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
 
-                if energy_direction == 'call':
+                if quote_energy_direction == 'call':
                     self.label_37.setStyleSheet('background-color: red ; color: white')
-                elif energy_direction == 'put':
+                elif quote_energy_direction == 'put':
                     self.label_37.setStyleSheet('background-color: blue ; color: white')
                 else:
                     self.label_37.setStyleSheet('background-color: yellow ; color: black')
@@ -33725,9 +33760,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     fut_cms_hoga_rr, df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
 
-                if energy_direction == 'call':
+                if quote_energy_direction == 'call':
                     self.label_47.setStyleSheet('background-color: red ; color: white')
-                elif energy_direction == 'put':
+                elif quote_energy_direction == 'put':
                     self.label_47.setStyleSheet('background-color: blue ; color: white')
                 else:
                     self.label_47.setStyleSheet('background-color: yellow ; color: black')
@@ -34523,9 +34558,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     fut_cms_hoga_rr, df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
 
-                if energy_direction == 'call':
+                if quote_energy_direction == 'call':
                     self.label_57.setStyleSheet('background-color: red ; color: white')
-                elif energy_direction == 'put':
+                elif quote_energy_direction == 'put':
                     self.label_57.setStyleSheet('background-color: blue ; color: white')
                 else:
                     self.label_57.setStyleSheet('background-color: yellow ; color: black')
@@ -35264,9 +35299,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     fut_cms_hoga_rr, df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
 
-                if energy_direction == 'call':
+                if quote_energy_direction == 'call':
                     self.label_67.setStyleSheet('background-color: red ; color: white')
-                elif energy_direction == 'put':
+                elif quote_energy_direction == 'put':
                     self.label_67.setStyleSheet('background-color: blue ; color: white')
                 else:
                     self.label_67.setStyleSheet('background-color: yellow ; color: black')
