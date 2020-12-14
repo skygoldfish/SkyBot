@@ -6011,7 +6011,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             print(txt)
 
                             if not flag_offline:
-                                flag_offline = True                            
+                                flag_offline = True
+
+                                self.screen_update_worker.terminate()
+                                self.telegram_send_worker.terminate()
+                                self.telegram_listen_worker.terminate()
+                                self.real_data_worker.terminate()
+
                                 self.parent.connection.disconnect()
                             else:
                                 pass
@@ -6043,7 +6049,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             print(txt)
 
                             if not flag_offline:
-                                flag_offline = True                            
+                                flag_offline = True
+
+                                self.screen_update_worker.terminate()
+                                self.telegram_send_worker.terminate()
+                                self.telegram_listen_worker.terminate()
+                                self.real_data_worker.terminate()
+                                                        
                                 self.parent.connection.disconnect()
                             else:
                                 pass
@@ -24222,28 +24234,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         flag_screen_board_closed = True
 
         print('서버연결 해지...')
+        self.screen_update_worker.terminate()
+        self.telegram_send_worker.terminate()
+        self.telegram_listen_worker.terminate()
+        self.real_data_worker.terminate()
+        print('real_data_worker is terminated...')
+
         self.parent.connection.disconnect()
-
-        if self.telegram_send_worker.isRunning():
-            self.telegram_send_worker.terminate()
-        else:
-            pass
-
-        if self.telegram_listen_worker.isRunning():
-            self.telegram_listen_worker.terminate()
-        else:
-            pass
-
-        if self.real_data_worker.isRunning():            
-            self.real_data_worker.terminate()
-            print('real_data_worker is terminated...')
-        else:
-            pass
-
-        if self.screen_update_worker.isRunning():            
-            self.screen_update_worker.terminate()
-        else:
-            pass
     '''
     @classmethod
     def test_classmethod(cls):
