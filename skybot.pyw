@@ -5587,8 +5587,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                #if not self.alternate_flag:
-                if True:
+                if not self.alternate_flag:
+                #if True:
 
                     old_selected_call = copy.deepcopy(selected_call)
                     old_selected_put = copy.deepcopy(selected_put)
@@ -32075,13 +32075,24 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot2_put_oi_curve.setData(df_put_total_graph['open_interest'])
 
             # 옵션가격
-            elif comboindex2 == 7 and market_service:                
-                
-                if selected_call != old_selected_call:
-                    #print('selected_call, old_selected_call =', selected_call, old_selected_call)
-                    for i in range(call_scroll_begin_position, call_scroll_end_position):
-                        #print('call curve[{0}] clear'.format(i))
+            elif comboindex2 == 7 and market_service:
+
+                if not selected_call:
+                    for i in range(option_pairs_count):
                         plot2_call_curve[i].clear()
+                else:
+                    pass
+
+                if not selected_put:
+                    for i in range(option_pairs_count):
+                        plot2_put_curve[i].clear()
+                else:
+                    pass
+                                
+                if selected_call != old_selected_call:
+
+                    for i in range(len(old_selected_call)):
+                        plot2_call_curve[old_selected_call[i]].clear()
                 else:
                     for i in range(len(selected_call)):
 
@@ -32089,12 +32100,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                             plot2_call_curve[selected_call[i]].clear()
                         else:
                             pass
-                
+                        
                 if selected_put != old_selected_put:
-                    #print('selected_put, old_selected_put =', selected_put, old_selected_put)
-                    for i in range(put_scroll_begin_position, put_scroll_end_position):
-                        #print('put curve[{0}] clear'.format(i))
-                        plot2_put_curve[i].clear()
+
+                    for i in range(len(old_selected_put)):
+                        plot2_put_curve[old_selected_put[i]].clear()
                 else:
                     for i in range(len(selected_put)):
 
@@ -32785,11 +32795,23 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             # 옵션가격
             elif comboindex3 == 7 and market_service:
+
+                if not selected_call:
+                    for i in range(option_pairs_count):
+                        plot3_call_curve[i].clear()
+                else:
+                    pass
+
+                if not selected_put:
+                    for i in range(option_pairs_count):
+                        plot3_put_curve[i].clear()
+                else:
+                    pass
                 
                 if selected_call != old_selected_call:
 
-                    for i in range(call_scroll_begin_position, call_scroll_end_position):
-                        plot3_call_curve[i].clear()
+                    for i in range(len(old_selected_call)):
+                        plot3_call_curve[old_selected_call[i]].clear()
                 else:
                     for i in range(len(selected_call)):
 
@@ -32797,18 +32819,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                             plot3_call_curve[selected_call[i]].clear()
                         else:
                             pass
-
+                
                 if selected_put != old_selected_put:
-
-                    for i in range(put_scroll_begin_position, put_scroll_end_position):
-                        plot3_put_curve[i].clear()
+                    
+                    for i in range(len(old_selected_put)):
+                        plot3_put_curve[old_selected_put[i]].clear()
                 else:
                     for i in range(len(selected_put)):
 
                         if selected_put[i]:
                             plot3_put_curve[selected_put[i]].clear()
                         else:
-                            pass
+                            pass             
 
                 plot3_center_val_curve.clear()
 
@@ -34255,11 +34277,23 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             # 옵션가격
             elif comboindex5 == 7 and market_service:
+
+                if not selected_call:
+                    for i in range(option_pairs_count):
+                        plot5_call_curve[i].clear()
+                else:
+                    pass
+
+                if not selected_put:
+                    for i in range(option_pairs_count):
+                        plot5_put_curve[i].clear()
+                else:
+                    pass
                 
                 if selected_call != old_selected_call:
 
-                    for i in range(call_scroll_begin_position, call_scroll_end_position):
-                        plot5_call_curve[i].clear()
+                    for i in range(len(old_selected_call)):
+                        plot5_call_curve[old_selected_call[i]].clear()
                 else:
                     for i in range(len(selected_call)):
 
@@ -34267,18 +34301,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                             plot5_call_curve[selected_call[i]].clear()
                         else:
                             pass
-
+                
                 if selected_put != old_selected_put:
-
-                    for i in range(put_scroll_begin_position, put_scroll_end_position):
-                        plot5_put_curve[i].clear()
+                    
+                    for i in range(len(old_selected_put)):
+                        plot5_put_curve[old_selected_put[i]].clear()
                 else:
                     for i in range(len(selected_put)):
 
                         if selected_put[i]:
                             plot5_put_curve[selected_put[i]].clear()
                         else:
-                            pass
+                            pass             
 
                 plot5_center_val_curve.clear()
 
@@ -34962,11 +34996,23 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             # 옵션가격
             elif comboindex6 == 7 and market_service:
+
+                if not selected_call:
+                    for i in range(option_pairs_count):
+                        plot6_call_curve[i].clear()
+                else:
+                    pass
+
+                if not selected_put:
+                    for i in range(option_pairs_count):
+                        plot6_put_curve[i].clear()
+                else:
+                    pass
                 
                 if selected_call != old_selected_call:
 
-                    for i in range(call_scroll_begin_position, call_scroll_end_position):
-                        plot6_call_curve[i].clear()
+                    for i in range(len(old_selected_call)):
+                        plot6_call_curve[old_selected_call[i]].clear()
                 else:
                     for i in range(len(selected_call)):
 
@@ -34974,18 +35020,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                             plot6_call_curve[selected_call[i]].clear()
                         else:
                             pass
-
+                
                 if selected_put != old_selected_put:
-
-                    for i in range(put_scroll_begin_position, put_scroll_end_position):
-                        plot6_put_curve[i].clear()
+                    
+                    for i in range(len(old_selected_put)):
+                        plot6_put_curve[old_selected_put[i]].clear()
                 else:
                     for i in range(len(selected_put)):
 
                         if selected_put[i]:
                             plot6_put_curve[selected_put[i]].clear()
                         else:
-                            pass
+                            pass             
 
                 plot6_center_val_curve.clear()
 
