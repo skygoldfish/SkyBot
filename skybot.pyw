@@ -5581,9 +5581,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 # 옵션 등락율 scale factor 읽어들임
                 drate_scale_factor = float(self.tableWidget_fut.item(2, Futures_column.진폭.value).text())
+
+                self.display_atm(self.alternate_flag)
                 
-                if not NightTime:
-                    self.display_atm(self.alternate_flag)
+                if not NightTime:                    
                     self.fut_etc_update(fut_result)
                 else:
                     pass                
@@ -12479,7 +12480,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         df_call.at[index, '시가'] = 콜시가
         df_call.at[index, '현재가'] = 콜현재가
+
         df_call_graph[index].at[ovc_x_idx, 'price'] = 콜현재가
+
         콜대비 = 콜현재가 - 콜시가
         df_call.at[index, '대비'] = 콜대비
 
@@ -13577,7 +13580,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         df_put.at[index, '시가'] = 풋시가
         df_put.at[index, '현재가'] = 풋현재가
+
         df_put_graph[index].at[ovc_x_idx, 'price'] = 풋현재가
+
         풋대비 = 풋현재가 - 풋시가
         df_put.at[index, '대비'] = 풋대비
 
@@ -32139,61 +32144,47 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(option_pairs_count):
                         plot2_call_curve[i].clear()
                 else:
-                    pass
+                    if selected_call != old_selected_call:
+                        for i in range(len(old_selected_call)):
+                            plot2_call_curve[old_selected_call[i]].clear()
+                    else:
+                        for i in range(len(selected_call)):
+                            plot2_call_curve[selected_call[i]].clear()
 
                 if not selected_put:
                     for i in range(option_pairs_count):
                         plot2_put_curve[i].clear()
                 else:
-                    pass
-                                
-                if selected_call != old_selected_call:
-
-                    for i in range(len(old_selected_call)):
-                        plot2_call_curve[old_selected_call[i]].clear()
-                else:
-                    for i in range(len(selected_call)):
-
-                        if selected_call[i]:
-                            plot2_call_curve[selected_call[i]].clear()
-                        else:
-                            pass
-                        
-                if selected_put != old_selected_put:
-
-                    for i in range(len(old_selected_put)):
-                        plot2_put_curve[old_selected_put[i]].clear()
-                else:
-                    for i in range(len(selected_put)):
-
-                        if selected_put[i]:
+                    if selected_put != old_selected_put:
+                        for i in range(len(old_selected_put)):
+                            plot2_put_curve[old_selected_put[i]].clear()
+                    else:
+                        for i in range(len(selected_put)):
                             plot2_put_curve[selected_put[i]].clear()
-                        else:
-                            pass                
 
                 plot2_center_val_curve.clear()
-
-                # 선택된 콜그래프 그리기
-                for i in range(len(selected_call)):
-
-                    if selected_call[i]:
-                        plot2_call_curve[i].setData(df_call_graph[selected_call[i]]['price'])
-                    else:
-                        pass                    
-
-                # 선택된 풋그래프 그리기
-                for i in range(len(selected_put)):
-
-                    if selected_put[i]:
-                        plot2_put_curve[i].setData(df_put_graph[selected_put[i]]['price'])
-                    else:
-                        pass
-
+                
                 plot2_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
                 plot2_center_val_line.setValue(CENTER_VAL)
                 plot2_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
+                
+                # 선택된 콜그래프 그리기
+                if selected_call:
+                    for i in range(len(selected_call)):
+                        plot2_call_curve[i].setData(df_call_graph[selected_call[i]]['price'])
+                else:
+                    pass                 
 
-                # 중심가 그리기
+                # 선택된 풋그래프 그리기
+                if selected_put:
+                    for i in range(len(selected_put)):
+                        plot2_put_curve[i].setData(df_put_graph[selected_put[i]]['price'])
+                else:
+                    pass
+                
+                # 중심가 그리기, 모든 값이 NaN인지 체크?
+                #nan_lst = np.isnan(df_call_total_graph['centerval'].values)
+                #print(all(nan_lst))                
                 plot2_center_val_curve.setData(df_call_total_graph['centerval'])
 
                 # 등가표시
@@ -32858,60 +32849,44 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(option_pairs_count):
                         plot3_call_curve[i].clear()
                 else:
-                    pass
+                    if selected_call != old_selected_call:
+                        for i in range(len(old_selected_call)):
+                            plot3_call_curve[old_selected_call[i]].clear()
+                    else:
+                        for i in range(len(selected_call)):
+                            plot3_call_curve[selected_call[i]].clear()
 
                 if not selected_put:
                     for i in range(option_pairs_count):
                         plot3_put_curve[i].clear()
                 else:
-                    pass
-                
-                if selected_call != old_selected_call:
-
-                    for i in range(len(old_selected_call)):
-                        plot3_call_curve[old_selected_call[i]].clear()
-                else:
-                    for i in range(len(selected_call)):
-
-                        if selected_call[i]:
-                            plot3_call_curve[selected_call[i]].clear()
-                        else:
-                            pass
-                
-                if selected_put != old_selected_put:
-                    
-                    for i in range(len(old_selected_put)):
-                        plot3_put_curve[old_selected_put[i]].clear()
-                else:
-                    for i in range(len(selected_put)):
-
-                        if selected_put[i]:
-                            plot3_put_curve[selected_put[i]].clear()
-                        else:
-                            pass             
+                    if selected_put != old_selected_put:
+                        for i in range(len(old_selected_put)):
+                            plot3_put_curve[old_selected_put[i]].clear()
+                    else:
+                        for i in range(len(selected_put)):
+                            plot3_put_curve[selected_put[i]].clear()   
 
                 plot3_center_val_curve.clear()
-
-                # 선택된 콜그래프 그리기
-                for i in range(len(selected_call)):
-
-                    if selected_call[i]:
-                        plot3_call_curve[i].setData(df_call_graph[selected_call[i]]['price'])
-                    else:
-                        pass                    
-
-                # 선택된 풋그래프 그리기
-                for i in range(len(selected_put)):
-
-                    if selected_put[i]:
-                        plot3_put_curve[i].setData(df_put_graph[selected_put[i]]['price'])
-                    else:
-                        pass
                         
                 plot3_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
                 plot3_center_val_line.setValue(CENTER_VAL)
                 plot3_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
 
+                # 선택된 콜그래프 그리기
+                if selected_call:
+                    for i in range(len(selected_call)):
+                        plot3_call_curve[i].setData(df_call_graph[selected_call[i]]['price'])
+                else:
+                    pass                 
+
+                # 선택된 풋그래프 그리기
+                if selected_put:
+                    for i in range(len(selected_put)):
+                        plot3_put_curve[i].setData(df_put_graph[selected_put[i]]['price'])
+                else:
+                    pass
+                
                 # 중심가 그리기
                 plot3_center_val_curve.setData(df_call_total_graph['centerval'])
 
@@ -34336,60 +34311,44 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(option_pairs_count):
                         plot5_call_curve[i].clear()
                 else:
-                    pass
+                    if selected_call != old_selected_call:
+                        for i in range(len(old_selected_call)):
+                            plot5_call_curve[old_selected_call[i]].clear()
+                    else:
+                        for i in range(len(selected_call)):
+                            plot5_call_curve[selected_call[i]].clear()
 
                 if not selected_put:
                     for i in range(option_pairs_count):
                         plot5_put_curve[i].clear()
                 else:
-                    pass
-                
-                if selected_call != old_selected_call:
-
-                    for i in range(len(old_selected_call)):
-                        plot5_call_curve[old_selected_call[i]].clear()
-                else:
-                    for i in range(len(selected_call)):
-
-                        if selected_call[i]:
-                            plot5_call_curve[selected_call[i]].clear()
-                        else:
-                            pass
-                
-                if selected_put != old_selected_put:
-                    
-                    for i in range(len(old_selected_put)):
-                        plot5_put_curve[old_selected_put[i]].clear()
-                else:
-                    for i in range(len(selected_put)):
-
-                        if selected_put[i]:
+                    if selected_put != old_selected_put:
+                        for i in range(len(old_selected_put)):
+                            plot5_put_curve[old_selected_put[i]].clear()
+                    else:
+                        for i in range(len(selected_put)):
                             plot5_put_curve[selected_put[i]].clear()
-                        else:
-                            pass             
 
                 plot5_center_val_curve.clear()
-
-                # 선택된 콜그래프 그리기
-                for i in range(len(selected_call)):
-
-                    if selected_call[i]:
-                        plot5_call_curve[i].setData(df_call_graph[selected_call[i]]['price'])
-                    else:
-                        pass                    
-
-                # 선택된 풋그래프 그리기
-                for i in range(len(selected_put)):
-
-                    if selected_put[i]:
-                        plot5_put_curve[i].setData(df_put_graph[selected_put[i]]['price'])
-                    else:
-                        pass
                         
                 plot5_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
                 plot5_center_val_line.setValue(CENTER_VAL)
                 plot5_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
 
+                # 선택된 콜그래프 그리기
+                if selected_call:
+                    for i in range(len(selected_call)):
+                        plot5_call_curve[i].setData(df_call_graph[selected_call[i]]['price'])
+                else:
+                    pass                 
+
+                # 선택된 풋그래프 그리기
+                if selected_put:
+                    for i in range(len(selected_put)):
+                        plot5_put_curve[i].setData(df_put_graph[selected_put[i]]['price'])
+                else:
+                    pass
+                
                 # 중심가 그리기
                 plot5_center_val_curve.setData(df_call_total_graph['centerval'])
 
@@ -35055,60 +35014,44 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(option_pairs_count):
                         plot6_call_curve[i].clear()
                 else:
-                    pass
+                    if selected_call != old_selected_call:
+                        for i in range(len(old_selected_call)):
+                            plot6_call_curve[old_selected_call[i]].clear()
+                    else:
+                        for i in range(len(selected_call)):
+                            plot6_call_curve[selected_call[i]].clear()
 
                 if not selected_put:
                     for i in range(option_pairs_count):
                         plot6_put_curve[i].clear()
                 else:
-                    pass
-                
-                if selected_call != old_selected_call:
-
-                    for i in range(len(old_selected_call)):
-                        plot6_call_curve[old_selected_call[i]].clear()
-                else:
-                    for i in range(len(selected_call)):
-
-                        if selected_call[i]:
-                            plot6_call_curve[selected_call[i]].clear()
-                        else:
-                            pass
-                
-                if selected_put != old_selected_put:
-                    
-                    for i in range(len(old_selected_put)):
-                        plot6_put_curve[old_selected_put[i]].clear()
-                else:
-                    for i in range(len(selected_put)):
-
-                        if selected_put[i]:
-                            plot6_put_curve[selected_put[i]].clear()
-                        else:
-                            pass             
+                    if selected_put != old_selected_put:
+                        for i in range(len(old_selected_put)):
+                            plot6_put_curve[old_selected_put[i]].clear()
+                    else:
+                        for i in range(len(selected_put)):
+                            plot6_put_curve[selected_put[i]].clear()   
 
                 plot6_center_val_curve.clear()
-
-                # 선택된 콜그래프 그리기
-                for i in range(len(selected_call)):
-
-                    if selected_call[i]:
-                        plot6_call_curve[i].setData(df_call_graph[selected_call[i]]['price'])
-                    else:
-                        pass                    
-
-                # 선택된 풋그래프 그리기
-                for i in range(len(selected_put)):
-
-                    if selected_put[i]:
-                        plot6_put_curve[i].setData(df_put_graph[selected_put[i]]['price'])
-                    else:
-                        pass
                         
                 plot6_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
                 plot6_center_val_line.setValue(CENTER_VAL)
                 plot6_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
 
+                # 선택된 콜그래프 그리기
+                if selected_call:
+                    for i in range(len(selected_call)):
+                        plot6_call_curve[i].setData(df_call_graph[selected_call[i]]['price'])
+                else:
+                    pass                 
+
+                # 선택된 풋그래프 그리기
+                if selected_put:
+                    for i in range(len(selected_put)):
+                        plot6_put_curve[i].setData(df_put_graph[selected_put[i]]['price'])
+                else:
+                    pass
+                
                 # 중심가 그리기
                 plot6_center_val_curve.setData(df_call_total_graph['centerval'])
 
