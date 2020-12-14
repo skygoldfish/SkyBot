@@ -2815,6 +2815,13 @@ class RealDataWorker(QThread):
         self.BM.UnadviseRealData()
         self.PM.UnadviseRealData()
 
+    def UnadviseRealData_YS(self):
+
+        self.YJ.UnadviseRealData()
+        self.YFC.UnadviseRealData()
+        self.YOC.UnadviseRealData()
+        self.YS3.UnadviseRealData()
+
     def AdviseRealData_HS_ON(self):
 
         self.OPT_HO.UnadviseRealData()
@@ -20428,6 +20435,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] WTI 주간시작가 = {3}\r'.format(adj_hour, adj_min, adj_sec, WTI_주간_시작가)
                     self.textBrowser.append(txt)
+
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 예상지수요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    self.textBrowser.append(txt)
+
+                    self.real_data_worker.UnadviseRealData_YS()
 
                     if TTS:
                         #Speak("주간장이 시작됩니다.")
