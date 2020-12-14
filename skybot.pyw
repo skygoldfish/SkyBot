@@ -32184,7 +32184,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 # 중심가 그리기, 모든 값이 NaN인지 체크?
                 #nan_lst = np.isnan(df_call_total_graph['centerval'].values)
-                #print(all(nan_lst))                
+                #print(np.all(nan_lst))                
                 plot2_center_val_curve.setData(df_call_total_graph['centerval'])
 
                 # 등가표시
