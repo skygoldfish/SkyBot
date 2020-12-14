@@ -3138,14 +3138,35 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             % (CURRENT_MONTH, MONTH_FIRSTDAY, NEXT_MONTH, MONTH_AFTER_NEXT, TARGET_MONTH_SELECT, SP500, DOW, NASDAQ, WTI))
         
         # 위젯 초기화
+        '''
         self.pushButton_start.setStyleSheet('QPushButton {background-color: white; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                             QPushButton:hover {background-color: black; color: white} \
                                             QPushButton:pressed {background-color: gold}')
         
         self.pushButton_telegram.setStyleSheet('QPushButton {background-color: white; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                 QPushButton:hover {background-color: black; color: white} \
-                                                QPushButton:pressed {background-color: gold}')        
+                                                QPushButton:pressed {background-color: gold}')
+        '''
+        self.pushButton_start.setStyleSheet('QPushButton \
+                                            {background-color: \
+                                            qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
+                                            color: yellow; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px} \
+                                            QPushButton:hover {background-color: black; color: white} \
+                                            QPushButton:pressed {background-color: gold}')
+
+        self.pushButton_telegram.setStyleSheet('QPushButton \
+                                            {background-color: \
+                                            qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
+                                            color: yellow; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px} \
+                                            QPushButton:hover {background-color: black; color: white} \
+                                            QPushButton:pressed {background-color: gold}')               
         
+        if not DARK_STYLESHEET:
+            self.pushButton_start.setFont(QFont("Consolas", 10, QFont.Bold))
+            self.pushButton_telegram.setFont(QFont("Consolas", 10, QFont.Bold))
+        else:
+            pass
+
         self.pushButton_start.setText(' Start ')          
         self.pushButton_telegram.setText(' Telegram ')
         
@@ -3157,12 +3178,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         # label_main_time, label_atm 관련 setFont 추후 검토필요!!!
         self.label_main_time.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
-            color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+                                            color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
         #self.label_main_time.setFont(QFont("Consolas", 9, QFont.Bold))
         self.label_main_time.setText("🕘")        
         
         self.label_atm.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:0.5, y1:0.5, x2:1, y2:0.5, stop:0 rgba(255, 199, 0, 255), stop:1 rgba(192, 5, 67, 255)); \
-            color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+                                    color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
         self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
         self.label_atm.setText("Basis(양합:양차)")        
                 
@@ -6512,7 +6533,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 # 대칭장
                 #self.label_main_time.setStyleSheet('background-color: lawngreen; color: black')
-                self.label_main_time.setStyleSheet('background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+                self.label_main_time.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                                    color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
             '''
             # 콜 Strong 매수장
             if flag_call_strong:
@@ -6798,11 +6820,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if basis < 0:
                 #self.label_atm.setStyleSheet('background-color: black; color: yellow')
-                self.label_atm.setStyleSheet('background-color: black; color: yellow; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                self.label_atm.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
+                                            rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
+                                            color: yellow; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
                 self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
             else:
                 #self.label_atm.setStyleSheet('background-color: yellow; color: black')
-                self.label_atm.setStyleSheet('background-color: yellow; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+                self.label_atm.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:0.5, y1:0.5, x2:1, y2:0.5, stop:0 rgba(255, 199, 0, 255), stop:1 rgba(192, 5, 67, 255)); \
+                                            color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
                 self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
 
             self.label_atm.setText(txt)
@@ -19021,7 +19046,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             #self.label_main_time.setStyleSheet('background-color: black; color: lawngreen')
             self.label_main_time.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
-                color: lawngreen; border-style: solid; border-width: 1px; border-color: lawngreen; border-radius: 5px')
+                                                color: black; border-style: solid; border-width: 1px; border-color: lawngreen; border-radius: 5px')
             self.label_main_time.setFont(QFont("Consolas", 9, QFont.Bold))
             
             txt = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
