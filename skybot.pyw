@@ -31250,9 +31250,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_16.setStyleSheet('background-color: blue ; color: white')
                 self.label_16.setText(txt)
 
-                txt = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
 
-                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
+                if fut_cm_volume_power > 0:
                     self.label_17.setStyleSheet('background-color: red ; color: white')
                 else:
                     self.label_17.setStyleSheet('background-color: blue ; color: white')
@@ -31990,9 +31990,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_26.setStyleSheet('background-color: blue ; color: white')
                 self.label_26.setText(txt)
 
-                txt = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
 
-                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
+                if fut_cm_volume_power > 0:
                     self.label_27.setStyleSheet('background-color: red ; color: white')
                 else:
                     self.label_27.setStyleSheet('background-color: blue ; color: white')
@@ -32709,9 +32709,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_36.setStyleSheet('background-color: blue ; color: white')
                 self.label_36.setText(txt)
 
-                txt = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
 
-                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
+                if fut_cm_volume_power > 0:
                     self.label_37.setStyleSheet('background-color: red ; color: white')
                 else:
                     self.label_37.setStyleSheet('background-color: blue ; color: white')
@@ -33424,8 +33424,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot4 그래프 그리기
             if comboindex4 == 2 and market_service:
 
-                txt = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
-
                 txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
                     fut_hoga_rr, df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
                     fut_cms_hoga_rr, df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
@@ -33449,12 +33447,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_46.setStyleSheet('background-color: blue ; color: white')
                 self.label_46.setText(txt)
 
-                txt = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
 
-                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
+                if fut_cm_volume_power > 0:
                     self.label_47.setStyleSheet('background-color: red ; color: white')
                 else:
                     self.label_47.setStyleSheet('background-color: blue ; color: white')
+
+                self.label_47.setText(txt)
                 
                 txt = " {0:.0f} ".format(df_call_total_graph.at[ovc_x_idx, 'volume'])
                 self.label_48.setStyleSheet('background-color: red ; color: white')
@@ -33466,8 +33466,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot4_fut_volume_curve.setData(df_futures_graph['volume'])
 
             elif comboindex4 == 4 and market_service:
-
-                txt = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_total_graph.at[ovc_x_idx, 'ms_hoga'], df_put_total_graph.at[ovc_x_idx, 'md_hoga'])
                 self.label_46.setStyleSheet('background-color: blue ; color: white')
@@ -33481,8 +33479,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot4_put_hoga_curve.setData(df_put_total_graph['hoga_remainder_ratio'])
 
             elif comboindex4 == 5 and market_service:
-
-                txt = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
                 plot4_fut_drate_curve.setData(df_futures_graph['drate'])
                 plot4_dow_drate_curve.setData(df_dow_graph['drate'])
@@ -34191,9 +34187,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_56.setStyleSheet('background-color: blue ; color: white')
                 self.label_56.setText(txt)
 
-                txt = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
 
-                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
+                if fut_cm_volume_power > 0:
                     self.label_57.setStyleSheet('background-color: red ; color: white')
                 else:
                     self.label_57.setStyleSheet('background-color: blue ; color: white')
@@ -34910,9 +34906,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_66.setStyleSheet('background-color: blue ; color: white')
                 self.label_66.setText(txt)
 
-                txt = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
 
-                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
+                if fut_cm_volume_power > 0:
                     self.label_67.setStyleSheet('background-color: red ; color: white')
                 else:
                     self.label_67.setStyleSheet('background-color: blue ; color: white')
