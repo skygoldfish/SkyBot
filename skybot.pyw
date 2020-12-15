@@ -6893,7 +6893,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        # 예상 중심가 표���
+        # 예상 중심가 표시
         if call_atm_value > put_atm_value:
 
             CENTER_VAL = round((put_atm_value + atm_zero_cha / 2), 2)
@@ -12979,7 +12979,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_진폭, 콜대비합, 콜대비합_단위평균, 콜대비_퍼센트_평균
         
         #call_진폭 = df_call['진폭'].values.tolist()
-        #진폭최��값 = max(call_진폭)
+        #진폭최대값 = max(call_진폭)
         진폭최대값 = df_call['진폭'].max()
 
         max_str = '{0:.2f}'.format(진폭최대값)
@@ -17504,7 +17504,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if df['시가'] > df['전일종가']:
                     item.setForeground(QBrush(적색))
-                elif df['시가'] < df['전일���가']:
+                elif df['시가'] < df['전일종가']:
                     item.setForeground(QBrush(청색))
                 else:
                     item.setForeground(QBrush(검정색))
@@ -18795,7 +18795,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         시가갭 = 시가 - 종가
                         df_call.at[i, '시가갭'] = 시가갭
 
-                        피봇 = self.calc_pivot(df_call.at[i, '전저'], df_call.at[i, '���고'], 종가, 시가)
+                        피봇 = self.calc_pivot(df_call.at[i, '전저'], df_call.at[i, '전고'], 종가, 시가)
                         df_call.at[i, '피봇'] = 피봇
 
                         item = QTableWidgetItem("{0:.2f}".format(피봇))
