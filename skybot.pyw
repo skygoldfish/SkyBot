@@ -39,7 +39,7 @@ import ta
 from configparser import ConfigParser
 import multiprocessing as mp
 from multiprocessing import Process, Queue, Pipe
-#from queue import Queue
+import queue
 import pyautogui
 from playsound import playsound
 import socket
@@ -2850,7 +2850,27 @@ class RealDataWorker(QThread):
             self.OPT_HO.AdviseRealData(put_code[i])
 
     def UnadviseRealDataAll(self):
-        pass
+        
+        self.JIF.UnadviseRealData()
+
+        self.YJ.UnadviseRealData()
+        self.YFC.UnadviseRealData()
+        self.YS3.UnadviseRealData()
+        self.YOC.UnadviseRealData()
+
+        self.OPT_REAL.UnadviseRealData()
+        self.OPT_HO.UnadviseRealData()
+
+        self.FUT_REAL.UnadviseRealData()
+        self.FUT_HO.UnadviseRealData()
+
+        self.IJ.UnadviseRealData()
+
+        self.S3.UnadviseRealData()
+        self.BM.UnadviseRealData()
+        self.PM.UnadviseRealData()
+
+        self.OVC.UnadviseRealData()
 
     # 실시간 수신 콜백함수
     def OnReceiveRealData(self, szTrCode, result):
@@ -5461,10 +5481,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
                 
                 # 모든 쓰레드를 중지시킨다.
-                self.real_data_worker.terminate()
                 self.telegram_send_worker.terminate()
                 self.telegram_listen_worker.terminate()
                 self.screen_update_worker.terminate()
+
+                self.real_data_worker.UnadviseRealDataAll()
+                QTest.qWait(100)
+                self.real_data_worker.terminate()                
                 
                 flag_service_provider_broken = True
             else:
@@ -5532,10 +5555,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         file.close()
 
                         # 모든 쓰레드를 중지시킨다.
-                        self.real_data_worker.terminate()
                         self.telegram_send_worker.terminate()
                         self.telegram_listen_worker.terminate()
-                        self.screen_update_worker.terminate()                                                
+                        self.screen_update_worker.terminate()
+
+                        self.real_data_worker.UnadviseRealDataAll()
+                        QTest.qWait(100)
+                        self.real_data_worker.terminate()                                                                        
                     else:
                         pass            
             else:
@@ -6049,6 +6075,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 self.screen_update_worker.terminate()
                                 self.telegram_send_worker.terminate()
                                 self.telegram_listen_worker.terminate()
+
+                                self.real_data_worker.UnadviseRealDataAll()
+                                QTest.qWait(100)
                                 self.real_data_worker.terminate()
 
                                 self.parent.connection.disconnect()
@@ -6087,6 +6116,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 self.screen_update_worker.terminate()
                                 self.telegram_send_worker.terminate()
                                 self.telegram_listen_worker.terminate()
+
+                                self.real_data_worker.UnadviseRealDataAll()
+                                QTest.qWait(100)
                                 self.real_data_worker.terminate()
                                                         
                                 self.parent.connection.disconnect()
@@ -24346,6 +24378,33 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         flag_realdata_update_is_running = False                              
     #####################################################################################################################################################################
+    def closeScreenBoard(self):
+
+        if self.screen_update_worker.isRunning():
+            self.screen_update_worker.terminate()
+            print('screen_update_worker is terminated...')
+        else:
+            pass
+
+        if self.telegram_send_worker.isRunning():
+            self.telegram_send_worker.terminate()
+            print('telegram_send_worker is terminated...')
+        else:
+            pass
+
+        if self.telegram_listen_worker.isRunning():
+            self.telegram_listen_worker.terminate()
+            print('telegram_listen_worker is terminated...')
+        else:
+            pass
+
+        if self.real_data_worker.isRunning():
+            self.real_data_worker.UnadviseRealDataAll()
+            QTest.qWait(100)
+            self.real_data_worker.terminate()
+            print('closeScreenBoard real_data_worker is terminated...')
+        else:
+            pass        
 
     def closeEvent(self,event):
 
@@ -24372,8 +24431,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         if self.real_data_worker.isRunning():
+            self.real_data_worker.UnadviseRealDataAll()
+            QTest.qWait(100)
             self.real_data_worker.terminate()
-            print('real_data_worker is terminated...')
+            print('Screen Board real_data_worker is terminated...')
         else:
             pass        
     '''
@@ -36052,6 +36113,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             event.accept()
 
             flag_main_window_closed = True
+
+            if self.dialog['당월물옵션전광판']:
+                self.dialog['당월물옵션전광판'].closeScreenBoard()
+            else:
+                pass
+
+            print('서버연결 해지...')
             self.connection.disconnect()
 
             if TARGET_MONTH_SELECT == 'CM':
