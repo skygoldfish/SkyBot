@@ -1496,6 +1496,7 @@ lightskyblue = QColor(0x87, 0xCE, 0xFA)
 rpen = pg.mkPen('r', width=2, style=QtCore.Qt.SolidLine)
 bpen = pg.mkPen('b', width=2, style=QtCore.Qt.SolidLine)
 gpen = pg.mkPen('g', width=2, style=QtCore.Qt.SolidLine)
+gpen1 = pg.mkPen('g', width=2, style=QtCore.Qt.DotLine)
 ypen = pg.mkPen('y', width=2, style=QtCore.Qt.SolidLine)
 ypen1 = pg.mkPen('y', width=2, style=QtCore.Qt.DotLine)
 mvpen = pg.mkPen('g', width=1, style=QtCore.Qt.DotLine)
@@ -1550,7 +1551,8 @@ plot1_fut_pivot_line = None
 plot1_fut_low_line = None
 plot1_fut_high_line = None
 
-plot1_fut_hoga_line = None
+plot1_hoga_rr_base_line = None
+plot1_hoga_rr_bottom_line = None
 
 plot1_kp200_2_line = None
 plot1_kp200_3_line = None
@@ -1622,7 +1624,8 @@ plot2_time_line = None
 plot2_time_line_jugan_start = None
 plot2_time_line_yagan_start = None
 
-plot2_fut_hoga_line = None
+plot2_hoga_rr_base_line = None
+plot2_hoga_rr_bottom_line = None
 
 plot2_ovc_jl_line = None
 plot2_ovc_jh_line = None
@@ -1693,7 +1696,8 @@ plot3_time_line = None
 plot3_time_line_jugan_start = None
 plot3_time_line_yagan_start = None
 
-plot3_fut_hoga_line = None
+plot3_hoga_rr_base_line = None
+plot3_hoga_rr_bottom_line = None
 
 plot3_ovc_jl_line = None
 plot3_ovc_jh_line = None
@@ -1772,7 +1776,8 @@ plot4_fut_pivot_line = None
 plot4_fut_low_line = None
 plot4_fut_high_line = None
 
-plot4_fut_hoga_line = None
+plot4_hoga_rr_base_line = None
+plot4_hoga_rr_bottom_line = None
 
 plot4_kp200_2_line = None
 plot4_kp200_3_line = None
@@ -1844,7 +1849,8 @@ plot5_time_line = None
 plot5_time_line_jugan_start = None
 plot5_time_line_yagan_start = None
 
-plot5_fut_hoga_line = None
+plot5_hoga_rr_base_line = None
+plot5_hoga_rr_bottom_line = None
 
 plot5_ovc_jl_line = None
 plot5_ovc_jh_line = None
@@ -1915,7 +1921,8 @@ plot6_time_line = None
 plot6_time_line_jugan_start = None
 plot6_time_line_yagan_start = None
 
-plot6_fut_hoga_line = None
+plot6_hoga_rr_base_line = None
+plot6_hoga_rr_bottom_line = None
 
 plot6_ovc_jl_line = None
 plot6_ovc_jh_line = None
@@ -24718,7 +24725,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global plot1_time_line_jugan_start, plot1_time_line_yagan_start, plot1_time_line, plot1_fut_price_curve, plot1_kp200_curve
         global plot1_fut_jl_line, plot1_fut_jh_line, plot1_fut_close_line, plot1_fut_open_line, plot1_fut_pivot_line, plot1_fut_low_line, plot1_fut_high_line    
         global plot1_ovc_jl_line, plot1_ovc_jh_line, plot1_ovc_close_line, plot1_ovc_open_line, plot1_ovc_pivot_line, plot1_ovc_low_line, plot1_ovc_high_line    
-        global plot1_fut_hoga_line
+        global plot1_hoga_rr_base_line, plot1_hoga_rr_bottom_line
         global plot1_fut_volume_curve
         global plot1_call_hoga_curve, plot1_put_hoga_curve
         global plot1_call_volume_curve, plot1_put_volume_curve
@@ -24740,7 +24747,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global plot2_call_oi_curve, plot2_put_oi_curve
         global plot2_sp500_curve, plot2_dow_curve, plot2_nasdaq_curve, plot2_wti_curve        
         global plot2_time_line_jugan_start, plot2_time_line_yagan_start, plot2_time_line
-        global plot2_fut_hoga_line
+        global plot2_hoga_rr_base_line, plot2_hoga_rr_bottom_line
         global plot2_ovc_jl_line, plot2_ovc_jh_line, plot2_ovc_close_line, plot2_ovc_open_line, plot2_ovc_pivot_line, plot2_ovc_low_line, plot2_ovc_high_line
         global plot2_mv_line, plot2_call_curve, plot2_put_curve
         global plot2_center_val_curve
@@ -24759,7 +24766,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global plot3_sp500_curve, plot3_dow_curve, plot3_nasdaq_curve, plot3_wti_curve        
         global plot3_time_line_jugan_start, plot3_time_line_yagan_start, plot3_time_line
         global plot3_ovc_jl_line, plot3_ovc_jh_line, plot3_ovc_close_line, plot3_ovc_open_line, plot3_ovc_pivot_line, plot3_ovc_low_line, plot3_ovc_high_line
-        global plot3_fut_hoga_line
+        global plot3_hoga_rr_base_line, plot3_hoga_rr_bottom_line
         global plot3_mv_line, plot3_call_curve, plot3_put_curve
         global plot3_center_val_curve
         global plot3_center_val_line, plot3_center_val_upper_line, plot3_center_val_lower_line
@@ -24771,7 +24778,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global plot4_time_line_jugan_start, plot4_time_line_yagan_start, plot4_time_line, plot4_fut_price_curve, plot4_kp200_curve
         global plot4_fut_jl_line, plot4_fut_jh_line, plot4_fut_close_line, plot4_fut_open_line, plot4_fut_pivot_line, plot4_fut_low_line, plot4_fut_high_line    
         global plot4_ovc_jl_line, plot4_ovc_jh_line, plot4_ovc_close_line, plot4_ovc_open_line, plot4_ovc_pivot_line, plot4_ovc_low_line, plot4_ovc_high_line    
-        global plot4_fut_hoga_line
+        global plot4_hoga_rr_base_line, plot4_hoga_rr_bottom_line
         global plot4_fut_volume_curve
         global plot4_call_hoga_curve, plot4_put_hoga_curve
         global plot4_call_volume_curve, plot4_put_volume_curve
@@ -24793,7 +24800,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global plot5_call_oi_curve, plot5_put_oi_curve
         global plot5_sp500_curve, plot5_dow_curve, plot5_nasdaq_curve, plot5_wti_curve        
         global plot5_time_line_jugan_start, plot5_time_line_yagan_start, plot5_time_line
-        global plot5_fut_hoga_line
+        global plot5_hoga_rr_base_line, plot5_hoga_rr_bottom_line
         global plot5_ovc_jl_line, plot5_ovc_jh_line, plot5_ovc_close_line, plot5_ovc_open_line, plot5_ovc_pivot_line, plot5_ovc_low_line, plot5_ovc_high_line
         global plot5_mv_line, plot5_call_curve, plot5_put_curve
         global plot5_center_val_curve
@@ -24811,7 +24818,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global plot6_call_oi_curve, plot6_put_oi_curve
         global plot6_sp500_curve, plot6_dow_curve, plot6_nasdaq_curve, plot6_wti_curve        
         global plot6_time_line_jugan_start, plot6_time_line_yagan_start, plot6_time_line
-        global plot6_fut_hoga_line
+        global plot6_hoga_rr_base_line, plot6_hoga_rr_bottom_line
         global plot6_ovc_jl_line, plot6_ovc_jh_line, plot6_ovc_close_line, plot6_ovc_open_line, plot6_ovc_pivot_line, plot6_ovc_low_line, plot6_ovc_high_line
         global plot6_mv_line, plot6_call_curve, plot6_put_curve
         global plot6_center_val_curve
@@ -24864,7 +24871,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         plot1_time_line_yagan_start = self.plot1.addLine(x=0, y=None, pen=yagan_x_start_pen)
         plot1_time_line = self.plot1.addLine(x=0, y=None, pen=moving_x_pen)
 
-        plot1_fut_hoga_line = self.plot1.addLine(x=None, pen=ypen1)
+        plot1_hoga_rr_base_line = self.plot1.addLine(x=None, pen=ypen1)
+        plot1_hoga_rr_bottom_line = self.plot1.addLine(x=None, pen=gpen1)
         
         plot1_fut_jl_line = self.plot1.addLine(x=None, pen=goldenrod_pen)
         plot1_fut_jh_line = self.plot1.addLine(x=None, pen=gold_pen)  
@@ -24939,7 +24947,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         plot2_time_line_yagan_start = self.plot2.addLine(x=0, y=None, pen=yagan_x_start_pen)
         plot2_time_line = self.plot2.addLine(x=0, y=None, pen=moving_x_pen)
 
-        plot2_fut_hoga_line = self.plot2.addLine(x=None, pen=ypen1)
+        plot2_hoga_rr_base_line = self.plot2.addLine(x=None, pen=ypen1)
+        plot2_hoga_rr_bottom_line = self.plot2.addLine(x=None, pen=gpen1)
         
         plot2_ovc_jl_line = self.plot2.addLine(x=None, pen=goldenrod_pen)
         plot2_ovc_jh_line = self.plot2.addLine(x=None, pen=gold_pen)  
@@ -25013,7 +25022,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         plot3_time_line_yagan_start = self.plot3.addLine(x=0, y=None, pen=yagan_x_start_pen)
         plot3_time_line = self.plot3.addLine(x=0, y=None, pen=moving_x_pen)
 
-        plot3_fut_hoga_line = self.plot3.addLine(x=None, pen=ypen1)
+        plot3_hoga_rr_base_line = self.plot3.addLine(x=None, pen=ypen1)
+        plot3_hoga_rr_bottom_line = self.plot3.addLine(x=None, pen=gpen1)
         
         plot3_ovc_jl_line = self.plot3.addLine(x=None, pen=goldenrod_pen)
         plot3_ovc_jh_line = self.plot3.addLine(x=None, pen=gold_pen)  
@@ -25087,7 +25097,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         plot4_time_line_yagan_start = self.plot4.addLine(x=0, y=None, pen=yagan_x_start_pen)
         plot4_time_line = self.plot4.addLine(x=0, y=None, pen=moving_x_pen)
 
-        plot4_fut_hoga_line = self.plot4.addLine(x=None, pen=ypen1)
+        plot4_hoga_rr_base_line = self.plot4.addLine(x=None, pen=ypen1)
+        plot4_hoga_rr_bottom_line = self.plot4.addLine(x=None, pen=gpen1)
         
         plot4_fut_jl_line = self.plot4.addLine(x=None, pen=goldenrod_pen)
         plot4_fut_jh_line = self.plot4.addLine(x=None, pen=gold_pen)  
@@ -25162,7 +25173,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         plot5_time_line_yagan_start = self.plot5.addLine(x=0, y=None, pen=yagan_x_start_pen)
         plot5_time_line = self.plot5.addLine(x=0, y=None, pen=moving_x_pen)
 
-        plot5_fut_hoga_line = self.plot5.addLine(x=None, pen=ypen1)
+        plot5_hoga_rr_base_line = self.plot5.addLine(x=None, pen=ypen1)
+        plot5_hoga_rr_bottom_line = self.plot5.addLine(x=None, pen=gpen1)
         
         plot5_ovc_jl_line = self.plot5.addLine(x=None, pen=goldenrod_pen)
         plot5_ovc_jh_line = self.plot5.addLine(x=None, pen=gold_pen)  
@@ -25236,7 +25248,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         plot6_time_line_yagan_start = self.plot6.addLine(x=0, y=None, pen=yagan_x_start_pen)
         plot6_time_line = self.plot6.addLine(x=0, y=None, pen=moving_x_pen)
 
-        plot6_fut_hoga_line = self.plot6.addLine(x=None, pen=ypen1)
+        plot6_hoga_rr_base_line = self.plot6.addLine(x=None, pen=ypen1)
+        plot6_hoga_rr_bottom_line = self.plot6.addLine(x=None, pen=gpen1)
         
         plot6_ovc_jl_line = self.plot6.addLine(x=None, pen=goldenrod_pen)
         plot6_ovc_jh_line = self.plot6.addLine(x=None, pen=gold_pen)  
@@ -26127,7 +26140,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot1_ovc_low_line.setValue(0)
             plot1_ovc_high_line.setValue(0)
             
-            plot1_fut_hoga_line.setValue(1.0)
+            plot1_hoga_rr_base_line.setValue(1.0)
+            plot1_hoga_rr_bottom_line.setValue(0.1)
 
         # 선옵체결
         elif comboindex1 == 3:
@@ -26176,7 +26190,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot1_nasdaq_curve.clear()
             plot1_wti_curve.clear()  
 
-            plot1_fut_hoga_line.setValue(0)   
+            plot1_hoga_rr_base_line.setValue(0)
+            plot1_hoga_rr_bottom_line.setValue(0)   
             
             plot1_fut_jl_line.setValue(0)
             plot1_fut_jh_line.setValue(0)
@@ -26262,7 +26277,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot1_ovc_low_line.setValue(0)
             plot1_ovc_high_line.setValue(0)
             
-            plot1_fut_hoga_line.setValue(1.0)  
+            plot1_hoga_rr_base_line.setValue(1.0)
+            plot1_hoga_rr_bottom_line.setValue(0.1)  
         
         # 등락율비
         elif comboindex1 == 5:
@@ -26303,7 +26319,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot1_nasdaq_curve.clear()
             plot1_wti_curve.clear()
 
-            plot1_fut_hoga_line.setValue(0)
+            plot1_hoga_rr_base_line.setValue(0)
+            plot1_hoga_rr_bottom_line.setValue(0)
             
             plot1_fut_jl_line.setValue(0)
             plot1_fut_jh_line.setValue(0)
@@ -26366,7 +26383,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot1_nasdaq_curve.clear()
             plot1_wti_curve.clear()
 
-            plot1_fut_hoga_line.setValue(0)
+            plot1_hoga_rr_base_line.setValue(0)
+            plot1_hoga_rr_bottom_line.setValue(0)
             
             plot1_fut_jl_line.setValue(0)
             plot1_fut_jh_line.setValue(0)
@@ -26462,7 +26480,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
             
             # 종가선 컬러를 살리기위한 임시방편            
-            plot1_fut_hoga_line.setValue(선물_고가)
+            plot1_hoga_rr_base_line.setValue(선물_고가)
+            plot1_hoga_rr_bottom_line.setValue(선물_고가)
 
             plot1_ovc_open_line.setValue(선물_고가)
             plot1_ovc_jl_line.setValue(선물_고가)
@@ -26537,7 +26556,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot1_nasdaq_curve.clear()
             plot1_wti_curve.clear()
 
-            plot1_fut_hoga_line.setValue(SP500_종가)
+            plot1_hoga_rr_base_line.setValue(SP500_종가)
+            plot1_hoga_rr_bottom_line.setValue(SP500_종가)
             
             for i in range(10):
                 plot1_kp200_line[i].setValue(SP500_종가)
@@ -26645,7 +26665,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot1_nasdaq_curve.clear()
             plot1_wti_curve.clear()
 
-            plot1_fut_hoga_line.setValue(DOW_종가) 
+            plot1_hoga_rr_base_line.setValue(DOW_종가)
+            plot1_hoga_rr_bottom_line.setValue(DOW_종가)  
             
             for i in range(10):
                 plot1_kp200_line[i].setValue(DOW_종가)
@@ -26753,7 +26774,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot1_dow_curve.clear() 
             plot1_wti_curve.clear()
 
-            plot1_fut_hoga_line.setValue(NASDAQ_종가) 
+            plot1_hoga_rr_base_line.setValue(NASDAQ_종가)
+            plot1_hoga_rr_bottom_line.setValue(NASDAQ_종가) 
             
             for i in range(10):
                 plot1_kp200_line[i].setValue(NASDAQ_종가)
@@ -26861,7 +26883,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot1_dow_curve.clear()
             plot1_nasdaq_curve.clear()
 
-            plot1_fut_hoga_line.setValue(WTI_종가) 
+            plot1_hoga_rr_base_line.setValue(WTI_종가)
+            plot1_hoga_rr_bottom_line.setValue(WTI_종가) 
             
             for i in range(10):
                 plot1_kp200_line[i].setValue(WTI_종가)
@@ -27012,7 +27035,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_nasdaq_curve.clear()
             plot2_wti_curve.clear()
 
-            plot2_fut_hoga_line.setValue(0)
+            plot2_hoga_rr_base_line.setValue(0)
+            plot2_hoga_rr_bottom_line.setValue(0)
 
             for i in range(9):
                 plot2_mv_line[i].setValue(0)
@@ -27093,7 +27117,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_center_val_line.setValue(0)
             plot2_center_val_upper_line.setValue(0)
 
-            plot2_fut_hoga_line.setValue(1.0)        
+            plot2_hoga_rr_base_line.setValue(1.0)
+            plot2_hoga_rr_bottom_line.setValue(0.1)        
 
         # 선물잔량비
         elif comboindex2 == 4:
@@ -27158,7 +27183,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_ovc_low_line.setValue(0)
             plot2_ovc_high_line.setValue(0)
 
-            plot2_fut_hoga_line.setValue(1.0)
+            plot2_hoga_rr_base_line.setValue(1.0)
+            plot2_hoga_rr_bottom_line.setValue(0.1)
 
         # 등락율비
         elif comboindex2 == 5:
@@ -27205,7 +27231,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_nasdaq_curve.clear()
             plot2_wti_curve.clear()
 
-            plot2_fut_hoga_line.setValue(0)
+            plot2_hoga_rr_base_line.setValue(0)
+            plot2_hoga_rr_bottom_line.setValue(0)
 
             for i in range(9):
                 plot2_mv_line[i].setValue(0)
@@ -27270,7 +27297,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_nasdaq_curve.clear()
             plot2_wti_curve.clear()
 
-            plot2_fut_hoga_line.setValue(0)
+            plot2_hoga_rr_base_line.setValue(0)
+            plot2_hoga_rr_bottom_line.setValue(0)
 
             for i in range(9):
                 plot2_mv_line[i].setValue(0)
@@ -27333,7 +27361,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_nasdaq_curve.clear()
             plot2_wti_curve.clear()
 
-            plot2_fut_hoga_line.setValue(0)
+            plot2_hoga_rr_base_line.setValue(0)
+            plot2_hoga_rr_bottom_line.setValue(0)
             
             plot2_ovc_close_line.setValue(0)
             plot2_ovc_open_line.setValue(0)
@@ -27396,7 +27425,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_nasdaq_curve.clear()
             plot2_wti_curve.clear()
 
-            plot2_fut_hoga_line.setValue(SP500_종가)
+            plot2_hoga_rr_base_line.setValue(SP500_종가)
+            plot2_hoga_rr_bottom_line.setValue(SP500_종가)
 
             for i in range(9):
                 plot2_mv_line[i].setValue(SP500_종가)
@@ -27503,7 +27533,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_nasdaq_curve.clear()
             plot2_wti_curve.clear()
 
-            plot2_fut_hoga_line.setValue(DOW_종가)
+            plot2_hoga_rr_base_line.setValue(DOW_종가)
+            plot2_hoga_rr_bottom_line.setValue(DOW_종가)
 
             for i in range(9):
                 plot2_mv_line[i].setValue(DOW_종가)
@@ -27610,7 +27641,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_dow_curve.clear() 
             plot2_wti_curve.clear()
 
-            plot2_fut_hoga_line.setValue(NASDAQ_종가)
+            plot2_hoga_rr_base_line.setValue(NASDAQ_종가)
+            plot2_hoga_rr_bottom_line.setValue(NASDAQ_종가)
                         
             for i in range(9):
                 plot2_mv_line[i].setValue(NASDAQ_종가)
@@ -27717,7 +27749,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_dow_curve.clear()
             plot2_nasdaq_curve.clear()
 
-            plot2_fut_hoga_line.setValue(WTI_종가)
+            plot2_hoga_rr_base_line.setValue(WTI_종가)
+            plot2_hoga_rr_bottom_line.setValue(WTI_종가)
 
             for i in range(9):
                 plot2_mv_line[i].setValue(WTI_종가)
@@ -27864,7 +27897,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_nasdaq_curve.clear()
             plot3_wti_curve.clear()
 
-            plot3_fut_hoga_line.setValue(0)
+            plot3_hoga_rr_base_line.setValue(0)
+            plot3_hoga_rr_bottom_line.setValue(0)
 
             for i in range(9):
                 plot3_mv_line[i].setValue(0)
@@ -27945,7 +27979,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_center_val_line.setValue(0)
             plot3_center_val_upper_line.setValue(0)
 
-            plot3_fut_hoga_line.setValue(1.0)        
+            plot3_hoga_rr_base_line.setValue(1.0)
+            plot3_hoga_rr_bottom_line.setValue(0.1)        
 
         # 선물잔량비
         elif comboindex3 == 4:
@@ -28010,7 +28045,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_center_val_line.setValue(0)
             plot3_center_val_upper_line.setValue(0)
 
-            plot3_fut_hoga_line.setValue(1.0)
+            plot3_hoga_rr_base_line.setValue(1.0)
+            plot3_hoga_rr_bottom_line.setValue(0.1)
 
         # 등락율비
         elif comboindex3 == 5:
@@ -28057,7 +28093,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_nasdaq_curve.clear()
             plot3_wti_curve.clear()
 
-            plot3_fut_hoga_line.setValue(0)
+            plot3_hoga_rr_base_line.setValue(0)
+            plot3_hoga_rr_bottom_line.setValue(0)
 
             for i in range(9):
                 plot3_mv_line[i].setValue(0)
@@ -28122,7 +28159,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_nasdaq_curve.clear()
             plot3_wti_curve.clear()
 
-            plot3_fut_hoga_line.setValue(0)
+            plot3_hoga_rr_base_line.setValue(0)
+            plot3_hoga_rr_bottom_line.setValue(0)
 
             for i in range(9):
                 plot3_mv_line[i].setValue(0)
@@ -28185,7 +28223,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_nasdaq_curve.clear()
             plot3_wti_curve.clear()
 
-            plot3_fut_hoga_line.setValue(0)
+            plot3_hoga_rr_base_line.setValue(0)
+            plot3_hoga_rr_bottom_line.setValue(0)
             
             plot3_ovc_close_line.setValue(0)
             plot3_ovc_open_line.setValue(0)
@@ -28248,7 +28287,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_nasdaq_curve.clear()
             plot3_wti_curve.clear()
 
-            plot3_fut_hoga_line.setValue(SP500_종가)
+            plot3_hoga_rr_base_line.setValue(SP500_종가)
+            plot3_hoga_rr_bottom_line.setValue(SP500_종가)
 
             for i in range(9):
                 plot3_mv_line[i].setValue(SP500_종가)
@@ -28355,7 +28395,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_nasdaq_curve.clear()
             plot3_wti_curve.clear()
 
-            plot3_fut_hoga_line.setValue(DOW_종가)
+            plot3_hoga_rr_base_line.setValue(DOW_종가)
+            plot3_hoga_rr_bottom_line.setValue(DOW_종가)
 
             for i in range(9):
                 plot3_mv_line[i].setValue(DOW_종가)
@@ -28462,7 +28503,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_dow_curve.clear() 
             plot3_wti_curve.clear()
 
-            plot3_fut_hoga_line.setValue(NASDAQ_종가)
+            plot3_hoga_rr_base_line.setValue(NASDAQ_종가)
+            plot3_hoga_rr_bottom_line.setValue(NASDAQ_종가)
 
             for i in range(9):
                 plot3_mv_line[i].setValue(NASDAQ_종가)
@@ -28569,7 +28611,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_dow_curve.clear()
             plot3_nasdaq_curve.clear()
 
-            plot3_fut_hoga_line.setValue(WTI_종가) 
+            plot3_hoga_rr_base_line.setValue(WTI_종가)
+            plot3_hoga_rr_bottom_line.setValue(WTI_종가)  
 
             for i in range(9):
                 plot3_mv_line[i].setValue(WTI_종가)
@@ -28736,7 +28779,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_ovc_low_line.setValue(0)
             plot4_ovc_high_line.setValue(0)
             
-            plot4_fut_hoga_line.setValue(1.0)
+            plot4_hoga_rr_base_line.setValue(1.0)
+            plot4_hoga_rr_bottom_line.setValue(0.1)
 
         # 선옵체결
         elif comboindex4 == 3:
@@ -28784,7 +28828,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_nasdaq_curve.clear()
             plot4_wti_curve.clear()
             
-            plot4_fut_hoga_line.setValue(0)     
+            plot4_hoga_rr_base_line.setValue(0) 
+            plot4_hoga_rr_bottom_line.setValue(0)    
             
             plot4_fut_jl_line.setValue(0)
             plot4_fut_jh_line.setValue(0)
@@ -28870,7 +28915,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_ovc_low_line.setValue(0)
             plot4_ovc_high_line.setValue(0)
             
-            plot4_fut_hoga_line.setValue(1.0) 
+            plot4_hoga_rr_base_line.setValue(1.0)
+            plot4_hoga_rr_bottom_line.setValue(0.1) 
         
         # 등락율비
         elif comboindex4 == 5:
@@ -28911,7 +28957,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_nasdaq_curve.clear()
             plot4_wti_curve.clear()
             
-            plot4_fut_hoga_line.setValue(0)
+            plot4_hoga_rr_base_line.setValue(0)
+            plot4_hoga_rr_bottom_line.setValue(0)
             
             plot4_fut_jl_line.setValue(0)
             plot4_fut_jh_line.setValue(0)
@@ -28974,7 +29021,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_nasdaq_curve.clear()
             plot4_wti_curve.clear()
             
-            plot4_fut_hoga_line.setValue(0)
+            plot4_hoga_rr_base_line.setValue(0)
+            plot4_hoga_rr_bottom_line.setValue(0)
             
             plot4_fut_jl_line.setValue(0)
             plot4_fut_jh_line.setValue(0)
@@ -29070,7 +29118,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
             
             # 종가선 컬러를 살리기위한 임시방편            
-            plot4_fut_hoga_line.setValue(선물_고가)
+            plot4_hoga_rr_base_line.setValue(선물_고가)
+            plot4_hoga_rr_bottom_line.setValue(선물_고가)
 
             plot4_ovc_open_line.setValue(선물_고가)
             plot4_ovc_jl_line.setValue(선물_고가)
@@ -29145,7 +29194,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_nasdaq_curve.clear()
             plot4_wti_curve.clear()
 
-            plot4_fut_hoga_line.setValue(SP500_종가)
+            plot4_hoga_rr_base_line.setValue(SP500_종가)
+            plot4_hoga_rr_bottom_line.setValue(SP500_종가)
             
             for i in range(10):
                 plot4_kp200_line[i].setValue(SP500_종가)
@@ -29253,7 +29303,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_nasdaq_curve.clear()
             plot4_wti_curve.clear()
 
-            plot4_fut_hoga_line.setValue(DOW_종가)  
+            plot4_hoga_rr_base_line.setValue(DOW_종가)
+            plot4_hoga_rr_bottom_line.setValue(DOW_종가)  
             
             for i in range(10):
                 plot4_kp200_line[i].setValue(DOW_종가)
@@ -29361,7 +29412,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_dow_curve.clear() 
             plot4_wti_curve.clear()
 
-            plot4_fut_hoga_line.setValue(NASDAQ_종가) 
+            plot4_hoga_rr_base_line.setValue(NASDAQ_종가)
+            plot4_hoga_rr_bottom_line.setValue(NASDAQ_종가) 
             
             for i in range(10):
                 plot4_kp200_line[i].setValue(NASDAQ_종가)
@@ -29469,7 +29521,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_dow_curve.clear()
             plot4_nasdaq_curve.clear()
 
-            plot4_fut_hoga_line.setValue(WTI_종가)  
+            plot4_hoga_rr_base_line.setValue(WTI_종가)
+            plot4_hoga_rr_bottom_line.setValue(WTI_종가)   
             
             for i in range(10):
                 plot4_kp200_line[i].setValue(WTI_종가)
@@ -29620,7 +29673,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_nasdaq_curve.clear()
             plot5_wti_curve.clear()
 
-            plot5_fut_hoga_line.setValue(0)
+            plot5_hoga_rr_base_line.setValue(0)
+            plot5_hoga_rr_bottom_line.setValue(0)
 
             for i in range(9):
                 plot5_mv_line[i].setValue(0)
@@ -29701,7 +29755,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_center_val_line.setValue(0)
             plot5_center_val_upper_line.setValue(0)
 
-            plot5_fut_hoga_line.setValue(1.0)        
+            plot5_hoga_rr_base_line.setValue(1.0)
+            plot5_hoga_rr_bottom_line.setValue(0.1)        
 
         # 선물잔량비
         elif comboindex5 == 4:
@@ -29766,7 +29821,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_center_val_line.setValue(0)
             plot5_center_val_upper_line.setValue(0)
 
-            plot5_fut_hoga_line.setValue(1.0)
+            plot5_hoga_rr_base_line.setValue(1.0)
+            plot5_hoga_rr_bottom_line.setValue(0.1)
 
         # 등락율비
         elif comboindex5 == 5:
@@ -29813,7 +29869,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_nasdaq_curve.clear()
             plot5_wti_curve.clear()
 
-            plot5_fut_hoga_line.setValue(0)
+            plot5_hoga_rr_base_line.setValue(0)
+            plot5_hoga_rr_bottom_line.setValue(0)
 
             for i in range(9):
                 plot5_mv_line[i].setValue(0)
@@ -29878,7 +29935,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_nasdaq_curve.clear()
             plot5_wti_curve.clear()
 
-            plot5_fut_hoga_line.setValue(0)
+            plot5_hoga_rr_base_line.setValue(0)
+            plot5_hoga_rr_bottom_line.setValue(0)
 
             for i in range(9):
                 plot5_mv_line[i].setValue(0)
@@ -29941,7 +29999,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_nasdaq_curve.clear()
             plot5_wti_curve.clear()
 
-            plot5_fut_hoga_line.setValue(0)
+            plot5_hoga_rr_base_line.setValue(0)
+            plot5_hoga_rr_bottom_line.setValue(0)
             
             plot5_ovc_close_line.setValue(0)
             plot5_ovc_open_line.setValue(0)
@@ -30004,7 +30063,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_nasdaq_curve.clear()
             plot5_wti_curve.clear()
 
-            plot5_fut_hoga_line.setValue(SP500_종가)
+            plot5_hoga_rr_base_line.setValue(SP500_종가)
+            plot5_hoga_rr_bottom_line.setValue(SP500_종가)
 
             for i in range(9):
                 plot5_mv_line[i].setValue(SP500_종가)
@@ -30111,7 +30171,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_nasdaq_curve.clear()
             plot5_wti_curve.clear()
 
-            plot5_fut_hoga_line.setValue(DOW_종가)
+            plot5_hoga_rr_base_line.setValue(DOW_종가)
+            plot5_hoga_rr_bottom_line.setValue(DOW_종가)
 
             for i in range(9):
                 plot5_mv_line[i].setValue(DOW_종가)
@@ -30218,7 +30279,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_dow_curve.clear() 
             plot5_wti_curve.clear()
 
-            plot5_fut_hoga_line.setValue(NASDAQ_종가)
+            plot5_hoga_rr_base_line.setValue(NASDAQ_종가)
+            plot5_hoga_rr_bottom_line.setValue(NASDAQ_종가)
 
             for i in range(9):
                 plot5_mv_line[i].setValue(NASDAQ_종가)
@@ -30325,7 +30387,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_dow_curve.clear()
             plot5_nasdaq_curve.clear()
 
-            plot5_fut_hoga_line.setValue(WTI_종가) 
+            plot5_hoga_rr_base_line.setValue(WTI_종가)
+            plot5_hoga_rr_bottom_line.setValue(WTI_종가) 
 
             for i in range(9):
                 plot5_mv_line[i].setValue(WTI_종가)
@@ -30472,7 +30535,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_nasdaq_curve.clear()
             plot6_wti_curve.clear()
 
-            plot6_fut_hoga_line.setValue(0)
+            plot6_hoga_rr_base_line.setValue(0)
+            plot6_hoga_rr_bottom_line.setValue(0)
 
             for i in range(9):
                 plot6_mv_line[i].setValue(0)
@@ -30553,7 +30617,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_center_val_line.setValue(0)
             plot6_center_val_upper_line.setValue(0)
 
-            plot6_fut_hoga_line.setValue(1.0)        
+            plot6_hoga_rr_base_line.setValue(1.0)
+            plot6_hoga_rr_bottom_line.setValue(0.1)        
 
         # 선물잔량비
         elif comboindex6 == 4:
@@ -30618,7 +30683,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_center_val_line.setValue(0)
             plot6_center_val_upper_line.setValue(0)
 
-            plot6_fut_hoga_line.setValue(1.0)
+            plot6_hoga_rr_base_line.setValue(1.0)
+            plot6_hoga_rr_bottom_line.setValue(0.1)
 
         # 등락율비
         elif comboindex6 == 5:
@@ -30665,7 +30731,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_nasdaq_curve.clear()
             plot6_wti_curve.clear()
 
-            plot6_fut_hoga_line.setValue(0)
+            plot6_hoga_rr_base_line.setValue(0)
+            plot6_hoga_rr_bottom_line.setValue(0)
 
             for i in range(9):
                 plot6_mv_line[i].setValue(0)
@@ -30730,7 +30797,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_nasdaq_curve.clear()
             plot6_wti_curve.clear()
 
-            plot6_fut_hoga_line.setValue(0)
+            plot6_hoga_rr_base_line.setValue(0)
+            plot6_hoga_rr_bottom_line.setValue(0)
 
             for i in range(9):
                 plot6_mv_line[i].setValue(0)
@@ -30793,7 +30861,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_nasdaq_curve.clear()
             plot6_wti_curve.clear()
 
-            plot6_fut_hoga_line.setValue(0)
+            plot6_hoga_rr_base_line.setValue(0)
+            plot6_hoga_rr_bottom_line.setValue(0)
             
             plot6_ovc_close_line.setValue(0)
             plot6_ovc_open_line.setValue(0)
@@ -30856,7 +30925,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_nasdaq_curve.clear()
             plot6_wti_curve.clear()
 
-            plot6_fut_hoga_line.setValue(SP500_종가)
+            plot6_hoga_rr_base_line.setValue(SP500_종가)
+            plot6_hoga_rr_bottom_line.setValue(SP500_종가)
 
             for i in range(9):
                 plot6_mv_line[i].setValue(SP500_종가)
@@ -30963,7 +31033,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_nasdaq_curve.clear()
             plot6_wti_curve.clear()
 
-            plot6_fut_hoga_line.setValue(DOW_종가)
+            plot6_hoga_rr_base_line.setValue(DOW_종가)
+            plot6_hoga_rr_bottom_line.setValue(DOW_종가)
 
             for i in range(9):
                 plot6_mv_line[i].setValue(DOW_종가)
@@ -31070,7 +31141,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_dow_curve.clear() 
             plot6_wti_curve.clear()
 
-            plot6_fut_hoga_line.setValue(NASDAQ_종가)
+            plot6_hoga_rr_base_line.setValue(NASDAQ_종가)
+            plot6_hoga_rr_bottom_line.setValue(NASDAQ_종가)
 
             for i in range(9):
                 plot6_mv_line[i].setValue(NASDAQ_종가)
@@ -31177,7 +31249,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_dow_curve.clear()
             plot6_nasdaq_curve.clear()
 
-            plot6_fut_hoga_line.setValue(WTI_종가) 
+            plot6_hoga_rr_base_line.setValue(WTI_종가)
+            plot6_hoga_rr_bottom_line.setValue(WTI_종가) 
 
             for i in range(9):
                 plot6_mv_line[i].setValue(WTI_종가)
