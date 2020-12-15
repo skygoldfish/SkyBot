@@ -3098,7 +3098,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.parent = parent
         
         #self.setWindowFlags(window.windowFlags() & ~Qt.WindowStaysOnTopHint)
-        self.setupUi(self)
+        #self.setModal(False)
+        self.setupUi(self)        
         
         global TARGET_MONTH_SELECT, MONTH_FIRSTDAY
         global widget_title, CURRENT_MONTH, NEXT_MONTH, MONTH_AFTER_NEXT, SP500, DOW, NASDAQ, fut_code
@@ -3152,11 +3153,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if screen_info.width() > 1920 and screen_info.height() > 1080:
 
             self.showNormal()
-
-            if TARGET_MONTH_SELECT == 'CM':
-                self.parent.move(left - 10, top)
-            else:
-                self.parent.showMaximized()
+            self.parent.move(left - 10, top)
         else:
             self.showMaximized()        
         
@@ -24410,19 +24407,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if self.screen_update_worker.isRunning():
             self.screen_update_worker.terminate()
-            print('screen_update_worker is terminated...')
+            print('screen_update_worker is terminated at closeScreenBoard...')
         else:
             pass
 
         if self.telegram_send_worker.isRunning():
             self.telegram_send_worker.terminate()
-            print('telegram_send_worker is terminated...')
+            print('telegram_send_worker is terminated at closeScreenBoard...')
         else:
             pass
 
         if self.telegram_listen_worker.isRunning():
             self.telegram_listen_worker.terminate()
-            print('telegram_listen_worker is terminated...')
+            print('telegram_listen_worker is terminated at closeScreenBoard...')
         else:
             pass
 
@@ -24430,7 +24427,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.real_data_worker.UnadviseRealDataAll()
             QTest.qWait(100)
             self.real_data_worker.terminate()
-            print('closeScreenBoard real_data_worker is terminated...')
+            print('real_data_worker is terminated at closeScreenBoard...')
         else:
             pass        
 
@@ -24462,7 +24459,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.real_data_worker.UnadviseRealDataAll()
             QTest.qWait(100)
             self.real_data_worker.terminate()
-            print('Screen Board real_data_worker is terminated...')
+            print('real_data_worker is terminated on the Screen Board...')
         else:
             pass        
     '''
@@ -36142,10 +36139,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             flag_main_window_closed = True
 
-            if self.dialog['당월물옵션전광판']:
+            if not flag_screen_board_closed:
+            #if self.dialog.get('당월물옵션전광판') is not None:
                 self.dialog['당월물옵션전광판'].closeScreenBoard()
             else:
-                pass
+                print('해당 다이얼로그가 없습니다.')
 
             print('서버연결 해지...')
             self.connection.disconnect()
