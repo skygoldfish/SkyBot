@@ -3145,6 +3145,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             % (CURRENT_MONTH, MONTH_FIRSTDAY, NEXT_MONTH, MONTH_AFTER_NEXT, TARGET_MONTH_SELECT, SP500, DOW, NASDAQ, WTI))
         
         # 위젯 초기화
+        self.textBrowser.setStyleSheet("background-color: black; color: lawngreen")
         '''
         self.pushButton_start.setStyleSheet('QPushButton {background-color: white; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                             QPushButton:hover {background-color: black; color: white} \
@@ -6129,9 +6130,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f} ms, Drop Count = {4}\r'.format(\
                             dt.hour, dt.minute, dt.second, main_ui_update_time, queue_input_drop_count)
                     else:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f} ms\r'.format(\
-                            dt.hour, dt.minute, dt.second, main_ui_update_time)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f} ms\r'.format(dt.hour, dt.minute, dt.second, main_ui_update_time)
 
+                    #self.textBrowser.append(txt)
                     print(txt)
             else:
                 pass            
@@ -6865,7 +6866,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        # 예상 중심가 표시
+        # 예상 중심가 표���
         if call_atm_value > put_atm_value:
 
             CENTER_VAL = round((put_atm_value + atm_zero_cha / 2), 2)
@@ -24295,14 +24296,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         flag_screen_board_closed = True
 
-        print('서버연결 해지...')
-        self.screen_update_worker.terminate()
-        self.telegram_send_worker.terminate()
-        self.telegram_listen_worker.terminate()
-        self.real_data_worker.terminate()
-        print('real_data_worker is terminated...')
+        #print('서버연결 해지...')
+        #self.parent.connection.disconnect()
 
-        self.parent.connection.disconnect()
+        if self.screen_update_worker.isRunning():
+            self.screen_update_worker.terminate()
+        else:
+            pass
+
+        if self.telegram_send_worker.isRunning():
+            self.telegram_send_worker.terminate()
+        else:
+            pass
+
+        if self.telegram_listen_worker.isRunning():
+            self.telegram_listen_worker.terminate()
+        else:
+            pass
+
+        if self.real_data_worker.isRunning():
+            self.real_data_worker.terminate()
+            print('real_data_worker is terminated...')
+        else:
+            pass        
     '''
     @classmethod
     def test_classmethod(cls):
@@ -26303,7 +26319,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot1_ovc_high_line.setValue(0)
             
             plot1_hoga_rr_base_line.setValue(1.0)
-            plot1_hoga_rr_bottom_line.setValue(0.1)  
+            #plot1_hoga_rr_bottom_line.setValue(0.1)  
         
         # 등락율비
         elif comboindex1 == 5:
@@ -27143,7 +27159,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_center_val_upper_line.setValue(0)
 
             plot2_hoga_rr_base_line.setValue(1.0)
-            plot2_hoga_rr_bottom_line.setValue(0.1)        
+            #plot2_hoga_rr_bottom_line.setValue(0.1)        
 
         # 선물잔량비
         elif comboindex2 == 4:
@@ -28005,7 +28021,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_center_val_upper_line.setValue(0)
 
             plot3_hoga_rr_base_line.setValue(1.0)
-            plot3_hoga_rr_bottom_line.setValue(0.1)        
+            #plot3_hoga_rr_bottom_line.setValue(0.1)        
 
         # 선물잔량비
         elif comboindex3 == 4:
@@ -28941,7 +28957,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_ovc_high_line.setValue(0)
             
             plot4_hoga_rr_base_line.setValue(1.0)
-            plot4_hoga_rr_bottom_line.setValue(0.1) 
+            #plot4_hoga_rr_bottom_line.setValue(0.1) 
         
         # 등락율비
         elif comboindex4 == 5:
@@ -29781,7 +29797,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_center_val_upper_line.setValue(0)
 
             plot5_hoga_rr_base_line.setValue(1.0)
-            plot5_hoga_rr_bottom_line.setValue(0.1)        
+            #plot5_hoga_rr_bottom_line.setValue(0.1)        
 
         # 선물잔량비
         elif comboindex5 == 4:
@@ -30643,7 +30659,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_center_val_upper_line.setValue(0)
 
             plot6_hoga_rr_base_line.setValue(1.0)
-            plot6_hoga_rr_bottom_line.setValue(0.1)        
+            #plot6_hoga_rr_bottom_line.setValue(0.1)        
 
         # 선물잔량비
         elif comboindex6 == 4:
@@ -35793,6 +35809,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.setupUi(self)
             
             self.setWindowTitle("SkyBot ver1.0")
+
+            self.textBrowser.setStyleSheet("background-color: black; color: lawngreen")
             self.textBrowser.append('Welcome to SkyBot\r')
             '''
             if TARGET_MONTH_SELECT == 'CM':
@@ -35865,6 +35883,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.setupUi(self)
 
             self.setWindowTitle("SkyBot ver1.0")
+
+            self.textBrowser.setStyleSheet("background-color: black; color: lawngreen")
             self.textBrowser.append('Welcome to SkyBot\r')
             '''
             if TARGET_MONTH_SELECT == 'CM':
