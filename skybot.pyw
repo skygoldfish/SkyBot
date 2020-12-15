@@ -20620,8 +20620,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.real_data_worker.UnadviseRealData_YS()
 
-                    if TTS:
-                        #Speak("주간장이 시작됩니다.")
+                    if TTS and TARGET_MONTH_SELECT == 'CM':
                         playsound( "Doorbell_start.wav" )
                     else:
                         pass
