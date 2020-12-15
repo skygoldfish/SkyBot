@@ -6146,7 +6146,31 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        flag_heartbeat = False 
+        flag_heartbeat = False
+
+        if TARGET_MONTH_SELECT == 'NM' and TTS:
+
+            if call_ol_count > call_oh_count and put_ol_count < put_oh_count:
+                Speak('콜 우세')
+                item = QTableWidgetItem("CD")
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(적색))
+                item.setForeground(QBrush(흰색))
+            elif call_ol_count < call_oh_count and put_ol_count > put_oh_count:
+                Speak('풋 우세')
+                item = QTableWidgetItem("PD")
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(청색))
+                item.setForeground(QBrush(흰색))
+            else:
+                item = QTableWidgetItem("-")
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
+                
+            self.tableWidget_fut.setItem(0, 0, item)
+        else:
+            pass
         
         if queue_input_drop_count > 0:
             txt = '[{0:02d}:{1:02d}:{2:02d}] Heartbeat({3}), 시스템서버 시간차 = {4}초, Drop Count = {5}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, 시스템_서버_시간차, queue_input_drop_count)
@@ -12375,7 +12399,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def check_call_oloh(self):
 
         global call_ol, call_oh 
-        #global call_ol_count, call_oh_count
+        global call_ol_count, call_oh_count
 
         index = call_행사가.index(call_result['단축코드'][5:8])
         
@@ -13476,7 +13500,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def check_put_oloh(self):
 
         global put_ol, put_oh
-        #global put_ol_count, put_oh_count
+        global put_ol_count, put_oh_count
 
         index = put_행사가.index(put_result['단축코드'][5:8])
         
@@ -14808,7 +14832,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global pre_start
         global t2301_month_info
-        global 진성맥점
+        global 진성맥점, TTS
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -14860,6 +14884,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 QTest.qWait(500)                
             else:
+                TTS = False
                 self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                     QPushButton:hover {background-color: black; color: white} \
                                                     QPushButton:pressed {background-color: gold}')
