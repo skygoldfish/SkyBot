@@ -301,13 +301,6 @@ CSV_FILE = parser.getboolean('User Switch', 'CSV Data File')
 TTS = parser.getboolean('User Switch', 'Text To Speach')
 SEARCH_MOVING_NODE = parser.getboolean('User Switch', 'Search Moving Node')
 
-if SEARCH_MOVING_NODE:
-    print('SEARCH_MOVING_NODE =', SEARCH_MOVING_NODE)
-else:
-    print('...')
-
-#print('TELEGRAM_SERVICE =', TELEGRAM_SERVICE)
-
 # [6]. << Moving Average Type >>
 MA_TYPE = parser.getint('Moving Average Type', 'MA Type')
 
@@ -14908,6 +14901,42 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 #self.pushButton_start.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.pushButton_start.setText(' Starting... ')
 
+                item = QTableWidgetItem("{0}".format('-'))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
+                self.tableWidget_fut.setItem(2, Futures_column.매수건수.value, item)
+
+                item = QTableWidgetItem("{0}".format('-'))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
+                self.tableWidget_fut.setItem(2, Futures_column.매도건수.value, item)
+
+                item = QTableWidgetItem("{0}".format('-'))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
+                self.tableWidget_fut.setItem(2, Futures_column.매수잔량.value, item)
+
+                item = QTableWidgetItem("{0}".format('-'))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
+                self.tableWidget_fut.setItem(2, Futures_column.매도잔량.value, item)
+
+                item = QTableWidgetItem("{0}".format('-'))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
+                self.tableWidget_fut.setItem(2, Futures_column.건수비.value, item)
+
+                item = QTableWidgetItem("{0}".format('-'))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
+                self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)
+
                 # 지수선물 마스터조회 API용
                 XQ = t8432(parent=self)
                 XQ.Query(구분='F')
@@ -14976,7 +15005,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.tableWidget_fut.setItem(0, 2 + i, item)
                 else:
                     pass
-
+                '''
                 item = QTableWidgetItem("{0}".format('-'))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(검정색))
@@ -15012,7 +15041,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setBackground(QBrush(검정색))
                 item.setForeground(QBrush(흰색))
                 self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)
-
+                '''
                 진성맥점 = pre_진성맥점[:]
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 진성맥점을 초기화({3})합니다.\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
