@@ -299,6 +299,12 @@ SECOND_PLOT_SYNC = parser.getboolean('User Switch', 'Second Plot Sync')
 ALL_QUOTE_REQUEST = parser.getboolean('User Switch', 'All Option Quote Request')
 CSV_FILE = parser.getboolean('User Switch', 'CSV Data File')
 TTS = parser.getboolean('User Switch', 'Text To Speach')
+SEARCH_MOVING_NODE = parser.getboolean('User Switch', 'Search Moving Node')
+
+if SEARCH_MOVING_NODE:
+    print('SEARCH_MOVING_NODE =', SEARCH_MOVING_NODE)
+else:
+    print('...')
 
 #print('TELEGRAM_SERVICE =', TELEGRAM_SERVICE)
 
@@ -4188,18 +4194,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if NightTime:
                     self.tableWidget_fut.setItem(1, 2 + i, item)
                 else:
-                    self.tableWidget_fut.setItem(0, 2 + i, item)            
-        else:
-            pass    
+                    self.tableWidget_fut.setItem(0, 2 + i, item)
 
-        if bms_node_list:
             bms_node_list.sort()
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 오늘의 중요맥점은'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, bms_node_list)
-            self.textBrowser.append(txt)
+            self.textBrowser.append(txt)            
         else:
             pass
 
@@ -5704,7 +5707,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.put_node_color_clear()
                                     flag_clear = True
                                     
-                                    if bms_node_list:
+                                    if SEARCH_MOVING_NODE and bms_node_list:
                                         self.search_moving_node()
                                     else:
                                         pass
@@ -5732,7 +5735,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.put_node_color_clear()
                                     flag_clear = True
 
-                                    if bms_node_list:
+                                    if SEARCH_MOVING_NODE and bms_node_list:
                                         self.search_moving_node()
                                     else:
                                         pass
@@ -5764,7 +5767,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             # 콜 저가, 고가 맥점 컬러갱신
                             if flag_call_low_update:
 
-                                if bms_node_list:
+                                if SEARCH_MOVING_NODE and bms_node_list:
                                     self.search_moving_node()
                                 else:
                                     pass
@@ -5783,7 +5786,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if flag_call_high_update:
 
-                                if bms_node_list:
+                                if SEARCH_MOVING_NODE and bms_node_list:
                                     self.search_moving_node()
                                 else:
                                     pass
@@ -5803,7 +5806,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             # 풋 저가, 고가 맥점 컬러갱신
                             if flag_put_low_update:
 
-                                if bms_node_list:
+                                if SEARCH_MOVING_NODE and bms_node_list:
                                     self.search_moving_node()
                                 else:
                                     pass
@@ -5822,7 +5825,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if flag_put_high_update:
 
-                                if bms_node_list:
+                                if SEARCH_MOVING_NODE and bms_node_list:
                                     self.search_moving_node()
                                 else:
                                     pass
@@ -6769,8 +6772,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.call_node_color_update()
         self.put_node_color_update()
 
-        if not pre_start and bms_node_list:
-        #if bms_node_list:
+        if not pre_start and bms_node_list and SEARCH_MOVING_NODE:        
             self.search_moving_node()
         else:
             pass
@@ -14833,10 +14835,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global pre_start
         global t2301_month_info
-        global 진성맥점, TTS
+        global 진성맥점, TTS, SEARCH_MOVING_NODE
 
         dt = datetime.datetime.now()
-        current_str = dt.strftime('%H:%M:%S')
+        current_str = dt.strftime('%H:%M:%S')        
 
         # 옵션 등가 등락율 scale factor setting        
         item = QTableWidgetItem("{0}".format(drate_scale_factor))
@@ -14863,9 +14865,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             if not refresh_flag:
                 
-                self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
-                                                    QPushButton:hover {background-color: black; color: white} \
-                                                    QPushButton:pressed {background-color: gold}')
+                if SEARCH_MOVING_NODE:
+                    self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                                                        QPushButton:hover {background-color: black; color: white} \
+                                                        QPushButton:pressed {background-color: gold}')
+                else:
+                    self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                                                        QPushButton:hover {background-color: black; color: white} \
+                                                        QPushButton:pressed {background-color: gold}')
                 #self.pushButton_start.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.pushButton_start.setText(' Starting... ')
 
@@ -14886,9 +14893,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 QTest.qWait(500)                
             else:
                 TTS = False
-                self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
-                                                    QPushButton:hover {background-color: black; color: white} \
-                                                    QPushButton:pressed {background-color: gold}')
+
+                SEARCH_MOVING_NODE = not SEARCH_MOVING_NODE
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] SEARCH_MOVING_NODE = {3}\r'.format(dt.hour, dt.minute, dt.second, SEARCH_MOVING_NODE)
+                self.textBrowser.append(txt)
+
+                if SEARCH_MOVING_NODE:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 동적맥점 탐색을 활성화 합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                                                        QPushButton:hover {background-color: black; color: white} \
+                                                        QPushButton:pressed {background-color: gold}')
+                else:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 동적맥점 탐색을 비활성화 합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                                                        QPushButton:hover {background-color: black; color: white} \
+                                                        QPushButton:pressed {background-color: gold}')
+
                 self.pushButton_start.setText(' Refreshing... ')
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] OLD 진성맥점 = {3}\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
@@ -14907,7 +14930,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             listsum.append([var1, var2])
 
                     new_node = sorted(listsum, key=operator.itemgetter(0))
-                    #print('new node list =', new_node)
 
                     for i in range(len(new_node)):
                         
@@ -17179,9 +17201,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.textBrowser.append(txt)
 
             #self.pushButton_start.setStyleSheet('QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
-            self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
-                                                QPushButton:hover {background-color: black; color: white} \
-                                                QPushButton:pressed {background-color: gold}')
+
+            if SEARCH_MOVING_NODE:
+                self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                                                    QPushButton:hover {background-color: black; color: white} \
+                                                    QPushButton:pressed {background-color: gold}')
+            else:
+                self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                                                    QPushButton:hover {background-color: black; color: white} \
+                                                    QPushButton:pressed {background-color: gold}')
+
             self.pushButton_start.setText(' Refresh ')                    
             
             if ResizeRowsToContents:
@@ -18664,9 +18693,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 refresh_flag = True
 
                 #self.pushButton_start.setStyleSheet('QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
-                self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
-                                                    QPushButton:hover {background-color: black; color: white} \
-                                                    QPushButton:pressed {background-color: gold}')
+
+                if SEARCH_MOVING_NODE:
+                    self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                                                        QPushButton:hover {background-color: black; color: white} \
+                                                        QPushButton:pressed {background-color: gold}')
+                else:
+                    self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                                                        QPushButton:hover {background-color: black; color: white} \
+                                                        QPushButton:pressed {background-color: gold}')
+
                 self.pushButton_start.setText(' Refresh ')                
             else:
                 # Refresh
@@ -20097,9 +20133,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         refresh_flag = True
 
                         #self.pushButton_start.setStyleSheet('QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
-                        self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
-                                                            QPushButton:hover {background-color: black; color: white} \
-                                                            QPushButton:pressed {background-color: gold}') 
+
+                        if SEARCH_MOVING_NODE:
+                            self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                                                                QPushButton:hover {background-color: black; color: white} \
+                                                                QPushButton:pressed {background-color: gold}') 
+                        else:
+                            self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                                                                QPushButton:hover {background-color: black; color: white} \
+                                                                QPushButton:pressed {background-color: gold}') 
+
                         self.pushButton_start.setText(' Refresh ')                                                                                
                 else:
                     pass
@@ -20701,9 +20744,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         receive_quote = False
                         
                         #self.pushButton_start.setStyleSheet('QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
-                        self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
-                                                            QPushButton:hover {background-color: black; color: white} \
-                                                            QPushButton:pressed {background-color: gold}') 
+
+                        if SEARCH_MOVING_NODE:
+                            self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                                                                QPushButton:hover {background-color: black; color: white} \
+                                                                QPushButton:pressed {background-color: gold}') 
+                        else:
+                            self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                                                                QPushButton:hover {background-color: black; color: white} \
+                                                                QPushButton:pressed {background-color: gold}')
+
                         self.pushButton_start.setText(' ScrShot ')
 
                         self.SaveResult()                                        
@@ -20743,9 +20793,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         receive_quote = False
                         
                         #self.pushButton_start.setStyleSheet('QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
-                        self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
-                                                            QPushButton:hover {background-color: black; color: white} \
-                                                            QPushButton:pressed {background-color: gold}')
+
+                        if SEARCH_MOVING_NODE:
+                            self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                                                                QPushButton:hover {background-color: black; color: white} \
+                                                                QPushButton:pressed {background-color: gold}')
+                        else:
+                            self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                                                                QPushButton:hover {background-color: black; color: white} \
+                                                                QPushButton:pressed {background-color: gold}')
+
                         self.pushButton_start.setText(' ScrShot ')
                         
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(adj_hour, adj_min, adj_sec)
