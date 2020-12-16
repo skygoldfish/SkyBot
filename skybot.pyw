@@ -94,7 +94,7 @@ print('\r')
 print('OS 유형 :', os_type)
 
 flag_main_window_closed = False
-flag_screen_board_closed = False
+#flag_screen_board_closed = False
 flag_big_chart_closed = False
 
 flag_internet_connection_broken = False
@@ -1319,6 +1319,14 @@ selected_call = []
 selected_put = []
 old_selected_call = []
 old_selected_put = []
+
+plot_call_current_lst = []
+plot_call_old_lst = []
+plot_put_current_lst = []
+plot_put_old_lst = []
+
+flag_call_lst_changed = False
+flag_put_lst_changed = False
 
 selected_opt_list = []
 old_selected_opt_list = []
@@ -3099,7 +3107,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         #self.setWindowFlags(window.windowFlags() & ~Qt.WindowStaysOnTopHint)
         #self.setModal(False)
-        self.setupUi(self)        
+        self.setupUi(self)
+
+        self.flag_screen_board_open = True        
         
         global TARGET_MONTH_SELECT, MONTH_FIRSTDAY
         global widget_title, CURRENT_MONTH, NEXT_MONTH, MONTH_AFTER_NEXT, SP500, DOW, NASDAQ, fut_code
@@ -5399,6 +5409,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global SP500_당일종가, DOW_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가, GOLD_당일종가 
         global drate_scale_factor
         global flag_logfile, flag_broken_capture
+        global plot_call_current_lst, plot_call_old_lst, plot_put_current_lst, plot_put_old_lst
+        global flag_call_lst_changed, flag_put_lst_changed    
 
         try:
             flag_screen_update_is_running = True
@@ -5419,7 +5431,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 인터넷 연결확인
             ipaddress = socket.gethostbyname(socket.gethostname())
 
-            if (not flag_main_window_closed and not flag_screen_board_closed) and ipaddress == '127.0.0.1':
+            if not flag_main_window_closed and ipaddress == '127.0.0.1':
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 인터넷 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.statusbar.showMessage(txt)
@@ -5447,7 +5459,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 flag_internet_connection_broken = False
 
             # 증권사 연결확인(인터넷이 연결된 상태에서만 확인가능)
-            if (not flag_main_window_closed and not flag_screen_board_closed) and not self.parent.connection.IsConnected():
+            if not flag_main_window_closed and not self.parent.connection.IsConnected():
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 증권사 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.statusbar.showMessage(txt)
@@ -5491,14 +5503,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             '''
             # 증권사 및 인터넷 연결 확인
-            if (not flag_main_window_closed and not flag_screen_board_closed) and not self.parent.connection.IsConnected():
+            if not flag_main_window_closed and not self.parent.connection.IsConnected():
                 
                 flag_service_provider_broken = True                
 
                 # 인터넷 연결 확인후 증권사 연결확인
                 ipaddress = socket.gethostbyname(socket.gethostname())
 
-                if (not flag_main_window_closed and not flag_screen_board_closed) and ipaddress == '127.0.0.1':
+                if not flag_main_window_closed and ipaddress == '127.0.0.1':
 
                     flag_internet_connection_broken = True
 
@@ -5645,13 +5657,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if not self.alternate_flag:
                 #if True:
+                    '''
+                    if len(selected_call) != len(old_selected_call):
+                        plot_call_current_lst = copy.deepcopy(selected_call)
+                        plot_call_old_lst = copy.deepcopy(old_selected_call)
+                        flag_call_lst_changed = True
+                    else:
+                        flag_call_lst_changed = False
 
+                    if len(selected_put) != len(old_selected_put):
+                        plot_put_current_lst = copy.deepcopy(selected_put)
+                        plot_put_old_lst = copy.deepcopy(old_selected_put)
+                        flag_put_lst_changed = True
+                    else:
+                        flag_put_lst_changed = False
+                    '''
                     old_selected_call = copy.deepcopy(selected_call)
-                    old_selected_put = copy.deepcopy(selected_put)
+                    #old_selected_put = copy.deepcopy(selected_put)
 
                     # 선택된 콜, 풋 검사, 약 3ms 정도 시간이 소요됨
                     selected_call = []
-                    selected_put = []
+                    #selected_put = []
                     
                     for i in range(call_scroll_begin_position, call_scroll_end_position):
 
@@ -5659,6 +5685,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             selected_call.append(i)
                         else:
                             pass
+                    '''
+                    for i in range(put_scroll_begin_position, put_scroll_end_position):
+
+                        if self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
+                            selected_put.append(i)
+                        else:
+                            pass
+                    '''
+                else:
+                    old_selected_put = copy.deepcopy(selected_put)
+                    selected_put = []
 
                     for i in range(put_scroll_begin_position, put_scroll_end_position):
 
@@ -5666,8 +5703,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             selected_put.append(i)
                         else:
                             pass
-                else:
-                    pass
                                 
                 if market_service and flag_option_start:                    
 
@@ -24433,9 +24468,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def closeEvent(self,event):
 
-        global flag_screen_board_closed
+        #global flag_screen_board_closed
 
-        flag_screen_board_closed = True
+        #flag_screen_board_closed = True
+        self.flag_screen_board_open = False
 
         #print('서버연결 해지...')
         #self.parent.connection.disconnect()
@@ -32424,26 +32460,42 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if not selected_call:
                     for i in range(option_pairs_count):
+                    #for i in range(call_scroll_begin_position, call_scroll_end_position):
                         plot2_call_curve[i].clear()
                 else:
+                    
                     if selected_call != old_selected_call:
                         for i in range(len(old_selected_call)):
                             plot2_call_curve[old_selected_call[i]].clear()
                     else:
                         for i in range(len(selected_call)):
                             plot2_call_curve[selected_call[i]].clear()
+                    '''
+                    for i in range(len(plot_call_old_lst)):
+                            plot2_call_curve[plot_call_old_lst[i]].clear()
 
+                    for i in range(len(plot_call_current_lst)):
+                            plot2_call_curve[plot_call_current_lst[i]].clear()                    
+                    '''
                 if not selected_put:
                     for i in range(option_pairs_count):
+                    #for i in range(put_scroll_begin_position, put_scroll_end_position):
                         plot2_put_curve[i].clear()
                 else:
+                    
                     if selected_put != old_selected_put:
                         for i in range(len(old_selected_put)):
                             plot2_put_curve[old_selected_put[i]].clear()
                     else:
                         for i in range(len(selected_put)):
                             plot2_put_curve[selected_put[i]].clear()
+                    '''
+                    for i in range(len(plot_put_old_lst)):
+                            plot2_call_curve[plot_put_old_lst[i]].clear()
 
+                    for i in range(len(plot_put_current_lst)):
+                            plot2_call_curve[plot_put_current_lst[i]].clear()
+                    '''
                 plot2_center_val_curve.clear()
                 
                 plot2_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
@@ -36139,7 +36191,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             flag_main_window_closed = True
 
-            if not flag_screen_board_closed:
+            #if not flag_screen_board_closed:
+            if self.dialog['당월물옵션전광판'].flag_screen_board_open:
             #if self.dialog.get('당월물옵션전광판') is not None:
                 self.dialog['당월물옵션전광판'].closeScreenBoard()
             else:
