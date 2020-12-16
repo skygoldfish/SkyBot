@@ -4053,8 +4053,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.textBrowser.append(txt)
         
         txt = '[{0:02d}:{1:02d}:{2:02d}] OS Type : {3}\r'.format(dt.hour, dt.minute, dt.second, os_type)
-        self.textBrowser.append(txt) 
-        
+        self.textBrowser.append(txt)
+
+        if os.path.exists('SkyBot.exe'):
+
+            buildtime = time.ctime(os.path.getmtime('SkyBot.exe'))
+        else:
+            buildtime = time.ctime(os.path.getmtime(__file__))
+
+        '''
         if TARGET_MONTH_SELECT == 'CM':
 
             if os.path.exists('SkyBot_CM.exe'):
@@ -4070,10 +4077,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 buildtime = time.ctime(os.path.getmtime('SkyBot_NM.exe'))
             else:
                 buildtime = time.ctime(os.path.getmtime(__file__))
-
         else:
             pass
-        
+        '''
         if TELEGRAM_SERVICE:
 
             # 텔레그램 Webhook 등록여부를 체크한다.
