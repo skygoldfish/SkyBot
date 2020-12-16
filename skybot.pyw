@@ -5661,8 +5661,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                if not self.alternate_flag:
-                #if True:
+                #if not self.alternate_flag:
+                if True:
                     '''
                     if len(selected_call) != len(old_selected_call):
                         plot_call_current_lst = copy.deepcopy(selected_call)
@@ -5679,11 +5679,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         flag_put_lst_changed = False
                     '''
                     old_selected_call = copy.deepcopy(selected_call)
-                    #old_selected_put = copy.deepcopy(selected_put)
+                    old_selected_put = copy.deepcopy(selected_put)
 
                     # 선택된 콜, 풋 검사, 약 3ms 정도 시간이 소요됨
                     selected_call = []
-                    #selected_put = []
+                    selected_put = []
                     
                     for i in range(call_scroll_begin_position, call_scroll_end_position):
 
@@ -5691,24 +5691,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             selected_call.append(i)
                         else:
                             pass
-                    '''
+                    
                     for i in range(put_scroll_begin_position, put_scroll_end_position):
 
                         if self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
                             selected_put.append(i)
                         else:
-                            pass
-                    '''
+                            pass                    
                 else:
-                    old_selected_put = copy.deepcopy(selected_put)
-                    selected_put = []
-
-                    for i in range(put_scroll_begin_position, put_scroll_end_position):
-
-                        if self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
-                            selected_put.append(i)
-                        else:
-                            pass
+                    pass
                                 
                 if market_service and flag_option_start:                    
 
@@ -25206,7 +25197,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         plot2_fut_volume_curve = self.plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
         
-        for i in range(ActvalCount):
+        for i in range(option_pairs_count):
             plot2_call_curve.append(self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
             plot2_put_curve.append(self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
         
@@ -25281,7 +25272,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         plot3_fut_volume_curve = self.plot3.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
         
-        for i in range(ActvalCount):
+        for i in range(option_pairs_count):
             plot3_call_curve.append(self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
             plot3_put_curve.append(self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
         
@@ -25432,7 +25423,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         plot5_fut_volume_curve = self.plot5.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
         
-        for i in range(ActvalCount):
+        for i in range(option_pairs_count):
             plot5_call_curve.append(self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
             plot5_put_curve.append(self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
         
@@ -25507,7 +25498,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         plot6_fut_volume_curve = self.plot6.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
         
-        for i in range(ActvalCount):
+        for i in range(option_pairs_count):
             plot6_call_curve.append(self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
             plot6_put_curve.append(self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
         
@@ -27250,7 +27241,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_call_oi_curve.clear()
             plot2_put_oi_curve.clear()
                         
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot2_call_curve[i].clear()
                 plot2_put_curve[i].clear()
 
@@ -27317,7 +27308,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_call_oi_curve.clear()
             plot2_put_oi_curve.clear()
 
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot2_call_curve[i].clear()
                 plot2_put_curve[i].clear()
 
@@ -27386,7 +27377,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             for i in range(9):
                 plot2_mv_line[i].setValue(0)
             
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot2_call_curve[i].clear()
                 plot2_put_curve[i].clear()
 
@@ -27446,7 +27437,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_fut_choga_rr_curve.clear()
             plot2_fut_nhoga_rr_curve.clear()
             
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot2_call_curve[i].clear()
                 plot2_put_curve[i].clear()
 
@@ -27512,7 +27503,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_fut_choga_rr_curve.clear()
             plot2_fut_nhoga_rr_curve.clear()
             
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot2_call_curve[i].clear()
                 plot2_put_curve[i].clear()
 
@@ -27641,7 +27632,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_call_oi_curve.clear()
             plot2_put_oi_curve.clear()
             
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot2_call_curve[i].clear()                
                 plot2_put_curve[i].clear()
 
@@ -27749,7 +27740,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_call_oi_curve.clear()
             plot2_put_oi_curve.clear()
             
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot2_call_curve[i].clear()
                 plot2_put_curve[i].clear()
 
@@ -27857,7 +27848,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_call_oi_curve.clear()
             plot2_put_oi_curve.clear()
             
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot2_call_curve[i].clear()
                 plot2_put_curve[i].clear()
 
@@ -27965,7 +27956,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_call_oi_curve.clear()
             plot2_put_oi_curve.clear()
             
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot2_call_curve[i].clear()
                 plot2_put_curve[i].clear()
 
@@ -28112,7 +28103,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_call_oi_curve.clear()
             plot3_put_oi_curve.clear()
                         
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot3_call_curve[i].clear()
                 plot3_put_curve[i].clear()
 
@@ -28179,7 +28170,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_call_oi_curve.clear()
             plot3_put_oi_curve.clear()
 
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot3_call_curve[i].clear()
                 plot3_put_curve[i].clear()
 
@@ -28245,7 +28236,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_call_oi_curve.clear()
             plot3_put_oi_curve.clear()
             
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot3_call_curve[i].clear()
                 plot3_put_curve[i].clear()
 
@@ -28308,7 +28299,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_fut_choga_rr_curve.clear()
             plot3_fut_nhoga_rr_curve.clear()
             
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot3_call_curve[i].clear()
                 plot3_put_curve[i].clear()
 
@@ -28374,7 +28365,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_fut_choga_rr_curve.clear()
             plot3_fut_nhoga_rr_curve.clear()
             
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot3_call_curve[i].clear()
                 plot3_put_curve[i].clear()
 
@@ -28503,7 +28494,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_call_oi_curve.clear()
             plot3_put_oi_curve.clear()
             
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot3_call_curve[i].clear()                
                 plot3_put_curve[i].clear()
 
@@ -28611,7 +28602,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_call_oi_curve.clear()
             plot3_put_oi_curve.clear()
             
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot3_call_curve[i].clear()
                 plot3_put_curve[i].clear()
 
@@ -28719,7 +28710,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_call_oi_curve.clear()
             plot3_put_oi_curve.clear()
             
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot3_call_curve[i].clear()
                 plot3_put_curve[i].clear()
 
@@ -28827,7 +28818,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_call_oi_curve.clear()
             plot3_put_oi_curve.clear()
             
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot3_call_curve[i].clear()
                 plot3_put_curve[i].clear()
 
@@ -29888,7 +29879,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_call_oi_curve.clear()
             plot5_put_oi_curve.clear()
                         
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot5_call_curve[i].clear()
                 plot5_put_curve[i].clear()
 
@@ -29955,7 +29946,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_call_oi_curve.clear()
             plot5_put_oi_curve.clear()
 
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot5_call_curve[i].clear()
                 plot5_put_curve[i].clear()
 
@@ -30021,7 +30012,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_call_oi_curve.clear()
             plot5_put_oi_curve.clear()
             
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot5_call_curve[i].clear()
                 plot5_put_curve[i].clear()
 
@@ -30084,7 +30075,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_fut_choga_rr_curve.clear()
             plot5_fut_nhoga_rr_curve.clear()
             
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot5_call_curve[i].clear()
                 plot5_put_curve[i].clear()
 
@@ -30150,7 +30141,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_fut_choga_rr_curve.clear()
             plot5_fut_nhoga_rr_curve.clear()
             
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot5_call_curve[i].clear()
                 plot5_put_curve[i].clear()
 
@@ -30279,7 +30270,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_call_oi_curve.clear()
             plot5_put_oi_curve.clear()
             
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot5_call_curve[i].clear()                
                 plot5_put_curve[i].clear()
 
@@ -30387,7 +30378,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_call_oi_curve.clear()
             plot5_put_oi_curve.clear()
             
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot5_call_curve[i].clear()
                 plot5_put_curve[i].clear()
 
@@ -30495,7 +30486,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_call_oi_curve.clear()
             plot5_put_oi_curve.clear()
             
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot5_call_curve[i].clear()
                 plot5_put_curve[i].clear()
 
@@ -30603,7 +30594,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_call_oi_curve.clear()
             plot5_put_oi_curve.clear()
             
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot5_call_curve[i].clear()
                 plot5_put_curve[i].clear()
 
@@ -30750,7 +30741,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_call_oi_curve.clear()
             plot6_put_oi_curve.clear()
                         
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot6_call_curve[i].clear()
                 plot6_put_curve[i].clear()
 
@@ -30817,7 +30808,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_call_oi_curve.clear()
             plot6_put_oi_curve.clear()
 
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot6_call_curve[i].clear()
                 plot6_put_curve[i].clear()
 
@@ -30883,7 +30874,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_call_oi_curve.clear()
             plot6_put_oi_curve.clear()
             
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot6_call_curve[i].clear()
                 plot6_put_curve[i].clear()
 
@@ -30946,7 +30937,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_fut_choga_rr_curve.clear()
             plot6_fut_nhoga_rr_curve.clear()
             
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot6_call_curve[i].clear()
                 plot6_put_curve[i].clear()
 
@@ -31012,7 +31003,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_fut_choga_rr_curve.clear()
             plot6_fut_nhoga_rr_curve.clear()
             
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot6_call_curve[i].clear()
                 plot6_put_curve[i].clear()
 
@@ -31141,7 +31132,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_call_oi_curve.clear()
             plot6_put_oi_curve.clear()
             
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot6_call_curve[i].clear()                
                 plot6_put_curve[i].clear()
 
@@ -31249,7 +31240,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_call_oi_curve.clear()
             plot6_put_oi_curve.clear()
             
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot6_call_curve[i].clear()
                 plot6_put_curve[i].clear()
 
@@ -31357,7 +31348,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_call_oi_curve.clear()
             plot6_put_oi_curve.clear()
             
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot6_call_curve[i].clear()
                 plot6_put_curve[i].clear()
 
@@ -31465,7 +31456,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_call_oi_curve.clear()
             plot6_put_oi_curve.clear()
             
-            for i in range(ActvalCount):
+            for i in range(option_pairs_count):
                 plot6_call_curve[i].clear()
                 plot6_put_curve[i].clear()
 
@@ -32466,42 +32457,26 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if not selected_call:
                     for i in range(option_pairs_count):
-                    #for i in range(call_scroll_begin_position, call_scroll_end_position):
                         plot2_call_curve[i].clear()
                 else:
-                    
                     if selected_call != old_selected_call:
                         for i in range(len(old_selected_call)):
                             plot2_call_curve[old_selected_call[i]].clear()
                     else:
                         for i in range(len(selected_call)):
                             plot2_call_curve[selected_call[i]].clear()
-                    '''
-                    for i in range(len(plot_call_old_lst)):
-                            plot2_call_curve[plot_call_old_lst[i]].clear()
 
-                    for i in range(len(plot_call_current_lst)):
-                            plot2_call_curve[plot_call_current_lst[i]].clear()                    
-                    '''
                 if not selected_put:
                     for i in range(option_pairs_count):
-                    #for i in range(put_scroll_begin_position, put_scroll_end_position):
                         plot2_put_curve[i].clear()
                 else:
-                    
                     if selected_put != old_selected_put:
                         for i in range(len(old_selected_put)):
                             plot2_put_curve[old_selected_put[i]].clear()
                     else:
                         for i in range(len(selected_put)):
                             plot2_put_curve[selected_put[i]].clear()
-                    '''
-                    for i in range(len(plot_put_old_lst)):
-                            plot2_call_curve[plot_put_old_lst[i]].clear()
 
-                    for i in range(len(plot_put_current_lst)):
-                            plot2_call_curve[plot_put_current_lst[i]].clear()
-                    '''
                 plot2_center_val_curve.clear()
                 
                 plot2_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
@@ -34651,25 +34626,31 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(option_pairs_count):
                         plot5_call_curve[i].clear()
                 else:
+                    pass
+                    '''
                     if selected_call != old_selected_call:
                         for i in range(len(old_selected_call)):
                             plot5_call_curve[old_selected_call[i]].clear()
                     else:
                         for i in range(len(selected_call)):
                             plot5_call_curve[selected_call[i]].clear()
+                    '''
 
                 if not selected_put:
                     for i in range(option_pairs_count):
                         plot5_put_curve[i].clear()
                 else:
+                    pass
+                    '''
                     if selected_put != old_selected_put:
                         for i in range(len(old_selected_put)):
                             plot5_put_curve[old_selected_put[i]].clear()
                     else:
                         for i in range(len(selected_put)):
                             plot5_put_curve[selected_put[i]].clear()
+                    '''
 
-                plot5_center_val_curve.clear()
+                #plot5_center_val_curve.clear()
                         
                 plot5_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
                 plot5_center_val_line.setValue(CENTER_VAL)
