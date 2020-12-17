@@ -262,7 +262,7 @@ GOLD_당일종가 = 0
 
 FILE_HIGH_LOW_LIST = []
 
-OPTION_BOARD_UPDATE_INTERVAL = 2
+SCORE_BOARD_UPDATE_INTERVAL = 2
 
 UI_STYLE = 'Horizontal_Large_View.ui'
 
@@ -315,7 +315,7 @@ GOLDEN_RATIO = parser.getfloat('Initial Value', 'Golden Ratio')
 CROSS_COLOR_INTERVAL = parser.getint('Initial Value', 'Cross Coloring Interval(minute)')
 MAIN_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Main Update Interval(msec)')
 BIGCHART_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Big Chart Update Interval(msec)')
-OPTION_BOARD_UPDATE_INTERVAL = parser.getint('Initial Value', 'Option Screen Board Update Interval(sec)')
+SCORE_BOARD_UPDATE_INTERVAL = parser.getint('Initial Value', 'Score Board Update Interval(sec)')
 QUOTE_REQUEST_NUMBER = parser.get('Initial Value', 'Number of Option Pairs Quote Request')
 SECOND_DISPLAY_X_POSITION = parser.getint('Initial Value', 'X Position of the Second Display')
 SECOND_DISPLAY_Y_POSITION = parser.getint('Initial Value', 'Y Position of the Second Display')
@@ -2851,6 +2851,8 @@ class RealDataWorker(QThread):
             self.OPT_HO.AdviseRealData(put_code[i])
 
     def UnadviseRealDataAll(self):
+
+        print('모든 실시간요청을 취소합니다.\r')
         
         self.JIF.UnadviseRealData()
 
@@ -5607,7 +5609,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass            
 
             '''
-            if flag_checkBox_HS and self.alternate_flag and dt.second % OPTION_BOARD_UPDATE_INTERVAL == 0:                
+            if flag_checkBox_HS and self.alternate_flag and dt.second % SCORE_BOARD_UPDATE_INTERVAL == 0:                
 
                 # 해외선물 옵션호가                
                 #XQ = o3126(parent=self)
@@ -5678,12 +5680,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         flag_put_lst_changed = False
                     '''
-                    old_selected_call = copy.deepcopy(selected_call)
-                    old_selected_put = copy.deepcopy(selected_put)
+                    #old_selected_call = copy.deepcopy(selected_call)
+                    #old_selected_put = copy.deepcopy(selected_put)
 
                     # 선택된 콜, 풋 검사, 약 3ms 정도 시간이 소요됨
                     selected_call = []
-                    selected_put = []
                     
                     for i in range(call_scroll_begin_position, call_scroll_end_position):
 
@@ -5692,6 +5693,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
                     
+                    selected_put = []
+
                     for i in range(put_scroll_begin_position, put_scroll_end_position):
 
                         if self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
@@ -24492,7 +24495,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.real_data_worker.UnadviseRealDataAll()
             QTest.qWait(100)
             self.real_data_worker.terminate()
-            print('real_data_worker is terminated on the Screen Board...')
+            print('real_data_worker is terminated on the Score Board...')
         else:
             pass        
     '''
@@ -32459,25 +32462,30 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(option_pairs_count):
                         plot2_call_curve[i].clear()
                 else:
+                    pass
+                    '''
                     if selected_call != old_selected_call:
                         for i in range(len(old_selected_call)):
                             plot2_call_curve[old_selected_call[i]].clear()
                     else:
                         for i in range(len(selected_call)):
                             plot2_call_curve[selected_call[i]].clear()
-
+                    '''
                 if not selected_put:
                     for i in range(option_pairs_count):
                         plot2_put_curve[i].clear()
                 else:
+                    pass
+                    '''
                     if selected_put != old_selected_put:
                         for i in range(len(old_selected_put)):
                             plot2_put_curve[old_selected_put[i]].clear()
                     else:
                         for i in range(len(selected_put)):
                             plot2_put_curve[selected_put[i]].clear()
+                    '''
 
-                plot2_center_val_curve.clear()
+                #plot2_center_val_curve.clear()
                 
                 plot2_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
                 plot2_center_val_line.setValue(CENTER_VAL)
@@ -33164,25 +33172,31 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(option_pairs_count):
                         plot3_call_curve[i].clear()
                 else:
+                    pass
+                    '''
                     if selected_call != old_selected_call:
                         for i in range(len(old_selected_call)):
                             plot3_call_curve[old_selected_call[i]].clear()
                     else:
                         for i in range(len(selected_call)):
                             plot3_call_curve[selected_call[i]].clear()
+                    '''
 
                 if not selected_put:
                     for i in range(option_pairs_count):
                         plot3_put_curve[i].clear()
                 else:
+                    pass
+                    '''
                     if selected_put != old_selected_put:
                         for i in range(len(old_selected_put)):
                             plot3_put_curve[old_selected_put[i]].clear()
                     else:
                         for i in range(len(selected_put)):
                             plot3_put_curve[selected_put[i]].clear()   
+                    '''
 
-                plot3_center_val_curve.clear()
+                #plot3_center_val_curve.clear()
                         
                 plot3_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
                 plot3_center_val_line.setValue(CENTER_VAL)
@@ -35335,25 +35349,31 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(option_pairs_count):
                         plot6_call_curve[i].clear()
                 else:
+                    pass
+                    '''
                     if selected_call != old_selected_call:
                         for i in range(len(old_selected_call)):
                             plot6_call_curve[old_selected_call[i]].clear()
                     else:
                         for i in range(len(selected_call)):
                             plot6_call_curve[selected_call[i]].clear()
+                    '''
 
                 if not selected_put:
                     for i in range(option_pairs_count):
                         plot6_put_curve[i].clear()
                 else:
+                    pass
+                    '''
                     if selected_put != old_selected_put:
                         for i in range(len(old_selected_put)):
                             plot6_put_curve[old_selected_put[i]].clear()
                     else:
                         for i in range(len(selected_put)):
                             plot6_put_curve[selected_put[i]].clear()   
+                    '''
 
-                plot6_center_val_curve.clear()
+                #plot6_center_val_curve.clear()
                         
                 plot6_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
                 plot6_center_val_line.setValue(CENTER_VAL)
