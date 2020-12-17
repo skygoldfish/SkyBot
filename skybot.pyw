@@ -32477,11 +32477,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         plot2_put_curve[i].clear()
                 else:
                     pass
-                
-                plot2_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
-                plot2_center_val_line.setValue(CENTER_VAL)
-                plot2_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
-                
+                                
                 # 선택된 콜그래프 그리기
                 if selected_call:
                     for i in range(len(selected_call)):
@@ -32495,37 +32491,44 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         plot2_put_curve[i].setData(df_put_graph[selected_put[i]]['price'])
                 else:
                     pass
-                
-                # 중심가 그리기, 모든 값이 NaN인지 체크?
-                #nan_lst = np.isnan(df_call_total_graph['centerval'].values)
-                #print(np.all(nan_lst))                
-                plot2_center_val_curve.setData(df_call_total_graph['centerval'])
 
-                # 등가표시
-                txt = ' 등가: {0} '.format(atm_str)
-                self.label_21.setText(txt)
-                
-                txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
-                self.label_22.setText(txt)
+                if not NightTime:
+                    plot2_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
+                    plot2_center_val_line.setValue(CENTER_VAL)
+                    plot2_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
 
-                if CENTER_VAL < 1.0:
-                    txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                    # 중심가 그리기, 모든 값이 NaN인지 체크?
+                    #nan_lst = np.isnan(df_call_total_graph['centerval'].values)
+                    #print(np.all(nan_lst))                
+                    plot2_center_val_curve.setData(df_call_total_graph['centerval'])
+
+                    # 등가표시
+                    txt = ' 등가: {0} '.format(atm_str)
+                    self.label_21.setText(txt)
+                    
+                    txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
+                    self.label_22.setText(txt)
+
+                    if CENTER_VAL < 1.0:
+                        txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                    else:
+                        txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+
+                    self.label_23.setText(txt)
+
+                    txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
+                    self.label_24.setText(txt)
+
+                    txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (put_atm_value / df_put.at[atm_index, '시가'] - 1) * 100)
+                    self.label_26.setText(txt)
+
+                    txt = ' 중심가: {0:.2f} '.format(CENTER_VAL)
+                    self.label_27.setText(txt)
+
+                    txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (call_atm_value / df_call.at[atm_index, '시가'] - 1) * 100)
+                    self.label_28.setText(txt)
                 else:
-                    txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
-
-                self.label_23.setText(txt)
-
-                txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
-                self.label_24.setText(txt)
-
-                txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (put_atm_value / df_put.at[atm_index, '시가'] - 1) * 100)
-                self.label_26.setText(txt)
-
-                txt = ' 중심가: {0:.2f} '.format(CENTER_VAL)
-                self.label_27.setText(txt)
-
-                txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (call_atm_value / df_call.at[atm_index, '시가'] - 1) * 100)
-                self.label_28.setText(txt)
+                    pass                
 
             elif comboindex2 == 8:
 
@@ -33172,11 +33175,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         plot3_put_curve[i].clear()
                 else:
                     pass
-                        
-                plot3_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
-                plot3_center_val_line.setValue(CENTER_VAL)
-                plot3_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
-
+                
                 # 선택된 콜그래프 그리기
                 if selected_call:
                     for i in range(len(selected_call)):
@@ -33190,35 +33189,42 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         plot3_put_curve[i].setData(df_put_graph[selected_put[i]]['price'])
                 else:
                     pass
-                
-                # 중심가 그리기
-                plot3_center_val_curve.setData(df_call_total_graph['centerval'])
 
-                # 등가표시
-                txt = ' 등가: {0} '.format(atm_str)
-                self.label_31.setText(txt)
+                if not NightTime:        
+                    plot3_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
+                    plot3_center_val_line.setValue(CENTER_VAL)
+                    plot3_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
 
-                txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
-                self.label_32.setText(txt)
+                    # 중심가 그리기
+                    plot3_center_val_curve.setData(df_call_total_graph['centerval'])
 
-                if CENTER_VAL < 1.0:
-                    txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                    # 등가표시
+                    txt = ' 등가: {0} '.format(atm_str)
+                    self.label_31.setText(txt)
+
+                    txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
+                    self.label_32.setText(txt)
+
+                    if CENTER_VAL < 1.0:
+                        txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                    else:
+                        txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+
+                    self.label_33.setText(txt)
+
+                    txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
+                    self.label_34.setText(txt)
+
+                    txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (put_atm_value / df_put.at[atm_index, '시가'] - 1) * 100)
+                    self.label_36.setText(txt)
+
+                    txt = ' 중심가: {0:.2f} '.format(CENTER_VAL)
+                    self.label_37.setText(txt)
+
+                    txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (call_atm_value / df_call.at[atm_index, '시가'] - 1) * 100)
+                    self.label_38.setText(txt)
                 else:
-                    txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
-
-                self.label_33.setText(txt)
-
-                txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
-                self.label_34.setText(txt)
-
-                txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (put_atm_value / df_put.at[atm_index, '시가'] - 1) * 100)
-                self.label_36.setText(txt)
-
-                txt = ' 중심가: {0:.2f} '.format(CENTER_VAL)
-                self.label_37.setText(txt)
-
-                txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (call_atm_value / df_call.at[atm_index, '시가'] - 1) * 100)
-                self.label_38.setText(txt)
+                    pass                
 
             elif comboindex3 == 8:
 
@@ -34624,10 +34630,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         plot5_put_curve[i].clear()
                 else:
                     pass
-                        
-                plot5_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
-                plot5_center_val_line.setValue(CENTER_VAL)
-                plot5_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
 
                 # 선택된 콜그래프 그리기
                 if selected_call:
@@ -34641,36 +34643,42 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(len(selected_put)):
                         plot5_put_curve[i].setData(df_put_graph[selected_put[i]]['price'])
                 else:
-                    pass
+                    pass                
                 
-                # 중심가 그리기
-                plot5_center_val_curve.setData(df_call_total_graph['centerval'])
+                if not NightTime:        
+                    plot5_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
+                    plot5_center_val_line.setValue(CENTER_VAL)
+                    plot5_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
+                    # 중심가 그리기
+                    plot5_center_val_curve.setData(df_call_total_graph['centerval'])
+                    
+                    # 등가표시
+                    txt = ' 등가: {0} '.format(atm_str)
+                    self.label_51.setText(txt)
 
-                # 등가표시
-                txt = ' 등가: {0} '.format(atm_str)
-                self.label_51.setText(txt)
+                    txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
+                    self.label_52.setText(txt)
 
-                txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
-                self.label_52.setText(txt)
+                    if CENTER_VAL < 1.0:
+                        txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                    else:
+                        txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
 
-                if CENTER_VAL < 1.0:
-                    txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                    self.label_53.setText(txt)
+
+                    txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
+                    self.label_54.setText(txt)
+
+                    txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (put_atm_value / df_put.at[atm_index, '시가'] - 1) * 100)
+                    self.label_56.setText(txt)
+
+                    txt = ' 중심가: {0:.2f} '.format(CENTER_VAL)
+                    self.label_57.setText(txt)
+
+                    txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (call_atm_value / df_call.at[atm_index, '시가'] - 1) * 100)
+                    self.label_58.setText(txt)
                 else:
-                    txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
-
-                self.label_53.setText(txt)
-
-                txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
-                self.label_54.setText(txt)
-
-                txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (put_atm_value / df_put.at[atm_index, '시가'] - 1) * 100)
-                self.label_56.setText(txt)
-
-                txt = ' 중심가: {0:.2f} '.format(CENTER_VAL)
-                self.label_57.setText(txt)
-
-                txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (call_atm_value / df_call.at[atm_index, '시가'] - 1) * 100)
-                self.label_58.setText(txt)
+                    pass
 
             elif comboindex5 == 8:
 
@@ -35317,10 +35325,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         plot6_put_curve[i].clear()
                 else:
                     pass
-                        
-                plot6_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
-                plot6_center_val_line.setValue(CENTER_VAL)
-                plot6_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
 
                 # 선택된 콜그래프 그리기
                 if selected_call:
@@ -35334,36 +35338,42 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(len(selected_put)):
                         plot6_put_curve[i].setData(df_put_graph[selected_put[i]]['price'])
                 else:
-                    pass
+                    pass                
                 
-                # 중심가 그리기
-                plot6_center_val_curve.setData(df_call_total_graph['centerval'])
+                if not NightTime:     
+                    plot6_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
+                    plot6_center_val_line.setValue(CENTER_VAL)
+                    plot6_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
+                    # 중심가 그리기
+                    plot6_center_val_curve.setData(df_call_total_graph['centerval'])
 
-                # 등가표시
-                txt = ' 등가: {0} '.format(atm_str)
-                self.label_61.setText(txt)
+                    # 등가표시
+                    txt = ' 등가: {0} '.format(atm_str)
+                    self.label_61.setText(txt)
 
-                txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
-                self.label_62.setText(txt)
+                    txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
+                    self.label_62.setText(txt)
 
-                if CENTER_VAL < 1.0:
-                    txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                    if CENTER_VAL < 1.0:
+                        txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                    else:
+                        txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+
+                    self.label_63.setText(txt)
+
+                    txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
+                    self.label_64.setText(txt)
+
+                    txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (put_atm_value / df_put.at[atm_index, '시가'] - 1) * 100)
+                    self.label_66.setText(txt)
+
+                    txt = ' 중심가: {0:.2f} '.format(CENTER_VAL)
+                    self.label_67.setText(txt)
+
+                    txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (call_atm_value / df_call.at[atm_index, '시가'] - 1) * 100)
+                    self.label_68.setText(txt)
                 else:
-                    txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
-
-                self.label_63.setText(txt)
-
-                txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
-                self.label_64.setText(txt)
-
-                txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (put_atm_value / df_put.at[atm_index, '시가'] - 1) * 100)
-                self.label_66.setText(txt)
-
-                txt = ' 중심가: {0:.2f} '.format(CENTER_VAL)
-                self.label_67.setText(txt)
-
-                txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (call_atm_value / df_call.at[atm_index, '시가'] - 1) * 100)
-                self.label_68.setText(txt)
+                    pass                
 
             elif comboindex6 == 8:
 
