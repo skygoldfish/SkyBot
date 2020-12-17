@@ -3772,6 +3772,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setForeground(QBrush(흰색))
         self.tableWidget_fut.setItem(2, Futures_column.진폭.value, item)
 
+        self.tableWidget_fut.cellChanged.connect(self.fut_cell_changed)
+
         # Quote tablewidget 초기화
         self.tableWidget_quote.setRowCount(1)
         self.tableWidget_quote.setColumnCount(Quote_column.미결종합.value)
@@ -4328,6 +4330,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         selected_put.sort()
 
         print('selected_put =', selected_put)
+
+    @pyqtSlot()
+    def fut_cell_changed(self):
+
+        global drate_scale_factor
+
+        dt = datetime.datetime.now()
+
+        try:
+            self.cell = self.tableWidget_fut.currentItem()
+            self.triggered = self.cell.text()
+            
+            drate_scale_factor = float(self.triggered)
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 등락율 scale factor = {3:.1f} 으로 수정되었습니다.\r'.format(dt.hour, dt.minute, dt.second, drate_scale_factor)
+            self.textBrowser.append(txt) 
+        except:
+            pass
             
     # Xing 관리자모드 실행 체크함수
     def XingAdminCheck(self):
@@ -5444,7 +5464,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global call_plot_data, put_plot_data, centerval_plot_data
         global SP500_당일종가, DOW_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가, GOLD_당일종가 
-        global drate_scale_factor
         global flag_logfile, flag_broken_capture  
 
         try:
@@ -5674,9 +5693,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 실시간 서비스                     
             if (not flag_internet_connection_broken and not flag_service_provider_broken) and flag_produce_queue_empty and FLAG_GUEST_CONTROL and receive_real_ovc:
                 
-                # 옵션 등락율 scale factor 읽어들임
-                drate_scale_factor = float(self.tableWidget_fut.item(2, Futures_column.진폭.value).text())
-
                 self.display_atm(self.alternate_flag)
                 
                 if not NightTime:                    
