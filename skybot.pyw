@@ -3772,7 +3772,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setForeground(QBrush(흰색))
         self.tableWidget_fut.setItem(2, Futures_column.진폭.value, item)
 
-        self.tableWidget_fut.cellChanged.connect(self.fut_cell_changed)
+        # 등락율 scale factor 입력을 받기위한 이벤트슬롯
+        self.tableWidget_fut.cellClicked.connect(self.fut_cell_clicked)
 
         # Quote tablewidget 초기화
         self.tableWidget_quote.setRowCount(1)
@@ -4332,7 +4333,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         print('selected_put =', selected_put)
 
     @pyqtSlot()
-    def fut_cell_changed(self):
+    def fut_cell_clicked(self):
 
         global drate_scale_factor
 
@@ -4342,10 +4343,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.cell = self.tableWidget_fut.currentItem()
             self.triggered = self.cell.text()
             
-            drate_scale_factor = float(self.triggered)
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 등락율 scale factor = {3:.1f} 으로 수정되었습니다.\r'.format(dt.hour, dt.minute, dt.second, drate_scale_factor)
-            self.textBrowser.append(txt) 
+            if int(self.triggered) != drate_scale_factor:
+                drate_scale_factor = int(self.triggered)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 등락율 scale factor = {3:.1f} 으로 수정되었습니다.\r'.format(dt.hour, dt.minute, dt.second, drate_scale_factor)
+                self.textBrowser.append(txt)
+            else:
+                pass 
         except:
             pass
             
@@ -5003,6 +5006,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 전송예약이 취소되었습니다.\r'.format(adj_hour, adj_min, adj_sec)
                     self.textBrowser.append(txt)
+            elif row == 2 and col == Futures_column.진폭.value:
+                pass
             else:
                 pass
 
