@@ -3770,7 +3770,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(검정색))
         item.setForeground(QBrush(흰색))
-        self.tableWidget_fut.setItem(2, Futures_column.진폭.value, item)
+        self.tableWidget_fut.setItem(2, Futures_column.OI.value, item)
 
         # 등락율 scale factor 입력을 받기위한 이벤트슬롯
         self.tableWidget_fut.cellClicked.connect(self.fut_cell_clicked)
@@ -5006,7 +5006,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 전송예약이 취소되었습니다.\r'.format(adj_hour, adj_min, adj_sec)
                     self.textBrowser.append(txt)
-            elif row == 2 and col == Futures_column.진폭.value:
+            elif row == 2 and col == Futures_column.OI.value:
                 pass
             else:
                 pass
@@ -14930,7 +14930,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 옵션 등가 등락율 scale factor setting        
         item = QTableWidgetItem("{0}".format(drate_scale_factor))
         item.setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_fut.setItem(2, Futures_column.진폭.value, item)       
+        self.tableWidget_fut.setItem(2, Futures_column.OI.value, item)       
 
         # 코스피지수 조회
         XQ = t1514(parent=self)
