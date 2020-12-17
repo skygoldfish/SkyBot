@@ -3340,6 +3340,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.item(i, j + 1).setBackground(QBrush(검정색))
                 self.tableWidget_put.item(i, j + 1).setForeground(QBrush(흰색))
 
+        # 테이블위젯내 체크박스 스테이트 변화 이벤트 발생로직
         for i in range(ActvalCount):
             call_ch = self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox()))
             call_ch.clicked.connect(lambda checked, row=i, col=0: self.onCallTable_CheckStateChanged(checked, row, col))
@@ -5687,27 +5688,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                if not self.alternate_flag:
-                #if True:
-                    '''
-                    if len(selected_call) != len(old_selected_call):
-                        plot_call_current_lst = copy.deepcopy(selected_call)
-                        plot_call_old_lst = copy.deepcopy(old_selected_call)
-                        flag_call_lst_changed = True
-                    else:
-                        flag_call_lst_changed = False
-
-                    if len(selected_put) != len(old_selected_put):
-                        plot_put_current_lst = copy.deepcopy(selected_put)
-                        plot_put_old_lst = copy.deepcopy(old_selected_put)
-                        flag_put_lst_changed = True
-                    else:
-                        flag_put_lst_changed = False
-                    '''
-                    #old_selected_call = copy.deepcopy(selected_call)
-                    #old_selected_put = copy.deepcopy(selected_put)
-
-                    # 선택된 콜, 풋 검사, 약 3ms 정도 시간이 소요됨
+                # 선택된 콜, 풋 검사, 약 3ms 정도 시간이 소요됨
+                if self.alternate_flag:
+                    
                     selected_call = []
                     
                     for i in range(call_scroll_begin_position, call_scroll_end_position):
