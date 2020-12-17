@@ -20658,7 +20658,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.real_data_worker.UnadviseRealData_YS()
 
                     if TTS and TARGET_MONTH_SELECT == 'CM':
-                        playsound( "Doorbell_start.wav" )
+                        playsound( "Doorbell_login.wav" )
                     else:
                         pass
 
@@ -25120,9 +25120,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         plot1_fut_choga_rr_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         plot1_fut_nhoga_rr_curve = self.plot1.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot1_fut_drate_curve = self.plot1.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot1_dow_drate_curve = self.plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3) 
 
+        plot1_fut_drate_curve = self.plot1.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        plot1_dow_drate_curve = self.plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
         plot1_call_drate_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         plot1_put_drate_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -25188,9 +25188,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         plot2_fut_choga_rr_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         plot2_fut_nhoga_rr_curve = self.plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot2_fut_drate_curve = self.plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot2_dow_drate_curve = self.plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3) 
 
+        plot2_fut_drate_curve = self.plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        plot2_dow_drate_curve = self.plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
         plot2_call_drate_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         plot2_put_drate_curve = self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -25263,9 +25263,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         plot3_fut_choga_rr_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         plot3_fut_nhoga_rr_curve = self.plot3.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot3_fut_drate_curve = self.plot3.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot3_dow_drate_curve = self.plot3.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3) 
 
+        plot3_fut_drate_curve = self.plot3.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        plot3_dow_drate_curve = self.plot3.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
         plot3_call_drate_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         plot3_put_drate_curve = self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3) 
 
@@ -25346,9 +25346,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         plot4_fut_choga_rr_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         plot4_fut_nhoga_rr_curve = self.plot4.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot4_fut_drate_curve = self.plot4.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot4_dow_drate_curve = self.plot4.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3) 
 
+        plot4_fut_drate_curve = self.plot4.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        plot4_dow_drate_curve = self.plot4.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
         plot4_call_drate_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         plot4_put_drate_curve = self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3) 
 
@@ -25414,9 +25414,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         plot5_fut_choga_rr_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         plot5_fut_nhoga_rr_curve = self.plot5.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot5_fut_drate_curve = self.plot5.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot5_dow_drate_curve = self.plot5.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3) 
 
+        plot5_fut_drate_curve = self.plot5.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        plot5_dow_drate_curve = self.plot5.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
         plot5_call_drate_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         plot5_put_drate_curve = self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3) 
 
@@ -25489,9 +25489,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         plot6_fut_choga_rr_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         plot6_fut_nhoga_rr_curve = self.plot6.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot6_fut_drate_curve = self.plot6.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot6_dow_drate_curve = self.plot6.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3) 
 
+        plot6_fut_drate_curve = self.plot6.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        plot6_dow_drate_curve = self.plot6.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
         plot6_call_drate_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         plot6_put_drate_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -26388,10 +26388,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.label_p1_4.setText(" MAMA ")
             self.label_p1_4.setStyleSheet('background-color: yellow ; color: black')
-            
-            #plot1_fut_volume_curve.clear()
-            #plot1_fut_volume_plus_curve.clear()
-            #plot1_fut_volume_minus_curve.clear()
 
             plot1_call_hoga_curve.clear()
             plot1_put_hoga_curve.clear()
@@ -26459,14 +26455,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p1_4.setStyleSheet('background-color: yellow ; color: black')
             
             plot1_fut_volume_curve.clear()
-            #plot1_fut_volume_plus_curve.clear()
-            #plot1_fut_volume_minus_curve.clear()
 
             plot1_call_volume_curve.clear()
             plot1_put_volume_curve.clear()
 
             plot1_fut_choga_rr_curve.clear()
             plot1_fut_nhoga_rr_curve.clear()
+
             plot1_fut_drate_curve.clear()
             plot1_dow_drate_curve.clear()
             plot1_call_drate_curve.clear()
@@ -26503,7 +26498,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot1_ovc_high_line.setValue(0)
             
             plot1_hoga_rr_base_line.setValue(1.0)
-            #plot1_hoga_rr_bottom_line.setValue(0.1)  
         
         # 등락율비
         elif comboindex1 == 5:
@@ -26512,9 +26506,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_12.setText(" - ")
             self.label_13.setText(" - ")
             self.label_14.setText(" - ")
-            self.label_15.setText(" 선물등락율 ")
-            self.label_16.setText(" DOW등락율 ")
-            self.label_17.setText(" 풋등락율 ")
+            self.label_15.setText(" DOW등락율 ")
+            self.label_16.setText(" 풋등락율 ")
+            self.label_17.setText(" 선물등락율 ")
             self.label_18.setText(" 콜등락율 ")
             
             self.label_p1_2.setText(" BB Middle\n PSAR ")
@@ -26527,8 +26521,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p1_4.setStyleSheet('background-color: yellow ; color: black')
 
             plot1_fut_volume_curve.clear()
-            #plot1_fut_volume_plus_curve.clear()
-            #plot1_fut_volume_minus_curve.clear()
 
             plot1_call_volume_curve.clear()
             plot1_put_volume_curve.clear()
@@ -26588,8 +26580,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p1_4.setStyleSheet('background-color: yellow ; color: black')
 
             plot1_fut_volume_curve.clear()
-            #plot1_fut_volume_plus_curve.clear()
-            #plot1_fut_volume_minus_curve.clear()
 
             plot1_call_volume_curve.clear()
             plot1_put_volume_curve.clear()
@@ -26634,8 +26624,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif comboindex1 == 7:
                         
             plot1_fut_volume_curve.clear()
-            #plot1_fut_volume_plus_curve.clear()
-            #plot1_fut_volume_minus_curve.clear()
             
             plot1_call_volume_curve.clear()
             plot1_put_volume_curve.clear()
@@ -26645,6 +26633,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             plot1_fut_choga_rr_curve.clear()
             plot1_fut_nhoga_rr_curve.clear()
+
             plot1_fut_drate_curve.clear()
             plot1_dow_drate_curve.clear()
             plot1_call_drate_curve.clear()
@@ -26755,8 +26744,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif comboindex1 == 9:
 
             plot1_fut_volume_curve.clear()
-            #plot1_fut_volume_plus_curve.clear()
-            #plot1_fut_volume_minus_curve.clear()
             
             plot1_call_volume_curve.clear()
             plot1_put_volume_curve.clear()
@@ -26766,6 +26753,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             plot1_fut_choga_rr_curve.clear()
             plot1_fut_nhoga_rr_curve.clear()
+
             plot1_fut_drate_curve.clear()
             plot1_dow_drate_curve.clear()
             plot1_call_drate_curve.clear()
@@ -26864,8 +26852,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif comboindex1 == 10:
 
             plot1_fut_volume_curve.clear()
-            #plot1_fut_volume_plus_curve.clear()
-            #plot1_fut_volume_minus_curve.clear()
             
             plot1_call_volume_curve.clear()
             plot1_put_volume_curve.clear()
@@ -26875,6 +26861,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             plot1_fut_choga_rr_curve.clear()
             plot1_fut_nhoga_rr_curve.clear()
+
             plot1_fut_drate_curve.clear()
             plot1_dow_drate_curve.clear()
             plot1_call_drate_curve.clear()
@@ -26973,8 +26960,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif comboindex1 == 11:
 
             plot1_fut_volume_curve.clear()
-            #plot1_fut_volume_plus_curve.clear()
-            #plot1_fut_volume_minus_curve.clear()
             
             plot1_call_volume_curve.clear()
             plot1_put_volume_curve.clear()
@@ -26984,6 +26969,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             plot1_fut_choga_rr_curve.clear()
             plot1_fut_nhoga_rr_curve.clear()
+
             plot1_fut_drate_curve.clear()
             plot1_dow_drate_curve.clear()
             plot1_call_drate_curve.clear()
@@ -27082,8 +27068,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif comboindex1 == 12:
 
             plot1_fut_volume_curve.clear()
-            #plot1_fut_volume_plus_curve.clear()
-            #plot1_fut_volume_minus_curve.clear()
             
             plot1_call_volume_curve.clear()
             plot1_put_volume_curve.clear()
@@ -27093,6 +27077,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             plot1_fut_choga_rr_curve.clear()
             plot1_fut_nhoga_rr_curve.clear()
+
             plot1_fut_drate_curve.clear()
             plot1_dow_drate_curve.clear()
             plot1_call_drate_curve.clear()
@@ -27235,12 +27220,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_call_hoga_curve.clear()
             plot2_put_hoga_curve.clear()
 
-            #plot2_fut_volume_curve.clear()
-            #plot2_fut_volume_plus_curve.clear()
-            #plot2_fut_volume_minus_curve.clear()
-
             plot2_fut_choga_rr_curve.clear()
             plot2_fut_nhoga_rr_curve.clear()
+
             plot2_fut_drate_curve.clear()
             plot2_dow_drate_curve.clear()
             plot2_call_drate_curve.clear()
@@ -27300,14 +27282,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p2_4.setStyleSheet('background-color: yellow ; color: black')
             
             plot2_fut_volume_curve.clear()
-            #plot2_fut_volume_plus_curve.clear()
-            #plot2_fut_volume_minus_curve.clear()
                         
             plot2_call_volume_curve.clear()
             plot2_put_volume_curve.clear()
 
             plot2_fut_choga_rr_curve.clear()
             plot2_fut_nhoga_rr_curve.clear()
+
             plot2_fut_drate_curve.clear()
             plot2_dow_drate_curve.clear()
             plot2_call_drate_curve.clear()
@@ -27342,8 +27323,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_center_val_line.setValue(0)
             plot2_center_val_upper_line.setValue(0)
 
-            plot2_hoga_rr_base_line.setValue(1.0)
-            #plot2_hoga_rr_bottom_line.setValue(0.1)        
+            plot2_hoga_rr_base_line.setValue(1.0)      
 
         # 선물잔량비
         elif comboindex2 == 4:
@@ -27418,9 +27398,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_22.setText(" - ")
             self.label_23.setText(" - ")
             self.label_24.setText(" - ")
-            self.label_25.setText(" 선물등락율 ")
-            self.label_26.setText(" DOW등락율 ")
-            self.label_27.setText(" 풋등락율 ")
+            self.label_25.setText(" DOW등락율 ")
+            self.label_26.setText(" 풋등락율 ")
+            self.label_27.setText(" 선물등락율 ")
             self.label_28.setText(" 콜등락율 ")
             
             self.label_p2_2.setText(" BB Middle\n PSAR ")
@@ -27436,8 +27416,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_put_hoga_curve.clear()  
             
             plot2_fut_volume_curve.clear()
-            #plot2_fut_volume_plus_curve.clear()
-            #plot2_fut_volume_minus_curve.clear() 
 
             plot2_call_volume_curve.clear()
             plot2_put_volume_curve.clear()
@@ -27498,9 +27476,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_call_hoga_curve.clear()
             plot2_put_hoga_curve.clear()
             
-            plot2_fut_volume_curve.clear()
-            #plot2_fut_volume_plus_curve.clear()
-            #plot2_fut_volume_minus_curve.clear()   
+            plot2_fut_volume_curve.clear()  
 
             plot2_call_volume_curve.clear()
             plot2_put_volume_curve.clear()
@@ -27565,14 +27541,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_put_hoga_curve.clear()   
 
             plot2_fut_volume_curve.clear()
-            #plot2_fut_volume_plus_curve.clear()
-            #plot2_fut_volume_minus_curve.clear()
             
             plot2_call_volume_curve.clear()
             plot2_put_volume_curve.clear()
 
             plot2_fut_choga_rr_curve.clear()
             plot2_fut_nhoga_rr_curve.clear()
+
             plot2_fut_drate_curve.clear()
             plot2_dow_drate_curve.clear()
             plot2_call_drate_curve.clear()
@@ -27624,14 +27599,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_put_hoga_curve.clear()   
 
             plot2_fut_volume_curve.clear()
-            #plot2_fut_volume_plus_curve.clear()
-            #plot2_fut_volume_minus_curve.clear()
             
             plot2_call_volume_curve.clear()
             plot2_put_volume_curve.clear()
 
             plot2_fut_choga_rr_curve.clear()
             plot2_fut_nhoga_rr_curve.clear()
+
             plot2_fut_drate_curve.clear()
             plot2_dow_drate_curve.clear()
             plot2_call_drate_curve.clear()
@@ -27732,14 +27706,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_put_hoga_curve.clear()   
 
             plot2_fut_volume_curve.clear()
-            #plot2_fut_volume_plus_curve.clear()
-            #plot2_fut_volume_minus_curve.clear()
             
             plot2_call_volume_curve.clear()
             plot2_put_volume_curve.clear()
 
             plot2_fut_choga_rr_curve.clear()
             plot2_fut_nhoga_rr_curve.clear()
+
             plot2_fut_drate_curve.clear()
             plot2_dow_drate_curve.clear()
             plot2_call_drate_curve.clear()
@@ -27840,14 +27813,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_put_hoga_curve.clear()   
 
             plot2_fut_volume_curve.clear()
-            #plot2_fut_volume_plus_curve.clear()
-            #plot2_fut_volume_minus_curve.clear()
             
             plot2_call_volume_curve.clear()
             plot2_put_volume_curve.clear()
 
             plot2_fut_choga_rr_curve.clear()
             plot2_fut_nhoga_rr_curve.clear()
+
             plot2_fut_drate_curve.clear()
             plot2_dow_drate_curve.clear()
             plot2_call_drate_curve.clear()
@@ -27948,14 +27920,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_put_hoga_curve.clear()   
 
             plot2_fut_volume_curve.clear()
-            #plot2_fut_volume_plus_curve.clear()
-            #plot2_fut_volume_minus_curve.clear()
             
             plot2_call_volume_curve.clear()
             plot2_put_volume_curve.clear()
 
             plot2_fut_choga_rr_curve.clear()
             plot2_fut_nhoga_rr_curve.clear()
+
             plot2_fut_drate_curve.clear()
             plot2_dow_drate_curve.clear()
             plot2_call_drate_curve.clear()
@@ -28097,12 +28068,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_call_hoga_curve.clear()
             plot3_put_hoga_curve.clear()
 
-            #plot3_fut_volume_curve.clear()
-            #plot3_fut_volume_plus_curve.clear()
-            #plot3_fut_volume_minus_curve.clear()
-
             plot3_fut_choga_rr_curve.clear()
             plot3_fut_nhoga_rr_curve.clear()
+
             plot3_fut_drate_curve.clear()
             plot3_dow_drate_curve.clear()
             plot3_call_drate_curve.clear()
@@ -28162,14 +28130,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p3_4.setStyleSheet('background-color: yellow ; color: black')
             
             plot3_fut_volume_curve.clear()
-            #plot3_fut_volume_plus_curve.clear()
-            #plot3_fut_volume_minus_curve.clear()
                         
             plot3_call_volume_curve.clear()
             plot3_put_volume_curve.clear()
 
             plot3_fut_choga_rr_curve.clear()
             plot3_fut_nhoga_rr_curve.clear()
+
             plot3_fut_drate_curve.clear()
             plot3_dow_drate_curve.clear()
             plot3_call_drate_curve.clear()
@@ -28204,8 +28171,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_center_val_line.setValue(0)
             plot3_center_val_upper_line.setValue(0)
 
-            plot3_hoga_rr_base_line.setValue(1.0)
-            #plot3_hoga_rr_bottom_line.setValue(0.1)        
+            plot3_hoga_rr_base_line.setValue(1.0)       
 
         # 선물잔량비
         elif comboindex3 == 4:
@@ -28280,9 +28246,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_32.setText(" - ")
             self.label_33.setText(" - ")
             self.label_34.setText(" - ")
-            self.label_35.setText(" 선물등락율 ")
-            self.label_36.setText(" DOW등락율 ")
-            self.label_37.setText(" 풋등락율 ")
+            self.label_35.setText(" DOW등락율 ")
+            self.label_36.setText(" 풋등락율 ")
+            self.label_37.setText(" 선물등락율 ")
             self.label_38.setText(" 콜등락율 ")
             
             self.label_p3_2.setText(" BB Middle\n PSAR ")
@@ -28298,8 +28264,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_put_hoga_curve.clear()
             
             plot3_fut_volume_curve.clear()
-            #plot3_fut_volume_plus_curve.clear()
-            #plot3_fut_volume_minus_curve.clear()   
 
             plot3_call_volume_curve.clear()
             plot3_put_volume_curve.clear()
@@ -28360,9 +28324,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_call_hoga_curve.clear()
             plot3_put_hoga_curve.clear()
             
-            plot3_fut_volume_curve.clear()
-            #plot3_fut_volume_plus_curve.clear()
-            #plot3_fut_volume_minus_curve.clear()   
+            plot3_fut_volume_curve.clear()  
 
             plot3_call_volume_curve.clear()
             plot3_put_volume_curve.clear()
@@ -28427,14 +28389,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_put_hoga_curve.clear()   
 
             plot3_fut_volume_curve.clear()
-            #plot3_fut_volume_plus_curve.clear()
-            #plot3_fut_volume_minus_curve.clear()
             
             plot3_call_volume_curve.clear()
             plot3_put_volume_curve.clear()
 
             plot3_fut_choga_rr_curve.clear()
             plot3_fut_nhoga_rr_curve.clear()
+
             plot3_fut_drate_curve.clear()
             plot3_dow_drate_curve.clear()
             plot3_call_drate_curve.clear()
@@ -28486,14 +28447,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_put_hoga_curve.clear()   
 
             plot3_fut_volume_curve.clear()
-            #plot3_fut_volume_plus_curve.clear()
-            #plot3_fut_volume_minus_curve.clear()
             
             plot3_call_volume_curve.clear()
             plot3_put_volume_curve.clear()
 
             plot3_fut_choga_rr_curve.clear()
             plot3_fut_nhoga_rr_curve.clear()
+
             plot3_fut_drate_curve.clear()
             plot3_dow_drate_curve.clear()
             plot3_call_drate_curve.clear()
@@ -28594,14 +28554,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_put_hoga_curve.clear()   
 
             plot3_fut_volume_curve.clear()
-            #plot3_fut_volume_plus_curve.clear()
-            #plot3_fut_volume_minus_curve.clear()
             
             plot3_call_volume_curve.clear()
             plot3_put_volume_curve.clear()
 
             plot3_fut_choga_rr_curve.clear()
             plot3_fut_nhoga_rr_curve.clear()
+
             plot3_fut_drate_curve.clear()
             plot3_dow_drate_curve.clear()
             plot3_call_drate_curve.clear()
@@ -28702,14 +28661,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_put_hoga_curve.clear()   
 
             plot3_fut_volume_curve.clear()
-            #plot3_fut_volume_plus_curve.clear()
-            #plot3_fut_volume_minus_curve.clear()
             
             plot3_call_volume_curve.clear()
             plot3_put_volume_curve.clear()
 
             plot3_fut_choga_rr_curve.clear()
             plot3_fut_nhoga_rr_curve.clear()
+
             plot3_fut_drate_curve.clear()
             plot3_dow_drate_curve.clear()
             plot3_call_drate_curve.clear()
@@ -28810,14 +28768,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_put_hoga_curve.clear()   
 
             plot3_fut_volume_curve.clear()
-            #plot3_fut_volume_plus_curve.clear()
-            #plot3_fut_volume_minus_curve.clear()
             
             plot3_call_volume_curve.clear()
             plot3_put_volume_curve.clear()
 
             plot3_fut_choga_rr_curve.clear()
             plot3_fut_nhoga_rr_curve.clear()
+
             plot3_fut_drate_curve.clear()
             plot3_dow_drate_curve.clear()
             plot3_call_drate_curve.clear()
@@ -28958,8 +28915,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p4_4.setStyleSheet('background-color: yellow ; color: black')
             
             plot4_fut_volume_curve.clear()
-            #plot4_fut_volume_plus_curve.clear()
-            #plot4_fut_volume_minus_curve.clear()
             
             plot4_call_volume_curve.clear()
             plot4_put_volume_curve.clear()
@@ -28969,6 +28924,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             plot4_fut_choga_rr_curve.clear()
             plot4_fut_nhoga_rr_curve.clear()
+
             plot4_fut_drate_curve.clear()
             plot4_dow_drate_curve.clear()
             plot4_call_drate_curve.clear()
@@ -29027,16 +28983,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.label_p4_4.setText(" MAMA ")
             self.label_p4_4.setStyleSheet('background-color: yellow ; color: black')
-            
-            #plot4_fut_volume_curve.clear()
-            #plot4_fut_volume_plus_curve.clear()
-            #plot4_fut_volume_minus_curve.clear()
 
             plot4_call_hoga_curve.clear()
             plot4_put_hoga_curve.clear()
 
             plot4_fut_choga_rr_curve.clear()
             plot4_fut_nhoga_rr_curve.clear()
+
             plot4_fut_drate_curve.clear()
             plot4_dow_drate_curve.clear()
             plot4_call_drate_curve.clear()
@@ -29097,14 +29050,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p4_4.setStyleSheet('background-color: yellow ; color: black')
             
             plot4_fut_volume_curve.clear()
-            #plot4_fut_volume_plus_curve.clear()
-            #plot4_fut_volume_minus_curve.clear()
 
             plot4_call_volume_curve.clear()
             plot4_put_volume_curve.clear()
 
             plot4_fut_choga_rr_curve.clear()
             plot4_fut_nhoga_rr_curve.clear()
+
             plot4_fut_drate_curve.clear()
             plot4_dow_drate_curve.clear()
             plot4_call_drate_curve.clear()
@@ -29140,8 +29092,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_ovc_low_line.setValue(0)
             plot4_ovc_high_line.setValue(0)
             
-            plot4_hoga_rr_base_line.setValue(1.0)
-            #plot4_hoga_rr_bottom_line.setValue(0.1) 
+            plot4_hoga_rr_base_line.setValue(1.0) 
         
         # 등락율비
         elif comboindex4 == 5:
@@ -29150,9 +29101,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_42.setText(" - ")
             self.label_43.setText(" - ")
             self.label_44.setText(" - ")
-            self.label_45.setText(" 선물등락율 ")
-            self.label_46.setText(" DOW등락율 ")
-            self.label_47.setText(" 풋등락율 ")
+            self.label_45.setText(" DOW등락율 ")
+            self.label_46.setText(" 풋등락율 ")
+            self.label_47.setText(" 선물등락율 ")
             self.label_48.setText(" 콜등락율 ")
             
             self.label_p4_2.setText(" BB Middle\n PSAR ")
@@ -29165,8 +29116,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p4_4.setStyleSheet('background-color: yellow ; color: black')
 
             plot4_fut_volume_curve.clear()
-            #plot4_fut_volume_plus_curve.clear()
-            #plot4_fut_volume_minus_curve.clear()
 
             plot4_call_volume_curve.clear()
             plot4_put_volume_curve.clear()
@@ -29226,8 +29175,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p4_4.setStyleSheet('background-color: yellow ; color: black')
 
             plot4_fut_volume_curve.clear()
-            #plot4_fut_volume_plus_curve.clear()
-            #plot4_fut_volume_minus_curve.clear()
 
             plot4_call_volume_curve.clear()
             plot4_put_volume_curve.clear()
@@ -29272,8 +29219,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif comboindex4 == 7:
                         
             plot4_fut_volume_curve.clear()
-            #plot4_fut_volume_plus_curve.clear()
-            #plot4_fut_volume_minus_curve.clear()
             
             plot4_call_volume_curve.clear()
             plot4_put_volume_curve.clear()
@@ -29283,6 +29228,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             plot4_fut_choga_rr_curve.clear()
             plot4_fut_nhoga_rr_curve.clear()
+
             plot4_fut_drate_curve.clear()
             plot4_dow_drate_curve.clear()
             plot4_call_drate_curve.clear()
@@ -29393,8 +29339,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif comboindex4 == 9:
 
             plot4_fut_volume_curve.clear()
-            #plot4_fut_volume_plus_curve.clear()
-            #plot4_fut_volume_minus_curve.clear()
             
             plot4_call_volume_curve.clear()
             plot4_put_volume_curve.clear()
@@ -29404,6 +29348,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             plot4_fut_choga_rr_curve.clear()
             plot4_fut_nhoga_rr_curve.clear()
+
             plot4_fut_drate_curve.clear()
             plot4_dow_drate_curve.clear()
             plot4_call_drate_curve.clear()
@@ -29502,8 +29447,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif comboindex4 == 10:
 
             plot4_fut_volume_curve.clear()
-            #plot4_fut_volume_plus_curve.clear()
-            #plot4_fut_volume_minus_curve.clear()
             
             plot4_call_volume_curve.clear()
             plot4_put_volume_curve.clear()
@@ -29513,6 +29456,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             plot4_fut_choga_rr_curve.clear()
             plot4_fut_nhoga_rr_curve.clear()
+
             plot4_fut_drate_curve.clear()
             plot4_dow_drate_curve.clear()
             plot4_call_drate_curve.clear()
@@ -29611,8 +29555,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif comboindex4 == 11:
 
             plot4_fut_volume_curve.clear()
-            #plot4_fut_volume_plus_curve.clear()
-            #plot4_fut_volume_minus_curve.clear()
             
             plot4_call_volume_curve.clear()
             plot4_put_volume_curve.clear()
@@ -29622,6 +29564,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             plot4_fut_choga_rr_curve.clear()
             plot4_fut_nhoga_rr_curve.clear()
+
             plot4_fut_drate_curve.clear()
             plot4_dow_drate_curve.clear()
             plot4_call_drate_curve.clear()
@@ -29720,8 +29663,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif comboindex4 == 12:
 
             plot4_fut_volume_curve.clear()
-            #plot4_fut_volume_plus_curve.clear()
-            #plot4_fut_volume_minus_curve.clear()
             
             plot4_call_volume_curve.clear()
             plot4_put_volume_curve.clear()
@@ -29731,6 +29672,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             plot4_fut_choga_rr_curve.clear()
             plot4_fut_nhoga_rr_curve.clear()
+
             plot4_fut_drate_curve.clear()
             plot4_dow_drate_curve.clear()
             plot4_call_drate_curve.clear()
@@ -29873,12 +29815,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_call_hoga_curve.clear()
             plot5_put_hoga_curve.clear()
 
-            #plot5_fut_volume_curve.clear()
-            #plot5_fut_volume_plus_curve.clear()
-            #plot5_fut_volume_minus_curve.clear()
-
             plot5_fut_choga_rr_curve.clear()
             plot5_fut_nhoga_rr_curve.clear()
+
             plot5_fut_drate_curve.clear()
             plot5_dow_drate_curve.clear()
             plot5_call_drate_curve.clear()
@@ -29938,14 +29877,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p5_4.setStyleSheet('background-color: yellow ; color: black')
             
             plot5_fut_volume_curve.clear()
-            #plot5_fut_volume_plus_curve.clear()
-            #plot5_fut_volume_minus_curve.clear()
                         
             plot5_call_volume_curve.clear()
             plot5_put_volume_curve.clear()
 
             plot5_fut_choga_rr_curve.clear()
             plot5_fut_nhoga_rr_curve.clear()
+
             plot5_fut_drate_curve.clear()
             plot5_dow_drate_curve.clear()
             plot5_call_drate_curve.clear()
@@ -29980,8 +29918,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_center_val_line.setValue(0)
             plot5_center_val_upper_line.setValue(0)
 
-            plot5_hoga_rr_base_line.setValue(1.0)
-            #plot5_hoga_rr_bottom_line.setValue(0.1)        
+            plot5_hoga_rr_base_line.setValue(1.0)      
 
         # 선물잔량비
         elif comboindex5 == 4:
@@ -30056,9 +29993,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_52.setText(" - ")
             self.label_53.setText(" - ")
             self.label_54.setText(" - ")
-            self.label_55.setText(" 선물등락율 ")
-            self.label_56.setText(" DOW등락율 ")
-            self.label_57.setText(" 풋등락율 ")
+            self.label_55.setText(" DOW등락율 ")
+            self.label_56.setText(" 풋등락율 ")
+            self.label_57.setText(" 선물등락율 ")
             self.label_58.setText(" 콜등락율 ")
             
             self.label_p5_2.setText(" BB Middle\n PSAR ")
@@ -30073,9 +30010,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_call_hoga_curve.clear()
             plot5_put_hoga_curve.clear()
             
-            plot5_fut_volume_curve.clear()
-            #plot5_fut_volume_plus_curve.clear()
-            #plot5_fut_volume_minus_curve.clear()   
+            plot5_fut_volume_curve.clear()  
 
             plot5_call_volume_curve.clear()
             plot5_put_volume_curve.clear()
@@ -30137,8 +30072,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_put_hoga_curve.clear() 
             
             plot5_fut_volume_curve.clear()
-            #plot5_fut_volume_plus_curve.clear()
-            #plot5_fut_volume_minus_curve.clear()  
 
             plot5_call_volume_curve.clear()
             plot5_put_volume_curve.clear()
@@ -30203,14 +30136,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_put_hoga_curve.clear()   
 
             plot5_fut_volume_curve.clear()
-            #plot5_fut_volume_plus_curve.clear()
-            #plot5_fut_volume_minus_curve.clear()
             
             plot5_call_volume_curve.clear()
             plot5_put_volume_curve.clear()
 
             plot5_fut_choga_rr_curve.clear()
             plot5_fut_nhoga_rr_curve.clear()
+
             plot5_fut_drate_curve.clear()
             plot5_dow_drate_curve.clear()
             plot5_call_drate_curve.clear()
@@ -30262,14 +30194,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_put_hoga_curve.clear()   
 
             plot5_fut_volume_curve.clear()
-            #plot5_fut_volume_plus_curve.clear()
-            #plot5_fut_volume_minus_curve.clear()
             
             plot5_call_volume_curve.clear()
             plot5_put_volume_curve.clear()
 
             plot5_fut_choga_rr_curve.clear()
             plot5_fut_nhoga_rr_curve.clear()
+
             plot5_fut_drate_curve.clear()
             plot5_dow_drate_curve.clear()
             plot5_call_drate_curve.clear()
@@ -30370,14 +30301,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_put_hoga_curve.clear()   
 
             plot5_fut_volume_curve.clear()
-            #plot5_fut_volume_plus_curve.clear()
-            #plot5_fut_volume_minus_curve.clear()
             
             plot5_call_volume_curve.clear()
             plot5_put_volume_curve.clear()
 
             plot5_fut_choga_rr_curve.clear()
             plot5_fut_nhoga_rr_curve.clear()
+
             plot5_fut_drate_curve.clear()
             plot5_dow_drate_curve.clear()
             plot5_call_drate_curve.clear()
@@ -30478,14 +30408,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_put_hoga_curve.clear()   
 
             plot5_fut_volume_curve.clear()
-            #plot5_fut_volume_plus_curve.clear()
-            #plot5_fut_volume_minus_curve.clear()
             
             plot5_call_volume_curve.clear()
             plot5_put_volume_curve.clear()
 
             plot5_fut_choga_rr_curve.clear()
             plot5_fut_nhoga_rr_curve.clear()
+
             plot5_fut_drate_curve.clear()
             plot5_dow_drate_curve.clear()
             plot5_call_drate_curve.clear()
@@ -30586,14 +30515,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_put_hoga_curve.clear()   
 
             plot5_fut_volume_curve.clear()
-            #plot5_fut_volume_plus_curve.clear()
-            #plot5_fut_volume_minus_curve.clear()
             
             plot5_call_volume_curve.clear()
             plot5_put_volume_curve.clear()
 
             plot5_fut_choga_rr_curve.clear()
             plot5_fut_nhoga_rr_curve.clear()
+
             plot5_fut_drate_curve.clear()
             plot5_dow_drate_curve.clear()
             plot5_call_drate_curve.clear()
@@ -30735,12 +30663,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_call_hoga_curve.clear()
             plot6_put_hoga_curve.clear()
 
-            #plot6_fut_volume_curve.clear()
-            #plot6_fut_volume_plus_curve.clear()
-            #plot6_fut_volume_minus_curve.clear()
-
             plot6_fut_choga_rr_curve.clear()
             plot6_fut_nhoga_rr_curve.clear()
+
             plot6_fut_drate_curve.clear()
             plot6_dow_drate_curve.clear()
             plot6_call_drate_curve.clear()
@@ -30800,14 +30725,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p6_4.setStyleSheet('background-color: yellow ; color: black')
             
             plot6_fut_volume_curve.clear()
-            #plot6_fut_volume_plus_curve.clear()
-            #plot6_fut_volume_minus_curve.clear()
                         
             plot6_call_volume_curve.clear()
             plot6_put_volume_curve.clear()
 
             plot6_fut_choga_rr_curve.clear()
             plot6_fut_nhoga_rr_curve.clear()
+
             plot6_fut_drate_curve.clear()
             plot6_dow_drate_curve.clear()
             plot6_call_drate_curve.clear()
@@ -30842,8 +30766,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_center_val_line.setValue(0)
             plot6_center_val_upper_line.setValue(0)
 
-            plot6_hoga_rr_base_line.setValue(1.0)
-            #plot6_hoga_rr_bottom_line.setValue(0.1)        
+            plot6_hoga_rr_base_line.setValue(1.0)      
 
         # 선물잔량비
         elif comboindex6 == 4:
@@ -30918,9 +30841,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_62.setText(" - ")
             self.label_63.setText(" - ")
             self.label_64.setText(" - ")
-            self.label_65.setText(" 선물등락율 ")
-            self.label_66.setText(" DOW등락율 ")
-            self.label_67.setText(" 풋등락율 ")
+            self.label_65.setText(" DOW등락율 ")
+            self.label_66.setText(" 풋등락율 ")
+            self.label_67.setText(" 선물등락율 ")
             self.label_68.setText(" 콜등락율 ")
             
             self.label_p6_2.setText(" BB Middle\n PSAR ")
@@ -30936,8 +30859,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_put_hoga_curve.clear()  
             
             plot6_fut_volume_curve.clear()
-            #plot6_fut_volume_plus_curve.clear()
-            #plot6_fut_volume_minus_curve.clear() 
 
             plot6_call_volume_curve.clear()
             plot6_put_volume_curve.clear()
@@ -30998,9 +30919,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_call_hoga_curve.clear()
             plot6_put_hoga_curve.clear()
             
-            plot6_fut_volume_curve.clear()
-            #plot6_fut_volume_plus_curve.clear()
-            #plot6_fut_volume_minus_curve.clear()   
+            plot6_fut_volume_curve.clear() 
 
             plot6_call_volume_curve.clear()
             plot6_put_volume_curve.clear()
@@ -31065,8 +30984,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_put_hoga_curve.clear() 
             
             plot6_fut_volume_curve.clear()
-            #plot6_fut_volume_plus_curve.clear()
-            #plot6_fut_volume_minus_curve.clear()  
 
             plot6_call_volume_curve.clear()
             plot6_put_volume_curve.clear()
@@ -31124,14 +31041,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_put_hoga_curve.clear()   
 
             plot6_fut_volume_curve.clear()
-            #plot6_fut_volume_plus_curve.clear()
-            #plot6_fut_volume_minus_curve.clear()
             
             plot6_call_volume_curve.clear()
             plot6_put_volume_curve.clear()
 
             plot6_fut_choga_rr_curve.clear()
             plot6_fut_nhoga_rr_curve.clear()
+
             plot6_fut_drate_curve.clear()
             plot6_dow_drate_curve.clear()
             plot6_call_drate_curve.clear()
@@ -31232,14 +31148,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_put_hoga_curve.clear()   
 
             plot6_fut_volume_curve.clear()
-            #plot6_fut_volume_plus_curve.clear()
-            #plot6_fut_volume_minus_curve.clear()
             
             plot6_call_volume_curve.clear()
             plot6_put_volume_curve.clear()
 
             plot6_fut_choga_rr_curve.clear()
             plot6_fut_nhoga_rr_curve.clear()
+
             plot6_fut_drate_curve.clear()
             plot6_dow_drate_curve.clear()
             plot6_call_drate_curve.clear()
@@ -31340,14 +31255,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_put_hoga_curve.clear()   
 
             plot6_fut_volume_curve.clear()
-            #plot6_fut_volume_plus_curve.clear()
-            #plot6_fut_volume_minus_curve.clear()
             
             plot6_call_volume_curve.clear()
             plot6_put_volume_curve.clear()
 
             plot6_fut_choga_rr_curve.clear()
             plot6_fut_nhoga_rr_curve.clear()
+
             plot6_fut_drate_curve.clear()
             plot6_dow_drate_curve.clear()
             plot6_call_drate_curve.clear()
@@ -31448,14 +31362,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_put_hoga_curve.clear()   
 
             plot6_fut_volume_curve.clear()
-            #plot6_fut_volume_plus_curve.clear()
-            #plot6_fut_volume_minus_curve.clear()
             
             plot6_call_volume_curve.clear()
             plot6_put_volume_curve.clear()
 
             plot6_fut_choga_rr_curve.clear()
             plot6_fut_nhoga_rr_curve.clear()
+
             plot6_fut_drate_curve.clear()
             plot6_dow_drate_curve.clear()
             plot6_call_drate_curve.clear()
@@ -31564,18 +31477,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         dt = datetime.datetime.now()
         start_time = timeit.default_timer()
 
-        '''
-        if flag_offline:
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] BigChart UI 쓰레드를 종료합니다. : {3:.2f} ms...\r'.format(\
-            dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
-            print(txt)
-
-            self.bigchart_update_worker.terminate()
-        else:
-            pass
-        '''
-
         # 해외선물 한국시간 표시
         if OVC_체결시간 == '000000':
 
@@ -31670,31 +31571,33 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex1 == 5 and market_service:
 
-                plot1_fut_drate_curve.setData(df_futures_graph['drate'])
+                txt = " {0:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'drate'])
+                self.label_15.setStyleSheet('background-color: lime ; color: black')
+                self.label_15.setText(txt)
+
+                txt = " {0:.2f} ".format(df_put_total_graph.at[ovc_x_idx, 'drate'])
+                self.label_16.setStyleSheet('background-color: blue ; color: white')
+                self.label_16.setText(txt)
+
+                txt = " {0:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'drate'])
+                self.label_17.setStyleSheet('background-color: yellow ; color: black')
+                self.label_17.setText(txt)
+
+                txt = " {0:.2f} ".format(df_call_total_graph.at[ovc_x_idx, 'drate'])
+                self.label_18.setStyleSheet('background-color: red ; color: white')
+                self.label_18.setText(txt)
+                
                 plot1_dow_drate_curve.setData(df_dow_graph['drate'])
-                plot1_call_drate_curve.setData(df_call_total_graph['drate'])
                 plot1_put_drate_curve.setData(df_put_total_graph['drate'])
+                plot1_fut_drate_curve.setData(df_futures_graph['drate'])
+                plot1_call_drate_curve.setData(df_call_total_graph['drate'])                
 
             elif comboindex1 == 6 and market_service:
 
                 txt = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_16.setStyleSheet('background-color: blue ; color: white')
                 self.label_16.setText(txt)
-                '''
-                if df_call_total_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
-
-                    txt = ' ▲ '
-                    self.label_17.setStyleSheet('background-color: red ; color: white')
-                    self.label_17.setText(txt)
-
-                elif df_put_total_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_percent:
-
-                    txt = ' ▼ '
-                    self.label_17.setStyleSheet('background-color: blue ; color: white')
-                    self.label_17.setText(txt)
-                else:
-                    pass
-                '''
+                
                 txt = " {0:.2f}({1:.2f}) ".format(df_call_total_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
                 self.label_18.setStyleSheet('background-color: red ; color: white')
                 self.label_18.setText(txt)
@@ -31823,7 +31726,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_18.setStyleSheet('background-color: pink ; color: red')
                 self.label_18.setText(txt)   
 
-                #plot1_kp200_curve.setData(df_futures_graph['kp200'])
                 plot1_kp200_curve.setData(df_kp200_graph['price'])
                 plot1_fut_price_curve.setData(df_futures_graph['price'])
 
@@ -32429,31 +32331,33 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex2 == 5 and market_service:
 
-                plot2_fut_drate_curve.setData(df_futures_graph['drate'])
+                txt = " {0:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'drate'])
+                self.label_25.setStyleSheet('background-color: lime ; color: black')
+                self.label_25.setText(txt)
+
+                txt = " {0:.2f} ".format(df_put_total_graph.at[ovc_x_idx, 'drate'])
+                self.label_26.setStyleSheet('background-color: blue ; color: white')
+                self.label_26.setText(txt)
+
+                txt = " {0:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'drate'])
+                self.label_27.setStyleSheet('background-color: yellow ; color: black')
+                self.label_27.setText(txt)
+
+                txt = " {0:.2f} ".format(df_call_total_graph.at[ovc_x_idx, 'drate'])
+                self.label_28.setStyleSheet('background-color: red ; color: white')
+                self.label_28.setText(txt)
+                
                 plot2_dow_drate_curve.setData(df_dow_graph['drate'])
-                plot2_call_drate_curve.setData(df_call_total_graph['drate'])
                 plot2_put_drate_curve.setData(df_put_total_graph['drate'])
+                plot2_fut_drate_curve.setData(df_futures_graph['drate'])
+                plot2_call_drate_curve.setData(df_call_total_graph['drate'])
 
             elif comboindex2 == 6 and market_service:
 
                 txt = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_26.setStyleSheet('background-color: blue ; color: white')
                 self.label_26.setText(txt)
-                '''
-                if df_call_total_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
-
-                    txt = ' ▲ '
-                    self.label_27.setStyleSheet('background-color: red ; color: white')
-                    self.label_27.setText(txt)
-
-                elif df_put_total_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_percent:
-
-                    txt = ' ▼ '
-                    self.label_27.setStyleSheet('background-color: blue ; color: white')
-                    self.label_27.setText(txt)
-                else:
-                    pass
-                '''
+                
                 txt = " {0:.2f}({1:.2f}) ".format(df_call_total_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
                 self.label_28.setStyleSheet('background-color: red ; color: white')
                 self.label_28.setText(txt)
@@ -33127,31 +33031,33 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex3 == 5 and market_service:
 
-                plot3_fut_drate_curve.setData(df_futures_graph['drate'])
+                txt = " {0:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'drate'])
+                self.label_35.setStyleSheet('background-color: lime ; color: black')
+                self.label_35.setText(txt)
+
+                txt = " {0:.2f} ".format(df_put_total_graph.at[ovc_x_idx, 'drate'])
+                self.label_36.setStyleSheet('background-color: blue ; color: white')
+                self.label_36.setText(txt)
+
+                txt = " {0:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'drate'])
+                self.label_37.setStyleSheet('background-color: yellow ; color: black')
+                self.label_37.setText(txt)
+
+                txt = " {0:.2f} ".format(df_call_total_graph.at[ovc_x_idx, 'drate'])
+                self.label_38.setStyleSheet('background-color: red ; color: white')
+                self.label_38.setText(txt)
+                
                 plot3_dow_drate_curve.setData(df_dow_graph['drate'])
-                plot3_call_drate_curve.setData(df_call_total_graph['drate'])
                 plot3_put_drate_curve.setData(df_put_total_graph['drate'])
+                plot3_fut_drate_curve.setData(df_futures_graph['drate'])
+                plot3_call_drate_curve.setData(df_call_total_graph['drate'])
 
             elif comboindex3 == 6 and market_service:
 
                 txt = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_36.setStyleSheet('background-color: blue ; color: white')
                 self.label_36.setText(txt)
-                '''
-                if df_call_total_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
-
-                    txt = ' ▲ '
-                    self.label_37.setStyleSheet('background-color: red ; color: white')
-                    self.label_37.setText(txt)
-
-                elif df_put_total_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_percent:
-
-                    txt = ' ▼ '
-                    self.label_37.setStyleSheet('background-color: blue ; color: white')
-                    self.label_37.setText(txt)
-                else:
-                    pass
-                '''
+                
                 txt = " {0:.2f}({1:.2f}) ".format(df_call_total_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
                 self.label_38.setStyleSheet('background-color: red ; color: white')
                 self.label_38.setText(txt)
@@ -33823,31 +33729,33 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex4 == 5 and market_service:
 
-                plot4_fut_drate_curve.setData(df_futures_graph['drate'])
+                txt = " {0:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'drate'])
+                self.label_45.setStyleSheet('background-color: lime ; color: black')
+                self.label_45.setText(txt)
+
+                txt = " {0:.2f} ".format(df_put_total_graph.at[ovc_x_idx, 'drate'])
+                self.label_46.setStyleSheet('background-color: blue ; color: white')
+                self.label_46.setText(txt)
+
+                txt = " {0:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'drate'])
+                self.label_47.setStyleSheet('background-color: yellow ; color: black')
+                self.label_47.setText(txt)
+
+                txt = " {0:.2f} ".format(df_call_total_graph.at[ovc_x_idx, 'drate'])
+                self.label_48.setStyleSheet('background-color: red ; color: white')
+                self.label_48.setText(txt)
+                
                 plot4_dow_drate_curve.setData(df_dow_graph['drate'])
-                plot4_call_drate_curve.setData(df_call_total_graph['drate'])
                 plot4_put_drate_curve.setData(df_put_total_graph['drate'])
+                plot4_fut_drate_curve.setData(df_futures_graph['drate'])
+                plot4_call_drate_curve.setData(df_call_total_graph['drate'])
 
             elif comboindex4 == 6 and market_service:
 
                 txt = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_46.setStyleSheet('background-color: blue ; color: white')
                 self.label_46.setText(txt)
-                '''
-                if df_call_total_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
-
-                    txt = ' ▲ '
-                    self.label_47.setStyleSheet('background-color: red ; color: white')
-                    self.label_47.setText(txt)
-
-                elif df_put_total_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_percent:
-
-                    txt = ' ▼ '
-                    self.label_47.setStyleSheet('background-color: blue ; color: white')
-                    self.label_47.setText(txt)
-                else:
-                    pass
-                '''
+                
                 txt = " {0:.2f}({1:.2f}) ".format(df_call_total_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
                 self.label_48.setStyleSheet('background-color: red ; color: white')
                 self.label_48.setText(txt)
@@ -33976,7 +33884,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_48.setStyleSheet('background-color: pink ; color: red')
                 self.label_48.setText(txt)   
 
-                #plot4_kp200_curve.setData(df_futures_graph['kp200'])
                 plot4_kp200_curve.setData(df_kp200_graph['price'])
                 plot4_fut_price_curve.setData(df_futures_graph['price'])
 
@@ -34582,31 +34489,33 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex5 == 5 and market_service:
 
-                plot5_fut_drate_curve.setData(df_futures_graph['drate'])
+                txt = " {0:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'drate'])
+                self.label_55.setStyleSheet('background-color: lime ; color: black')
+                self.label_55.setText(txt)
+
+                txt = " {0:.2f} ".format(df_put_total_graph.at[ovc_x_idx, 'drate'])
+                self.label_56.setStyleSheet('background-color: blue ; color: white')
+                self.label_56.setText(txt)
+
+                txt = " {0:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'drate'])
+                self.label_57.setStyleSheet('background-color: yellow ; color: black')
+                self.label_57.setText(txt)
+
+                txt = " {0:.2f} ".format(df_call_total_graph.at[ovc_x_idx, 'drate'])
+                self.label_58.setStyleSheet('background-color: red ; color: white')
+                self.label_58.setText(txt)
+                
                 plot5_dow_drate_curve.setData(df_dow_graph['drate'])
-                plot5_call_drate_curve.setData(df_call_total_graph['drate'])
                 plot5_put_drate_curve.setData(df_put_total_graph['drate'])
+                plot5_fut_drate_curve.setData(df_futures_graph['drate'])
+                plot5_call_drate_curve.setData(df_call_total_graph['drate'])
 
             elif comboindex5 == 6 and market_service:
 
                 txt = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_56.setStyleSheet('background-color: blue ; color: white')
                 self.label_56.setText(txt)
-                '''
-                if df_call_total_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
-
-                    txt = ' ▲ '
-                    self.label_57.setStyleSheet('background-color: red ; color: white')
-                    self.label_57.setText(txt)
-
-                elif df_put_total_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_percent:
-
-                    txt = ' ▼ '
-                    self.label_57.setStyleSheet('background-color: blue ; color: white')
-                    self.label_57.setText(txt)
-                else:
-                    pass
-                '''
+                
                 txt = " {0:.2f}({1:.2f}) ".format(df_call_total_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
                 self.label_58.setStyleSheet('background-color: red ; color: white')
                 self.label_58.setText(txt)
@@ -35277,31 +35186,33 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex6 == 5 and market_service:
 
-                plot6_fut_drate_curve.setData(df_futures_graph['drate'])
+                txt = " {0:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'drate'])
+                self.label_65.setStyleSheet('background-color: lime ; color: black')
+                self.label_65.setText(txt)
+
+                txt = " {0:.2f} ".format(df_put_total_graph.at[ovc_x_idx, 'drate'])
+                self.label_66.setStyleSheet('background-color: blue ; color: white')
+                self.label_66.setText(txt)
+
+                txt = " {0:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'drate'])
+                self.label_67.setStyleSheet('background-color: yellow ; color: black')
+                self.label_67.setText(txt)
+
+                txt = " {0:.2f} ".format(df_call_total_graph.at[ovc_x_idx, 'drate'])
+                self.label_68.setStyleSheet('background-color: red ; color: white')
+                self.label_68.setText(txt)
+                
                 plot6_dow_drate_curve.setData(df_dow_graph['drate'])
-                plot6_call_drate_curve.setData(df_call_total_graph['drate'])
                 plot6_put_drate_curve.setData(df_put_total_graph['drate'])
+                plot6_fut_drate_curve.setData(df_futures_graph['drate'])
+                plot6_call_drate_curve.setData(df_call_total_graph['drate'])
 
             elif comboindex6 == 6 and market_service:
 
                 txt = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_66.setStyleSheet('background-color: blue ; color: white')
                 self.label_66.setText(txt)
-                '''
-                if df_call_total_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
-
-                    txt = ' ▲ '
-                    self.label_67.setStyleSheet('background-color: red ; color: white')
-                    self.label_67.setText(txt)
-
-                elif df_put_total_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_percent:
-
-                    txt = ' ▼ '
-                    self.label_67.setStyleSheet('background-color: blue ; color: white')
-                    self.label_67.setText(txt)
-                else:
-                    pass
-                '''
+                
                 txt = " {0:.2f}({1:.2f}) ".format(df_call_total_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
                 self.label_68.setStyleSheet('background-color: red ; color: white')
                 self.label_68.setText(txt)
