@@ -1317,19 +1317,6 @@ new_actval_down_count = 0
 
 selected_call = []
 selected_put = []
-old_selected_call = []
-old_selected_put = []
-
-plot_call_current_lst = []
-plot_call_old_lst = []
-plot_put_current_lst = []
-plot_put_old_lst = []
-
-flag_call_lst_changed = False
-flag_put_lst_changed = False
-
-selected_opt_list = []
-old_selected_opt_list = []
 
 call_node_state = dict()
 put_node_state = dict()
@@ -3343,10 +3330,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 테이블위젯내 체크박스 스테이트 변화 이벤트 발생로직
         for i in range(ActvalCount):
             call_ch = self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox()))
-            call_ch.clicked.connect(lambda checked, row=i, col=0: self.onCallTable_CheckStateChanged(checked, row, col))
+            call_ch.clicked.connect(lambda checked, row=i, col=0: self.OnCallTable_CheckStateChanged(checked, row, col))
 
             put_ch = self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox()))
-            put_ch.clicked.connect(lambda checked, row=i, col=0: self.onPutTable_CheckStateChanged(checked, row, col))
+            put_ch.clicked.connect(lambda checked, row=i, col=0: self.OnPutTable_CheckStateChanged(checked, row, col))
 
         # 선물 tablewidget 초기화
         self.tableWidget_fut.setRowCount(3)
@@ -4310,19 +4297,37 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             return None
 
-    def onCallTable_CheckStateChanged(self, checked, row, column):
+    def OnCallTable_CheckStateChanged(self, checked, row, column):
 
-        global flag_calltable_checkstate_changed
+        global selected_call, flag_calltable_checkstate_changed
 
         flag_calltable_checkstate_changed = True
-        print('Call Table {0}행 checked = {1}\r'.format(row, checked))
+        #print('Call Table {0}행 checked = {1}\r'.format(row, checked))        
 
-    def onPutTable_CheckStateChanged(self, checked, row, column):
+        if checked:
+            selected_call.append(row)
+        else:
+            selected_call.remove(row)
 
-        global flag_puttable_checkstate_changed
+        selected_call.sort()
+
+        print('selected_call =', selected_call)
+
+    def OnPutTable_CheckStateChanged(self, checked, row, column):
+
+        global selected_put, flag_puttable_checkstate_changed
 
         flag_puttable_checkstate_changed = True
-        print('Put Table {0}행 checked = {1}\r'.format(row, checked))
+        #print('Put Table {0}행 checked = {1}\r'.format(row, checked))
+
+        if checked:
+            selected_put.append(row)
+        else:
+            selected_put.remove(row)
+
+        selected_put.sort()
+
+        print('selected_put =', selected_put)
             
     # Xing 관리자모드 실행 체크함수
     def XingAdminCheck(self):
@@ -5438,12 +5443,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_offline, receive_real_ovc            
 
         global call_plot_data, put_plot_data, centerval_plot_data
-        global selected_call, selected_put, old_selected_call, old_selected_put, selected_opt_list, old_selected_opt_list
         global SP500_당일종가, DOW_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가, GOLD_당일종가 
         global drate_scale_factor
-        global flag_logfile, flag_broken_capture
-        global plot_call_current_lst, plot_call_old_lst, plot_put_current_lst, plot_put_old_lst
-        global flag_call_lst_changed, flag_put_lst_changed    
+        global flag_logfile, flag_broken_capture  
 
         try:
             flag_screen_update_is_running = True
@@ -5689,6 +5691,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # 선택된 콜, 풋 검사, 약 3ms 정도 시간이 소요됨
+                '''
                 if self.alternate_flag:
                     
                     selected_call = []
@@ -5708,6 +5711,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             selected_put.append(i)
                         else:
                             pass
+                '''
                                 
                 if market_service and flag_option_start:                    
 
@@ -15514,7 +15518,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global t2835_month_info
         global server_date, server_time, system_server_timegap
         global cm_call_code, cm_put_code, cm_opt_length, nm_call_code, nm_put_code, nm_opt_length, CM_OPTCODE, NM_OPTCODE
-        global selected_opt_list
         global 콜대비_퍼센트_평균, 풋대비_퍼센트_평균
         global atm_zero_sum, atm_zero_cha
         global 선물_전일종가
@@ -17378,10 +17381,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             atm_index = opt_actval.index(atm_str)
             old_atm_index = atm_index
-                        
-            # update 쓰레드 시간단축 목적 !!!
-            #selected_opt_list.append(opt_actval[option_pairs_count-1])
-
+            
             if atm_str[-1] == '2' or atm_str[-1] == '7':
 
                 atm_val = float(atm_str) + 0.5
@@ -32477,8 +32477,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         plot2_put_curve[i].clear()
                 else:
                     pass
-
-                #plot2_center_val_curve.clear()
                 
                 plot2_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
                 plot2_center_val_line.setValue(CENTER_VAL)
@@ -33174,8 +33172,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         plot3_put_curve[i].clear()
                 else:
                     pass
-
-                #plot3_center_val_curve.clear()
                         
                 plot3_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
                 plot3_center_val_line.setValue(CENTER_VAL)
@@ -34628,8 +34624,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         plot5_put_curve[i].clear()
                 else:
                     pass
-
-                #plot5_center_val_curve.clear()
                         
                 plot5_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
                 plot5_center_val_line.setValue(CENTER_VAL)
@@ -35323,8 +35317,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         plot6_put_curve[i].clear()
                 else:
                     pass
-
-                #plot6_center_val_curve.clear()
                         
                 plot6_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
                 plot6_center_val_line.setValue(CENTER_VAL)
