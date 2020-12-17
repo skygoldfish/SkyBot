@@ -2272,6 +2272,9 @@ flag_produce_queue_empty = True
 flag_call_strong = False
 flag_put_strong = False
 
+flag_calltable_checkstate_changed = False
+flag_puttable_checkstate_changed = False
+
 ########################################################################################################################
 def xing_test_func():
     if bool(화면_선물옵션전광판.xing_realdata):
@@ -3337,6 +3340,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.item(i, j + 1).setBackground(QBrush(검정색))
                 self.tableWidget_put.item(i, j + 1).setForeground(QBrush(흰색))
 
+        for i in range(ActvalCount):
+            call_ch = self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox()))
+            call_ch.clicked.connect(lambda checked, row=i, col=0: self.onCallTable_CheckStateChanged(checked, row, col))
+
+            put_ch = self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox()))
+            put_ch.clicked.connect(lambda checked, row=i, col=0: self.onPutTable_CheckStateChanged(checked, row, col))
+
         # 선물 tablewidget 초기화
         self.tableWidget_fut.setRowCount(3)
         self.tableWidget_fut.setColumnCount(Futures_column.OID.value + 1)
@@ -4298,6 +4308,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             return list[i]
         else:
             return None
+
+    def onCallTable_CheckStateChanged(self, checked, row, column):
+
+        global flag_calltable_checkstate_changed
+
+        flag_calltable_checkstate_changed = True
+        print('Call Table {0}행 checked = {1}\r'.format(row, checked))
+
+    def onPutTable_CheckStateChanged(self, checked, row, column):
+
+        global flag_puttable_checkstate_changed
+
+        flag_puttable_checkstate_changed = True
+        print('Put Table {0}행 checked = {1}\r'.format(row, checked))
             
     # Xing 관리자모드 실행 체크함수
     def XingAdminCheck(self):
@@ -5663,8 +5687,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                #if not self.alternate_flag:
-                if True:
+                if not self.alternate_flag:
+                #if True:
                     '''
                     if len(selected_call) != len(old_selected_call):
                         plot_call_current_lst = copy.deepcopy(selected_call)
@@ -5691,8 +5715,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
                             selected_call.append(i)
                         else:
-                            pass
-                    
+                            pass                                        
+                else:
                     selected_put = []
 
                     for i in range(put_scroll_begin_position, put_scroll_end_position):
@@ -5700,9 +5724,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
                             selected_put.append(i)
                         else:
-                            pass                    
-                else:
-                    pass
+                            pass
                                 
                 if market_service and flag_option_start:                    
 
@@ -31551,7 +31573,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
     @pyqtSlot(str)
     def update_bigchart(self):
 
-        global flag_plot_update_is_running, bc_ui_update_time
+        global flag_plot_update_is_running, bc_ui_update_time        
+        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
         
         flag_plot_update_is_running = True
 
@@ -32458,32 +32481,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # 옵션가격
             elif comboindex2 == 7 and market_service:
 
-                if not selected_call:
+                if not selected_call or flag_calltable_checkstate_changed:
+                    flag_calltable_checkstate_changed = False
                     for i in range(option_pairs_count):
                         plot2_call_curve[i].clear()
                 else:
                     pass
-                    '''
-                    if selected_call != old_selected_call:
-                        for i in range(len(old_selected_call)):
-                            plot2_call_curve[old_selected_call[i]].clear()
-                    else:
-                        for i in range(len(selected_call)):
-                            plot2_call_curve[selected_call[i]].clear()
-                    '''
-                if not selected_put:
+
+                if not selected_put or flag_puttable_checkstate_changed:
+                    flag_puttable_checkstate_changed = False
                     for i in range(option_pairs_count):
                         plot2_put_curve[i].clear()
                 else:
                     pass
-                    '''
-                    if selected_put != old_selected_put:
-                        for i in range(len(old_selected_put)):
-                            plot2_put_curve[old_selected_put[i]].clear()
-                    else:
-                        for i in range(len(selected_put)):
-                            plot2_put_curve[selected_put[i]].clear()
-                    '''
 
                 #plot2_center_val_curve.clear()
                 
@@ -33168,33 +33178,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # 옵션가격
             elif comboindex3 == 7 and market_service:
 
-                if not selected_call:
+                if not selected_call or flag_calltable_checkstate_changed:
+                    flag_calltable_checkstate_changed = False
                     for i in range(option_pairs_count):
                         plot3_call_curve[i].clear()
                 else:
                     pass
-                    '''
-                    if selected_call != old_selected_call:
-                        for i in range(len(old_selected_call)):
-                            plot3_call_curve[old_selected_call[i]].clear()
-                    else:
-                        for i in range(len(selected_call)):
-                            plot3_call_curve[selected_call[i]].clear()
-                    '''
 
-                if not selected_put:
+                if not selected_put or flag_puttable_checkstate_changed:
+                    flag_puttable_checkstate_changed = False
                     for i in range(option_pairs_count):
                         plot3_put_curve[i].clear()
                 else:
                     pass
-                    '''
-                    if selected_put != old_selected_put:
-                        for i in range(len(old_selected_put)):
-                            plot3_put_curve[old_selected_put[i]].clear()
-                    else:
-                        for i in range(len(selected_put)):
-                            plot3_put_curve[selected_put[i]].clear()   
-                    '''
 
                 #plot3_center_val_curve.clear()
                         
@@ -34636,33 +34632,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # 옵션가격
             elif comboindex5 == 7 and market_service:
 
-                if not selected_call:
+                if not selected_call or flag_calltable_checkstate_changed:
+                    flag_calltable_checkstate_changed = False
                     for i in range(option_pairs_count):
                         plot5_call_curve[i].clear()
                 else:
                     pass
-                    '''
-                    if selected_call != old_selected_call:
-                        for i in range(len(old_selected_call)):
-                            plot5_call_curve[old_selected_call[i]].clear()
-                    else:
-                        for i in range(len(selected_call)):
-                            plot5_call_curve[selected_call[i]].clear()
-                    '''
 
-                if not selected_put:
+                if not selected_put or flag_puttable_checkstate_changed:
+                    flag_puttable_checkstate_changed = False
                     for i in range(option_pairs_count):
                         plot5_put_curve[i].clear()
                 else:
                     pass
-                    '''
-                    if selected_put != old_selected_put:
-                        for i in range(len(old_selected_put)):
-                            plot5_put_curve[old_selected_put[i]].clear()
-                    else:
-                        for i in range(len(selected_put)):
-                            plot5_put_curve[selected_put[i]].clear()
-                    '''
 
                 #plot5_center_val_curve.clear()
                         
@@ -35345,33 +35327,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # 옵션가격
             elif comboindex6 == 7 and market_service:
 
-                if not selected_call:
+                if not selected_call or flag_calltable_checkstate_changed:
+                    flag_calltable_checkstate_changed = False
                     for i in range(option_pairs_count):
                         plot6_call_curve[i].clear()
                 else:
                     pass
-                    '''
-                    if selected_call != old_selected_call:
-                        for i in range(len(old_selected_call)):
-                            plot6_call_curve[old_selected_call[i]].clear()
-                    else:
-                        for i in range(len(selected_call)):
-                            plot6_call_curve[selected_call[i]].clear()
-                    '''
 
-                if not selected_put:
+                if not selected_put or flag_puttable_checkstate_changed:
+                    flag_puttable_checkstate_changed = False
                     for i in range(option_pairs_count):
                         plot6_put_curve[i].clear()
                 else:
                     pass
-                    '''
-                    if selected_put != old_selected_put:
-                        for i in range(len(old_selected_put)):
-                            plot6_put_curve[old_selected_put[i]].clear()
-                    else:
-                        for i in range(len(selected_put)):
-                            plot6_put_curve[selected_put[i]].clear()   
-                    '''
 
                 #plot6_center_val_curve.clear()
                         
