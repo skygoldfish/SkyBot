@@ -82,7 +82,7 @@ pd.set_option('max_colwidth', -1)
 # 시스템 기본 로케일 사용
 locale.setlocale(locale.LC_ALL, '') 
 
-DATABASE = 'DATA\\mymoneybot.sqlite'
+DATABASE = 'DATA\\skybot.sqlite'
 UI_DIR = "UI\\"
 
 np.warnings.filterwarnings('ignore')
@@ -93,8 +93,6 @@ os_type = platform.platform()
 print('\r')
 print('OS 유형 :', os_type)
 
-flag_main_window_closed = False
-#flag_screen_board_closed = False
 flag_big_chart_closed = False
 
 flag_internet_connection_broken = False
@@ -5442,8 +5440,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 15 Minute resample
         #df_gold_ohlc_15min = df.resample('15T').ohlc()        
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] OHLC_Gen Update : {3:.2f} ms...\r'.format(\
-                    adj_hour, adj_min, adj_sec, (timeit.default_timer() - start_time) * 1000)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] OHLC_Gen Update : {3:.2f} ms...\r'.format(adj_hour, adj_min, adj_sec, (timeit.default_timer() - start_time) * 1000)
         print(txt)
     
     @pyqtSlot(str)
@@ -5481,7 +5478,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 인터넷 연결확인
             ipaddress = socket.gethostbyname(socket.gethostname())
 
-            if not flag_main_window_closed and ipaddress == '127.0.0.1':
+            if ipaddress == '127.0.0.1':
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 인터넷 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.statusbar.showMessage(txt)
@@ -5509,7 +5506,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 flag_internet_connection_broken = False
 
             # 증권사 연결확인(인터넷이 연결된 상태에서만 확인가능)
-            if not flag_main_window_closed and not self.parent.connection.IsConnected():
+            if not self.parent.connection.IsConnected():
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 증권사 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.statusbar.showMessage(txt)
@@ -5553,14 +5550,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             '''
             # 증권사 및 인터넷 연결 확인
-            if not flag_main_window_closed and not self.parent.connection.IsConnected():
+            if not self.parent.connection.IsConnected():
                 
                 flag_service_provider_broken = True                
 
                 # 인터넷 연결 확인후 증권사 연결확인
                 ipaddress = socket.gethostbyname(socket.gethostname())
 
-                if not flag_main_window_closed and ipaddress == '127.0.0.1':
+                if ipaddress == '127.0.0.1':
 
                     flag_internet_connection_broken = True
 
@@ -6198,18 +6195,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if queue_input_drop_count > 0:
 
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f}({4:.2f}) ms, Drop Count = {5}\r'.format(\
-                            dt.hour, dt.minute, dt.second, main_ui_update_time, bc_ui_update_time, queue_input_drop_count)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f}({4:.2f}) ms, Drop Count = {5}\r'.format(dt.hour, dt.minute, dt.second, main_ui_update_time, bc_ui_update_time, queue_input_drop_count)
                     else:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f}({4:.2f}) ms\r'.format(\
-                            dt.hour, dt.minute, dt.second, main_ui_update_time, bc_ui_update_time)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f}({4:.2f}) ms\r'.format(dt.hour, dt.minute, dt.second, main_ui_update_time, bc_ui_update_time)
 
                     self.textBrowser.append(txt)
                 else:
                     if queue_input_drop_count > 0:
 
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f} ms, Drop Count = {4}\r'.format(\
-                            dt.hour, dt.minute, dt.second, main_ui_update_time, queue_input_drop_count)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f} ms, Drop Count = {4}\r'.format(dt.hour, dt.minute, dt.second, main_ui_update_time, queue_input_drop_count)
                     else:
                         txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f} ms\r'.format(dt.hour, dt.minute, dt.second, main_ui_update_time)
 
@@ -6703,8 +6697,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if market_service:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check : {3:.2f} ms\r'.format(\
-                adj_hour, adj_min, adj_sec, process_time)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check : {3:.2f} ms\r'.format(adj_hour, adj_min, adj_sec, process_time)
             self.textBrowser.append(txt)
             print(txt)
         else:
@@ -6726,8 +6719,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] Call Low Node Color Check : {3:.2f} ms\r'.format(\
-            adj_hour, adj_min, adj_sec, process_time)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Call Low Node Color Check : {3:.2f} ms\r'.format(adj_hour, adj_min, adj_sec, process_time)
         self.textBrowser.append(txt)
 
     def call_high_node_coloring(self):
@@ -6744,8 +6736,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] Call High Node Color Check : {3:.2f} ms\r'.format(\
-            adj_hour, adj_min, adj_sec, process_time)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Call High Node Color Check : {3:.2f} ms\r'.format(adj_hour, adj_min, adj_sec, process_time)
         self.textBrowser.append(txt)            
     
     def put_scroll_coloring(self):
@@ -6773,8 +6764,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if market_service:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check : {3:.2f} ms\r'.format(\
-                adj_hour, adj_min, adj_sec, process_time)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check : {3:.2f} ms\r'.format(adj_hour, adj_min, adj_sec, process_time)
             self.textBrowser.append(txt)
             print(txt)                                 
         else:
@@ -6797,8 +6787,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] Put Low Node Color Check : {3:.2f} ms\r'.format(\
-            adj_hour, adj_min, adj_sec, process_time)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Put Low Node Color Check : {3:.2f} ms\r'.format(adj_hour, adj_min, adj_sec, process_time)
         self.textBrowser.append(txt)
 
     def put_high_node_coloring(self):
@@ -6815,8 +6804,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] Put High Node Color Check : {3:.2f} ms\r'.format(\
-            adj_hour, adj_min, adj_sec, process_time)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Put High Node Color Check : {3:.2f} ms\r'.format(adj_hour, adj_min, adj_sec, process_time)
         self.textBrowser.append(txt)            
 
 
@@ -11315,8 +11303,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 flag_kp200_low_node = True
 
-                kp200_low_node_str = "[{0:02d}:{1:02d}:{2:02d}] kp200 저가맥점 {3:.2f} 발생 !!!".format(\
-                                        adj_hour, adj_min, adj_sec, kp200_realdata['저가'])
+                kp200_low_node_str = "[{0:02d}:{1:02d}:{2:02d}] kp200 저가맥점 {3:.2f} 발생 !!!".format(adj_hour, adj_min, adj_sec, kp200_realdata['저가'])
             else:
                 pass
 
@@ -11341,8 +11328,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 flag_kp200_high_node = True
 
-                kp200_high_node_str = "[{0:02d}:{1:02d}:{2:02d}] kp200 고가맥점 {3:.2f} 발생 !!!".format(\
-                                        adj_hour, adj_min, adj_sec, kp200_realdata['고가'])
+                kp200_high_node_str = "[{0:02d}:{1:02d}:{2:02d}] kp200 고가맥점 {3:.2f} 발생 !!!".format(adj_hour, adj_min, adj_sec, kp200_realdata['고가'])
             else:
                 pass
 
@@ -20635,8 +20621,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif szTrCode == 'JIF':
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 장구분[{3}], 장상태[{4}]\r'.format(\
-                    adj_hour, adj_min, adj_sec, result['장구분'], result['장상태'])
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 장구분[{3}], 장상태[{4}]\r'.format(adj_hour, adj_min, adj_sec, result['장구분'], result['장상태'])
                 self.textBrowser.append(txt)
 
                 # 장시작 10분전
@@ -32404,14 +32389,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # 옵션가격
             elif comboindex2 == 7 and market_service:
 
-                if not selected_call or flag_calltable_checkstate_changed:
+                #if not selected_call or flag_calltable_checkstate_changed:
+                if flag_calltable_checkstate_changed:
                     flag_calltable_checkstate_changed = False
                     for i in range(option_pairs_count):
                         plot2_call_curve[i].clear()
                 else:
                     pass
 
-                if not selected_put or flag_puttable_checkstate_changed:
+                #if not selected_put or flag_puttable_checkstate_changed:
+                if flag_puttable_checkstate_changed:
                     flag_puttable_checkstate_changed = False
                     for i in range(option_pairs_count):
                         plot2_put_curve[i].clear()
@@ -33104,14 +33091,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # 옵션가격
             elif comboindex3 == 7 and market_service:
 
-                if not selected_call or flag_calltable_checkstate_changed:
+                #if not selected_call or flag_calltable_checkstate_changed:
+                if flag_calltable_checkstate_changed:
                     flag_calltable_checkstate_changed = False
                     for i in range(option_pairs_count):
                         plot3_call_curve[i].clear()
                 else:
                     pass
 
-                if not selected_put or flag_puttable_checkstate_changed:
+                #if not selected_put or flag_puttable_checkstate_changed:
+                if flag_puttable_checkstate_changed:
                     flag_puttable_checkstate_changed = False
                     for i in range(option_pairs_count):
                         plot3_put_curve[i].clear()
@@ -34562,14 +34551,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # 옵션가격
             elif comboindex5 == 7 and market_service:
 
-                if not selected_call or flag_calltable_checkstate_changed:
+                #if not selected_call or flag_calltable_checkstate_changed:
+                if flag_calltable_checkstate_changed:
                     flag_calltable_checkstate_changed = False
                     for i in range(option_pairs_count):
                         plot5_call_curve[i].clear()
                 else:
                     pass
 
-                if not selected_put or flag_puttable_checkstate_changed:
+                #if not selected_put or flag_puttable_checkstate_changed:
+                if flag_puttable_checkstate_changed:
                     flag_puttable_checkstate_changed = False
                     for i in range(option_pairs_count):
                         plot5_put_curve[i].clear()
@@ -35259,14 +35250,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # 옵션가격
             elif comboindex6 == 7 and market_service:
 
-                if not selected_call or flag_calltable_checkstate_changed:
+                #if not selected_call or flag_calltable_checkstate_changed:
+                if flag_calltable_checkstate_changed:
                     flag_calltable_checkstate_changed = False
                     for i in range(option_pairs_count):
                         plot6_call_curve[i].clear()
                 else:
                     pass
 
-                if not selected_put or flag_puttable_checkstate_changed:
+                #if not selected_put or flag_puttable_checkstate_changed:
+                if flag_puttable_checkstate_changed:
                     flag_puttable_checkstate_changed = False
                     for i in range(option_pairs_count):
                         plot6_put_curve[i].clear()
@@ -35864,8 +35857,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         bc_ui_update_time = (timeit.default_timer() - start_time) * 1000        
         
-        txt = '[{0:02d}:{1:02d}:{2:02d}] BigChart UI Update : {3:.2f} ms...\r'.format(\
-                dt.hour, dt.minute, dt.second, bc_ui_update_time)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] BigChart Plot Update : {3:.2f} ms...\r'.format(dt.hour, dt.minute, dt.second, bc_ui_update_time)
         print(txt)
         
         flag_plot_update_is_running = False            
@@ -36086,24 +36078,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def closeEvent(self,event):
 
-        global flag_main_window_closed
-
         dt = datetime.datetime.now()
 
-        result = QMessageBox.question(self,"프로그램 종료","정말 종료하시겠습니까 ?", QMessageBox.Yes| QMessageBox.No)
+        result = QMessageBox.question(self,"프로그램 종료","SkyBot을 종료하시겠습니까 ?", QMessageBox.Yes| QMessageBox.No)
 
         if result == QMessageBox.Yes:
 
             event.accept()
 
-            flag_main_window_closed = True
-
-            #if not flag_screen_board_closed:
             if self.dialog['당월물옵션전광판'].flag_screen_board_open:
-            #if self.dialog.get('당월물옵션전광판') is not None:
                 self.dialog['당월물옵션전광판'].closeScreenBoard()
             else:
                 print('해당 다이얼로그가 없습니다.')
+
+            logger.debug("=============================================================================")
+            logger.info("LOG STOP")
 
             print('서버연결 해지...')
             self.connection.disconnect()
@@ -36413,12 +36402,12 @@ if __name__ == "__main__":
     #ToYourTelegram("SkyBot이 실행되었습니다.")
     
     # 1.로그 인스턴스를 만든다.
-    logger = logging.getLogger('mymoneybot')
+    logger = logging.getLogger('skybot')
     # 2.formatter를 만든다.
     formatter = logging.Formatter('[%(levelname)s|%(filename)s:%(lineno)s]%(asctime)s>%(message)s')
 
     loggerLevel = logging.DEBUG
-    filename = "LOG/mymoneybot.log"
+    filename = "LOG/skybot.log"
 
     # 스트림과 파일로 로그를 출력하는 핸들러를 각각 만든다.
     filehandler = logging.FileHandler(filename)
