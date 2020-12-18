@@ -849,6 +849,7 @@ kp200_시가 = 0
 kp200_저가 = 0
 kp200_현재가 = 0
 kp200_고가 = 0
+kp200_진폭 = 0
 
 CENTER_VAL = 0
 
@@ -15534,7 +15535,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_open_list, put_open_list, opt_total_list
         global call_itm_count, call_max_actval
         global put_itm_count, put_max_actval
-        global KP200_전일종가, kp200_시가, kp200_저가, kp200_현재가, kp200_고가
+        global KP200_전일종가, kp200_시가, kp200_저가, kp200_현재가, kp200_고가, kp200_진폭
         global t2835_month_info
         global server_date, server_time, system_server_timegap
         global cm_call_code, cm_put_code, cm_opt_length, nm_call_code, nm_put_code, nm_opt_length, CM_OPTCODE, NM_OPTCODE
@@ -20599,7 +20600,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             global CME_당일종가, DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가, GOLD_당일종가
             global 시스템시간, 서버시간, 시스템_서버_시간차
-            global kp200_시가, kp200_피봇, kp200_저가, kp200_현재가, kp200_고가            
+            global kp200_시가, kp200_피봇, kp200_저가, kp200_현재가, kp200_고가, kp200_진폭           
             global DOW_진폭비
             global DOW_주간_시작가, WTI_주간_시작가
             global DOW_야간_시작가, WTI_야간_시작가
@@ -21933,6 +21934,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item.setBackground(QBrush(흰색))                     
                         self.tableWidget_fut.setItem(2, Futures_column.저가.value, item)
 
+                        kp200_진폭 = kp200_고가 - kp200_저가
+
+                        item = QTableWidgetItem("{0:.2f}".format(kp200_진폭))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_fut.setItem(2, Futures_column.진폭.value, item)
+
                         self.kp200_node_color_clear()
                         self.kp200_node_coloring()
 
@@ -21957,6 +21964,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item.setTextAlignment(Qt.AlignCenter)
                         item.setBackground(QBrush(흰색))
                         self.tableWidget_fut.setItem(2, Futures_column.고가.value, item)
+
+                        kp200_진폭 = kp200_고가 - kp200_저가
+
+                        item = QTableWidgetItem("{0:.2f}".format(kp200_진폭))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_fut.setItem(2, Futures_column.진폭.value, item)
 
                         self.kp200_node_color_clear()
                         self.kp200_node_coloring()
