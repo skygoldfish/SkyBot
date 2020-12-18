@@ -1436,6 +1436,7 @@ indianred = QColor(0xCD, 0x5C, 0x5C)
 greenyellow = QColor(0xAD, 0xFF, 0x2F)
 lawngreen = QColor(0x7C, 0xFC, 0x00)
 lightgreen = QColor(0x99, 0xFF, 0x33)
+springgreen = QColor(0x0, 0xFF, 0x7F)
 gold = QColor(0xFF, 0xD7, 0x00)
 goldenrod = QColor(0xDA, 0xA5, 0x20)
 skyblue = QColor(0x87, 0xCE, 0xEB)
@@ -3165,7 +3166,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             % (CURRENT_MONTH, MONTH_FIRSTDAY, NEXT_MONTH, MONTH_AFTER_NEXT, TARGET_MONTH_SELECT, SP500, DOW, NASDAQ, WTI))
         
         # 위젯 초기화
-        self.textBrowser.setStyleSheet("background-color: black; color: lawngreen")
+        self.textBrowser.setStyleSheet("background-color: black; color: springgreen")
         '''
         self.pushButton_start.setStyleSheet('QPushButton {background-color: white; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                             QPushButton:hover {background-color: black; color: white} \
@@ -14927,10 +14928,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')        
 
-        # 옵션 등가 등락율 scale factor setting        
+        # 옵션 등가 등락율 scale factor setting
+        '''        
         item = QTableWidgetItem("{0}".format(drate_scale_factor))
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(2, Futures_column.OI.value, item)       
+        '''
 
         # 코스피지수 조회
         XQ = t1514(parent=self)
@@ -21922,7 +21925,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    if result['저가지수'] != self.tableWidget_fut.item(2, Futures_column.저가.value).text():
+                    if not NightTime and result['저가지수'] != self.tableWidget_fut.item(2, Futures_column.저가.value).text():
 
                         flag_kp200_low = True
 
@@ -21953,7 +21956,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    if result['고가지수'] != self.tableWidget_fut.item(2, Futures_column.고가.value).text():
+                    if not NightTime and result['고가지수'] != self.tableWidget_fut.item(2, Futures_column.고가.value).text():
 
                         flag_kp200_high = True
 
@@ -35909,7 +35912,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
             self.setWindowTitle("SkyBot ver1.0")
 
-            self.textBrowser.setStyleSheet("background-color: black; color: lawngreen")
+            self.textBrowser.setStyleSheet("background-color: black; color: springgreen")
             self.textBrowser.append('Welcome to SkyBot\r')
             '''
             if TARGET_MONTH_SELECT == 'CM':
@@ -35983,7 +35986,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.setWindowTitle("SkyBot ver1.0")
 
-            self.textBrowser.setStyleSheet("background-color: black; color: lawngreen")
+            self.textBrowser.setStyleSheet("background-color: black; color: springgreen")
             self.textBrowser.append('Welcome to SkyBot\r')
             '''
             if TARGET_MONTH_SELECT == 'CM':
