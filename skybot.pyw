@@ -112,6 +112,7 @@ screen_info = None
 풋등락율 = 0
 
 drate_scale_factor = 1
+plot_drate_scale_factor = 1
 
 선물_전일종가 = 0
 
@@ -3772,9 +3773,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setForeground(QBrush(흰색))
         self.tableWidget_fut.setItem(2, Futures_column.OI.value, item)
 
-        # 등락율 scale factor 입력을 받기위한 이벤트슬롯
-        self.tableWidget_fut.cellClicked.connect(self.fut_cell_clicked)
-
         # Quote tablewidget 초기화
         self.tableWidget_quote.setRowCount(1)
         self.tableWidget_quote.setColumnCount(Quote_column.미결종합.value)
@@ -4331,27 +4329,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         selected_put.sort()
 
         print('selected_put =', selected_put)
-
-    @pyqtSlot()
-    def fut_cell_clicked(self):
-
-        global drate_scale_factor
-
-        dt = datetime.datetime.now()
-
-        try:
-            self.cell = self.tableWidget_fut.currentItem()
-            self.triggered = self.cell.text()
-            
-            if int(self.triggered) != drate_scale_factor:
-                drate_scale_factor = int(self.triggered)
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 등락율 scale factor = {3:.1f} 으로 수정되었습니다.\r'.format(dt.hour, dt.minute, dt.second, drate_scale_factor)
-                self.textBrowser.append(txt)
-            else:
-                pass 
-        except:
-            pass
-            
+    
     # Xing 관리자모드 실행 체크함수
     def XingAdminCheck(self):
 
@@ -4890,6 +4868,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     @pyqtSlot(int, int)
     def futtable_cell_clicked(self, row, col):
+
+        dt = datetime.datetime.now()
         
         cell = self.tableWidget_fut.item(row, col)
 
@@ -4899,6 +4879,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if cell is not None:
 
             global 콜매수, 콜매도, 풋매수, 풋매도, 손절, 익절
+            global drate_scale_factor
             
             fut_txt = cell.text()
 
@@ -5008,6 +4989,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.textBrowser.append(txt)
             elif row == 2 and col == Futures_column.OI.value:
                 pass
+                '''
+                if int(fut_txt) != drate_scale_factor:
+                    drate_scale_factor = int(fut_txt)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 등락율 scale factor = {3:.1f} 으로 수정되었습니다.\r'.format(dt.hour, dt.minute, dt.second, drate_scale_factor)
+                    self.textBrowser.append(txt)
+                else:
+                    pass
+                '''
             else:
                 pass
 
@@ -11745,6 +11734,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_futures_ohlc_open
         global df_futures_graph
         global flag_call_strong, flag_put_strong
+        global plot_drate_scale_factor
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -11769,6 +11759,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         fut_time = dt.hour * 3600 + dt.minute * 60 + dt.second        
         
         #print('fut_first_arrive_time = {0}, flag_first_arrive = {1}, market_service = {2}\r'.format(fut_first_arrive_time, flag_first_arrive, market_service))
+
+        if 선물_등락율 != 0:
+            plot_drate_scale_factor = int(abs(콜등락율 / 선물_등락율))
+
+            item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_fut.setItem(2, Futures_column.OI.value, item)
+        else:
+            pass
         
         if not flag_first_arrive:
             fut_first_arrive_time = fut_time
@@ -12615,7 +12614,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if not NightTime and index == atm_index:
             콜등락율 = result['등락율']
-            df_call_total_graph.at[ovc_x_idx, 'drate'] = result['등락율']
+            df_call_total_graph.at[ovc_x_idx, 'drate'] = 콜등락율
         else:
             pass
         
@@ -13715,7 +13714,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         if not NightTime and index == atm_index:
             풋등락율 = result['등락율']
-            df_put_total_graph.at[ovc_x_idx, 'drate'] = result['등락율']
+            df_put_total_graph.at[ovc_x_idx, 'drate'] = 풋등락율
         else:
             pass
         
@@ -31592,25 +31591,25 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex1 == 5 and market_service:
 
-                txt = " {0:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'drate'])
+                txt = " {0:.2f} ".format(DOW_등락율)
                 self.label_15.setStyleSheet('background-color: lime ; color: black')
                 self.label_15.setText(txt)
 
-                txt = " {0:.2f} ".format(df_put_total_graph.at[ovc_x_idx, 'drate'])
+                txt = " {0:.2f} ".format(풋등락율)
                 self.label_16.setStyleSheet('background-color: blue ; color: white')
                 self.label_16.setText(txt)
 
-                txt = " {0:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'drate'])
+                txt = " {0:.2f} ".format(선물_등락율)
                 self.label_17.setStyleSheet('background-color: yellow ; color: black')
                 self.label_17.setText(txt)
 
-                txt = " {0:.2f} ".format(df_call_total_graph.at[ovc_x_idx, 'drate'])
+                txt = " {0:.2f} ".format(콜등락율)
                 self.label_18.setStyleSheet('background-color: red ; color: white')
                 self.label_18.setText(txt)
                 
-                plot1_dow_drate_curve.setData(df_dow_graph['drate'])
+                plot1_dow_drate_curve.setData(plot_drate_scale_factor * df_dow_graph['drate'])
                 plot1_put_drate_curve.setData(df_put_total_graph['drate'])
-                plot1_fut_drate_curve.setData(df_futures_graph['drate'])
+                plot1_fut_drate_curve.setData(plot_drate_scale_factor * df_futures_graph['drate'])
                 plot1_call_drate_curve.setData(df_call_total_graph['drate'])                
 
             elif comboindex1 == 6 and market_service:
@@ -32352,25 +32351,25 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex2 == 5 and market_service:
 
-                txt = " {0:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'drate'])
+                txt = " {0:.2f} ".format(DOW_등락율)
                 self.label_25.setStyleSheet('background-color: lime ; color: black')
                 self.label_25.setText(txt)
 
-                txt = " {0:.2f} ".format(df_put_total_graph.at[ovc_x_idx, 'drate'])
+                txt = " {0:.2f} ".format(풋등락율)
                 self.label_26.setStyleSheet('background-color: blue ; color: white')
                 self.label_26.setText(txt)
 
-                txt = " {0:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'drate'])
+                txt = " {0:.2f} ".format(선물_등락율)
                 self.label_27.setStyleSheet('background-color: yellow ; color: black')
                 self.label_27.setText(txt)
 
-                txt = " {0:.2f} ".format(df_call_total_graph.at[ovc_x_idx, 'drate'])
+                txt = " {0:.2f} ".format(콜등락율)
                 self.label_28.setStyleSheet('background-color: red ; color: white')
                 self.label_28.setText(txt)
                 
-                plot2_dow_drate_curve.setData(df_dow_graph['drate'])
+                plot2_dow_drate_curve.setData(plot_drate_scale_factor * df_dow_graph['drate'])
                 plot2_put_drate_curve.setData(df_put_total_graph['drate'])
-                plot2_fut_drate_curve.setData(df_futures_graph['drate'])
+                plot2_fut_drate_curve.setData(plot_drate_scale_factor * df_futures_graph['drate'])
                 plot2_call_drate_curve.setData(df_call_total_graph['drate'])
 
             elif comboindex2 == 6 and market_service:
@@ -33052,25 +33051,25 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex3 == 5 and market_service:
 
-                txt = " {0:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'drate'])
+                txt = " {0:.2f} ".format(DOW_등락율)
                 self.label_35.setStyleSheet('background-color: lime ; color: black')
                 self.label_35.setText(txt)
 
-                txt = " {0:.2f} ".format(df_put_total_graph.at[ovc_x_idx, 'drate'])
+                txt = " {0:.2f} ".format(풋등락율)
                 self.label_36.setStyleSheet('background-color: blue ; color: white')
                 self.label_36.setText(txt)
 
-                txt = " {0:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'drate'])
+                txt = " {0:.2f} ".format(선물_등락율)
                 self.label_37.setStyleSheet('background-color: yellow ; color: black')
                 self.label_37.setText(txt)
 
-                txt = " {0:.2f} ".format(df_call_total_graph.at[ovc_x_idx, 'drate'])
+                txt = " {0:.2f} ".format(콜등락율)
                 self.label_38.setStyleSheet('background-color: red ; color: white')
                 self.label_38.setText(txt)
                 
-                plot3_dow_drate_curve.setData(df_dow_graph['drate'])
+                plot3_dow_drate_curve.setData(plot_drate_scale_factor * df_dow_graph['drate'])
                 plot3_put_drate_curve.setData(df_put_total_graph['drate'])
-                plot3_fut_drate_curve.setData(df_futures_graph['drate'])
+                plot3_fut_drate_curve.setData(plot_drate_scale_factor * df_futures_graph['drate'])
                 plot3_call_drate_curve.setData(df_call_total_graph['drate'])
 
             elif comboindex3 == 6 and market_service:
@@ -33750,25 +33749,25 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex4 == 5 and market_service:
 
-                txt = " {0:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'drate'])
+                txt = " {0:.2f} ".format(DOW_등락율)
                 self.label_45.setStyleSheet('background-color: lime ; color: black')
                 self.label_45.setText(txt)
 
-                txt = " {0:.2f} ".format(df_put_total_graph.at[ovc_x_idx, 'drate'])
+                txt = " {0:.2f} ".format(풋등락율)
                 self.label_46.setStyleSheet('background-color: blue ; color: white')
                 self.label_46.setText(txt)
 
-                txt = " {0:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'drate'])
+                txt = " {0:.2f} ".format(선물_등락율)
                 self.label_47.setStyleSheet('background-color: yellow ; color: black')
                 self.label_47.setText(txt)
 
-                txt = " {0:.2f} ".format(df_call_total_graph.at[ovc_x_idx, 'drate'])
+                txt = " {0:.2f} ".format(콜등락율)
                 self.label_48.setStyleSheet('background-color: red ; color: white')
                 self.label_48.setText(txt)
                 
-                plot4_dow_drate_curve.setData(df_dow_graph['drate'])
+                plot4_dow_drate_curve.setData(plot_drate_scale_factor * df_dow_graph['drate'])
                 plot4_put_drate_curve.setData(df_put_total_graph['drate'])
-                plot4_fut_drate_curve.setData(df_futures_graph['drate'])
+                plot4_fut_drate_curve.setData(plot_drate_scale_factor * df_futures_graph['drate'])
                 plot4_call_drate_curve.setData(df_call_total_graph['drate'])
 
             elif comboindex4 == 6 and market_service:
@@ -34510,25 +34509,25 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex5 == 5 and market_service:
 
-                txt = " {0:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'drate'])
+                txt = " {0:.2f} ".format(DOW_등락율)
                 self.label_55.setStyleSheet('background-color: lime ; color: black')
                 self.label_55.setText(txt)
 
-                txt = " {0:.2f} ".format(df_put_total_graph.at[ovc_x_idx, 'drate'])
+                txt = " {0:.2f} ".format(풋등락율)
                 self.label_56.setStyleSheet('background-color: blue ; color: white')
                 self.label_56.setText(txt)
 
-                txt = " {0:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'drate'])
+                txt = " {0:.2f} ".format(선물_등락율)
                 self.label_57.setStyleSheet('background-color: yellow ; color: black')
                 self.label_57.setText(txt)
 
-                txt = " {0:.2f} ".format(df_call_total_graph.at[ovc_x_idx, 'drate'])
+                txt = " {0:.2f} ".format(콜등락율)
                 self.label_58.setStyleSheet('background-color: red ; color: white')
                 self.label_58.setText(txt)
                 
-                plot5_dow_drate_curve.setData(df_dow_graph['drate'])
+                plot5_dow_drate_curve.setData(plot_drate_scale_factor * df_dow_graph['drate'])
                 plot5_put_drate_curve.setData(df_put_total_graph['drate'])
-                plot5_fut_drate_curve.setData(df_futures_graph['drate'])
+                plot5_fut_drate_curve.setData(plot_drate_scale_factor * df_futures_graph['drate'])
                 plot5_call_drate_curve.setData(df_call_total_graph['drate'])
 
             elif comboindex5 == 6 and market_service:
@@ -35207,25 +35206,25 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex6 == 5 and market_service:
 
-                txt = " {0:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'drate'])
+                txt = " {0:.2f} ".format(DOW_등락율)
                 self.label_65.setStyleSheet('background-color: lime ; color: black')
                 self.label_65.setText(txt)
 
-                txt = " {0:.2f} ".format(df_put_total_graph.at[ovc_x_idx, 'drate'])
+                txt = " {0:.2f} ".format(풋등락율)
                 self.label_66.setStyleSheet('background-color: blue ; color: white')
                 self.label_66.setText(txt)
 
-                txt = " {0:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'drate'])
+                txt = " {0:.2f} ".format(선물_등락율)
                 self.label_67.setStyleSheet('background-color: yellow ; color: black')
                 self.label_67.setText(txt)
 
-                txt = " {0:.2f} ".format(df_call_total_graph.at[ovc_x_idx, 'drate'])
+                txt = " {0:.2f} ".format(콜등락율)
                 self.label_68.setStyleSheet('background-color: red ; color: white')
                 self.label_68.setText(txt)
                 
-                plot6_dow_drate_curve.setData(df_dow_graph['drate'])
+                plot6_dow_drate_curve.setData(plot_drate_scale_factor * df_dow_graph['drate'])
                 plot6_put_drate_curve.setData(df_put_total_graph['drate'])
-                plot6_fut_drate_curve.setData(df_futures_graph['drate'])
+                plot6_fut_drate_curve.setData(plot_drate_scale_factor * df_futures_graph['drate'])
                 plot6_call_drate_curve.setData(df_call_total_graph['drate'])
 
             elif comboindex6 == 6 and market_service:
