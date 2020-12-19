@@ -2247,8 +2247,9 @@ flag_option_pair_full = False
 fut_avg_noise_ratio = 1
 k_value = 0
 
-quote_energy_direction = ''
-volume_power_energy_direction = ''
+flag_fut_dow_drate_energy_direction = ''
+fut_quote_energy_direction = ''
+fut_volume_power_energy_direction = ''
 
 scoreboard_update_interval = 500
 plot_update_interval = 500
@@ -6745,7 +6746,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if abs(콜대비_퍼센트_평균/풋대비_퍼센트_평균) >= ASYM_RATIO:
                 
-                if abs(콜대비_퍼센트_평균/풋대비_퍼센트_평균) >= ONEWAY_RATIO and abs(선물_등락율) > abs(DOW_등락율):
+                if abs(콜대비_퍼센트_평균/풋대비_퍼센트_평균) >= ONEWAY_RATIO and flag_fut_dow_drate_energy_direction:
 
                     # 콜 원웨이(원웨이장은 플래그 세팅을 나중에 해줌 --> 발생시각 표시를 위해)
                     call_ms_oneway = True
@@ -6898,7 +6899,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif abs(풋대비_퍼센트_평균/콜대비_퍼센트_평균) >= ASYM_RATIO:
 
-                if abs(풋대비_퍼센트_평균/콜대비_퍼센트_평균) >= ONEWAY_RATIO and abs(선물_등락율) > abs(DOW_등락율):
+                if abs(풋대비_퍼센트_평균/콜대비_퍼센트_평균) >= ONEWAY_RATIO and flag_fut_dow_drate_energy_direction:
 
                     # 풋 원웨이(원웨이장은 플래그 세팅을 나중에 해줌 --> 발생시각 표시를 위해)
                     call_ms_oneway = False
@@ -11183,6 +11184,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global df_futures_graph
         global flag_call_strong, flag_put_strong
         global plot_drate_scale_factor
+        global flag_fut_dow_drate_energy_direction
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -11209,6 +11211,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #print('fut_first_arrive_time = {0}, flag_first_arrive = {1}, market_service = {2}\r'.format(fut_first_arrive_time, flag_first_arrive, market_service))
 
         if 선물_등락율 != 0:
+
+            if abs(선물_등락율) > abs(DOW_등락율):
+                flag_fut_dow_drate_energy_direction = True
+            else:
+                flag_fut_dow_drate_energy_direction = False
+
             plot_drate_scale_factor = int(abs(콜등락율 / 선물_등락율))
 
             item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
@@ -11459,7 +11467,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             self.tableWidget_fut.resizeColumnToContents(Futures_column.현재가.value)
             
-            if quote_energy_direction == 'call':
+            if fut_quote_energy_direction == 'call':
 
                 if NightTime:
                     self.tableWidget_fut.item(0, 0).setBackground(QBrush(적색))
@@ -11468,7 +11476,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_fut.item(1, 0).setBackground(QBrush(적색))
                     self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
 
-            elif quote_energy_direction == 'put':
+            elif fut_quote_energy_direction == 'put':
 
                 if NightTime:
                     self.tableWidget_fut.item(0, 0).setBackground(QBrush(청색))
@@ -11493,12 +11501,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(선물_대비, 선물_등락율))
             item.setTextAlignment(Qt.AlignCenter)
 
-            if 선물_등락율 > 0 and DOW_등락율 > 0 and abs(선물_등락율) > abs(DOW_등락율):
+            if 선물_등락율 > 0 and DOW_등락율 > 0 and flag_fut_dow_drate_energy_direction:
 
                 item.setBackground(QBrush(pink))
                 item.setForeground(QBrush(검정색))
 
-            elif 선물_등락율 < 0 and DOW_등락율 < 0 and abs(선물_등락율) > abs(DOW_등락율):
+            elif 선물_등락율 < 0 and DOW_등락율 < 0 and flag_fut_dow_drate_energy_direction:
 
                 item.setBackground(QBrush(lightskyblue))
                 item.setForeground(QBrush(검정색))
@@ -11528,14 +11536,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 종합 에너지방향 표시
             if TARGET_MONTH_SELECT == 'CM' and not NightTime:
 
-                if abs(선물_등락율) > abs(DOW_등락율) and quote_energy_direction == 'call' and volume_power_energy_direction == 'call':
+                if flag_fut_dow_drate_energy_direction and fut_quote_energy_direction == 'call' and fut_volume_power_energy_direction == 'call':
 
                     item = QTableWidgetItem("CS")
                     item.setBackground(QBrush(red))
                     item.setForeground(QBrush(흰색))
                     flag_call_strong = True
 
-                elif abs(선물_등락율) > abs(DOW_등락율) and quote_energy_direction == 'put' and volume_power_energy_direction == 'put':
+                elif flag_fut_dow_drate_energy_direction and fut_quote_energy_direction == 'put' and fut_volume_power_energy_direction == 'put':
 
                     item = QTableWidgetItem("PS")
                     item.setBackground(QBrush(blue))
@@ -20073,8 +20081,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             global receive_real_ovc, ovc_x_idx, old_ovc_x_idx
             global flag_option_start
-            global quote_energy_direction            
-            global fut_nm_volume_power, volume_power_energy_direction
+            global fut_quote_energy_direction            
+            global fut_nm_volume_power, fut_volume_power_energy_direction
                         
             start_time = timeit.default_timer()
 
@@ -22021,11 +22029,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
 
                     if fut_cm_volume_power > 0 and fut_nm_volume_power > 0:
-                        volume_power_energy_direction = 'call'
+                        fut_volume_power_energy_direction = 'call'
                     elif fut_cm_volume_power < 0 and fut_nm_volume_power < 0:
-                        volume_power_energy_direction = 'put'
+                        fut_volume_power_energy_direction = 'put'
                     else:
-                        volume_power_energy_direction = ''        
+                        fut_volume_power_energy_direction = ''        
                 else:
                     pass
 
@@ -22364,14 +22372,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if not NightTime:
                     if TARGET_MONTH_SELECT == 'CM':
                         if fut_cms_hoga_rr > fut_hoga_rr:
-                            quote_energy_direction = 'call'
+                            fut_quote_energy_direction = 'call'
                         else:
-                            quote_energy_direction = 'put'
+                            fut_quote_energy_direction = 'put'
                     elif TARGET_MONTH_SELECT == 'NM':
                         if fut_cms_hoga_rr > 1.0:
-                            quote_energy_direction = 'call'
+                            fut_quote_energy_direction = 'call'
                         else:
-                            quote_energy_direction = 'put'
+                            fut_quote_energy_direction = 'put'
                     else:
                         pass
                 else:
@@ -30985,9 +30993,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     fut_cms_hoga_rr, df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
 
-                if quote_energy_direction == 'call':
+                if fut_quote_energy_direction == 'call':
                     self.label_17.setStyleSheet('background-color: red ; color: white')
-                elif quote_energy_direction == 'put':
+                elif fut_quote_energy_direction == 'put':
                     self.label_17.setStyleSheet('background-color: blue ; color: white')
                 else:
                     self.label_17.setStyleSheet('background-color: yellow ; color: black')
@@ -31806,9 +31814,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     fut_cms_hoga_rr, df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
 
-                if quote_energy_direction == 'call':
+                if fut_quote_energy_direction == 'call':
                     self.label_27.setStyleSheet('background-color: red ; color: white')
-                elif quote_energy_direction == 'put':
+                elif fut_quote_energy_direction == 'put':
                     self.label_27.setStyleSheet('background-color: blue ; color: white')
                 else:
                     self.label_27.setStyleSheet('background-color: yellow ; color: black')
@@ -32528,9 +32536,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     fut_cms_hoga_rr, df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
 
-                if quote_energy_direction == 'call':
+                if fut_quote_energy_direction == 'call':
                     self.label_37.setStyleSheet('background-color: red ; color: white')
-                elif quote_energy_direction == 'put':
+                elif fut_quote_energy_direction == 'put':
                     self.label_37.setStyleSheet('background-color: blue ; color: white')
                 else:
                     self.label_37.setStyleSheet('background-color: yellow ; color: black')
@@ -33207,9 +33215,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     fut_cms_hoga_rr, df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
 
-                if quote_energy_direction == 'call':
+                if fut_quote_energy_direction == 'call':
                     self.label_47.setStyleSheet('background-color: red ; color: white')
-                elif quote_energy_direction == 'put':
+                elif fut_quote_energy_direction == 'put':
                     self.label_47.setStyleSheet('background-color: blue ; color: white')
                 else:
                     self.label_47.setStyleSheet('background-color: yellow ; color: black')
@@ -34028,9 +34036,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     fut_cms_hoga_rr, df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
 
-                if quote_energy_direction == 'call':
+                if fut_quote_energy_direction == 'call':
                     self.label_57.setStyleSheet('background-color: red ; color: white')
-                elif quote_energy_direction == 'put':
+                elif fut_quote_energy_direction == 'put':
                     self.label_57.setStyleSheet('background-color: blue ; color: white')
                 else:
                     self.label_57.setStyleSheet('background-color: yellow ; color: black')
@@ -34747,9 +34755,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     fut_cms_hoga_rr, df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
 
-                if quote_energy_direction == 'call':
+                if fut_quote_energy_direction == 'call':
                     self.label_67.setStyleSheet('background-color: red ; color: white')
-                elif quote_energy_direction == 'put':
+                elif fut_quote_energy_direction == 'put':
                     self.label_67.setStyleSheet('background-color: blue ; color: white')
                 else:
                     self.label_67.setStyleSheet('background-color: yellow ; color: black')
