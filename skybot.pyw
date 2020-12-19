@@ -3893,13 +3893,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}번째 화면을 캡처했습니다.\r'.format(now.tm_hour, now.tm_min, now.tm_sec, num)
                 self.textBrowser.append(txt)
-                print(txt)    
-
-    def timeout(self):
-        
-        dt = datetime.datetime.now()
-        txt = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
-        self.label_main_time.setText(txt)
+                print(txt)
 
     def checkBox_HS_checkState(self):
 
@@ -3907,11 +3901,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global main_ui_update_interval, plot_update_interval  
 
         dt = datetime.datetime.now()
+        '''
         now = time.localtime()
-
         times = "%04d-%02d-%02d-%02d-%02d-%02d" % \
                 (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
-
+        '''
         if self.checkBox_HS.isChecked() == True:
 
             flag_checkBox_HS = True
@@ -4950,13 +4944,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global call_plot_data, put_plot_data, centerval_plot_data
         global SP500_당일종가, DOW_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가, GOLD_당일종가 
-        global flag_logfile, flag_broken_capture  
+        global flag_logfile, flag_broken_capture 
+
+        dt = datetime.datetime.now() 
 
         try:
             flag_screen_update_is_running = True
 
             start_time = timeit.default_timer()            
-            dt = datetime.datetime.now()
+            
             current_str = dt.strftime('%H:%M:%S')
 
             self.alternate_flag = not self.alternate_flag
@@ -6177,7 +6173,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def call_low_node_coloring(self):
 
         dt = datetime.datetime.now()
-
         start_time = timeit.default_timer()
         
         self.call_node_color_clear()
@@ -6194,7 +6189,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def call_high_node_coloring(self):
 
         dt = datetime.datetime.now()
-
         start_time = timeit.default_timer()
                
         self.call_node_color_clear() 
@@ -6245,7 +6239,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def put_low_node_coloring(self):
 
         dt = datetime.datetime.now()
-
         start_time = timeit.default_timer()
              
         self.put_node_color_clear()        
@@ -6262,7 +6255,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def put_high_node_coloring(self):
 
         dt = datetime.datetime.now()
-
         start_time = timeit.default_timer()
             
         self.put_node_color_clear()        
@@ -6285,7 +6277,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global refresh_coloring
 
         dt = datetime.datetime.now()
-
         start_time = timeit.default_timer()
 
         node_coloring = True
