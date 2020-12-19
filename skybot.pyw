@@ -14369,55 +14369,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 #self.pushButton_start.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.pushButton_start.setText(' Starting... ')
 
-                item = QTableWidgetItem("{0}".format('-'))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(검정색))
-                item.setForeground(QBrush(흰색))
-                self.tableWidget_fut.setItem(2, Futures_column.매수건수.value, item)
-
-                item = QTableWidgetItem("{0}".format('-'))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(검정색))
-                item.setForeground(QBrush(흰색))
-                self.tableWidget_fut.setItem(2, Futures_column.매도건수.value, item)
-
-                item = QTableWidgetItem("{0}".format('-'))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(검정색))
-                item.setForeground(QBrush(흰색))
-                self.tableWidget_fut.setItem(2, Futures_column.매수잔량.value, item)
-
-                item = QTableWidgetItem("{0}".format('-'))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(검정색))
-                item.setForeground(QBrush(흰색))
-                self.tableWidget_fut.setItem(2, Futures_column.매도잔량.value, item)
-
-                item = QTableWidgetItem("{0}".format('-'))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(검정색))
-                item.setForeground(QBrush(흰색))
-                self.tableWidget_fut.setItem(2, Futures_column.건수비.value, item)
-
-                item = QTableWidgetItem("{0}".format('-'))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(검정색))
-                item.setForeground(QBrush(흰색))
-                self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)
-
+                txt = '[{0:02d}:{1:02d}:{2:02d}] t8432 지수선물 마스터 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
+                
                 # 지수선물 마스터조회 API용
                 XQ = t8432(parent=self)
                 XQ.Query(구분='F')
-
-                txt = '[{0:02d}:{1:02d}:{2:02d}] t8432 지수선물 마스터 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                
+                txt = '[{0:02d}:{1:02d}:{2:02d}] t8433 지수옵션 마스터 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
                 
                 # 지수옵션 마스터조회 API용
                 XQ = t8433(parent=self)
                 XQ.Query()
-
-                txt = '[{0:02d}:{1:02d}:{2:02d}] t8433 지수옵션 마스터 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(txt)
 
                 QTest.qWait(500)                
             else:
@@ -15272,7 +15236,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 callche_result = []
                 putche_result = []
-
+                '''
                 if NightTime:
                     timespan = yagan_timespan
                 else:
@@ -15286,9 +15250,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         ['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'ms_hoga', 'md_hoga', 'open_interest', 'oi_delta'])
                     df_put_graph[i] = DataFrame(index=range(0, timespan), columns=\
                         ['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'ms_hoga', 'md_hoga', 'open_interest', 'oi_delta'])
-
-                #df_call_price_graph = DataFrame(index=range(0, timespan), columns=range(0, option_pairs_count))
-                #df_put_price_graph = DataFrame(index=range(0, timespan), columns=range(0, option_pairs_count))
+                
                 df_call_total_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'volume', 'open_interest', 'ms_hoga', 'md_hoga', 'hoga_remainder_ratio', 'drate', 'centerval'])
                 df_put_total_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'volume', 'open_interest', 'ms_hoga', 'md_hoga', 'hoga_remainder_ratio', 'drate', 'yanghap'])
 
@@ -15312,7 +15274,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
                 df_gold_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga_remainder_ratio', 'drate', \
                     'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
-
+                '''
                 # 콜처리
                 for i in range(option_pairs_count):
 
@@ -19806,21 +19768,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_nm_put.at[i - nm_put_count, '전일저가'] = df['전일저가'][i]
                 else:
                     pass
-            
-            #print('nm call code = {0}\r'.format(nm_call_code))
-            #print('nm put code = {0}\r'.format(nm_put_code)) 
 
             cm_opt_length = len(cm_call_code)
             nm_opt_length = len(nm_call_code)
 
             CM_OPTCODE = cm_call_code[0][3:5]
             NM_OPTCODE = nm_call_code[0][3:5]
-
+            '''
             print('df cm call = {0}\r'.format(df_cm_call))
             print('df cm put = {0}\r'.format(df_cm_put))
             print('df nm call = {0}\r'.format(df_nm_call))
             print('df nm put = {0}\r'.format(df_nm_put))
-
+            '''
             txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 옵션크기 = {4}\r'.format(dt.hour, dt.minute, dt.second, CM_OPTCODE, cm_opt_length)
             self.textBrowser.append(txt)
             print(txt) 
@@ -19828,6 +19787,48 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 옵션크기 = {4}\r'.format(dt.hour, dt.minute, dt.second, NM_OPTCODE, nm_opt_length)
             self.textBrowser.append(txt)
             print(txt)
+
+            # 그래프를 위한 데이타프레임 생성
+            if NightTime:
+                timespan = yagan_timespan
+            else:
+                timespan = jugan_timespan
+
+            if TARGET_MONTH_SELECT == 'CM':
+                option_pairs_count = cm_opt_length
+            elif TARGET_MONTH_SELECT == 'NM':
+                option_pairs_count = nm_opt_length
+
+            for i in range(option_pairs_count):
+
+                opt_total_list.append(i)
+
+                df_call_graph[i] = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'ms_hoga', 'md_hoga', 'open_interest', 'oi_delta'])
+                df_put_graph[i] = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'ms_hoga', 'md_hoga', 'open_interest', 'oi_delta'])
+            
+            df_call_total_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'volume', 'open_interest', 'ms_hoga', 'md_hoga', 'hoga_remainder_ratio', 'drate', 'centerval'])
+            df_put_total_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'volume', 'open_interest', 'ms_hoga', 'md_hoga', 'hoga_remainder_ratio', 'drate', 'yanghap'])
+
+            df_kp200_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle'])
+            df_futures_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'kp200', \
+                'c_ms_hoga', 'c_md_hoga', 'c_hoga_remainder_ratio', 'n_ms_hoga', 'n_md_hoga', 'n_hoga_remainder_ratio', \
+                    'drate', 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', \
+                    'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
+
+            df_sp500_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga_remainder_ratio', 'drate', \
+                'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA',  'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
+            df_dow_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga_remainder_ratio', 'drate', \
+                'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
+            df_nasdaq_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga_remainder_ratio', 'drate', \
+                'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
+            df_wti_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga_remainder_ratio', 'drate', \
+                'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
+            df_eurofx_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga_remainder_ratio', 'drate', \
+                'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
+            df_hangseng_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga_remainder_ratio', 'drate', \
+                'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
+            df_gold_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga_remainder_ratio', 'drate', \
+                'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
 
         elif szTrCode == 'o3126':
 
