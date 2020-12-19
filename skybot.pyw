@@ -18745,7 +18745,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass                
                 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
                 print(txt)
 
@@ -20206,7 +20206,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.screen_update_worker.daemon = True
                         self.screen_update_worker.start()
 
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
                         print(txt)
                         
