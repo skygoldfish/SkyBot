@@ -15352,7 +15352,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 item.setForeground(QBrush(검정색))
                         else:
-                            pass
+                            item.setForeground(QBrush(검정색))
 
                     self.tableWidget_call.setItem(i, Option_column.현재가.value, item)
 
@@ -15686,7 +15686,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 item.setForeground(QBrush(검정색))
                         else:
-                            pass
+                            item.setForeground(QBrush(검정색))
 
                     self.tableWidget_put.setItem(i, Option_column.현재가.value, item)
 
