@@ -2250,7 +2250,7 @@ k_value = 0
 quote_energy_direction = ''
 volume_power_energy_direction = ''
 
-main_ui_update_interval = 500
+scoreboard_update_interval = 500
 plot_update_interval = 500
 
 flag_produce_queue_empty = True
@@ -2395,7 +2395,7 @@ class screen_update_worker(QThread):
 
             self.finished.emit(txt)
             #self.msleep(MAIN_UPDATE_INTERVAL)
-            QTest.qWait(main_ui_update_interval)    
+            QTest.qWait(scoreboard_update_interval)    
 ########################################################################################################################
 
 ########################################################################################################################
@@ -3898,7 +3898,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def checkBox_HS_checkState(self):
 
         global flag_checkBox_HS, flag_telegram_on
-        global main_ui_update_interval, plot_update_interval  
+        global scoreboard_update_interval, plot_update_interval  
 
         dt = datetime.datetime.now()
         '''
@@ -3910,7 +3910,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             flag_checkBox_HS = True
 
-            #main_ui_update_interval = 1000
+            #scoreboard_update_interval = 1000
             plot_update_interval = 1000
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 화면갱신주기를 0.5초 --> 1초로 늘립니다.\r'.format(adj_hour, adj_min, adj_sec)
@@ -3951,7 +3951,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             flag_checkBox_HS = False
 
-            #main_ui_update_interval = 500
+            #scoreboard_update_interval = 500
             plot_update_interval = 500
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 화면갱신주기를 0.5초로 복구합니다.\r'.format(adj_hour, adj_min, adj_sec)
