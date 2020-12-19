@@ -93,8 +93,6 @@ os_type = platform.platform()
 print('\r')
 print('OS 유형 :', os_type)
 
-flag_big_chart_closed = False
-
 flag_internet_connection_broken = False
 flag_service_provider_broken = False
 flag_broken_capture = False
@@ -3094,7 +3092,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         super(화면_선물옵션전광판, self).\
             __init__(parent, flags = Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
-        self.setAttribute(Qt.WA_DeleteOnClose)        
+        #self.setAttribute(Qt.WA_DeleteOnClose)
+        self.setAttribute(Qt.WA_DeleteOnClose, True)        
 
         self.parent = parent
         
@@ -3102,7 +3101,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #self.setModal(False)
         self.setupUi(self)
 
-        self.flag_screen_board_open = True        
+        self.flag_score_board_open = True        
         
         global TARGET_MONTH_SELECT, MONTH_FIRSTDAY
         global widget_title, CURRENT_MONTH, NEXT_MONTH, MONTH_AFTER_NEXT, SP500, DOW, NASDAQ, fut_code
@@ -5530,13 +5529,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
                 
                 # 모든 쓰레드를 중지시킨다.
-                self.telegram_send_worker.terminate()
-                self.telegram_listen_worker.terminate()
-                self.screen_update_worker.terminate()
-
-                self.real_data_worker.UnadviseRealDataAll()
-                QTest.qWait(100)
-                self.real_data_worker.terminate()                
+                self.KillScoreBoardThread()               
                 
                 flag_service_provider_broken = True
             else:
@@ -5604,13 +5597,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         file.close()
 
                         # 모든 쓰레드를 중지시킨다.
-                        self.telegram_send_worker.terminate()
-                        self.telegram_listen_worker.terminate()
-                        self.screen_update_worker.terminate()
-
-                        self.real_data_worker.UnadviseRealDataAll()
-                        QTest.qWait(100)
-                        self.real_data_worker.terminate()                                                                        
+                        self.KillScoreBoardThread()                                                                        
                     else:
                         pass            
             else:
@@ -6115,13 +6102,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             if not flag_offline:
                                 flag_offline = True
 
-                                self.screen_update_worker.terminate()
-                                self.telegram_send_worker.terminate()
-                                self.telegram_listen_worker.terminate()
-
-                                self.real_data_worker.UnadviseRealDataAll()
-                                QTest.qWait(100)
-                                self.real_data_worker.terminate()
+                                self.KillScoreBoardThread()
 
                                 self.parent.connection.disconnect()
                             else:
@@ -6156,13 +6137,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             if not flag_offline:
                                 flag_offline = True
 
-                                self.screen_update_worker.terminate()
-                                self.telegram_send_worker.terminate()
-                                self.telegram_listen_worker.terminate()
-
-                                self.real_data_worker.UnadviseRealDataAll()
-                                QTest.qWait(100)
-                                self.real_data_worker.terminate()
+                                self.KillScoreBoardThread()
                                                         
                                 self.parent.connection.disconnect()
                             else:
@@ -24462,25 +24437,33 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         except Exception as e:
             pass
 
-        flag_realdata_update_is_running = False                              
+        flag_realdata_update_is_running = False
+
+
     #####################################################################################################################################################################
-    def closeScreenBoard(self):
+    def KillScoreBoardThread(self):
+
+        dt = datetime.datetime.now()
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board의 모든 쓰레드를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
+        self.textBrowser.append(txt)
+        self.parent.textBrowser.append(txt)
 
         if self.screen_update_worker.isRunning():
             self.screen_update_worker.terminate()
-            print('screen_update_worker is terminated at closeScreenBoard...')
+            print('screen_update_worker is terminated at KillScoreBoardThread...')
         else:
             pass
 
         if self.telegram_send_worker.isRunning():
             self.telegram_send_worker.terminate()
-            print('telegram_send_worker is terminated at closeScreenBoard...')
+            print('telegram_send_worker is terminated at KillScoreBoardThread...')
         else:
             pass
 
         if self.telegram_listen_worker.isRunning():
             self.telegram_listen_worker.terminate()
-            print('telegram_listen_worker is terminated at closeScreenBoard...')
+            print('telegram_listen_worker is terminated at KillScoreBoardThread...')
         else:
             pass
 
@@ -24488,42 +24471,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.real_data_worker.UnadviseRealDataAll()
             QTest.qWait(100)
             self.real_data_worker.terminate()
-            print('real_data_worker is terminated at closeScreenBoard...')
+            print('real_data_worker is terminated at KillScoreBoardThread...')
         else:
             pass        
 
     def closeEvent(self,event):
 
-        #global flag_screen_board_closed
+        dt = datetime.datetime.now()
 
-        #flag_screen_board_closed = True
-        self.flag_screen_board_open = False
+        self.flag_score_board_open = False
+        self.KillScoreBoardThread()
 
-        #print('서버연결 해지...')
-        #self.parent.connection.disconnect()
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 종료합니다...\r'.format(dt.hour, dt.minute, dt.second)
+        self.parent.textBrowser.append(txt)
 
-        if self.screen_update_worker.isRunning():
-            self.screen_update_worker.terminate()
-        else:
-            pass
+        self.close()
 
-        if self.telegram_send_worker.isRunning():
-            self.telegram_send_worker.terminate()
-        else:
-            pass
-
-        if self.telegram_listen_worker.isRunning():
-            self.telegram_listen_worker.terminate()
-        else:
-            pass
-
-        if self.real_data_worker.isRunning():
-            self.real_data_worker.UnadviseRealDataAll()
-            QTest.qWait(100)
-            self.real_data_worker.terminate()
-            print('real_data_worker is terminated on the Score Board...')
-        else:
-            pass        
     '''
     @classmethod
     def test_classmethod(cls):
@@ -24534,7 +24497,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 #####################################################################################################################################################################
 # Big Chart Update Thread
 #####################################################################################################################################################################
-class bigchart_update_worker(QThread):
+class Bigchart_update_worker(QThread):
 
     finished = pyqtSignal(str)
 
@@ -24552,20 +24515,26 @@ class bigchart_update_worker(QThread):
 ########################################################################################################################
 Ui_BigChart, QtBaseClass_BigChart = uic.loadUiType(UI_DIR+"BigChart.ui")
 class 화면_BigChart(QDialog, Ui_BigChart):
-
-    bigchart = False   
     
     def __init__(self, parent=None):
 
         super(화면_BigChart, self).__init__(parent, flags = Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)     
-        self.setAttribute(Qt.WA_DeleteOnClose)
+        #self.setAttribute(Qt.WA_DeleteOnClose)
+        self.setAttribute(Qt.WA_DeleteOnClose, True)
+
         self.setupUi(self)
 
         self.parent = parent
-        화면_BigChart.bigchart = True
-
-        self.bigchart_update_worker = bigchart_update_worker()
-        self.bigchart_update_worker.finished.connect(self.update_bigchart)
+        self.flag_big_chart_open = True
+        
+        # 현재화면의 중앙에 표시
+        qr = self.frameGeometry()
+        qr.moveCenter(self.parent.centerPoint)
+        self.move(qr.topLeft())     
+        self.showNormal()  
+        
+        self.plot_update_worker = Bigchart_update_worker()
+        self.plot_update_worker.finished.connect(self.update_bigchart)
 
         self.comboBox1.setStyleSheet("background-color: lightgreen; color: black")
         self.comboBox2.setStyleSheet("background-color: lightgreen; color: black")
@@ -25613,8 +25582,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_time_line_jugan_start.setValue(GuardTime)
 
         # 쓰레드 시작...        
-        self.bigchart_update_worker.daemon = True
-        self.bigchart_update_worker.start()
+        self.plot_update_worker.daemon = True
+        self.plot_update_worker.start()
 
     #cross hair
     def plot1_mouseMoved(self, evt):
@@ -35967,13 +35936,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
     def closeEvent(self,event):
 
         global bc_ui_update_time
-        global flag_big_chart_closed
 
-        flag_big_chart_closed = True
-        화면_BigChart.bigchart = False
-        
-        self.bigchart_update_worker.terminate()
+        dt = datetime.datetime.now()
+
         bc_ui_update_time = 0
+        self.flag_big_chart_open = False
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Big Chart Dialog를 종료합니다...\r'.format(dt.hour, dt.minute, dt.second)
+        self.parent.textBrowser.append(txt)
+        
+        self.plot_update_worker.terminate()
+
+        self.close()
+        
 
 ########################################################################################################################
 # 메인
@@ -36045,10 +36020,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # 현재 커서가 위치한 화면정보
             스크린번호 = QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
             
-            centerPoint = QApplication.desktop().screenGeometry(스크린번호).center()
+            self.centerPoint = QApplication.desktop().screenGeometry(스크린번호).center()
             screen_info = QDesktopWidget().screenGeometry(스크린번호)
         
-            txt = '현재스크린 = {0}번, 화면해상도 = {1}x{2}, 중심좌표 X = {3}, Y = {4}\r'.format(스크린번호, screen_info.width(), screen_info.height(), centerPoint.x(), centerPoint.y())
+            txt = '현재스크린 = {0}번, 화면해상도 = {1}x{2}, 중심좌표 X = {3}, Y = {4}\r'.format(스크린번호, screen_info.width(), screen_info.height(), self.centerPoint.x(), self.centerPoint.y())
             self.textBrowser.append(txt)
             
             self.dialog = dict()
@@ -36076,6 +36051,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             Ui_MainWindow.__init__(self)
 
             #self.setWindowFlags(Qt.WindowStaysOnTopHint)
+            self.setAttribute(Qt.WA_DeleteOnClose, True)
+
             self.setupUi(self)
 
             self.setWindowTitle("SkyBot ver1.0")
@@ -36119,10 +36096,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # 현재 커서가 위치한 화면정보
             스크린번호 = QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
 
-            centerPoint = QApplication.desktop().screenGeometry(스크린번호).center()
+            self.centerPoint = QApplication.desktop().screenGeometry(스크린번호).center()
             screen_info = QDesktopWidget().screenGeometry(스크린번호)
 
-            txt = '현재스크린 = {0}번, 화면해상도 = {1}x{2}, 중심좌표 X = {3}, Y = {4}\r'.format(스크린번호, screen_info.width(), screen_info.height(), centerPoint.x(), centerPoint.y())
+            txt = '현재스크린 = {0}번, 화면해상도 = {1}x{2}, 중심좌표 X = {3}, Y = {4}\r'.format(스크린번호, screen_info.width(), screen_info.height(), self.centerPoint.x(), self.centerPoint.y())
             self.textBrowser.append(txt)
 
             self.dialog = dict()
@@ -36156,7 +36133,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         current = datetime.datetime.now()
         current_str = current.strftime('%H:%M:%S')
 
-        if current.second == 30: # 매 30초(1분 주기)
+        if current.second == 30: # 매 30초(1분 주기)            
 
             try:
                 if self.connection is not None:
@@ -36171,7 +36148,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         msg = "오프라인"
 
                     self.statusbar.showMessage(msg)
-                    
+                '''
+                # 자식 다이어로그가 살아있는지 체크                
+                if self.dialog.get('BigChart') is not None:
+
+                    if self.dialog['BigChart'].flag_big_chart_open:
+                        self.textBrowser.append('Big Chart Dialog is opened\r')
+                    else:
+                        self.textBrowser.append('Big Chart Dialog is closed\r')                                
+                else:
+                    self.textBrowser.append('Big Chart Dialog is not created\r')
+                '''  
             except Exception as e:
                 pass
 
@@ -36182,14 +36169,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         dt = datetime.datetime.now()
 
-        result = QMessageBox.question(self,"프로그램 종료","SkyBot을 종료하시겠습니까 ?", QMessageBox.Yes| QMessageBox.No)
+        result = QMessageBox.question(self,"프로그램 종료"," SkyBot을 종료하시겠습니까 ? ", QMessageBox.Yes| QMessageBox.No)
 
         if result == QMessageBox.Yes:
 
             event.accept()
 
-            if self.dialog['당월물옵션전광판'].flag_screen_board_open:
-                self.dialog['당월물옵션전광판'].closeScreenBoard()
+            if self.dialog['당월물옵션전광판'].flag_score_board_open:
+                # 정상종료를 위해 모든 쓰레드를 죽인다.
+                self.dialog['당월물옵션전광판'].KillScoreBoardThread()
             else:
                 print('해당 다이얼로그가 없습니다.')
 
@@ -36211,6 +36199,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
 
             self.clock.stop()
+            self.close()
         else:
             event.ignore()    
 
@@ -36307,8 +36296,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.dialog['당월물옵션전광판'] = 화면_선물옵션전광판(parent=self)
                 self.dialog['당월물옵션전광판'].show()
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 생성합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
             
-            # 옵션전광판 자동 시작                            
+            # 옵션전광판 자동시작                            
             if AUTO_START:
                 self.dialog['당월물옵션전광판'].RunCode()
             else:
@@ -36395,6 +36387,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     # ------------------------------------------------------------------------------------------------------------------
     def MENU_Action(self, qaction):
+
+        dt = datetime.datetime.now()
+
         logger.debug("Action Slot %s %s " % (qaction.objectName(), qaction.text()))
         _action = qaction.objectName()
 
@@ -36456,12 +36451,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['당월물옵션전광판'] = 화면_선물옵션전광판(parent=self)
                 self.dialog['당월물옵션전광판'].show()
 
+                #txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 생성합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                #self.textBrowser.append(txt)
+
         # Big Chart
         if _action == "actionBigChart":
             
             if self.dialog.get('BigChart') is not None:
 
                 try:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] Big Chart Dialog를 표시합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+
                     self.dialog['BigChart'].show()
                 except Exception as e:
                     self.dialog['BigChart'] = 화면_BigChart(parent=self)
@@ -36469,6 +36470,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.dialog['BigChart'] = 화면_BigChart(parent=self)
                 self.dialog['BigChart'].show()
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Big Chart Dialog를 생성합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
 
     # ------------------------------------------------------------
 
