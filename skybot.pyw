@@ -2870,10 +2870,7 @@ class RealDataWorker(QThread):
 
         global flag_queue_input_drop, queue_input_drop_count
 
-        #print('result =', result)
-
-        #if not flag_realdata_update_is_running and not flag_screen_update_is_running and not flag_plot_update_is_running:
-        if not flag_realdata_update_is_running and not flag_plot_update_is_running:
+        if not flag_realdata_update_is_running:
             flag_queue_input_drop = False
             self.producer_queue.put(result, False)
         else:
@@ -5170,35 +5167,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.fut_etc_update(fut_result)
                 else:
                     pass                
-
-                if flag_checkBox_HS:
-                    self.call_update(call_result)
-                    self.put_update(put_result)
-                else:
-                    pass
-
-                # 선택된 콜, 풋 검사, 약 3ms 정도 시간이 소요됨
-                '''
-                if self.alternate_flag:
-                    
-                    selected_call = []
-                    
-                    for i in range(call_scroll_begin_position, call_scroll_end_position):
-
-                        if self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
-                            selected_call.append(i)
-                        else:
-                            pass                                        
-                else:
-                    selected_put = []
-
-                    for i in range(put_scroll_begin_position, put_scroll_end_position):
-
-                        if self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
-                            selected_put.append(i)
-                        else:
-                            pass
-                '''
                                 
                 if market_service and flag_option_start:                    
 
@@ -5228,7 +5196,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     #main_ui_update_time = (timeit.default_timer() - start_time) * 1000
                     
                     # 시작과 동시에 컬러링 갱신
-                    if not flag_checkBox_HS:
+                    #if not flag_checkBox_HS:
+                    if True:
 
                         # 선물, 콜, 풋 현재가 클리어
                         #self.cv_color_clear()
@@ -5448,7 +5417,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass                    
 
                     # 비대칭장 탐색
-                    if not flag_checkBox_HS and not dongsi_hoga and abs(콜대비_퍼센트_평균) > 0 and abs(풋대비_퍼센트_평균) > 0:
+                    if not dongsi_hoga and abs(콜대비_퍼센트_평균) > 0 and abs(풋대비_퍼센트_평균) > 0:
 
                         self.asym_detect(self.alternate_flag)
                     else:
@@ -22077,7 +22046,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     call_result = copy.deepcopy(result)
 
-                    if not flag_checkBox_HS and FLAG_GUEST_CONTROL:                        
+                    if FLAG_GUEST_CONTROL:                        
                         self.call_update(result)
                     else:
                         pass                 
@@ -22086,10 +22055,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     put_result = copy.deepcopy(result)
 
-                    if not flag_checkBox_HS:
-                        self.put_update(result)
-                    else:
-                        pass                
+                    self.put_update(result)                
                 else:
                     pass
 
@@ -30974,8 +30940,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global flag_plot_update_is_running, bc_ui_update_time        
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
         
-        flag_plot_update_is_running = True
-
         dt = datetime.datetime.now()
         start_time = timeit.default_timer()
 
@@ -30992,9 +30956,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             print('flag_produce_queue_empty in update_bigchart =', flag_produce_queue_empty)
         else:
             pass
-
-        #if not flag_checkBox_HS and FLAG_GUEST_CONTROL and receive_real_ovc:
+        
         if flag_produce_queue_empty and FLAG_GUEST_CONTROL and receive_real_ovc:
+            
+            flag_plot_update_is_running = True
 
             # Plot1 그래프 그리기
             if comboindex1 == 2 and market_service:
