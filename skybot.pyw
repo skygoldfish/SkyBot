@@ -5784,45 +5784,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         OLD_진성맥점 = 진성맥점[:]
 
         self.opt_high_low_list_update()
-        '''
-        if not flag_first_search:
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] call_저가 list = {3}\r'.format(adj_hour, adj_min, adj_sec, call_저가)
-            self.textBrowser.append(txt)
-            print(txt)
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] call low list = {3}\r'.format(adj_hour, adj_min, adj_sec, call_low_list)
-            self.textBrowser.append(txt)
-            print(txt)
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] call_고가 list = {3}\r'.format(adj_hour, adj_min, adj_sec, call_고가)
-            self.textBrowser.append(txt)
-            print(txt)
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] call high list = {3}\r'.format(adj_hour, adj_min, adj_sec, call_high_list)
-            self.textBrowser.append(txt)
-            print(txt)
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] put_저가 list = {3}\r'.format(adj_hour, adj_min, adj_sec, put_저가)
-            self.textBrowser.append(txt)
-            print(txt)
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] put low list = {3}\r'.format(adj_hour, adj_min, adj_sec, put_low_list)
-            self.textBrowser.append(txt)
-            print(txt)
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] put_고가 list = {3}\r'.format(adj_hour, adj_min, adj_sec, put_고가)
-            self.textBrowser.append(txt)
-            print(txt)
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] put high list = {3}\r'.format(adj_hour, adj_min, adj_sec, put_high_list)
-            self.textBrowser.append(txt)
-            print(txt)
-
-            flag_first_search = True
-        else:
-            pass
-        '''
+        
         txt = '[{0:02d}:{1:02d}:{2:02d}] high low list in search_moving_node = {3}\r'.format(adj_hour, adj_min, adj_sec, high_low_list)
         #self.textBrowser.append(txt)
         print(txt)        
@@ -14511,43 +14473,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.tableWidget_fut.setItem(0, 2 + i, item)
                 else:
                     pass
-                '''
-                item = QTableWidgetItem("{0}".format('-'))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(검정색))
-                item.setForeground(QBrush(흰색))
-                self.tableWidget_fut.setItem(2, Futures_column.매수건수.value, item)
-
-                item = QTableWidgetItem("{0}".format('-'))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(검정색))
-                item.setForeground(QBrush(흰색))
-                self.tableWidget_fut.setItem(2, Futures_column.매도건수.value, item)
-
-                item = QTableWidgetItem("{0}".format('-'))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(검정색))
-                item.setForeground(QBrush(흰색))
-                self.tableWidget_fut.setItem(2, Futures_column.매수잔량.value, item)
-
-                item = QTableWidgetItem("{0}".format('-'))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(검정색))
-                item.setForeground(QBrush(흰색))
-                self.tableWidget_fut.setItem(2, Futures_column.매도잔량.value, item)
-
-                item = QTableWidgetItem("{0}".format('-'))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(검정색))
-                item.setForeground(QBrush(흰색))
-                self.tableWidget_fut.setItem(2, Futures_column.건수비.value, item)
-
-                item = QTableWidgetItem("{0}".format('-'))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(검정색))
-                item.setForeground(QBrush(흰색))
-                self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)
-                '''
+                
                 진성맥점 = pre_진성맥점[:]
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 진성맥점을 초기화({3})합니다.\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
@@ -16621,29 +16547,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     put_고가 = df_put['고가'].values.tolist()
                     put_고가_node_list = self.make_node_list(put_고가)                    
                     
-                    self.opt_high_low_list_update()
-
-                    '''
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] call_저가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, call_저가)
-                    #self.textBrowser.append(txt)
-                    print(txt)
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] call_고가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, call_고가)
-                    #self.textBrowser.append(txt)
-                    print(txt)
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] put_저가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, put_저가)
-                    #self.textBrowser.append(txt)
-                    print(txt)
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] put_고가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, put_고가)
-                    #self.textBrowser.append(txt)
-                    print(txt)
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] high low list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
-                    #self.textBrowser.append(txt)
-                    print(txt) 
-                    '''
+                    self.opt_high_low_list_update()                    
 
                     if not flag_checkBox_HS:
 
