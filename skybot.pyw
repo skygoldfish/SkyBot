@@ -3906,8 +3906,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             flag_checkBox_HS = True
 
-            scoreboard_update_interval = 1000
-            plot_update_interval = 1000
+            scoreboard_update_interval = MAIN_UPDATE_INTERVAL * 2
+            plot_update_interval = BIGCHART_UPDATE_INTERVAL * 2
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 화면갱신주기를 0.5초 --> 1초로 늘립니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(txt)            
@@ -3947,8 +3947,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             flag_checkBox_HS = False
 
-            scoreboard_update_interval = 500
-            plot_update_interval = 500
+            scoreboard_update_interval = MAIN_UPDATE_INTERVAL
+            plot_update_interval = BIGCHART_UPDATE_INTERVAL
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 화면갱신주기를 0.5초로 복구합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(txt)
