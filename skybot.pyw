@@ -18566,7 +18566,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             txt = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
             self.label_main_time.setText(txt)
-            
+            '''
             if new_actval_up_count > 0 or new_actval_down_count > 0:
                 logger.debug('t8416 단축코드 = %s' % block['단축코드'])
                 logger.debug('t8416 call count = %d' % t8416_call_count)
@@ -18575,7 +18575,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 logger.debug('t8416 call new_actval_down_count = %d' % new_actval_down_count)
             else:
                 pass
-
+            '''
             if block['단축코드'] == '':
 
                 actval_increased = True
@@ -35579,7 +35579,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 print('해당 다이얼로그가 없습니다.')
 
-            logger.debug("=============================================================================")
+            logger.debug("*************************************************************************************************************************")
             logger.info("LOG STOP")
 
             print('서버연결 해지...')
@@ -35911,7 +35911,7 @@ if __name__ == "__main__":
     formatter = logging.Formatter('[%(levelname)s|%(filename)s:%(lineno)s]%(asctime)s>%(message)s')
 
     loggerLevel = logging.DEBUG
-    filename = "LOG/skybot.log"
+    filename = "LOG/SkyBot.log"
 
     # 스트림과 파일로 로그를 출력하는 핸들러를 각각 만든다.
     filehandler = logging.FileHandler(filename)
