@@ -3897,11 +3897,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global scoreboard_update_interval, plot_update_interval  
 
         dt = datetime.datetime.now()
-        '''
-        now = time.localtime()
-        times = "%04d-%02d-%02d-%02d-%02d-%02d" % \
-                (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
-        '''
+        
         if self.checkBox_HS.isChecked() == True:
 
             flag_checkBox_HS = True
