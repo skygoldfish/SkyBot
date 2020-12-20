@@ -6201,8 +6201,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         process_time = (timeit.default_timer() - start_time) * 1000
 
         txt = '[{0:02d}:{1:02d}:{2:02d}] Put High Node Color Check : {3:.2f} ms\r'.format(adj_hour, adj_min, adj_sec, process_time)
-        self.textBrowser.append(txt)            
-
+        self.textBrowser.append(txt)
 
     # 탐색순서가 중요(교차탐색) !!!
     def opt_all_node_coloring(self):
@@ -6217,36 +6216,30 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         node_coloring = True
         refresh_coloring = True
         
-        self.call_node_color_clear() 
-        self.put_node_color_clear()
-        
-        #start_time = timeit.default_timer()
+        self.call_node_color_clear()
+        self.put_node_color_clear() 
 
-        self.call_open_check()    
-        self.put_open_check()
-
-        #process_time = (timeit.default_timer() - start_time) * 1000
-
+        self.call_open_check()
         self.call_cross_color_update()
-        self.put_cross_color_update()
-
         self.call_node_color_update()
+        self.call_coreval_color_update()
+        
+        self.put_open_check()        
+        self.put_cross_color_update()        
         self.put_node_color_update()
+        self.put_coreval_color_update()
 
         if not pre_start and bms_node_list and SEARCH_MOVING_NODE:        
             self.search_moving_node()
         else:
             pass
-
-        self.call_coreval_color_update()        
-        self.put_coreval_color_update()
         
         node_coloring = False
         refresh_coloring = False
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Node Color Check : {3:.2f} ms\r'.format(adj_hour, adj_min, adj_sec, process_time)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 All Node Color Check : {3:.2f} ms\r'.format(adj_hour, adj_min, adj_sec, process_time)
         self.textBrowser.append(txt)
         print(txt)        
 
@@ -17107,32 +17100,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass                        
             self.tableWidget_fut.resizeColumnsToContents()             
-
+            
             if refresh_flag:
             
                 # 옵션 맥점 컬러링                
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션맥점 Refresh 컬러링을 시작합니다.\r'.format(adj_hour, adj_min, adj_sec)
                 self.textBrowser.append(txt)
 
-                self.opt_all_node_coloring()    
-                
-                if ResizeRowsToContents:
-                    self.tableWidget_call.resizeRowsToContents()
-                else:
-                    pass
-                self.tableWidget_call.resizeColumnsToContents()
-
-                if ResizeRowsToContents:
-                    self.tableWidget_put.resizeRowsToContents()
-                else:
-                    pass
-                self.tableWidget_put.resizeColumnsToContents() 
-
-                self.tableWidget_fut.resizeRowsToContents()
-                self.tableWidget_fut.resizeColumnsToContents()          
+                self.opt_all_node_coloring()
             else:
                 pass
-
+            
         elif szTrCode == 't2830':
 
             pass
@@ -19208,8 +19186,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     #if self.t8416_putworker.isRunning():
                     if True:
-
-                        #self.t8416_putworker.terminate()
                                                 
                         put_positionCell = self.tableWidget_put.item(atm_index + 20, 1)
                         self.tableWidget_put.scrollToItem(put_positionCell)
@@ -19435,37 +19411,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.setItem(atm_index + 5, Option_column.기준가.value, item)
 
                     if min_index != atm_index:
-
-                        #self.tableWidget_call.item(min_index, Option_column.기준가.value).setBackground(QBrush(검정색))
-                        #self.tableWidget_call.item(min_index, Option_column.기준가.value).setForeground(QBrush(노란색))
                         self.tableWidget_put.item(min_index, Option_column.기준가.value).setBackground(QBrush(검정색))
                         self.tableWidget_put.item(min_index, Option_column.기준가.value).setForeground(QBrush(노란색))
                     else:
                         pass
-                    '''
-                    if not flag_option_pair_full:
-
-                        # t8416 선물요청
-                        QTest.qWait(1000)                       
-
-                        if TARGET_MONTH_SELECT == 'CM':
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 본월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, gmshcode)
-                            self.textBrowser.append(txt)
-                            print(txt)
-
-                            self.t8416_fut_request(gmshcode)
-
-                        elif TARGET_MONTH_SELECT == 'NM':
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 차월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, cmshcode)
-                            self.textBrowser.append(txt)
-                            print(txt)
-
-                            self.t8416_fut_request(cmshcode)
-                        else:
-                            pass
-                    else:
-                        pass
-                    '''
+                    
                     if NightTime:                        
 
                         # EUREX 야간옵션 시세전광판
@@ -19541,13 +19491,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             item = QTableWidgetItem(temp)
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_put.setItem(i, Option_column.OID.value, item)                        
-
-                        # 옵션 맥점 컬러링
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] t8416종료 주간 옵션 맥점 컬러링을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(txt)
                         
-                        self.opt_all_node_coloring() 
-
                         if ResizeRowsToContents:
                             self.tableWidget_call.resizeRowsToContents()
                         else:
@@ -19589,7 +19533,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                                                 QPushButton:hover {background-color: black; color: white} \
                                                                 QPushButton:pressed {background-color: gold}') 
 
-                        self.pushButton_start.setText(' Refresh ')                                                                                
+                        self.pushButton_start.setText(' Refresh ')
+                    '''
+                    # 옵션 맥점 컬러링                        
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] t8416종료 옵션 맥점 컬러링을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    
+                    self.opt_all_node_coloring()
+                    '''                                                                              
                 else:
                     pass
             else:
@@ -35579,7 +35530,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 print('해당 다이얼로그가 없습니다.')
 
-            logger.debug("*************************************************************************************************************************")
+            logger.info("*************************************************************************************************************************")
             logger.info("LOG STOP")
 
             print('서버연결 해지...')
@@ -35925,7 +35876,7 @@ if __name__ == "__main__":
     logger.addHandler(filehandler)
     logger.addHandler(streamhandler)
     logger.setLevel(loggerLevel)
-    logger.debug("=============================================================================")
+    logger.info("=============================================================================")
     logger.info("LOG START")
 
     app = QApplication(sys.argv)
