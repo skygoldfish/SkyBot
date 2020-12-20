@@ -10,6 +10,7 @@
 
 # 기본 모듈
 import sys, os
+import atexit
 import datetime, time
 import win32com.client
 import ctypes
@@ -3097,7 +3098,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #self.setModal(False)
         self.setupUi(self)
 
-        self.flag_score_board_open = True        
+        self.flag_score_board_open = True
+
+        # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
+        atexit.register(self.__del__)         
         
         global TARGET_MONTH_SELECT, MONTH_FIRSTDAY
         global widget_title, CURRENT_MONTH, NEXT_MONTH, MONTH_AFTER_NEXT, SP500, DOW, NASDAQ, fut_code
@@ -3749,6 +3753,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_put.resizeColumnsToContents()
 
         self.pushButton_start.setFocus()
+
+    def __del__(self):
+        '''
+        종료시 실행할 작업
+        '''
+        print('Score Board Dialog를 종료합니다...') 
 
     @pyqtSlot()
     def start_button_clicked(self):
@@ -23846,6 +23856,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         self.parent = parent
         self.flag_big_chart_open = True
+
+        # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
+        atexit.register(self.__del__) 
         
         # 현재화면의 중앙에 표시
         qr = self.frameGeometry()
@@ -24904,6 +24917,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         # 쓰레드 시작...        
         self.plot_update_worker.daemon = True
         self.plot_update_worker.start()
+
+    def __del__(self):
+        '''
+        종료시 실행할 작업
+        '''
+        print('Big Chart Dialog를 종료합니다...') 
 
     #cross hair
     def plot1_mouseMoved(self, evt):
@@ -35362,6 +35381,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
             self.XQ_t0167 = t0167(parent=self)
             self.NEWS = NWS(parent=self)
+
+            # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
+            atexit.register(self.__del__) 
     else:        
         def __init__(self, *args, **kwargs):
             super(MainWindow, self).__init__(*args, **kwargs)            
@@ -35437,7 +35459,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.connection = None
 
             self.XQ_t0167 = t0167(parent=self)
-            self.NEWS = NWS(parent=self)        
+            self.NEWS = NWS(parent=self)
+
+            # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
+            atexit.register(self.__del__) 
+
+    def __del__(self):
+        '''
+        종료시 실행할 작업
+        '''
+        print('SkyBot을 종료합니다...')     
 
     def OnQApplicationStarted(self):
         self.clock = QtCore.QTimer()
