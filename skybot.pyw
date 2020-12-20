@@ -35442,7 +35442,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             txt = '현재스크린 = {0}번, 화면해상도 = {1}x{2}, 중심좌표 X = {3}, Y = {4}\r'.format(스크린번호, screen_info.width(), screen_info.height(), self.centerPoint.x(), self.centerPoint.y())
             self.textBrowser.append(txt)
-
+ 
+            # 복수개의 Dialog 처리용 선언
             self.dialog = dict()
 
             self.주문제한 = 0
@@ -35525,9 +35526,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             event.accept()
 
-            if self.dialog['당월물옵션전광판'].flag_score_board_open:
+            if self.dialog['선물옵션전광판'].flag_score_board_open:
                 # 정상종료를 위해 모든 쓰레드를 죽인다.
-                self.dialog['당월물옵션전광판'].KillScoreBoardThread()
+                self.dialog['선물옵션전광판'].KillScoreBoardThread()
             else:
                 print('해당 다이얼로그가 없습니다.')
 
@@ -35636,23 +35637,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
             
-            if self.dialog.get('당월물옵션전광판') is not None:
+            if self.dialog.get('선물옵션전광판') is not None:
 
                 try:
-                    self.dialog['당월물옵션전광판'].show()
+                    self.dialog['선물옵션전광판'].show()
                 except Exception as e:
-                    self.dialog['당월물옵션전광판'] = 화면_선물옵션전광판(parent=self)
-                    self.dialog['당월물옵션전광판'].show()
+                    self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
+                    self.dialog['선물옵션전광판'].show()
             else:
-                self.dialog['당월물옵션전광판'] = 화면_선물옵션전광판(parent=self)
-                self.dialog['당월물옵션전광판'].show()
+                self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
+                self.dialog['선물옵션전광판'].show()
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 생성합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
             
             # 옵션전광판 자동시작                            
             if AUTO_START:
-                self.dialog['당월물옵션전광판'].RunCode()
+                self.dialog['선물옵션전광판'].RunCode()
             else:
                 pass            
         else:
@@ -35732,6 +35733,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             txt = '[{0}] : {1}\r'.format(result['시간'], result['제목'])
             self.textBrowser.append(txt)
             print(txt)
+            '''
+            if self.dialog['선물옵션전광판'].flag_score_board_open:
+                self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            else:
+                pass
+            '''
         else:
             pass    
 
@@ -35790,16 +35797,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 당월물 옵션전광판
         if _action == "actionCMOptionPrice":
             
-            if self.dialog.get('당월물옵션전광판') is not None:
+            if self.dialog.get('선물옵션전광판') is not None:
 
                 try:
-                    self.dialog['당월물옵션전광판'].show()
+                    self.dialog['선물옵션전광판'].show()
                 except Exception as e:
-                    self.dialog['당월물옵션전광판'] = 화면_선물옵션전광판(parent=self)
-                    self.dialog['당월물옵션전광판'].show()
+                    self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
+                    self.dialog['선물옵션전광판'].show()
             else:
-                self.dialog['당월물옵션전광판'] = 화면_선물옵션전광판(parent=self)
-                self.dialog['당월물옵션전광판'].show()
+                self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
+                self.dialog['선물옵션전광판'].show()
 
                 #txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 생성합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 #self.textBrowser.append(txt)
