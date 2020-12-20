@@ -3905,7 +3905,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             scoreboard_update_interval = MAIN_UPDATE_INTERVAL * 2
             plot_update_interval = BIGCHART_UPDATE_INTERVAL * 2
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 화면갱신주기를 0.5초 --> 1초로 늘립니다.\r'.format(adj_hour, adj_min, adj_sec)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 화면 갱신주기를 {3:.1f}초 --> {4:.1f}초로 늘립니다.\r'.format(adj_hour, adj_min, adj_sec, MAIN_UPDATE_INTERVAL / 1000, scoreboard_update_interval / 1000)
             self.textBrowser.append(txt)            
                         
             if not NightTime:
@@ -3942,12 +3942,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             flag_telegram_on = False            
         else:
             flag_checkBox_HS = False
+            
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 화면 갱신주기를 {3:.1f}초 --> {4:.1f}초로 복구합니다.\r'.format(adj_hour, adj_min, adj_sec, scoreboard_update_interval / 1000, MAIN_UPDATE_INTERVAL / 1000)
+            self.textBrowser.append(txt)
 
             scoreboard_update_interval = MAIN_UPDATE_INTERVAL
             plot_update_interval = BIGCHART_UPDATE_INTERVAL
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 화면갱신주기를 0.5초로 복구합니다.\r'.format(adj_hour, adj_min, adj_sec)
-            self.textBrowser.append(txt)
             
             if not NightTime:
                 txt = '[{0:02d}:{1:02d}:{2:02d}] S3, BM, PM을 재요청합니다.\r'.format(adj_hour, adj_min, adj_sec)
