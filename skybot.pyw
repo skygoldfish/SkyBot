@@ -3154,7 +3154,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if screen_info.width() > 1920 and screen_info.height() > 1080:
 
             self.showNormal()
-            self.parent.move(left - 10, top)
+            self.parent.move(left - 10, top - 1)
         else:
             self.showMaximized()        
         
