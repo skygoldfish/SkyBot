@@ -2252,9 +2252,6 @@ flag_fut_dow_drate_energy_direction = False
 fut_quote_energy_direction = ''
 fut_volume_power_energy_direction = ''
 
-scoreboard_update_interval = 500
-plot_update_interval = 500
-
 flag_produce_queue_empty = True
 
 flag_call_strong = False
@@ -2262,6 +2259,9 @@ flag_put_strong = False
 
 flag_calltable_checkstate_changed = False
 flag_puttable_checkstate_changed = False
+
+scoreboard_update_interval = MAIN_UPDATE_INTERVAL
+plot_update_interval = BIGCHART_UPDATE_INTERVAL
 
 ########################################################################################################################
 def xing_test_func():
@@ -2396,7 +2396,6 @@ class screen_update_worker(QThread):
             txt = 'Main UI Update...'                
 
             self.finished.emit(txt)
-            #self.msleep(MAIN_UPDATE_INTERVAL)
             QTest.qWait(scoreboard_update_interval)    
 ########################################################################################################################
 
@@ -2664,7 +2663,6 @@ class telegram_send_worker(QThread):
                 pass            
 
             self.finished.emit(txt)
-            #self.msleep(1000 * TELEGRAM_SEND_INTERVAL)
             QTest.qWait(1000 * TELEGRAM_SEND_INTERVAL)
 ########################################################################################################################
 
@@ -2691,7 +2689,6 @@ class telegram_listen_worker(QThread):
                 txt = 'Stopped by Tool...'
 
             self.finished.emit(txt)
-            #self.msleep(1000 * TELEGRAM_POLLING_INTERVAL)
             QTest.qWait(1000 * TELEGRAM_POLLING_INTERVAL)
 ########################################################################################################################
 # 실시간 데이타수신을 위한 쓰레드 클래스
@@ -3909,7 +3906,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             flag_checkBox_HS = True
 
-            #scoreboard_update_interval = 1000
+            scoreboard_update_interval = 1000
             plot_update_interval = 1000
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 화면갱신주기를 0.5초 --> 1초로 늘립니다.\r'.format(adj_hour, adj_min, adj_sec)
@@ -3950,7 +3947,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             flag_checkBox_HS = False
 
-            #scoreboard_update_interval = 500
+            scoreboard_update_interval = 500
             plot_update_interval = 500
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 화면갱신주기를 0.5초로 복구합니다.\r'.format(adj_hour, adj_min, adj_sec)
@@ -14347,7 +14344,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         XQ = t1514(parent=self)
         XQ.Query(업종코드=KOSPI,구분1='',구분2='1',CTS일자='',조회건수='0001',비중구분='', 연속조회=False)
 
-        #time.sleep(1.1)
         QTest.qWait(1100)
 
         # 코스닥지수 조회
@@ -16159,23 +16155,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.textBrowser.append(txt)
 
-                if not NightTime:        
-
-                    print('\r')
-                    print('t2301 call open list = ', call_open_list, len(call_open_list))
-                    print('\r')
-                    print('t2301 put open list = ', put_open_list, len(put_open_list))
-                    print('\r')
-
-                    # 주간 실시간테이타 요청                
-                    #txt = '[{0:02d}:{1:02d}:{2:02d}] 주간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    #self.textBrowser.append(txt)                    
-                else:
-                    pass
-                    # 야간 실시간테이타 요청                
-                    #txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    #self.textBrowser.append(txt)                    
-
                 # 실시간데이타는 스레드를 통해 수신함
                 if not MULTIPROCESS:
                     self.real_data_worker = RealDataWorker(self.producer_queue, self.consumer_queue)
@@ -16621,7 +16600,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
 
-                        #time.sleep(0.1)
                         QTest.qWait(100)
 
                         XQ = t2801(parent=self)
@@ -16630,7 +16608,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
 
-                        #time.sleep(0.1)
                         QTest.qWait(100)                        
                     else:
                         pass
@@ -18466,14 +18443,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 XQ.Query(종목코드=fut_code)
                 print('t2101 요청')
 
-                #time.sleep(0.1)
                 QTest.qWait(100)
 
                 XQ = t2801(parent=self)
                 XQ.Query(종목코드=fut_code)
                 print('t2801 요청')
 
-                #time.sleep(0.1)
                 QTest.qWait(100)
             else:
                 pass
@@ -23858,7 +23833,6 @@ class Bigchart_update_worker(QThread):
             txt = 'Big Chart Update...'                
 
             self.finished.emit(txt)
-            #self.msleep(BIGCHART_UPDATE_INTERVAL)
             QTest.qWait(plot_update_interval)
 ########################################################################################################################
 # Big Chart UI Class
