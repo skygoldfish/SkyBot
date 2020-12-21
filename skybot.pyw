@@ -19551,10 +19551,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 본월물코드 = {3}\r'.format(dt.hour, dt.minute, dt.second, gmshcode)
             self.textBrowser.append(txt)
+            self.parent.textBrowser.append(txt)
             print(txt)
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 차월물코드 = {3}\r'.format(dt.hour, dt.minute, dt.second, cmshcode)
             self.textBrowser.append(txt)
+            self.parent.textBrowser.append(txt)
             print(txt)
 
             if TARGET_MONTH_SELECT == 'CM':
@@ -22157,11 +22159,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     self.tableWidget_fut.setItem(1, Futures_column.잔량비.value, item)
 
+                if TARGET_MONTH_SELECT == 'CM':
+                    hoga_cr = fut_hoga_cr
+                    hoga_rr = fut_hoga_rr
+                elif TARGET_MONTH_SELECT == 'NM':
+                    hoga_cr = fut_cms_hoga_cr
+                    hoga_rr = fut_cms_hoga_rr
+                else:
+                    pass
+
                 if not NightTime:
 
-                    if fut_hoga_cr > 1.0 and fut_hoga_rr > 1.0:
+                    if hoga_cr > 1.0 and hoga_rr > 1.0:
 
-                        if fut_hoga_cr > fut_hoga_rr:
+                        if hoga_cr > hoga_rr:
 
                             self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(적색))
                             self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(흰색))
@@ -22173,9 +22184,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(pink))
                             self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(검정색))
 
-                    elif fut_hoga_cr < 1.0 and fut_hoga_rr < 1.0:
+                    elif hoga_cr < 1.0 and hoga_rr < 1.0:
 
-                        if fut_hoga_cr < fut_hoga_rr:
+                        if hoga_cr < hoga_rr:
 
                             self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(청색))
                             self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(흰색))
