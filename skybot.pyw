@@ -3946,7 +3946,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             #self.pushButton_telegram.setStyleSheet('QPushButton {background-color: white; color: black} QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
-            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: white; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: white; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                     QPushButton:hover {background-color: black; color: white} \
                                                     QPushButton:pressed {background-color: gold}')
             flag_telegram_on = False            
@@ -3982,7 +3982,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.telegram_listen_worker.start()
 
             #self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black} QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
-            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                     QPushButton:hover {background-color: black; color: white} \
                                                     QPushButton:pressed {background-color: gold}')
             flag_telegram_on = True
@@ -11224,7 +11224,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
                 
                 #self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black} QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
-                self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                         QPushButton:hover {background-color: black; color: white} \
                                                         QPushButton:pressed {background-color: gold}')
                 flag_telegram_listen_worker = True
@@ -14402,13 +14402,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if SEARCH_MOVING_NODE:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 동적맥점 탐색을 활성화 합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
-                    self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                    self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                         QPushButton:hover {background-color: black; color: white} \
                                                         QPushButton:pressed {background-color: gold}')
                 else:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 동적맥점 탐색을 비활성화 합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
-                    self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                    self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                         QPushButton:hover {background-color: black; color: white} \
                                                         QPushButton:pressed {background-color: gold}')
 
@@ -14614,7 +14614,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
             
             #self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black} QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
-            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                     QPushButton:hover {background-color: black; color: white} \
                                                     QPushButton:pressed {background-color: gold}')           
             flag_telegram_listen_worker = True                       
@@ -14626,7 +14626,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             telegram_command = '/start'
             
             #self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black} QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
-            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                     QPushButton:hover {background-color: black; color: white} \
                                                     QPushButton:pressed {background-color: gold}')
         else:
@@ -14646,7 +14646,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             #self.pushButton_telegram.setStyleSheet('QPushButton {background-color: white; color: black} QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
-            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: white; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: white; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                     QPushButton:hover {background-color: black; color: white} \
                                                     QPushButton:pressed {background-color: gold}')
             
@@ -14943,7 +14943,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     #self.label_kospi.setStyleSheet('background-color: black; color: lightskyblue')
                     self.label_kospi.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
                                                     rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
-                                                    color: lightskyblue; border-style: solid; border-width: 1px; border-color: lightskyblue; border-radius: 5px')
+                                                    color: lightskyblue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: lightskyblue; border-radius: 5px')
                     self.label_kospi.setText(jisu_txt)
 
                 elif df.at[0, '전일대비구분'] == '2':
@@ -14953,7 +14953,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     #self.label_kospi.setStyleSheet('background-color: black; color: pink')
                     self.label_kospi.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
                                                     rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
-                                                    color: pink; border-style: solid; border-width: 1px; border-color: lightskyblue; border-radius: 5px')
+                                                    color: pink; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: lightskyblue; border-radius: 5px')
                     self.label_kospi.setText(jisu_txt)
                 else:
                     pass
@@ -14967,7 +14967,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     #self.label_kosdaq.setStyleSheet('background-color: black; color: lightskyblue')
                     self.label_kosdaq.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
                                                     rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
-                                                    color: lightskyblue; border-style: solid; border-width: 1px; border-color: lightskyblue; border-radius: 5px')
+                                                    color: lightskyblue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: lightskyblue; border-radius: 5px')
                     self.label_kosdaq.setText(jisu_txt)
 
                 elif df.at[0, '전일대비구분'] == '2':
@@ -14977,7 +14977,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     #self.label_kosdaq.setStyleSheet('background-color: black; color: pink')
                     self.label_kosdaq.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
                                                     rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
-                                                    color: pink; border-style: solid; border-width: 1px; border-color: lightskyblue; border-radius: 5px')
+                                                    color: pink; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: lightskyblue; border-radius: 5px')
                     self.label_kosdaq.setText(jisu_txt)
                 else:
                     pass
@@ -16629,11 +16629,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             #self.pushButton_start.setStyleSheet('QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
 
             if SEARCH_MOVING_NODE:
-                self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                     QPushButton:hover {background-color: black; color: white} \
                                                     QPushButton:pressed {background-color: gold}')
             else:
-                self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                     QPushButton:hover {background-color: black; color: white} \
                                                     QPushButton:pressed {background-color: gold}')
 
@@ -16662,7 +16662,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     jisu_txt = "KOSPI: {0} (-{1:.2f}, {2:0.1f}%)".format(format(df['종합지수'], ','), df['종합지수전일대비'], df['종합지수등락율'])
                     
                     #self.label_kospi.setStyleSheet('background-color: black; color: lightskyblue')
-                    self.label_kospi.setStyleSheet('background-color: black; color: lightskyblue; border-style: solid; border-width: 1px; border-color: lightskyblue; border-radius: 5px')
+                    self.label_kospi.setStyleSheet('background-color: black; color: lightskyblue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: lightskyblue; border-radius: 5px')
                     self.label_kospi.setText(jisu_txt)
 
                 elif df['종합지수전일대비구분'] == '2':
@@ -16670,7 +16670,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     jisu_txt = "KOSPI: {0} ({1:.2f}, {2:0.1f}%)".format(format(df['종합지수'], ','), df['종합지수전일대비'], df['종합지수등락율'])
                     
                     #self.label_kospi.setStyleSheet('background-color: black; color: pink')
-                    self.label_kospi.setStyleSheet('background-color: black; color: pink; border-style: solid; border-width: 1px; border-color: pink; border-radius: 5px')
+                    self.label_kospi.setStyleSheet('background-color: black; color: pink; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: pink; border-radius: 5px')
                     self.label_kospi.setText(jisu_txt)
                 else:
                     pass
@@ -18102,11 +18102,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 #self.pushButton_start.setStyleSheet('QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
 
                 if SEARCH_MOVING_NODE:
-                    self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                    self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                         QPushButton:hover {background-color: black; color: white} \
                                                         QPushButton:pressed {background-color: gold}')
                 else:
-                    self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                    self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                         QPushButton:hover {background-color: black; color: white} \
                                                         QPushButton:pressed {background-color: gold}')
 
@@ -19506,11 +19506,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         #self.pushButton_start.setStyleSheet('QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
 
                         if SEARCH_MOVING_NODE:
-                            self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                            self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                                 QPushButton:hover {background-color: black; color: white} \
                                                                 QPushButton:pressed {background-color: gold}') 
                         else:
-                            self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                            self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                                 QPushButton:hover {background-color: black; color: white} \
                                                                 QPushButton:pressed {background-color: gold}') 
 
@@ -19996,7 +19996,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     jisu_txt = "DOW 야간시작가: {0}".format(DOW_야간_시작가)
                     
                     #self.label_kospi.setStyleSheet('background-color: black; color: yellow')
-                    self.label_kospi.setStyleSheet('background-color: black; color: yellow; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                    self.label_kospi.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
                     self.label_kospi.setText(jisu_txt)
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] DOW 야간시작가 = {3}\r'.format(adj_hour, adj_min, adj_sec, DOW_야간_시작가)
@@ -20005,7 +20005,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     jisu_txt = "WTI 야간시작가: {0}".format(WTI_야간_시작가)
                     
                     #self.label_kosdaq.setStyleSheet('background-color: black; color: yellow')
-                    self.label_kosdaq.setStyleSheet('background-color: black; color: yellow; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                    self.label_kosdaq.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
                     self.label_kosdaq.setText(jisu_txt)
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] WTI 야간시작가 = {3}\r'.format(adj_hour, adj_min, adj_sec, WTI_야간_시작가)
@@ -20025,7 +20025,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     jisu_txt = "DOW 야간시작가: {0}".format(DOW_야간_시작가)
                     
                     #self.label_kospi.setStyleSheet('background-color: black; color: yellow')
-                    self.label_kospi.setStyleSheet('background-color: black; color: yellow; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                    self.label_kospi.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
                     self.label_kospi.setText(jisu_txt)
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] DOW 야간시작가 = {3}\r'.format(adj_hour, adj_min, adj_sec, DOW_야간_시작가)
@@ -20034,7 +20034,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     jisu_txt = "WTI 야간시작가: {0}".format(WTI_야간_시작가)
                     
                     #self.label_kosdaq.setStyleSheet('background-color: black; color: yellow')
-                    self.label_kosdaq.setStyleSheet('background-color: black; color: yellow; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                    self.label_kosdaq.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
                     self.label_kosdaq.setText(jisu_txt)
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] WTI 야간시작가 = {3}\r'.format(adj_hour, adj_min, adj_sec, WTI_야간_시작가)
@@ -20156,11 +20156,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         #self.pushButton_start.setStyleSheet('QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
 
                         if SEARCH_MOVING_NODE:
-                            self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                            self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                                 QPushButton:hover {background-color: black; color: white} \
                                                                 QPushButton:pressed {background-color: gold}') 
                         else:
-                            self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                            self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                                 QPushButton:hover {background-color: black; color: white} \
                                                                 QPushButton:pressed {background-color: gold}')
 
@@ -20205,11 +20205,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         #self.pushButton_start.setStyleSheet('QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
 
                         if SEARCH_MOVING_NODE:
-                            self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                            self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                                 QPushButton:hover {background-color: black; color: white} \
                                                                 QPushButton:pressed {background-color: gold}')
                         else:
-                            self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                            self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                                 QPushButton:hover {background-color: black; color: white} \
                                                                 QPushButton:pressed {background-color: gold}')
 
@@ -20311,7 +20311,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                                                                 result['예상체결가전일종가등락율'])
                             
                             #self.label_4th_index.setStyleSheet('background-color: blue; color: white')
-                            self.label_4th_index.setStyleSheet('background-color: blue; color: white; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
+                            self.label_4th_index.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
                             self.label_4th_index.setText(jisu_txt)
 
                         elif result['예상체결가전일종가대비구분'] == '2':
@@ -20320,14 +20320,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                                                                 result['예상체결가전일종가등락율'])
                             
                             #self.label_4th_index.setStyleSheet('background-color: red; color: white')
-                            self.label_4th_index.setStyleSheet('background-color: red; color: white; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
+                            self.label_4th_index.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
                             self.label_4th_index.setText(jisu_txt)
 
                         else:
                             jisu_txt = "SAMSUNG: {0}({1})".format(현재가, format(result['예상체결가전일종가대비'], ','))
                             
                             #self.label_4th_index.setStyleSheet('background-color: yellow; color: black')
-                            self.label_4th_index.setStyleSheet('background-color: yellow; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+                            self.label_4th_index.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
                             self.label_4th_index.setText(jisu_txt)
                     
                     elif result['단축코드'] == HYUNDAI:
@@ -20338,7 +20338,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                                                               result['예상체결가전일종가등락율'])
                             
                             #self.label_kosdaq.setStyleSheet('background-color: blue; color: white')
-                            self.label_kosdaq.setStyleSheet('background-color: blue; color: white; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
+                            self.label_kosdaq.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
                             self.label_kosdaq.setText(jisu_txt)
 
                         elif result['예상체결가전일종가대비구분'] == '2':
@@ -20347,14 +20347,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                                                               result['예상체결가전일종가등락율'])
                             
                             #self.label_kosdaq.setStyleSheet('background-color: red; color: white')
-                            self.label_kosdaq.setStyleSheet('background-color: red; color: white; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
+                            self.label_kosdaq.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
                             self.label_kosdaq.setText(jisu_txt)
 
                         else:
                             jisu_txt = "HYUNDAI: {0}({1})".format(현재가, format(result['예상체결가전일종가대비'], ','))
                             
                             #self.label_kosdaq.setStyleSheet('background-color: yellow; color: black')
-                            self.label_kosdaq.setStyleSheet('background-color: yellow; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+                            self.label_kosdaq.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
                             self.label_kosdaq.setText(jisu_txt)
                     else:
                         pass
@@ -20939,7 +20939,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 jisu_txt = "SS: {0} ▲ (-{1}, {2:0.1f}%)".format(temp_str, format(result['전일대비'], ','), result['등락율'])
                                 
                                 #self.label_4th_index.setStyleSheet('background-color: pink; color: blue')
-                                self.label_4th_index.setStyleSheet('background-color: pink; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.label_4th_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                                 self.label_4th_index.setText(jisu_txt)
 
                                 samsung_text_color = 'blue'
@@ -20949,7 +20949,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 jisu_txt = "SS: {0} ▲ ({1}, {2:0.1f}%)".format(temp_str, format(result['전일대비'], ','), result['등락율'])
                                 
                                 #self.label_4th_index.setStyleSheet('background-color: pink; color: red')
-                                self.label_4th_index.setStyleSheet('background-color: pink; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.label_4th_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                                 self.label_4th_index.setText(jisu_txt)
 
                                 samsung_text_color = 'red'
@@ -20965,7 +20965,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 jisu_txt = "SS: {0} ▼ (-{1}, {2:0.1f}%)".format(temp_str, format(result['전일대비'], ','), result['등락율'])
                                 
                                 #self.label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue')
-                                self.label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                                 self.label_4th_index.setText(jisu_txt)
 
                                 samsung_text_color = 'blue'
@@ -20975,7 +20975,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 jisu_txt = "SS: {0} ▼ ({1}, {2:0.1f}%)".format(temp_str, format(result['전일대비'], ','), result['등락율'])
                                 
                                 #self.label_4th_index.setStyleSheet('background-color: lightskyblue; color: red')
-                                self.label_4th_index.setStyleSheet('background-color: lightskyblue; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.label_4th_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                                 self.label_4th_index.setText(jisu_txt)
 
                                 samsung_text_color = 'red'
@@ -21231,7 +21231,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 jisu_txt = "KOSPI: {0} ▲ (-{1:.2f}, {2:0.1f}%)".format(kospi_str, result['전일비'], result['등락율'])
                                 
                                 #self.label_kospi.setStyleSheet('background-color: pink; color: blue')
-                                self.label_kospi.setStyleSheet('background-color: pink; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.label_kospi.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                                 self.label_kospi.setText(jisu_txt)
 
                                 kospi_text_color = 'blue'
@@ -21241,7 +21241,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 jisu_txt = "KOSPI: {0} ▲ ({1:.2f}, {2:0.1f}%)".format(kospi_str, result['전일비'], result['등락율'])
                                 
                                 #self.label_kospi.setStyleSheet('background-color: pink; color: red')
-                                self.label_kospi.setStyleSheet('background-color: pink; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.label_kospi.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                                 self.label_kospi.setText(jisu_txt)
 
                                 kospi_text_color = 'red'
@@ -21255,7 +21255,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 jisu_txt = "KOSPI: {0} ▼ (-{1:.2f}, {2:0.1f}%)".format(kospi_str, result['전일비'], result['등락율'])
                                 
                                 #self.label_kospi.setStyleSheet('background-color: lightskyblue; color: blue')
-                                self.label_kospi.setStyleSheet('background-color: lightskyblue; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.label_kospi.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                                 self.label_kospi.setText(jisu_txt)
 
                                 kospi_text_color = 'blue'
@@ -21265,7 +21265,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 jisu_txt = "KOSPI: {0} ▼ ({1:.2f}, {2:0.1f}%)".format(kospi_str, result['전일비'], result['등락율'])
                                 
                                 #self.label_kospi.setStyleSheet('background-color: lightskyblue; color: red')
-                                self.label_kospi.setStyleSheet('background-color: lightskyblue; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.label_kospi.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                                 self.label_kospi.setText(jisu_txt)
 
                                 kospi_text_color = 'red'
@@ -21291,7 +21291,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 jisu_txt = "KOSDAQ: {0} ▲ (-{1:.2f}, {2:0.1f}%)".format(kosdaq_str, result['전일비'], result['등락율'])
                                 
                                 #self.label_kosdaq.setStyleSheet('background-color: pink; color: blue')
-                                self.label_kosdaq.setStyleSheet('background-color: pink; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.label_kosdaq.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                                 self.label_kosdaq.setText(jisu_txt)
 
                                 kosdaq_text_color = 'blue'
@@ -21301,7 +21301,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 jisu_txt = "KOSDAQ: {0} ▲ ({1:.2f}, {2:0.1f}%)".format(kosdaq_str, result['전일비'], result['등락율'])
                                 
                                 #self.label_kosdaq.setStyleSheet('background-color: pink; color: red')
-                                self.label_kosdaq.setStyleSheet('background-color: pink; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.label_kosdaq.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                                 self.label_kosdaq.setText(jisu_txt)
 
                                 kosdaq_text_color = 'red'
@@ -21315,7 +21315,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 jisu_txt = "KOSDAQ: {0} ▼ (-{1:.2f}, {2:0.1f}%)".format(kosdaq_str, result['전일비'], result['등락율'])
                                 
                                 #self.label_kosdaq.setStyleSheet('background-color: lightskyblue; color: blue')
-                                self.label_kosdaq.setStyleSheet('background-color: lightskyblue; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.label_kosdaq.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                                 self.label_kosdaq.setText(jisu_txt)
 
                                 kosdaq_text_color = 'blue'
@@ -21325,7 +21325,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 jisu_txt = "KOSDAQ: {0} ▼ ({1:.2f}, {2:0.1f}%)".format(kosdaq_str, result['전일비'], result['등락율'])
                                 
                                 #self.label_kosdaq.setStyleSheet('background-color: lightskyblue; color: red')
-                                self.label_kosdaq.setStyleSheet('background-color: lightskyblue; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.label_kosdaq.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                                 self.label_kosdaq.setText(jisu_txt)
 
                                 kosdaq_text_color = 'red'
@@ -21931,7 +21931,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 pass
                             
                             #self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black} QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
-                            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                                     QPushButton:hover {background-color: black; color: white} \
                                                                     QPushButton:pressed {background-color: gold}')
                             flag_telegram_listen_worker = True
@@ -22892,7 +22892,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     jisu_txt = "SP500: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                self.label_4th_index.setStyleSheet('background-color: pink; color: blue;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.label_4th_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                                 self.label_4th_index.setText(jisu_txt)
 
                                 sp500_text_color = 'blue'                           
@@ -22904,7 +22904,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     jisu_txt = "SP500: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                self.label_4th_index.setStyleSheet('background-color: pink; color: red;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.label_4th_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                                 self.label_4th_index.setText(jisu_txt)
 
                                 sp500_text_color = 'red'
@@ -22920,7 +22920,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     jisu_txt = "SP500: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                self.label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                                 self.label_4th_index.setText(jisu_txt)
 
                                 sp500_text_color = 'blue'                                
@@ -22932,7 +22932,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     jisu_txt = "SP500: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                self.label_4th_index.setStyleSheet('background-color: lightskyblue; color: red;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.label_4th_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                                 self.label_4th_index.setText(jisu_txt)
 
                                 sp500_text_color = 'red'                                
@@ -23106,7 +23106,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     jisu_txt = "WTI: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
 
                                 #self.label_3rd_index.setStyleSheet('background-color: pink; color: blue')
-                                self.label_3rd_index.setStyleSheet('background-color: pink; color: blue;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.label_3rd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                                 self.label_3rd_index.setText(jisu_txt)
 
                                 wti_text_color = 'blue'  
@@ -23119,7 +23119,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     jisu_txt = "WTI: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
 
                                 #self.label_3rd_index.setStyleSheet('background-color: pink; color: red')
-                                self.label_3rd_index.setStyleSheet('background-color: pink; color: red;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.label_3rd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                                 self.label_3rd_index.setText(jisu_txt)
 
                                 wti_text_color = 'red'                                    
@@ -23136,7 +23136,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     jisu_txt = "WTI: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
 
                                 #self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: blue')
-                                self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: blue;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                                 self.label_3rd_index.setText(jisu_txt)
 
                                 wti_text_color = 'blue'                                    
@@ -23149,7 +23149,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     jisu_txt = "WTI: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
 
                                 #self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: red')
-                                self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: red;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                                 self.label_3rd_index.setText(jisu_txt)
 
                                 wti_text_color = 'red' 
@@ -23225,7 +23225,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     jisu_txt = "HANGSENG: {0} ▲ ({1}, {2:.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
 
                                 #self.label_2nd_index.setStyleSheet('background-color: pink; color: blue')
-                                self.label_2nd_index.setStyleSheet('background-color: pink; color: blue;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.label_2nd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                                 self.label_2nd_index.setText(jisu_txt)
 
                                 hangseng_text_color = 'blue'                                           
@@ -23238,7 +23238,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     jisu_txt = "HANGSENG: {0} ▲ ({1}, {2:.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
 
                                 #self.label_2nd_index.setStyleSheet('background-color: pink; color: red')
-                                self.label_2nd_index.setStyleSheet('background-color: pink; color: red;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.label_2nd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                                 self.label_2nd_index.setText(jisu_txt)
 
                                 hangseng_text_color = 'red'                                                                             
@@ -23255,7 +23255,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     jisu_txt = "HANGSENG: {0} ▼ ({1}, {2:.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
 
                                 #self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue')
-                                self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                                 self.label_2nd_index.setText(jisu_txt)
 
                                 hangseng_text_color = 'blue'
@@ -23268,7 +23268,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     jisu_txt = "HANGSENG: {0} ▼ ({1}, {2:.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
 
                                 #self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red')
-                                self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                                 self.label_2nd_index.setText(jisu_txt)
 
                                 hangseng_text_color = 'red'
@@ -23344,7 +23344,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     jisu_txt = "EUROFX: {0:0.5f} ▲ ({1:0.5f}, {2:.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
 
                                 #self.label_2nd_index.setStyleSheet('background-color: pink; color: blue')
-                                self.label_2nd_index.setStyleSheet('background-color: pink; color: blue;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.label_2nd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                                 self.label_2nd_index.setText(jisu_txt)
 
                                 eurofx_text_color = 'blue'                                           
@@ -23357,7 +23357,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     jisu_txt = "EUROFX: {0:0.5f} ▲ ({1:0.5f}, {2:.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
 
                                 #self.label_2nd_index.setStyleSheet('background-color: pink; color: red')
-                                self.label_2nd_index.setStyleSheet('background-color: pink; color: red;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.label_2nd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                                 self.label_2nd_index.setText(jisu_txt)
 
                                 eurofx_text_color = 'red'                                                                             
@@ -23374,7 +23374,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     jisu_txt = "EUROFX: {0:0.5f} ▼ ({1:0.5f}, {2:.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
 
                                 #self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue')
-                                self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                                 self.label_2nd_index.setText(jisu_txt)
 
                                 eurofx_text_color = 'blue'
@@ -23387,7 +23387,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     jisu_txt = "EUROFX: {0:0.5f} ▼ ({1:0.5f}, {2:.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
 
                                 #self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red')
-                                self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                                 self.label_2nd_index.setText(jisu_txt)
 
                                 eurofx_text_color = 'red'
@@ -23463,7 +23463,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     jisu_txt = "GOLD: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
 
                                 #self.label_3rd_index.setStyleSheet('background-color: pink; color: blue')
-                                self.label_3rd_index.setStyleSheet('background-color: pink; color: blue;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.label_3rd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                                 self.label_3rd_index.setText(jisu_txt)
 
                                 gold_text_color = 'blue'                                           
@@ -23476,7 +23476,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     jisu_txt = "GOLD: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
 
                                 #self.label_3rd_index.setStyleSheet('background-color: pink; color: red')
-                                self.label_3rd_index.setStyleSheet('background-color: pink; color: red;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.label_3rd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                                 self.label_3rd_index.setText(jisu_txt)
 
                                 gold_text_color = 'red'                                                                             
@@ -23493,7 +23493,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     jisu_txt = "GOLD: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
 
                                 #self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: blue')
-                                self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: blue;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                                 self.label_3rd_index.setText(jisu_txt)
 
                                 gold_text_color = 'blue'
@@ -23506,7 +23506,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     jisu_txt = "GOLD: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
 
                                 #self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: red')
-                                self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: red;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                                 self.label_3rd_index.setText(jisu_txt)
 
                                 gold_text_color = 'red'
@@ -23623,10 +23623,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     txt = '환율: {0} at {1}\r'.format(result['현재가'], result['한국시간'])
                     print(txt)
 
-                    if not NightTime:
-                        self.label_kosdaq.setText(txt)
+                    if not NightTime:                        
                         #self.label_kosdaq.setStyleSheet('background-color: black; color: yellow')
-                        self.label_kosdaq.setStyleSheet('background-color: black; color: yellow; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                        self.label_kosdaq.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                        self.label_kosdaq.setText(txt)
                     else:
                         pass
 
@@ -35668,7 +35668,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
             self.setWindowTitle("SkyBot ver1.0")
 
-            self.textBrowser.setStyleSheet("background-color: black; color: springgreen")
+            self.textBrowser.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 9pt; font: Normal")
             self.textBrowser.append('Welcome to SkyBot\r')
             '''
             if TARGET_MONTH_SELECT == 'CM':
