@@ -10940,7 +10940,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def fut_node_coloring(self):
 
         dt = datetime.datetime.now()
-
+        '''
         if 선물_시가 > 0:
 
             if 선물_현재가 > 선물_시가:
@@ -10948,10 +10948,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if NightTime:
 
                     self.tableWidget_fut.item(0, 0).setBackground(QBrush(적색))
-                    self.tableWidget_fut.item(0, 0).setForeground(QBrush(검정색))
+                    self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
                 else:
                     self.tableWidget_fut.item(1, 0).setBackground(QBrush(적색))
-                    self.tableWidget_fut.item(1, 0).setForeground(QBrush(검정색))
+                    self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
 
             elif 선물_현재가 < 선물_시가:
 
@@ -10974,7 +10974,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
         else:
             pass
-                
+        '''        
         # 전저, 전고, 종가, 피봇 컬러링
         if self.is_within_n_tick(선물_전저, 선물_저가, 10):
 
@@ -11105,7 +11105,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         # 선물 맥점 컬러링
-        txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 맥점 컬러링을 완료했습니다.\r'.format(adj_hour, adj_min, adj_sec)
+        #txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 맥점 컬러링을 완료했습니다.\r'.format(adj_hour, adj_min, adj_sec)
         #self.textBrowser.append(txt)
 
     # 선물표시	
