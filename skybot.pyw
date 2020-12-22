@@ -2549,26 +2549,51 @@ class telegram_send_worker(QThread):
                         else:
                             pass
 
-                        # 차월물 옵션 OLOH 보고
-                        if nm_call_oloh_str != '' and nm_put_oloh_str == '':
-                            txt = nm_call_oloh_str
-                            ToYourTelegram(txt)
-                        elif nm_call_oloh_str == '' and nm_put_oloh_str != '':
-                            txt = nm_put_oloh_str
-                            ToYourTelegram(txt)
-                        elif nm_call_oloh_str != '' and nm_put_oloh_str != '':
-                            txt = nm_call_oloh_str + ', ' + nm_put_oloh_str
-                            ToYourTelegram(txt)
-                        else:
-                            pass
-
-                        # 원웨이 알람
+                        # Strong 에너지 알람
                         if flag_call_strong:
                             txt = "[{0:02d}:{1:02d}:{2:02d}] ★ Call Strong({3:.2f}/{4:.2f}) !!!".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
                             ToYourTelegram(txt)
                         elif flag_put_strong:
                             txt = "[{0:02d}:{1:02d}:{2:02d}] ★ Put Strong({3:.2f}/{4:.2f}) !!!".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
                             ToYourTelegram(txt)
+                        else:
+                            pass
+
+                        # 원웨이 알람
+                        if TARGET_MONTH_SELECT == 'CM':
+
+                            if call_ms_oneway:
+                                txt = "[{0:02d}:{1:02d}:{2:02d}] ★ CM Call OneWay !!!".format(dt.hour, dt.minute, dt.second)
+                                ToYourTelegram(txt)
+                            elif put_ms_oneway:
+                                txt = "[{0:02d}:{1:02d}:{2:02d}] ★ CM Put OneWay !!!".format(dt.hour, dt.minute, dt.second)
+                                ToYourTelegram(txt)
+                            else:
+                                pass
+
+                        elif TARGET_MONTH_SELECT == 'NM':
+                            
+                            # 차월물 옵션 OLOH 보고
+                            if nm_call_oloh_str != '' and nm_put_oloh_str == '':
+                                txt = nm_call_oloh_str
+                                ToYourTelegram(txt)
+                            elif nm_call_oloh_str == '' and nm_put_oloh_str != '':
+                                txt = nm_put_oloh_str
+                                ToYourTelegram(txt)
+                            elif nm_call_oloh_str != '' and nm_put_oloh_str != '':
+                                txt = nm_call_oloh_str + ', ' + nm_put_oloh_str
+                                ToYourTelegram(txt)
+                            else:
+                                pass
+
+                            if call_ms_oneway:
+                                txt = "[{0:02d}:{1:02d}:{2:02d}] ★ NM Call OneWay !!!".format(dt.hour, dt.minute, dt.second)
+                                ToYourTelegram(txt)
+                            elif put_ms_oneway:
+                                txt = "[{0:02d}:{1:02d}:{2:02d}] ★ NM Put OneWay !!!".format(dt.hour, dt.minute, dt.second)
+                                ToYourTelegram(txt)
+                            else:
+                                pass
                         else:
                             pass
 
