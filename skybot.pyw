@@ -3164,35 +3164,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         # 위젯 초기화
         self.textBrowser.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 9pt; font: Normal")
-        '''
-        self.pushButton_start.setStyleSheet('QPushButton {background-color: white; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
-                                            QPushButton:hover {background-color: black; color: white} \
-                                            QPushButton:pressed {background-color: gold}')
         
-        self.pushButton_telegram.setStyleSheet('QPushButton {background-color: white; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
-                                                QPushButton:hover {background-color: black; color: white} \
-                                                QPushButton:pressed {background-color: gold}')
-        '''
         self.pushButton_start.setStyleSheet('QPushButton \
                                             {background-color: \
                                             qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
-                                            color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px} \
+                                            color: yellow; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px} \
                                             QPushButton:hover {background-color: black; color: white} \
                                             QPushButton:pressed {background-color: gold}')
 
         self.pushButton_telegram.setStyleSheet('QPushButton \
                                             {background-color: \
                                             qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
-                                            color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px} \
+                                            color: yellow; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px} \
                                             QPushButton:hover {background-color: black; color: white} \
                                             QPushButton:pressed {background-color: gold}')               
-        
+        '''
         if not DARK_STYLESHEET:
             self.pushButton_start.setFont(QFont("Consolas", 10, QFont.Bold))
             self.pushButton_telegram.setFont(QFont("Consolas", 10, QFont.Bold))
         else:
             pass
-
+        '''
         self.pushButton_start.setText(' Start ')          
         self.pushButton_telegram.setText(' Telegram ')
         
@@ -3946,7 +3938,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             #self.pushButton_telegram.setStyleSheet('QPushButton {background-color: white; color: black} QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
-            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: white; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: white; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                     QPushButton:hover {background-color: black; color: white} \
                                                     QPushButton:pressed {background-color: gold}')
             flag_telegram_on = False            
@@ -3982,7 +3974,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.telegram_listen_worker.start()
 
             #self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black} QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
-            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                     QPushButton:hover {background-color: black; color: white} \
                                                     QPushButton:pressed {background-color: gold}')
             flag_telegram_on = True
@@ -11224,7 +11216,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
                 
                 #self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black} QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
-                self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                         QPushButton:hover {background-color: black; color: white} \
                                                         QPushButton:pressed {background-color: gold}')
                 flag_telegram_listen_worker = True
@@ -14366,11 +14358,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if not refresh_flag:
                 
                 if SEARCH_MOVING_NODE:
-                    self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                    self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                         QPushButton:hover {background-color: black; color: white} \
                                                         QPushButton:pressed {background-color: gold}')
                 else:
-                    self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                    self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                         QPushButton:hover {background-color: black; color: white} \
                                                         QPushButton:pressed {background-color: gold}')
                 #self.pushButton_start.setFont(QFont("Consolas", 9, QFont.Bold))
@@ -14402,13 +14394,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if SEARCH_MOVING_NODE:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 동적맥점 탐색을 활성화 합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
-                    self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                    self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                         QPushButton:hover {background-color: black; color: white} \
                                                         QPushButton:pressed {background-color: gold}')
                 else:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 동적맥점 탐색을 비활성화 합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
-                    self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                    self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                         QPushButton:hover {background-color: black; color: white} \
                                                         QPushButton:pressed {background-color: gold}')
 
@@ -14614,7 +14606,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
             
             #self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black} QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
-            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                     QPushButton:hover {background-color: black; color: white} \
                                                     QPushButton:pressed {background-color: gold}')           
             flag_telegram_listen_worker = True                       
@@ -14626,7 +14618,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             telegram_command = '/start'
             
             #self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black} QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
-            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                     QPushButton:hover {background-color: black; color: white} \
                                                     QPushButton:pressed {background-color: gold}')
         else:
@@ -14646,7 +14638,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             #self.pushButton_telegram.setStyleSheet('QPushButton {background-color: white; color: black} QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
-            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: white; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: white; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                     QPushButton:hover {background-color: black; color: white} \
                                                     QPushButton:pressed {background-color: gold}')
             
@@ -16629,11 +16621,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             #self.pushButton_start.setStyleSheet('QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
 
             if SEARCH_MOVING_NODE:
-                self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                     QPushButton:hover {background-color: black; color: white} \
                                                     QPushButton:pressed {background-color: gold}')
             else:
-                self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                     QPushButton:hover {background-color: black; color: white} \
                                                     QPushButton:pressed {background-color: gold}')
 
@@ -18102,11 +18094,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 #self.pushButton_start.setStyleSheet('QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
 
                 if SEARCH_MOVING_NODE:
-                    self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                    self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                         QPushButton:hover {background-color: black; color: white} \
                                                         QPushButton:pressed {background-color: gold}')
                 else:
-                    self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                    self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                         QPushButton:hover {background-color: black; color: white} \
                                                         QPushButton:pressed {background-color: gold}')
 
@@ -19506,11 +19498,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         #self.pushButton_start.setStyleSheet('QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
 
                         if SEARCH_MOVING_NODE:
-                            self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                            self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                                 QPushButton:hover {background-color: black; color: white} \
                                                                 QPushButton:pressed {background-color: gold}') 
                         else:
-                            self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                            self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                                 QPushButton:hover {background-color: black; color: white} \
                                                                 QPushButton:pressed {background-color: gold}') 
 
@@ -20156,11 +20148,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         #self.pushButton_start.setStyleSheet('QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
 
                         if SEARCH_MOVING_NODE:
-                            self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                            self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                                 QPushButton:hover {background-color: black; color: white} \
                                                                 QPushButton:pressed {background-color: gold}') 
                         else:
-                            self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                            self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                                 QPushButton:hover {background-color: black; color: white} \
                                                                 QPushButton:pressed {background-color: gold}')
 
@@ -20205,11 +20197,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         #self.pushButton_start.setStyleSheet('QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
 
                         if SEARCH_MOVING_NODE:
-                            self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                            self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                                 QPushButton:hover {background-color: black; color: white} \
                                                                 QPushButton:pressed {background-color: gold}')
                         else:
-                            self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                            self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                                 QPushButton:hover {background-color: black; color: white} \
                                                                 QPushButton:pressed {background-color: gold}')
 
@@ -21931,7 +21923,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 pass
                             
                             #self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black} QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
-                            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                                     QPushButton:hover {background-color: black; color: white} \
                                                                     QPushButton:pressed {background-color: gold}')
                             flag_telegram_listen_worker = True
@@ -23850,298 +23842,226 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_time.setText("🕘")
 
         # Plot1 가격표시
-        self.label_p1_1.setText(" 좌표 ")
         self.label_p1_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_p1_1.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_p1_2.setText(" BB Middle\n PSAR ")
+        self.label_p1_1.setText(" 좌표 ")
+        
         self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_p1_3.setText(" OneEye ")
+        self.label_p1_2.setText(" BB Middle\n PSAR ")
+        
         self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_p1_4.setText(" MAMA ")
+        self.label_p1_3.setText(" OneEye ")
+        
         self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_11.setText(" 전저 ")
+        self.label_p1_4.setText(" MAMA ")
+        
         self.label_11.setStyleSheet('background-color: goldenrod; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_11.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_12.setText(" 전고 ")
+        self.label_11.setText(" 전저 ")
+        
         self.label_12.setStyleSheet('background-color: gold; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_12.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_13.setText(" 종가 ")
+        self.label_12.setText(" 전고 ")
+        
         self.label_13.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_13.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_14.setText(" 피봇 ")
+        self.label_13.setText(" 종가 ")
+        
         self.label_14.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_14.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_15.setText(" 시가 ")
+        self.label_14.setText(" 피봇 ")
+        
         self.label_15.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_16.setText(" 저가 ")
+        self.label_15.setText(" 시가 ")
+        
         self.label_16.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_17.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+        self.label_16.setText(" 저가 ")
+        
         self.label_17.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_18.setText(" 고가 ")
+        self.label_17.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+        
         self.label_18.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_18.setText(" 고가 ")
 
-        # Plot2 가격표시
-        self.label_p2_1.setText(" 좌표 ")
+        # Plot2 가격표시        
         self.label_p2_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_p2_1.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_p2_2.setText(" BB Middle\n PSAR ")
+        self.label_p2_1.setText(" 좌표 ")
+        
         self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_p2_3.setText(" OneEye ")
+        self.label_p2_2.setText(" BB Middle\n PSAR ")
+        
         self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_p2_4.setText(" MAMA ")
+        self.label_p2_3.setText(" OneEye ")
+        
         self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_21.setText(" 전저 ")
+        self.label_p2_4.setText(" MAMA ")
+        
         self.label_21.setStyleSheet('background-color: goldenrod; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_21.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_22.setText(" 전고 ")
+        self.label_21.setText(" 전저 ")
+        
         self.label_22.setStyleSheet('background-color: gold; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_22.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_23.setText(" 종가 ")
+        self.label_22.setText(" 전고 ")
+        
         self.label_23.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_24.setText(" 피봇 ")
+        self.label_23.setText(" 종가 ")
+        
         self.label_24.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_25.setText(" 시가 ")
+        self.label_24.setText(" 피봇 ")
+        
         self.label_25.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_25.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_26.setText(" 저가 ")
+        self.label_25.setText(" 시가 ")
+        
         self.label_26.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_26.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_27.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+        self.label_26.setText(" 저가 ")
+        
         self.label_27.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_28.setText(" 고가 ")
+        self.label_27.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+        
         self.label_28.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_28.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_28.setText(" 고가 ")
 
-        # Plot3 가격표시
-        self.label_p3_1.setText(" 좌표 ")
+        # Plot3 가격표시        
         self.label_p3_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_p3_1.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_p3_2.setText(" BB Middle\n PSAR ")
+        self.label_p3_1.setText(" 좌표 ")
+        
         self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_p3_3.setText(" OneEye ")
+        self.label_p3_2.setText(" BB Middle\n PSAR ")
+        
         self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_p3_4.setText(" MAMA ")
+        self.label_p3_3.setText(" OneEye ")
+        
         self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_31.setText(" 전저 ")
+        self.label_p3_4.setText(" MAMA ")
+        
         self.label_31.setStyleSheet('background-color: goldenrod; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_31.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_32.setText(" 전고 ")
+        self.label_31.setText(" 전저 ")
+        
         self.label_32.setStyleSheet('background-color: gold; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_32.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_33.setText(" 종가 ")
+        self.label_32.setText(" 전고 ")
+        
         self.label_33.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_33.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_34.setText(" 피봇 ")
+        self.label_33.setText(" 종가 ")
+        
         self.label_34.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_34.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_35.setText(" 시가 ")
+        self.label_34.setText(" 피봇 ")
+        
         self.label_35.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_35.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_36.setText(" 저가 ")
+        self.label_35.setText(" 시가 ")
+        
         self.label_36.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_36.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_37.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+        self.label_36.setText(" 저가 ")
+        
         self.label_37.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_38.setText(" 고가 ")
+        self.label_37.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+        
         self.label_38.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_38.setText(" 고가 ")
 
-        # Plot4 가격표시
-        self.label_p4_1.setText(" 좌표 ")
+        # Plot4 가격표시        
         self.label_p4_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_p4_1.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_p4_2.setText(" BB Middle\n PSAR ")
+        self.label_p4_1.setText(" 좌표 ")
+        
         self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_p4_3.setText(" OneEye ")
+        self.label_p4_2.setText(" BB Middle\n PSAR ")
+        
         self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_p4_4.setText(" MAMA ")
+        self.label_p4_3.setText(" OneEye ")
+        
         self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_41.setText(" 전저 ")
+        self.label_p4_4.setText(" MAMA ")
+        
         self.label_41.setStyleSheet('background-color: goldenrod; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_41.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_42.setText(" 전고 ")
+        self.label_41.setText(" 전저 ")
+        
         self.label_42.setStyleSheet('background-color: gold; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_42.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_43.setText(" 종가 ")
+        self.label_42.setText(" 전고 ")
+        
         self.label_43.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_43.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_44.setText(" 피봇 ")
+        self.label_43.setText(" 종가 ")
+        
         self.label_44.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_44.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_45.setText(" 시가 ")
+        self.label_44.setText(" 피봇 ")
+        
         self.label_45.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_45.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_46.setText(" 저가 ")
+        self.label_45.setText(" 시가 ")
+        
         self.label_46.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_46.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_47.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+        self.label_46.setText(" 저가 ")
+        
         self.label_47.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_48.setText(" 고가 ")
+        self.label_47.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+        
         self.label_48.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_48.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_48.setText(" 고가 ")
 
-        # Plot5 가격표시
-        self.label_p5_1.setText(" 좌표 ")
+        # Plot5 가격표시        
         self.label_p5_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_p5_1.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_p5_2.setText(" BB Middle\n PSAR ")
+        self.label_p5_1.setText(" 좌표 ")
+        
         self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_p5_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_p5_3.setText(" OneEye ")
+        self.label_p5_2.setText(" BB Middle\n PSAR ")
+        
         self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_p5_4.setText(" MAMA ")
+        self.label_p5_3.setText(" OneEye ")
+        
         self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_51.setText(" 전저 ")
+        self.label_p5_4.setText(" MAMA ")
+        
         self.label_51.setStyleSheet('background-color: goldenrod; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_51.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_52.setText(" 전고 ")
+        self.label_51.setText(" 전저 ")
+        
         self.label_52.setStyleSheet('background-color: gold; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_52.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_53.setText(" 종가 ")
+        self.label_52.setText(" 전고 ")
+        
         self.label_53.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_53.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_54.setText(" 피봇 ")
+        self.label_53.setText(" 종가 ")
+        
         self.label_54.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_54.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_55.setText(" 시가 ")
+        self.label_54.setText(" 피봇 ")
+        
         self.label_55.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_55.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_56.setText(" 저가 ")
+        self.label_55.setText(" 시가 ")
+        
         self.label_56.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_56.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_57.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+        self.label_56.setText(" 저가 ")
+        
         self.label_57.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_58.setText(" 고가 ")
+        self.label_57.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+        
         self.label_58.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_58.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_58.setText(" 고가 ")
 
-        # Plot6 가격표시
-        self.label_p6_1.setText(" 좌표 ")
+        # Plot6 가격표시        
         self.label_p6_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_p6_1.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_p6_2.setText(" BB Middle\n PSAR ")
+        self.label_p6_1.setText(" 좌표 ")
+        
         self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_p6_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_p6_3.setText(" OneEye ")
+        self.label_p6_2.setText(" BB Middle\n PSAR ")
+        
         self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_p6_4.setText(" MAMA ")
+        self.label_p6_3.setText(" OneEye ")
+        
         self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_61.setText(" 전저 ")
+        self.label_p6_4.setText(" MAMA ")
+        
         self.label_61.setStyleSheet('background-color: goldenrod; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_61.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_62.setText(" 전고 ")
+        self.label_61.setText(" 전저 ")
+        
         self.label_62.setStyleSheet('background-color: gold; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_62.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_63.setText(" 종가 ")
+        self.label_62.setText(" 전고 ")
+        
         self.label_63.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_63.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_64.setText(" 피봇 ")
+        self.label_63.setText(" 종가 ")
+        
         self.label_64.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_64.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_65.setText(" 시가 ")
+        self.label_64.setText(" 피봇 ")
+        
         self.label_65.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_65.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_66.setText(" 저가 ")
+        self.label_65.setText(" 시가 ")
+        
         self.label_66.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_67.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+        self.label_66.setText(" 저가 ")
+        
         self.label_67.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_68.setText(" 고가 ")
+        self.label_67.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+        
         self.label_68.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_68.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_68.setText(" 고가 ")
 
         self.comboBox1.addItems(['Reserved', '선물잔량비', '선옵체결', '옵션잔량비', '등락율비', '옵션미결', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', 'Reserved'])
         self.comboBox1.insertSeparator(1)
@@ -25332,19 +25252,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
     def plot1_mouseClicked(self, evt):
         
         self.label_p1_2.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
         self.label_p1_2.setText("X = %d, Y = %0.2f" % (plot1_x, plot1_y))
 
     def plot2_mouseClicked(self, evt):
         
         self.label_p2_2.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
         self.label_p2_2.setText("X = %d, Y = %0.2f" % (plot2_x, plot2_y))
 
     def plot3_mouseClicked(self, evt):
 
         self.label_p3_2.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
         self.label_p3_2.setText("X = %d, Y = %0.2f" % (plot3_x, plot3_y))
 
     def plot4_mouseClicked(self, evt):
