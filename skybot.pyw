@@ -3042,15 +3042,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def __init__(self, parent=None):
 
-        super(화면_선물옵션전광판, self).__init__(parent, flags = Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
+        #super(화면_선물옵션전광판, self).__init__(parent, flags = Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
+        super(화면_선물옵션전광판, self).__init__()
 
+        self.setWindowFlags(Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
         self.setAttribute(Qt.WA_DeleteOnClose)
         #self.setAttribute(Qt.WA_DeleteOnClose, True)        
 
-        self.parent = parent
-        
-        #self.setWindowFlags(window.windowFlags() & ~Qt.WindowStaysOnTopHint)
-        #self.setModal(False)
+        self.parent = parent        
         self.setupUi(self)
 
         self.flag_score_board_open = True
