@@ -3042,10 +3042,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def __init__(self, parent=None):
 
-        super(화면_선물옵션전광판, self).\
-            __init__(parent, flags = Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
-        #self.setAttribute(Qt.WA_DeleteOnClose)
-        self.setAttribute(Qt.WA_DeleteOnClose, True)        
+        super(화면_선물옵션전광판, self).__init__(parent, flags = Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
+
+        self.setAttribute(Qt.WA_DeleteOnClose)
+        #self.setAttribute(Qt.WA_DeleteOnClose, True)        
 
         self.parent = parent
         
@@ -3068,6 +3068,31 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.consumer_queue = mp.Queue()
         else:
             pass
+
+        # 이벤트루프 & 쓰레드 정의, 쓰레드 시작은 start(), 종료는 terminate()
+        #self.t8416_event_loop = QEventLoop()
+        self.t8416_call_event_loop = QEventLoop()
+        self.t8416_put_event_loop = QEventLoop()
+
+        # t2301, t2835 이벤트루프(1초당 2건) --> 옵션 실시간수신 문제 보완목적
+        self.t2301_event_loop = QEventLoop()
+        self.t2835_event_loop = QEventLoop()
+
+        self.real_data_worker = RealDataWorker(self.producer_queue, self.consumer_queue)
+        self.real_data_worker.trigger.connect(self.process_realdata)        
+        self.real_data_worker.daemon = True
+
+        self.screen_update_worker = screen_update_worker()
+        self.screen_update_worker.finished.connect(self.update_screen)
+        self.screen_update_worker.daemon = True
+        
+        self.telegram_send_worker = telegram_send_worker()
+        self.telegram_send_worker.finished.connect(self.send_telegram_message)
+        self.telegram_send_worker.daemon = True
+
+        self.telegram_listen_worker = telegram_listen_worker()
+        self.telegram_listen_worker.finished.connect(self.listen_telegram_message)
+        self.telegram_listen_worker.daemon = True
         
         # 실시간 멀티프로세스
         '''
@@ -3676,25 +3701,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.XingAdminCheck()
 
         self.checkBox_HS.stateChanged.connect(self.checkBox_HS_checkState)
-
-        # 이벤트루프를 사용하여 t8416 연속요청(1초당 1건) 처리
-        #self.t8416_event_loop = QEventLoop()
-        self.t8416_call_event_loop = QEventLoop()
-        self.t8416_put_event_loop = QEventLoop()
-
-        # t2301, t2835 이벤트루프(1초당 2건) --> 옵션 실시간수신 문제 보완목적
-        self.t2301_event_loop = QEventLoop()
-        self.t2835_event_loop = QEventLoop()          
-        
-        # 쓰레드 시작은 start(), 종료는 terminate()
-        self.screen_update_worker = screen_update_worker()
-        self.screen_update_worker.finished.connect(self.update_screen)
-        
-        self.telegram_send_worker = telegram_send_worker()
-        self.telegram_send_worker.finished.connect(self.send_telegram_message)
-
-        self.telegram_listen_worker = telegram_listen_worker()
-        self.telegram_listen_worker.finished.connect(self.listen_telegram_message)
         
         self.tableWidget_call.resizeColumnsToContents()
         self.tableWidget_put.resizeColumnsToContents()
@@ -3922,10 +3928,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 재기동합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(txt)
             
-            self.telegram_send_worker.daemon = True
+            #self.telegram_send_worker.daemon = True
             self.telegram_send_worker.start()
             
-            self.telegram_listen_worker.daemon = True
+            #self.telegram_listen_worker.daemon = True
             self.telegram_listen_worker.start()
 
             #self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black} QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
@@ -11123,7 +11129,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if TELEGRAM_SERVICE and not flag_telegram_send_worker and not NightTime:
             
-            self.telegram_send_worker.daemon = True
+            #self.telegram_send_worker.daemon = True
             self.telegram_send_worker.start()
 
             telegram_send_worker_on_time = fut_first_arrive_time 
@@ -11153,7 +11159,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if TELEGRAM_SERVICE:
                 
-                self.telegram_listen_worker.daemon = True
+                #self.telegram_listen_worker.daemon = True
                 self.telegram_listen_worker.start()
 
                 if TARGET_MONTH_SELECT == 'CM':
@@ -14529,7 +14535,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             # 가끔 send worker가 오동작함(쓰레드 재시작...)
             
-            self.telegram_send_worker.daemon = True
+            #self.telegram_send_worker.daemon = True
             self.telegram_send_worker.start()
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Send Worker를 재시작합니다.\r'.format(adj_hour, adj_min, adj_sec)
@@ -14543,7 +14549,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             flag_telegram_on = True
             
-            self.telegram_listen_worker.daemon = True
+            #self.telegram_listen_worker.daemon = True
             self.telegram_listen_worker.start()
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Polling이 시작됩니다.\r'.format(adj_hour, adj_min, adj_sec)
@@ -16110,9 +16116,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # 실시간데이타는 스레드를 통해 수신함
                 if not MULTIPROCESS:
-                    self.real_data_worker = RealDataWorker(self.producer_queue, self.consumer_queue)
-                    self.real_data_worker.trigger.connect(self.process_realdata)        
-                    self.real_data_worker.daemon = True
+                    #self.real_data_worker = RealDataWorker(self.producer_queue, self.consumer_queue)
+                    #self.real_data_worker.trigger.connect(self.process_realdata)        
+                    #self.real_data_worker.daemon = True
                     self.real_data_worker.start()
                     self.real_data_worker.AdviseRealDataAll()
                 else:
@@ -18041,7 +18047,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass  
                 self.tableWidget_fut.resizeColumnsToContents()                
                 
-                self.screen_update_worker.daemon = True
+                #self.screen_update_worker.daemon = True
                 self.screen_update_worker.start()
                 
                 refresh_flag = True
@@ -19438,7 +19444,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
                         self.tableWidget_fut.resizeColumnsToContents()
                         
-                        self.screen_update_worker.daemon = True
+                        #self.screen_update_worker.daemon = True
                         self.screen_update_worker.start()
 
                         txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
@@ -21830,7 +21836,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if TELEGRAM_SERVICE and not flag_telegram_send_worker:
                         
-                        self.telegram_send_worker.daemon = True
+                        #self.telegram_send_worker.daemon = True
                         self.telegram_send_worker.start()
 
                         telegram_send_worker_on_time = opt_time 
@@ -21860,7 +21866,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if TELEGRAM_SERVICE:
                             
-                            self.telegram_listen_worker.daemon = True
+                            #self.telegram_listen_worker.daemon = True
                             self.telegram_listen_worker.start()
 
                             if TARGET_MONTH_SELECT == 'CM':                        
@@ -23668,7 +23674,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.datetime.now()
 
         self.flag_score_board_open = False
-        self.KillScoreBoardThread()
+
+        if self.real_data_worker.isRunning():
+            self.KillScoreBoardThread()
+        else:
+            pass
 
         txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 종료합니다...\r'.format(dt.hour, dt.minute, dt.second)
         self.parent.textBrowser.append(txt)
@@ -23706,8 +23716,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
     def __init__(self, parent=None):
 
         super(화면_BigChart, self).__init__(parent, flags = Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)     
-        #self.setAttribute(Qt.WA_DeleteOnClose)
-        self.setAttribute(Qt.WA_DeleteOnClose, True)
+        self.setAttribute(Qt.WA_DeleteOnClose)
+        #self.setAttribute(Qt.WA_DeleteOnClose, True)
 
         self.setupUi(self)
 
@@ -23725,6 +23735,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         
         self.plot_update_worker = Bigchart_update_worker()
         self.plot_update_worker.finished.connect(self.update_bigchart)
+        self.plot_update_worker.daemon = True
 
         self.comboBox1.setStyleSheet('background-color: lightgreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.comboBox2.setStyleSheet('background-color: lightgreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -24700,7 +24711,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_time_line_jugan_start.setValue(GuardTime)
 
         # 쓰레드 시작...        
-        self.plot_update_worker.daemon = True
+        #self.plot_update_worker.daemon = True
         self.plot_update_worker.start()
 
     def __del__(self):
@@ -35184,6 +35195,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             QMainWindow.__init__(self)
             Ui_MainWindow.__init__(self)
 
+            self.setAttribute(Qt.WA_DeleteOnClose)
+
             #self.setWindowFlags(Qt.WindowStaysOnTopHint)
             self.setupUi(self)
             
@@ -35262,7 +35275,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             Ui_MainWindow.__init__(self)
 
             #self.setWindowFlags(Qt.WindowStaysOnTopHint)
-            self.setAttribute(Qt.WA_DeleteOnClose, True)
+            self.setAttribute(Qt.WA_DeleteOnClose)
 
             self.setupUi(self)
 
@@ -35507,25 +35520,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
             
-            if self.dialog.get('선물옵션전광판') is not None:
+            # 옵션전광판 자동시작                            
+            if AUTO_START:
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
 
-                try:
-                    self.dialog['선물옵션전광판'].show()
-                except Exception as e:
-                    self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
-                    self.dialog['선물옵션전광판'].show()
-            else:
                 self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
                 self.dialog['선물옵션전광판'].show()
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 생성합니다...\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(txt)
-            
-            # 옵션전광판 자동시작                            
-            if AUTO_START:
                 self.dialog['선물옵션전광판'].RunCode()
             else:
-                pass            
+                pass                        
         else:
             self.statusbar.showMessage("%s %s" % (code, msg))
 
@@ -35669,17 +35674,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
             if self.dialog.get('선물옵션전광판') is not None:
 
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 다시 오픈합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
+
                 try:
                     self.dialog['선물옵션전광판'].show()
                 except Exception as e:
                     self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
                     self.dialog['선물옵션전광판'].show()
-            else:
+            else:                
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 생성합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
+
                 self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
                 self.dialog['선물옵션전광판'].show()
-
-                #txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 생성합니다...\r'.format(dt.hour, dt.minute, dt.second)
-                #self.textBrowser.append(txt)
 
         # Big Chart
         if _action == "actionBigChart":
