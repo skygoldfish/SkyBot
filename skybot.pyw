@@ -23679,8 +23679,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 종료합니다...\r'.format(dt.hour, dt.minute, dt.second)
-        self.parent.textBrowser.append(txt)
+        print('Score Board Dialog 종료 on closeEvent...\r')
 
         self.close()
 
@@ -23714,13 +23713,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
     
     def __init__(self, parent=None):
 
-        super(화면_BigChart, self).__init__(parent, flags = Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)     
+        #super(화면_BigChart, self).__init__(parent, flags = Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
+        super(화면_BigChart, self).__init__()
+
+        self.setWindowFlags(Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
         self.setAttribute(Qt.WA_DeleteOnClose)
         #self.setAttribute(Qt.WA_DeleteOnClose, True)
 
-        self.setupUi(self)
-
         self.parent = parent
+        self.setupUi(self)
+        
         self.flag_big_chart_open = True
 
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
@@ -35159,14 +35161,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         bc_ui_update_time = 0
         self.flag_big_chart_open = False
-
-        txt = '[{0:02d}:{1:02d}:{2:02d}] Big Chart Dialog를 종료합니다...\r'.format(dt.hour, dt.minute, dt.second)
-        self.parent.textBrowser.append(txt)
         
-        self.plot_update_worker.terminate()
+        if self.plot_update_worker.isRunning():
+            self.plot_update_worker.terminate()
+        else:
+            pass
 
-        self.close()
-        
+        print('Big Chart Dialog 종료 on closeEvent...\r')
+
+        self.close()        
 
 ########################################################################################################################
 # 메인
@@ -35411,6 +35414,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if self.dialog['선물옵션전광판'].flag_score_board_open:
                 # 정상종료를 위해 모든 쓰레드를 죽인다.
                 self.dialog['선물옵션전광판'].KillScoreBoardThread()
+                self.dialog['선물옵션전광판'].close()
+            else:
+                print('해당 다이얼로그가 없습니다.')
+
+            if self.dialog['BigChart'].flag_big_chart_open:
+                # 정상종료를 위해 모든 쓰레드를 죽인다.
+                self.dialog['BigChart'].close()
             else:
                 print('해당 다이얼로그가 없습니다.')
 
