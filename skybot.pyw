@@ -2561,6 +2561,21 @@ class telegram_send_worker(QThread):
 
                         # 원웨이 알람
                         if TARGET_MONTH_SELECT == 'CM':
+                            
+                            # kp200 맥점 알람
+                            if kp200_low_node_str != '' and FLAG_NODE:
+
+                                txt = kp200_low_node_str
+                                ToYourTelegram(txt)
+                            else:
+                                pass
+
+                            if kp200_high_node_str != '' and FLAG_NODE:
+
+                                txt = kp200_high_node_str
+                                ToYourTelegram(txt)
+                            else:
+                                pass
 
                             if call_ms_oneway:
                                 txt = "[{0:02d}:{1:02d}:{2:02d}] ★ CM Call OneWay !!!".format(dt.hour, dt.minute, dt.second)
@@ -2596,93 +2611,8 @@ class telegram_send_worker(QThread):
                                 pass
                         else:
                             pass
-
-                        # 옵션맥점 발생 알람
-                        '''
-                        if call_low_node_str != '' and FLAG_NODE:
-
-                            txt = call_low_node_str
-                            ToYourTelegram(txt)
-                        else:
-                            pass
-
-                        if call_high_node_str != '' and FLAG_NODE:
-
-                            txt = call_high_node_str
-                            ToYourTelegram(txt)
-                        else:
-                            pass
-
-                        if put_low_node_str != '' and FLAG_NODE:
-
-                            txt = put_low_node_str
-                            ToYourTelegram(txt)
-                        else:
-                            pass
-
-                        if put_high_node_str != '' and FLAG_NODE:
-
-                            txt = put_high_node_str
-                            ToYourTelegram(txt)
-                        else:
-                            pass                        
-
-                        if telegram_send_str_call_low != '' and FLAG_NODE:
-
-                            txt = telegram_send_str_call_low
-                            ToYourTelegram(txt)
-                        else:
-                            pass
-
-                        if telegram_send_str_call_high != '' and FLAG_NODE:
-
-                            txt = telegram_send_str_call_high
-                            ToYourTelegram(txt)
-                        else:
-                            pass
-
-                        if telegram_send_str_put_low != '' and FLAG_NODE:
-
-                            txt = telegram_send_str_put_low
-                            ToYourTelegram(txt)
-                        else:
-                            pass
-
-                        if telegram_send_str_put_high != '' and FLAG_NODE:
-
-                            txt = telegram_send_str_put_high
-                            ToYourTelegram(txt)
-                        else:
-                            pass                               
-                        
-                        # 비대칭장(장의 형태) 알람
-                        if 비대칭장 != '' and FLAG_ASYM:
-                            txt = 비대칭장
-                            ToYourTelegram(txt)
-                        else:
-                            pass
-                        '''
                     else:
-                        pass                
-                    
-                    if TARGET_MONTH_SELECT == 'CM':
-
-                        # kp200 맥점 알람
-                        if kp200_low_node_str != '' and FLAG_NODE:
-
-                            txt = kp200_low_node_str
-                            ToYourTelegram(txt)
-                        else:
-                            pass
-
-                        if kp200_high_node_str != '' and FLAG_NODE:
-
-                            txt = kp200_high_node_str
-                            ToYourTelegram(txt)
-                        else:
-                            pass
-                    else:
-                        pass                
+                        pass               
                 else:
                     pass  
             else:
