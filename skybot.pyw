@@ -11117,6 +11117,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(2, Futures_column.OI.value, item)
+
+            df_futures_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 선물_등락율
         else:
             pass
         
@@ -11632,7 +11634,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # Plot 데이타프레임 생성
             df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
 
-            df_futures_graph.at[ovc_x_idx, 'drate'] = result['등락율']
+            df_futures_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * result['등락율']
 
             # 1T OHLC 생성
             df_futures_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
