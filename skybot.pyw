@@ -35455,6 +35455,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # 복수개의 Dialog 처리용 선언
             self.dialog = dict()
 
+            self.dialog['선물옵션전광판'] = None
+            self.dialog['BigChart'] = None
+            self.dialog['Version'] = None
+
             self.주문제한 = 0
             self.조회제한 = 0
             self.금일백업작업중 = False
@@ -35535,18 +35539,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             event.accept()
 
-            if self.dialog['선물옵션전광판'].flag_score_board_open:
+            if self.dialog['선물옵션전광판'] is not None:
                 # 정상종료를 위해 모든 쓰레드를 죽인다.
                 self.dialog['선물옵션전광판'].KillScoreBoardThread()
                 self.dialog['선물옵션전광판'].close()
             else:
-                print('해당 다이얼로그가 없습니다.')
+                print('선물옵션전광판 다이얼로그가 없습니다.')
 
-            if self.dialog['BigChart'].flag_big_chart_open:
+            if self.dialog['BigChart'] is not None:
                 # 정상종료를 위해 모든 쓰레드를 죽인다.
                 self.dialog['BigChart'].close()
             else:
-                print('해당 다이얼로그가 없습니다.')
+                print('BigChart 다이얼로그가 없습니다.')
 
             logger.info("*************************************************************************************************************************")
             logger.info("LOG STOP")
