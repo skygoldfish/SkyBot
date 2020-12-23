@@ -355,7 +355,6 @@ else:
     bigchart_ui_type = 'bigchart.ui'
 
 if int(CURRENT_MONTH[4:6]) == 11:
-
     NEXT_MONTH = CURRENT_MONTH[0:4] + '12'
     MONTH_AFTER_NEXT = repr(int(CURRENT_MONTH[0:4]) + 1) + '01'
 elif int(CURRENT_MONTH[4:6]) == 12:
