@@ -20650,8 +20650,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         선물_등락율 = ((result['예상체결가격'] - 선물_전일종가) / 선물_전일종가) * 100
 
-                        df_futures_graph.at[ovc_x_idx, 'drate'] = 선물_등락율
-
                         item = QTableWidgetItem("선물\n({0:.2f}%)".format(선물_등락율))
                         item.setTextAlignment(Qt.AlignCenter)
                         item.setBackground(QBrush(흰색))
@@ -20672,6 +20670,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.tableWidget_fut.setItem(2, Futures_column.OI.value, item)
                         else:
                             pass
+                        
+                        df_futures_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 선물_등락율
 
                         if fut_quote_energy_direction == 'call':
 
@@ -22362,7 +22362,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         DOW_등락율 = result['등락율']
 
-                    df_dow_graph.at[ovc_x_idx, 'drate'] = DOW_등락율                                  
+                    df_dow_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * DOW_등락율                                  
 
                     if DOW_시가 == 0:
 
@@ -30947,9 +30947,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 #self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_18.setText(txt)
 
-                plot1_call_volume_curve.setData(df_call_total_graph['volume'])
                 plot1_put_volume_curve.setData(df_put_total_graph['volume'])
                 plot1_fut_volume_curve.setData(df_futures_graph['volume'])
+                plot1_call_volume_curve.setData(df_call_total_graph['volume'])
 
             elif comboindex1 == 4 and market_service:
 
@@ -30982,7 +30982,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 #self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_18.setText(txt)
                 
-                plot1_dow_drate_curve.setData(plot_drate_scale_factor * df_dow_graph['drate'])
+                plot1_dow_drate_curve.setData(df_dow_graph['drate'])
                 plot1_put_drate_curve.setData(df_put_total_graph['drate'])                
                 plot1_call_drate_curve.setData(df_call_total_graph['drate'])
 
@@ -30992,7 +30992,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     #self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_17.setText(txt)
 
-                    plot1_fut_drate_curve.setData(plot_drate_scale_factor * df_futures_graph['drate'])
+                    plot1_fut_drate_curve.setData(df_futures_graph['drate'])
                 else:
                     pass                
 
@@ -31691,9 +31691,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 #self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_28.setText(txt)
 
-                plot2_call_volume_curve.setData(df_call_total_graph['volume'])
                 plot2_put_volume_curve.setData(df_put_total_graph['volume'])
                 plot2_fut_volume_curve.setData(df_futures_graph['volume'])
+                plot2_call_volume_curve.setData(df_call_total_graph['volume'])
 
             elif comboindex2 == 3 and market_service:
 
@@ -31747,7 +31747,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 #self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_28.setText(txt)
                 
-                plot2_dow_drate_curve.setData(plot_drate_scale_factor * df_dow_graph['drate'])
+                plot2_dow_drate_curve.setData(df_dow_graph['drate'])
                 plot2_put_drate_curve.setData(df_put_total_graph['drate'])
                 plot2_call_drate_curve.setData(df_call_total_graph['drate'])
 
@@ -31757,7 +31757,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     #self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_27.setText(txt)
                     
-                    plot2_fut_drate_curve.setData(plot_drate_scale_factor * df_futures_graph['drate'])
+                    plot2_fut_drate_curve.setData(df_futures_graph['drate'])
                 else:
                     pass 
 
@@ -32401,9 +32401,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 #self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_38.setText(txt)
 
-                plot3_call_volume_curve.setData(df_call_total_graph['volume'])
                 plot3_put_volume_curve.setData(df_put_total_graph['volume'])
                 plot3_fut_volume_curve.setData(df_futures_graph['volume'])
+                plot3_call_volume_curve.setData(df_call_total_graph['volume'])
 
             elif comboindex3 == 3 and market_service:
 
@@ -32457,7 +32457,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 #self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_38.setText(txt)
                 
-                plot3_dow_drate_curve.setData(plot_drate_scale_factor * df_dow_graph['drate'])
+                plot3_dow_drate_curve.setData(df_dow_graph['drate'])
                 plot3_put_drate_curve.setData(df_put_total_graph['drate'])
                 plot3_call_drate_curve.setData(df_call_total_graph['drate'])
 
@@ -32467,7 +32467,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     #self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_37.setText(txt)
                     
-                    plot3_fut_drate_curve.setData(plot_drate_scale_factor * df_futures_graph['drate'])
+                    plot3_fut_drate_curve.setData(df_futures_graph['drate'])
                 else:
                     pass 
 
@@ -33130,9 +33130,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 #self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_48.setText(txt)                      
 
-                plot4_call_volume_curve.setData(df_call_total_graph['volume'])
                 plot4_put_volume_curve.setData(df_put_total_graph['volume'])
                 plot4_fut_volume_curve.setData(df_futures_graph['volume'])
+                plot4_call_volume_curve.setData(df_call_total_graph['volume'])
 
             elif comboindex4 == 4 and market_service:
 
@@ -33165,7 +33165,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 #self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_48.setText(txt)
                 
-                plot4_dow_drate_curve.setData(plot_drate_scale_factor * df_dow_graph['drate'])
+                plot4_dow_drate_curve.setData(df_dow_graph['drate'])
                 plot4_put_drate_curve.setData(df_put_total_graph['drate'])
                 plot4_call_drate_curve.setData(df_call_total_graph['drate'])
 
@@ -33175,7 +33175,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     #self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_47.setText(txt)
                     
-                    plot4_fut_drate_curve.setData(plot_drate_scale_factor * df_futures_graph['drate'])
+                    plot4_fut_drate_curve.setData(df_futures_graph['drate'])
                 else:
                     pass 
 
@@ -33873,9 +33873,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 #self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_58.setText(txt)
 
-                plot5_call_volume_curve.setData(df_call_total_graph['volume'])
                 plot5_put_volume_curve.setData(df_put_total_graph['volume'])
                 plot5_fut_volume_curve.setData(df_futures_graph['volume'])
+                plot5_call_volume_curve.setData(df_call_total_graph['volume'])
 
             elif comboindex5 == 3 and market_service:
 
@@ -33929,7 +33929,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 #self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_58.setText(txt)
                 
-                plot5_dow_drate_curve.setData(plot_drate_scale_factor * df_dow_graph['drate'])
+                plot5_dow_drate_curve.setData(df_dow_graph['drate'])
                 plot5_put_drate_curve.setData(df_put_total_graph['drate'])
                 plot5_call_drate_curve.setData(df_call_total_graph['drate'])
 
@@ -33939,7 +33939,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     #self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_57.setText(txt)
                     
-                    plot5_fut_drate_curve.setData(plot_drate_scale_factor * df_futures_graph['drate'])
+                    plot5_fut_drate_curve.setData(df_futures_graph['drate'])
                 else:
                     pass 
 
@@ -34580,9 +34580,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 #self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_68.setText(txt)
 
-                plot6_call_volume_curve.setData(df_call_total_graph['volume'])
                 plot6_put_volume_curve.setData(df_put_total_graph['volume'])
                 plot6_fut_volume_curve.setData(df_futures_graph['volume'])
+                plot6_call_volume_curve.setData(df_call_total_graph['volume'])
 
             elif comboindex6 == 3 and market_service:
 
@@ -34636,7 +34636,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 #self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_68.setText(txt)
                 
-                plot6_dow_drate_curve.setData(plot_drate_scale_factor * df_dow_graph['drate'])
+                plot6_dow_drate_curve.setData(df_dow_graph['drate'])
                 plot6_put_drate_curve.setData(df_put_total_graph['drate'])
                 plot6_call_drate_curve.setData(df_call_total_graph['drate'])
 
@@ -34646,7 +34646,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     #self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_67.setText(txt)
                     
-                    plot6_fut_drate_curve.setData(plot_drate_scale_factor * df_futures_graph['drate'])
+                    plot6_fut_drate_curve.setData(df_futures_graph['drate'])
                 else:
                     pass 
 
