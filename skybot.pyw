@@ -262,8 +262,6 @@ FILE_HIGH_LOW_LIST = []
 
 SCORE_BOARD_UPDATE_INTERVAL = 2
 
-UI_STYLE = 'Horizontal_Large_View.ui'
-
 #####################################################################################################################################################################
 # Configuration Parser
 parser = ConfigParser()
@@ -345,6 +343,16 @@ TELEGRAM_SEND_INTERVAL = parser.getint('Telegram', 'Telegram send interval(secon
 # [11]. << Rules >>
 ONEWAY_THRESHOLD = parser.getint('Rules', 'Threshold of the institutional party supply & demand')
 #####################################################################################################################################################################
+# UI 파일정의
+#####################################################################################################################################################################
+if TARGET_MONTH_SELECT == 'CM':
+    main_ui_type = 'skybot_cm.ui'
+    score_board_ui_type = 'score_board_cm.ui'
+    bigchart_ui_type = 'bigchart_cm.ui'
+else:
+    main_ui_type = 'skybot_nm.ui'
+    score_board_ui_type = 'score_board_nm.ui'
+    bigchart_ui_type = 'bigchart_nm.ui'
 
 if int(CURRENT_MONTH[4:6]) == 11:
 
@@ -2364,7 +2372,7 @@ class RealDataTableModel(QAbstractTableModel):
         self.beginResetModel()
         self.endResetModel()
 
-Ui_버전, QtBaseClass_버전 = uic.loadUiType(UI_DIR+"버전.ui")
+Ui_버전, QtBaseClass_버전 = uic.loadUiType(UI_DIR + "버전.ui")
 class 화면_버전(QDialog, Ui_버전):
 
     def __init__(self, parent=None):
@@ -3035,7 +3043,7 @@ def get_realdata(p_queue, c_queue):
 ########################################################################################################################
 # 당월물 옵션전광판 class
 ########################################################################################################################
-Ui_선물옵션전광판, QtBaseClass_선물옵션전광판 = uic.loadUiType(UI_DIR + UI_STYLE)
+Ui_선물옵션전광판, QtBaseClass_선물옵션전광판 = uic.loadUiType(UI_DIR + score_board_ui_type)
 class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     xing_realdata = dict()
@@ -23711,7 +23719,7 @@ class Bigchart_update_worker(QThread):
 ########################################################################################################################
 # Big Chart UI Class
 ########################################################################################################################
-Ui_BigChart, QtBaseClass_BigChart = uic.loadUiType(UI_DIR+"BigChart.ui")
+Ui_BigChart, QtBaseClass_BigChart = uic.loadUiType(UI_DIR + bigchart_ui_type)
 class 화면_BigChart(QDialog, Ui_BigChart):
     
     def __init__(self, parent=None):
@@ -35298,12 +35306,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 ########################################################################################################################
 # 메인
 ########################################################################################################################
-if TARGET_MONTH_SELECT == 'CM':
-    ui_type = "skybot_cm.ui"
-else:
-    ui_type = "skybot_nm.ui"
-
-Ui_MainWindow, QtBaseClass_MainWindow = uic.loadUiType(UI_DIR+ui_type)
+Ui_MainWindow, QtBaseClass_MainWindow = uic.loadUiType(UI_DIR + main_ui_type)
 class MainWindow(QMainWindow, Ui_MainWindow):
 
     if MULTIPROCESS:
