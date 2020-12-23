@@ -11974,7 +11974,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         저가 = result['저가']
         고가 = result['고가']
 
-        if not NightTime and index == atm_index:
+        if index == atm_index:
             콜등락율 = result['등락율']
             df_call_total_graph.at[ovc_x_idx, 'drate'] = 콜등락율
         else:
@@ -13081,7 +13081,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         저가 = result['저가']
         고가 = result['고가']
         
-        if not NightTime and index == atm_index:
+        if index == atm_index:
             풋등락율 = result['등락율']
             df_put_total_graph.at[ovc_x_idx, 'drate'] = 풋등락율
         else:
@@ -30982,15 +30982,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot1_time_line.setValue(ovc_x_idx)
 
                 txt = " {0:.2f} ".format(DOW_등락율)
-                #self.label_15.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_15.setText(txt)
 
                 txt = " {0:.2f} ".format(풋등락율)
-                #self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_16.setText(txt)
 
                 txt = " {0:.2f} ".format(콜등락율)
-                #self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_18.setText(txt)
                 
                 plot1_dow_drate_curve.setData(df_dow_graph['drate'])
@@ -31000,7 +30997,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if not NightTime:
                     
                     txt = " {0:.2f} ".format(선물_등락율)
-                    #self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_17.setText(txt)
 
                     plot1_fut_drate_curve.setData(df_futures_graph['drate'])
@@ -31747,15 +31743,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot2_time_line.setValue(ovc_x_idx)
 
                 txt = " {0:.2f} ".format(DOW_등락율)
-                #self.label_25.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_25.setText(txt)
 
                 txt = " {0:.2f} ".format(풋등락율)
-                #self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_26.setText(txt)
 
                 txt = " {0:.2f} ".format(콜등락율)
-                #self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_28.setText(txt)
                 
                 plot2_dow_drate_curve.setData(df_dow_graph['drate'])
@@ -31765,7 +31758,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if not NightTime:
                     
                     txt = " {0:.2f} ".format(선물_등락율)
-                    #self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_27.setText(txt)
                     
                     plot2_fut_drate_curve.setData(df_futures_graph['drate'])
@@ -32457,15 +32449,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot3_time_line.setValue(ovc_x_idx)
 
                 txt = " {0:.2f} ".format(DOW_등락율)
-                #self.label_35.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_35.setText(txt)
 
                 txt = " {0:.2f} ".format(풋등락율)
-                #self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_36.setText(txt)
 
                 txt = " {0:.2f} ".format(콜등락율)
-                #self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_38.setText(txt)
                 
                 plot3_dow_drate_curve.setData(df_dow_graph['drate'])
@@ -32475,7 +32464,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if not NightTime:
                     
                     txt = " {0:.2f} ".format(선물_등락율)
-                    #self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_37.setText(txt)
                     
                     plot3_fut_drate_curve.setData(df_futures_graph['drate'])
@@ -33165,15 +33153,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot4_time_line.setValue(ovc_x_idx)
 
                 txt = " {0:.2f} ".format(DOW_등락율)
-                #self.label_45.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_45.setText(txt)
 
                 txt = " {0:.2f} ".format(풋등락율)
-                #self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_46.setText(txt)
 
                 txt = " {0:.2f} ".format(콜등락율)
-                #self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_48.setText(txt)
                 
                 plot4_dow_drate_curve.setData(df_dow_graph['drate'])
@@ -33183,7 +33168,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if not NightTime:
                     
                     txt = " {0:.2f} ".format(선물_등락율)
-                    #self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_47.setText(txt)
                     
                     plot4_fut_drate_curve.setData(df_futures_graph['drate'])
@@ -33929,15 +33913,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot5_time_line.setValue(ovc_x_idx)
 
                 txt = " {0:.2f} ".format(DOW_등락율)
-                #self.label_55.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_55.setText(txt)
 
                 txt = " {0:.2f} ".format(풋등락율)
-                #self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_56.setText(txt)
 
                 txt = " {0:.2f} ".format(콜등락율)
-                #self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_58.setText(txt)
                 
                 plot5_dow_drate_curve.setData(df_dow_graph['drate'])
@@ -33947,7 +33928,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if not NightTime:
                     
                     txt = " {0:.2f} ".format(선물_등락율)
-                    #self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_57.setText(txt)
                     
                     plot5_fut_drate_curve.setData(df_futures_graph['drate'])
@@ -34636,15 +34616,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot6_time_line.setValue(ovc_x_idx)
 
                 txt = " {0:.2f} ".format(DOW_등락율)
-                #self.label_65.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_65.setText(txt)
 
                 txt = " {0:.2f} ".format(풋등락율)
-                #self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_66.setText(txt)
 
                 txt = " {0:.2f} ".format(콜등락율)
-                #self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 self.label_68.setText(txt)
                 
                 plot6_dow_drate_curve.setData(df_dow_graph['drate'])
@@ -34654,7 +34631,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if not NightTime:
                     
                     txt = " {0:.2f} ".format(선물_등락율)
-                    #self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_67.setText(txt)
                     
                     plot6_fut_drate_curve.setData(df_futures_graph['drate'])
