@@ -347,12 +347,12 @@ ONEWAY_THRESHOLD = parser.getint('Rules', 'Threshold of the institutional party 
 #####################################################################################################################################################################
 if TARGET_MONTH_SELECT == 'CM':
     main_ui_type = 'skybot_cm.ui'
-    score_board_ui_type = 'score_board_cm.ui'
-    bigchart_ui_type = 'bigchart_cm.ui'
+    score_board_ui_type = 'score_board.ui'
+    bigchart_ui_type = 'bigchart.ui'
 else:
     main_ui_type = 'skybot_nm.ui'
-    score_board_ui_type = 'score_board_nm.ui'
-    bigchart_ui_type = 'bigchart_nm.ui'
+    score_board_ui_type = 'score_board.ui'
+    bigchart_ui_type = 'bigchart.ui'
 
 if int(CURRENT_MONTH[4:6]) == 11:
 
@@ -3050,15 +3050,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def __init__(self, parent=None):
 
-        #super(화면_선물옵션전광판, self).__init__(parent, flags = Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
-        super(화면_선물옵션전광판, self).__init__()
-
-        self.setWindowFlags(Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
+        super(화면_선물옵션전광판, self).__init__(parent, flags = Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
+        #super(화면_선물옵션전광판, self).__init__()
+        #self.setWindowFlags(Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
         self.setAttribute(Qt.WA_DeleteOnClose)
-        #self.setAttribute(Qt.WA_DeleteOnClose, True)        
-
-        self.parent = parent        
+        #self.setAttribute(Qt.WA_DeleteOnClose, True)
+               
         self.setupUi(self)
+        self.parent = parent 
 
         self.flag_score_board_open = True
 
@@ -23724,15 +23723,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
     
     def __init__(self, parent=None):
 
-        #super(화면_BigChart, self).__init__(parent, flags = Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
-        super(화면_BigChart, self).__init__()
-
-        self.setWindowFlags(Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
+        super(화면_BigChart, self).__init__(parent, flags = Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
+        #super(화면_BigChart, self).__init__()
+        #self.setWindowFlags(Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
         self.setAttribute(Qt.WA_DeleteOnClose)
         #self.setAttribute(Qt.WA_DeleteOnClose, True)
-
-        self.parent = parent
+        
         self.setupUi(self)
+        self.parent = parent
         
         self.flag_big_chart_open = True
 
@@ -35282,7 +35280,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 ########################################################################################################################
 # 메인
 ########################################################################################################################
-Ui_MainWindow, QtBaseClass_MainWindow = uic.loadUiType(UI_DIR + main_ui_type)
+Ui_MainWindow, QtBaseClass_MainWindow = uic.loadUiType(UI_DIR+main_ui_type)
 class MainWindow(QMainWindow, Ui_MainWindow):
 
     if MULTIPROCESS:
@@ -35300,7 +35298,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             QMainWindow.__init__(self)
             Ui_MainWindow.__init__(self)
 
-            self.setAttribute(Qt.WA_DeleteOnClose)
+            self.setAttribute(Qt.WA_DeleteOnClose, True)
 
             #self.setWindowFlags(Qt.WindowStaysOnTopHint)
             self.setupUi(self)
@@ -35642,7 +35640,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
             
-            # 옵션전광판 자동시작                            
+            # 옵션전광판 자동시작                                       
             if AUTO_START:
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
@@ -35652,7 +35650,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 self.dialog['선물옵션전광판'].RunCode()
             else:
-                pass                        
+                pass                                    
         else:
             self.statusbar.showMessage("%s %s" % (code, msg))
 
