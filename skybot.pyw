@@ -30987,16 +30987,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f} ".format(콜등락율)
                 self.label_18.setText(txt)
                 
-                plot1_dow_drate_curve.setData(df_dow_graph['drate'])
-                plot1_put_drate_curve.setData(df_put_total_graph['drate'])                
-                plot1_call_drate_curve.setData(df_call_total_graph['drate'])
+                plot1_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
+                plot1_put_drate_curve.setData(df_put_total_graph['drate'].to_numpy())                
+                plot1_call_drate_curve.setData(df_call_total_graph['drate'].to_numpy())
 
                 if not NightTime:
                     
                     txt = " {0:.2f} ".format(선물_등락율)
                     self.label_17.setText(txt)
 
-                    plot1_fut_drate_curve.setData(df_futures_graph['drate'])
+                    plot1_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
                 else:
                     pass                
 
@@ -31748,16 +31748,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f} ".format(콜등락율)
                 self.label_28.setText(txt)
                 
-                plot2_dow_drate_curve.setData(df_dow_graph['drate'])
-                plot2_put_drate_curve.setData(df_put_total_graph['drate'])
-                plot2_call_drate_curve.setData(df_call_total_graph['drate'])
+                plot2_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
+                plot2_put_drate_curve.setData(df_put_total_graph['drate'].to_numpy())
+                plot2_call_drate_curve.setData(df_call_total_graph['drate'].to_numpy())
 
                 if not NightTime:
                     
                     txt = " {0:.2f} ".format(선물_등락율)
                     self.label_27.setText(txt)
                     
-                    plot2_fut_drate_curve.setData(df_futures_graph['drate'])
+                    plot2_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
                 else:
                     pass 
 
@@ -32454,16 +32454,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f} ".format(콜등락율)
                 self.label_38.setText(txt)
                 
-                plot3_dow_drate_curve.setData(df_dow_graph['drate'])
-                plot3_put_drate_curve.setData(df_put_total_graph['drate'])
-                plot3_call_drate_curve.setData(df_call_total_graph['drate'])
+                plot3_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
+                plot3_put_drate_curve.setData(df_put_total_graph['drate'].to_numpy())
+                plot3_call_drate_curve.setData(df_call_total_graph['drate'].to_numpy())
 
                 if not NightTime:
                     
                     txt = " {0:.2f} ".format(선물_등락율)
                     self.label_37.setText(txt)
                     
-                    plot3_fut_drate_curve.setData(df_futures_graph['drate'])
+                    plot3_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
                 else:
                     pass 
 
@@ -33158,16 +33158,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f} ".format(콜등락율)
                 self.label_48.setText(txt)
                 
-                plot4_dow_drate_curve.setData(df_dow_graph['drate'])
-                plot4_put_drate_curve.setData(df_put_total_graph['drate'])
-                plot4_call_drate_curve.setData(df_call_total_graph['drate'])
+                plot4_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
+                plot4_put_drate_curve.setData(df_put_total_graph['drate'].to_numpy())
+                plot4_call_drate_curve.setData(df_call_total_graph['drate'].to_numpy())
 
                 if not NightTime:
                     
                     txt = " {0:.2f} ".format(선물_등락율)
                     self.label_47.setText(txt)
                     
-                    plot4_fut_drate_curve.setData(df_futures_graph['drate'])
+                    plot4_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
                 else:
                     pass 
 
@@ -33918,16 +33918,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f} ".format(콜등락율)
                 self.label_58.setText(txt)
                 
-                plot5_dow_drate_curve.setData(df_dow_graph['drate'])
-                plot5_put_drate_curve.setData(df_put_total_graph['drate'])
-                plot5_call_drate_curve.setData(df_call_total_graph['drate'])
+                plot5_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
+                plot5_put_drate_curve.setData(df_put_total_graph['drate'].to_numpy())
+                plot5_call_drate_curve.setData(df_call_total_graph['drate'].to_numpy())
 
                 if not NightTime:
                     
                     txt = " {0:.2f} ".format(선물_등락율)
                     self.label_57.setText(txt)
                     
-                    plot5_fut_drate_curve.setData(df_futures_graph['drate'])
+                    plot5_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
                 else:
                     pass 
 
@@ -34621,16 +34621,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f} ".format(콜등락율)
                 self.label_68.setText(txt)
                 
-                plot6_dow_drate_curve.setData(df_dow_graph['drate'])
-                plot6_put_drate_curve.setData(df_put_total_graph['drate'])
-                plot6_call_drate_curve.setData(df_call_total_graph['drate'])
+                plot6_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
+                plot6_put_drate_curve.setData(df_put_total_graph['drate'].to_numpy())
+                plot6_call_drate_curve.setData(df_call_total_graph['drate'].to_numpy())
 
                 if not NightTime:
                     
                     txt = " {0:.2f} ".format(선물_등락율)
                     self.label_67.setText(txt)
                     
-                    plot6_fut_drate_curve.setData(df_futures_graph['drate'])
+                    plot6_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
                 else:
                     pass 
 
