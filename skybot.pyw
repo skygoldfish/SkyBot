@@ -30902,7 +30902,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
         else:
-            txt = ' {0:02d}:{1:02d}:{2:02d}({3:d}) '.format(adj_hour, adj_min, adj_sec, ovc_x_idx)
+            txt = ' {0:02d}:{1:02d}:{2:02d}({3:d}, {4:.2f}ms) '.format(adj_hour, adj_min, adj_sec, ovc_x_idx, bc_ui_update_time)
    
         self.label_time.setText(txt)
 
