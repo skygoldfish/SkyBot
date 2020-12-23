@@ -35512,22 +35512,28 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         dt = datetime.datetime.now()
 
-        result = QMessageBox.question(self,"프로그램 종료"," SkyBot을 종료하시겠습니까 ? ", QMessageBox.Yes| QMessageBox.No)
+        result = QMessageBox.question(self,"프로그램 종료"," SkyBot을 종료하시겠습니까 ? ", QMessageBox.Yes | QMessageBox.No)
 
         if result == QMessageBox.Yes:
 
             event.accept()
 
             if self.dialog['선물옵션전광판'] is not None:
-                # 정상종료를 위해 모든 쓰레드를 죽인다.
-                self.dialog['선물옵션전광판'].KillScoreBoardThread()
-                self.dialog['선물옵션전광판'].close()
+                
+                if self.dialog['선물옵션전광판'].flag_score_board_open:
+                    self.dialog['선물옵션전광판'].KillScoreBoardThread()
+                    self.dialog['선물옵션전광판'].close()
+                else:
+                    pass
             else:
                 print('선물옵션전광판 다이얼로그가 없습니다.')
 
             if self.dialog['BigChart'] is not None:
-                # 정상종료를 위해 모든 쓰레드를 죽인다.
-                self.dialog['BigChart'].close()
+
+                if self.dialog['BigChart'].flag_big_chart_open:
+                    self.dialog['BigChart'].close()
+                else:
+                    pass
             else:
                 print('BigChart 다이얼로그가 없습니다.')
 
