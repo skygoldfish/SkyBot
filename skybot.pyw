@@ -19874,6 +19874,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global flag_option_start
             global fut_quote_energy_direction            
             global fut_nm_volume_power, fut_volume_power_energy_direction
+            global plot_drate_scale_factor
                         
             start_time = timeit.default_timer()
 
@@ -22363,7 +22364,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             DOW_등락율 = result['등락율']
                     else:
                         DOW_등락율 = result['등락율']
-
+                    
                     df_dow_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * DOW_등락율                                  
 
                     if DOW_시가 == 0:
