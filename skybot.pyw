@@ -3431,7 +3431,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_put.resizeColumnsToContents()
 
         self.pushButton_start.setFocus()
-        self.parent.textBrowser.verticalScrollBar().setValue(self.parent.textBrowser.verticalScrollBar().maximum())
+
+        # 버티칼 스크롤바를 항상 bottom으로...
+        self.parent.textBrowser.verticalScrollBar().maximum()
 
     def __del__(self):
         '''
