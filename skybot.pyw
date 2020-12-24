@@ -3182,12 +3182,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # label_main_time, label_atm 관련 setFont 추후 검토필요!!!
         self.label_main_time.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
                                             color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
-        #self.label_main_time.setFont(QFont("Consolas", 9, QFont.Bold))
         self.label_main_time.setText("🕘")        
         
         self.label_atm.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:0.5, y1:0.5, x2:1, y2:0.5, stop:0 rgba(255, 199, 0, 255), stop:1 rgba(192, 5, 67, 255)); \
                                     color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
-        #self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
         self.label_atm.setText("Basis(양합:양차)")        
                 
         #self.label_1st_index.setStyleSheet('background-color: black; color: yellow')
@@ -3242,7 +3240,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_call.setColumnCount(Option_column.OID.value + 1)
         
         self.tableWidget_call.horizontalHeader().setStyleSheet(call_header_stylesheet)
-        #self.tableWidget_call.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_call.setHorizontalHeaderLabels(['콜', '행사가', '▲:▼\n✓', '기준가', '월저', '월고', '전저', '전고', 
         '종가\n✓', '피봇\n✓', '시가\n✓', '저가', '현재가', '고가', '시가갭\n(%)', '대비\n(%)', '체결', '진폭', '∑OI', 'OI↕'])
@@ -3254,7 +3251,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_put.setColumnCount(Option_column.OID.value + 1)
 
         self.tableWidget_put.horizontalHeader().setStyleSheet(put_header_stylesheet)
-        #self.tableWidget_put.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_put.setHorizontalHeaderLabels(['풋', '행사가', '▲:▼\n✓', '기준가', '월저', '월고', '전저', '전고', 
         '종가\n✓', '피봇\n✓', '시가\n✓', '저가', '현재가', '고가', '시가갭\n(%)', '대비\n(%)', '체결', '진폭', '∑OI', 'OI↕'])
@@ -3317,7 +3313,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_fut.setColumnCount(Futures_column.OID.value + 1)
 
         self.tableWidget_fut.horizontalHeader().setStyleSheet(fut_header_stylesheet)
-        #self.tableWidget_fut.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_fut.setHorizontalHeaderLabels(
             ['SBOM', '▲▼', 'HMSC', 'HMDC', 'HMSR', 'MDHR', 'HCR', 'HRR', '전저', '전고', '종가', '피봇', '시가', '저가',
@@ -3368,7 +3363,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_quote.setColumnCount(Quote_column.미결종합.value)
 
         self.tableWidget_quote.horizontalHeader().setStyleSheet(quote_header_stylesheet)
-        #self.tableWidget_quote.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_quote.setHorizontalHeaderLabels(['콜CMSC', '콜CMDC', '콜CMSR', '콜CMDR',
                                                           '풋CMSC', '풋CMDC', '풋CMSR', '풋CMDR', '콜HCR', '콜HRR',
@@ -3394,7 +3388,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_supply.setColumnCount(Supply_column.프로그램.value + 1)
 
         self.tableWidget_supply.horizontalHeader().setStyleSheet(supply_header_stylesheet)
-        #self.tableWidget_supply.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_supply.setHorizontalHeaderLabels(['외인선물', '프로그램', '외인현물', '개인선물', '기관선물', '∑선물/∑현물'])
         self.tableWidget_supply.verticalHeader().setVisible(False)
@@ -6025,10 +6018,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
             '''
         else:
-            #self.label_main_time.setStyleSheet('background-color: black; color: lawngreen')
             self.label_main_time.setStyleSheet('background-color: black; color: lawngreen; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: lawngreen; border-radius: 5px')            
         
-        #self.label_main_time.setFont(QFont("Consolas", 9, QFont.Bold))    
         self.label_main_time.setText(txt)
     
     def call_scroll_coloring(self):
@@ -6276,12 +6267,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.label_atm.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
                                             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
                                             color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
-                #self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
             else:
                 #self.label_atm.setStyleSheet('background-color: yellow; color: black')
                 self.label_atm.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:0.5, y1:0.5, x2:1, y2:0.5, stop:0 rgba(255, 199, 0, 255), stop:1 rgba(192, 5, 67, 255)); \
                                             color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
-                #self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
 
             self.label_atm.setText(txt)
         else:
@@ -14333,7 +14322,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                         QPushButton:hover {background-color: black; color: white} \
                                                         QPushButton:pressed {background-color: gold}')
-                #self.pushButton_start.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.pushButton_start.setText(' Starting... ')
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] t8432 지수선물 마스터 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
@@ -18481,7 +18469,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             #self.label_main_time.setStyleSheet('background-color: black; color: lawngreen')
             self.label_main_time.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
                                                 color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: lawngreen; border-radius: 5px')
-            #self.label_main_time.setFont(QFont("Consolas", 9, QFont.Bold))
             
             txt = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
             self.label_main_time.setText(txt)
@@ -23813,7 +23800,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         # 시간표시
         self.label_time.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-        #self.label_time.setFont(QFont("Consolas", 9, QFont.Bold))
         self.label_time.setText("🕘")
 
         # Plot1 가격표시
@@ -25506,15 +25492,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_18.setText(" - ")
             
             self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p1_2.setText(" BB Middle\n PSAR ")
 
             self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p1_3.setText(" OneEye ")
 
             self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p1_4.setText(" MAMA ")
 
             plot1_call_hoga_curve.clear()
@@ -26440,15 +26423,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_28.setText(" 콜체결량 ")
             
             self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p2_2.setText(" BB Middle\n PSAR ")
 
             self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p2_3.setText(" OneEye ")
 
             self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p2_4.setText(" MAMA ")
             
             plot2_call_hoga_curve.clear()
@@ -26512,15 +26492,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_28.setText(" 콜잔량비 ")
             
             self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p2_2.setText(" BB Middle\n PSAR ")
 
             self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p2_3.setText(" OneEye ")
 
             self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p2_4.setText(" MAMA ")
             
             plot2_fut_volume_curve.clear()
@@ -26580,15 +26557,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_28.setText(" - ")
             
             self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p2_2.setText(" BB Middle\n PSAR ")
 
             self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p2_3.setText(" OneEye ")
 
             self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p2_4.setText(" MAMA ")
 
             plot2_call_hoga_curve.clear()
@@ -26723,15 +26697,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_28.setText(" 콜미결 ")
             
             self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p2_2.setText(" BB Middle\n PSAR ")
 
             self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p2_3.setText(" OneEye ")
 
             self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p2_4.setText(" MAMA ")
 
             plot2_call_hoga_curve.clear()
@@ -26790,15 +26761,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_28.setText(" 콜현재가 ")
             
             self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p2_2.setText(" BB Middle\n PSAR ")
 
             self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p2_3.setText(" OneEye ")
 
             self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p2_4.setText(" MAMA ")
 
             plot2_call_hoga_curve.clear()
@@ -27672,15 +27640,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_38.setText(" 콜현재가 ")
             
             self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p3_2.setText(" BB Middle\n PSAR ")
 
             self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p3_3.setText(" OneEye ")
 
             self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p3_4.setText(" MAMA ")
 
             plot3_call_hoga_curve.clear()
@@ -28212,15 +28177,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_48.setText(" - ")
             
             self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p4_2.setText(" BB Middle\n PSAR ")
 
             self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p4_3.setText(" OneEye ")
 
             self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p4_4.setText(" MAMA ")
             
             plot4_fut_volume_curve.clear()
@@ -28498,15 +28460,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_48.setText(" 콜미결 ")
             
             self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p4_2.setText(" BB Middle\n PSAR ")
 
             self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p4_3.setText(" OneEye ")
 
             self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p4_4.setText(" MAMA ")
 
             plot4_fut_volume_curve.clear()
@@ -29288,15 +29247,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_58.setText(" - ")
             
             self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p5_2.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p5_2.setText(" BB Middle\n PSAR ")
 
             self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p5_3.setText(" OneEye ")
 
             self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p5_4.setText(" MAMA ")
 
             plot5_call_hoga_curve.clear()
@@ -29495,15 +29451,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_58.setText(" 콜현재가 ")
             
             self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p5_2.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p5_2.setText(" BB Middle\n PSAR ")
 
             self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p5_3.setText(" OneEye ")
 
             self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p5_4.setText(" MAMA ")
 
             plot5_call_hoga_curve.clear()
@@ -30173,15 +30126,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_68.setText(" - ")
             
             self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p6_2.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p6_2.setText(" BB Middle\n PSAR ")
 
             self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p6_3.setText(" OneEye ")
 
             self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p6_4.setText(" MAMA ")
 
             plot6_call_hoga_curve.clear()
@@ -30380,15 +30330,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_68.setText(" 콜현재가 ")
             
             self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p6_2.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p6_2.setText(" BB Middle\n PSAR ")
 
             self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p6_3.setText(" OneEye ")
 
             self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            #self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_p6_4.setText(" MAMA ")
 
             plot6_call_hoga_curve.clear()
