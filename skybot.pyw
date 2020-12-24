@@ -2615,14 +2615,12 @@ class telegram_send_worker(QThread):
                                 pass
                             '''
                             if call_ol_count > call_oh_count and put_ol_count < put_oh_count:
-                                txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ NM Call 우세 ▲".format(dt.hour, dt.minute, dt.second)
-                                ToYourTelegram(txt)
-                                txt = nm_call_oloh_str + ', ' + nm_put_oloh_str
+                                nm_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ NM Call 우세 ▲: ".format(dt.hour, dt.minute, dt.second)
+                                txt = nm_txt + nm_call_oloh_str + ', ' + nm_put_oloh_str
                                 ToYourTelegram(txt)
                             elif call_ol_count < call_oh_count and put_ol_count > put_oh_count:
-                                txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ NM Put 우세 ▼".format(dt.hour, dt.minute, dt.second)
-                                ToYourTelegram(txt)
-                                txt = nm_call_oloh_str + ', ' + nm_put_oloh_str
+                                nm_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ NM Put 우세 ▼: ".format(dt.hour, dt.minute, dt.second)
+                                txt = nm_txt + nm_call_oloh_str + ', ' + nm_put_oloh_str
                                 ToYourTelegram(txt)
                             else:
                                 pass
@@ -12898,7 +12896,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         nm_call_oh_count = call_oh_count
 
                         if call_ol_count > 0 or call_oh_count > 0:
-                            nm_call_oloh_str = 'NM Call ▲:▼ = ' + repr(call_ol_count) + ':' + repr(call_oh_count)
+                            nm_call_oloh_str = '▲:▼ = ' + repr(call_ol_count) + ':' + repr(call_oh_count)
                         else:
                             nm_call_oloh_str = ''                        
                     else:
@@ -14022,12 +14020,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_ol_count = put_ol.count(True)
                 put_oh_count = put_oh.count(True)
 
-                if TARGET_MONTH_SELECT == 'NM' and not NightTime:
-                    nm_put_ol_count = nm_put_ol.count(True)
-                    nm_put_oh_count = nm_put_oh.count(True)
-                else:
-                    pass
-
                 new_oloh = repr(put_ol_count) + ':' + repr(put_oh_count) + '\n✓'                                    
 
                 #if new_oloh != self.tableWidget_put.horizontalHeaderItem(2).text():
@@ -14042,17 +14034,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         nm_put_ol_count = put_ol_count
                         nm_put_oh_count = put_oh_count                        
 
-                        if not NightTime:
-                            if nm_put_ol_count > 0 or nm_put_oh_count > 0:
-                                nm_put_oloh_str = 'Put ▲:▼ = ' + repr(put_ol_count) + '(' + repr(nm_put_ol_count) + ')' + ':' \
-                                    + repr(put_oh_count) + '(' + repr(nm_put_oh_count) + ')'
-                            else:
-                                nm_put_oloh_str = ''
+                        if put_ol_count > 0 or put_oh_count > 0:
+                            nm_put_oloh_str = '▲:▼ = ' + repr(put_ol_count) + ':' + repr(put_oh_count)
                         else:
-                            if put_ol_count > 0 or put_oh_count > 0:
-                                nm_put_oloh_str = 'NM Put ▲:▼ = ' + repr(put_ol_count) + ':' + repr(put_oh_count)
-                            else:
-                                nm_put_oloh_str = ''
+                            nm_put_oloh_str = ''                            
                     else:
                         pass
                 else:
