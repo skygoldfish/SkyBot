@@ -34583,7 +34583,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     self.statusbar.showMessage(msg)
                 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board, Big Chart Dialog 참조 카운트 = {0}, {1}\r'.format(\
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board, Big Chart Dialog 참조 카운트 = {3}, {4}\r'.format(\
                     dt.hour, dt.minute, dt.second, sys.getrefcount(self.dialog['선물옵션전광판']), sys.getrefcount(self.dialog['BigChart']))
                 self.textBrowser.append(txt)
                 print(txt)
