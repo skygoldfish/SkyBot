@@ -1795,9 +1795,6 @@ fut_ccms_hoga_rr = 0
 nm_call_oloh_str = ''
 nm_put_oloh_str = ''
 
-main_ui_update_time = 0
-bc_ui_update_time = 0
-
 flag_heartbeat = False
 
 SERVER_HOUR = 0
@@ -1844,6 +1841,10 @@ flag_puttable_checkstate_changed = False
 
 scoreboard_update_interval = MAIN_UPDATE_INTERVAL
 plot_update_interval = BIGCHART_UPDATE_INTERVAL
+
+volatility_breakout_downward_point = 0
+volatility_breakout_upward_point = 0
+vb_txt = ''
 
 ########################################################################################################################
 def xing_test_func():
@@ -2140,6 +2141,13 @@ class telegram_send_worker(QThread):
                         else:
                             pass
 
+                        # 변동성돌파 알람
+                        if vb_txt != '':
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] ★★ {3} !!!".format(dt.hour, dt.minute, dt.second, vb_txt)
+                            ToYourTelegram(txt)
+                        else:
+                            pass
+
                         # 원웨이 알람
                         if TARGET_MONTH_SELECT == 'CM':
                             
@@ -2159,10 +2167,10 @@ class telegram_send_worker(QThread):
                                 pass
 
                             if call_ms_oneway:
-                                txt = "[{0:02d}:{1:02d}:{2:02d}] ★ CM Call OneWay !!!".format(dt.hour, dt.minute, dt.second)
+                                txt = "[{0:02d}:{1:02d}:{2:02d}] ★★★ CM Call OneWay !!!".format(dt.hour, dt.minute, dt.second)
                                 ToYourTelegram(txt)
                             elif put_ms_oneway:
-                                txt = "[{0:02d}:{1:02d}:{2:02d}] ★ CM Put OneWay !!!".format(dt.hour, dt.minute, dt.second)
+                                txt = "[{0:02d}:{1:02d}:{2:02d}] ★★★ CM Put OneWay !!!".format(dt.hour, dt.minute, dt.second)
                                 ToYourTelegram(txt)
                             else:
                                 pass
@@ -2195,10 +2203,10 @@ class telegram_send_worker(QThread):
                                 pass
 
                             if call_ms_oneway:
-                                txt = "[{0:02d}:{1:02d}:{2:02d}] ★ NM Call OneWay !!!".format(dt.hour, dt.minute, dt.second)
+                                txt = "[{0:02d}:{1:02d}:{2:02d}] ★★★ NM Call OneWay !!!".format(dt.hour, dt.minute, dt.second)
                                 ToYourTelegram(txt)
                             elif put_ms_oneway:
-                                txt = "[{0:02d}:{1:02d}:{2:02d}] ★ NM Put OneWay !!!".format(dt.hour, dt.minute, dt.second)
+                                txt = "[{0:02d}:{1:02d}:{2:02d}] ★★★ NM Put OneWay !!!".format(dt.hour, dt.minute, dt.second)
                                 ToYourTelegram(txt)
                             else:
                                 pass
@@ -2645,6 +2653,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.parent = parent 
 
         self.flag_score_board_open = True
+        self.main_ui_update_time = 0
 
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
         atexit.register(self.__del__)         
@@ -4267,12 +4276,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command is {3}\r'.format(adj_hour, adj_min, adj_sec, telegram_command)                        
                         print(txt)
                     else:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message is {3}, {4:.2f}({5:.2f}) ms\r'.format \
-                            (adj_hour, adj_min, adj_sec, telegram_command, main_ui_update_time, bc_ui_update_time)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message is {3}, {4:.2f} ms\r'.format \
+                            (adj_hour, adj_min, adj_sec, telegram_command, self.main_ui_update_time)
                         self.textBrowser.append(txt)
                 else:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message is None, {3:.2f}({4:.2f}) ms\r'.format \
-                        (adj_hour, adj_min, adj_sec, main_ui_update_time, bc_ui_update_time)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message is None, {3:.2f} ms\r'.format \
+                        (adj_hour, adj_min, adj_sec, self.main_ui_update_time)
                     self.textBrowser.append(txt)                
             else:
                 pass
@@ -4468,8 +4477,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global flag_internet_connection_broken, flag_service_provider_broken
         global flag_screen_update_is_running
-        
-        global main_ui_update_time
 
         global flag_fut_low, flag_fut_high
         global flag_kp200_low, flag_kp200_high
@@ -4721,7 +4728,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.call_volume_power_update()
                     self.put_volume_power_update()
 
-                    #main_ui_update_time = (timeit.default_timer() - start_time) * 1000
+                    #self.main_ui_update_time = (timeit.default_timer() - start_time) * 1000
 
                     if self.alternate_flag:
 
@@ -4731,7 +4738,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         # 풋 테이블 데이타 갱신
                         self.put_db_update()
                     
-                    #main_ui_update_time = (timeit.default_timer() - start_time) * 1000
+                    #self.main_ui_update_time = (timeit.default_timer() - start_time) * 1000
                     
                     # 선물, 콜, 풋 현재가 클리어
                     #self.cv_color_clear()
@@ -5152,25 +5159,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if not flag_offline:
 
-                main_ui_update_time = (timeit.default_timer() - start_time) * 1000
+                self.main_ui_update_time = (timeit.default_timer() - start_time) * 1000
+
+                if queue_input_drop_count > 0:
+
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f} ms, Drop Count = {4}\r'.format(dt.hour, dt.minute, dt.second, self.main_ui_update_time, queue_input_drop_count)
+                else:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f} ms\r'.format(dt.hour, dt.minute, dt.second, self.main_ui_update_time)
 
                 if flag_checkBox_HS and dt.second % 10 == 0 and self.alternate_flag:
-
-                    if queue_input_drop_count > 0:
-
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f}({4:.2f}) ms, Drop Count = {5}\r'.format(dt.hour, dt.minute, dt.second, main_ui_update_time, bc_ui_update_time, queue_input_drop_count)
-                    else:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f}({4:.2f}) ms\r'.format(dt.hour, dt.minute, dt.second, main_ui_update_time, bc_ui_update_time)
-
                     self.textBrowser.append(txt)
                 else:
-                    if queue_input_drop_count > 0:
-
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f} ms, Drop Count = {4}\r'.format(dt.hour, dt.minute, dt.second, main_ui_update_time, queue_input_drop_count)
-                    else:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f} ms\r'.format(dt.hour, dt.minute, dt.second, main_ui_update_time)
-
-                    #self.textBrowser.append(txt)
                     print(txt)
             else:
                 pass            
@@ -5181,11 +5180,53 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def heartbeat_check(self):
 
-        global flag_heartbeat
+        global flag_heartbeat, vb_txt
 
         dt = datetime.datetime.now()
 
         flag_heartbeat = False
+
+        if TARGET_MONTH_SELECT == 'CM':
+
+            if 선물_저가 < volatility_breakout_downward_point:
+
+                vb_txt = '본월물 변동성 하향 BreakOut'
+                txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
+                self.textBrowser.append(txt)
+
+                Speak(vb_txt)
+
+            elif 선물_고가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
+
+                vb_txt = '본월물 변동성 상향 BreakOut'
+                txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
+                self.textBrowser.append(txt)
+
+                Speak(vb_txt)
+            else:
+                vb_txt = ''
+
+        elif TARGET_MONTH_SELECT == 'NM':
+
+            if 선물_저가 < volatility_breakout_downward_point:
+
+                vb_txt = '차월물 변동성 하향 BreakOut'
+                txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
+                self.textBrowser.append(txt)
+
+                Speak(vb_txt)
+
+            elif 선물_고가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
+
+                vb_txt = '차월물 변동성 상향 BreakOut'
+                txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
+                self.textBrowser.append(txt)
+
+                Speak(vb_txt)
+            else:
+                vb_txt = ''
+        else:
+            pass
 
         if TARGET_MONTH_SELECT == 'NM' and TTS:
 
@@ -10571,6 +10612,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_call_strong, flag_put_strong
         global plot_drate_scale_factor
         global flag_fut_dow_drate_energy_direction
+        global volatility_breakout_downward_point, volatility_breakout_upward_point
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -10958,7 +11000,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             flag_fut_low = True
 
-            txt = '{0:.2f}'.format(선물_저가) + '\n' + '({0:.2f})'.format(선물_시가 - k_value)
+            volatility_breakout_downward_point = 선물_시가 - k_value
+
+            txt = '{0:.2f}'.format(선물_저가) + '\n' + '({0:.2f})'.format(volatility_breakout_downward_point)
 
             item = QTableWidgetItem(txt)
             item.setTextAlignment(Qt.AlignCenter)
@@ -11018,7 +11062,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             flag_fut_high = True
 
-            txt = '{0:.2f}'.format(선물_고가) + '\n' + '({0:.2f})'.format(선물_시가 + k_value)
+            volatility_breakout_upward_point = 선물_시가 + k_value
+
+            txt = '{0:.2f}'.format(선물_고가) + '\n' + '({0:.2f})'.format(volatility_breakout_upward_point)
 
             item = QTableWidgetItem(txt)
             item.setTextAlignment(Qt.AlignCenter)
@@ -23024,6 +23070,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.parent = parent
         
         self.flag_big_chart_open = True
+        self.bc_ui_update_time = 0
 
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
         atexit.register(self.__del__) 
@@ -30053,7 +30100,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
     @pyqtSlot(str)
     def update_bigchart(self):
 
-        global flag_plot_update_is_running, bc_ui_update_time        
+        global flag_plot_update_is_running        
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
         
         dt = datetime.datetime.now()
@@ -30064,7 +30111,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
         else:
-            txt = ' {0:02d}:{1:02d}:{2:02d}({3:d}, {4:.2f}ms) '.format(adj_hour, adj_min, adj_sec, ovc_x_idx, bc_ui_update_time)
+            txt = ' {0:02d}:{1:02d}:{2:02d}({3:d}, {4:.2f} ms) '.format(adj_hour, adj_min, adj_sec, ovc_x_idx, self.bc_ui_update_time)
    
         self.label_time.setText(txt)
 
@@ -34315,20 +34362,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass
 
-        bc_ui_update_time = (timeit.default_timer() - start_time) * 1000        
+        self.bc_ui_update_time = (timeit.default_timer() - start_time) * 1000        
         
-        txt = '[{0:02d}:{1:02d}:{2:02d}] Plot Update : {3:.2f} ms...\r'.format(dt.hour, dt.minute, dt.second, bc_ui_update_time)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Plot Update : {3:.2f} ms...\r'.format(dt.hour, dt.minute, dt.second, self.bc_ui_update_time)
         print(txt)
         
         flag_plot_update_is_running = False            
 
     def closeEvent(self,event):
 
-        global bc_ui_update_time
-
-        dt = datetime.datetime.now()
-
-        bc_ui_update_time = 0
         self.flag_big_chart_open = False
         
         if self.plot_update_worker.isRunning():
@@ -34415,15 +34457,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
             self.dialog = dict()
         
-            self.주문제한 = 0
-            self.조회제한 = 0
-            self.금일백업작업중 = False
-            self.종목선정작업중 = False
-        
             self.id = ''
             self.계좌번호 = None
             self.거래비밀번호 = None
-            self.system_server_time_gap = 0
         
             # AxtiveX 설정
             self.connection = None
@@ -34499,15 +34535,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.dialog['BigChart'] = None
             self.dialog['Version'] = None
 
-            self.주문제한 = 0
-            self.조회제한 = 0
-            self.금일백업작업중 = False
-            self.종목선정작업중 = False
-
             self.id = ''
             self.계좌번호 = None
             self.거래비밀번호 = None
-            self.system_server_time_gap = 0
 
             # AxtiveX 설정
             self.connection = None
@@ -34552,6 +34582,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         msg = "오프라인"
 
                     self.statusbar.showMessage(msg)
+                
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board, Big Chart Dialog 참조 카운트 = {0}, {1}\r'.format(\
+                    dt.hour, dt.minute, dt.second, sys.getrefcount(self.dialog['선물옵션전광판']), sys.getrefcount(self.dialog['BigChart']))
+                self.textBrowser.append(txt)
+                print(txt)
                 '''
                 # 자식 다이어로그가 살아있는지 체크                
                 if self.dialog.get('BigChart') is not None:
@@ -34918,7 +34953,7 @@ if __name__ == "__main__":
     # Window 8, 10
     # Window 7은 한글을 못읽음
     if TTS:
-        #Speak("스카이봇이 시작됩니다.")
+        #Speak('차월물 변동성 하향 BreakOut')
         pass
     else:
         pass
