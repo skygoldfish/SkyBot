@@ -44,7 +44,7 @@ import queue
 import pyautogui
 from playsound import playsound
 import socket
-from gtts import gTTS
+#from gtts import gTTS
 #import sqlite3
 #import pythoncom
 #import inspect
@@ -2179,11 +2179,11 @@ class telegram_send_worker(QThread):
                                 pass
                             '''
                             if call_ol_count > call_oh_count and put_ol_count < put_oh_count:
-                                nm_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ NM Call 우세 ▲: ".format(dt.hour, dt.minute, dt.second)
+                                nm_txt = "[{0:02d}:{1:02d}:{2:02d}] NM Call 우세 ".format(dt.hour, dt.minute, dt.second)
                                 txt = nm_txt + nm_call_oloh_str + ', ' + nm_put_oloh_str
                                 ToYourTelegram(txt)
                             elif call_ol_count < call_oh_count and put_ol_count > put_oh_count:
-                                nm_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ NM Put 우세 ▼: ".format(dt.hour, dt.minute, dt.second)
+                                nm_txt = "[{0:02d}:{1:02d}:{2:02d}] NM Put 우세 ".format(dt.hour, dt.minute, dt.second)
                                 txt = nm_txt + nm_call_oloh_str + ', ' + nm_put_oloh_str
                                 ToYourTelegram(txt)
                             else:
@@ -5228,10 +5228,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 self.textBrowser.append(txt)
 
-                #Speak(vb_txt)
+                Speak('본월물 하향 변동성 생성')
+                '''
                 tts = gTTS(text=vb_txt, lang='en')
                 tts.save("tts.mp3")
                 playsound("tts.mp3")
+                '''
 
             elif 선물_고가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
 
@@ -5239,10 +5241,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 self.textBrowser.append(txt)
 
-                #Speak(vb_txt)
+                Speak('본월물 상향 변동성 생성')
+                '''
                 tts = gTTS(text=vb_txt, lang='en')
                 tts.save("tts.mp3")
                 playsound("tts.mp3")
+                '''
             else:
                 vb_txt = ''
 
@@ -5254,10 +5258,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 self.textBrowser.append(txt)
 
-                #Speak(vb_txt)
+                Speak('차월물 하향 변동성 생성')
+                '''
                 tts = gTTS(text=vb_txt, lang='en')
                 tts.save("tts.mp3")
                 playsound("tts.mp3")
+                '''
 
             elif 선물_고가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
 
@@ -5265,10 +5271,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 self.textBrowser.append(txt)
 
-                #Speak(vb_txt)
+                Speak('차월물 상향 변동성 생성')
+                '''
                 tts = gTTS(text=vb_txt, lang='en')
                 tts.save("tts.mp3")
                 playsound("tts.mp3")
+                '''
             else:
                 vb_txt = ''
         else:
@@ -5283,11 +5291,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, speak_txt)
                 self.textBrowser.append(txt)
 
-                #Speak(speak_txt)
+                Speak('콜 우세')
+                '''
                 tts = gTTS(text=speak_txt, lang='en')
                 tts.save("tts.mp3")
                 playsound("tts.mp3")
-
+                '''
                 item = QTableWidgetItem("CD")
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(적색))
@@ -5300,11 +5309,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, speak_txt)
                 self.textBrowser.append(txt)
 
-                #Speak(speak_txt)
+                Speak('풋 우세')
+                '''
                 tts = gTTS(text=speak_txt, lang='en')
                 tts.save("tts.mp3")
                 playsound("tts.mp3")
-
+                '''
                 item = QTableWidgetItem("PD")
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(청색))
@@ -35081,6 +35091,7 @@ if __name__ == "__main__":
     
     # 구글 TTS
     if TTS:
+        #Speak('본월물 상향 변동성 생성')
         '''
         text ="Welcome to SkyBot"
         tts = gTTS(text=text, lang='en')
