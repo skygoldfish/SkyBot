@@ -2401,10 +2401,14 @@ class RealDataWorker(QThread):
             self.NWS.UnadviseRealData()
         else:
             pass
-        
+
     def UnadviseAllRealData(self):
 
-        print('모든 실시간요청을 취소합니다.\r')
+        dt = datetime.datetime.now()
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 모든 실시간요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+        #self.parent.textBrowser.append(txt)
+        print(txt)
         
         self.JIF.UnadviseRealData()
 
