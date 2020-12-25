@@ -44,6 +44,7 @@ import queue
 import pyautogui
 from playsound import playsound
 import socket
+from gtts import gTTS
 #import sqlite3
 #import pythoncom
 #import inspect
@@ -5223,19 +5224,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if 선물_저가 < volatility_breakout_downward_point:
 
-                vb_txt = '본월물 변동성 하향 BreakOut'
+                vb_txt = 'Current Month Volatility Downward Breakout'
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 self.textBrowser.append(txt)
 
-                Speak(vb_txt)
+                #Speak(vb_txt)
+                tts = gTTS(text=vb_txt, lang='en')
+                tts.save("tts.mp3")
+                playsound("tts.mp3")
 
             elif 선물_고가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
 
-                vb_txt = '본월물 변동성 상향 BreakOut'
+                vb_txt = 'Current Month Volatility Upward Breakout'
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 self.textBrowser.append(txt)
 
-                Speak(vb_txt)
+                #Speak(vb_txt)
+                tts = gTTS(text=vb_txt, lang='en')
+                tts.save("tts.mp3")
+                playsound("tts.mp3")
             else:
                 vb_txt = ''
 
@@ -5243,19 +5250,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if 선물_저가 < volatility_breakout_downward_point:
 
-                vb_txt = '차월물 변동성 하향 BreakOut'
+                vb_txt = 'Next Month Volatility Downward Breakout'
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 self.textBrowser.append(txt)
 
-                Speak(vb_txt)
+                #Speak(vb_txt)
+                tts = gTTS(text=vb_txt, lang='en')
+                tts.save("tts.mp3")
+                playsound("tts.mp3")
 
             elif 선물_고가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
 
-                vb_txt = '차월물 변동성 상향 BreakOut'
+                vb_txt = 'Next Month Volatility Upward Breakout'
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 self.textBrowser.append(txt)
 
-                Speak(vb_txt)
+                #Speak(vb_txt)
+                tts = gTTS(text=vb_txt, lang='en')
+                tts.save("tts.mp3")
+                playsound("tts.mp3")
             else:
                 vb_txt = ''
         else:
@@ -5265,12 +5278,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if call_ol_count > call_oh_count and put_ol_count < put_oh_count:
 
-                speak_txt = '콜 우세'
+                speak_txt = 'Call Dominant'
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, speak_txt)
                 self.textBrowser.append(txt)
 
-                Speak(speak_txt)
+                #Speak(speak_txt)
+                tts = gTTS(text=speak_txt, lang='en')
+                tts.save("tts.mp3")
+                playsound("tts.mp3")
 
                 item = QTableWidgetItem("CD")
                 item.setTextAlignment(Qt.AlignCenter)
@@ -5279,12 +5295,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif call_ol_count < call_oh_count and put_ol_count > put_oh_count:
 
-                speak_txt = '풋 우세'
+                speak_txt = 'Put Dominant'
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, speak_txt)
                 self.textBrowser.append(txt)
 
-                Speak(speak_txt)
+                #Speak(speak_txt)
+                tts = gTTS(text=speak_txt, lang='en')
+                tts.save("tts.mp3")
+                playsound("tts.mp3")
 
                 item = QTableWidgetItem("PD")
                 item.setTextAlignment(Qt.AlignCenter)
@@ -35060,10 +35079,14 @@ if __name__ == "__main__":
     else:
         pass
     
-    # Window 8, 10
-    # Window 7은 한글을 못읽음
+    # 구글 TTS
     if TTS:
-        #Speak('차월물 변동성 하향 BreakOut')
+        '''
+        text ="Welcome to SkyBot"
+        tts = gTTS(text=text, lang='en')
+        tts.save("tts.mp3")
+        playsound("tts.mp3")
+        '''
         pass
     else:
         pass
