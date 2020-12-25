@@ -1149,10 +1149,6 @@ eurofx_직전대비 = collections.deque([0, 0, 0], 5)
 hangseng_직전대비 = collections.deque([0, 0, 0], 5)
 gold_직전대비 = collections.deque([0, 0, 0], 5)
 
-opt_total_list = []
-call_open_list = []
-put_open_list = []
-
 actval_increased = False
 
 flag_call_low_coreval = False
@@ -1174,14 +1170,6 @@ atm_zero_cha = 0
 #kp200_realdata = dict()
 #fut_realdata = dict()
 #cme_realdata = dict()
-
-call_code = []
-put_code = []
-
-cm_call_code = []
-cm_put_code = []
-nm_call_code = []
-nm_put_code = []
 
 cm_opt_length = 0
 nm_opt_length = 0
@@ -1358,8 +1346,6 @@ opt_callreal_update_counter = 0
 opt_putreal_update_counter = 0
 opt_call_ho_update_counter = 0
 opt_put_ho_update_counter = 0
-
-refresh_flag = False
 
 oi_delta = 0
 old_oi_delta = 0
@@ -2288,7 +2274,7 @@ class RealDataWorker(QThread):
 
         self.NEWS = NWS(parent=self)        
 
-    def AdviseRealDataAll(self):
+    def AdviseRealDataAll(self, call_code, put_code):
 
         # 장운영 정보 요청
         self.JIF.AdviseRealData('0')
@@ -2381,7 +2367,7 @@ class RealDataWorker(QThread):
         self.YOC.UnadviseRealData()
         self.YS3.UnadviseRealData()
 
-    def AdviseRealData_HS_ON(self):
+    def AdviseRealData_HS_ON(self, call_code, put_code):
 
         self.OPT_HO.UnadviseRealData()
 
@@ -2389,7 +2375,7 @@ class RealDataWorker(QThread):
             self.OPT_HO.AdviseRealData(call_code[i])
             self.OPT_HO.AdviseRealData(put_code[i])
 
-    def AdviseRealData_HS_OFF(self):
+    def AdviseRealData_HS_OFF(self, call_code, put_code):
 
         for i in range(option_pairs_count):
             self.OPT_HO.AdviseRealData(call_code[i])
@@ -2542,7 +2528,7 @@ if MULTIPROCESS:
                 #print('NEW_INDEX =', NEW_INDEX)
                 for i in range(atm_index - NEW_INDEX, atm_index + NEW_INDEX + 1):
                     self.OPT_HO.AdviseRealData(call_code[i])
-                    self.OPT_HO.AdviseRealData(put_code[i])        
+                    self.OPT_HO.AdviseRealData(put_code[i])
 
             # 선물 실시간테이타 요청
             self.FUT_REAL.AdviseRealData(fut_code)
@@ -2650,13 +2636,28 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #self.setAttribute(Qt.WA_DeleteOnClose, True)
                
         self.setupUi(self)
-        self.parent = parent 
+        self.parent = parent
+        
+        print('선물옵션전광판 다이얼로그를 초기화합니다...')  
 
         self.flag_score_board_open = True
         self.main_ui_update_time = 0
+        self.flag_refresh = False
+        
+        self.call_code = []
+        self.put_code = []
+
+        self.cm_call_code = []
+        self.cm_put_code = []
+        self.nm_call_code = []
+        self.nm_put_code = []
+        
+        self.opt_total_actval_list = []
+        self.call_open_list = []
+        self.put_open_list = []
 
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
-        atexit.register(self.__del__)         
+        atexit.register(self.__del__)     
         
         global TARGET_MONTH_SELECT, MONTH_FIRSTDAY
         global widget_title, CURRENT_MONTH, NEXT_MONTH, MONTH_AFTER_NEXT, SP500, DOW, NASDAQ, fut_code
@@ -3470,7 +3471,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 호가요청을 등가중심 10개만 합니다.\r'.format(adj_hour, adj_min, adj_sec)
                 self.textBrowser.append(txt)
 
-                self.real_data_worker.AdviseRealData_HS_ON()
+                self.real_data_worker.AdviseRealData_HS_ON(self.call_code, self.put_code)
             else:
                 pass            
 
@@ -3509,7 +3510,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 호가요청을 원복합니다.\r'.format(adj_hour, adj_min, adj_sec)
                 self.textBrowser.append(txt)
 
-                self.real_data_worker.AdviseRealData_HS_OFF()                
+                self.real_data_worker.AdviseRealData_HS_OFF(self.call_code, self.put_code)              
             else:
                 pass            
             
@@ -4192,9 +4193,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             XQ = t8415(parent=self)
 
             if today_str == MONTH_FIRSTDAY:
-                XQ.Query(단축코드=call_code[index], 시작일자=yesterday_str, 종료일자=today_str)
+                XQ.Query(단축코드=self.call_code[index], 시작일자=yesterday_str, 종료일자=today_str)
             else:
-                XQ.Query(단축코드=call_code[index], 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
+                XQ.Query(단축코드=self.call_code[index], 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
 
         except:
             pass
@@ -4204,9 +4205,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             XQ = t8415(parent=self)
 
             if today_str == MONTH_FIRSTDAY:
-                XQ.Query(단축코드=put_code[index], 시작일자=yesterday_str, 종료일자=today_str)
+                XQ.Query(단축코드=self.put_code[index], 시작일자=yesterday_str, 종료일자=today_str)
             else:
-                XQ.Query(단축코드=put_code[index], 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
+                XQ.Query(단축코드=self.put_code[index], 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
 
         except:
             pass
@@ -4223,25 +4224,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         except:
             pass
 
-    def t8416_call_request(self, index):
+    def t8416_call_request(self, code):
         try:
             XQ = t8416(parent=self)
 
             if today_str == MONTH_FIRSTDAY:
-                XQ.Query(단축코드=call_code[index], 시작일자=yesterday_str, 종료일자=today_str)
+                XQ.Query(단축코드=code, 시작일자=yesterday_str, 종료일자=today_str)
             else:
-                XQ.Query(단축코드=call_code[index], 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
+                XQ.Query(단축코드=code, 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
         except:
             pass
 
-    def t8416_put_request(self, index):
+    def t8416_put_request(self, code):
         try:
             XQ = t8416(parent=self)
 
             if today_str == MONTH_FIRSTDAY:
-                XQ.Query(단축코드=put_code[index], 시작일자=yesterday_str, 종료일자=today_str)
+                XQ.Query(단축코드=code, 시작일자=yesterday_str, 종료일자=today_str)
             else:
-                XQ.Query(단축코드=put_code[index], 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
+                XQ.Query(단축코드=code, 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
         except:
             pass
 
@@ -4962,7 +4963,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            # 증권사 서버초기화(오전 7��� 10분경)전에 프로그램을 미리 오프라인으로 전환하여야 Crash 발생안함
+            # 증권사 서버초기화(오전 7시 10분경)전에 프로그램을 미리 오프라인으로 전환하여야 Crash 발생안함
             if (not flag_internet_connection_broken and not flag_service_provider_broken):
                 
                 if NightTime:
@@ -7080,11 +7081,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.datetime.now()
         
-        if call_open_list:
+        if self.call_open_list:
 
-            loop_list = call_open_list
+            loop_list = self.call_open_list
         else:
-            loop_list = opt_total_list
+            loop_list = self.opt_total_actval_list
 
         count = 0
         call_low_node_list = [] 
@@ -7212,11 +7213,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.datetime.now()
         
-        if call_open_list:
+        if self.call_open_list:
 
-            loop_list = call_open_list
+            loop_list = self.call_open_list
         else:
-            loop_list = opt_total_list 
+            loop_list = self.opt_total_actval_list 
 
         count = 0
         call_high_node_list = [] 
@@ -7354,11 +7355,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item = QTableWidgetItem('고가')
         self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
 
-        if call_open_list:
+        if self.call_open_list:
 
-            loop_list = call_open_list
+            loop_list = self.call_open_list
         else:
-            loop_list = opt_total_list
+            loop_list = self.opt_total_actval_list
 
         count_low = 0
         count_high = 0
@@ -7500,11 +7501,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         flag_call_low_coreval = False 
 
-        if call_open_list:
+        if self.call_open_list:
 
-            loop_list = call_open_list
+            loop_list = self.call_open_list
         else:
-            loop_list = opt_total_list
+            loop_list = self.opt_total_actval_list
 
         for i in loop_list:
 
@@ -7553,11 +7554,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         flag_call_high_coreval = False
 
-        if call_open_list:
+        if self.call_open_list:
 
-            loop_list = call_open_list
+            loop_list = self.call_open_list
         else:
-            loop_list = opt_total_list
+            loop_list = self.opt_total_actval_list
 
         for i in loop_list:
 
@@ -9595,11 +9596,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.datetime.now()
         
-        if put_open_list:
+        if self.put_open_list:
 
-            loop_list = put_open_list
+            loop_list = self.put_open_list
         else:
-            loop_list = opt_total_list
+            loop_list = self.opt_total_actval_list
 
         count = 0
         put_low_node_list = [] 
@@ -9727,11 +9728,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        if put_open_list:
+        if self.put_open_list:
 
-            loop_list = put_open_list
+            loop_list = self.put_open_list
         else:
-            loop_list = opt_total_list
+            loop_list = self.opt_total_actval_list
 
         count = 0
         put_high_node_list = []
@@ -9869,11 +9870,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item = QTableWidgetItem('고가')
         self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
 
-        if put_open_list:
+        if self.put_open_list:
 
-            loop_list = put_open_list
+            loop_list = self.put_open_list
         else:
-            loop_list = opt_total_list
+            loop_list = self.opt_total_actval_list
 
         count_low = 0
         count_high = 0
@@ -10015,11 +10016,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         flag_put_low_coreval = False
 
-        if put_open_list:
+        if self.put_open_list:
 
-            loop_list = put_open_list
+            loop_list = self.put_open_list
         else:
-            loop_list = opt_total_list
+            loop_list = self.opt_total_actval_list
 
         for i in loop_list:
 
@@ -10068,11 +10069,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         flag_put_high_coreval = False
 
-        if put_open_list:
+        if self.put_open_list:
 
-            loop_list = put_open_list
+            loop_list = self.put_open_list
         else:
-            loop_list = opt_total_list
+            loop_list = self.opt_total_actval_list
 
         for i in loop_list:
 
@@ -11464,7 +11465,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global opt_callreal_update_counter
         global df_call_volume, call_volume_power, df_call_total_graph
         global node_coloring
-        global call_open_list
         global call_max_actval, call_open, call_ol, call_oh
         global 콜_인덱스, 콜_시가, 콜_현재가, 콜_저가, 콜_고가
         global flag_call_low_update, flag_call_high_update
@@ -11525,13 +11525,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             # 콜 시가 갱신
             if 콜시가 > opt_search_start_value:
-                call_open_list.append(index)
-                call_open_list = list(set(call_open_list))
+                self.call_open_list.append(index)
+                self.call_open_list = list(set(self.call_open_list))
             else:
                 pass
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] Call Open List = {3}\r'.format \
-                (adj_hour, adj_min, adj_sec, call_open_list)
+                (adj_hour, adj_min, adj_sec, self.call_open_list)
             self.textBrowser.append(txt)
             
             if not NightTime and index > atm_index:
@@ -12193,11 +12193,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             call_ol_count = 0
             call_oh_count = 0
 
-            if call_open_list:
+            if self.call_open_list:
 
-                loop_list = call_open_list
+                loop_list = self.call_open_list
             else:
-                loop_list = opt_total_list
+                loop_list = self.opt_total_actval_list
 
             for index in loop_list:
 
@@ -12558,7 +12558,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global put_저가, put_저가_node_list, put_고가, put_고가_node_list
         global opt_putreal_update_counter
         global df_put_volume, put_volume_power, df_put_total_graph
-        global put_open_list
         global put_max_actval, put_open, put_ol, put_oh
         global 풋_인덱스, 풋_시가, 풋_현재가, 풋_저가, 풋_고가
         global flag_put_low_update, flag_put_high_update
@@ -12619,13 +12618,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             # 풋 시가 갱신
             if 풋시가 > opt_search_start_value:
-                put_open_list.append(index)
-                put_open_list = list(set(put_open_list))
+                self.put_open_list.append(index)
+                self.put_open_list = list(set(self.put_open_list))
             else:
                 pass
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] Put Open List = {3}\r'.format \
-                (adj_hour, adj_min, adj_sec, put_open_list)
+                (adj_hour, adj_min, adj_sec, self.put_open_list)
             self.textBrowser.append(txt)
             
             if not NightTime and index < atm_index:
@@ -13293,11 +13292,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             nm_put_ol = [False] * option_pairs_count
             nm_put_oh = [False] * option_pairs_count
             
-            if put_open_list:
+            if self.put_open_list:
 
-                loop_list = put_open_list
+                loop_list = self.put_open_list
             else:
-                loop_list = opt_total_list
+                loop_list = self.opt_total_actval_list
             
             for index in loop_list:
 
@@ -13797,7 +13796,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass 
         else:
-            if not refresh_flag:
+            if not self.flag_refresh:
                 
                 if SEARCH_MOVING_NODE:
                     self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
@@ -14240,7 +14239,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def OnReceiveData(self, szTrCode, result):
 
         global gmshcode, cmshcode, ccmshcode, fut_code
-        global call_code, put_code
         global opt_actval
         global atm_index, old_atm_index
         global df_call_price_graph, df_put_price_graph, df_call_total_graph, df_put_total_graph
@@ -14278,9 +14276,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_atm_value, put_atm_value
 
         global df_fut
-        #global kp200_realdata
-
-        global refresh_flag
 
         global call_oi_init_percent, put_oi_init_percent
         global call_gap_percent, call_db_percent, put_gap_percent, put_db_percent
@@ -14303,13 +14298,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global view_actval
         
         global 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_시가, 선물_저가, 선물_현재가, 선물_고가
-        global call_open_list, put_open_list, opt_total_list
         global call_itm_count, call_max_actval
         global put_itm_count, put_max_actval
         global KP200_전일종가, kp200_시가, kp200_저가, kp200_현재가, kp200_고가, kp200_진폭
         global t2835_month_info
         global server_date, server_time, system_server_timegap
-        global cm_call_code, cm_put_code, cm_opt_length, nm_call_code, nm_put_code, nm_opt_length, CM_OPTCODE, NM_OPTCODE
+        global cm_opt_length, nm_opt_length, CM_OPTCODE, NM_OPTCODE
         global 콜대비_퍼센트_평균, 풋대비_퍼센트_평균
         global atm_zero_sum, atm_zero_cha
         global 선물_전일종가
@@ -14640,7 +14634,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             global 옵션잔존일, flag_option_pair_full
 
-            if not refresh_flag:
+            if not self.flag_refresh:
 
                 # 옵션 잔존일
                 옵션잔존일 = block['옵션잔존일']
@@ -14677,7 +14671,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 for i in range(option_pairs_count):
 
-                    opt_total_list.append(i)
+                    self.opt_total_actval_list.append(i)
 
                     df_call_graph[i] = DataFrame(index=range(0, timespan), columns=\
                         ['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'ms_hoga', 'md_hoga', 'open_interest', 'oi_delta'])
@@ -14718,7 +14712,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(흰색))
                     self.tableWidget_call.setItem(i, Option_column.행사가.value, item)
 
-                    call_code.append(df['콜옵션코드'][i])
+                    self.call_code.append(df['콜옵션코드'][i])
                     opt_actval.append(df['콜옵션코드'][i][5:8])
 
                     OLOH = '-'
@@ -14828,7 +14822,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if not NightTime:
 
                         if 시가 > opt_search_start_value and df['저가'][i] < df['고가'][i]:
-                            call_open_list.append(i)
+                            self.call_open_list.append(i)
                         else:
                             pass
                     else:
@@ -15055,7 +15049,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(흰색))
                     self.tableWidget_put.setItem(i, Option_column.행사가.value, item)
 
-                    put_code.append(df1['풋옵션코드'][i])
+                    self.put_code.append(df1['풋옵션코드'][i])
 
                     OLOH = '-'
                     item = QTableWidgetItem(OLOH)
@@ -15164,7 +15158,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if not NightTime:
 
                         if 시가 > opt_search_start_value and df1['저가'][i] < df1['고가'][i]:
-                            put_open_list.append(i)
+                            self.put_open_list.append(i)
                         else:
                             pass
                     else:
@@ -15587,8 +15581,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     #self.real_data_worker = RealDataWorker(self.producer_queue, self.consumer_queue)
                     #self.real_data_worker.trigger.connect(self.process_realdata)        
                     #self.real_data_worker.daemon = True
+
                     self.real_data_worker.start()
-                    self.real_data_worker.AdviseRealDataAll()
+                    self.real_data_worker.AdviseRealDataAll(self.call_code, self.put_code)
                 else:
                     pass
                 
@@ -15607,7 +15602,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 for i in range(option_pairs_count):
                     t8416_call_count = i
-                    self.t8416_call_request(i)
+                    self.t8416_call_request(self.call_code[i])
                     self.t8416_call_event_loop.exec_()
             else:
                 # Refresh
@@ -15619,8 +15614,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    del call_open_list[:]
-                    del put_open_list[:]
+                    del self.call_open_list[:]
+                    del self.put_open_list[:]
 
                     del call_저가[:]
                     del call_고가[:]
@@ -15725,7 +15720,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_call.setItem(i, Option_column.고가.value, item)
                         
                         if 시가 > opt_search_start_value and df['저가'][i] < df['고가'][i]:
-                            call_open_list.append(i)
+                            self.call_open_list.append(i)
                         else:
                             pass
 
@@ -15860,7 +15855,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_put.setItem(i, Option_column.고가.value, item)
                         
                         if 시가 > opt_search_start_value and df1['저가'][i] < df1['고가'][i]:
-                            put_open_list.append(i)
+                            self.put_open_list.append(i)
                         else:
                             pass
 
@@ -16130,9 +16125,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 atm_val = float(atm_str)
 
-            if call_open_list:
+            if self.call_open_list:
 
-                for index in call_open_list:
+                for index in self.call_open_list:
 
                     if index > atm_index:
                         call_itm_count += 1
@@ -16146,9 +16141,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass                
 
-            if put_open_list:
+            if self.put_open_list:
 
-                for index in put_open_list:
+                for index in self.put_open_list:
 
                     if index > atm_index:
                         put_itm_count += 1
@@ -16192,7 +16187,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
             self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))            
             
-            if not refresh_flag:
+            if not self.flag_refresh:
 
                 self.tableWidget_call.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
                 self.tableWidget_put.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
@@ -16493,7 +16488,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass                        
             self.tableWidget_fut.resizeColumnsToContents()             
             
-            if refresh_flag:
+            if self.flag_refresh:
             
                 # 옵션 맥점 컬러링                
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션맥점 Refresh 컬러링을 시작합니다.\r'.format(adj_hour, adj_min, adj_sec)
@@ -16517,7 +16512,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             option_pairs_count = len(df)
             print('t2835 option_pairs_count =', option_pairs_count)
             '''
-            if not refresh_flag:
+            if not self.flag_refresh:
 
                 # open, ol/oh 초기화
                 if NightTime:
@@ -16724,7 +16719,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.setItem(i, Option_column.진폭.value, item)
                     
                     if 시가 > opt_search_start_value and df['저가'][i] < df['고가'][i]:
-                        call_open_list.append(i)
+                        self.call_open_list.append(i)
                     else:
                         pass
 
@@ -17029,7 +17024,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.setItem(i, Option_column.진폭.value, item)
                     
                     if 시가 > opt_search_start_value and df1['저가'][i] < df1['고가'][i]:
-                        put_open_list.append(i)
+                        self.put_open_list.append(i)
                     else:
                         pass
 
@@ -17195,9 +17190,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print('\r')
                 print('t2835 야간 전광판 풋 데이타 = ', df_put)
                 print('\r')
-                print('t2835 call open list = ', call_open_list, len(call_open_list))
+                print('t2835 call open list = ', self.call_open_list, len(self.call_open_list))
                 print('\r')
-                print('t2835 put open list = ', put_open_list, len(put_open_list))
+                print('t2835 put open list = ', self.put_open_list, len(self.put_open_list))
                 print('\r')
                 
                 call_atm_value = df_call.at[atm_index, '현재가']
@@ -17503,7 +17498,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 #self.screen_update_worker.daemon = True
                 self.screen_update_worker.start()
                 
-                refresh_flag = True
+                self.flag_refresh = True
 
                 if SEARCH_MOVING_NODE:
                     self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
@@ -17523,8 +17518,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                del call_open_list[:]
-                del put_open_list[:]
+                del self.call_open_list[:]
+                del self.put_open_list[:]
 
                 for i in range(option_pairs_count):
 
@@ -17611,7 +17606,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.setItem(i, Option_column.고가.value, item)
                     
                     if 시가 > 0 and df['저가'][i] < df['고가'][i]:
-                        call_open_list.append(i)
+                        self.call_open_list.append(i)
                     else:
                         pass
 
@@ -17700,7 +17695,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.setItem(i, Option_column.고가.value, item)
                     
                     if 시가 > 0 and df1['저가'][i] < df1['고가'][i]:
-                        put_open_list.append(i)
+                        self.put_open_list.append(i)
                     else:
                         pass
 
@@ -18042,7 +18037,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         for i in range(option_pairs_count):
                             t8416_put_count = i
-                            self.t8416_put_request(i)
+                            self.t8416_put_request(self.put_code[i])
                             self.t8416_put_event_loop.exec_()
                     else:
                         pass                    
@@ -18298,7 +18293,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     for i in range(option_pairs_count):
                             t8416_put_count = i
-                            self.t8416_put_request(i)
+                            self.t8416_put_request(self.put_code[i])
                             self.t8416_put_event_loop.exec_()
                 else:
                     pass
@@ -18864,7 +18859,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         ui_start_time = dt.hour * 3600 + dt.minute * 60 + dt.second
                         print('주간 ui_start_time =', ui_start_time)
 
-                        refresh_flag = True
+                        self.flag_refresh = True
 
                         if SEARCH_MOVING_NODE:
                             self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
@@ -19009,7 +19004,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if df['종목명'][i][2:6] == CURRENT_MONTH[2:6] and df['종목명'][i][0] == 'C':                
 
-                    cm_call_code.append(df['단축코드'][i])
+                    self.cm_call_code.append(df['단축코드'][i])
 
                     if not first_cm_call:
                         first_cm_call = True
@@ -19025,7 +19020,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif df['종목명'][i][2:6] == CURRENT_MONTH[2:6] and df['종목명'][i][0] == 'P': 
 
-                    cm_put_code.append(df['단축코드'][i])
+                    self.cm_put_code.append(df['단축코드'][i])
 
                     if not first_cm_put:
                         first_cm_put = True
@@ -19041,7 +19036,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif df['종목명'][i][2:6] == NEXT_MONTH[2:6] and df['종목명'][i][0] == 'C':                
 
-                    nm_call_code.append(df['단축코드'][i])
+                    self.nm_call_code.append(df['단축코드'][i])
 
                     if not first_nm_call:
                         first_nm_call = True
@@ -19057,7 +19052,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif df['종목명'][i][2:6] == NEXT_MONTH[2:6] and df['종목명'][i][0] == 'P': 
 
-                    nm_put_code.append(df['단축코드'][i])
+                    self.nm_put_code.append(df['단축코드'][i])
 
                     if not first_nm_put:
                         first_nm_put = True
@@ -19073,11 +19068,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-            cm_opt_length = len(cm_call_code)
-            nm_opt_length = len(nm_call_code)
+            cm_opt_length = len(self.cm_call_code)
+            nm_opt_length = len(self.nm_call_code)
 
-            CM_OPTCODE = cm_call_code[0][3:5]
-            NM_OPTCODE = nm_call_code[0][3:5]
+            CM_OPTCODE = self.cm_call_code[0][3:5]
+            NM_OPTCODE = self.nm_call_code[0][3:5]
             '''
             print('df cm call = {0}\r'.format(df_cm_call))
             print('df cm put = {0}\r'.format(df_cm_put))
@@ -19105,7 +19100,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             for i in range(option_pairs_count):
 
-                opt_total_list.append(i)
+                self.opt_total_actval_list.append(i)
 
                 df_call_graph[i] = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'ms_hoga', 'md_hoga', 'open_interest', 'oi_delta'])
                 df_put_graph[i] = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'ms_hoga', 'md_hoga', 'open_interest', 'oi_delta'])
@@ -34567,7 +34562,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
 
-        if dt.second == 30: # 매 30초(1분 주기)            
+        if dt.second == 30: # 매 30초 마다(1분 주기)            
 
             try:
                 if self.connection is not None:
@@ -34583,26 +34578,32 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     self.statusbar.showMessage(msg)
                 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board, Big Chart Dialog 참조 카운트 = {3}, {4}\r'.format(\
-                    dt.hour, dt.minute, dt.second, sys.getrefcount(self.dialog['선물옵션전광판']), sys.getrefcount(self.dialog['BigChart']))
-                self.textBrowser.append(txt)
-                print(txt)
-                '''
-                # 자식 다이어로그가 살아있는지 체크                
-                if self.dialog.get('BigChart') is not None:
+                # 자식 다이어로그가 open 되어있는지 체크                
+                if self.dialog['선물옵션전광판']:
+
+                    if self.dialog['선물옵션전광판'].flag_score_board_open:
+                        self.textBrowser.append('Score Board Dialog is opened\r')
+                    else:
+                        self.textBrowser.append('Score Board Dialog is closed\r')
+                        self.dialog['선물옵션전광판'] = None                                
+                else:
+                    self.textBrowser.append('Score Board Dialog is not created\r')
+
+                if self.dialog['BigChart']:
 
                     if self.dialog['BigChart'].flag_big_chart_open:
                         self.textBrowser.append('Big Chart Dialog is opened\r')
                     else:
-                        self.textBrowser.append('Big Chart Dialog is closed\r')                                
+                        self.textBrowser.append('Big Chart Dialog is closed\r')
+                        self.dialog['BigChart'] = None                                
                 else:
                     self.textBrowser.append('Big Chart Dialog is not created\r')
-                '''  
+                 
             except Exception as e:
                 pass
 
-            if dt.minute % 10 == 0: # 매 10 분
-                pass
+        if dt.minute % 10 == 0 and dt.second == 0: # 매 10 분
+            pass
 
     def closeEvent(self,event):
 
@@ -34738,7 +34739,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
             
-            # 옵션전광판 자동시작                                       
+            # 옵션전광판 자동시작
+                                                   
             if AUTO_START:
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
@@ -34748,7 +34750,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 self.dialog['선물옵션전광판'].RunCode()
             else:
-                pass                                    
+                pass
+                                               
         else:
             self.statusbar.showMessage("%s %s" % (code, msg))
 
