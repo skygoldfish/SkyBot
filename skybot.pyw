@@ -23026,7 +23026,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         print(txt)   
 
         self.close()
-        self.parent.ChildDialogCloseEvent('Score Board')
+        self.parent.OnChildDialogCloseEvent('Score Board')
 
 #####################################################################################################################################################################
 # Big Chart Update Thread
@@ -34374,7 +34374,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         print(txt)
 
         self.close()
-        self.parent.ChildDialogCloseEvent('Big Chart')        
+        self.parent.OnChildDialogCloseEvent('Big Chart')        
 
 ########################################################################################################################
 # 메인
@@ -34590,7 +34590,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if dt.minute % 10 == 0 and dt.second == 0: # 매 10 분
             pass
 
-    def ChildDialogCloseEvent(self, dialog_type):
+    def OnChildDialogCloseEvent(self, dialog_type):
 
         dt = datetime.datetime.now()
 
