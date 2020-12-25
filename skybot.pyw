@@ -4216,7 +4216,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         try:
             XQ = t8416(parent=self)
 
-            # 휴일 포함 30일치 과거데이타를 구한다.
+            # 휴일 포함 30일치 과거데이타를 요청한다.
             temp = today - datetime.timedelta(30)
             startday_str = temp.strftime('%Y%m%d')
 
@@ -23021,16 +23021,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        print('Score Board Dialog 종료 on closeEvent...\r')
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
+        self.parent.textBrowser.append(txt)
+        print(txt)   
 
         self.close()
-
-    '''
-    @classmethod
-    def test_classmethod(cls):
-
-        print('sky...')
-    '''
+        self.parent.ChildDialogCloseEvent('Score Board')
 
 #####################################################################################################################################################################
 # Big Chart Update Thread
@@ -34373,9 +34369,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass
 
-        print('Big Chart Dialog 종료 on closeEvent...\r')
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Big Chart Dialog를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
+        self.parent.textBrowser.append(txt)
+        print(txt)
 
-        self.close()        
+        self.close()
+        self.parent.ChildDialogCloseEvent('Big Chart')        
 
 ########################################################################################################################
 # 메인
@@ -34566,7 +34565,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             try:
                 if self.connection is not None:
-                    #msg = '오프라인'
 
                     if self.connection.IsConnected():
                         msg = "온라인"
@@ -34578,32 +34576,34 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     self.statusbar.showMessage(msg)
                 
-                # 자식 다이어로그가 open 되어있는지 체크                
-                if self.dialog['선물옵션전광판']:
+                # 자식 다이어로그가 open 되어있는지 체크
+                '''                
+                if self.dialog['선물옵션전광판'] is None:
+                    self.textBrowser.append('Score Board Dialog is not exist\r')                    
 
-                    if self.dialog['선물옵션전광판'].flag_score_board_open:
-                        self.textBrowser.append('Score Board Dialog is opened\r')
-                    else:
-                        self.textBrowser.append('Score Board Dialog is closed\r')
-                        self.dialog['선물옵션전광판'] = None                                
-                else:
-                    self.textBrowser.append('Score Board Dialog is not created\r')
-
-                if self.dialog['BigChart']:
-
-                    if self.dialog['BigChart'].flag_big_chart_open:
-                        self.textBrowser.append('Big Chart Dialog is opened\r')
-                    else:
-                        self.textBrowser.append('Big Chart Dialog is closed\r')
-                        self.dialog['BigChart'] = None                                
-                else:
-                    self.textBrowser.append('Big Chart Dialog is not created\r')
-                 
+                if self.dialog['BigChart'] is None:
+                    self.textBrowser.append('Big Chart Dialog is not exist\r')                    
+                ''' 
             except Exception as e:
                 pass
 
         if dt.minute % 10 == 0 and dt.second == 0: # 매 10 분
             pass
+
+    def ChildDialogCloseEvent(self, dialog_type):
+
+        dt = datetime.datetime.now()
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] {3} 객체바인딩을 해제합니다.\r'.format(dt.hour, dt.minute, dt.second, dialog_type)
+        self.textBrowser.append(txt)
+
+        if dialog_type == 'Score Board':            
+            
+            self.dialog['선물옵션전광판'] = None
+
+        if dialog_type == 'Big Chart':
+            
+            self.dialog['BigChart'] = None
 
     def closeEvent(self,event):
 
