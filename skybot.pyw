@@ -4188,26 +4188,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass    
 
-    def t8415_call_request(self, index):
+    def t8415_call_request(self, code):
         try:
             XQ = t8415(parent=self)
 
             if today_str == MONTH_FIRSTDAY:
-                XQ.Query(단축코드=self.call_code[index], 시작일자=yesterday_str, 종료일자=today_str)
+                XQ.Query(단축코드=code, 시작일자=yesterday_str, 종료일자=today_str)
             else:
-                XQ.Query(단축코드=self.call_code[index], 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
+                XQ.Query(단축코드=code, 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
 
         except:
             pass
 
-    def t8415_put_request(self, index):
+    def t8415_put_request(self, code):
         try:
             XQ = t8415(parent=self)
 
             if today_str == MONTH_FIRSTDAY:
-                XQ.Query(단축코드=self.put_code[index], 시작일자=yesterday_str, 종료일자=today_str)
+                XQ.Query(단축코드=code, 시작일자=yesterday_str, 종료일자=today_str)
             else:
-                XQ.Query(단축코드=self.put_code[index], 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
+                XQ.Query(단축코드=code, 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
 
         except:
             pass
