@@ -2272,116 +2272,137 @@ class RealDataWorker(QThread):
         self.WOC = WOC(parent=self)
         self.MK2 = MK2(parent=self)
 
-        self.NEWS = NWS(parent=self)        
+        self.NWS = NWS(parent=self)
 
-    def AdviseRealDataAll(self, call_code, put_code):
+    def RealDataRequest(self, type, code):
 
-        # 장운영 정보 요청
-        self.JIF.AdviseRealData('0')
+        if type == 'JIF':
+            # 장운영 정보 요청
+            self.JIF.AdviseRealData(code)
 
-        # FUTURES/KOSPI200 예상지수 요청
-        self.YJ.AdviseRealData(FUTURES)
-        self.YJ.AdviseRealData(KOSPI200)
+        elif type == 'YJ':
+            # KOSPI 예상체결 요청
+            self.YJ.AdviseRealData(code)
 
-        # 지수선물 예상체결 요청
-        self.YFC.AdviseRealData(fut_code)
+        elif type == 'YFC':
+            # 지수선물 예상체결 요청
+            self.YFC.AdviseRealData(code)
 
-        # KOSPI 예상체결 요청                        
-        self.YS3.AdviseRealData(SAMSUNG)
-        self.YS3.AdviseRealData(HYUNDAI)
-        
-        for i in range(option_pairs_count):
+        elif type == 'YS3':
+            # KOSPI 주요업체 예상체결 요청
+            self.YS3.AdviseRealData(code)
+
+        elif type == 'YOC':
             # 지수옵션 예상체결 요청
-            self.YOC.AdviseRealData(call_code[i])
-            self.YOC.AdviseRealData(put_code[i])
-            # 옵션 실시간 가격 및 호가 요청
-            self.OPT_REAL.AdviseRealData(call_code[i])
-            self.OPT_REAL.AdviseRealData(put_code[i])
+            self.YOC.AdviseRealData(code)
 
-        if QUOTE_REQUEST_NUMBER == 'All':
-            #print('QUOTE_REQUEST_NUMBER =', QUOTE_REQUEST_NUMBER)
-            for i in range(option_pairs_count):
-                self.OPT_HO.AdviseRealData(call_code[i])
-                self.OPT_HO.AdviseRealData(put_code[i]) 
-        else:
-            NEW_INDEX = int(int(QUOTE_REQUEST_NUMBER)/2)
-            #print('NEW_INDEX =', NEW_INDEX)
-            for i in range(atm_index - NEW_INDEX, atm_index + NEW_INDEX + 1):
-                self.OPT_HO.AdviseRealData(call_code[i])
-                self.OPT_HO.AdviseRealData(put_code[i])        
+        elif type == 'OPT_REAL':
+            # 옵션 실시간 가격 요청
+            self.OPT_REAL.AdviseRealData(code)
 
-        # 선물 실시간테이타 요청
-        self.FUT_REAL.AdviseRealData(fut_code)
-        self.FUT_HO.AdviseRealData(fut_code)
+        elif type == 'OPT_HO':
+            # 옵션 실시간 호가 요청
+            self.OPT_HO.AdviseRealData(code)
 
-        if TARGET_MONTH_SELECT == 'CM':
-            # 차월물 가격요청
-            self.FUT_REAL.AdviseRealData(cmshcode)
-            # 차월물, 차차월물 호가요청
-            self.FUT_HO.AdviseRealData(cmshcode)
-            self.FUT_HO.AdviseRealData(ccmshcode)
+        elif type == 'FUT_REAL':
+            # 선물 실시간 가격 요청
+            self.FUT_REAL.AdviseRealData(code)
+
+        elif type == 'FUT_HO':
+            # 선물 실시간 호가 요청
+            self.FUT_HO.AdviseRealData(code)
+
+        elif type == 'IJ':
+            # KOSPI/KOSPI200/KOSDAQ 지수요청
+            self.IJ.AdviseRealData(code)
+
+        elif type == 'S3':
+            # KOSPI 주요업체(SAMSUNG) 체결 요청
+            self.S3.AdviseRealData(code)
+
+        elif type == 'BM':
+            # 업종별 투자자별 매매현황 요청
+            self.BM.AdviseRealData(code)
+
+        elif type == 'PM':
+            # 프로그램 매매현황 요청
+            self.PM.AdviseRealData()
+
+        elif type == 'OVC':
+            # 해외선물 체결가격 실시간 요청
+            self.OVC.AdviseRealData(code)
+
+        elif type == 'NWS':
+            # 실시간 뉴스요청
+            self.NWS.AdviseRealData()
         else:
             pass
 
-        # KOSPI/KOSPI200/KOSDAQ 지수요청
-        self.IJ.AdviseRealData(KOSPI)
-        self.IJ.AdviseRealData(KOSPI200)
-        self.IJ.AdviseRealData(KOSDAQ)
+    def CancelRealDataRequest(self, type):
 
-        # SAMSUNG 체결 요청
-        self.S3.AdviseRealData(SAMSUNG)
+        if type == 'JIF':
+            # 장운영 정보 요청취소
+            self.JIF.UnadviseRealData()
 
-        # 업종별 투자자별 매매현황 요청
-        self.BM.AdviseRealData(FUTURES)
-        self.BM.AdviseRealData(KOSPI)
+        elif type == 'YJ':
+            # KOSPI 예상체결 요청취소
+            self.YJ.UnadviseRealData()
 
-        # 프로그램 매매현황 요청
-        self.PM.AdviseRealData()
+        elif type == 'YFC':
+            # 지수선물 예상체결 요청취소
+            self.YFC.UnadviseRealData()
 
-        # 해외선물 체결,가격 실시간 요청
-        self.OVC.AdviseRealData(종목코드=SP500)
-        self.OVC.AdviseRealData(종목코드=DOW)
-        self.OVC.AdviseRealData(종목코드=NASDAQ)
-        self.OVC.AdviseRealData(종목코드=WTI)                
-        self.OVC.AdviseRealData(종목코드=HANGSENG)
-        self.OVC.AdviseRealData(종목코드=EUROFX)
-        self.OVC.AdviseRealData(종목코드=GOLD)        
+        elif type == 'YS3':
+            # KOSPI 주요업체 예상체결 요청취소
+            self.YS3.UnadviseRealData()
+
+        elif type == 'YOC':
+            # 지수옵션 예상체결 요청취소
+            self.YOC.UnadviseRealData()
+
+        elif type == 'OPT_REAL':
+            # 옵션 실시간 가격 요청취소
+            self.OPT_REAL.UnadviseRealData()
+
+        elif type == 'OPT_HO':
+            # 옵션 실시간 호가 요청취소
+            self.OPT_HO.UnadviseRealData()
+
+        elif type == 'FUT_REAL':
+            # 선물 실시간 가격 요청취소
+            self.FUT_REAL.UnadviseRealData()
+
+        elif type == 'FUT_HO':
+            # 선물 실시간 호가 요청취소
+            self.FUT_HO.UnadviseRealData()
+
+        elif type == 'IJ':
+            # KOSPI/KOSPI200/KOSDAQ 지수 요청취소
+            self.IJ.UnadviseRealData()
+
+        elif type == 'S3':
+            # KOSPI 주요업체(SAMSUNG) 체결 요청취소
+            self.S3.UnadviseRealData()
+
+        elif type == 'BM':
+            # 업종별 투자자별 매매현황 요청취소
+            self.BM.UnadviseRealData()
+
+        elif type == 'PM':
+            # 프로그램 매매현황 요청취소
+            self.PM.UnadviseRealData()
+
+        elif type == 'OVC':
+            # 해외선물 체결가격 실시간 요청취소
+            self.OVC.UnadviseRealData()
+
+        elif type == 'NWS':
+            # 실시간 뉴스 요청취소
+            self.NWS.UnadviseRealData()
+        else:
+            pass
         
-    def AdviseRealDataEtc(self):
-
-        self.S3.AdviseRealData(SAMSUNG)
-        self.BM.AdviseRealData(FUTURES)
-        self.BM.AdviseRealData(KOSPI)
-        self.PM.AdviseRealData()
-
-    def UnadviseRealDataEtc(self):
-
-        self.S3.UnadviseRealData()
-        self.BM.UnadviseRealData()
-        self.PM.UnadviseRealData()
-
-    def UnadviseRealData_YS(self):
-
-        self.YJ.UnadviseRealData()
-        self.YFC.UnadviseRealData()
-        self.YOC.UnadviseRealData()
-        self.YS3.UnadviseRealData()
-
-    def AdviseRealData_HS_ON(self, call_code, put_code):
-
-        self.OPT_HO.UnadviseRealData()
-
-        for i in range(atm_index - 5, atm_index + 5 + 1):
-            self.OPT_HO.AdviseRealData(call_code[i])
-            self.OPT_HO.AdviseRealData(put_code[i])
-
-    def AdviseRealData_HS_OFF(self, call_code, put_code):
-
-        for i in range(option_pairs_count):
-            self.OPT_HO.AdviseRealData(call_code[i])
-            self.OPT_HO.AdviseRealData(put_code[i])
-
-    def UnadviseRealDataAll(self):
+    def UnadviseAllRealData(self):
 
         print('모든 실시간요청을 취소합니다.\r')
         
@@ -2405,6 +2426,7 @@ class RealDataWorker(QThread):
         self.PM.UnadviseRealData()
 
         self.OVC.UnadviseRealData()
+        self.NWS.UnadviseRealData()
 
     # 실시간 수신 콜백함수
     def OnReceiveRealData(self, szTrCode, result):
@@ -2491,7 +2513,7 @@ if MULTIPROCESS:
             self.WOC = WOC(parent=self)
             self.MK2 = MK2(parent=self)
 
-            self.NEWS = NWS(parent=self)
+            self.NWS = NWS(parent=self)
             '''
         '''
         def AdviseRealDataAll(self):
@@ -3466,12 +3488,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] S3, BM, PM요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
                 self.textBrowser.append(txt)
 
-                self.real_data_worker.UnadviseRealDataEtc()
+                self.real_data_worker.CancelRealDataRequest('S3')
+                self.real_data_worker.CancelRealDataRequest('BM')
+                self.real_data_worker.CancelRealDataRequest('PM')
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 호가요청을 등가중심 10개만 합니다.\r'.format(adj_hour, adj_min, adj_sec)
                 self.textBrowser.append(txt)
 
-                self.real_data_worker.AdviseRealData_HS_ON(self.call_code, self.put_code)
+                #self.real_data_worker.AdviseRealData_HS_ON(self.call_code, self.put_code)
+                
+                self.real_data_worker.CancelRealDataRequest('OPT_HO')
+
+                for i in range(atm_index - 5, atm_index + 5 + 1):
+                    self.real_data_worker.RealDataRequest('OPT_HO', self.call_code[i])
+                    self.real_data_worker.RealDataRequest('OPT_HO', self.put_code[i])
             else:
                 pass            
 
@@ -3505,12 +3535,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] S3, BM, PM을 재요청합니다.\r'.format(adj_hour, adj_min, adj_sec)
                 self.textBrowser.append(txt)
                 
-                self.real_data_worker.AdviseRealDataEtc()
+                #self.real_data_worker.AdviseRealDataEtc()
+
+                self.real_data_worker.RealDataRequest('S3', SAMSUNG)
+                self.real_data_worker.RealDataRequest('BM', FUTURES)
+                self.real_data_worker.RealDataRequest('BM', KOSPI)
+                self.real_data_worker.RealDataRequest('PM', KOSPI)
+
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 호가요청을 원복합니다.\r'.format(adj_hour, adj_min, adj_sec)
                 self.textBrowser.append(txt)
 
-                self.real_data_worker.AdviseRealData_HS_OFF(self.call_code, self.put_code)              
+                #self.real_data_worker.AdviseRealData_HS_OFF(self.call_code, self.put_code)
+
+                for i in range(option_pairs_count):
+                    self.real_data_worker.RealDataRequest('OPT_HO', self.call_code[i])
+                    self.real_data_worker.RealDataRequest('OPT_HO', self.put_code[i])        
             else:
                 pass            
             
@@ -15583,7 +15623,76 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     #self.real_data_worker.daemon = True
 
                     self.real_data_worker.start()
-                    self.real_data_worker.AdviseRealDataAll(self.call_code, self.put_code)
+                    #self.real_data_worker.AdviseRealDataAll(self.call_code, self.put_code)
+
+                    # 장운영 정보 요청
+                    self.real_data_worker.RealDataRequest('JIF', '0')
+
+                    # 지수선물 예상체결 요청
+                    self.real_data_worker.RealDataRequest('YFC', fut_code)
+
+                    # KOSPI 예상체결 요청
+                    self.real_data_worker.RealDataRequest('YS3', SAMSUNG)
+                    self.real_data_worker.RealDataRequest('YS3', HYUNDAI)
+
+                    for i in range(option_pairs_count):
+                        # 지수옵션 예상체결 요청
+                        self.real_data_worker.RealDataRequest('YOC', self.call_code[i])
+                        self.real_data_worker.RealDataRequest('YOC', self.put_code[i])
+                        # 옵션 실시간 가격 요청
+                        self.real_data_worker.RealDataRequest('OPT_REAL', self.call_code[i])
+                        self.real_data_worker.RealDataRequest('OPT_REAL', self.put_code[i])
+
+                    if QUOTE_REQUEST_NUMBER == 'All':
+
+                        for i in range(option_pairs_count):
+                            # 옵션 실시간 호가 요청
+                            self.real_data_worker.RealDataRequest('OPT_HO', self.call_code[i])
+                            self.real_data_worker.RealDataRequest('OPT_HO', self.put_code[i])
+                    else:
+                        NEW_INDEX = int(int(QUOTE_REQUEST_NUMBER)/2)
+
+                        for i in range(atm_index - NEW_INDEX, atm_index + NEW_INDEX + 1):
+                            # 옵션 실시간 호가 요청
+                            self.real_data_worker.RealDataRequest('OPT_HO', self.call_code[i])
+                            self.real_data_worker.RealDataRequest('OPT_HO', self.put_code[i])
+
+                    # 선물 실시간 가격 및 호가 요청
+                    self.real_data_worker.RealDataRequest('FUT_REAL', fut_code)
+                    self.real_data_worker.RealDataRequest('FUT_HO', fut_code)
+
+                    if TARGET_MONTH_SELECT == 'CM':
+                        # 차월물 가격요청
+                        self.real_data_worker.RealDataRequest('FUT_REAL', cmshcode)
+                        # 차월물, 차차월물 호가요청
+                        self.real_data_worker.RealDataRequest('FUT_HO', cmshcode)
+                        self.real_data_worker.RealDataRequest('FUT_HO', ccmshcode)
+                    else:
+                        pass
+
+                    # KOSPI/KOSPI200/KOSDAQ 지수요청
+                    self.real_data_worker.RealDataRequest('IJ', KOSPI)
+                    self.real_data_worker.RealDataRequest('IJ', KOSPI200)
+                    self.real_data_worker.RealDataRequest('IJ', KOSDAQ)
+
+                    # SAMSUNG 체결 요청
+                    self.real_data_worker.RealDataRequest('S3', SAMSUNG)
+
+                    # 업종별 투자자별 매매현황 요청
+                    self.real_data_worker.RealDataRequest('BM', FUTURES)
+                    self.real_data_worker.RealDataRequest('BM', KOSPI)
+
+                    # 프로그램 매매현황 요청
+                    self.real_data_worker.RealDataRequest('PM', KOSPI)
+
+                    # 해외선물 체결,가격 실시간 요청
+                    self.real_data_worker.RealDataRequest('OVC', SP500)
+                    self.real_data_worker.RealDataRequest('OVC', DOW)
+                    self.real_data_worker.RealDataRequest('OVC', NASDAQ)
+                    self.real_data_worker.RealDataRequest('OVC', WTI)
+                    self.real_data_worker.RealDataRequest('OVC', HANGSENG)
+                    self.real_data_worker.RealDataRequest('OVC', EUROFX)
+                    self.real_data_worker.RealDataRequest('OVC', GOLD)
                 else:
                     pass
                 
@@ -15599,6 +15708,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 '''
                 # t8416 요청                
                 print('t8416 call 요청시작...')
+                QTest.qWait(100)
                 
                 for i in range(option_pairs_count):
                     t8416_call_count = i
@@ -19325,7 +19435,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 예상지수요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
                     self.textBrowser.append(txt)
 
-                    self.real_data_worker.UnadviseRealData_YS()
+                    #self.real_data_worker.UnadviseRealData_YS()
+
+                    self.real_data_worker.CancelRealDataRequest('YJ')
+                    self.real_data_worker.CancelRealDataRequest('YFC')
+                    self.real_data_worker.CancelRealDataRequest('YOC')
+                    self.real_data_worker.CancelRealDataRequest('YS3')
 
                     if TTS and TARGET_MONTH_SELECT == 'CM':
                         playsound( "Doorbell_login.wav" )
@@ -23003,7 +23118,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         if self.real_data_worker.isRunning():
-            self.real_data_worker.UnadviseRealDataAll()
+            self.real_data_worker.UnadviseAllRealData()
             QTest.qWait(100)
             self.real_data_worker.terminate()
             print('real_data_worker is terminated at KillScoreBoardThread...')
@@ -34459,7 +34574,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.connection = None
         
             self.XQ_t0167 = t0167(parent=self)
-            self.NEWS = NWS(parent=self)
+            self.NWS = NWS(parent=self)
 
             # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
             atexit.register(self.__del__) 
@@ -34537,7 +34652,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.connection = None
 
             self.XQ_t0167 = t0167(parent=self)
-            self.NEWS = NWS(parent=self)
+            self.NWS = NWS(parent=self)
 
             # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
             atexit.register(self.__del__) 
@@ -34735,7 +34850,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if NEWS_DISPLAY:
                 txt = '뉴스를 요청합니다.\r'
                 self.textBrowser.append(txt)
-                self.NEWS.AdviseRealData()
+                self.NWS.AdviseRealData()
             else:
                 pass
             
