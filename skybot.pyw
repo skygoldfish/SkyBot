@@ -1550,8 +1550,6 @@ plot5_y = 0
 plot6_x = 0
 plot6_y = 0
 
-yoc_stop = False
-
 kospi_price = 0.0
 kosdaq_price = 0.0
 samsung_price = 0.0
@@ -19344,7 +19342,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global put_저가, put_저가_node_list, put_고가, put_고가_node_list
             global market_service, service_terminate, jugan_service_terminate, yagan_service_terminate
 
-            global yoc_stop
             global OVC_체결시간, adj_hour, adj_min, OVC_SEC
 
             global df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
@@ -19437,8 +19434,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # 주간 선물/옵션장 시작
                 elif result['장구분'] == '5' and result['장상태'] == '21':
-
-                    yoc_stop = not yoc_stop
 
                     market_service = True
 
