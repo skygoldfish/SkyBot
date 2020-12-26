@@ -34985,9 +34985,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         logger.debug("Action Slot %s %s " % (qaction.objectName(), qaction.text()))
         _action = qaction.objectName()
 
+        # 로그인
         if _action == "actionLogin":
             self.MyLogin()
 
+        # 로그아웃
         if _action == "actionLogout":
             #self.connection.logout()
             self.connection.disconnect()
@@ -35005,31 +35007,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['계좌정보조회'] = 화면_계좌정보(parent=self)
                 self.dialog['계좌정보조회'].show()
         
+        # 종료
         if _action == "actionExit":
             self.connection.disconnect()
             self.close() 
-
-        # 사용법
-        if _action == "actionMustRead":
-            pass
-            #webbrowser.open('https://thinkpoolost.wixsite.com/moneybot')
-
-        if _action == "actionUsage":
-            pass
-            #webbrowser.open('https://docs.google.com/document/d/1BGENxWqJyZdihQFuWcmTNy3_4J0kHolCc-qcW3RULzs/edit')
-
-        if _action == "actionVersion":
-            if self.dialog.get('Version') is not None:
-                try:
-                    self.dialog['Version'].show()
-                except Exception as e:
-                    self.dialog['Version'] = 화면_버전(parent=self)
-                    self.dialog['Version'].show()
-            else:
-                self.dialog['Version'] = 화면_버전(parent=self)
-                self.dialog['Version'].show()
         
-        # 당월물 옵션전광판
+        # 옵션전광판
         if _action == "actionScoreBoard":
             
             if self.dialog.get('선물옵션전광판') is not None:
@@ -35068,6 +35051,28 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Big Chart Dialog를 생성합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
+
+        # 설정(추후 구현)
+        
+        # 사용법
+        if _action == "actionMustRead":
+            pass
+            #webbrowser.open('https://thinkpoolost.wixsite.com/moneybot')
+
+        if _action == "actionUsage":
+            pass
+            #webbrowser.open('https://docs.google.com/document/d/1BGENxWqJyZdihQFuWcmTNy3_4J0kHolCc-qcW3RULzs/edit')
+
+        if _action == "actionVersion":
+            if self.dialog.get('Version') is not None:
+                try:
+                    self.dialog['Version'].show()
+                except Exception as e:
+                    self.dialog['Version'] = 화면_버전(parent=self)
+                    self.dialog['Version'].show()
+            else:
+                self.dialog['Version'] = 화면_버전(parent=self)
+                self.dialog['Version'].show()
 
     # ------------------------------------------------------------
 
