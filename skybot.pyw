@@ -5223,7 +5223,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 self.textBrowser.append(txt)
 
-                Speak('본월물 하향 변동성 생성')
+                Speak('본월물 하향 변동성 출현')
                 '''
                 tts = gTTS(text=vb_txt, lang='en')
                 tts.save("tts.mp3")
@@ -5236,7 +5236,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 self.textBrowser.append(txt)
 
-                Speak('본월물 상향 변동성 생성')
+                Speak('본월물 상향 변동성 출현')
                 '''
                 tts = gTTS(text=vb_txt, lang='en')
                 tts.save("tts.mp3")
@@ -5253,7 +5253,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 self.textBrowser.append(txt)
 
-                Speak('차월물 하향 변동성 생성')
+                Speak('차월물 하향 변동성 출현')
                 '''
                 tts = gTTS(text=vb_txt, lang='en')
                 tts.save("tts.mp3")
@@ -5266,7 +5266,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 self.textBrowser.append(txt)
 
-                Speak('차월물 상향 변동성 생성')
+                Speak('차월물 상향 변동성 출현')
                 '''
                 tts = gTTS(text=vb_txt, lang='en')
                 tts.save("tts.mp3")
@@ -35099,7 +35099,7 @@ if __name__ == "__main__":
     
     # 구글 TTS
     if TTS:
-        #Speak('본월물 상향 변동성 생성')
+        #Speak('본월물 하향 변동성 출현')
         '''
         text ="Welcome to SkyBot"
         tts = gTTS(text=text, lang='en')
