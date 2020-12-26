@@ -47,7 +47,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>880</width>
+     <width>640</width>
      <height>21</height>
     </rect>
    </property>
@@ -71,19 +71,23 @@
     <addaction name="actionUsage"/>
     <addaction name="actionVersion"/>
    </widget>
-   <widget class="QMenu" name="menu_7">
+   <widget class="QMenu" name="menu_1">
     <property name="title">
      <string>선물옵션</string>
     </property>
-    <addaction name="separator"/>
-    <addaction name="actionCMOptionPrice"/>
-    <addaction name="separator"/>
+    <addaction name="actionScoreBoard"/>
     <addaction name="separator"/>
     <addaction name="actionBigChart"/>
     <addaction name="separator"/>
    </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>설정</string>
+    </property>
+   </widget>
    <addaction name="menu"/>
-   <addaction name="menu_7"/>
+   <addaction name="menu_1"/>
+   <addaction name="menu_2"/>
    <addaction name="menu_3"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -108,7 +112,7 @@
      <normaloff>PNG/로그아웃.png</normaloff>PNG/로그아웃.png</iconset>
    </property>
    <property name="text">
-    <string>접속종료</string>
+    <string>로그아웃</string>
    </property>
    <property name="statusTip">
     <string/>
@@ -150,7 +154,7 @@
     <string>버전</string>
    </property>
   </action>
-  <action name="actionCMOptionPrice">
+  <action name="actionScoreBoard">
    <property name="icon">
     <iconset>
      <normaloff>PNG/당월물 옵션전광판.png</normaloff>PNG/당월물 옵션전광판.png</iconset>

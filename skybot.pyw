@@ -34985,17 +34985,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         logger.debug("Action Slot %s %s " % (qaction.objectName(), qaction.text()))
         _action = qaction.objectName()
 
-        if _action == "actionExit":
-            self.connection.disconnect()
-            self.close()
-
         if _action == "actionLogin":
             self.MyLogin()
 
         if _action == "actionLogout":
             #self.connection.logout()
             self.connection.disconnect()
-            self.statusbar.showMessage("접속종료 되었습니다.")        
+            self.statusbar.showMessage("접속종료 되었습니다.")             
 
         # 계좌정보 조회
         if _action == "actionAccountDialog":
@@ -35008,6 +35004,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.dialog['계좌정보조회'] = 화면_계좌정보(parent=self)
                 self.dialog['계좌정보조회'].show()
+        
+        if _action == "actionExit":
+            self.connection.disconnect()
+            self.close() 
 
         # 사용법
         if _action == "actionMustRead":
@@ -35030,7 +35030,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['Version'].show()
         
         # 당월물 옵션전광판
-        if _action == "actionCMOptionPrice":
+        if _action == "actionScoreBoard":
             
             if self.dialog.get('선물옵션전광판') is not None:
 
