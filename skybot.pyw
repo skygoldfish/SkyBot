@@ -1954,7 +1954,7 @@ class 화면_버전(QDialog, Ui_버전):
 ########################################################################################################################
 # sky work !!!
 ########################################################################################################################
-class screen_update_worker(QThread):
+class ScreenUpdateWorker(QThread):
 
     finished = pyqtSignal(str)
 
@@ -1970,7 +1970,7 @@ class screen_update_worker(QThread):
 
 ########################################################################################################################
 # 텔레그램 송수신시 약 1.2초 정도 전달지연 시간 발생함
-class telegram_send_worker(QThread):
+class TelegramSendWorker(QThread):
 
     finished = pyqtSignal(str)
 
@@ -2210,7 +2210,7 @@ class telegram_send_worker(QThread):
 ########################################################################################################################
 
 ########################################################################################################################
-class telegram_listen_worker(QThread):
+class TelegramListenWorker(QThread):
 
     finished = pyqtSignal(str)
 
@@ -2631,10 +2631,10 @@ else:
 def get_realdata(p_queue, c_queue):
 
     # 객체생성
-    get_real = MultiProcess_RealTimeDataWorker(p_queue, c_queue)
+    get_real = MultiProcess_RealTime_Data_Worker(p_queue, c_queue)
 
     # 실시간요청은 클래스메소드로 수행
-    #MultiProcess_RealTimeDataWorker.AdviseRealDataAll()
+    #MultiProcess_RealTime_Data_Worker.AdviseRealDataAll()
 
     # 실시간수신
     #get_real.run()
@@ -2703,15 +2703,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.realtime_data_worker.trigger.connect(self.process_realdata)        
         self.realtime_data_worker.daemon = True
 
-        self.screen_update_worker = screen_update_worker()
+        self.screen_update_worker = ScreenUpdateWorker()
         self.screen_update_worker.finished.connect(self.update_screen)
         self.screen_update_worker.daemon = True
         
-        self.telegram_send_worker = telegram_send_worker()
+        self.telegram_send_worker = TelegramSendWorker()
         self.telegram_send_worker.finished.connect(self.send_telegram_message)
         self.telegram_send_worker.daemon = True
 
-        self.telegram_listen_worker = telegram_listen_worker()
+        self.telegram_listen_worker = TelegramListenWorker()
         self.telegram_listen_worker.finished.connect(self.listen_telegram_message)
         self.telegram_listen_worker.daemon = True
         
@@ -2719,7 +2719,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         '''
         get_realdata.trigger.connect(self.process_realdata)        
         m_process = Process(name="producer", target=get_realdata, args=(self.producer_queue, self.consumer_queue, ), daemon=True)
-        #m_process = MultiProcess_RealTimeDataWorker(self.producer_queue, self.consumer_queue)
+        #m_process = MultiProcess_RealTime_Data_Worker(self.producer_queue, self.consumer_queue)
         m_process.start()       
         '''
         self.상태그림 = ['▼', '▬', '▲']
@@ -15716,13 +15716,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 '''
                 # 멀티프로세스
-                #self.get_realdata = MultiProcess_RealTimeDataWorker(self.producer_queue, self.consumer_queue)
-                #MultiProcess_RealTimeDataWorker.trigger.connect(self.process_realdata)        
+                #self.get_realdata = MultiProcess_RealTime_Data_Worker(self.producer_queue, self.consumer_queue)
+                #MultiProcess_RealTime_Data_Worker.trigger.connect(self.process_realdata)        
                 #m_process = Process(name="producer", target=self.get_realdata, daemon=True)
-                #m_process = MultiProcess_RealTimeDataWorker(self.producer_queue, self.consumer_queue)
+                #m_process = MultiProcess_RealTime_Data_Worker(self.producer_queue, self.consumer_queue)
                 #self.get_realdata.start()
                 #self.get_realdata.join()
-                MultiProcess_RealTimeDataWorker.AdviseRealDataAll()
+                MultiProcess_RealTime_Data_Worker.AdviseRealDataAll()
                 '''
                 # t8416 요청                
                 print('t8416 call 요청시작...')
@@ -23170,7 +23170,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 #####################################################################################################################################################################
 # Big Chart Update Thread
 #####################################################################################################################################################################
-class Bigchart_update_worker(QThread):
+class PlotUpdateWorker(QThread):
 
     finished = pyqtSignal(str)
 
@@ -23211,10 +23211,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.move(qr.topLeft())     
         self.showNormal()  
         
-        self.plot_update_worker = Bigchart_update_worker()
-        self.plot_update_worker.finished.connect(self.update_bigchart)
-        self.plot_update_worker.daemon = True
-
         self.comboBox1.setStyleSheet('background-color: lightgreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.comboBox2.setStyleSheet('background-color: lightgreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.comboBox3.setStyleSheet('background-color: lightgreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -23563,15 +23559,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot5.enableAutoRange('y', True)
         self.plot5.plotItem.showGrid(True, True, 0.5)
 
-        if SECOND_PLOT_SYNC: 
-            self.plot5.setXLink(self.plot4)
-        else:
-            pass
-
         self.plot6.enableAutoRange('y', True)
         self.plot6.plotItem.showGrid(True, True, 0.5)
 
         if SECOND_PLOT_SYNC: 
+            self.plot5.setXLink(self.plot4)
             self.plot6.setXLink(self.plot4)
         else:
             pass
@@ -24100,8 +24092,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot5_time_line_jugan_start.setValue(GuardTime)
             self.plot6_time_line_jugan_start.setValue(GuardTime)
 
-        # 쓰레드 시작...        
-        #self.plot_update_worker.daemon = True
+        # 그리기 쓰레드 시작...        
+        self.plot_update_worker = PlotUpdateWorker()
+        self.plot_update_worker.finished.connect(self.update_bigchart)
+        self.plot_update_worker.daemon = True
         self.plot_update_worker.start()
 
     def __del__(self):
