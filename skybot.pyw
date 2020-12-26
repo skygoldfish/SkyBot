@@ -113,6 +113,9 @@ screen_info = None
 drate_scale_factor = 1
 plot_drate_scale_factor = 1
 
+call_scroll_depth = 19
+put_scroll_depth = 30
+
 선물_전일종가 = 0
 
 선물_전저 = 0
@@ -4112,9 +4115,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if call_scroll_begin_position <= option_pairs_count:
 
-            scroll_depth = 19
-
-            call_scroll_end_position = call_scroll_begin_position + scroll_depth
+            call_scroll_end_position = call_scroll_begin_position + call_scroll_depth
 
             print('call scroll position -----> from %d to %d' % (call_scroll_begin_position, call_scroll_end_position))
 
@@ -4138,9 +4139,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if put_scroll_begin_position <= option_pairs_count:
 
-            scroll_depth = 30
-
-            put_scroll_end_position = put_scroll_begin_position + scroll_depth
+            put_scroll_end_position = put_scroll_begin_position + put_scroll_depth
 
             print('put scroll position -----> from %d to %d' % (put_scroll_begin_position, put_scroll_end_position))
 
