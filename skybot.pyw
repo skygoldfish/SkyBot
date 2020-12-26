@@ -44,6 +44,7 @@ import queue
 import pyautogui
 from playsound import playsound
 import socket
+#import pyttsx3
 #from gtts import gTTS
 #import sqlite3
 #import pythoncom
@@ -812,6 +813,11 @@ adj_hour = 0
 adj_min = 0
 adj_sec = 0
 
+Option_column = Enum('Option_column', '행사가 OLOH 기준가 월저 월고 전저 전고 종가 피봇 시가 저가 현재가 고가 시가갭 대비 VP 진폭 OI OID')
+Futures_column = Enum('Futures_column', 'OLOH 매수건수 매도건수 매수잔량 매도잔량 건수비 잔량비 전저 전고 종가 피봇 시가 저가 현재가 고가 시가갭 대비 거래량 진폭 OI OID')
+Supply_column = Enum('Supply_column', '외인선옵 개인선옵 기관선옵 외인현물 프로그램')
+Quote_column = Enum('Quote_column', 'C-MSCC C-MDCC C-MSCR C-MDCR P-MSCC P-MDCC P-MSCR P-MDCR 콜건수비 콜잔량비 풋건수비 풋잔량비 호가종합 미결종합')
+
 flag_offline = False
 
 flag_call_cross_coloring = False
@@ -1043,12 +1049,6 @@ update_end = 10.0
 익절 = '' 
 
 basis = 0
-
-Option_column = Enum('Option_column', '행사가 OLOH 기준가 월저 월고 전저 전고 종가 피봇 시가 저가 현재가 고가 시가갭 대비 VP 진폭 OI OID')
-Futures_column = Enum('Futures_column', 'OLOH 매수건수 매도건수 매수잔량 매도잔량 건수비 잔량비 전저 전고 종가 피봇 시가 저가 현재가 고가 시가갭 대비 거래량 진폭 OI OID')
-Option_volume_column = Enum('Option_volume_column', '매도누적체결량 매도누적체결건수 매수누적체결량 매수누적체결건수')
-Supply_column = Enum('Supply_column', '외인선옵 개인선옵 기관선옵 외인현물 프로그램')
-Quote_column = Enum('Quote_column', 'C-MSCC C-MDCC C-MSCR C-MDCR P-MSCC P-MDCC P-MSCR P-MDCR 콜건수비 콜잔량비 풋건수비 풋잔량비 호가종합 미결종합')
 option_pairs_count = 0
 real_option_pairs_count = 0
 
@@ -1167,10 +1167,6 @@ put_atm_value = 0
 
 atm_zero_sum = 0
 atm_zero_cha = 0
-
-#kp200_realdata = dict()
-#fut_realdata = dict()
-#cme_realdata = dict()
 
 cm_opt_length = 0
 nm_opt_length = 0
@@ -2403,7 +2399,7 @@ class RealDataWorker(QThread):
         else:
             pass
 
-    def UnadviseAllRealData(self):
+    def CancelAllRealData(self):
         
         self.JIF.UnadviseRealData()
 
@@ -4142,7 +4138,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if put_scroll_begin_position <= option_pairs_count:
 
-            scroll_depth = 19
+            scroll_depth = 30
 
             put_scroll_end_position = put_scroll_begin_position + scroll_depth
 
@@ -7989,6 +7985,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
+            #txt = 'call_node_color_update scroll position = {0}, {1}\r'.format(call_scroll_begin_position, call_scroll_end_position)
+            #self.parent.textBrowser.append(txt)
+
             for i in range(call_scroll_begin_position, call_scroll_end_position):
 
                 저가 = df_call.at[i, '저가']
@@ -8935,6 +8934,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_scroll_end_position = option_pairs_count
             else:
                 pass
+
+            #txt = 'put_node_color_update scroll position = {0}, {1}\r'.format(put_scroll_begin_position, put_scroll_end_position)
+            #self.parent.textBrowser.append(txt)
             
             for i in range(put_scroll_begin_position, put_scroll_end_position):
 
@@ -18997,7 +18999,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                                                 QPushButton:hover {background-color: black; color: white} \
                                                                 QPushButton:pressed {background-color: gold}') 
 
-                        self.pushButton_start.setText(' Refresh ')                              
+                        self.pushButton_start.setText(' Refresh ')
+
+                    #self.put_scroll_coloring()                              
                 else:
                     pass
             else:
@@ -23138,7 +23142,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             self.parent.textBrowser.append(txt)
 
-            self.realtime_data_worker.UnadviseAllRealData()            
+            self.realtime_data_worker.CancelAllRealData()            
             QTest.qWait(100)
 
             self.realtime_data_worker.terminate()
