@@ -350,14 +350,13 @@ ONEWAY_THRESHOLD = parser.getint('Rules', 'Threshold of the institutional party 
 #####################################################################################################################################################################
 # UI 파일정의
 #####################################################################################################################################################################
-if TARGET_MONTH_SELECT == 'CM':
-    main_ui_type = 'skybot_cm.ui'
-    score_board_ui_type = 'score_board.ui'
-    bigchart_ui_type = 'bigchart.ui'
-else:
+if TARGET_MONTH_SELECT == 'NM':    
     main_ui_type = 'skybot_nm.ui'
-    score_board_ui_type = 'score_board.ui'
-    bigchart_ui_type = 'bigchart.ui'
+else:
+    main_ui_type = 'skybot_cm.ui'
+
+score_board_ui_type = 'score_board.ui'
+bigchart_ui_type = 'bigchart.ui'
 
 if int(CURRENT_MONTH[4:6]) == 11:
     NEXT_MONTH = CURRENT_MONTH[0:4] + '12'
