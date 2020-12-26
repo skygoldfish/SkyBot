@@ -5219,7 +5219,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if 선물_저가 < volatility_breakout_downward_point:
 
-                vb_txt = 'Current Month Volatility Downward Breakout'
+                vb_txt = 'CM Volatility Downward Breakout'
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 self.textBrowser.append(txt)
 
@@ -5232,7 +5232,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif 선물_고가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
 
-                vb_txt = 'Current Month Volatility Upward Breakout'
+                vb_txt = 'CM Volatility Upward Breakout'
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 self.textBrowser.append(txt)
 
@@ -5249,7 +5249,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if 선물_저가 < volatility_breakout_downward_point:
 
-                vb_txt = 'Next Month Volatility Downward Breakout'
+                vb_txt = 'NM Volatility Downward Breakout'
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 self.textBrowser.append(txt)
 
@@ -5262,7 +5262,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif 선물_고가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
 
-                vb_txt = 'Next Month Volatility Upward Breakout'
+                vb_txt = 'NM Volatility Upward Breakout'
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 self.textBrowser.append(txt)
 
