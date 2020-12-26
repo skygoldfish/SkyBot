@@ -1978,232 +1978,7 @@ class TelegramSendWorker(QThread):
 
         while True:
             
-            dt = datetime.datetime.now()
-            
-            global telegram_toggle, FLAG_ASYM, FLAG_NODE, FLAG_OLOH
-            global FLAG_GUEST_CONTROL
-
-            # 텔레그램 Webhook 등록여부를 체크한다.c8
-            chk_webhook = Check_Webhook()
-
-            if chk_webhook is not None:
-
-                if chk_webhook.url != '':
-
-                    # Webhook을 삭제한다.
-                    Delete_Webhook()
-
-                    txt = '웹훅 삭제...'
-                    print(txt)
-                else:
-                    txt = 'None'
-            else:
-                txt = 'None' 
-
-            telegram_toggle = not telegram_toggle
-
-            #txt = 'None'
-            
-            # 텔레그램 명령어 파싱
-            element = telegram_command.split()
-            
-            command_count = len(element)
-
-            if command_count > 0:
-
-                command = []
-
-                for i in range(command_count):
-
-                    command.append(element[i])
-
-                if command_count == 1 and command[0] == '/start':
-
-                    FLAG_ASYM = True
-                    FLAG_NODE = True
-                    FLAG_OLOH = True
-
-                elif command_count == 1 and command[0] == 'Allstop':
-
-                    FLAG_ASYM = True
-                    FLAG_NODE = True
-                    FLAG_OLOH = True
-
-                elif command_count == 1 and command[0] == 'Allgo':
-
-                    FLAG_ASYM = True
-                    FLAG_NODE = True
-                    FLAG_OLOH = True
-
-                elif command_count == 2 and command[0] == 'Go':
-
-                    if command[1] == 'a':                    
-
-                        FLAG_ASYM = True
-                        FLAG_NODE = False
-                        FLAG_OLOH = False
-
-                    elif command[1] == 'n':
-
-                        FLAG_ASYM = False
-                        FLAG_NODE = True
-                        FLAG_OLOH = False
-
-                    elif command[1] == 'o':
-
-                        FLAG_ASYM = False
-                        FLAG_NODE = False
-                        FLAG_OLOH = True
-
-                    elif command[1] == 'an':
-
-                        FLAG_ASYM = True
-                        FLAG_NODE = True
-                        FLAG_OLOH = False
-
-                    elif command[1] == 'ao':
-
-                        FLAG_ASYM = True
-                        FLAG_NODE = False
-                        FLAG_OLOH = True
-
-                    elif command[1] == 'no':
-
-                        FLAG_ASYM = False
-                        FLAG_NODE = True
-                        FLAG_OLOH = True
-
-                    elif command[1] == 'ano':
-
-                        FLAG_ASYM = True
-                        FLAG_NODE = True
-                        FLAG_OLOH = True                
-                    else:
-                        FLAG_ASYM = False
-                        FLAG_NODE = False
-                        FLAG_OLOH = False
-                else:
-                    FLAG_ASYM = False
-                    FLAG_NODE = False
-                    FLAG_OLOH = False
-
-                if SELFID == 'soojin65':
-                    
-                    if command[0] == 'Allstop':
-                        if FLAG_GUEST_CONTROL:
-                            FLAG_GUEST_CONTROL = False
-                            #ToMyTelegram('Allstop...')
-                        else:
-                            pass
-                    elif command[0] == 'Allgo':
-                        if not FLAG_GUEST_CONTROL:
-                            FLAG_GUEST_CONTROL = True
-                            #ToMyTelegram('Allgo...')
-                        else:
-                            pass
-                    else:
-                        pass
-                else:
-                    pass                  
-
-                if TELEGRAM_SERVICE and flag_telegram_on and (command[0] == 'Go' or command[0] == '/start'):
-
-                    if telegram_toggle:
-
-                        # 선물 OL/OH 알람
-                        if fut_oloh_str != '' and FLAG_OLOH:
-                            txt = fut_oloh_str
-                            ToYourTelegram(txt)
-                        else:
-                            pass
-
-                        # Strong 에너지 알람
-                        if flag_call_strong:
-                            txt = "[{0:02d}:{1:02d}:{2:02d}] ★ Call Strong({3:.2f}/{4:.2f}) !!!".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
-                            ToYourTelegram(txt)
-                        elif flag_put_strong:
-                            txt = "[{0:02d}:{1:02d}:{2:02d}] ★ Put Strong({3:.2f}/{4:.2f}) !!!".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
-                            ToYourTelegram(txt)
-                        else:
-                            pass
-
-                        # 변동성돌파 알람
-                        if vb_txt != '':
-                            txt = "[{0:02d}:{1:02d}:{2:02d}] ★★ {3} !!!".format(dt.hour, dt.minute, dt.second, vb_txt)
-                            ToYourTelegram(txt)
-                        else:
-                            pass
-
-                        # 원웨이 알람
-                        if TARGET_MONTH_SELECT == 'CM':
-                            
-                            # kp200 맥점 알람
-                            if kp200_low_node_str != '' and FLAG_NODE:
-
-                                txt = kp200_low_node_str
-                                ToYourTelegram(txt)
-                            else:
-                                pass
-
-                            if kp200_high_node_str != '' and FLAG_NODE:
-
-                                txt = kp200_high_node_str
-                                ToYourTelegram(txt)
-                            else:
-                                pass
-
-                            if call_ms_oneway:
-                                txt = "[{0:02d}:{1:02d}:{2:02d}] ★★★ CM Call OneWay !!!".format(dt.hour, dt.minute, dt.second)
-                                ToYourTelegram(txt)
-                            elif put_ms_oneway:
-                                txt = "[{0:02d}:{1:02d}:{2:02d}] ★★★ CM Put OneWay !!!".format(dt.hour, dt.minute, dt.second)
-                                ToYourTelegram(txt)
-                            else:
-                                pass
-
-                        elif TARGET_MONTH_SELECT == 'NM':
-                            
-                            # 차월물 옵션 OLOH 보고
-                            '''
-                            if nm_call_oloh_str != '' and nm_put_oloh_str == '':
-                                txt = nm_call_oloh_str
-                                ToYourTelegram(txt)
-                            elif nm_call_oloh_str == '' and nm_put_oloh_str != '':
-                                txt = nm_put_oloh_str
-                                ToYourTelegram(txt)
-                            elif nm_call_oloh_str != '' and nm_put_oloh_str != '':
-                                txt = nm_call_oloh_str + ', ' + nm_put_oloh_str
-                                ToYourTelegram(txt)
-                            else:
-                                pass
-                            '''
-                            if call_ol_count > call_oh_count and put_ol_count < put_oh_count:
-                                nm_txt = "[{0:02d}:{1:02d}:{2:02d}] NM Call 우세 ".format(dt.hour, dt.minute, dt.second)
-                                txt = nm_txt + nm_call_oloh_str + ', ' + nm_put_oloh_str
-                                ToYourTelegram(txt)
-                            elif call_ol_count < call_oh_count and put_ol_count > put_oh_count:
-                                nm_txt = "[{0:02d}:{1:02d}:{2:02d}] NM Put 우세 ".format(dt.hour, dt.minute, dt.second)
-                                txt = nm_txt + nm_call_oloh_str + ', ' + nm_put_oloh_str
-                                ToYourTelegram(txt)
-                            else:
-                                pass
-
-                            if call_ms_oneway:
-                                txt = "[{0:02d}:{1:02d}:{2:02d}] ★★★ NM Call OneWay !!!".format(dt.hour, dt.minute, dt.second)
-                                ToYourTelegram(txt)
-                            elif put_ms_oneway:
-                                txt = "[{0:02d}:{1:02d}:{2:02d}] ★★★ NM Put OneWay !!!".format(dt.hour, dt.minute, dt.second)
-                                ToYourTelegram(txt)
-                            else:
-                                pass
-                        else:
-                            pass
-                    else:
-                        pass               
-                else:
-                    pass  
-            else:
-                pass            
+            txt = 'Send Telegram Message...'       
 
             self.finished.emit(txt)
             QTest.qWait(1000 * TELEGRAM_SEND_INTERVAL)
@@ -2218,18 +1993,7 @@ class TelegramListenWorker(QThread):
 
         while True:
 
-            if TELEGRAM_SERVICE and flag_telegram_on:
-
-                # 텔레그램 메시지 수신
-                if SELFID == 'soojin65':
-                    #txt = FromMyTelegram()
-                    print('텔레그램 수신 메시지 =', str)
-                    pass
-                else:
-                    txt = FromYourTelegram()
-                    #print('텔레그램 수신 메시지 =', str)
-            else:
-                txt = 'Stopped by Tool...'
+            txt = 'Listn Telegram Message...'            
 
             self.finished.emit(txt)
             QTest.qWait(1000 * TELEGRAM_POLLING_INTERVAL)
@@ -4276,12 +4040,238 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     @pyqtSlot(str)
     def send_telegram_message(self, str):
+        
+        global telegram_toggle, FLAG_ASYM, FLAG_NODE, FLAG_OLOH
+        global FLAG_GUEST_CONTROL
 
         try:
             dt = datetime.datetime.now()
 
+            # 텔레그램 Webhook 등록여부를 체크한다.c8
+            chk_webhook = Check_Webhook()
+
+            if chk_webhook is not None:
+
+                if chk_webhook.url != '':
+
+                    # Webhook을 삭제한다.
+                    Delete_Webhook()
+
+                    txt = '웹훅 삭제...'
+                    print(txt)
+                else:
+                    txt = 'None'
+            else:
+                txt = 'None' 
+
+            telegram_toggle = not telegram_toggle
+
+            #txt = 'None'
+            
+            # 텔레그램 명령어 파싱
+            element = telegram_command.split()
+            
+            command_count = len(element)
+
+            if command_count > 0:
+
+                command = []
+
+                for i in range(command_count):
+
+                    command.append(element[i])
+
+                if command_count == 1 and command[0] == '/start':
+
+                    FLAG_ASYM = True
+                    FLAG_NODE = True
+                    FLAG_OLOH = True
+
+                elif command_count == 1 and command[0] == 'Allstop':
+
+                    FLAG_ASYM = True
+                    FLAG_NODE = True
+                    FLAG_OLOH = True
+
+                elif command_count == 1 and command[0] == 'Allgo':
+
+                    FLAG_ASYM = True
+                    FLAG_NODE = True
+                    FLAG_OLOH = True
+
+                elif command_count == 2 and command[0] == 'Go':
+
+                    if command[1] == 'a':                    
+
+                        FLAG_ASYM = True
+                        FLAG_NODE = False
+                        FLAG_OLOH = False
+
+                    elif command[1] == 'n':
+
+                        FLAG_ASYM = False
+                        FLAG_NODE = True
+                        FLAG_OLOH = False
+
+                    elif command[1] == 'o':
+
+                        FLAG_ASYM = False
+                        FLAG_NODE = False
+                        FLAG_OLOH = True
+
+                    elif command[1] == 'an':
+
+                        FLAG_ASYM = True
+                        FLAG_NODE = True
+                        FLAG_OLOH = False
+
+                    elif command[1] == 'ao':
+
+                        FLAG_ASYM = True
+                        FLAG_NODE = False
+                        FLAG_OLOH = True
+
+                    elif command[1] == 'no':
+
+                        FLAG_ASYM = False
+                        FLAG_NODE = True
+                        FLAG_OLOH = True
+
+                    elif command[1] == 'ano':
+
+                        FLAG_ASYM = True
+                        FLAG_NODE = True
+                        FLAG_OLOH = True                
+                    else:
+                        FLAG_ASYM = False
+                        FLAG_NODE = False
+                        FLAG_OLOH = False
+                else:
+                    FLAG_ASYM = False
+                    FLAG_NODE = False
+                    FLAG_OLOH = False
+
+                if SELFID == 'soojin65':
+                    
+                    if command[0] == 'Allstop':
+                        if FLAG_GUEST_CONTROL:
+                            FLAG_GUEST_CONTROL = False
+                            #ToMyTelegram('Allstop...')
+                        else:
+                            pass
+                    elif command[0] == 'Allgo':
+                        if not FLAG_GUEST_CONTROL:
+                            FLAG_GUEST_CONTROL = True
+                            #ToMyTelegram('Allgo...')
+                        else:
+                            pass
+                    else:
+                        pass
+                else:
+                    pass                  
+
+                if TELEGRAM_SERVICE and flag_telegram_on and (command[0] == 'Go' or command[0] == '/start'):
+
+                    if telegram_toggle:
+
+                        # 선물 OL/OH 알람
+                        if fut_oloh_str != '' and FLAG_OLOH:
+                            send_txt = fut_oloh_str
+                            ToYourTelegram(send_txt)
+                        else:
+                            pass
+
+                        # Strong 에너지 알람
+                        if flag_call_strong:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ Call Strong({3:.2f}/{4:.2f}) !!!".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
+                            ToYourTelegram(send_txt)
+                        elif flag_put_strong:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ Put Strong({3:.2f}/{4:.2f}) !!!".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
+                            ToYourTelegram(send_txt)
+                        else:
+                            pass
+
+                        # 변동성돌파 알람
+                        if vb_txt != '':
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★★ {3} !!!".format(dt.hour, dt.minute, dt.second, vb_txt)
+                            ToYourTelegram(send_txt)
+                        else:
+                            pass
+
+                        # 원웨이 알람
+                        if TARGET_MONTH_SELECT == 'CM':
+                            
+                            # kp200 맥점 알람
+                            if kp200_low_node_str != '' and FLAG_NODE:
+
+                                send_txt = kp200_low_node_str
+                                ToYourTelegram(send_txt)
+                            else:
+                                pass
+
+                            if kp200_high_node_str != '' and FLAG_NODE:
+
+                                send_txt = kp200_high_node_str
+                                ToYourTelegram(send_txt)
+                            else:
+                                pass
+
+                            if call_ms_oneway:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★★★ CM Call OneWay !!!".format(dt.hour, dt.minute, dt.second)
+                                ToYourTelegram(send_txt)
+                            elif put_ms_oneway:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★★★ CM Put OneWay !!!".format(dt.hour, dt.minute, dt.second)
+                                ToYourTelegram(send_txt)
+                            else:
+                                pass
+
+                        elif TARGET_MONTH_SELECT == 'NM':
+                            
+                            # 차월물 옵션 OLOH 보고
+                            '''
+                            if nm_call_oloh_str != '' and nm_put_oloh_str == '':
+                                send_txt = nm_call_oloh_str
+                                ToYourTelegram(send_txt)
+                            elif nm_call_oloh_str == '' and nm_put_oloh_str != '':
+                                send_txt = nm_put_oloh_str
+                                ToYourTelegram(send_txt)
+                            elif nm_call_oloh_str != '' and nm_put_oloh_str != '':
+                                send_txt = nm_call_oloh_str + ', ' + nm_put_oloh_str
+                                ToYourTelegram(send_txt)
+                            else:
+                                pass
+                            '''
+                            if call_ol_count > call_oh_count and put_ol_count < put_oh_count:
+                                nm_txt = "[{0:02d}:{1:02d}:{2:02d}] NM Call 우세 ".format(dt.hour, dt.minute, dt.second)
+                                send_txt = nm_txt + nm_call_oloh_str + ', ' + nm_put_oloh_str
+                                ToYourTelegram(send_txt)
+                            elif call_ol_count < call_oh_count and put_ol_count > put_oh_count:
+                                nm_txt = "[{0:02d}:{1:02d}:{2:02d}] NM Put 우세 ".format(dt.hour, dt.minute, dt.second)
+                                send_txt = nm_txt + nm_call_oloh_str + ', ' + nm_put_oloh_str
+                                ToYourTelegram(send_txt)
+                            else:
+                                pass
+
+                            if call_ms_oneway:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★★★ NM Call OneWay !!!".format(dt.hour, dt.minute, dt.second)
+                                ToYourTelegram(send_txt)
+                            elif put_ms_oneway:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★★★ NM Put OneWay !!!".format(dt.hour, dt.minute, dt.second)
+                                ToYourTelegram(send_txt)
+                            else:
+                                pass
+                        else:
+                            pass
+                    else:
+                        pass               
+                else:
+                    pass  
+            else:
+                pass   
+
             if market_service:
-                txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Send Message = {3}\r'.format(adj_hour, adj_min, adj_sec, str)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Send Message = {3}\r'.format(adj_hour, adj_min, adj_sec, send_txt)
+                self.textBrowser.append(txt)
                 print(txt)
             else:
                 pass
@@ -4290,16 +4280,28 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     @pyqtSlot(str)
     def listen_telegram_message(self, str):
+        
+        global telegram_command
 
         try:
-            dt = datetime.datetime.now()
-
-            global telegram_command
+            dt = datetime.datetime.now()            
 
             if market_service:
+
+                if TELEGRAM_SERVICE and flag_telegram_on:
+
+                    # 텔레그램 메시지 수신
+                    if SELFID == 'soojin65':
+                        #telegram_command = FromMyTelegram()
+                        print('텔레그램 수신 메시지 =', str)
+                        pass
+                    else:
+                        telegram_command = FromYourTelegram()
+                        #print('텔레그램 수신 메시지 =', str)
+                else:
+                    txt = 'Stopped by Tool...'
                 
-                if str != '':
-                    telegram_command = str
+                if telegram_command != '':
                     
                     if SELFID == 'soojin65':
                         txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command is {3}\r'.format(adj_hour, adj_min, adj_sec, telegram_command)                        
