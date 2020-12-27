@@ -4591,10 +4591,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     flag_broken_capture = True
                     
                     # 모든 쓰레드를 중지시킨다.
-                    self.KillScoreBoardThread()
+                    self.KillScoreBoardAllThread()
 
                     ToYourTelegram('증권사 연결이 끊겼습니다...')
-                    
+
                     QMessageBox.critical(self, 'Error!', '증권사 연결이 끊겼습니다.', QMessageBox.Ok)
                     return
                 else:
@@ -4666,7 +4666,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         file.close()
 
                         # 모든 쓰레드를 중지시킨다.
-                        self.KillScoreBoardThread()                                                                        
+                        self.KillScoreBoardAllThread()                                                                        
                     else:
                         pass            
             else:
@@ -5133,7 +5133,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             if not flag_offline:
                                 flag_offline = True
 
-                                self.KillScoreBoardThread()
+                                self.KillScoreBoardAllThread()
 
                                 self.parent.connection.disconnect()
                             else:
@@ -5168,7 +5168,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             if not flag_offline:
                                 flag_offline = True
 
-                                self.KillScoreBoardThread()
+                                self.KillScoreBoardAllThread()
                                                         
                                 self.parent.connection.disconnect()
                             else:
@@ -23113,7 +23113,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         flag_realdata_update_is_running = False
 
     #####################################################################################################################################################################
-    def KillScoreBoardThread(self):
+    def KillScoreBoardAllThread(self):
 
         dt = datetime.datetime.now()
 
@@ -23123,19 +23123,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if self.screen_update_worker.isRunning():
             self.screen_update_worker.terminate()
-            print('screen_update_worker is terminated at KillScoreBoardThread...')
+            print('screen_update_worker is terminated at KillScoreBoardAllThread...')
         else:
             pass
 
         if self.telegram_send_worker.isRunning():
             self.telegram_send_worker.terminate()
-            print('telegram_send_worker is terminated at KillScoreBoardThread...')
+            print('telegram_send_worker is terminated at KillScoreBoardAllThread...')
         else:
             pass
 
         if self.telegram_listen_worker.isRunning():
             self.telegram_listen_worker.terminate()
-            print('telegram_listen_worker is terminated at KillScoreBoardThread...')
+            print('telegram_listen_worker is terminated at KillScoreBoardAllThread...')
         else:
             pass
 
@@ -23149,7 +23149,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             QTest.qWait(100)
 
             self.realtime_data_worker.terminate()
-            print('realtime_data_worker is terminated at KillScoreBoardThread...')
+            print('realtime_data_worker is terminated at KillScoreBoardAllThread...')
         else:
             pass        
 
@@ -23160,7 +23160,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.flag_score_board_open = False
 
         if self.realtime_data_worker.isRunning():
-            self.KillScoreBoardThread()
+            self.KillScoreBoardAllThread()
         else:
             pass
 
@@ -34755,7 +34755,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if self.dialog['선물옵션전광판'] is not None:
                 
                 if self.dialog['선물옵션전광판'].flag_score_board_open:
-                    self.dialog['선물옵션전광판'].KillScoreBoardThread()
+                    self.dialog['선물옵션전광판'].KillScoreBoardAllThread()
                     self.dialog['선물옵션전광판'].close()
                 else:
                     pass
