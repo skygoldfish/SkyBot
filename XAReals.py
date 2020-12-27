@@ -7,7 +7,8 @@ import win32com.client
 import inspect
 
 import pandas as pd
-from pandas import Panel, DataFrame, Series
+#from pandas import Panel, DataFrame, Series
+from pandas import DataFrame, Series
 
 xarealdata = dict()
 
