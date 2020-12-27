@@ -77,6 +77,10 @@ from Utils import *
 #from FileWatcher import *
 #from XAReals import xarealdata
 
+# 4k 해상도 대응
+QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
+QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True) #use highdpi icons
+
 pd.set_option('display.max_columns', None)
 pd.set_option('display.expand_frame_repr', False)
 #pd.set_option('max_colwidth', None)
@@ -35136,10 +35140,6 @@ if __name__ == "__main__":
 
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(True)
-   
-   # 4K 해상도 대응
-    app.setAttribute(Qt.AA_EnableHighDpiScaling, True)
-    app.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
     
     if DARK_STYLESHEET:    
         dark_stylesheet = qdarkstyle.load_stylesheet_pyqt5()
