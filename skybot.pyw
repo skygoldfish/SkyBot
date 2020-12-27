@@ -34894,7 +34894,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def OnReceiveMessage(self, ClassName, systemError, messageCode, message):
 
-        print('{0} : {1} {2} {3}'.format(ClassName, systemError, messageCode, message))        
+        txt = '{0} : {1} {2} {3}'.format(ClassName, systemError, messageCode, message)
+        print(txt)
+
+        if systemError == 0:
+            pass
+        else:
+            self.textBrowser.append(txt)
+            file = open('error.log', 'w')
+            text = self.textBrowser.toPlainText()
+            file.write(text)
+            file.close()        
     
     def OnReceiveData(self, szTrCode, result):
 
