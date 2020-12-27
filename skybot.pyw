@@ -4589,6 +4589,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     file.close()
 
                     flag_broken_capture = True
+
+                    ToYourTelegram('증권사 연결이 끊겼습니다...')
                 else:
                     pass
                 
