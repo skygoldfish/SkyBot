@@ -90,9 +90,13 @@ pd.set_option('max_colwidth', -1)
 locale.setlocale(locale.LC_ALL, '') 
 
 DATABASE = 'DATA\\skybot.sqlite'
-UI_DIR = "UI\\"
+UI_DIR = 'UI\\'
 
 np.warnings.filterwarnings('ignore')
+
+pyqt_version = QtCore.PYQT_VERSION_STR
+
+print('pyqt_version =', pyqt_version)
 
 SELFID = ''
 
@@ -1933,7 +1937,7 @@ class RealDataTableModel(QAbstractTableModel):
         self.beginResetModel()
         self.endResetModel()
 
-Ui_버전, QtBaseClass_버전 = uic.loadUiType(UI_DIR + "버전.ui")
+Ui_버전, QtBaseClass_버전 = uic.loadUiType(UI_DIR + '버전.ui')
 class 화면_버전(QDialog, Ui_버전):
 
     def __init__(self, parent=None):
@@ -2521,7 +2525,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if screen_info.width() > 1920 and screen_info.height() > 1080:
 
             self.showNormal()
-            self.parent.move(left - 10, top - 1)
+
+            if pyqt_version == '5.9.2':
+                self.parent.move(left - 10, top - 1)
+            else:
+                self.parent.move(left - 1, top - 1)
         else:
             self.showMaximized()        
         
@@ -34520,7 +34528,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 ########################################################################################################################
 # 메인
 ########################################################################################################################
-Ui_MainWindow, QtBaseClass_MainWindow = uic.loadUiType(UI_DIR+main_ui_type)
+Ui_MainWindow, QtBaseClass_MainWindow = uic.loadUiType(UI_DIR + main_ui_type)
 class MainWindow(QMainWindow, Ui_MainWindow):
 
     if MULTIPROCESS:
@@ -35100,7 +35108,7 @@ if __name__ == "__main__":
     else:
         pass
     
-    # 구글 TTS
+    # TTS test...
     if TTS:
         #Speak('본월물 하향 변동성 출현')
         '''
