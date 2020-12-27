@@ -4558,13 +4558,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     file.close()
 
                     flag_broken_capture = True
+                    
+                    QMessageBox.critical(self, 'Error!', '인터넷 연결이 끊겼습니다.', QMessageBox.Ok)
+                    return  
                 else:
                     pass
                 
-                flag_internet_connection_broken = True
-
-                QMessageBox.critical(self, 'Error!', '인터넷 연결이 끊겼습니다.', QMessageBox.Ok)
-                return                
+                flag_internet_connection_broken = True              
             else:
                 flag_internet_connection_broken = False
 
@@ -4589,18 +4589,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     file.close()
 
                     flag_broken_capture = True
+                    
+                    # 모든 쓰레드를 중지시킨다.
+                    self.KillScoreBoardThread()
 
                     ToYourTelegram('증권사 연결이 끊겼습니다...')
+                    
+                    QMessageBox.critical(self, 'Error!', '증권사 연결이 끊겼습니다.', QMessageBox.Ok)
+                    return
                 else:
-                    pass
-                
-                # 모든 쓰레드를 중지시킨다.
-                self.KillScoreBoardThread()               
+                    pass                               
                 
                 flag_service_provider_broken = True
-
-                QMessageBox.critical(self, 'Error!', '증권사 연결이 끊겼습니다.', QMessageBox.Ok)
-                return
             else:
                 flag_service_provider_broken = False            
 
