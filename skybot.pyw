@@ -4561,7 +4561,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
                 
-                flag_internet_connection_broken = True                
+                flag_internet_connection_broken = True
+
+                QMessageBox.critical(self, 'Error!', '인터넷 연결이 끊겼습니다.', QMessageBox.Ok)
+                return                
             else:
                 flag_internet_connection_broken = False
 
@@ -4593,6 +4596,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.KillScoreBoardThread()               
                 
                 flag_service_provider_broken = True
+
+                QMessageBox.critical(self, 'Error!', '증권사 연결이 끊겼습니다.', QMessageBox.Ok)
+                return
             else:
                 flag_service_provider_broken = False            
 
