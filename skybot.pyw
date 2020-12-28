@@ -360,7 +360,7 @@ ONEWAY_THRESHOLD = parser.getint('Rules', 'Threshold of the institutional party 
 #####################################################################################################################################################################
 if not UI_HIDE:
     UI_DIR = 'UI\\'
-    
+
     if TARGET_MONTH_SELECT == 'NM':    
         main_ui_type = 'skybot_nm.ui'
     else:
@@ -368,6 +368,7 @@ if not UI_HIDE:
 
     score_board_ui_type = 'score_board.ui'
     bigchart_ui_type = 'bigchart.ui'
+    version_ui_type = 'version.ui'
 else:
     pass
 
@@ -1942,7 +1943,13 @@ class RealDataTableModel(QAbstractTableModel):
         self.beginResetModel()
         self.endResetModel()
 
-Ui_버전, QtBaseClass_버전 = uic.loadUiType(UI_DIR + '버전.ui')
+if UI_HIDE:
+        import version_ui
+        Ui_버전 = version_ui.Ui_Dialog
+else:
+    Ui_버전, QtBaseClass_버전 = uic.loadUiType(UI_DIR + version_ui_type)
+
+Ui_버전, QtBaseClass_버전 = uic.loadUiType(UI_DIR + version_ui_type)
 class 화면_버전(QDialog, Ui_버전):
 
     def __init__(self, parent=None):
