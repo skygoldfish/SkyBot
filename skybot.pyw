@@ -1949,7 +1949,6 @@ if UI_HIDE:
 else:
     Ui_버전, QtBaseClass_버전 = uic.loadUiType(UI_DIR + version_ui_type)
 
-Ui_버전, QtBaseClass_버전 = uic.loadUiType(UI_DIR + version_ui_type)
 class 화면_버전(QDialog, Ui_버전):
 
     def __init__(self, parent=None):
