@@ -359,13 +359,16 @@ ONEWAY_THRESHOLD = parser.getint('Rules', 'Threshold of the institutional party 
 #####################################################################################################################################################################
 # UI 파일정의
 #####################################################################################################################################################################
-if TARGET_MONTH_SELECT == 'NM':    
-    main_ui_type = 'skybot_nm.ui'
-else:
-    main_ui_type = 'skybot_cm.ui'
+if not UI_HIDE: 
+    if TARGET_MONTH_SELECT == 'NM':    
+        main_ui_type = 'skybot_nm.ui'
+    else:
+        main_ui_type = 'skybot_cm.ui'
 
-score_board_ui_type = 'score_board.ui'
-bigchart_ui_type = 'bigchart.ui'
+    score_board_ui_type = 'score_board.ui'
+    bigchart_ui_type = 'bigchart.ui'
+else:
+    pass
 
 if int(CURRENT_MONTH[4:6]) == 11:
     NEXT_MONTH = CURRENT_MONTH[0:4] + '12'
@@ -2412,7 +2415,12 @@ def get_realdata(p_queue, c_queue):
 ########################################################################################################################
 # 당월물 옵션전광판 class
 ########################################################################################################################
-Ui_선물옵션전광판, QtBaseClass_선물옵션전광판 = uic.loadUiType(UI_DIR + score_board_ui_type)
+if UI_HIDE:
+        import score_board_ui
+        Ui_선물옵션전광판 = score_board_ui.Ui_Dialog
+else:
+    Ui_선물옵션전광판, QtBaseClass_선물옵션전광판 = uic.loadUiType(UI_DIR + score_board_ui_type)
+
 class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     xing_realdata = dict()
@@ -23202,7 +23210,12 @@ class PlotUpdateWorker(QThread):
 ########################################################################################################################
 # Big Chart UI Class
 ########################################################################################################################
-Ui_BigChart, QtBaseClass_BigChart = uic.loadUiType(UI_DIR + bigchart_ui_type)
+if UI_HIDE:
+        import bigchart_ui
+        Ui_BigChart = bigchart_ui.Ui_Dialog   
+else:
+    Ui_BigChart, QtBaseClass_BigChart = uic.loadUiType(UI_DIR + bigchart_ui_type)
+
 class 화면_BigChart(QDialog, Ui_BigChart):
     
     def __init__(self, parent=None):
@@ -34534,11 +34547,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 # 주의할 점은 아이콘 파일의 위치를 잘 설정해야만 아이콘이 보인다.
 if UI_HIDE:
     if TARGET_MONTH_SELECT == 'CM':
-        import skybot_cm
-        Ui_MainWindow = skybot_cm.Ui_MainWindow
+        import skybot_cm_ui
+        Ui_MainWindow = skybot_cm_ui.Ui_MainWindow
     elif TARGET_MONTH_SELECT == 'NM':
-        import skybot_nm
-        Ui_MainWindow = skybot_nm.Ui_MainWindow    
+        import skybot_nm_ui
+        Ui_MainWindow = skybot_nm_ui.Ui_MainWindow    
 else:
     Ui_MainWindow, QtBaseClass_MainWindow = uic.loadUiType(UI_DIR + main_ui_type)
 
