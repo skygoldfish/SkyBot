@@ -90,7 +90,6 @@ pd.set_option('max_colwidth', -1)
 locale.setlocale(locale.LC_ALL, '') 
 
 DATABASE = 'DATA\\skybot.sqlite'
-UI_DIR = 'UI\\'
 
 np.warnings.filterwarnings('ignore')
 
@@ -359,7 +358,9 @@ ONEWAY_THRESHOLD = parser.getint('Rules', 'Threshold of the institutional party 
 #####################################################################################################################################################################
 # UI 파일정의
 #####################################################################################################################################################################
-if not UI_HIDE: 
+if not UI_HIDE:
+    UI_DIR = 'UI\\'
+    
     if TARGET_MONTH_SELECT == 'NM':    
         main_ui_type = 'skybot_nm.ui'
     else:
