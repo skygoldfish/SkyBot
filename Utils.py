@@ -14,7 +14,7 @@ def ToYourTelegram(str):
         with open('secret/telegram_token.txt', mode='r') as tokenfile:
             TELEGRAM_TOKEN = tokenfile.readline().strip()
 
-    if TELEGRAM_TOKEN is not "":
+    if TELEGRAM_TOKEN != "":
 
         bot = telegram.Bot(token=TELEGRAM_TOKEN)
 
@@ -54,7 +54,7 @@ def FromYourTelegram():
         with open('secret/telegram_token.txt', mode='r') as tokenfile:
             TELEGRAM_TOKEN = tokenfile.readline().strip()
 
-    if TELEGRAM_TOKEN is not "":
+    if TELEGRAM_TOKEN != "":
 
         bot = telegram.Bot(token=TELEGRAM_TOKEN)
 
@@ -91,7 +91,7 @@ def Check_Webhook():
         with open('secret/telegram_token.txt', mode='r') as tokenfile:
             TELEGRAM_TOKEN = tokenfile.readline().strip()
 
-    if TELEGRAM_TOKEN is not "":
+    if TELEGRAM_TOKEN != "":
 
         bot = telegram.Bot(token=TELEGRAM_TOKEN)
         return bot.getWebhookInfo()
@@ -107,7 +107,7 @@ def Delete_Webhook():
         with open('secret/telegram_token.txt', mode='r') as tokenfile:
             TELEGRAM_TOKEN = tokenfile.readline().strip()
 
-    if TELEGRAM_TOKEN is not "":
+    if TELEGRAM_TOKEN != "":
 
         bot = telegram.Bot(token=TELEGRAM_TOKEN)
         return bot.deleteWebhook()
