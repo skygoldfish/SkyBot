@@ -34902,7 +34902,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
             
             # 옵션전광판 자동시작
-            '''                                       
+                                                   
             if AUTO_START:
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
@@ -34913,7 +34913,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].RunCode()
             else:
                 pass
-            '''                                   
+                                               
         else:
             self.statusbar.showMessage("%s %s" % (code, msg))
 
