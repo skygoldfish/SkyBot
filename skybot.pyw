@@ -1943,12 +1943,15 @@ class RealDataTableModel(QAbstractTableModel):
         self.beginResetModel()
         self.endResetModel()
 
+########################################################################################################################
+# 버전 UI Class
+########################################################################################################################
 if UI_HIDE:
         import version_ui
         Ui_버전 = version_ui.Ui_Dialog
 else:
     Ui_버전, QtBaseClass_버전 = uic.loadUiType(UI_DIR + version_ui_type)
-
+########################################################################################################################
 class 화면_버전(QDialog, Ui_버전):
 
     def __init__(self, parent=None):
@@ -2420,14 +2423,14 @@ def get_realdata(p_queue, c_queue):
     #get_real.run()
 '''
 ########################################################################################################################
-# 당월물 옵션전광판 class
+# 옵션전광판 UI Class
 ########################################################################################################################
 if UI_HIDE:
         import score_board_ui
         Ui_선물옵션전광판 = score_board_ui.Ui_Dialog
 else:
     Ui_선물옵션전광판, QtBaseClass_선물옵션전광판 = uic.loadUiType(UI_DIR + score_board_ui_type)
-
+########################################################################################################################
 class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     xing_realdata = dict()
@@ -23222,7 +23225,7 @@ if UI_HIDE:
         Ui_BigChart = bigchart_ui.Ui_Dialog   
 else:
     Ui_BigChart, QtBaseClass_BigChart = uic.loadUiType(UI_DIR + bigchart_ui_type)
-
+########################################################################################################################
 class 화면_BigChart(QDialog, Ui_BigChart):
     
     def __init__(self, parent=None):
@@ -34547,11 +34550,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.parent.OnChildDialogCloseEvent('Big Chart')        
 
 ########################################################################################################################
-# 메인
+# MainWindow UI Class
 ########################################################################################################################
-
 # ui파일을 pyuic5 *.ui -o *.py를 통해 py파일로 변환하는 방법으로 ui파일을 숨길 수 있다.
-# 주의할 점은 아이콘 파일의 위치를 잘 설정해야만 아이콘이 보인다.
+# 주의할 점은 아이콘 파일의 위치를 잘 설정(실행위치 기준 상대경로 설정필요)해야만 아이콘이 보인다.
 if UI_HIDE:
     if TARGET_MONTH_SELECT == 'CM':
         import skybot_cm_ui
@@ -34561,7 +34563,7 @@ if UI_HIDE:
         Ui_MainWindow = skybot_nm_ui.Ui_MainWindow    
 else:
     Ui_MainWindow, QtBaseClass_MainWindow = uic.loadUiType(UI_DIR + main_ui_type)
-
+########################################################################################################################
 class MainWindow(QMainWindow, Ui_MainWindow):
 
     if MULTIPROCESS:
