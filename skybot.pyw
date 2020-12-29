@@ -35107,6 +35107,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         # 사용법
         if _action == "actionMustRead":
+            print('must read...')
             pass
             #webbrowser.open('https://thinkpoolost.wixsite.com/moneybot')
 
@@ -35124,6 +35125,33 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.dialog['Version'] = 화면_버전(parent=self)
                 self.dialog['Version'].show()
+
+    def TOOLBAR_Action(self, qaction):
+
+        dt = datetime.datetime.now()
+
+        logger.debug("ToolBar Action Slot %s %s " % (qaction.objectName(), qaction.text()))
+        _action = qaction.objectName()
+        
+        # 툴바 Big Chart
+        if _action == "action_ToolBar_BigChart":
+            
+            if self.dialog.get('BigChart') is not None:
+
+                try:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] Big Chart Dialog를 표시합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+
+                    self.dialog['BigChart'].show()
+                except Exception as e:
+                    self.dialog['BigChart'] = 화면_BigChart(parent=self)
+                    self.dialog['BigChart'].show()
+            else:
+                self.dialog['BigChart'] = 화면_BigChart(parent=self)
+                self.dialog['BigChart'].show()
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Big Chart Dialog를 생성합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
 
     # ------------------------------------------------------------
 if __name__ == "__main__":
