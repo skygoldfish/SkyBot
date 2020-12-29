@@ -355,22 +355,7 @@ TELEGRAM_SEND_INTERVAL = parser.getint('Telegram', 'Telegram send interval(secon
 
 # [11]. << Rules >>
 ONEWAY_THRESHOLD = parser.getint('Rules', 'Threshold of the institutional party supply & demand')
-#####################################################################################################################################################################
-# UI 파일정의
-#####################################################################################################################################################################
-if not UI_HIDE:
-    UI_DIR = 'UI\\'
-
-    if TARGET_MONTH_SELECT == 'NM':    
-        main_ui_type = 'skybot_nm.ui'
-    else:
-        main_ui_type = 'skybot_cm.ui'
-
-    score_board_ui_type = 'score_board.ui'
-    bigchart_ui_type = 'bigchart.ui'
-    version_ui_type = 'version.ui'
-else:
-    pass
+########################################################################################################################
 
 if int(CURRENT_MONTH[4:6]) == 11:
     NEXT_MONTH = CURRENT_MONTH[0:4] + '12'
@@ -1843,6 +1828,24 @@ volatility_breakout_downward_point = 0
 volatility_breakout_upward_point = 0
 vb_txt = ''
 
+#####################################################################################################################################################################
+# UI 파일정의
+#####################################################################################################################################################################
+print('UI HIDE 기능 =', UI_HIDE)
+
+if not UI_HIDE:
+    UI_DIR = 'UI\\'
+
+    if TARGET_MONTH_SELECT == 'NM':    
+        main_ui_type = 'skybot_nm.ui'
+    else:
+        main_ui_type = 'skybot_cm.ui'
+
+    score_board_ui_type = 'score_board.ui'
+    bigchart_ui_type = 'bigchart.ui'
+    version_ui_type = 'version.ui'
+else:
+    pass
 ########################################################################################################################
 def xing_test_func():
     if bool(화면_선물옵션전광판.xing_realdata):
@@ -5255,7 +5258,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if TARGET_MONTH_SELECT == 'CM':
 
-            if 선물_저가 < volatility_breakout_downward_point:
+            if 선물_현재가 < volatility_breakout_downward_point:
 
                 vb_txt = 'CM Volatility Downward Breakout'
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
@@ -5268,7 +5271,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 playsound("tts.mp3")
                 '''
 
-            elif 선물_고가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
+            elif 선물_현재가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
 
                 vb_txt = 'CM Volatility Upward Breakout'
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
@@ -5285,7 +5288,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         elif TARGET_MONTH_SELECT == 'NM':
 
-            if 선물_저가 < volatility_breakout_downward_point:
+            if 선물_현재가 < volatility_breakout_downward_point:
 
                 vb_txt = 'NM Volatility Downward Breakout'
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
@@ -5298,7 +5301,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 playsound("tts.mp3")
                 '''
 
-            elif 선물_고가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
+            elif 선물_현재가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
 
                 vb_txt = 'NM Volatility Upward Breakout'
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
@@ -5315,7 +5318,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if TARGET_MONTH_SELECT == 'NM' and TTS:
+        if TARGET_MONTH_SELECT == 'NM':
 
             if call_ol_count > call_oh_count and put_ol_count < put_oh_count:
 
@@ -5324,7 +5327,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, speak_txt)
                 self.textBrowser.append(txt)
 
-                Speak('콜 우세')
+                if TTS:
+                    Speak('콜 우세')
+                else:
+                    pass
                 '''
                 tts = gTTS(text=speak_txt, lang='en')
                 tts.save("tts.mp3")
@@ -5342,7 +5348,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, speak_txt)
                 self.textBrowser.append(txt)
 
-                Speak('풋 우세')
+                if TTS:
+                    Speak('풋 우세')
+                else:
+                    pass
                 '''
                 tts = gTTS(text=speak_txt, lang='en')
                 tts.save("tts.mp3")
