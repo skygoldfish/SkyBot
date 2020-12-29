@@ -2491,7 +2491,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.t2835_event_loop = QEventLoop()
 
         self.realtime_data_worker = RealTimeDataWorker(self.producer_queue, self.consumer_queue)
-        self.realtime_data_worker.trigger.connect(self.process_realdata)        
+        self.realtime_data_worker.trigger.connect(self.realdata_update)        
         self.realtime_data_worker.daemon = True
 
         self.screen_update_worker = ScreenUpdateWorker()
@@ -3127,26 +3127,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def telegram_button_clicked(self):
 
         self.RunTelegram()
-
+    '''
     @pyqtSlot()
     def process_realdata(self):
 
-        if not self.consumer_queue.empty():
+        data = self.consumer_queue.get(False)
 
-            data = self.consumer_queue.get(False)
+        item = QTableWidgetItem("{0}".format(data['szTrCode']))
+        item.setTextAlignment(Qt.AlignCenter)
 
-            item = QTableWidgetItem("{0}".format(data['szTrCode']))
-            item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(녹색))                
 
-            item.setBackground(QBrush(검정색))
-            item.setForeground(QBrush(녹색))                
+        self.tableWidget_fut.setItem(2, 0, item)
 
-            self.tableWidget_fut.setItem(2, 0, item)
-
-            self.realdata_update(data)
-        else:
-            pass
-            
+        self.realdata_update(data)
+    '''        
     ## list에서 i번째 아이템을 리턴한다.
     def get_list_item(self, list, i):
 
@@ -19325,7 +19321,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #self.producer_queue.put(result, False)
         pass            
 
-    def realdata_update(self, result):
+    @pyqtSlot()
+    def realdata_update(self):
 
         global pre_start
         global atm_str, atm_val, atm_index
@@ -19441,11 +19438,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         flag_realdata_update_is_running = True
 
-        szTrCode = result['szTrCode']
-
         try:            
             dt = datetime.datetime.now()                        
             start_time = timeit.default_timer()
+            
+            result = self.consumer_queue.get(False)
+
+            szTrCode = result['szTrCode']
+
+            item = QTableWidgetItem("{0}".format(szTrCode))
+            item.setTextAlignment(Qt.AlignCenter)
+
+            item.setBackground(QBrush(검정색))
+            item.setForeground(QBrush(녹색))                
+
+            self.tableWidget_fut.setItem(2, 0, item)
 
             if szTrCode == 'NWS':
                 
