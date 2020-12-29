@@ -13931,7 +13931,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 XQ = t8433(parent=self)
                 XQ.Query()
 
-                QTest.qWait(500)                
+                QTest.qWait(1000)                
             else:
                 TTS = False
 
@@ -14005,6 +14005,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
             
             # 옵션 전광판 요청(주간=FC0/OC0, 야간=NC0/EC0)
+            print('t2301 요청...')
             XQ = t2301(parent=self)
 
             if TARGET_MONTH_SELECT == 'CM':
@@ -19326,130 +19327,125 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def realdata_update(self, result):
 
+        global pre_start
+        global atm_str, atm_val, atm_index
+        global yj_atm_index
+
+        global df_call, df_put
+        global df_call_hoga, df_put_hoga
+
+        global df_call_price_graph, df_put_price_graph
+        global df_call_graph, df_put_graph
+
+        global opt_callreal_update_counter, opt_putreal_update_counter
+        global opt_call_ho_update_counter, opt_put_ho_update_counter
+        global call_atm_value, put_atm_value
+        global receive_quote
+
+        global FUT_FOREIGNER_거래대금순매수, FUT_RETAIL_거래대금순매수, FUT_INSTITUTIONAL_거래대금순매수, FUT_STOCK_거래대금순매수, \
+            FUT_BOHEOM_거래대금순매수, FUT_TOOSIN_거래대금순매수, FUT_BANK_거래대금순매수, FUT_JONGGEUM_거래대금순매수, \
+            FUT_GIGEUM_거래대금순매수, FUT_GITA_거래대금순매수
+
+        global FUT_FOREIGNER_거래대금순매수_직전대비, FUT_RETAIL_거래대금순매수_직전대비, FUT_INSTITUTIONAL_거래대금순매수_직전대비, \
+            FUT_STOCK_거래대금순매수_직전대비, FUT_BOHEOM_거래대금순매수_직전대비, FUT_TOOSIN_거래대금순매수_직전대비, \
+            FUT_BANK_거래대금순매수_직전대비, FUT_JONGGEUM_거래대금순매수_직전대비, FUT_GIGEUM_거래대금순매수_직전대비, \
+            FUT_GITA_거래대금순매수_직전대비
+
+        global KOSPI_FOREIGNER_거래대금순매수, KOSPI_RETAIL_거래대금순매수, KOSPI_INSTITUTIONAL_거래대금순매수, KOSPI_STOCK_거래대금순매수, \
+            KOSPI_BOHEOM_거래대금순매수, KOSPI_TOOSIN_거래대금순매수, KOSPI_BANK_거래대금순매수, KOSPI_JONGGEUM_거래대금순매수, \
+            KOSPI_GIGEUM_거래대금순매수, KOSPI_GITA_거래대금순매수
+
+        global KOSPI_FOREIGNER_거래대금순매수_직전대비, KOSPI_RETAIL_거래대금순매수_직전대비, KOSPI_INSTITUTIONAL_거래대금순매수_직전대비, \
+            KOSPI_STOCK_거래대금순매수_직전대비, KOSPI_BOHEOM_거래대금순매수_직전대비, KOSPI_TOOSIN_거래대금순매수_직전대비, \
+            KOSPI_BANK_거래대금순매수_직전대비, KOSPI_JONGGEUM_거래대금순매수_직전대비, KOSPI_GIGEUM_거래대금순매수_직전대비, \
+            KOSPI_GITA_거래대금순매수_직전대비
+
+        global FUT_FOREIGNER_직전대비, FUT_RETAIL_직전대비, FUT_INSTITUTIONAL_직전대비, \
+            KOSPI_FOREIGNER_직전대비, PROGRAM_직전대비
+
+        global 프로그램_전체순매수금액, 프로그램_전체순매수금액직전대비
+        global 선물_거래대금순매수, 현물_거래대금순매수
+
+        global fut_result, call_result, put_result
+        global yoc_call_gap_percent, yoc_put_gap_percent
+
+        global opt_callreal_update_counter
+        global call_atm_value, call_db_percent, atm_zero_cha
+        global call_피봇, call_피봇_node_list, call_시가, call_시가_node_list
+        global call_저가, call_저가_node_list, call_고가, call_고가_node_list
+
+        global opt_putreal_update_counter
+        global put_atm_value, put_db_percent
+        global put_피봇, put_피봇_node_list, put_시가, put_시가_node_list
+        global put_저가, put_저가_node_list, put_고가, put_고가_node_list
+        global market_service, service_terminate, jugan_service_terminate, yagan_service_terminate
+
+        global OVC_체결시간, adj_hour, adj_min, OVC_SEC
+
+        global df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
+
+        global sp500_delta, old_sp500_delta, sp500_직전대비, sp500_text_color
+        global dow_delta, old_dow_delta, dow_직전대비, dow_text_color
+        global nasdaq_delta, old_nasdaq_delta, nasdaq_직전대비, nasdaq_text_color
+        global wti_delta, old_wti_delta, wti_직전대비, wti_text_color
+        global eurofx_delta, old_eurofx_delta, eurofx_직전대비, eurofx_text_color
+        global hangseng_delta, old_hangseng_delta, hangseng_직전대비, hangseng_text_color
+        global gold_delta, old_gold_delta, gold_직전대비, gold_text_color
+        
+        global FC0_선물현재가, OC0_콜현재가, OC0_풋현재가
+        global flag_telegram_send_worker
+        global dongsi_hoga
+
+        global SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_현재가, SP500_전일대비, SP500_등락율, SP500_진폭, SP500_고가
+        global DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_현재가, DOW_전일대비, DOW_등락율, DOW_진폭, DOW_고가
+        global NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_현재가, NASDAQ_전일대비, NASDAQ_등락율, NASDAQ_진폭, NASDAQ_고가
+        global WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭, WTI_고가
+        global EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭, EUROFX_고가
+        global HANGSENG_종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭, HANGSENG_고가
+        global GOLD_종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭, GOLD_고가
+
+        global SP500_과거가, DOW_과거가, NASDAQ_과거가, WTI_과거가, EUROFX_과거가, HANGSENG_과거가, GOLD_과거가
+
+        global NASDAQ_순매수, NASDAQ_잔량비
+        global SP500_순매수, SP500_잔량비
+        global DOW_순매수, DOW_잔량비
+        global WTI_순매수, WTI_잔량비
+        global EUROFX_순매수, EUROFX_잔량비
+        global HANGSENG_순매수, HANGSENG_잔량비
+        global GOLD_순매수, GOLD_잔량비
+
+        global CME_당일종가, DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가, GOLD_당일종가
+        global 시스템시간, 서버시간, 시스템_서버_시간차
+        global kp200_시가, kp200_피봇, kp200_저가, kp200_현재가, kp200_고가, kp200_진폭           
+        global DOW_진폭비
+        global DOW_주간_시작가, WTI_주간_시작가
+        global DOW_야간_시작가, WTI_야간_시작가
+        global 장시작_양합
+
+        global df_kp200_graph
+        global df_futures_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
+        global flag_dow_ohlc_open, flag_sp500_ohlc_open, flag_nasdaq_ohlc_open, flag_wti_ohlc_open, flag_eurofx_ohlc_open, flag_hangseng_ohlc_open, flag_gold_ohlc_open
+
+        global DOW_현재가_버퍼
+        global SP500_현재가_버퍼
+        global NASDAQ_현재가_버퍼
+        global WTI_현재가_버퍼
+        global 선물_시가, 선물_피봇, 선물_현재가
+        
+        global receive_real_ovc, ovc_x_idx, old_ovc_x_idx
+        global flag_option_start
+        global fut_quote_energy_direction            
+        global fut_nm_volume_power, fut_volume_power_energy_direction
+        global plot_drate_scale_factor
         global flag_realdata_update_is_running
 
         flag_realdata_update_is_running = True
 
         szTrCode = result['szTrCode']
 
-        try:
-            global pre_start
-            global atm_str, atm_val, atm_index
-            global yj_atm_index
-
-            #global fut_realdata
-
-            global df_call, df_put
-            global df_call_hoga, df_put_hoga
-
-            global df_call_price_graph, df_put_price_graph
-            global df_call_graph, df_put_graph
-
-            global opt_callreal_update_counter, opt_putreal_update_counter
-            global opt_call_ho_update_counter, opt_put_ho_update_counter
-            global call_atm_value, put_atm_value
-            global receive_quote
-
-            global FUT_FOREIGNER_거래대금순매수, FUT_RETAIL_거래대금순매수, FUT_INSTITUTIONAL_거래대금순매수, FUT_STOCK_거래대금순매수, \
-                FUT_BOHEOM_거래대금순매수, FUT_TOOSIN_거래대금순매수, FUT_BANK_거래대금순매수, FUT_JONGGEUM_거래대금순매수, \
-                FUT_GIGEUM_거래대금순매수, FUT_GITA_거래대금순매수
-
-            global FUT_FOREIGNER_거래대금순매수_직전대비, FUT_RETAIL_거래대금순매수_직전대비, FUT_INSTITUTIONAL_거래대금순매수_직전대비, \
-                FUT_STOCK_거래대금순매수_직전대비, FUT_BOHEOM_거래대금순매수_직전대비, FUT_TOOSIN_거래대금순매수_직전대비, \
-                FUT_BANK_거래대금순매수_직전대비, FUT_JONGGEUM_거래대금순매수_직전대비, FUT_GIGEUM_거래대금순매수_직전대비, \
-                FUT_GITA_거래대금순매수_직전대비
-
-            global KOSPI_FOREIGNER_거래대금순매수, KOSPI_RETAIL_거래대금순매수, KOSPI_INSTITUTIONAL_거래대금순매수, KOSPI_STOCK_거래대금순매수, \
-                KOSPI_BOHEOM_거래대금순매수, KOSPI_TOOSIN_거래대금순매수, KOSPI_BANK_거래대금순매수, KOSPI_JONGGEUM_거래대금순매수, \
-                KOSPI_GIGEUM_거래대금순매수, KOSPI_GITA_거래대금순매수
-
-            global KOSPI_FOREIGNER_거래대금순매수_직전대비, KOSPI_RETAIL_거래대금순매수_직전대비, KOSPI_INSTITUTIONAL_거래대금순매수_직전대비, \
-                KOSPI_STOCK_거래대금순매수_직전대비, KOSPI_BOHEOM_거래대금순매수_직전대비, KOSPI_TOOSIN_거래대금순매수_직전대비, \
-                KOSPI_BANK_거래대금순매수_직전대비, KOSPI_JONGGEUM_거래대금순매수_직전대비, KOSPI_GIGEUM_거래대금순매수_직전대비, \
-                KOSPI_GITA_거래대금순매수_직전대비
-
-            global FUT_FOREIGNER_직전대비, FUT_RETAIL_직전대비, FUT_INSTITUTIONAL_직전대비, \
-                KOSPI_FOREIGNER_직전대비, PROGRAM_직전대비
-
-            global 프로그램_전체순매수금액, 프로그램_전체순매수금액직전대비
-            global 선물_거래대금순매수, 현물_거래대금순매수
-
-            #global kp200_realdata
-            global fut_result, call_result, put_result
-            global yoc_call_gap_percent, yoc_put_gap_percent
-
-            global opt_callreal_update_counter
-            global call_atm_value, call_db_percent, atm_zero_cha
-            global call_피봇, call_피봇_node_list, call_시가, call_시가_node_list
-            global call_저가, call_저가_node_list, call_고가, call_고가_node_list
-
-            global opt_putreal_update_counter
-            global put_atm_value, put_db_percent
-            global put_피봇, put_피봇_node_list, put_시가, put_시가_node_list
-            global put_저가, put_저가_node_list, put_고가, put_고가_node_list
-            global market_service, service_terminate, jugan_service_terminate, yagan_service_terminate
-
-            global OVC_체결시간, adj_hour, adj_min, OVC_SEC
-
-            global df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
-
-            global sp500_delta, old_sp500_delta, sp500_직전대비, sp500_text_color
-            global dow_delta, old_dow_delta, dow_직전대비, dow_text_color
-            global nasdaq_delta, old_nasdaq_delta, nasdaq_직전대비, nasdaq_text_color
-            global wti_delta, old_wti_delta, wti_직전대비, wti_text_color
-            global eurofx_delta, old_eurofx_delta, eurofx_직전대비, eurofx_text_color
-            global hangseng_delta, old_hangseng_delta, hangseng_직전대비, hangseng_text_color
-            global gold_delta, old_gold_delta, gold_직전대비, gold_text_color
-            
-            global FC0_선물현재가, OC0_콜현재가, OC0_풋현재가
-            global flag_telegram_send_worker
-            global dongsi_hoga
-
-            global SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_현재가, SP500_전일대비, SP500_등락율, SP500_진폭, SP500_고가
-            global DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_현재가, DOW_전일대비, DOW_등락율, DOW_진폭, DOW_고가
-            global NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_현재가, NASDAQ_전일대비, NASDAQ_등락율, NASDAQ_진폭, NASDAQ_고가
-            global WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭, WTI_고가
-            global EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭, EUROFX_고가
-            global HANGSENG_종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭, HANGSENG_고가
-            global GOLD_종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭, GOLD_고가
-
-            global SP500_과거가, DOW_과거가, NASDAQ_과거가, WTI_과거가, EUROFX_과거가, HANGSENG_과거가, GOLD_과거가
-
-            global NASDAQ_순매수, NASDAQ_잔량비
-            global SP500_순매수, SP500_잔량비
-            global DOW_순매수, DOW_잔량비
-            global WTI_순매수, WTI_잔량비
-            global EUROFX_순매수, EUROFX_잔량비
-            global HANGSENG_순매수, HANGSENG_잔량비
-            global GOLD_순매수, GOLD_잔량비
-
-            global CME_당일종가, DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가, GOLD_당일종가
-            global 시스템시간, 서버시간, 시스템_서버_시간차
-            global kp200_시가, kp200_피봇, kp200_저가, kp200_현재가, kp200_고가, kp200_진폭           
-            global DOW_진폭비
-            global DOW_주간_시작가, WTI_주간_시작가
-            global DOW_야간_시작가, WTI_야간_시작가
-            global 장시작_양합
-
-            global df_kp200_graph
-            global df_futures_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
-            global flag_dow_ohlc_open, flag_sp500_ohlc_open, flag_nasdaq_ohlc_open, flag_wti_ohlc_open, flag_eurofx_ohlc_open, flag_hangseng_ohlc_open, flag_gold_ohlc_open
-
-            global DOW_현재가_버퍼
-            global SP500_현재가_버퍼
-            global NASDAQ_현재가_버퍼
-            global WTI_현재가_버퍼
-            global 선물_시가, 선물_피봇, 선물_현재가
-            
-            global receive_real_ovc, ovc_x_idx, old_ovc_x_idx
-            global flag_option_start
-            global fut_quote_energy_direction            
-            global fut_nm_volume_power, fut_volume_power_energy_direction
-            global plot_drate_scale_factor
-                        
+        try:            
+            dt = datetime.datetime.now()                        
             start_time = timeit.default_timer()
-
-            dt = datetime.datetime.now()
 
             if szTrCode == 'NWS':
                 
