@@ -2022,253 +2022,15 @@ class TelegramListenWorker(QThread):
 ########################################################################################################################
 # 실시간 데이타수신을 위한 쓰레드 클래스
 ########################################################################################################################
-class RealTimeDataWorker(QThread):
-    trigger = pyqtSignal()
+if not MULTIPROCESS:
+    class RealTimeDataWorker(QThread):
+        trigger = pyqtSignal()
 
-    def __init__(self, producer_queue, consumer_queue):
-        super().__init__()
-        self.producer_queue = producer_queue
-        self.consumer_queue = consumer_queue
-        
-        self.JIF = JIF(parent=self)
-
-        self.YJ = YJ_(parent=self)
-        self.YFC = YFC(parent=self)
-        self.YS3 = YS3(parent=self)
-        self.YOC = YOC(parent=self)        
-
-        if NightTime:
-            self.OPT_REAL = EC0(parent=self)                
-            self.OPT_HO = EH0(parent=self)
-            self.FUT_REAL = NC0(parent=self)
-            self.FUT_HO = NH0(parent=self)
-        else:
-            self.OPT_REAL = OC0(parent=self)
-            self.OPT_HO = OH0(parent=self)
-            self.FUT_REAL = FC0(parent=self)
-            self.FUT_HO = FH0(parent=self)
-
-        self.IJ = IJ_(parent=self)
-        self.S3 = S3_(parent=self)
-        self.BM = BM_(parent=self)
-        self.PM = PM_(parent=self)
-
-        self.OVC = OVC(parent=self)
-        self.OVH = OVH(parent=self)
-        self.WOC = WOC(parent=self)
-        self.MK2 = MK2(parent=self)
-
-        self.NWS = NWS(parent=self)
-
-    def RealTimeDataRequest(self, type, code):
-
-        if type == 'JIF':
-            # 장운영 정보 요청
-            self.JIF.AdviseRealData(code)
-
-        elif type == 'YJ':
-            # KOSPI 예상체결 요청
-            self.YJ.AdviseRealData(code)
-
-        elif type == 'YFC':
-            # 지수선물 예상체결 요청
-            self.YFC.AdviseRealData(code)
-
-        elif type == 'YS3':
-            # KOSPI 주요업체 예상체결 요청
-            self.YS3.AdviseRealData(code)
-
-        elif type == 'YOC':
-            # 지수옵션 예상체결 요청
-            self.YOC.AdviseRealData(code)
-
-        elif type == 'OPT_REAL':
-            # 옵션 실시간 가격 요청
-            self.OPT_REAL.AdviseRealData(code)
-
-        elif type == 'OPT_HO':
-            # 옵션 실시간 호가 요청
-            self.OPT_HO.AdviseRealData(code)
-
-        elif type == 'FUT_REAL':
-            # 선물 실시간 가격 요청
-            self.FUT_REAL.AdviseRealData(code)
-
-        elif type == 'FUT_HO':
-            # 선물 실시간 호가 요청
-            self.FUT_HO.AdviseRealData(code)
-
-        elif type == 'IJ':
-            # KOSPI/KOSPI200/KOSDAQ 지수요청
-            self.IJ.AdviseRealData(code)
-
-        elif type == 'S3':
-            # KOSPI 주요업체(SAMSUNG) 체결 요청
-            self.S3.AdviseRealData(code)
-
-        elif type == 'BM':
-            # 업종별 투자자별 매매현황 요청
-            self.BM.AdviseRealData(code)
-
-        elif type == 'PM':
-            # 프로그램 매매현황 요청
-            self.PM.AdviseRealData()
-
-        elif type == 'OVC':
-            # 해외선물 체결가격 실시간 요청
-            self.OVC.AdviseRealData(code)
-
-        elif type == 'NWS':
-            # 실시간 뉴스요청
-            self.NWS.AdviseRealData()
-        else:
-            pass
-
-    def CancelRealDataRequest(self, type):
-
-        if type == 'JIF':
-            # 장운영 정보 요청취소
-            self.JIF.UnadviseRealData()
-
-        elif type == 'YJ':
-            # KOSPI 예상체결 요청취소
-            self.YJ.UnadviseRealData()
-
-        elif type == 'YFC':
-            # 지수선물 예상체결 요청취소
-            self.YFC.UnadviseRealData()
-
-        elif type == 'YS3':
-            # KOSPI 주요업체 예상체결 요청취소
-            self.YS3.UnadviseRealData()
-
-        elif type == 'YOC':
-            # 지수옵션 예상체결 요청취소
-            self.YOC.UnadviseRealData()
-
-        elif type == 'OPT_REAL':
-            # 옵션 실시간 가격 요청취소
-            self.OPT_REAL.UnadviseRealData()
-
-        elif type == 'OPT_HO':
-            # 옵션 실시간 호가 요청취소
-            self.OPT_HO.UnadviseRealData()
-
-        elif type == 'FUT_REAL':
-            # 선물 실시간 가격 요청취소
-            self.FUT_REAL.UnadviseRealData()
-
-        elif type == 'FUT_HO':
-            # 선물 실시간 호가 요청취소
-            self.FUT_HO.UnadviseRealData()
-
-        elif type == 'IJ':
-            # KOSPI/KOSPI200/KOSDAQ 지수 요청취소
-            self.IJ.UnadviseRealData()
-
-        elif type == 'S3':
-            # KOSPI 주요업체(SAMSUNG) 체결 요청취소
-            self.S3.UnadviseRealData()
-
-        elif type == 'BM':
-            # 업종별 투자자별 매매현황 요청취소
-            self.BM.UnadviseRealData()
-
-        elif type == 'PM':
-            # 프로그램 매매현황 요청취소
-            self.PM.UnadviseRealData()
-
-        elif type == 'OVC':
-            # 해외선물 체결가격 실시간 요청취소
-            self.OVC.UnadviseRealData()
-
-        elif type == 'NWS':
-            # 실시간 뉴스 요청취소
-            self.NWS.UnadviseRealData()
-        else:
-            pass
-
-    def CancelAllRealData(self):
-        
-        self.JIF.UnadviseRealData()
-
-        self.YJ.UnadviseRealData()
-        self.YFC.UnadviseRealData()
-        self.YS3.UnadviseRealData()
-        self.YOC.UnadviseRealData()
-
-        self.OPT_REAL.UnadviseRealData()
-        self.OPT_HO.UnadviseRealData()
-
-        self.FUT_REAL.UnadviseRealData()
-        self.FUT_HO.UnadviseRealData()
-
-        self.IJ.UnadviseRealData()
-
-        self.S3.UnadviseRealData()
-        self.BM.UnadviseRealData()
-        self.PM.UnadviseRealData()
-
-        self.OVC.UnadviseRealData()
-        self.NWS.UnadviseRealData()
-
-    # 실시간 수신 콜백함수
-    def OnReceiveRealData(self, szTrCode, result):
-
-        global flag_queue_input_drop, queue_input_drop_count
-
-        if not flag_realdata_update_is_running:
-            flag_queue_input_drop = False
-            self.producer_queue.put(result, False)
-        else:
-            flag_queue_input_drop = True
-            queue_input_drop_count += 1
-            print('Queue input is dropped...')            
-        
-    def run(self):
-
-        global flag_produce_queue_empty
-
-        while True:
-            if not self.producer_queue.empty():
-                flag_produce_queue_empty = False
-                data = self.producer_queue.get(False)
-                self.consumer_queue.put(data, False)
-                self.trigger.emit()    
-            else:
-                flag_produce_queue_empty = True
-########################################################################################################################
-# 실시간 데이타수신을 위한 멀티프로세스 클래스, 시그날/슬롯 사용불가?
-########################################################################################################################
-if MULTIPROCESS:
-
-    class Emitter(QThread):
-        """ Emitter waits for data from the realtime process and emits a signal for the UI to update its data. """
-        ui_data_available = pyqtSignal(dict)  # Signal indicating new UI data is available.
-
-        def __init__(self, from_process: Pipe):
+        def __init__(self, producerQ, consumerQ):
             super().__init__()
-            self.data_from_process = from_process
+            self.producerQ = producerQ
+            self.consumerQ = consumerQ
 
-        def run(self):
-            while True:
-                try:
-                    realdata = self.data_from_process.recv()
-                except EOFError:
-                    break
-                else:
-                    self.ui_data_available.emit(realdata)
-
-    class ChildProc(Process):
-        """ Process to receive data and return this over the Pipe. """
-        def __init__(self, to_emitter: Pipe, from_mother: Queue, daemon=True):
-            super().__init__()
-            self.daemon = daemon
-            self.data_from_server = from_mother
-            self.to_emitter = to_emitter
-
-            # 프로세스 내에서 실시간수신 방법 필요!!!
-            '''
             self.JIF = JIF(parent=self)
 
             self.YJ = YJ_(parent=self)
@@ -2298,116 +2060,208 @@ if MULTIPROCESS:
             self.MK2 = MK2(parent=self)
 
             self.NWS = NWS(parent=self)
-            '''
-        '''
-        def AdviseRealDataAll(self):
 
-            # 장운영 정보 요청
-            self.JIF.AdviseRealData('0')
+        def RealTimeDataRequest(self, type, code):
 
-            # FUTURES/KOSPI200 예상지수 요청
-            self.YJ.AdviseRealData(FUTURES)
-            self.YJ.AdviseRealData(KOSPI200)
+            if type == 'JIF':
+                # 장운영 정보 요청
+                self.JIF.AdviseRealData(code)
 
-            # 지수선물 예상체결 요청
-            self.YFC.AdviseRealData(fut_code)
+            elif type == 'YJ':
+                # KOSPI 예상체결 요청
+                self.YJ.AdviseRealData(code)
 
-            # KOSPI 예상체결 요청                        
-            self.YS3.AdviseRealData(SAMSUNG)
-            self.YS3.AdviseRealData(HYUNDAI)
+            elif type == 'YFC':
+                # 지수선물 예상체결 요청
+                self.YFC.AdviseRealData(code)
 
-            for i in range(option_pairs_count):
+            elif type == 'YS3':
+                # KOSPI 주요업체 예상체결 요청
+                self.YS3.AdviseRealData(code)
+
+            elif type == 'YOC':
                 # 지수옵션 예상체결 요청
-                self.YOC.AdviseRealData(call_code[i])
-                self.YOC.AdviseRealData(put_code[i])
-                # 옵션 실시간 가격 및 호가 요청
-                self.OPT_REAL.AdviseRealData(call_code[i])
-                self.OPT_REAL.AdviseRealData(put_code[i])
+                self.YOC.AdviseRealData(code)
 
-            if QUOTE_REQUEST_NUMBER == 'All':
-                #print('QUOTE_REQUEST_NUMBER =', QUOTE_REQUEST_NUMBER)
-                for i in range(option_pairs_count):
-                    self.OPT_HO.AdviseRealData(call_code[i])
-                    self.OPT_HO.AdviseRealData(put_code[i]) 
-            else:
-                NEW_INDEX = int(int(QUOTE_REQUEST_NUMBER)/2)
-                #print('NEW_INDEX =', NEW_INDEX)
-                for i in range(atm_index - NEW_INDEX, atm_index + NEW_INDEX + 1):
-                    self.OPT_HO.AdviseRealData(call_code[i])
-                    self.OPT_HO.AdviseRealData(put_code[i])
+            elif type == 'OPT_REAL':
+                # 옵션 실시간 가격 요청
+                self.OPT_REAL.AdviseRealData(code)
 
-            # 선물 실시간테이타 요청
-            self.FUT_REAL.AdviseRealData(fut_code)
-            self.FUT_HO.AdviseRealData(fut_code)
+            elif type == 'OPT_HO':
+                # 옵션 실시간 호가 요청
+                self.OPT_HO.AdviseRealData(code)
 
-            if TARGET_MONTH_SELECT == 'CM':
-                # 차월물 가격요청
-                self.FUT_REAL.AdviseRealData(cmshcode)
-                # 차월물, 차차월물 호가요청
-                self.FUT_HO.AdviseRealData(cmshcode)
-                self.FUT_HO.AdviseRealData(ccmshcode)
+            elif type == 'FUT_REAL':
+                # 선물 실시간 가격 요청
+                self.FUT_REAL.AdviseRealData(code)
+
+            elif type == 'FUT_HO':
+                # 선물 실시간 호가 요청
+                self.FUT_HO.AdviseRealData(code)
+
+            elif type == 'IJ':
+                # KOSPI/KOSPI200/KOSDAQ 지수요청
+                self.IJ.AdviseRealData(code)
+
+            elif type == 'S3':
+                # KOSPI 주요업체(SAMSUNG) 체결 요청
+                self.S3.AdviseRealData(code)
+
+            elif type == 'BM':
+                # 업종별 투자자별 매매현황 요청
+                self.BM.AdviseRealData(code)
+
+            elif type == 'PM':
+                # 프로그램 매매현황 요청
+                self.PM.AdviseRealData()
+
+            elif type == 'OVC':
+                # 해외선물 체결가격 실시간 요청
+                self.OVC.AdviseRealData(code)
+
+            elif type == 'NWS':
+                # 실시간 뉴스요청
+                self.NWS.AdviseRealData()
             else:
                 pass
 
-            # KOSPI/KOSPI200/KOSDAQ 지수요청
-            self.IJ.AdviseRealData(KOSPI)
-            self.IJ.AdviseRealData(KOSPI200)
-            self.IJ.AdviseRealData(KOSDAQ)
+        def CancelRealDataRequest(self, type):
 
-            # SAMSUNG 체결 요청
-            self.S3.AdviseRealData(SAMSUNG)
+            if type == 'JIF':
+                # 장운영 정보 요청취소
+                self.JIF.UnadviseRealData()
 
-            # 업종별 투자자별 매매현황 요청
-            self.BM.AdviseRealData(FUTURES)
-            self.BM.AdviseRealData(KOSPI)
+            elif type == 'YJ':
+                # KOSPI 예상체결 요청취소
+                self.YJ.UnadviseRealData()
 
-            # 프로그램 매매현황 요청
-            self.PM.AdviseRealData()
+            elif type == 'YFC':
+                # 지수선물 예상체결 요청취소
+                self.YFC.UnadviseRealData()
 
-            # 해외선물 체결,가격 실시간 요청
-            self.OVC.AdviseRealData(종목코드=SP500)
-            self.OVC.AdviseRealData(종목코드=DOW)
-            self.OVC.AdviseRealData(종목코드=NASDAQ)
-            self.OVC.AdviseRealData(종목코드=WTI)                
-            self.OVC.AdviseRealData(종목코드=HANGSENG)
-            self.OVC.AdviseRealData(종목코드=EUROFX)
-            self.OVC.AdviseRealData(종목코드=GOLD)   
+            elif type == 'YS3':
+                # KOSPI 주요업체 예상체결 요청취소
+                self.YS3.UnadviseRealData()
+
+            elif type == 'YOC':
+                # 지수옵션 예상체결 요청취소
+                self.YOC.UnadviseRealData()
+
+            elif type == 'OPT_REAL':
+                # 옵션 실시간 가격 요청취소
+                self.OPT_REAL.UnadviseRealData()
+
+            elif type == 'OPT_HO':
+                # 옵션 실시간 호가 요청취소
+                self.OPT_HO.UnadviseRealData()
+
+            elif type == 'FUT_REAL':
+                # 선물 실시간 가격 요청취소
+                self.FUT_REAL.UnadviseRealData()
+
+            elif type == 'FUT_HO':
+                # 선물 실시간 호가 요청취소
+                self.FUT_HO.UnadviseRealData()
+
+            elif type == 'IJ':
+                # KOSPI/KOSPI200/KOSDAQ 지수 요청취소
+                self.IJ.UnadviseRealData()
+
+            elif type == 'S3':
+                # KOSPI 주요업체(SAMSUNG) 체결 요청취소
+                self.S3.UnadviseRealData()
+
+            elif type == 'BM':
+                # 업종별 투자자별 매매현황 요청취소
+                self.BM.UnadviseRealData()
+
+            elif type == 'PM':
+                # 프로그램 매매현황 요청취소
+                self.PM.UnadviseRealData()
+
+            elif type == 'OVC':
+                # 해외선물 체결가격 실시간 요청취소
+                self.OVC.UnadviseRealData()
+
+            elif type == 'NWS':
+                # 실시간 뉴스 요청취소
+                self.NWS.UnadviseRealData()
+            else:
+                pass
+
+        def CancelAllRealData(self):
+
+            self.JIF.UnadviseRealData()
+
+            self.YJ.UnadviseRealData()
+            self.YFC.UnadviseRealData()
+            self.YS3.UnadviseRealData()
+            self.YOC.UnadviseRealData()
+
+            self.OPT_REAL.UnadviseRealData()
+            self.OPT_HO.UnadviseRealData()
+
+            self.FUT_REAL.UnadviseRealData()
+            self.FUT_HO.UnadviseRealData()
+
+            self.IJ.UnadviseRealData()
+
+            self.S3.UnadviseRealData()
+            self.BM.UnadviseRealData()
+            self.PM.UnadviseRealData()
+
+            self.OVC.UnadviseRealData()
+            self.NWS.UnadviseRealData()
 
         # 실시간 수신 콜백함수
         def OnReceiveRealData(self, szTrCode, result):
 
             global flag_queue_input_drop, queue_input_drop_count
 
-            print('result =', result)
-
-            #if not flag_realdata_update_is_running and not flag_screen_update_is_running and not flag_plot_update_is_running:
-            if not flag_realdata_update_is_running and not flag_plot_update_is_running:
+            if not flag_realdata_update_is_running:
                 flag_queue_input_drop = False
-                self.data_from_server.put(result, False)
+                self.producerQ.put(result, False)
             else:
                 flag_queue_input_drop = True
                 queue_input_drop_count += 1
-                #print('Queue input is dropped...') 
-        '''
-        '''
+                print('Queue input is dropped...')            
+
         def run(self):
 
             global flag_produce_queue_empty
 
             while True:
-                if not self.data_from_server.empty():
+                if not self.producerQ.empty():
                     flag_produce_queue_empty = False
-                    receive_data = self.data_from_server.get(False)
-                    self.to_emitter.send(receive_data)    
+                    data = self.producerQ.get(False)
+                    self.consumerQ.put(data, False)
+                    self.trigger.emit()    
                 else:
                     flag_produce_queue_empty = True
-        '''
+else:
+    pass
+########################################################################################################################
+# 실시간 데이타수신을 위한 멀티프로세스 클래스, 시그날/슬롯 사용불가?
+########################################################################################################################
+if MULTIPROCESS:
+
+    class MyProcess(mp.Process):
+
+        def __init__(self, producerQ, consumerQ):
+            mp.Process.__init__(self)
+            self.inputQ = producerQ
+            self.outputQ = consumerQ
+            self.exit = mp.Event()
+
         def run(self):
-            """ Wait for a ui_data_available on the queue and send a capitalized version of the received string to the pipe. """
-            while True:
-                text = self.data_from_server.get()
-                self.to_emitter.send(text.upper())
-        
+            while not self.exit.is_set():
+                pass
+                #print('process is alive...')
+            print("You exited!")
+
+        def shutdown(self):
+            print("Shutdown initiated")
+            self.exit.set()            
 else:
     pass
 ########################################################################################################################
@@ -2476,8 +2330,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_node_state, put_node_state, COREVAL
 
         if not MULTIPROCESS:
-            self.producer_queue = mp.Queue()
-            self.consumer_queue = mp.Queue()
+            self.producerQ = mp.Queue()
+            self.consumerQ = mp.Queue()
+            
+            self.realtime_data_worker = RealTimeDataWorker(self.producerQ, self.consumerQ)
+            self.realtime_data_worker.trigger.connect(self.realdata_update)        
+            self.realtime_data_worker.daemon = True
         else:
             pass
 
@@ -2489,10 +2347,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # t2301, t2835 이벤트루프(1초당 2건) --> 옵션 실시간수신 문제 보완목적
         self.t2301_event_loop = QEventLoop()
         self.t2835_event_loop = QEventLoop()
-
-        self.realtime_data_worker = RealTimeDataWorker(self.producer_queue, self.consumer_queue)
-        self.realtime_data_worker.trigger.connect(self.realdata_update)        
-        self.realtime_data_worker.daemon = True
 
         self.screen_update_worker = ScreenUpdateWorker()
         self.screen_update_worker.finished.connect(self.update_screen)
@@ -2509,8 +2363,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 실시간 멀티프로세스
         '''
         get_realdata.trigger.connect(self.process_realdata)        
-        m_process = Process(name="producer", target=get_realdata, args=(self.producer_queue, self.consumer_queue, ), daemon=True)
-        #m_process = MultiProcess_RealTime_Data_Worker(self.producer_queue, self.consumer_queue)
+        m_process = Process(name="producer", target=get_realdata, args=(self.producerQ, self.consumerQ, ), daemon=True)
+        #m_process = MultiProcess_RealTime_Data_Worker(self.producerQ, self.consumerQ)
         m_process.start()       
         '''
         self.상태그림 = ['▼', '▬', '▲']
@@ -3131,7 +2985,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     @pyqtSlot()
     def process_realdata(self):
 
-        data = self.consumer_queue.get(False)
+        data = self.consumerQ.get(False)
 
         item = QTableWidgetItem("{0}".format(data['szTrCode']))
         item.setTextAlignment(Qt.AlignCenter)
@@ -3277,18 +3131,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] S3, BM, PM요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
                 self.textBrowser.append(txt)
 
-                self.realtime_data_worker.CancelRealDataRequest('S3')
-                self.realtime_data_worker.CancelRealDataRequest('BM')
-                self.realtime_data_worker.CancelRealDataRequest('PM')
+                if not MULTIPROCESS:
+                    self.realtime_data_worker.CancelRealDataRequest('S3')
+                    self.realtime_data_worker.CancelRealDataRequest('BM')
+                    self.realtime_data_worker.CancelRealDataRequest('PM')
+                else:
+                    pass
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 호가요청을 등가중심 10개만 합니다.\r'.format(adj_hour, adj_min, adj_sec)
                 self.textBrowser.append(txt)
                 
-                self.realtime_data_worker.CancelRealDataRequest('OPT_HO')
+                if not MULTIPROCESS:
+                    self.realtime_data_worker.CancelRealDataRequest('OPT_HO')
 
-                for i in range(atm_index - 5, atm_index + 5 + 1):
-                    self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.call_code[i])
-                    self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.put_code[i])
+                    for i in range(atm_index - 5, atm_index + 5 + 1):
+                        self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.call_code[i])
+                        self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.put_code[i])
+                else:
+                    pass
             else:
                 pass            
 
@@ -3322,18 +3182,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] S3, BM, PM을 재요청합니다.\r'.format(adj_hour, adj_min, adj_sec)
                 self.textBrowser.append(txt)
 
-                self.realtime_data_worker.RealTimeDataRequest('S3', SAMSUNG)
-                self.realtime_data_worker.RealTimeDataRequest('BM', FUTURES)
-                self.realtime_data_worker.RealTimeDataRequest('BM', KOSPI)
-                self.realtime_data_worker.RealTimeDataRequest('PM', KOSPI)
-
+                if not MULTIPROCESS:
+                    self.realtime_data_worker.RealTimeDataRequest('S3', SAMSUNG)
+                    self.realtime_data_worker.RealTimeDataRequest('BM', FUTURES)
+                    self.realtime_data_worker.RealTimeDataRequest('BM', KOSPI)
+                    self.realtime_data_worker.RealTimeDataRequest('PM', KOSPI)
+                else:
+                    pass
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 호가요청을 원복합니다.\r'.format(adj_hour, adj_min, adj_sec)
                 self.textBrowser.append(txt)
 
-                for i in range(option_pairs_count):
-                    self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.call_code[i])
-                    self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.put_code[i])        
+                if not MULTIPROCESS:
+                    for i in range(option_pairs_count):
+                        self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.call_code[i])
+                        self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.put_code[i])
+                else:
+                    pass   
             else:
                 pass            
             
@@ -4547,7 +4412,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_call_low_update, flag_call_high_update, flag_put_low_update, flag_put_high_update
         global flag_call_cross_coloring, flag_put_cross_coloring, flag_clear
 
-        dt = datetime.datetime.now() 
+        dt = datetime.datetime.now()
+        
+        if MULTIPROCESS:
+            myprocess.shutdown()
+            #QTest.qWait(3000)
+            print("Child process state: %d" % myprocess.is_alive())
+        else:
+            pass
 
         try:
             flag_screen_update_is_running = True
@@ -5034,8 +4906,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if NightTime:
 
                     # 장종료 1분후에 프로그램을 오프라인으로 전환시킴
-                    #if yagan_service_terminate and 서버시간 >= (6 * 3600 + 1 * 60):
-                    if 서버시간 >= (6 * 3600 + 1 * 60):
+                    if yagan_service_terminate and 서버시간 >= (6 * 3600 + 1 * 60):
 
                         if self.parent.connection.IsConnected():
 
@@ -15810,13 +15681,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 '''
                 # 멀티프로세스
-                #self.get_realdata = MultiProcess_RealTime_Data_Worker(self.producer_queue, self.consumer_queue)
-                #MultiProcess_RealTime_Data_Worker.trigger.connect(self.process_realdata)        
-                #m_process = Process(name="producer", target=self.get_realdata, daemon=True)
-                #m_process = MultiProcess_RealTime_Data_Worker(self.producer_queue, self.consumer_queue)
-                #self.get_realdata.start()
-                #self.get_realdata.join()
-                MultiProcess_RealTime_Data_Worker.AdviseRealDataAll()
                 '''
                 # t8416 요청                
                 print('t8416 call 요청시작...')
@@ -19368,7 +19232,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         #result['szTrCode'] = szTrCode
         #화면_선물옵션전광판.xing_realdata = result
-        #self.producer_queue.put(result, False)
+        #self.producerQ.put(result, False)
         pass            
 
     @pyqtSlot()
@@ -19492,7 +19356,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             dt = datetime.datetime.now()                        
             start_time = timeit.default_timer()
             
-            result = self.consumer_queue.get(False)
+            result = self.consumerQ.get(False)
 
             szTrCode = result['szTrCode']
 
@@ -19552,10 +19416,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 예상지수요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
                     self.textBrowser.append(txt)
 
-                    self.realtime_data_worker.CancelRealDataRequest('YJ')
-                    self.realtime_data_worker.CancelRealDataRequest('YFC')
-                    self.realtime_data_worker.CancelRealDataRequest('YOC')
-                    self.realtime_data_worker.CancelRealDataRequest('YS3')
+                    if not MULTIPROCESS:
+                        self.realtime_data_worker.CancelRealDataRequest('YJ')
+                        self.realtime_data_worker.CancelRealDataRequest('YFC')
+                        self.realtime_data_worker.CancelRealDataRequest('YOC')
+                        self.realtime_data_worker.CancelRealDataRequest('YS3')
+                    else:
+                        pass
 
                     if TTS and TARGET_MONTH_SELECT == 'CM':
                         playsound( "Doorbell_login.wav" )
@@ -19808,7 +19675,43 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 elif result['장구분'] == '8' and result['장상태'] == '41':
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 종료되었습니다.\r'.format(adj_hour, adj_min, adj_sec)
-                    self.textBrowser.append(txt)                    
+                    self.textBrowser.append(txt)
+
+                    if market_service:
+
+                        market_service = False
+                        service_terminate = True
+                        yagan_service_terminate = True
+                        
+                        receive_quote = False
+                        
+                        if SEARCH_MOVING_NODE:
+                            self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                                                                QPushButton:hover {background-color: black; color: white} \
+                                                                QPushButton:pressed {background-color: gold}')
+                        else:
+                            self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                                                                QPushButton:hover {background-color: black; color: white} \
+                                                                QPushButton:pressed {background-color: gold}')
+
+                        self.pushButton_start.setText(' ScrShot ')
+                        
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                        self.textBrowser.append(txt)
+
+                        if self.telegram_send_worker.isRunning():
+                            self.telegram_send_worker.terminate()
+                        else:
+                            pass
+
+                        if self.telegram_listen_worker.isRunning():
+                            self.telegram_listen_worker.terminate()
+                        else:
+                            pass
+                        
+                        self.SaveResult()
+                    else:
+                        pass                                        
                 else:
                     pass
 
@@ -23244,17 +23147,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if self.realtime_data_worker.isRunning():
-            
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 모든 실시간요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(txt)
-            self.parent.textBrowser.append(txt)
+        if not MULTIPROCESS:
+            if self.realtime_data_worker.isRunning():
 
-            self.realtime_data_worker.CancelAllRealData()            
-            QTest.qWait(100)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 모든 실시간요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
+                self.parent.textBrowser.append(txt)
 
-            self.realtime_data_worker.terminate()
-            print('realtime_data_worker is terminated at KillScoreBoardAllThread...')
+                self.realtime_data_worker.CancelAllRealData()            
+                QTest.qWait(100)
+
+                self.realtime_data_worker.terminate()
+                print('realtime_data_worker is terminated at KillScoreBoardAllThread...')
+            else:
+                pass
         else:
             pass        
 
@@ -23264,8 +23170,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.flag_score_board_open = False
 
-        if self.realtime_data_worker.isRunning():
-            self.KillScoreBoardAllThread()
+        if not MULTIPROCESS:
+            if self.realtime_data_worker.isRunning():
+                self.KillScoreBoardAllThread()
+            else:
+                pass
         else:
             pass
 
@@ -34639,166 +34548,84 @@ else:
     Ui_MainWindow, QtBaseClass_MainWindow = uic.loadUiType(UI_DIR + main_ui_type)
 ########################################################################################################################
 class MainWindow(QMainWindow, Ui_MainWindow):
+     
+    def __init__(self, *args, **kwargs):
+        super(MainWindow, self).__init__(*args, **kwargs)            
 
-    if MULTIPROCESS:
-        def __init__(self, child_process_queue: Queue, emitter: Emitter):
-            super(MainWindow, self).__init__()
-            
-            self.process_queue = child_process_queue
-            self.emitter = emitter
-            self.emitter.daemon = True
-            self.emitter.start()
-        
-            # When the emitter has data available for the UI call the updateUI function
-            #self.emitter.ui_data_available.connect(self.realdata_update)
-                
-            QMainWindow.__init__(self)
-            Ui_MainWindow.__init__(self)
+        QMainWindow.__init__(self)
+        Ui_MainWindow.__init__(self)
 
-            self.setAttribute(Qt.WA_DeleteOnClose, True)
+        #self.setWindowFlags(Qt.WindowStaysOnTopHint)
+        self.setAttribute(Qt.WA_DeleteOnClose)
 
-            #self.setWindowFlags(Qt.WindowStaysOnTopHint)
-            self.setupUi(self)
-            
-            self.setWindowTitle("SkyBot ver1.0")
+        self.setupUi(self)
 
-            self.textBrowser.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 9pt; font: Normal")
-            self.textBrowser.append('Welcome to SkyBot\r')
+        self.setWindowTitle("SkyBot ver1.0")
+
+        self.textBrowser.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 9pt; font: Normal")
+        self.textBrowser.append('Welcome to SkyBot\r')
+        '''
+        if TARGET_MONTH_SELECT == 'CM':
+            currentMouseX, currentMouseY = pyautogui.position()
+            self.move(currentMouseX, currentMouseY)
+            self.showNormal()
+        else:
+            pass
+        '''
+        self.시작시각 = datetime.datetime.now()
+
+        txt = '시작시간 = {0}\r'.format(self.시작시각)
+        self.textBrowser.append(txt)
+
+        global all_screens, 스크린번호, screen_info
+
+        all_screens = QApplication.screens()
+
+        txt = '총 {0}개의 모니터가 사용가능합니다.\r'.format(len(all_screens))
+        self.textBrowser.append(txt)
+
+        for index, s in enumerate(all_screens):
             '''
-            if TARGET_MONTH_SELECT == 'CM':
-                currentMouseX, currentMouseY = pyautogui.position()
-                self.move(currentMouseX, currentMouseY)
-                self.showNormal()
-            else:
-                pass
+            print()
+            print(s.name())
+            print(s.availableGeometry())
+            print(s.availableGeometry().width())
+            print(s.availableGeometry().height())
+            print(s.size())
+            print(s.size().width())
+            print(s.size().height())
             '''
-            self.시작시각 = datetime.datetime.now()
-        
-            txt = '시작시간 = {0}\r'.format(self.시작시각)
-            self.textBrowser.append(txt)
-        
-            global all_screens, 스크린번호, screen_info
-        
-            all_screens = QApplication.screens()
-        
-            txt = '총 {0}개의 모니터가 사용가능합니다.\r'.format(len(all_screens))
-            self.textBrowser.append(txt)
-        
-            for index, s in enumerate(all_screens):
-                '''
-                print()
-                print(s.name())
-                print(s.availableGeometry())
-                print(s.availableGeometry().width())
-                print(s.availableGeometry().height())
-                print(s.size())
-                print(s.size().width())
-                print(s.size().height())
-                '''
-                txt = '<스크린 {0}번, 화면해상도 = {1}x{2}>\r'.format(index, s.size().width(), s.size().height())
-                self.textBrowser.append(txt)
-            
-            # 현재 커서가 위치한 화면정보
-            스크린번호 = QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
-            
-            self.centerPoint = QApplication.desktop().screenGeometry(스크린번호).center()
-            screen_info = QDesktopWidget().screenGeometry(스크린번호)
-        
-            txt = '현재스크린 = {0}번, 화면해상도 = {1}x{2}, 중심좌표 X = {3}, Y = {4}\r'.format(스크린번호, screen_info.width(), screen_info.height(), self.centerPoint.x(), self.centerPoint.y())
-            self.textBrowser.append(txt)
-            
-            self.dialog = dict()
-        
-            self.id = ''
-            self.계좌번호 = None
-            self.거래비밀번호 = None
-        
-            # AxtiveX 설정
-            self.connection = None
-        
-            self.XQ_t0167 = t0167(parent=self)
-            self.NWS = NWS(parent=self)
-
-            # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
-            atexit.register(self.__del__) 
-    else:        
-        def __init__(self, *args, **kwargs):
-            super(MainWindow, self).__init__(*args, **kwargs)            
-
-            QMainWindow.__init__(self)
-            Ui_MainWindow.__init__(self)
-
-            #self.setWindowFlags(Qt.WindowStaysOnTopHint)
-            self.setAttribute(Qt.WA_DeleteOnClose)
-
-            self.setupUi(self)
-
-            self.setWindowTitle("SkyBot ver1.0")
-
-            self.textBrowser.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 9pt; font: Normal")
-            self.textBrowser.append('Welcome to SkyBot\r')
-            '''
-            if TARGET_MONTH_SELECT == 'CM':
-                currentMouseX, currentMouseY = pyautogui.position()
-                self.move(currentMouseX, currentMouseY)
-                self.showNormal()
-            else:
-                pass
-            '''
-            self.시작시각 = datetime.datetime.now()
-
-            txt = '시작시간 = {0}\r'.format(self.시작시각)
+            txt = '<스크린 {0}번, 화면해상도 = {1}x{2}>\r'.format(index, s.size().width(), s.size().height())
             self.textBrowser.append(txt)
 
-            global all_screens, 스크린번호, screen_info
+        # 현재 커서가 위치한 화면정보
+        스크린번호 = QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
 
-            all_screens = QApplication.screens()
+        self.centerPoint = QApplication.desktop().screenGeometry(스크린번호).center()
+        screen_info = QDesktopWidget().screenGeometry(스크린번호)
 
-            txt = '총 {0}개의 모니터가 사용가능합니다.\r'.format(len(all_screens))
-            self.textBrowser.append(txt)
-
-            for index, s in enumerate(all_screens):
-                '''
-                print()
-                print(s.name())
-                print(s.availableGeometry())
-                print(s.availableGeometry().width())
-                print(s.availableGeometry().height())
-                print(s.size())
-                print(s.size().width())
-                print(s.size().height())
-                '''
-                txt = '<스크린 {0}번, 화면해상도 = {1}x{2}>\r'.format(index, s.size().width(), s.size().height())
-                self.textBrowser.append(txt)
-
-            # 현재 커서가 위치한 화면정보
-            스크린번호 = QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
-
-            self.centerPoint = QApplication.desktop().screenGeometry(스크린번호).center()
-            screen_info = QDesktopWidget().screenGeometry(스크린번호)
-
-            txt = '현재스크린 = {0}번, 화면해상도 = {1}x{2}, 중심좌표 X = {3}, Y = {4}\r'.format(스크린번호, screen_info.width(), screen_info.height(), self.centerPoint.x(), self.centerPoint.y())
-            self.textBrowser.append(txt)
+        txt = '현재스크린 = {0}번, 화면해상도 = {1}x{2}, 중심좌표 X = {3}, Y = {4}\r'.format(스크린번호, screen_info.width(), screen_info.height(), self.centerPoint.x(), self.centerPoint.y())
+        self.textBrowser.append(txt)
  
-            # 복수개의 Dialog 처리용 선언
-            self.dialog = dict()
+        # 복수개의 Dialog 처리용 선언
+        self.dialog = dict()
 
-            self.dialog['선물옵션전광판'] = None
-            self.dialog['BigChart'] = None
-            self.dialog['Version'] = None
+        self.dialog['선물옵션전광판'] = None
+        self.dialog['BigChart'] = None
+        self.dialog['Version'] = None
 
-            self.id = ''
-            self.계좌번호 = None
-            self.거래비밀번호 = None
+        self.id = ''
+        self.계좌번호 = None
+        self.거래비밀번호 = None
 
-            # AxtiveX 설정
-            self.connection = None
+        # AxtiveX 설정
+        self.connection = None
 
-            self.XQ_t0167 = t0167(parent=self)
-            self.NWS = NWS(parent=self)
+        self.XQ_t0167 = t0167(parent=self)
+        self.NWS = NWS(parent=self)
 
-            # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
-            atexit.register(self.__del__) 
+        # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
+        atexit.register(self.__del__) 
 
     def __del__(self):
         '''
@@ -35231,16 +35058,12 @@ if __name__ == "__main__":
         # pyinstaller로 실행파일 만들때 필요함
         mp.freeze_support()
 
-        # Create the communication lines.
-        mother_pipe, child_pipe = Pipe()
-        queue = Queue()
-
-        # Instantiate (i.e. create instances of) our classes.
-        emitter = Emitter(mother_pipe)
+        producerQ = mp.Queue()
+        consumerQ = mp.Queue()
         
-        child_process = ChildProc(child_pipe, queue)
-        # Start our process.
-        child_process.start()
+        # 멀티프로세스
+        myprocess = MyProcess(producerQ, consumerQ)
+        myprocess.start()
     else:
         pass
     
@@ -35298,11 +35121,7 @@ if __name__ == "__main__":
     else:
         pass
     
-    if MULTIPROCESS:
-        window = MainWindow(queue, emitter)
-    else:
-        window = MainWindow()
-
+    window = MainWindow()
     window.show()
     
     '''
