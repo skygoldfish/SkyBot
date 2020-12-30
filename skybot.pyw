@@ -5033,15 +5033,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 if NightTime:
 
-                    if 서버시간 == 6 * 3600:
-
-                        # 해외선물 지수요청 취소 
-                        pass
-                    else:
-                        pass
-
                     # 장종료 1분후에 프로그램을 오프라인으로 전환시킴
-                    if yagan_service_terminate and 서버시간 >= (6 * 3600 + 1 * 60):
+                    #if yagan_service_terminate and 서버시간 >= (6 * 3600 + 1 * 60):
+                    if 서버시간 >= (6 * 3600 + 1 * 60):
 
                         if self.parent.connection.IsConnected():
 
@@ -5161,10 +5155,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             print(txt)
 
                             if not flag_offline:
+
                                 flag_offline = True
 
                                 self.KillScoreBoardAllThread()
-
                                 self.parent.connection.disconnect()
                             else:
                                 pass
@@ -5196,10 +5190,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             print(txt)
 
                             if not flag_offline:
+                                
                                 flag_offline = True
 
-                                self.KillScoreBoardAllThread()
-                                                        
+                                self.KillScoreBoardAllThread()                                                        
                                 self.parent.connection.disconnect()
                             else:
                                 pass
