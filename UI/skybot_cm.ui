@@ -81,6 +81,7 @@
     <property name="title">
      <string>설정</string>
     </property>
+    <addaction name="actionRealTimeItem"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_1"/>
@@ -202,6 +203,11 @@
      <weight>75</weight>
      <bold>true</bold>
     </font>
+   </property>
+  </action>
+  <action name="actionRealTimeItem">
+   <property name="text">
+    <string>실시간요청 항목</string>
    </property>
   </action>
  </widget>

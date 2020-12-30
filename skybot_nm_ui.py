@@ -102,6 +102,8 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.action_ToolBar_BigChart.setFont(font)
         self.action_ToolBar_BigChart.setObjectName("action_ToolBar_BigChart")
+        self.actionRealTimeItem = QtWidgets.QAction(MainWindow)
+        self.actionRealTimeItem.setObjectName("actionRealTimeItem")
         self.menu.addAction(self.actionLogin)
         self.menu.addAction(self.actionLogout)
         self.menu.addSeparator()
@@ -116,6 +118,7 @@ class Ui_MainWindow(object):
         self.menu_1.addSeparator()
         self.menu_1.addAction(self.actionBigChart)
         self.menu_1.addSeparator()
+        self.menu_2.addAction(self.actionRealTimeItem)
         self.menubar.addAction(self.menu.menuAction())
         self.menubar.addAction(self.menu_1.menuAction())
         self.menubar.addAction(self.menu_2.menuAction())
@@ -147,4 +150,5 @@ class Ui_MainWindow(object):
         self.actionBigChart.setText(_translate("MainWindow", "Big Chart"))
         self.action_ToolBar_BigChart.setText(_translate("MainWindow", "Big Chart"))
         self.action_ToolBar_BigChart.setToolTip(_translate("MainWindow", "Big Chart"))
+        self.actionRealTimeItem.setText(_translate("MainWindow", "실시간요청 항목"))
 

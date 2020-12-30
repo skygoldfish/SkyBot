@@ -4,7 +4,7 @@ import sys, os
 import datetime, time
 import win32com.client
 #import pythoncom
-import inspect
+#import inspect
 
 class XASessionEvents(object):
     def __init__(self):

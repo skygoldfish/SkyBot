@@ -1843,6 +1843,7 @@ if not UI_HIDE:
 
     score_board_ui_type = 'score_board.ui'
     bigchart_ui_type = 'bigchart.ui'
+    realtimeitem_ui_type = 'realtime_item.ui'
     version_ui_type = 'version.ui'
 else:
     pass
@@ -2245,12 +2246,17 @@ else:
 ########################################################################################################################
 if MULTIPROCESS:
 
-    class MyProcess(mp.Process):
+    class RealTimeWorker(mp.Process):
 
         def __init__(self, producerQ, consumerQ):
-            mp.Process.__init__(self)
+            super(RealTimeWorker, self).__init__()
+
             self.inputQ = producerQ
             self.outputQ = consumerQ
+
+            # win32com.client를 multiprocessing과 연동시키는 방법필요
+            #self.connection = XASession(parent=self)
+
             self.exit = mp.Event()
 
         def run(self):
@@ -2264,21 +2270,6 @@ if MULTIPROCESS:
             self.exit.set()            
 else:
     pass
-########################################################################################################################
-# 실시간 멀티프로세스 함수
-########################################################################################################################
-'''
-def get_realdata(p_queue, c_queue):
-
-    # 객체생성
-    get_real = MultiProcess_RealTime_Data_Worker(p_queue, c_queue)
-
-    # 실시간요청은 클래스메소드로 수행
-    #MultiProcess_RealTime_Data_Worker.AdviseRealDataAll()
-
-    # 실시간수신
-    #get_real.run()
-'''
 ########################################################################################################################
 # 옵션전광판 UI Class
 ########################################################################################################################
@@ -23184,6 +23175,33 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.close()
         self.parent.OnChildDialogCloseEvent('Score Board')
+########################################################################################################################
+# RealTime Item UI Class
+########################################################################################################################
+if UI_HIDE:
+        import realtimeitem_ui
+        Ui_RealTimeItem = realtimeitem_ui.Ui_Dialog   
+else:
+    Ui_RealTimeItem, QtBaseClass_RealTimeItem = uic.loadUiType(UI_DIR + realtimeitem_ui_type)
+########################################################################################################################
+class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
+
+    def __init__(self, parent=None):
+
+        super(화면_RealTimeItem, self).__init__(parent, flags = Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
+        self.setAttribute(Qt.WA_DeleteOnClose)
+        
+        self.setupUi(self)
+        self.parent = parent
+
+        # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
+        #atexit.register(self.__del__) 
+        
+        # 현재화면의 중앙에 표시
+        qr = self.frameGeometry()
+        qr.moveCenter(self.parent.centerPoint)
+        self.move(qr.topLeft())     
+        self.showNormal()  
 
 #####################################################################################################################################################################
 # Big Chart Update Thread
@@ -34612,6 +34630,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.dialog['선물옵션전광판'] = None
         self.dialog['BigChart'] = None
+        self.dialog['RealTimeItem'] = None
         self.dialog['Version'] = None
 
         self.id = ''
@@ -34825,7 +34844,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
             
             # 옵션전광판 자동시작
-                                                   
+            '''                                       
             if AUTO_START:
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
@@ -34836,7 +34855,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].RunCode()
             else:
                 pass
-                                               
+            '''                                   
         else:
             self.statusbar.showMessage("%s %s" % (code, msg))
 
@@ -35000,6 +35019,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.textBrowser.append(txt)
 
         # 설정(추후 구현)
+        if _action == "actionRealTimeItem":
+            
+            if self.dialog.get('RealTimeItem') is not None:
+
+                try:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] RealTime Item Dialog를 표시합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+
+                    self.dialog['RealTimeItem'].show()
+                except Exception as e:
+                    self.dialog['RealTimeItem'] = 화면_RealTimeItem(parent=self)
+                    self.dialog['RealTimeItem'].show()
+            else:
+                self.dialog['RealTimeItem'] = 화면_RealTimeItem(parent=self)
+                self.dialog['RealTimeItem'].show()
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] RealTime Item Dialog를 생성합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
         
         # 사용법
         if _action == "actionMustRead":
@@ -35062,8 +35099,9 @@ if __name__ == "__main__":
         consumerQ = mp.Queue()
         
         # 멀티프로세스
-        myprocess = MyProcess(producerQ, consumerQ)
+        myprocess = RealTimeWorker(producerQ, consumerQ)
         myprocess.start()
+        #myprocess.login()
     else:
         pass
     
