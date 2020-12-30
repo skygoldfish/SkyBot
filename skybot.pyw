@@ -24917,9 +24917,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_13.setText(" - ")
             self.label_14.setText(" - ")
             self.label_15.setText(" - ")
-            self.label_16.setText(" - ")
+            self.label_16.setText(" 본월물 최소, 평균, 최대 ")
             self.label_17.setText(" 본월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
-            self.label_18.setText(" - ")
+            self.label_18.setText(" 차월물 최소, 평균, 최대 ")
             
             self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p1_2.setText(" BB Middle\n PSAR ")
@@ -25982,9 +25982,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_23.setText(" - ")
             self.label_24.setText(" - ")
             self.label_25.setText(" - ")
-            self.label_26.setText(" - ")
+            self.label_26.setText(" 본월물 최소, 평균, 최대 ")
             self.label_27.setText(" 본월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
-            self.label_28.setText(" - ")
+            self.label_28.setText(" 차월물 최소, 평균, 최대 ")
             
             self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p2_2.setText(" BB Middle\n PSAR ")
@@ -26861,9 +26861,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_33.setText(" - ")
             self.label_34.setText(" - ")
             self.label_35.setText(" - ")
-            self.label_36.setText(" - ")
+            self.label_36.setText(" 본월물 최소, 평균, 최대 ")
             self.label_37.setText(" 본월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
-            self.label_38.setText(" - ")
+            self.label_38.setText(" 차월물 최소, 평균, 최대 ")
             
             self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p3_2.setText(" BB Middle\n PSAR ")
@@ -27602,9 +27602,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_43.setText(" - ")
             self.label_44.setText(" - ")
             self.label_45.setText(" - ")
-            self.label_46.setText(" - ")
+            self.label_46.setText(" 본월물 최소, 평균, 최대 ")
             self.label_47.setText(" 본월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
-            self.label_48.setText(" - ")
+            self.label_48.setText(" 차월물 최소, 평균, 최대 ")
             
             self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p4_2.setText(" BB Middle\n PSAR ")
@@ -28672,9 +28672,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_53.setText(" - ")
             self.label_54.setText(" - ")
             self.label_55.setText(" - ")
-            self.label_56.setText(" - ")
+            self.label_56.setText(" 본월물 최소, 평균, 최대 ")
             self.label_57.setText(" 본월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
-            self.label_58.setText(" - ")
+            self.label_58.setText(" 차월물 최소, 평균, 최대 ")
             
             self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p5_2.setText(" BB Middle\n PSAR ")
@@ -29551,9 +29551,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_63.setText(" - ")
             self.label_64.setText(" - ")
             self.label_65.setText(" - ")
-            self.label_66.setText(" - ")
+            self.label_66.setText(" 본월물 최소, 평균, 최대 ")
             self.label_67.setText(" 본월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
-            self.label_68.setText(" - ")
+            self.label_68.setText(" 차월물 최소, 평균, 최대 ")
             
             self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p6_2.setText(" BB Middle\n PSAR ")
@@ -30294,6 +30294,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot1_time_line.setValue(ovc_x_idx)
 
+                txt = 'min: {0:.2f}, mean: {1:.2f}, max: {2:.2f}'.format(df_futures_graph['c_hoga_remainder_ratio'].min(), df_futures_graph['c_hoga_remainder_ratio'].mean(), df_futures_graph['c_hoga_remainder_ratio'].max())
+                self.label_16.setText(txt)
+
                 txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
                     fut_hoga_rr, df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
                     fut_cms_hoga_rr, df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
@@ -30307,6 +30310,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                 self.label_17.setText(txt)
+
+                txt = 'min: {0:.2f}, mean: {1:.2f}, max: {2:.2f}'.format(df_futures_graph['n_hoga_remainder_ratio'].min(), df_futures_graph['n_hoga_remainder_ratio'].mean(), df_futures_graph['n_hoga_remainder_ratio'].max())
+                self.label_18.setText(txt)
 
                 self.plot1_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'].to_numpy())
                 self.plot1_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'].to_numpy())
@@ -31074,6 +31080,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot2_time_line.setValue(ovc_x_idx)
 
+                txt = 'min: {0:.2f}, meam: {1:.2f}, max: {2:.2f}'.format(df_futures_graph['c_hoga_remainder_ratio'].min(), df_futures_graph['c_hoga_remainder_ratio'].mean(), df_futures_graph['c_hoga_remainder_ratio'].max())
+                self.label_26.setText(txt)
+
                 txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
                     fut_hoga_rr, df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
                     fut_cms_hoga_rr, df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
@@ -31087,6 +31096,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                 self.label_27.setText(txt)
+
+                txt = 'min: {0:.2f}, mean: {1:.2f}, max: {2:.2f}'.format(df_futures_graph['n_hoga_remainder_ratio'].min(), df_futures_graph['n_hoga_remainder_ratio'].mean(), df_futures_graph['n_hoga_remainder_ratio'].max())
+                self.label_28.setText(txt)
 
                 self.plot2_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'].to_numpy())
                 self.plot2_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'].to_numpy())
@@ -31766,6 +31778,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot3_time_line.setValue(ovc_x_idx)
 
+                txt = 'min: {0:.2f}, meam: {1:.2f}, max: {2:.2f}'.format(df_futures_graph['c_hoga_remainder_ratio'].min(), df_futures_graph['c_hoga_remainder_ratio'].mean(), df_futures_graph['c_hoga_remainder_ratio'].max())
+                self.label_36.setText(txt)
+
                 txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
                     fut_hoga_rr, df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
                     fut_cms_hoga_rr, df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
@@ -31779,6 +31794,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                 self.label_37.setText(txt)
+
+                txt = 'min: {0:.2f}, mean: {1:.2f}, max: {2:.2f}'.format(df_futures_graph['n_hoga_remainder_ratio'].min(), df_futures_graph['n_hoga_remainder_ratio'].mean(), df_futures_graph['n_hoga_remainder_ratio'].max())
+                self.label_38.setText(txt)
 
                 self.plot3_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'].to_numpy())
                 self.plot3_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'].to_numpy())
@@ -32416,6 +32434,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot4_time_line.setValue(ovc_x_idx)
 
+                txt = 'min: {0:.2f}, meam: {1:.2f}, max: {2:.2f}'.format(df_futures_graph['c_hoga_remainder_ratio'].min(), df_futures_graph['c_hoga_remainder_ratio'].mean(), df_futures_graph['c_hoga_remainder_ratio'].max())
+                self.label_46.setText(txt)
+
                 txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
                     fut_hoga_rr, df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
                     fut_cms_hoga_rr, df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
@@ -32429,6 +32450,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                 self.label_47.setText(txt)
+
+                txt = 'min: {0:.2f}, mean: {1:.2f}, max: {2:.2f}'.format(df_futures_graph['n_hoga_remainder_ratio'].min(), df_futures_graph['n_hoga_remainder_ratio'].mean(), df_futures_graph['n_hoga_remainder_ratio'].max())
+                self.label_48.setText(txt)
 
                 self.plot4_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'].to_numpy())
                 self.plot4_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'].to_numpy())
@@ -33196,6 +33220,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot5_time_line.setValue(ovc_x_idx)
 
+                txt = 'min: {0:.2f}, meam: {1:.2f}, max: {2:.2f}'.format(df_futures_graph['c_hoga_remainder_ratio'].min(), df_futures_graph['c_hoga_remainder_ratio'].mean(), df_futures_graph['c_hoga_remainder_ratio'].max())
+                self.label_56.setText(txt)
+
                 txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
                     fut_hoga_rr, df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
                     fut_cms_hoga_rr, df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
@@ -33209,6 +33236,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                 self.label_57.setText(txt)
+
+                txt = 'min: {0:.2f}, mean: {1:.2f}, max: {2:.2f}'.format(df_futures_graph['n_hoga_remainder_ratio'].min(), df_futures_graph['n_hoga_remainder_ratio'].mean(), df_futures_graph['n_hoga_remainder_ratio'].max())
+                self.label_58.setText(txt)
 
                 self.plot5_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'].to_numpy())
                 self.plot5_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'].to_numpy())
@@ -33881,6 +33911,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot6_time_line.setValue(ovc_x_idx)
 
+                txt = 'min: {0:.2f}, meam: {1:.2f}, max: {2:.2f}'.format(df_futures_graph['c_hoga_remainder_ratio'].min(), df_futures_graph['c_hoga_remainder_ratio'].mean(), df_futures_graph['c_hoga_remainder_ratio'].max())
+                self.label_66.setText(txt)
+
                 txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
                     fut_hoga_rr, df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
                     fut_cms_hoga_rr, df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
@@ -33894,6 +33927,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                 self.label_67.setText(txt)
+
+                txt = 'min: {0:.2f}, mean: {1:.2f}, max: {2:.2f}'.format(df_futures_graph['n_hoga_remainder_ratio'].min(), df_futures_graph['n_hoga_remainder_ratio'].mean(), df_futures_graph['n_hoga_remainder_ratio'].max())
+                self.label_68.setText(txt)
 
                 self.plot6_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'].to_numpy())
                 self.plot6_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'].to_numpy())
