@@ -64,8 +64,6 @@
     <property name="title">
      <string>도움말</string>
     </property>
-    <addaction name="actionMustRead"/>
-    <addaction name="actionUsage"/>
     <addaction name="actionVersion"/>
    </widget>
    <widget class="QMenu" name="menu_1">
@@ -148,16 +146,6 @@
    </property>
    <property name="text">
     <string>계좌조회</string>
-   </property>
-  </action>
-  <action name="actionUsage">
-   <property name="text">
-    <string>사용법</string>
-   </property>
-  </action>
-  <action name="actionMustRead">
-   <property name="text">
-    <string>꼭 읽어보세요</string>
    </property>
   </action>
   <action name="actionVersion">

@@ -2246,28 +2246,7 @@ else:
 ########################################################################################################################
 if MULTIPROCESS:
 
-    class RealTimeWorker(mp.Process):
-
-        def __init__(self, producerQ, consumerQ):
-            super(RealTimeWorker, self).__init__()
-
-            self.inputQ = producerQ
-            self.outputQ = consumerQ
-
-            # win32com.client를 multiprocessing과 연동시키는 방법필요
-            #self.connection = XASession(parent=self)
-
-            self.exit = mp.Event()
-
-        def run(self):
-            while not self.exit.is_set():
-                pass
-                #print('process is alive...')
-            print("You exited!")
-
-        def shutdown(self):
-            print("Shutdown initiated")
-            self.exit.set()            
+    pass  
 else:
     pass
 ########################################################################################################################
@@ -21437,14 +21416,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'] = result['매수호가총수량']
                     df_futures_graph.at[ovc_x_idx, 'c_md_hoga'] = result['매도호가총수량']
 
-                    if result['매도호가총수량'] > 0:
-
+                    if result['매수호가총수량'] > 0 and result['매도호가총수량'] > 0:
                         fut_hoga_rr = result['매수호가총수량'] / result['매도호가총수량']
-
-                        if fut_hoga_rr > 10.0:
-                            df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'] = 10.0
-                        else:
-                            df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'] = fut_hoga_rr                        
+                        df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'] = fut_hoga_rr                         
                     else:
                         pass
 
@@ -21492,13 +21466,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'] = result['매수호가총수량']
                     df_futures_graph.at[ovc_x_idx, 'n_md_hoga'] = result['매도호가총수량']
 
-                    if result['매도호가총수량'] > 0:
+                    if result['매수호가총수량'] > 0 and result['매도호가총수량'] > 0:
                         fut_cms_hoga_rr = result['매수호가총수량'] / result['매도호가총수량']
-
-                        if fut_cms_hoga_rr > 10.0:
-                            df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'] = 10.0
-                        else:
-                            df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'] = fut_cms_hoga_rr
+                        df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'] = fut_cms_hoga_rr
                     else:
                         pass
                 
@@ -35074,6 +35044,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] RealTime Item Dialog를 생성합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
         
+        '''
         # 사용법
         if _action == "actionMustRead":
             print('must read...')
@@ -35083,7 +35054,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if _action == "actionUsage":
             pass
             #webbrowser.open('https://docs.google.com/document/d/1BGENxWqJyZdihQFuWcmTNy3_4J0kHolCc-qcW3RULzs/edit')
-
+        '''
+        
         if _action == "actionVersion":
             if self.dialog.get('Version') is not None:
                 try:
@@ -35127,6 +35099,8 @@ if __name__ == "__main__":
     
     # 멀티프로세스
     if MULTIPROCESS:
+
+        from RealTimeWorker import RealTimeWorker   
         
         # pyinstaller로 실행파일 만들때 필요함
         mp.freeze_support()
