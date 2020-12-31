@@ -318,6 +318,7 @@ NM_OPT_PRICE = parser.getboolean('RealTime Request Item Switch', 'Next Month Opt
 NM_OPT_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Next Month Option Quote')
 NM_OPT_10_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Next Month Option 10 Quote')
 SUPPLY_DEMAND = parser.getboolean('RealTime Request Item Switch', 'Supply & Demand')
+DOW_CHK = parser.getboolean('RealTime Request Item Switch', 'DOW')
 SP500_CHK = parser.getboolean('RealTime Request Item Switch', 'S&P 500')
 NASDAQ_CHK = parser.getboolean('RealTime Request Item Switch', 'NASDAQ')
 WTI_CHK = parser.getboolean('RealTime Request Item Switch', 'WTI OIL')
@@ -832,6 +833,16 @@ flag_clear = False
 
 진성맥점 = []
 
+FUT_CODE = ''
+GMSHCODE = ''
+CMSHCODE = ''
+CCMSHCODE = ''
+
+CM_CALL_CODE = []
+CM_PUT_CODE = []
+NM_CALL_CODE = []
+NM_PUT_CODE = []
+
 # 업종코드
 KOSPI = '001'
 KOSPI200 = '101'
@@ -1163,19 +1174,14 @@ flag_call_high_coreval = False
 flag_put_low_coreval = False
 flag_put_high_coreval = False
 
-fut_code = ''
-gmshcode = ''
-cmshcode = ''
-ccmshcode = ''
-
 call_atm_value = 0
 put_atm_value = 0
 
 atm_zero_sum = 0
 atm_zero_cha = 0
 
-cm_opt_length = 0
-nm_opt_length = 0
+CM_OPT_LENGTH = 0
+NM_OPT_LENGTH = 0
 
 CM_OPTCODE = ''
 NM_OPTCODE = ''
@@ -1235,7 +1241,7 @@ put_cell_widget = []
 
 atm_str = ''
 atm_val = 0
-atm_index = 0
+ATM_INDEX = 0
 old_atm_index = 0
 yj_atm_index = 0
 jgubun = ''
@@ -1986,6 +1992,11 @@ class ScreenUpdateWorker(QThread):
 
     finished = pyqtSignal(str)
 
+    def __init__(self):
+        super().__init__()
+
+        self.daemon = True
+
     def run(self):
 
         while True:
@@ -2002,6 +2013,11 @@ class TelegramSendWorker(QThread):
 
     finished = pyqtSignal(str)
 
+    def __init__(self):
+        super().__init__()
+
+        self.daemon = True
+
     def run(self):
 
         while True:
@@ -2016,6 +2032,11 @@ class TelegramSendWorker(QThread):
 class TelegramListenWorker(QThread):
 
     finished = pyqtSignal(str)
+
+    def __init__(self):
+        super().__init__()
+
+        self.daemon = True
 
     def run(self):
 
@@ -2034,6 +2055,9 @@ if not MULTIPROCESS:
 
         def __init__(self, producerQ, consumerQ):
             super().__init__()
+
+            self.daemon = True
+
             self.producerQ = producerQ
             self.consumerQ = consumerQ
 
@@ -2100,6 +2124,7 @@ if not MULTIPROCESS:
             elif type == 'FUT_REAL':
                 # 선물 실시간 가격 요청
                 self.FUT_REAL.AdviseRealData(code)
+                print('선물요청...')
 
             elif type == 'FUT_HO':
                 # 선물 실시간 호가 요청
@@ -2131,7 +2156,7 @@ if not MULTIPROCESS:
             else:
                 pass
 
-        def CancelRealDataRequest(self, type):
+        def CancelRealDataRequest(self, type, code):
 
             if type == 'JIF':
                 # 장운영 정보 요청취소
@@ -2187,6 +2212,8 @@ if not MULTIPROCESS:
 
             elif type == 'OVC':
                 # 해외선물 체결가격 실시간 요청취소
+                # 개별항목 취소가 안됨!!!
+                #self.OVC.UnadviseRealDataWithKey(code)
                 self.OVC.UnadviseRealData()
 
             elif type == 'NWS':
@@ -2286,11 +2313,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         self.call_code = []
         self.put_code = []
-
-        self.cm_call_code = []
-        self.cm_put_code = []
-        self.nm_call_code = []
-        self.nm_put_code = []
         
         self.opt_total_actval_list = []
         self.call_open_list = []
@@ -2300,7 +2322,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         atexit.register(self.__del__)     
         
         global TARGET_MONTH_SELECT, MONTH_FIRSTDAY
-        global widget_title, CURRENT_MONTH, NEXT_MONTH, MONTH_AFTER_NEXT, SP500, DOW, NASDAQ, fut_code
+        global widget_title, CURRENT_MONTH, NEXT_MONTH, MONTH_AFTER_NEXT, SP500, DOW, NASDAQ, FUT_CODE
         global KSE_START_HOUR        
         global call_node_state, put_node_state, COREVAL
 
@@ -2310,7 +2332,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             self.realtime_data_worker = RealTimeDataWorker(self.producerQ, self.consumerQ)
             self.realtime_data_worker.trigger.connect(self.realdata_update)        
-            self.realtime_data_worker.daemon = True
+            #self.realtime_data_worker.daemon = True
         else:
             pass
 
@@ -2325,23 +2347,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.screen_update_worker = ScreenUpdateWorker()
         self.screen_update_worker.finished.connect(self.update_screen)
-        self.screen_update_worker.daemon = True
+        #self.screen_update_worker.daemon = True
         
         self.telegram_send_worker = TelegramSendWorker()
         self.telegram_send_worker.finished.connect(self.send_telegram_message)
-        self.telegram_send_worker.daemon = True
+        #self.telegram_send_worker.daemon = True
 
         self.telegram_listen_worker = TelegramListenWorker()
         self.telegram_listen_worker.finished.connect(self.listen_telegram_message)
-        self.telegram_listen_worker.daemon = True
+        #self.telegram_listen_worker.daemon = True
         
-        # 실시간 멀티프로세스
-        '''
-        get_realdata.trigger.connect(self.process_realdata)        
-        m_process = Process(name="producer", target=get_realdata, args=(self.producerQ, self.consumerQ, ), daemon=True)
-        #m_process = MultiProcess_RealTime_Data_Worker(self.producerQ, self.consumerQ)
-        m_process.start()       
-        '''
         self.상태그림 = ['▼', '▬', '▲']
         self.상태문자 = ['매도', '대기', '매수']
         self.특수문자 = \
@@ -3100,7 +3115,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 화면 갱신주기를 {3:.1f}초 --> {4:.1f}초로 늘립니다.\r'.format(adj_hour, adj_min, adj_sec, MAIN_UPDATE_INTERVAL / 1000, scoreboard_update_interval / 1000)
             self.textBrowser.append(txt)            
-                        
+            '''            
             if not NightTime:
                 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] S3, BM, PM요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
@@ -3119,14 +3134,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if not MULTIPROCESS:
                     self.realtime_data_worker.CancelRealDataRequest('OPT_HO')
 
-                    for i in range(atm_index - 5, atm_index + 5 + 1):
+                    for i in range(ATM_INDEX - 5, ATM_INDEX + 5 + 1):
                         self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.call_code[i])
                         self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.put_code[i])
                 else:
                     pass
             else:
                 pass            
-
+            '''
             txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 중지합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(txt)
 
@@ -3152,7 +3167,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             scoreboard_update_interval = MAIN_UPDATE_INTERVAL
             plot_update_interval = BIGCHART_UPDATE_INTERVAL
-            
+            '''
             if not NightTime:
                 txt = '[{0:02d}:{1:02d}:{2:02d}] S3, BM, PM을 재요청합니다.\r'.format(adj_hour, adj_min, adj_sec)
                 self.textBrowser.append(txt)
@@ -3176,14 +3191,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass   
             else:
                 pass            
-            
+            '''
             txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 재기동합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(txt)
             
-            #self.telegram_send_worker.daemon = True
             self.telegram_send_worker.start()
             
-            #self.telegram_listen_worker.daemon = True
             self.telegram_listen_worker.start()
 
             self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
@@ -3504,11 +3517,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if atm_str != '':
 
-                if row < atm_index:
+                if row < ATM_INDEX:
 
-                    call_positionCell = self.tableWidget_call.item(atm_index + 9, 1)
+                    call_positionCell = self.tableWidget_call.item(ATM_INDEX + 9, 1)
                 else:
-                    call_positionCell = self.tableWidget_call.item(atm_index - 9, 1)
+                    call_positionCell = self.tableWidget_call.item(ATM_INDEX - 9, 1)
 
                 self.tableWidget_call.scrollToItem(call_positionCell)
 
@@ -3538,11 +3551,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if atm_str != '':
 
-                if row < atm_index:
+                if row < ATM_INDEX:
 
-                    put_positionCell = self.tableWidget_put.item(atm_index + 20, 1)
+                    put_positionCell = self.tableWidget_put.item(ATM_INDEX + 20, 1)
                 else:
-                    put_positionCell = self.tableWidget_put.item(atm_index - 9, 1)
+                    put_positionCell = self.tableWidget_put.item(ATM_INDEX - 9, 1)
 
                 self.tableWidget_put.scrollToItem(put_positionCell)
             else:
@@ -4400,15 +4413,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if self.parent.dialog['RealTimeItem'] is not None and self.parent.dialog['RealTimeItem'].flag_realtimeitem_open:
-
-            if self.parent.dialog['RealTimeItem'].flag_checkBox_cm_fut_price:
-                print('checkBox_cm_fut_price... checked... at update')
-            else:
-                print('checkBox_cm_fut_price... unchecked... at update')
-        else:
-            pass
-
         try:
             flag_screen_update_is_running = True
 
@@ -4574,18 +4578,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     # t8416 선물요청
                     if TARGET_MONTH_SELECT == 'CM':
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 본월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, gmshcode)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 본월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, GMSHCODE)
                         self.textBrowser.append(txt)
                         print(txt)
 
-                        self.t8416_fut_request(gmshcode)
+                        self.t8416_fut_request(GMSHCODE)
 
                     elif TARGET_MONTH_SELECT == 'NM':
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 차월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, cmshcode)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 차월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, CMSHCODE)
                         self.textBrowser.append(txt)
                         print(txt)
 
-                        self.t8416_fut_request(cmshcode)
+                        self.t8416_fut_request(CMSHCODE)
                     else:
                         pass
                 else:
@@ -5767,7 +5771,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def display_atm(self, blink):
 
         global basis
-        global atm_str, atm_index, old_atm_index, call_atm_value, put_atm_value 
+        global atm_str, ATM_INDEX, old_atm_index, call_atm_value, put_atm_value 
         global atm_zero_sum, atm_zero_cha
         
         global CENTER_VAL, df_call_information_graph 
@@ -5775,54 +5779,54 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.datetime.now()
         
         # 등가 check & coloring        
-        old_atm_index = atm_index
+        old_atm_index = ATM_INDEX
 
         atm_str = self.get_atm_str(self.fut_realdata['KP200'])
-        atm_index = opt_actval.index(atm_str)
+        ATM_INDEX = opt_actval.index(atm_str)
         
-        if atm_index != old_atm_index:
+        if ATM_INDEX != old_atm_index:
 
             self.tableWidget_call.item(old_atm_index, Option_column.행사가.value).setBackground(QBrush(라임))
             self.tableWidget_call.item(old_atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
             self.tableWidget_call.cellWidget(old_atm_index, 0).findChild(type(QCheckBox())).setChecked(Qt.Unchecked)
-            self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
-            self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-            self.tableWidget_call.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setChecked(Qt.Checked)
+            self.tableWidget_call.item(ATM_INDEX, Option_column.행사가.value).setBackground(QBrush(노란색))
+            self.tableWidget_call.item(ATM_INDEX, Option_column.행사가.value).setForeground(QBrush(검정색))
+            self.tableWidget_call.cellWidget(ATM_INDEX, 0).findChild(type(QCheckBox())).setChecked(Qt.Checked)
 
             self.tableWidget_put.item(old_atm_index, Option_column.행사가.value).setBackground(QBrush(라임))
             self.tableWidget_put.item(old_atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
             self.tableWidget_put.cellWidget(old_atm_index, 0).findChild(type(QCheckBox())).setChecked(Qt.Unchecked)
-            self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
-            self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-            self.tableWidget_put.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setChecked(Qt.Checked)
+            self.tableWidget_put.item(ATM_INDEX, Option_column.행사가.value).setBackground(QBrush(노란색))
+            self.tableWidget_put.item(ATM_INDEX, Option_column.행사가.value).setForeground(QBrush(검정색))
+            self.tableWidget_put.cellWidget(ATM_INDEX, 0).findChild(type(QCheckBox())).setChecked(Qt.Checked)
 
-            selected_call = [atm_index]
-            selected_put = [atm_index]
+            selected_call = [ATM_INDEX]
+            selected_put = [ATM_INDEX]
         else:
             pass
 
         basis = round((self.fut_realdata['현재가'] - self.fut_realdata['KP200']), 2)
 
-        call_atm_value = df_call.at[atm_index, '현재가']
-        put_atm_value = df_put.at[atm_index, '현재가']
+        call_atm_value = df_call.at[ATM_INDEX, '현재가']
+        put_atm_value = df_put.at[ATM_INDEX, '현재가']
 
-        atm_minus_5 = round((df_call.at[atm_index - 5, '현재가'] + df_put.at[atm_index - 5, '현재가']), 2)
-        atm_minus_4 = round((df_call.at[atm_index - 4, '현재가'] + df_put.at[atm_index - 4, '현재가']), 2)   
-        atm_minus_3 = round((df_call.at[atm_index - 3, '현재가'] + df_put.at[atm_index - 3, '현재가']), 2)
-        atm_minus_2 = round((df_call.at[atm_index - 2, '현재가'] + df_put.at[atm_index - 2, '현재가']), 2)
-        atm_minus_1 = round((df_call.at[atm_index - 1, '현재가'] + df_put.at[atm_index - 1, '현재가']) , 2)
-        atm_zero_sum = round((df_call.at[atm_index, '현재가'] + df_put.at[atm_index, '현재가']) , 2)
+        atm_minus_5 = round((df_call.at[ATM_INDEX - 5, '현재가'] + df_put.at[ATM_INDEX - 5, '현재가']), 2)
+        atm_minus_4 = round((df_call.at[ATM_INDEX - 4, '현재가'] + df_put.at[ATM_INDEX - 4, '현재가']), 2)   
+        atm_minus_3 = round((df_call.at[ATM_INDEX - 3, '현재가'] + df_put.at[ATM_INDEX - 3, '현재가']), 2)
+        atm_minus_2 = round((df_call.at[ATM_INDEX - 2, '현재가'] + df_put.at[ATM_INDEX - 2, '현재가']), 2)
+        atm_minus_1 = round((df_call.at[ATM_INDEX - 1, '현재가'] + df_put.at[ATM_INDEX - 1, '현재가']) , 2)
+        atm_zero_sum = round((df_call.at[ATM_INDEX, '현재가'] + df_put.at[ATM_INDEX, '현재가']) , 2)
 
         if call_atm_value >= put_atm_value:
             atm_zero_cha = round((call_atm_value - put_atm_value) , 2)
         else:
             atm_zero_cha = round((put_atm_value - call_atm_value) , 2)
 
-        atm_plus_1 = round((df_call.at[atm_index + 1, '현재가'] + df_put.at[atm_index + 1, '현재가']) , 2)
-        atm_plus_2 = round((df_call.at[atm_index + 2, '현재가'] + df_put.at[atm_index + 2, '현재가']) , 2)
-        atm_plus_3 = round((df_call.at[atm_index + 3, '현재가'] + df_put.at[atm_index + 3, '현재가']) , 2)
-        atm_plus_4 = round((df_call.at[atm_index + 4, '현재가'] + df_put.at[atm_index + 4, '현재가']) , 2)
-        atm_plus_5 = round((df_call.at[atm_index + 5, '현재가'] + df_put.at[atm_index + 5, '현재가']) , 2)             
+        atm_plus_1 = round((df_call.at[ATM_INDEX + 1, '현재가'] + df_put.at[ATM_INDEX + 1, '현재가']) , 2)
+        atm_plus_2 = round((df_call.at[ATM_INDEX + 2, '현재가'] + df_put.at[ATM_INDEX + 2, '현재가']) , 2)
+        atm_plus_3 = round((df_call.at[ATM_INDEX + 3, '현재가'] + df_put.at[ATM_INDEX + 3, '현재가']) , 2)
+        atm_plus_4 = round((df_call.at[ATM_INDEX + 4, '현재가'] + df_put.at[ATM_INDEX + 4, '현재가']) , 2)
+        atm_plus_5 = round((df_call.at[ATM_INDEX + 5, '현재가'] + df_put.at[ATM_INDEX + 5, '현재가']) , 2)             
 
         if FLAG_ATM:            
 
@@ -5872,178 +5876,178 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         atm_list.append(atm_plus_4)
         atm_list.append(atm_plus_5)   
 
-        min_index = atm_list.index(min(atm_list)) + atm_index - 5
+        min_index = atm_list.index(min(atm_list)) + ATM_INDEX - 5
 
         #중심가 계산
-        CENTER_VAL_PLUS5 = round((df_call.at[atm_index - 5, '현재가'] + df_put.at[atm_index - 5, '현재가'])/2, 2)
-        CENTER_VAL_PLUS4 = round((df_call.at[atm_index - 4, '현재가'] + df_put.at[atm_index - 4, '현재가'])/2, 2)
-        CENTER_VAL_PLUS3 = round((df_call.at[atm_index - 3, '현재가'] + df_put.at[atm_index - 3, '현재가'])/2, 2)
-        CENTER_VAL_PLUS2 = round((df_call.at[atm_index - 2, '현재가'] + df_put.at[atm_index - 2, '현재가'])/2, 2)
-        CENTER_VAL_PLUS1 = round((df_call.at[atm_index - 1, '현재가'] + df_put.at[atm_index - 1, '현재가'])/2 , 2)
+        CENTER_VAL_PLUS5 = round((df_call.at[ATM_INDEX - 5, '현재가'] + df_put.at[ATM_INDEX - 5, '현재가'])/2, 2)
+        CENTER_VAL_PLUS4 = round((df_call.at[ATM_INDEX - 4, '현재가'] + df_put.at[ATM_INDEX - 4, '현재가'])/2, 2)
+        CENTER_VAL_PLUS3 = round((df_call.at[ATM_INDEX - 3, '현재가'] + df_put.at[ATM_INDEX - 3, '현재가'])/2, 2)
+        CENTER_VAL_PLUS2 = round((df_call.at[ATM_INDEX - 2, '현재가'] + df_put.at[ATM_INDEX - 2, '현재가'])/2, 2)
+        CENTER_VAL_PLUS1 = round((df_call.at[ATM_INDEX - 1, '현재가'] + df_put.at[ATM_INDEX - 1, '현재가'])/2 , 2)
         
-        CENTER_VAL_MINUS1 = round((df_call.at[atm_index + 1, '현재가'] + df_put.at[atm_index + 1, '현재가'])/2 , 2)
-        CENTER_VAL_MINUS2 = round((df_call.at[atm_index + 2, '현재가'] + df_put.at[atm_index + 2, '현재가'])/2 , 2)
-        CENTER_VAL_MINUS3 = round((df_call.at[atm_index + 3, '현재가'] + df_put.at[atm_index + 3, '현재가'])/2 , 2)
-        CENTER_VAL_MINUS4 = round((df_call.at[atm_index + 4, '현재가'] + df_put.at[atm_index + 4, '현재가'])/2 , 2)
-        CENTER_VAL_MINUS5 = round((df_call.at[atm_index + 5, '현재가'] + df_put.at[atm_index + 5, '현재가'])/2 , 2)
+        CENTER_VAL_MINUS1 = round((df_call.at[ATM_INDEX + 1, '현재가'] + df_put.at[ATM_INDEX + 1, '현재가'])/2 , 2)
+        CENTER_VAL_MINUS2 = round((df_call.at[ATM_INDEX + 2, '현재가'] + df_put.at[ATM_INDEX + 2, '현재가'])/2 , 2)
+        CENTER_VAL_MINUS3 = round((df_call.at[ATM_INDEX + 3, '현재가'] + df_put.at[ATM_INDEX + 3, '현재가'])/2 , 2)
+        CENTER_VAL_MINUS4 = round((df_call.at[ATM_INDEX + 4, '현재가'] + df_put.at[ATM_INDEX + 4, '현재가'])/2 , 2)
+        CENTER_VAL_MINUS5 = round((df_call.at[ATM_INDEX + 5, '현재가'] + df_put.at[ATM_INDEX + 5, '현재가'])/2 , 2)
 
         # 콜에 중심가 표시
-        val = df_call.at[atm_index - 5, '기준가']
+        val = df_call.at[ATM_INDEX - 5, '기준가']
         item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS5))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
-        self.tableWidget_call.setItem(atm_index - 5, Option_column.기준가.value, item) 
+        self.tableWidget_call.setItem(ATM_INDEX - 5, Option_column.기준가.value, item) 
 
-        val = df_call.at[atm_index - 4, '기준가']
+        val = df_call.at[ATM_INDEX - 4, '기준가']
         item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS4))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
-        self.tableWidget_call.setItem(atm_index - 4, Option_column.기준가.value, item) 
+        self.tableWidget_call.setItem(ATM_INDEX - 4, Option_column.기준가.value, item) 
 
-        val = df_call.at[atm_index - 3, '기준가']
+        val = df_call.at[ATM_INDEX - 3, '기준가']
         item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS3))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
-        self.tableWidget_call.setItem(atm_index - 3, Option_column.기준가.value, item) 
+        self.tableWidget_call.setItem(ATM_INDEX - 3, Option_column.기준가.value, item) 
 
-        val = df_call.at[atm_index - 2, '기준가']
+        val = df_call.at[ATM_INDEX - 2, '기준가']
         item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS2))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
-        self.tableWidget_call.setItem(atm_index - 2, Option_column.기준가.value, item)  
+        self.tableWidget_call.setItem(ATM_INDEX - 2, Option_column.기준가.value, item)  
 
-        val = df_call.at[atm_index - 1, '기준가']
+        val = df_call.at[ATM_INDEX - 1, '기준가']
         item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS1))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
-        self.tableWidget_call.setItem(atm_index - 1, Option_column.기준가.value, item)            
+        self.tableWidget_call.setItem(ATM_INDEX - 1, Option_column.기준가.value, item)            
 
-        val = df_call.at[atm_index, '기준가']
+        val = df_call.at[ATM_INDEX, '기준가']
         item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(노란색))
         item.setForeground(QBrush(검정색))
-        self.tableWidget_call.setItem(atm_index, Option_column.기준가.value, item)            
+        self.tableWidget_call.setItem(ATM_INDEX, Option_column.기준가.value, item)            
 
-        val = df_call.at[atm_index + 1, '기준가']
+        val = df_call.at[ATM_INDEX + 1, '기준가']
         item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS1))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
-        self.tableWidget_call.setItem(atm_index + 1, Option_column.기준가.value, item)
+        self.tableWidget_call.setItem(ATM_INDEX + 1, Option_column.기준가.value, item)
 
-        val = df_call.at[atm_index + 2, '기준가']
+        val = df_call.at[ATM_INDEX + 2, '기준가']
         item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS2))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
-        self.tableWidget_call.setItem(atm_index + 2, Option_column.기준가.value, item)
+        self.tableWidget_call.setItem(ATM_INDEX + 2, Option_column.기준가.value, item)
 
-        val = df_call.at[atm_index + 3, '기준가']
+        val = df_call.at[ATM_INDEX + 3, '기준가']
         item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS3))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
-        self.tableWidget_call.setItem(atm_index + 3, Option_column.기준가.value, item)
+        self.tableWidget_call.setItem(ATM_INDEX + 3, Option_column.기준가.value, item)
 
-        val = df_call.at[atm_index + 4, '기준가']
+        val = df_call.at[ATM_INDEX + 4, '기준가']
         item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS4))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
-        self.tableWidget_call.setItem(atm_index + 4, Option_column.기준가.value, item)
+        self.tableWidget_call.setItem(ATM_INDEX + 4, Option_column.기준가.value, item)
 
-        val = df_call.at[atm_index + 5, '기준가']
+        val = df_call.at[ATM_INDEX + 5, '기준가']
         item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS5))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
-        self.tableWidget_call.setItem(atm_index + 5, Option_column.기준가.value, item)
+        self.tableWidget_call.setItem(ATM_INDEX + 5, Option_column.기준가.value, item)
 
         # 풋에 양합표시(콜에는 중심가 표시)
-        val = df_put.at[atm_index - 5, '기준가']
+        val = df_put.at[ATM_INDEX - 5, '기준가']
         item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_minus_5))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
-        self.tableWidget_put.setItem(atm_index - 5, Option_column.기준가.value, item)
+        self.tableWidget_put.setItem(ATM_INDEX - 5, Option_column.기준가.value, item)
 
-        val = df_put.at[atm_index - 4, '기준가']
+        val = df_put.at[ATM_INDEX - 4, '기준가']
         item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_minus_4))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
-        self.tableWidget_put.setItem(atm_index - 4, Option_column.기준가.value, item)
+        self.tableWidget_put.setItem(ATM_INDEX - 4, Option_column.기준가.value, item)
 
-        val = df_put.at[atm_index - 3, '기준가']
+        val = df_put.at[ATM_INDEX - 3, '기준가']
         item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_minus_3))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
-        self.tableWidget_put.setItem(atm_index - 3, Option_column.기준가.value, item)
+        self.tableWidget_put.setItem(ATM_INDEX - 3, Option_column.기준가.value, item)
 
-        val = df_put.at[atm_index - 2, '기준가']
+        val = df_put.at[ATM_INDEX - 2, '기준가']
         item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_minus_2))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
-        self.tableWidget_put.setItem(atm_index - 2, Option_column.기준가.value, item)    
+        self.tableWidget_put.setItem(ATM_INDEX - 2, Option_column.기준가.value, item)    
 
-        val = df_put.at[atm_index - 1, '기준가']
+        val = df_put.at[ATM_INDEX - 1, '기준가']
         item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_minus_1))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
-        self.tableWidget_put.setItem(atm_index - 1, Option_column.기준가.value, item)            
+        self.tableWidget_put.setItem(ATM_INDEX - 1, Option_column.기준가.value, item)            
 
-        val = df_put.at[atm_index, '기준가']
+        val = df_put.at[ATM_INDEX, '기준가']
         item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_zero_sum))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(노란색))
         item.setForeground(QBrush(검정색))
-        self.tableWidget_put.setItem(atm_index, Option_column.기준가.value, item)            
+        self.tableWidget_put.setItem(ATM_INDEX, Option_column.기준가.value, item)            
 
-        val = df_put.at[atm_index + 1, '기준가']
+        val = df_put.at[ATM_INDEX + 1, '기준가']
         item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_plus_1))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
-        self.tableWidget_put.setItem(atm_index + 1, Option_column.기준가.value, item)
+        self.tableWidget_put.setItem(ATM_INDEX + 1, Option_column.기준가.value, item)
 
-        val = df_put.at[atm_index + 2, '기준가']
+        val = df_put.at[ATM_INDEX + 2, '기준가']
         item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_plus_2))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
-        self.tableWidget_put.setItem(atm_index + 2, Option_column.기준가.value, item)
+        self.tableWidget_put.setItem(ATM_INDEX + 2, Option_column.기준가.value, item)
 
-        val = df_put.at[atm_index + 3, '기준가']
+        val = df_put.at[ATM_INDEX + 3, '기준가']
         item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_plus_3))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
-        self.tableWidget_put.setItem(atm_index + 3, Option_column.기준가.value, item)
+        self.tableWidget_put.setItem(ATM_INDEX + 3, Option_column.기준가.value, item)
 
-        val = df_put.at[atm_index + 4, '기준가']
+        val = df_put.at[ATM_INDEX + 4, '기준가']
         item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_plus_4))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
-        self.tableWidget_put.setItem(atm_index + 4, Option_column.기준가.value, item)
+        self.tableWidget_put.setItem(ATM_INDEX + 4, Option_column.기준가.value, item)
 
-        val = df_put.at[atm_index + 5, '기준가']
+        val = df_put.at[ATM_INDEX + 5, '기준가']
         item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_plus_5))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
-        self.tableWidget_put.setItem(atm_index + 5, Option_column.기준가.value, item)
+        self.tableWidget_put.setItem(ATM_INDEX + 5, Option_column.기준가.value, item)
 
-        if min_index != atm_index:
+        if min_index != ATM_INDEX:
 
             # 풋에만 컬러링
             #self.tableWidget_call.item(min_index, Option_column.기준가.value).setBackground(QBrush(검정색))
@@ -6805,7 +6809,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+            if i == ATM_INDEX - 1 or i == ATM_INDEX or i == ATM_INDEX + 1:
                 self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(옅은회색))
                 self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
 
@@ -7351,7 +7355,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     count_low += 1
 
                     '''
-                    if fut_code == cmshcode:
+                    if FUT_CODE == CMSHCODE:
 
                         txt = '차월물 콜 저까 가 {} 입니다'.format(df_call.iloc[i]['저가'])
                     else:
@@ -7382,7 +7386,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     count_high += 1
 
                     '''                        
-                    if fut_code == cmshcode:
+                    if FUT_CODE == CMSHCODE:
 
                         txt = '차월물 콜 고까 가 {} 입니다'.format(df_call.iloc[i]['고가'])
                     else:
@@ -7485,7 +7489,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     flag_call_low_coreval = True                        
 
                     '''
-                    if fut_code == cmshcode:
+                    if FUT_CODE == CMSHCODE:
 
                         txt = '차월물 콜 저까 가 {} 입니다'.format(df_call.iloc[i]['저가'])
                     else:
@@ -7538,7 +7542,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     flag_call_high_coreval = True                                
 
                     '''
-                    if fut_code == cmshcode:
+                    if FUT_CODE == CMSHCODE:
 
                         txt = '차월물 콜 고까 가 {} 입니다'.format(df_call.iloc[i]['고가'])
                     else:
@@ -9534,7 +9538,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+            if i == ATM_INDEX - 1 or i == ATM_INDEX or i == ATM_INDEX + 1:
                 self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(옅은회색))
                 self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
 
@@ -9872,7 +9876,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     count_low += 1
 
                     '''                        
-                    if fut_code == cmshcode:
+                    if FUT_CODE == CMSHCODE:
 
                         txt = '차월물 풋 저까 가 {} 입니다'.format(df_put.iloc[i]['저가'])
                     else:
@@ -9903,7 +9907,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     count_high += 1
 
                     '''
-                    if fut_code == cmshcode:
+                    if FUT_CODE == CMSHCODE:
 
                         txt = '차월물 풋 고까 가 {} 입니다'.format(df_put.iloc[i]['고가'])
                     else:
@@ -10006,7 +10010,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     flag_put_low_coreval = True                            
 
                     '''                        
-                    if fut_code == cmshcode:
+                    if FUT_CODE == CMSHCODE:
 
                         txt = '차월물 풋 저까 가 {} 입니다'.format(df_put.iloc[i]['저가'])
                     else:
@@ -10059,7 +10063,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     flag_put_high_coreval = True                        
 
                     '''
-                    if fut_code == cmshcode:
+                    if FUT_CODE == CMSHCODE:
 
                         txt = '차월물 풋 고까 가 {} 입니다'.format(df_put.iloc[i]['고가'])
                     else:
@@ -10556,7 +10560,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         #global cme_realdata, fut_realdata
         global df_fut
-        global atm_str, atm_val, atm_index, old_atm_index        
+        global atm_str, atm_val, ATM_INDEX, old_atm_index        
         global 선물_시가, 선물_현재가, 선물_저가, 선물_고가, 선물_피봇
         global flag_fut_low, flag_fut_high 
         global fut_cm_volume_power
@@ -10622,7 +10626,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if TELEGRAM_SERVICE and not flag_telegram_send_worker and not NightTime:
             
-            #self.telegram_send_worker.daemon = True
             self.telegram_send_worker.start()
 
             telegram_send_worker_on_time = fut_first_arrive_time 
@@ -10652,7 +10655,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if TELEGRAM_SERVICE:
                 
-                #self.telegram_listen_worker.daemon = True
                 self.telegram_listen_worker.start()
 
                 if TARGET_MONTH_SELECT == 'CM':
@@ -11417,7 +11419,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_open, call_itm_count
         global df_call
         global df_call_price_graph, df_call_graph
-        global atm_str, atm_index, call_atm_value
+        global atm_str, ATM_INDEX, call_atm_value
         global call_시가, call_시가_node_list, call_피봇, call_피봇_node_list, 콜시가리스트
         global call_저가, call_저가_node_list, call_고가, call_고가_node_list
         global opt_callreal_update_counter
@@ -11445,7 +11447,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         콜저가 = float(저가)
         콜고가 = float(고가)
 
-        if index == atm_index:
+        if index == ATM_INDEX:
             콜등락율 = result['등락율']
             df_call_information_graph.at[ovc_x_idx, 'drate'] = 콜등락율
         else:
@@ -11493,7 +11495,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 (adj_hour, adj_min, adj_sec, self.call_open_list)
             self.textBrowser.append(txt)
             
-            if not NightTime and index > atm_index:
+            if not NightTime and index > ATM_INDEX:
                 call_itm_count += 1
             else:
                 pass
@@ -11662,7 +11664,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if not NightTime:
 
-                    if index == atm_index:
+                    if index == ATM_INDEX:
                         gap_str = "{0:.2f}\n({1:.2f}%)".format(콜대비, 콜등락율)
                     else:
                         gap_str = "{0:.2f}\n({1:.0f}%)".format(콜대비, call_db_percent[index])
@@ -11676,7 +11678,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             # 콜 외가(등가포함) 대비 저장
-            if not NightTime and index <= atm_index and 콜시가 > 0.1 and 콜저가 < 콜고가:
+            if not NightTime and index <= ATM_INDEX and 콜시가 > 0.1 and 콜저가 < 콜고가:
                 call_otm_db[index] = 콜대비
                 call_otm_db_percent[index] = (콜현재가 / 콜시가 - 1) * 100
             else:
@@ -11772,7 +11774,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if not NightTime and 콜기준가 >= 콜저가:
 
-                if atm_index - 3 <= index <= atm_index + 3:
+                if ATM_INDEX - 3 <= index <= ATM_INDEX + 3:
                     pass
                 else:
                     txt = '{0:.2f}'.format(콜기준가) + '\n' + '▼'
@@ -12195,7 +12197,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if 시가 > opt_search_start_value:
 
-                    if index != atm_index:
+                    if index != ATM_INDEX:
                         self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
                         self.tableWidget_call.item(index, Option_column.행사가.value).setForeground(QBrush(검정색))
                     else:
@@ -12229,7 +12231,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if 저가 < 고가:
 
-                        if index > atm_index:
+                        if index > ATM_INDEX:
                             call_itm_count += 1
                         else:
                             pass
@@ -12333,7 +12335,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # 콜 외가(등가포함) 대비 저장
-                if index <= atm_index and 시가 > 0.1 and 저가 < 고가:
+                if index <= ATM_INDEX and 시가 > 0.1 and 저가 < 고가:
 
                     call_otm_db[index] = 현재가 - 시가
                     call_otm_db_percent[index] = (현재가 / 시가 - 1) * 100
@@ -12539,7 +12541,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global put_open, put_itm_count
         global df_put
         global df_put_price_graph, df_put_graph
-        global atm_str, atm_index, put_atm_value
+        global atm_str, ATM_INDEX, put_atm_value
         global put_시가, put_시가_node_list, put_피봇, put_피봇_node_list, 풋시가리스트
         global put_저가, put_저가_node_list, put_고가, put_고가_node_list
         global opt_putreal_update_counter
@@ -12566,7 +12568,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         풋저가 = float(저가)
         풋고가 = float(고가)
         
-        if index == atm_index:
+        if index == ATM_INDEX:
             풋등락율 = result['등락율']
             df_put_information_graph.at[ovc_x_idx, 'drate'] = 풋등락율
         else:
@@ -12614,7 +12616,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 (adj_hour, adj_min, adj_sec, self.put_open_list)
             self.textBrowser.append(txt)
             
-            if not NightTime and index < atm_index:
+            if not NightTime and index < ATM_INDEX:
                 put_itm_count += 1
             else:
                 pass
@@ -12783,7 +12785,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if not NightTime:
 
-                    if index == atm_index:
+                    if index == ATM_INDEX:
                         gap_str = "{0:.2f}\n({1:.2f}%)".format(풋대비, 풋등락율)
                     else:
                         gap_str = "{0:.2f}\n({1:.0f}%)".format(풋대비, put_db_percent[index])
@@ -12797,7 +12799,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
             
             # 풋 외가(등가포함) 대비 저장
-            if not NightTime and index >= atm_index and 풋시가 > 0.1 and 풋저가 < 풋고가:
+            if not NightTime and index >= ATM_INDEX and 풋시가 > 0.1 and 풋저가 < 풋고가:
                 put_otm_db[index] = 풋대비
                 put_otm_db_percent[index] = (풋현재가 / 풋시가 - 1) * 100
             else:
@@ -12893,7 +12895,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if not NightTime and 풋기준가 >= 풋저가:
 
-                if atm_index - 3 <= index <= atm_index + 3:
+                if ATM_INDEX - 3 <= index <= ATM_INDEX + 3:
                     pass
                 else:
                     txt = '{0:.2f}'.format(풋기준가) + '\n' + '▼'
@@ -13322,7 +13324,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if 시가 > opt_search_start_value:
 
-                    if index != atm_index:
+                    if index != ATM_INDEX:
                         self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
                         self.tableWidget_put.item(index, Option_column.행사가.value).setForeground(QBrush(검정색))
                     else:
@@ -13357,7 +13359,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if 저가 < 고가:
 
-                        if index < atm_index:
+                        if index < ATM_INDEX:
                             put_itm_count += 1
                         else:
                             pass
@@ -13477,7 +13479,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # 풋 외가(등가포함) 대비 저장
-                if index >= atm_index and 시가 > 0.1 and 저가 < 고가:
+                if index >= ATM_INDEX and 시가 > 0.1 and 저가 < 고가:
 
                     put_otm_db[index] = 현재가 - 시가
                     put_otm_db_percent[index] = (현재가 / 시가 - 1) * 100
@@ -14029,7 +14031,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             # 가끔 send worker가 오동작함(쓰레드 재시작...)
             
-            #self.telegram_send_worker.daemon = True
             self.telegram_send_worker.start()
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Send Worker를 재시작합니다.\r'.format(adj_hour, adj_min, adj_sec)
@@ -14043,7 +14044,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             flag_telegram_on = True
             
-            #self.telegram_listen_worker.daemon = True
             self.telegram_listen_worker.start()
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Polling이 시작됩니다.\r'.format(adj_hour, adj_min, adj_sec)
@@ -14253,9 +14253,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     #####################################################################################################################################################################
     def OnReceiveData(self, szTrCode, result):
 
-        global gmshcode, cmshcode, ccmshcode, fut_code
+        global GMSHCODE, CMSHCODE, CCMSHCODE, FUT_CODE
         global opt_actval
-        global atm_index, old_atm_index
+        global ATM_INDEX, old_atm_index
         global df_call_price_graph, df_put_price_graph, df_call_information_graph, df_put_information_graph
         global df_call_graph, df_put_graph
         global atm_str, atm_val
@@ -14318,7 +14318,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global KP200_전일종가, kp200_시가, kp200_저가, kp200_현재가, kp200_고가, kp200_진폭
         global t2835_month_info
         global server_date, server_time, system_server_timegap
-        global cm_opt_length, nm_opt_length, CM_OPTCODE, NM_OPTCODE
+        global CM_OPTCODE, NM_OPTCODE
         global 콜대비_퍼센트_평균, 풋대비_퍼센트_평균
         global atm_zero_sum, atm_zero_cha
         global 선물_전일종가
@@ -14329,6 +14329,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global ui_start_time
         global df_fut_t8416
         global fut_avg_noise_ratio, k_value
+
+        global CM_CALL_CODE, CM_PUT_CODE, NM_CALL_CODE, NM_PUT_CODE, CM_OPT_LENGTH, NM_OPT_LENGTH
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -14436,12 +14438,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if atm_str in opt_actval:
 
-                atm_index = opt_actval.index(atm_str)
+                ATM_INDEX = opt_actval.index(atm_str)
 
-                view_actval = opt_actval[atm_index-5:atm_index+6]
+                view_actval = opt_actval[ATM_INDEX-5:ATM_INDEX+6]
 
-                call_atm_value = df_call.at[atm_index, '현재가']
-                put_atm_value = df_put.at[atm_index, '현재가']
+                call_atm_value = df_call.at[ATM_INDEX, '현재가']
+                put_atm_value = df_put.at[ATM_INDEX, '현재가']
                 
                 txt = '{0:.2f}({1:.2f}:{2:.2f})'.format(
                     self.fut_realdata['현재가'] - self.fut_realdata['KP200'],
@@ -14795,7 +14797,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item = QTableWidgetItem("{0:.2f}".format(저가))
                     item.setTextAlignment(Qt.AlignCenter)
 
-                    if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                    if i == ATM_INDEX - 1 or i == ATM_INDEX or i == ATM_INDEX + 1:
                         item.setBackground(QBrush(옅은회색))
                     else:
                         item.setBackground(QBrush(흰색))
@@ -14807,7 +14809,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item = QTableWidgetItem("{0:.2f}".format(고가))
                     item.setTextAlignment(Qt.AlignCenter)
 
-                    if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                    if i == ATM_INDEX - 1 or i == ATM_INDEX or i == ATM_INDEX + 1:
                         item.setBackground(QBrush(옅은회색))
                     else:
                         item.setBackground(QBrush(흰색))
@@ -15131,7 +15133,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item = QTableWidgetItem("{0:.2f}".format(저가))
                     item.setTextAlignment(Qt.AlignCenter)
 
-                    if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                    if i == ATM_INDEX - 1 or i == ATM_INDEX or i == ATM_INDEX + 1:
                         item.setBackground(QBrush(옅은회색))
                     else:
                         item.setBackground(QBrush(흰색))
@@ -15143,7 +15145,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item = QTableWidgetItem("{0:.2f}".format(고가))
                     item.setTextAlignment(Qt.AlignCenter)
 
-                    if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                    if i == ATM_INDEX - 1 or i == ATM_INDEX or i == ATM_INDEX + 1:
                         item.setBackground(QBrush(옅은회색))
                     else:
                         item.setBackground(QBrush(흰색))
@@ -15541,18 +15543,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     QTest.qWait(1000)                       
 
                     if TARGET_MONTH_SELECT == 'CM':
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 변동성지수 본월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, gmshcode)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 변동성지수 본월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, GMSHCODE)
                         self.textBrowser.append(txt)
                         print(txt)
 
-                        self.t8416_fut_request(gmshcode)
+                        self.t8416_fut_request(GMSHCODE)
 
                     elif TARGET_MONTH_SELECT == 'NM':
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 변동성지수 차월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, cmshcode)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 변동성지수 차월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, CMSHCODE)
                         self.textBrowser.append(txt)
                         print(txt)
 
-                        self.t8416_fut_request(cmshcode)
+                        self.t8416_fut_request(CMSHCODE)
                     else:
                         pass
                 else:
@@ -15560,16 +15562,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # 주간 선물전광판 데이타요청
                 XQ = t2101(parent=self)
-                XQ.Query(종목코드=fut_code)
+                XQ.Query(종목코드=FUT_CODE)
 
-                if fut_code == gmshcode:
+                if FUT_CODE == GMSHCODE:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 본월물 주간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                elif fut_code == cmshcode:
+                elif FUT_CODE == CMSHCODE:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 차월물 주간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                elif fut_code == ccmshcode:
+                elif FUT_CODE == CCMSHCODE:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 차차월물 주간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 else:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 잘못된 선물코드({3})입니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 잘못된 선물코드({3})입니다.\r'.format(dt.hour, dt.minute, dt.second, FUT_CODE)
 
                 self.textBrowser.append(txt)
 
@@ -15578,16 +15580,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # 야간 선물전광판 데이타요청
                 XQ = t2801(parent=self)
-                XQ.Query(종목코드=fut_code)
+                XQ.Query(종목코드=FUT_CODE)
 
-                if fut_code == gmshcode:
+                if FUT_CODE == GMSHCODE:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] t2801 본월물 야간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                elif fut_code == cmshcode:
+                elif FUT_CODE == CMSHCODE:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] t2801 차월물 야간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                elif fut_code == ccmshcode:
+                elif FUT_CODE == CCMSHCODE:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] t2801 차차월물 야간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 else:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 잘못된 선물코드({3})입니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 잘못된 선물코드({3})입니다.\r'.format(dt.hour, dt.minute, dt.second, FUT_CODE)
 
                 self.textBrowser.append(txt)
 
@@ -15602,14 +15604,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 장운영 정보를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
 
-                    # 실시간 다우지수 요청
-                    self.realtime_data_worker.RealTimeDataRequest('OVC', DOW)
-
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 다우지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
 
                     # 지수선물 예상체결 요청
-                    self.realtime_data_worker.RealTimeDataRequest('YFC', fut_code)
+                    self.realtime_data_worker.RealTimeDataRequest('YFC', FUT_CODE)
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 선물 예상체결을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
@@ -15623,7 +15622,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     # 실시간 본월물 선물 가격요청
                     if CM_FUT_PRICE:
-                        self.realtime_data_worker.RealTimeDataRequest('FUT_REAL', gmshcode)
+                        self.realtime_data_worker.RealTimeDataRequest('FUT_REAL', GMSHCODE)
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
                     else:
@@ -15631,7 +15630,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     # 실시간 본월물 선물 호가요청
                     if CM_FUT_QUOTE:
-                        self.realtime_data_worker.RealTimeDataRequest('FUT_HO', gmshcode)
+                        self.realtime_data_worker.RealTimeDataRequest('FUT_HO', GMSHCODE)
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
                     else:
@@ -15639,12 +15638,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     # 실시간 본월물 옵션 가격요청
                     if CM_OPT_PRICE:
-                        for i in range(cm_opt_length):
-                            self.realtime_data_worker.RealTimeDataRequest('OPT_REAL', self.cm_call_code[i])
-                            self.realtime_data_worker.RealTimeDataRequest('OPT_REAL', self.cm_put_code[i])
+                        for i in range(CM_OPT_LENGTH):
+                            self.realtime_data_worker.RealTimeDataRequest('OPT_REAL', CM_CALL_CODE[i])
+                            self.realtime_data_worker.RealTimeDataRequest('OPT_REAL', CM_PUT_CODE[i])
                             # 지수옵션 예상체결 요청
-                            self.realtime_data_worker.RealTimeDataRequest('YOC', self.cm_call_code[i])
-                            self.realtime_data_worker.RealTimeDataRequest('YOC', self.cm_put_code[i])
+                            self.realtime_data_worker.RealTimeDataRequest('YOC', CM_CALL_CODE[i])
+                            self.realtime_data_worker.RealTimeDataRequest('YOC', CM_PUT_CODE[i])
 
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 예상가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
@@ -15656,9 +15655,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     # 실시간 본월물 옵션 호가요청
                     if CM_OPT_QUOTE:
-                        for i in range(cm_opt_length):
-                            self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.cm_call_code[i])
-                            self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.cm_put_code[i])
+                        for i in range(CM_OPT_LENGTH):
+                            self.realtime_data_worker.RealTimeDataRequest('OPT_HO', CM_CALL_CODE[i])
+                            self.realtime_data_worker.RealTimeDataRequest('OPT_HO', CM_PUT_CODE[i])
 
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)  
@@ -15670,9 +15669,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         NEW_INDEX = int(int(QUOTE_REQUEST_NUMBER)/2)
 
-                        for i in range(atm_index - NEW_INDEX, atm_index + NEW_INDEX + 1):
-                            self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.cm_call_code[i])
-                            self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.cm_put_code[i])
+                        for i in range(ATM_INDEX - NEW_INDEX, ATM_INDEX + NEW_INDEX + 1):
+                            self.realtime_data_worker.RealTimeDataRequest('OPT_HO', CM_CALL_CODE[i])
+                            self.realtime_data_worker.RealTimeDataRequest('OPT_HO', CM_PUT_CODE[i])
 
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가(등가근처 10개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
@@ -15681,7 +15680,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     # 실시간 차월물 선물 가격요청
                     if NM_FUT_PRICE:
-                        self.realtime_data_worker.RealTimeDataRequest('FUT_REAL', cmshcode)
+                        self.realtime_data_worker.RealTimeDataRequest('FUT_REAL', CMSHCODE)
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 선물 가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
                     else:
@@ -15689,8 +15688,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     # 실시간 차월물,차차월물 선물 호가요청
                     if NM_FUT_QUOTE:
-                        self.realtime_data_worker.RealTimeDataRequest('FUT_HO', cmshcode)
-                        self.realtime_data_worker.RealTimeDataRequest('FUT_HO', ccmshcode)
+                        self.realtime_data_worker.RealTimeDataRequest('FUT_HO', CMSHCODE)
+                        self.realtime_data_worker.RealTimeDataRequest('FUT_HO', CCMSHCODE)
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 선물 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
                     else:
@@ -15698,12 +15697,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     # 실시간 차월물 옵션 가격요청
                     if NM_OPT_PRICE:
-                        for i in range(nm_opt_length):
-                            self.realtime_data_worker.RealTimeDataRequest('OPT_REAL', self.nm_call_code[i])
-                            self.realtime_data_worker.RealTimeDataRequest('OPT_REAL', self.nm_put_code[i])
+                        for i in range(NM_OPT_LENGTH):
+                            self.realtime_data_worker.RealTimeDataRequest('OPT_REAL', NM_CALL_CODE[i])
+                            self.realtime_data_worker.RealTimeDataRequest('OPT_REAL', NM_PUT_CODE[i])
                             # 지수옵션 예상체결 요청
-                            self.realtime_data_worker.RealTimeDataRequest('YOC', self.nm_call_code[i])
-                            self.realtime_data_worker.RealTimeDataRequest('YOC', self.nm_put_code[i])
+                            self.realtime_data_worker.RealTimeDataRequest('YOC', NM_CALL_CODE[i])
+                            self.realtime_data_worker.RealTimeDataRequest('YOC', NM_PUT_CODE[i])
 
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 예상가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
@@ -15715,9 +15714,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     # 실시간 차월물 옵션 호가요청
                     if NM_OPT_QUOTE:
-                        for i in range(nm_opt_length):
-                            self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.nm_call_code[i])
-                            self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.nm_put_code[i])
+                        for i in range(NM_OPT_LENGTH):
+                            self.realtime_data_worker.RealTimeDataRequest('OPT_HO', NM_CALL_CODE[i])
+                            self.realtime_data_worker.RealTimeDataRequest('OPT_HO', NM_PUT_CODE[i])
 
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
@@ -15729,9 +15728,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         NEW_INDEX = int(int(QUOTE_REQUEST_NUMBER)/2)
 
-                        for i in range(atm_index - NEW_INDEX, atm_index + NEW_INDEX + 1):
-                            self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.nm_call_code[i])
-                            self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.nm_put_code[i])
+                        for i in range(ATM_INDEX - NEW_INDEX, ATM_INDEX + NEW_INDEX + 1):
+                            self.realtime_data_worker.RealTimeDataRequest('OPT_HO', NM_CALL_CODE[i])
+                            self.realtime_data_worker.RealTimeDataRequest('OPT_HO', NM_PUT_CODE[i])
 
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가(등가근처 10개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
@@ -15746,6 +15745,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.realtime_data_worker.RealTimeDataRequest('PM', KOSPI)
 
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 업종별 투자자별 & 프로그램 매매현황을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)
+                    else:
+                        pass
+
+                    # 실시간 해외선물 DOW 요청
+                    if DOW_CHK:
+                        self.realtime_data_worker.RealTimeDataRequest('OVC', DOW)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 DOW를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
                     else:
                         pass
@@ -15904,7 +15911,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item = QTableWidgetItem("{0:.2f}".format(저가))
                         item.setTextAlignment(Qt.AlignCenter)
 
-                        if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                        if i == ATM_INDEX - 1 or i == ATM_INDEX or i == ATM_INDEX + 1:
                             item.setBackground(QBrush(옅은회색))
                         else:
                             item.setBackground(QBrush(흰색))
@@ -15916,7 +15923,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item = QTableWidgetItem("{0:.2f}".format(고가))
                         item.setTextAlignment(Qt.AlignCenter)
 
-                        if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                        if i == ATM_INDEX - 1 or i == ATM_INDEX or i == ATM_INDEX + 1:
                             item.setBackground(QBrush(옅은회색))
                         else:
                             item.setBackground(QBrush(흰색))
@@ -16039,7 +16046,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item = QTableWidgetItem("{0:.2f}".format(저가))
                         item.setTextAlignment(Qt.AlignCenter)
 
-                        if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                        if i == ATM_INDEX - 1 or i == ATM_INDEX or i == ATM_INDEX + 1:
                             item.setBackground(QBrush(옅은회색))
                         else:
                             item.setBackground(QBrush(흰색))
@@ -16051,7 +16058,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item = QTableWidgetItem("{0:.2f}".format(고가))
                         item.setTextAlignment(Qt.AlignCenter)
 
-                        if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                        if i == ATM_INDEX - 1 or i == ATM_INDEX or i == ATM_INDEX + 1:
                             item.setBackground(QBrush(옅은회색))
                         else:
                             item.setBackground(QBrush(흰색))
@@ -16147,7 +16154,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             item.setTextAlignment(Qt.AlignCenter)
 
-                            if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                            if i == ATM_INDEX - 1 or i == ATM_INDEX or i == ATM_INDEX + 1:
                                 item.setBackground(QBrush(옅은회색))
                             else:
                                 item.setBackground(QBrush(흰색))
@@ -16165,7 +16172,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             item.setTextAlignment(Qt.AlignCenter)
 
-                            if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                            if i == ATM_INDEX - 1 or i == ATM_INDEX or i == ATM_INDEX + 1:
                                 item.setBackground(QBrush(옅은회색))
                             else:
                                 item.setBackground(QBrush(흰색))
@@ -16190,7 +16197,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             item.setTextAlignment(Qt.AlignCenter)
 
-                            if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                            if i == ATM_INDEX - 1 or i == ATM_INDEX or i == ATM_INDEX + 1:
                                 item.setBackground(QBrush(옅은회색))
                             else:
                                 item.setBackground(QBrush(흰색))
@@ -16208,7 +16215,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             item.setTextAlignment(Qt.AlignCenter)
 
-                            if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                            if i == ATM_INDEX - 1 or i == ATM_INDEX or i == ATM_INDEX + 1:
                                 item.setBackground(QBrush(옅은회색))
                             else:
                                 item.setBackground(QBrush(흰색))
@@ -16221,7 +16228,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         # 주야간 선물전광판 데이타 요청
                         XQ = t2101(parent=self)
-                        XQ.Query(종목코드=fut_code)
+                        XQ.Query(종목코드=FUT_CODE)
 
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
@@ -16229,7 +16236,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         QTest.qWait(100)
 
                         XQ = t2801(parent=self)
-                        XQ.Query(종목코드=fut_code)
+                        XQ.Query(종목코드=FUT_CODE)
 
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
@@ -16320,8 +16327,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 atm_str = self.get_atm_str(kp200_현재가)
 
-            atm_index = opt_actval.index(atm_str)
-            old_atm_index = atm_index
+            ATM_INDEX = opt_actval.index(atm_str)
+            old_atm_index = ATM_INDEX
             
             if atm_str[-1] == '2' or atm_str[-1] == '7':
 
@@ -16333,7 +16340,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 for index in self.call_open_list:
 
-                    if index > atm_index:
+                    if index > ATM_INDEX:
                         call_itm_count += 1
                     else:
                         pass
@@ -16349,7 +16356,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 for index in self.put_open_list:
 
-                    if index > atm_index:
+                    if index > ATM_INDEX:
                         put_itm_count += 1
                     else:
                         pass
@@ -16386,24 +16393,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 atm_val = float(atm_str)       
             
-            self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
-            self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-            self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
-            self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))            
+            self.tableWidget_call.item(ATM_INDEX, Option_column.행사가.value).setBackground(QBrush(노란색))
+            self.tableWidget_call.item(ATM_INDEX, Option_column.행사가.value).setForeground(QBrush(검정색))
+            self.tableWidget_put.item(ATM_INDEX, Option_column.행사가.value).setBackground(QBrush(노란색))
+            self.tableWidget_put.item(ATM_INDEX, Option_column.행사가.value).setForeground(QBrush(검정색))            
             
             if not self.flag_refresh:
 
-                self.tableWidget_call.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setChecked(Qt.Checked)
-                self.tableWidget_put.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setChecked(Qt.Checked)
-                selected_call = [atm_index]
-                selected_put = [atm_index]
+                self.tableWidget_call.cellWidget(ATM_INDEX, 0).findChild(type(QCheckBox())).setChecked(Qt.Checked)
+                self.tableWidget_put.cellWidget(ATM_INDEX, 0).findChild(type(QCheckBox())).setChecked(Qt.Checked)
+                selected_call = [ATM_INDEX]
+                selected_put = [ATM_INDEX]
             else:
                 pass
 
-            view_actval = opt_actval[atm_index-5:atm_index+6]
+            view_actval = opt_actval[ATM_INDEX-5:ATM_INDEX+6]
 
-            call_atm_value = df_call.at[atm_index, '현재가']
-            put_atm_value = df_put.at[atm_index, '현재가']
+            call_atm_value = df_call.at[ATM_INDEX, '현재가']
+            put_atm_value = df_put.at[ATM_INDEX, '현재가']
 
             txt = '{0:.2f}({1:.2f}:{2:.2f})'.format(
                 self.fut_realdata['현재가'] - self.fut_realdata['KP200'],
@@ -16879,7 +16886,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item = QTableWidgetItem("{0:.2f}".format(저가))
                     item.setTextAlignment(Qt.AlignCenter)
 
-                    if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                    if i == ATM_INDEX - 1 or i == ATM_INDEX or i == ATM_INDEX + 1:
                         item.setBackground(QBrush(옅은회색))
                     else:
                         item.setBackground(QBrush(흰색))
@@ -16893,7 +16900,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item = QTableWidgetItem("{0:.2f}".format(고가))
                     item.setTextAlignment(Qt.AlignCenter)
 
-                    if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                    if i == ATM_INDEX - 1 or i == ATM_INDEX or i == ATM_INDEX + 1:
                         item.setBackground(QBrush(옅은회색))
                     else:
                         item.setBackground(QBrush(흰색))
@@ -17183,7 +17190,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item = QTableWidgetItem("{0:.2f}".format(저가))
                     item.setTextAlignment(Qt.AlignCenter)
 
-                    if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                    if i == ATM_INDEX - 1 or i == ATM_INDEX or i == ATM_INDEX + 1:
                         item.setBackground(QBrush(옅은회색))
                     else:
                         item.setBackground(QBrush(흰색))
@@ -17197,7 +17204,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item = QTableWidgetItem("{0:.2f}".format(고가))
                     item.setTextAlignment(Qt.AlignCenter)
 
-                    if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                    if i == ATM_INDEX - 1 or i == ATM_INDEX or i == ATM_INDEX + 1:
                         item.setBackground(QBrush(옅은회색))
                     else:
                         item.setBackground(QBrush(흰색))
@@ -17399,8 +17406,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print('t2835 put open list = ', self.put_open_list, len(self.put_open_list))
                 print('\r')
                 
-                call_atm_value = df_call.at[atm_index, '현재가']
-                put_atm_value = df_put.at[atm_index, '현재가']
+                call_atm_value = df_call.at[ATM_INDEX, '현재가']
+                put_atm_value = df_put.at[ATM_INDEX, '현재가']
 
                 txt = '{0:.2f}({1:.2f}:{2:.2f})'.format(
                     self.fut_realdata['현재가'] - self.fut_realdata['KP200'],
@@ -17470,31 +17477,31 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print(txt)
 
                 #중심가 계산
-                CENTER_VAL_PLUS5 = round((df_call.at[atm_index - 5, '종가'] + df_put.at[atm_index - 5, '종가'])/2, 2)
-                CENTER_VAL_PLUS4 = round((df_call.at[atm_index - 4, '종가'] + df_put.at[atm_index - 4, '종가'])/2, 2)
-                CENTER_VAL_PLUS3 = round((df_call.at[atm_index - 3, '종가'] + df_put.at[atm_index - 3, '종가'])/2, 2)
-                CENTER_VAL_PLUS2 = round((df_call.at[atm_index - 2, '종가'] + df_put.at[atm_index - 2, '종가'])/2, 2)
-                CENTER_VAL_PLUS1 = round((df_call.at[atm_index - 1, '종가'] + df_put.at[atm_index - 1, '종가'])/2 , 2)
-                CENTER_VAL = round((df_call.at[atm_index, '종가'] + df_put.at[atm_index, '종가'])/2 , 2)
-                CENTER_VAL_MINUS1 = round((df_call.at[atm_index + 1, '종가'] + df_put.at[atm_index + 1, '종가'])/2 , 2)
-                CENTER_VAL_MINUS2 = round((df_call.at[atm_index + 2, '종가'] + df_put.at[atm_index + 2, '종가'])/2 , 2)
-                CENTER_VAL_MINUS3 = round((df_call.at[atm_index + 3, '종가'] + df_put.at[atm_index + 3, '종가'])/2 , 2)
-                CENTER_VAL_MINUS4 = round((df_call.at[atm_index + 4, '종가'] + df_put.at[atm_index + 4, '종가'])/2 , 2)
-                CENTER_VAL_MINUS5 = round((df_call.at[atm_index + 5, '종가'] + df_put.at[atm_index + 5, '종가'])/2 , 2)
+                CENTER_VAL_PLUS5 = round((df_call.at[ATM_INDEX - 5, '종가'] + df_put.at[ATM_INDEX - 5, '종가'])/2, 2)
+                CENTER_VAL_PLUS4 = round((df_call.at[ATM_INDEX - 4, '종가'] + df_put.at[ATM_INDEX - 4, '종가'])/2, 2)
+                CENTER_VAL_PLUS3 = round((df_call.at[ATM_INDEX - 3, '종가'] + df_put.at[ATM_INDEX - 3, '종가'])/2, 2)
+                CENTER_VAL_PLUS2 = round((df_call.at[ATM_INDEX - 2, '종가'] + df_put.at[ATM_INDEX - 2, '종가'])/2, 2)
+                CENTER_VAL_PLUS1 = round((df_call.at[ATM_INDEX - 1, '종가'] + df_put.at[ATM_INDEX - 1, '종가'])/2 , 2)
+                CENTER_VAL = round((df_call.at[ATM_INDEX, '종가'] + df_put.at[ATM_INDEX, '종가'])/2 , 2)
+                CENTER_VAL_MINUS1 = round((df_call.at[ATM_INDEX + 1, '종가'] + df_put.at[ATM_INDEX + 1, '종가'])/2 , 2)
+                CENTER_VAL_MINUS2 = round((df_call.at[ATM_INDEX + 2, '종가'] + df_put.at[ATM_INDEX + 2, '종가'])/2 , 2)
+                CENTER_VAL_MINUS3 = round((df_call.at[ATM_INDEX + 3, '종가'] + df_put.at[ATM_INDEX + 3, '종가'])/2 , 2)
+                CENTER_VAL_MINUS4 = round((df_call.at[ATM_INDEX + 4, '종가'] + df_put.at[ATM_INDEX + 4, '종가'])/2 , 2)
+                CENTER_VAL_MINUS5 = round((df_call.at[ATM_INDEX + 5, '종가'] + df_put.at[ATM_INDEX + 5, '종가'])/2 , 2)
                 
                 # 옵션 양합표시
-                atm_minus_5 = round((df_call.at[atm_index - 5, '현재가'] + df_put.at[atm_index - 5, '현재가']), 2)
-                atm_minus_4 = round((df_call.at[atm_index - 4, '현재가'] + df_put.at[atm_index - 4, '현재가']), 2)
-                atm_minus_3 = round((df_call.at[atm_index - 3, '현재가'] + df_put.at[atm_index - 3, '현재가']), 2)
-                atm_minus_2 = round((df_call.at[atm_index - 2, '현재가'] + df_put.at[atm_index - 2, '현재가']), 2)
-                atm_minus_1 = round((df_call.at[atm_index - 1, '현재가'] + df_put.at[atm_index - 1, '현재가']) , 2)
-                atm_zero_sum = round((df_call.at[atm_index, '현재가'] + df_put.at[atm_index, '현재가']) , 2)
-                atm_zero_cha = round((df_call.at[atm_index, '현재가'] - df_put.at[atm_index, '현재가']) , 2)
-                atm_plus_1 = round((df_call.at[atm_index + 1, '현재가'] + df_put.at[atm_index + 1, '현재가']) , 2)
-                atm_plus_2 = round((df_call.at[atm_index + 2, '현재가'] + df_put.at[atm_index + 2, '현재가']) , 2)
-                atm_plus_3 = round((df_call.at[atm_index + 3, '현재가'] + df_put.at[atm_index + 3, '현재가']) , 2)
-                atm_plus_4 = round((df_call.at[atm_index + 4, '현재가'] + df_put.at[atm_index + 4, '현재가']) , 2)
-                atm_plus_5 = round((df_call.at[atm_index + 5, '현재가'] + df_put.at[atm_index + 5, '현재가']) , 2)
+                atm_minus_5 = round((df_call.at[ATM_INDEX - 5, '현재가'] + df_put.at[ATM_INDEX - 5, '현재가']), 2)
+                atm_minus_4 = round((df_call.at[ATM_INDEX - 4, '현재가'] + df_put.at[ATM_INDEX - 4, '현재가']), 2)
+                atm_minus_3 = round((df_call.at[ATM_INDEX - 3, '현재가'] + df_put.at[ATM_INDEX - 3, '현재가']), 2)
+                atm_minus_2 = round((df_call.at[ATM_INDEX - 2, '현재가'] + df_put.at[ATM_INDEX - 2, '현재가']), 2)
+                atm_minus_1 = round((df_call.at[ATM_INDEX - 1, '현재가'] + df_put.at[ATM_INDEX - 1, '현재가']) , 2)
+                atm_zero_sum = round((df_call.at[ATM_INDEX, '현재가'] + df_put.at[ATM_INDEX, '현재가']) , 2)
+                atm_zero_cha = round((df_call.at[ATM_INDEX, '현재가'] - df_put.at[ATM_INDEX, '현재가']) , 2)
+                atm_plus_1 = round((df_call.at[ATM_INDEX + 1, '현재가'] + df_put.at[ATM_INDEX + 1, '현재가']) , 2)
+                atm_plus_2 = round((df_call.at[ATM_INDEX + 2, '현재가'] + df_put.at[ATM_INDEX + 2, '현재가']) , 2)
+                atm_plus_3 = round((df_call.at[ATM_INDEX + 3, '현재가'] + df_put.at[ATM_INDEX + 3, '현재가']) , 2)
+                atm_plus_4 = round((df_call.at[ATM_INDEX + 4, '현재가'] + df_put.at[ATM_INDEX + 4, '현재가']) , 2)
+                atm_plus_5 = round((df_call.at[ATM_INDEX + 5, '현재가'] + df_put.at[ATM_INDEX + 5, '현재가']) , 2)
                 
                 atm_list = []
                 atm_list.append(atm_minus_5)
@@ -17509,165 +17516,165 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 atm_list.append(atm_plus_4) 
                 atm_list.append(atm_plus_5)    
 
-                min_index = atm_list.index(min(atm_list)) + atm_index - 5
+                min_index = atm_list.index(min(atm_list)) + ATM_INDEX - 5
 
                 # 콜에 중심가 표시
-                val = df_call.at[atm_index - 5, '기준가']
+                val = df_call.at[ATM_INDEX - 5, '기준가']
                 item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS5))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
-                self.tableWidget_call.setItem(atm_index - 5, Option_column.기준가.value, item) 
+                self.tableWidget_call.setItem(ATM_INDEX - 5, Option_column.기준가.value, item) 
 
-                val = df_call.at[atm_index - 4, '기준가']
+                val = df_call.at[ATM_INDEX - 4, '기준가']
                 item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS4))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
-                self.tableWidget_call.setItem(atm_index - 4, Option_column.기준가.value, item) 
+                self.tableWidget_call.setItem(ATM_INDEX - 4, Option_column.기준가.value, item) 
 
-                val = df_call.at[atm_index - 3, '기준가']
+                val = df_call.at[ATM_INDEX - 3, '기준가']
                 item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS3))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
-                self.tableWidget_call.setItem(atm_index - 3, Option_column.기준가.value, item) 
+                self.tableWidget_call.setItem(ATM_INDEX - 3, Option_column.기준가.value, item) 
 
-                val = df_call.at[atm_index - 2, '기준가']
+                val = df_call.at[ATM_INDEX - 2, '기준가']
                 item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS2))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
-                self.tableWidget_call.setItem(atm_index - 2, Option_column.기준가.value, item)  
+                self.tableWidget_call.setItem(ATM_INDEX - 2, Option_column.기준가.value, item)  
 
-                val = df_call.at[atm_index - 1, '기준가']
+                val = df_call.at[ATM_INDEX - 1, '기준가']
                 item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS1))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
-                self.tableWidget_call.setItem(atm_index - 1, Option_column.기준가.value, item)            
+                self.tableWidget_call.setItem(ATM_INDEX - 1, Option_column.기준가.value, item)            
 
-                val = df_call.at[atm_index, '기준가']
+                val = df_call.at[ATM_INDEX, '기준가']
                 item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(노란색))
                 item.setForeground(QBrush(검정색))
-                self.tableWidget_call.setItem(atm_index, Option_column.기준가.value, item)            
+                self.tableWidget_call.setItem(ATM_INDEX, Option_column.기준가.value, item)            
 
-                val = df_call.at[atm_index + 1, '기준가']
+                val = df_call.at[ATM_INDEX + 1, '기준가']
                 item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS1))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
-                self.tableWidget_call.setItem(atm_index + 1, Option_column.기준가.value, item)
+                self.tableWidget_call.setItem(ATM_INDEX + 1, Option_column.기준가.value, item)
 
-                val = df_call.at[atm_index + 2, '기준가']
+                val = df_call.at[ATM_INDEX + 2, '기준가']
                 item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS2))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
-                self.tableWidget_call.setItem(atm_index + 2, Option_column.기준가.value, item)
+                self.tableWidget_call.setItem(ATM_INDEX + 2, Option_column.기준가.value, item)
 
-                val = df_call.at[atm_index + 3, '기준가']
+                val = df_call.at[ATM_INDEX + 3, '기준가']
                 item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS3))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
-                self.tableWidget_call.setItem(atm_index + 3, Option_column.기준가.value, item)
+                self.tableWidget_call.setItem(ATM_INDEX + 3, Option_column.기준가.value, item)
 
-                val = df_call.at[atm_index + 4, '기준가']
+                val = df_call.at[ATM_INDEX + 4, '기준가']
                 item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS4))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
-                self.tableWidget_call.setItem(atm_index + 4, Option_column.기준가.value, item)
+                self.tableWidget_call.setItem(ATM_INDEX + 4, Option_column.기준가.value, item)
 
-                val = df_call.at[atm_index + 5, '기준가']
+                val = df_call.at[ATM_INDEX + 5, '기준가']
                 item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS5))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
-                self.tableWidget_call.setItem(atm_index + 5, Option_column.기준가.value, item)
+                self.tableWidget_call.setItem(ATM_INDEX + 5, Option_column.기준가.value, item)
 
                 # 풋 양합표시
-                val = df_put.at[atm_index - 5, '기준가']
+                val = df_put.at[ATM_INDEX - 5, '기준가']
                 item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_minus_5))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
-                self.tableWidget_put.setItem(atm_index - 5, Option_column.기준가.value, item)
+                self.tableWidget_put.setItem(ATM_INDEX - 5, Option_column.기준가.value, item)
 
-                val = df_put.at[atm_index - 4, '기준가']
+                val = df_put.at[ATM_INDEX - 4, '기준가']
                 item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_minus_4))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
-                self.tableWidget_put.setItem(atm_index - 4, Option_column.기준가.value, item)
+                self.tableWidget_put.setItem(ATM_INDEX - 4, Option_column.기준가.value, item)
 
-                val = df_put.at[atm_index - 3, '기준가']
+                val = df_put.at[ATM_INDEX - 3, '기준가']
                 item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_minus_3))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
-                self.tableWidget_put.setItem(atm_index - 3, Option_column.기준가.value, item)
+                self.tableWidget_put.setItem(ATM_INDEX - 3, Option_column.기준가.value, item)
 
-                val = df_put.at[atm_index - 2, '기준가']
+                val = df_put.at[ATM_INDEX - 2, '기준가']
                 item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_minus_2))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
-                self.tableWidget_put.setItem(atm_index - 2, Option_column.기준가.value, item)    
+                self.tableWidget_put.setItem(ATM_INDEX - 2, Option_column.기준가.value, item)    
 
-                val = df_put.at[atm_index - 1, '기준가']
+                val = df_put.at[ATM_INDEX - 1, '기준가']
                 item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_minus_1))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
-                self.tableWidget_put.setItem(atm_index - 1, Option_column.기준가.value, item)            
+                self.tableWidget_put.setItem(ATM_INDEX - 1, Option_column.기준가.value, item)            
 
-                val = df_put.at[atm_index, '기준가']
+                val = df_put.at[ATM_INDEX, '기준가']
                 item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_zero_sum))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(노란색))
                 item.setForeground(QBrush(검정색))
-                self.tableWidget_put.setItem(atm_index, Option_column.기준가.value, item)            
+                self.tableWidget_put.setItem(ATM_INDEX, Option_column.기준가.value, item)            
 
-                val = df_put.at[atm_index + 1, '기준가']
+                val = df_put.at[ATM_INDEX + 1, '기준가']
                 item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_plus_1))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
-                self.tableWidget_put.setItem(atm_index + 1, Option_column.기준가.value, item)
+                self.tableWidget_put.setItem(ATM_INDEX + 1, Option_column.기준가.value, item)
 
-                val = df_put.at[atm_index + 2, '기준가']
+                val = df_put.at[ATM_INDEX + 2, '기준가']
                 item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_plus_2))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
-                self.tableWidget_put.setItem(atm_index + 2, Option_column.기준가.value, item)
+                self.tableWidget_put.setItem(ATM_INDEX + 2, Option_column.기준가.value, item)
 
-                val = df_put.at[atm_index + 3, '기준가']
+                val = df_put.at[ATM_INDEX + 3, '기준가']
                 item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_plus_3))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
-                self.tableWidget_put.setItem(atm_index + 3, Option_column.기준가.value, item)
+                self.tableWidget_put.setItem(ATM_INDEX + 3, Option_column.기준가.value, item)
 
-                val = df_put.at[atm_index + 4, '기준가']
+                val = df_put.at[ATM_INDEX + 4, '기준가']
                 item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_plus_4))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
-                self.tableWidget_put.setItem(atm_index + 4, Option_column.기준가.value, item)
+                self.tableWidget_put.setItem(ATM_INDEX + 4, Option_column.기준가.value, item)
 
-                val = df_put.at[atm_index + 5, '기준가']
+                val = df_put.at[ATM_INDEX + 5, '기준가']
                 item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_plus_5))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
-                self.tableWidget_put.setItem(atm_index + 5, Option_column.기준가.value, item)
+                self.tableWidget_put.setItem(ATM_INDEX + 5, Option_column.기준가.value, item)
 
-                if min_index != atm_index:
+                if min_index != ATM_INDEX:
 
                     self.tableWidget_put.item(min_index, Option_column.기준가.value).setBackground(QBrush(검정색))
                     self.tableWidget_put.item(min_index, Option_column.기준가.value).setForeground(QBrush(노란색))
@@ -17698,8 +17705,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass  
                 self.tableWidget_fut.resizeColumnsToContents()                
-                
-                #self.screen_update_worker.daemon = True
+               
                 self.screen_update_worker.start()
                 
                 self.flag_refresh = True
@@ -17786,7 +17792,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item = QTableWidgetItem("{0:.2f}".format(저가))
                     item.setTextAlignment(Qt.AlignCenter)
 
-                    if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                    if i == ATM_INDEX - 1 or i == ATM_INDEX or i == ATM_INDEX + 1:
                         item.setBackground(QBrush(옅은회색))
                     else:
                         item.setBackground(QBrush(흰색))
@@ -17800,7 +17806,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item = QTableWidgetItem("{0:.2f}".format(고가))
                     item.setTextAlignment(Qt.AlignCenter)
 
-                    if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                    if i == ATM_INDEX - 1 or i == ATM_INDEX or i == ATM_INDEX + 1:
                         item.setBackground(QBrush(옅은회색))
                     else:
                         item.setBackground(QBrush(흰색))
@@ -17875,7 +17881,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item = QTableWidgetItem("{0:.2f}".format(저가))
                     item.setTextAlignment(Qt.AlignCenter)
 
-                    if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                    if i == ATM_INDEX - 1 or i == ATM_INDEX or i == ATM_INDEX + 1:
                         item.setBackground(QBrush(옅은회색))
                     else:
                         item.setBackground(QBrush(흰색))
@@ -17889,7 +17895,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item = QTableWidgetItem("{0:.2f}".format(고가))
                     item.setTextAlignment(Qt.AlignCenter)
 
-                    if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                    if i == ATM_INDEX - 1 or i == ATM_INDEX or i == ATM_INDEX + 1:
                         item.setBackground(QBrush(옅은회색))
                     else:
                         item.setBackground(QBrush(흰색))
@@ -17955,7 +17961,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         item.setTextAlignment(Qt.AlignCenter)
 
-                        if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                        if i == ATM_INDEX - 1 or i == ATM_INDEX or i == ATM_INDEX + 1:
                             item.setBackground(QBrush(옅은회색))
                         else:
                             item.setBackground(QBrush(흰색))
@@ -17975,7 +17981,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         item.setTextAlignment(Qt.AlignCenter)
 
-                        if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                        if i == ATM_INDEX - 1 or i == ATM_INDEX or i == ATM_INDEX + 1:
                             item.setBackground(QBrush(옅은회색))
                         else:
                             item.setBackground(QBrush(흰색))
@@ -18002,7 +18008,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         item.setTextAlignment(Qt.AlignCenter)
 
-                        if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                        if i == ATM_INDEX - 1 or i == ATM_INDEX or i == ATM_INDEX + 1:
                             item.setBackground(QBrush(옅은회색))
                         else:
                             item.setBackground(QBrush(흰색))
@@ -18022,7 +18028,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         item.setTextAlignment(Qt.AlignCenter)
 
-                        if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                        if i == ATM_INDEX - 1 or i == ATM_INDEX or i == ATM_INDEX + 1:
                             item.setBackground(QBrush(옅은회색))
                         else:
                             item.setBackground(QBrush(흰색))
@@ -18048,13 +18054,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if not flag_checkBox_HS:
                 # 주야간 선물전광판 데이타 요청
                 XQ = t2101(parent=self)
-                XQ.Query(종목코드=fut_code)
+                XQ.Query(종목코드=FUT_CODE)
                 print('t2101 요청')
 
                 QTest.qWait(100)
 
                 XQ = t2801(parent=self)
-                XQ.Query(종목코드=fut_code)
+                XQ.Query(종목코드=FUT_CODE)
                 print('t2801 요청')
 
                 QTest.qWait(100)
@@ -18233,7 +18239,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         flag_t8416_call_done = True
                         print('flag_t8416_call_done =', flag_t8416_call_done)                           
 
-                        call_positionCell = self.tableWidget_call.item(atm_index + 9, 1)
+                        call_positionCell = self.tableWidget_call.item(ATM_INDEX + 9, 1)
                         self.tableWidget_call.scrollToItem(call_positionCell)
 
                         print('t8416 put 요청시작...')
@@ -18489,7 +18495,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     flag_t8416_call_done = True
                     print('flag_t8416_call_done =', flag_t8416_call_done) 
 
-                    call_positionCell = self.tableWidget_call.item(atm_index + 9, 1)
+                    call_positionCell = self.tableWidget_call.item(ATM_INDEX + 9, 1)
                     self.tableWidget_call.scrollToItem(call_positionCell)
 
                     print('t8416 put 요청시작...')
@@ -18732,7 +18738,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
                     self.tableWidget_put.resizeColumnsToContents()
                                                 
-                    put_positionCell = self.tableWidget_put.item(atm_index + 20, 1)
+                    put_positionCell = self.tableWidget_put.item(ATM_INDEX + 20, 1)
                     self.tableWidget_put.scrollToItem(put_positionCell)
                     
                     if new_actval_up_count > 0:
@@ -18756,31 +18762,31 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     print(txt)
 
                     #중심가 계산
-                    CENTER_VAL_PLUS5 = round((df_call.at[atm_index - 5, '종가'] + df_put.at[atm_index - 5, '종가'])/2, 2)
-                    CENTER_VAL_PLUS4 = round((df_call.at[atm_index - 4, '종가'] + df_put.at[atm_index - 4, '종가'])/2, 2)
-                    CENTER_VAL_PLUS3 = round((df_call.at[atm_index - 3, '종가'] + df_put.at[atm_index - 3, '종가'])/2, 2)
-                    CENTER_VAL_PLUS2 = round((df_call.at[atm_index - 2, '종가'] + df_put.at[atm_index - 2, '종가'])/2, 2)
-                    CENTER_VAL_PLUS1 = round((df_call.at[atm_index - 1, '종가'] + df_put.at[atm_index - 1, '종가'])/2 , 2)
-                    CENTER_VAL = round((df_call.at[atm_index, '종가'] + df_put.at[atm_index, '종가'])/2 , 2)
-                    CENTER_VAL_MINUS1 = round((df_call.at[atm_index + 1, '종가'] + df_put.at[atm_index + 1, '종가'])/2 , 2)
-                    CENTER_VAL_MINUS2 = round((df_call.at[atm_index + 2, '종가'] + df_put.at[atm_index + 2, '종가'])/2 , 2)
-                    CENTER_VAL_MINUS3 = round((df_call.at[atm_index + 3, '종가'] + df_put.at[atm_index + 3, '종가'])/2 , 2)
-                    CENTER_VAL_MINUS4 = round((df_call.at[atm_index + 4, '종가'] + df_put.at[atm_index + 4, '종가'])/2 , 2)
-                    CENTER_VAL_MINUS5 = round((df_call.at[atm_index + 5, '종가'] + df_put.at[atm_index + 5, '종가'])/2 , 2)
+                    CENTER_VAL_PLUS5 = round((df_call.at[ATM_INDEX - 5, '종가'] + df_put.at[ATM_INDEX - 5, '종가'])/2, 2)
+                    CENTER_VAL_PLUS4 = round((df_call.at[ATM_INDEX - 4, '종가'] + df_put.at[ATM_INDEX - 4, '종가'])/2, 2)
+                    CENTER_VAL_PLUS3 = round((df_call.at[ATM_INDEX - 3, '종가'] + df_put.at[ATM_INDEX - 3, '종가'])/2, 2)
+                    CENTER_VAL_PLUS2 = round((df_call.at[ATM_INDEX - 2, '종가'] + df_put.at[ATM_INDEX - 2, '종가'])/2, 2)
+                    CENTER_VAL_PLUS1 = round((df_call.at[ATM_INDEX - 1, '종가'] + df_put.at[ATM_INDEX - 1, '종가'])/2 , 2)
+                    CENTER_VAL = round((df_call.at[ATM_INDEX, '종가'] + df_put.at[ATM_INDEX, '종가'])/2 , 2)
+                    CENTER_VAL_MINUS1 = round((df_call.at[ATM_INDEX + 1, '종가'] + df_put.at[ATM_INDEX + 1, '종가'])/2 , 2)
+                    CENTER_VAL_MINUS2 = round((df_call.at[ATM_INDEX + 2, '종가'] + df_put.at[ATM_INDEX + 2, '종가'])/2 , 2)
+                    CENTER_VAL_MINUS3 = round((df_call.at[ATM_INDEX + 3, '종가'] + df_put.at[ATM_INDEX + 3, '종가'])/2 , 2)
+                    CENTER_VAL_MINUS4 = round((df_call.at[ATM_INDEX + 4, '종가'] + df_put.at[ATM_INDEX + 4, '종가'])/2 , 2)
+                    CENTER_VAL_MINUS5 = round((df_call.at[ATM_INDEX + 5, '종가'] + df_put.at[ATM_INDEX + 5, '종가'])/2 , 2)
                     
                     # 옵션 양합표시
-                    atm_minus_5 = round((df_call.at[atm_index - 5, '현재가'] + df_put.at[atm_index - 5, '현재가']), 2)
-                    atm_minus_4 = round((df_call.at[atm_index - 4, '현재가'] + df_put.at[atm_index - 4, '현재가']), 2)
-                    atm_minus_3 = round((df_call.at[atm_index - 3, '현재가'] + df_put.at[atm_index - 3, '현재가']), 2)
-                    atm_minus_2 = round((df_call.at[atm_index - 2, '현재가'] + df_put.at[atm_index - 2, '현재가']), 2)
-                    atm_minus_1 = round((df_call.at[atm_index - 1, '현재가'] + df_put.at[atm_index - 1, '현재가']) , 2)
-                    atm_zero_sum = round((df_call.at[atm_index, '현재가'] + df_put.at[atm_index, '현재가']) , 2)
-                    atm_zero_cha = round((df_call.at[atm_index, '현재가'] - df_put.at[atm_index, '현재가']) , 2)
-                    atm_plus_1 = round((df_call.at[atm_index + 1, '현재가'] + df_put.at[atm_index + 1, '현재가']) , 2)
-                    atm_plus_2 = round((df_call.at[atm_index + 2, '현재가'] + df_put.at[atm_index + 2, '현재가']) , 2)
-                    atm_plus_3 = round((df_call.at[atm_index + 3, '현재가'] + df_put.at[atm_index + 3, '현재가']) , 2)
-                    atm_plus_4 = round((df_call.at[atm_index + 4, '현재가'] + df_put.at[atm_index + 4, '현재가']) , 2)
-                    atm_plus_5 = round((df_call.at[atm_index + 5, '현재가'] + df_put.at[atm_index + 5, '현재가']) , 2)
+                    atm_minus_5 = round((df_call.at[ATM_INDEX - 5, '현재가'] + df_put.at[ATM_INDEX - 5, '현재가']), 2)
+                    atm_minus_4 = round((df_call.at[ATM_INDEX - 4, '현재가'] + df_put.at[ATM_INDEX - 4, '현재가']), 2)
+                    atm_minus_3 = round((df_call.at[ATM_INDEX - 3, '현재가'] + df_put.at[ATM_INDEX - 3, '현재가']), 2)
+                    atm_minus_2 = round((df_call.at[ATM_INDEX - 2, '현재가'] + df_put.at[ATM_INDEX - 2, '현재가']), 2)
+                    atm_minus_1 = round((df_call.at[ATM_INDEX - 1, '현재가'] + df_put.at[ATM_INDEX - 1, '현재가']) , 2)
+                    atm_zero_sum = round((df_call.at[ATM_INDEX, '현재가'] + df_put.at[ATM_INDEX, '현재가']) , 2)
+                    atm_zero_cha = round((df_call.at[ATM_INDEX, '현재가'] - df_put.at[ATM_INDEX, '현재가']) , 2)
+                    atm_plus_1 = round((df_call.at[ATM_INDEX + 1, '현재가'] + df_put.at[ATM_INDEX + 1, '현재가']) , 2)
+                    atm_plus_2 = round((df_call.at[ATM_INDEX + 2, '현재가'] + df_put.at[ATM_INDEX + 2, '현재가']) , 2)
+                    atm_plus_3 = round((df_call.at[ATM_INDEX + 3, '현재가'] + df_put.at[ATM_INDEX + 3, '현재가']) , 2)
+                    atm_plus_4 = round((df_call.at[ATM_INDEX + 4, '현재가'] + df_put.at[ATM_INDEX + 4, '현재가']) , 2)
+                    atm_plus_5 = round((df_call.at[ATM_INDEX + 5, '현재가'] + df_put.at[ATM_INDEX + 5, '현재가']) , 2)
                     
                     atm_list = []
                     atm_list.append(atm_minus_5)
@@ -18795,165 +18801,165 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     atm_list.append(atm_plus_4)
                     atm_list.append(atm_plus_5)   
 
-                    min_index = atm_list.index(min(atm_list)) + atm_index - 5
+                    min_index = atm_list.index(min(atm_list)) + ATM_INDEX - 5
 
                     # 콜에 중심가 표시
-                    val = df_call.at[atm_index - 5, '기준가']
+                    val = df_call.at[ATM_INDEX - 5, '기준가']
                     item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS5))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
-                    self.tableWidget_call.setItem(atm_index - 5, Option_column.기준가.value, item) 
+                    self.tableWidget_call.setItem(ATM_INDEX - 5, Option_column.기준가.value, item) 
 
-                    val = df_call.at[atm_index - 4, '기준가']
+                    val = df_call.at[ATM_INDEX - 4, '기준가']
                     item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS4))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
-                    self.tableWidget_call.setItem(atm_index - 4, Option_column.기준가.value, item) 
+                    self.tableWidget_call.setItem(ATM_INDEX - 4, Option_column.기준가.value, item) 
 
-                    val = df_call.at[atm_index - 3, '기준가']
+                    val = df_call.at[ATM_INDEX - 3, '기준가']
                     item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS3))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
-                    self.tableWidget_call.setItem(atm_index - 3, Option_column.기준가.value, item) 
+                    self.tableWidget_call.setItem(ATM_INDEX - 3, Option_column.기준가.value, item) 
 
-                    val = df_call.at[atm_index - 2, '기준가']
+                    val = df_call.at[ATM_INDEX - 2, '기준가']
                     item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS2))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
-                    self.tableWidget_call.setItem(atm_index - 2, Option_column.기준가.value, item)  
+                    self.tableWidget_call.setItem(ATM_INDEX - 2, Option_column.기준가.value, item)  
 
-                    val = df_call.at[atm_index - 1, '기준가']
+                    val = df_call.at[ATM_INDEX - 1, '기준가']
                     item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_PLUS1))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
-                    self.tableWidget_call.setItem(atm_index - 1, Option_column.기준가.value, item)            
+                    self.tableWidget_call.setItem(ATM_INDEX - 1, Option_column.기준가.value, item)            
 
-                    val = df_call.at[atm_index, '기준가']
+                    val = df_call.at[ATM_INDEX, '기준가']
                     item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(노란색))
                     item.setForeground(QBrush(검정색))
-                    self.tableWidget_call.setItem(atm_index, Option_column.기준가.value, item)            
+                    self.tableWidget_call.setItem(ATM_INDEX, Option_column.기준가.value, item)            
 
-                    val = df_call.at[atm_index + 1, '기준가']
+                    val = df_call.at[ATM_INDEX + 1, '기준가']
                     item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS1))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
-                    self.tableWidget_call.setItem(atm_index + 1, Option_column.기준가.value, item)
+                    self.tableWidget_call.setItem(ATM_INDEX + 1, Option_column.기준가.value, item)
 
-                    val = df_call.at[atm_index + 2, '기준가']
+                    val = df_call.at[ATM_INDEX + 2, '기준가']
                     item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS2))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
-                    self.tableWidget_call.setItem(atm_index + 2, Option_column.기준가.value, item)
+                    self.tableWidget_call.setItem(ATM_INDEX + 2, Option_column.기준가.value, item)
 
-                    val = df_call.at[atm_index + 3, '기준가']
+                    val = df_call.at[ATM_INDEX + 3, '기준가']
                     item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS3))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
-                    self.tableWidget_call.setItem(atm_index + 3, Option_column.기준가.value, item)
+                    self.tableWidget_call.setItem(ATM_INDEX + 3, Option_column.기준가.value, item)
 
-                    val = df_call.at[atm_index + 4, '기준가']
+                    val = df_call.at[ATM_INDEX + 4, '기준가']
                     item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS4))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
-                    self.tableWidget_call.setItem(atm_index + 4, Option_column.기준가.value, item)
+                    self.tableWidget_call.setItem(ATM_INDEX + 4, Option_column.기준가.value, item)
 
-                    val = df_call.at[atm_index + 5, '기준가']
+                    val = df_call.at[ATM_INDEX + 5, '기준가']
                     item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL_MINUS5))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
-                    self.tableWidget_call.setItem(atm_index + 5, Option_column.기준가.value, item)
+                    self.tableWidget_call.setItem(ATM_INDEX + 5, Option_column.기준가.value, item)
 
                     # 풋 양합표시
-                    val = df_put.at[atm_index - 5, '기준가']
+                    val = df_put.at[ATM_INDEX - 5, '기준가']
                     item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_minus_5))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
-                    self.tableWidget_put.setItem(atm_index - 5, Option_column.기준가.value, item)
+                    self.tableWidget_put.setItem(ATM_INDEX - 5, Option_column.기준가.value, item)
 
-                    val = df_put.at[atm_index - 4, '기준가']
+                    val = df_put.at[ATM_INDEX - 4, '기준가']
                     item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_minus_4))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
-                    self.tableWidget_put.setItem(atm_index - 4, Option_column.기준가.value, item)
+                    self.tableWidget_put.setItem(ATM_INDEX - 4, Option_column.기준가.value, item)
 
-                    val = df_put.at[atm_index - 3, '기준가']
+                    val = df_put.at[ATM_INDEX - 3, '기준가']
                     item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_minus_3))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
-                    self.tableWidget_put.setItem(atm_index - 3, Option_column.기준가.value, item)
+                    self.tableWidget_put.setItem(ATM_INDEX - 3, Option_column.기준가.value, item)
 
-                    val = df_put.at[atm_index - 2, '기준가']
+                    val = df_put.at[ATM_INDEX - 2, '기준가']
                     item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_minus_2))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
-                    self.tableWidget_put.setItem(atm_index - 2, Option_column.기준가.value, item)    
+                    self.tableWidget_put.setItem(ATM_INDEX - 2, Option_column.기준가.value, item)    
 
-                    val = df_put.at[atm_index - 1, '기준가']
+                    val = df_put.at[ATM_INDEX - 1, '기준가']
                     item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_minus_1))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
-                    self.tableWidget_put.setItem(atm_index - 1, Option_column.기준가.value, item)            
+                    self.tableWidget_put.setItem(ATM_INDEX - 1, Option_column.기준가.value, item)            
 
-                    val = df_put.at[atm_index, '기준가']
+                    val = df_put.at[ATM_INDEX, '기준가']
                     item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_zero_sum))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(노란색))
                     item.setForeground(QBrush(검정색))
-                    self.tableWidget_put.setItem(atm_index, Option_column.기준가.value, item)            
+                    self.tableWidget_put.setItem(ATM_INDEX, Option_column.기준가.value, item)            
 
-                    val = df_put.at[atm_index + 1, '기준가']
+                    val = df_put.at[ATM_INDEX + 1, '기준가']
                     item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_plus_1))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
-                    self.tableWidget_put.setItem(atm_index + 1, Option_column.기준가.value, item)
+                    self.tableWidget_put.setItem(ATM_INDEX + 1, Option_column.기준가.value, item)
 
-                    val = df_put.at[atm_index + 2, '기준가']
+                    val = df_put.at[ATM_INDEX + 2, '기준가']
                     item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_plus_2))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
-                    self.tableWidget_put.setItem(atm_index + 2, Option_column.기준가.value, item)
+                    self.tableWidget_put.setItem(ATM_INDEX + 2, Option_column.기준가.value, item)
 
-                    val = df_put.at[atm_index + 3, '기준가']
+                    val = df_put.at[ATM_INDEX + 3, '기준가']
                     item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_plus_3))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
-                    self.tableWidget_put.setItem(atm_index + 3, Option_column.기준가.value, item)
+                    self.tableWidget_put.setItem(ATM_INDEX + 3, Option_column.기준가.value, item)
 
-                    val = df_put.at[atm_index + 4, '기준가']
+                    val = df_put.at[ATM_INDEX + 4, '기준가']
                     item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_plus_4))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
-                    self.tableWidget_put.setItem(atm_index + 4, Option_column.기준가.value, item)
+                    self.tableWidget_put.setItem(ATM_INDEX + 4, Option_column.기준가.value, item)
 
-                    val = df_put.at[atm_index + 5, '기준가']
+                    val = df_put.at[ATM_INDEX + 5, '기준가']
                     item = QTableWidgetItem("{0:.2f}\n({1})".format(val, atm_plus_5))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
-                    self.tableWidget_put.setItem(atm_index + 5, Option_column.기준가.value, item)
+                    self.tableWidget_put.setItem(ATM_INDEX + 5, Option_column.기준가.value, item)
 
-                    if min_index != atm_index:
+                    if min_index != ATM_INDEX:
                         self.tableWidget_put.item(min_index, Option_column.기준가.value).setBackground(QBrush(검정색))
                         self.tableWidget_put.item(min_index, Option_column.기준가.value).setForeground(QBrush(노란색))
                     else:
@@ -19053,7 +19059,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
                         self.tableWidget_fut.resizeColumnsToContents()
                         
-                        #self.screen_update_worker.daemon = True
                         self.screen_update_worker.start()
 
                         txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
@@ -19093,31 +19098,31 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if MANGI_YAGAN:
 
                 if current_month == 3 or current_month == 6 or current_month == 9 or current_month == 12:
-                    gmshcode = 차월물선물코드
-                    cmshcode = 차차월물선물코드
+                    GMSHCODE = 차월물선물코드
+                    CMSHCODE = 차차월물선물코드
                 else:
-                    gmshcode = 근월물선물코드
-                    cmshcode = 차월물선물코드
-                    ccmshcode = 차차월물선물코드
+                    GMSHCODE = 근월물선물코드
+                    CMSHCODE = 차월물선물코드
+                    CCMSHCODE = 차차월물선물코드
             else:
-                gmshcode = 근월물선물코드
-                cmshcode = 차월물선물코드
-                ccmshcode = 차차월물선물코드
+                GMSHCODE = 근월물선물코드
+                CMSHCODE = 차월물선물코드
+                CCMSHCODE = 차차월물선물코드
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 본월물코드 = {3}\r'.format(dt.hour, dt.minute, dt.second, gmshcode)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 본월물코드 = {3}\r'.format(dt.hour, dt.minute, dt.second, GMSHCODE)
             self.textBrowser.append(txt)
             self.parent.textBrowser.append(txt)
             print(txt)
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 차월물코드 = {3}\r'.format(dt.hour, dt.minute, dt.second, cmshcode)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 차월물코드 = {3}\r'.format(dt.hour, dt.minute, dt.second, CMSHCODE)
             self.textBrowser.append(txt)
             self.parent.textBrowser.append(txt)
             print(txt)
 
             if TARGET_MONTH_SELECT == 'CM':
 
-                fut_code = gmshcode
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, current_month, fut_code)
+                FUT_CODE = GMSHCODE
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, current_month, FUT_CODE)
                 self.textBrowser.append(txt)
                 print(txt)
                 
@@ -19144,8 +19149,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif TARGET_MONTH_SELECT == 'NM':
 
-                fut_code = cmshcode
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, next_month, fut_code)
+                FUT_CODE = CMSHCODE
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, next_month, FUT_CODE)
                 self.textBrowser.append(txt)
                 print(txt)
 
@@ -19198,7 +19203,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         elif szTrCode == 't8433':            
 
             df = result[0]
-
+            
             global df_cm_call, df_cm_put, df_nm_call, df_nm_put
 
             first_cm_call = False
@@ -19210,7 +19215,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if df['종목명'][i][2:6] == CURRENT_MONTH[2:6] and df['종목명'][i][0] == 'C':                
 
-                    self.cm_call_code.append(df['단축코드'][i])
+                    CM_CALL_CODE.append(df['단축코드'][i])
 
                     if not first_cm_call:
                         first_cm_call = True
@@ -19226,7 +19231,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif df['종목명'][i][2:6] == CURRENT_MONTH[2:6] and df['종목명'][i][0] == 'P': 
 
-                    self.cm_put_code.append(df['단축코드'][i])
+                    CM_PUT_CODE.append(df['단축코드'][i])
 
                     if not first_cm_put:
                         first_cm_put = True
@@ -19242,7 +19247,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif df['종목명'][i][2:6] == NEXT_MONTH[2:6] and df['종목명'][i][0] == 'C':                
 
-                    self.nm_call_code.append(df['단축코드'][i])
+                    NM_CALL_CODE.append(df['단축코드'][i])
 
                     if not first_nm_call:
                         first_nm_call = True
@@ -19258,7 +19263,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif df['종목명'][i][2:6] == NEXT_MONTH[2:6] and df['종목명'][i][0] == 'P': 
 
-                    self.nm_put_code.append(df['단축코드'][i])
+                    NM_PUT_CODE.append(df['단축코드'][i])
 
                     if not first_nm_put:
                         first_nm_put = True
@@ -19274,22 +19279,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-            cm_opt_length = len(self.cm_call_code)
-            nm_opt_length = len(self.nm_call_code)
+            CM_OPT_LENGTH = len(CM_CALL_CODE)
+            NM_OPT_LENGTH = len(NM_CALL_CODE)
 
-            CM_OPTCODE = self.cm_call_code[0][3:5]
-            NM_OPTCODE = self.nm_call_code[0][3:5]
+            CM_OPTCODE = CM_CALL_CODE[0][3:5]
+            NM_OPTCODE = NM_CALL_CODE[0][3:5]
             '''
             print('df cm call = {0}\r'.format(df_cm_call))
             print('df cm put = {0}\r'.format(df_cm_put))
             print('df nm call = {0}\r'.format(df_nm_call))
             print('df nm put = {0}\r'.format(df_nm_put))
             '''
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 옵션크기 = {4}\r'.format(dt.hour, dt.minute, dt.second, CM_OPTCODE, cm_opt_length)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 옵션크기 = {4}\r'.format(dt.hour, dt.minute, dt.second, CM_OPTCODE, CM_OPT_LENGTH)
             self.textBrowser.append(txt)
             print(txt) 
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 옵션크기 = {4}\r'.format(dt.hour, dt.minute, dt.second, NM_OPTCODE, nm_opt_length)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 옵션크기 = {4}\r'.format(dt.hour, dt.minute, dt.second, NM_OPTCODE, NM_OPT_LENGTH)
             self.textBrowser.append(txt)
             print(txt)
 
@@ -19300,9 +19305,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 timespan = jugan_timespan
 
             if TARGET_MONTH_SELECT == 'CM':
-                option_pairs_count = cm_opt_length
+                option_pairs_count = CM_OPT_LENGTH
             elif TARGET_MONTH_SELECT == 'NM':
-                option_pairs_count = nm_opt_length
+                option_pairs_count = NM_OPT_LENGTH
 
             for i in range(option_pairs_count):
 
@@ -19357,7 +19362,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def realdata_update(self):
 
         global pre_start
-        global atm_str, atm_val, atm_index
+        global atm_str, atm_val, ATM_INDEX
         global yj_atm_index
 
         global df_call, df_put
@@ -19535,10 +19540,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.textBrowser.append(txt)
 
                     if not MULTIPROCESS:
-                        self.realtime_data_worker.CancelRealDataRequest('YJ')
-                        self.realtime_data_worker.CancelRealDataRequest('YFC')
-                        self.realtime_data_worker.CancelRealDataRequest('YOC')
-                        self.realtime_data_worker.CancelRealDataRequest('YS3')
+                        self.realtime_data_worker.CancelRealDataRequest('YJ', '0')
+                        self.realtime_data_worker.CancelRealDataRequest('YFC', '0')
+                        self.realtime_data_worker.CancelRealDataRequest('YOC', '0')
+                        self.realtime_data_worker.CancelRealDataRequest('YS3', '0')
                     else:
                         pass
 
@@ -19659,8 +19664,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         jugan_service_terminate = True
                         flag_option_start = False
 
-                        call_atm_value = df_call.at[atm_index, '현재가']
-                        put_atm_value = df_put.at[atm_index, '현재가']
+                        call_atm_value = df_call.at[ATM_INDEX, '현재가']
+                        put_atm_value = df_put.at[ATM_INDEX, '현재가']
 
                         # 저장을 위한 중심가 계산 및 표시
                         if call_atm_value >= put_atm_value:
@@ -20224,7 +20229,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
             elif szTrCode == 'YFC':
 
-                if result['단축코드'] == gmshcode:                    
+                if result['단축코드'] == GMSHCODE:                    
 
                     market_service = True
                     
@@ -20682,7 +20687,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.fut_realdata['피봇'] = 선물_피봇              
                         
                         atm_str = self.get_atm_str(kp200_시가)
-                        atm_index = opt_actval.index(atm_str)
+                        ATM_INDEX = opt_actval.index(atm_str)
 
                         if atm_str[-1] == '2' or atm_str[-1] == '7':
 
@@ -20690,8 +20695,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             atm_val = float(atm_str)
 
-                        call_atm_value = df_call.at[atm_index, '현재가']
-                        put_atm_value = df_put.at[atm_index, '현재가']
+                        call_atm_value = df_call.at[ATM_INDEX, '현재가']
+                        put_atm_value = df_put.at[ATM_INDEX, '현재가']
 
                         if call_atm_value >= put_atm_value:
                             atm_zero_cha = round((call_atm_value - put_atm_value) , 2)
@@ -21318,10 +21323,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
                 
-                if result['단축코드'] == fut_code:
+                if result['단축코드'] == FUT_CODE:
                     fut_result = copy.deepcopy(result)
                     self.fut_update(result)
-                elif TARGET_MONTH_SELECT == 'CM' and result['단축코드'] == cmshcode:
+                elif TARGET_MONTH_SELECT == 'CM' and result['단축코드'] == CMSHCODE:
 
                     fut_nm_volume_power = result['매수누적체결량'] - result['매도누적체결량']
 
@@ -21433,7 +21438,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if TELEGRAM_SERVICE and not flag_telegram_send_worker:
                         
-                        #self.telegram_send_worker.daemon = True
                         self.telegram_send_worker.start()
 
                         telegram_send_worker_on_time = opt_time 
@@ -21463,7 +21467,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if TELEGRAM_SERVICE:
                             
-                            #self.telegram_listen_worker.daemon = True
                             self.telegram_listen_worker.start()
 
                             if TARGET_MONTH_SELECT == 'CM':                        
@@ -21498,7 +21501,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 market_service = True
 
-                if result['단축코드'] == gmshcode:
+                if result['단축코드'] == GMSHCODE:
 
                     # 선물호가 갱신
                     item = QTableWidgetItem("{0}".format(format(result['매수호가총건수'], ',')))
@@ -21550,7 +21553,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                 # 차월물 처리
-                elif result['단축코드'] == cmshcode:
+                elif result['단축코드'] == CMSHCODE:
 
                     # 선물호가 갱신
                     item = QTableWidgetItem("{0}".format(format(result['매수호가총건수'], ',')))
@@ -21599,7 +21602,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
                 
-                elif result['단축코드'] == ccmshcode:
+                elif result['단축코드'] == CCMSHCODE:
 
                     # 선물호가 갱신
                     item = QTableWidgetItem("{0}".format(format(result['매수호가총건수'], ',')))
@@ -23296,7 +23299,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.parent = parent
 
         self.flag_realtimeitem_open = True
-        self.flag_state_changed = False
 
         self.checkBox_cm_fut_price.setChecked(CM_FUT_PRICE)
         self.flag_checkBox_cm_fut_price = CM_FUT_PRICE
@@ -23330,6 +23332,9 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         self.checkBox_supply_demand.setChecked(SUPPLY_DEMAND)
         self.flag_checkBox_supply_demand = SUPPLY_DEMAND
+
+        self.checkBox_dow.setChecked(DOW_CHK)
+        self.flag_checkBox_dow = DOW_CHK
 
         self.checkBox_sp500.setChecked(SP500_CHK)
         self.flag_checkBox_sp500 = SP500_CHK
@@ -23369,6 +23374,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_nm_opt_quote.stateChanged.connect(self.checkBox_nm_opt_quote_checkState)
         self.checkBox_nm_opt_quote_1.stateChanged.connect(self.checkBox_nm_opt_quote_1_checkState)
         self.checkBox_supply_demand.stateChanged.connect(self.checkBox_supply_demand_checkState)
+        self.checkBox_dow.stateChanged.connect(self.checkBox_dow_checkState)
         self.checkBox_sp500.stateChanged.connect(self.checkBox_sp500_checkState)
         self.checkBox_nasdaq.stateChanged.connect(self.checkBox_nasdaq_checkState)
         self.checkBox_oil.stateChanged.connect(self.checkBox_oil_checkState)
@@ -23380,290 +23386,506 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
-        self.flag_state_changed = True
-
         if self.checkBox_cm_fut_price.isChecked() == True:
             self.flag_checkBox_cm_fut_price = True
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물 선물가격 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('FUT_REAL', GMSHCODE)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
         else:
             self.flag_checkBox_cm_fut_price = False
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물 선물가격 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('FUT_REAL', '0')
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 가격요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
 
     def checkBox_cm_fut_quote_checkState(self):
 
         dt = datetime.datetime.now()
 
-        self.flag_state_changed = True
-
         if self.checkBox_cm_fut_quote.isChecked() == True:
             self.flag_checkBox_cm_fut_quote = True
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물 선물호가 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('FUT_HO', GMSHCODE)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
         else:
             self.flag_checkBox_cm_fut_quote = False
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물 선물호가 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('FUT_HO', '0')
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 호가요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
 
     def checkBox_cm_opt_price_checkState(self):
 
         dt = datetime.datetime.now()
 
-        self.flag_state_changed = True
-
         if self.checkBox_cm_opt_price.isChecked() == True:
             self.flag_checkBox_cm_opt_price = True
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물 옵션가격 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                for i in range(CM_OPT_LENGTH):
+                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('OPT_REAL', CM_CALL_CODE[i])
+                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('OPT_REAL', CM_PUT_CODE[i])
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
         else:
             self.flag_checkBox_cm_opt_price = False
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물 옵션가격 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_REAL', '0')
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
 
     def checkBox_cm_opt_quote_checkState(self):
 
         dt = datetime.datetime.now()
 
-        self.flag_state_changed = True
-
         if self.checkBox_cm_opt_quote.isChecked() == True:
             self.flag_checkBox_cm_opt_quote = True
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물 옵션호가 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                for i in range(CM_OPT_LENGTH):
+                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('OPT_HO', CM_CALL_CODE[i])
+                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('OPT_HO', CM_PUT_CODE[i])
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
         else:
             self.flag_checkBox_cm_opt_quote = False
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물 옵션호가 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_HO', '0')
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
 
     def checkBox_cm_opt_quote_1_checkState(self):
 
         dt = datetime.datetime.now()
 
-        self.flag_state_changed = True
-
         if self.checkBox_cm_opt_quote_1.isChecked() == True:
             self.flag_checkBox_cm_opt_quote_1 = True
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물 옵션호가(등가근처 10개) 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                NEW_INDEX = int(int(QUOTE_REQUEST_NUMBER)/2)
+
+                for i in range(ATM_INDEX - NEW_INDEX, ATM_INDEX + NEW_INDEX + 1):
+                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('OPT_HO', CM_CALL_CODE[i])
+                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('OPT_HO', CM_PUT_CODE[i])
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가(등가근처 10개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
         else:
             self.flag_checkBox_cm_opt_quote_1 = False
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물 옵션호가(등가근처 10개) 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_HO', '0')
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
 
     def checkBox_nm_fut_price_checkState(self):
 
         dt = datetime.datetime.now()
 
-        self.flag_state_changed = True
-
         if self.checkBox_nm_fut_price.isChecked() == True:
             self.flag_checkBox_nm_fut_price = True
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 선물가격 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+                
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('FUT_REAL', CMSHCODE)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 선물 가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
         else:
             self.flag_checkBox_nm_fut_price = False
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 선물가격 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('FUT_REAL', '0')
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 선물 가격요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
 
     def checkBox_nm_fut_quote_checkState(self):
 
         dt = datetime.datetime.now()
 
-        self.flag_state_changed = True
-
         if self.checkBox_nm_fut_quote.isChecked() == True:
             self.flag_checkBox_nm_fut_quote = True
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 선물호가 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('FUT_HO', CMSHCODE)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 선물 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
         else:
             self.flag_checkBox_nm_fut_quote = False
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 선물호가 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('FUT_HO', '0')
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 선물 호가요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
 
     def checkBox_nm_opt_price_checkState(self):
 
         dt = datetime.datetime.now()
 
-        self.flag_state_changed = True
-
         if self.checkBox_nm_opt_price.isChecked() == True:
             self.flag_checkBox_nm_opt_price = True
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 옵션가격 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                for i in range(NM_OPT_LENGTH):
+                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('OPT_REAL', NM_CALL_CODE[i])
+                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('OPT_REAL', NM_PUT_CODE[i])
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
         else:
             self.flag_checkBox_nm_opt_price = False
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 옵션가격 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_REAL', '0')
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 가격요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
 
     def checkBox_nm_opt_quote_checkState(self):
 
         dt = datetime.datetime.now()
 
-        self.flag_state_changed = True
-
         if self.checkBox_nm_opt_quote.isChecked() == True:
             self.flag_checkBox_nm_opt_quote = True
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 옵션호가 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                for i in range(NM_OPT_LENGTH):
+                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('OPT_HO', NM_CALL_CODE[i])
+                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('OPT_HO', NM_PUT_CODE[i])
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
         else:
             self.flag_checkBox_nm_opt_quote = False
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 옵션호가 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_HO', '0')
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
 
     def checkBox_nm_opt_quote_1_checkState(self):
 
         dt = datetime.datetime.now()
 
-        self.flag_state_changed = True
-
         if self.checkBox_nm_opt_quote_1.isChecked() == True:
             self.flag_checkBox_nm_opt_quote_1 = True
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 옵션호가(등가근처 10개) 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                NEW_INDEX = int(int(QUOTE_REQUEST_NUMBER)/2)
+
+                for i in range(ATM_INDEX - NEW_INDEX, ATM_INDEX + NEW_INDEX + 1):
+                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('OPT_HO', NM_CALL_CODE[i])
+                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('OPT_HO', NM_PUT_CODE[i])
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가(등가근처 10개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
         else:
             self.flag_checkBox_nm_opt_quote_1 = False
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 옵션호가(등가근처 10개) 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_HO', '0')
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
 
     def checkBox_supply_demand_checkState(self):
 
         dt = datetime.datetime.now()
 
-        self.flag_state_changed = True
-
         if self.checkBox_supply_demand.isChecked() == True:
             self.flag_checkBox_supply_demand = True
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 투자자별 매매현황 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('BM', FUTURES)
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('BM', KOSPI)
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('PM', KOSPI)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 투자자별 매매현황을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
         else:
             self.flag_checkBox_supply_demand = False
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 투자자별 매매현황 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('BM', '0')
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('PM', '0')
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 투자자별 매매현황 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
+
+    def checkBox_dow_checkState(self):
+
+        dt = datetime.datetime.now()
+
+        if self.checkBox_dow.isChecked() == True:
+            self.flag_checkBox_dow = True
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('OVC', DOW)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 DOW를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
+        else:
+            self.flag_checkBox_dow = False
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OVC', DOW)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 DOW 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
 
     def checkBox_sp500_checkState(self):
 
         dt = datetime.datetime.now()
 
-        self.flag_state_changed = True
-
         if self.checkBox_sp500.isChecked() == True:
             self.flag_checkBox_sp500 = True
-            txt = '[{0:02d}:{1:02d}:{2:02d}] S&P 500 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('OVC', SP500)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 S&P 500을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
         else:
             self.flag_checkBox_sp500 = False
-            txt = '[{0:02d}:{1:02d}:{2:02d}] S&P 500 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OVC', SP500)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 S&P 500 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
 
     def checkBox_nasdaq_checkState(self):
 
         dt = datetime.datetime.now()
 
-        self.flag_state_changed = True
-
         if self.checkBox_nasdaq.isChecked() == True:
             self.flag_checkBox_nasdaq = True
-            txt = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('OVC', NASDAQ)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 NASDAQ을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
         else:
             self.flag_checkBox_nasdaq = False
-            txt = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OVC', NASDAQ)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 NASDAQ 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
 
     def checkBox_oil_checkState(self):
 
         dt = datetime.datetime.now()
 
-        self.flag_state_changed = True
-
         if self.checkBox_oil.isChecked() == True:
             self.flag_checkBox_oil = True
-            txt = '[{0:02d}:{1:02d}:{2:02d}] WTI OIL 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('OVC', WTI)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 WTI OIL을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
         else:
             self.flag_checkBox_oil = False
-            txt = '[{0:02d}:{1:02d}:{2:02d}] WTI OIL 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OVC', WTI)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 WTI OIL 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
 
     def checkBox_eurofx_checkState(self):
 
         dt = datetime.datetime.now()
 
-        self.flag_state_changed = True
-
         if self.checkBox_eurofx.isChecked() == True:
             self.flag_checkBox_eurofx = True
-            txt = '[{0:02d}:{1:02d}:{2:02d}] EUROFX 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('OVC', EUROFX)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 EUROFX을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
         else:
             self.flag_checkBox_eurofx = False
-            txt = '[{0:02d}:{1:02d}:{2:02d}] EUROFX 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OVC', EUROFX)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 EUROFX 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
 
     def checkBox_hangseng_checkState(self):
 
         dt = datetime.datetime.now()
 
-        self.flag_state_changed = True
-
         if self.checkBox_hangseng.isChecked() == True:
             self.flag_checkBox_hangseng = True
-            txt = '[{0:02d}:{1:02d}:{2:02d}] HANGSENG 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('OVC', HANGSENG)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 HANGSENG을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
         else:
             self.flag_checkBox_hangseng = False
-            txt = '[{0:02d}:{1:02d}:{2:02d}] HANGSENG 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OVC', HANGSENG)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 HANGSENG 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
 
     def checkBox_gold_checkState(self):
 
         dt = datetime.datetime.now()
 
-        self.flag_state_changed = True
-
         if self.checkBox_gold.isChecked() == True:
             self.flag_checkBox_gold = True
-            txt = '[{0:02d}:{1:02d}:{2:02d}] GOLD 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('OVC', GOLD)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 GOLD를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
         else:
             self.flag_checkBox_gold = False
-            txt = '[{0:02d}:{1:02d}:{2:02d}] GOLD 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OVC', GOLD)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 GOLD 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
 
 
     def closeEvent(self,event):
@@ -23677,6 +23899,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 class PlotUpdateWorker(QThread):
 
     finished = pyqtSignal(str)
+
+    def __init__(self):
+        super().__init__()
+
+        self.daemon = True
 
     def run(self):
 
@@ -24604,7 +24831,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         # 그리기 쓰레드 시작...        
         self.plot_update_worker = PlotUpdateWorker()
         self.plot_update_worker.finished.connect(self.update_bigchart)
-        self.plot_update_worker.daemon = True
+        #self.plot_update_worker.daemon = True
         self.plot_update_worker.start()
 
     def __del__(self):
@@ -31672,13 +31899,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
                     self.label_24.setText(txt)
 
-                    txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (put_atm_value / df_put.at[atm_index, '시가'] - 1) * 100)
+                    txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[ATM_INDEX, '대비'], (put_atm_value / df_put.at[ATM_INDEX, '시가'] - 1) * 100)
                     self.label_26.setText(txt)
 
                     txt = ' 중심가: {0:.2f} '.format(CENTER_VAL)
                     self.label_27.setText(txt)
 
-                    txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (call_atm_value / df_call.at[atm_index, '시가'] - 1) * 100)
+                    txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[ATM_INDEX, '대비'], (call_atm_value / df_call.at[ATM_INDEX, '시가'] - 1) * 100)
                     self.label_28.setText(txt)
                 else:
                     pass                
@@ -32368,13 +32595,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
                     self.label_34.setText(txt)
 
-                    txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (put_atm_value / df_put.at[atm_index, '시가'] - 1) * 100)
+                    txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[ATM_INDEX, '대비'], (put_atm_value / df_put.at[ATM_INDEX, '시가'] - 1) * 100)
                     self.label_36.setText(txt)
 
                     txt = ' 중심가: {0:.2f} '.format(CENTER_VAL)
                     self.label_37.setText(txt)
 
-                    txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (call_atm_value / df_call.at[atm_index, '시가'] - 1) * 100)
+                    txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[ATM_INDEX, '대비'], (call_atm_value / df_call.at[ATM_INDEX, '시가'] - 1) * 100)
                     self.label_38.setText(txt)
                 else:
                     pass                
@@ -33809,13 +34036,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
                     self.label_54.setText(txt)
 
-                    txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (put_atm_value / df_put.at[atm_index, '시가'] - 1) * 100)
+                    txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[ATM_INDEX, '대비'], (put_atm_value / df_put.at[ATM_INDEX, '시가'] - 1) * 100)
                     self.label_56.setText(txt)
 
                     txt = ' 중심가: {0:.2f} '.format(CENTER_VAL)
                     self.label_57.setText(txt)
 
-                    txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (call_atm_value / df_call.at[atm_index, '시가'] - 1) * 100)
+                    txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[ATM_INDEX, '대비'], (call_atm_value / df_call.at[ATM_INDEX, '시가'] - 1) * 100)
                     self.label_58.setText(txt)
                 else:
                     pass
@@ -34500,13 +34727,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
                     self.label_64.setText(txt)
 
-                    txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (put_atm_value / df_put.at[atm_index, '시가'] - 1) * 100)
+                    txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[ATM_INDEX, '대비'], (put_atm_value / df_put.at[ATM_INDEX, '시가'] - 1) * 100)
                     self.label_66.setText(txt)
 
                     txt = ' 중심가: {0:.2f} '.format(CENTER_VAL)
                     self.label_67.setText(txt)
 
-                    txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (call_atm_value / df_call.at[atm_index, '시가'] - 1) * 100)
+                    txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[ATM_INDEX, '대비'], (call_atm_value / df_call.at[ATM_INDEX, '시가'] - 1) * 100)
                     self.label_68.setText(txt)
                 else:
                     pass                

@@ -2059,6 +2059,7 @@ class OVC(XAReal):
 
     def UnadviseRealDataWithKey(self, 종목코드):
         self.ActiveX.UnadviseRealDataWithKey(종목코드)
+        print('종목코드 =', 종목코드)
 
     def UnadviseRealData(self):
         self.ActiveX.UnadviseRealData()

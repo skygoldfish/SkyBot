@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'realtime_item.ui'
+# Form implementation generated from reading ui file 'realtimeitem.ui'
 #
 # Created by: PyQt5 UI code generator 5.9.2
 #
@@ -11,9 +11,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(279, 549)
+        Dialog.resize(279, 550)
         self.groupBox = QtWidgets.QGroupBox(Dialog)
-        self.groupBox.setGeometry(QtCore.QRect(20, 10, 241, 521))
+        self.groupBox.setGeometry(QtCore.QRect(20, 10, 241, 531))
         font = QtGui.QFont()
         font.setFamily("Consolas")
         font.setBold(True)
@@ -22,7 +22,7 @@ class Ui_Dialog(object):
         self.groupBox.setFlat(False)
         self.groupBox.setObjectName("groupBox")
         self.layoutWidget = QtWidgets.QWidget(self.groupBox)
-        self.layoutWidget.setGeometry(QtCore.QRect(10, 30, 221, 481))
+        self.layoutWidget.setGeometry(QtCore.QRect(10, 30, 210, 491))
         self.layoutWidget.setObjectName("layoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.layoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -115,6 +115,14 @@ class Ui_Dialog(object):
         self.checkBox_supply_demand.setFont(font)
         self.checkBox_supply_demand.setObjectName("checkBox_supply_demand")
         self.verticalLayout.addWidget(self.checkBox_supply_demand)
+        self.checkBox_dow = QtWidgets.QCheckBox(self.layoutWidget)
+        font = QtGui.QFont()
+        font.setFamily("Consolas")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_dow.setFont(font)
+        self.checkBox_dow.setObjectName("checkBox_dow")
+        self.verticalLayout.addWidget(self.checkBox_dow)
         self.checkBox_sp500 = QtWidgets.QCheckBox(self.layoutWidget)
         font = QtGui.QFont()
         font.setFamily("Consolas")
@@ -182,7 +190,8 @@ class Ui_Dialog(object):
         self.checkBox_nm_opt_quote.setText(_translate("Dialog", "차월물 옵션호가"))
         self.checkBox_nm_opt_quote_1.setText(_translate("Dialog", "차월물 옵션호가(등가중심 10)"))
         self.checkBox_supply_demand.setText(_translate("Dialog", "투자자별 매매현황"))
-        self.checkBox_sp500.setText(_translate("Dialog", "SP 500"))
+        self.checkBox_dow.setText(_translate("Dialog", "DOW"))
+        self.checkBox_sp500.setText(_translate("Dialog", "SP500"))
         self.checkBox_nasdaq.setText(_translate("Dialog", "NASDAQ"))
         self.checkBox_oil.setText(_translate("Dialog", "WTI OIL"))
         self.checkBox_eurofx.setText(_translate("Dialog", "EUROFX"))
