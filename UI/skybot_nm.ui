@@ -71,7 +71,6 @@
      <string>선물옵션</string>
     </property>
     <addaction name="actionScoreBoard"/>
-    <addaction name="separator"/>
     <addaction name="actionBigChart"/>
     <addaction name="separator"/>
    </widget>
@@ -98,6 +97,7 @@
     <bool>false</bool>
    </attribute>
    <addaction name="separator"/>
+   <addaction name="action_ToolBar_RealTime_Setting"/>
    <addaction name="action_ToolBar_BigChart"/>
   </widget>
   <action name="actionLogin">
@@ -149,6 +149,10 @@
    </property>
   </action>
   <action name="actionVersion">
+   <property name="icon">
+    <iconset>
+     <normaloff>PNG/version.png</normaloff>PNG/version.png</iconset>
+   </property>
    <property name="text">
     <string>버전</string>
    </property>
@@ -156,16 +160,16 @@
   <action name="actionScoreBoard">
    <property name="icon">
     <iconset>
-     <normaloff>PNG/당월물 옵션전광판.png</normaloff>PNG/당월물 옵션전광판.png</iconset>
+     <normaloff>PNG/전광판.png</normaloff>PNG/전광판.png</iconset>
    </property>
    <property name="text">
-    <string>선물옵션 전광판</string>
+    <string>전광판</string>
    </property>
   </action>
   <action name="actionBigChart">
    <property name="icon">
     <iconset>
-     <normaloff>PNG/수급.png</normaloff>PNG/수급.png</iconset>
+     <normaloff>PNG/bigchart.png</normaloff>PNG/bigchart.png</iconset>
    </property>
    <property name="text">
     <string>Big Chart</string>
@@ -194,8 +198,21 @@
    </property>
   </action>
   <action name="actionRealTimeItem">
+   <property name="icon">
+    <iconset>
+     <normaloff>PNG/설정.png</normaloff>PNG/설정.png</iconset>
+   </property>
    <property name="text">
     <string>실시간요청 항목</string>
+   </property>
+  </action>
+  <action name="action_ToolBar_RealTime_Setting">
+   <property name="icon">
+    <iconset>
+     <normaloff>PNG/설정.png</normaloff>PNG/설정.png</iconset>
+   </property>
+   <property name="text">
+    <string>실시간설정</string>
    </property>
   </action>
  </widget>

@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 
 프로그램정보 = [
-    ['프로그램명','SkyBot-eBEST'],
+    ['프로그램명','SkyBot'],
     ['Version','1.0'],
-    ['개발일','2020-12-05'],
-    ['2018-08-07','mymoneybot 프로그램으로 시작'],
+    ['2018-08-07','프로그램 개발시작'],
     ['2020-12-05','SkyBot v1.0 배포']
 ]
 
@@ -84,7 +83,7 @@ QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True) #use h
 pd.set_option('display.max_columns', None)
 pd.set_option('display.expand_frame_repr', False)
 #pd.set_option('max_colwidth', None)
-pd.set_option('max_colwidth', -1)
+pd.set_option('max_colwidth', 100)
 
 # 시스템 기본 로케일 사용
 locale.setlocale(locale.LC_ALL, '') 
@@ -107,7 +106,7 @@ flag_internet_connection_broken = False
 flag_service_provider_broken = False
 flag_broken_capture = False
 
-MULTIPROCESS = False
+MULTIPROCESS = True
 
 all_screens = None
 
@@ -309,6 +308,25 @@ CSV_FILE = parser.getboolean('User Switch', 'CSV Data File')
 TTS = parser.getboolean('User Switch', 'Text To Speach')
 SEARCH_MOVING_NODE = parser.getboolean('User Switch', 'Search Moving Node')
 UI_HIDE = parser.getboolean('User Switch', 'UI Hide')
+
+# [5]. << Real Time Request Item Switch >>
+CM_FUT_PRICE = parser.getboolean('RealTime Request Item Switch', 'Current Month Futures Price')
+CM_FUT_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Current Month Futures Quote')
+CM_OPT_PRICE = parser.getboolean('RealTime Request Item Switch', 'Current Month Option Price')
+CM_OPT_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Current Month Option Quote')
+CM_OPT_10_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Current Month Option 10 Quote')
+NM_FUT_PRICE = parser.getboolean('RealTime Request Item Switch', 'Next Month Futures Price')
+NM_FUT_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Next Month Futures Quote')
+NM_OPT_PRICE = parser.getboolean('RealTime Request Item Switch', 'Next Month Option Price')
+NM_OPT_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Next Month Option Quote')
+NM_OPT_10_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Next Month Option 10 Quote')
+SUPPLY_DEMAND = parser.getboolean('RealTime Request Item Switch', 'Supply & Demand')
+SP500_CHK = parser.getboolean('RealTime Request Item Switch', 'S&P 500')
+NASDAQ_CHK = parser.getboolean('RealTime Request Item Switch', 'NASDAQ')
+WTI_CHK = parser.getboolean('RealTime Request Item Switch', 'WTI OIL')
+EUROFX_CHK = parser.getboolean('RealTime Request Item Switch', 'EUROFX')
+HANGSENG_CHK = parser.getboolean('RealTime Request Item Switch', 'HANGSENG')
+GOLD_CHK = parser.getboolean('RealTime Request Item Switch', 'GOLD')
 
 # [6]. << Moving Average Type >>
 MA_TYPE = parser.getint('Moving Average Type', 'MA Type')
@@ -4385,9 +4403,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.datetime.now()
         
         if MULTIPROCESS:
-            myprocess.shutdown()
-            #QTest.qWait(3000)
-            print("Child process state: %d" % myprocess.is_alive())
+            # shutdown 테스트...
+            if myprocess.is_alive():
+                myprocess.shutdown()
+                QTest.qWait(5)
+                print("Child process state: %d" % myprocess.is_alive())
+            else:
+                pass
+        else:
+            pass
+
+        if self.parent.dialog['RealTimeItem'] is not None and self.parent.dialog['RealTimeItem'].flag_realtimeitem_open:
+
+            if self.parent.dialog['RealTimeItem'].flag_checkBox_cm_fut_price:
+                print('checkBox_cm_fut_price... checked... at update')
+            else:
+                print('checkBox_cm_fut_price... unchecked... at update')
         else:
             pass
 
@@ -5766,17 +5797,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             self.tableWidget_call.item(old_atm_index, Option_column.행사가.value).setBackground(QBrush(라임))
             self.tableWidget_call.item(old_atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-            self.tableWidget_call.cellWidget(old_atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Unchecked)
+            self.tableWidget_call.cellWidget(old_atm_index, 0).findChild(type(QCheckBox())).setChecked(Qt.Unchecked)
             self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
             self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-            self.tableWidget_call.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+            self.tableWidget_call.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setChecked(Qt.Checked)
 
             self.tableWidget_put.item(old_atm_index, Option_column.행사가.value).setBackground(QBrush(라임))
             self.tableWidget_put.item(old_atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-            self.tableWidget_put.cellWidget(old_atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Unchecked)
+            self.tableWidget_put.cellWidget(old_atm_index, 0).findChild(type(QCheckBox())).setChecked(Qt.Unchecked)
             self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
             self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-            self.tableWidget_put.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+            self.tableWidget_put.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setChecked(Qt.Checked)
 
             selected_call = [atm_index]
             selected_put = [atm_index]
@@ -16245,8 +16276,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             if not self.flag_refresh:
 
-                self.tableWidget_call.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-                self.tableWidget_put.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                self.tableWidget_call.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setChecked(Qt.Checked)
+                self.tableWidget_put.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setChecked(Qt.Checked)
                 selected_call = [atm_index]
                 selected_put = [atm_index]
             else:
@@ -23164,6 +23195,60 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.setupUi(self)
         self.parent = parent
 
+        self.flag_realtimeitem_open = True
+        self.flag_state_changed = False
+
+        self.checkBox_cm_fut_price.setChecked(CM_FUT_PRICE)
+        self.flag_checkBox_cm_fut_price = CM_FUT_PRICE
+
+        self.checkBox_cm_fut_quote.setChecked(CM_FUT_QUOTE)
+        self.flag_checkBox_cm_fut_quote = CM_FUT_QUOTE
+
+        self.checkBox_cm_opt_price.setChecked(CM_OPT_PRICE)
+        self.flag_checkBox_cm_opt_price = CM_OPT_PRICE
+
+        self.checkBox_cm_opt_quote.setChecked(CM_OPT_QUOTE)
+        self.flag_checkBox_cm_opt_quote = CM_OPT_QUOTE
+
+        self.checkBox_cm_opt_quote_1.setChecked(CM_OPT_10_QUOTE)
+        self.flag_checkBox_cm_opt_quote_1 = CM_OPT_10_QUOTE
+
+        self.checkBox_nm_fut_price.setChecked(NM_FUT_PRICE)
+        self.flag_checkBox_nm_fut_price = NM_FUT_PRICE
+
+        self.checkBox_nm_fut_quote.setChecked(NM_FUT_QUOTE)
+        self.flag_checkBox_nm_fut_quote = NM_FUT_QUOTE
+
+        self.checkBox_nm_opt_price.setChecked(NM_OPT_PRICE)
+        self.flag_checkBox_nm_opt_price = NM_OPT_PRICE
+
+        self.checkBox_nm_opt_quote.setChecked(NM_OPT_QUOTE)
+        self.flag_checkBox_nm_opt_quote = NM_OPT_QUOTE
+
+        self.checkBox_nm_opt_quote_1.setChecked(NM_OPT_10_QUOTE)
+        self.flag_checkBox_nm_opt_quote_1 = NM_OPT_10_QUOTE
+
+        self.checkBox_supply_demand.setChecked(SUPPLY_DEMAND)
+        self.flag_checkBox_supply_demand = SUPPLY_DEMAND
+
+        self.checkBox_sp500.setChecked(SP500_CHK)
+        self.flag_checkBox_sp500 = SP500_CHK
+
+        self.checkBox_nasdaq.setChecked(NASDAQ_CHK)
+        self.flag_checkBox_nasdaq = NASDAQ_CHK
+
+        self.checkBox_oil.setChecked(WTI_CHK)
+        self.flag_checkBox_oil = WTI_CHK
+
+        self.checkBox_eurofx.setChecked(EUROFX_CHK)
+        self.flag_checkBox_eurofx = EUROFX_CHK
+
+        self.checkBox_hangseng.setChecked(HANGSENG_CHK)
+        self.flag_checkBox_hangseng = HANGSENG_CHK
+
+        self.checkBox_gold.setChecked(GOLD_CHK)
+        self.flag_checkBox_gold = GOLD_CHK
+
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
         #atexit.register(self.__del__) 
         
@@ -23171,7 +23256,320 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         qr = self.frameGeometry()
         qr.moveCenter(self.parent.centerPoint)
         self.move(qr.topLeft())     
-        self.showNormal()  
+        self.showNormal()
+
+        self.checkBox_cm_fut_price.stateChanged.connect(self.checkBox_cm_fut_price_checkState)
+        self.checkBox_cm_fut_quote.stateChanged.connect(self.checkBox_cm_fut_quote_checkState)
+        self.checkBox_cm_opt_price.stateChanged.connect(self.checkBox_cm_opt_price_checkState)
+        self.checkBox_cm_opt_quote.stateChanged.connect(self.checkBox_cm_opt_quote_checkState)
+        self.checkBox_cm_opt_quote_1.stateChanged.connect(self.checkBox_cm_opt_quote_1_checkState)
+        self.checkBox_nm_fut_price.stateChanged.connect(self.checkBox_nm_fut_price_checkState)
+        self.checkBox_nm_fut_quote.stateChanged.connect(self.checkBox_nm_fut_quote_checkState)
+        self.checkBox_nm_opt_price.stateChanged.connect(self.checkBox_nm_opt_price_checkState)
+        self.checkBox_nm_opt_quote.stateChanged.connect(self.checkBox_nm_opt_quote_checkState)
+        self.checkBox_nm_opt_quote_1.stateChanged.connect(self.checkBox_nm_opt_quote_1_checkState)
+        self.checkBox_supply_demand.stateChanged.connect(self.checkBox_supply_demand_checkState)
+        self.checkBox_sp500.stateChanged.connect(self.checkBox_sp500_checkState)
+        self.checkBox_nasdaq.stateChanged.connect(self.checkBox_nasdaq_checkState)
+        self.checkBox_oil.stateChanged.connect(self.checkBox_oil_checkState)
+        self.checkBox_eurofx.stateChanged.connect(self.checkBox_eurofx_checkState)
+        self.checkBox_hangseng.stateChanged.connect(self.checkBox_hangseng_checkState)
+        self.checkBox_gold.stateChanged.connect(self.checkBox_gold_checkState)
+
+    def checkBox_cm_fut_price_checkState(self):
+
+        dt = datetime.datetime.now()
+
+        self.flag_state_changed = True
+
+        if self.checkBox_cm_fut_price.isChecked() == True:
+            self.flag_checkBox_cm_fut_price = True
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물 선물가격 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+        else:
+            self.flag_checkBox_cm_fut_price = False
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물 선물가격 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+
+    def checkBox_cm_fut_quote_checkState(self):
+
+        dt = datetime.datetime.now()
+
+        self.flag_state_changed = True
+
+        if self.checkBox_cm_fut_quote.isChecked() == True:
+            self.flag_checkBox_cm_fut_quote = True
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물 선물호가 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+        else:
+            self.flag_checkBox_cm_fut_quote = False
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물 선물호가 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+
+    def checkBox_cm_opt_price_checkState(self):
+
+        dt = datetime.datetime.now()
+
+        self.flag_state_changed = True
+
+        if self.checkBox_cm_opt_price.isChecked() == True:
+            self.flag_checkBox_cm_opt_price = True
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물 옵션가격 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+        else:
+            self.flag_checkBox_cm_opt_price = False
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물 옵션가격 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+
+    def checkBox_cm_opt_quote_checkState(self):
+
+        dt = datetime.datetime.now()
+
+        self.flag_state_changed = True
+
+        if self.checkBox_cm_opt_quote.isChecked() == True:
+            self.flag_checkBox_cm_opt_quote = True
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물 옵션호가 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+        else:
+            self.flag_checkBox_cm_opt_quote = False
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물 옵션호가 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+
+    def checkBox_cm_opt_quote_1_checkState(self):
+
+        dt = datetime.datetime.now()
+
+        self.flag_state_changed = True
+
+        if self.checkBox_cm_opt_quote_1.isChecked() == True:
+            self.flag_checkBox_cm_opt_quote_1 = True
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물 옵션호가(등가근처 10개) 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+        else:
+            self.flag_checkBox_cm_opt_quote_1 = False
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물 옵션호가(등가근처 10개) 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+
+    def checkBox_nm_fut_price_checkState(self):
+
+        dt = datetime.datetime.now()
+
+        self.flag_state_changed = True
+
+        if self.checkBox_nm_fut_price.isChecked() == True:
+            self.flag_checkBox_nm_fut_price = True
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 선물가격 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+        else:
+            self.flag_checkBox_nm_fut_price = False
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 선물가격 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+
+    def checkBox_nm_fut_quote_checkState(self):
+
+        dt = datetime.datetime.now()
+
+        self.flag_state_changed = True
+
+        if self.checkBox_nm_fut_quote.isChecked() == True:
+            self.flag_checkBox_nm_fut_quote = True
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 선물호가 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+        else:
+            self.flag_checkBox_nm_fut_quote = False
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 선물호가 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+
+    def checkBox_nm_opt_price_checkState(self):
+
+        dt = datetime.datetime.now()
+
+        self.flag_state_changed = True
+
+        if self.checkBox_nm_opt_price.isChecked() == True:
+            self.flag_checkBox_nm_opt_price = True
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 옵션가격 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+        else:
+            self.flag_checkBox_nm_opt_price = False
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 옵션가격 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+
+    def checkBox_nm_opt_quote_checkState(self):
+
+        dt = datetime.datetime.now()
+
+        self.flag_state_changed = True
+
+        if self.checkBox_nm_opt_quote.isChecked() == True:
+            self.flag_checkBox_nm_opt_quote = True
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 옵션호가 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+        else:
+            self.flag_checkBox_nm_opt_quote = False
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 옵션호가 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+
+    def checkBox_nm_opt_quote_1_checkState(self):
+
+        dt = datetime.datetime.now()
+
+        self.flag_state_changed = True
+
+        if self.checkBox_nm_opt_quote_1.isChecked() == True:
+            self.flag_checkBox_nm_opt_quote_1 = True
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 옵션호가(등가근처 10개) 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+        else:
+            self.flag_checkBox_nm_opt_quote_1 = False
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 옵션호가(등가근처 10개) 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+
+    def checkBox_supply_demand_checkState(self):
+
+        dt = datetime.datetime.now()
+
+        self.flag_state_changed = True
+
+        if self.checkBox_supply_demand.isChecked() == True:
+            self.flag_checkBox_supply_demand = True
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 투자자별 매매현황 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+        else:
+            self.flag_checkBox_supply_demand = False
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 투자자별 매매현황 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+
+    def checkBox_sp500_checkState(self):
+
+        dt = datetime.datetime.now()
+
+        self.flag_state_changed = True
+
+        if self.checkBox_sp500.isChecked() == True:
+            self.flag_checkBox_sp500 = True
+            txt = '[{0:02d}:{1:02d}:{2:02d}] S&P 500 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+        else:
+            self.flag_checkBox_sp500 = False
+            txt = '[{0:02d}:{1:02d}:{2:02d}] S&P 500 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+
+    def checkBox_nasdaq_checkState(self):
+
+        dt = datetime.datetime.now()
+
+        self.flag_state_changed = True
+
+        if self.checkBox_nasdaq.isChecked() == True:
+            self.flag_checkBox_nasdaq = True
+            txt = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+        else:
+            self.flag_checkBox_nasdaq = False
+            txt = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+
+    def checkBox_oil_checkState(self):
+
+        dt = datetime.datetime.now()
+
+        self.flag_state_changed = True
+
+        if self.checkBox_oil.isChecked() == True:
+            self.flag_checkBox_oil = True
+            txt = '[{0:02d}:{1:02d}:{2:02d}] WTI OIL 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+        else:
+            self.flag_checkBox_oil = False
+            txt = '[{0:02d}:{1:02d}:{2:02d}] WTI OIL 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+
+    def checkBox_eurofx_checkState(self):
+
+        dt = datetime.datetime.now()
+
+        self.flag_state_changed = True
+
+        if self.checkBox_eurofx.isChecked() == True:
+            self.flag_checkBox_eurofx = True
+            txt = '[{0:02d}:{1:02d}:{2:02d}] EUROFX 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+        else:
+            self.flag_checkBox_eurofx = False
+            txt = '[{0:02d}:{1:02d}:{2:02d}] EUROFX 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+
+    def checkBox_hangseng_checkState(self):
+
+        dt = datetime.datetime.now()
+
+        self.flag_state_changed = True
+
+        if self.checkBox_hangseng.isChecked() == True:
+            self.flag_checkBox_hangseng = True
+            txt = '[{0:02d}:{1:02d}:{2:02d}] HANGSENG 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+        else:
+            self.flag_checkBox_hangseng = False
+            txt = '[{0:02d}:{1:02d}:{2:02d}] HANGSENG 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+
+    def checkBox_gold_checkState(self):
+
+        dt = datetime.datetime.now()
+
+        self.flag_state_changed = True
+
+        if self.checkBox_gold.isChecked() == True:
+            self.flag_checkBox_gold = True
+            txt = '[{0:02d}:{1:02d}:{2:02d}] GOLD 실시간을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+        else:
+            self.flag_checkBox_gold = False
+            txt = '[{0:02d}:{1:02d}:{2:02d}] GOLD 실시간 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+
+
+    def closeEvent(self,event):
+
+        self.flag_realtimeitem_open = False
+
 
 #####################################################################################################################################################################
 # Big Chart Update Thread
@@ -35055,7 +35453,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
             #webbrowser.open('https://docs.google.com/document/d/1BGENxWqJyZdihQFuWcmTNy3_4J0kHolCc-qcW3RULzs/edit')
         '''
-        
+
         if _action == "actionVersion":
             if self.dialog.get('Version') is not None:
                 try:
@@ -35074,7 +35472,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         logger.debug("ToolBar Action Slot %s %s " % (qaction.objectName(), qaction.text()))
         _action = qaction.objectName()
         
-        # 툴바 Big Chart
+        # Big Chart
         if _action == "action_ToolBar_BigChart":
             
             if self.dialog.get('BigChart') is not None:
@@ -35092,6 +35490,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['BigChart'].show()
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Big Chart Dialog를 생성합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
+
+        # 실시간요청 설정
+        if _action == "action_ToolBar_RealTime_Setting":
+            
+            if self.dialog.get('RealTimeItem') is not None:
+
+                try:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간요청 설정 Dialog를 표시합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+
+                    self.dialog['RealTimeItem'].show()
+                except Exception as e:
+                    self.dialog['RealTimeItem'] = 화면_RealTimeItem(parent=self)
+                    self.dialog['RealTimeItem'].show()
+            else:
+                self.dialog['RealTimeItem'] = 화면_RealTimeItem(parent=self)
+                self.dialog['RealTimeItem'].show()
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간요청 설정 Dialog를 생성합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
 
     # ------------------------------------------------------------
