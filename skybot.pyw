@@ -290,10 +290,7 @@ TARGET_MONTH_SELECT = parser.get('Target Month Select', 'Target Month Select')
 # [3]. << Window Style >>
 DARK_STYLESHEET = parser.getboolean('Window Style', 'Dark Style')
 
-# [4]. << News >>
-NEWS_DISPLAY = parser.getboolean('News', 'News Display')
-
-# [5]. << User Switch = 'ON or OFF' >>
+# [4]. << User Switch = 'ON or OFF' >>
 TELEGRAM_SERVICE = parser.getboolean('User Switch', 'Telegram service')
 MANGI_YAGAN = parser.getboolean('User Switch', 'Mangi Yagan')
 AUTO_START = parser.getboolean('User Switch', 'Auto Start')
@@ -325,6 +322,7 @@ WTI_CHK = parser.getboolean('RealTime Request Item Switch', 'WTI OIL')
 EUROFX_CHK = parser.getboolean('RealTime Request Item Switch', 'EUROFX')
 HANGSENG_CHK = parser.getboolean('RealTime Request Item Switch', 'HANGSENG')
 GOLD_CHK = parser.getboolean('RealTime Request Item Switch', 'GOLD')
+NEWS_CHK = parser.getboolean('RealTime Request Item Switch', 'NEWS')
 
 # [6]. << Moving Average Type >>
 MA_TYPE = parser.getint('Moving Average Type', 'MA Type')
@@ -15804,6 +15802,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.textBrowser.append(txt)
                     else:
                         pass
+
+                    # 실시간 NEWS 요청
+                    if NEWS_CHK:
+                        self.realtime_data_worker.RealTimeDataRequest('NWS', '0')
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 NEWS를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.parent.textBrowser.append(txt)
+                    else:
+                        pass
                 else:
                     pass
                 
@@ -19494,7 +19500,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if szTrCode == 'NWS':
                 
                 txt = '[{0}] {1}\r'.format(result['시간'], result['제목'])
-                self.textBrowser.append(txt)
+                self.parent.textBrowser.append(txt)
 
             elif szTrCode == 'JIF':
 
@@ -23301,58 +23307,24 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.flag_realtimeitem_open = True
 
         self.checkBox_cm_fut_price.setChecked(CM_FUT_PRICE)
-        self.flag_checkBox_cm_fut_price = CM_FUT_PRICE
-
         self.checkBox_cm_fut_quote.setChecked(CM_FUT_QUOTE)
-        self.flag_checkBox_cm_fut_quote = CM_FUT_QUOTE
-
         self.checkBox_cm_opt_price.setChecked(CM_OPT_PRICE)
-        self.flag_checkBox_cm_opt_price = CM_OPT_PRICE
-
         self.checkBox_cm_opt_quote.setChecked(CM_OPT_QUOTE)
-        self.flag_checkBox_cm_opt_quote = CM_OPT_QUOTE
-
         self.checkBox_cm_opt_quote_1.setChecked(CM_OPT_10_QUOTE)
-        self.flag_checkBox_cm_opt_quote_1 = CM_OPT_10_QUOTE
-
         self.checkBox_nm_fut_price.setChecked(NM_FUT_PRICE)
-        self.flag_checkBox_nm_fut_price = NM_FUT_PRICE
-
         self.checkBox_nm_fut_quote.setChecked(NM_FUT_QUOTE)
-        self.flag_checkBox_nm_fut_quote = NM_FUT_QUOTE
-
         self.checkBox_nm_opt_price.setChecked(NM_OPT_PRICE)
-        self.flag_checkBox_nm_opt_price = NM_OPT_PRICE
-
         self.checkBox_nm_opt_quote.setChecked(NM_OPT_QUOTE)
-        self.flag_checkBox_nm_opt_quote = NM_OPT_QUOTE
-
         self.checkBox_nm_opt_quote_1.setChecked(NM_OPT_10_QUOTE)
-        self.flag_checkBox_nm_opt_quote_1 = NM_OPT_10_QUOTE
-
         self.checkBox_supply_demand.setChecked(SUPPLY_DEMAND)
-        self.flag_checkBox_supply_demand = SUPPLY_DEMAND
-
         self.checkBox_dow.setChecked(DOW_CHK)
-        self.flag_checkBox_dow = DOW_CHK
-
         self.checkBox_sp500.setChecked(SP500_CHK)
-        self.flag_checkBox_sp500 = SP500_CHK
-
         self.checkBox_nasdaq.setChecked(NASDAQ_CHK)
-        self.flag_checkBox_nasdaq = NASDAQ_CHK
-
         self.checkBox_oil.setChecked(WTI_CHK)
-        self.flag_checkBox_oil = WTI_CHK
-
         self.checkBox_eurofx.setChecked(EUROFX_CHK)
-        self.flag_checkBox_eurofx = EUROFX_CHK
-
         self.checkBox_hangseng.setChecked(HANGSENG_CHK)
-        self.flag_checkBox_hangseng = HANGSENG_CHK
-
         self.checkBox_gold.setChecked(GOLD_CHK)
-        self.flag_checkBox_gold = GOLD_CHK
+        self.checkBox_news.setChecked(NEWS_CHK)
 
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
         #atexit.register(self.__del__) 
@@ -23381,13 +23353,13 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_eurofx.stateChanged.connect(self.checkBox_eurofx_checkState)
         self.checkBox_hangseng.stateChanged.connect(self.checkBox_hangseng_checkState)
         self.checkBox_gold.stateChanged.connect(self.checkBox_gold_checkState)
+        self.checkBox_news.stateChanged.connect(self.checkBox_news_checkState)
 
     def checkBox_cm_fut_price_checkState(self):
 
         dt = datetime.datetime.now()
 
         if self.checkBox_cm_fut_price.isChecked() == True:
-            self.flag_checkBox_cm_fut_price = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23398,8 +23370,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
-            self.flag_checkBox_cm_fut_price = False
-
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('FUT_REAL', '0')
@@ -23414,7 +23384,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         dt = datetime.datetime.now()
 
         if self.checkBox_cm_fut_quote.isChecked() == True:
-            self.flag_checkBox_cm_fut_quote = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23425,8 +23394,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
-            self.flag_checkBox_cm_fut_quote = False
-
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('FUT_HO', '0')
@@ -23441,7 +23408,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         dt = datetime.datetime.now()
 
         if self.checkBox_cm_opt_price.isChecked() == True:
-            self.flag_checkBox_cm_opt_price = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23454,8 +23420,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
-            self.flag_checkBox_cm_opt_price = False
-
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_REAL', '0')
@@ -23470,7 +23434,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         dt = datetime.datetime.now()
 
         if self.checkBox_cm_opt_quote.isChecked() == True:
-            self.flag_checkBox_cm_opt_quote = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23483,8 +23446,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
-            self.flag_checkBox_cm_opt_quote = False
-
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_HO', '0')
@@ -23499,7 +23460,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         dt = datetime.datetime.now()
 
         if self.checkBox_cm_opt_quote_1.isChecked() == True:
-            self.flag_checkBox_cm_opt_quote_1 = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23514,8 +23474,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
-            self.flag_checkBox_cm_opt_quote_1 = False
-
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_HO', '0')
@@ -23530,7 +23488,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         dt = datetime.datetime.now()
 
         if self.checkBox_nm_fut_price.isChecked() == True:
-            self.flag_checkBox_nm_fut_price = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
                 
@@ -23541,8 +23498,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
-            self.flag_checkBox_nm_fut_price = False
-
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('FUT_REAL', '0')
@@ -23557,7 +23512,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         dt = datetime.datetime.now()
 
         if self.checkBox_nm_fut_quote.isChecked() == True:
-            self.flag_checkBox_nm_fut_quote = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23568,8 +23522,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
-            self.flag_checkBox_nm_fut_quote = False
-
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('FUT_HO', '0')
@@ -23584,7 +23536,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         dt = datetime.datetime.now()
 
         if self.checkBox_nm_opt_price.isChecked() == True:
-            self.flag_checkBox_nm_opt_price = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23597,8 +23548,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
-            self.flag_checkBox_nm_opt_price = False
-
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_REAL', '0')
@@ -23613,7 +23562,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         dt = datetime.datetime.now()
 
         if self.checkBox_nm_opt_quote.isChecked() == True:
-            self.flag_checkBox_nm_opt_quote = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23626,8 +23574,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
-            self.flag_checkBox_nm_opt_quote = False
-
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_HO', '0')
@@ -23642,7 +23588,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         dt = datetime.datetime.now()
 
         if self.checkBox_nm_opt_quote_1.isChecked() == True:
-            self.flag_checkBox_nm_opt_quote_1 = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23657,8 +23602,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
-            self.flag_checkBox_nm_opt_quote_1 = False
-
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_HO', '0')
@@ -23673,7 +23616,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         dt = datetime.datetime.now()
 
         if self.checkBox_supply_demand.isChecked() == True:
-            self.flag_checkBox_supply_demand = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23686,8 +23628,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
-            self.flag_checkBox_supply_demand = False
-
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('BM', '0')
@@ -23703,7 +23643,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         dt = datetime.datetime.now()
 
         if self.checkBox_dow.isChecked() == True:
-            self.flag_checkBox_dow = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23714,8 +23653,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
-            self.flag_checkBox_dow = False
-
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OVC', DOW)
@@ -23730,7 +23667,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         dt = datetime.datetime.now()
 
         if self.checkBox_sp500.isChecked() == True:
-            self.flag_checkBox_sp500 = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23741,8 +23677,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
-            self.flag_checkBox_sp500 = False
-
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OVC', SP500)
@@ -23757,7 +23691,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         dt = datetime.datetime.now()
 
         if self.checkBox_nasdaq.isChecked() == True:
-            self.flag_checkBox_nasdaq = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23768,8 +23701,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
-            self.flag_checkBox_nasdaq = False
-
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OVC', NASDAQ)
@@ -23784,7 +23715,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         dt = datetime.datetime.now()
 
         if self.checkBox_oil.isChecked() == True:
-            self.flag_checkBox_oil = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23795,8 +23725,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
-            self.flag_checkBox_oil = False
-
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OVC', WTI)
@@ -23811,7 +23739,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         dt = datetime.datetime.now()
 
         if self.checkBox_eurofx.isChecked() == True:
-            self.flag_checkBox_eurofx = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23822,8 +23749,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
-            self.flag_checkBox_eurofx = False
-
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OVC', EUROFX)
@@ -23838,7 +23763,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         dt = datetime.datetime.now()
 
         if self.checkBox_hangseng.isChecked() == True:
-            self.flag_checkBox_hangseng = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23849,8 +23773,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
-            self.flag_checkBox_hangseng = False
-
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OVC', HANGSENG)
@@ -23865,7 +23787,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         dt = datetime.datetime.now()
 
         if self.checkBox_gold.isChecked() == True:
-            self.flag_checkBox_gold = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23876,8 +23797,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
-            self.flag_checkBox_gold = False
-
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OVC', GOLD)
@@ -23887,6 +23806,29 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
 
+    def checkBox_news_checkState(self):
+
+        dt = datetime.datetime.now()
+
+        if self.checkBox_news.isChecked() == True:
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('NWS', '0')
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 NEWS를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
+        else:
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('NWS', '0')
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 NEWS 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
 
     def closeEvent(self,event):
 
@@ -35565,15 +35507,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.statusbar.showMessage("로그인 성공 !!!")
 
             playsound( "Doorbell_login.wav" )
-            
-            # 로그인 후 요청
-            if NEWS_DISPLAY:
-                txt = '뉴스를 요청합니다.\r'
-                self.textBrowser.append(txt)
-                self.NWS.AdviseRealData()
-            else:
-                pass
-            
+                        
             # 옵션전광판 자동시작
                                                   
             if AUTO_START:
