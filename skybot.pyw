@@ -294,14 +294,12 @@ DARK_STYLESHEET = parser.getboolean('Window Style', 'Dark Style')
 NEWS_DISPLAY = parser.getboolean('News', 'News Display')
 
 # [5]. << User Switch = 'ON or OFF' >>
-OPT_NEXT_MONTH = parser.getboolean('User Switch', 'Option Next Month Request')
 TELEGRAM_SERVICE = parser.getboolean('User Switch', 'Telegram service')
 MANGI_YAGAN = parser.getboolean('User Switch', 'Mangi Yagan')
 AUTO_START = parser.getboolean('User Switch', 'Auto Start')
 ResizeRowsToContents = parser.getboolean('User Switch', 'Resize Rows To Contents')
 CROSS_HAIR_LINE = parser.getboolean('User Switch', 'Cross Hair Line')
 SECOND_PLOT_SYNC = parser.getboolean('User Switch', 'Second Plot Sync')
-ALL_QUOTE_REQUEST = parser.getboolean('User Switch', 'All Option Quote Request')
 CSV_FILE = parser.getboolean('User Switch', 'CSV Data File')
 TTS = parser.getboolean('User Switch', 'Text To Speach')
 SEARCH_MOVING_NODE = parser.getboolean('User Switch', 'Search Moving Node')
@@ -355,22 +353,12 @@ EUROFX = parser.get('Code of the Foreign Futures', 'EUROFX')
 HANGSENG = parser.get('Code of the Foreign Futures', 'HANGSENG')
 GOLD = parser.get('Code of the Foreign Futures', 'GOLD')
 
-# [9]. << Supply & Demand Code Symbol of the Foreign Futures >>
-KRWUSD = parser.get('Supply & Demand Code Symbol of the Foreign Futures', 'KRWUSD')
-DOW_SND = parser.get('Supply & Demand Code Symbol of the Foreign Futures', 'DOW SND')
-SP500_SND = parser.get('Supply & Demand Code Symbol of the Foreign Futures', 'S&P 500 SND')
-NASDAQ_SND = parser.get('Supply & Demand Code Symbol of the Foreign Futures', 'NASDAQ SND')
-WTI_SND = parser.get('Supply & Demand Code Symbol of the Foreign Futures', 'WTI SND')
-EURUSD = parser.get('Supply & Demand Code Symbol of the Foreign Futures', 'EURUSD')
-HANGSENG_SND = parser.get('Supply & Demand Code Symbol of the Foreign Futures', 'HANGSENG SND')
-GOLD_SND = parser.get('Supply & Demand Code Symbol of the Foreign Futures', 'GOLD SND')
-
-# [10]. << Telegram >>
+# [9]. << Telegram >>
 TELEGRAM_START_TIME = parser.getint('Telegram', 'Telegram polling start time(minute) after service')
 TELEGRAM_POLLING_INTERVAL = parser.getint('Telegram', 'Telegram polling interval(second)')
 TELEGRAM_SEND_INTERVAL = parser.getint('Telegram', 'Telegram send interval(second)')
 
-# [11]. << Rules >>
+# [10]. << Rules >>
 ONEWAY_THRESHOLD = parser.getint('Rules', 'Threshold of the institutional party supply & demand')
 ########################################################################################################################
 
@@ -15611,77 +15599,207 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # 장운영 정보 요청
                     self.realtime_data_worker.RealTimeDataRequest('JIF', '0')
 
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 장운영 정보를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+
+                    # 실시간 다우지수 요청
+                    self.realtime_data_worker.RealTimeDataRequest('OVC', DOW)
+
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 다우지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+
                     # 지수선물 예상체결 요청
                     self.realtime_data_worker.RealTimeDataRequest('YFC', fut_code)
+
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 선물 예상체결을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
 
                     # KOSPI 예상체결 요청
                     self.realtime_data_worker.RealTimeDataRequest('YS3', SAMSUNG)
                     self.realtime_data_worker.RealTimeDataRequest('YS3', HYUNDAI)
 
-                    for i in range(option_pairs_count):
-                        # 지수옵션 예상체결 요청
-                        self.realtime_data_worker.RealTimeDataRequest('YOC', self.call_code[i])
-                        self.realtime_data_worker.RealTimeDataRequest('YOC', self.put_code[i])
-                        # 옵션 실시간 가격 요청
-                        self.realtime_data_worker.RealTimeDataRequest('OPT_REAL', self.call_code[i])
-                        self.realtime_data_worker.RealTimeDataRequest('OPT_REAL', self.put_code[i])
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 삼성,현대 예상체결을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
 
-                    if QUOTE_REQUEST_NUMBER == 'All':
-
-                        for i in range(option_pairs_count):
-                            # 옵션 실시간 호가 요청
-                            self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.call_code[i])
-                            self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.put_code[i])
-                    else:
-                        NEW_INDEX = int(int(QUOTE_REQUEST_NUMBER)/2)
-
-                        for i in range(atm_index - NEW_INDEX, atm_index + NEW_INDEX + 1):
-                            # 옵션 실시간 호가 요청
-                            self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.call_code[i])
-                            self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.put_code[i])
-
-                    # 선물 실시간 가격 및 호가 요청
-                    self.realtime_data_worker.RealTimeDataRequest('FUT_REAL', fut_code)
-                    self.realtime_data_worker.RealTimeDataRequest('FUT_HO', fut_code)
-
-                    if TARGET_MONTH_SELECT == 'CM':
-                        # 차월물 가격요청
-                        self.realtime_data_worker.RealTimeDataRequest('FUT_REAL', cmshcode)
-                        # 차월물, 차차월물 호가요청
-                        self.realtime_data_worker.RealTimeDataRequest('FUT_HO', cmshcode)
-                        self.realtime_data_worker.RealTimeDataRequest('FUT_HO', ccmshcode)
+                    # 실시간 본월물 선물 가격요청
+                    if CM_FUT_PRICE:
+                        self.realtime_data_worker.RealTimeDataRequest('FUT_REAL', gmshcode)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)
                     else:
                         pass
 
-                    # KOSPI/KOSPI200/KOSDAQ 지수요청
-                    self.realtime_data_worker.RealTimeDataRequest('IJ', KOSPI)
-                    self.realtime_data_worker.RealTimeDataRequest('IJ', KOSPI200)
-                    self.realtime_data_worker.RealTimeDataRequest('IJ', KOSDAQ)
+                    # 실시간 본월물 선물 호가요청
+                    if CM_FUT_QUOTE:
+                        self.realtime_data_worker.RealTimeDataRequest('FUT_HO', gmshcode)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)
+                    else:
+                        pass
 
-                    # SAMSUNG 체결 요청
-                    self.realtime_data_worker.RealTimeDataRequest('S3', SAMSUNG)
+                    # 실시간 본월물 옵션 가격요청
+                    if CM_OPT_PRICE:
+                        for i in range(cm_opt_length):
+                            self.realtime_data_worker.RealTimeDataRequest('OPT_REAL', self.cm_call_code[i])
+                            self.realtime_data_worker.RealTimeDataRequest('OPT_REAL', self.cm_put_code[i])
+                            # 지수옵션 예상체결 요청
+                            self.realtime_data_worker.RealTimeDataRequest('YOC', self.cm_call_code[i])
+                            self.realtime_data_worker.RealTimeDataRequest('YOC', self.cm_put_code[i])
 
-                    # 업종별 투자자별 매매현황 요청
-                    self.realtime_data_worker.RealTimeDataRequest('BM', FUTURES)
-                    self.realtime_data_worker.RealTimeDataRequest('BM', KOSPI)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 예상가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)
 
-                    # 프로그램 매매현황 요청
-                    self.realtime_data_worker.RealTimeDataRequest('PM', KOSPI)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)                    
+                    else:
+                        pass
 
-                    # 해외선물 체결,가격 실시간 요청
-                    self.realtime_data_worker.RealTimeDataRequest('OVC', SP500)
-                    self.realtime_data_worker.RealTimeDataRequest('OVC', DOW)
-                    self.realtime_data_worker.RealTimeDataRequest('OVC', NASDAQ)
-                    self.realtime_data_worker.RealTimeDataRequest('OVC', WTI)
-                    self.realtime_data_worker.RealTimeDataRequest('OVC', HANGSENG)
-                    self.realtime_data_worker.RealTimeDataRequest('OVC', EUROFX)
-                    self.realtime_data_worker.RealTimeDataRequest('OVC', GOLD)
+                    # 실시간 본월물 옵션 호가요청
+                    if CM_OPT_QUOTE:
+                        for i in range(cm_opt_length):
+                            self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.cm_call_code[i])
+                            self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.cm_put_code[i])
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)  
+                    else:
+                        pass
+
+                    # 실시간 본월물 옵션 호가요청(등가근처 10개)
+                    if CM_OPT_10_QUOTE:
+
+                        NEW_INDEX = int(int(QUOTE_REQUEST_NUMBER)/2)
+
+                        for i in range(atm_index - NEW_INDEX, atm_index + NEW_INDEX + 1):
+                            self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.cm_call_code[i])
+                            self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.cm_put_code[i])
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가(등가근처 10개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)
+                    else:
+                        pass
+
+                    # 실시간 차월물 선물 가격요청
+                    if NM_FUT_PRICE:
+                        self.realtime_data_worker.RealTimeDataRequest('FUT_REAL', cmshcode)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 선물 가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)
+                    else:
+                        pass
+
+                    # 실시간 차월물,차차월물 선물 호가요청
+                    if NM_FUT_QUOTE:
+                        self.realtime_data_worker.RealTimeDataRequest('FUT_HO', cmshcode)
+                        self.realtime_data_worker.RealTimeDataRequest('FUT_HO', ccmshcode)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 선물 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)
+                    else:
+                        pass
+
+                    # 실시간 차월물 옵션 가격요청
+                    if NM_OPT_PRICE:
+                        for i in range(nm_opt_length):
+                            self.realtime_data_worker.RealTimeDataRequest('OPT_REAL', self.nm_call_code[i])
+                            self.realtime_data_worker.RealTimeDataRequest('OPT_REAL', self.nm_put_code[i])
+                            # 지수옵션 예상체결 요청
+                            self.realtime_data_worker.RealTimeDataRequest('YOC', self.nm_call_code[i])
+                            self.realtime_data_worker.RealTimeDataRequest('YOC', self.nm_put_code[i])
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 예상가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)                                       
+                    else:
+                        pass
+
+                    # 실시간 차월물 옵션 호가요청
+                    if NM_OPT_QUOTE:
+                        for i in range(nm_opt_length):
+                            self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.nm_call_code[i])
+                            self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.nm_put_code[i])
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)
+                    else:
+                        pass
+
+                    # 실시간 차월물 옵션 호가요청(등가근처 10개)
+                    if NM_OPT_10_QUOTE:
+
+                        NEW_INDEX = int(int(QUOTE_REQUEST_NUMBER)/2)
+
+                        for i in range(atm_index - NEW_INDEX, atm_index + NEW_INDEX + 1):
+                            self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.nm_call_code[i])
+                            self.realtime_data_worker.RealTimeDataRequest('OPT_HO', self.nm_put_code[i])
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가(등가근처 10개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)
+                    else:
+                        pass
+
+                    # 실시간 업종별 투자자별 & 프로그램 매매현황 요청
+                    if SUPPLY_DEMAND:
+                        
+                        self.realtime_data_worker.RealTimeDataRequest('BM', FUTURES)
+                        self.realtime_data_worker.RealTimeDataRequest('BM', KOSPI)
+                        self.realtime_data_worker.RealTimeDataRequest('PM', KOSPI)
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 업종별 투자자별 & 프로그램 매매현황을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)
+                    else:
+                        pass
+
+                    # 실시간 해외선물 SP500 요청
+                    if SP500_CHK:
+                        self.realtime_data_worker.RealTimeDataRequest('OVC', SP500)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 S&P 500을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)
+                    else:
+                        pass
+
+                    # 실시간 해외선물 NASDAQ 요청
+                    if NASDAQ_CHK:
+                        self.realtime_data_worker.RealTimeDataRequest('OVC', NASDAQ)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 NASDAQ을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)
+                    else:
+                        pass
+
+                    # 실시간 해외선물 WTI OIL 요청
+                    if WTI_CHK:
+                        self.realtime_data_worker.RealTimeDataRequest('OVC', WTI)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 WTI OIL을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)
+                    else:
+                        pass
+
+                    # 실시간 해외선물 EUROFX 요청
+                    if EUROFX_CHK:
+                        self.realtime_data_worker.RealTimeDataRequest('OVC', EUROFX)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 EUROFX을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)
+                    else:
+                        pass
+
+                    # 실시간 해외선물 HANGSENG 요청
+                    if HANGSENG_CHK:
+                        self.realtime_data_worker.RealTimeDataRequest('OVC', HANGSENG)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 HANGSENG을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)
+                    else:
+                        pass
+
+                    # 실시간 해외선물 GOLD 요청
+                    if GOLD_CHK:
+                        self.realtime_data_worker.RealTimeDataRequest('OVC', GOLD)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 GOLD를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)
+                    else:
+                        pass
                 else:
                     pass
                 
-                '''
-                # 멀티프로세스
-                '''
                 # t8416 요청                
                 print('t8416 call 요청시작...')
                 QTest.qWait(100)
@@ -21200,13 +21318,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
                 
-                # 차월물 처리
-                '''
-                if OPT_NEXT_MONTH and result['단축코드'] == cmshcode:
-                    pass
-                else:
-                    pass
-                '''
                 if result['단축코드'] == fut_code:
                     fut_result = copy.deepcopy(result)
                     self.fut_update(result)
@@ -21259,13 +21370,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                # 차월물 처리
-                '''
-                if OPT_NEXT_MONTH and result['단축코드'][3:5] == NM_OPTCODE:
-                    pass
-                else:
-                    pass
-                '''
                 if result['단축코드'][0:3] == '201':
 
                     call_result = copy.deepcopy(result)
@@ -21295,13 +21399,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                # 차월물 처리
-                '''
-                if OPT_NEXT_MONTH and result['단축코드'][3:5] == NM_OPTCODE:
-                    pass
-                else:
-                    pass
-                '''
                 if result['단축코드'][0:3] == '201':
 
                     index = call_행사가.index(result['단축코드'][5:8])
@@ -23036,8 +23133,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass                
 
             # 분주기 데이타 제공하지 않음
-            elif szTrCode == 'MK2': 
+            elif szTrCode == 'MK2':
 
+                pass
+
+                '''
                 #global NASDAQ_호가순매수, SP500_호가순매수, DOW_호가순매수, WTI_호가순매수, EUROFX_호가순매수, HANGSENG_호가순매수, GOLD_호가순매수
 
                 print('MK2 =', result)
@@ -23103,6 +23203,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     #df_gold_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = GOLD_호가순매수
                 else:
                     pass
+                '''
             else:
                 pass          
 
