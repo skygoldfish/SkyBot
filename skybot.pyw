@@ -14467,7 +14467,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setForeground(QBrush(검정색))
                 self.tableWidget_quote.setItem(0, Quote_column.미결종합.value - 1, item)
             else:
-                print("atm값({0})이 리스트에 없습니다.".format(atm_str))            
+                print("atm값({0})이 리스트에 없습니다.".format(atm_str))
+
+            txt = 't2101 등가지수는 {0}({1})입니다.\r' .format(atm_str, ATM_INDEX)
+            self.parent.textBrowser.append(txt)           
 
             self.fut_realdata['종가'] = df['전일종가']
             선물_전일종가 = df['전일종가']
@@ -16357,6 +16360,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             ATM_INDEX = opt_actval.index(atm_str)
             old_atm_index = ATM_INDEX
+
+            txt = 't2801 등가지수는 {0}({1})입니다.\r' .format(atm_str, ATM_INDEX)
+            self.parent.textBrowser.append(txt)
             
             if atm_str[-1] == '2' or atm_str[-1] == '7':
 
@@ -19139,12 +19145,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 본월물코드 = {3}\r'.format(dt.hour, dt.minute, dt.second, GMSHCODE)
             self.textBrowser.append(txt)
-            self.parent.textBrowser.append(txt)
+            #self.parent.textBrowser.append(txt)
             print(txt)
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 차월물코드 = {3}\r'.format(dt.hour, dt.minute, dt.second, CMSHCODE)
             self.textBrowser.append(txt)
-            self.parent.textBrowser.append(txt)
+            #self.parent.textBrowser.append(txt)
             print(txt)
 
             if TARGET_MONTH_SELECT == 'CM':
