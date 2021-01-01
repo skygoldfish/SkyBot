@@ -102,6 +102,32 @@ os_type = platform.platform()
 print('\r')
 print('OS 유형 :', os_type)
 
+# 업종코드
+KOSPI = '001'
+KOSPI200 = '101'
+KOSDAQ = '301'
+OPT_CALL = '700'
+OPT_PUT = '800'
+FUTURES = '900'
+CME = '950'
+
+SAMSUNG = '005930'
+HYUNDAI = '005380'
+Celltrion = '068270'
+MOBIS = '012330'
+NAVER = '035420'
+
+STOCK = "0001"
+BOHEOM = "0002"
+TOOSIN = "0003"
+BANK = "0004"
+JONGGEUM = "0005"
+GIGEUM = "0006"
+GITA = "0007"
+RETAIL = "0008"
+FOREIGNER = "0017"
+INSTITUTIONAL = "0018"
+
 flag_internet_connection_broken = False
 flag_service_provider_broken = False
 flag_broken_capture = False
@@ -844,32 +870,6 @@ CM_CALL_CODE = []
 CM_PUT_CODE = []
 NM_CALL_CODE = []
 NM_PUT_CODE = []
-
-# 업종코드
-KOSPI = '001'
-KOSPI200 = '101'
-KOSDAQ = '301'
-OPT_CALL = '700'
-OPT_PUT = '800'
-FUTURES = '900'
-CME = '950'
-
-SAMSUNG = '005930'
-HYUNDAI = '005380'
-Celltrion = '068270'
-MOBIS = '012330'
-NAVER = '035420'
-
-STOCK = "0001"
-BOHEOM = "0002"
-TOOSIN = "0003"
-BANK = "0004"
-JONGGEUM = "0005"
-GIGEUM = "0006"
-GITA = "0007"
-RETAIL = "0008"
-FOREIGNER = "0017"
-INSTITUTIONAL = "0018"
 
 t2301_month_info = ''
 t2835_month_info = ''
@@ -2274,15 +2274,27 @@ if not MULTIPROCESS:
                 else:
                     flag_produce_queue_empty = True
 else:
-    pass
-########################################################################################################################
-# 실시간 데이타수신을 위한 멀티프로세스 클래스, 시그날/슬롯 사용불가?
-########################################################################################################################
-if MULTIPROCESS:
+    ###########################################################
+    # 실시간 데이타수신을 위한 멀티프로세스 데이타수신 쓰레드 클래스
+    ###########################################################
+    class Consumer(QThread):
 
-    pass  
-else:
-    pass
+        trigger = pyqtSignal(dict)
+
+        def __init__(self, dataQ):
+            super().__init__()
+
+            self.daemon = True
+            self.dataQ = dataQ
+
+        def run(self):
+
+            while True:
+                if not self.dataQ.empty():
+                    data = self.dataQ.get(False)
+                    self.trigger.emit(data)
+                else:
+                    pass
 ########################################################################################################################
 # 옵션전광판 UI Class
 ########################################################################################################################
@@ -2333,8 +2345,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.consumerQ = mp.Queue()
             
             self.realtime_data_worker = RealTimeDataWorker(self.producerQ, self.consumerQ)
-            self.realtime_data_worker.trigger.connect(self.realdata_update)        
-            #self.realtime_data_worker.daemon = True
+            self.realtime_data_worker.trigger.connect(self.realdata_update)
         else:
             pass
 
@@ -19145,12 +19156,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 본월물코드 = {3}\r'.format(dt.hour, dt.minute, dt.second, GMSHCODE)
             self.textBrowser.append(txt)
-            #self.parent.textBrowser.append(txt)
+            self.parent.textBrowser.append(txt)
             print(txt)
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 차월물코드 = {3}\r'.format(dt.hour, dt.minute, dt.second, CMSHCODE)
             self.textBrowser.append(txt)
-            #self.parent.textBrowser.append(txt)
+            self.parent.textBrowser.append(txt)
             print(txt)
 
             if TARGET_MONTH_SELECT == 'CM':
@@ -35306,85 +35317,182 @@ else:
     Ui_MainWindow, QtBaseClass_MainWindow = uic.loadUiType(UI_DIR + main_ui_type)
 ########################################################################################################################
 class MainWindow(QMainWindow, Ui_MainWindow):
-     
-    def __init__(self, *args, **kwargs):
-        super(MainWindow, self).__init__(*args, **kwargs)            
 
-        QMainWindow.__init__(self)
-        Ui_MainWindow.__init__(self)
+    if MULTIPROCESS:
+        def __init__(self, dataQ):
+            super(MainWindow, self).__init__()            
 
-        #self.setWindowFlags(Qt.WindowStaysOnTopHint)
-        self.setAttribute(Qt.WA_DeleteOnClose)
+            QMainWindow.__init__(self)
+            Ui_MainWindow.__init__(self)
 
-        self.setupUi(self)
+            #self.setWindowFlags(Qt.WindowStaysOnTopHint)
+            self.setAttribute(Qt.WA_DeleteOnClose)
 
-        self.setWindowTitle("SkyBot ver1.0")
+            self.setupUi(self)
 
-        self.textBrowser.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 9pt; font: Normal")
-        self.textBrowser.append('Welcome to SkyBot\r')
-        '''
-        if TARGET_MONTH_SELECT == 'CM':
-            currentMouseX, currentMouseY = pyautogui.position()
-            self.move(currentMouseX, currentMouseY)
-            self.showNormal()
-        else:
-            pass
-        '''
-        self.시작시각 = datetime.datetime.now()
+            self.setWindowTitle("SkyBot ver1.0")
 
-        txt = '시작시간 = {0}\r'.format(self.시작시각)
-        self.textBrowser.append(txt)
-
-        global all_screens, 스크린번호, screen_info
-
-        all_screens = QApplication.screens()
-
-        txt = '총 {0}개의 모니터가 사용가능합니다.\r'.format(len(all_screens))
-        self.textBrowser.append(txt)
-
-        for index, s in enumerate(all_screens):
+            self.textBrowser.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 9pt; font: Normal")
+            self.textBrowser.append('Welcome to SkyBot\r')
             '''
-            print()
-            print(s.name())
-            print(s.availableGeometry())
-            print(s.availableGeometry().width())
-            print(s.availableGeometry().height())
-            print(s.size())
-            print(s.size().width())
-            print(s.size().height())
+            if TARGET_MONTH_SELECT == 'CM':
+                currentMouseX, currentMouseY = pyautogui.position()
+                self.move(currentMouseX, currentMouseY)
+                self.showNormal()
+            else:
+                pass
             '''
-            txt = '<스크린 {0}번, 화면해상도 = {1}x{2}>\r'.format(index, s.size().width(), s.size().height())
+            self.시작시각 = datetime.datetime.now()
+
+            txt = '시작시간 = {0}\r'.format(self.시작시각)
             self.textBrowser.append(txt)
 
-        # 현재 커서가 위치한 화면정보
-        스크린번호 = QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
+            global all_screens, 스크린번호, screen_info
 
-        self.centerPoint = QApplication.desktop().screenGeometry(스크린번호).center()
-        screen_info = QDesktopWidget().screenGeometry(스크린번호)
+            all_screens = QApplication.screens()
 
-        txt = '현재스크린 = {0}번, 화면해상도 = {1}x{2}, 중심좌표 X = {3}, Y = {4}\r'.format(스크린번호, screen_info.width(), screen_info.height(), self.centerPoint.x(), self.centerPoint.y())
-        self.textBrowser.append(txt)
+            txt = '총 {0}개의 모니터가 사용가능합니다.\r'.format(len(all_screens))
+            self.textBrowser.append(txt)
+
+            for index, s in enumerate(all_screens):
+                '''
+                print()
+                print(s.name())
+                print(s.availableGeometry())
+                print(s.availableGeometry().width())
+                print(s.availableGeometry().height())
+                print(s.size())
+                print(s.size().width())
+                print(s.size().height())
+                '''
+                txt = '<스크린 {0}번, 화면해상도 = {1}x{2}>\r'.format(index, s.size().width(), s.size().height())
+                self.textBrowser.append(txt)
+
+            # 현재 커서가 위치한 화면정보
+            스크린번호 = QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
+
+            self.centerPoint = QApplication.desktop().screenGeometry(스크린번호).center()
+            screen_info = QDesktopWidget().screenGeometry(스크린번호)
+
+            txt = '현재스크린 = {0}번, 화면해상도 = {1}x{2}, 중심좌표 X = {3}, Y = {4}\r'.format(스크린번호, screen_info.width(), screen_info.height(), self.centerPoint.x(), self.centerPoint.y())
+            self.textBrowser.append(txt)
  
-        # 복수개의 Dialog 처리용 선언
-        self.dialog = dict()
+            # 복수개의 Dialog 처리용 선언
+            self.dialog = dict()
 
-        self.dialog['선물옵션전광판'] = None
-        self.dialog['BigChart'] = None
-        self.dialog['RealTimeItem'] = None
-        self.dialog['Version'] = None
+            self.dialog['선물옵션전광판'] = None
+            self.dialog['BigChart'] = None
+            self.dialog['RealTimeItem'] = None
+            self.dialog['Version'] = None
 
-        self.id = ''
-        self.계좌번호 = None
-        self.거래비밀번호 = None
+            self.id = ''
+            self.계좌번호 = None
+            self.거래비밀번호 = None
 
-        # AxtiveX 설정
-        self.connection = None
+            # AxtiveX 설정
+            self.connection = None
 
-        self.XQ_t0167 = t0167(parent=self)
-        self.NWS = NWS(parent=self)
+            self.XQ_t0167 = t0167(parent=self)
+            self.NWS = NWS(parent=self)
 
-        # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
-        atexit.register(self.__del__) 
+            # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
+            atexit.register(self.__del__)
+
+            # thread for real data consumer
+            self.consumer = Consumer(dataQ)
+            self.consumer.trigger.connect(self.processing_realdata)
+            self.consumer.start()
+
+        @pyqtSlot(dict)
+        def processing_realdata(self, realdata):
+
+            szTrCode = realdata['szTrCode']
+
+            if szTrCode == 'NWS':
+                
+                txt = '[{0}] {1}\r'.format(realdata['시간'], realdata['제목'])
+                self.textBrowser.append(txt)
+            else:
+                pass
+    else:     
+        def __init__(self):
+            super(MainWindow, self).__init__()            
+
+            QMainWindow.__init__(self)
+            Ui_MainWindow.__init__(self)
+
+            #self.setWindowFlags(Qt.WindowStaysOnTopHint)
+            self.setAttribute(Qt.WA_DeleteOnClose)
+
+            self.setupUi(self)
+
+            self.setWindowTitle("SkyBot ver1.0")
+
+            self.textBrowser.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 9pt; font: Normal")
+            self.textBrowser.append('Welcome to SkyBot\r')
+            '''
+            if TARGET_MONTH_SELECT == 'CM':
+                currentMouseX, currentMouseY = pyautogui.position()
+                self.move(currentMouseX, currentMouseY)
+                self.showNormal()
+            else:
+                pass
+            '''
+            self.시작시각 = datetime.datetime.now()
+
+            txt = '시작시간 = {0}\r'.format(self.시작시각)
+            self.textBrowser.append(txt)
+
+            global all_screens, 스크린번호, screen_info
+
+            all_screens = QApplication.screens()
+
+            txt = '총 {0}개의 모니터가 사용가능합니다.\r'.format(len(all_screens))
+            self.textBrowser.append(txt)
+
+            for index, s in enumerate(all_screens):
+                '''
+                print()
+                print(s.name())
+                print(s.availableGeometry())
+                print(s.availableGeometry().width())
+                print(s.availableGeometry().height())
+                print(s.size())
+                print(s.size().width())
+                print(s.size().height())
+                '''
+                txt = '<스크린 {0}번, 화면해상도 = {1}x{2}>\r'.format(index, s.size().width(), s.size().height())
+                self.textBrowser.append(txt)
+
+            # 현재 커서가 위치한 화면정보
+            스크린번호 = QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
+
+            self.centerPoint = QApplication.desktop().screenGeometry(스크린번호).center()
+            screen_info = QDesktopWidget().screenGeometry(스크린번호)
+
+            txt = '현재스크린 = {0}번, 화면해상도 = {1}x{2}, 중심좌표 X = {3}, Y = {4}\r'.format(스크린번호, screen_info.width(), screen_info.height(), self.centerPoint.x(), self.centerPoint.y())
+            self.textBrowser.append(txt)
+ 
+            # 복수개의 Dialog 처리용 선언
+            self.dialog = dict()
+
+            self.dialog['선물옵션전광판'] = None
+            self.dialog['BigChart'] = None
+            self.dialog['RealTimeItem'] = None
+            self.dialog['Version'] = None
+
+            self.id = ''
+            self.계좌번호 = None
+            self.거래비밀번호 = None
+
+            # AxtiveX 설정
+            self.connection = None
+
+            self.XQ_t0167 = t0167(parent=self)
+            self.NWS = NWS(parent=self)
+
+            # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
+            atexit.register(self.__del__) 
 
     def __del__(self):
         '''
@@ -35398,7 +35506,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.clock.start(1000)
 
         #TODO:자동로그인
-        self.MyLogin()
+        if not MULTIPROCESS:
+            self.MyLogin()
+        else:
+            pass
 
     def OnClockTick(self):
 
@@ -35481,8 +35592,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             logger.info("*************************************************************************************************************************")
             logger.info("LOG STOP")
 
-            print('서버연결 해지...')
-            self.connection.disconnect()
+            if not MULTIPROCESS:
+                print('서버연결 해지...')
+                self.connection.disconnect()
+            else:
+                self.consumer.terminate()
+                myprocess.shutdown()
 
             if TARGET_MONTH_SELECT == 'CM':
 
@@ -35851,13 +35966,13 @@ if __name__ == "__main__":
         # pyinstaller로 실행파일 만들때 필요함
         mp.freeze_support()
 
-        producerQ = mp.Queue()
-        consumerQ = mp.Queue()
+        dataQ = mp.Queue()
         
         # 멀티프로세스
-        myprocess = RealTimeWorker(producerQ, consumerQ)
+        myprocess = RealTimeWorker(dataQ)
         myprocess.start()
-        #myprocess.login()
+        QTest.qWait(1000)
+        myprocess.login()
     else:
         pass
     
@@ -35915,7 +36030,10 @@ if __name__ == "__main__":
     else:
         pass
     
-    window = MainWindow()
+    if MULTIPROCESS:
+        window = MainWindow(dataQ)
+    else:
+        window = MainWindow()
     window.show()
     
     '''
