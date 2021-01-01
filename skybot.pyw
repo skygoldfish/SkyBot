@@ -317,6 +317,7 @@ TARGET_MONTH_SELECT = parser.get('Target Month Select', 'Target Month Select')
 DARK_STYLESHEET = parser.getboolean('Window Style', 'Dark Style')
 
 # [5]. << User Switch = 'ON or OFF' >>
+MULTIPROCESS = parser.getboolean('User Switch', 'Multiprocess')
 TELEGRAM_SERVICE = parser.getboolean('User Switch', 'Telegram service')
 MANGI_YAGAN = parser.getboolean('User Switch', 'Mangi Yagan')
 AUTO_START = parser.getboolean('User Switch', 'Auto Start')
@@ -327,7 +328,6 @@ CSV_FILE = parser.getboolean('User Switch', 'CSV Data File')
 TTS = parser.getboolean('User Switch', 'Text To Speach')
 SEARCH_MOVING_NODE = parser.getboolean('User Switch', 'Search Moving Node')
 UI_HIDE = parser.getboolean('User Switch', 'UI Hide')
-MULTIPROCESS = parser.getboolean('User Switch', 'MULTIPROCESS')
 
 # [6]. << Real Time Request Item Switch = 'ON or OFF' >>
 CM_FUT_PRICE = parser.getboolean('RealTime Request Item Switch', 'Current Month Futures Price')
