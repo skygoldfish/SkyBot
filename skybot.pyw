@@ -2345,7 +2345,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.consumerQ = mp.Queue()
             
             self.realtime_data_worker = RealTimeDataWorker(self.producerQ, self.consumerQ)
-            self.realtime_data_worker.trigger.connect(self.realdata_update)
+            self.realtime_data_worker.trigger.connect(self.process_realdata)
         else:
             pass
 
@@ -2984,7 +2984,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def telegram_button_clicked(self):
 
         self.RunTelegram()
-    '''
+    
     @pyqtSlot()
     def process_realdata(self):
 
@@ -2999,7 +2999,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_fut.setItem(2, 0, item)
 
         self.realdata_update(data)
-    '''        
+            
     ## list에서 i번째 아이템을 리턴한다.
     def get_list_item(self, list, i):
 
@@ -19401,10 +19401,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #result['szTrCode'] = szTrCode
         #화면_선물옵션전광판.xing_realdata = result
         #self.producerQ.put(result, False)
-        pass            
-
-    @pyqtSlot()
-    def realdata_update(self):
+        pass
+    
+    # 수신된 실시간 데이타를 화면에 표시
+    def realdata_update(self, result):
 
         global pre_start
         global atm_str, atm_val, ATM_INDEX
@@ -19523,18 +19523,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         try:            
             dt = datetime.datetime.now()                        
             start_time = timeit.default_timer()
-            
-            result = self.consumerQ.get(False)
 
             szTrCode = result['szTrCode']
-
-            item = QTableWidgetItem("{0}".format(szTrCode))
-            item.setTextAlignment(Qt.AlignCenter)
-
-            item.setBackground(QBrush(검정색))
-            item.setForeground(QBrush(녹색))                
-
-            self.tableWidget_fut.setItem(2, 0, item)
 
             if szTrCode == 'NWS':
                 
