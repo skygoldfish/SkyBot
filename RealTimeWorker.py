@@ -79,14 +79,13 @@ class RealTimeWorker(mp.Process):
 
             self.OVC = OVC(parent=self)
             self.OVH = OVH(parent=self)
-            self.WOC = WOC(parent=self)
 
             self.NWS = NWS(parent=self)
 
             print('로그인 성공...')
             
             self.result['szTrCode'] = 'LOGIN'
-            self.result['로그인'] = '멀티프로세싱 로그인 성공 !!!'
+            self.result['로그인'] = '백그라운드 로그인 성공 !!!'
             self.dataQ.put(self.result, False)
 
             #self.NWS.AdviseRealData()
@@ -110,6 +109,7 @@ class RealTimeWorker(mp.Process):
 
         print(result)
 
+    # 실시간데이타 수신 콜백함수
     def OnReceiveRealData(self, szTrCode, result):
 
         print(result)
@@ -133,11 +133,174 @@ class RealTimeWorker(mp.Process):
 
     def RequestRealData(self, type, code):
 
-        if type == 'NWS':
+        if type == 'JIF':
+            # 장운영 정보 요청
+            self.JIF.AdviseRealData(code)
+
+        elif type == 'YJ':
+            # KOSPI 예상체결 요청
+            self.YJ.AdviseRealData(code)
+
+        elif type == 'YFC':
+            # 지수선물 예상체결 요청
+            self.YFC.AdviseRealData(code)
+
+        elif type == 'YS3':
+            # KOSPI 주요업체 예상체결 요청
+            self.YS3.AdviseRealData(code)
+
+        elif type == 'YOC':
+            # 지수옵션 예상체결 요청
+            self.YOC.AdviseRealData(code)
+        
+        elif type == 'FUT_REAL_FC0':
+            # 선물 실시간 가격 요청
+            self.FUT_REAL_FC0.AdviseRealData(code)
+
+        elif type == 'FUT_HO_FH0':
+            # 선물 실시간 호가 요청
+            self.FUT_HO_FH0.AdviseRealData(code)
+
+        elif type == 'OPT_REAL_OC0':
+            # 옵션 실시간 가격 요청
+            self.OPT_REAL_OC0.AdviseRealData(code)
+
+        elif type == 'OPT_HO_OH0':
+            # 옵션 실시간 호가 요청
+            self.OPT_HO_OH0.AdviseRealData(code)
+
+        elif type == 'FUT_REAL_NC0':
+            # 선물 실시간 가격 요청
+            self.FUT_REAL_NC0.AdviseRealData(code)
+
+        elif type == 'FUT_HO_NH0':
+            # 선물 실시간 호가 요청
+            self.FUT_HO_NH0.AdviseRealData(code)
+
+        elif type == 'OPT_REAL_EC0':
+            # 옵션 실시간 가격 요청
+            self.OPT_REAL_EC0.AdviseRealData(code)
+
+        elif type == 'OPT_HO_EH0':
+            # 옵션 실시간 호가 요청
+            self.OPT_HO_EH0.AdviseRealData(code)
+
+        elif type == 'IJ':
+            # KOSPI/KOSPI200/KOSDAQ 지수요청
+            self.IJ.AdviseRealData(code)
+
+        elif type == 'S3':
+            # KOSPI 주요업체(SAMSUNG) 체결 요청
+            self.S3.AdviseRealData(code)
+
+        elif type == 'BM':
+            # 업종별 투자자별 매매현황 요청
+            self.BM.AdviseRealData(code)
+
+        elif type == 'PM':
+            # 프로그램 매매현황 요청
+            self.PM.AdviseRealData()
+
+        elif type == 'OVC':
+            # 해외선물 체결가격 실시간 요청
+            self.OVC.AdviseRealData(code)
+
+        elif type == 'OVH':
+            # 해외선물 호가 실시간 요청
+            self.OVC.AdviseRealData(code)
+
+        elif type == 'NWS':
+            # 실시간 뉴스요청
             print('실시간 뉴스를 요청합니다.')
             self.NWS.AdviseRealData()
         else:
-            pass            
+            pass
+
+    def CancelRealData(self, type, code):
+
+        if type == 'JIF':
+            # 장운영 정보 요청취소
+            self.JIF.UnadviseRealData()
+
+        elif type == 'YJ':
+            # KOSPI 예상체결 요청취소
+            self.YJ.UnadviseRealData()
+
+        elif type == 'YFC':
+            # 지수선물 예상체결 요청취소
+            self.YFC.UnadviseRealData()
+
+        elif type == 'YS3':
+            # KOSPI 주요업체 예상체결 요청취소
+            self.YS3.UnadviseRealData()
+
+        elif type == 'YOC':
+            # 지수옵션 예상체결 요청취소
+            self.YOC.UnadviseRealData()
+        
+        elif type == 'FUT_REAL_FC0':
+            # 선물 실시간 가격 요청취소
+            self.FUT_REAL_FC0.UnadviseRealData()
+
+        elif type == 'FUT_HO_FH0':
+            # 선물 실시간 호가 요청취소
+            self.FUT_HO_FH0.UnadviseRealData()
+
+        elif type == 'OPT_REAL_OC0':
+            # 옵션 실시간 가격 요청취소
+            self.OPT_REAL_OC0.UnadviseRealData()
+
+        elif type == 'OPT_HO_OH0':
+            # 옵션 실시간 호가 요청취소
+            self.OPT_HO_OH0.UnadviseRealData()
+
+        elif type == 'FUT_REAL_NC0':
+            # 선물 실시간 가격 요청취소
+            self.FUT_REAL_NC0.UnadviseRealData()
+
+        elif type == 'FUT_HO_NH0':
+            # 선물 실시간 호가 요청취소
+            self.FUT_HO_NH0.UnadviseRealData()
+
+        elif type == 'OPT_REAL_EC0':
+            # 옵션 실시간 가격 요청취소
+            self.OPT_REAL_EC0.UnadviseRealData()
+
+        elif type == 'OPT_HO_EH0':
+            # 옵션 실시간 호가 요청취소
+            self.OPT_HO_EH0.UnadviseRealData()
+
+        elif type == 'IJ':
+            # KOSPI/KOSPI200/KOSDAQ 지수 요청취소
+            self.IJ.UnadviseRealData()
+
+        elif type == 'S3':
+            # KOSPI 주요업체(SAMSUNG) 체결 요청취소
+            self.S3.UnadviseRealData()
+
+        elif type == 'BM':
+            # 업종별 투자자별 매매현황 요청취소
+            self.BM.UnadviseRealData()
+
+        elif type == 'PM':
+            # 프로그램 매매현황 요청취소
+            self.PM.UnadviseRealData()
+
+        elif type == 'OVC':
+            # 해외선물 체결가격 실시간 요청취소
+            # 개별항목 취소가 안됨!!!
+            #self.OVC.UnadviseRealDataWithKey(code)
+            self.OVC.UnadviseRealData()
+
+        elif type == 'OVH':
+            # 해외선물 호가 실시간 요청취소
+            self.OVH.UnadviseRealData()
+
+        elif type == 'NWS':
+            # 실시간 뉴스 요청취소
+            self.NWS.UnadviseRealData()
+        else:
+            pass     
 
     def run(self):
 
