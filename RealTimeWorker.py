@@ -89,7 +89,7 @@ class RealTimeWorker(mp.Process):
             self.result['로그인'] = '멀티프로세싱 로그인 성공 !!!'
             self.dataQ.put(self.result, False)
 
-            self.NWS.AdviseRealData()
+            #self.NWS.AdviseRealData()
         else:
             print('로그인 실패...')
 
@@ -120,7 +120,7 @@ class RealTimeWorker(mp.Process):
         계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})
 
         주식계좌정보 = 계좌정보.query("구분 == '모의'")
-        print('모의서버에 접속합니다.') 
+        print('MP 모의서버에 접속합니다.') 
 
         self.connection = XASession(parent=self)
 
@@ -129,7 +129,15 @@ class RealTimeWorker(mp.Process):
         self.pwd = 주식계좌정보['비밀번호'].values[0].strip()
         self.cert = 주식계좌정보['공인인증비밀번호'].values[0].strip()
         
-        self.connection.login(url=self.url, id=self.id, pwd=self.pwd, cert=self.cert)        
+        self.connection.login(url=self.url, id=self.id, pwd=self.pwd, cert=self.cert)
+
+    def RequestRealData(self, type, code):
+
+        if type == 'NWS':
+            print('실시간 뉴스를 요청합니다.')
+            self.NWS.AdviseRealData()
+        else:
+            pass            
 
     def run(self):
 

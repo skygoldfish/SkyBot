@@ -35411,6 +35411,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if szTrCode == 'LOGIN':
 
                 self.statusbar.showMessage(realdata['로그인'])
+                myprocess.RequestRealData('NWS', '0')
 
             elif szTrCode == 'NWS':
                 
@@ -35600,6 +35601,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 print('서버연결 해지...')
                 self.connection.disconnect()
             else:
+                print('멀티프로세싱 쓰레드 종료...')
                 self.consumer.terminate()
                 myprocess.shutdown()
 
@@ -36038,6 +36040,7 @@ if __name__ == "__main__":
         window = MainWindow(dataQ)
     else:
         window = MainWindow()
+
     window.show()
     
     '''
