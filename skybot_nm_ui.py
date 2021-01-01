@@ -109,7 +109,6 @@ class Ui_MainWindow(object):
         self.action_ToolBar_RealTime_Setting.setObjectName("action_ToolBar_RealTime_Setting")
         self.menu.addAction(self.actionLogin)
         self.menu.addAction(self.actionLogout)
-        self.menu.addSeparator()
         self.menu.addAction(self.actionAccountDialog)
         self.menu.addSeparator()
         self.menu.addAction(self.actionExit)
@@ -149,6 +148,6 @@ class Ui_MainWindow(object):
         self.actionBigChart.setText(_translate("MainWindow", "Big Chart"))
         self.action_ToolBar_BigChart.setText(_translate("MainWindow", "Big Chart"))
         self.action_ToolBar_BigChart.setToolTip(_translate("MainWindow", "Big Chart"))
-        self.actionRealTimeItem.setText(_translate("MainWindow", "실시간요청 항목"))
-        self.action_ToolBar_RealTime_Setting.setText(_translate("MainWindow", "실시간설정"))
+        self.actionRealTimeItem.setText(_translate("MainWindow", "실시간요청"))
+        self.action_ToolBar_RealTime_Setting.setText(_translate("MainWindow", "실시간요청 설정"))
 

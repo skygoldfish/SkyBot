@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>279</width>
-    <height>603</height>
+    <width>301</width>
+    <height>643</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,8 +18,8 @@
     <rect>
      <x>20</x>
      <y>10</y>
-     <width>241</width>
-     <height>581</height>
+     <width>261</width>
+     <height>621</height>
     </rect>
    </property>
    <property name="font">
@@ -40,8 +40,8 @@
      <rect>
       <x>10</x>
       <y>30</y>
-      <width>210</width>
-      <height>541</height>
+      <width>245</width>
+      <height>581</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -83,6 +83,20 @@
         </font>
        </property>
        <property name="text">
+        <string>본월물 옵션가격(전체)</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="checkBox_cm_opt_price_1">
+       <property name="font">
+        <font>
+         <family>Consolas</family>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
         <string>본월물 옵션가격</string>
        </property>
       </widget>
@@ -97,7 +111,7 @@
         </font>
        </property>
        <property name="text">
-        <string>본월물 옵션호가</string>
+        <string>본월물 옵션호가(전체)</string>
        </property>
       </widget>
      </item>
@@ -111,7 +125,7 @@
         </font>
        </property>
        <property name="text">
-        <string>본월물 옵션호가(등가중심 10)</string>
+        <string>본월물 옵션호가</string>
        </property>
       </widget>
      </item>
@@ -167,7 +181,7 @@
         </font>
        </property>
        <property name="text">
-        <string>차월물 옵션호가</string>
+        <string>차월물 옵션호가(전체)</string>
        </property>
       </widget>
      </item>
@@ -181,7 +195,7 @@
         </font>
        </property>
        <property name="text">
-        <string>차월물 옵션호가(등가중심 10)</string>
+        <string>차월물 옵션호가</string>
        </property>
       </widget>
      </item>

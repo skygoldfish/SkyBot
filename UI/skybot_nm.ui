@@ -54,7 +54,6 @@
     </property>
     <addaction name="actionLogin"/>
     <addaction name="actionLogout"/>
-    <addaction name="separator"/>
     <addaction name="actionAccountDialog"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
@@ -203,7 +202,7 @@
      <normaloff>PNG/설정.png</normaloff>PNG/설정.png</iconset>
    </property>
    <property name="text">
-    <string>실시간요청 항목</string>
+    <string>실시간요청</string>
    </property>
   </action>
   <action name="action_ToolBar_RealTime_Setting">
@@ -212,7 +211,7 @@
      <normaloff>PNG/설정.png</normaloff>PNG/설정.png</iconset>
    </property>
    <property name="text">
-    <string>실시간설정</string>
+    <string>실시간요청 설정</string>
    </property>
   </action>
  </widget>

@@ -276,21 +276,21 @@ SCORE_BOARD_UPDATE_INTERVAL = 2
 parser = ConfigParser()
 parser.read('skybot.ini')
 
-# [0]. << Server Type >>
+# [1]. << Server Type >>
 REAL_SERVER = parser.getboolean('Server Type', 'Real Server')
 
-# [1]. << Month Info >>
+# [2]. << Month Info >>
 KSE_START_HOUR = parser.getint('Month Info', 'KSE Start Hour')
 CURRENT_MONTH = parser.get('Month Info', 'Current Month')
 MONTH_FIRSTDAY = parser.get('Month Info', 'First Day of the Current Month')
 
-# [2]. << Target Month Select : current month = 1, next month = 2 >>
+# [3]. << Target Month Select : current month = 1, next month = 2 >>
 TARGET_MONTH_SELECT = parser.get('Target Month Select', 'Target Month Select')
 
-# [3]. << Window Style >>
+# [4]. << Window Style >>
 DARK_STYLESHEET = parser.getboolean('Window Style', 'Dark Style')
 
-# [4]. << User Switch = 'ON or OFF' >>
+# [5]. << User Switch = 'ON or OFF' >>
 TELEGRAM_SERVICE = parser.getboolean('User Switch', 'Telegram service')
 MANGI_YAGAN = parser.getboolean('User Switch', 'Mangi Yagan')
 AUTO_START = parser.getboolean('User Switch', 'Auto Start')
@@ -303,17 +303,18 @@ SEARCH_MOVING_NODE = parser.getboolean('User Switch', 'Search Moving Node')
 UI_HIDE = parser.getboolean('User Switch', 'UI Hide')
 MULTIPROCESS = parser.getboolean('User Switch', 'MULTIPROCESS')
 
-# [5]. << Real Time Request Item Switch = 'ON or OFF' >>
+# [6]. << Real Time Request Item Switch = 'ON or OFF' >>
 CM_FUT_PRICE = parser.getboolean('RealTime Request Item Switch', 'Current Month Futures Price')
 CM_FUT_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Current Month Futures Quote')
 CM_OPT_PRICE = parser.getboolean('RealTime Request Item Switch', 'Current Month Option Price')
+CM_OPT_PRICE1 = parser.getboolean('RealTime Request Item Switch', 'Current Month Option Price1')
 CM_OPT_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Current Month Option Quote')
-CM_OPT_10_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Current Month Option 10 Quote')
+CM_OPT_QUOTE1 = parser.getboolean('RealTime Request Item Switch', 'Current Month Option Quote1')
 NM_FUT_PRICE = parser.getboolean('RealTime Request Item Switch', 'Next Month Futures Price')
 NM_FUT_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Next Month Futures Quote')
 NM_OPT_PRICE = parser.getboolean('RealTime Request Item Switch', 'Next Month Option Price')
 NM_OPT_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Next Month Option Quote')
-NM_OPT_10_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Next Month Option 10 Quote')
+NM_OPT_QUOTE1 = parser.getboolean('RealTime Request Item Switch', 'Next Month Option Quote1')
 SUPPLY_DEMAND = parser.getboolean('RealTime Request Item Switch', 'Supply & Demand')
 DOW_CHK = parser.getboolean('RealTime Request Item Switch', 'DOW')
 SP500_CHK = parser.getboolean('RealTime Request Item Switch', 'S&P 500')
@@ -324,10 +325,14 @@ HANGSENG_CHK = parser.getboolean('RealTime Request Item Switch', 'HANGSENG')
 GOLD_CHK = parser.getboolean('RealTime Request Item Switch', 'GOLD')
 NEWS_CHK = parser.getboolean('RealTime Request Item Switch', 'NEWS')
 
-# [6]. << Moving Average Type >>
+# [7]. << Moving Average Type >>
 MA_TYPE = parser.getint('Moving Average Type', 'MA Type')
 
-# [7]. << Initial Value >>
+# [8]. << Initial Value >>
+CALL_ITM_REQUEST_NUMBER = parser.get('Initial Value', 'Number of Call ITM Request')
+CALL_OTM_REQUEST_NUMBER = parser.get('Initial Value', 'Number of Call OTM Request')
+PUT_ITM_REQUEST_NUMBER = parser.get('Initial Value', 'Number of Put ITM Request')
+PUT_OTM_REQUEST_NUMBER = parser.get('Initial Value', 'Number of Put OTM Request')
 HL_Depth = parser.getint('Initial Value', 'HL List Depth')
 NightTime_PreStart_Hour = parser.getint('Initial Value', 'NightTime Pre-Start Hour')
 ActvalCount = parser.getint('Initial Value', 'Actval Count of the Option Pairs')
@@ -339,11 +344,10 @@ CROSS_COLOR_INTERVAL = parser.getint('Initial Value', 'Cross Coloring Interval(m
 MAIN_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Main Update Interval(msec)')
 BIGCHART_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Big Chart Update Interval(msec)')
 SCORE_BOARD_UPDATE_INTERVAL = parser.getint('Initial Value', 'Score Board Update Interval(sec)')
-QUOTE_REQUEST_NUMBER = parser.get('Initial Value', 'Number of Option Pairs Quote Request')
 SECOND_DISPLAY_X_POSITION = parser.getint('Initial Value', 'X Position of the Second Display')
 SECOND_DISPLAY_Y_POSITION = parser.getint('Initial Value', 'Y Position of the Second Display')
 
-# [8]. << Code of the Foreign Futures (H/M/U/Z) >>
+# [9]. << Code of the Foreign Futures (H/M/U/Z) >>
 SP500 = parser.get('Code of the Foreign Futures', 'S&P 500')
 DOW = parser.get('Code of the Foreign Futures', 'DOW')
 NASDAQ = parser.get('Code of the Foreign Futures', 'NASDAQ')
@@ -352,12 +356,12 @@ EUROFX = parser.get('Code of the Foreign Futures', 'EUROFX')
 HANGSENG = parser.get('Code of the Foreign Futures', 'HANGSENG')
 GOLD = parser.get('Code of the Foreign Futures', 'GOLD')
 
-# [9]. << Telegram >>
+# [10]. << Telegram >>
 TELEGRAM_START_TIME = parser.getint('Telegram', 'Telegram polling start time(minute) after service')
 TELEGRAM_POLLING_INTERVAL = parser.getint('Telegram', 'Telegram polling interval(second)')
 TELEGRAM_SEND_INTERVAL = parser.getint('Telegram', 'Telegram send interval(second)')
 
-# [10]. << Rules >>
+# [11]. << Rules >>
 ONEWAY_THRESHOLD = parser.getint('Rules', 'Threshold of the institutional party supply & demand')
 ########################################################################################################################
 
@@ -15651,6 +15655,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
+                    if CM_OPT_PRICE1:
+
+                        for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
+                            self.realtime_data_worker.RealTimeDataRequest('OPT_REAL', CM_CALL_CODE[i])                            
+                            self.realtime_data_worker.RealTimeDataRequest('YOC', CM_CALL_CODE[i])
+
+                        for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
+                            self.realtime_data_worker.RealTimeDataRequest('OPT_REAL', CM_PUT_CODE[i])
+                            self.realtime_data_worker.RealTimeDataRequest('YOC', CM_PUT_CODE[i])
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 예상가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
+                        self.textBrowser.append(txt)
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
+                        self.textBrowser.append(txt)                    
+                    else:
+                        pass
+
                     # 실시간 본월물 옵션 호가요청
                     if CM_OPT_QUOTE:
                         for i in range(CM_OPT_LENGTH):
@@ -15663,15 +15685,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                     # 실시간 본월물 옵션 호가요청(등가근처 10개)
-                    if CM_OPT_10_QUOTE:
+                    if CM_OPT_QUOTE1:
 
-                        NEW_INDEX = int(int(QUOTE_REQUEST_NUMBER)/2)
-
-                        for i in range(ATM_INDEX - NEW_INDEX, ATM_INDEX + NEW_INDEX + 1):
+                        for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
                             self.realtime_data_worker.RealTimeDataRequest('OPT_HO', CM_CALL_CODE[i])
+
+                        for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
                             self.realtime_data_worker.RealTimeDataRequest('OPT_HO', CM_PUT_CODE[i])
 
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가(등가근처 10개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가(내가 {3}개, 외가 {4}개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
                         self.textBrowser.append(txt)
                     else:
                         pass
@@ -15722,15 +15744,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                     # 실시간 차월물 옵션 호가요청(등가근처 10개)
-                    if NM_OPT_10_QUOTE:
+                    if NM_OPT_QUOTE1:
 
-                        NEW_INDEX = int(int(QUOTE_REQUEST_NUMBER)/2)
-
-                        for i in range(ATM_INDEX - NEW_INDEX, ATM_INDEX + NEW_INDEX + 1):
+                        for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
                             self.realtime_data_worker.RealTimeDataRequest('OPT_HO', NM_CALL_CODE[i])
+
+                        for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
                             self.realtime_data_worker.RealTimeDataRequest('OPT_HO', NM_PUT_CODE[i])
 
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가(등가근처 10개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가(내가 {3}개, 외가 {4}개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
                         self.textBrowser.append(txt)
                     else:
                         pass
@@ -23306,16 +23328,26 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         self.flag_realtimeitem_open = True
 
+        txt = '본월물 옵션가격(내가 {0}, 외가 {1})'.format(PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
+        self.checkBox_cm_opt_price_1.setText(txt)
+
+        txt = '본월물 옵션호가(내가 {0}, 외가 {1})'.format(PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
+        self.checkBox_cm_opt_quote_1.setText(txt)
+
+        txt = '차월물 옵션호가(내가 {0}, 외가 {1})'.format(PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
+        self.checkBox_nm_opt_quote_1.setText(txt)
+
         self.checkBox_cm_fut_price.setChecked(CM_FUT_PRICE)
         self.checkBox_cm_fut_quote.setChecked(CM_FUT_QUOTE)
         self.checkBox_cm_opt_price.setChecked(CM_OPT_PRICE)
+        self.checkBox_cm_opt_price_1.setChecked(CM_OPT_PRICE1)
         self.checkBox_cm_opt_quote.setChecked(CM_OPT_QUOTE)
-        self.checkBox_cm_opt_quote_1.setChecked(CM_OPT_10_QUOTE)
+        self.checkBox_cm_opt_quote_1.setChecked(CM_OPT_QUOTE1)
         self.checkBox_nm_fut_price.setChecked(NM_FUT_PRICE)
         self.checkBox_nm_fut_quote.setChecked(NM_FUT_QUOTE)
         self.checkBox_nm_opt_price.setChecked(NM_OPT_PRICE)
         self.checkBox_nm_opt_quote.setChecked(NM_OPT_QUOTE)
-        self.checkBox_nm_opt_quote_1.setChecked(NM_OPT_10_QUOTE)
+        self.checkBox_nm_opt_quote_1.setChecked(NM_OPT_QUOTE1)
         self.checkBox_supply_demand.setChecked(SUPPLY_DEMAND)
         self.checkBox_dow.setChecked(DOW_CHK)
         self.checkBox_sp500.setChecked(SP500_CHK)
@@ -23338,6 +23370,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_cm_fut_price.stateChanged.connect(self.checkBox_cm_fut_price_checkState)
         self.checkBox_cm_fut_quote.stateChanged.connect(self.checkBox_cm_fut_quote_checkState)
         self.checkBox_cm_opt_price.stateChanged.connect(self.checkBox_cm_opt_price_checkState)
+        self.checkBox_cm_opt_price_1.stateChanged.connect(self.checkBox_cm_opt_price_1_checkState)
         self.checkBox_cm_opt_quote.stateChanged.connect(self.checkBox_cm_opt_quote_checkState)
         self.checkBox_cm_opt_quote_1.stateChanged.connect(self.checkBox_cm_opt_quote_1_checkState)
         self.checkBox_nm_fut_price.stateChanged.connect(self.checkBox_nm_fut_price_checkState)
@@ -23429,6 +23462,34 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
 
+    def checkBox_cm_opt_price_1_checkState(self):
+
+        dt = datetime.datetime.now()
+
+        if self.checkBox_cm_opt_price_1.isChecked() == True:
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
+                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('OPT_REAL', CM_CALL_CODE[i])
+
+                for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
+                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('OPT_REAL', CM_PUT_CODE[i])
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
+        else:
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_REAL', '0')
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격요청(내가 {3}개, 외가 {4}개)을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
+
     def checkBox_cm_opt_quote_checkState(self):
 
         dt = datetime.datetime.now()
@@ -23463,13 +23524,13 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                NEW_INDEX = int(int(QUOTE_REQUEST_NUMBER)/2)
-
-                for i in range(ATM_INDEX - NEW_INDEX, ATM_INDEX + NEW_INDEX + 1):
+                for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
                     self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('OPT_HO', CM_CALL_CODE[i])
+
+                for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
                     self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('OPT_HO', CM_PUT_CODE[i])
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가(등가근처 10개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가(내가 {3}개, 외가 {4}개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -23478,7 +23539,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                 self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_HO', '0')
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가요청(내가 {3}개, 외가 {4}개)을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -23591,13 +23652,13 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                NEW_INDEX = int(int(QUOTE_REQUEST_NUMBER)/2)
-
-                for i in range(ATM_INDEX - NEW_INDEX, ATM_INDEX + NEW_INDEX + 1):
+                for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
                     self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('OPT_HO', NM_CALL_CODE[i])
+
+                for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
                     self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('OPT_HO', NM_PUT_CODE[i])
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가(등가근처 10개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가(내가 {3}개, 외가 {4}개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -23606,7 +23667,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                 self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_HO', '0')
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가요청(내가 {3}개, 외가 {4}개)을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
