@@ -35408,7 +35408,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             szTrCode = realdata['szTrCode']
 
-            if szTrCode == 'NWS':
+            if szTrCode == 'LOGIN':
+
+                txt = '{0}\r'.format(realdata['로그인'])
+                self.textBrowser.append(txt)
+
+            elif szTrCode == 'NWS':
                 
                 txt = '[{0}] {1}\r'.format(realdata['시간'], realdata['제목'])
                 self.textBrowser.append(txt)

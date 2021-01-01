@@ -17,6 +17,7 @@ class RealTimeWorker(mp.Process):
 
         self.dataQ = dataQ
 
+        self.result = dict()
         self.connection = None
 
         # 실시간요청 아이디 초기화
@@ -83,6 +84,10 @@ class RealTimeWorker(mp.Process):
             self.NWS = NWS(parent=self)
 
             print('로그인 성공...')
+            
+            self.result['szTrCode'] = 'LOGIN'
+            self.result['로그인'] = '멀티프로세싱 로그인 성공...'
+            self.dataQ.put(self.result, False)
 
             self.NWS.AdviseRealData()
         else:
@@ -129,6 +134,9 @@ class RealTimeWorker(mp.Process):
     def run(self):
 
         print('MultiProcessing RealTimeWorker Start...')
+        self.result['szTrCode'] = 'START'
+        self.result['MultiProcessing Start'] = '멀티프로세싱 시작...'
+        self.dataQ.put(self.result, False)
 
         while not self.exit.is_set():
             pass
@@ -138,6 +146,9 @@ class RealTimeWorker(mp.Process):
     def shutdown(self):
 
         print("MultiProcessing Shutdown initiated...")
+        self.result['szTrCode'] = 'SHUTDOWN'
+        self.result['MultiProcessing Shutdown'] = '멀티프로세싱 종료...'
+        self.dataQ.put(self.result, False)
         
         print('실시간요청 취소...')
         self.NWS.UnadviseRealData()
