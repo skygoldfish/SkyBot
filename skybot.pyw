@@ -2275,9 +2275,9 @@ if not MULTIPROCESS:
                     flag_produce_queue_empty = True
 else:
     ###########################################################
-    # 실시간 데이타수신을 위한 멀티프로세스 데이타수신 쓰레드 클래스
+    # 실시간 데이타수신을 위한 멀티프로세스 쓰레드 클래스
     ###########################################################
-    class Consumer(QThread):
+    class MP_Consumer(QThread):
 
         trigger = pyqtSignal(dict)
 
@@ -4417,10 +4417,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         if MULTIPROCESS:
             # shutdown 테스트...
-            if myprocess.is_alive():
-                myprocess.shutdown()
+            if Myprocess.is_alive():
+                Myprocess.shutdown()
                 QTest.qWait(5)
-                print("Child process state: %d" % myprocess.is_alive())
+                print("Child process state: %d" % Myprocess.is_alive())
             else:
                 pass
         else:
@@ -35375,33 +35375,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.dialog['RealTimeItem'] = None
             self.dialog['Version'] = None
 
-            self.id = ''
-            self.계좌번호 = None
-            self.거래비밀번호 = None
-
-            # AxtiveX 설정
-            self.connection = None
-
-            self.XQ_t0167 = t0167(parent=self)
-            self.NWS = NWS(parent=self)
-
+            # thread for real data consumer
+            self.mp_consumer = MP_Consumer(dataQ)
+            self.mp_consumer.trigger.connect(self.mp_processing_realdata)
+            self.mp_consumer.start()
+            
             # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
             atexit.register(self.__del__)
 
-            # thread for real data consumer
-            self.consumer = Consumer(dataQ)
-            self.consumer.trigger.connect(self.processing_realdata)
-            self.consumer.start()
-
         @pyqtSlot(dict)
-        def processing_realdata(self, realdata):
+        def mp_processing_realdata(self, realdata):
 
             szTrCode = realdata['szTrCode']
 
             if szTrCode == 'LOGIN':
 
                 self.statusbar.showMessage(realdata['로그인'])
-                myprocess.RequestRealData('NWS', '0')
+
+                txt = '실시간 뉴스를 요청합니다.'
+                self.textBrowser.append(txt)
+
+                Myprocess.RequestRealData('NWS', '0')
 
             elif szTrCode == 'NWS':
                 
@@ -35484,7 +35478,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.connection = None
 
             self.XQ_t0167 = t0167(parent=self)
-            self.NWS = NWS(parent=self)
+            #self.NWS = NWS(parent=self)
 
             # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
             atexit.register(self.__del__) 
@@ -35592,8 +35586,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.connection.disconnect()
             else:
                 print('멀티프로세싱 쓰레드 종료...')
-                self.consumer.terminate()
-                myprocess.shutdown()
+                self.mp_consumer.terminate()
+                Myprocess.shutdown()
 
             if TARGET_MONTH_SELECT == 'CM':
 
@@ -35606,7 +35600,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-            self.clock.stop()
+            if not MULTIPROCESS:
+                self.clock.stop()
+            else:
+                pass
+            
             self.close()
         else:
             event.ignore()    
@@ -35965,10 +35963,10 @@ if __name__ == "__main__":
         dataQ = mp.Queue()
         
         # 멀티프로세스
-        myprocess = RealTimeWorker(dataQ)
-        myprocess.start()
+        Myprocess = RealTimeWorker(dataQ)
+        Myprocess.start()
         QTest.qWait(1000)
-        myprocess.login()
+        Myprocess.login()
     else:
         pass
     
@@ -36041,6 +36039,9 @@ if __name__ == "__main__":
     else:
         window.show()
     '''
-    QTimer().singleShot(1, window.OnQApplicationStarted)
+    if not MULTIPROCESS:
+        QTimer().singleShot(1, window.OnQApplicationStarted)
+    else:
+        pass
 
     sys.exit(app.exec_())

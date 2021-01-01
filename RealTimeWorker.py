@@ -3,10 +3,18 @@ import datetime, time
 import pandas as pd
 import multiprocessing as mp
 from multiprocessing import Process, Queue
+from configparser import ConfigParser
 
 from XASessions import *
 from XAQueries import *
 from XAReals import *
+
+# Configuration Parser
+parser = ConfigParser()
+parser.read('skybot.ini')
+
+# [1]. << Server Type >>
+REAL_SERVER = parser.getboolean('Server Type', 'Real Server')
 
 class RealTimeWorker(mp.Process):
 
@@ -45,7 +53,6 @@ class RealTimeWorker(mp.Process):
 
         self.OVC = None
         self.OVH = None
-        self.WOC = None
         self.NWS = None
 
         self.exit = mp.Event()
@@ -85,10 +92,13 @@ class RealTimeWorker(mp.Process):
             print('로그인 성공...')
             
             self.result['szTrCode'] = 'LOGIN'
-            self.result['로그인'] = '백그라운드 로그인 성공 !!!'
-            self.dataQ.put(self.result, False)
 
-            #self.NWS.AdviseRealData()
+            if REAL_SERVER:
+                self.result['로그인'] = '실서버 백그라운드 로그인 성공 !!!'
+            else:
+                self.result['로그인'] = '모의서버 백그라운드 로그인 성공 !!!'
+
+            self.dataQ.put(self.result, False)
         else:
             print('로그인 실패...')
 
@@ -119,8 +129,12 @@ class RealTimeWorker(mp.Process):
 
         계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})
 
-        주식계좌정보 = 계좌정보.query("구분 == '모의'")
-        print('MP 모의서버에 접속합니다.') 
+        if REAL_SERVER:
+            주식계좌정보 = 계좌정보.query("구분 == '거래'")
+            print('MP 실서버에 접속합니다.')
+        else:
+            주식계좌정보 = 계좌정보.query("구분 == '모의'")
+            print('MP 모의서버에 접속합니다.')
 
         self.connection = XASession(parent=self)
 
