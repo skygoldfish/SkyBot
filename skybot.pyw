@@ -35410,8 +35410,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if szTrCode == 'LOGIN':
 
-                txt = '{0}\r'.format(realdata['로그인'])
-                self.textBrowser.append(txt)
+                self.statusbar.showMessage(realdata['로그인'])
 
             elif szTrCode == 'NWS':
                 

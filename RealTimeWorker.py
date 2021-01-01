@@ -86,7 +86,7 @@ class RealTimeWorker(mp.Process):
             print('로그인 성공...')
             
             self.result['szTrCode'] = 'LOGIN'
-            self.result['로그인'] = '멀티프로세싱 로그인 성공...'
+            self.result['로그인'] = '멀티프로세싱 로그인 성공 !!!'
             self.dataQ.put(self.result, False)
 
             self.NWS.AdviseRealData()
@@ -134,6 +134,7 @@ class RealTimeWorker(mp.Process):
     def run(self):
 
         print('MultiProcessing RealTimeWorker Start...')
+
         self.result['szTrCode'] = 'START'
         self.result['MultiProcessing Start'] = '멀티프로세싱 시작...'
         self.dataQ.put(self.result, False)
@@ -146,6 +147,7 @@ class RealTimeWorker(mp.Process):
     def shutdown(self):
 
         print("MultiProcessing Shutdown initiated...")
+
         self.result['szTrCode'] = 'SHUTDOWN'
         self.result['MultiProcessing Shutdown'] = '멀티프로세싱 종료...'
         self.dataQ.put(self.result, False)
