@@ -2370,7 +2370,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.consumerQ = mp.Queue()
             
             self.realtime_data_worker = RealTimeDataWorker(self.producerQ, self.consumerQ)
-            self.realtime_data_worker.trigger.connect(self.process_realdata)
+            self.realtime_data_worker.trigger.connect(self.transfer_realdata)
         else:
             pass
 
@@ -3011,7 +3011,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.RunTelegram()
     
     @pyqtSlot()
-    def process_realdata(self):
+    def transfer_realdata(self):
 
         data = self.consumerQ.get(False)
 
@@ -3023,7 +3023,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.tableWidget_fut.setItem(2, 0, item)
 
-        self.realdata_update(data)
+        self.update_realdata(data)
             
     ## list에서 i번째 아이템을 리턴한다.
     def get_list_item(self, list, i):
@@ -4429,7 +4429,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_call_cross_coloring, flag_put_cross_coloring, flag_clear
 
         dt = datetime.datetime.now()
-        
+        '''
         if MULTIPROCESS:
             # shutdown 테스트...
             if Myprocess.is_alive():
@@ -4440,7 +4440,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
         else:
             pass
-
+        '''
         try:
             flag_screen_update_is_running = True
 
@@ -19424,7 +19424,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         pass
     
     # 수신된 실시간 데이타를 화면에 표시
-    def realdata_update(self, result):
+    def update_realdata(self, result):
 
         global pre_start
         global atm_str, atm_val, ATM_INDEX
@@ -35428,7 +35428,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         def mp_processing_realdata(self, realdata):
 
             if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
-                self.dialog['선물옵션전광판'].realdata_update(realdata)
+                self.dialog['선물옵션전광판'].update_realdata(realdata)
             else:            
                 szTrCode = realdata['szTrCode']
 
