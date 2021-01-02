@@ -35360,7 +35360,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         @pyqtSlot(list)
         def mp_processing_trdata(self, trdata):
 
-            txt = '{0} TR Data 수신...'.format(trdata[0])
+            txt = '{0} TR Data 수신...\r'.format(trdata[0])
             self.textBrowser.append(txt)
 
         @pyqtSlot(dict)
