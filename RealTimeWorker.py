@@ -258,14 +258,14 @@ class RealTimeWorker(mp.Process):
         txt = 'ClassName = {0} : systemError = {1}, messageCode = {2}, message = {3}'.format(ClassName, systemError, messageCode, message)
         print(txt)
     
-    def OnReceiveData(self, szTrCode, result):
+    def OnReceiveData(self, result):
 
         print('*********************************************************************************************************************************')
         print(result)
         print('*********************************************************************************************************************************')
 
     # 실시간데이타 수신 콜백함수
-    def OnReceiveRealData(self, szTrCode, result):
+    def OnReceiveRealData(self, result):
 
         print(result)
         self.dataQ.put(result, False)
