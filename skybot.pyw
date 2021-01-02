@@ -2327,6 +2327,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.flag_score_board_open = True
         self.main_ui_update_time = 0
         self.flag_refresh = False
+
+        # 조회요청 TR 객체생성
+        self.XQ_t0167 = t0167(parent=self) # 시간 조회
+        self.XQ_t1514 = t1514(parent=self) # 코스피/코스닥 지수 조회
+        self.XQ_t8432 = t8432(parent=self) # 지수선물 마스터조회 API용
+        self.XQ_t8433 = t8433(parent=self) # 지수옵션 마스터조회 API용
+        self.XQ_t2301 = t2301(parent=self) # 주간 옵션전광판 조회
+        self.XQ_t2101 = t2101(parent=self) # 주간 선물전광판 조회
+        self.XQ_t2801 = t2801(parent=self) # 야간 선물전광판 조회
+        self.XQ_t2835 = t2835(parent=self) # 야간 옵션전광판 조회
+        self.XQ_t8415 = t8415(parent=self) # 선물/옵션 차트(N분) 조회
+        self.XQ_t8416 = t8416(parent=self) # 선물/옵션 차트(일,주,월) 조회
         
         self.call_code = []
         self.put_code = []
@@ -3878,59 +3890,49 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def t8415_call_request(self, code):
         try:
-            XQ = t8415(parent=self)
-
             if today_str == MONTH_FIRSTDAY:
-                XQ.Query(단축코드=code, 시작일자=yesterday_str, 종료일자=today_str)
+                self.XQ_t8415.Query(단축코드=code, 시작일자=yesterday_str, 종료일자=today_str)
             else:
-                XQ.Query(단축코드=code, 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
+                self.XQ_t8415.Query(단축코드=code, 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
 
         except:
             pass
 
     def t8415_put_request(self, code):
         try:
-            XQ = t8415(parent=self)
-
             if today_str == MONTH_FIRSTDAY:
-                XQ.Query(단축코드=code, 시작일자=yesterday_str, 종료일자=today_str)
+                self.XQ_t8415.Query(단축코드=code, 시작일자=yesterday_str, 종료일자=today_str)
             else:
-                XQ.Query(단축코드=code, 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
+                self.XQ_t8415.Query(단축코드=code, 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
 
         except:
             pass
 
     def t8416_fut_request(self, code):
         try:
-            XQ = t8416(parent=self)
-
             # 휴일 포함 30일치 과거데이타를 요청한다.
             temp = today - datetime.timedelta(30)
             startday_str = temp.strftime('%Y%m%d')
 
-            XQ.Query(단축코드=code, 시작일자=startday_str, 종료일자=today_str)
+            self.XQ_t8416.Query(단축코드=code, 시작일자=startday_str, 종료일자=today_str)
         except:
             pass
 
     def t8416_call_request(self, code):
         try:
-            XQ = t8416(parent=self)
-
             if today_str == MONTH_FIRSTDAY:
-                XQ.Query(단축코드=code, 시작일자=yesterday_str, 종료일자=today_str)
+                self.XQ_t8416.Query(단축코드=code, 시작일자=yesterday_str, 종료일자=today_str)
             else:
-                XQ.Query(단축코드=code, 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
+                self.XQ_t8416.Query(단축코드=code, 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
         except:
             pass
 
     def t8416_put_request(self, code):
         try:
-            XQ = t8416(parent=self)
-
             if today_str == MONTH_FIRSTDAY:
-                XQ.Query(단축코드=code, 시작일자=yesterday_str, 종료일자=today_str)
+                self.XQ_t8416.Query(단축코드=code, 시작일자=yesterday_str, 종료일자=today_str)
             else:
-                XQ.Query(단축코드=code, 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
+                self.XQ_t8416.Query(단축코드=code, 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
         except:
             pass
 
@@ -4612,26 +4614,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
             else:
                 pass            
-
-            '''
-            if flag_checkBox_HS and self.alternate_flag and dt.second % SCORE_BOARD_UPDATE_INTERVAL == 0:                
-
-                # 해외선물 옵션호가                
-                #XQ = o3126(parent=self)
-                #XQ.Query(시장구분='F',단축코드='HSIV20')
-                #self.o3126_event_loop.exec_()
-                
-                if NightTime:
-                    XQ = t2835(parent=self)
-                    XQ.Query(월물=t2835_month_info)
-                    self.t2835_event_loop.exec_()
-                else:
-                    XQ = t2301(parent=self)                    
-                    XQ.Query(월물=t2301_month_info, 미니구분='G')
-                    self.t2301_event_loop.exec_()                                
-            else:
-                pass
-            '''
             
             # Market 유형을 시간과 함께 표시
             if (not flag_internet_connection_broken and not flag_service_provider_broken):
@@ -13810,16 +13792,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(2, Futures_column.OI.value, item)       
         '''
-
+        
         # 코스피지수 조회
-        XQ = t1514(parent=self)
-        XQ.Query(업종코드=KOSPI,구분1='',구분2='1',CTS일자='',조회건수='0001',비중구분='', 연속조회=False)
+        self.XQ_t1514.Query(업종코드=KOSPI,구분1='',구분2='1',CTS일자='',조회건수='0001',비중구분='', 연속조회=False)
 
         QTest.qWait(1100)
 
         # 코스닥지수 조회
-        XQ = t1514(parent=self)
-        XQ.Query(업종코드=KOSDAQ,구분1='',구분2='1',CTS일자='',조회건수='0001',비중구분='', 연속조회=False)
+        self.XQ_t1514.Query(업종코드=KOSDAQ,구분1='',구분2='1',CTS일자='',조회건수='0001',비중구분='', 연속조회=False)
 
         if service_terminate:
 
@@ -13844,15 +13824,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.textBrowser.append(txt)
                 
                 # 지수선물 마스터조회 API용
-                XQ = t8432(parent=self)
-                XQ.Query(구분='F')
+                self.XQ_t8432.Query(구분='F')
                 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] t8433 지수옵션 마스터 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
                 
                 # 지수옵션 마스터조회 API용
-                XQ = t8433(parent=self)
-                XQ.Query()
+                self.XQ_t8433.Query()
 
                 QTest.qWait(1000)                
             else:
@@ -13927,9 +13905,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
             
-            # 옵션 전광판 요청(주간=FC0/OC0, 야간=NC0/EC0)
+            # 주간 옵션전광판 요청(주간=FC0/OC0, 야간=NC0/EC0)
             print('t2301 요청...')
-            XQ = t2301(parent=self)
 
             if TARGET_MONTH_SELECT == 'CM':
 
@@ -13953,7 +13930,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            XQ.Query(월물=t2301_month_info, 미니구분='G')
+            self.XQ_t2301.Query(월물=t2301_month_info, 미니구분='G')
 
     def SaveResult(self):
 
@@ -15580,8 +15557,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # 주간 선물전광판 데이타요청
-                XQ = t2101(parent=self)
-                XQ.Query(종목코드=FUT_CODE)
+                self.XQ_t2101.Query(종목코드=FUT_CODE)
 
                 if FUT_CODE == GMSHCODE:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 본월물 주간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
@@ -15598,8 +15574,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 QTest.qWait(100)
 
                 # 야간 선물전광판 데이타요청
-                XQ = t2801(parent=self)
-                XQ.Query(종목코드=FUT_CODE)
+                self.XQ_t2801.Query(종목코드=FUT_CODE)
 
                 if FUT_CODE == GMSHCODE:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] t2801 본월물 야간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
@@ -16272,16 +16247,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if not flag_checkBox_HS:
 
                         # 주야간 선물전광판 데이타 요청
-                        XQ = t2101(parent=self)
-                        XQ.Query(종목코드=FUT_CODE)
+                        self.XQ_t2101.Query(종목코드=FUT_CODE)
 
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
 
                         QTest.qWait(100)
 
-                        XQ = t2801(parent=self)
-                        XQ.Query(종목코드=FUT_CODE)
+                        self.XQ_t2801.Query(종목코드=FUT_CODE)
 
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
@@ -16292,8 +16265,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                        
                 else:                    
                     # EUREX 야간옵션 시세전광판
-                    XQ = t2835(parent=self)
-                    XQ.Query(월물=t2835_month_info)
+                    self.XQ_t2835.Query(월물=t2835_month_info)
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
@@ -18101,14 +18073,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if not flag_checkBox_HS:
                 # 주야간 선물전광판 데이타 요청
-                XQ = t2101(parent=self)
-                XQ.Query(종목코드=FUT_CODE)
+                self.XQ_t2101.Query(종목코드=FUT_CODE)
                 print('t2101 요청')
 
                 QTest.qWait(100)
 
-                XQ = t2801(parent=self)
-                XQ.Query(종목코드=FUT_CODE)
+                self.XQ_t2801.Query(종목코드=FUT_CODE)
                 print('t2801 요청')
 
                 QTest.qWait(100)
@@ -19016,7 +18986,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if NightTime:                        
 
                         # EUREX 야간옵션 시세전광판
-                        XQ = t2835(parent=self)
 
                         if TARGET_MONTH_SELECT == 'CM':
 
@@ -19041,7 +19010,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        XQ.Query(월물=t2835_month_info)
+                        self.XQ_t2835.Query(월물=t2835_month_info)
                     else:
                             
                         수정거래량 = 0
@@ -35672,8 +35641,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if TARGET_MONTH_SELECT == 'CM':
 
                 if token != '' and chat_id != 0:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 ({4}/{5}) 로그인 했습니다.'.format( \
-                        dt.hour, dt.minute, dt.second, self.id, token, chat_id) 
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 ({4}/{5}) 로그인 했습니다.'.format(dt.hour, dt.minute, dt.second, self.id, token, chat_id) 
                 else:
                     if SELFID == 'soojin65':
                         txt = '[{0:02d}:{1:02d}:{2:02d}] ***님이 로그인 했습니다.'.format(dt.hour, dt.minute, dt.second)

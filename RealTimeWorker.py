@@ -24,11 +24,22 @@ class RealTimeWorker(mp.Process):
         self.daemon = True
 
         self.dataQ = dataQ
+        self.data = dict()
 
-        self.result = dict()
         self.connection = None
 
-        # 실시간요청 아이디 초기화
+        # 조회요청 TR 초기화
+        self.XQ_t0167 = None # 시간 조회
+        self.XQ_t1514 = None # 코스피/코스닥 지수 조회
+        self.XQ_t8432 = None # 지수선물 마스터조회 API용
+        self.XQ_t8433 = None # 지수옵션 마스터조회 API용
+        self.XQ_t2301 = None # 주간 옵션전광판 조회
+        self.XQ_t2101 = None # 주간 선물전광판 조회
+        self.XQ_t2801 = None # 야간 선물전광판 조회
+        self.XQ_t2835 = None # 야간 옵션전광판 조회
+        self.XQ_t8416 = None # 선물/옵션 차트(일,주,월) 조회
+
+        # 실시간요청 TR 초기화
         self.JIF = None
 
         self.YJ = None
@@ -61,7 +72,19 @@ class RealTimeWorker(mp.Process):
 
         if code == '0000':
 
-            # 로그인 이후 객체를 생성해야 됨
+            # 조회요청 TR 객체생성
+            self.XQ_t0167 = t0167(parent=self) # 시간 조회
+            self.XQ_t1514 = t1514(parent=self) # 코스피/코스닥 지수 조회
+            self.XQ_t8432 = t8432(parent=self) # 지수선물 마스터조회 API용
+            self.XQ_t8433 = t8433(parent=self) # 지수옵션 마스터조회 API용
+            self.XQ_t2301 = t2301(parent=self) # 주간 옵션전광판 조회
+            self.XQ_t2101 = t2101(parent=self) # 주간 선물전광판 조회
+            self.XQ_t2801 = t2801(parent=self) # 야간 선물전광판 조회
+            self.XQ_t2835 = t2835(parent=self) # 야간 옵션전광판 조회
+            self.XQ_t8415 = t8415(parent=self) # 선물/옵션 차트(N분) 조회
+            self.XQ_t8416 = t8416(parent=self) # 선물/옵션 차트(일,주,월) 조회
+
+            # 실시간 TR 객체생성
             self.JIF = JIF(parent=self)
 
             self.YJ = YJ_(parent=self)
@@ -88,17 +111,19 @@ class RealTimeWorker(mp.Process):
             self.OVH = OVH(parent=self)
 
             self.NWS = NWS(parent=self)
-
-            print('로그인 성공...')
             
-            self.result['szTrCode'] = 'LOGIN'
+            self.data['szTrCode'] = 'LOGIN'
 
             if REAL_SERVER:
-                self.result['로그인'] = '실서버 백그라운드 로그인 성공 !!!'
+                txt = '실서버 백그라운드 로그인 성공 !!!'
+                self.data['로그인'] = txt
             else:
-                self.result['로그인'] = '모의서버 백그라운드 로그인 성공 !!!'
+                txt = '모의서버 백그라운드 로그인 성공 !!!'
+                self.data['로그인'] = txt
+            
+            print(txt)
 
-            self.dataQ.put(self.result, False)
+            self.dataQ.put(self.data, False)
         else:
             print('로그인 실패...')
 
@@ -320,9 +345,9 @@ class RealTimeWorker(mp.Process):
 
         print('MultiProcessing RealTimeWorker Start...')
 
-        self.result['szTrCode'] = 'START'
-        self.result['MultiProcessing Start'] = '멀티프로세싱 시작...'
-        self.dataQ.put(self.result, False)
+        self.data['szTrCode'] = 'START'
+        self.data['MultiProcessing Start'] = '멀티프로세싱 시작...'
+        self.dataQ.put(self.data, False)
 
         while not self.exit.is_set():
             pass
@@ -333,9 +358,9 @@ class RealTimeWorker(mp.Process):
 
         print("MultiProcessing Shutdown initiated...")
 
-        self.result['szTrCode'] = 'SHUTDOWN'
-        self.result['MultiProcessing Shutdown'] = '멀티프로세싱 종료...'
-        self.dataQ.put(self.result, False)
+        self.data['szTrCode'] = 'SHUTDOWN'
+        self.data['MultiProcessing Shutdown'] = '멀티프로세싱 종료...'
+        self.dataQ.put(self.data, False)
         
         print('실시간요청 취소...')
         self.NWS.UnadviseRealData()
