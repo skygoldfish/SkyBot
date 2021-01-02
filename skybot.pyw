@@ -35363,14 +35363,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             txt = '{0} TR Data 수신...\r'.format(trdata[0])
             self.textBrowser.append(txt)
 
-        @pyqtSlot(dict)
-        def mp_processing_realdata(self, realdata):
+            if trdata[0] == 'LOGIN':
 
-            szTrCode = realdata['szTrCode']
-
-            if szTrCode == 'LOGIN':
-
-                self.statusbar.showMessage(realdata['로그인'])
+                self.statusbar.showMessage(trdata[1])
                 playsound( "Doorbell.wav" )
 
                 txt = '실시간 뉴스를 요청합니다.\r'
@@ -35378,9 +35373,37 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 Myprocess.RequestRealData('NWS')
 
-                Myprocess.RequestTRData('t8432')
+                if AUTO_START:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
 
-            elif szTrCode == 'NWS':
+                    self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
+                    self.dialog['선물옵션전광판'].show()
+                else:
+                    pass
+
+                Myprocess.RequestTRData('t1514', KOSPI)
+                QTest.qWait(1100)
+                Myprocess.RequestTRData('t1514', KOSDAQ)
+            else:
+                pass
+
+            if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
+                self.dialog['선물옵션전광판'].OnReceiveData(trdata)
+            else:
+                pass
+
+        @pyqtSlot(dict)
+        def mp_processing_realdata(self, realdata):
+
+            if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
+                self.dialog['선물옵션전광판'].realdata_update(realdata)
+            else:
+                pass
+
+            szTrCode = realdata['szTrCode']
+
+            if szTrCode == 'NWS':
                 
                 txt = '[{0}] {1}\r'.format(realdata['시간'], realdata['제목'])
                 self.textBrowser.append(txt)

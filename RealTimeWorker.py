@@ -140,7 +140,7 @@ class RealTimeWorker(mp.Process):
         self.daemon = True
 
         self.dataQ = dataQ
-        self.data = dict()
+        self.data = []
 
         self.connection = None
 
@@ -230,14 +230,14 @@ class RealTimeWorker(mp.Process):
 
             self.NWS = NWS(parent=self)
             
-            self.data['szTrCode'] = 'LOGIN'
+            self.data.append('LOGIN')
 
             if REAL_SERVER:
                 txt = '실서버 백그라운드 로그인 성공 !!!'
-                self.data['로그인'] = txt
+                self.data.append(txt)
             else:
                 txt = '모의서버 백그라운드 로그인 성공 !!!'
-                self.data['로그인'] = txt
+                self.data.append(txt)
             
             print(txt)
 
@@ -525,11 +525,11 @@ class RealTimeWorker(mp.Process):
     def run(self):
 
         print('MultiProcessing RealTimeWorker Start...')
-
+        '''
         self.data['szTrCode'] = 'START'
         self.data['MultiProcessing Start'] = '멀티프로세싱 시작...'
         self.dataQ.put(self.data, False)
-
+        '''
         while not self.exit.is_set():
             pass
 
@@ -538,13 +538,13 @@ class RealTimeWorker(mp.Process):
     def shutdown(self):
 
         print("MultiProcessing Shutdown initiated...")
-
+        '''
         self.data['szTrCode'] = 'SHUTDOWN'
         self.data['MultiProcessing Shutdown'] = '멀티프로세싱 종료...'
         self.dataQ.put(self.data, False)
-        
+        '''
         print('실시간요청 취소...')
-        self.NWS.UnadviseRealData()
+        #self.NWS.UnadviseRealData()
 
         print('서버연결 해지...')
         self.connection.disconnect()
