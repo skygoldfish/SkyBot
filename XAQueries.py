@@ -1732,8 +1732,6 @@ class t8432(XAQuery):
         columns = ['종목명', '단축코드', '확장코드', '상한가', '하한가', '전일종가', '전일고가', '전일저가', '기준가']
         df = DataFrame(data=result, columns=columns)
 
-        print(df)
-
         if self.parent != None:
             self.parent.OnReceiveData(szTrCode, [df])
 
@@ -1768,8 +1766,6 @@ class t8433(XAQuery):
 
         columns = ['종목명', '단축코드', '확장코드', '상한가', '하한가', '전일종가', '전일고가', '전일저가', '기준가']
         df = DataFrame(data=result, columns=columns)
-
-        #print(df)
 
         if self.parent != None:
             self.parent.OnReceiveData(szTrCode, [df])

@@ -2097,7 +2097,7 @@ if not MULTIPROCESS:
 
             self.NWS = NWS(parent=self)
 
-        def RealTimeDataRequest(self, type, code):
+        def RealTimeDataRequest(self, type, code='0'):
 
             if type == 'JIF':
                 # 장운영 정보 요청
@@ -2162,7 +2162,7 @@ if not MULTIPROCESS:
             else:
                 pass
 
-        def CancelRealDataRequest(self, type, code):
+        def CancelRealDataRequest(self, type, code='0'):
 
             if type == 'JIF':
                 # 장운영 정보 요청취소
@@ -15594,7 +15594,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.realtime_data_worker.start()
 
                     # 장운영 정보 요청
-                    self.realtime_data_worker.RealTimeDataRequest('JIF', '0')
+                    self.realtime_data_worker.RealTimeDataRequest('JIF')
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 장운영 정보를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
@@ -15820,7 +15820,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     # 실시간 NEWS 요청
                     if NEWS_CHK:
-                        self.realtime_data_worker.RealTimeDataRequest('NWS', '0')
+                        self.realtime_data_worker.RealTimeDataRequest('NWS')
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 NEWS를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.parent.textBrowser.append(txt)
                     else:
@@ -19548,10 +19548,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.textBrowser.append(txt)
 
                     if not MULTIPROCESS:
-                        self.realtime_data_worker.CancelRealDataRequest('YJ', '0')
-                        self.realtime_data_worker.CancelRealDataRequest('YFC', '0')
-                        self.realtime_data_worker.CancelRealDataRequest('YOC', '0')
-                        self.realtime_data_worker.CancelRealDataRequest('YS3', '0')
+                        self.realtime_data_worker.CancelRealDataRequest('YJ')
+                        self.realtime_data_worker.CancelRealDataRequest('YFC')
+                        self.realtime_data_worker.CancelRealDataRequest('YOC')
+                        self.realtime_data_worker.CancelRealDataRequest('YS3')
                     else:
                         pass
 
@@ -23385,7 +23385,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         else:
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('FUT_REAL', '0')
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('FUT_REAL')
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 가격요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -23409,7 +23409,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         else:
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('FUT_HO', '0')
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('FUT_HO')
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 호가요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -23435,7 +23435,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         else:
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_REAL', '0')
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_REAL')
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -23463,7 +23463,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         else:
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_REAL', '0')
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_REAL')
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격요청(내가 {3}개, 외가 {4}개)을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
                 self.parent.textBrowser.append(txt)
@@ -23489,7 +23489,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         else:
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_HO', '0')
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_HO')
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -23517,7 +23517,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         else:
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_HO', '0')
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_HO')
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가요청(내가 {3}개, 외가 {4}개)을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
                 self.parent.textBrowser.append(txt)
@@ -23541,7 +23541,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         else:
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('FUT_REAL', '0')
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('FUT_REAL')
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 선물 가격요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -23565,7 +23565,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         else:
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('FUT_HO', '0')
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('FUT_HO')
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 선물 호가요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -23591,7 +23591,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         else:
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_REAL', '0')
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_REAL')
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 가격요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -23617,7 +23617,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         else:
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_HO', '0')
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_HO')
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -23645,7 +23645,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         else:
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_HO', '0')
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('OPT_HO')
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가요청(내가 {3}개, 외가 {4}개)을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
                 self.parent.textBrowser.append(txt)
@@ -23671,8 +23671,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         else:
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('BM', '0')
-                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('PM', '0')
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('BM')
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('PM')
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 투자자별 매매현황 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -23855,7 +23855,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('NWS', '0')
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.RealTimeDataRequest('NWS')
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 NEWS를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -23864,7 +23864,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         else:
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('NWS', '0')
+                self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealDataRequest('NWS')
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 NEWS 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -35366,10 +35366,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.statusbar.showMessage(realdata['로그인'])
                 playsound( "Doorbell.wav" )
 
-                txt = '실시간 뉴스를 요청합니다.'
+                txt = '실시간 뉴스를 요청합니다.\r'
                 self.textBrowser.append(txt)
 
-                Myprocess.RequestRealData('NWS', '0')
+                Myprocess.RequestRealData('NWS')
+
+                Myprocess.RequestTRData('t8432')
 
             elif szTrCode == 'NWS':
                 

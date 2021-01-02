@@ -260,7 +260,9 @@ class RealTimeWorker(mp.Process):
     
     def OnReceiveData(self, szTrCode, result):
 
+        print('*********************************************************************************************************************************')
         print(result)
+        print('*********************************************************************************************************************************')
 
     # 실시간데이타 수신 콜백함수
     def OnReceiveRealData(self, szTrCode, result):
@@ -288,7 +290,7 @@ class RealTimeWorker(mp.Process):
         
         self.connection.login(url=self.url, id=self.id, pwd=self.pwd, cert=self.cert)
 
-    def RequestTRData(self, type, code):
+    def RequestTRData(self, type, code='0'):
 
         if type == 't0167':
 
@@ -346,7 +348,7 @@ class RealTimeWorker(mp.Process):
         else:
             pass
 
-    def RequestRealData(self, type, code):
+    def RequestRealData(self, type, code='0'):
 
         if type == 'JIF':
             # 장운영 정보 요청
@@ -431,7 +433,7 @@ class RealTimeWorker(mp.Process):
         else:
             pass
 
-    def CancelRealData(self, type, code):
+    def CancelRealData(self, type, code='0'):
 
         if type == 'JIF':
             # 장운영 정보 요청취소
