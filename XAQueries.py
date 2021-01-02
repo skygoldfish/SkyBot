@@ -882,7 +882,7 @@ class t1463(XAQuery):
 # 업종기간별추이
 class t1514(XAQuery):
 
-    def Query(self, 업종코드='001',구분1='',구분2='1',CTS일자='',조회건수='100',비중구분='', 연속조회=False):
+    def Query(self, 업종코드='001',구분1='',구분2='1',CTS일자='',조회건수='0001',비중구분='', 연속조회=False):
 
         if 연속조회 == False:
             self.ActiveX.LoadFromResFile(self.RESFILE)

@@ -404,6 +404,22 @@ else:
     NEXT_MONTH = repr(int(CURRENT_MONTH) + 1)
     MONTH_AFTER_NEXT = repr(int(CURRENT_MONTH) + 2)
 
+dt = datetime.datetime.now()        
+nowDate = dt.strftime('%Y-%m-%d')
+current_str = dt.strftime('%H:%M:%S')
+
+today = datetime.date.today()
+now_Month = today.strftime('%Y%m')
+today_str = today.strftime('%Y%m%d')
+today_title = today.strftime('%Y-%m-%d')
+
+yesterday = today - datetime.timedelta(1)
+yesterday_str = yesterday.strftime('%Y%m%d')
+
+current_month = int(CURRENT_MONTH[4:6])
+next_month = int(NEXT_MONTH[4:6])
+month_after_next = int(MONTH_AFTER_NEXT[4:6])
+
 CENTER_VAL_PLUS1 = GOLDEN_RATIO
 CENTER_VAL_MINUS1 = GOLDEN_RATIO
 
@@ -805,21 +821,6 @@ print('KP200 전일종가 =', KP200_전일종가)
 
 # 전역변수
 ########################################################################################################################
-dt = datetime.datetime.now()        
-nowDate = dt.strftime('%Y-%m-%d')
-current_str = dt.strftime('%H:%M:%S')
-
-today = datetime.date.today()
-now_Month = today.strftime('%Y%m')
-today_str = today.strftime('%Y%m%d')
-today_title = today.strftime('%Y-%m-%d')
-
-yesterday = today - datetime.timedelta(1)
-yesterday_str = yesterday.strftime('%Y%m%d')
-
-current_month = int(CURRENT_MONTH[4:6])
-next_month = int(NEXT_MONTH[4:6])
-month_after_next = int(MONTH_AFTER_NEXT[4:6])
 
 # 해외선물장은 오전 7시 시작
 DayTime_PreStart_Hour = KSE_START_HOUR - 2
@@ -13794,12 +13795,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         '''
         
         # 코스피지수 조회
-        self.XQ_t1514.Query(업종코드=KOSPI,구분1='',구분2='1',CTS일자='',조회건수='0001',비중구분='', 연속조회=False)
+        self.XQ_t1514.Query(업종코드=KOSPI)
 
         QTest.qWait(1100)
 
         # 코스닥지수 조회
-        self.XQ_t1514.Query(업종코드=KOSDAQ,구분1='',구분2='1',CTS일자='',조회건수='0001',비중구분='', 연속조회=False)
+        self.XQ_t1514.Query(업종코드=KOSDAQ)
 
         if service_terminate:
 

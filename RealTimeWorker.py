@@ -13,9 +13,125 @@ from XAReals import *
 parser = ConfigParser()
 parser.read('skybot.ini')
 
+# [0]. << Logging Level >>
+Logging_Level = parser.getint('Logging Level', 'Log Level')
+
 # [1]. << Server Type >>
 REAL_SERVER = parser.getboolean('Server Type', 'Real Server')
 
+# [2]. << Month Info >>
+KSE_START_HOUR = parser.getint('Month Info', 'KSE Start Hour')
+CURRENT_MONTH = parser.get('Month Info', 'Current Month')
+MONTH_FIRSTDAY = parser.get('Month Info', 'First Day of the Current Month')
+
+# [3]. << Target Month Select : current month = 1, next month = 2 >>
+TARGET_MONTH_SELECT = parser.get('Target Month Select', 'Target Month Select')
+
+# [4]. << Window Style >>
+DARK_STYLESHEET = parser.getboolean('Window Style', 'Dark Style')
+
+# [5]. << User Switch = 'ON or OFF' >>
+MULTIPROCESS = parser.getboolean('User Switch', 'Multiprocess')
+TELEGRAM_SERVICE = parser.getboolean('User Switch', 'Telegram service')
+MANGI_YAGAN = parser.getboolean('User Switch', 'Mangi Yagan')
+AUTO_START = parser.getboolean('User Switch', 'Auto Start')
+ResizeRowsToContents = parser.getboolean('User Switch', 'Resize Rows To Contents')
+CROSS_HAIR_LINE = parser.getboolean('User Switch', 'Cross Hair Line')
+SECOND_PLOT_SYNC = parser.getboolean('User Switch', 'Second Plot Sync')
+CSV_FILE = parser.getboolean('User Switch', 'CSV Data File')
+TTS = parser.getboolean('User Switch', 'Text To Speach')
+SEARCH_MOVING_NODE = parser.getboolean('User Switch', 'Search Moving Node')
+UI_HIDE = parser.getboolean('User Switch', 'UI Hide')
+
+# [6]. << Real Time Request Item Switch = 'ON or OFF' >>
+CM_FUT_PRICE = parser.getboolean('RealTime Request Item Switch', 'Current Month Futures Price')
+CM_FUT_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Current Month Futures Quote')
+CM_OPT_PRICE = parser.getboolean('RealTime Request Item Switch', 'Current Month Option Price')
+CM_OPT_PRICE1 = parser.getboolean('RealTime Request Item Switch', 'Current Month Option Price1')
+CM_OPT_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Current Month Option Quote')
+CM_OPT_QUOTE1 = parser.getboolean('RealTime Request Item Switch', 'Current Month Option Quote1')
+NM_FUT_PRICE = parser.getboolean('RealTime Request Item Switch', 'Next Month Futures Price')
+NM_FUT_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Next Month Futures Quote')
+NM_OPT_PRICE = parser.getboolean('RealTime Request Item Switch', 'Next Month Option Price')
+NM_OPT_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Next Month Option Quote')
+NM_OPT_QUOTE1 = parser.getboolean('RealTime Request Item Switch', 'Next Month Option Quote1')
+SUPPLY_DEMAND = parser.getboolean('RealTime Request Item Switch', 'Supply & Demand')
+DOW_CHK = parser.getboolean('RealTime Request Item Switch', 'DOW')
+SP500_CHK = parser.getboolean('RealTime Request Item Switch', 'S&P 500')
+NASDAQ_CHK = parser.getboolean('RealTime Request Item Switch', 'NASDAQ')
+WTI_CHK = parser.getboolean('RealTime Request Item Switch', 'WTI OIL')
+EUROFX_CHK = parser.getboolean('RealTime Request Item Switch', 'EUROFX')
+HANGSENG_CHK = parser.getboolean('RealTime Request Item Switch', 'HANGSENG')
+GOLD_CHK = parser.getboolean('RealTime Request Item Switch', 'GOLD')
+NEWS_CHK = parser.getboolean('RealTime Request Item Switch', 'NEWS')
+
+# [7]. << Moving Average Type >>
+MA_TYPE = parser.getint('Moving Average Type', 'MA Type')
+
+# [8]. << Initial Value >>
+CALL_ITM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Call ITM Request')
+CALL_OTM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Call OTM Request')
+PUT_ITM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Put ITM Request')
+PUT_OTM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Put OTM Request')
+HL_Depth = parser.getint('Initial Value', 'HL List Depth')
+NightTime_PreStart_Hour = parser.getint('Initial Value', 'NightTime Pre-Start Hour')
+ActvalCount = parser.getint('Initial Value', 'Actval Count of the Option Pairs')
+MY_COREVAL = parser.getfloat('Initial Value', 'My Coreval')
+ASYM_RATIO = parser.getfloat('Initial Value', 'Asymmetric Market Ratio')
+ONEWAY_RATIO = parser.getfloat('Initial Value', 'OneWay Market Ratio')
+GOLDEN_RATIO = parser.getfloat('Initial Value', 'Golden Ratio')
+CROSS_COLOR_INTERVAL = parser.getint('Initial Value', 'Cross Coloring Interval(minute)')
+MAIN_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Main Update Interval(msec)')
+BIGCHART_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Big Chart Update Interval(msec)')
+SCORE_BOARD_UPDATE_INTERVAL = parser.getint('Initial Value', 'Score Board Update Interval(sec)')
+SECOND_DISPLAY_X_POSITION = parser.getint('Initial Value', 'X Position of the Second Display')
+SECOND_DISPLAY_Y_POSITION = parser.getint('Initial Value', 'Y Position of the Second Display')
+
+# [9]. << Code of the Foreign Futures (H/M/U/Z) >>
+SP500 = parser.get('Code of the Foreign Futures', 'S&P 500')
+DOW = parser.get('Code of the Foreign Futures', 'DOW')
+NASDAQ = parser.get('Code of the Foreign Futures', 'NASDAQ')
+WTI = parser.get('Code of the Foreign Futures', 'WTI')
+EUROFX = parser.get('Code of the Foreign Futures', 'EUROFX')
+HANGSENG = parser.get('Code of the Foreign Futures', 'HANGSENG')
+GOLD = parser.get('Code of the Foreign Futures', 'GOLD')
+
+# [10]. << Telegram >>
+TELEGRAM_START_TIME = parser.getint('Telegram', 'Telegram polling start time(minute) after service')
+TELEGRAM_POLLING_INTERVAL = parser.getint('Telegram', 'Telegram polling interval(second)')
+TELEGRAM_SEND_INTERVAL = parser.getint('Telegram', 'Telegram send interval(second)')
+
+# [11]. << Rules >>
+ONEWAY_THRESHOLD = parser.getint('Rules', 'Threshold of the institutional party supply & demand')
+########################################################################################################################
+
+if int(CURRENT_MONTH[4:6]) == 11:
+    NEXT_MONTH = CURRENT_MONTH[0:4] + '12'
+    MONTH_AFTER_NEXT = repr(int(CURRENT_MONTH[0:4]) + 1) + '01'
+elif int(CURRENT_MONTH[4:6]) == 12:
+    NEXT_MONTH = repr(int(CURRENT_MONTH[0:4]) + 1) + '01'
+    MONTH_AFTER_NEXT = repr(int(CURRENT_MONTH[0:4]) + 1) + '02'
+else:
+    NEXT_MONTH = repr(int(CURRENT_MONTH) + 1)
+    MONTH_AFTER_NEXT = repr(int(CURRENT_MONTH) + 2)
+
+dt = datetime.datetime.now()        
+nowDate = dt.strftime('%Y-%m-%d')
+current_str = dt.strftime('%H:%M:%S')
+
+today = datetime.date.today()
+now_Month = today.strftime('%Y%m')
+today_str = today.strftime('%Y%m%d')
+today_title = today.strftime('%Y-%m-%d')
+
+yesterday = today - datetime.timedelta(1)
+yesterday_str = yesterday.strftime('%Y%m%d')
+
+current_month = int(CURRENT_MONTH[4:6])
+next_month = int(NEXT_MONTH[4:6])
+month_after_next = int(MONTH_AFTER_NEXT[4:6])
+
+########################################################################################################################
 class RealTimeWorker(mp.Process):
 
     def __init__(self, dataQ):
@@ -71,6 +187,8 @@ class RealTimeWorker(mp.Process):
     def OnLogin(self, code, msg):
 
         if code == '0000':
+
+            # COM 객체는 초기화시 객체생성하면 pickling error 발생 --> 로그인후 객체생성하면 해결됨(이유?)
 
             # 조회요청 TR 객체생성
             self.XQ_t0167 = t0167(parent=self) # 시간 조회
@@ -169,6 +287,64 @@ class RealTimeWorker(mp.Process):
         self.cert = 주식계좌정보['공인인증비밀번호'].values[0].strip()
         
         self.connection.login(url=self.url, id=self.id, pwd=self.pwd, cert=self.cert)
+
+    def RequestTRData(self, type, code):
+
+        if type == 't0167':
+
+            self.XQ_t0167.Query()
+
+        elif type == 't1514':
+
+            self.XQ_t1514.Query(업종코드=code)
+
+        elif type == 't8432':
+
+            self.XQ_t8432.Query(구분='F')
+
+        elif type == 't8433':
+
+            self.XQ_t8433.Query()
+
+        elif type == 't2301':
+
+            self.XQ_t2301.Query(월물=code, 미니구분='G')
+
+        elif type == 't2101':
+
+            self.XQ_t2101.Query(종목코드=code)
+
+        elif type == 't2801':
+
+            self.XQ_t2801.Query(종목코드=code)
+
+        elif type == 't2835':
+
+            self.XQ_t2835.Query(월물=code)
+
+        elif type == 't8415':
+
+            if today_str == MONTH_FIRSTDAY:
+                self.XQ_t8415.Query(단축코드=code, 시작일자=yesterday_str, 종료일자=today_str)
+            else:
+                self.XQ_t8415.Query(단축코드=code, 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
+
+        elif type == 't8416':
+
+            if code[0:3] == '101':
+
+                # 휴일 포함 30일치 과거데이타를 요청한다.
+                temp = today - datetime.timedelta(30)
+                startday_str = temp.strftime('%Y%m%d')
+
+                self.XQ_t8416.Query(단축코드=code, 시작일자=startday_str, 종료일자=today_str)
+            else:
+                if today_str == MONTH_FIRSTDAY:
+                    self.XQ_t8416.Query(단축코드=code, 시작일자=yesterday_str, 종료일자=today_str)
+                else:
+                    self.XQ_t8416.Query(단축코드=code, 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
+        else:
+            pass
 
     def RequestRealData(self, type, code):
 
