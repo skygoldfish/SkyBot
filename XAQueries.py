@@ -14,9 +14,6 @@ class XAQueryEvents(object):
     def __init__(self):
         self.parent = None
 
-        # Initialize
-        #pythoncom.CoInitialize()
-
     def set_parent(self, parent):
         self.parent = parent
 

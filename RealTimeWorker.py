@@ -244,20 +244,8 @@ class RealTimeWorker(mp.Process):
             self.dataQ.put(self.data, False)
         else:
             print('로그인 실패...')
-
-    def OnLogout(self):
-
-        print("로그아웃 되었습니다.")
-
-    def OnDisconnect(self):
-
-        print("연결이 끊겼습니다.")
-
-    def OnReceiveMessage(self, ClassName, systemError, messageCode, message):
-
-        txt = 'ClassName = {0} : systemError = {1}, messageCode = {2}, message = {3}'.format(ClassName, systemError, messageCode, message)
-        print(txt)
     
+    # 조회성 TR 수신 콜백함수
     def OnReceiveData(self, result):
 
         print('*********************************************************************************************************************************')

@@ -35297,14 +35297,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.textBrowser.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 9pt; font: Normal")
             self.textBrowser.append('Welcome to SkyBot\r')
-            '''
-            if TARGET_MONTH_SELECT == 'CM':
-                currentMouseX, currentMouseY = pyautogui.position()
-                self.move(currentMouseX, currentMouseY)
-                self.showNormal()
-            else:
-                pass
-            '''
+            
             self.시작시각 = datetime.datetime.now()
 
             txt = '시작시간 = {0}\r'.format(self.시작시각)
@@ -35318,16 +35311,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.textBrowser.append(txt)
 
             for index, s in enumerate(all_screens):
-                '''
-                print()
-                print(s.name())
-                print(s.availableGeometry())
-                print(s.availableGeometry().width())
-                print(s.availableGeometry().height())
-                print(s.size())
-                print(s.size().width())
-                print(s.size().height())
-                '''
+                
                 txt = '<스크린 {0}번, 화면해상도 = {1}x{2}>\r'.format(index, s.size().width(), s.size().height())
                 self.textBrowser.append(txt)
 
@@ -35398,17 +35382,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
                 self.dialog['선물옵션전광판'].realdata_update(realdata)
-            else:
-                pass
+            else:            
+                szTrCode = realdata['szTrCode']
 
-            szTrCode = realdata['szTrCode']
+                if szTrCode == 'NWS':
 
-            if szTrCode == 'NWS':
-                
-                txt = '[{0}] {1}\r'.format(realdata['시간'], realdata['제목'])
-                self.textBrowser.append(txt)
-            else:
-                pass
+                    txt = '[{0}] {1}\r'.format(realdata['시간'], realdata['제목'])
+                    self.textBrowser.append(txt)
+                else:
+                    pass            
     else:     
         def __init__(self):
             super(MainWindow, self).__init__()            
