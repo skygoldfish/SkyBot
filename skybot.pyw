@@ -35504,6 +35504,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.mp_consumer.trigger_list.connect(self.mp_processing_trdata)
             self.mp_consumer.trigger_dict.connect(self.mp_processing_realdata)            
             self.mp_consumer.start()
+
+            # 버티칼 스크롤바를 항상 bottom으로...
+            self.textBrowser.verticalScrollBar().setValue(self.textBrowser.verticalScrollBar().maximum())
             
             # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
             #atexit.register(self.__del__)
