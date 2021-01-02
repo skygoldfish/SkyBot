@@ -302,6 +302,9 @@ SCORE_BOARD_UPDATE_INTERVAL = 2
 parser = ConfigParser()
 parser.read('skybot.ini')
 
+# [0]. << Logging Level >>
+Logging_Level = parser.getint('Logging Level', 'Log Level')
+
 # [1]. << Server Type >>
 REAL_SERVER = parser.getboolean('Server Type', 'Real Server')
 
@@ -355,10 +358,10 @@ NEWS_CHK = parser.getboolean('RealTime Request Item Switch', 'NEWS')
 MA_TYPE = parser.getint('Moving Average Type', 'MA Type')
 
 # [8]. << Initial Value >>
-CALL_ITM_REQUEST_NUMBER = parser.get('Initial Value', 'Number of Call ITM Request')
-CALL_OTM_REQUEST_NUMBER = parser.get('Initial Value', 'Number of Call OTM Request')
-PUT_ITM_REQUEST_NUMBER = parser.get('Initial Value', 'Number of Put ITM Request')
-PUT_OTM_REQUEST_NUMBER = parser.get('Initial Value', 'Number of Put OTM Request')
+CALL_ITM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Call ITM Request')
+CALL_OTM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Call OTM Request')
+PUT_ITM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Put ITM Request')
+PUT_OTM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Put OTM Request')
 HL_Depth = parser.getint('Initial Value', 'HL List Depth')
 NightTime_PreStart_Hour = parser.getint('Initial Value', 'NightTime Pre-Start Hour')
 ActvalCount = parser.getint('Initial Value', 'Actval Count of the Option Pairs')
@@ -5045,7 +5048,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
                                 self.textBrowser.append(txt)
 
-                                file = open('skybot.log', 'w')
+                                file = open('today.log', 'w')
                                 text = self.textBrowser.toPlainText()
                                 file.write(text)
                                 file.close()
@@ -5080,7 +5083,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
                                 self.textBrowser.append(txt)
 
-                                file = open('skybot.log', 'w')
+                                file = open('today.log', 'w')
                                 text = self.textBrowser.toPlainText()
                                 file.write(text)
                                 file.close()
@@ -14004,7 +14007,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(txt)
 
-            file = open('skybot.log', 'w')
+            file = open('today.log', 'w')
             text = self.textBrowser.toPlainText()
             file.write(text)
             file.close()
@@ -19583,7 +19586,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                     if TTS and TARGET_MONTH_SELECT == 'CM':
-                        playsound( "Doorbell_login.wav" )
+                        playsound( "Doorbell.wav" )
                     else:
                         pass
 
@@ -35381,7 +35384,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.mp_consumer.start()
             
             # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
-            atexit.register(self.__del__)
+            #atexit.register(self.__del__)
 
         @pyqtSlot(dict)
         def mp_processing_realdata(self, realdata):
@@ -35391,6 +35394,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if szTrCode == 'LOGIN':
 
                 self.statusbar.showMessage(realdata['로그인'])
+                playsound( "Doorbell.wav" )
 
                 txt = '실시간 뉴스를 요청합니다.'
                 self.textBrowser.append(txt)
@@ -35481,13 +35485,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             #self.NWS = NWS(parent=self)
 
             # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
-            atexit.register(self.__del__) 
-
-    def __del__(self):
-        '''
-        종료시 실행할 작업
-        '''
-        print('SkyBot을 종료합니다...')     
+            atexit.register(self.__del__)   
 
     def OnQApplicationStarted(self):
         self.clock = QtCore.QTimer()
@@ -35548,6 +35546,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if dialog_type == 'Big Chart':
             
             self.dialog['BigChart'] = None
+    
+    def __del__(self):
+        '''
+        종료시 실행할 작업
+        '''
+        print('SkyBot을 종료합니다...')  
 
     def closeEvent(self,event):
 
@@ -35604,7 +35608,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.clock.stop()
             else:
                 pass
-            
+
             self.close()
         else:
             event.ignore()    
@@ -35682,7 +35686,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
             self.statusbar.showMessage("로그인 성공 !!!")
 
-            playsound( "Doorbell_login.wav" )
+            playsound( "Doorbell.wav" )
                         
             # 옵션전광판 자동시작
                                                   
@@ -35990,7 +35994,7 @@ if __name__ == "__main__":
     # 2.formatter를 만든다.
     formatter = logging.Formatter('[%(levelname)s|%(filename)s:%(lineno)s]%(asctime)s>%(message)s')
 
-    loggerLevel = logging.DEBUG
+    loggerLevel = Logging_Level
     filename = "LOG/SkyBot.log"
 
     # 스트림과 파일로 로그를 출력하는 핸들러를 각각 만든다.
