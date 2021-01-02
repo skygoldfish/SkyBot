@@ -35525,6 +35525,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 txt = '실시간 뉴스를 요청합니다.\r'
                 self.textBrowser.append(txt)
 
+                # 버티칼 스크롤바를 항상 bottom으로...
+                self.textBrowser.verticalScrollBar().setValue(self.textBrowser.verticalScrollBar().maximum())
+
                 Myprocess.RequestRealData('NWS')
 
                 if AUTO_START:
