@@ -153,6 +153,7 @@ class RealTimeWorker(mp.Process):
         self.XQ_t2101 = None # 주간 선물전광판 조회
         self.XQ_t2801 = None # 야간 선물전광판 조회
         self.XQ_t2835 = None # 야간 옵션전광판 조회
+        self.XQ_t8415 = None # 선물/옵션 차트(N분) 조회
         self.XQ_t8416 = None # 선물/옵션 차트(일,주,월) 조회
 
         # 실시간요청 TR 초기화
