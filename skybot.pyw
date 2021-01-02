@@ -2283,7 +2283,8 @@ else:
     ###########################################################
     class MP_Consumer(QThread):
 
-        trigger = pyqtSignal(dict)
+        trigger_dict = pyqtSignal(dict)
+        trigger_pd = pyqtSignal(pd.DataFrame)
 
         def __init__(self, dataQ):
             super().__init__()
@@ -2295,8 +2296,15 @@ else:
 
             while True:
                 if not self.dataQ.empty():
+                    
                     data = self.dataQ.get(False)
-                    self.trigger.emit(data)
+
+                    if type(data) == dict:
+                        self.trigger_dict.emit(data)
+                    elif type(data) == pd.DataFrame:
+                        self.trigger_pd.emit(data)
+                    else:
+                        pass
                 else:
                     pass
 ########################################################################################################################
@@ -35350,11 +35358,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             # thread for real data consumer
             self.mp_consumer = MP_Consumer(dataQ)
-            self.mp_consumer.trigger.connect(self.mp_processing_realdata)
+            self.mp_consumer.trigger_dict.connect(self.mp_processing_realdata)
+            self.mp_consumer.trigger_pd.connect(self.mp_processing_trdata)
             self.mp_consumer.start()
             
             # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
             #atexit.register(self.__del__)
+
+        @pyqtSlot(pd.DataFrame)
+        def mp_processing_trdata(self, trdata):
+
+            pass
 
         @pyqtSlot(dict)
         def mp_processing_realdata(self, realdata):
