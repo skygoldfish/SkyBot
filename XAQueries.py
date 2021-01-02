@@ -41,9 +41,6 @@ class XAQuery(object):
         self.parent = parent
         self.식별자 = 식별자
 
-        # Initialize
-        #pythoncom.CoInitialize()
-
         self.ActiveX = win32com.client.DispatchWithEvents("XA_DataSet.XAQuery", XAQueryEvents)
         self.ActiveX.set_parent(parent=self)
 
@@ -269,7 +266,7 @@ class t1102(XAQuery):
         result['대차불가표시'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "lend_text", 0)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [result])
+            self.parent.OnReceiveData([szTrCode, result])
 
 
 # 현물정상주문
@@ -366,7 +363,7 @@ class CSPAT00600(XAQuery):
         df1 = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df, df1])
+            self.parent.OnReceiveData([szTrCode, df, df1])
 
 
 # 현물정정주문
@@ -463,7 +460,7 @@ class CSPAT00700(XAQuery):
         df1 = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df, df1])
+            self.parent.OnReceiveData([szTrCode, df, df1])
 
 
 # 현물취소주문
@@ -549,7 +546,7 @@ class CSPAT00800(XAQuery):
         df1 = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df, df1])
+            self.parent.OnReceiveData([szTrCode, df, df1])
 
 
 # 주식잔고2
@@ -627,7 +624,7 @@ class t0424(XAQuery):
         df1 = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df, df1])
+            self.parent.OnReceiveData([szTrCode, df, df1])
 
 
 # 주식분별주가조회
@@ -692,7 +689,7 @@ class t1302(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [시간CTS, df])
+            self.parent.OnReceiveData([szTrCode, 시간CTS, df])
 
 
 # 기간별주가
@@ -767,7 +764,7 @@ class t1305(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [CNT, 날짜, IDX, df])
+            self.parent.OnReceiveData([szTrCode, CNT, 날짜, IDX, df])
 
 
 # 거래량상위
@@ -821,7 +818,7 @@ class t1452(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [IDX, df])
+            self.parent.OnReceiveData([szTrCode, IDX, df])
 
 
 # 거래대금상위
@@ -876,7 +873,7 @@ class t1463(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [IDX, df])
+            self.parent.OnReceiveData([szTrCode, IDX, df])
 
 
 # 업종기간별추이
@@ -952,7 +949,7 @@ class t1514(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [CTS일자, df])
+            self.parent.OnReceiveData([szTrCode, CTS일자, df])
 
 
 # 업종별 종목시세
@@ -1014,7 +1011,7 @@ class t1516(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [지수,지수_전일대비구분,지수_전일대비,지수_등락율, df])
+            self.parent.OnReceiveData([szTrCode, 지수, 지수_전일대비구분, 지수_전일대비, 지수_등락율, df])
 
 
 # 테마종목별 시세조회
@@ -1075,7 +1072,7 @@ class t1537(XAQuery):
         df1 = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df, df1])
+            self.parent.OnReceiveData([szTrCode, df, df1])
 
 
 # 시간대별투자자매매추이(t1602)
@@ -1245,7 +1242,7 @@ class t1602(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [block, df])
+            self.parent.OnReceiveData([szTrCode, block, df])
 
 
 # 외인기관종목별동향
@@ -1366,7 +1363,7 @@ class t1702(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [CTSIDX, CTSDATE, df])
+            self.parent.OnReceiveData([szTrCode, CTSIDX, CTSDATE, df])
 
 
 # 외인기관종목별동향
@@ -1543,7 +1540,7 @@ class t1717(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df])
+            self.parent.OnReceiveData([szTrCode, df])
 
 
 # 주식챠트(틱/n틱)
@@ -1618,7 +1615,7 @@ class t8411(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [block, df])
+            self.parent.OnReceiveData([szTrCode, block, df])
 
 
 # 업종전체조회
@@ -1642,7 +1639,7 @@ class t8424(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df])
+            self.parent.OnReceiveData([szTrCode, df])
 
 
 # 전체테마
@@ -1666,7 +1663,7 @@ class t8425(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df])
+            self.parent.OnReceiveData([szTrCode, df])
 
 
 # 주식종목코드조회
@@ -1698,7 +1695,7 @@ class t8430(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df])
+            self.parent.OnReceiveData([szTrCode, df])
 
 # 지수선물마스터조회API용
 class t8432(XAQuery):
@@ -1733,7 +1730,7 @@ class t8432(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df])
+            self.parent.OnReceiveData([szTrCode, df])
 
 # 지수옵션마스터조회API용
 class t8433(XAQuery):
@@ -1768,7 +1765,7 @@ class t8433(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df])
+            self.parent.OnReceiveData([szTrCode, df])
 
 # 주식종목코드조회(API용)
 class t8436(XAQuery):
@@ -1801,7 +1798,7 @@ class t8436(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df])
+            self.parent.OnReceiveData([szTrCode, df])
 
 
 # 종목검색
@@ -1835,7 +1832,7 @@ class t1833(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [검색종목수,df])
+            self.parent.OnReceiveData([szTrCode, 검색종목수, df])
 
 
 # e종목검색
@@ -1876,7 +1873,7 @@ class t1857(XAQuery):
             df = DataFrame(data=result, columns=columns)
 
             if self.parent != None:
-                self.parent.OnReceiveData(szTrCode, [self.식별자, 검색종목수,포착시간,실시간키,df])
+                self.parent.OnReceiveData([szTrCode, self.식별자, 검색종목수, 포착시간, 실시간키, df])
         except Exception as e:
             pass
 
@@ -1930,7 +1927,7 @@ class t1866(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [저장조건수, 연속여부, 연속키, df])
+            self.parent.OnReceiveData([szTrCode, 저장조건수, 연속여부, 연속키, df])
 
 # 뉴스본문(t3102)
 class t3102(XAQuery):
@@ -1951,7 +1948,7 @@ class t3102(XAQuery):
         뉴스타이틀 = self.ActiveX.GetFieldData(self.OUTBLOCK2, "sTitle", i).strip()
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [뉴스종목, 뉴스본문, 뉴스타이틀])
+            self.parent.OnReceiveData([szTrCode, 뉴스종목, 뉴스본문, 뉴스타이틀])
 '''
 # 차트데이타조회
 class ChartIndex(XAQuery):
@@ -2010,7 +2007,7 @@ class ChartIndex(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [self.식별자, 지표ID,레코드갯수,유효데이터컬럼갯수,df])
+            self.parent.OnReceiveData([szTrCode, self.식별자, 지표ID, 레코드갯수, 유효데이터컬럼갯수, df])
 
     def OnReceiveChartRealData(self, szTrCode):
         지표ID = self.ActiveX.GetFieldChartRealData(self.OUTBLOCK, "indexid").strip()
@@ -2111,7 +2108,7 @@ class CFOAT00100(XAQuery):
         df1 = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df, df1])
+            self.parent.OnReceiveData([szTrCode, df, df1])
 
 
 # 선물옵션차트(틱/n틱)(t8414)
@@ -2185,7 +2182,7 @@ class t8414(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [block, df])
+            self.parent.OnReceiveData([szTrCode, block, df])
 
 # CME 야간 선물틱분별 조회(t8408)
 class t8408(XAQuery):
@@ -2244,8 +2241,8 @@ class t8408(XAQuery):
         if self.parent != None:            
 
             # 주의 !!! [df]가 아닌 df로 return을 해야함
-            #self.parent.OnReceiveData(szTrCode, [df])
-            self.parent.OnReceiveData(szTrCode, df)
+            self.parent.OnReceiveData([szTrCode, df])
+            #self.parent.OnReceiveData(szTrCode, df)
 
 
 # 선물/옵션챠트(N분)(t8415)
@@ -2325,7 +2322,7 @@ class t8415(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [block, df])
+            self.parent.OnReceiveData([szTrCode, block, df])
 
 
 # 선물/옵션챠트(일주월)(t8416)
@@ -2404,7 +2401,7 @@ class t8416(XAQuery):
         print(block)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [block, df])
+            self.parent.OnReceiveData([szTrCode, block, df])
 
 # 선물/옵션현재가(시세)조회(t2101)
 class t2101(XAQuery):
@@ -2483,7 +2480,7 @@ class t2101(XAQuery):
         #print(result)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [result])
+            self.parent.OnReceiveData([szTrCode, result])
 
 # 선물/옵션 현재가 호가조회(t2105), 1초당 10건
 class t2105(XAQuery):
@@ -2546,7 +2543,7 @@ class t2105(XAQuery):
         result['단축코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "shcode", 0)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [result])
+            self.parent.OnReceiveData([szTrCode, result])
 
 # CME 현재가조회(t2801)
 class t2801(XAQuery):
@@ -2605,7 +2602,7 @@ class t2801(XAQuery):
         #print(result)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [result])
+            self.parent.OnReceiveData([szTrCode, result])
 
 # EUREX 야간옵션 시세조회(t2830)
 class t2830(XAQuery):
@@ -2660,7 +2657,7 @@ class t2830(XAQuery):
         #print(result)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [result])
+            self.parent.OnReceiveData([szTrCode, result])
 
 # EUREX 야간옵션 시세전광판(t2835)
 class t2835(XAQuery):
@@ -2761,7 +2758,7 @@ class t2835(XAQuery):
         #print('t2835 put', df1)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [block, df, df1])
+            self.parent.OnReceiveData([szTrCode, block, df, df1])
 
 # 옵션전광판(t2301)
 class t2301(XAQuery):
@@ -2891,7 +2888,7 @@ class t2301(XAQuery):
         df1 = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [block, df, df1])
+            self.parent.OnReceiveData([szTrCode, block, df, df1])
 
 ##----------------------------------------------------------------------------------------------------------------------
 # 해외선물
@@ -2940,7 +2937,7 @@ class CIDBQ01400(XAQuery):
         df1 = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df, df1])
+            self.parent.OnReceiveData([szTrCode, df, df1])
 
 
 # 해외선물 미결제 잔고내역
@@ -3020,7 +3017,7 @@ class CIDBQ01500(XAQuery):
         df1 = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df, df1])
+            self.parent.OnReceiveData([szTrCode, df, df1])
 
 
 # 해외선물 주문체결내역 조회
@@ -3114,7 +3111,7 @@ class CIDBQ01800(XAQuery):
         df1 = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df, df1])
+            self.parent.OnReceiveData([szTrCode, df, df1])
 
 
 # 해외선물 주문체결내역 상세 조회
@@ -3231,7 +3228,7 @@ class CIDBQ02400(XAQuery):
         df1 = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df, df1])
+            self.parent.OnReceiveData([szTrCode, df, df1])
 
 
 # 해외선물 예수금/잔고현황
@@ -3283,7 +3280,7 @@ class CIDBQ03000(XAQuery):
         df1 = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [레코드갯수,계좌구분코드,계좌번호,계좌비밀번호,거래일자, df1])
+            self.parent.OnReceiveData([szTrCode, 레코드갯수, 계좌구분코드, 계좌번호, 계좌비밀번호, 거래일자, df1])
 
 
 # 해외선물 계좌예탁자산조회
@@ -3381,7 +3378,7 @@ class CIDBQ05300(XAQuery):
         df2 = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [레코드갯수,해외계좌구분코드,FCM계좌번호,계좌번호,계좌비밀번호,통화코드, df1, df2])
+            self.parent.OnReceiveData([szTrCode, 레코드갯수, 해외계좌구분코드, FCM계좌번호, 계좌번호, 계좌비밀번호, 통화코드, df1, df2])
 
 
 # 해외선물신규주문
@@ -3453,7 +3450,7 @@ class CIDBT00100(XAQuery):
         df1 = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df, df1])
+            self.parent.OnReceiveData([szTrCode, df, df1])
 
 
 # 해외선물정정주문
@@ -3525,7 +3522,7 @@ class CIDBT00900(XAQuery):
         df1 = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df, df1])
+            self.parent.OnReceiveData([szTrCode, df, df1])
 
 
 # 해외선물취소주문
@@ -3583,7 +3580,7 @@ class CIDBT01000(XAQuery):
         df1 = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df, df1])
+            self.parent.OnReceiveData([szTrCode, df, df1])
 
 
 # 일자별 미결제 잔고내역
@@ -3642,7 +3639,7 @@ class CIDEQ00800(XAQuery):
         df1 = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df, df1])
+            self.parent.OnReceiveData([szTrCode, df, df1])
 
 
 # 해외선물마스터조회(o3101)-API용
@@ -3690,7 +3687,7 @@ class o3101(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df])
+            self.parent.OnReceiveData([szTrCode, df])
 
 
 # 해외선물차트(분)(o3103)-API용
@@ -3742,7 +3739,7 @@ class o3103(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [단축코드, 시차, 조회건수, 연속일자, 연속시간, df])
+            self.parent.OnReceiveData([szTrCode, 단축코드, 시차, 조회건수, 연속일자, 연속시간, df])
 
 
 # 해외선물일별체결조회(o3104)-API용
@@ -3776,7 +3773,7 @@ class o3104(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df])
+            self.parent.OnReceiveData([szTrCode, df])
 
 
 # 해외선물현재가(종목정보)조회(o3105)-API용
@@ -3861,7 +3858,7 @@ class o3105(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df])
+            self.parent.OnReceiveData([szTrCode, df])
 
 
 # 해외선물현재가호가조회(o3106)-API용
@@ -3937,7 +3934,7 @@ class o3106(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df])
+            self.parent.OnReceiveData([szTrCode, df])
 
 
 # 해외선물관심종목조회(o3107)-API용
@@ -3980,7 +3977,7 @@ class o3107(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df])
+            self.parent.OnReceiveData([szTrCode, df])
 
 '''
 # 해외선물차트(일주월)(o3108)-API용
@@ -4036,7 +4033,7 @@ class o3108(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [단축코드,전일시가,전일고가,전일저가,전일종가,전일거래량,당일시가,당일고가,당일저가,당일종가,장시작시간,장마감시간,연속일자,레코드카운트, df])
+            self.parent.OnReceiveData([szTrCode, 단축코드,전일시가, 전일고가, 전일저가, 전일종가, 전일거래량, 당일시가, 당일고가, 당일저가, 당일종가, 장시작시간, 장마감시간, 연속일자, 레코드카운트, df])
 '''
 
 # 해외선물시간대별(Tick)체결(o3116)-API용
@@ -4079,7 +4076,7 @@ class o3116(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [순번CTS, df])
+            self.parent.OnReceiveData([szTrCode, 순번CTS, df])
 
 
 # 해외선물차트용NTick(o3117)-API용
@@ -4134,7 +4131,7 @@ class o3117(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [단축코드,레코드카운트,연속시간,연속당일구분, df])
+            self.parent.OnReceiveData([szTrCode, 단축코드, 레코드카운트, 연속시간, 연속당일구분, df])
 
 
 # 해외선물옵션마스터조회(o3121)-API용
@@ -4191,7 +4188,7 @@ class o3121(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df])
+            self.parent.OnReceiveData([szTrCode, df])
 
 
 # 해외선물옵션차트(분)(o3123)-API용
@@ -4240,7 +4237,7 @@ class o3123(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [단축코드,시차,조회건수,연속일자,연속시간, df])
+            self.parent.OnReceiveData([szTrCode, 단축코드, 시차, 조회건수, 연속일자, 연속시간, df])
 
 
 # 해외선물옵션현재가(종목정보)조회(o3125)-API용
@@ -4329,7 +4326,7 @@ class o3125(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df])
+            self.parent.OnReceiveData([szTrCode, df])
 
 
 # 해외선물옵션현재가호가조회(o3126)-API용
@@ -4411,7 +4408,7 @@ class o3126(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df])
+            self.parent.OnReceiveData([szTrCode, df])
 
 
 # 해외선물옵션관심종목조회(o3127)-API용
@@ -4457,7 +4454,7 @@ class o3127(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [df])
+            self.parent.OnReceiveData([szTrCode, df])
 
 
 # 해외선물옵션차트일주월(o3128)-API용
@@ -4514,7 +4511,7 @@ class o3128(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [단축코드,전일시가,전일고가,전일저가,전일종가,전일거래량,당일시가,당일고가,당일저가,당일종가,장시작시간,장마감시간,연속일자,레코드카운트, df])
+            self.parent.OnReceiveData([szTrCode, 단축코드, 전일시가, 전일고가, 전일저가, 전일종가, 전일거래량, 당일시가, 당일고가, 당일저가, 당일종가, 장시작시간, 장마감시간, 연속일자, 레코드카운트, df])
 
 
 # 해외선물옵션시간대별(Tick)체결(o3136)-API용
@@ -4558,7 +4555,7 @@ class o3136(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [순번CTS, df])
+            self.parent.OnReceiveData([szTrCode, 순번CTS, df])
 
 
 # 해외선물옵션차트용NTick(o3137)-API용
@@ -4610,7 +4607,7 @@ class o3137(XAQuery):
         df = DataFrame(data=result, columns=columns)
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [단축코드,레코드카운트,연속시간,연속당일구분, df])
+            self.parent.OnReceiveData([szTrCode, 단축코드, 레코드카운트, 연속시간, 연속당일구분, df])
 
 
 # 시간조회
@@ -4634,4 +4631,4 @@ class t0167(XAQuery):
         time = self.ActiveX.GetFieldData(self.OUTBLOCK, "time", 0).strip()
 
         if self.parent != None:
-            self.parent.OnReceiveData(szTrCode, [dt, time])
+            self.parent.OnReceiveData([szTrCode, dt, time])

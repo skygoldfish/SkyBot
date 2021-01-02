@@ -114,7 +114,7 @@ class H1_(XAReal):
         result['szTrCode'] = szTrCode
 
         if self.parent != None:
-            self.parent.OnReceiveRealData(szTrCode, result)
+            self.parent.OnReceiveRealData(result)
 
 
 # KOSDAQ호가잔랑
@@ -159,7 +159,7 @@ class HA_(XAReal):
         result['szTrCode'] = szTrCode
 
         if self.parent != None:
-            self.parent.OnReceiveRealData(szTrCode, result)
+            self.parent.OnReceiveRealData(result)
 
 
 # KOSDAQ체결
@@ -213,7 +213,7 @@ class K3_(XAReal):
         result['szTrCode'] = szTrCode
 
         if self.parent != None:
-            self.parent.OnReceiveRealData(szTrCode, result)
+            self.parent.OnReceiveRealData(result)
 
 
 # KOSPI체결
@@ -268,7 +268,7 @@ class S3_(XAReal):
         result['szTrCode'] = szTrCode
 
         if self.parent != None:
-            self.parent.OnReceiveRealData(szTrCode, result)
+            self.parent.OnReceiveRealData(result)
 
 
 # 주식주문접수
@@ -401,7 +401,7 @@ class SC0(XAReal):
         # result['szTrCode'] = szTrCode
 
         if self.parent != None:
-            self.parent.OnReceiveRealData(szTrCode, result)
+            self.parent.OnReceiveRealData(result)
 
 
 # 주식주문체결
@@ -551,7 +551,7 @@ class SC1(XAReal):
         # result['szTrCode'] = szTrCode
 
         if self.parent != None:
-            self.parent.OnReceiveRealData(szTrCode, result)
+            self.parent.OnReceiveRealData(result)
 
 
 # 주식주문정정
@@ -701,7 +701,7 @@ class SC2(XAReal):
         #result['szTrCode'] = szTrCode
 
         if self.parent != None:
-            self.parent.OnReceiveRealData(szTrCode, result)
+            self.parent.OnReceiveRealData(result)
 
 
 # 주식주문취소
@@ -851,7 +851,7 @@ class SC3(XAReal):
         #result['szTrCode'] = szTrCode
 
         if self.parent != None:
-            self.parent.OnReceiveRealData(szTrCode, result)
+            self.parent.OnReceiveRealData(result)
 
 
 # 주식주문거부
@@ -1001,7 +1001,7 @@ class SC4(XAReal):
         #result['szTrCode'] = szTrCode
 
         if self.parent != None:
-            self.parent.OnReceiveRealData(szTrCode, result)
+            self.parent.OnReceiveRealData(result)
 
 
 # 실시간 뉴스 제목 패킷(NWS)
@@ -1029,7 +1029,7 @@ class NWS(XAReal):
         result['szTrCode'] = szTrCode
 
         if self.parent != None:
-            self.parent.OnReceiveRealData(szTrCode, result)
+            self.parent.OnReceiveRealData(result)
 
 
 # KOSPI200 선물체결(FC0)
@@ -1084,7 +1084,7 @@ class FC0(XAReal):
             result['szTrCode'] = szTrCode
 
             if self.parent != None:
-                self.parent.OnReceiveRealData(szTrCode, result)
+                self.parent.OnReceiveRealData(result)
 
         except Exception as e:
             클래스이름 = self.__class__.__name__
@@ -1146,7 +1146,7 @@ class NC0(XAReal):
             result['szTrCode'] = szTrCode
 
             if self.parent != None:
-                self.parent.OnReceiveRealData(szTrCode, result)
+                self.parent.OnReceiveRealData(result)
 
         except Exception as e:
             클래스이름 = self.__class__.__name__
@@ -1216,7 +1216,7 @@ class FH0(XAReal):
             result['szTrCode'] = szTrCode
 
             if self.parent != None:
-                self.parent.OnReceiveRealData(szTrCode, result)
+                self.parent.OnReceiveRealData(result)
 
         except Exception as e:
             클래스이름 = self.__class__.__name__
@@ -1285,7 +1285,7 @@ class NH0(XAReal):
             result['szTrCode'] = szTrCode
 
             if self.parent != None:
-                self.parent.OnReceiveRealData(szTrCode, result)
+                self.parent.OnReceiveRealData(result)
 
         except Exception as e:
             클래스이름 = self.__class__.__name__
@@ -1350,7 +1350,7 @@ class OC0(XAReal):
             result['szTrCode'] = szTrCode
 
             if self.parent != None:
-                self.parent.OnReceiveRealData(szTrCode, result)
+                self.parent.OnReceiveRealData(result)
 
         except Exception as e:
             클래스이름 = self.__class__.__name__
@@ -1423,7 +1423,7 @@ class OH0(XAReal):
             result['szTrCode'] = szTrCode
 
             if self.parent != None:
-                self.parent.OnReceiveRealData(szTrCode, result)
+                self.parent.OnReceiveRealData(result)
 
         except Exception as e:
             클래스이름 = self.__class__.__name__
@@ -1488,7 +1488,7 @@ class EC0(XAReal):
             result['szTrCode'] = szTrCode
 
             if self.parent != None:
-                self.parent.OnReceiveRealData(szTrCode, result)
+                self.parent.OnReceiveRealData(result)
 
         except Exception as e:
             클래스이름 = self.__class__.__name__
@@ -1563,7 +1563,7 @@ class EH0(XAReal):
             result['szTrCode'] = szTrCode
 
             if self.parent != None:
-                self.parent.OnReceiveRealData(szTrCode, result)
+                self.parent.OnReceiveRealData(result)
 
         except Exception as e:
             클래스이름 = self.__class__.__name__
@@ -1597,7 +1597,7 @@ class JIF(XAReal):
             result['szTrCode'] = szTrCode
 
             if self.parent != None:
-                self.parent.OnReceiveRealData(szTrCode, result)
+                self.parent.OnReceiveRealData(result)
 
         except Exception as e:
             클래스이름 = self.__class__.__name__
@@ -1638,7 +1638,7 @@ class YJ_(XAReal):
             result['szTrCode'] = szTrCode
 
             if self.parent != None:
-                self.parent.OnReceiveRealData(szTrCode, result)
+                self.parent.OnReceiveRealData(result)
 
         except Exception as e:
             클래스이름 = self.__class__.__name__
@@ -1676,7 +1676,7 @@ class YFC(XAReal):
             result['szTrCode'] = szTrCode
 
             if self.parent != None:
-                self.parent.OnReceiveRealData(szTrCode, result)
+                self.parent.OnReceiveRealData(result)
 
         except Exception as e:
             클래스이름 = self.__class__.__name__
@@ -1714,7 +1714,7 @@ class YOC(XAReal):
             result['szTrCode'] = szTrCode
 
             if self.parent != None:
-                self.parent.OnReceiveRealData(szTrCode, result)
+                self.parent.OnReceiveRealData(result)
 
         except Exception as e:
             클래스이름 = self.__class__.__name__
@@ -1757,7 +1757,7 @@ class YS3(XAReal):
             result['szTrCode'] = szTrCode
 
             if self.parent != None:
-                self.parent.OnReceiveRealData(szTrCode, result)
+                self.parent.OnReceiveRealData(result)
 
         except Exception as e:
             클래스이름 = self.__class__.__name__
@@ -1817,7 +1817,7 @@ class IJ_(XAReal):
             result['szTrCode'] = szTrCode
 
             if self.parent != None:
-                self.parent.OnReceiveRealData(szTrCode, result)
+                self.parent.OnReceiveRealData(result)
 
         except Exception as e:
             클래스이름 = self.__class__.__name__
@@ -1863,7 +1863,7 @@ class BM_(XAReal):
             result['szTrCode'] = szTrCode
 
             if self.parent != None:
-                self.parent.OnReceiveRealData(szTrCode, result)
+                self.parent.OnReceiveRealData(result)
 
         except Exception as e:
             클래스이름 = self.__class__.__name__
@@ -1997,7 +1997,7 @@ class BMT(XAReal):
             result['szTrCode'] = szTrCode
 
             if self.parent != None:
-                self.parent.OnReceiveRealData(szTrCode, result)
+                self.parent.OnReceiveRealData(result)
 
         except Exception as e:
             클래스이름 = self.__class__.__name__
@@ -2035,7 +2035,7 @@ class PM_(XAReal):
             result['szTrCode'] = szTrCode
 
             if self.parent != None:
-                self.parent.OnReceiveRealData(szTrCode, result)
+                self.parent.OnReceiveRealData(result)
 
         except Exception as e:
             클래스이름 = self.__class__.__name__
@@ -2087,7 +2087,7 @@ class OVC(XAReal):
         result['szTrCode'] = szTrCode
 
         if self.parent != None:
-            self.parent.OnReceiveRealData(szTrCode, result)
+            self.parent.OnReceiveRealData(result)
 
 
 # 해외선물 호가(OVH)
@@ -2138,7 +2138,7 @@ class OVH(XAReal):
         result['szTrCode'] = szTrCode
 
         if self.parent != None:
-            self.parent.OnReceiveRealData(szTrCode, result)
+            self.parent.OnReceiveRealData(result)
 
 
 # 해외선물주문
@@ -2180,7 +2180,7 @@ class TC1(XAReal):
         result['szTrCode'] = szTrCode
 
         if self.parent != None:
-            self.parent.OnReceiveRealData(szTrCode, result)
+            self.parent.OnReceiveRealData(result)
 
 
 # 해외선물응답
@@ -2224,7 +2224,7 @@ class TC2(XAReal):
         result['szTrCode'] = szTrCode
 
         if self.parent != None:
-            self.parent.OnReceiveRealData(szTrCode, result)
+            self.parent.OnReceiveRealData(result)
 
 
 # 해외선물체결
@@ -2270,7 +2270,7 @@ class TC3(XAReal):
         result['szTrCode'] = szTrCode
 
         if self.parent != None:
-            self.parent.OnReceiveRealData(szTrCode, result)
+            self.parent.OnReceiveRealData(result)
 
 
 # 해외옵션 현재가체결(WOC)
@@ -2312,7 +2312,7 @@ class WOC(XAReal):
         result['szTrCode'] = szTrCode
 
         if self.parent != None:
-            self.parent.OnReceiveRealData(szTrCode, result)
+            self.parent.OnReceiveRealData(result)
 
 
 # 해외옵션 호가(WOH)
@@ -2363,7 +2363,7 @@ class WOH(XAReal):
         result['szTrCode'] = szTrCode
 
         if self.parent != None:
-            self.parent.OnReceiveRealData(szTrCode, result)
+            self.parent.OnReceiveRealData(result)
 
 
 # US지수(MK2) : 수급파악 용도로사용
@@ -2405,4 +2405,4 @@ class MK2(XAReal):
         result['szTrCode'] = szTrCode
 
         if self.parent != None:
-            self.parent.OnReceiveRealData(szTrCode, result)
+            self.parent.OnReceiveRealData(result)

@@ -2253,7 +2253,7 @@ if not MULTIPROCESS:
             self.NWS.UnadviseRealData()
 
         # 실시간 수신 콜백함수
-        def OnReceiveRealData(self, szTrCode, result):
+        def OnReceiveRealData(self, result):
 
             global flag_queue_input_drop, queue_input_drop_count
 
@@ -2283,8 +2283,9 @@ else:
     ###########################################################
     class MP_Consumer(QThread):
 
+        # 수신데이타 타입이 list이면 TR데이타, dict이면 실시간데이타.        
+        trigger_list = pyqtSignal(list)
         trigger_dict = pyqtSignal(dict)
-        trigger_pd = pyqtSignal(pd.DataFrame)
 
         def __init__(self, dataQ):
             super().__init__()
@@ -2299,10 +2300,10 @@ else:
                     
                     data = self.dataQ.get(False)
 
-                    if type(data) == dict:
-                        self.trigger_dict.emit(data)
-                    elif type(data) == pd.DataFrame:
-                        self.trigger_pd.emit(data)
+                    if type(data) == list:
+                        self.trigger_list.emit(data)
+                    elif type(data) == dict:
+                        self.trigger_dict.emit(data)                    
                     else:
                         pass
                 else:
@@ -14253,7 +14254,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
     #####################################################################################################################################################################
-    def OnReceiveData(self, szTrCode, result):
+    def OnReceiveData(self, result):
 
         global GMSHCODE, CMSHCODE, CCMSHCODE, FUT_CODE
         global opt_actval
@@ -14261,8 +14262,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global df_call_price_graph, df_put_price_graph, df_call_information_graph, df_put_information_graph
         global df_call_graph, df_put_graph
         global atm_str, atm_val
-
-        #global fut_realdata, cme_realdata
 
         global call_ckbox
         global selected_call
@@ -14337,12 +14336,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
 
+        szTrCode = result[0]
+
         if szTrCode == 't0167':
             
             global 서버시간, 시스템_서버_시간차, flag_heartbeat
             global SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx
 
-            server_date, server_time = result
+            szTrCode, server_date, server_time = result
             
             systemtime = dt.hour * 3600 + dt.minute * 60 + dt.second
 
@@ -14375,7 +14376,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         elif szTrCode == 't1514':
 
-            CTS일자, df = result
+            szTrCode, CTS일자, df = result
             
             if df.at[0, '업종코드'] == KOSPI:
 
@@ -14425,7 +14426,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         elif szTrCode == 't2101':
 
-            df = result[0]
+            szTrCode, df = result
 
             self.fut_realdata['현재가'] = df['현재가']
             self.fut_realdata['KP200'] = df['KOSPI200지수']
@@ -14652,7 +14653,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         elif szTrCode == 't2301':
 
-            block, df, df1 = result
+            szTrCode, block, df, df1 = result
 
             global 옵션잔존일, flag_option_pair_full
 
@@ -16304,7 +16305,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         elif szTrCode == 't2801':
 
-            df = result[0]
+            szTrCode, df = result
 
             if pre_start:
 
@@ -16739,19 +16740,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
             
         elif szTrCode == 't2830':
-
             pass
 
         elif szTrCode == 't2835':
 
             # EUREX 야간옵션 시세전광판
 
-            block, df, df1 = result
-            '''
-            print('t2835 df =', df)
-            option_pairs_count = len(df)
-            print('t2835 option_pairs_count =', option_pairs_count)
-            '''
+            szTrCode, block, df, df1 = result
+            
             if not self.flag_refresh:
 
                 # open, ol/oh 초기화
@@ -18096,7 +18092,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         elif szTrCode == 't8408':
 
-            df = result
+            szTrCode, df = result
 
             print('\r')
             print('[t8408 cme data]')
@@ -18118,7 +18114,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         elif szTrCode == 't8415':
 
-            block, df = result
+            szTrCode, block, df = result
 
             if block['단축코드'][0:3] == '101':
 
@@ -18148,7 +18144,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         elif szTrCode == 't8416':
 
-            block, df = result
+            szTrCode, block, df = result
 
             global new_actval_up_count, new_actval_down_count, actval_increased            
             global flag_t8416_call_done, flag_t8416_put_done
@@ -19115,7 +19111,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         elif szTrCode == 't8432':
 
-            df = result[0]
+            szTrCode, df = result
 
             근월물선물코드 = df.at[0, '단축코드']
             차월물선물코드 = df.at[1, '단축코드']
@@ -19228,7 +19224,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         elif szTrCode == 't8433':            
 
-            df = result[0]
+            szTrCode, df = result
             
             global df_cm_call, df_cm_put, df_nm_call, df_nm_put
 
@@ -19367,17 +19363,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
 
         elif szTrCode == 'o3126':
-
-            df = result[0]
-            print('해외선물 호가 =', df)
-            self.o3126_event_loop.exit()
-
+            pass
         else:
             pass
     #####################################################################################################################################################################
     
     #####################################################################################################################################################################
-    def OnReceiveRealData(self, szTrCode, result):
+    def OnReceiveRealData(self, result):
 
         #result['szTrCode'] = szTrCode
         #화면_선물옵션전광판.xing_realdata = result
@@ -35358,14 +35350,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             # thread for real data consumer
             self.mp_consumer = MP_Consumer(dataQ)
-            self.mp_consumer.trigger_dict.connect(self.mp_processing_realdata)
-            self.mp_consumer.trigger_pd.connect(self.mp_processing_trdata)
+            self.mp_consumer.trigger_list.connect(self.mp_processing_trdata)
+            self.mp_consumer.trigger_dict.connect(self.mp_processing_realdata)            
             self.mp_consumer.start()
             
             # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
             #atexit.register(self.__del__)
 
-        @pyqtSlot(pd.DataFrame)
+        @pyqtSlot(list)
         def mp_processing_trdata(self, trdata):
 
             pass
@@ -35702,16 +35694,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         txt = 'ClassName = {0} : systemError = {1}, messageCode = {2}, message = {3}'.format(ClassName, systemError, messageCode, message)
         print(txt)
     
-    def OnReceiveData(self, szTrCode, result):
+    def OnReceiveData(self, result):
 
         global 서버시간, 시스템_서버_시간차, flag_heartbeat
         global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, ovc_x_idx
 
         dt = datetime.datetime.now()
 
+        szTrCode = result[0]
+
         if szTrCode == 't0167':
 
-            server_date, server_time = result
+            szTrCode, server_date, server_time = result
             
             systemtime = dt.hour * 3600 + dt.minute * 60 + dt.second
 
@@ -35755,9 +35749,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-    def OnReceiveRealData(self, szTrCode, result):
+    def OnReceiveRealData(self, result):
 
-        #szTrCode = result['szTrCode']
+        szTrCode = result['szTrCode']
 
         if szTrCode == 'NWS':
                 
