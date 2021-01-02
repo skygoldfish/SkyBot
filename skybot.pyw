@@ -13794,22 +13794,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 진성맥점, TTS, SEARCH_MOVING_NODE
 
         dt = datetime.datetime.now()
-        current_str = dt.strftime('%H:%M:%S')        
-
-        # 옵션 등가 등락율 scale factor setting
-        '''        
-        item = QTableWidgetItem("{0}".format(drate_scale_factor))
-        item.setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_fut.setItem(2, Futures_column.OI.value, item)       
-        '''
+        current_str = dt.strftime('%H:%M:%S')
         
         # 코스피지수 조회
-        self.XQ_t1514.Query(업종코드=KOSPI)
+        if not MULTIPROCESS:
+            self.XQ_t1514.Query(업종코드=KOSPI)
+        else:
+            pass
 
         QTest.qWait(1100)
 
         # 코스닥지수 조회
-        self.XQ_t1514.Query(업종코드=KOSDAQ)
+        if not MULTIPROCESS:
+            self.XQ_t1514.Query(업종코드=KOSDAQ)
+        else:
+            pass
 
         if service_terminate:
 
@@ -13834,13 +13833,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.textBrowser.append(txt)
                 
                 # 지수선물 마스터조회 API용
-                self.XQ_t8432.Query(구분='F')
+                if not MULTIPROCESS:
+                    self.XQ_t8432.Query(구분='F')
+                else:
+                    pass
                 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] t8433 지수옵션 마스터 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
                 
                 # 지수옵션 마스터조회 API용
-                self.XQ_t8433.Query()
+                if not MULTIPROCESS:
+                    self.XQ_t8433.Query()
+                else:
+                    pass
 
                 QTest.qWait(1000)                
             else:
@@ -13940,7 +13945,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            self.XQ_t2301.Query(월물=t2301_month_info, 미니구분='G')
+            if not MULTIPROCESS:
+                self.XQ_t2301.Query(월물=t2301_month_info, 미니구분='G')
+            else:
+                pass
 
     def SaveResult(self):
 
@@ -14318,7 +14326,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global put_itm_count, put_max_actval
         global KP200_전일종가, kp200_시가, kp200_저가, kp200_현재가, kp200_고가, kp200_진폭
         global t2835_month_info
-        global server_date, server_time, system_server_timegap
+        global server_date, server_time, system_server_timegap, server_x_idx
         global CM_OPTCODE, NM_OPTCODE
         global 콜대비_퍼센트_평균, 풋대비_퍼센트_평균
         global atm_zero_sum, atm_zero_cha
@@ -14364,13 +14372,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                ovc_x_idx = (night_time - NightTime_PreStart_Hour) * 60 + SERVER_MIN + 1             
+                server_x_idx = (night_time - NightTime_PreStart_Hour) * 60 + SERVER_MIN + 1             
             else:
-                ovc_x_idx = (SERVER_HOUR - DayTime_PreStart_Hour) * 60 + SERVER_MIN + 1
+                server_x_idx = (SERVER_HOUR - DayTime_PreStart_Hour) * 60 + SERVER_MIN + 1
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 서버시간({3})을 수신하였습니다.(시간차 = {4}초)\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, 시스템_서버_시간차)
-            self.textBrowser.append(txt)
-            print(txt)
+            if MULTIPROCESS:
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] : 시스템시간 = [{3:02d}:{4:02d}:{5:02d}], 시스템시간 - 서버시간 = {6}초\r'.format\
+                    (SERVER_HOUR, SERVER_MIN, SERVER_SEC, dt.hour, dt.minute, dt.second, 시스템_서버_시간차)
+                self.parent.textBrowser.append(txt)
+
+                if flag_call_strong:
+                    txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call Strong({3:.2f}/{4:.2f}) ▲\r".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
+                    self.parent.textBrowser.append(txt)
+                elif flag_put_strong:
+                    txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Put Strong({3:.2f}/{4:.2f}) ▼\r".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
+                    self.parent.textBrowser.append(txt)
+                else:
+                    pass
+            else:
+                pass
 
             flag_heartbeat = True
 
@@ -15567,7 +15588,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # 주간 선물전광판 데이타요청
-                self.XQ_t2101.Query(종목코드=FUT_CODE)
+                if not MULTIPROCESS:
+                    self.XQ_t2101.Query(종목코드=FUT_CODE)
+                else:
+                    pass
 
                 if FUT_CODE == GMSHCODE:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 본월물 주간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
@@ -15584,7 +15608,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 QTest.qWait(100)
 
                 # 야간 선물전광판 데이타요청
-                self.XQ_t2801.Query(종목코드=FUT_CODE)
+                if not MULTIPROCESS:
+                    self.XQ_t2801.Query(종목코드=FUT_CODE)
+                else:
+                    pass
 
                 if FUT_CODE == GMSHCODE:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] t2801 본월물 야간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
@@ -16257,14 +16284,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if not flag_checkBox_HS:
 
                         # 주야간 선물전광판 데이타 요청
-                        self.XQ_t2101.Query(종목코드=FUT_CODE)
+                        if not MULTIPROCESS:
+                            self.XQ_t2101.Query(종목코드=FUT_CODE)
+                        else:
+                            pass
 
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
 
                         QTest.qWait(100)
 
-                        self.XQ_t2801.Query(종목코드=FUT_CODE)
+                        if not MULTIPROCESS:
+                            self.XQ_t2801.Query(종목코드=FUT_CODE)
+                        else:
+                            pass
 
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
@@ -16275,7 +16308,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                        
                 else:                    
                     # EUREX 야간옵션 시세전광판
-                    self.XQ_t2835.Query(월물=t2835_month_info)
+                    if not MULTIPROCESS:
+                        self.XQ_t2835.Query(월물=t2835_month_info)
+                    else:
+                        pass
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
@@ -18078,13 +18114,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if not flag_checkBox_HS:
                 # 주야간 선물전광판 데이타 요청
-                self.XQ_t2101.Query(종목코드=FUT_CODE)
                 print('t2101 요청')
+
+                if not MULTIPROCESS:
+                    self.XQ_t2101.Query(종목코드=FUT_CODE)
+                else:
+                    pass                
 
                 QTest.qWait(100)
 
-                self.XQ_t2801.Query(종목코드=FUT_CODE)
                 print('t2801 요청')
+
+                if not MULTIPROCESS:
+                    self.XQ_t2801.Query(종목코드=FUT_CODE)
+                else:
+                    pass                
 
                 QTest.qWait(100)
             else:
@@ -19015,7 +19059,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        self.XQ_t2835.Query(월물=t2835_month_info)
+                        if not MULTIPROCESS:
+                            self.XQ_t2835.Query(월물=t2835_month_info)
+                        else:
+                            pass
                     else:
                             
                         수정거래량 = 0
@@ -35466,7 +35513,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.connection = None
 
             self.XQ_t0167 = t0167(parent=self)
-            #self.NWS = NWS(parent=self)
 
             # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
             atexit.register(self.__del__)   
@@ -35475,12 +35521,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.clock = QtCore.QTimer()
         self.clock.timeout.connect(self.OnClockTick)
         self.clock.start(1000)
-
-        #TODO:자동로그인
+        
         if not MULTIPROCESS:
             self.MyLogin()
         else:
-            pass
+            Myprocess.login()
 
     def OnClockTick(self):
 
@@ -35490,17 +35535,28 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if dt.second == 30: # 매 30초 마다(1분 주기)            
 
             try:
-                if self.connection is not None:
+                if not MULTIPROCESS:
+                    if self.connection is not None:
 
-                    if self.connection.IsConnected():
-                        msg = "온라인"
+                        if self.connection.IsConnected():
+                            msg = "온라인"
 
-                        # 현재시간 조회
-                        self.XQ_t0167.Query()
-                    else:
-                        msg = "오프라인"
+                            # 현재시간 조회
+                            self.XQ_t0167.Query()
+                        else:
+                            msg = "오프라인"
+                else:
+                    if Myprocess.connection is not None:
 
-                    self.statusbar.showMessage(msg)
+                        if Myprocess.connection.IsConnected():
+                            msg = "백그라운드 온라인"
+
+                            # 현재시간 조회
+                            Myprocess.RequestTRData('t0167')                                
+                        else:
+                            msg = "백그라운드 오프라인"
+
+                self.statusbar.showMessage(msg)
                 
                 # 자식 다이어로그가 open 되어있는지 체크
                 '''                
@@ -35598,180 +35654,183 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             event.ignore()    
 
     # ------------------------------------------------------------------------------------------------------------------
-    def MyLogin(self):
+    if not MULTIPROCESS:
+        def MyLogin(self):
 
-        global SELFID
+            global SELFID
 
-        계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})
+            계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})
 
-        if REAL_SERVER:
-            주식계좌정보 = 계좌정보.query("구분 == '거래'")
-            print('실서버에 접속합니다.')
-        else:
-            주식계좌정보 = 계좌정보.query("구분 == '모의'")
-            print('모의서버에 접속합니다.')        
+            if REAL_SERVER:
+                주식계좌정보 = 계좌정보.query("구분 == '거래'")
+                print('실서버에 접속합니다.')
+            else:
+                주식계좌정보 = 계좌정보.query("구분 == '모의'")
+                print('모의서버에 접속합니다.')        
 
-        if len(주식계좌정보) > 0:
-            if self.connection is None:
-                self.connection = XASession(parent=self)
+            if len(주식계좌정보) > 0:
+                if self.connection is None:
+                    self.connection = XASession(parent=self)
 
-            self.계좌번호 = 주식계좌정보['계좌번호'].values[0].strip()
-            self.id = 주식계좌정보['사용자ID'].values[0].strip()
-            SELFID = self.id
-            self.pwd = 주식계좌정보['비밀번호'].values[0].strip()
-            self.cert = 주식계좌정보['공인인증비밀번호'].values[0].strip()
-            self.거래비밀번호 = 주식계좌정보['거래비밀번호'].values[0].strip()
-            self.url = 주식계좌정보['url'].values[0].strip()
-            self.connection.login(url=self.url, id=self.id, pwd=self.pwd, cert=self.cert)
-        else:
-            print("secret디렉토리의 passwords.csv 파일에서 거래 계좌를 지정해 주세요")
+                self.계좌번호 = 주식계좌정보['계좌번호'].values[0].strip()
+                self.id = 주식계좌정보['사용자ID'].values[0].strip()
+                SELFID = self.id
+                self.pwd = 주식계좌정보['비밀번호'].values[0].strip()
+                self.cert = 주식계좌정보['공인인증비밀번호'].values[0].strip()
+                self.거래비밀번호 = 주식계좌정보['거래비밀번호'].values[0].strip()
+                self.url = 주식계좌정보['url'].values[0].strip()
+                self.connection.login(url=self.url, id=self.id, pwd=self.pwd, cert=self.cert)
+            else:
+                print("secret디렉토리의 passwords.csv 파일에서 거래 계좌를 지정해 주세요")
 
-    def OnLogin(self, code, msg):        
+        def OnLogin(self, code, msg):        
 
-        dt = datetime.datetime.now()
+            dt = datetime.datetime.now()
 
-        if code == '0000':
+            if code == '0000':
 
-            token = ''
-            chat_id = 0
+                token = ''
+                chat_id = 0
 
-            if os.path.exists('secret/telegram_token.txt'):
-                
-                with open('secret/telegram_token.txt', mode='r') as tokenfile:
-                    try:
-                        token = tokenfile.readline().strip()
+                if os.path.exists('secret/telegram_token.txt'):
 
-                    except Exception as e:
-                        pass            
+                    with open('secret/telegram_token.txt', mode='r') as tokenfile:
+                        try:
+                            token = tokenfile.readline().strip()
 
-            if os.path.exists('secret/chatid.txt'):
+                        except Exception as e:
+                            pass            
 
-                with open('secret/chatid.txt', mode='r') as chatfile:
-                    try:
-                        chat_id = int(chatfile.readline().strip())
+                if os.path.exists('secret/chatid.txt'):
 
-                    except Exception as e:
-                        pass
+                    with open('secret/chatid.txt', mode='r') as chatfile:
+                        try:
+                            chat_id = int(chatfile.readline().strip())
 
-            if TARGET_MONTH_SELECT == 'CM':
+                        except Exception as e:
+                            pass
 
-                if token != '' and chat_id != 0:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 ({4}/{5}) 로그인 했습니다.'.format(dt.hour, dt.minute, dt.second, self.id, token, chat_id) 
-                else:
-                    if SELFID == 'soojin65':
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] ***님이 로그인 했습니다.'.format(dt.hour, dt.minute, dt.second)
+                if TARGET_MONTH_SELECT == 'CM':
+
+                    if token != '' and chat_id != 0:
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 ({4}/{5}) 로그인 했습니다.'.format(dt.hour, dt.minute, dt.second, self.id, token, chat_id) 
                     else:
-                        pass
-                
-                #ToMyTelegram(txt)
-            else:
-                pass            
-            
-            self.statusbar.showMessage("로그인 성공 !!!")
-
-            playsound( "Doorbell.wav" )
+                        if SELFID == 'soojin65':
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] ***님이 로그인 했습니다.'.format(dt.hour, dt.minute, dt.second)
+                        else:
+                            pass
                         
-            # 옵션전광판 자동시작
-                                                  
-            if AUTO_START:
-                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(txt)
+                    #ToMyTelegram(txt)
+                else:
+                    pass            
+                
+                self.statusbar.showMessage("로그인 성공 !!!")
 
-                self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
-                self.dialog['선물옵션전광판'].show()
+                playsound( "Doorbell.wav" )
 
-                self.dialog['선물옵션전광판'].RunCode()
-            else:
-                pass
-                                              
-        else:
-            self.statusbar.showMessage("%s %s" % (code, msg))
+                # 옵션전광판 자동시작
 
-    def OnLogout(self):
-        self.statusbar.showMessage("로그아웃 되었습니다.")
+                if AUTO_START:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
 
-    def OnDisconnect(self):
+                    self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
+                    self.dialog['선물옵션전광판'].show()
 
-        self.statusbar.showMessage("연결이 끊겼습니다.")
-        self.connection.login(url='demo.ebestsec.co.kr', id=self.id, pwd=self.pwd, cert=self.cert)
-
-    def OnReceiveMessage(self, ClassName, systemError, messageCode, message):
-
-        txt = 'ClassName = {0} : systemError = {1}, messageCode = {2}, message = {3}'.format(ClassName, systemError, messageCode, message)
-        print(txt)
-    
-    def OnReceiveData(self, result):
-
-        global 서버시간, 시스템_서버_시간차, flag_heartbeat
-        global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, ovc_x_idx
-
-        dt = datetime.datetime.now()
-
-        szTrCode = result[0]
-
-        if szTrCode == 't0167':
-
-            szTrCode, server_date, server_time = result
-            
-            systemtime = dt.hour * 3600 + dt.minute * 60 + dt.second
-
-            SERVER_HOUR = int(server_time[0:2])
-            SERVER_MIN = int(server_time[2:4])
-            SERVER_SEC = int(server_time[4:6])
-
-            서버시간 = SERVER_HOUR * 3600 + SERVER_MIN * 60 + SERVER_SEC            
-            시스템_서버_시간차 = systemtime - 서버시간
-
-            # X축 시간좌표 계산
-            if NightTime:
-
-                night_time = SERVER_HOUR
-
-                if 0 <= night_time <= 6:
-                    night_time = night_time + 24
+                    self.dialog['선물옵션전광판'].RunCode()
                 else:
                     pass
 
-                server_x_idx = (night_time - NightTime_PreStart_Hour) * 60 + SERVER_MIN + 1         
-            else:                    
-                # 해외선물 개장시간은 국내시장의 2시간 전
-                server_x_idx = (SERVER_HOUR - DayTime_PreStart_Hour) * 60 + SERVER_MIN + 1
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] : 시스템시간 = [{3:02d}:{4:02d}:{5:02d}], 시스템시간 - 서버시간 = {6}초\r'.format\
-                (SERVER_HOUR, SERVER_MIN, SERVER_SEC, dt.hour, dt.minute, dt.second, 시스템_서버_시간차)
-            self.textBrowser.append(txt)
-            #print(txt)
-
-            if flag_call_strong:
-                txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call Strong({3:.2f}/{4:.2f}) ▲\r".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
-                self.textBrowser.append(txt)
-            elif flag_put_strong:
-                txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Put Strong({3:.2f}/{4:.2f}) ▼\r".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
-                self.textBrowser.append(txt)
             else:
-                pass
+                self.statusbar.showMessage("%s %s" % (code, msg))
 
-            flag_heartbeat = True                        
-        else:
-            pass
+        def OnLogout(self):
+            self.statusbar.showMessage("로그아웃 되었습니다.")
 
-    def OnReceiveRealData(self, result):
+        def OnDisconnect(self):
 
-        szTrCode = result['szTrCode']
+            self.statusbar.showMessage("연결이 끊겼습니다.")
+            self.connection.login(url='demo.ebestsec.co.kr', id=self.id, pwd=self.pwd, cert=self.cert)
 
-        if szTrCode == 'NWS':
-                
-            txt = '[{0}] : {1}\r'.format(result['시간'], result['제목'])
-            self.textBrowser.append(txt)
+        def OnReceiveMessage(self, ClassName, systemError, messageCode, message):
+
+            txt = 'ClassName = {0} : systemError = {1}, messageCode = {2}, message = {3}'.format(ClassName, systemError, messageCode, message)
             print(txt)
-            '''
-            if self.dialog['선물옵션전광판'].flag_score_board_open:
-                self.dialog['선물옵션전광판'].textBrowser.append(txt)
+        
+        def OnReceiveData(self, result):
+
+            global 서버시간, 시스템_서버_시간차, flag_heartbeat
+            global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, ovc_x_idx
+
+            dt = datetime.datetime.now()
+
+            szTrCode = result[0]
+
+            if szTrCode == 't0167':
+
+                szTrCode, server_date, server_time = result
+
+                systemtime = dt.hour * 3600 + dt.minute * 60 + dt.second
+
+                SERVER_HOUR = int(server_time[0:2])
+                SERVER_MIN = int(server_time[2:4])
+                SERVER_SEC = int(server_time[4:6])
+
+                서버시간 = SERVER_HOUR * 3600 + SERVER_MIN * 60 + SERVER_SEC            
+                시스템_서버_시간차 = systemtime - 서버시간
+
+                # X축 시간좌표 계산
+                if NightTime:
+
+                    night_time = SERVER_HOUR
+
+                    if 0 <= night_time <= 6:
+                        night_time = night_time + 24
+                    else:
+                        pass
+
+                    server_x_idx = (night_time - NightTime_PreStart_Hour) * 60 + SERVER_MIN + 1         
+                else:                    
+                    # 해외선물 개장시간은 국내시장의 2시간 전
+                    server_x_idx = (SERVER_HOUR - DayTime_PreStart_Hour) * 60 + SERVER_MIN + 1
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] : 시스템시간 = [{3:02d}:{4:02d}:{5:02d}], 시스템시간 - 서버시간 = {6}초\r'.format\
+                    (SERVER_HOUR, SERVER_MIN, SERVER_SEC, dt.hour, dt.minute, dt.second, 시스템_서버_시간차)
+                self.textBrowser.append(txt)
+                #print(txt)
+
+                if flag_call_strong:
+                    txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call Strong({3:.2f}/{4:.2f}) ▲\r".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
+                    self.textBrowser.append(txt)
+                elif flag_put_strong:
+                    txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Put Strong({3:.2f}/{4:.2f}) ▼\r".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
+                    self.textBrowser.append(txt)
+                else:
+                    pass
+
+                flag_heartbeat = True                        
             else:
                 pass
-            '''
-        else:
-            pass    
+
+        def OnReceiveRealData(self, result):
+
+            szTrCode = result['szTrCode']
+
+            if szTrCode == 'NWS':
+
+                txt = '[{0}] : {1}\r'.format(result['시간'], result['제목'])
+                self.textBrowser.append(txt)
+                print(txt)
+                '''
+                if self.dialog['선물옵션전광판'].flag_score_board_open:
+                    self.dialog['선물옵션전광판'].textBrowser.append(txt)
+                else:
+                    pass
+                '''
+            else:
+                pass 
+    else:
+        pass   
 
     # ------------------------------------------------------------------------------------------------------------------
     def MENU_Action(self, qaction):
@@ -35954,8 +36013,8 @@ if __name__ == "__main__":
         # 멀티프로세스
         Myprocess = RealTimeWorker(dataQ)
         Myprocess.start()
-        QTest.qWait(1000)
-        Myprocess.login()
+        #QTest.qWait(1000)
+        #Myprocess.login()
     else:
         pass
     
@@ -36028,9 +36087,6 @@ if __name__ == "__main__":
     else:
         window.show()
     '''
-    if not MULTIPROCESS:
-        QTimer().singleShot(1, window.OnQApplicationStarted)
-    else:
-        pass
+    QTimer().singleShot(1, window.OnQApplicationStarted)
 
     sys.exit(app.exec_())
