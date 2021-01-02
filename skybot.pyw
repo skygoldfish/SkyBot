@@ -36010,11 +36010,9 @@ if __name__ == "__main__":
 
         dataQ = mp.Queue()
         
-        # 멀티프로세스
+        # 멀티프로세스 객체생성
         Myprocess = RealTimeWorker(dataQ)
         Myprocess.start()
-        #QTest.qWait(1000)
-        #Myprocess.login()
     else:
         pass
     
