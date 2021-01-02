@@ -515,7 +515,35 @@ class RealTimeWorker(mp.Process):
             # 실시간 뉴스 요청취소
             self.NWS.UnadviseRealData()
         else:
-            pass     
+            pass
+
+    def CancelAllRealData(self):
+
+        self.JIF.UnadviseRealData()
+
+        self.YJ.UnadviseRealData()
+        self.YFC.UnadviseRealData()
+        self.YS3.UnadviseRealData()
+        self.YOC.UnadviseRealData()
+
+        self.FUT_REAL_FC0.UnadviseRealData()
+        self.FUT_HO_FH0.UnadviseRealData()
+        self.OPT_REAL_OC0.UnadviseRealData()
+        self.OPT_HO_OH0.UnadviseRealData()
+
+        self.FUT_REAL_NC0.UnadviseRealData()
+        self.FUT_HO_NH0.UnadviseRealData()
+        self.OPT_REAL_EC0.UnadviseRealData()
+        self.OPT_HO_EH0.UnadviseRealData()
+
+        self.IJ.UnadviseRealData()
+
+        self.S3.UnadviseRealData()
+        self.BM.UnadviseRealData()
+        self.PM.UnadviseRealData()
+
+        self.OVC.UnadviseRealData()
+        self.NWS.UnadviseRealData()     
 
     def run(self):
 
