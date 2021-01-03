@@ -35641,8 +35641,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             global flag_heartbeat
 
-            txt = '{0} TR Data 수신...\r'.format(trdata[0])
-            self.textBrowser.append(txt)
+            #txt = '{0} TR Data 수신...\r'.format(trdata[0])
+            #self.textBrowser.append(txt)
 
             if trdata[0] == 'LOGIN':
 
@@ -35669,6 +35669,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
             elif trdata[0] == 't0167':
+
+                txt = 'HeartBeat 수신...\r'
+                self.textBrowser.append(txt)
 
                 flag_heartbeat = True
 
