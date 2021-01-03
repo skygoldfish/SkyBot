@@ -900,7 +900,10 @@ class t1514(XAQuery):
         클래스이름 = self.__class__.__name__
         함수이름 = inspect.currentframe().f_code.co_name
         print("%s-%s " % (클래스이름, 함수이름), systemError, messageCode, message)
-
+        '''
+        if self.parent != None:
+            self.parent.OnReceiveMessage(클래스이름, systemError, messageCode, message)
+        '''
     def OnReceiveData(self, szTrCode):
 
         result = []

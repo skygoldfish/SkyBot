@@ -838,6 +838,17 @@ else:
     nighttime_timespan = 12 * 60 + 10
     yagan_timespan = GuardTime + nighttime_timespan
 
+if NightTime:
+    FUT_REAL = 'FUT_REAL_NC0'
+    FUT_HO = 'FUT_HO_NH0'
+    OPT_REAL = 'OPT_REAL_EC0'
+    OPT_HO = 'OPT_HO_EH0'
+else:
+    FUT_REAL = 'FUT_REAL_FC0'
+    FUT_HO = 'FUT_HO_FH0'
+    OPT_REAL = 'OPT_REAL_OC0'
+    OPT_HO = 'OPT_HO_OH0'
+
 server_date = ''
 server_time = ''
 system_server_timegap = 0
@@ -2410,7 +2421,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         # 이벤트루프 & 쓰레드 정의, 쓰레드 시작은 start(), 종료는 terminate()
-        #self.t8416_event_loop = QEventLoop()
         self.t8416_call_event_loop = QEventLoop()
         self.t8416_put_event_loop = QEventLoop()
 
@@ -13741,7 +13751,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         self.tableWidget_quote.setItem(0, Quote_column.미결종합.value - 1, item)
-
         
     def RunCode(self):
 
@@ -13750,21 +13759,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 진성맥점, TTS, SEARCH_MOVING_NODE
 
         dt = datetime.datetime.now()
-        '''
-        if self.parent.connection.IsConnected():
-            txt = '[{0:02d}:{1:02d}:{2:02d}] self connection IsConnected...\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-        else:
-            txt = '[{0:02d}:{1:02d}:{2:02d}] self connection Is not Connected...\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-        '''
-        # 코스피지수 조회
-        self.XQ_t1514.Query(KOSPI)
+
+        # 백그라운드로 로그인해도 포어그라운드에서 TR조회 가능함(이유?)        
+        self.XQ_t1514.Query(KOSPI) # 코스피지수 조회
         
         QTest.qWait(1100)
-
-        # 코스닥지수 조회
-        self.XQ_t1514.Query(KOSDAQ)
+        
+        self.XQ_t1514.Query(KOSDAQ) # 코스닥지수 조회
         
         if service_terminate:
 
@@ -13896,7 +13897,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             self.XQ_t2301.Query(월물=t2301_month_info)
-            
+           
 
     def SaveResult(self):
 
@@ -14143,6 +14144,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     # 조회성 TR메시지 수신 콜백함수
     def OnReceiveMessage(self, ClassName, systemError, messageCode, message):
+
+        txt = '클래스이름 = {0} : systemError = {1}, messageCode = {2}, message = {3}'.format(ClassName, systemError, messageCode, message)
+        print(txt)
 
         dt = datetime.datetime.now()
 
@@ -15530,18 +15534,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.realtime_data_worker.start()
                 else:
                     pass
-
-                if NightTime:
-
-                    FUT_REAL = 'FUT_REAL_NC0'
-                    FUT_HO = 'FUT_HO_NH0'
-                    OPT_REAL = 'OPT_REAL_EC0'
-                    OPT_HO = 'OPT_HO_EH0'
-                else:
-                    FUT_REAL = 'FUT_REAL_FC0'
-                    FUT_HO = 'FUT_HO_FH0'
-                    OPT_REAL = 'OPT_REAL_OC0'
-                    OPT_HO = 'OPT_HO_OH0'
 
                 # 장운영 정보 요청
                 if not MULTIPROCESS:
@@ -23431,18 +23423,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
-        if NightTime:
-
-            FUT_REAL = 'FUT_REAL_NC0'
-            FUT_HO = 'FUT_HO_NH0'
-            OPT_REAL = 'OPT_REAL_EC0'
-            OPT_HO = 'OPT_HO_EH0'
-        else:
-            FUT_REAL = 'FUT_REAL_FC0'
-            FUT_HO = 'FUT_HO_FH0'
-            OPT_REAL = 'OPT_REAL_OC0'
-            OPT_HO = 'OPT_HO_OH0'
-
         if self.checkBox_cm_fut_price.isChecked() == True:
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
@@ -23473,18 +23453,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
-        if NightTime:
-
-            FUT_REAL = 'FUT_REAL_NC0'
-            FUT_HO = 'FUT_HO_NH0'
-            OPT_REAL = 'OPT_REAL_EC0'
-            OPT_HO = 'OPT_HO_EH0'
-        else:
-            FUT_REAL = 'FUT_REAL_FC0'
-            FUT_HO = 'FUT_HO_FH0'
-            OPT_REAL = 'OPT_REAL_OC0'
-            OPT_HO = 'OPT_HO_OH0'
-
         if self.checkBox_cm_fut_quote.isChecked() == True:
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
@@ -23514,18 +23482,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
     def checkBox_cm_opt_price_checkState(self):
 
         dt = datetime.datetime.now()
-
-        if NightTime:
-
-            FUT_REAL = 'FUT_REAL_NC0'
-            FUT_HO = 'FUT_HO_NH0'
-            OPT_REAL = 'OPT_REAL_EC0'
-            OPT_HO = 'OPT_HO_EH0'
-        else:
-            FUT_REAL = 'FUT_REAL_FC0'
-            FUT_HO = 'FUT_HO_FH0'
-            OPT_REAL = 'OPT_REAL_OC0'
-            OPT_HO = 'OPT_HO_OH0'
 
         if self.checkBox_cm_opt_price.isChecked() == True:
 
@@ -23560,18 +23516,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
     def checkBox_cm_opt_price_1_checkState(self):
 
         dt = datetime.datetime.now()
-
-        if NightTime:
-
-            FUT_REAL = 'FUT_REAL_NC0'
-            FUT_HO = 'FUT_HO_NH0'
-            OPT_REAL = 'OPT_REAL_EC0'
-            OPT_HO = 'OPT_HO_EH0'
-        else:
-            FUT_REAL = 'FUT_REAL_FC0'
-            FUT_HO = 'FUT_HO_FH0'
-            OPT_REAL = 'OPT_REAL_OC0'
-            OPT_HO = 'OPT_HO_OH0'
 
         if self.checkBox_cm_opt_price_1.isChecked() == True:
 
@@ -23611,18 +23555,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
-        if NightTime:
-
-            FUT_REAL = 'FUT_REAL_NC0'
-            FUT_HO = 'FUT_HO_NH0'
-            OPT_REAL = 'OPT_REAL_EC0'
-            OPT_HO = 'OPT_HO_EH0'
-        else:
-            FUT_REAL = 'FUT_REAL_FC0'
-            FUT_HO = 'FUT_HO_FH0'
-            OPT_REAL = 'OPT_REAL_OC0'
-            OPT_HO = 'OPT_HO_OH0'
-
         if self.checkBox_cm_opt_quote.isChecked() == True:
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
@@ -23656,18 +23588,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
     def checkBox_cm_opt_quote_1_checkState(self):
 
         dt = datetime.datetime.now()
-
-        if NightTime:
-
-            FUT_REAL = 'FUT_REAL_NC0'
-            FUT_HO = 'FUT_HO_NH0'
-            OPT_REAL = 'OPT_REAL_EC0'
-            OPT_HO = 'OPT_HO_EH0'
-        else:
-            FUT_REAL = 'FUT_REAL_FC0'
-            FUT_HO = 'FUT_HO_FH0'
-            OPT_REAL = 'OPT_REAL_OC0'
-            OPT_HO = 'OPT_HO_OH0'
 
         if self.checkBox_cm_opt_quote_1.isChecked() == True:
 
@@ -23707,18 +23627,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
-        if NightTime:
-
-            FUT_REAL = 'FUT_REAL_NC0'
-            FUT_HO = 'FUT_HO_NH0'
-            OPT_REAL = 'OPT_REAL_EC0'
-            OPT_HO = 'OPT_HO_EH0'
-        else:
-            FUT_REAL = 'FUT_REAL_FC0'
-            FUT_HO = 'FUT_HO_FH0'
-            OPT_REAL = 'OPT_REAL_OC0'
-            OPT_HO = 'OPT_HO_OH0'
-
         if self.checkBox_nm_fut_price.isChecked() == True:
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
@@ -23749,18 +23657,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
-        if NightTime:
-
-            FUT_REAL = 'FUT_REAL_NC0'
-            FUT_HO = 'FUT_HO_NH0'
-            OPT_REAL = 'OPT_REAL_EC0'
-            OPT_HO = 'OPT_HO_EH0'
-        else:
-            FUT_REAL = 'FUT_REAL_FC0'
-            FUT_HO = 'FUT_HO_FH0'
-            OPT_REAL = 'OPT_REAL_OC0'
-            OPT_HO = 'OPT_HO_OH0'
-
         if self.checkBox_nm_fut_quote.isChecked() == True:
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
@@ -23790,18 +23686,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
     def checkBox_nm_opt_price_checkState(self):
 
         dt = datetime.datetime.now()
-
-        if NightTime:
-
-            FUT_REAL = 'FUT_REAL_NC0'
-            FUT_HO = 'FUT_HO_NH0'
-            OPT_REAL = 'OPT_REAL_EC0'
-            OPT_HO = 'OPT_HO_EH0'
-        else:
-            FUT_REAL = 'FUT_REAL_FC0'
-            FUT_HO = 'FUT_HO_FH0'
-            OPT_REAL = 'OPT_REAL_OC0'
-            OPT_HO = 'OPT_HO_OH0'
 
         if self.checkBox_nm_opt_price.isChecked() == True:
 
@@ -23837,18 +23721,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
-        if NightTime:
-
-            FUT_REAL = 'FUT_REAL_NC0'
-            FUT_HO = 'FUT_HO_NH0'
-            OPT_REAL = 'OPT_REAL_EC0'
-            OPT_HO = 'OPT_HO_EH0'
-        else:
-            FUT_REAL = 'FUT_REAL_FC0'
-            FUT_HO = 'FUT_HO_FH0'
-            OPT_REAL = 'OPT_REAL_OC0'
-            OPT_HO = 'OPT_HO_OH0'
-
         if self.checkBox_nm_opt_quote.isChecked() == True:
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
@@ -23882,18 +23754,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
     def checkBox_nm_opt_quote_1_checkState(self):
 
         dt = datetime.datetime.now()
-
-        if NightTime:
-
-            FUT_REAL = 'FUT_REAL_NC0'
-            FUT_HO = 'FUT_HO_NH0'
-            OPT_REAL = 'OPT_REAL_EC0'
-            OPT_HO = 'OPT_HO_EH0'
-        else:
-            FUT_REAL = 'FUT_REAL_FC0'
-            FUT_HO = 'FUT_HO_FH0'
-            OPT_REAL = 'OPT_REAL_OC0'
-            OPT_HO = 'OPT_HO_OH0'
 
         if self.checkBox_nm_opt_quote_1.isChecked() == True:
 
@@ -35687,14 +35547,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if trdata[0] == 'LOGIN':
 
+                self.connection = Myprocess.Check_Online()
+
+                if self.connection:
+                    txt = '백그라운드 로그인 성공 !!!\r'
+                    self.textBrowser.append(txt)
+                else:
+                    pass
+
                 self.statusbar.showMessage(trdata[1])
                 playsound( "Doorbell.wav" )
-
-                txt = '실시간 뉴스를 요청합니다.\r'
-                self.textBrowser.append(txt)
                 
-                Myprocess.RequestRealData('NWS')
-
                 # 버티칼 스크롤바를 항상 bottom으로...
                 self.textBrowser.verticalScrollBar().setValue(self.textBrowser.verticalScrollBar().maximum())
 
@@ -35711,11 +35574,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-            # 데이타를 전광판 다이얼로그로 전달
+            # 데이타를 전광판 다이얼로그로 전달(조회성 TR은 포어그라운드에서 처리가능, 이유?)
+            '''
             if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
                 self.dialog['선물옵션전광판'].OnReceiveData(trdata)
             else:
                 pass
+            '''
 
         @pyqtSlot(dict)
         def mp_transfer_realdata(self, realdata):
