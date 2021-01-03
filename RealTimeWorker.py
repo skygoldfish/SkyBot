@@ -253,24 +253,27 @@ class RealTimeWorker(mp.Process):
 
     def OnReceiveMessage(self, ClassName, systemError, messageCode, message):
 
+        pass
+        '''
         print('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
         txt = 'ClassName = {0} : systemError = {1}, messageCode = {2}, message = {3}'.format(ClassName, systemError, messageCode, message)
         print(txt)
         print('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
-    
+        '''
+            
     # 조회성 TR 수신 콜백함수
     def OnReceiveData(self, result):
 
-        print('*********************************************************************************************************************************')
-        print(type(result))
-        print(result)
+        #print('*********************************************************************************************************************************')
+        #print(type(result))
+        #print(result)
         self.dataQ.put(result, False)
-        print('*********************************************************************************************************************************')
+        #print('*********************************************************************************************************************************')
 
     # 실시간데이타 수신 콜백함수
     def OnReceiveRealData(self, result):
 
-        print(result)
+        #print(result)
         self.dataQ.put(result, False)
     
     def login(self):

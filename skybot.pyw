@@ -1876,23 +1876,6 @@ if not UI_HIDE:
 else:
     pass
 ########################################################################################################################
-def xing_test_func():
-    if bool(화면_선물옵션전광판.xing_realdata):
-        print('sky.....', 화면_선물옵션전광판.xing_realdata)
-
-# 멀티프로세싱 목적, 큐로 전역변수 전달안됨
-def producer(q):
-        #proc = mp.current_process()
-        #print(proc.name)
-
-        while True:
-            if bool(화면_선물옵션전광판.xing_realdata):
-                print('RcvData =', 화면_선물옵션전광판.xing_realdata)
-                data = 화면_선물옵션전광판.xing_realdata            
-                q.put(data)
-            else:
-                pass
-
 def sqliteconn():
     conn = sqlite3.connect(DATABASE)
     return conn
@@ -2341,9 +2324,13 @@ else:
 
         def run(self):
 
+            global flag_produce_queue_empty
+
             while True:
                 if not self.dataQ.empty():
-                    
+
+                    flag_produce_queue_empty = False
+
                     data = self.dataQ.get(False)
 
                     if type(data) == list:
@@ -2353,7 +2340,7 @@ else:
                     else:
                         pass
                 else:
-                    pass
+                    flag_produce_queue_empty = True
 ########################################################################################################################
 # 옵션전광판 UI Class
 ########################################################################################################################
@@ -2364,8 +2351,6 @@ else:
     Ui_선물옵션전광판, QtBaseClass_선물옵션전광판 = uic.loadUiType(UI_DIR + score_board_ui_type)
 ########################################################################################################################
 class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
-
-    xing_realdata = dict()
 
     def __init__(self, parent=None):
 
@@ -3068,7 +3053,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.tableWidget_fut.setItem(2, 0, item)
 
-        self.update_realdata(data)
+        self.UpdateRealdata(data)
             
     ## list에서 i번째 아이템을 리턴한다.
     def get_list_item(self, list, i):
@@ -19428,7 +19413,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         pass
     
     # 수신된 실시간 데이타를 화면에 표시
-    def update_realdata(self, result):
+    def UpdateRealdata(self, result):
 
         global pre_start
         global atm_str, atm_val, ATM_INDEX
@@ -35519,7 +35504,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             txt = '현재스크린 = {0}번, 화면해상도 = {1}x{2}, 중심좌표 X = {3}, Y = {4}\r'.format(스크린번호, screen_info.width(), screen_info.height(), self.centerPoint.x(), self.centerPoint.y())
             self.textBrowser.append(txt)
  
-            # 복수개의 Dialog 처리용 선언
+            # 복수개의 Dialog 객체 처리용 변수선언
             self.dialog = dict()
 
             self.dialog['선물옵션전광판'] = None
@@ -35549,11 +35534,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 self.connection = Myprocess.Check_Online()
 
-                if self.connection:
-                    txt = '백그라운드 로그인 성공 !!!\r'
-                    self.textBrowser.append(txt)
-                else:
-                    pass
+                txt = '백그라운드 로그인 성공 !!!\r'
+                self.textBrowser.append(txt)
 
                 self.statusbar.showMessage(trdata[1])
                 playsound( "Doorbell.wav" )
@@ -35571,6 +35553,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.dialog['선물옵션전광판'].RunCode()
                 else:
                     pass
+                
+            elif trdata[0] == 't0167':
+
+                item = QTableWidgetItem("{0}".format('HB.'))
+                item.setTextAlignment(Qt.AlignCenter)
+
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(노란색))         
+
+                self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
             else:
                 pass
 
@@ -35587,7 +35579,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             # 데이타를 전광판 다이얼로그로 전달
             if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
-                self.dialog['선물옵션전광판'].update_realdata(realdata)
+
+                item = QTableWidgetItem("{0}".format(realdata['szTrCode']))
+                item.setTextAlignment(Qt.AlignCenter)
+
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(녹색))                
+
+                self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
+
+                self.dialog['선물옵션전광판'].UpdateRealdata(realdata)
             else:            
                 szTrCode = realdata['szTrCode']
 
