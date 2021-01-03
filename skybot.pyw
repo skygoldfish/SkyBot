@@ -5071,6 +5071,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if TARGET_MONTH_SELECT == 'CM':
 
+            if flag_call_strong:
+                txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call Strong({3:.2f}/{4:.2f}) ▲\r".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
+                self.parent.textBrowser.append(txt)
+            elif flag_put_strong:
+                txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Put Strong({3:.2f}/{4:.2f}) ▼\r".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
+
             if 선물_현재가 < volatility_breakout_downward_point:
 
                 vb_txt = 'CM Volatility Downward Breakout'
@@ -14313,23 +14322,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 server_x_idx = (night_time - NightTime_PreStart_Hour) * 60 + SERVER_MIN + 1             
             else:
                 server_x_idx = (SERVER_HOUR - DayTime_PreStart_Hour) * 60 + SERVER_MIN + 1
-
-            if MULTIPROCESS:
-
-                txt = '[{0:02d}:{1:02d}:{2:02d}] : 시스템시간 = [{3:02d}:{4:02d}:{5:02d}], 시스템시간 - 서버시간 = {6}초\r'.format\
-                    (SERVER_HOUR, SERVER_MIN, SERVER_SEC, dt.hour, dt.minute, dt.second, 시스템_서버_시간차)
-                self.parent.textBrowser.append(txt)
-
-                if flag_call_strong:
-                    txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call Strong({3:.2f}/{4:.2f}) ▲\r".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
-                    self.parent.textBrowser.append(txt)
-                elif flag_put_strong:
-                    txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Put Strong({3:.2f}/{4:.2f}) ▼\r".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
-                    self.parent.textBrowser.append(txt)
-                else:
-                    pass
-            else:
-                pass
 
             flag_heartbeat = True
 
@@ -36081,15 +36073,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     (SERVER_HOUR, SERVER_MIN, SERVER_SEC, dt.hour, dt.minute, dt.second, 시스템_서버_시간차)
                 self.textBrowser.append(txt)
                 #print(txt)
-
-                if flag_call_strong:
-                    txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call Strong({3:.2f}/{4:.2f}) ▲\r".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
-                    self.textBrowser.append(txt)
-                elif flag_put_strong:
-                    txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Put Strong({3:.2f}/{4:.2f}) ▼\r".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
-                    self.textBrowser.append(txt)
-                else:
-                    pass
 
                 flag_heartbeat = True                        
             else:
