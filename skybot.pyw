@@ -23408,7 +23408,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
+        global CM_FUT_PRICE
+
         if self.checkBox_cm_fut_price.isChecked() == True:
+
+            CM_FUT_PRICE = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23422,6 +23426,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
+            CM_FUT_PRICE = False
+
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 if not MULTIPROCESS:
@@ -23438,7 +23444,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
+        global CM_FUT_QUOTE
+
         if self.checkBox_cm_fut_quote.isChecked() == True:
+
+            CM_FUT_QUOTE = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23452,6 +23462,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
+            CM_FUT_QUOTE = False
+
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 if not MULTIPROCESS:
@@ -23468,7 +23480,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
+        global CM_OPT_PRICE
+
         if self.checkBox_cm_opt_price.isChecked() == True:
+
+            CM_OPT_PRICE = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23486,6 +23502,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
+            CM_OPT_PRICE = False
+
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 if not MULTIPROCESS:
@@ -23502,7 +23520,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
+        global CM_OPT_PRICE1
+
         if self.checkBox_cm_opt_price_1.isChecked() == True:
+
+            CM_OPT_PRICE1 = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23524,6 +23546,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
+            CM_OPT_PRICE1 = False
+
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 if not MULTIPROCESS:
@@ -23540,7 +23564,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
+        global CM_OPT_QUOTE
+
         if self.checkBox_cm_opt_quote.isChecked() == True:
+
+            CM_OPT_QUOTE = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23558,6 +23586,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
+            CM_OPT_QUOTE = False
+
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 if not MULTIPROCESS:
@@ -23574,7 +23604,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
+        global CM_OPT_QUOTE1
+
         if self.checkBox_cm_opt_quote_1.isChecked() == True:
+
+            CM_OPT_QUOTE1 = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23596,6 +23630,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
+            CM_OPT_QUOTE1 = False
+
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 if not MULTIPROCESS:
@@ -23612,7 +23648,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
+        global NM_FUT_PRICE
+
         if self.checkBox_nm_fut_price.isChecked() == True:
+
+            NM_FUT_PRICE = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
                 
@@ -23626,6 +23666,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
+            NM_FUT_PRICE = False
+
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 if not MULTIPROCESS:
@@ -23642,7 +23684,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
+        global NM_FUT_QUOTE
+
         if self.checkBox_nm_fut_quote.isChecked() == True:
+
+            NM_FUT_QUOTE = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23656,6 +23702,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
+            NM_FUT_QUOTE = False
+
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 if not MULTIPROCESS:
@@ -23672,7 +23720,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
+        global NM_OPT_PRICE
+
         if self.checkBox_nm_opt_price.isChecked() == True:
+
+            NM_OPT_PRICE = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23690,6 +23742,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
+            NM_OPT_PRICE = False
+
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 if not MULTIPROCESS:
@@ -23706,7 +23760,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
+        global NM_OPT_QUOTE
+
         if self.checkBox_nm_opt_quote.isChecked() == True:
+
+            NM_OPT_QUOTE = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23724,6 +23782,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
+            NM_OPT_QUOTE = False
+
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 if not MULTIPROCESS:
@@ -23740,7 +23800,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
+        global NM_OPT_QUOTE1
+
         if self.checkBox_nm_opt_quote_1.isChecked() == True:
+
+            NM_OPT_QUOTE1 = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23762,6 +23826,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
+            NM_OPT_QUOTE1 = False
+
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 if not MULTIPROCESS:
@@ -23778,7 +23844,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
+        global SUPPLY_DEMAND
+
         if self.checkBox_supply_demand.isChecked() == True:
+
+            SUPPLY_DEMAND = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23796,6 +23866,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
+            SUPPLY_DEMAND = False
+
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 if not MULTIPROCESS:
@@ -23814,7 +23886,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
+        global DOW_CHK
+
         if self.checkBox_dow.isChecked() == True:
+
+            DOW_CHK = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23828,6 +23904,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
+            DOW_CHK = False
+
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 if not MULTIPROCESS:
@@ -23844,7 +23922,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
+        global SP500_CHK
+
         if self.checkBox_sp500.isChecked() == True:
+
+            SP500_CHK = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23858,6 +23940,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
+            SP500_CHK = False
+
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 if not MULTIPROCESS:
@@ -23874,7 +23958,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
+        global NASDAQ_CHK
+
         if self.checkBox_nasdaq.isChecked() == True:
+
+            NASDAQ_CHK = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23888,6 +23976,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
+            NASDAQ_CHK = False
+
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 if not MULTIPROCESS:
@@ -23904,7 +23994,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
+        global WTI_CHK
+
         if self.checkBox_oil.isChecked() == True:
+
+            WTI_CHK = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23918,6 +24012,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
+            WTI_CHK = False
+
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 if not MULTIPROCESS:
@@ -23934,7 +24030,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
+        global EUROFX_CHK
+
         if self.checkBox_eurofx.isChecked() == True:
+
+            EUROFX_CHK = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23948,6 +24048,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
+            EUROFX_CHK = False
+
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 if not MULTIPROCESS:
@@ -23964,7 +24066,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
+        global HANGSENG_CHK
+
         if self.checkBox_hangseng.isChecked() == True:
+            
+            HANGSENG_CHK = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -23978,6 +24084,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
+            HANGSENG_CHK = False
+
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 if not MULTIPROCESS:
@@ -23994,7 +24102,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
+        global GOLD_CHK
+
         if self.checkBox_gold.isChecked() == True:
+
+            GOLD_CHK = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -24008,6 +24120,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
+            GOLD_CHK = False
+
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 if not MULTIPROCESS:
@@ -24024,7 +24138,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
+        global NEWS_CHK
+
         if self.checkBox_news.isChecked() == True:
+
+            NEWS_CHK = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -24038,6 +24156,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
         else:
+            NEWS_CHK = False
+
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 if not MULTIPROCESS:
@@ -35553,7 +35673,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.dialog['선물옵션전광판'].RunCode()
                 else:
                     pass
-                
+
             elif trdata[0] == 't0167':
 
                 item = QTableWidgetItem("{0}".format('HB.'))
