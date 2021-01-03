@@ -2759,7 +2759,7 @@ class t2835(XAQuery):
 
 # 옵션전광판(t2301)
 class t2301(XAQuery):
-    def Query(self, 월물, 미니구분):
+    def Query(self, 월물, 미니구분='G'):
         self.ActiveX.LoadFromResFile(self.RESFILE)
         self.ActiveX.SetFieldData(self.INBLOCK, "yyyymm", 0, 월물)
         self.ActiveX.SetFieldData(self.INBLOCK, "gubun", 0, 미니구분)

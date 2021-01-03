@@ -246,6 +246,11 @@ class RealTimeWorker(mp.Process):
         else:
             print('로그인 실패...')
 
+    def Check_Online(self):
+
+        ret = self.connection.IsConnected()
+        return ret
+
     def OnReceiveMessage(self, ClassName, systemError, messageCode, message):
 
         print('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
@@ -300,7 +305,7 @@ class RealTimeWorker(mp.Process):
 
         elif type == 't8432':
 
-            self.XQ_t8432.Query(구분='F')
+            self.XQ_t8432.Query()
 
         elif type == 't8433':
 
@@ -308,7 +313,7 @@ class RealTimeWorker(mp.Process):
 
         elif type == 't2301':
 
-            self.XQ_t2301.Query(월물=code, 미니구분='G')
+            self.XQ_t2301.Query(월물=code)
 
         elif type == 't2101':
 
@@ -369,35 +374,35 @@ class RealTimeWorker(mp.Process):
             self.YOC.AdviseRealData(code)
         
         elif type == 'FUT_REAL_FC0':
-            # 선물 실시간 가격 요청
+            # 선물 실시간 주간 가격 요청
             self.FUT_REAL_FC0.AdviseRealData(code)
 
         elif type == 'FUT_HO_FH0':
-            # 선물 실시간 호가 요청
+            # 선물 실시간 주간 호가 요청
             self.FUT_HO_FH0.AdviseRealData(code)
 
         elif type == 'OPT_REAL_OC0':
-            # 옵션 실시간 가격 요청
+            # 옵션 실시간 주간 가격 요청
             self.OPT_REAL_OC0.AdviseRealData(code)
 
         elif type == 'OPT_HO_OH0':
-            # 옵션 실시간 호가 요청
+            # 옵션 실시간 주간 호가 요청
             self.OPT_HO_OH0.AdviseRealData(code)
 
         elif type == 'FUT_REAL_NC0':
-            # 선물 실시간 가격 요청
+            # 선물 실시간 야간 가격 요청
             self.FUT_REAL_NC0.AdviseRealData(code)
 
         elif type == 'FUT_HO_NH0':
-            # 선물 실시간 호가 요청
+            # 선물 실시간 야간 호가 요청
             self.FUT_HO_NH0.AdviseRealData(code)
 
         elif type == 'OPT_REAL_EC0':
-            # 옵션 실시간 가격 요청
+            # 옵션 실시간 야간 가격 요청
             self.OPT_REAL_EC0.AdviseRealData(code)
 
         elif type == 'OPT_HO_EH0':
-            # 옵션 실시간 호가 요청
+            # 옵션 실시간 야간 호가 요청
             self.OPT_HO_EH0.AdviseRealData(code)
 
         elif type == 'IJ':
