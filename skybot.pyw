@@ -35639,7 +35639,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         @pyqtSlot(list)
         def mp_transfer_trdata(self, trdata):
 
-            global flag_heartbeat
+            dt = datetime.datetime.now()          
 
             #txt = '{0} TR Data 수신...\r'.format(trdata[0])
             #self.textBrowser.append(txt)
@@ -35670,8 +35670,36 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             elif trdata[0] == 't0167':
 
-                txt = 'HeartBeat 수신...\r'
+                global 서버시간, 시스템_서버_시간차, flag_heartbeat
+                global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx
+                
+                server_time = trdata[2]
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] HeartBeat 수신...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
+
+                systemtime = dt.hour * 3600 + dt.minute * 60 + dt.second
+
+                SERVER_HOUR = int(server_time[0:2])
+                SERVER_MIN = int(server_time[2:4])
+                SERVER_SEC = int(server_time[4:6])
+
+                서버시간 = SERVER_HOUR * 3600 + SERVER_MIN * 60 + SERVER_SEC
+                시스템_서버_시간차 = systemtime - 서버시간
+
+                # X축 시간좌표 계산
+                if NightTime:
+
+                    night_time = SERVER_HOUR
+
+                    if 0 <= night_time <= 6:
+                        night_time = night_time + 24
+                    else:
+                        pass
+
+                    server_x_idx = (night_time - NightTime_PreStart_Hour) * 60 + SERVER_MIN + 1             
+                else:
+                    server_x_idx = (SERVER_HOUR - DayTime_PreStart_Hour) * 60 + SERVER_MIN + 1
 
                 flag_heartbeat = True
 
