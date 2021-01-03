@@ -35639,6 +35639,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         @pyqtSlot(list)
         def mp_transfer_trdata(self, trdata):
 
+            global flag_heartbeat
+
             txt = '{0} TR Data 수신...\r'.format(trdata[0])
             self.textBrowser.append(txt)
 
@@ -35667,6 +35669,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
             elif trdata[0] == 't0167':
+
+                flag_heartbeat = True
 
                 item = QTableWidgetItem("{0}".format('HB.'))
                 item.setTextAlignment(Qt.AlignCenter)
