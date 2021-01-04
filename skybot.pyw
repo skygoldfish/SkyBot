@@ -15544,25 +15544,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] SAMSUNG 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
 
-                # 지수선물 예상체결 요청
-                if not MULTIPROCESS:
-                    self.realtime_data_worker.RequestRealData('YFC', FUT_CODE)
+                if pre_start:
+
+                    # 지수선물 예상체결 요청
+                    if not MULTIPROCESS:
+                        self.realtime_data_worker.RequestRealData('YFC', FUT_CODE)
+                    else:
+                        Myprocess.RequestRealData('YFC', FUT_CODE)
+
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 선물 예상체결을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+
+                    # KOSPI 예상체결 요청
+                    if not MULTIPROCESS:
+                        self.realtime_data_worker.RequestRealData('YS3', SAMSUNG)
+                        self.realtime_data_worker.RequestRealData('YS3', HYUNDAI)
+                    else:
+                        Myprocess.RequestRealData('YS3', SAMSUNG)
+                        Myprocess.RequestRealData('YS3', HYUNDAI)
+
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 삼성,현대 예상체결을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
                 else:
-                    Myprocess.RequestRealData('YFC', FUT_CODE)
-
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 선물 예상체결을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(txt)
-
-                # KOSPI 예상체결 요청
-                if not MULTIPROCESS:
-                    self.realtime_data_worker.RequestRealData('YS3', SAMSUNG)
-                    self.realtime_data_worker.RequestRealData('YS3', HYUNDAI)
-                else:
-                    Myprocess.RequestRealData('YS3', SAMSUNG)
-                    Myprocess.RequestRealData('YS3', HYUNDAI)
-
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 삼성,현대 예상체결을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(txt)
+                    pass
 
                 # 실시간 본월물 선물 가격요청
                 if CM_FUT_PRICE:
@@ -15597,16 +15601,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         for i in range(CM_OPT_LENGTH):
                             self.realtime_data_worker.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
                             self.realtime_data_worker.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
+
                             # 지수옵션 예상체결 요청
-                            self.realtime_data_worker.RequestRealData('YOC', CM_CALL_CODE[i])
-                            self.realtime_data_worker.RequestRealData('YOC', CM_PUT_CODE[i])
+                            if pre_start:
+                                self.realtime_data_worker.RequestRealData('YOC', CM_CALL_CODE[i])
+                                self.realtime_data_worker.RequestRealData('YOC', CM_PUT_CODE[i])
+                            else:
+                                pass
                     else:
                         for i in range(CM_OPT_LENGTH):
                             Myprocess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
                             Myprocess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
+                            
                             # 지수옵션 예상체결 요청
-                            Myprocess.RequestRealData('YOC', CM_CALL_CODE[i])
-                            Myprocess.RequestRealData('YOC', CM_PUT_CODE[i])
+                            if pre_start:
+                                Myprocess.RequestRealData('YOC', CM_CALL_CODE[i])
+                                Myprocess.RequestRealData('YOC', CM_PUT_CODE[i])
+                            else:
+                                pass
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 예상가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
@@ -15620,20 +15632,36 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if not MULTIPROCESS:
                         for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
-                            self.realtime_data_worker.RequestRealData(OPT_REAL, CM_CALL_CODE[i])                            
-                            self.realtime_data_worker.RequestRealData('YOC', CM_CALL_CODE[i])
+                            self.realtime_data_worker.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+
+                            if pre_start:                            
+                                self.realtime_data_worker.RequestRealData('YOC', CM_CALL_CODE[i])
+                            else:
+                                pass
 
                         for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
                             self.realtime_data_worker.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
-                            self.realtime_data_worker.RequestRealData('YOC', CM_PUT_CODE[i])
+
+                            if pre_start:
+                                self.realtime_data_worker.RequestRealData('YOC', CM_PUT_CODE[i])
+                            else:
+                                pass
                     else:
                         for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
-                            Myprocess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])                            
-                            Myprocess.RequestRealData('YOC', CM_CALL_CODE[i])
+                            Myprocess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+
+                            if pre_start:                            
+                                Myprocess.RequestRealData('YOC', CM_CALL_CODE[i])
+                            else:
+                                pass
 
                         for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
                             Myprocess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
-                            Myprocess.RequestRealData('YOC', CM_PUT_CODE[i])
+
+                            if pre_start:
+                                Myprocess.RequestRealData('YOC', CM_PUT_CODE[i])
+                            else:
+                                pass
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 예상가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
                     self.textBrowser.append(txt)
@@ -15716,16 +15744,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         for i in range(NM_OPT_LENGTH):
                             self.realtime_data_worker.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
                             self.realtime_data_worker.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
+
                             # 지수옵션 예상체결 요청
-                            self.realtime_data_worker.RequestRealData('YOC', NM_CALL_CODE[i])
-                            self.realtime_data_worker.RequestRealData('YOC', NM_PUT_CODE[i])
+                            if pre_start:
+                                self.realtime_data_worker.RequestRealData('YOC', NM_CALL_CODE[i])
+                                self.realtime_data_worker.RequestRealData('YOC', NM_PUT_CODE[i])
+                            else:
+                                pass
                     else:
                         for i in range(NM_OPT_LENGTH):
                             Myprocess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
                             Myprocess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
+
                             # 지수옵션 예상체결 요청
-                            Myprocess.RequestRealData('YOC', NM_CALL_CODE[i])
-                            Myprocess.RequestRealData('YOC', NM_PUT_CODE[i])
+                            if pre_start:
+                                Myprocess.RequestRealData('YOC', NM_CALL_CODE[i])
+                                Myprocess.RequestRealData('YOC', NM_PUT_CODE[i])
+                            else:
+                                pass
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 예상가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
