@@ -2287,6 +2287,8 @@ if not MULTIPROCESS:
 
             global flag_queue_input_drop, queue_input_drop_count
 
+            self.producerQ.put(result, False)
+            '''
             if not flag_realdata_update_is_running:
                 flag_queue_input_drop = False
                 self.producerQ.put(result, False)
@@ -2294,7 +2296,7 @@ if not MULTIPROCESS:
                 flag_queue_input_drop = True
                 queue_input_drop_count += 1
                 print('Queue input is dropped...')            
-
+            '''
         def run(self):
 
             global flag_produce_queue_empty
@@ -4589,13 +4591,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
             
-            if (not flag_internet_connection_broken and not flag_service_provider_broken) and not flag_produce_queue_empty:
-                print('flag_produce_queue_empty in update_screen =', flag_produce_queue_empty)
+            if flag_realdata_update_is_running:
+                print('flag_realdata_update_is_running in update_screen =', flag_realdata_update_is_running)
             else:
                 pass
 
             # 실시간 서비스                     
-            if (not flag_internet_connection_broken and not flag_service_provider_broken) and flag_produce_queue_empty and FLAG_GUEST_CONTROL and receive_real_ovc:
+            if (not flag_internet_connection_broken and not flag_service_provider_broken) and not flag_realdata_update_is_running and FLAG_GUEST_CONTROL and receive_real_ovc:
                 
                 self.display_atm(self.alternate_flag)
                 
@@ -31434,12 +31436,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
    
         self.label_time.setText(txt)
 
-        if not flag_produce_queue_empty:
-            print('flag_produce_queue_empty in update_bigchart =', flag_produce_queue_empty)
+        if flag_realdata_update_is_running:
+            print('flag_realdata_update_is_running in update_bigchart =', flag_realdata_update_is_running)
         else:
             pass
         
-        if flag_produce_queue_empty and FLAG_GUEST_CONTROL and receive_real_ovc:
+        if not flag_realdata_update_is_running and FLAG_GUEST_CONTROL and receive_real_ovc:
             
             flag_plot_update_is_running = True
 
