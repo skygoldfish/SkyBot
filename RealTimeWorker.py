@@ -231,7 +231,7 @@ class RealTimeWorker(mp.Process):
 
             self.NWS = NWS(parent=self)
             
-            self.data.append('LOGIN')
+            self.data.append(code)
 
             if REAL_SERVER:
                 txt = '실서버 백그라운드 로그인 성공 !!!'
@@ -245,6 +245,8 @@ class RealTimeWorker(mp.Process):
             self.dataQ.put(self.data, False)
         else:
             print('로그인 실패...')
+            self.data.append(code)
+            self.dataQ.put(self.data, False)
 
     def Check_Online(self):
 

@@ -4870,7 +4870,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if NightTime:
 
                     # 장종료 1분후에 프로그램을 오프라인으로 전환시킴
-                    if yagan_service_terminate and 서버시간 >= (6 * 3600 + 1 * 60):
+                    #if yagan_service_terminate and 서버시간 >= (6 * 3600 + 1 * 60):
+                    if yagan_service_terminate:
 
                         if online_state:
 
@@ -4883,7 +4884,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             GOLD_당일종가 = GOLD_현재가
 
                             # 다음날 해외선물 피봇계산을 위해 종료시(오전 6시) 마지막 값 저장
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] CME 종가 = {3:.2f}\r'.format(adj_hour, adj_min, adj_sec, CME_당일종가)
+                            #txt = '[{0:02d}:{1:02d}:{2:02d}] CME 종가 = {3:.2f}\r'.format(adj_hour, adj_min, adj_sec, CME_당일종가)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] CME 종가 = {3:.2f}\r'.format(adj_hour, adj_min, adj_sec, self.fut_realdata['현재가'])
                             self.textBrowser.append(txt)
                             print(txt)
 
@@ -19930,7 +19932,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.textBrowser.append(txt)
                     self.parent.textBrowser.append(txt)
 
-                    CME_당일종가 = self.cme_realdata['현재가']
+                    #CME_당일종가 = self.cme_realdata['현재가']
                     
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 S&P 500 지수 = {3}\r'.format \
                         (adj_hour, adj_min, adj_sec, SP500_현재가)
@@ -19952,7 +19954,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         market_service = False
                         service_terminate = True
-                        yagan_service_terminate = True
+                        #yagan_service_terminate = True
                         
                         receive_quote = False
                         
@@ -19995,7 +19997,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         market_service = False
                         service_terminate = True
-                        yagan_service_terminate = True
+                        #yagan_service_terminate = True
                         
                         receive_quote = False
                         
@@ -20025,7 +20027,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         self.SaveResult()
                     else:
-                        pass                                        
+                        pass
+                # 아침 6경 발생 --> 미국주식 장마감
+                elif result['장구분'] == '9' and result['장상태'] == '41':
+
+                    yagan_service_terminate = True
                 else:
                     pass
 
@@ -35856,7 +35862,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             #txt = '{0} TR Data 수신...\r'.format(trdata[0])
             #self.textBrowser.append(txt)
 
-            if trdata[0] == 'LOGIN':
+            if trdata[0] == '0000':
 
                 self.connection = Myprocess.connection
 
@@ -35931,7 +35937,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
             else:
-                pass
+                txt = '백그라운드 로그인 실패({0})!  다시 시도해주세요...'.format(trdata[0])
+                self.statusbar.showMessage(txt)
 
             # 데이타를 전광판 다이얼로그로 전달(조회성 TR은 포어그라운드에서 처리가능, 이유?)
             '''
