@@ -1991,7 +1991,7 @@ class 화면_버전(QDialog, Ui_버전):
 ########################################################################################################################
 class ScreenUpdateWorker(QThread):
 
-    finished = pyqtSignal(str)
+    trigger = pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -2002,9 +2002,10 @@ class ScreenUpdateWorker(QThread):
 
         while True:
 
-            txt = 'Main UI Update...'                
+            if not flag_realdata_update_is_running:
+                #txt = 'Main UI Update...'
+                self.trigger.emit()
 
-            self.finished.emit(txt)
             QTest.qWait(scoreboard_update_interval)    
 ########################################################################################################################
 
@@ -2012,7 +2013,7 @@ class ScreenUpdateWorker(QThread):
 # 텔레그램 송수신시 약 1.2초 정도 전달지연 시간 발생함
 class TelegramSendWorker(QThread):
 
-    finished = pyqtSignal(str)
+    trigger = pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -2023,16 +2024,16 @@ class TelegramSendWorker(QThread):
 
         while True:
             
-            txt = 'Send Telegram Message...'       
+            #txt = 'Send Telegram Message...'       
 
-            self.finished.emit(txt)
+            self.trigger.emit()
             QTest.qWait(1000 * TELEGRAM_SEND_INTERVAL)
 ########################################################################################################################
 
 ########################################################################################################################
 class TelegramListenWorker(QThread):
 
-    finished = pyqtSignal(str)
+    trigger = pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -2043,9 +2044,9 @@ class TelegramListenWorker(QThread):
 
         while True:
 
-            txt = 'Listn Telegram Message...'            
+            #txt = 'Listn Telegram Message...'            
 
-            self.finished.emit(txt)
+            self.trigger.emit()
             QTest.qWait(1000 * TELEGRAM_POLLING_INTERVAL)
 ########################################################################################################################
 # 실시간 데이타수신을 위한 쓰레드 클래스
@@ -2417,16 +2418,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.t2835_event_loop = QEventLoop()
 
         self.screen_update_worker = ScreenUpdateWorker()
-        self.screen_update_worker.finished.connect(self.update_screen)
-        #self.screen_update_worker.daemon = True
+        self.screen_update_worker.trigger.connect(self.update_screen)
         
         self.telegram_send_worker = TelegramSendWorker()
-        self.telegram_send_worker.finished.connect(self.send_telegram_message)
-        #self.telegram_send_worker.daemon = True
+        self.telegram_send_worker.trigger.connect(self.send_telegram_message)
 
         self.telegram_listen_worker = TelegramListenWorker()
-        self.telegram_listen_worker.finished.connect(self.listen_telegram_message)
-        #self.telegram_listen_worker.daemon = True
+        self.telegram_listen_worker.trigger.connect(self.listen_telegram_message)
         
         self.상태그림 = ['▼', '▬', '▲']
         self.상태문자 = ['매도', '대기', '매수']
@@ -3903,8 +3901,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             self.XQ_t8416.Query(단축코드=code, 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
         
-    @pyqtSlot(str)
-    def send_telegram_message(self, str):
+    @pyqtSlot()
+    def send_telegram_message(self):
         
         global telegram_toggle, FLAG_ASYM, FLAG_NODE, FLAG_OLOH
         global FLAG_GUEST_CONTROL
@@ -4143,8 +4141,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         except:
             pass
 
-    @pyqtSlot(str)
-    def listen_telegram_message(self, str):
+    @pyqtSlot()
+    def listen_telegram_message(self):
         
         global telegram_command
 
@@ -4368,8 +4366,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         txt = '[{0:02d}:{1:02d}:{2:02d}] OHLC_Gen Update : {3:.2f} ms...\r'.format(adj_hour, adj_min, adj_sec, (timeit.default_timer() - start_time) * 1000)
         print(txt)
     
-    @pyqtSlot(str)
-    def update_screen(self, str):
+    @pyqtSlot()
+    def update_screen(self):
 
         global flag_internet_connection_broken, flag_service_provider_broken
         global flag_screen_update_is_running
@@ -4590,15 +4588,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.option_quote_update()
             else:
                 pass
-            
+            '''
             if flag_realdata_update_is_running:
                 txt = '[{0:02d}:{1:02d}:{2:02d}] flag_realdata_update_is_running at update screen is {3}\r'.format(dt.hour, dt.minute, dt.second, flag_realdata_update_is_running)
                 self.textBrowser.append(txt)
             else:
                 pass
-
+            '''
             # 실시간 서비스                     
-            if (not flag_internet_connection_broken and not flag_service_provider_broken) and not flag_realdata_update_is_running and FLAG_GUEST_CONTROL and receive_real_ovc:
+            #if (not flag_internet_connection_broken and not flag_service_provider_broken) and not flag_realdata_update_is_running and FLAG_GUEST_CONTROL and receive_real_ovc:
+            if (not flag_internet_connection_broken and not flag_service_provider_broken) and FLAG_GUEST_CONTROL and receive_real_ovc:
                 
                 self.display_atm(self.alternate_flag)
                 
@@ -14486,7 +14485,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 print("atm값({0})이 리스트에 없습니다.".format(atm_str))
 
-            txt = 't2101 등가지수는 {0}({1})입니다.\r' .format(atm_str, ATM_INDEX)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 등가지수는 {3}({4})입니다.\r'.format(dt.hour, dt.minute, dt.second, atm_str, ATM_INDEX)
             self.parent.textBrowser.append(txt)           
 
             self.fut_realdata['종가'] = df['전일종가']
@@ -16533,7 +16532,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             ATM_INDEX = opt_actval.index(atm_str)
             old_atm_index = ATM_INDEX
 
-            txt = 't2801 등가지수는 {0}({1})입니다.\r' .format(atm_str, ATM_INDEX)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] t2801 등가지수는 {3}({4})입니다.\r'.format(dt.hour, dt.minute, dt.second, atm_str, ATM_INDEX)
             self.parent.textBrowser.append(txt)
             
             if atm_str[-1] == '2' or atm_str[-1] == '7':
@@ -20061,17 +20060,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             예상_Basis = self.fut_realdata['시가'] - self.fut_realdata['KP200']                            
                         else:
                             pass
+                        
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] YJ KOSPI200 예상시가 = {3}, 예상등가 = {4}\r'.format(int(result['시간'][0:2]), int(result['시간'][2:4]), int(result['시간'][4:6]), result['예상지수'], atm_str)
+                        self.textBrowser.append(txt)
 
                         if atm_str in opt_actval:
                             yj_atm_index = opt_actval.index(atm_str)
                         else:
-                            print("atm_str이 리스트에 없습니다.", atm_str)
+                            pass
 
                     elif result['업종코드'] == FUTURES:
 
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] YJ 선물 예상지수 = {3}\r'.format(adj_hour, adj_min, adj_sec, result['예상지수'])
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] YJ 선물 예상시가 = {3}\r'.format(int(result['시간'][0:2]), int(result['시간'][2:4]), int(result['시간'][4:6]), result['예상지수'])
                         self.textBrowser.append(txt)
-
                     else:
                         pass
                 else:
@@ -20565,7 +20566,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                         int(result['예상체결시간'][2:4]),
                                         int(result['예상체결시간'][4:6]),
                                         선물_등락율, DOW_등락율)
-                        self.textBrowser.append(txt)                        
+                        #self.textBrowser.append(txt)                        
                     else:
                         pass
 
@@ -24360,7 +24361,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 #####################################################################################################################################################################
 class PlotUpdateWorker(QThread):
 
-    finished = pyqtSignal(str)
+    trigger = pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -24371,9 +24372,10 @@ class PlotUpdateWorker(QThread):
 
         while True:
 
-            txt = 'Big Chart Update...'                
+            if not flag_realdata_update_is_running:
+                #txt = 'Big Chart Update...'
+                self.trigger.emit()
 
-            self.finished.emit(txt)
             QTest.qWait(plot_update_interval)
 ########################################################################################################################
 # Big Chart UI Class
@@ -25292,8 +25294,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         # 그리기 쓰레드 시작...        
         self.plot_update_worker = PlotUpdateWorker()
-        self.plot_update_worker.finished.connect(self.update_bigchart)
-        #self.plot_update_worker.daemon = True
+        self.plot_update_worker.trigger.connect(self.update_bigchart)
         self.plot_update_worker.start()
 
     def __del__(self):
@@ -31419,7 +31420,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
     #####################################################################################################################################################################
     # Plot Update...
-    @pyqtSlot(str)
+    @pyqtSlot()
     def update_bigchart(self):
 
         global flag_plot_update_is_running        
@@ -31436,9 +31437,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             txt = ' {0:02d}:{1:02d}:{2:02d}({3:d}, {4:.2f} ms) '.format(adj_hour, adj_min, adj_sec, ovc_x_idx, self.bc_ui_update_time)
    
         self.label_time.setText(txt)
-
+        '''
         if flag_realdata_update_is_running:
-            
+
             txt = '[{0:02d}:{1:02d}:{2:02d}] flag_realdata_update_is_running at update bigchart is {3}\r'.format(dt.hour, dt.minute, dt.second, flag_realdata_update_is_running)
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
@@ -31447,8 +31448,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
         else:
             pass
-        
-        if not flag_realdata_update_is_running and FLAG_GUEST_CONTROL and receive_real_ovc:
+        '''
+        #if not flag_realdata_update_is_running and FLAG_GUEST_CONTROL and receive_real_ovc:
+        if FLAG_GUEST_CONTROL and receive_real_ovc:
             
             flag_plot_update_is_running = True
 
