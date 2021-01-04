@@ -1959,6 +1959,22 @@ class RealDataTableModel(QAbstractTableModel):
         self.beginResetModel()
         self.endResetModel()
 
+# 시간측정 함수
+def logging_time(original_fn):
+
+    def wrapper_fn(*args, **kwargs):
+        
+        dt = datetime.datetime.now()
+
+        start_time = timeit.default_timer()
+        result = original_fn(*args, **kwargs)
+        end_time = timeit.default_timer()
+        print("{0} WorkingTime [{1:02d}:{2:02d}:{3:02d}]: {4:.2f} msec".format(original_fn.__name__, dt.hour, dt.minute, dt.second, (end_time-start_time) * 1000))
+
+        return result
+
+    return wrapper_fn
+
 ########################################################################################################################
 # 버전 UI Class
 ########################################################################################################################
@@ -4367,6 +4383,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         print(txt)
     
     @pyqtSlot()
+    @logging_time
     def update_screen(self):
 
         global flag_internet_connection_broken, flag_service_provider_broken
@@ -5101,16 +5118,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.main_ui_update_time = (timeit.default_timer() - start_time) * 1000
 
-                if queue_input_drop_count > 0:
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f} ms, Drop Count = {4}\r'.format(dt.hour, dt.minute, dt.second, self.main_ui_update_time, queue_input_drop_count)
-                else:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f} ms\r'.format(dt.hour, dt.minute, dt.second, self.main_ui_update_time)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f} ms\r'.format(dt.hour, dt.minute, dt.second, self.main_ui_update_time)                    
 
                 if flag_checkBox_HS and dt.second % 10 == 0 and self.alternate_flag:
                     self.textBrowser.append(txt)
                 else:
-                    print(txt)
+                    pass
+                    #print(txt)
             else:
                 pass            
         except:
@@ -31418,6 +31432,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
     #####################################################################################################################################################################
     # Plot Update...
     @pyqtSlot()
+    @logging_time
     def update_bigchart(self):
 
         global flag_plot_update_is_running        
@@ -35727,8 +35742,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         self.bc_ui_update_time = (timeit.default_timer() - start_time) * 1000        
         
-        txt = '[{0:02d}:{1:02d}:{2:02d}] Plot Update : {3:.2f} ms...\r'.format(dt.hour, dt.minute, dt.second, self.bc_ui_update_time)
-        print(txt)
+        #txt = '[{0:02d}:{1:02d}:{2:02d}] Plot Update : {3:.2f} ms...\r'.format(dt.hour, dt.minute, dt.second, self.bc_ui_update_time)
+        #print(txt)
         
         flag_plot_update_is_running = False            
 
