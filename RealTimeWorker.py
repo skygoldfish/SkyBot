@@ -556,29 +556,19 @@ class RealTimeWorker(mp.Process):
 
     def run(self):
 
-        print('MultiProcessing RealTimeWorker Start...')
-        '''
-        self.data['szTrCode'] = 'START'
-        self.data['MultiProcessing Start'] = '멀티프로세싱 시작...'
-        self.dataQ.put(self.data, False)
-        '''
+        print('MultiProcess RealTimeWorker Start...')
+        
         while not self.exit.is_set():
             pass
 
-        print("MultiProcessing RealTimeWorker Terminated !!!")
+        print("MultiProcess RealTimeWorker Terminated !!!")
 
-    def shutdown(self):
-
-        print("MultiProcessing Shutdown initiated...")
-        '''
-        self.data['szTrCode'] = 'SHUTDOWN'
-        self.data['MultiProcessing Shutdown'] = '멀티프로세싱 종료...'
-        self.dataQ.put(self.data, False)
-        '''
-        print('실시간요청 취소...')
-        #self.NWS.UnadviseRealData()
+    def disconnect(self):
 
         print('서버연결 해지...')
         self.connection.disconnect()
 
+    def shutdown(self):
+
+        print("MultiProcess Shutdown initiated...")        
         self.exit.set()            

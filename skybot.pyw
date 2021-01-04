@@ -4385,19 +4385,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        '''
-        if MULTIPROCESS:
-            # shutdown 테스트...
-            if Myprocess.is_alive():
-                Myprocess.shutdown()
-                QTest.qWait(5)
-                print("Child process state: %d" % Myprocess.is_alive())
-            else:
-                pass
-        else:
-            pass
-        '''
-
         try:
             flag_screen_update_is_running = True
 
@@ -5012,11 +4999,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                     self.mp_consumer.terminate()
 
-                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스를 종료합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 로그인을 종료합니다...\r'.format(adj_hour, adj_min, adj_sec)
                                     self.textBrowser.append(txt)
                                     print(txt)
-
-                                    Myprocess.shutdown()
                                 else:
                                     self.parent.connection.disconnect()
                             else:
@@ -5028,12 +5013,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
                                 self.textBrowser.append(txt)
 
-                                file = open('today.log', 'w')
+                                file = open('lastnight.log', 'w')
                                 text = self.textBrowser.toPlainText()
                                 file.write(text)
                                 file.close()
 
                                 flag_logfile = True
+
+                                if MULTIPROCESS:
+                                    Myprocess.shutdown()
+                                else:
+                                    pass
                             else:
                                 pass
                     else:
@@ -5075,11 +5065,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                     self.mp_consumer.terminate()
 
-                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스를 종료합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 로그인을 종료합니다...\r'.format(adj_hour, adj_min, adj_sec)
                                     self.textBrowser.append(txt)
                                     print(txt)
-
-                                    Myprocess.shutdown()
                                 else:
                                     self.parent.connection.disconnect()
                             else:
@@ -5097,6 +5085,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 file.close()
 
                                 flag_logfile = True
+
+                                if MULTIPROCESS:
+                                    Myprocess.shutdown()
+                                else:
+                                    pass
                             else:
                                 pass
                     else:
@@ -20077,6 +20070,290 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
                 else:
                     pass
+                    
+            elif szTrCode == 'YFC':
+
+                if result['단축코드'] == GMSHCODE:                    
+
+                    market_service = True
+                    
+                    if result['예상체결가격'] != float(self.tableWidget_fut.item(1, Futures_column.시가.value).text()):
+
+                        선물_현재가 = result['예상체결가격']
+                        self.fut_realdata['시가'] = result['예상체결가격']
+
+                        df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
+
+                        item = QTableWidgetItem("{0:.2f}".format(선물_현재가))
+                        item.setTextAlignment(Qt.AlignCenter)
+
+                        if 선물_현재가 > self.fut_realdata['종가']:
+                            item.setForeground(QBrush(적색))
+                        elif 선물_현재가 < self.fut_realdata['종가']:
+                            item.setForeground(QBrush(청색))
+                        else:
+                            item.setForeground(QBrush(검정색))
+
+                        self.tableWidget_fut.setItem(1, Futures_column.시가.value, item)
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] YFC 선물 예상시가 = {3}\r'.format\
+                            (int(result['예상체결시간'][0:2]), int(result['예상체결시간'][2:4]), int(result['예상체결시간'][4:6]), result['예상체결가격'])
+                        self.textBrowser.append(txt)
+
+                        시가갭 = 선물_현재가 - self.fut_realdata['종가']
+
+                        item = QTableWidgetItem("{0:.2f}".format(시가갭))
+                        item.setTextAlignment(Qt.AlignCenter)
+
+                        if 선물_현재가 > self.fut_realdata['종가']:
+                            item.setBackground(QBrush(콜기준가색))
+                            item.setForeground(QBrush(검정색))
+                        elif 선물_현재가 < self.fut_realdata['종가']:
+                            item.setBackground(QBrush(풋기준가색))
+                            item.setForeground(QBrush(흰색))
+                        else:
+                            item.setBackground(QBrush(흰색))
+
+                        self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
+
+                        선물_피봇 = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_현재가)
+
+                        item = QTableWidgetItem("{0:.2f}".format(self.fut_realdata['피봇']))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
+
+                        self.fut_realdata['피봇'] = 선물_피봇
+
+                        DOW_기준_예상시가 = (선물_전일종가 * DOW_현재가) / DOW_전일종가
+
+                        item = QTableWidgetItem("{0:.2f}".format(DOW_기준_예상시가))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(검정색))
+                        item.setForeground(QBrush(대맥점색))
+                        self.tableWidget_fut.setItem(0, Futures_column.시가.value, item)
+
+                        선물_등락율 = ((result['예상체결가격'] - 선물_전일종가) / 선물_전일종가) * 100
+
+                        item = QTableWidgetItem("선물\n({0:.2f}%)".format(선물_등락율))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
+                        self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
+
+                        if 선물_등락율 != 0:
+
+                            if abs(선물_등락율) > abs(DOW_등락율):
+                                flag_fut_dow_drate_energy_direction = True
+                            else:
+                                flag_fut_dow_drate_energy_direction = False
+
+                            plot_drate_scale_factor = int(abs(콜등락율 / 선물_등락율))
+
+                            item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
+                            item.setTextAlignment(Qt.AlignCenter)
+                            self.tableWidget_fut.setItem(2, Futures_column.OI.value, item)
+                        else:
+                            pass
+                        
+                        df_futures_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 선물_등락율
+
+                        if fut_quote_energy_direction == 'call':
+
+                            if NightTime:
+                                self.tableWidget_fut.item(0, 0).setBackground(QBrush(적색))
+                                self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
+                            else:
+                                self.tableWidget_fut.item(1, 0).setBackground(QBrush(적색))
+                                self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
+
+                        elif fut_quote_energy_direction == 'put':
+
+                            if NightTime:
+                                self.tableWidget_fut.item(0, 0).setBackground(QBrush(청색))
+                                self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
+                            else:
+                                self.tableWidget_fut.item(1, 0).setBackground(QBrush(청색))
+                                self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
+                        else:
+                            if NightTime:
+                                self.tableWidget_fut.item(0, 0).setBackground(QBrush(검정색))
+                                self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
+                            else:
+                                self.tableWidget_fut.item(1, 0).setBackground(QBrush(검정색))
+                                self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
+
+                        item = QTableWidgetItem("DOW\n({0:.2f}%)".format(DOW_등락율))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
+                        self.tableWidget_fut.setItem(2, Futures_column.대비.value, item)
+
+                        item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(선물_대비, 선물_등락율))
+                        item.setTextAlignment(Qt.AlignCenter)
+
+                        if 선물_등락율 > 0 and DOW_등락율 > 0 and flag_fut_dow_drate_energy_direction:
+
+                            item.setBackground(QBrush(pink))
+                            item.setForeground(QBrush(검정색))
+
+                        elif 선물_등락율 < 0 and DOW_등락율 < 0 and flag_fut_dow_drate_energy_direction:
+
+                            item.setBackground(QBrush(lightskyblue))
+                            item.setForeground(QBrush(검정색))
+                        else:                
+                            item.setBackground(QBrush(흰색))
+                            item.setForeground(QBrush(검정색))
+
+                        if NightTime:
+                            self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
+                        else:
+                            self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
+
+                        선물_진폭비 = (선물_고가 - 선물_저가) / 선물_시가            
+                        선물_DOW_진폭비율 = 선물_진폭비 / DOW_진폭비 
+
+                        item = QTableWidgetItem("{0:.2f}".format(선물_DOW_진폭비율))
+                        item.setTextAlignment(Qt.AlignCenter)
+
+                        item.setBackground(QBrush(라임))
+                        item.setForeground(QBrush(검정색))
+
+                        if NightTime:
+                            self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
+                        else:
+                            self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
+
+                        self.tableWidget_fut.resizeRowsToContents()
+                        self.tableWidget_fut.resizeColumnsToContents()                             
+                        
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 등락율 = {3:.2f}, DOW 등락율 = {4:.2f}\r'.format(\
+                                        int(result['예상체결시간'][0:2]),
+                                        int(result['예상체결시간'][2:4]),
+                                        int(result['예상체결시간'][4:6]),
+                                        선물_등락율, DOW_등락율)
+                        #self.textBrowser.append(txt)                        
+                    else:
+                        pass
+
+                    global 선물_현재가_버퍼, flag_futures_ohlc_open
+
+                    if receive_real_ovc:
+
+                        df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
+
+                        # 1T OHLC 생성
+                        df_futures_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
+
+                        if 선물_현재가 > 0:
+
+                            if OVC_SEC == 0:
+
+                                if not flag_futures_ohlc_open:
+
+                                    df_futures_graph.at[ovc_x_idx, 'open'] = 선물_현재가
+                                    df_futures_graph.at[ovc_x_idx, 'high'] = 선물_현재가
+                                    df_futures_graph.at[ovc_x_idx, 'low'] = 선물_현재가
+                                    df_futures_graph.at[ovc_x_idx, 'middle'] = 선물_현재가
+                                    df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
+                                    df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
+
+                                    del 선물_현재가_버퍼[:]
+
+                                    flag_futures_ohlc_open = True
+                                else:
+                                    선물_현재가_버퍼.append(선물_현재가)                            
+                            else:
+                                if df_futures_graph.at[ovc_x_idx, 'open'] != df_futures_graph.at[ovc_x_idx, 'open']:
+                                    df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
+                                    del 선물_현재가_버퍼[:]
+                                else:
+                                    pass
+
+                                선물_현재가_버퍼.append(선물_현재가)
+
+                                if max(선물_현재가_버퍼) > 0:
+                                    df_futures_graph.at[ovc_x_idx, 'high'] = max(선물_현재가_버퍼)
+                                else:
+                                    pass
+
+                                if min(선물_현재가_버퍼) == 0:
+
+                                    if max(선물_현재가_버퍼) > 0:
+                                        df_futures_graph.at[ovc_x_idx, 'low'] = max(선물_현재가_버퍼)
+                                    else:
+                                        pass
+                                else:
+                                    df_futures_graph.at[ovc_x_idx, 'low'] = min(선물_현재가_버퍼)
+
+                                df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
+
+                                flag_futures_ohlc_open = False
+                        else:
+                            pass                                 
+
+                        # Bollinger Bands
+                        df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2
+                        upper, middle, lower = talib.BBANDS(np.array(df_futures_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+
+                        df_futures_graph['BBUpper'] = upper
+                        df_futures_graph['BBMiddle'] = middle
+                        df_futures_graph['BBLower'] = lower
+
+                        # MACD
+                        # list of values for the Moving Average Type:  
+                        # 0: MA_Type.SMA (simple)  
+                        # 1: MA_Type.EMA (exponential)  
+                        # 2: MA_Type.WMA (weighted)  
+                        # 3: MA_Type.DEMA (double exponential)  
+                        # 4: MA_Type.TEMA (triple exponential)  
+                        # 5: MA_Type.TRIMA (triangular)  
+                        # 6: MA_Type.KAMA (Kaufman adaptive)  
+                        # 7: MA_Type.MAMA (Mesa adaptive)  
+                        # 8: MA_Type.T3 (triple exponential T3)
+
+                        #macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_futures_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
+                            #fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
+
+                        #df_futures_graph['MACD'] = macd
+                        #df_futures_graph['MACDSig'] = macdsignal
+                        #df_futures_graph['MACDHist'] = macdhist
+
+                        # Parabolic SAR
+                        parabolic_sar = talib.SAR(np.array(df_futures_graph['high'], dtype=float), np.array(df_futures_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+
+                        # PSARIndicator 함수 오동작하는 듯...
+                        #ta_psar = ta.trend.PSARIndicator(df_futures_graph['high'], df_futures_graph['low'], df_futures_graph['close'])
+
+                        df_futures_graph['PSAR'] = parabolic_sar
+                        #df_futures_graph['TA_PSAR'] = ta_psar.psar()
+
+                        # MAMA
+                        mama, fama = talib.MAMA(np.array(df_futures_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+
+                        df_futures_graph['MAMA'] = mama
+                        df_futures_graph['FAMA'] = fama
+
+                        if df_futures_graph.at[ovc_x_idx, 'FAMA'] == df_futures_graph.at[ovc_x_idx, 'FAMA'] and df_futures_graph.at[ovc_x_idx, 'BBLower'] == df_futures_graph.at[ovc_x_idx, 'BBLower']:
+
+                            if df_futures_graph.at[ovc_x_idx, 'FAMA'] < df_futures_graph.at[ovc_x_idx, 'BBLower']:
+                                df_futures_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_graph.at[ovc_x_idx, 'BBLower']
+                            else:
+                                df_futures_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_graph.at[ovc_x_idx, 'FAMA']
+                        else:
+                            pass
+
+                        # Ichimoku Indicator
+                        #futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'], n1=9, n2=26, n3=52, visual=True)
+                        futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'])
+
+                        df_futures_graph['SPAN_A'] = futures_Ichimoku.ichimoku_a()
+                        df_futures_graph['SPAN_B'] = futures_Ichimoku.ichimoku_b()
+                        df_futures_graph['OE_BASE'] = futures_Ichimoku.ichimoku_base_line()
+                        df_futures_graph['OE_CONV'] = futures_Ichimoku.ichimoku_conversion_line()
+                    else:
+                        pass
+                else:
+                    pass
 
             elif szTrCode == 'YS3':                
                 
@@ -20409,287 +20686,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
                 else:
                     pass
-                    
-            elif szTrCode == 'YFC':
-
-                if result['단축코드'] == GMSHCODE:                    
-
-                    market_service = True
-                    
-                    if result['예상체결가격'] != float(self.tableWidget_fut.item(1, Futures_column.시가.value).text()):
-
-                        선물_현재가 = result['예상체결가격']
-                        self.fut_realdata['시가'] = result['예상체결가격']
-
-                        df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
-
-                        item = QTableWidgetItem("{0:.2f}".format(선물_현재가))
-                        item.setTextAlignment(Qt.AlignCenter)
-
-                        if 선물_현재가 > self.fut_realdata['종가']:
-                            item.setForeground(QBrush(적색))
-                        elif 선물_현재가 < self.fut_realdata['종가']:
-                            item.setForeground(QBrush(청색))
-                        else:
-                            item.setForeground(QBrush(검정색))
-
-                        self.tableWidget_fut.setItem(1, Futures_column.시가.value, item)
-
-                        시가갭 = 선물_현재가 - self.fut_realdata['종가']
-
-                        item = QTableWidgetItem("{0:.2f}".format(시가갭))
-                        item.setTextAlignment(Qt.AlignCenter)
-
-                        if 선물_현재가 > self.fut_realdata['종가']:
-                            item.setBackground(QBrush(콜기준가색))
-                            item.setForeground(QBrush(검정색))
-                        elif 선물_현재가 < self.fut_realdata['종가']:
-                            item.setBackground(QBrush(풋기준가색))
-                            item.setForeground(QBrush(흰색))
-                        else:
-                            item.setBackground(QBrush(흰색))
-
-                        self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
-
-                        선물_피봇 = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_현재가)
-
-                        item = QTableWidgetItem("{0:.2f}".format(self.fut_realdata['피봇']))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        self.tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
-
-                        self.fut_realdata['피봇'] = 선물_피봇
-
-                        DOW_기준_예상시가 = (선물_전일종가 * DOW_현재가) / DOW_전일종가
-
-                        item = QTableWidgetItem("{0:.2f}".format(DOW_기준_예상시가))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setBackground(QBrush(검정색))
-                        item.setForeground(QBrush(대맥점색))
-                        self.tableWidget_fut.setItem(0, Futures_column.시가.value, item)
-
-                        선물_등락율 = ((result['예상체결가격'] - 선물_전일종가) / 선물_전일종가) * 100
-
-                        item = QTableWidgetItem("선물\n({0:.2f}%)".format(선물_등락율))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setBackground(QBrush(흰색))
-                        item.setForeground(QBrush(검정색))
-                        self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
-
-                        if 선물_등락율 != 0:
-
-                            if abs(선물_등락율) > abs(DOW_등락율):
-                                flag_fut_dow_drate_energy_direction = True
-                            else:
-                                flag_fut_dow_drate_energy_direction = False
-
-                            plot_drate_scale_factor = int(abs(콜등락율 / 선물_등락율))
-
-                            item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
-                            item.setTextAlignment(Qt.AlignCenter)
-                            self.tableWidget_fut.setItem(2, Futures_column.OI.value, item)
-                        else:
-                            pass
-                        
-                        df_futures_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 선물_등락율
-
-                        if fut_quote_energy_direction == 'call':
-
-                            if NightTime:
-                                self.tableWidget_fut.item(0, 0).setBackground(QBrush(적색))
-                                self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
-                            else:
-                                self.tableWidget_fut.item(1, 0).setBackground(QBrush(적색))
-                                self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
-
-                        elif fut_quote_energy_direction == 'put':
-
-                            if NightTime:
-                                self.tableWidget_fut.item(0, 0).setBackground(QBrush(청색))
-                                self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
-                            else:
-                                self.tableWidget_fut.item(1, 0).setBackground(QBrush(청색))
-                                self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
-                        else:
-                            if NightTime:
-                                self.tableWidget_fut.item(0, 0).setBackground(QBrush(검정색))
-                                self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
-                            else:
-                                self.tableWidget_fut.item(1, 0).setBackground(QBrush(검정색))
-                                self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
-
-                        item = QTableWidgetItem("DOW\n({0:.2f}%)".format(DOW_등락율))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setBackground(QBrush(흰색))
-                        item.setForeground(QBrush(검정색))
-                        self.tableWidget_fut.setItem(2, Futures_column.대비.value, item)
-
-                        item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(선물_대비, 선물_등락율))
-                        item.setTextAlignment(Qt.AlignCenter)
-
-                        if 선물_등락율 > 0 and DOW_등락율 > 0 and flag_fut_dow_drate_energy_direction:
-
-                            item.setBackground(QBrush(pink))
-                            item.setForeground(QBrush(검정색))
-
-                        elif 선물_등락율 < 0 and DOW_등락율 < 0 and flag_fut_dow_drate_energy_direction:
-
-                            item.setBackground(QBrush(lightskyblue))
-                            item.setForeground(QBrush(검정색))
-                        else:                
-                            item.setBackground(QBrush(흰색))
-                            item.setForeground(QBrush(검정색))
-
-                        if NightTime:
-                            self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
-                        else:
-                            self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
-
-                        선물_진폭비 = (선물_고가 - 선물_저가) / 선물_시가            
-                        선물_DOW_진폭비율 = 선물_진폭비 / DOW_진폭비 
-
-                        item = QTableWidgetItem("{0:.2f}".format(선물_DOW_진폭비율))
-                        item.setTextAlignment(Qt.AlignCenter)
-
-                        item.setBackground(QBrush(라임))
-                        item.setForeground(QBrush(검정색))
-
-                        if NightTime:
-                            self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
-                        else:
-                            self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
-
-                        self.tableWidget_fut.resizeRowsToContents()
-                        self.tableWidget_fut.resizeColumnsToContents()                             
-                        
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 등락율 = {3:.2f}, DOW 등락율 = {4:.2f}\r'.format(\
-                                        int(result['예상체결시간'][0:2]),
-                                        int(result['예상체결시간'][2:4]),
-                                        int(result['예상체결시간'][4:6]),
-                                        선물_등락율, DOW_등락율)
-                        #self.textBrowser.append(txt)                        
-                    else:
-                        pass
-
-                    global 선물_현재가_버퍼, flag_futures_ohlc_open
-
-                    if receive_real_ovc:
-
-                        df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
-
-                        # 1T OHLC 생성
-                        df_futures_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
-
-                        if 선물_현재가 > 0:
-
-                            if OVC_SEC == 0:
-
-                                if not flag_futures_ohlc_open:
-
-                                    df_futures_graph.at[ovc_x_idx, 'open'] = 선물_현재가
-                                    df_futures_graph.at[ovc_x_idx, 'high'] = 선물_현재가
-                                    df_futures_graph.at[ovc_x_idx, 'low'] = 선물_현재가
-                                    df_futures_graph.at[ovc_x_idx, 'middle'] = 선물_현재가
-                                    df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
-                                    df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
-
-                                    del 선물_현재가_버퍼[:]
-
-                                    flag_futures_ohlc_open = True
-                                else:
-                                    선물_현재가_버퍼.append(선물_현재가)                            
-                            else:
-                                if df_futures_graph.at[ovc_x_idx, 'open'] != df_futures_graph.at[ovc_x_idx, 'open']:
-                                    df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
-                                    del 선물_현재가_버퍼[:]
-                                else:
-                                    pass
-
-                                선물_현재가_버퍼.append(선물_현재가)
-
-                                if max(선물_현재가_버퍼) > 0:
-                                    df_futures_graph.at[ovc_x_idx, 'high'] = max(선물_현재가_버퍼)
-                                else:
-                                    pass
-
-                                if min(선물_현재가_버퍼) == 0:
-
-                                    if max(선물_현재가_버퍼) > 0:
-                                        df_futures_graph.at[ovc_x_idx, 'low'] = max(선물_현재가_버퍼)
-                                    else:
-                                        pass
-                                else:
-                                    df_futures_graph.at[ovc_x_idx, 'low'] = min(선물_현재가_버퍼)
-
-                                df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
-
-                                flag_futures_ohlc_open = False
-                        else:
-                            pass                                 
-
-                        # Bollinger Bands
-                        df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2
-                        upper, middle, lower = talib.BBANDS(np.array(df_futures_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
-
-                        df_futures_graph['BBUpper'] = upper
-                        df_futures_graph['BBMiddle'] = middle
-                        df_futures_graph['BBLower'] = lower
-
-                        # MACD
-                        # list of values for the Moving Average Type:  
-                        # 0: MA_Type.SMA (simple)  
-                        # 1: MA_Type.EMA (exponential)  
-                        # 2: MA_Type.WMA (weighted)  
-                        # 3: MA_Type.DEMA (double exponential)  
-                        # 4: MA_Type.TEMA (triple exponential)  
-                        # 5: MA_Type.TRIMA (triangular)  
-                        # 6: MA_Type.KAMA (Kaufman adaptive)  
-                        # 7: MA_Type.MAMA (Mesa adaptive)  
-                        # 8: MA_Type.T3 (triple exponential T3)
-
-                        #macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_futures_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
-                            #fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
-
-                        #df_futures_graph['MACD'] = macd
-                        #df_futures_graph['MACDSig'] = macdsignal
-                        #df_futures_graph['MACDHist'] = macdhist
-
-                        # Parabolic SAR
-                        parabolic_sar = talib.SAR(np.array(df_futures_graph['high'], dtype=float), np.array(df_futures_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
-
-                        # PSARIndicator 함수 오동작하는 듯...
-                        #ta_psar = ta.trend.PSARIndicator(df_futures_graph['high'], df_futures_graph['low'], df_futures_graph['close'])
-
-                        df_futures_graph['PSAR'] = parabolic_sar
-                        #df_futures_graph['TA_PSAR'] = ta_psar.psar()
-
-                        # MAMA
-                        mama, fama = talib.MAMA(np.array(df_futures_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
-
-                        df_futures_graph['MAMA'] = mama
-                        df_futures_graph['FAMA'] = fama
-
-                        if df_futures_graph.at[ovc_x_idx, 'FAMA'] == df_futures_graph.at[ovc_x_idx, 'FAMA'] and df_futures_graph.at[ovc_x_idx, 'BBLower'] == df_futures_graph.at[ovc_x_idx, 'BBLower']:
-
-                            if df_futures_graph.at[ovc_x_idx, 'FAMA'] < df_futures_graph.at[ovc_x_idx, 'BBLower']:
-                                df_futures_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_graph.at[ovc_x_idx, 'BBLower']
-                            else:
-                                df_futures_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_graph.at[ovc_x_idx, 'FAMA']
-                        else:
-                            pass
-
-                        # Ichimoku Indicator
-                        #futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'], n1=9, n2=26, n3=52, visual=True)
-                        futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'])
-
-                        df_futures_graph['SPAN_A'] = futures_Ichimoku.ichimoku_a()
-                        df_futures_graph['SPAN_B'] = futures_Ichimoku.ichimoku_b()
-                        df_futures_graph['OE_BASE'] = futures_Ichimoku.ichimoku_base_line()
-                        df_futures_graph['OE_CONV'] = futures_Ichimoku.ichimoku_conversion_line()
-                    else:
-                        pass
-                else:
-                    pass
-
+            
             elif szTrCode == 'S3_':
                 
                 #현재가 = format(result['현재가'], ',')
