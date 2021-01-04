@@ -5155,7 +5155,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 vb_txt = 'CM Volatility Downward Breakout'
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
-                self.textBrowser.append(txt)
+                self.parent.textBrowser.append(txt)
 
                 Speak('본월물 하향 변동성 출현')
                 '''
@@ -5168,7 +5168,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 vb_txt = 'CM Volatility Upward Breakout'
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
-                self.textBrowser.append(txt)
+                self.parent.textBrowser.append(txt)
 
                 Speak('본월물 상향 변동성 출현')
                 '''
@@ -5185,7 +5185,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 vb_txt = 'NM Volatility Downward Breakout'
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
-                self.textBrowser.append(txt)
+                self.parent.textBrowser.append(txt)
 
                 Speak('차월물 하향 변동성 출현')
                 '''
@@ -5198,7 +5198,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 vb_txt = 'NM Volatility Upward Breakout'
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
-                self.textBrowser.append(txt)
+                self.parent.textBrowser.append(txt)
 
                 Speak('차월물 상향 변동성 출현')
                 '''
@@ -5218,7 +5218,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 speak_txt = 'Call Dominant'
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, speak_txt)
-                self.textBrowser.append(txt)
+                self.parent.textBrowser.append(txt)
 
                 if TTS:
                     Speak('콜 우세')
@@ -5239,7 +5239,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 speak_txt = 'Put Dominant'
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, speak_txt)
-                self.textBrowser.append(txt)
+                self.parent.textBrowser.append(txt)
 
                 if TTS:
                     Speak('풋 우세')
@@ -5264,14 +5264,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
         
-        if queue_input_drop_count > 0:
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Heartbeat({3}), 시스템서버 시간차 = {4}초, Drop Count = {5}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, 시스템_서버_시간차, queue_input_drop_count)
-            self.textBrowser.append(txt)
-            #print(txt)
-        else:
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Heartbeat({3}), 시스템서버 시간차 = {4}초\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, 시스템_서버_시간차)
-            self.textBrowser.append(txt)
-            #print(txt)        
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Heartbeat({3}), 시스템서버 시간차 = {4}초\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, 시스템_서버_시간차)
+        self.textBrowser.append(txt)       
         
         self.tableWidget_fut.resizeRowsToContents()
         self.tableWidget_fut.resizeColumnsToContents()
@@ -14016,7 +14010,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(txt)
 
-            file = open('today.log', 'w')
+            if NightTime:
+                file = open('lastnight.log', 'w')
+            else:
+                file = open('today.log', 'w')
+
             text = self.textBrowser.toPlainText()
             file.write(text)
             file.close()
@@ -19553,6 +19551,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         pass
     
     # 수신된 실시간 데이타를 화면에 표시
+    #@logging_time
     def UpdateRealdata(self, result):
 
         global pre_start
@@ -19671,7 +19670,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         try:            
             dt = datetime.datetime.now()                        
-            start_time = timeit.default_timer()
+            #start_time = timeit.default_timer()
 
             szTrCode = result['szTrCode']
 
@@ -19684,6 +19683,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 장구분[{3}], 장상태[{4}]\r'.format(adj_hour, adj_min, adj_sec, result['장구분'], result['장상태'])
                 self.textBrowser.append(txt)
+                self.parent.textBrowser.append(txt)
 
                 # 장시작 10분전
                 if result['장구분'] == '5' and result['장상태'] == '25':
@@ -19831,6 +19831,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물/옵션장이 종료되었습니다.\r'.format(adj_hour, adj_min, adj_sec)
                     self.textBrowser.append(txt)
+                    self.parent.textBrowser.append(txt)
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 S&P 500 지수 = {3}\r'.format(adj_hour, adj_min, adj_sec, SP500_현재가)
                     self.textBrowser.append(txt)
@@ -19926,6 +19927,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 종료되었습니다.\r'.format(adj_hour, adj_min, adj_sec)
                     self.textBrowser.append(txt)
+                    self.parent.textBrowser.append(txt)
 
                     CME_당일종가 = self.cme_realdata['현재가']
                     
@@ -19986,6 +19988,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 종료되었습니다.\r'.format(adj_hour, adj_min, adj_sec)
                     self.textBrowser.append(txt)
+                    self.parent.textBrowser.append(txt)
 
                     if market_service:
 
@@ -35945,9 +35948,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 item = QTableWidgetItem("{0}".format(realdata['szTrCode']))
                 item.setTextAlignment(Qt.AlignCenter)
-
+                
                 item.setBackground(QBrush(검정색))
-                item.setForeground(QBrush(녹색))                
+
+                if realdata['szTrCode'] == 'OH0' or realdata['szTrCode'] == 'EH0':
+                    item.setForeground(QBrush(적색))
+                else:
+                    item.setForeground(QBrush(녹색))                
 
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
 
