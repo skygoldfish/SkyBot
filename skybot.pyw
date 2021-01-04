@@ -19604,7 +19604,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.realtime_data_worker.CancelRealData('YOC')
                         self.realtime_data_worker.CancelRealData('YS3')
                     else:
-                        pass
+                        Myprocess.CancelRealData('YJ')
+                        Myprocess.CancelRealData('YFC')
+                        Myprocess.CancelRealData('YOC')
+                        Myprocess.CancelRealData('YS3')
 
                     if TTS and TARGET_MONTH_SELECT == 'CM':
                         playsound( "Doorbell.wav" )
