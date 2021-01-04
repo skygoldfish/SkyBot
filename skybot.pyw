@@ -344,6 +344,7 @@ NM_FUT_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Next Month Fut
 NM_OPT_PRICE = parser.getboolean('RealTime Request Item Switch', 'Next Month Option Price')
 NM_OPT_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Next Month Option Quote')
 NM_OPT_QUOTE1 = parser.getboolean('RealTime Request Item Switch', 'Next Month Option Quote1')
+KOSPI_KOSDAQ = parser.getboolean('RealTime Request Item Switch', 'KOSPI & KOSDAQ')
 SUPPLY_DEMAND = parser.getboolean('RealTime Request Item Switch', 'Supply & Demand')
 DOW_CHK = parser.getboolean('RealTime Request Item Switch', 'DOW')
 SP500_CHK = parser.getboolean('RealTime Request Item Switch', 'S&P 500')
@@ -2227,7 +2228,7 @@ if not MULTIPROCESS:
 
             elif type == 'IJ':
                 # KOSPI/KOSPI200/KOSDAQ 지수 요청취소
-                self.IJ.UnadviseRealData()
+                self.IJ.UnadviseRealDataWithKey(code)
 
             elif type == 'S3':
                 # KOSPI 주요업체(SAMSUNG) 체결 요청취소
@@ -15583,18 +15584,28 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 장운영 정보를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
 
-                # KOSPI/KOSPI200/KOSDAQ 지수요청
+                # KOSPI200 지수요청
                 if not MULTIPROCESS:
-                    self.realtime_data_worker.RequestRealData('IJ', KOSPI)
                     self.realtime_data_worker.RequestRealData('IJ', KOSPI200)
-                    self.realtime_data_worker.RequestRealData('IJ', KOSDAQ)
                 else:
-                    Myprocess.RequestRealData('IJ', KOSPI)
                     Myprocess.RequestRealData('IJ', KOSPI200)
-                    Myprocess.RequestRealData('IJ', KOSDAQ)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI/KOSPI200/KOSDAQ 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI200 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
+
+                if KOSPI_KOSDAQ:
+
+                    if not MULTIPROCESS:
+                        self.realtime_data_worker.RequestRealData('IJ', KOSPI)
+                        self.realtime_data_worker.RequestRealData('IJ', KOSDAQ)
+                    else:
+                        Myprocess.RequestRealData('IJ', KOSPI)
+                        Myprocess.RequestRealData('IJ', KOSDAQ)
+
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI/KOSDAQ 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                else:
+                    pass
 
                 # SAMSUNG 체결지수 요청
                 if not MULTIPROCESS:
@@ -23479,6 +23490,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_nm_opt_price.setChecked(NM_OPT_PRICE)
         self.checkBox_nm_opt_quote.setChecked(NM_OPT_QUOTE)
         self.checkBox_nm_opt_quote_1.setChecked(NM_OPT_QUOTE1)
+        self.checkBox_kospi_kosdaq.setChecked(KOSPI_KOSDAQ)
         self.checkBox_supply_demand.setChecked(SUPPLY_DEMAND)
         self.checkBox_dow.setChecked(DOW_CHK)
         self.checkBox_sp500.setChecked(SP500_CHK)
@@ -23509,6 +23521,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_nm_opt_price.stateChanged.connect(self.checkBox_nm_opt_price_checkState)
         self.checkBox_nm_opt_quote.stateChanged.connect(self.checkBox_nm_opt_quote_checkState)
         self.checkBox_nm_opt_quote_1.stateChanged.connect(self.checkBox_nm_opt_quote_1_checkState)
+        self.checkBox_kospi_kosdaq.stateChanged.connect(self.checkBox_kospi_kosdaq_checkState)
         self.checkBox_supply_demand.stateChanged.connect(self.checkBox_supply_demand_checkState)
         self.checkBox_dow.stateChanged.connect(self.checkBox_dow_checkState)
         self.checkBox_sp500.stateChanged.connect(self.checkBox_sp500_checkState)
@@ -23951,6 +23964,46 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                     Myprocess.CancelRealData(OPT_HO)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가요청(내가 {3}개, 외가 {4}개)을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
+
+    def checkBox_kospi_kosdaq_checkState(self):
+
+        dt = datetime.datetime.now()
+
+        global KOSPI_KOSDAQ
+
+        if self.checkBox_kospi_kosdaq.isChecked() == True:
+
+            KOSPI_KOSDAQ = True
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                if not MULTIPROCESS:
+                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.RequestRealData('IJ', KOSPI)
+                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.RequestRealData('IJ', KOSDAQ)
+                else:
+                    Myprocess.RequestRealData('IJ', KOSPI)
+                    Myprocess.RequestRealData('IJ', KOSDAQ)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI, KOSDAQ 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
+        else:
+            KOSPI_KOSDAQ = False
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+
+                if not MULTIPROCESS:
+                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealData('IJ', KOSPI)
+                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealData('IJ', KOSDAQ)
+                else:
+                    Myprocess.CancelRealData('IJ', KOSPI)
+                    Myprocess.CancelRealData('IJ', KOSDAQ)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI, KOSDAQ 지수 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
