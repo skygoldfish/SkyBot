@@ -15521,6 +15521,28 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 장운영 정보를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
 
+                # KOSPI/KOSPI200/KOSDAQ 지수요청
+                if not MULTIPROCESS:
+                    self.realtime_data_worker.RequestRealData('IJ', KOSPI)
+                    self.realtime_data_worker.RequestRealData('IJ', KOSPI200)
+                    self.realtime_data_worker.RequestRealData('IJ', KOSDAQ)
+                else:
+                    Myprocess.RequestRealData('IJ', KOSPI)
+                    Myprocess.RequestRealData('IJ', KOSPI200)
+                    Myprocess.RequestRealData('IJ', KOSDAQ)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI/KOSPI200/KOSDAQ 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
+
+                # SAMSUNG 체결지수 요청
+                if not MULTIPROCESS:
+                    self.realtime_data_worker.RequestRealData('S3', SAMSUNG)
+                else:
+                    Myprocess.RequestRealData('S3', SAMSUNG)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] SAMSUNG 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
+
                 # 지수선물 예상체결 요청
                 if not MULTIPROCESS:
                     self.realtime_data_worker.RequestRealData('YFC', FUT_CODE)
