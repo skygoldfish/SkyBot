@@ -15618,6 +15618,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if pre_start:
 
+                    # KOSPI200/FUTURES 예상지수 요청
+                    if not MULTIPROCESS:
+                        self.realtime_data_worker.RequestRealData('YJ', KOSPI200)
+                        self.realtime_data_worker.RequestRealData('YJ', FUTURES)
+                    else:
+                        Myprocess.RequestRealData('YJ', KOSPI200)
+                        Myprocess.RequestRealData('YJ', FUTURES)
+
                     # 지수선물 예상체결 요청
                     if not MULTIPROCESS:
                         self.realtime_data_worker.RequestRealData('YFC', FUT_CODE)
@@ -20058,7 +20066,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     elif result['업종코드'] == FUTURES:
 
-                        print('선물 예상지수 : ', result['예상지수'])
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] YJ 선물 예상지수 = {3}\r'.format(adj_hour, adj_min, adj_sec, result['예상지수'])
+                        self.textBrowser.append(txt)
 
                     else:
                         pass
