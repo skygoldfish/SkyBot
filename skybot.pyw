@@ -15612,7 +15612,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         for i in range(CM_OPT_LENGTH):
                             Myprocess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
                             Myprocess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
-                            
+
                             # 지수옵션 예상체결 요청
                             if pre_start:
                                 Myprocess.RequestRealData('YOC', CM_CALL_CODE[i])
@@ -36000,8 +36000,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 print('멀티프로세스 실시간요청 모두 취소...')
                 Myprocess.CancelAllRealData()
+                print('멀티프로세스 서버연결 해지...')
+                Myprocess.connection.disconnect()
                 QTest.qWait(10)
-                print('멀티프로세싱 쓰레드 종료...')
+                print('멀티프로세스 쓰레드 종료...')
                 self.mp_consumer.terminate()
                 Myprocess.shutdown()
 
