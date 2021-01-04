@@ -35959,6 +35959,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 print('서버연결 해지...')
                 self.connection.disconnect()
             else:
+                print('멀티프로세스 실시간요청 모두 취소...')
+                Myprocess.CancelAllRealData()
+                QTest.qWait(10)
                 print('멀티프로세싱 쓰레드 종료...')
                 self.mp_consumer.terminate()
                 Myprocess.shutdown()
