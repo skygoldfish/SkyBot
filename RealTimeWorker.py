@@ -495,7 +495,7 @@ class RealTimeWorker(mp.Process):
 
         elif type == 'IJ':
             # KOSPI/KOSPI200/KOSDAQ 지수 요청취소
-            self.IJ.UnadviseRealData()
+            self.IJ.UnadviseRealDataWithKey(code)
 
         elif type == 'S3':
             # KOSPI 주요업체(SAMSUNG) 체결 요청취소

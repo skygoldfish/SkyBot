@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>301</width>
-    <height>641</height>
+    <height>652</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>20</x>
      <y>10</y>
      <width>261</width>
-     <height>621</height>
+     <height>631</height>
     </rect>
    </property>
    <property name="font">
@@ -40,8 +40,8 @@
      <rect>
       <x>10</x>
       <y>30</y>
-      <width>245</width>
-      <height>581</height>
+      <width>241</width>
+      <height>591</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -196,6 +196,20 @@
        </property>
        <property name="text">
         <string>차월물 옵션호가</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="checkBox_kospi_kosdaq">
+       <property name="font">
+        <font>
+         <family>Consolas</family>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>KOSPI/KOSDAQ 지수</string>
        </property>
       </widget>
      </item>
