@@ -430,7 +430,7 @@ class RealTimeWorker(mp.Process):
 
         elif type == 'OVH':
             # 해외선물 호가 실시간 요청
-            self.OVC.AdviseRealData(code)
+            self.OVH.AdviseRealData(code)
 
         elif type == 'NWS':
             # 실시간 뉴스요청
@@ -551,6 +551,7 @@ class RealTimeWorker(mp.Process):
         self.PM.UnadviseRealData()
 
         self.OVC.UnadviseRealData()
+        self.OVH.UnadviseRealData()
         self.NWS.UnadviseRealData()     
 
     def run(self):
