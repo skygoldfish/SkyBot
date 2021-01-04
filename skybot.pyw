@@ -15379,21 +15379,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_call_information_graph.at[0, 'volume'] = 0
                 df_put_information_graph.at[0, 'volume'] = 0
                 
-                df_call_information_graph.at[0, 'hoga_remainder_ratio'] = 0
-                df_put_information_graph.at[0, 'hoga_remainder_ratio'] = 0
+                # 본월물 옵션 호가잔량비 초기화(초기값을 1.0으로 해야 장중 최소값을 구할수 있다.)
+                df_call_information_graph.at[0, 'hoga_remainder_ratio'] = 1.0
+                df_put_information_graph.at[0, 'hoga_remainder_ratio'] = 1.0
 
-                # 본월물, 차월물 호가잔량비 초기화
-                df_futures_graph.at[0, 'c_hoga_remainder_ratio'] = 0
-                df_futures_graph.at[0, 'n_hoga_remainder_ratio'] = 0
+                # 본월물, 차월물 선물 호가잔량비 초기화
+                df_futures_graph.at[0, 'c_hoga_remainder_ratio'] = 1.0
+                df_futures_graph.at[0, 'n_hoga_remainder_ratio'] = 1.0
 
                 # 해외선물 호가 초기화
-                df_sp500_graph.at[0, 'hoga_remainder_ratio'] = 0
-                df_dow_graph.at[0, 'hoga_remainder_ratio'] = 0
-                df_nasdaq_graph.at[0, 'hoga_remainder_ratio'] = 0
-                df_wti_graph.at[0, 'hoga_remainder_ratio'] = 0
-                df_eurofx_graph.at[0, 'hoga_remainder_ratio'] = 0
-                df_hangseng_graph.at[0, 'hoga_remainder_ratio'] = 0
-                df_gold_graph.at[0, 'hoga_remainder_ratio'] = 0
+                df_sp500_graph.at[0, 'hoga_remainder_ratio'] = 1.0
+                df_dow_graph.at[0, 'hoga_remainder_ratio'] = 1.0
+                df_nasdaq_graph.at[0, 'hoga_remainder_ratio'] = 1.0
+                df_wti_graph.at[0, 'hoga_remainder_ratio'] = 1.0
+                df_eurofx_graph.at[0, 'hoga_remainder_ratio'] = 1.0
+                df_hangseng_graph.at[0, 'hoga_remainder_ratio'] = 1.0
+                df_gold_graph.at[0, 'hoga_remainder_ratio'] = 1.0
                 
                 콜_순미결합 = df_call['순미결'].sum()
                 풋_순미결합 = df_put['순미결'].sum()
