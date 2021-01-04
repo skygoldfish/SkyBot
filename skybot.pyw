@@ -15596,6 +15596,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.realtime_data_worker.RequestRealData('IJ', KOSPI200)
                 else:
                     Myprocess.RequestRealData('IJ', KOSPI200)
+                    #Myprocess.RequestRealData('IJ', DOW)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI200 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
@@ -21110,8 +21111,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         kosdaq_price = round(float(result['지수']), 2)
                     else:
                         pass                    
-                else:
-                    pass
+                else:                    
+                    print('IJ 업종코드 = ', result['업종코드'])
 
             elif szTrCode == 'BM_':
 
