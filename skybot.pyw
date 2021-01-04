@@ -4854,13 +4854,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             # 증권사 서버초기화(오전 7시 10분경)전에 프로그램을 미리 오프라인으로 전환하여야 Crash 발생안함
             if (not flag_internet_connection_broken and not flag_service_provider_broken):
+
+                if MULTIPROCESS:
+                    online_state = Myprocess.Check_Online()
+                else:
+                    online_state = self.parent.connection.IsConnected()
                 
                 if NightTime:
 
                     # 장종료 1분후에 프로그램을 오프라인으로 전환시킴
                     if yagan_service_terminate and 서버시간 >= (6 * 3600 + 1 * 60):
 
-                        if self.parent.connection.IsConnected():
+                        if online_state:
 
                             SP500_당일종가 = SP500_현재가
                             DOW_당일종가 = DOW_현재가
@@ -4982,7 +4987,35 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 flag_offline = True
 
                                 self.KillScoreBoardAllThread()
-                                self.parent.connection.disconnect()
+
+                                if MULTIPROCESS:
+
+                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 실시간요청을 모두 취소합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                                    self.textBrowser.append(txt)
+                                    print(txt)
+
+                                    Myprocess.CancelAllRealData()
+
+                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 서버연결을 해지합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                                    self.textBrowser.append(txt)
+                                    print(txt)
+
+                                    Myprocess.connection.disconnect()
+                                    QTest.qWait(10)
+
+                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 쓰레드를 종료합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                                    self.textBrowser.append(txt)
+                                    print(txt)
+
+                                    self.mp_consumer.terminate()
+
+                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스를 종료합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                                    self.textBrowser.append(txt)
+                                    print(txt)
+
+                                    Myprocess.shutdown()
+                                else:
+                                    self.parent.connection.disconnect()
                             else:
                                 pass
                         else:
@@ -5016,8 +5049,36 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 
                                 flag_offline = True
 
-                                self.KillScoreBoardAllThread()                                                        
-                                self.parent.connection.disconnect()
+                                self.KillScoreBoardAllThread()
+
+                                if MULTIPROCESS:
+
+                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 실시간요청을 모두 취소합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                                    self.textBrowser.append(txt)
+                                    print(txt)
+
+                                    Myprocess.CancelAllRealData()
+
+                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 서버연결을 해지합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                                    self.textBrowser.append(txt)
+                                    print(txt)
+
+                                    Myprocess.connection.disconnect()
+                                    QTest.qWait(10)
+
+                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 쓰레드를 종료합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                                    self.textBrowser.append(txt)
+                                    print(txt)
+
+                                    self.mp_consumer.terminate()
+
+                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스를 종료합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                                    self.textBrowser.append(txt)
+                                    print(txt)
+
+                                    Myprocess.shutdown()
+                                else:
+                                    self.parent.connection.disconnect()
                             else:
                                 pass
                         else:
@@ -23348,7 +23409,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.parent.textBrowser.append(txt)
 
                 self.realtime_data_worker.CancelAllRealData()            
-                QTest.qWait(100)
+                QTest.qWait(10)
 
                 self.realtime_data_worker.terminate()
                 print('realtime_data_worker is terminated at KillScoreBoardAllThread...')
@@ -35708,10 +35769,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if trdata[0] == 'LOGIN':
 
-                self.connection = Myprocess.Check_Online()
+                self.connection = Myprocess.connection
 
-                txt = '백그라운드 로그인 성공 !!!\r'
-                self.textBrowser.append(txt)
+                if self.connection.IsConnected():
+
+                    txt = '백그라운드 로그인 성공 !!!\r'
+                    self.textBrowser.append(txt)
+                else:
+                    pass
 
                 self.statusbar.showMessage(trdata[1])
                 playsound( "Doorbell.wav" )
@@ -35765,13 +35830,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 flag_heartbeat = True
 
-                item = QTableWidgetItem("{0}".format('HB.'))
-                item.setTextAlignment(Qt.AlignCenter)
+                if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
 
-                item.setBackground(QBrush(검정색))
-                item.setForeground(QBrush(노란색))         
+                    item = QTableWidgetItem("{0}".format('HB.'))
+                    item.setTextAlignment(Qt.AlignCenter)
 
-                self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
+                    item.setBackground(QBrush(검정색))
+                    item.setForeground(QBrush(노란색))         
+
+                    self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
+                else:
+                    pass
             else:
                 pass
 
@@ -35904,26 +35973,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if dt.second == 30: # 매 30초 마다(1분 주기)            
 
             try:
-                if not MULTIPROCESS:
-                    if self.connection is not None:
+                if self.connection is not None:
 
-                        if self.connection.IsConnected():
+                    if self.connection.IsConnected():
+
+                        if not MULTIPROCESS:
                             msg = "온라인"
-
                             # 현재시간 조회
                             self.XQ_t0167.Query()
                         else:
-                            msg = "오프라인"
-                else:
-                    if Myprocess.connection is not None:
-
-                        if Myprocess.Check_Online():
                             msg = "백그라운드 온라인"
-
                             # 현재시간 조회
-                            Myprocess.RequestTRData('t0167')                                
-                        else:
-                            msg = "백그라운드 오프라인"
+                            Myprocess.RequestTRData('t0167') 
+                    else:
+                        msg = "오프라인"
 
                 self.statusbar.showMessage(msg)
                 
