@@ -4592,7 +4592,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
             
             if flag_realdata_update_is_running:
-                print('flag_realdata_update_is_running in update_screen =', flag_realdata_update_is_running)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] flag_realdata_update_is_running at update screen is {3}\r'.format(dt.hour, dt.minute, dt.second, flag_realdata_update_is_running)
+                self.textBrowser.append(txt)
             else:
                 pass
 
@@ -31437,7 +31438,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_time.setText(txt)
 
         if flag_realdata_update_is_running:
-            print('flag_realdata_update_is_running in update_bigchart =', flag_realdata_update_is_running)
+            
+            txt = '[{0:02d}:{1:02d}:{2:02d}] flag_realdata_update_is_running at update bigchart is {3}\r'.format(dt.hour, dt.minute, dt.second, flag_realdata_update_is_running)
+
+            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
+                self.parent.dialog['선물옵션전광판'].textBrowser.append(txt)
+            else:
+                pass
         else:
             pass
         
