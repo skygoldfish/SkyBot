@@ -20090,6 +20090,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     elif result['업종코드'] == FUTURES:
 
+                        # YFC로 선물 예상지수 내려옴, 여기로 안옴...
                         txt = '[{0:02d}:{1:02d}:{2:02d}] YJ 선물 예상시가 = {3}\r'.format(int(result['시간'][0:2]), int(result['시간'][2:4]), int(result['시간'][4:6]), result['예상지수'])
                         self.textBrowser.append(txt)
                     else:
