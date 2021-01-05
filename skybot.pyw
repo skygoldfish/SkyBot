@@ -22058,6 +22058,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     DOW_저가 =  int(result['저가'])
                     DOW_고가 =  int(result['고가'])
                     DOW_진폭 = int(DOW_고가 - DOW_저가)
+                    
+                    if DOW_전일종가 > 0 and not NightTime:                        
+                        DOW_등락율 = ((DOW_현재가 - DOW_전일종가) / DOW_전일종가) * 100
+                    else:
+                        pass
+
+                    temp = plot_drate_scale_factor * DOW_등락율
+
+                    # 등락율에 스파이크 발생하는 문제 임시해결
+                    if temp > 50:
+                        temp = 50.0
+                    else:
+                        pass
+                    
+                    df_dow_graph.at[ovc_x_idx, 'drate'] = temp
 
                     if not flag_checkBox_HS:
                         # 1T OHLC 생성
@@ -22159,25 +22174,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_dow_graph['OE_BASE'] = dow_Ichimoku.ichimoku_base_line()
                         df_dow_graph['OE_CONV'] = dow_Ichimoku.ichimoku_conversion_line()
                     else:
-                        pass
-                    
-                    if DOW_전일종가 > 0:
-                        if not NightTime:
-                            DOW_등락율 = ((DOW_현재가 - DOW_전일종가) / DOW_전일종가) * 100
-                        else:
-                            DOW_등락율 = result['등락율']
-                    else:
-                        DOW_등락율 = result['등락율']
-
-                    temp = plot_drate_scale_factor * DOW_등락율
-
-                    # 등락율에 스파이크 발생하는 문제 임시해결
-                    if temp > 50:
-                        temp = 50.0
-                    else:
-                        pass
-                    
-                    df_dow_graph.at[ovc_x_idx, 'drate'] = temp                                 
+                        pass                                                
 
                     if DOW_시가 == 0:
 
@@ -22292,6 +22289,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     NASDAQ_고가 =  result['고가']                    
                     NASDAQ_진폭 = NASDAQ_고가 - NASDAQ_저가
                     
+                    if NASDAQ_전일종가 > 0 and not NightTime:
+                        NASDAQ_등락율 = ((NASDAQ_현재가 - NASDAQ_전일종가) / NASDAQ_전일종가) * 100
+                    else:
+                        pass
+                    
                     if not flag_checkBox_HS:
                         # 1T OHLC 생성
                         df_nasdaq_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
@@ -22393,14 +22395,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
                     
-                    if NASDAQ_전일종가 > 0:
-                        if not NightTime:
-                            NASDAQ_등락율 = ((NASDAQ_현재가 - NASDAQ_전일종가) / NASDAQ_전일종가) * 100
-                        else:
-                            NASDAQ_등락율 = result['등락율']
-                    else:
-                        NASDAQ_등락율 = result['등락율']
-
                     if NASDAQ_시가 == 0:
 
                         if result['전일대비기호'] == '5':
@@ -22505,6 +22499,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     SP500_저가 =  result['저가']
                     SP500_고가 =  result['고가']
                     SP500_진폭 = SP500_고가 - SP500_저가
+                    
+                    if SP500_전일종가 > 0 and not NightTime:
+                        SP500_등락율 = ((SP500_현재가 - SP500_전일종가) / SP500_전일종가) * 100
+                    else:
+                        pass
 
                     체결가격 = locale.format('%.2f', SP500_현재가, 1)
 
@@ -22608,14 +22607,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_sp500_graph['OE_CONV'] = sp500_Ichimoku.ichimoku_conversion_line()
                     else:
                         pass
-
-                    if SP500_전일종가 > 0:
-                        if not NightTime:
-                            SP500_등락율 = ((SP500_현재가 - SP500_전일종가) / SP500_전일종가) * 100
-                        else:
-                            SP500_등락율 = result['등락율']
-                    else:
-                        SP500_등락율 = result['등락율']                   
 
                     if SP500_시가 == 0:
 
@@ -22722,6 +22713,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     WTI_고가 =  result['고가']
                     WTI_진폭 = round((result['고가'] - result['저가']), 2)
                     
+                    if WTI_전일종가 > 0 and not NightTime:
+                        WTI_등락율 = ((WTI_현재가 - WTI_전일종가) / WTI_전일종가) * 100
+                    else:
+                        pass
+                    
                     체결가격 = locale.format('%.2f', WTI_현재가, 1)
 
                     if not flag_checkBox_HS:
@@ -22823,15 +22819,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_wti_graph['OE_BASE'] = wti_Ichimoku.ichimoku_base_line()
                         df_wti_graph['OE_CONV'] = wti_Ichimoku.ichimoku_conversion_line()
                     else:
-                        pass
-
-                    if WTI_전일종가 > 0:
-                        if not NightTime:
-                            WTI_등락율 = ((WTI_현재가 - WTI_전일종가) / WTI_전일종가) * 100
-                        else:
-                            WTI_등락율 = result['등락율']
-                    else:
-                        WTI_등락율 = result['등락율']                   
+                        pass         
 
                     if WTI_시가 == 0:
 
@@ -22932,21 +22920,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                     HANGSENG_현재가 = int(result['체결가격'])
                     HANGSENG_전일대비 = int(result['체결가격'] - HANGSENG_종가)                    
-                    NASDAQ_등락율 = result['등락율']
+                    HANGSENG_등락율 = result['등락율']
 
                     HANGSENG_저가 =  int(result['저가'])
                     HANGSENG_고가 =  int(result['고가'])                    
                     HANGSENG_진폭 = int(result['고가'] - result['저가'])
+                    
+                    if HANGSENG_전일종가 > 0 and not NightTime:
+                        HANGSENG_등락율 = ((result['체결가격'] - HANGSENG_전일종가) / HANGSENG_전일종가) * 100
+                    else:
+                        pass
 
                     체결가격 = locale.format('%d', result['체결가격'], 1)
-
-                    if HANGSENG_전일종가 > 0:
-                        if not NightTime:
-                            HANGSENG_등락율 = ((result['체결가격'] - HANGSENG_전일종가) / HANGSENG_전일종가) * 100
-                        else:
-                            HANGSENG_등락율 = result['등락율']
-                    else:
-                        HANGSENG_등락율 = result['등락율']
 
                     if HANGSENG_시가 == 0:
 
@@ -23053,15 +23038,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     EUROFX_고가 =  result['고가']                    
                     EUROFX_진폭 = round((result['고가'] - result['저가']), 2)
 
-                    체결가격 = result['체결가격']
-
-                    if EUROFX_전일종가 > 0:
-                        if not NightTime:
-                            EUROFX_등락율 = ((result['체결가격'] - EUROFX_전일종가) / EUROFX_전일종가) * 100
-                        else:
-                            EUROFX_등락율 = result['등락율']
+                    if EUROFX_전일종가 > 0 and not NightTime:
+                        EUROFX_등락율 = ((result['체결가격'] - EUROFX_전일종가) / EUROFX_전일종가) * 100
                     else:
-                        EUROFX_등락율 = result['등락율']
+                        pass
+
+                    체결가격 = result['체결가격']
 
                     if EUROFX_시가 == 0:
 
@@ -23167,16 +23149,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     GOLD_저가 =  result['저가']
                     GOLD_고가 =  result['고가']                    
                     GOLD_진폭 = result['고가'] - result['저가']
-                    
-                    체결가격 = locale.format('%.2f', result['체결가격'], 1)                   
 
-                    if GOLD_전일종가 > 0:
-                        if not NightTime:
-                            GOLD_등락율 = ((result['체결가격'] - GOLD_전일종가) / GOLD_전일종가) * 100
-                        else:
-                            GOLD_등락율 = result['등락율']
+                    if GOLD_전일종가 > 0 and not NightTime:
+                        GOLD_등락율 = ((result['체결가격'] - GOLD_전일종가) / GOLD_전일종가) * 100
                     else:
-                        GOLD_등락율 = result['등락율']
+                        pass
+                    
+                    체결가격 = locale.format('%.2f', result['체결가격'], 1)
 
                     if GOLD_시가 == 0:
 
