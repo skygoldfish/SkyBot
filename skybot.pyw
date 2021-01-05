@@ -4883,9 +4883,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             HANGSENG_당일종가 = HANGSENG_현재가
                             GOLD_당일종가 = GOLD_현재가
 
+                            CME_당일종가 = self.fut_realdata['현재가']
+
                             # 다음날 해외선물 피봇계산을 위해 종료시(오전 6시) 마지막 값 저장
-                            #txt = '[{0:02d}:{1:02d}:{2:02d}] CME 종가 = {3:.2f}\r'.format(adj_hour, adj_min, adj_sec, CME_당일종가)
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] CME 종가 = {3:.2f}\r'.format(adj_hour, adj_min, adj_sec, self.fut_realdata['현재가'])
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] CME 종가 = {3:.2f}\r'.format(adj_hour, adj_min, adj_sec, CME_당일종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
@@ -5126,7 +5127,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.textBrowser.append(txt)
                 else:
                     pass
-                    #print(txt)
             else:
                 pass            
         except:
@@ -5145,10 +5145,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if TARGET_MONTH_SELECT == 'CM':
 
             if flag_call_strong:
-                txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call Strong({3:.2f}/{4:.2f}) ▲\r".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
+                txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call Strong({3:.2f}/{4:.2f}) ▲\r".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 선물_등락율, DOW_등락율)
                 self.parent.textBrowser.append(txt)
             elif flag_put_strong:
-                txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Put Strong({3:.2f}/{4:.2f}) ▼\r".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
+                txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Put Strong({3:.2f}/{4:.2f}) ▼\r".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 선물_등락율, DOW_등락율)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -5210,10 +5210,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 '''
             else:
                 vb_txt = ''
-        else:
-            pass
-
-        if TARGET_MONTH_SELECT == 'NM':
 
             if call_ol_count > call_oh_count and put_ol_count < put_oh_count:
 
@@ -19796,6 +19792,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     txt = '[{0:02d}:{1:02d}:{2:02d}] WTI 야간시작가 = {3}\r'.format(adj_hour, adj_min, adj_sec, WTI_야간_시작가)
                     self.textBrowser.append(txt)
 
+                # 미국 주식장 시작
+                elif result['장구분'] == '9' and result['장상태'] == '21':
+
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 미국 주식장이 시작됩니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    self.textBrowser.append(txt)
+
                 # 현물 장마감 5분전
                 elif result['장구분'] == '1' and result['장상태'] == '44':
 
@@ -22159,8 +22161,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             DOW_등락율 = result['등락율']
                     else:
                         DOW_등락율 = result['등락율']
+
+                    temp = plot_drate_scale_factor * DOW_등락율
+
+                    # 등락율에 스파이크 발생하는 문제 임시해결
+                    if temp > 50:
+                        temp = 50.0
+                    else:
+                        pass
                     
-                    df_dow_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * DOW_등락율                                  
+                    df_dow_graph.at[ovc_x_idx, 'drate'] = temp                                 
 
                     if DOW_시가 == 0:
 
@@ -31481,7 +31491,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot1_time_line.setValue(ovc_x_idx)
 
-                txt = 'min: {0:.2f}, mean: {1:.2f}, max: {2:.2f}'.format(df_futures_graph['c_hoga_remainder_ratio'].min(), df_futures_graph['c_hoga_remainder_ratio'].mean(), df_futures_graph['c_hoga_remainder_ratio'].max())
+                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(df_futures_graph['c_hoga_remainder_ratio'].min(), df_futures_graph['c_hoga_remainder_ratio'].mean(), df_futures_graph['c_hoga_remainder_ratio'].max())
                 self.label_16.setText(txt)
 
                 txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
@@ -31498,7 +31508,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_17.setText(txt)
 
-                txt = 'min: {0:.2f}, mean: {1:.2f}, max: {2:.2f}'.format(df_futures_graph['n_hoga_remainder_ratio'].min(), df_futures_graph['n_hoga_remainder_ratio'].mean(), df_futures_graph['n_hoga_remainder_ratio'].max())
+                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(df_futures_graph['n_hoga_remainder_ratio'].min(), df_futures_graph['n_hoga_remainder_ratio'].mean(), df_futures_graph['n_hoga_remainder_ratio'].max())
                 self.label_18.setText(txt)
 
                 self.plot1_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'].to_numpy())
@@ -32267,7 +32277,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot2_time_line.setValue(ovc_x_idx)
 
-                txt = 'min: {0:.2f}, meam: {1:.2f}, max: {2:.2f}'.format(df_futures_graph['c_hoga_remainder_ratio'].min(), df_futures_graph['c_hoga_remainder_ratio'].mean(), df_futures_graph['c_hoga_remainder_ratio'].max())
+                txt = ' min: {0:.2f}, meam: {1:.2f}, max: {2:.2f} '.format(df_futures_graph['c_hoga_remainder_ratio'].min(), df_futures_graph['c_hoga_remainder_ratio'].mean(), df_futures_graph['c_hoga_remainder_ratio'].max())
                 self.label_26.setText(txt)
 
                 txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
@@ -32284,7 +32294,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_27.setText(txt)
 
-                txt = 'min: {0:.2f}, mean: {1:.2f}, max: {2:.2f}'.format(df_futures_graph['n_hoga_remainder_ratio'].min(), df_futures_graph['n_hoga_remainder_ratio'].mean(), df_futures_graph['n_hoga_remainder_ratio'].max())
+                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(df_futures_graph['n_hoga_remainder_ratio'].min(), df_futures_graph['n_hoga_remainder_ratio'].mean(), df_futures_graph['n_hoga_remainder_ratio'].max())
                 self.label_28.setText(txt)
 
                 self.plot2_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'].to_numpy())
@@ -32965,7 +32975,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot3_time_line.setValue(ovc_x_idx)
 
-                txt = 'min: {0:.2f}, meam: {1:.2f}, max: {2:.2f}'.format(df_futures_graph['c_hoga_remainder_ratio'].min(), df_futures_graph['c_hoga_remainder_ratio'].mean(), df_futures_graph['c_hoga_remainder_ratio'].max())
+                txt = ' min: {0:.2f}, meam: {1:.2f}, max: {2:.2f} '.format(df_futures_graph['c_hoga_remainder_ratio'].min(), df_futures_graph['c_hoga_remainder_ratio'].mean(), df_futures_graph['c_hoga_remainder_ratio'].max())
                 self.label_36.setText(txt)
 
                 txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
@@ -32982,7 +32992,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_37.setText(txt)
 
-                txt = 'min: {0:.2f}, mean: {1:.2f}, max: {2:.2f}'.format(df_futures_graph['n_hoga_remainder_ratio'].min(), df_futures_graph['n_hoga_remainder_ratio'].mean(), df_futures_graph['n_hoga_remainder_ratio'].max())
+                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(df_futures_graph['n_hoga_remainder_ratio'].min(), df_futures_graph['n_hoga_remainder_ratio'].mean(), df_futures_graph['n_hoga_remainder_ratio'].max())
                 self.label_38.setText(txt)
 
                 self.plot3_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'].to_numpy())
@@ -33621,7 +33631,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot4_time_line.setValue(ovc_x_idx)
 
-                txt = 'min: {0:.2f}, meam: {1:.2f}, max: {2:.2f}'.format(df_futures_graph['c_hoga_remainder_ratio'].min(), df_futures_graph['c_hoga_remainder_ratio'].mean(), df_futures_graph['c_hoga_remainder_ratio'].max())
+                txt = ' min: {0:.2f}, meam: {1:.2f}, max: {2:.2f} '.format(df_futures_graph['c_hoga_remainder_ratio'].min(), df_futures_graph['c_hoga_remainder_ratio'].mean(), df_futures_graph['c_hoga_remainder_ratio'].max())
                 self.label_46.setText(txt)
 
                 txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
@@ -33638,7 +33648,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_47.setText(txt)
 
-                txt = 'min: {0:.2f}, mean: {1:.2f}, max: {2:.2f}'.format(df_futures_graph['n_hoga_remainder_ratio'].min(), df_futures_graph['n_hoga_remainder_ratio'].mean(), df_futures_graph['n_hoga_remainder_ratio'].max())
+                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(df_futures_graph['n_hoga_remainder_ratio'].min(), df_futures_graph['n_hoga_remainder_ratio'].mean(), df_futures_graph['n_hoga_remainder_ratio'].max())
                 self.label_48.setText(txt)
 
                 self.plot4_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'].to_numpy())
@@ -34407,7 +34417,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot5_time_line.setValue(ovc_x_idx)
 
-                txt = 'min: {0:.2f}, meam: {1:.2f}, max: {2:.2f}'.format(df_futures_graph['c_hoga_remainder_ratio'].min(), df_futures_graph['c_hoga_remainder_ratio'].mean(), df_futures_graph['c_hoga_remainder_ratio'].max())
+                txt = ' min: {0:.2f}, meam: {1:.2f}, max: {2:.2f} '.format(df_futures_graph['c_hoga_remainder_ratio'].min(), df_futures_graph['c_hoga_remainder_ratio'].mean(), df_futures_graph['c_hoga_remainder_ratio'].max())
                 self.label_56.setText(txt)
 
                 txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
@@ -34424,7 +34434,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_57.setText(txt)
 
-                txt = 'min: {0:.2f}, mean: {1:.2f}, max: {2:.2f}'.format(df_futures_graph['n_hoga_remainder_ratio'].min(), df_futures_graph['n_hoga_remainder_ratio'].mean(), df_futures_graph['n_hoga_remainder_ratio'].max())
+                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(df_futures_graph['n_hoga_remainder_ratio'].min(), df_futures_graph['n_hoga_remainder_ratio'].mean(), df_futures_graph['n_hoga_remainder_ratio'].max())
                 self.label_58.setText(txt)
 
                 self.plot5_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'].to_numpy())
@@ -35098,7 +35108,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot6_time_line.setValue(ovc_x_idx)
 
-                txt = 'min: {0:.2f}, meam: {1:.2f}, max: {2:.2f}'.format(df_futures_graph['c_hoga_remainder_ratio'].min(), df_futures_graph['c_hoga_remainder_ratio'].mean(), df_futures_graph['c_hoga_remainder_ratio'].max())
+                txt = ' min: {0:.2f}, meam: {1:.2f}, max: {2:.2f} '.format(df_futures_graph['c_hoga_remainder_ratio'].min(), df_futures_graph['c_hoga_remainder_ratio'].mean(), df_futures_graph['c_hoga_remainder_ratio'].max())
                 self.label_66.setText(txt)
 
                 txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
@@ -35115,7 +35125,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_67.setText(txt)
 
-                txt = 'min: {0:.2f}, mean: {1:.2f}, max: {2:.2f}'.format(df_futures_graph['n_hoga_remainder_ratio'].min(), df_futures_graph['n_hoga_remainder_ratio'].mean(), df_futures_graph['n_hoga_remainder_ratio'].max())
+                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(df_futures_graph['n_hoga_remainder_ratio'].min(), df_futures_graph['n_hoga_remainder_ratio'].mean(), df_futures_graph['n_hoga_remainder_ratio'].max())
                 self.label_68.setText(txt)
 
                 self.plot6_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'].to_numpy())
@@ -35937,8 +35947,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
             else:
-                txt = '백그라운드 로그인 실패({0})!  다시 시도해주세요...'.format(trdata[0])
+                txt = '로그인 실패({0})!  로그인을 다시 시도합니다...'.format(trdata[0])
                 self.statusbar.showMessage(txt)
+
+                QTest.qWait(1000)
+                Myprocess.login()
 
             # 데이타를 전광판 다이얼로그로 전달(조회성 TR은 포어그라운드에서 처리가능, 이유?)
             '''
@@ -36064,6 +36077,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if not MULTIPROCESS:
             self.MyLogin()
         else:
+            QTest.qWait(100)
             Myprocess.login()
 
     def OnClockTick(self):

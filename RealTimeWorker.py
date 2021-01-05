@@ -187,6 +187,8 @@ class RealTimeWorker(mp.Process):
 
     def OnLogin(self, code, msg):
 
+        self.data = []
+
         if code == '0000':
 
             # COM 객체는 초기화시 객체생성하면 pickling error 발생 --> 로그인후 객체생성하면 해결됨(이유?)
@@ -244,7 +246,8 @@ class RealTimeWorker(mp.Process):
 
             self.dataQ.put(self.data, False)
         else:
-            print('로그인 실패...')
+            txt = '로그인 실패({0})...'.format(code)
+            print(txt)
             self.data.append(code)
             self.dataQ.put(self.data, False)
 
@@ -275,7 +278,6 @@ class RealTimeWorker(mp.Process):
     # 실시간데이타 수신 콜백함수
     def OnReceiveRealData(self, result):
 
-        #print(result)
         self.dataQ.put(result, False)
     
     def login(self):
