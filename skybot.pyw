@@ -2014,7 +2014,7 @@ class ScreenUpdateWorker(QThread):
 
         while True:
 
-            if not flag_realdata_update_is_running:
+            if flag_produce_queue_empty:
                 #txt = 'Main UI Update...'
                 self.trigger.emit()
 
@@ -24076,7 +24076,7 @@ class PlotUpdateWorker(QThread):
 
         while True:
 
-            if not flag_realdata_update_is_running:
+            if flag_produce_queue_empty:
                 #txt = 'Big Chart Update...'
                 self.trigger.emit()
 
