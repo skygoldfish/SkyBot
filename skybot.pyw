@@ -11172,70 +11172,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
 
                     flag_futures_ohlc_open = False
+
+                df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2 
             else:
-                pass                
-
-            # Bollinger Bands
-            df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2 
-            upper, middle, lower = talib.BBANDS(np.array(df_futures_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
-
-            df_futures_graph['BBUpper'] = upper
-            df_futures_graph['BBMiddle'] = middle
-            df_futures_graph['BBLower'] = lower
-
-            # MACD
-            # list of values for the Moving Average Type:  
-            # 0: MA_Type.SMA (simple)  
-            # 1: MA_Type.EMA (exponential)  
-            # 2: MA_Type.WMA (weighted)  
-            # 3: MA_Type.DEMA (double exponential)  
-            # 4: MA_Type.TEMA (triple exponential)  
-            # 5: MA_Type.TRIMA (triangular)  
-            # 6: MA_Type.KAMA (Kaufman adaptive)  
-            # 7: MA_Type.MAMA (Mesa adaptive)  
-            # 8: MA_Type.T3 (triple exponential T3)           
-
-            #macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_futures_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
-                #fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
-
-            #df_futures_graph['MACD'] = macd
-            #df_futures_graph['MACDSig'] = macdsignal
-            #df_futures_graph['MACDHist'] = macdhist
-
-            # Parabolic SAR
-            parabolic_sar = talib.SAR(np.array(df_futures_graph['high'], dtype=float), np.array(df_futures_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
-
-            # PSARIndicator 함수 오동작하는 듯...
-            #ta_psar = ta.trend.PSARIndicator(df_futures_graph['high'], df_futures_graph['low'], df_futures_graph['close'])        
-
-            df_futures_graph['PSAR'] = parabolic_sar
-            #df_futures_graph['TA_PSAR'] = ta_psar.psar()
-
-            # MAMA
-            mama, fama = talib.MAMA(np.array(df_futures_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
-
-            df_futures_graph['MAMA'] = mama
-            df_futures_graph['FAMA'] = fama
-
-            if df_futures_graph.at[ovc_x_idx, 'FAMA'] == df_futures_graph.at[ovc_x_idx, 'FAMA'] and df_futures_graph.at[ovc_x_idx, 'BBLower'] == df_futures_graph.at[ovc_x_idx, 'BBLower']:
-
-                if df_futures_graph.at[ovc_x_idx, 'FAMA'] < df_futures_graph.at[ovc_x_idx, 'BBLower']:
-                    df_futures_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_graph.at[ovc_x_idx, 'BBLower']
-                else:
-                    df_futures_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_graph.at[ovc_x_idx, 'FAMA']
-            else:
-                pass
-
-            # Ichimoku Indicator
-            #futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'], n1=9, n2=26, n3=52, visual=True)
-            futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'])
-
-            df_futures_graph['SPAN_A'] = futures_Ichimoku.ichimoku_a()
-            df_futures_graph['SPAN_B'] = futures_Ichimoku.ichimoku_b()
-
-            # 일목균형표의 기준선을 FAMA 대용으로 사용가능한지 확인필요!!!
-            df_futures_graph['OE_BASE'] = futures_Ichimoku.ichimoku_base_line()
-            df_futures_graph['OE_CONV'] = futures_Ichimoku.ichimoku_conversion_line()
+                pass            
         else:
             pass
         
@@ -19536,7 +19476,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def OnReceiveRealData(self, result):
         pass
     
-    @logging_time
+    #@logging_time
     def OVC_Update(self, result):
 
         global receive_real_ovc, OVC_체결시간, OVC_SEC, SERVER_HOUR, SERVER_MIN, SERVER_SEC
@@ -19638,11 +19578,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        # 체결량정보 제공안됨 !!!
-        #매도누적체결수량 = int(result['매도누적체결수량'])
-        #매수누적체결수량 = int(result['매수누적체결수량'])
-        #체결순매수 = 매수누적체결수량 - 매도누적체결수량
-
         if result['종목코드'] == DOW:
 
             df_dow_graph.at[ovc_x_idx, 'price'] = result['체결가격']
@@ -19670,107 +19605,57 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             df_dow_graph.at[ovc_x_idx, 'drate'] = temp
 
-            if not flag_checkBox_HS:
-                # 1T OHLC 생성
-                df_dow_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
+            # 1T OHLC 생성
+            df_dow_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
 
-                if DOW_현재가 > 0:
+            if DOW_현재가 > 0:
 
-                    if OVC_SEC == 0:
+                if OVC_SEC == 0:
 
-                        if not flag_dow_ohlc_open:
+                    if not flag_dow_ohlc_open:
 
-                            df_dow_graph.at[ovc_x_idx, 'open'] = DOW_현재가
-                            df_dow_graph.at[ovc_x_idx, 'high'] = DOW_현재가
-                            df_dow_graph.at[ovc_x_idx, 'low'] = DOW_현재가
-                            df_dow_graph.at[ovc_x_idx, 'middle'] = DOW_현재가
-                            df_dow_graph.at[ovc_x_idx, 'close'] = DOW_현재가
-                            df_dow_graph.at[ovc_x_idx, 'price'] = DOW_현재가
+                        df_dow_graph.at[ovc_x_idx, 'open'] = DOW_현재가
+                        df_dow_graph.at[ovc_x_idx, 'high'] = DOW_현재가
+                        df_dow_graph.at[ovc_x_idx, 'low'] = DOW_현재가
+                        df_dow_graph.at[ovc_x_idx, 'middle'] = DOW_현재가
+                        df_dow_graph.at[ovc_x_idx, 'close'] = DOW_현재가
+                        df_dow_graph.at[ovc_x_idx, 'price'] = DOW_현재가
 
-                            del DOW_현재가_버퍼[:]
+                        del DOW_현재가_버퍼[:]
 
-                            flag_dow_ohlc_open = True
-                        else:
-                            DOW_현재가_버퍼.append(DOW_현재가)                        
+                        flag_dow_ohlc_open = True
                     else:
-                        if df_dow_graph.at[ovc_x_idx, 'open'] != df_dow_graph.at[ovc_x_idx, 'open']:
-                            df_dow_graph.at[ovc_x_idx, 'open'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
-                            del DOW_현재가_버퍼[:]
-                        else:
-                            pass
+                        DOW_현재가_버퍼.append(DOW_현재가)                        
+                else:
+                    if df_dow_graph.at[ovc_x_idx, 'open'] != df_dow_graph.at[ovc_x_idx, 'open']:
+                        df_dow_graph.at[ovc_x_idx, 'open'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
+                        del DOW_현재가_버퍼[:]
+                    else:
+                        pass
 
-                        DOW_현재가_버퍼.append(DOW_현재가)
+                    DOW_현재가_버퍼.append(DOW_현재가)
+
+                    if max(DOW_현재가_버퍼) > 0:
+                        df_dow_graph.at[ovc_x_idx, 'high'] = max(DOW_현재가_버퍼)
+                    else:
+                        pass
+
+                    if min(DOW_현재가_버퍼) == 0:
 
                         if max(DOW_현재가_버퍼) > 0:
-                            df_dow_graph.at[ovc_x_idx, 'high'] = max(DOW_현재가_버퍼)
+                            df_dow_graph.at[ovc_x_idx, 'low'] = max(DOW_현재가_버퍼)
                         else:
                             pass
-
-                        if min(DOW_현재가_버퍼) == 0:
-
-                            if max(DOW_현재가_버퍼) > 0:
-                                df_dow_graph.at[ovc_x_idx, 'low'] = max(DOW_현재가_버퍼)
-                            else:
-                                pass
-                        else:
-                            df_dow_graph.at[ovc_x_idx, 'low'] = min(DOW_현재가_버퍼)
-
-                        df_dow_graph.at[ovc_x_idx, 'close'] = DOW_현재가
-
-                        flag_dow_ohlc_open = False  
-                else:
-                    pass                           
-
-                # Bollinger Bands
-                df_dow_graph.at[ovc_x_idx, 'middle'] = (df_dow_graph.at[ovc_x_idx, 'high'] + df_dow_graph.at[ovc_x_idx, 'low']) / 2
-                upper, middle, lower = talib.BBANDS(np.array(df_dow_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
-
-                df_dow_graph['BBUpper'] = upper
-                df_dow_graph['BBMiddle'] = middle
-                df_dow_graph['BBLower'] = lower
-
-                #macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_dow_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
-                    #fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
-
-                #df_dow_graph['MACD'] = macd
-                #df_dow_graph['MACDSig'] = macdsignal
-                #df_dow_graph['MACDHist'] = macdhist
-
-                # Parabolic SAR
-                parabolic_sar = talib.SAR(np.array(df_dow_graph['high'], dtype=float), np.array(df_dow_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
-
-                # PSARIndicator 함수 오동작하는 듯...
-                #ta_psar = ta.trend.PSARIndicator(df_dow_graph['high'], df_dow_graph['low'], df_dow_graph['close'])
-
-                df_dow_graph['PSAR'] = parabolic_sar
-                #df_dow_graph['TA_PSAR'] = ta_psar.psar()
-
-                # MAMA(약 32 샘플후에 출력값이 나옴)
-                mama, fama = talib.MAMA(np.array(df_dow_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
-
-                df_dow_graph['MAMA'] = mama
-                df_dow_graph['FAMA'] = fama
-                #df_dow_graph['A_FAMA'] = fama
-
-                if df_dow_graph.at[ovc_x_idx, 'FAMA'] == df_dow_graph.at[ovc_x_idx, 'FAMA'] and df_dow_graph.at[ovc_x_idx, 'BBLower'] == df_dow_graph.at[ovc_x_idx, 'BBLower']:
-
-                    if df_dow_graph.at[ovc_x_idx, 'FAMA'] < df_dow_graph.at[ovc_x_idx, 'BBLower']:
-                        df_dow_graph.at[ovc_x_idx, 'A_FAMA'] = df_dow_graph.at[ovc_x_idx, 'BBLower']
                     else:
-                        df_dow_graph.at[ovc_x_idx, 'A_FAMA'] = df_dow_graph.at[ovc_x_idx, 'FAMA']
-                else:
-                    pass
+                        df_dow_graph.at[ovc_x_idx, 'low'] = min(DOW_현재가_버퍼)
 
-                # Ichimoku Indicator
-                #dow_Ichimoku = ta.trend.IchimokuIndicator(df_dow_graph['high'], df_dow_graph['low'], n1=9, n2=26, n3=52, visual=True)
-                dow_Ichimoku = ta.trend.IchimokuIndicator(df_dow_graph['high'], df_dow_graph['low'])
+                    df_dow_graph.at[ovc_x_idx, 'close'] = DOW_현재가
 
-                df_dow_graph['SPAN_A'] = dow_Ichimoku.ichimoku_a()
-                df_dow_graph['SPAN_B'] = dow_Ichimoku.ichimoku_b()
-                df_dow_graph['OE_BASE'] = dow_Ichimoku.ichimoku_base_line()
-                df_dow_graph['OE_CONV'] = dow_Ichimoku.ichimoku_conversion_line()
+                    flag_dow_ohlc_open = False
+
+                df_dow_graph.at[ovc_x_idx, 'middle'] = (df_dow_graph.at[ovc_x_idx, 'high'] + df_dow_graph.at[ovc_x_idx, 'low']) / 2
             else:
-                pass                                                
+                pass                           
 
             if DOW_시가 == 0:
 
@@ -19889,108 +19774,59 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 NASDAQ_등락율 = ((NASDAQ_현재가 - NASDAQ_전일종가) / NASDAQ_전일종가) * 100
             else:
                 pass
-            
-            if not flag_checkBox_HS:
-                # 1T OHLC 생성
-                df_nasdaq_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
 
-                if NASDAQ_현재가 > 0:
+            # 1T OHLC 생성
+            df_nasdaq_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
 
-                    if OVC_SEC == 0:
+            if NASDAQ_현재가 > 0:
 
-                        if not flag_nasdaq_ohlc_open:
-                        
-                            df_nasdaq_graph.at[ovc_x_idx, 'open'] = NASDAQ_현재가
-                            df_nasdaq_graph.at[ovc_x_idx, 'high'] = NASDAQ_현재가
-                            df_nasdaq_graph.at[ovc_x_idx, 'low'] = NASDAQ_현재가
-                            df_nasdaq_graph.at[ovc_x_idx, 'middle'] = NASDAQ_현재가
-                            df_nasdaq_graph.at[ovc_x_idx, 'close'] = NASDAQ_현재가
-                            df_nasdaq_graph.at[ovc_x_idx, 'price'] = NASDAQ_현재가
+                if OVC_SEC == 0:
 
-                            del NASDAQ_현재가_버퍼[:]
+                    if not flag_nasdaq_ohlc_open:
+                    
+                        df_nasdaq_graph.at[ovc_x_idx, 'open'] = NASDAQ_현재가
+                        df_nasdaq_graph.at[ovc_x_idx, 'high'] = NASDAQ_현재가
+                        df_nasdaq_graph.at[ovc_x_idx, 'low'] = NASDAQ_현재가
+                        df_nasdaq_graph.at[ovc_x_idx, 'middle'] = NASDAQ_현재가
+                        df_nasdaq_graph.at[ovc_x_idx, 'close'] = NASDAQ_현재가
+                        df_nasdaq_graph.at[ovc_x_idx, 'price'] = NASDAQ_현재가
 
-                            flag_nasdaq_ohlc_open = True
-                        else:
-                            NASDAQ_현재가_버퍼.append(NASDAQ_현재가)                       
+                        del NASDAQ_현재가_버퍼[:]
+
+                        flag_nasdaq_ohlc_open = True
                     else:
-                        if df_nasdaq_graph.at[ovc_x_idx, 'open'] != df_nasdaq_graph.at[ovc_x_idx, 'open']:
-                            df_nasdaq_graph.at[ovc_x_idx, 'open'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
-                            del NASDAQ_현재가_버퍼[:]
-                        else:
-                            pass
+                        NASDAQ_현재가_버퍼.append(NASDAQ_현재가)                       
+                else:
+                    if df_nasdaq_graph.at[ovc_x_idx, 'open'] != df_nasdaq_graph.at[ovc_x_idx, 'open']:
+                        df_nasdaq_graph.at[ovc_x_idx, 'open'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
+                        del NASDAQ_현재가_버퍼[:]
+                    else:
+                        pass
 
-                        NASDAQ_현재가_버퍼.append(NASDAQ_현재가)
+                    NASDAQ_현재가_버퍼.append(NASDAQ_현재가)
+
+                    if max(NASDAQ_현재가_버퍼) > 0:
+                        df_nasdaq_graph.at[ovc_x_idx, 'high'] = max(NASDAQ_현재가_버퍼)
+                    else:
+                        pass
+
+                    if min(NASDAQ_현재가_버퍼) == 0:
 
                         if max(NASDAQ_현재가_버퍼) > 0:
-                            df_nasdaq_graph.at[ovc_x_idx, 'high'] = max(NASDAQ_현재가_버퍼)
+                            df_nasdaq_graph.at[ovc_x_idx, 'low'] = max(NASDAQ_현재가_버퍼)
                         else:
                             pass
-
-                        if min(NASDAQ_현재가_버퍼) == 0:
-
-                            if max(NASDAQ_현재가_버퍼) > 0:
-                                df_nasdaq_graph.at[ovc_x_idx, 'low'] = max(NASDAQ_현재가_버퍼)
-                            else:
-                                pass
-                        else:
-                            df_nasdaq_graph.at[ovc_x_idx, 'low'] = min(NASDAQ_현재가_버퍼)
-
-                        df_nasdaq_graph.at[ovc_x_idx, 'close'] = NASDAQ_현재가
-
-                        flag_nasdaq_ohlc_open = False
-                else:
-                    pass                          
-
-                # Bollinger Bands
-                df_nasdaq_graph.at[ovc_x_idx, 'middle'] = (df_nasdaq_graph.at[ovc_x_idx, 'high'] + df_nasdaq_graph.at[ovc_x_idx, 'low']) / 2
-                upper, middle, lower = talib.BBANDS(np.array(df_nasdaq_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
-
-                df_nasdaq_graph['BBUpper'] = upper
-                df_nasdaq_graph['BBMiddle'] = middle
-                df_nasdaq_graph['BBLower'] = lower
-
-                #macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_nasdaq_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
-                    #fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
-
-                #df_nasdaq_graph['MACD'] = macd
-                #df_nasdaq_graph['MACDSig'] = macdsignal
-                #df_nasdaq_graph['MACDHist'] = macdhist
-
-                # Parabolic SAR
-                parabolic_sar = talib.SAR(np.array(df_nasdaq_graph['high'], dtype=float), np.array(df_nasdaq_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
-
-                # PSARIndicator 함수 오동작하는 듯...
-                #ta_psar = ta.trend.PSARIndicator(df_nasdaq_graph['high'], df_nasdaq_graph['low'], df_nasdaq_graph['close'])
-
-                df_nasdaq_graph['PSAR'] = parabolic_sar
-                #df_nasdaq_graph['TA_PSAR'] = ta_psar.psar()
-
-                # MAMA(약 32샘플후에 출력값이 나옴)
-                mama, fama = talib.MAMA(np.array(df_nasdaq_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
-
-                df_nasdaq_graph['MAMA'] = mama
-                df_nasdaq_graph['FAMA'] = fama
-
-                if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] and df_nasdaq_graph.at[ovc_x_idx, 'BBLower'] == df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
-
-                    if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
-                        df_nasdaq_graph.at[ovc_x_idx, 'A_FAMA'] = df_nasdaq_graph.at[ovc_x_idx, 'BBLower']
                     else:
-                        df_nasdaq_graph.at[ovc_x_idx, 'A_FAMA'] = df_nasdaq_graph.at[ovc_x_idx, 'FAMA']
-                else:
-                    pass
+                        df_nasdaq_graph.at[ovc_x_idx, 'low'] = min(NASDAQ_현재가_버퍼)
 
-                # Ichimoku Indicator
-                #nasdaq_Ichimoku = ta.trend.IchimokuIndicator(df_nasdaq_graph['high'], df_nasdaq_graph['low'], n1=9, n2=26, n3=52, visual=True)
-                nasdaq_Ichimoku = ta.trend.IchimokuIndicator(df_nasdaq_graph['high'], df_nasdaq_graph['low'])
+                    df_nasdaq_graph.at[ovc_x_idx, 'close'] = NASDAQ_현재가
 
-                df_nasdaq_graph['SPAN_A'] = nasdaq_Ichimoku.ichimoku_a()
-                df_nasdaq_graph['SPAN_B'] = nasdaq_Ichimoku.ichimoku_b()
-                df_nasdaq_graph['OE_BASE'] = nasdaq_Ichimoku.ichimoku_base_line()
-                df_nasdaq_graph['OE_CONV'] = nasdaq_Ichimoku.ichimoku_conversion_line()
+                    flag_nasdaq_ohlc_open = False
+
+                df_nasdaq_graph.at[ovc_x_idx, 'middle'] = (df_nasdaq_graph.at[ovc_x_idx, 'high'] + df_nasdaq_graph.at[ovc_x_idx, 'low']) / 2
             else:
-                pass
-            
+                pass                
+                        
             if NASDAQ_시가 == 0:
 
                 if result['전일대비기호'] == '5':
@@ -20103,106 +19939,57 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             체결가격 = locale.format('%.2f', SP500_현재가, 1)
 
-            if not flag_checkBox_HS:
-                # 1T OHLC 생성
-                df_sp500_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
+            # 1T OHLC 생성
+            df_sp500_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
 
-                if SP500_현재가 > 0:
+            if SP500_현재가 > 0:
 
-                    if OVC_SEC == 0:
+                if OVC_SEC == 0:
 
-                        if not flag_sp500_ohlc_open:
+                    if not flag_sp500_ohlc_open:
 
-                            df_sp500_graph.at[ovc_x_idx, 'open'] = SP500_현재가
-                            df_sp500_graph.at[ovc_x_idx, 'high'] = SP500_현재가
-                            df_sp500_graph.at[ovc_x_idx, 'low'] = SP500_현재가
-                            df_sp500_graph.at[ovc_x_idx, 'middle'] = SP500_현재가
-                            df_sp500_graph.at[ovc_x_idx, 'close'] = SP500_현재가
-                            df_sp500_graph.at[ovc_x_idx, 'price'] = SP500_현재가
+                        df_sp500_graph.at[ovc_x_idx, 'open'] = SP500_현재가
+                        df_sp500_graph.at[ovc_x_idx, 'high'] = SP500_현재가
+                        df_sp500_graph.at[ovc_x_idx, 'low'] = SP500_현재가
+                        df_sp500_graph.at[ovc_x_idx, 'middle'] = SP500_현재가
+                        df_sp500_graph.at[ovc_x_idx, 'close'] = SP500_현재가
+                        df_sp500_graph.at[ovc_x_idx, 'price'] = SP500_현재가
 
-                            del SP500_현재가_버퍼[:]
+                        del SP500_현재가_버퍼[:]
 
-                            flag_sp500_ohlc_open = True
-                        else:
-                            SP500_현재가_버퍼.append(SP500_현재가)                        
+                        flag_sp500_ohlc_open = True
                     else:
-                        if df_sp500_graph.at[ovc_x_idx, 'open'] != df_sp500_graph.at[ovc_x_idx, 'open']:
-                            df_sp500_graph.at[ovc_x_idx, 'open'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
-                            del SP500_현재가_버퍼[:]
-                        else:
-                            pass
+                        SP500_현재가_버퍼.append(SP500_현재가)                        
+                else:
+                    if df_sp500_graph.at[ovc_x_idx, 'open'] != df_sp500_graph.at[ovc_x_idx, 'open']:
+                        df_sp500_graph.at[ovc_x_idx, 'open'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
+                        del SP500_현재가_버퍼[:]
+                    else:
+                        pass
 
-                        SP500_현재가_버퍼.append(SP500_현재가)
+                    SP500_현재가_버퍼.append(SP500_현재가)
+
+                    if max(SP500_현재가_버퍼) > 0:
+                        df_sp500_graph.at[ovc_x_idx, 'high'] = max(SP500_현재가_버퍼)
+                    else:
+                        pass
+
+                    if min(SP500_현재가_버퍼) == 0:
 
                         if max(SP500_현재가_버퍼) > 0:
-                            df_sp500_graph.at[ovc_x_idx, 'high'] = max(SP500_현재가_버퍼)
+                            df_sp500_graph.at[ovc_x_idx, 'low'] = max(SP500_현재가_버퍼)
                         else:
                             pass
-
-                        if min(SP500_현재가_버퍼) == 0:
-
-                            if max(SP500_현재가_버퍼) > 0:
-                                df_sp500_graph.at[ovc_x_idx, 'low'] = max(SP500_현재가_버퍼)
-                            else:
-                                pass
-                        else:
-                            df_sp500_graph.at[ovc_x_idx, 'low'] = min(SP500_현재가_버퍼)
-
-                        df_sp500_graph.at[ovc_x_idx, 'close'] = SP500_현재가
-
-                        flag_sp500_ohlc_open = False  
-                else:
-                    pass                         
-
-                # Bollinger Bands
-                df_sp500_graph.at[ovc_x_idx, 'middle'] = (df_sp500_graph.at[ovc_x_idx, 'high'] + df_sp500_graph.at[ovc_x_idx, 'low']) / 2
-                upper, middle, lower = talib.BBANDS(np.array(df_sp500_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
-
-                df_sp500_graph['BBUpper'] = upper
-                df_sp500_graph['BBMiddle'] = middle
-                df_sp500_graph['BBLower'] = lower
-
-                #macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_sp500_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
-                    #fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
-
-                #df_sp500_graph['MACD'] = macd
-                #df_sp500_graph['MACDSig'] = macdsignal
-                #df_sp500_graph['MACDHist'] = macdhist                
-
-                # Parabolic SAR
-                parabolic_sar = talib.SAR(np.array(df_sp500_graph['high'], dtype=float), np.array(df_sp500_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
-
-                # PSARIndicator 함수 오동작하는 듯...
-                #ta_psar = ta.trend.PSARIndicator(df_sp500_graph['high'], df_sp500_graph['low'], df_sp500_graph['close'])
-
-                df_sp500_graph['PSAR'] = parabolic_sar
-                #df_sp500_graph['TA_PSAR'] = ta_psar.psar()
-
-                # MAMA(약 32샘플후에 출력값이 나옴)
-                mama, fama = talib.MAMA(np.array(df_sp500_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
-
-                df_sp500_graph['MAMA'] = mama
-                df_sp500_graph['FAMA'] = fama
-
-                if df_sp500_graph.at[ovc_x_idx, 'FAMA'] == df_sp500_graph.at[ovc_x_idx, 'FAMA'] and df_sp500_graph.at[ovc_x_idx, 'BBLower'] == df_sp500_graph.at[ovc_x_idx, 'BBLower']:
-
-                    if df_sp500_graph.at[ovc_x_idx, 'FAMA'] < df_sp500_graph.at[ovc_x_idx, 'BBLower']:
-                        df_sp500_graph.at[ovc_x_idx, 'A_FAMA'] = df_sp500_graph.at[ovc_x_idx, 'BBLower']
                     else:
-                        df_sp500_graph.at[ovc_x_idx, 'A_FAMA'] = df_sp500_graph.at[ovc_x_idx, 'FAMA']
-                else:
-                    pass
+                        df_sp500_graph.at[ovc_x_idx, 'low'] = min(SP500_현재가_버퍼)
 
-                # Ichimoku Indicator
-                #sp500_Ichimoku = ta.trend.IchimokuIndicator(df_sp500_graph['high'], df_sp500_graph['low'], n1=9, n2=26, n3=52, visual=True)
-                sp500_Ichimoku = ta.trend.IchimokuIndicator(df_sp500_graph['high'], df_sp500_graph['low'])
+                    df_sp500_graph.at[ovc_x_idx, 'close'] = SP500_현재가
 
-                df_sp500_graph['SPAN_A'] = sp500_Ichimoku.ichimoku_a()
-                df_sp500_graph['SPAN_B'] = sp500_Ichimoku.ichimoku_b()
-                df_sp500_graph['OE_BASE'] = sp500_Ichimoku.ichimoku_base_line()
-                df_sp500_graph['OE_CONV'] = sp500_Ichimoku.ichimoku_conversion_line()
+                    flag_sp500_ohlc_open = False
+
+                df_sp500_graph.at[ovc_x_idx, 'middle'] = (df_sp500_graph.at[ovc_x_idx, 'high'] + df_sp500_graph.at[ovc_x_idx, 'low']) / 2  
             else:
-                pass
+                pass              
 
             if SP500_시가 == 0:
 
@@ -20316,106 +20103,57 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             체결가격 = locale.format('%.2f', WTI_현재가, 1)
 
-            if not flag_checkBox_HS:
-                # 1T OHLC 생성
-                df_wti_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
+            # 1T OHLC 생성
+            df_wti_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
 
-                if WTI_현재가 > 0:
+            if WTI_현재가 > 0:
 
-                    if OVC_SEC == 0:
+                if OVC_SEC == 0:
 
-                        if not flag_wti_ohlc_open:
-                        
-                            df_wti_graph.at[ovc_x_idx, 'open'] = WTI_현재가
-                            df_wti_graph.at[ovc_x_idx, 'high'] = WTI_현재가
-                            df_wti_graph.at[ovc_x_idx, 'low'] = WTI_현재가
-                            df_wti_graph.at[ovc_x_idx, 'middle'] = WTI_현재가
-                            df_wti_graph.at[ovc_x_idx, 'close'] = WTI_현재가
-                            df_wti_graph.at[ovc_x_idx, 'price'] = WTI_현재가
+                    if not flag_wti_ohlc_open:
+                    
+                        df_wti_graph.at[ovc_x_idx, 'open'] = WTI_현재가
+                        df_wti_graph.at[ovc_x_idx, 'high'] = WTI_현재가
+                        df_wti_graph.at[ovc_x_idx, 'low'] = WTI_현재가
+                        df_wti_graph.at[ovc_x_idx, 'middle'] = WTI_현재가
+                        df_wti_graph.at[ovc_x_idx, 'close'] = WTI_현재가
+                        df_wti_graph.at[ovc_x_idx, 'price'] = WTI_현재가
 
-                            del WTI_현재가_버퍼[:]
+                        del WTI_현재가_버퍼[:]
 
-                            flag_wti_ohlc_open = True
-                        else:
-                            WTI_현재가_버퍼.append(WTI_현재가)                        
+                        flag_wti_ohlc_open = True
                     else:
-                        if df_wti_graph.at[ovc_x_idx, 'open'] != df_wti_graph.at[ovc_x_idx, 'open']:
-                            df_wti_graph.at[ovc_x_idx, 'open'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
-                            del WTI_현재가_버퍼[:]
-                        else:
-                            pass
+                        WTI_현재가_버퍼.append(WTI_현재가)                        
+                else:
+                    if df_wti_graph.at[ovc_x_idx, 'open'] != df_wti_graph.at[ovc_x_idx, 'open']:
+                        df_wti_graph.at[ovc_x_idx, 'open'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
+                        del WTI_현재가_버퍼[:]
+                    else:
+                        pass
 
-                        WTI_현재가_버퍼.append(WTI_현재가)
+                    WTI_현재가_버퍼.append(WTI_현재가)
+
+                    if max(WTI_현재가_버퍼) > 0:
+                        df_wti_graph.at[ovc_x_idx, 'high'] = max(WTI_현재가_버퍼)
+                    else:
+                        pass
+
+                    if min(WTI_현재가_버퍼) == 0:
 
                         if max(WTI_현재가_버퍼) > 0:
-                            df_wti_graph.at[ovc_x_idx, 'high'] = max(WTI_현재가_버퍼)
+                            df_wti_graph.at[ovc_x_idx, 'low'] = max(WTI_현재가_버퍼)
                         else:
                             pass
-
-                        if min(WTI_현재가_버퍼) == 0:
-
-                            if max(WTI_현재가_버퍼) > 0:
-                                df_wti_graph.at[ovc_x_idx, 'low'] = max(WTI_현재가_버퍼)
-                            else:
-                                pass
-                        else:
-                            df_wti_graph.at[ovc_x_idx, 'low'] = min(WTI_현재가_버퍼)
-
-                        df_wti_graph.at[ovc_x_idx, 'close'] = WTI_현재가
-
-                        flag_wti_ohlc_open = False
-                else:
-                    pass                            
-
-                # Bollinger Bands
-                df_wti_graph.at[ovc_x_idx, 'middle'] = (df_wti_graph.at[ovc_x_idx, 'high'] + df_wti_graph.at[ovc_x_idx, 'low']) / 2
-                upper, middle, lower = talib.BBANDS(np.array(df_wti_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
-
-                df_wti_graph['BBUpper'] = upper
-                df_wti_graph['BBMiddle'] = middle
-                df_wti_graph['BBLower'] = lower
-
-                #macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_wti_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
-                    #fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
-
-                #df_wti_graph['MACD'] = macd
-                #df_wti_graph['MACDSig'] = macdsignal
-                #df_wti_graph['MACDHist'] = macdhist                
-
-                # Parabolic SAR
-                parabolic_sar = talib.SAR(np.array(df_wti_graph['high'], dtype=float), np.array(df_wti_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
-
-                # PSARIndicator 함수 오동작하는 듯...
-                #ta_psar = ta.trend.PSARIndicator(df_wti_graph['high'], df_wti_graph['low'], df_wti_graph['close'])
-
-                df_wti_graph['PSAR'] = parabolic_sar
-                #df_wti_graph['TA_PSAR'] = ta_psar.psar()
-
-                # MAMA(약 32샘플후에 출력값이 나옴)
-                mama, fama = talib.MAMA(np.array(df_wti_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
-
-                df_wti_graph['MAMA'] = mama
-                df_wti_graph['FAMA'] = fama
-
-                if df_wti_graph.at[ovc_x_idx, 'FAMA'] == df_wti_graph.at[ovc_x_idx, 'FAMA'] and df_wti_graph.at[ovc_x_idx, 'BBLower'] == df_wti_graph.at[ovc_x_idx, 'BBLower']:
-
-                    if df_wti_graph.at[ovc_x_idx, 'FAMA'] < df_wti_graph.at[ovc_x_idx, 'BBLower']:
-                        df_wti_graph.at[ovc_x_idx, 'A_FAMA'] = df_wti_graph.at[ovc_x_idx, 'BBLower']
                     else:
-                        df_wti_graph.at[ovc_x_idx, 'A_FAMA'] = df_wti_graph.at[ovc_x_idx, 'FAMA']
-                else:
-                    pass
+                        df_wti_graph.at[ovc_x_idx, 'low'] = min(WTI_현재가_버퍼)
 
-                # Ichimoku Indicator
-                #wti_Ichimoku = ta.trend.IchimokuIndicator(df_wti_graph['high'], df_wti_graph['low'], n1=9, n2=26, n3=52, visual=True)
-                wti_Ichimoku = ta.trend.IchimokuIndicator(df_wti_graph['high'], df_wti_graph['low'])
+                    df_wti_graph.at[ovc_x_idx, 'close'] = WTI_현재가
 
-                df_wti_graph['SPAN_A'] = wti_Ichimoku.ichimoku_a()
-                df_wti_graph['SPAN_B'] = wti_Ichimoku.ichimoku_b()
-                df_wti_graph['OE_BASE'] = wti_Ichimoku.ichimoku_base_line()
-                df_wti_graph['OE_CONV'] = wti_Ichimoku.ichimoku_conversion_line()
+                    flag_wti_ohlc_open = False
+
+                df_wti_graph.at[ovc_x_idx, 'middle'] = (df_wti_graph.at[ovc_x_idx, 'high'] + df_wti_graph.at[ovc_x_idx, 'low']) / 2
             else:
-                pass         
+                pass     
 
             if WTI_시가 == 0:
 
@@ -21613,68 +21351,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
 
                                 flag_futures_ohlc_open = False
-                        else:
-                            pass                                 
 
-                        # Bollinger Bands
-                        df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2
-                        upper, middle, lower = talib.BBANDS(np.array(df_futures_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
-
-                        df_futures_graph['BBUpper'] = upper
-                        df_futures_graph['BBMiddle'] = middle
-                        df_futures_graph['BBLower'] = lower
-
-                        # MACD
-                        # list of values for the Moving Average Type:  
-                        # 0: MA_Type.SMA (simple)  
-                        # 1: MA_Type.EMA (exponential)  
-                        # 2: MA_Type.WMA (weighted)  
-                        # 3: MA_Type.DEMA (double exponential)  
-                        # 4: MA_Type.TEMA (triple exponential)  
-                        # 5: MA_Type.TRIMA (triangular)  
-                        # 6: MA_Type.KAMA (Kaufman adaptive)  
-                        # 7: MA_Type.MAMA (Mesa adaptive)  
-                        # 8: MA_Type.T3 (triple exponential T3)
-
-                        #macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_futures_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
-                            #fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
-
-                        #df_futures_graph['MACD'] = macd
-                        #df_futures_graph['MACDSig'] = macdsignal
-                        #df_futures_graph['MACDHist'] = macdhist
-
-                        # Parabolic SAR
-                        parabolic_sar = talib.SAR(np.array(df_futures_graph['high'], dtype=float), np.array(df_futures_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
-
-                        # PSARIndicator 함수 오동작하는 듯...
-                        #ta_psar = ta.trend.PSARIndicator(df_futures_graph['high'], df_futures_graph['low'], df_futures_graph['close'])
-
-                        df_futures_graph['PSAR'] = parabolic_sar
-                        #df_futures_graph['TA_PSAR'] = ta_psar.psar()
-
-                        # MAMA
-                        mama, fama = talib.MAMA(np.array(df_futures_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
-
-                        df_futures_graph['MAMA'] = mama
-                        df_futures_graph['FAMA'] = fama
-
-                        if df_futures_graph.at[ovc_x_idx, 'FAMA'] == df_futures_graph.at[ovc_x_idx, 'FAMA'] and df_futures_graph.at[ovc_x_idx, 'BBLower'] == df_futures_graph.at[ovc_x_idx, 'BBLower']:
-
-                            if df_futures_graph.at[ovc_x_idx, 'FAMA'] < df_futures_graph.at[ovc_x_idx, 'BBLower']:
-                                df_futures_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_graph.at[ovc_x_idx, 'BBLower']
-                            else:
-                                df_futures_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_graph.at[ovc_x_idx, 'FAMA']
+                            df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2
                         else:
                             pass
-
-                        # Ichimoku Indicator
-                        #futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'], n1=9, n2=26, n3=52, visual=True)
-                        futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'])
-
-                        df_futures_graph['SPAN_A'] = futures_Ichimoku.ichimoku_a()
-                        df_futures_graph['SPAN_B'] = futures_Ichimoku.ichimoku_b()
-                        df_futures_graph['OE_BASE'] = futures_Ichimoku.ichimoku_base_line()
-                        df_futures_graph['OE_CONV'] = futures_Ichimoku.ichimoku_conversion_line()
                     else:
                         pass
                 else:
@@ -31465,9 +31145,225 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             pass 
 
     #####################################################################################################################################################################
-    # Plot Update...
+    # SAR & BBAND
+    #####################################################################################################################################################################
+    def Calc_SAR_BBand(self, type):
+
+        if type == 'FUT':
+
+            # Parabolic SAR
+            df_futures_graph['PSAR'] = talib.SAR(np.array(df_futures_graph['high'], dtype=float), np.array(df_futures_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+
+            # Bollinger Bands            
+            upper, middle, lower = talib.BBANDS(np.array(df_futures_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+
+            df_futures_graph['BBUpper'] = upper
+            df_futures_graph['BBMiddle'] = middle
+            df_futures_graph['BBLower'] = lower
+
+        elif type == 'DOW':
+
+            # Parabolic SAR
+            df_dow_graph['PSAR'] = talib.SAR(np.array(df_dow_graph['high'], dtype=float), np.array(df_dow_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+
+            # Bollinger Bands                
+            upper, middle, lower = talib.BBANDS(np.array(df_dow_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+
+            df_dow_graph['BBUpper'] = upper
+            df_dow_graph['BBMiddle'] = middle
+            df_dow_graph['BBLower'] = lower
+
+        elif type == 'SP500':
+
+            # Parabolic SAR
+            df_sp500_graph['PSAR'] = talib.SAR(np.array(df_sp500_graph['high'], dtype=float), np.array(df_sp500_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+
+            # Bollinger Bands                
+            upper, middle, lower = talib.BBANDS(np.array(df_sp500_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+
+            df_sp500_graph['BBUpper'] = upper
+            df_sp500_graph['BBMiddle'] = middle
+            df_sp500_graph['BBLower'] = lower
+
+
+        elif type == 'NASDAQ':
+
+            # Parabolic SAR
+            df_nasdaq_graph['PSAR'] = talib.SAR(np.array(df_nasdaq_graph['high'], dtype=float), np.array(df_nasdaq_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+
+            # Bollinger Bands                
+            upper, middle, lower = talib.BBANDS(np.array(df_nasdaq_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+
+            df_nasdaq_graph['BBUpper'] = upper
+            df_nasdaq_graph['BBMiddle'] = middle
+            df_nasdaq_graph['BBLower'] = lower
+
+        elif type == 'WTI':
+
+            # Parabolic SAR
+            df_wti_graph['PSAR'] = talib.SAR(np.array(df_wti_graph['high'], dtype=float), np.array(df_wti_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+
+            # Bollinger Bands                
+            upper, middle, lower = talib.BBANDS(np.array(df_wti_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+
+            df_wti_graph['BBUpper'] = upper
+            df_wti_graph['BBMiddle'] = middle
+            df_wti_graph['BBLower'] = lower
+        else:
+            pass
+    #####################################################################################################################################################################
+    # Ichimoku
+    #####################################################################################################################################################################
+    def Calc_Ichimoku(self, type):
+
+        if type == 'FUT':
+
+            # Ichimoku Indicator
+            futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'])
+
+            df_futures_graph['SPAN_A'] = futures_Ichimoku.ichimoku_a()
+            df_futures_graph['SPAN_B'] = futures_Ichimoku.ichimoku_b()
+            df_futures_graph['OE_BASE'] = futures_Ichimoku.ichimoku_base_line()
+            df_futures_graph['OE_CONV'] = futures_Ichimoku.ichimoku_conversion_line()
+
+        elif type == 'DOW':
+
+            # Ichimoku Indicator
+            dow_Ichimoku = ta.trend.IchimokuIndicator(df_dow_graph['high'], df_dow_graph['low'])
+
+            df_dow_graph['SPAN_A'] = dow_Ichimoku.ichimoku_a()
+            df_dow_graph['SPAN_B'] = dow_Ichimoku.ichimoku_b()
+            df_dow_graph['OE_BASE'] = dow_Ichimoku.ichimoku_base_line()
+            df_dow_graph['OE_CONV'] = dow_Ichimoku.ichimoku_conversion_line()
+
+        elif type == 'SP500':
+
+            # Ichimoku Indicator
+            sp500_Ichimoku = ta.trend.IchimokuIndicator(df_sp500_graph['high'], df_sp500_graph['low'])
+
+            df_sp500_graph['SPAN_A'] = sp500_Ichimoku.ichimoku_a()
+            df_sp500_graph['SPAN_B'] = sp500_Ichimoku.ichimoku_b()
+            df_sp500_graph['OE_BASE'] = sp500_Ichimoku.ichimoku_base_line()
+            df_sp500_graph['OE_CONV'] = sp500_Ichimoku.ichimoku_conversion_line() 
+
+        elif type == 'NASDAQ':
+
+            # Ichimoku Indicator
+            nasdaq_Ichimoku = ta.trend.IchimokuIndicator(df_nasdaq_graph['high'], df_nasdaq_graph['low'])
+
+            df_nasdaq_graph['SPAN_A'] = nasdaq_Ichimoku.ichimoku_a()
+            df_nasdaq_graph['SPAN_B'] = nasdaq_Ichimoku.ichimoku_b()
+            df_nasdaq_graph['OE_BASE'] = nasdaq_Ichimoku.ichimoku_base_line()
+            df_nasdaq_graph['OE_CONV'] = nasdaq_Ichimoku.ichimoku_conversion_line()
+
+        elif type == 'WTI':
+
+            # Ichimoku Indicator
+            wti_Ichimoku = ta.trend.IchimokuIndicator(df_wti_graph['high'], df_wti_graph['low'])
+
+            df_wti_graph['SPAN_A'] = wti_Ichimoku.ichimoku_a()
+            df_wti_graph['SPAN_B'] = wti_Ichimoku.ichimoku_b()
+            df_wti_graph['OE_BASE'] = wti_Ichimoku.ichimoku_base_line()
+            df_wti_graph['OE_CONV'] = wti_Ichimoku.ichimoku_conversion_line()
+        else:
+            pass
+    #####################################################################################################################################################################
+    # MAMA
+    #####################################################################################################################################################################
+    def Calc_MAMA(self, type):
+
+        if type == 'FUT':
+
+            # MAMA
+            mama, fama = talib.MAMA(np.array(df_futures_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+
+            df_futures_graph['MAMA'] = mama
+            df_futures_graph['FAMA'] = fama
+
+            if df_futures_graph.at[ovc_x_idx, 'FAMA'] == df_futures_graph.at[ovc_x_idx, 'FAMA'] and df_futures_graph.at[ovc_x_idx, 'BBLower'] == df_futures_graph.at[ovc_x_idx, 'BBLower']:
+
+                if df_futures_graph.at[ovc_x_idx, 'FAMA'] < df_futures_graph.at[ovc_x_idx, 'BBLower']:
+                    df_futures_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_graph.at[ovc_x_idx, 'BBLower']
+                else:
+                    df_futures_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_graph.at[ovc_x_idx, 'FAMA']
+            else:
+                pass
+
+        elif type == 'DOW':
+
+            # MAMA(약 32 샘플후에 출력값이 나옴)
+            mama, fama = talib.MAMA(np.array(df_dow_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+
+            df_dow_graph['MAMA'] = mama
+            df_dow_graph['FAMA'] = fama
+            #df_dow_graph['A_FAMA'] = fama
+
+            if df_dow_graph.at[ovc_x_idx, 'FAMA'] == df_dow_graph.at[ovc_x_idx, 'FAMA'] and df_dow_graph.at[ovc_x_idx, 'BBLower'] == df_dow_graph.at[ovc_x_idx, 'BBLower']:
+
+                if df_dow_graph.at[ovc_x_idx, 'FAMA'] < df_dow_graph.at[ovc_x_idx, 'BBLower']:
+                    df_dow_graph.at[ovc_x_idx, 'A_FAMA'] = df_dow_graph.at[ovc_x_idx, 'BBLower']
+                else:
+                    df_dow_graph.at[ovc_x_idx, 'A_FAMA'] = df_dow_graph.at[ovc_x_idx, 'FAMA']
+            else:
+                pass
+
+        elif type == 'SP500':
+
+            # MAMA(약 32샘플후에 출력값이 나옴)
+            mama, fama = talib.MAMA(np.array(df_sp500_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+
+            df_sp500_graph['MAMA'] = mama
+            df_sp500_graph['FAMA'] = fama
+
+            if df_sp500_graph.at[ovc_x_idx, 'FAMA'] == df_sp500_graph.at[ovc_x_idx, 'FAMA'] and df_sp500_graph.at[ovc_x_idx, 'BBLower'] == df_sp500_graph.at[ovc_x_idx, 'BBLower']:
+
+                if df_sp500_graph.at[ovc_x_idx, 'FAMA'] < df_sp500_graph.at[ovc_x_idx, 'BBLower']:
+                    df_sp500_graph.at[ovc_x_idx, 'A_FAMA'] = df_sp500_graph.at[ovc_x_idx, 'BBLower']
+                else:
+                    df_sp500_graph.at[ovc_x_idx, 'A_FAMA'] = df_sp500_graph.at[ovc_x_idx, 'FAMA']
+            else:
+                pass
+
+        elif type == 'NASDAQ':
+
+            # MAMA(약 32샘플후에 출력값이 나옴)
+            mama, fama = talib.MAMA(np.array(df_nasdaq_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+
+            df_nasdaq_graph['MAMA'] = mama
+            df_nasdaq_graph['FAMA'] = fama
+
+            if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] and df_nasdaq_graph.at[ovc_x_idx, 'BBLower'] == df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
+
+                if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
+                    df_nasdaq_graph.at[ovc_x_idx, 'A_FAMA'] = df_nasdaq_graph.at[ovc_x_idx, 'BBLower']
+                else:
+                    df_nasdaq_graph.at[ovc_x_idx, 'A_FAMA'] = df_nasdaq_graph.at[ovc_x_idx, 'FAMA']
+            else:
+                pass
+
+        elif type == 'WTI':
+
+            # MAMA(약 32샘플후에 출력값이 나옴)
+            mama, fama = talib.MAMA(np.array(df_wti_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+
+            df_wti_graph['MAMA'] = mama
+            df_wti_graph['FAMA'] = fama
+
+            if df_wti_graph.at[ovc_x_idx, 'FAMA'] == df_wti_graph.at[ovc_x_idx, 'FAMA'] and df_wti_graph.at[ovc_x_idx, 'BBLower'] == df_wti_graph.at[ovc_x_idx, 'BBLower']:
+
+                if df_wti_graph.at[ovc_x_idx, 'FAMA'] < df_wti_graph.at[ovc_x_idx, 'BBLower']:
+                    df_wti_graph.at[ovc_x_idx, 'A_FAMA'] = df_wti_graph.at[ovc_x_idx, 'BBLower']
+                else:
+                    df_wti_graph.at[ovc_x_idx, 'A_FAMA'] = df_wti_graph.at[ovc_x_idx, 'FAMA']
+            else:
+                pass
+        else:
+            pass
+    #####################################################################################################################################################################
+    # Plot Update
+    #####################################################################################################################################################################    
     @pyqtSlot()
-    @logging_time
+    #@logging_time
     def update_bigchart(self):
 
         global flag_plot_update_is_running        
@@ -31730,6 +31626,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot1_bband:
 
+                    self.Calc_SAR_BBand('FUT')
+
                     self.plot1_bollinger_upper_curve.setData(df_futures_graph['BBUpper'].to_numpy())
                     self.plot1_bollinger_middle_curve.setData(df_futures_graph['BBMiddle'].to_numpy())
                     self.plot1_bollinger_lower_curve.setData(df_futures_graph['BBLower'].to_numpy())
@@ -31738,12 +31636,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot1_mama:
 
+                    self.Calc_MAMA('FUT')
+
                     self.plot1_mama_curve.setData(df_futures_graph['MAMA'].to_numpy())
                     self.plot1_fama_curve.setData(df_futures_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
                 if flag_checkBox_plot1_oe:
+
+                    self.Calc_Ichimoku('FUT')
 
                     self.plot1_oe_conv_curve.setData(df_futures_graph['OE_CONV'].to_numpy())
                     self.plot1_oe_base_curve.setData(df_futures_graph['OE_BASE'].to_numpy())
@@ -31858,6 +31760,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot1_bband:
 
+                    self.Calc_SAR_BBand('SP500')                    
+
                     self.plot1_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].to_numpy())
                     self.plot1_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].to_numpy())
                     self.plot1_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].to_numpy())
@@ -31866,12 +31770,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot1_mama:
 
+                    self.Calc_MAMA('SP500')
+
                     self.plot1_mama_curve.setData(df_sp500_graph['MAMA'].to_numpy())
                     self.plot1_fama_curve.setData(df_sp500_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
                 if flag_checkBox_plot1_oe:
+
+                    self.Calc_Ichimoku('SP500')
 
                     self.plot1_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].to_numpy())
                     self.plot1_oe_base_curve.setData(df_sp500_graph['OE_BASE'].to_numpy())
@@ -31982,6 +31890,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot1_bband:
 
+                    self.Calc_SAR_BBand('DOW')
+
                     self.plot1_bollinger_upper_curve.setData(df_dow_graph['BBUpper'].to_numpy())
                     self.plot1_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'].to_numpy())
                     self.plot1_bollinger_lower_curve.setData(df_dow_graph['BBLower'].to_numpy())
@@ -31990,12 +31900,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot1_mama:
 
+                    self.Calc_MAMA('DOW')
+
                     self.plot1_mama_curve.setData(df_dow_graph['MAMA'].to_numpy())
                     self.plot1_fama_curve.setData(df_dow_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
                 if flag_checkBox_plot1_oe:
+
+                    self.Calc_Ichimoku('DOW')
 
                     self.plot1_oe_conv_curve.setData(df_dow_graph['OE_CONV'].to_numpy())
                     self.plot1_oe_base_curve.setData(df_dow_graph['OE_BASE'].to_numpy())
@@ -32106,6 +32020,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot1_bband:
 
+                    self.Calc_SAR_BBand('NASDAQ')                    
+
                     self.plot1_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'].to_numpy())
                     self.plot1_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'].to_numpy())
                     self.plot1_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'].to_numpy())
@@ -32114,12 +32030,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot1_mama:
 
+                    self.Calc_MAMA('NASDAQ')
+
                     self.plot1_mama_curve.setData(df_nasdaq_graph['MAMA'].to_numpy())
                     self.plot1_fama_curve.setData(df_nasdaq_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
                 if flag_checkBox_plot1_oe:
+
+                    self.Calc_Ichimoku('NASDAQ')
 
                     self.plot1_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'].to_numpy())
                     self.plot1_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'].to_numpy())
@@ -32229,6 +32149,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot1_bband:
 
+                    self.Calc_SAR_BBand('WTI')
+
                     self.plot1_bollinger_upper_curve.setData(df_wti_graph['BBUpper'].to_numpy())
                     self.plot1_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'].to_numpy())
                     self.plot1_bollinger_lower_curve.setData(df_wti_graph['BBLower'].to_numpy())
@@ -32237,12 +32159,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot1_mama:
 
+                    self.Calc_MAMA('WTI')
+
                     self.plot1_mama_curve.setData(df_wti_graph['MAMA'].to_numpy())
                     self.plot1_fama_curve.setData(df_wti_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
                 if flag_checkBox_plot1_oe:
+                    
+                    self.Calc_Ichimoku('WTI')
 
                     self.plot1_oe_conv_curve.setData(df_wti_graph['OE_CONV'].to_numpy())
                     self.plot1_oe_base_curve.setData(df_wti_graph['OE_BASE'].to_numpy())
@@ -32541,6 +32467,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot2_bband:
 
+                    self.Calc_SAR_BBand('SP500')
+
                     self.plot2_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].to_numpy())
                     self.plot2_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].to_numpy())
                     self.plot2_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].to_numpy())
@@ -32549,12 +32477,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot2_mama:
 
+                    self.Calc_MAMA('SP500')
+
                     self.plot2_mama_curve.setData(df_sp500_graph['MAMA'].to_numpy())
                     self.plot2_fama_curve.setData(df_sp500_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
                 if flag_checkBox_plot2_oe:
+
+                    self.Calc_Ichimoku('SP500')
 
                     self.plot2_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].to_numpy())
                     self.plot2_oe_base_curve.setData(df_sp500_graph['OE_BASE'].to_numpy())
@@ -32670,6 +32602,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot2_bband:
 
+                    self.Calc_SAR_BBand('DOW')
+
                     self.plot2_bollinger_upper_curve.setData(df_dow_graph['BBUpper'].to_numpy())
                     self.plot2_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'].to_numpy())
                     self.plot2_bollinger_lower_curve.setData(df_dow_graph['BBLower'].to_numpy())
@@ -32678,12 +32612,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot2_mama:
 
+                    self.Calc_MAMA('DOW')
+
                     self.plot2_mama_curve.setData(df_dow_graph['MAMA'].to_numpy())
                     self.plot2_fama_curve.setData(df_dow_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
                 if flag_checkBox_plot2_oe:
+
+                    self.Calc_Ichimoku('DOW')
 
                     self.plot2_oe_conv_curve.setData(df_dow_graph['OE_CONV'].to_numpy())
                     self.plot2_oe_base_curve.setData(df_dow_graph['OE_BASE'].to_numpy())
@@ -32799,6 +32737,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot2_bband:
 
+                    self.Calc_SAR_BBand('NASDAQ')
+
                     self.plot2_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'].to_numpy())
                     self.plot2_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'].to_numpy())
                     self.plot2_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'].to_numpy())
@@ -32807,12 +32747,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot2_mama:
 
+                    self.Calc_MAMA('NASDAQ')
+
                     self.plot2_mama_curve.setData(df_nasdaq_graph['MAMA'].to_numpy())
                     self.plot2_fama_curve.setData(df_nasdaq_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
                 if flag_checkBox_plot2_oe:
+
+                    self.Calc_Ichimoku('NASDAQ')
 
                     self.plot2_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'].to_numpy())
                     self.plot2_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'].to_numpy())
@@ -32927,6 +32871,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot2_bband:
 
+                    self.Calc_SAR_BBand('WTI')
+
                     self.plot2_bollinger_upper_curve.setData(df_wti_graph['BBUpper'].to_numpy())
                     self.plot2_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'].to_numpy())
                     self.plot2_bollinger_lower_curve.setData(df_wti_graph['BBLower'].to_numpy())
@@ -32935,12 +32881,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot2_mama:
 
+                    self.Calc_MAMA('WTI')
+
                     self.plot2_mama_curve.setData(df_wti_graph['MAMA'].to_numpy())
                     self.plot2_fama_curve.setData(df_wti_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
                 if flag_checkBox_plot2_oe:
+
+                    self.Calc_Ichimoku('WTI')
 
                     self.plot2_oe_conv_curve.setData(df_wti_graph['OE_CONV'].to_numpy())
                     self.plot2_oe_base_curve.setData(df_wti_graph['OE_BASE'].to_numpy())
@@ -33236,6 +33186,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot3_bband:
 
+                    self.Calc_SAR_BBand('SP500')
+
                     self.plot3_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].to_numpy())
                     self.plot3_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].to_numpy())
                     self.plot3_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].to_numpy())
@@ -33244,12 +33196,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot3_mama:
 
+                    self.Calc_MAMA('SP500')
+
                     self.plot3_mama_curve.setData(df_sp500_graph['MAMA'].to_numpy())
                     self.plot3_fama_curve.setData(df_sp500_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
                 if flag_checkBox_plot3_oe:
+
+                    self.Calc_Ichimoku('SP500')
 
                     self.plot3_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].to_numpy())
                     self.plot3_oe_base_curve.setData(df_sp500_graph['OE_BASE'].to_numpy())
@@ -33364,6 +33320,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot3_bband:
 
+                    self.Calc_SAR_BBand('DOW')
+
                     self.plot3_bollinger_upper_curve.setData(df_dow_graph['BBUpper'].to_numpy())
                     self.plot3_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'].to_numpy())
                     self.plot3_bollinger_lower_curve.setData(df_dow_graph['BBLower'].to_numpy())
@@ -33372,12 +33330,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot3_mama:
 
+                    self.Calc_MAMA('DOW')
+
                     self.plot3_mama_curve.setData(df_dow_graph['MAMA'].to_numpy())
                     self.plot3_fama_curve.setData(df_dow_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
                 if flag_checkBox_plot3_oe:
+
+                    self.Calc_Ichimoku('DOW')
 
                     self.plot3_oe_conv_curve.setData(df_dow_graph['OE_CONV'].to_numpy())
                     self.plot3_oe_base_curve.setData(df_dow_graph['OE_BASE'].to_numpy())
@@ -33492,6 +33454,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot3_bband:
 
+                    self.Calc_SAR_BBand('NASDAQ')
+
                     self.plot3_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'].to_numpy())
                     self.plot3_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'].to_numpy())
                     self.plot3_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'].to_numpy())
@@ -33500,12 +33464,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot3_mama:
 
+                    self.Calc_MAMA('NASDAQ')
+
                     self.plot3_mama_curve.setData(df_nasdaq_graph['MAMA'].to_numpy())
                     self.plot3_fama_curve.setData(df_nasdaq_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
                 if flag_checkBox_plot3_oe:
+
+                    self.Calc_Ichimoku('NASDAQ')
 
                     self.plot3_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'].to_numpy())
                     self.plot3_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'].to_numpy())
@@ -33619,6 +33587,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot3_bband:
 
+                    self.Calc_SAR_BBand('WTI')
+
                     self.plot3_bollinger_upper_curve.setData(df_wti_graph['BBUpper'].to_numpy())
                     self.plot3_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'].to_numpy())
                     self.plot3_bollinger_lower_curve.setData(df_wti_graph['BBLower'].to_numpy())
@@ -33627,12 +33597,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot3_mama:
 
+                    self.Calc_MAMA('WTI')
+
                     self.plot3_mama_curve.setData(df_wti_graph['MAMA'].to_numpy())
                     self.plot3_fama_curve.setData(df_wti_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
                 if flag_checkBox_plot3_oe:
+
+                    self.Calc_Ichimoku('WTI')
 
                     self.plot3_oe_conv_curve.setData(df_wti_graph['OE_CONV'].to_numpy())
                     self.plot3_oe_base_curve.setData(df_wti_graph['OE_BASE'].to_numpy())
@@ -33870,6 +33844,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot4_bband:
 
+                    self.Calc_SAR_BBand('FUT')
+
                     self.plot4_bollinger_upper_curve.setData(df_futures_graph['BBUpper'].to_numpy())
                     self.plot4_bollinger_middle_curve.setData(df_futures_graph['BBMiddle'].to_numpy())
                     self.plot4_bollinger_lower_curve.setData(df_futures_graph['BBLower'].to_numpy())
@@ -33878,12 +33854,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot4_mama:
 
+                    self.Calc_MAMA('FUT')
+
                     self.plot4_mama_curve.setData(df_futures_graph['MAMA'].to_numpy())
                     self.plot4_fama_curve.setData(df_futures_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
                 if flag_checkBox_plot4_oe:
+
+                    self.Calc_Ichimoku('FUT')
 
                     self.plot4_oe_conv_curve.setData(df_futures_graph['OE_CONV'].to_numpy())
                     self.plot4_oe_base_curve.setData(df_futures_graph['OE_BASE'].to_numpy())
@@ -33998,6 +33978,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot4_bband:
 
+                    self.Calc_SAR_BBand('SP500')
+
                     self.plot4_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].to_numpy())
                     self.plot4_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].to_numpy())
                     self.plot4_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].to_numpy())
@@ -34006,12 +33988,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot4_mama:
 
+                    self.Calc_MAMA('SP500')
+
                     self.plot4_mama_curve.setData(df_sp500_graph['MAMA'].to_numpy())
                     self.plot4_fama_curve.setData(df_sp500_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
                 if flag_checkBox_plot4_oe:
+
+                    self.Calc_Ichimoku('SP500')
 
                     self.plot4_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].to_numpy())
                     self.plot4_oe_base_curve.setData(df_sp500_graph['OE_BASE'].to_numpy())
@@ -34122,6 +34108,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot4_bband:
 
+                    self.Calc_SAR_BBand('DOW')
+
                     self.plot4_bollinger_upper_curve.setData(df_dow_graph['BBUpper'].to_numpy())
                     self.plot4_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'].to_numpy())
                     self.plot4_bollinger_lower_curve.setData(df_dow_graph['BBLower'].to_numpy())
@@ -34130,12 +34118,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot4_mama:
 
+                    self.Calc_MAMA('DOW')
+
                     self.plot4_mama_curve.setData(df_dow_graph['MAMA'].to_numpy())
                     self.plot4_fama_curve.setData(df_dow_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
                 if flag_checkBox_plot4_oe:
+
+                    self.Calc_Ichimoku('DOW')
 
                     self.plot4_oe_conv_curve.setData(df_dow_graph['OE_CONV'].to_numpy())
                     self.plot4_oe_base_curve.setData(df_dow_graph['OE_BASE'].to_numpy())
@@ -34246,6 +34238,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot4_bband:
 
+                    self.Calc_SAR_BBand('NASDAQ')
+
                     self.plot4_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'].to_numpy())
                     self.plot4_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'].to_numpy())
                     self.plot4_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'].to_numpy())
@@ -34254,12 +34248,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot4_mama:
 
+                    self.Calc_MAMA('NASDAQ')
+
                     self.plot4_mama_curve.setData(df_nasdaq_graph['MAMA'].to_numpy())
                     self.plot4_fama_curve.setData(df_nasdaq_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
                 if flag_checkBox_plot4_oe:
+
+                    self.Calc_Ichimoku('NASDAQ')
 
                     self.plot4_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'].to_numpy())
                     self.plot4_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'].to_numpy())
@@ -34369,6 +34367,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot4_bband:
 
+                    self.Calc_SAR_BBand('WTI')
+
                     self.plot4_bollinger_upper_curve.setData(df_wti_graph['BBUpper'].to_numpy())
                     self.plot4_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'].to_numpy())
                     self.plot4_bollinger_lower_curve.setData(df_wti_graph['BBLower'].to_numpy())
@@ -34377,12 +34377,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot4_mama:
 
+                    self.Calc_MAMA('WTI')
+
                     self.plot4_mama_curve.setData(df_wti_graph['MAMA'].to_numpy())
                     self.plot4_fama_curve.setData(df_wti_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
                 if flag_checkBox_plot4_oe:
+
+                    self.Calc_Ichimoku('WTI')
 
                     self.plot4_oe_conv_curve.setData(df_wti_graph['OE_CONV'].to_numpy())
                     self.plot4_oe_base_curve.setData(df_wti_graph['OE_BASE'].to_numpy())
@@ -34677,6 +34681,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot5_bband:
 
+                    self.Calc_SAR_BBand('SP500')
+
                     self.plot5_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].to_numpy())
                     self.plot5_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].to_numpy())
                     self.plot5_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].to_numpy())
@@ -34685,12 +34691,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot5_mama:
 
+                    self.Calc_MAMA('SP500')
+
                     self.plot5_mama_curve.setData(df_sp500_graph['MAMA'].to_numpy())
                     self.plot5_fama_curve.setData(df_sp500_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
                 if flag_checkBox_plot5_oe:
+
+                    self.Calc_Ichimoku('SP500')
 
                     self.plot5_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].to_numpy())
                     self.plot5_oe_base_curve.setData(df_sp500_graph['OE_BASE'].to_numpy())
@@ -34805,6 +34815,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot5_bband:
 
+                    self.Calc_SAR_BBand('DOW')
+
                     self.plot5_bollinger_upper_curve.setData(df_dow_graph['BBUpper'].to_numpy())
                     self.plot5_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'].to_numpy())
                     self.plot5_bollinger_lower_curve.setData(df_dow_graph['BBLower'].to_numpy())
@@ -34813,12 +34825,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot5_mama:
 
+                    self.Calc_MAMA('DOW')
+
                     self.plot5_mama_curve.setData(df_dow_graph['MAMA'].to_numpy())
                     self.plot5_fama_curve.setData(df_dow_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
                 if flag_checkBox_plot5_oe:
+
+                    self.Calc_Ichimoku('DOW')
 
                     self.plot5_oe_conv_curve.setData(df_dow_graph['OE_CONV'].to_numpy())
                     self.plot5_oe_base_curve.setData(df_dow_graph['OE_BASE'].to_numpy())
@@ -34933,6 +34949,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot5_bband:
 
+                    self.Calc_SAR_BBand('NASDAQ')
+
                     self.plot5_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'].to_numpy())
                     self.plot5_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'].to_numpy())
                     self.plot5_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'].to_numpy())
@@ -34941,12 +34959,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot5_mama:
 
+                    self.Calc_MAMA('NASDAQ')
+
                     self.plot5_mama_curve.setData(df_nasdaq_graph['MAMA'].to_numpy())
                     self.plot5_fama_curve.setData(df_nasdaq_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
                 if flag_checkBox_plot5_oe:
+
+                    self.Calc_Ichimoku('NASDAQ')
 
                     self.plot5_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'].to_numpy())
                     self.plot5_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'].to_numpy())
@@ -35060,6 +35082,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot5_bband:
 
+                    self.Calc_SAR_BBand('WTI')
+
                     self.plot5_bollinger_upper_curve.setData(df_wti_graph['BBUpper'].to_numpy())
                     self.plot5_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'].to_numpy())
                     self.plot5_bollinger_lower_curve.setData(df_wti_graph['BBLower'].to_numpy())
@@ -35068,12 +35092,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot5_mama:
 
+                    self.Calc_MAMA('WTI')
+
                     self.plot5_mama_curve.setData(df_wti_graph['MAMA'].to_numpy())
                     self.plot5_fama_curve.setData(df_wti_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
                 if flag_checkBox_plot5_oe:
+
+                    self.Calc_Ichimoku('WTI')
 
                     self.plot5_oe_conv_curve.setData(df_wti_graph['OE_CONV'].to_numpy())
                     self.plot5_oe_base_curve.setData(df_wti_graph['OE_BASE'].to_numpy())
@@ -35368,6 +35396,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot6_bband:
 
+                    self.Calc_SAR_BBand('SP500')
+
                     self.plot6_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].to_numpy())
                     self.plot6_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].to_numpy())
                     self.plot6_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].to_numpy())
@@ -35376,12 +35406,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot6_mama:
 
+                    self.Calc_MAMA('SP500')
+
                     self.plot6_mama_curve.setData(df_sp500_graph['MAMA'].to_numpy())
                     self.plot6_fama_curve.setData(df_sp500_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
                 if flag_checkBox_plot6_oe:
+
+                    self.Calc_Ichimoku('SP500')
 
                     self.plot6_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].to_numpy())
                     self.plot6_oe_base_curve.setData(df_sp500_graph['OE_BASE'].to_numpy())
@@ -35496,6 +35530,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot6_bband:
 
+                    self.Calc_SAR_BBand('DOW')
+
                     self.plot6_bollinger_upper_curve.setData(df_dow_graph['BBUpper'].to_numpy())
                     self.plot6_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'].to_numpy())
                     self.plot6_bollinger_lower_curve.setData(df_dow_graph['BBLower'].to_numpy())
@@ -35504,12 +35540,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot6_mama:
 
+                    self.Calc_MAMA('DOW')
+
                     self.plot6_mama_curve.setData(df_dow_graph['MAMA'].to_numpy())
                     self.plot6_fama_curve.setData(df_dow_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
                 if flag_checkBox_plot6_oe:
+
+                    self.Calc_Ichimoku('DOW')
 
                     self.plot6_oe_conv_curve.setData(df_dow_graph['OE_CONV'].to_numpy())
                     self.plot6_oe_base_curve.setData(df_dow_graph['OE_BASE'].to_numpy())
@@ -35624,6 +35664,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot6_bband:
 
+                    self.Calc_SAR_BBand('NASDAQ')
+
                     self.plot6_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'].to_numpy())
                     self.plot6_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'].to_numpy())
                     self.plot6_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'].to_numpy())
@@ -35632,12 +35674,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot6_mama:
 
+                    self.Calc_MAMA('NASDAQ')
+
                     self.plot6_mama_curve.setData(df_nasdaq_graph['MAMA'].to_numpy())
                     self.plot6_fama_curve.setData(df_nasdaq_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
                 if flag_checkBox_plot6_oe:
+
+                    self.Calc_Ichimoku('NASDAQ')
 
                     self.plot6_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'].to_numpy())
                     self.plot6_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'].to_numpy())
@@ -35751,6 +35797,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot6_bband:
 
+                    self.Calc_SAR_BBand('WTI')
+
                     self.plot6_bollinger_upper_curve.setData(df_wti_graph['BBUpper'].to_numpy())
                     self.plot6_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'].to_numpy())
                     self.plot6_bollinger_lower_curve.setData(df_wti_graph['BBLower'].to_numpy())
@@ -35759,12 +35807,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot6_mama:
 
+                    self.Calc_MAMA('WTI')
+
                     self.plot6_mama_curve.setData(df_wti_graph['MAMA'].to_numpy())
                     self.plot6_fama_curve.setData(df_wti_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
                 if flag_checkBox_plot6_oe:
+
+                    self.Calc_Ichimoku('WTI')
 
                     self.plot6_oe_conv_curve.setData(df_wti_graph['OE_CONV'].to_numpy())
                     self.plot6_oe_base_curve.setData(df_wti_graph['OE_BASE'].to_numpy())
