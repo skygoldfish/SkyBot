@@ -860,10 +860,6 @@ telegram_toggle = True
 서버시간 = 0
 시스템_서버_시간차 = 0
 
-adj_hour = 0
-adj_min = 0
-adj_sec = 0
-
 Option_column = Enum('Option_column', '행사가 OLOH 기준가 월저 월고 전저 전고 종가 피봇 시가 저가 현재가 고가 시가갭 대비 진폭 VP OI OID')
 Futures_column = Enum('Futures_column', 'OLOH 매수건수 매도건수 매수잔량 매도잔량 건수비 잔량비 전저 전고 종가 피봇 시가 저가 현재가 고가 시가갭 대비 거래량 진폭 OI OID')
 Supply_column = Enum('Supply_column', '외인선옵 개인선옵 기관선옵 외인현물 프로그램')
@@ -2890,11 +2886,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     Delete_Webhook()
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 웹훅을 삭제합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 웹훅을 삭제합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                     self.textBrowser.append(txt)
                     print(txt)
                 else:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 웹훅이 없습니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 웹훅이 없습니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                     self.textBrowser.append(txt)
                     print(txt)
             else:
@@ -2976,10 +2972,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.setWindowTitle(widget_title)
         
         if SELFID == 'soojin65':
-            txt = '[{0:02d}:{1:02d}:{2:02d}] COREVAL = {3}\r'.format(adj_hour, adj_min, adj_sec, COREVAL)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] COREVAL = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, COREVAL)
             self.textBrowser.append(txt)
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] ResizeRowsToContents = {3}\r'.format(adj_hour, adj_min, adj_sec, ResizeRowsToContents)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] ResizeRowsToContents = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ResizeRowsToContents)
             self.textBrowser.append(txt)
         else:
             pass
@@ -3197,10 +3193,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             scoreboard_update_interval = MAIN_UPDATE_INTERVAL * 2
             plot_update_interval = BIGCHART_UPDATE_INTERVAL * 2
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 화면 갱신주기를 {3:.1f}초 --> {4:.1f}초로 늘립니다.\r'.format(adj_hour, adj_min, adj_sec, MAIN_UPDATE_INTERVAL / 1000, scoreboard_update_interval / 1000)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 화면 갱신주기를 {3:.1f}초 --> {4:.1f}초로 늘립니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, MAIN_UPDATE_INTERVAL / 1000, scoreboard_update_interval / 1000)
             self.textBrowser.append(txt)            
             
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 중지합니다.\r'.format(adj_hour, adj_min, adj_sec)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 중지합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
             self.textBrowser.append(txt)
 
             if self.telegram_send_worker.isRunning():
@@ -3220,13 +3216,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             flag_checkBox_HS = False
             
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 화면 갱신주기를 {3:.1f}초 --> {4:.1f}초로 복구합니다.\r'.format(adj_hour, adj_min, adj_sec, scoreboard_update_interval / 1000, MAIN_UPDATE_INTERVAL / 1000)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 화면 갱신주기를 {3:.1f}초 --> {4:.1f}초로 복구합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, scoreboard_update_interval / 1000, MAIN_UPDATE_INTERVAL / 1000)
             self.textBrowser.append(txt)
 
             scoreboard_update_interval = MAIN_UPDATE_INTERVAL
             plot_update_interval = BIGCHART_UPDATE_INTERVAL
             
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 재기동합니다.\r'.format(adj_hour, adj_min, adj_sec)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 재기동합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
             self.textBrowser.append(txt)
             
             self.telegram_send_worker.start()
@@ -3636,42 +3632,42 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if 콜매수 != '콜매수':
 
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 콜매수 {3} 진입...\r'.format(adj_hour, adj_min, adj_sec, 콜매수)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 콜매수 {3} 진입...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜매수)
                         self.textBrowser.append(txt)
                     else:
                         pass
 
                     if 콜매도 != '콜매도':
 
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 콜매도 {3} 진입...\r'.format(adj_hour, adj_min, adj_sec, 콜매도)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 콜매도 {3} 진입...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜매도)
                         self.textBrowser.append(txt)
                     else:
                         pass
 
                     if 풋매수 != '풋매수':
 
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 풋매수 {3} 진입...\r'.format(adj_hour, adj_min, adj_sec, 풋매수)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 풋매수 {3} 진입...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 풋매수)
                         self.textBrowser.append(txt)
                     else:
                         pass
 
                     if 풋매도 != '풋매도':
 
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 풋매도 {3} 진입...\r'.format(adj_hour, adj_min, adj_sec, 풋매도)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 풋매도 {3} 진입...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 풋매도)
                         self.textBrowser.append(txt)
                     else:
                         pass
 
                     if 손절 != '손절':
 
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 손절 {3}틱 설정됨\r'.format(adj_hour, adj_min, adj_sec, 손절)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 손절 {3}틱 설정됨\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 손절)
                         self.textBrowser.append(txt)
                     else:
                         pass
 
                     if 익절 != '익절':
 
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 익절 {3}틱 설정됨\r'.format(adj_hour, adj_min, adj_sec, 익절)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 익절 {3}틱 설정됨\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 익절)
                         self.textBrowser.append(txt)
                     else:
                         pass
@@ -3680,7 +3676,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 전송이 예약되었습니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 전송이 예약되었습니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                     self.textBrowser.append(txt)
                 else:
                     item = QTableWidgetItem("{0}".format('T'))
@@ -3725,7 +3721,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(흰색))
                     self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 전송예약이 취소되었습니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 전송예약이 취소되었습니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                     self.textBrowser.append(txt)
             elif row == 2 and col == Futures_column.OI.value:
                 pass
@@ -4148,7 +4144,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass   
 
             if market_service:
-                txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Send Message = {3}\r'.format(adj_hour, adj_min, adj_sec, send_txt)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Send Message = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, send_txt)
                 self.textBrowser.append(txt)
                 print(txt)
             else:
@@ -4182,15 +4178,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if telegram_command != '':
                     
                     if SELFID == 'soojin65':
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command is {3}\r'.format(adj_hour, adj_min, adj_sec, telegram_command)                        
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command is {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, telegram_command)                        
                         print(txt)
                     else:
                         txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message is {3}, {4:.2f} ms\r'.format \
-                            (adj_hour, adj_min, adj_sec, telegram_command, self.main_ui_update_time)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, telegram_command, self.main_ui_update_time)
                         self.textBrowser.append(txt)
                 else:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message is None, {3:.2f} ms\r'.format \
-                        (adj_hour, adj_min, adj_sec, self.main_ui_update_time)
+                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, self.main_ui_update_time)
                     self.textBrowser.append(txt)                
             else:
                 pass
@@ -4378,7 +4374,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 15 Minute resample
         #df_gold_ohlc_15min = df.resample('15T').ohlc()        
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] OHLC_Gen Update : {3:.2f} ms...\r'.format(adj_hour, adj_min, adj_sec, (timeit.default_timer() - start_time) * 1000)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] OHLC_Gen Update : {3:.2f} ms...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, (timeit.default_timer() - start_time) * 1000)
         print(txt)
     
     @pyqtSlot()
@@ -4647,7 +4643,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             flag_call_cross_coloring = True
 
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] Call 교차컬러링을 수행합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] Call 교차컬러링을 수행합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                             self.textBrowser.append(txt)
                             print(txt)
 
@@ -4675,7 +4671,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             flag_put_cross_coloring = True
 
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] Put 교차컬러링을 수행합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] Put 교차컬러링을 수행합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                             self.textBrowser.append(txt)
                             print(txt)                                        
                             
@@ -4885,43 +4881,35 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             CME_당일종가 = self.fut_realdata['현재가']
 
                             # 다음날 해외선물 피봇계산을 위해 종료시(오전 6시) 마지막 값 저장
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] CME 종가 = {3:.2f}\r'.format(adj_hour, adj_min, adj_sec, CME_당일종가)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] CME 종가 = {3:.2f}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, CME_당일종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] SP500 Low = {3:.2f}, SP500 High = {4:.2f}, SP500 Close = {5:.2f}\r'.format \
-                                (adj_hour, 
-                                adj_min, 
-                                adj_sec,
+                                (SERVER_HOUR, SERVER_MIN, SERVER_SEC,
                                 SP500_저가, SP500_고가, SP500_당일종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] DOW Low = {3:0.1f}, DOW High = {4:0.1f}, DOW Close = {5:0.1f}\r'.format \
-                                (adj_hour, 
-                                adj_min, 
-                                adj_sec,
+                                (SERVER_HOUR, SERVER_MIN, SERVER_SEC,
                                 DOW_저가, DOW_고가, DOW_당일종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ Low = {3:.2f}, NASDAQ High = {4:.2f}, NASDAQ Close = {5:.2f}\r'.format \
-                                (adj_hour, 
-                                adj_min, 
-                                adj_sec,
+                                (SERVER_HOUR, SERVER_MIN, SERVER_SEC,
                                 NASDAQ_저가, NASDAQ_고가, NASDAQ_당일종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] WTI Low = {3:.2f}, WTI High = {4:.2f}, WTI Close = {5:.2f}\r'.format \
-                                (adj_hour, 
-                                adj_min, 
-                                adj_sec,
+                                (SERVER_HOUR, SERVER_MIN, SERVER_SEC,
                                 WTI_저가, WTI_고가, WTI_당일종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] 야간장 주요정보를 저징합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 야간장 주요정보를 저징합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                             self.textBrowser.append(txt)
                             print(txt)
 
@@ -4987,7 +4975,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 nighttime_file.write(file_str)
                                 nighttime_file.close()
 
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                             self.textBrowser.append(txt)
                             print(txt)
 
@@ -4999,26 +4987,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 if MULTIPROCESS:
 
-                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 실시간요청을 모두 취소합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 실시간요청을 모두 취소합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                                     self.textBrowser.append(txt)
                                     print(txt)
 
                                     Myprocess.CancelAllRealData()
 
-                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 서버연결을 해지합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 서버연결을 해지합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                                     self.textBrowser.append(txt)
                                     print(txt)
 
                                     Myprocess.connection.disconnect()
                                     QTest.qWait(10)
 
-                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 쓰레드를 종료합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 쓰레드를 종료합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                                     self.textBrowser.append(txt)
                                     print(txt)
 
                                     self.mp_consumer.terminate()
 
-                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 로그인을 종료합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 로그인을 종료합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                                     self.textBrowser.append(txt)
                                     print(txt)
                                 else:
@@ -5029,7 +5017,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.parent.statusbar.showMessage("오프라인")
 
                             if not flag_logfile:
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                                 self.textBrowser.append(txt)
 
                                 file = open('lastnight.log', 'w')
@@ -5053,7 +5041,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if self.parent.connection.IsConnected():
 
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                             self.textBrowser.append(txt)
                             print(txt)
 
@@ -5065,26 +5053,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 if MULTIPROCESS:
 
-                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 실시간요청을 모두 취소합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 실시간요청을 모두 취소합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                                     self.textBrowser.append(txt)
                                     print(txt)
 
                                     Myprocess.CancelAllRealData()
 
-                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 서버연결을 해지합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 서버연결을 해지합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                                     self.textBrowser.append(txt)
                                     print(txt)
 
                                     Myprocess.connection.disconnect()
                                     QTest.qWait(10)
 
-                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 쓰레드를 종료합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 쓰레드를 종료합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                                     self.textBrowser.append(txt)
                                     print(txt)
 
                                     self.mp_consumer.terminate()
 
-                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 로그인을 종료합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 로그인을 종료합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                                     self.textBrowser.append(txt)
                                     print(txt)
                                 else:
@@ -5095,7 +5083,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.parent.statusbar.showMessage("오프라인")
 
                             if not flag_logfile:
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                                 self.textBrowser.append(txt)
 
                                 file = open('today.log', 'w')
@@ -5346,7 +5334,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] 동적 맥점 탐색을 시작합니다.\r'.format(adj_hour, adj_min, adj_sec)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 동적 맥점 탐색을 시작합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
         self.textBrowser.append(txt)
         print(txt)
                 
@@ -5357,7 +5345,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.opt_high_low_list_update()
         
-        txt = '[{0:02d}:{1:02d}:{2:02d}] high low list in search_moving_node = {3}\r'.format(adj_hour, adj_min, adj_sec, high_low_list)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] high low list in search_moving_node = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, high_low_list)
         #self.textBrowser.append(txt)
         print(txt)        
 
@@ -5443,7 +5431,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         new_node = sorted(listsum, key=operator.itemgetter(0))
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] new node list = {3}\r'.format(adj_hour, adj_min, adj_sec, new_node)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] new node list = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, new_node)
         self.textBrowser.append(txt)
         print(txt)
         
@@ -5465,7 +5453,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if high_low_list is not None and new_node[i][0] in high_low_list:
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}번째 동적맥점 {4:.2f}(빈도수 = {5}) 발생 !!!\r'.format \
-                    (adj_hour, adj_min, adj_sec, i + 1, new_node[i][0], new_node[i][1])
+                    (SERVER_HOUR, SERVER_MIN, SERVER_SEC, i + 1, new_node[i][0], new_node[i][1])
                 self.textBrowser.append(txt)
                 print(txt)
 
@@ -5500,14 +5488,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             new_list = list(set(진성맥점) - set(DEFAULT_NODE_LIST))
             new_list.sort()
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 탐색된 진성맥점 = {3}\r'.format(adj_hour, adj_min, adj_sec, new_list)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 탐색된 진성맥점 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, new_list)
             self.textBrowser.append(txt)
         else:
             pass            
 
     def market_type_display(self, blink):
 
-        global 시스템시간, adj_hour, adj_min, adj_sec 
+        global 시스템시간, SERVER_HOUR, SERVER_MIN, SERVER_SEC 
 
         dt = datetime.datetime.now()
 
@@ -5516,14 +5504,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             txt = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
         else:
-            시스템시간 = dt.hour * 3600 + dt.minute * 60 + dt.second
-            adj_time = 시스템시간 - 시스템_서버_시간차
-
-            adj_hour = adj_time // 3600
-            adj_min = (adj_time - adj_hour * 3600) // 60
-            adj_sec = adj_time - (adj_hour * 3600 + adj_min * 60)
-
-            txt = '{0:02d}:{1:02d}:{2:02d}({3:+d})'.format(adj_hour, adj_min, adj_sec, 시스템_서버_시간차)
+            txt = '{0:02d}:{1:02d}:{2:02d}({3:+d})'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 시스템_서버_시간차)
         
         # 클래스간 데이타 교환
         
@@ -5652,11 +5633,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if market_service:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check : {3:.2f} ms\r'.format(adj_hour, adj_min, adj_sec, process_time)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check : {3:.2f} ms\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, process_time)
             self.textBrowser.append(txt)
             print(txt)
         else:
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check : {3:.2f} ms\r'.format(adj_hour, adj_min, adj_sec, process_time)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check : {3:.2f} ms\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, process_time)
             self.textBrowser.append(txt)
             print(txt)
 
@@ -5673,7 +5654,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] Call Low Node Color Check : {3:.2f} ms\r'.format(adj_hour, adj_min, adj_sec, process_time)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Call Low Node Color Check : {3:.2f} ms\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, process_time)
         self.textBrowser.append(txt)
 
     def call_high_node_coloring(self):
@@ -5689,7 +5670,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] Call High Node Color Check : {3:.2f} ms\r'.format(adj_hour, adj_min, adj_sec, process_time)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Call High Node Color Check : {3:.2f} ms\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, process_time)
         self.textBrowser.append(txt)            
     
     def put_scroll_coloring(self):
@@ -5718,12 +5699,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if market_service:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check : {3:.2f} ms\r'.format(adj_hour, adj_min, adj_sec, process_time)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check : {3:.2f} ms\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, process_time)
             self.textBrowser.append(txt)
             print(txt)                                 
         else:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check : {3:.2f} ms\r'.format(adj_hour, adj_min, adj_sec, process_time)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check : {3:.2f} ms\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, process_time)
             self.textBrowser.append(txt)
             print(txt)
 
@@ -5740,7 +5721,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] Put Low Node Color Check : {3:.2f} ms\r'.format(adj_hour, adj_min, adj_sec, process_time)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Put Low Node Color Check : {3:.2f} ms\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, process_time)
         self.textBrowser.append(txt)
 
     def put_high_node_coloring(self):
@@ -5756,7 +5737,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] Put High Node Color Check : {3:.2f} ms\r'.format(adj_hour, adj_min, adj_sec, process_time)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Put High Node Color Check : {3:.2f} ms\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, process_time)
         self.textBrowser.append(txt)
 
     # 탐색순서가 중요(교차탐색) !!!
@@ -5795,7 +5776,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 All Node Color Check : {3:.2f} ms\r'.format(adj_hour, adj_min, adj_sec, process_time)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 All Node Color Check : {3:.2f} ms\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, process_time)
         self.textBrowser.append(txt)
         print(txt)        
 
@@ -5889,7 +5870,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             CENTER_VAL = call_atm_value
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 등가 {3}에서 교차 중심가 {4} 발생 !!!\r'.format(adj_hour, adj_min, adj_sec, atm_str, CENTER_VAL)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 등가 {3}에서 교차 중심가 {4} 발생 !!!\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, atm_str, CENTER_VAL)
             self.textBrowser.append(txt)
         
         df_call_information_graph.at[ovc_x_idx, 'centerval'] = CENTER_VAL
@@ -6247,12 +6228,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if TARGET_MONTH_SELECT == 'CM' and not call_ms_oneway:
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
-                            (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
 
                     elif TARGET_MONTH_SELECT == 'NM' and not call_ms_oneway:
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
-                            (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
                     else:
                         pass                    
 
@@ -6260,7 +6241,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.textBrowser.append(비대칭장)
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 시가갭 = {3:.2f}:{4:.2f}\r'.format \
-                            (adj_hour, adj_min, adj_sec, 콜시가갭합, 풋시가갭합)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜시가갭합, 풋시가갭합)
                         self.textBrowser.append(txt)
                     else:
                         pass
@@ -6281,12 +6262,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if TARGET_MONTH_SELECT == 'CM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
-                            (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
 
                     elif TARGET_MONTH_SELECT == 'NM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
-                            (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
                     else:
                         pass 
                     
@@ -6294,7 +6275,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.textBrowser.append(비대칭장)
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 시가갭 = {3:.2f}:{4:.2f}\r'.format \
-                            (adj_hour, adj_min, adj_sec, 콜시가갭합, 풋시가갭합)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜시가갭합, 풋시가갭합)
                         self.textBrowser.append(txt)
                     else:
                         pass
@@ -6317,12 +6298,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if TARGET_MONTH_SELECT == 'CM':
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매도({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
-                        (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
 
                 elif TARGET_MONTH_SELECT == 'NM':
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매도({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
-                        (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
                 else:
                     pass
                 
@@ -6365,12 +6346,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if TARGET_MONTH_SELECT == 'CM':
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매도({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
-                        (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)                    
+                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)                    
 
                 elif TARGET_MONTH_SELECT == 'NM':
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매도({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
-                        (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
                 else:
                     pass
                 
@@ -6400,12 +6381,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if TARGET_MONTH_SELECT == 'CM' and not put_ms_oneway:
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
-                            (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
 
                     elif TARGET_MONTH_SELECT == 'NM' and not put_ms_oneway:
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
-                            (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
                     else:
                         pass                    
 
@@ -6413,7 +6394,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.textBrowser.append(비대칭장)
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 시가갭 = {3:.2f}:{4:.2f}\r'.format \
-                            (adj_hour, adj_min, adj_sec, 콜시가갭합, 풋시가갭합)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜시가갭합, 풋시가갭합)
                         self.textBrowser.append(txt)
                     else:
                         pass
@@ -6434,12 +6415,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if TARGET_MONTH_SELECT == 'CM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
-                            (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
 
                     elif TARGET_MONTH_SELECT == 'NM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
-                            (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
                     else:
                         pass
                     
@@ -6447,7 +6428,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.textBrowser.append(비대칭장)
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 시가갭 = {3:.2f}:{4:.2f}\r'.format \
-                            (adj_hour, adj_min, adj_sec, 콜시가갭합, 풋시가갭합)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜시가갭합, 풋시가갭합)
                         self.textBrowser.append(txt)
                     else:
                         pass
@@ -6486,12 +6467,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if TARGET_MONTH_SELECT == 'CM':
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매도({3:0.1f}:{4:0.1f}) 양꽝장\r'.format \
-                        (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
 
                 elif TARGET_MONTH_SELECT == 'NM':
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매도({3:0.1f}:{4:0.1f}) 양꽝장\r'.format \
-                        (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
                 else:
                     pass
                 
@@ -6518,12 +6499,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if TARGET_MONTH_SELECT == 'CM':
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매도({3:0.1f}:{4:0.1f}) 양꽝장\r'.format \
-                        (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
 
                 elif TARGET_MONTH_SELECT == 'NM':
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매도({3:0.1f}:{4:0.1f}) 양꽝장\r'.format \
-                        (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
                 else:
                     pass
                 
@@ -6568,24 +6549,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if TARGET_MONTH_SELECT == 'CM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
-                            (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
 
                     elif TARGET_MONTH_SELECT == 'NM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
-                            (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
                     else:
                         pass
                 else:
                     if TARGET_MONTH_SELECT == 'CM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
-                            (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
 
                     elif TARGET_MONTH_SELECT == 'NM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
-                            (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
                     else:
                         pass                
 
@@ -6614,24 +6595,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if TARGET_MONTH_SELECT == 'CM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
-                            (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
 
                     elif TARGET_MONTH_SELECT == 'NM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
-                            (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
                     else:
                         pass
                 else:
                     if TARGET_MONTH_SELECT == 'CM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
-                            (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
 
                     elif TARGET_MONTH_SELECT == 'NM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
-                            (adj_hour, adj_min, adj_sec, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
                     else:
                         pass                
 
@@ -6731,14 +6712,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             if kospi_text_color != kosdaq_text_color:
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI, KOSDAQ의 극성이 상이합니다... \r'.format(adj_hour, adj_min, adj_sec)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI, KOSDAQ의 극성이 상이합니다... \r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 self.textBrowser.append(txt)
             else:
                 pass
             
             if dow_text_color != nasdaq_text_color:
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] DOW, NASDAQ의 극성이 상이합니다... \r'.format(adj_hour, adj_min, adj_sec)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] DOW, NASDAQ의 극성이 상이합니다... \r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 self.textBrowser.append(txt)
             else:
                 pass                
@@ -7102,11 +7083,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if TARGET_MONTH_SELECT == 'CM':
 
-                call_low_node_str = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 {3} 발생 C ▲".format(adj_hour, adj_min, adj_sec, call_low_node_list)
+                call_low_node_str = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 {3} 발생 C ▲".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, call_low_node_list)
 
             elif TARGET_MONTH_SELECT == 'NM':
 
-                call_low_node_str = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 {3} 발생 C ▲".format(adj_hour, adj_min, adj_sec, call_low_node_list)
+                call_low_node_str = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 {3} 발생 C ▲".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, call_low_node_list)
             else:
                 pass                        
         else:
@@ -7141,11 +7122,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 'CM' and call_low_node_count != call_low_node_old_count:
 
-                    telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
+                    telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
                 elif TARGET_MONTH_SELECT == 'NM' and call_low_node_count != call_low_node_old_count:
 
-                    telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
+                    telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
                     pass  
             else:
@@ -7162,11 +7143,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 'CM' and call_low_node_count != call_low_node_old_count:
 
-                    telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
+                    telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
                 elif TARGET_MONTH_SELECT == 'NM' and call_low_node_count != call_low_node_old_count:
 
-                    telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
+                    telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
                     pass  
             else:
@@ -7183,11 +7164,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 'CM' and call_low_node_count != call_low_node_old_count:
 
-                    telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
+                    telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
                 elif TARGET_MONTH_SELECT == 'NM' and call_low_node_count != call_low_node_old_count:
 
-                    telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
+                    telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
                     pass  
             else:
@@ -7234,11 +7215,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if TARGET_MONTH_SELECT == 'CM':
 
-                call_high_node_str = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 {3} 발생 C ▼".format(adj_hour, adj_min, adj_sec, call_high_node_list)
+                call_high_node_str = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 {3} 발생 C ▼".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, call_high_node_list)
 
             elif TARGET_MONTH_SELECT == 'NM':
 
-                call_high_node_str = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 {3} 발생 C ▼".format(adj_hour, adj_min, adj_sec, call_high_node_list)
+                call_high_node_str = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 {3} 발생 C ▼".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, call_high_node_list)
             else:
                 pass
         else:
@@ -7273,11 +7254,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 'CM' and call_high_node_count != call_high_node_old_count:
 
-                    telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
+                    telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
                 elif TARGET_MONTH_SELECT == 'NM' and call_high_node_count != call_high_node_old_count:
 
-                    telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
+                    telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
                     pass  
             else:
@@ -7294,11 +7275,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 'CM' and call_high_node_count != call_high_node_old_count:
 
-                    telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
+                    telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
                 elif TARGET_MONTH_SELECT == 'NM' and call_high_node_count != call_high_node_old_count:
 
-                    telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
+                    telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
                     pass 
             else:
@@ -7315,11 +7296,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 'CM' and call_high_node_count != call_high_node_old_count:
 
-                    telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
+                    telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
                 elif TARGET_MONTH_SELECT == 'NM' and call_high_node_count != call_high_node_old_count:
 
-                    telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
+                    telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
                     pass 
             else:
@@ -7378,7 +7359,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
                     self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(대맥점색))
                     
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] call low 진성맥점 = {3}, low = {4}\r'.format(adj_hour, adj_min, adj_sec, 진성맥점, 저가)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] call low 진성맥점 = {3}, low = {4}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 진성맥점, 저가)
                     self.textBrowser.append(txt)
 
                     flag_call_low_coreval = True
@@ -7409,7 +7390,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
                     self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(대맥점색))
                     
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] call high 진성맥점 = {3}, high = {4}\r'.format(adj_hour, adj_min, adj_sec, 진성맥점, 고가)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] call high 진성맥점 = {3}, high = {4}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 진성맥점, 고가)
                     self.textBrowser.append(txt)
 
                     flag_call_high_coreval = True
@@ -9623,11 +9604,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if TARGET_MONTH_SELECT == 'CM':
 
-                put_low_node_str = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 {3} 발생 P ▲".format(adj_hour, adj_min, adj_sec, put_low_node_list)
+                put_low_node_str = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 {3} 발생 P ▲".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, put_low_node_list)
 
             elif TARGET_MONTH_SELECT == 'NM':
 
-                put_low_node_str = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 {3} 발생 P ▲".format(adj_hour, adj_min, adj_sec, put_low_node_list)
+                put_low_node_str = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 {3} 발생 P ▲".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, put_low_node_list)
             else:
                 pass
         else:
@@ -9662,11 +9643,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 'CM' and put_low_node_count != put_low_node_old_count:
 
-                    telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
+                    telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
                 elif TARGET_MONTH_SELECT == 'NM' and put_low_node_count != put_low_node_old_count:
 
-                    telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
+                    telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
                     pass
             else:
@@ -9683,11 +9664,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 'CM' and put_low_node_count != put_low_node_old_count:
 
-                    telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
+                    telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
                 elif TARGET_MONTH_SELECT == 'NM' and put_low_node_count != put_low_node_old_count:
 
-                    telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
+                    telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
                     pass
             else:
@@ -9704,11 +9685,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 'CM' and put_low_node_count != put_low_node_old_count:
 
-                    telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
+                    telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
                 elif TARGET_MONTH_SELECT == 'NM' and put_low_node_count != put_low_node_old_count:
 
-                    telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
+                    telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
                     pass
             else:
@@ -9755,11 +9736,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if TARGET_MONTH_SELECT == 'CM': 
 
-                put_high_node_str = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 {3} 발생 P ▼".format(adj_hour, adj_min, adj_sec, put_high_node_list)
+                put_high_node_str = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 {3} 발생 P ▼".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, put_high_node_list)
 
             elif TARGET_MONTH_SELECT == 'NM':
 
-                put_high_node_str = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 {3} 발생 P ▼".format(adj_hour, adj_min, adj_sec, put_high_node_list)
+                put_high_node_str = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 {3} 발생 P ▼".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, put_high_node_list)
             else:
                 pass
         else:
@@ -9795,11 +9776,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 'CM' and put_high_node_count != put_high_node_old_count:
 
-                    telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
+                    telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
                 elif TARGET_MONTH_SELECT == 'NM' and put_high_node_count != put_high_node_old_count:
 
-                    telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
+                    telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
                     pass
             else:
@@ -9816,11 +9797,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 'CM' and put_high_node_count != put_high_node_old_count:
 
-                    telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
+                    telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
                 elif TARGET_MONTH_SELECT == 'NM' and put_high_node_count != put_high_node_old_count:
 
-                    telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
+                    telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
                     pass
             else:
@@ -9836,11 +9817,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 'CM' and put_high_node_count != put_high_node_old_count:
 
-                    telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
+                    telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
                 elif TARGET_MONTH_SELECT == 'NM' and put_high_node_count != put_high_node_old_count:
 
-                    telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
+                    telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
                     pass
             else:
@@ -9899,7 +9880,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
                     self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(대맥점색))
                     
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] put low 진성맥점 = {3}, low = {4}\r'.format(adj_hour, adj_min, adj_sec, 진성맥점, 저가)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] put low 진성맥점 = {3}, low = {4}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 진성맥점, 저가)
                     self.textBrowser.append(txt)
 
                     flag_put_low_coreval = True
@@ -9930,7 +9911,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
                     self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(대맥점색))
                     
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] put high 진성맥점 = {3}, high = {4}\r'.format(adj_hour, adj_min, adj_sec, 진성맥점, 고가)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] put high 진성맥점 = {3}, high = {4}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 진성맥점, 고가)
                     self.textBrowser.append(txt)
 
                     flag_put_high_coreval = True
@@ -10193,7 +10174,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 flag_kp200_low_node = True
 
-                kp200_low_node_str = "[{0:02d}:{1:02d}:{2:02d}] kp200 저가맥점 {3:.2f} 발생 !!!".format(adj_hour, adj_min, adj_sec, self.kp200_realdata['저가'])
+                kp200_low_node_str = "[{0:02d}:{1:02d}:{2:02d}] kp200 저가맥점 {3:.2f} 발생 !!!".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, self.kp200_realdata['저가'])
             else:
                 pass
 
@@ -10214,7 +10195,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 flag_kp200_high_node = True
 
-                kp200_high_node_str = "[{0:02d}:{1:02d}:{2:02d}] kp200 고가맥점 {3:.2f} 발생 !!!".format(adj_hour, adj_min, adj_sec, self.kp200_realdata['고가'])
+                kp200_high_node_str = "[{0:02d}:{1:02d}:{2:02d}] kp200 고가맥점 {3:.2f} 발생 !!!".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, self.kp200_realdata['고가'])
             else:
                 pass
 
@@ -10251,12 +10232,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if TARGET_MONTH_SELECT == 'CM' and not flag_fut_ol and not flag_fut_oloh:
 
-                fut_oloh_str = "[{0:02d}:{1:02d}:{2:02d}] CM 선물 OL ▲".format(adj_hour, adj_min, adj_sec)
+                fut_oloh_str = "[{0:02d}:{1:02d}:{2:02d}] CM 선물 OL ▲".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 flag_fut_oloh = True
 
             elif TARGET_MONTH_SELECT == 'NM' and not flag_fut_ol and not flag_fut_oloh:
 
-                fut_oloh_str = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OL ▲".format(adj_hour, adj_min, adj_sec)
+                fut_oloh_str = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OL ▲".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 flag_fut_oloh = True
             else:
                 pass
@@ -10289,12 +10270,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if TARGET_MONTH_SELECT == 'CM' and not flag_fut_oh and not flag_fut_oloh:
 
-                fut_oloh_str = "[{0:02d}:{1:02d}:{2:02d}] CM 선물 OH ▼".format(adj_hour, adj_min, adj_sec)
+                fut_oloh_str = "[{0:02d}:{1:02d}:{2:02d}] CM 선물 OH ▼".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 flag_fut_oloh = True
 
             elif TARGET_MONTH_SELECT == 'NM' and not flag_fut_oh and not flag_fut_oloh:
 
-                fut_oloh_str = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OH ▼".format(adj_hour, adj_min, adj_sec)
+                fut_oloh_str = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OH ▼".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 flag_fut_oloh = True
             else:
                 pass
@@ -10416,7 +10397,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         # 선물 맥점 컬러링
-        txt = '[{0:02d}:{1:02d}:{2:02d}] KP200 맥점 컬러링을 완료했습니다.\r'.format(adj_hour, adj_min, adj_sec)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] KP200 맥점 컬러링을 완료했습니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
         self.textBrowser.append(txt)
 
     def fut_node_coloring(self):
@@ -11028,7 +11009,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.fut_oloh_check()
             self.fut_node_coloring()
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 저가 {3} Update...\r'.format(adj_hour, adj_min, adj_sec, 선물_저가)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 저가 {3} Update...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 선물_저가)
             self.textBrowser.append(txt)
             
             진폭 = 선물_고가 - 선물_저가
@@ -11090,7 +11071,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.fut_oloh_check()
             self.fut_node_coloring()
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 고가 {3} Update...\r'.format(adj_hour, adj_min, adj_sec, 선물_고가)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 고가 {3} Update...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 선물_고가)
             self.textBrowser.append(txt)
             
             진폭 = 선물_고가 - 선물_저가
@@ -11522,7 +11503,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] Call Open List = {3}\r'.format \
-                (adj_hour, adj_min, adj_sec, self.call_open_list)
+                (SERVER_HOUR, SERVER_MIN, SERVER_SEC, self.call_open_list)
             self.textBrowser.append(txt)
             
             if not NightTime and index > ATM_INDEX:
@@ -11640,13 +11621,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             call_피봇_node_list = self.make_node_list(call_피봇)
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] Call {3:.2f} Open Update !!!\r'.format \
-                (adj_hour, adj_min, adj_sec, 콜시가)
+                (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜시가)
             self.textBrowser.append(txt)
             
             if index == option_pairs_count - 1:
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 콜 최대 시작가 {3} 오픈되었습니다.\r'.format \
-                    (adj_hour, adj_min, adj_sec, 콜시가)
+                    (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜시가)
                 self.textBrowser.append(txt)
             else:
                 pass
@@ -11838,7 +11819,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             process_time = (timeit.default_timer() - start_time) * 1000
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Call 저가 {3} Update : {4:.2f} ms\r'.format(adj_hour, adj_min, adj_sec, 콜저가, process_time)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Call 저가 {3} Update : {4:.2f} ms\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜저가, process_time)
             self.textBrowser.append(txt)
             print(txt) 
         else:
@@ -11915,7 +11896,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             process_time = (timeit.default_timer() - start_time) * 1000
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Call 고가 {3} Update : {4:.2f} ms\r'.format(adj_hour, adj_min, adj_sec, 콜고가, process_time)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Call 고가 {3} Update : {4:.2f} ms\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜고가, process_time)
             self.textBrowser.append(txt)
             print(txt) 
         else:
@@ -12643,7 +12624,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] Put Open List = {3}\r'.format \
-                (adj_hour, adj_min, adj_sec, self.put_open_list)
+                (SERVER_HOUR, SERVER_MIN, SERVER_SEC, self.put_open_list)
             self.textBrowser.append(txt)
             
             if not NightTime and index < ATM_INDEX:
@@ -12761,13 +12742,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             put_피봇_node_list = self.make_node_list(put_피봇)
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] Put {3:.2f} Open Update !!!\r'.format \
-                (adj_hour, adj_min, adj_sec, 풋시가)
+                (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 풋시가)
             self.textBrowser.append(txt)
             
             if index == 0:
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 풋 최대 시작가 {3} 오픈되었습니다.\r'.format \
-                    (adj_hour, adj_min, adj_sec, 시가)
+                    (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 시가)
                 self.textBrowser.append(txt)
             else:
                 pass  
@@ -12959,7 +12940,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             process_time = (timeit.default_timer() - start_time) * 1000
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Put 저가 {3} Update : {4:.2f} ms\r'.format(adj_hour, adj_min, adj_sec, 풋저가, process_time)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Put 저가 {3} Update : {4:.2f} ms\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 풋저가, process_time)
             self.textBrowser.append(txt)
             print(txt) 
         else:
@@ -13036,7 +13017,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             process_time = (timeit.default_timer() - start_time) * 1000
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Put 고가 {3} Update : {4:.2f} ms\r'.format(adj_hour, adj_min, adj_sec, 풋고가, process_time)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Put 고가 {3} Update : {4:.2f} ms\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 풋고가, process_time)
             self.textBrowser.append(txt)
             print(txt) 
         else:
@@ -13971,7 +13952,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.high_low_list_save_to_file()
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] High-Low 리스트파일을 갱신했습니다.\r'.format(adj_hour, adj_min, adj_sec)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] High-Low 리스트파일을 갱신했습니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
         self.textBrowser.append(txt)
 
         if CSV_FILE:
@@ -13981,7 +13962,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 futures_graph_csv = "Futures {}{}".format(times, '.csv')
                 df_futures_graph.to_csv(futures_graph_csv, encoding='ms949')
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 국내선물 Graph 파일을 저장했습니다.\r'.format(adj_hour, adj_min, adj_sec)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 국내선물 Graph 파일을 저장했습니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 self.textBrowser.append(txt)
             else:
                 pass  
@@ -13998,13 +13979,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             wti_graph_csv = "WTI {}{}".format(times, '.csv')
             df_wti_graph.to_csv(wti_graph_csv, encoding='ms949')
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 Graph 파일을 저장했습니다.\r'.format(adj_hour, adj_min, adj_sec)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 Graph 파일을 저장했습니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
             self.textBrowser.append(txt)
         else:
             pass
         
         if not flag_logfile:
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
             self.textBrowser.append(txt)
 
             if NightTime:
@@ -14035,16 +14016,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if chk_webhook.url != '':
             
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook = {3}\r'.format(adj_hour, adj_min, adj_sec, chk_webhook)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, chk_webhook)
             self.textBrowser.append(txt)
 
             # Webhook을 삭제한다.
             Delete_Webhook()
             
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook을 삭제합니다.\r'.format(adj_hour, adj_min, adj_sec)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook을 삭제합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
             self.textBrowser.append(txt)
         else:
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook이 없습니다.\r'.format(adj_hour, adj_min, adj_sec)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook이 없습니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
             self.textBrowser.append(txt) 
         
         if TELEGRAM_SERVICE and not flag_telegram_send_worker:
@@ -14053,7 +14034,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             self.telegram_send_worker.start()
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Send Worker를 재시작합니다.\r'.format(adj_hour, adj_min, adj_sec)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Send Worker를 재시작합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
             self.textBrowser.append(txt)
 
             flag_telegram_send_worker = True
@@ -14066,7 +14047,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             self.telegram_listen_worker.start()
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Polling이 시작됩니다.\r'.format(adj_hour, adj_min, adj_sec)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Polling이 시작됩니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
             self.textBrowser.append(txt)
 
             if TARGET_MONTH_SELECT == 'CM':
@@ -14099,12 +14080,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if TARGET_MONTH_SELECT == 'CM':
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] CM 텔레그램 Polling을 중지합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] CM 텔레그램 Polling을 중지합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 self.textBrowser.append(txt)
 
             elif TARGET_MONTH_SELECT == 'NM':
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] NM 텔레그램 Polling을 중지합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] NM 텔레그램 Polling을 중지합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 self.textBrowser.append(txt)
 
             else:
@@ -16917,7 +16898,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if self.flag_refresh:
             
                 # 옵션 맥점 컬러링                
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션맥점 Refresh 컬러링을 시작합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션맥점 Refresh 컬러링을 시작합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 self.textBrowser.append(txt)
 
                 self.opt_all_node_coloring()
@@ -17933,7 +17914,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 # Refresh
                 if not flag_checkBox_HS:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판을 갱신합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판을 갱신합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                     self.textBrowser.append(txt)
                 else:
                     pass
@@ -18148,7 +18129,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if not flag_checkBox_HS:
                     
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] high low list in t2835 refresh = {3}\r'.format(adj_hour, adj_min, adj_sec, high_low_list)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] high low list in t2835 refresh = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, high_low_list)
                     print(txt)
 
                     for i in range(option_pairs_count):
@@ -19612,7 +19593,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global put_저가, put_저가_node_list, put_고가, put_고가_node_list
         global market_service, service_terminate, jugan_service_terminate, yagan_service_terminate
 
-        global OVC_체결시간, adj_hour, adj_min, OVC_SEC
+        global OVC_체결시간, OVC_SEC, SERVER_HOUR, SERVER_MIN, SERVER_SEC
 
         global df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
 
@@ -19686,26 +19667,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif szTrCode == 'JIF':
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 장구분[{3}], 장상태[{4}]\r'.format(adj_hour, adj_min, adj_sec, result['장구분'], result['장상태'])
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 장구분[{3}], 장상태[{4}]\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, result['장구분'], result['장상태'])
                 self.textBrowser.append(txt)
                 self.parent.textBrowser.append(txt)
 
                 # 장시작 10분전
                 if result['장구분'] == '5' and result['장상태'] == '25':
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 장시작 10분전입니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 장시작 10분전입니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                     self.textBrowser.append(txt)
 
                 # 현물장 시작 10초전
                 elif result['장구분'] == '1' and result['장상태'] == '22':
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 현물장 시작 10초전입니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 현물장 시작 10초전입니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                     self.textBrowser.append(txt)
 
                 # 선물장 시작 10초전
                 elif result['장구분'] == '5' and result['장상태'] == '22':
                     
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 선물장 시작 10초전입니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 선물장 시작 10초전입니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                     self.textBrowser.append(txt)
 
                 # 주간 선물/옵션장 시작
@@ -19716,16 +19697,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     DOW_주간_시작가 = DOW_현재가
                     WTI_주간_시작가 = WTI_현재가
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장이 시작됩니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장이 시작됩니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                     self.textBrowser.append(txt)
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] DOW 주간시작가 = {3}\r'.format(adj_hour, adj_min, adj_sec, DOW_주간_시작가)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] DOW 주간시작가 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, DOW_주간_시작가)
                     self.textBrowser.append(txt)
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] WTI 주간시작가 = {3}\r'.format(adj_hour, adj_min, adj_sec, WTI_주간_시작가)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] WTI 주간시작가 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, WTI_주간_시작가)
                     self.textBrowser.append(txt)
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 예상지수요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 예상지수요청을 취소합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                     self.textBrowser.append(txt)
 
                     if not MULTIPROCESS:
@@ -19749,7 +19730,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                     market_service = True
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 시작됩니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 시작됩니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                     self.textBrowser.append(txt)
 
                     DOW_야간_시작가 = DOW_현재가
@@ -19760,7 +19741,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.label_kospi.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
                     self.label_kospi.setText(jisu_txt)
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] DOW 야간시작가 = {3}\r'.format(adj_hour, adj_min, adj_sec, DOW_야간_시작가)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] DOW 야간시작가 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, DOW_야간_시작가)
                     self.textBrowser.append(txt)
 
                     jisu_txt = "WTI 야간시작가: {0}".format(WTI_야간_시작가)
@@ -19768,7 +19749,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.label_kosdaq.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
                     self.label_kosdaq.setText(jisu_txt)
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] WTI 야간시작가 = {3}\r'.format(adj_hour, adj_min, adj_sec, WTI_야간_시작가)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] WTI 야간시작가 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, WTI_야간_시작가)
                     self.textBrowser.append(txt)
 
                 # 야간 옵션장 시작
@@ -19776,7 +19757,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     market_service = True
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 시작됩니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 시작됩니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                     self.textBrowser.append(txt)
 
                     DOW_야간_시작가 = DOW_현재가
@@ -19787,7 +19768,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.label_kospi.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
                     self.label_kospi.setText(jisu_txt)
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] DOW 야간시작가 = {3}\r'.format(adj_hour, adj_min, adj_sec, DOW_야간_시작가)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] DOW 야간시작가 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, DOW_야간_시작가)
                     self.textBrowser.append(txt)
 
                     jisu_txt = "WTI 야간시작가: {0}".format(WTI_야간_시작가)
@@ -19795,36 +19776,36 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.label_kosdaq.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
                     self.label_kosdaq.setText(jisu_txt)
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] WTI 야간시작가 = {3}\r'.format(adj_hour, adj_min, adj_sec, WTI_야간_시작가)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] WTI 야간시작가 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, WTI_야간_시작가)
                     self.textBrowser.append(txt)
 
                 # 미국 주식장 시작
                 elif result['장구분'] == '9' and result['장상태'] == '21':
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 미국 주식장이 시작됩니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 미국 주식장이 시작됩니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                     self.textBrowser.append(txt)
 
                 # 현물 장마감 5분전
                 elif result['장구분'] == '1' and result['장상태'] == '44':
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 현물 장마감 5분전입니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 현물 장마감 5분전입니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                     self.textBrowser.append(txt)
 
                 # 현물 장마감 1분전
                 elif result['장구분'] == '1' and result['장상태'] == '43':
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 현물 장마감 1분전입니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 현물 장마감 1분전입니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                     self.textBrowser.append(txt)
                     
                 # 장후 동시호가 시작
                 elif result['장구분'] == '5' and result['장상태'] == '31':
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 장후 동시호가가 시작되었습니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 장후 동시호가가 시작되었습니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                     self.textBrowser.append(txt)
 
                     dongsi_hoga = True
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                     self.textBrowser.append(txt)
 
                     if self.telegram_send_worker.isRunning():
@@ -19840,20 +19821,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 주간 선물/옵션장 종료
                 elif result['장구분'] == '5' and result['장상태'] == '41':
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물/옵션장이 종료되었습니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물/옵션장이 종료되었습니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                     self.textBrowser.append(txt)
                     self.parent.textBrowser.append(txt)
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 S&P 500 지수 = {3}\r'.format(adj_hour, adj_min, adj_sec, SP500_현재가)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 S&P 500 지수 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, SP500_현재가)
                     self.textBrowser.append(txt)
                     
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 DOW 지수 = {3}\r'.format(adj_hour, adj_min, adj_sec, DOW_현재가)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 DOW 지수 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, DOW_현재가)
                     self.textBrowser.append(txt)
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 NASDAQ 지수 = {3}\r'.format(adj_hour, adj_min, adj_sec, NASDAQ_현재가)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 NASDAQ 지수 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, NASDAQ_현재가)
                     self.textBrowser.append(txt)
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 WTI 지수 = {3}\r'.format(adj_hour, adj_min, adj_sec, WTI_현재가)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 WTI 지수 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, WTI_현재가)
                     self.textBrowser.append(txt)
 
                     if market_service:
@@ -19936,26 +19917,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 야간 선물장 종료
                 elif result['장구분'] == '7' and result['장상태'] == '41':
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 종료되었습니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 종료되었습니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                     self.textBrowser.append(txt)
                     self.parent.textBrowser.append(txt)
 
                     #CME_당일종가 = self.cme_realdata['현재가']
                     
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 S&P 500 지수 = {3}\r'.format \
-                        (adj_hour, adj_min, adj_sec, SP500_현재가)
+                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, SP500_현재가)
                     self.textBrowser.append(txt)
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 DOW 지수 = {3}\r'.format \
-                        (adj_hour, adj_min, adj_sec, DOW_현재가)
+                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, DOW_현재가)
                     self.textBrowser.append(txt)
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 NASDAQ 지수 = {3}\r'.format \
-                        (adj_hour, adj_min, adj_sec, NASDAQ_현재가)
+                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, NASDAQ_현재가)
                     self.textBrowser.append(txt)
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 WTI 지수 = {3}\r'.format \
-                        (adj_hour, adj_min, adj_sec, WTI_현재가)
+                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, WTI_현재가)
                     self.textBrowser.append(txt)
 
                     if market_service:
@@ -19977,7 +19958,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.pushButton_start.setText(' ScrShot ')
                         
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                         self.textBrowser.append(txt)
 
                         if self.telegram_send_worker.isRunning():
@@ -19997,7 +19978,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 야간 옵션장 종료(선물장보다 1시간 먼저 종료됨)
                 elif result['장구분'] == '8' and result['장상태'] == '41':
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 종료되었습니다.\r'.format(adj_hour, adj_min, adj_sec)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 종료되었습니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                     self.textBrowser.append(txt)
                     self.parent.textBrowser.append(txt)
 
@@ -20020,7 +20001,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.pushButton_start.setText(' ScrShot ')
                         
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                         self.textBrowser.append(txt)
 
                         if self.telegram_send_worker.isRunning():
@@ -21984,6 +21965,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 OVC_HOUR = int(OVC_체결시간[0:2])
                 OVC_MIN = int(OVC_체결시간[2:4])
                 OVC_SEC = int(OVC_체결시간[4:6])
+
+                SERVER_HOUR = OVC_HOUR
+                SERVER_MIN = OVC_MIN
+                SERVER_SEC = OVC_SEC
 
                 # 과거값 저장
                 old_ovc_x_idx = ovc_x_idx                       
@@ -31466,7 +31451,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
         else:
-            txt = ' {0:02d}:{1:02d}:{2:02d}({3:d}, {4:.2f} ms) '.format(adj_hour, adj_min, adj_sec, ovc_x_idx, self.bc_ui_update_time)
+            txt = ' {0:02d}:{1:02d}:{2:02d}({3:d}, {4:.2f} ms) '.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, self.bc_ui_update_time)
    
         self.label_time.setText(txt)
         '''
@@ -36203,9 +36188,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if TARGET_MONTH_SELECT == 'CM':
 
                 if SELFID == 'soojin65':
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] ***님이 로그아웃 했습니다.'.format(adj_hour, adj_min, adj_sec)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] ***님이 로그아웃 했습니다.'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 로그아웃 했습니다.'.format(adj_hour, adj_min, adj_sec, SELFID)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 로그아웃 했습니다.'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, SELFID)
 
                 #ToMyTelegram(txt)
             else:
