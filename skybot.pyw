@@ -4378,7 +4378,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         print(txt)
     
     @pyqtSlot()
-    @logging_time
+    #@logging_time
     def update_screen(self):
 
         global flag_internet_connection_broken, flag_service_provider_broken
@@ -19536,6 +19536,1318 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def OnReceiveRealData(self, result):
         pass
     
+    @logging_time
+    def OVC_Update(self, result):
+
+        global receive_real_ovc, OVC_체결시간, OVC_SEC, SERVER_HOUR, SERVER_MIN, SERVER_SEC
+        global old_ovc_x_idx, ovc_x_idx
+        global df_futures_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
+
+        global sp500_delta, old_sp500_delta, sp500_직전대비, sp500_text_color
+        global dow_delta, old_dow_delta, dow_직전대비, dow_text_color
+        global nasdaq_delta, old_nasdaq_delta, nasdaq_직전대비, nasdaq_text_color
+        global wti_delta, old_wti_delta, wti_직전대비, wti_text_color
+        global eurofx_delta, old_eurofx_delta, eurofx_직전대비, eurofx_text_color
+        global hangseng_delta, old_hangseng_delta, hangseng_직전대비, hangseng_text_color
+        global gold_delta, old_gold_delta, gold_직전대비, gold_text_color
+
+        global SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_현재가, SP500_전일대비, SP500_등락율, SP500_진폭, SP500_고가
+        global DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_현재가, DOW_전일대비, DOW_등락율, DOW_진폭, DOW_고가
+        global NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_현재가, NASDAQ_전일대비, NASDAQ_등락율, NASDAQ_진폭, NASDAQ_고가
+        global WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭, WTI_고가
+        global EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭, EUROFX_고가
+        global HANGSENG_종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭, HANGSENG_고가
+        global GOLD_종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭, GOLD_고가
+        global DOW_현재가_버퍼, SP500_현재가_버퍼, NASDAQ_현재가_버퍼, WTI_현재가_버퍼
+        global SP500_과거가, DOW_과거가, NASDAQ_과거가, WTI_과거가, EUROFX_과거가, HANGSENG_과거가, GOLD_과거가
+
+        global DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가, GOLD_당일종가
+        global DOW_주간_시작가, WTI_주간_시작가, DOW_야간_시작가, WTI_야간_시작가
+        
+        global flag_dow_ohlc_open, flag_sp500_ohlc_open, flag_nasdaq_ohlc_open, flag_wti_ohlc_open
+        global flag_eurofx_ohlc_open, flag_hangseng_ohlc_open, flag_gold_ohlc_open        
+                        
+        if not receive_real_ovc:
+            receive_real_ovc = True
+        else:
+            pass
+
+        OVC_체결시간 = result['체결시간_한국']
+        OVC_HOUR = int(OVC_체결시간[0:2])
+        OVC_MIN = int(OVC_체결시간[2:4])
+        OVC_SEC = int(OVC_체결시간[4:6])
+
+        SERVER_HOUR = OVC_HOUR
+        SERVER_MIN = OVC_MIN
+        SERVER_SEC = OVC_SEC
+
+        # 과거값 저장
+        old_ovc_x_idx = ovc_x_idx                       
+        
+        # X축 시간좌표 계산
+        # 해외선물 시간과 동기를 맞춤
+        if NightTime:
+
+            night_time = OVC_HOUR
+
+            if 0 <= night_time <= 6:
+                night_time = night_time + 24
+            else:
+                pass
+
+            ovc_x_idx = (night_time - NightTime_PreStart_Hour) * 60 + OVC_MIN + 1         
+        else:                    
+            # 해외선물 개장시간은 국내시장의 2시간 전
+            ovc_x_idx = (OVC_HOUR - DayTime_PreStart_Hour) * 60 + OVC_MIN + 1
+
+        # 갱신된 현재값을 과거값과 비교(NaN 방지를 위해)
+        if ovc_x_idx != old_ovc_x_idx:
+
+            if not NightTime and market_service:
+                df_futures_graph.at[ovc_x_idx, 'high'] = df_futures_graph.at[ovc_x_idx- 1, 'high']
+                df_futures_graph.at[ovc_x_idx, 'low'] = df_futures_graph.at[ovc_x_idx - 1, 'low']
+                df_futures_graph.at[ovc_x_idx, 'middle'] = df_futures_graph.at[ovc_x_idx - 1, 'middle']
+                df_futures_graph.at[ovc_x_idx, 'close'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
+                df_futures_graph.at[ovc_x_idx, 'price'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
+            else:
+                pass
+
+            df_dow_graph.at[ovc_x_idx, 'high'] = df_dow_graph.at[ovc_x_idx - 1, 'high']
+            df_dow_graph.at[ovc_x_idx, 'low'] = df_dow_graph.at[ovc_x_idx - 1, 'low']
+            df_dow_graph.at[ovc_x_idx, 'middle'] = df_dow_graph.at[ovc_x_idx - 1, 'middle']
+            df_dow_graph.at[ovc_x_idx, 'close'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
+            df_dow_graph.at[ovc_x_idx, 'price'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
+
+            df_nasdaq_graph.at[ovc_x_idx, 'high'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'high']
+            df_nasdaq_graph.at[ovc_x_idx, 'low'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'low']
+            df_nasdaq_graph.at[ovc_x_idx, 'middle'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'middle']
+            df_nasdaq_graph.at[ovc_x_idx, 'close'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
+            df_nasdaq_graph.at[ovc_x_idx, 'price'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
+
+            df_sp500_graph.at[ovc_x_idx, 'high'] = df_sp500_graph.at[ovc_x_idx - 1, 'high']
+            df_sp500_graph.at[ovc_x_idx, 'low'] = df_sp500_graph.at[ovc_x_idx - 1, 'low']
+            df_sp500_graph.at[ovc_x_idx, 'middle'] = df_sp500_graph.at[ovc_x_idx - 1, 'middle']
+            df_sp500_graph.at[ovc_x_idx, 'close'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
+            df_sp500_graph.at[ovc_x_idx, 'price'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
+
+            df_wti_graph.at[ovc_x_idx, 'high'] = df_wti_graph.at[ovc_x_idx - 1, 'high']
+            df_wti_graph.at[ovc_x_idx, 'low'] = df_wti_graph.at[ovc_x_idx - 1, 'low']
+            df_wti_graph.at[ovc_x_idx, 'middle'] = df_wti_graph.at[ovc_x_idx - 1, 'middle']
+            df_wti_graph.at[ovc_x_idx, 'close'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
+            df_wti_graph.at[ovc_x_idx, 'price'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
+        else:
+            pass
+
+        # 체결량정보 제공안됨 !!!
+        #매도누적체결수량 = int(result['매도누적체결수량'])
+        #매수누적체결수량 = int(result['매수누적체결수량'])
+        #체결순매수 = 매수누적체결수량 - 매도누적체결수량
+
+        if result['종목코드'] == DOW:
+
+            df_dow_graph.at[ovc_x_idx, 'price'] = result['체결가격']
+
+            DOW_현재가 = int(result['체결가격'])
+            DOW_전일대비 = int(DOW_현재가 - DOW_종가)
+            DOW_등락율 = result['등락율']
+
+            DOW_저가 =  int(result['저가'])
+            DOW_고가 =  int(result['고가'])
+            DOW_진폭 = int(DOW_고가 - DOW_저가)
+            
+            if DOW_전일종가 > 0 and not NightTime:                        
+                DOW_등락율 = ((DOW_현재가 - DOW_전일종가) / DOW_전일종가) * 100
+            else:
+                pass
+
+            temp = plot_drate_scale_factor * DOW_등락율
+
+            # 등락율에 스파이크 발생하는 문제 임시해결
+            if temp > 50:
+                temp = 50.0
+            else:
+                pass
+            
+            df_dow_graph.at[ovc_x_idx, 'drate'] = temp
+
+            if not flag_checkBox_HS:
+                # 1T OHLC 생성
+                df_dow_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
+
+                if DOW_현재가 > 0:
+
+                    if OVC_SEC == 0:
+
+                        if not flag_dow_ohlc_open:
+
+                            df_dow_graph.at[ovc_x_idx, 'open'] = DOW_현재가
+                            df_dow_graph.at[ovc_x_idx, 'high'] = DOW_현재가
+                            df_dow_graph.at[ovc_x_idx, 'low'] = DOW_현재가
+                            df_dow_graph.at[ovc_x_idx, 'middle'] = DOW_현재가
+                            df_dow_graph.at[ovc_x_idx, 'close'] = DOW_현재가
+                            df_dow_graph.at[ovc_x_idx, 'price'] = DOW_현재가
+
+                            del DOW_현재가_버퍼[:]
+
+                            flag_dow_ohlc_open = True
+                        else:
+                            DOW_현재가_버퍼.append(DOW_현재가)                        
+                    else:
+                        if df_dow_graph.at[ovc_x_idx, 'open'] != df_dow_graph.at[ovc_x_idx, 'open']:
+                            df_dow_graph.at[ovc_x_idx, 'open'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
+                            del DOW_현재가_버퍼[:]
+                        else:
+                            pass
+
+                        DOW_현재가_버퍼.append(DOW_현재가)
+
+                        if max(DOW_현재가_버퍼) > 0:
+                            df_dow_graph.at[ovc_x_idx, 'high'] = max(DOW_현재가_버퍼)
+                        else:
+                            pass
+
+                        if min(DOW_현재가_버퍼) == 0:
+
+                            if max(DOW_현재가_버퍼) > 0:
+                                df_dow_graph.at[ovc_x_idx, 'low'] = max(DOW_현재가_버퍼)
+                            else:
+                                pass
+                        else:
+                            df_dow_graph.at[ovc_x_idx, 'low'] = min(DOW_현재가_버퍼)
+
+                        df_dow_graph.at[ovc_x_idx, 'close'] = DOW_현재가
+
+                        flag_dow_ohlc_open = False  
+                else:
+                    pass                           
+
+                # Bollinger Bands
+                df_dow_graph.at[ovc_x_idx, 'middle'] = (df_dow_graph.at[ovc_x_idx, 'high'] + df_dow_graph.at[ovc_x_idx, 'low']) / 2
+                upper, middle, lower = talib.BBANDS(np.array(df_dow_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+
+                df_dow_graph['BBUpper'] = upper
+                df_dow_graph['BBMiddle'] = middle
+                df_dow_graph['BBLower'] = lower
+
+                #macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_dow_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
+                    #fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
+
+                #df_dow_graph['MACD'] = macd
+                #df_dow_graph['MACDSig'] = macdsignal
+                #df_dow_graph['MACDHist'] = macdhist
+
+                # Parabolic SAR
+                parabolic_sar = talib.SAR(np.array(df_dow_graph['high'], dtype=float), np.array(df_dow_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+
+                # PSARIndicator 함수 오동작하는 듯...
+                #ta_psar = ta.trend.PSARIndicator(df_dow_graph['high'], df_dow_graph['low'], df_dow_graph['close'])
+
+                df_dow_graph['PSAR'] = parabolic_sar
+                #df_dow_graph['TA_PSAR'] = ta_psar.psar()
+
+                # MAMA(약 32 샘플후에 출력값이 나옴)
+                mama, fama = talib.MAMA(np.array(df_dow_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+
+                df_dow_graph['MAMA'] = mama
+                df_dow_graph['FAMA'] = fama
+                #df_dow_graph['A_FAMA'] = fama
+
+                if df_dow_graph.at[ovc_x_idx, 'FAMA'] == df_dow_graph.at[ovc_x_idx, 'FAMA'] and df_dow_graph.at[ovc_x_idx, 'BBLower'] == df_dow_graph.at[ovc_x_idx, 'BBLower']:
+
+                    if df_dow_graph.at[ovc_x_idx, 'FAMA'] < df_dow_graph.at[ovc_x_idx, 'BBLower']:
+                        df_dow_graph.at[ovc_x_idx, 'A_FAMA'] = df_dow_graph.at[ovc_x_idx, 'BBLower']
+                    else:
+                        df_dow_graph.at[ovc_x_idx, 'A_FAMA'] = df_dow_graph.at[ovc_x_idx, 'FAMA']
+                else:
+                    pass
+
+                # Ichimoku Indicator
+                #dow_Ichimoku = ta.trend.IchimokuIndicator(df_dow_graph['high'], df_dow_graph['low'], n1=9, n2=26, n3=52, visual=True)
+                dow_Ichimoku = ta.trend.IchimokuIndicator(df_dow_graph['high'], df_dow_graph['low'])
+
+                df_dow_graph['SPAN_A'] = dow_Ichimoku.ichimoku_a()
+                df_dow_graph['SPAN_B'] = dow_Ichimoku.ichimoku_b()
+                df_dow_graph['OE_BASE'] = dow_Ichimoku.ichimoku_base_line()
+                df_dow_graph['OE_CONV'] = dow_Ichimoku.ichimoku_conversion_line()
+            else:
+                pass                                                
+
+            if DOW_시가 == 0:
+
+                if result['전일대비기호'] == '5':
+
+                    DOW_종가 = int(DOW_현재가 + result['전일대비'])
+                else:
+                    DOW_종가 = int(DOW_현재가 - result['전일대비'])
+
+                df_dow_graph.at[0, 'price'] = DOW_종가
+                df_dow_graph.at[1, 'price'] = result['시가']
+
+                DOW_시가 = int(result['시가'])
+            else:
+                DOW_진폭비 = DOW_진폭 / DOW_시가                         
+
+            if DOW_피봇 == 0:
+
+                if DOW_전저 > 0 and DOW_전고 > 0:
+                    DOW_피봇 = self.calc_pivot(DOW_전저, DOW_전고, DOW_종가, DOW_시가)
+                else:
+                    pass
+            else:
+                pass          
+
+            if DOW_현재가 != DOW_과거가:
+            
+                old_dow_delta = dow_delta
+                dow_delta = DOW_현재가
+                dow_직전대비.extend([dow_delta - old_dow_delta])
+                대비리스트 = list(dow_직전대비)                       
+
+                if DOW_현재가 > DOW_과거가:
+
+                    if DOW_등락율 < 0:                                                             
+
+                        if min(대비리스트) > 0:
+                            jisu_txt = "DOW: {0} ({1}, {2:.2f}%, {3})⬈". \
+                            format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))                                    
+                        else:
+                            jisu_txt = "DOW: {0} ▲ ({1}, {2:.2f}%, {3})". \
+                            format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+                        
+                        self.label_1st_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                        self.label_1st_index.setText(jisu_txt)
+
+                        dow_text_color = 'blue'
+
+                    elif DOW_등락율 > 0:       
+
+                        if min(대비리스트) > 0:
+                            jisu_txt = "DOW: {0} ({1}, {2:.2f}%, {3})⬈". \
+                            format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))                                    
+                        else:
+                            jisu_txt = "DOW: {0} ▲ ({1}, {2:.2f}%, {3})". \
+                            format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+                        
+                        self.label_1st_index.setStyleSheet('background-color: pink; color: red;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                        self.label_1st_index.setText(jisu_txt)
+
+                        dow_text_color = 'red'
+                    else:
+                        pass
+
+                elif DOW_현재가 < DOW_과거가:
+
+                    if DOW_등락율 < 0:        
+
+                        if max(대비리스트) < 0:
+                            jisu_txt = "DOW: {0} ({1}, {2:.2f}%, {3})⬊". \
+                            format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))                                    
+                        else:
+                            jisu_txt = "DOW: {0} ▼ ({1}, {2:.2f}%, {3})". \
+                            format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+                        
+                        self.label_1st_index.setStyleSheet('background-color: lightskyblue; color: blue;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                        self.label_1st_index.setText(jisu_txt)
+
+                        dow_text_color = 'blue'
+
+                    elif DOW_등락율 > 0:      
+
+                        if max(대비리스트) < 0:
+                            jisu_txt = "DOW: {0} ({1}, {2:.2f}%, {3})⬊". \
+                            format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))                                    
+                        else:
+                            jisu_txt = "DOW: {0} ▼ ({1}, {2:.2f}%, {3})". \
+                            format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+                        
+                        self.label_1st_index.setStyleSheet('background-color: lightskyblue; color: red;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                        self.label_1st_index.setText(jisu_txt)
+
+                        dow_text_color = 'red'
+                    else:
+                        pass
+                else:
+                    pass
+
+                DOW_과거가 = DOW_현재가                        
+            else:
+                pass
+
+        elif result['종목코드'] == NASDAQ:
+
+            df_nasdaq_graph.at[ovc_x_idx, 'price'] = result['체결가격']
+
+            NASDAQ_현재가 = result['체결가격']
+            NASDAQ_전일대비 = NASDAQ_현재가 - NASDAQ_종가 
+            NASDAQ_등락율 = result['등락율']                 
+
+            NASDAQ_저가 =  result['저가']
+            NASDAQ_고가 =  result['고가']                    
+            NASDAQ_진폭 = NASDAQ_고가 - NASDAQ_저가
+            
+            if NASDAQ_전일종가 > 0 and not NightTime:
+                NASDAQ_등락율 = ((NASDAQ_현재가 - NASDAQ_전일종가) / NASDAQ_전일종가) * 100
+            else:
+                pass
+            
+            if not flag_checkBox_HS:
+                # 1T OHLC 생성
+                df_nasdaq_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
+
+                if NASDAQ_현재가 > 0:
+
+                    if OVC_SEC == 0:
+
+                        if not flag_nasdaq_ohlc_open:
+                        
+                            df_nasdaq_graph.at[ovc_x_idx, 'open'] = NASDAQ_현재가
+                            df_nasdaq_graph.at[ovc_x_idx, 'high'] = NASDAQ_현재가
+                            df_nasdaq_graph.at[ovc_x_idx, 'low'] = NASDAQ_현재가
+                            df_nasdaq_graph.at[ovc_x_idx, 'middle'] = NASDAQ_현재가
+                            df_nasdaq_graph.at[ovc_x_idx, 'close'] = NASDAQ_현재가
+                            df_nasdaq_graph.at[ovc_x_idx, 'price'] = NASDAQ_현재가
+
+                            del NASDAQ_현재가_버퍼[:]
+
+                            flag_nasdaq_ohlc_open = True
+                        else:
+                            NASDAQ_현재가_버퍼.append(NASDAQ_현재가)                       
+                    else:
+                        if df_nasdaq_graph.at[ovc_x_idx, 'open'] != df_nasdaq_graph.at[ovc_x_idx, 'open']:
+                            df_nasdaq_graph.at[ovc_x_idx, 'open'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
+                            del NASDAQ_현재가_버퍼[:]
+                        else:
+                            pass
+
+                        NASDAQ_현재가_버퍼.append(NASDAQ_현재가)
+
+                        if max(NASDAQ_현재가_버퍼) > 0:
+                            df_nasdaq_graph.at[ovc_x_idx, 'high'] = max(NASDAQ_현재가_버퍼)
+                        else:
+                            pass
+
+                        if min(NASDAQ_현재가_버퍼) == 0:
+
+                            if max(NASDAQ_현재가_버퍼) > 0:
+                                df_nasdaq_graph.at[ovc_x_idx, 'low'] = max(NASDAQ_현재가_버퍼)
+                            else:
+                                pass
+                        else:
+                            df_nasdaq_graph.at[ovc_x_idx, 'low'] = min(NASDAQ_현재가_버퍼)
+
+                        df_nasdaq_graph.at[ovc_x_idx, 'close'] = NASDAQ_현재가
+
+                        flag_nasdaq_ohlc_open = False
+                else:
+                    pass                          
+
+                # Bollinger Bands
+                df_nasdaq_graph.at[ovc_x_idx, 'middle'] = (df_nasdaq_graph.at[ovc_x_idx, 'high'] + df_nasdaq_graph.at[ovc_x_idx, 'low']) / 2
+                upper, middle, lower = talib.BBANDS(np.array(df_nasdaq_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+
+                df_nasdaq_graph['BBUpper'] = upper
+                df_nasdaq_graph['BBMiddle'] = middle
+                df_nasdaq_graph['BBLower'] = lower
+
+                #macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_nasdaq_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
+                    #fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
+
+                #df_nasdaq_graph['MACD'] = macd
+                #df_nasdaq_graph['MACDSig'] = macdsignal
+                #df_nasdaq_graph['MACDHist'] = macdhist
+
+                # Parabolic SAR
+                parabolic_sar = talib.SAR(np.array(df_nasdaq_graph['high'], dtype=float), np.array(df_nasdaq_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+
+                # PSARIndicator 함수 오동작하는 듯...
+                #ta_psar = ta.trend.PSARIndicator(df_nasdaq_graph['high'], df_nasdaq_graph['low'], df_nasdaq_graph['close'])
+
+                df_nasdaq_graph['PSAR'] = parabolic_sar
+                #df_nasdaq_graph['TA_PSAR'] = ta_psar.psar()
+
+                # MAMA(약 32샘플후에 출력값이 나옴)
+                mama, fama = talib.MAMA(np.array(df_nasdaq_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+
+                df_nasdaq_graph['MAMA'] = mama
+                df_nasdaq_graph['FAMA'] = fama
+
+                if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] and df_nasdaq_graph.at[ovc_x_idx, 'BBLower'] == df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
+
+                    if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
+                        df_nasdaq_graph.at[ovc_x_idx, 'A_FAMA'] = df_nasdaq_graph.at[ovc_x_idx, 'BBLower']
+                    else:
+                        df_nasdaq_graph.at[ovc_x_idx, 'A_FAMA'] = df_nasdaq_graph.at[ovc_x_idx, 'FAMA']
+                else:
+                    pass
+
+                # Ichimoku Indicator
+                #nasdaq_Ichimoku = ta.trend.IchimokuIndicator(df_nasdaq_graph['high'], df_nasdaq_graph['low'], n1=9, n2=26, n3=52, visual=True)
+                nasdaq_Ichimoku = ta.trend.IchimokuIndicator(df_nasdaq_graph['high'], df_nasdaq_graph['low'])
+
+                df_nasdaq_graph['SPAN_A'] = nasdaq_Ichimoku.ichimoku_a()
+                df_nasdaq_graph['SPAN_B'] = nasdaq_Ichimoku.ichimoku_b()
+                df_nasdaq_graph['OE_BASE'] = nasdaq_Ichimoku.ichimoku_base_line()
+                df_nasdaq_graph['OE_CONV'] = nasdaq_Ichimoku.ichimoku_conversion_line()
+            else:
+                pass
+            
+            if NASDAQ_시가 == 0:
+
+                if result['전일대비기호'] == '5':
+
+                    NASDAQ_종가 = NASDAQ_현재가 + result['전일대비']
+                else:
+                    NASDAQ_종가 = NASDAQ_현재가 - result['전일대비']
+
+                df_nasdaq_graph.at[0, 'price'] = NASDAQ_종가
+                df_nasdaq_graph.at[1, 'price'] = result['시가']
+
+                NASDAQ_시가 = result['시가']
+            else:
+                pass
+            
+            if NASDAQ_피봇 == 0:
+
+                if NASDAQ_전저 > 0 and NASDAQ_전고 > 0:
+                    NASDAQ_피봇 = self.calc_pivot(NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_시가)
+                else:
+                    pass
+            else:
+                pass                                             
+
+            if NASDAQ_현재가 != NASDAQ_과거가:
+            
+                old_nasdaq_delta = nasdaq_delta
+                nasdaq_delta = NASDAQ_현재가
+                nasdaq_직전대비.extend([nasdaq_delta - old_nasdaq_delta])
+                대비리스트 = list(nasdaq_직전대비)
+
+                if NASDAQ_현재가 > NASDAQ_과거가:
+
+                    if NASDAQ_등락율 < 0:
+
+                        if min(대비리스트) > 0:
+                            jisu_txt = "NASDAQ: {0} ({1:.2f}, {2:.2f}%)⬈".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
+                        else:
+                            jisu_txt = "NASDAQ: {0} ▲ ({1:.2f}, {2:.2f}%)".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)
+
+                        self.label_2nd_index.setStyleSheet('background-color: pink; color: blue;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                        self.label_2nd_index.setText(jisu_txt)
+
+                        nasdaq_text_color = 'blue'
+
+                    elif NASDAQ_등락율 > 0:                            
+
+                        if min(대비리스트) > 0:
+                            jisu_txt = "NASDAQ: {0} ({1:.2f}, {2:.2f}%)⬈".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
+                        else:
+                            jisu_txt = "NASDAQ: {0} ▲ ({1:.2f}, {2:.2f}%)".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)
+
+                        self.label_2nd_index.setStyleSheet('background-color: pink; color: red;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                        self.label_2nd_index.setText(jisu_txt)
+
+                        nasdaq_text_color = 'red'
+                    else:
+                        pass
+
+                elif NASDAQ_현재가 < NASDAQ_과거가:
+
+                    if NASDAQ_등락율 < 0:     
+
+                        if max(대비리스트) < 0:
+                            jisu_txt = "NASDAQ: {0} ({1:.2f}, {2:.2f}%)⬊".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
+                        else:
+                            jisu_txt = "NASDAQ: {0} ▼ ({1:.2f}, {2:.2f}%)".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)
+
+                        self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                        self.label_2nd_index.setText(jisu_txt)
+
+                        nasdaq_text_color = 'blue'
+
+                    elif NASDAQ_등락율 > 0:     
+
+                        if max(대비리스트) < 0:
+                            jisu_txt = "NASDAQ: {0} ({1:.2f}, {2:.2f}%)⬊".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
+                        else:
+                            jisu_txt = "NASDAQ: {0} ▼ ({1:.2f}, {2:.2f}%)".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)
+
+                        self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                        self.label_2nd_index.setText(jisu_txt)
+
+                        nasdaq_text_color = 'red'
+                    else:
+                        pass
+                else:
+                    pass
+                
+                NASDAQ_과거가 = NASDAQ_현재가
+            else:
+                pass
+
+        elif result['종목코드'] == SP500:
+
+            df_sp500_graph.at[ovc_x_idx, 'price'] = result['체결가격']
+
+            SP500_현재가 = result['체결가격']
+            SP500_전일대비 = round((SP500_현재가 - SP500_종가), 2)
+            SP500_등락율 = result['등락율']
+
+            SP500_저가 =  result['저가']
+            SP500_고가 =  result['고가']
+            SP500_진폭 = SP500_고가 - SP500_저가
+            
+            if SP500_전일종가 > 0 and not NightTime:
+                SP500_등락율 = ((SP500_현재가 - SP500_전일종가) / SP500_전일종가) * 100
+            else:
+                pass
+
+            체결가격 = locale.format('%.2f', SP500_현재가, 1)
+
+            if not flag_checkBox_HS:
+                # 1T OHLC 생성
+                df_sp500_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
+
+                if SP500_현재가 > 0:
+
+                    if OVC_SEC == 0:
+
+                        if not flag_sp500_ohlc_open:
+
+                            df_sp500_graph.at[ovc_x_idx, 'open'] = SP500_현재가
+                            df_sp500_graph.at[ovc_x_idx, 'high'] = SP500_현재가
+                            df_sp500_graph.at[ovc_x_idx, 'low'] = SP500_현재가
+                            df_sp500_graph.at[ovc_x_idx, 'middle'] = SP500_현재가
+                            df_sp500_graph.at[ovc_x_idx, 'close'] = SP500_현재가
+                            df_sp500_graph.at[ovc_x_idx, 'price'] = SP500_현재가
+
+                            del SP500_현재가_버퍼[:]
+
+                            flag_sp500_ohlc_open = True
+                        else:
+                            SP500_현재가_버퍼.append(SP500_현재가)                        
+                    else:
+                        if df_sp500_graph.at[ovc_x_idx, 'open'] != df_sp500_graph.at[ovc_x_idx, 'open']:
+                            df_sp500_graph.at[ovc_x_idx, 'open'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
+                            del SP500_현재가_버퍼[:]
+                        else:
+                            pass
+
+                        SP500_현재가_버퍼.append(SP500_현재가)
+
+                        if max(SP500_현재가_버퍼) > 0:
+                            df_sp500_graph.at[ovc_x_idx, 'high'] = max(SP500_현재가_버퍼)
+                        else:
+                            pass
+
+                        if min(SP500_현재가_버퍼) == 0:
+
+                            if max(SP500_현재가_버퍼) > 0:
+                                df_sp500_graph.at[ovc_x_idx, 'low'] = max(SP500_현재가_버퍼)
+                            else:
+                                pass
+                        else:
+                            df_sp500_graph.at[ovc_x_idx, 'low'] = min(SP500_현재가_버퍼)
+
+                        df_sp500_graph.at[ovc_x_idx, 'close'] = SP500_현재가
+
+                        flag_sp500_ohlc_open = False  
+                else:
+                    pass                         
+
+                # Bollinger Bands
+                df_sp500_graph.at[ovc_x_idx, 'middle'] = (df_sp500_graph.at[ovc_x_idx, 'high'] + df_sp500_graph.at[ovc_x_idx, 'low']) / 2
+                upper, middle, lower = talib.BBANDS(np.array(df_sp500_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+
+                df_sp500_graph['BBUpper'] = upper
+                df_sp500_graph['BBMiddle'] = middle
+                df_sp500_graph['BBLower'] = lower
+
+                #macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_sp500_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
+                    #fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
+
+                #df_sp500_graph['MACD'] = macd
+                #df_sp500_graph['MACDSig'] = macdsignal
+                #df_sp500_graph['MACDHist'] = macdhist                
+
+                # Parabolic SAR
+                parabolic_sar = talib.SAR(np.array(df_sp500_graph['high'], dtype=float), np.array(df_sp500_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+
+                # PSARIndicator 함수 오동작하는 듯...
+                #ta_psar = ta.trend.PSARIndicator(df_sp500_graph['high'], df_sp500_graph['low'], df_sp500_graph['close'])
+
+                df_sp500_graph['PSAR'] = parabolic_sar
+                #df_sp500_graph['TA_PSAR'] = ta_psar.psar()
+
+                # MAMA(약 32샘플후에 출력값이 나옴)
+                mama, fama = talib.MAMA(np.array(df_sp500_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+
+                df_sp500_graph['MAMA'] = mama
+                df_sp500_graph['FAMA'] = fama
+
+                if df_sp500_graph.at[ovc_x_idx, 'FAMA'] == df_sp500_graph.at[ovc_x_idx, 'FAMA'] and df_sp500_graph.at[ovc_x_idx, 'BBLower'] == df_sp500_graph.at[ovc_x_idx, 'BBLower']:
+
+                    if df_sp500_graph.at[ovc_x_idx, 'FAMA'] < df_sp500_graph.at[ovc_x_idx, 'BBLower']:
+                        df_sp500_graph.at[ovc_x_idx, 'A_FAMA'] = df_sp500_graph.at[ovc_x_idx, 'BBLower']
+                    else:
+                        df_sp500_graph.at[ovc_x_idx, 'A_FAMA'] = df_sp500_graph.at[ovc_x_idx, 'FAMA']
+                else:
+                    pass
+
+                # Ichimoku Indicator
+                #sp500_Ichimoku = ta.trend.IchimokuIndicator(df_sp500_graph['high'], df_sp500_graph['low'], n1=9, n2=26, n3=52, visual=True)
+                sp500_Ichimoku = ta.trend.IchimokuIndicator(df_sp500_graph['high'], df_sp500_graph['low'])
+
+                df_sp500_graph['SPAN_A'] = sp500_Ichimoku.ichimoku_a()
+                df_sp500_graph['SPAN_B'] = sp500_Ichimoku.ichimoku_b()
+                df_sp500_graph['OE_BASE'] = sp500_Ichimoku.ichimoku_base_line()
+                df_sp500_graph['OE_CONV'] = sp500_Ichimoku.ichimoku_conversion_line()
+            else:
+                pass
+
+            if SP500_시가 == 0:
+
+                if result['전일대비기호'] == '5':
+
+                    SP500_종가 = SP500_현재가 + result['전일대비']
+                else:
+                    SP500_종가 = SP500_현재가 - result['전일대비']
+
+                df_sp500_graph.at[0, 'price'] = SP500_종가
+                df_sp500_graph.at[1, 'price'] = result['시가']
+
+                SP500_시가 = result['시가']
+            else:
+                pass                                                 
+
+            if SP500_피봇 == 0:
+
+                if SP500_전저 > 0 and SP500_전고 > 0:
+                    SP500_피봇 = self.calc_pivot(SP500_전저, SP500_전고, SP500_종가, SP500_시가)
+                else:
+                    pass
+            else:
+                pass
+
+            if SP500_현재가 != SP500_과거가:
+            
+                old_sp500_delta = sp500_delta
+                sp500_delta = SP500_현재가
+                sp500_직전대비.extend([sp500_delta - old_sp500_delta])
+                대비리스트 = list(sp500_직전대비)
+
+                if SP500_현재가 > SP500_과거가:
+
+                    if SP500_등락율 < 0:
+
+                        if min(대비리스트) > 0:
+                            jisu_txt = "SP500: {0} ({1:.2f}, {2:.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                        else:
+                            jisu_txt = "SP500: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+
+                        self.label_4th_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                        self.label_4th_index.setText(jisu_txt)
+
+                        sp500_text_color = 'blue'                           
+
+                    elif SP500_등락율 > 0:  
+
+                        if min(대비리스트) > 0:
+                            jisu_txt = "SP500: {0} ▲ ({1:.2f}, {2:.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                        else:
+                            jisu_txt = "SP500: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+
+                        self.label_4th_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                        self.label_4th_index.setText(jisu_txt)
+
+                        sp500_text_color = 'red'
+                    else:
+                        pass
+
+                elif SP500_현재가 < SP500_과거가:
+
+                    if SP500_등락율 < 0: 
+
+                        if max(대비리스트) < 0:
+                            jisu_txt = "SP500: {0} ({1:.2f}, {2:.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                        else:
+                            jisu_txt = "SP500: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+
+                        self.label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                        self.label_4th_index.setText(jisu_txt)
+
+                        sp500_text_color = 'blue'                                
+
+                    elif SP500_등락율 > 0:
+
+                        if max(대비리스트) < 0:
+                            jisu_txt = "SP500: {0} ({1:.2f}, {2:.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                        else:
+                            jisu_txt = "SP500: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+
+                        self.label_4th_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                        self.label_4th_index.setText(jisu_txt)
+
+                        sp500_text_color = 'red'                                
+                    else:
+                        pass
+                else:
+                    pass
+
+                SP500_과거가 = SP500_현재가
+            else:
+                pass
+
+        elif result['종목코드'] == WTI:
+            
+            df_wti_graph.at[ovc_x_idx, 'price'] = result['체결가격']
+
+            WTI_현재가 = result['체결가격']
+            WTI_전일대비 = round((WTI_현재가 - WTI_종가), 2)
+            WTI_등락율 = result['등락율']
+
+            WTI_저가 =  result['저가']
+            WTI_고가 =  result['고가']
+            WTI_진폭 = round((result['고가'] - result['저가']), 2)
+            
+            if WTI_전일종가 > 0 and not NightTime:
+                WTI_등락율 = ((WTI_현재가 - WTI_전일종가) / WTI_전일종가) * 100
+            else:
+                pass
+            
+            체결가격 = locale.format('%.2f', WTI_현재가, 1)
+
+            if not flag_checkBox_HS:
+                # 1T OHLC 생성
+                df_wti_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
+
+                if WTI_현재가 > 0:
+
+                    if OVC_SEC == 0:
+
+                        if not flag_wti_ohlc_open:
+                        
+                            df_wti_graph.at[ovc_x_idx, 'open'] = WTI_현재가
+                            df_wti_graph.at[ovc_x_idx, 'high'] = WTI_현재가
+                            df_wti_graph.at[ovc_x_idx, 'low'] = WTI_현재가
+                            df_wti_graph.at[ovc_x_idx, 'middle'] = WTI_현재가
+                            df_wti_graph.at[ovc_x_idx, 'close'] = WTI_현재가
+                            df_wti_graph.at[ovc_x_idx, 'price'] = WTI_현재가
+
+                            del WTI_현재가_버퍼[:]
+
+                            flag_wti_ohlc_open = True
+                        else:
+                            WTI_현재가_버퍼.append(WTI_현재가)                        
+                    else:
+                        if df_wti_graph.at[ovc_x_idx, 'open'] != df_wti_graph.at[ovc_x_idx, 'open']:
+                            df_wti_graph.at[ovc_x_idx, 'open'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
+                            del WTI_현재가_버퍼[:]
+                        else:
+                            pass
+
+                        WTI_현재가_버퍼.append(WTI_현재가)
+
+                        if max(WTI_현재가_버퍼) > 0:
+                            df_wti_graph.at[ovc_x_idx, 'high'] = max(WTI_현재가_버퍼)
+                        else:
+                            pass
+
+                        if min(WTI_현재가_버퍼) == 0:
+
+                            if max(WTI_현재가_버퍼) > 0:
+                                df_wti_graph.at[ovc_x_idx, 'low'] = max(WTI_현재가_버퍼)
+                            else:
+                                pass
+                        else:
+                            df_wti_graph.at[ovc_x_idx, 'low'] = min(WTI_현재가_버퍼)
+
+                        df_wti_graph.at[ovc_x_idx, 'close'] = WTI_현재가
+
+                        flag_wti_ohlc_open = False
+                else:
+                    pass                            
+
+                # Bollinger Bands
+                df_wti_graph.at[ovc_x_idx, 'middle'] = (df_wti_graph.at[ovc_x_idx, 'high'] + df_wti_graph.at[ovc_x_idx, 'low']) / 2
+                upper, middle, lower = talib.BBANDS(np.array(df_wti_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+
+                df_wti_graph['BBUpper'] = upper
+                df_wti_graph['BBMiddle'] = middle
+                df_wti_graph['BBLower'] = lower
+
+                #macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_wti_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
+                    #fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
+
+                #df_wti_graph['MACD'] = macd
+                #df_wti_graph['MACDSig'] = macdsignal
+                #df_wti_graph['MACDHist'] = macdhist                
+
+                # Parabolic SAR
+                parabolic_sar = talib.SAR(np.array(df_wti_graph['high'], dtype=float), np.array(df_wti_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+
+                # PSARIndicator 함수 오동작하는 듯...
+                #ta_psar = ta.trend.PSARIndicator(df_wti_graph['high'], df_wti_graph['low'], df_wti_graph['close'])
+
+                df_wti_graph['PSAR'] = parabolic_sar
+                #df_wti_graph['TA_PSAR'] = ta_psar.psar()
+
+                # MAMA(약 32샘플후에 출력값이 나옴)
+                mama, fama = talib.MAMA(np.array(df_wti_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+
+                df_wti_graph['MAMA'] = mama
+                df_wti_graph['FAMA'] = fama
+
+                if df_wti_graph.at[ovc_x_idx, 'FAMA'] == df_wti_graph.at[ovc_x_idx, 'FAMA'] and df_wti_graph.at[ovc_x_idx, 'BBLower'] == df_wti_graph.at[ovc_x_idx, 'BBLower']:
+
+                    if df_wti_graph.at[ovc_x_idx, 'FAMA'] < df_wti_graph.at[ovc_x_idx, 'BBLower']:
+                        df_wti_graph.at[ovc_x_idx, 'A_FAMA'] = df_wti_graph.at[ovc_x_idx, 'BBLower']
+                    else:
+                        df_wti_graph.at[ovc_x_idx, 'A_FAMA'] = df_wti_graph.at[ovc_x_idx, 'FAMA']
+                else:
+                    pass
+
+                # Ichimoku Indicator
+                #wti_Ichimoku = ta.trend.IchimokuIndicator(df_wti_graph['high'], df_wti_graph['low'], n1=9, n2=26, n3=52, visual=True)
+                wti_Ichimoku = ta.trend.IchimokuIndicator(df_wti_graph['high'], df_wti_graph['low'])
+
+                df_wti_graph['SPAN_A'] = wti_Ichimoku.ichimoku_a()
+                df_wti_graph['SPAN_B'] = wti_Ichimoku.ichimoku_b()
+                df_wti_graph['OE_BASE'] = wti_Ichimoku.ichimoku_base_line()
+                df_wti_graph['OE_CONV'] = wti_Ichimoku.ichimoku_conversion_line()
+            else:
+                pass         
+
+            if WTI_시가 == 0:
+
+                if result['전일대비기호'] == '5':
+
+                    WTI_종가 = round((WTI_현재가 + result['전일대비']), 2)
+                else:
+                    WTI_종가 = round((WTI_현재가 - result['전일대비']), 2)
+
+                df_wti_graph.at[0, 'price'] = WTI_종가
+                df_wti_graph.at[1, 'price'] = result['시가']
+
+                WTI_시가 = result['시가']
+            else:
+                pass                 
+
+            if WTI_피봇 == 0:
+
+                if WTI_전저 > 0 and WTI_전고 > 0:
+                    WTI_피봇 = self.calc_pivot(WTI_전저, WTI_전고, WTI_종가, WTI_시가)
+                else:
+                    pass
+            else:
+                pass
+
+            if WTI_현재가 != WTI_과거가:
+            
+                old_wti_delta = wti_delta
+                wti_delta = WTI_현재가
+                wti_직전대비.extend([wti_delta - old_wti_delta])
+                대비리스트 = list(wti_직전대비)
+
+                if WTI_현재가 > WTI_과거가:
+
+                    if WTI_등락율 < 0:
+
+                        if min(대비리스트) > 0:
+                            jisu_txt = "WTI: {0} ({1:.2f}, {2:.2f}%)⬈".format(체결가격, WTI_전일대비, WTI_등락율)                                    
+                        else:
+                            jisu_txt = "WTI: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
+
+                        self.label_3rd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                        self.label_3rd_index.setText(jisu_txt)
+
+                        wti_text_color = 'blue'  
+
+                    elif WTI_등락율 > 0:
+
+                        if min(대비리스트) > 0:
+                            jisu_txt = "WTI: {0} ▲ ({1:.2f}, {2:.2f}%)⬈".format(체결가격, WTI_전일대비, WTI_등락율)                                    
+                        else:
+                            jisu_txt = "WTI: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
+
+                        self.label_3rd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                        self.label_3rd_index.setText(jisu_txt)
+
+                        wti_text_color = 'red'                                    
+                    else:
+                        pass
+                    
+                elif WTI_현재가 < WTI_과거가:
+
+                    if WTI_등락율 < 0:
+
+                        if max(대비리스트) < 0:
+                            jisu_txt = "WTI: {0} ({1:.2f}, {2:.2f}%)⬊".format(체결가격, WTI_전일대비, WTI_등락율)                                    
+                        else:
+                            jisu_txt = "WTI: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
+
+                        self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                        self.label_3rd_index.setText(jisu_txt)
+
+                        wti_text_color = 'blue'                                    
+
+                    elif WTI_등락율 > 0:
+
+                        if max(대비리스트) < 0:
+                            jisu_txt = "WTI: {0} ({1:.2f}, {2:.2f}%)⬊".format(체결가격, WTI_전일대비, WTI_등락율)                                    
+                        else:
+                            jisu_txt = "WTI: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
+
+                        self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                        self.label_3rd_index.setText(jisu_txt)
+
+                        wti_text_color = 'red' 
+                    else:
+                        pass                            
+                else:
+                    pass
+
+                WTI_과거가 = WTI_현재가
+            else:
+                pass
+
+        elif result['종목코드'] == HANGSENG:
+
+            df_hangseng_graph.at[ovc_x_idx, 'price'] = result['체결가격']
+            
+            HANGSENG_현재가 = int(result['체결가격'])
+            HANGSENG_전일대비 = int(result['체결가격'] - HANGSENG_종가)                    
+            HANGSENG_등락율 = result['등락율']
+
+            HANGSENG_저가 =  int(result['저가'])
+            HANGSENG_고가 =  int(result['고가'])                    
+            HANGSENG_진폭 = int(result['고가'] - result['저가'])
+            
+            if HANGSENG_전일종가 > 0 and not NightTime:
+                HANGSENG_등락율 = ((result['체결가격'] - HANGSENG_전일종가) / HANGSENG_전일종가) * 100
+            else:
+                pass
+
+            체결가격 = locale.format('%d', result['체결가격'], 1)
+
+            if HANGSENG_시가 == 0:
+
+                if result['전일대비기호'] == '5':
+
+                    HANGSENG_종가 = int(result['체결가격'] + result['전일대비'])
+                else:
+                    HANGSENG_종가 = int(result['체결가격'] - result['전일대비'])
+
+                df_hangseng_graph.at[0, 'price'] = HANGSENG_종가
+                df_hangseng_graph.at[1, 'price'] = result['시가']
+
+                HANGSENG_시가 = int(result['시가'])
+            else:
+                pass                    
+            
+            if HANGSENG_피봇 == 0:
+
+                if HANGSENG_전저 > 0 and HANGSENG_전고 > 0:
+                    HANGSENG_피봇 = self.calc_pivot(HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_시가)
+                else:
+                    pass
+            else:
+                pass
+            
+            if result['체결가격'] != HANGSENG_과거가:
+            
+                old_hangseng_delta = hangseng_delta
+                hangseng_delta = result['체결가격']
+                hangseng_직전대비.extend([hangseng_delta - old_hangseng_delta])
+                대비리스트 = list(hangseng_직전대비)
+
+                if result['체결가격'] > HANGSENG_과거가:
+
+                    if HANGSENG_등락율 < 0:
+
+                        if min(대비리스트) > 0:
+                            jisu_txt = "HANGSENG: {0} ({1}, {2:.2f}%)⬈".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                        else:
+                            jisu_txt = "HANGSENG: {0} ▲ ({1}, {2:.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+
+                        self.label_2nd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                        self.label_2nd_index.setText(jisu_txt)
+
+                        hangseng_text_color = 'blue'                                           
+
+                    elif HANGSENG_등락율 > 0:
+
+                        if min(대비리스트) > 0:
+                            jisu_txt = "HANGSENG: {0} ▲ ({1}, {2:.2f}%)⬈".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                        else:
+                            jisu_txt = "HANGSENG: {0} ▲ ({1}, {2:.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+
+                        self.label_2nd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                        self.label_2nd_index.setText(jisu_txt)
+
+                        hangseng_text_color = 'red'                                                                             
+                    else:
+                        pass
+
+                elif result['체결가격'] < HANGSENG_과거가:
+
+                    if HANGSENG_등락율 < 0:
+
+                        if max(대비리스트) < 0:
+                            jisu_txt = "HANGSENG: {0} ({1}, {2:.2f}%)⬊".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                        else:
+                            jisu_txt = "HANGSENG: {0} ▼ ({1}, {2:.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+
+                        self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                        self.label_2nd_index.setText(jisu_txt)
+
+                        hangseng_text_color = 'blue'
+
+                    elif HANGSENG_등락율 > 0:
+
+                        if max(대비리스트) < 0:
+                            jisu_txt = "HANGSENG: {0} ({1}, {2:.2f}%)⬊".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                        else:
+                            jisu_txt = "HANGSENG: {0} ▼ ({1}, {2:.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+
+                        self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                        self.label_2nd_index.setText(jisu_txt)
+
+                        hangseng_text_color = 'red'
+                    else:
+                        pass                            
+                else:
+                    pass
+
+                HANGSENG_과거가 = int(result['체결가격'])
+            else:
+                pass
+            
+        elif result['종목코드'] == EUROFX and pre_start:
+
+            df_eurofx_graph.at[ovc_x_idx, 'price'] = result['체결가격']                    
+            
+            EUROFX_현재가 = result['체결가격']
+            EUROFX_전일대비 = round((result['체결가격'] - EUROFX_종가), 5)
+            EUROFX_등락율 = result['등락율']
+            
+            EUROFX_저가 =  result['저가']
+            EUROFX_고가 =  result['고가']                    
+            EUROFX_진폭 = round((result['고가'] - result['저가']), 2)
+
+            if EUROFX_전일종가 > 0 and not NightTime:
+                EUROFX_등락율 = ((result['체결가격'] - EUROFX_전일종가) / EUROFX_전일종가) * 100
+            else:
+                pass
+
+            체결가격 = result['체결가격']
+
+            if EUROFX_시가 == 0:
+
+                if result['전일대비기호'] == '5':
+
+                    EUROFX_종가 = round((result['체결가격'] + result['전일대비']), 5)
+                else:
+                    EUROFX_종가 = round((result['체결가격'] - result['전일대비']), 5)
+
+                df_eurofx_graph.at[0, 'price'] = EUROFX_종가
+                df_eurofx_graph.at[1, 'price'] = result['시가']
+
+                EUROFX_시가 = result['시가']
+            else:
+                pass                    
+            
+            if EUROFX_피봇 == 0:
+
+                if EUROFX_전저 > 0 and EUROFX_전고 > 0:
+                    EUROFX_피봇 = self.calc_pivot(EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_시가)
+                else:
+                    pass
+            else:
+                pass
+            
+            if result['체결가격'] != EUROFX_과거가:
+            
+                old_eurofx_delta = eurofx_delta
+                eurofx_delta = result['체결가격']
+                eurofx_직전대비.extend([eurofx_delta - old_eurofx_delta])
+                대비리스트 = list(eurofx_직전대비)                         
+
+                if result['체결가격'] > EUROFX_과거가:
+
+                    if EUROFX_등락율 < 0:
+
+                        if min(대비리스트) > 0:
+                            jisu_txt = "EUROFX: {0:0.5f} ({1:0.5f}, {2:.2f}%)⬈".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
+                        else:
+                            jisu_txt = "EUROFX: {0:0.5f} ▲ ({1:0.5f}, {2:.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
+
+                        self.label_2nd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                        self.label_2nd_index.setText(jisu_txt)
+
+                        eurofx_text_color = 'blue'                                           
+
+                    elif EUROFX_등락율 > 0:
+
+                        if min(대비리스트) > 0:
+                            jisu_txt = "EUROFX: {0:0.5f} ▲ ({1:0.5f}, {2:.2f}%)⬈".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
+                        else:
+                            jisu_txt = "EUROFX: {0:0.5f} ▲ ({1:0.5f}, {2:.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
+
+                        self.label_2nd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                        self.label_2nd_index.setText(jisu_txt)
+
+                        eurofx_text_color = 'red'                                                                             
+                    else:
+                        pass
+                    
+                elif result['체결가격'] < EUROFX_과거가:
+
+                    if EUROFX_등락율 < 0:
+
+                        if max(대비리스트) < 0:
+                            jisu_txt = "EUROFX: {0:0.5f} ({1:0.5f}, {2:.2f}%)⬊".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
+                        else:
+                            jisu_txt = "EUROFX: {0:0.5f} ▼ ({1:0.5f}, {2:.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
+
+                        self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                        self.label_2nd_index.setText(jisu_txt)
+
+                        eurofx_text_color = 'blue'
+
+                    elif EUROFX_등락율 > 0:
+
+                        if max(대비리스트) < 0:
+                            jisu_txt = "EUROFX: {0:0.5f} ({1:0.5f}, {2:.2f}%)⬊".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
+                        else:
+                            jisu_txt = "EUROFX: {0:0.5f} ▼ ({1:0.5f}, {2:.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
+
+                        self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                        self.label_2nd_index.setText(jisu_txt)
+
+                        eurofx_text_color = 'red'
+                    else:
+                        pass                            
+                else:
+                    pass
+
+                EUROFX_과거가 = result['체결가격']
+            else:
+                pass
+        
+        elif result['종목코드'] == GOLD:
+
+            df_gold_graph.at[ovc_x_idx, 'price'] = result['체결가격']
+
+            GOLD_현재가 = result['체결가격']
+            GOLD_전일대비 = result['체결가격'] - GOLD_종가
+            GOLD_등락율 = result['등락율']
+
+            GOLD_저가 =  result['저가']
+            GOLD_고가 =  result['고가']                    
+            GOLD_진폭 = result['고가'] - result['저가']
+
+            if GOLD_전일종가 > 0 and not NightTime:
+                GOLD_등락율 = ((result['체결가격'] - GOLD_전일종가) / GOLD_전일종가) * 100
+            else:
+                pass
+            
+            체결가격 = locale.format('%.2f', result['체결가격'], 1)
+
+            if GOLD_시가 == 0:
+
+                if result['전일대비기호'] == '5':
+
+                    GOLD_종가 = result['체결가격'] + result['전일대비']
+                else:
+                    GOLD_종가 = result['체결가격'] - result['전일대비']
+
+                df_gold_graph.at[0, 'price'] = GOLD_종가
+                df_gold_graph.at[1, 'price'] = result['시가']
+
+                GOLD_시가 = result['시가']
+            else:
+                pass                    
+            
+            if GOLD_피봇 == 0:
+
+                if GOLD_전저 > 0 and GOLD_전고 > 0:
+                    GOLD_피봇 = self.calc_pivot(GOLD_전저, GOLD_전고, GOLD_종가, GOLD_시가)
+                else:
+                    pass
+            else:
+                pass
+            
+            if result['체결가격'] != GOLD_과거가:
+            
+                old_gold_delta = gold_delta
+                gold_delta = result['체결가격']
+                gold_직전대비.extend([gold_delta - old_gold_delta])
+                대비리스트 = list(gold_직전대비)
+
+                if result['체결가격'] > GOLD_과거가:
+
+                    if GOLD_등락율 < 0:
+
+                        if min(대비리스트) > 0:
+                            jisu_txt = "GOLD: {0} ({1:.2f}, {2:.2f}%)⬈".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
+                        else:
+                            jisu_txt = "GOLD: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
+
+                        self.label_3rd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                        self.label_3rd_index.setText(jisu_txt)
+
+                        gold_text_color = 'blue'                                           
+
+                    elif GOLD_등락율 > 0:
+
+                        if min(대비리스트) > 0:
+                            jisu_txt = "GOLD: {0} ▲ ({1:.2f}, {2:.2f}%)⬈".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
+                        else:
+                            jisu_txt = "GOLD: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
+
+                        self.label_3rd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                        self.label_3rd_index.setText(jisu_txt)
+
+                        gold_text_color = 'red'                                                                             
+                    else:
+                        pass
+
+                elif result['체결가격'] < GOLD_과거가:
+
+                    if GOLD_등락율 < 0:
+
+                        if max(대비리스트) < 0:
+                            jisu_txt = "GOLD: {0} ({1:.2f}, {2:.2f}%)⬊".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
+                        else:
+                            jisu_txt = "GOLD: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
+
+                        self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                        self.label_3rd_index.setText(jisu_txt)
+
+                        gold_text_color = 'blue'
+
+                    elif GOLD_등락율 > 0:
+
+                        if max(대비리스트) < 0:
+                            jisu_txt = "GOLD: {0} ({1:.2f}, {2:.2f}%)⬊".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
+                        else:
+                            jisu_txt = "GOLD: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
+
+                        self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                        self.label_3rd_index.setText(jisu_txt)
+
+                        gold_text_color = 'red'
+                    else:
+                        pass                            
+                else:
+                    pass
+
+                GOLD_과거가 = result['체결가격']
+            else:
+                pass
+        else:
+            pass
+            
     # 수신된 실시간 데이타를 화면에 표시
     #@logging_time
     def UpdateRealdata(self, result):
@@ -19621,7 +20933,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global NASDAQ_순매수, NASDAQ_잔량비
         global SP500_순매수, SP500_잔량비
-        global DOW_순매수, DOW_잔량비
+        global DOW_순매수, DOW_잔량비, DOW_진폭비
         global WTI_순매수, WTI_잔량비
         global EUROFX_순매수, EUROFX_잔량비
         global HANGSENG_순매수, HANGSENG_잔량비
@@ -19629,8 +20941,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global CME_당일종가, DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가, GOLD_당일종가
         global 시스템시간, 서버시간, 시스템_서버_시간차
-        global kp200_시가, kp200_피봇, kp200_저가, kp200_현재가, kp200_고가, kp200_진폭           
-        global DOW_진폭비
+        global kp200_시가, kp200_피봇, kp200_저가, kp200_현재가, kp200_고가, kp200_진폭 
         global DOW_주간_시작가, WTI_주간_시작가
         global DOW_야간_시작가, WTI_야간_시작가
         global 장시작_양합
@@ -21950,1293 +23261,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
                     self.tableWidget_fut.resizeColumnsToContents()
                 else:
-                    pass               
-            
+                    pass
+
             elif szTrCode == 'OVC':
-
-                #global NASDAQ_체결순매수, SP500_체결순매수, DOW_체결순매수, WTI_체결순매수, EUROFX_체결순매수, HANGSENG_체결순매수, GOLD_체결순매수
-                                
-                if not receive_real_ovc:
-                    receive_real_ovc = True
-                else:
-                    pass
-
-                OVC_체결시간 = result['체결시간_한국']
-                OVC_HOUR = int(OVC_체결시간[0:2])
-                OVC_MIN = int(OVC_체결시간[2:4])
-                OVC_SEC = int(OVC_체결시간[4:6])
-
-                SERVER_HOUR = OVC_HOUR
-                SERVER_MIN = OVC_MIN
-                SERVER_SEC = OVC_SEC
-
-                # 과거값 저장
-                old_ovc_x_idx = ovc_x_idx                       
                 
-                # X축 시간좌표 계산
-                # 해외선물 시간과 동기를 맞춤
-                if NightTime:
-
-                    night_time = OVC_HOUR
-
-                    if 0 <= night_time <= 6:
-                        night_time = night_time + 24
-                    else:
-                        pass
-
-                    ovc_x_idx = (night_time - NightTime_PreStart_Hour) * 60 + OVC_MIN + 1         
-                else:                    
-                    # 해외선물 개장시간은 국내시장의 2시간 전
-                    ovc_x_idx = (OVC_HOUR - DayTime_PreStart_Hour) * 60 + OVC_MIN + 1
-
-                # 갱신된 현재값을 과거값과 비교(NaN 방지를 위해)
-                if ovc_x_idx != old_ovc_x_idx:
-
-                    if not NightTime and market_service:
-                        df_futures_graph.at[ovc_x_idx, 'high'] = df_futures_graph.at[ovc_x_idx- 1, 'high']
-                        df_futures_graph.at[ovc_x_idx, 'low'] = df_futures_graph.at[ovc_x_idx - 1, 'low']
-                        df_futures_graph.at[ovc_x_idx, 'middle'] = df_futures_graph.at[ovc_x_idx - 1, 'middle']
-                        df_futures_graph.at[ovc_x_idx, 'close'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
-                        df_futures_graph.at[ovc_x_idx, 'price'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
-                    else:
-                        pass
-
-                    df_dow_graph.at[ovc_x_idx, 'high'] = df_dow_graph.at[ovc_x_idx - 1, 'high']
-                    df_dow_graph.at[ovc_x_idx, 'low'] = df_dow_graph.at[ovc_x_idx - 1, 'low']
-                    df_dow_graph.at[ovc_x_idx, 'middle'] = df_dow_graph.at[ovc_x_idx - 1, 'middle']
-                    df_dow_graph.at[ovc_x_idx, 'close'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
-                    df_dow_graph.at[ovc_x_idx, 'price'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
-
-                    df_nasdaq_graph.at[ovc_x_idx, 'high'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'high']
-                    df_nasdaq_graph.at[ovc_x_idx, 'low'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'low']
-                    df_nasdaq_graph.at[ovc_x_idx, 'middle'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'middle']
-                    df_nasdaq_graph.at[ovc_x_idx, 'close'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
-                    df_nasdaq_graph.at[ovc_x_idx, 'price'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
-
-                    df_sp500_graph.at[ovc_x_idx, 'high'] = df_sp500_graph.at[ovc_x_idx - 1, 'high']
-                    df_sp500_graph.at[ovc_x_idx, 'low'] = df_sp500_graph.at[ovc_x_idx - 1, 'low']
-                    df_sp500_graph.at[ovc_x_idx, 'middle'] = df_sp500_graph.at[ovc_x_idx - 1, 'middle']
-                    df_sp500_graph.at[ovc_x_idx, 'close'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
-                    df_sp500_graph.at[ovc_x_idx, 'price'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
-
-                    df_wti_graph.at[ovc_x_idx, 'high'] = df_wti_graph.at[ovc_x_idx - 1, 'high']
-                    df_wti_graph.at[ovc_x_idx, 'low'] = df_wti_graph.at[ovc_x_idx - 1, 'low']
-                    df_wti_graph.at[ovc_x_idx, 'middle'] = df_wti_graph.at[ovc_x_idx - 1, 'middle']
-                    df_wti_graph.at[ovc_x_idx, 'close'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
-                    df_wti_graph.at[ovc_x_idx, 'price'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
-                else:
-                    pass
-
-                # 체결량정보 제공안됨 !!!
-                #매도누적체결수량 = int(result['매도누적체결수량'])
-                #매수누적체결수량 = int(result['매수누적체결수량'])
-                #체결순매수 = 매수누적체결수량 - 매도누적체결수량
-
-                if result['종목코드'] == DOW:
-
-                    df_dow_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-
-                    DOW_현재가 = int(result['체결가격'])
-                    DOW_전일대비 = int(DOW_현재가 - DOW_종가)
-                    DOW_등락율 = result['등락율']
-
-                    DOW_저가 =  int(result['저가'])
-                    DOW_고가 =  int(result['고가'])
-                    DOW_진폭 = int(DOW_고가 - DOW_저가)
-                    
-                    if DOW_전일종가 > 0 and not NightTime:                        
-                        DOW_등락율 = ((DOW_현재가 - DOW_전일종가) / DOW_전일종가) * 100
-                    else:
-                        pass
-
-                    temp = plot_drate_scale_factor * DOW_등락율
-
-                    # 등락율에 스파이크 발생하는 문제 임시해결
-                    if temp > 50:
-                        temp = 50.0
-                    else:
-                        pass
-                    
-                    df_dow_graph.at[ovc_x_idx, 'drate'] = temp
-
-                    if not flag_checkBox_HS:
-                        # 1T OHLC 생성
-                        df_dow_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
-
-                        if DOW_현재가 > 0:
-
-                            if OVC_SEC == 0:
-
-                                if not flag_dow_ohlc_open:
-
-                                    df_dow_graph.at[ovc_x_idx, 'open'] = DOW_현재가
-                                    df_dow_graph.at[ovc_x_idx, 'high'] = DOW_현재가
-                                    df_dow_graph.at[ovc_x_idx, 'low'] = DOW_현재가
-                                    df_dow_graph.at[ovc_x_idx, 'middle'] = DOW_현재가
-                                    df_dow_graph.at[ovc_x_idx, 'close'] = DOW_현재가
-                                    df_dow_graph.at[ovc_x_idx, 'price'] = DOW_현재가
-
-                                    del DOW_현재가_버퍼[:]
-
-                                    flag_dow_ohlc_open = True
-                                else:
-                                    DOW_현재가_버퍼.append(DOW_현재가)                        
-                            else:
-                                if df_dow_graph.at[ovc_x_idx, 'open'] != df_dow_graph.at[ovc_x_idx, 'open']:
-                                    df_dow_graph.at[ovc_x_idx, 'open'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
-                                    del DOW_현재가_버퍼[:]
-                                else:
-                                    pass
-
-                                DOW_현재가_버퍼.append(DOW_현재가)
-
-                                if max(DOW_현재가_버퍼) > 0:
-                                    df_dow_graph.at[ovc_x_idx, 'high'] = max(DOW_현재가_버퍼)
-                                else:
-                                    pass
-
-                                if min(DOW_현재가_버퍼) == 0:
-
-                                    if max(DOW_현재가_버퍼) > 0:
-                                        df_dow_graph.at[ovc_x_idx, 'low'] = max(DOW_현재가_버퍼)
-                                    else:
-                                        pass
-                                else:
-                                    df_dow_graph.at[ovc_x_idx, 'low'] = min(DOW_현재가_버퍼)
-
-                                df_dow_graph.at[ovc_x_idx, 'close'] = DOW_현재가
-
-                                flag_dow_ohlc_open = False  
-                        else:
-                            pass                           
-
-                        # Bollinger Bands
-                        df_dow_graph.at[ovc_x_idx, 'middle'] = (df_dow_graph.at[ovc_x_idx, 'high'] + df_dow_graph.at[ovc_x_idx, 'low']) / 2
-                        upper, middle, lower = talib.BBANDS(np.array(df_dow_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
-
-                        df_dow_graph['BBUpper'] = upper
-                        df_dow_graph['BBMiddle'] = middle
-                        df_dow_graph['BBLower'] = lower
-
-                        #macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_dow_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
-                            #fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
-
-                        #df_dow_graph['MACD'] = macd
-                        #df_dow_graph['MACDSig'] = macdsignal
-                        #df_dow_graph['MACDHist'] = macdhist
-
-                        # Parabolic SAR
-                        parabolic_sar = talib.SAR(np.array(df_dow_graph['high'], dtype=float), np.array(df_dow_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
-
-                        # PSARIndicator 함수 오동작하는 듯...
-                        #ta_psar = ta.trend.PSARIndicator(df_dow_graph['high'], df_dow_graph['low'], df_dow_graph['close'])
-
-                        df_dow_graph['PSAR'] = parabolic_sar
-                        #df_dow_graph['TA_PSAR'] = ta_psar.psar()
-
-                        # MAMA(약 32 샘플후에 출력값이 나옴)
-                        mama, fama = talib.MAMA(np.array(df_dow_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
-
-                        df_dow_graph['MAMA'] = mama
-                        df_dow_graph['FAMA'] = fama
-                        #df_dow_graph['A_FAMA'] = fama
-
-                        if df_dow_graph.at[ovc_x_idx, 'FAMA'] == df_dow_graph.at[ovc_x_idx, 'FAMA'] and df_dow_graph.at[ovc_x_idx, 'BBLower'] == df_dow_graph.at[ovc_x_idx, 'BBLower']:
-
-                            if df_dow_graph.at[ovc_x_idx, 'FAMA'] < df_dow_graph.at[ovc_x_idx, 'BBLower']:
-                                df_dow_graph.at[ovc_x_idx, 'A_FAMA'] = df_dow_graph.at[ovc_x_idx, 'BBLower']
-                            else:
-                                df_dow_graph.at[ovc_x_idx, 'A_FAMA'] = df_dow_graph.at[ovc_x_idx, 'FAMA']
-                        else:
-                            pass
-
-                        # Ichimoku Indicator
-                        #dow_Ichimoku = ta.trend.IchimokuIndicator(df_dow_graph['high'], df_dow_graph['low'], n1=9, n2=26, n3=52, visual=True)
-                        dow_Ichimoku = ta.trend.IchimokuIndicator(df_dow_graph['high'], df_dow_graph['low'])
-
-                        df_dow_graph['SPAN_A'] = dow_Ichimoku.ichimoku_a()
-                        df_dow_graph['SPAN_B'] = dow_Ichimoku.ichimoku_b()
-                        df_dow_graph['OE_BASE'] = dow_Ichimoku.ichimoku_base_line()
-                        df_dow_graph['OE_CONV'] = dow_Ichimoku.ichimoku_conversion_line()
-                    else:
-                        pass                                                
-
-                    if DOW_시가 == 0:
-
-                        if result['전일대비기호'] == '5':
-
-                            DOW_종가 = int(DOW_현재가 + result['전일대비'])
-                        else:
-                            DOW_종가 = int(DOW_현재가 - result['전일대비'])
-
-                        df_dow_graph.at[0, 'price'] = DOW_종가
-                        df_dow_graph.at[1, 'price'] = result['시가']
-
-                        DOW_시가 = int(result['시가'])
-                    else:
-                        DOW_진폭비 = DOW_진폭 / DOW_시가                         
-
-                    if DOW_피봇 == 0:
-
-                        if DOW_전저 > 0 and DOW_전고 > 0:
-                            DOW_피봇 = self.calc_pivot(DOW_전저, DOW_전고, DOW_종가, DOW_시가)
-                        else:
-                            pass
-                    else:
-                        pass          
-
-                    if DOW_현재가 != DOW_과거가:
-                    
-                        old_dow_delta = dow_delta
-                        dow_delta = DOW_현재가
-                        dow_직전대비.extend([dow_delta - old_dow_delta])
-                        대비리스트 = list(dow_직전대비)                       
-
-                        if DOW_현재가 > DOW_과거가:
-
-                            if DOW_등락율 < 0:                                                             
-
-                                if min(대비리스트) > 0:
-                                    jisu_txt = "DOW: {0} ({1}, {2:.2f}%, {3})⬈". \
-                                    format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))                                    
-                                else:
-                                    jisu_txt = "DOW: {0} ▲ ({1}, {2:.2f}%, {3})". \
-                                    format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
-                                
-                                self.label_1st_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.label_1st_index.setText(jisu_txt)
-
-                                dow_text_color = 'blue'
-
-                            elif DOW_등락율 > 0:       
-
-                                if min(대비리스트) > 0:
-                                    jisu_txt = "DOW: {0} ({1}, {2:.2f}%, {3})⬈". \
-                                    format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))                                    
-                                else:
-                                    jisu_txt = "DOW: {0} ▲ ({1}, {2:.2f}%, {3})". \
-                                    format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
-                                
-                                self.label_1st_index.setStyleSheet('background-color: pink; color: red;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.label_1st_index.setText(jisu_txt)
-
-                                dow_text_color = 'red'
-                            else:
-                                pass
-
-                        elif DOW_현재가 < DOW_과거가:
-
-                            if DOW_등락율 < 0:        
-
-                                if max(대비리스트) < 0:
-                                    jisu_txt = "DOW: {0} ({1}, {2:.2f}%, {3})⬊". \
-                                    format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))                                    
-                                else:
-                                    jisu_txt = "DOW: {0} ▼ ({1}, {2:.2f}%, {3})". \
-                                    format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
-                                
-                                self.label_1st_index.setStyleSheet('background-color: lightskyblue; color: blue;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.label_1st_index.setText(jisu_txt)
-
-                                dow_text_color = 'blue'
-
-                            elif DOW_등락율 > 0:      
-
-                                if max(대비리스트) < 0:
-                                    jisu_txt = "DOW: {0} ({1}, {2:.2f}%, {3})⬊". \
-                                    format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))                                    
-                                else:
-                                    jisu_txt = "DOW: {0} ▼ ({1}, {2:.2f}%, {3})". \
-                                    format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
-                                
-                                self.label_1st_index.setStyleSheet('background-color: lightskyblue; color: red;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.label_1st_index.setText(jisu_txt)
-
-                                dow_text_color = 'red'
-                            else:
-                                pass
-                        else:
-                            pass
-
-                        DOW_과거가 = DOW_현재가                        
-                    else:
-                        pass
-
-                elif result['종목코드'] == NASDAQ:
-
-                    df_nasdaq_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-
-                    NASDAQ_현재가 = result['체결가격']
-                    NASDAQ_전일대비 = NASDAQ_현재가 - NASDAQ_종가 
-                    NASDAQ_등락율 = result['등락율']                 
-
-                    NASDAQ_저가 =  result['저가']
-                    NASDAQ_고가 =  result['고가']                    
-                    NASDAQ_진폭 = NASDAQ_고가 - NASDAQ_저가
-                    
-                    if NASDAQ_전일종가 > 0 and not NightTime:
-                        NASDAQ_등락율 = ((NASDAQ_현재가 - NASDAQ_전일종가) / NASDAQ_전일종가) * 100
-                    else:
-                        pass
-                    
-                    if not flag_checkBox_HS:
-                        # 1T OHLC 생성
-                        df_nasdaq_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
-
-                        if NASDAQ_현재가 > 0:
-
-                            if OVC_SEC == 0:
-
-                                if not flag_nasdaq_ohlc_open:
-                                
-                                    df_nasdaq_graph.at[ovc_x_idx, 'open'] = NASDAQ_현재가
-                                    df_nasdaq_graph.at[ovc_x_idx, 'high'] = NASDAQ_현재가
-                                    df_nasdaq_graph.at[ovc_x_idx, 'low'] = NASDAQ_현재가
-                                    df_nasdaq_graph.at[ovc_x_idx, 'middle'] = NASDAQ_현재가
-                                    df_nasdaq_graph.at[ovc_x_idx, 'close'] = NASDAQ_현재가
-                                    df_nasdaq_graph.at[ovc_x_idx, 'price'] = NASDAQ_현재가
-
-                                    del NASDAQ_현재가_버퍼[:]
-
-                                    flag_nasdaq_ohlc_open = True
-                                else:
-                                    NASDAQ_현재가_버퍼.append(NASDAQ_현재가)                       
-                            else:
-                                if df_nasdaq_graph.at[ovc_x_idx, 'open'] != df_nasdaq_graph.at[ovc_x_idx, 'open']:
-                                    df_nasdaq_graph.at[ovc_x_idx, 'open'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
-                                    del NASDAQ_현재가_버퍼[:]
-                                else:
-                                    pass
-
-                                NASDAQ_현재가_버퍼.append(NASDAQ_현재가)
-
-                                if max(NASDAQ_현재가_버퍼) > 0:
-                                    df_nasdaq_graph.at[ovc_x_idx, 'high'] = max(NASDAQ_현재가_버퍼)
-                                else:
-                                    pass
-
-                                if min(NASDAQ_현재가_버퍼) == 0:
-
-                                    if max(NASDAQ_현재가_버퍼) > 0:
-                                        df_nasdaq_graph.at[ovc_x_idx, 'low'] = max(NASDAQ_현재가_버퍼)
-                                    else:
-                                        pass
-                                else:
-                                    df_nasdaq_graph.at[ovc_x_idx, 'low'] = min(NASDAQ_현재가_버퍼)
-
-                                df_nasdaq_graph.at[ovc_x_idx, 'close'] = NASDAQ_현재가
-
-                                flag_nasdaq_ohlc_open = False
-                        else:
-                            pass                          
-
-                        # Bollinger Bands
-                        df_nasdaq_graph.at[ovc_x_idx, 'middle'] = (df_nasdaq_graph.at[ovc_x_idx, 'high'] + df_nasdaq_graph.at[ovc_x_idx, 'low']) / 2
-                        upper, middle, lower = talib.BBANDS(np.array(df_nasdaq_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
-
-                        df_nasdaq_graph['BBUpper'] = upper
-                        df_nasdaq_graph['BBMiddle'] = middle
-                        df_nasdaq_graph['BBLower'] = lower
-
-                        #macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_nasdaq_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
-                            #fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
-
-                        #df_nasdaq_graph['MACD'] = macd
-                        #df_nasdaq_graph['MACDSig'] = macdsignal
-                        #df_nasdaq_graph['MACDHist'] = macdhist
-
-                        # Parabolic SAR
-                        parabolic_sar = talib.SAR(np.array(df_nasdaq_graph['high'], dtype=float), np.array(df_nasdaq_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
-
-                        # PSARIndicator 함수 오동작하는 듯...
-                        #ta_psar = ta.trend.PSARIndicator(df_nasdaq_graph['high'], df_nasdaq_graph['low'], df_nasdaq_graph['close'])
-
-                        df_nasdaq_graph['PSAR'] = parabolic_sar
-                        #df_nasdaq_graph['TA_PSAR'] = ta_psar.psar()
-
-                        # MAMA(약 32샘플후에 출력값이 나옴)
-                        mama, fama = talib.MAMA(np.array(df_nasdaq_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
-
-                        df_nasdaq_graph['MAMA'] = mama
-                        df_nasdaq_graph['FAMA'] = fama
-
-                        if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] and df_nasdaq_graph.at[ovc_x_idx, 'BBLower'] == df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
-
-                            if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
-                                df_nasdaq_graph.at[ovc_x_idx, 'A_FAMA'] = df_nasdaq_graph.at[ovc_x_idx, 'BBLower']
-                            else:
-                                df_nasdaq_graph.at[ovc_x_idx, 'A_FAMA'] = df_nasdaq_graph.at[ovc_x_idx, 'FAMA']
-                        else:
-                            pass
-
-                        # Ichimoku Indicator
-                        #nasdaq_Ichimoku = ta.trend.IchimokuIndicator(df_nasdaq_graph['high'], df_nasdaq_graph['low'], n1=9, n2=26, n3=52, visual=True)
-                        nasdaq_Ichimoku = ta.trend.IchimokuIndicator(df_nasdaq_graph['high'], df_nasdaq_graph['low'])
-
-                        df_nasdaq_graph['SPAN_A'] = nasdaq_Ichimoku.ichimoku_a()
-                        df_nasdaq_graph['SPAN_B'] = nasdaq_Ichimoku.ichimoku_b()
-                        df_nasdaq_graph['OE_BASE'] = nasdaq_Ichimoku.ichimoku_base_line()
-                        df_nasdaq_graph['OE_CONV'] = nasdaq_Ichimoku.ichimoku_conversion_line()
-                    else:
-                        pass
-                    
-                    if NASDAQ_시가 == 0:
-
-                        if result['전일대비기호'] == '5':
-
-                            NASDAQ_종가 = NASDAQ_현재가 + result['전일대비']
-                        else:
-                            NASDAQ_종가 = NASDAQ_현재가 - result['전일대비']
-
-                        df_nasdaq_graph.at[0, 'price'] = NASDAQ_종가
-                        df_nasdaq_graph.at[1, 'price'] = result['시가']
-
-                        NASDAQ_시가 = result['시가']
-                    else:
-                        pass
-                    
-                    if NASDAQ_피봇 == 0:
-
-                        if NASDAQ_전저 > 0 and NASDAQ_전고 > 0:
-                            NASDAQ_피봇 = self.calc_pivot(NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_시가)
-                        else:
-                            pass
-                    else:
-                        pass                                             
-
-                    if NASDAQ_현재가 != NASDAQ_과거가:
-                    
-                        old_nasdaq_delta = nasdaq_delta
-                        nasdaq_delta = NASDAQ_현재가
-                        nasdaq_직전대비.extend([nasdaq_delta - old_nasdaq_delta])
-                        대비리스트 = list(nasdaq_직전대비)
-
-                        if NASDAQ_현재가 > NASDAQ_과거가:
-
-                            if NASDAQ_등락율 < 0:
-
-                                if min(대비리스트) > 0:
-                                    jisu_txt = "NASDAQ: {0} ({1:.2f}, {2:.2f}%)⬈".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
-                                else:
-                                    jisu_txt = "NASDAQ: {0} ▲ ({1:.2f}, {2:.2f}%)".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)
-
-                                self.label_2nd_index.setStyleSheet('background-color: pink; color: blue;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.label_2nd_index.setText(jisu_txt)
-
-                                nasdaq_text_color = 'blue'
-
-                            elif NASDAQ_등락율 > 0:                            
-
-                                if min(대비리스트) > 0:
-                                    jisu_txt = "NASDAQ: {0} ({1:.2f}, {2:.2f}%)⬈".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
-                                else:
-                                    jisu_txt = "NASDAQ: {0} ▲ ({1:.2f}, {2:.2f}%)".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)
-
-                                self.label_2nd_index.setStyleSheet('background-color: pink; color: red;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.label_2nd_index.setText(jisu_txt)
-
-                                nasdaq_text_color = 'red'
-                            else:
-                                pass
-
-                        elif NASDAQ_현재가 < NASDAQ_과거가:
-
-                            if NASDAQ_등락율 < 0:     
-
-                                if max(대비리스트) < 0:
-                                    jisu_txt = "NASDAQ: {0} ({1:.2f}, {2:.2f}%)⬊".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
-                                else:
-                                    jisu_txt = "NASDAQ: {0} ▼ ({1:.2f}, {2:.2f}%)".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)
-
-                                self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.label_2nd_index.setText(jisu_txt)
-
-                                nasdaq_text_color = 'blue'
-
-                            elif NASDAQ_등락율 > 0:     
-
-                                if max(대비리스트) < 0:
-                                    jisu_txt = "NASDAQ: {0} ({1:.2f}, {2:.2f}%)⬊".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
-                                else:
-                                    jisu_txt = "NASDAQ: {0} ▼ ({1:.2f}, {2:.2f}%)".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)
-
-                                self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.label_2nd_index.setText(jisu_txt)
-
-                                nasdaq_text_color = 'red'
-                            else:
-                                pass
-                        else:
-                            pass
-                        
-                        NASDAQ_과거가 = NASDAQ_현재가
-                    else:
-                        pass
-
-                elif result['종목코드'] == SP500:
-
-                    df_sp500_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-
-                    SP500_현재가 = result['체결가격']
-                    SP500_전일대비 = round((SP500_현재가 - SP500_종가), 2)
-                    SP500_등락율 = result['등락율']
-
-                    SP500_저가 =  result['저가']
-                    SP500_고가 =  result['고가']
-                    SP500_진폭 = SP500_고가 - SP500_저가
-                    
-                    if SP500_전일종가 > 0 and not NightTime:
-                        SP500_등락율 = ((SP500_현재가 - SP500_전일종가) / SP500_전일종가) * 100
-                    else:
-                        pass
-
-                    체결가격 = locale.format('%.2f', SP500_현재가, 1)
-
-                    if not flag_checkBox_HS:
-                        # 1T OHLC 생성
-                        df_sp500_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
-
-                        if SP500_현재가 > 0:
-
-                            if OVC_SEC == 0:
-
-                                if not flag_sp500_ohlc_open:
-
-                                    df_sp500_graph.at[ovc_x_idx, 'open'] = SP500_현재가
-                                    df_sp500_graph.at[ovc_x_idx, 'high'] = SP500_현재가
-                                    df_sp500_graph.at[ovc_x_idx, 'low'] = SP500_현재가
-                                    df_sp500_graph.at[ovc_x_idx, 'middle'] = SP500_현재가
-                                    df_sp500_graph.at[ovc_x_idx, 'close'] = SP500_현재가
-                                    df_sp500_graph.at[ovc_x_idx, 'price'] = SP500_현재가
-
-                                    del SP500_현재가_버퍼[:]
-
-                                    flag_sp500_ohlc_open = True
-                                else:
-                                    SP500_현재가_버퍼.append(SP500_현재가)                        
-                            else:
-                                if df_sp500_graph.at[ovc_x_idx, 'open'] != df_sp500_graph.at[ovc_x_idx, 'open']:
-                                    df_sp500_graph.at[ovc_x_idx, 'open'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
-                                    del SP500_현재가_버퍼[:]
-                                else:
-                                    pass
-
-                                SP500_현재가_버퍼.append(SP500_현재가)
-
-                                if max(SP500_현재가_버퍼) > 0:
-                                    df_sp500_graph.at[ovc_x_idx, 'high'] = max(SP500_현재가_버퍼)
-                                else:
-                                    pass
-
-                                if min(SP500_현재가_버퍼) == 0:
-
-                                    if max(SP500_현재가_버퍼) > 0:
-                                        df_sp500_graph.at[ovc_x_idx, 'low'] = max(SP500_현재가_버퍼)
-                                    else:
-                                        pass
-                                else:
-                                    df_sp500_graph.at[ovc_x_idx, 'low'] = min(SP500_현재가_버퍼)
-
-                                df_sp500_graph.at[ovc_x_idx, 'close'] = SP500_현재가
-
-                                flag_sp500_ohlc_open = False  
-                        else:
-                            pass                         
-
-                        # Bollinger Bands
-                        df_sp500_graph.at[ovc_x_idx, 'middle'] = (df_sp500_graph.at[ovc_x_idx, 'high'] + df_sp500_graph.at[ovc_x_idx, 'low']) / 2
-                        upper, middle, lower = talib.BBANDS(np.array(df_sp500_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
-
-                        df_sp500_graph['BBUpper'] = upper
-                        df_sp500_graph['BBMiddle'] = middle
-                        df_sp500_graph['BBLower'] = lower
-
-                        #macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_sp500_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
-                            #fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
-
-                        #df_sp500_graph['MACD'] = macd
-                        #df_sp500_graph['MACDSig'] = macdsignal
-                        #df_sp500_graph['MACDHist'] = macdhist                
-
-                        # Parabolic SAR
-                        parabolic_sar = talib.SAR(np.array(df_sp500_graph['high'], dtype=float), np.array(df_sp500_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
-
-                        # PSARIndicator 함수 오동작하는 듯...
-                        #ta_psar = ta.trend.PSARIndicator(df_sp500_graph['high'], df_sp500_graph['low'], df_sp500_graph['close'])
-
-                        df_sp500_graph['PSAR'] = parabolic_sar
-                        #df_sp500_graph['TA_PSAR'] = ta_psar.psar()
-
-                        # MAMA(약 32샘플후에 출력값이 나옴)
-                        mama, fama = talib.MAMA(np.array(df_sp500_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
-
-                        df_sp500_graph['MAMA'] = mama
-                        df_sp500_graph['FAMA'] = fama
-
-                        if df_sp500_graph.at[ovc_x_idx, 'FAMA'] == df_sp500_graph.at[ovc_x_idx, 'FAMA'] and df_sp500_graph.at[ovc_x_idx, 'BBLower'] == df_sp500_graph.at[ovc_x_idx, 'BBLower']:
-
-                            if df_sp500_graph.at[ovc_x_idx, 'FAMA'] < df_sp500_graph.at[ovc_x_idx, 'BBLower']:
-                                df_sp500_graph.at[ovc_x_idx, 'A_FAMA'] = df_sp500_graph.at[ovc_x_idx, 'BBLower']
-                            else:
-                                df_sp500_graph.at[ovc_x_idx, 'A_FAMA'] = df_sp500_graph.at[ovc_x_idx, 'FAMA']
-                        else:
-                            pass
-
-                        # Ichimoku Indicator
-                        #sp500_Ichimoku = ta.trend.IchimokuIndicator(df_sp500_graph['high'], df_sp500_graph['low'], n1=9, n2=26, n3=52, visual=True)
-                        sp500_Ichimoku = ta.trend.IchimokuIndicator(df_sp500_graph['high'], df_sp500_graph['low'])
-
-                        df_sp500_graph['SPAN_A'] = sp500_Ichimoku.ichimoku_a()
-                        df_sp500_graph['SPAN_B'] = sp500_Ichimoku.ichimoku_b()
-                        df_sp500_graph['OE_BASE'] = sp500_Ichimoku.ichimoku_base_line()
-                        df_sp500_graph['OE_CONV'] = sp500_Ichimoku.ichimoku_conversion_line()
-                    else:
-                        pass
-
-                    if SP500_시가 == 0:
-
-                        if result['전일대비기호'] == '5':
-
-                            SP500_종가 = SP500_현재가 + result['전일대비']
-                        else:
-                            SP500_종가 = SP500_현재가 - result['전일대비']
-
-                        df_sp500_graph.at[0, 'price'] = SP500_종가
-                        df_sp500_graph.at[1, 'price'] = result['시가']
-
-                        SP500_시가 = result['시가']
-                    else:
-                        pass                                                 
-
-                    if SP500_피봇 == 0:
-
-                        if SP500_전저 > 0 and SP500_전고 > 0:
-                            SP500_피봇 = self.calc_pivot(SP500_전저, SP500_전고, SP500_종가, SP500_시가)
-                        else:
-                            pass
-                    else:
-                        pass
-
-                    if SP500_현재가 != SP500_과거가:
-                    
-                        old_sp500_delta = sp500_delta
-                        sp500_delta = SP500_현재가
-                        sp500_직전대비.extend([sp500_delta - old_sp500_delta])
-                        대비리스트 = list(sp500_직전대비)
-
-                        if SP500_현재가 > SP500_과거가:
-
-                            if SP500_등락율 < 0:
-
-                                if min(대비리스트) > 0:
-                                    jisu_txt = "SP500: {0} ({1:.2f}, {2:.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
-                                else:
-                                    jisu_txt = "SP500: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
-
-                                self.label_4th_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.label_4th_index.setText(jisu_txt)
-
-                                sp500_text_color = 'blue'                           
-
-                            elif SP500_등락율 > 0:  
-
-                                if min(대비리스트) > 0:
-                                    jisu_txt = "SP500: {0} ▲ ({1:.2f}, {2:.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
-                                else:
-                                    jisu_txt = "SP500: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
-
-                                self.label_4th_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.label_4th_index.setText(jisu_txt)
-
-                                sp500_text_color = 'red'
-                            else:
-                                pass
-
-                        elif SP500_현재가 < SP500_과거가:
-
-                            if SP500_등락율 < 0: 
-
-                                if max(대비리스트) < 0:
-                                    jisu_txt = "SP500: {0} ({1:.2f}, {2:.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
-                                else:
-                                    jisu_txt = "SP500: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
-
-                                self.label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.label_4th_index.setText(jisu_txt)
-
-                                sp500_text_color = 'blue'                                
-
-                            elif SP500_등락율 > 0:
-
-                                if max(대비리스트) < 0:
-                                    jisu_txt = "SP500: {0} ({1:.2f}, {2:.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
-                                else:
-                                    jisu_txt = "SP500: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
-
-                                self.label_4th_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.label_4th_index.setText(jisu_txt)
-
-                                sp500_text_color = 'red'                                
-                            else:
-                                pass
-                        else:
-                            pass
-
-                        SP500_과거가 = SP500_현재가
-                    else:
-                        pass
-
-                elif result['종목코드'] == WTI:
-                    
-                    df_wti_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-
-                    WTI_현재가 = result['체결가격']
-                    WTI_전일대비 = round((WTI_현재가 - WTI_종가), 2)
-                    WTI_등락율 = result['등락율']
-
-                    WTI_저가 =  result['저가']
-                    WTI_고가 =  result['고가']
-                    WTI_진폭 = round((result['고가'] - result['저가']), 2)
-                    
-                    if WTI_전일종가 > 0 and not NightTime:
-                        WTI_등락율 = ((WTI_현재가 - WTI_전일종가) / WTI_전일종가) * 100
-                    else:
-                        pass
-                    
-                    체결가격 = locale.format('%.2f', WTI_현재가, 1)
-
-                    if not flag_checkBox_HS:
-                        # 1T OHLC 생성
-                        df_wti_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
-
-                        if WTI_현재가 > 0:
-
-                            if OVC_SEC == 0:
-
-                                if not flag_wti_ohlc_open:
-                                
-                                    df_wti_graph.at[ovc_x_idx, 'open'] = WTI_현재가
-                                    df_wti_graph.at[ovc_x_idx, 'high'] = WTI_현재가
-                                    df_wti_graph.at[ovc_x_idx, 'low'] = WTI_현재가
-                                    df_wti_graph.at[ovc_x_idx, 'middle'] = WTI_현재가
-                                    df_wti_graph.at[ovc_x_idx, 'close'] = WTI_현재가
-                                    df_wti_graph.at[ovc_x_idx, 'price'] = WTI_현재가
-
-                                    del WTI_현재가_버퍼[:]
-
-                                    flag_wti_ohlc_open = True
-                                else:
-                                    WTI_현재가_버퍼.append(WTI_현재가)                        
-                            else:
-                                if df_wti_graph.at[ovc_x_idx, 'open'] != df_wti_graph.at[ovc_x_idx, 'open']:
-                                    df_wti_graph.at[ovc_x_idx, 'open'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
-                                    del WTI_현재가_버퍼[:]
-                                else:
-                                    pass
-
-                                WTI_현재가_버퍼.append(WTI_현재가)
-
-                                if max(WTI_현재가_버퍼) > 0:
-                                    df_wti_graph.at[ovc_x_idx, 'high'] = max(WTI_현재가_버퍼)
-                                else:
-                                    pass
-
-                                if min(WTI_현재가_버퍼) == 0:
-
-                                    if max(WTI_현재가_버퍼) > 0:
-                                        df_wti_graph.at[ovc_x_idx, 'low'] = max(WTI_현재가_버퍼)
-                                    else:
-                                        pass
-                                else:
-                                    df_wti_graph.at[ovc_x_idx, 'low'] = min(WTI_현재가_버퍼)
-
-                                df_wti_graph.at[ovc_x_idx, 'close'] = WTI_현재가
-
-                                flag_wti_ohlc_open = False
-                        else:
-                            pass                            
-
-                        # Bollinger Bands
-                        df_wti_graph.at[ovc_x_idx, 'middle'] = (df_wti_graph.at[ovc_x_idx, 'high'] + df_wti_graph.at[ovc_x_idx, 'low']) / 2
-                        upper, middle, lower = talib.BBANDS(np.array(df_wti_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
-
-                        df_wti_graph['BBUpper'] = upper
-                        df_wti_graph['BBMiddle'] = middle
-                        df_wti_graph['BBLower'] = lower
-
-                        #macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_wti_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
-                            #fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
-
-                        #df_wti_graph['MACD'] = macd
-                        #df_wti_graph['MACDSig'] = macdsignal
-                        #df_wti_graph['MACDHist'] = macdhist                
-
-                        # Parabolic SAR
-                        parabolic_sar = talib.SAR(np.array(df_wti_graph['high'], dtype=float), np.array(df_wti_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
-
-                        # PSARIndicator 함수 오동작하는 듯...
-                        #ta_psar = ta.trend.PSARIndicator(df_wti_graph['high'], df_wti_graph['low'], df_wti_graph['close'])
-
-                        df_wti_graph['PSAR'] = parabolic_sar
-                        #df_wti_graph['TA_PSAR'] = ta_psar.psar()
-
-                        # MAMA(약 32샘플후에 출력값이 나옴)
-                        mama, fama = talib.MAMA(np.array(df_wti_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
-
-                        df_wti_graph['MAMA'] = mama
-                        df_wti_graph['FAMA'] = fama
-
-                        if df_wti_graph.at[ovc_x_idx, 'FAMA'] == df_wti_graph.at[ovc_x_idx, 'FAMA'] and df_wti_graph.at[ovc_x_idx, 'BBLower'] == df_wti_graph.at[ovc_x_idx, 'BBLower']:
-
-                            if df_wti_graph.at[ovc_x_idx, 'FAMA'] < df_wti_graph.at[ovc_x_idx, 'BBLower']:
-                                df_wti_graph.at[ovc_x_idx, 'A_FAMA'] = df_wti_graph.at[ovc_x_idx, 'BBLower']
-                            else:
-                                df_wti_graph.at[ovc_x_idx, 'A_FAMA'] = df_wti_graph.at[ovc_x_idx, 'FAMA']
-                        else:
-                            pass
-
-                        # Ichimoku Indicator
-                        #wti_Ichimoku = ta.trend.IchimokuIndicator(df_wti_graph['high'], df_wti_graph['low'], n1=9, n2=26, n3=52, visual=True)
-                        wti_Ichimoku = ta.trend.IchimokuIndicator(df_wti_graph['high'], df_wti_graph['low'])
-
-                        df_wti_graph['SPAN_A'] = wti_Ichimoku.ichimoku_a()
-                        df_wti_graph['SPAN_B'] = wti_Ichimoku.ichimoku_b()
-                        df_wti_graph['OE_BASE'] = wti_Ichimoku.ichimoku_base_line()
-                        df_wti_graph['OE_CONV'] = wti_Ichimoku.ichimoku_conversion_line()
-                    else:
-                        pass         
-
-                    if WTI_시가 == 0:
-
-                        if result['전일대비기호'] == '5':
-
-                            WTI_종가 = round((WTI_현재가 + result['전일대비']), 2)
-                        else:
-                            WTI_종가 = round((WTI_현재가 - result['전일대비']), 2)
-
-                        df_wti_graph.at[0, 'price'] = WTI_종가
-                        df_wti_graph.at[1, 'price'] = result['시가']
-
-                        WTI_시가 = result['시가']
-                    else:
-                        pass                 
-
-                    if WTI_피봇 == 0:
-
-                        if WTI_전저 > 0 and WTI_전고 > 0:
-                            WTI_피봇 = self.calc_pivot(WTI_전저, WTI_전고, WTI_종가, WTI_시가)
-                        else:
-                            pass
-                    else:
-                        pass
-
-                    if WTI_현재가 != WTI_과거가:
-                    
-                        old_wti_delta = wti_delta
-                        wti_delta = WTI_현재가
-                        wti_직전대비.extend([wti_delta - old_wti_delta])
-                        대비리스트 = list(wti_직전대비)
-
-                        if WTI_현재가 > WTI_과거가:
-
-                            if WTI_등락율 < 0:
-
-                                if min(대비리스트) > 0:
-                                    jisu_txt = "WTI: {0} ({1:.2f}, {2:.2f}%)⬈".format(체결가격, WTI_전일대비, WTI_등락율)                                    
-                                else:
-                                    jisu_txt = "WTI: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
-
-                                self.label_3rd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.label_3rd_index.setText(jisu_txt)
-
-                                wti_text_color = 'blue'  
-
-                            elif WTI_등락율 > 0:
-
-                                if min(대비리스트) > 0:
-                                    jisu_txt = "WTI: {0} ▲ ({1:.2f}, {2:.2f}%)⬈".format(체결가격, WTI_전일대비, WTI_등락율)                                    
-                                else:
-                                    jisu_txt = "WTI: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
-
-                                self.label_3rd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.label_3rd_index.setText(jisu_txt)
-
-                                wti_text_color = 'red'                                    
-                            else:
-                                pass
-                            
-                        elif WTI_현재가 < WTI_과거가:
-
-                            if WTI_등락율 < 0:
-
-                                if max(대비리스트) < 0:
-                                    jisu_txt = "WTI: {0} ({1:.2f}, {2:.2f}%)⬊".format(체결가격, WTI_전일대비, WTI_등락율)                                    
-                                else:
-                                    jisu_txt = "WTI: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
-
-                                self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.label_3rd_index.setText(jisu_txt)
-
-                                wti_text_color = 'blue'                                    
-
-                            elif WTI_등락율 > 0:
-
-                                if max(대비리스트) < 0:
-                                    jisu_txt = "WTI: {0} ({1:.2f}, {2:.2f}%)⬊".format(체결가격, WTI_전일대비, WTI_등락율)                                    
-                                else:
-                                    jisu_txt = "WTI: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
-
-                                self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.label_3rd_index.setText(jisu_txt)
-
-                                wti_text_color = 'red' 
-                            else:
-                                pass                            
-                        else:
-                            pass
-
-                        WTI_과거가 = WTI_현재가
-                    else:
-                        pass
-
-                elif result['종목코드'] == HANGSENG:
-
-                    df_hangseng_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-                    
-                    HANGSENG_현재가 = int(result['체결가격'])
-                    HANGSENG_전일대비 = int(result['체결가격'] - HANGSENG_종가)                    
-                    HANGSENG_등락율 = result['등락율']
-
-                    HANGSENG_저가 =  int(result['저가'])
-                    HANGSENG_고가 =  int(result['고가'])                    
-                    HANGSENG_진폭 = int(result['고가'] - result['저가'])
-                    
-                    if HANGSENG_전일종가 > 0 and not NightTime:
-                        HANGSENG_등락율 = ((result['체결가격'] - HANGSENG_전일종가) / HANGSENG_전일종가) * 100
-                    else:
-                        pass
-
-                    체결가격 = locale.format('%d', result['체결가격'], 1)
-
-                    if HANGSENG_시가 == 0:
-
-                        if result['전일대비기호'] == '5':
-
-                            HANGSENG_종가 = int(result['체결가격'] + result['전일대비'])
-                        else:
-                            HANGSENG_종가 = int(result['체결가격'] - result['전일대비'])
-
-                        df_hangseng_graph.at[0, 'price'] = HANGSENG_종가
-                        df_hangseng_graph.at[1, 'price'] = result['시가']
-
-                        HANGSENG_시가 = int(result['시가'])
-                    else:
-                        pass                    
-                    
-                    if HANGSENG_피봇 == 0:
-
-                        if HANGSENG_전저 > 0 and HANGSENG_전고 > 0:
-                            HANGSENG_피봇 = self.calc_pivot(HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_시가)
-                        else:
-                            pass
-                    else:
-                        pass
-                    
-                    if result['체결가격'] != HANGSENG_과거가:
-                    
-                        old_hangseng_delta = hangseng_delta
-                        hangseng_delta = result['체결가격']
-                        hangseng_직전대비.extend([hangseng_delta - old_hangseng_delta])
-                        대비리스트 = list(hangseng_직전대비)
-
-                        if result['체결가격'] > HANGSENG_과거가:
-
-                            if HANGSENG_등락율 < 0:
-
-                                if min(대비리스트) > 0:
-                                    jisu_txt = "HANGSENG: {0} ({1}, {2:.2f}%)⬈".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
-                                else:
-                                    jisu_txt = "HANGSENG: {0} ▲ ({1}, {2:.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
-
-                                self.label_2nd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.label_2nd_index.setText(jisu_txt)
-
-                                hangseng_text_color = 'blue'                                           
-
-                            elif HANGSENG_등락율 > 0:
-
-                                if min(대비리스트) > 0:
-                                    jisu_txt = "HANGSENG: {0} ▲ ({1}, {2:.2f}%)⬈".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
-                                else:
-                                    jisu_txt = "HANGSENG: {0} ▲ ({1}, {2:.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
-
-                                self.label_2nd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.label_2nd_index.setText(jisu_txt)
-
-                                hangseng_text_color = 'red'                                                                             
-                            else:
-                                pass
-
-                        elif result['체결가격'] < HANGSENG_과거가:
-
-                            if HANGSENG_등락율 < 0:
-
-                                if max(대비리스트) < 0:
-                                    jisu_txt = "HANGSENG: {0} ({1}, {2:.2f}%)⬊".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
-                                else:
-                                    jisu_txt = "HANGSENG: {0} ▼ ({1}, {2:.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
-
-                                self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.label_2nd_index.setText(jisu_txt)
-
-                                hangseng_text_color = 'blue'
-
-                            elif HANGSENG_등락율 > 0:
-
-                                if max(대비리스트) < 0:
-                                    jisu_txt = "HANGSENG: {0} ({1}, {2:.2f}%)⬊".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
-                                else:
-                                    jisu_txt = "HANGSENG: {0} ▼ ({1}, {2:.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
-
-                                self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.label_2nd_index.setText(jisu_txt)
-
-                                hangseng_text_color = 'red'
-                            else:
-                                pass                            
-                        else:
-                            pass
-
-                        HANGSENG_과거가 = int(result['체결가격'])
-                    else:
-                        pass
-                    
-                elif result['종목코드'] == EUROFX and pre_start:
-
-                    df_eurofx_graph.at[ovc_x_idx, 'price'] = result['체결가격']                    
-                    
-                    EUROFX_현재가 = result['체결가격']
-                    EUROFX_전일대비 = round((result['체결가격'] - EUROFX_종가), 5)
-                    EUROFX_등락율 = result['등락율']
-                    
-                    EUROFX_저가 =  result['저가']
-                    EUROFX_고가 =  result['고가']                    
-                    EUROFX_진폭 = round((result['고가'] - result['저가']), 2)
-
-                    if EUROFX_전일종가 > 0 and not NightTime:
-                        EUROFX_등락율 = ((result['체결가격'] - EUROFX_전일종가) / EUROFX_전일종가) * 100
-                    else:
-                        pass
-
-                    체결가격 = result['체결가격']
-
-                    if EUROFX_시가 == 0:
-
-                        if result['전일대비기호'] == '5':
-
-                            EUROFX_종가 = round((result['체결가격'] + result['전일대비']), 5)
-                        else:
-                            EUROFX_종가 = round((result['체결가격'] - result['전일대비']), 5)
-
-                        df_eurofx_graph.at[0, 'price'] = EUROFX_종가
-                        df_eurofx_graph.at[1, 'price'] = result['시가']
-
-                        EUROFX_시가 = result['시가']
-                    else:
-                        pass                    
-                    
-                    if EUROFX_피봇 == 0:
-
-                        if EUROFX_전저 > 0 and EUROFX_전고 > 0:
-                            EUROFX_피봇 = self.calc_pivot(EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_시가)
-                        else:
-                            pass
-                    else:
-                        pass
-                    
-                    if result['체결가격'] != EUROFX_과거가:
-                    
-                        old_eurofx_delta = eurofx_delta
-                        eurofx_delta = result['체결가격']
-                        eurofx_직전대비.extend([eurofx_delta - old_eurofx_delta])
-                        대비리스트 = list(eurofx_직전대비)                         
-
-                        if result['체결가격'] > EUROFX_과거가:
-
-                            if EUROFX_등락율 < 0:
-
-                                if min(대비리스트) > 0:
-                                    jisu_txt = "EUROFX: {0:0.5f} ({1:0.5f}, {2:.2f}%)⬈".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
-                                else:
-                                    jisu_txt = "EUROFX: {0:0.5f} ▲ ({1:0.5f}, {2:.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
-
-                                self.label_2nd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.label_2nd_index.setText(jisu_txt)
-
-                                eurofx_text_color = 'blue'                                           
-
-                            elif EUROFX_등락율 > 0:
-
-                                if min(대비리스트) > 0:
-                                    jisu_txt = "EUROFX: {0:0.5f} ▲ ({1:0.5f}, {2:.2f}%)⬈".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
-                                else:
-                                    jisu_txt = "EUROFX: {0:0.5f} ▲ ({1:0.5f}, {2:.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
-
-                                self.label_2nd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.label_2nd_index.setText(jisu_txt)
-
-                                eurofx_text_color = 'red'                                                                             
-                            else:
-                                pass
-                            
-                        elif result['체결가격'] < EUROFX_과거가:
-
-                            if EUROFX_등락율 < 0:
-
-                                if max(대비리스트) < 0:
-                                    jisu_txt = "EUROFX: {0:0.5f} ({1:0.5f}, {2:.2f}%)⬊".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
-                                else:
-                                    jisu_txt = "EUROFX: {0:0.5f} ▼ ({1:0.5f}, {2:.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
-
-                                self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.label_2nd_index.setText(jisu_txt)
-
-                                eurofx_text_color = 'blue'
-
-                            elif EUROFX_등락율 > 0:
-
-                                if max(대비리스트) < 0:
-                                    jisu_txt = "EUROFX: {0:0.5f} ({1:0.5f}, {2:.2f}%)⬊".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
-                                else:
-                                    jisu_txt = "EUROFX: {0:0.5f} ▼ ({1:0.5f}, {2:.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
-
-                                self.label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.label_2nd_index.setText(jisu_txt)
-
-                                eurofx_text_color = 'red'
-                            else:
-                                pass                            
-                        else:
-                            pass
-
-                        EUROFX_과거가 = result['체결가격']
-                    else:
-                        pass
-                
-                elif result['종목코드'] == GOLD:
-
-                    df_gold_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-
-                    GOLD_현재가 = result['체결가격']
-                    GOLD_전일대비 = result['체결가격'] - GOLD_종가
-                    GOLD_등락율 = result['등락율']
-
-                    GOLD_저가 =  result['저가']
-                    GOLD_고가 =  result['고가']                    
-                    GOLD_진폭 = result['고가'] - result['저가']
-
-                    if GOLD_전일종가 > 0 and not NightTime:
-                        GOLD_등락율 = ((result['체결가격'] - GOLD_전일종가) / GOLD_전일종가) * 100
-                    else:
-                        pass
-                    
-                    체결가격 = locale.format('%.2f', result['체결가격'], 1)
-
-                    if GOLD_시가 == 0:
-
-                        if result['전일대비기호'] == '5':
-
-                            GOLD_종가 = result['체결가격'] + result['전일대비']
-                        else:
-                            GOLD_종가 = result['체결가격'] - result['전일대비']
-
-                        df_gold_graph.at[0, 'price'] = GOLD_종가
-                        df_gold_graph.at[1, 'price'] = result['시가']
-
-                        GOLD_시가 = result['시가']
-                    else:
-                        pass                    
-                    
-                    if GOLD_피봇 == 0:
-
-                        if GOLD_전저 > 0 and GOLD_전고 > 0:
-                            GOLD_피봇 = self.calc_pivot(GOLD_전저, GOLD_전고, GOLD_종가, GOLD_시가)
-                        else:
-                            pass
-                    else:
-                        pass
-                    
-                    if result['체결가격'] != GOLD_과거가:
-                    
-                        old_gold_delta = gold_delta
-                        gold_delta = result['체결가격']
-                        gold_직전대비.extend([gold_delta - old_gold_delta])
-                        대비리스트 = list(gold_직전대비)
-
-                        if result['체결가격'] > GOLD_과거가:
-
-                            if GOLD_등락율 < 0:
-
-                                if min(대비리스트) > 0:
-                                    jisu_txt = "GOLD: {0} ({1:.2f}, {2:.2f}%)⬈".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
-                                else:
-                                    jisu_txt = "GOLD: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
-
-                                self.label_3rd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.label_3rd_index.setText(jisu_txt)
-
-                                gold_text_color = 'blue'                                           
-
-                            elif GOLD_등락율 > 0:
-
-                                if min(대비리스트) > 0:
-                                    jisu_txt = "GOLD: {0} ▲ ({1:.2f}, {2:.2f}%)⬈".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
-                                else:
-                                    jisu_txt = "GOLD: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
-
-                                self.label_3rd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.label_3rd_index.setText(jisu_txt)
-
-                                gold_text_color = 'red'                                                                             
-                            else:
-                                pass
-
-                        elif result['체결가격'] < GOLD_과거가:
-
-                            if GOLD_등락율 < 0:
-
-                                if max(대비리스트) < 0:
-                                    jisu_txt = "GOLD: {0} ({1:.2f}, {2:.2f}%)⬊".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
-                                else:
-                                    jisu_txt = "GOLD: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
-
-                                self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.label_3rd_index.setText(jisu_txt)
-
-                                gold_text_color = 'blue'
-
-                            elif GOLD_등락율 > 0:
-
-                                if max(대비리스트) < 0:
-                                    jisu_txt = "GOLD: {0} ({1:.2f}, {2:.2f}%)⬊".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
-                                else:
-                                    jisu_txt = "GOLD: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
-
-                                self.label_3rd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.label_3rd_index.setText(jisu_txt)
-
-                                gold_text_color = 'red'
-                            else:
-                                pass                            
-                        else:
-                            pass
-
-                        GOLD_과거가 = result['체결가격']
-                    else:
-                        pass
-                else:
-                    pass
-                
+                self.OVC_Update(result)               
+              
             elif szTrCode == 'OVH':
 
                 global NASDAQ_호가순매수, SP500_호가순매수, DOW_호가순매수, WTI_호가순매수, EUROFX_호가순매수, HANGSENG_호가순매수, GOLD_호가순매수
