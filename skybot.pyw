@@ -4378,7 +4378,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         print(txt)
     
     @pyqtSlot()
-    #@logging_time
+    @logging_time
     def update_screen(self):
 
         global flag_internet_connection_broken, flag_service_provider_broken
@@ -10588,6 +10588,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global plot_drate_scale_factor
         global flag_fut_dow_drate_energy_direction
         global volatility_breakout_downward_point, volatility_breakout_upward_point
+        global df_futures_graph, flag_futures_ohlc_open, 선물_현재가_버퍼
 
         dt = datetime.datetime.now()
 
@@ -10606,11 +10607,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         선물_대비 = 선물_현재가 - 선물_시가
         선물_전일대비 = 선물_현재가 - 선물_종가         
         선물_등락율 = result['등락율']
-        선물_진폭 = 선물_고가 - 선물_저가
+        선물_진폭 = 선물_고가 - 선물_저가        
         
-        fut_time = dt.hour * 3600 + dt.minute * 60 + dt.second        
+        # Plot 데이타프레임 생성
+        df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
         
-        #print('fut_first_arrive_time = {0}, flag_first_arrive = {1}, market_service = {2}\r'.format(fut_first_arrive_time, flag_first_arrive, market_service))
+        fut_time = dt.hour * 3600 + dt.minute * 60 + dt.second
 
         if 선물_등락율 != 0:
 
@@ -10864,99 +10866,54 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.resizeRowToContents(1)
             
             self.tableWidget_fut.resizeColumnToContents(Futures_column.현재가.value)
-            
-            if fut_quote_energy_direction == 'call':
 
-                if NightTime:
-                    self.tableWidget_fut.item(0, 0).setBackground(QBrush(적색))
-                    self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
+            # 1T OHLC 생성
+            df_futures_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
+
+            if OVC_SEC == 0:
+
+                if not flag_futures_ohlc_open:
+
+                    df_futures_graph.at[ovc_x_idx, 'open'] = 선물_현재가
+                    df_futures_graph.at[ovc_x_idx, 'high'] = 선물_현재가
+                    df_futures_graph.at[ovc_x_idx, 'low'] = 선물_현재가
+                    df_futures_graph.at[ovc_x_idx, 'middle'] = 선물_현재가
+                    df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
+                    df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
+
+                    del 선물_현재가_버퍼[:]
+
+                    flag_futures_ohlc_open = True
                 else:
-                    self.tableWidget_fut.item(1, 0).setBackground(QBrush(적색))
-                    self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
-
-            elif fut_quote_energy_direction == 'put':
-
-                if NightTime:
-                    self.tableWidget_fut.item(0, 0).setBackground(QBrush(청색))
-                    self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
+                    선물_현재가_버퍼.append(선물_현재가)              
+            else:
+                if df_futures_graph.at[ovc_x_idx, 'open'] != df_futures_graph.at[ovc_x_idx, 'open']:
+                    df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
+                    del 선물_현재가_버퍼[:]
                 else:
-                    self.tableWidget_fut.item(1, 0).setBackground(QBrush(청색))
-                    self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
-            else:
-                if NightTime:
-                    self.tableWidget_fut.item(0, 0).setBackground(QBrush(검정색))
-                    self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
+                    pass
+
+                선물_현재가_버퍼.append(선물_현재가)
+
+                if max(선물_현재가_버퍼) > 0:
+                    df_futures_graph.at[ovc_x_idx, 'high'] = max(선물_현재가_버퍼)
                 else:
-                    self.tableWidget_fut.item(1, 0).setBackground(QBrush(검정색))
-                    self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
+                    pass
 
-            item = QTableWidgetItem("DOW\n({0:.2f}%)".format(DOW_등락율))
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
-            self.tableWidget_fut.setItem(2, Futures_column.대비.value, item)
-                        
-            item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(선물_대비, 선물_등락율))
-            item.setTextAlignment(Qt.AlignCenter)
+                if min(선물_현재가_버퍼) == 0:
 
-            if 선물_등락율 > 0 and DOW_등락율 > 0 and flag_fut_dow_drate_energy_direction:
-
-                item.setBackground(QBrush(pink))
-                item.setForeground(QBrush(검정색))
-
-            elif 선물_등락율 < 0 and DOW_등락율 < 0 and flag_fut_dow_drate_energy_direction:
-
-                item.setBackground(QBrush(lightskyblue))
-                item.setForeground(QBrush(검정색))
-            else:                
-                item.setBackground(QBrush(흰색))
-                item.setForeground(QBrush(검정색))
-
-            if NightTime:
-                self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
-            else:
-                self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
-            
-            선물_진폭비 = (선물_고가 - 선물_저가) / 선물_시가            
-            선물_DOW_진폭비율 = 선물_진폭비 / DOW_진폭비 
-
-            item = QTableWidgetItem("{0:.2f}".format(선물_DOW_진폭비율))
-            item.setTextAlignment(Qt.AlignCenter)
-            
-            item.setBackground(QBrush(라임))
-            item.setForeground(QBrush(검정색))
-
-            if NightTime:
-                self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
-            else:
-                self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
-
-            # 종합 에너지방향 표시
-            if TARGET_MONTH_SELECT == 'CM' and not NightTime:
-
-                if flag_fut_dow_drate_energy_direction and fut_quote_energy_direction == 'call' and fut_volume_power_energy_direction == 'call':
-
-                    item = QTableWidgetItem("CS")
-                    item.setBackground(QBrush(red))
-                    item.setForeground(QBrush(흰색))
-                    flag_call_strong = True
-
-                elif flag_fut_dow_drate_energy_direction and fut_quote_energy_direction == 'put' and fut_volume_power_energy_direction == 'put':
-
-                    item = QTableWidgetItem("PS")
-                    item.setBackground(QBrush(blue))
-                    item.setForeground(QBrush(흰색))
-                    flag_put_strong = True
+                    if max(선물_현재가_버퍼) > 0:
+                        df_futures_graph.at[ovc_x_idx, 'low'] = max(선물_현재가_버퍼)
+                    else:
+                        pass
                 else:
-                    item = QTableWidgetItem("-")               
-                    item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
-                    flag_call_strong = False
-                    flag_put_strong = False
+                    df_futures_graph.at[ovc_x_idx, 'low'] = min(선물_현재가_버퍼)
 
-                self.tableWidget_fut.setItem(0, Futures_column.거래량.value, item)
-            else:
-                pass                   
+                df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
+
+                flag_futures_ohlc_open = False
+
+            df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2            
             
             self.tableWidget_fut.resizeColumnToContents(Futures_column.대비.value)            
         else:
@@ -11114,70 +11071,98 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def fut_etc_update(self, result):
 
-        global flag_futures_ohlc_open
+        if fut_quote_energy_direction == 'call':
 
-        if receive_real_ovc:
-
-            선물_현재가 = float(result['현재가'])
-
-            # Plot 데이타프레임 생성
-            df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
-
-            df_futures_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * result['등락율']
-
-            # 1T OHLC 생성
-            df_futures_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
-
-            if 선물_현재가 > 0:
-
-                if OVC_SEC == 0:
-
-                    if not flag_futures_ohlc_open:
-
-                        df_futures_graph.at[ovc_x_idx, 'open'] = 선물_현재가
-                        df_futures_graph.at[ovc_x_idx, 'high'] = 선물_현재가
-                        df_futures_graph.at[ovc_x_idx, 'low'] = 선물_현재가
-                        df_futures_graph.at[ovc_x_idx, 'middle'] = 선물_현재가
-                        df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
-                        df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
-
-                        del 선물_현재가_버퍼[:]
-
-                        flag_futures_ohlc_open = True
-                    else:
-                        선물_현재가_버퍼.append(선물_현재가)              
-                else:
-                    if df_futures_graph.at[ovc_x_idx, 'open'] != df_futures_graph.at[ovc_x_idx, 'open']:
-                        df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
-                        del 선물_현재가_버퍼[:]
-                    else:
-                        pass
-
-                    선물_현재가_버퍼.append(선물_현재가)
-
-                    if max(선물_현재가_버퍼) > 0:
-                        df_futures_graph.at[ovc_x_idx, 'high'] = max(선물_현재가_버퍼)
-                    else:
-                        pass
-
-                    if min(선물_현재가_버퍼) == 0:
-
-                        if max(선물_현재가_버퍼) > 0:
-                            df_futures_graph.at[ovc_x_idx, 'low'] = max(선물_현재가_버퍼)
-                        else:
-                            pass
-                    else:
-                        df_futures_graph.at[ovc_x_idx, 'low'] = min(선물_현재가_버퍼)
-
-                    df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
-
-                    flag_futures_ohlc_open = False
-
-                df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2 
+            if NightTime:
+                self.tableWidget_fut.item(0, 0).setBackground(QBrush(적색))
+                self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
             else:
-                pass            
+                self.tableWidget_fut.item(1, 0).setBackground(QBrush(적색))
+                self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
+
+        elif fut_quote_energy_direction == 'put':
+
+            if NightTime:
+                self.tableWidget_fut.item(0, 0).setBackground(QBrush(청색))
+                self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
+            else:
+                self.tableWidget_fut.item(1, 0).setBackground(QBrush(청색))
+                self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
         else:
-            pass
+            if NightTime:
+                self.tableWidget_fut.item(0, 0).setBackground(QBrush(검정색))
+                self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
+            else:
+                self.tableWidget_fut.item(1, 0).setBackground(QBrush(검정색))
+                self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
+
+        item = QTableWidgetItem("DOW\n({0:.2f}%)".format(DOW_등락율))
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(흰색))
+        item.setForeground(QBrush(검정색))
+        self.tableWidget_fut.setItem(2, Futures_column.대비.value, item)
+                    
+        item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(선물_대비, 선물_등락율))
+        item.setTextAlignment(Qt.AlignCenter)
+
+        if 선물_등락율 > 0 and DOW_등락율 > 0 and flag_fut_dow_drate_energy_direction:
+
+            item.setBackground(QBrush(pink))
+            item.setForeground(QBrush(검정색))
+
+        elif 선물_등락율 < 0 and DOW_등락율 < 0 and flag_fut_dow_drate_energy_direction:
+
+            item.setBackground(QBrush(lightskyblue))
+            item.setForeground(QBrush(검정색))
+        else:                
+            item.setBackground(QBrush(흰색))
+            item.setForeground(QBrush(검정색))
+
+        if NightTime:
+            self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
+        else:
+            self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
+        
+        선물_진폭비 = (선물_고가 - 선물_저가) / 선물_시가            
+        선물_DOW_진폭비율 = 선물_진폭비 / DOW_진폭비 
+
+        item = QTableWidgetItem("{0:.2f}".format(선물_DOW_진폭비율))
+        item.setTextAlignment(Qt.AlignCenter)
+        
+        item.setBackground(QBrush(라임))
+        item.setForeground(QBrush(검정색))
+
+        if NightTime:
+            self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
+        else:
+            self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
+
+        # 종합 에너지방향 표시
+        if TARGET_MONTH_SELECT == 'CM' and not NightTime:
+
+            if flag_fut_dow_drate_energy_direction and fut_quote_energy_direction == 'call' and fut_volume_power_energy_direction == 'call':
+
+                item = QTableWidgetItem("CS")
+                item.setBackground(QBrush(red))
+                item.setForeground(QBrush(흰색))
+                flag_call_strong = True
+
+            elif flag_fut_dow_drate_energy_direction and fut_quote_energy_direction == 'put' and fut_volume_power_energy_direction == 'put':
+
+                item = QTableWidgetItem("PS")
+                item.setBackground(QBrush(blue))
+                item.setForeground(QBrush(흰색))
+                flag_put_strong = True
+            else:
+                item = QTableWidgetItem("-")               
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                flag_call_strong = False
+                flag_put_strong = False
+
+            self.tableWidget_fut.setItem(0, Futures_column.거래량.value, item)
+        else:
+            pass                           
         
         # 미결 갱신
         if not NightTime:
@@ -20684,10 +20669,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global DOW_야간_시작가, WTI_야간_시작가
         global 장시작_양합
 
-        global df_kp200_graph
-        global df_futures_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
-        global flag_dow_ohlc_open, flag_sp500_ohlc_open, flag_nasdaq_ohlc_open, flag_wti_ohlc_open, flag_eurofx_ohlc_open, flag_hangseng_ohlc_open, flag_gold_ohlc_open
+        global df_kp200_graph, df_futures_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
+        global flag_futures_ohlc_open, flag_dow_ohlc_open, flag_sp500_ohlc_open, flag_nasdaq_ohlc_open, flag_wti_ohlc_open, flag_eurofx_ohlc_open, flag_hangseng_ohlc_open, flag_gold_ohlc_open
 
+        global 선물_현재가_버퍼
         global DOW_현재가_버퍼
         global SP500_현재가_버퍼
         global NASDAQ_현재가_버퍼
@@ -21288,75 +21273,66 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.tableWidget_fut.resizeRowsToContents()
                         self.tableWidget_fut.resizeColumnsToContents()                             
-                        
+                        '''
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 등락율 = {3:.2f}, DOW 등락율 = {4:.2f}\r'.format(\
                                         int(result['예상체결시간'][0:2]),
                                         int(result['예상체결시간'][2:4]),
                                         int(result['예상체결시간'][4:6]),
                                         선물_등락율, DOW_등락율)
-                        #self.textBrowser.append(txt)                        
+                        self.textBrowser.append(txt)
+                        '''                        
                     else:
                         pass
 
-                    global 선물_현재가_버퍼, flag_futures_ohlc_open
+                    df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
 
-                    if receive_real_ovc:
+                    # 1T OHLC 생성
+                    df_futures_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
 
-                        df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
+                    if OVC_SEC == 0:
 
-                        # 1T OHLC 생성
-                        df_futures_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
+                        if not flag_futures_ohlc_open:
 
-                        if 선물_현재가 > 0:
+                            df_futures_graph.at[ovc_x_idx, 'open'] = 선물_현재가
+                            df_futures_graph.at[ovc_x_idx, 'high'] = 선물_현재가
+                            df_futures_graph.at[ovc_x_idx, 'low'] = 선물_현재가
+                            df_futures_graph.at[ovc_x_idx, 'middle'] = 선물_현재가
+                            df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
+                            df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
 
-                            if OVC_SEC == 0:
+                            del 선물_현재가_버퍼[:]
 
-                                if not flag_futures_ohlc_open:
-
-                                    df_futures_graph.at[ovc_x_idx, 'open'] = 선물_현재가
-                                    df_futures_graph.at[ovc_x_idx, 'high'] = 선물_현재가
-                                    df_futures_graph.at[ovc_x_idx, 'low'] = 선물_현재가
-                                    df_futures_graph.at[ovc_x_idx, 'middle'] = 선물_현재가
-                                    df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
-                                    df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
-
-                                    del 선물_현재가_버퍼[:]
-
-                                    flag_futures_ohlc_open = True
-                                else:
-                                    선물_현재가_버퍼.append(선물_현재가)                            
-                            else:
-                                if df_futures_graph.at[ovc_x_idx, 'open'] != df_futures_graph.at[ovc_x_idx, 'open']:
-                                    df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
-                                    del 선물_현재가_버퍼[:]
-                                else:
-                                    pass
-
-                                선물_현재가_버퍼.append(선물_현재가)
-
-                                if max(선물_현재가_버퍼) > 0:
-                                    df_futures_graph.at[ovc_x_idx, 'high'] = max(선물_현재가_버퍼)
-                                else:
-                                    pass
-
-                                if min(선물_현재가_버퍼) == 0:
-
-                                    if max(선물_현재가_버퍼) > 0:
-                                        df_futures_graph.at[ovc_x_idx, 'low'] = max(선물_현재가_버퍼)
-                                    else:
-                                        pass
-                                else:
-                                    df_futures_graph.at[ovc_x_idx, 'low'] = min(선물_현재가_버퍼)
-
-                                df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
-
-                                flag_futures_ohlc_open = False
-
-                            df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2
+                            flag_futures_ohlc_open = True
+                        else:
+                            선물_현재가_버퍼.append(선물_현재가)                            
+                    else:
+                        if df_futures_graph.at[ovc_x_idx, 'open'] != df_futures_graph.at[ovc_x_idx, 'open']:
+                            df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
+                            del 선물_현재가_버퍼[:]
                         else:
                             pass
-                    else:
-                        pass
+
+                        선물_현재가_버퍼.append(선물_현재가)
+
+                        if max(선물_현재가_버퍼) > 0:
+                            df_futures_graph.at[ovc_x_idx, 'high'] = max(선물_현재가_버퍼)
+                        else:
+                            pass
+
+                        if min(선물_현재가_버퍼) == 0:
+
+                            if max(선물_현재가_버퍼) > 0:
+                                df_futures_graph.at[ovc_x_idx, 'low'] = max(선물_현재가_버퍼)
+                            else:
+                                pass
+                        else:
+                            df_futures_graph.at[ovc_x_idx, 'low'] = min(선물_현재가_버퍼)
+
+                        df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
+
+                        flag_futures_ohlc_open = False
+
+                    df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2
                 else:
                     pass
 
@@ -22509,8 +22485,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
                 
                 if result['단축코드'] == FUT_CODE:
+
                     fut_result = copy.deepcopy(result)
                     self.fut_update(result)
+
                 elif TARGET_MONTH_SELECT == 'CM' and result['단축코드'] == CMSHCODE:
 
                     fut_nm_volume_power = result['매수누적체결량'] - result['매도누적체결량']
