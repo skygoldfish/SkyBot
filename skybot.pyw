@@ -31554,13 +31554,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot1_time_line.setValue(ovc_x_idx)
 
-                txt = " {0:.2f} ".format(DOW_등락율)
+                txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_15.setText(txt)
 
-                txt = " {0:.2f} ".format(풋등락율)
+                txt = " {0:.2f}({1}) ".format(풋등락율, put_atm_value)
                 self.label_16.setText(txt)
 
-                txt = " {0:.2f} ".format(콜등락율)
+                txt = " {0:.2f}({1}) ".format(콜등락율, call_atm_value)
                 self.label_18.setText(txt)
                 
                 self.plot1_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
@@ -31569,7 +31569,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if not NightTime:
                     
-                    txt = " {0:.2f} ".format(선물_등락율)
+                    txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
                     self.label_17.setText(txt)
 
                     self.plot1_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
@@ -32304,13 +32304,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot2_time_line.setValue(ovc_x_idx)
 
-                txt = " {0:.2f} ".format(DOW_등락율)
+                txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_25.setText(txt)
 
-                txt = " {0:.2f} ".format(풋등락율)
+                txt = " {0:.2f}({1}) ".format(풋등락율, put_atm_value)
                 self.label_26.setText(txt)
 
-                txt = " {0:.2f} ".format(콜등락율)
+                txt = " {0:.2f}({1}) ".format(콜등락율, call_atm_value)
                 self.label_28.setText(txt)
                 
                 self.plot2_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
@@ -32319,7 +32319,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if not NightTime:
                     
-                    txt = " {0:.2f} ".format(선물_등락율)
+                    txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
                     self.label_27.setText(txt)
                     
                     self.plot2_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
@@ -33002,13 +33002,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot3_time_line.setValue(ovc_x_idx)
 
-                txt = " {0:.2f} ".format(DOW_등락율)
+                txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_35.setText(txt)
 
-                txt = " {0:.2f} ".format(풋등락율)
+                txt = " {0:.2f}({1}) ".format(풋등락율, put_atm_value)
                 self.label_36.setText(txt)
 
-                txt = " {0:.2f} ".format(콜등락율)
+                txt = " {0:.2f}({1}) ".format(콜등락율, call_atm_value)
                 self.label_38.setText(txt)
                 
                 self.plot3_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
@@ -33017,7 +33017,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if not NightTime:
                     
-                    txt = " {0:.2f} ".format(선물_등락율)
+                    txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
                     self.label_37.setText(txt)
                     
                     self.plot3_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
@@ -33694,13 +33694,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot4_time_line.setValue(ovc_x_idx)
 
-                txt = " {0:.2f} ".format(DOW_등락율)
+                txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_45.setText(txt)
 
-                txt = " {0:.2f} ".format(풋등락율)
+                txt = " {0:.2f}({1}) ".format(풋등락율, put_atm_value)
                 self.label_46.setText(txt)
 
-                txt = " {0:.2f} ".format(콜등락율)
+                txt = " {0:.2f}({1}) ".format(콜등락율, call_atm_value)
                 self.label_48.setText(txt)
                 
                 self.plot4_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
@@ -33709,7 +33709,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if not NightTime:
                     
-                    txt = " {0:.2f} ".format(선물_등락율)
+                    txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
                     self.label_47.setText(txt)
                     
                     self.plot4_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
@@ -34444,13 +34444,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot5_time_line.setValue(ovc_x_idx)
 
-                txt = " {0:.2f} ".format(DOW_등락율)
+                txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_55.setText(txt)
 
-                txt = " {0:.2f} ".format(풋등락율)
+                txt = " {0:.2f}({1}) ".format(풋등락율, put_atm_value)
                 self.label_56.setText(txt)
 
-                txt = " {0:.2f} ".format(콜등락율)
+                txt = " {0:.2f}({1}) ".format(콜등락율, call_atm_value)
                 self.label_58.setText(txt)
                 
                 self.plot5_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
@@ -34459,7 +34459,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if not NightTime:
                     
-                    txt = " {0:.2f} ".format(선물_등락율)
+                    txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
                     self.label_57.setText(txt)
                     
                     self.plot5_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
@@ -35135,13 +35135,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot6_time_line.setValue(ovc_x_idx)
 
-                txt = " {0:.2f} ".format(DOW_등락율)
+                txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_65.setText(txt)
 
-                txt = " {0:.2f} ".format(풋등락율)
+                txt = " {0:.2f}({1}) ".format(풋등락율, put_atm_value)
                 self.label_66.setText(txt)
 
-                txt = " {0:.2f} ".format(콜등락율)
+                txt = " {0:.2f}({1}) ".format(콜등락율, call_atm_value)
                 self.label_68.setText(txt)
                 
                 self.plot6_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
@@ -35150,7 +35150,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if not NightTime:
                     
-                    txt = " {0:.2f} ".format(선물_등락율)
+                    txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
                     self.label_67.setText(txt)
                     
                     self.plot6_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
