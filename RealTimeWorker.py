@@ -515,9 +515,8 @@ class RealTimeWorker(mp.Process):
 
         elif type == 'OVC':
             # 해외선물 체결가격 실시간 요청취소
-            # 개별항목 취소가 안됨!!!
-            #self.OVC.UnadviseRealDataWithKey(code)
-            self.OVC.UnadviseRealData()
+            # 개별항목 취소가 안됨!!! --> 좌측정열로 8자리 맞추어야함(ljust함수 사용)
+            self.OVC.UnadviseRealDataWithKey(code)
 
         elif type == 'OVH':
             # 해외선물 호가 실시간 요청취소
