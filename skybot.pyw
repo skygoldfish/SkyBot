@@ -24127,12 +24127,12 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                temp = DOW.ljust(8)
+                dow_ljust = DOW.ljust(8)
 
                 if not MULTIPROCESS:
-                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealData('OVC', temp)
+                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealData('OVC', dow_ljust)
                 else:
-                    Myprocess.CancelRealData('OVC', temp)
+                    Myprocess.CancelRealData('OVC', dow_ljust)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 DOW 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -24165,12 +24165,12 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                temp = SP500.ljust(8)
+                sp500_ljust = SP500.ljust(8)
 
                 if not MULTIPROCESS:
-                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealData('OVC', temp)
+                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealData('OVC', sp500_ljust)
                 else:
-                    Myprocess.CancelRealData('OVC', temp)
+                    Myprocess.CancelRealData('OVC', sp500_ljust)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 S&P 500 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -24203,12 +24203,12 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                temp = NASDAQ.ljust(8)
+                nasdaq_ljust = NASDAQ.ljust(8)
 
                 if not MULTIPROCESS:
-                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealData('OVC', temp)
+                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealData('OVC', nasdaq_ljust)
                 else:
-                    Myprocess.CancelRealData('OVC', temp)
+                    Myprocess.CancelRealData('OVC', nasdaq_ljust)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 NASDAQ 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -24241,12 +24241,12 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                temp = WTI.ljust(8)
+                wti_ljust = WTI.ljust(8)
 
                 if not MULTIPROCESS:
-                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealData('OVC', temp)
+                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealData('OVC', wti_ljust)
                 else:
-                    Myprocess.CancelRealData('OVC', temp)
+                    Myprocess.CancelRealData('OVC', wti_ljust)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 WTI OIL 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -24279,12 +24279,12 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                temp = EUROFX.ljust(8)
+                eurofx_ljust = EUROFX.ljust(8)
 
                 if not MULTIPROCESS:
-                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealData('OVC', temp)
+                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealData('OVC', eurofx_ljust)
                 else:
-                    Myprocess.CancelRealData('OVC', temp)
+                    Myprocess.CancelRealData('OVC', eurofx_ljust)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 EUROFX 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -24317,12 +24317,12 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                temp = HANGSENG.ljust(8)
+                hangseng_ljust = HANGSENG.ljust(8)
 
                 if not MULTIPROCESS:
-                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealData('OVC', temp)
+                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealData('OVC', hangseng_ljust)
                 else:
-                    Myprocess.CancelRealData('OVC', temp)
+                    Myprocess.CancelRealData('OVC', hangseng_ljust)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 HANGSENG 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -24355,12 +24355,12 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                temp = GOLD.ljust(8)
+                gold_ljust = GOLD.ljust(8)
 
                 if not MULTIPROCESS:
-                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealData('OVC', temp)
+                    self.parent.dialog['선물옵션전광판'].realtime_data_worker.CancelRealData('OVC', gold_ljust)
                 else:
-                    Myprocess.CancelRealData('OVC', temp)
+                    Myprocess.CancelRealData('OVC', gold_ljust)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 GOLD 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
