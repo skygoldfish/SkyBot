@@ -4605,31 +4605,30 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 if market_service and flag_option_start:                    
-
-                    # 수정미결 표시
-                    if not NightTime:
-
-                        self.call_oi_update()
-                        self.put_oi_update()
-
-                        self.oi_total_update()
-                    else:
-                        pass                    
                     
-                    self.call_volume_power_update()
-                    self.put_volume_power_update()
+                    if flag_checkBox_HS:
+                        # 수정미결 표시
+                        if not NightTime:
 
-                    #self.main_ui_update_time = (timeit.default_timer() - start_time) * 1000
+                            self.call_oi_update()
+                            self.put_oi_update()
 
-                    if self.alternate_flag:
+                            self.oi_total_update()
+                        else:
+                            pass                    
+                        
+                        self.call_volume_power_update()
+                        self.put_volume_power_update()
 
-                        # 콜 테이블 데이타 갱신
-                        self.call_db_update()
+                        if self.alternate_flag:
+
+                            # 콜 테이블 데이타 갱신
+                            self.call_db_update()
+                        else:
+                            # 풋 테이블 데이타 갱신
+                            self.put_db_update()
                     else:
-                        # 풋 테이블 데이타 갱신
-                        self.put_db_update()
-                    
-                    #self.main_ui_update_time = (timeit.default_timer() - start_time) * 1000
+                        pass
                     
                     # 선물, 콜, 풋 현재가 클리어
                     #self.cv_color_clear()
@@ -22548,6 +22547,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if FLAG_GUEST_CONTROL:                        
                         self.call_update(result)
+
+                        if not flag_checkBox_HS:
+                            self.call_volume_power_update()
+                            self.call_oi_update()
+                            self.call_db_update()
+                        else:
+                            pass
                     else:
                         pass                 
 
@@ -22555,7 +22561,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     put_result = copy.deepcopy(result)
 
-                    self.put_update(result)                
+                    self.put_update(result)
+
+                    if not flag_checkBox_HS:
+                        self.put_volume_power_update()
+                        self.put_oi_update()
+                        self.put_db_update()
+                        self.oi_total_update()
+                    else:
+                        pass               
                 else:
                     pass
 
