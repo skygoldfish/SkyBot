@@ -4644,11 +4644,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if self.alternate_flag:
                             # 콜 테이블 데이타 갱신
                             self.call_volume_power_update()
-                            #self.call_db_update()
+                            self.call_db_update()
                         else:
                             # 풋 테이블 데이타 갱신
                             self.put_volume_power_update()
-                            #self.put_db_update()                        
+                            self.put_db_update()                        
                     else:
                         pass
                     
@@ -22421,11 +22421,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     call_result = copy.deepcopy(result)
 
-                    if FLAG_GUEST_CONTROL:                        
-                        self.call_update(result)
-                        self.call_db_update()
+                    if FLAG_GUEST_CONTROL:
+
+                        self.call_update(result)                        
 
                         if not flag_checkBox_HS:
+                            self.call_db_update()
                             self.call_volume_power_update()
                             self.call_oi_update()
                         else:
@@ -22437,10 +22438,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     put_result = copy.deepcopy(result)
 
-                    self.put_update(result)
-                    self.put_db_update()
+                    self.put_update(result)                    
 
                     if not flag_checkBox_HS:
+                        self.put_db_update()
                         self.put_volume_power_update()
                         self.put_oi_update()
                     else:
