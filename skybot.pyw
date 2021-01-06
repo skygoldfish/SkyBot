@@ -1853,6 +1853,8 @@ volatility_breakout_downward_point = 0
 volatility_breakout_upward_point = 0
 vb_txt = ''
 
+flag_plot_update_interval_changed = False
+
 #####################################################################################################################################################################
 # UI 파일정의
 #####################################################################################################################################################################
@@ -3206,7 +3208,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             flag_checkBox_HS = True
 
             #scoreboard_update_interval = MAIN_UPDATE_INTERVAL * 1
-            plot_update_interval = BIGCHART_UPDATE_INTERVAL * 2
+            #plot_update_interval = BIGCHART_UPDATE_INTERVAL * 2
             '''
             txt = '[{0:02d}:{1:02d}:{2:02d}] 화면 갱신주기를 {3:.1f}초 --> {4:.1f}초로 늘립니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, MAIN_UPDATE_INTERVAL / 1000, scoreboard_update_interval / 1000)
             self.textBrowser.append(txt)            
@@ -3232,11 +3234,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             flag_checkBox_HS = False
             
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 화면 갱신주기를 {3:.1f}초 --> {4:.1f}초로 복구합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, scoreboard_update_interval / 1000, MAIN_UPDATE_INTERVAL / 1000)
-            self.textBrowser.append(txt)
+            #txt = '[{0:02d}:{1:02d}:{2:02d}] 화면 갱신주기를 {3:.1f}초 --> {4:.1f}초로 복구합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, scoreboard_update_interval / 1000, MAIN_UPDATE_INTERVAL / 1000)
+            #self.textBrowser.append(txt)
 
             #scoreboard_update_interval = MAIN_UPDATE_INTERVAL
-            plot_update_interval = BIGCHART_UPDATE_INTERVAL
+            #plot_update_interval = BIGCHART_UPDATE_INTERVAL
             '''
             txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 재기동합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
             self.textBrowser.append(txt)
@@ -23235,6 +23237,9 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_gold.setChecked(GOLD_CHK)
         self.checkBox_news.setChecked(NEWS_CHK)
 
+        txt = str(plot_update_interval)
+        self.lineEdit.setText(txt)
+
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
         #atexit.register(self.__del__) 
         
@@ -23265,6 +23270,20 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_hangseng.stateChanged.connect(self.checkBox_hangseng_checkState)
         self.checkBox_gold.stateChanged.connect(self.checkBox_gold_checkState)
         self.checkBox_news.stateChanged.connect(self.checkBox_news_checkState)
+
+        self.lineEdit.returnPressed.connect(self.change_plot_interval)
+
+    def change_plot_interval(self):
+
+        global plot_update_interval, flag_plot_update_interval_changed
+
+        txt = self.lineEdit.text()
+        plot_update_interval = float(txt)
+
+        flag_plot_update_interval_changed = True
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Plot 갱신주기를 {3} msec로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, plot_update_interval)
+        self.parent.textBrowser.append(txt)
 
     def checkBox_cm_fut_price_checkState(self):
 
@@ -24105,10 +24124,18 @@ class PlotUpdateWorker(QThread):
 
     def run(self):
 
+        global flag_plot_update_interval_changed
+
         while True:
 
             if flag_produce_queue_empty:
                 self.trigger.emit()
+
+            if flag_plot_update_interval_changed:
+                print('plot_update_interval changed...')
+                flag_plot_update_interval_changed = False
+            else:
+                pass
 
             QTest.qWait(plot_update_interval)
 ########################################################################################################################
