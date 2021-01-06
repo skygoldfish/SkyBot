@@ -1984,7 +1984,7 @@ def logging_time_with_args(original_fn):
         result = original_fn(*args, **kwargs)
         end_time = timeit.default_timer()
 
-        if args[-1]['szTrCode'] == 'EC0':
+        if args[-1]['szTrCode'] == 'OC0' or args[-1]['szTrCode'] == 'EC0':
             print("{0} Processing Time [{1:02d}:{2:02d}:{3:02d}]: {4:.2f} msec".format(args[-1]['szTrCode'], dt.hour, dt.minute, dt.second, (end_time-start_time) * 1000))
         else:
             pass
@@ -12954,7 +12954,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_put.resizeRowsToContents()
         else:
             pass
-        
+
         self.tableWidget_put.resizeColumnToContents(Option_column.대비.value)          
         
     def put_oi_update(self):
