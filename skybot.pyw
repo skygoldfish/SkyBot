@@ -1965,7 +1965,23 @@ def logging_time(original_fn):
         start_time = timeit.default_timer()
         result = original_fn(*args, **kwargs)
         end_time = timeit.default_timer()
-        print("{0} WorkingTime [{1:02d}:{2:02d}:{3:02d}]: {4:.2f} msec".format(original_fn.__name__, dt.hour, dt.minute, dt.second, (end_time-start_time) * 1000))
+        print("{0} Processing Time [{1:02d}:{2:02d}:{3:02d}]: {4:.2f} msec".format(original_fn.__name__, dt.hour, dt.minute, dt.second, (end_time-start_time) * 1000))
+
+        return result
+
+    return wrapper_fn
+
+# update realdata 시간측정 함수
+def logging_time_with_args(original_fn):
+
+    def wrapper_fn(*args, **kwargs):
+        
+        dt = datetime.datetime.now()
+
+        start_time = timeit.default_timer()
+        result = original_fn(*args, **kwargs)
+        end_time = timeit.default_timer()
+        print("{0} Processing Time [{1:02d}:{2:02d}:{3:02d}]: {4:.2f} msec".format(args[-1]['szTrCode'], dt.hour, dt.minute, dt.second, (end_time-start_time) * 1000))
 
         return result
 
@@ -3189,9 +3205,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             flag_checkBox_HS = True
 
-            scoreboard_update_interval = MAIN_UPDATE_INTERVAL * 2
+            #scoreboard_update_interval = MAIN_UPDATE_INTERVAL * 1
             plot_update_interval = BIGCHART_UPDATE_INTERVAL * 2
-
+            '''
             txt = '[{0:02d}:{1:02d}:{2:02d}] 화면 갱신주기를 {3:.1f}초 --> {4:.1f}초로 늘립니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, MAIN_UPDATE_INTERVAL / 1000, scoreboard_update_interval / 1000)
             self.textBrowser.append(txt)            
             
@@ -3211,16 +3227,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.pushButton_telegram.setStyleSheet('QPushButton {background-color: white; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                     QPushButton:hover {background-color: black; color: white} \
                                                     QPushButton:pressed {background-color: gold}')
-            flag_telegram_on = False            
+            flag_telegram_on = False
+            '''            
         else:
             flag_checkBox_HS = False
             
             txt = '[{0:02d}:{1:02d}:{2:02d}] 화면 갱신주기를 {3:.1f}초 --> {4:.1f}초로 복구합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, scoreboard_update_interval / 1000, MAIN_UPDATE_INTERVAL / 1000)
             self.textBrowser.append(txt)
 
-            scoreboard_update_interval = MAIN_UPDATE_INTERVAL
+            #scoreboard_update_interval = MAIN_UPDATE_INTERVAL
             plot_update_interval = BIGCHART_UPDATE_INTERVAL
-            
+            '''
             txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 재기동합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
             self.textBrowser.append(txt)
             
@@ -3232,6 +3249,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                                     QPushButton:hover {background-color: black; color: white} \
                                                     QPushButton:pressed {background-color: gold}')
             flag_telegram_on = True
+            '''
 
     @pyqtSlot(int)
     def call_horizontal_header_clicked(self, idx):
@@ -4377,7 +4395,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         print(txt)
     
     @pyqtSlot()
-    @logging_time
+    #@logging_time
     def update_screen(self):
 
         global flag_internet_connection_broken, flag_service_provider_broken
@@ -4604,29 +4622,32 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                if market_service and flag_option_start:                    
+                if market_service and flag_option_start:                                  
                     
                     if flag_checkBox_HS:
                         # 수정미결 표시
                         if not NightTime:
 
-                            self.call_oi_update()
-                            self.put_oi_update()
-
-                            self.oi_total_update()
+                            if self.alternate_flag:
+                                self.call_oi_update()
+                            else:
+                                self.put_oi_update()
                         else:
-                            pass                    
+                            pass
                         
-                        self.call_volume_power_update()
-                        self.put_volume_power_update()
-
                         if self.alternate_flag:
-
                             # 콜 테이블 데이타 갱신
-                            self.call_db_update()
+                            self.call_volume_power_update()
+                            #self.call_db_update()
                         else:
                             # 풋 테이블 데이타 갱신
-                            self.put_db_update()
+                            self.put_volume_power_update()
+                            #self.put_db_update()                        
+                    else:
+                        pass
+                    
+                    if not NightTime:
+                        self.oi_total_update()
                     else:
                         pass
                     
@@ -11929,13 +11950,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         index = call_행사가.index(call_result['단축코드'][5:8])
 
-        콜시가 = df_call.at[index, '시가']
-        콜저가 = df_call.at[index, '저가']
-        콜고가 = df_call.at[index, '고가']
+        #콜시가 = df_call.at[index, '시가']
+        #콜저가 = df_call.at[index, '저가']
+        #콜고가 = df_call.at[index, '고가']
         콜현재가 = df_call.at[index, '현재가']
         콜시가갭 = df_call.at[index, '시가갭']
 
-        if 콜시가 > 0 and 콜저가 < 콜고가:
+        #if 콜시가 > 0 and 콜저가 < 콜고가:
+        if True:
 
             if 콜현재가 <= 콜시가갭:
 
@@ -13051,13 +13073,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         index = put_행사가.index(put_result['단축코드'][5:8])
 
-        풋시가 = df_put.at[index, '시가']
-        풋저가 = df_put.at[index, '저가']
-        풋고가 = df_put.at[index, '고가']
+        #풋시가 = df_put.at[index, '시가']
+        #풋저가 = df_put.at[index, '저가']
+        #풋고가 = df_put.at[index, '고가']
         풋현재가 = df_put.at[index, '현재가']
         풋시가갭 = df_put.at[index, '시가갭']
 
-        if 풋시가 > 0 and 풋저가 < 풋고가:
+        #if 풋시가 > 0 and 풋저가 < 풋고가:
+        if True:
 
             if 풋현재가 <= 풋시가갭:
 
@@ -15942,11 +15965,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # Refresh
                 if not NightTime:
 
-                    if not flag_checkBox_HS:                
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 주간옵션 전광판을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(txt)
-                    else:
-                        pass
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간옵션 전광판을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
 
                     del self.call_open_list[:]
                     del self.put_open_list[:]
@@ -16255,7 +16275,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                     self.opt_high_low_list_update()                    
 
-                    if not flag_checkBox_HS:
+                    if True:
 
                         for i in range(option_pairs_count):
 
@@ -16347,7 +16367,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    if not flag_checkBox_HS:
+                    if True:
 
                         # 주야간 선물전광판 데이타 요청
                         self.XQ_t2101.Query(종목코드=FUT_CODE)
@@ -17840,11 +17860,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.pushButton_start.setText(' Refresh ')                
             else:
                 # Refresh
-                if not flag_checkBox_HS:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판을 갱신합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
-                    self.textBrowser.append(txt)
-                else:
-                    pass
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판을 갱신합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                self.textBrowser.append(txt)
 
                 del self.call_open_list[:]
                 del self.put_open_list[:]
@@ -18054,7 +18071,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 self.opt_high_low_list_update()
 
-                if not flag_checkBox_HS:
+                if True:
                     
                     txt = '[{0:02d}:{1:02d}:{2:02d}] high low list in t2835 refresh = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, high_low_list)
                     print(txt)
@@ -18169,19 +18186,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
             self.tableWidget_put.resizeColumnsToContents()
 
-            if not flag_checkBox_HS:
-                # 주야간 선물전광판 데이타 요청
-                print('t2101 요청')
-                self.XQ_t2101.Query(종목코드=FUT_CODE)
-                
-                QTest.qWait(100)
+            # 주야간 선물전광판 데이타 요청
+            print('t2101 요청')
+            self.XQ_t2101.Query(종목코드=FUT_CODE)
+            
+            QTest.qWait(100)
 
-                print('t2801 요청')
-                self.XQ_t2801.Query(종목코드=FUT_CODE)
-                
-                QTest.qWait(100)
-            else:
-                pass
+            print('t2801 요청')
+            self.XQ_t2801.Query(종목코드=FUT_CODE)
+            
+            QTest.qWait(100)
 
         elif szTrCode == 't8408':
 
@@ -20574,7 +20588,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
             
     # 수신된 실시간 데이타를 화면에 표시
-    #@logging_time
+    @logging_time_with_args
     def UpdateRealdata(self, result):
 
         global pre_start
@@ -22547,11 +22561,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if FLAG_GUEST_CONTROL:                        
                         self.call_update(result)
+                        self.call_db_update()
 
                         if not flag_checkBox_HS:
                             self.call_volume_power_update()
                             self.call_oi_update()
-                            self.call_db_update()
                         else:
                             pass
                     else:
@@ -22562,12 +22576,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     put_result = copy.deepcopy(result)
 
                     self.put_update(result)
+                    self.put_db_update()
 
                     if not flag_checkBox_HS:
                         self.put_volume_power_update()
                         self.put_oi_update()
-                        self.put_db_update()
-                        self.oi_total_update()
                     else:
                         pass               
                 else:
