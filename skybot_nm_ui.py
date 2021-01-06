@@ -107,6 +107,9 @@ class Ui_MainWindow(object):
         self.action_ToolBar_RealTime_Setting = QtWidgets.QAction(MainWindow)
         self.action_ToolBar_RealTime_Setting.setIcon(icon8)
         self.action_ToolBar_RealTime_Setting.setObjectName("action_ToolBar_RealTime_Setting")
+        self.action_ToolBar_ScoreBoard = QtWidgets.QAction(MainWindow)
+        self.action_ToolBar_ScoreBoard.setIcon(icon6)
+        self.action_ToolBar_ScoreBoard.setObjectName("action_ToolBar_ScoreBoard")
         self.menu.addAction(self.actionLogin)
         self.menu.addAction(self.actionLogout)
         self.menu.addAction(self.actionAccountDialog)
@@ -123,8 +126,9 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menu_2.menuAction())
         self.menubar.addAction(self.menu_3.menuAction())
         self.toolBar.addSeparator()
-        self.toolBar.addAction(self.action_ToolBar_RealTime_Setting)
+        self.toolBar.addAction(self.action_ToolBar_ScoreBoard)
         self.toolBar.addAction(self.action_ToolBar_BigChart)
+        self.toolBar.addAction(self.action_ToolBar_RealTime_Setting)
 
         self.retranslateUi(MainWindow)
         self.menubar.triggered['QAction*'].connect(MainWindow.MENU_Action)
@@ -150,4 +154,6 @@ class Ui_MainWindow(object):
         self.action_ToolBar_BigChart.setToolTip(_translate("MainWindow", "Big Chart"))
         self.actionRealTimeItem.setText(_translate("MainWindow", "실시간요청"))
         self.action_ToolBar_RealTime_Setting.setText(_translate("MainWindow", "실시간요청 설정"))
+        self.action_ToolBar_ScoreBoard.setText(_translate("MainWindow", "전광판"))
+        self.action_ToolBar_ScoreBoard.setToolTip(_translate("MainWindow", "전광판"))
 

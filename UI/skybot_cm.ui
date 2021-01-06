@@ -96,8 +96,9 @@
     <bool>false</bool>
    </attribute>
    <addaction name="separator"/>
-   <addaction name="action_ToolBar_RealTime_Setting"/>
+   <addaction name="action_ToolBar_ScoreBoard"/>
    <addaction name="action_ToolBar_BigChart"/>
+   <addaction name="action_ToolBar_RealTime_Setting"/>
   </widget>
   <action name="actionLogin">
    <property name="icon">
@@ -212,6 +213,18 @@
    </property>
    <property name="text">
     <string>실시간요청 설정</string>
+   </property>
+  </action>
+  <action name="action_ToolBar_ScoreBoard">
+   <property name="icon">
+    <iconset>
+     <normaloff>PNG/전광판.png</normaloff>PNG/전광판.png</iconset>
+   </property>
+   <property name="text">
+    <string>전광판</string>
+   </property>
+   <property name="toolTip">
+    <string>전광판</string>
    </property>
   </action>
  </widget>

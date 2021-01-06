@@ -36619,6 +36619,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         logger.debug("ToolBar Action Slot %s %s " % (qaction.objectName(), qaction.text()))
         _action = qaction.objectName()
+
+        # 전광판
+        if _action == "action_ToolBar_ScoreBoard":
+            
+            if self.dialog.get('선물옵션전광판') is not None:
+
+                try:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 표시합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+
+                    self.dialog['선물옵션전광판'].show()
+                except Exception as e:
+                    self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
+                    self.dialog['선물옵션전광판'].show()
+            else:
+                self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
+                self.dialog['선물옵션전광판'].show()
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 생성합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
         
         # Big Chart
         if _action == "action_ToolBar_BigChart":
