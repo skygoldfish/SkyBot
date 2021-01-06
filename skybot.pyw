@@ -11388,7 +11388,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_시가, call_시가_node_list, call_피봇, call_피봇_node_list, 콜시가리스트
         global call_저가, call_저가_node_list, call_고가, call_고가_node_list
         global opt_callreal_update_counter
-        global df_call_volume, call_volume_power, df_call_information_graph
+        global df_call_volume, call_volume_power, df_call_information_graph, df_put_information_graph
         global node_coloring
         global call_max_actval, call_open, call_ol, call_oh
         global 콜_인덱스, 콜_시가, 콜_현재가, 콜_저가, 콜_고가
@@ -11645,7 +11645,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             # 체결량 갱신
             콜시가갭 = df_call.at[index, '시가갭']
-            
+
             if 콜현재가 <= 콜시가갭:
 
                 매도누적체결량 = result['매도누적체결량'] * 콜현재가
@@ -11661,7 +11661,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_call_information_graph.at[ovc_x_idx, 'volume'] = call_volume_power
 
             # 미결 갱신
-            if not NightTime and 콜시가 > 0 and 콜저가 < 콜고가:
+            if not NightTime:
 
                 콜시가갭 = df_call.at[index, '시가갭']
 
@@ -11675,6 +11675,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_call.at[index, '수정미결'] = int(수정미결)
                 df_call.at[index, '수정미결증감'] = int(수정미결증감)
+
+                콜_수정미결합 = df_call['수정미결'].sum()
+                풋_수정미결합 = df_put['수정미결'].sum()
+                수정미결합 = 콜_수정미결합 + 풋_수정미결합
+
+                if 수정미결합 > 0:
+
+                    콜_수정미결퍼센트 = (콜_수정미결합 / 수정미결합) * 100
+                    풋_수정미결퍼센트 = 100 - 콜_수정미결퍼센트
+                else:
+                    콜_수정미결퍼센트 = 0
+                    풋_수정미결퍼센트 = 0
+
+                df_call_information_graph.at[ovc_x_idx, 'open_interest'] = 콜_수정미결퍼센트
+                df_put_information_graph.at[ovc_x_idx, 'open_interest'] = 풋_수정미결퍼센트
             else:
                 pass            
         else:
@@ -12729,7 +12744,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_put_information_graph.at[ovc_x_idx, 'volume'] = put_volume_power
 
             # 미결갱신
-            if not NightTime and 풋시가 > 0 and 풋저가 < 풋고가:
+            if not NightTime:
 
                 풋시가갭 = df_put.at[index, '시가갭']
 
@@ -13599,8 +13614,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item = QTableWidgetItem(oi_str)
         self.tableWidget_quote.setHorizontalHeaderItem(Quote_column.미결종합.value - 1, item)
         
-        old_oi_delta = oi_delta
-        oi_delta = 콜_수정미결합 - 풋_수정미결합
+        #old_oi_delta = oi_delta
+        #oi_delta = 콜_수정미결합 - 풋_수정미결합
         
         수정미결합 = 콜_수정미결합 + 풋_수정미결합
         
@@ -13615,8 +13630,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             콜_수정미결퍼센트 = 0
             풋_수정미결퍼센트 = 0
 
-        df_call_information_graph.at[ovc_x_idx, 'open_interest'] = 콜_수정미결퍼센트
-        df_put_information_graph.at[ovc_x_idx, 'open_interest'] = 풋_수정미결퍼센트
+        #df_call_information_graph.at[ovc_x_idx, 'open_interest'] = 콜_수정미결퍼센트
+        #df_put_information_graph.at[ovc_x_idx, 'open_interest'] = 풋_수정미결퍼센트
 
         item_str = '{0:.2f}({1:.2f})% \n {2:.2f}({3:.2f})% '.format(콜_수정미결퍼센트, call_oi_init_percent, 풋_수정미결퍼센트, put_oi_init_percent)
 
