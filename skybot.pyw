@@ -939,8 +939,8 @@ oneway_str = ''
 
 콜시가갭합 = 0
 풋시가갭합 = 0
-콜시가갭합_퍼센트 = 0
-풋시가갭합_퍼센트 = 0
+콜시가갭합_퍼센트평균 = 0
+풋시가갭합_퍼센트평균 = 0
 
 콜시가갭합_단위평균 = 0
 풋시가갭합_단위평균 = 0
@@ -1338,14 +1338,14 @@ selected_put = []
 call_node_state = dict()
 put_node_state = dict()
 
-yoc_call_gap_percent = [NaN] * ActvalCount
-yoc_put_gap_percent = [NaN] * ActvalCount
+yoc_call_gap_percent = [0] * ActvalCount
+yoc_put_gap_percent = [0] * ActvalCount
 
 call_open = [False] * ActvalCount
 call_ol = [False] * ActvalCount
 call_oh = [False] * ActvalCount
-call_gap_percent = [NaN] * ActvalCount
-call_db_percent = [NaN] * ActvalCount
+call_gap_percent = [0] * ActvalCount
+call_db_percent = [0] * ActvalCount
 
 call_otm_db = [0] * ActvalCount
 call_otm_db_percent = [0] * ActvalCount
@@ -1353,8 +1353,8 @@ call_otm_db_percent = [0] * ActvalCount
 put_open = [False] * ActvalCount
 put_ol = [False] * ActvalCount
 put_oh = [False] * ActvalCount
-put_gap_percent = [NaN] * ActvalCount
-put_db_percent = [NaN] * ActvalCount
+put_gap_percent = [0] * ActvalCount
+put_db_percent = [0] * ActvalCount
 
 nm_put_ol = [False] * ActvalCount
 nm_put_oh = [False] * ActvalCount
@@ -11530,25 +11530,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
             
             # 시가갭 갱신
-            temp = call_gap_percent[:]
-            call_gap_percent_local = [value for value in temp if value == value]
-            call_gap_percent_local.sort()
+            call_gap_percent_local = copy.deepcopy(call_gap_percent)
+            call_gap_percent_local.remove(0)
 
-            콜시가갭합 = round(df_call['시가갭'].sum(), 2)
+            np_call_gap_percent_local = np.array(call_gap_percent_local)
 
-            if call_gap_percent_local:
+            콜시가갭합_단위평균 = round(df_call['시가갭'].sum()/len(call_gap_percent_local), 2)        
+            콜시가갭합_퍼센트평균 = int(round(np.mean(np_call_gap_percent_local), 2))
 
-                콜시가갭합_단위평균 = round(콜시가갭합/len(call_gap_percent_local), 2)
+            call_str = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트평균) + '%' + ')'
 
-                tmp = np.array(call_gap_percent_local)            
-                콜시가갭합_퍼센트 = int(round(np.mean(tmp), 2))
-
-                call_str = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트) + '%' + ')'
-                item = QTableWidgetItem(call_str)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
-            else:
-                print('call_gap_percent_local is empty...')
+            item = QTableWidgetItem(call_str)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
 
             if 콜시가 in COREVAL:
                 self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
@@ -11860,8 +11854,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global call_진폭, 콜대비합, 콜대비합_단위평균, 콜대비_퍼센트_평균
         
-        #call_진폭 = df_call['진폭'].values.tolist()
-        #진폭최대값 = max(call_진폭)
         진폭최대값 = df_call['진폭'].max()
 
         max_str = '{0:.2f}'.format(진폭최대값)
@@ -11873,37 +11865,32 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
         
         # 처리시간 줄여야함
-        call_otm_db_local = copy.deepcopy(call_otm_db_percent)
+        call_otm_db_local = copy.deepcopy(call_otm_db)
         call_otm_db_local.remove(0)
 
         call_db_percent_local = copy.deepcopy(call_otm_db_percent)
         call_db_percent_local.remove(0)
 
-        np_call_otm_db_local = np.array(call_db_percent_local)
+        np_call_otm_db_local = np.array(call_otm_db_local)
         np_call_db_percent_local = np.array(call_db_percent_local)
 
-        if np_call_db_percent_local:
-
-            콜대비합_단위평균 = round(np.mean(np_call_otm_db_local), 2) 
+        콜대비합_단위평균 = round(np.mean(np_call_otm_db_local), 2) 
             
-            콜대비_퍼센트_평균 = round(np.mean(np_call_db_percent_local), 1)
+        콜대비_퍼센트_평균 = round(np.mean(np_call_db_percent_local), 1)
 
-            call_str = repr(콜대비합_단위평균) + '\n(' + repr(콜대비_퍼센트_평균) + '%' + ')'
+        call_str = repr(콜대비합_단위평균) + '\n(' + repr(콜대비_퍼센트_평균) + '%' + ')'
 
-            if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
-                item = QTableWidgetItem(call_str)
-                self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
+        if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
+            item = QTableWidgetItem(call_str)
+            self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
 
-                if ResizeRowsToContents:
-                    self.tableWidget_call.resizeRowsToContents()
-                else:
-                    pass
-                self.tableWidget_call.resizeColumnToContents(Option_column.대비.value)
+            if ResizeRowsToContents:
+                self.tableWidget_call.resizeRowsToContents()
             else:
-                pass                               
+                pass
+            self.tableWidget_call.resizeColumnToContents(Option_column.대비.value)
         else:
-            print('call_db_percent_local is empty...')
-            콜대비합 = 0
+            pass            
         
     def call_oi_update(self):
 	
@@ -12123,11 +12110,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global df_call, call_itm_count
         global call_open, call_ol, call_oh
         global call_gap_percent, call_db_percent      
-        global 콜시가갭합, 콜시가갭합_퍼센트
+        global 콜시가갭합, 콜시가갭합_퍼센트평균
         global call_ol_count, call_oh_count
         global 콜대비합, 콜대비합_단위평균
         global call_open_count        
-        global 콜시가갭합, 콜시가갭합_퍼센트, 콜시가갭합_단위평균, 콜대비_퍼센트_평균
+        global 콜시가갭합, 콜시가갭합_퍼센트평균, 콜시가갭합_단위평균, 콜대비_퍼센트_평균
         global call_otm_db, call_otm_db_percent
         global nm_call_oloh_str 
         
@@ -12137,8 +12124,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             call_ol = [False] * option_pairs_count
             call_oh = [False] * option_pairs_count
-            call_gap_percent = [NaN] * option_pairs_count
-            call_db_percent = [NaN] * option_pairs_count
+            call_gap_percent = [0] * option_pairs_count
+            call_db_percent = [0] * option_pairs_count
             call_itm_count = 0
             call_otm_db = [0] * option_pairs_count
             call_otm_db_percent = [0] * option_pairs_count
@@ -12347,59 +12334,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.setHorizontalHeaderItem(2, item)
 
             # 시가갭 갱신
-            temp = call_gap_percent[:]
-            call_gap_percent_local = [value for value in temp if value == value]
-            call_gap_percent_local.sort()
+            call_gap_percent_local = copy.deepcopy(call_gap_percent)
+            call_gap_percent_local.remove(0)
 
-            콜시가갭합 = round(df_call['시가갭'].sum(), 2)
+            np_call_gap_percent_local = np.array(call_gap_percent_local)
 
-            if call_gap_percent_local:
+            콜시가갭합_단위평균 = round(df_call['시가갭'].sum()/len(call_gap_percent_local), 2)        
+            콜시가갭합_퍼센트평균 = int(round(np.mean(np_call_gap_percent_local), 2))
 
-                콜시가갭합_단위평균 = round(콜시가갭합/len(call_gap_percent_local), 2)
+            call_str = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트평균) + '%' + ')'
 
-                tmp = np.array(call_gap_percent_local)            
-                콜시가갭합_퍼센트 = int(round(np.mean(tmp), 2))
-                call_str = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트) + '%' + ')'
+            item = QTableWidgetItem(call_str)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
 
-                if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.시가갭.value).text():
-                    item = QTableWidgetItem(call_str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
-                else:
-                    pass
-            else:
-                print('call_gap_percent_local is empty...')
-
-            # 대비 갱신
-            #temp = call_db_percent[:]
-            temp = call_otm_db_percent[:]
-
-            call_db_percent_local = [value for value in temp if value == value]
-            call_db_percent_local.sort()
-
-            if call_db_percent_local:
-
-                #콜대비합 = round(df_call['대비'].sum(), 2)
-                콜대비합 = round(sum(call_otm_db), 2)
-
-                콜대비합_단위평균 = round(콜대비합/len(call_db_percent_local), 2)
-
-                tmp = np.array(call_db_percent_local)            
-                콜대비_퍼센트_평균 = round(np.mean(tmp), 1)
-                call_str = repr(콜대비합_단위평균) + '\n(' + repr(콜대비_퍼센트_평균) + '%' + ')'
-
-                #print('콜대비_퍼센트_평균 =', 콜대비_퍼센트_평균)
-
-                if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
-                    item = QTableWidgetItem(call_str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
-                else:
-                    pass            
-            else:
-                print('call_db_percent_local is empty...')
-
-                콜대비합 = 0
+            self.call_db_update()
         else:
             pass
 
@@ -12651,25 +12600,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
             
             # 시가갭 갱신
-            temp = put_gap_percent[:]
-            put_gap_percent_local = [value for value in temp if value == value]
-            put_gap_percent_local.sort()
+            put_gap_percent_local = copy.deepcopy(put_gap_percent)
+            put_gap_percent_local.remove(0)
 
-            풋시가갭합 = round(df_put['시가갭'].sum(), 2)
+            np_put_gap_percent_local = np.array(put_gap_percent_local)
 
-            if put_gap_percent_local:
+            풋시가갭합_단위평균 = round(df_put['시가갭'].sum()/len(put_gap_percent_local), 2)        
+            풋시가갭합_퍼센트평균 = int(round(np.mean(np_put_gap_percent_local), 2))
 
-                풋시가갭합_단위평균 = round(풋시가갭합/len(put_gap_percent_local), 2)
+            put_str = repr(풋시가갭합_단위평균) + '\n(' + repr(풋시가갭합_퍼센트평균) + '%' + ')'
 
-                tmp = np.array(put_gap_percent_local)            
-                풋시가갭합_퍼센트 = int(round(np.mean(tmp), 2))
-
-                put_str = repr(풋시가갭합_단위평균) + '\n(' + repr(풋시가갭합_퍼센트) + '%' + ')'
-                item = QTableWidgetItem(put_str)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
-            else:
-                print('put_gap_percent_local is empty...')
+            item = QTableWidgetItem(put_str)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
 
             if 풋시가 in COREVAL:
                 self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
@@ -13003,28 +12946,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         np_put_otm_db_local = np.array(put_otm_db_local)
         np_put_db_percent_local = np.array(put_db_percent_local)
 
-        if np_put_db_percent_local:
+        풋대비합_단위평균 = round(np.mean(np_put_otm_db_local), 2)      
+        풋대비_퍼센트_평균 = round(np.mean(np_put_db_percent_local), 1)
 
-            풋대비합_단위평균 = round(np.mean(np_put_otm_db_local), 2)      
-            풋대비_퍼센트_평균 = round(np.mean(np_put_db_percent_local), 1)
+        put_str = repr(풋대비합_단위평균) + '\n(' + repr(풋대비_퍼센트_평균) + '%' + ')'
 
-            put_str = repr(풋대비합_단위평균) + '\n(' + repr(풋대비_퍼센트_평균) + '%' + ')'
+        if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
+            item = QTableWidgetItem(put_str)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
 
-            if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
-                item = QTableWidgetItem(put_str)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
-
-                if ResizeRowsToContents:
-                    self.tableWidget_put.resizeRowsToContents()
-                else:
-                    pass
-                self.tableWidget_put.resizeColumnToContents(Option_column.대비.value)
+            if ResizeRowsToContents:
+                self.tableWidget_put.resizeRowsToContents()
             else:
-                pass            
+                pass
+            self.tableWidget_put.resizeColumnToContents(Option_column.대비.value)
         else:
-            print('put_db_percent_local is empty...')
-            풋대비합 = 0
+            pass            
         
     def put_oi_update(self):
 		
@@ -13246,11 +13184,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global df_put, put_itm_count
         global put_open, put_ol, put_oh, nm_put_ol, nm_put_oh
         global put_gap_percent, put_db_percent     
-        global 풋시가갭합, 풋시가갭합_퍼센트
+        global 풋시가갭합, 풋시가갭합_퍼센트평균
         global put_ol_count, put_oh_count
         global 풋대비합, 풋대비합_단위평균 
         global put_open_count
-        global 풋시가갭합, 풋시가갭합_퍼센트, 풋시가갭합_단위평균, 풋대비_퍼센트_평균
+        global 풋시가갭합, 풋시가갭합_퍼센트평균, 풋시가갭합_단위평균, 풋대비_퍼센트_평균
         global put_otm_db, put_otm_db_percent
         global nm_put_oloh_str
         
@@ -13260,8 +13198,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             put_ol = [False] * option_pairs_count
             put_oh = [False] * option_pairs_count            
-            put_gap_percent = [NaN] * option_pairs_count
-            put_db_percent = [NaN] * option_pairs_count
+            put_gap_percent = [0] * option_pairs_count
+            put_db_percent = [0] * option_pairs_count
             put_itm_count = 0
             put_otm_db = [0] * option_pairs_count
             put_otm_db_percent = [0] * option_pairs_count
@@ -13490,59 +13428,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.setHorizontalHeaderItem(2, item)
 
             # 시가갭 갱신
-            temp = put_gap_percent[:]
-            put_gap_percent_local = [value for value in temp if value == value]
-            put_gap_percent_local.sort()
+            put_gap_percent_local = copy.deepcopy(put_gap_percent)
+            put_gap_percent_local.remove(0)
 
-            풋시가갭합 = round(df_put['시가갭'].sum(), 2)
+            np_put_gap_percent_local = np.array(put_gap_percent_local)
 
-            if put_gap_percent_local:
+            풋시가갭합_단위평균 = round(df_put['시가갭'].sum()/len(put_gap_percent_local), 2)        
+            풋시가갭합_퍼센트평균 = int(round(np.mean(np_put_gap_percent_local), 2))
 
-                풋시가갭합_단위평균 = round(풋시가갭합/len(put_gap_percent_local), 2)
+            put_str = repr(풋시가갭합_단위평균) + '\n(' + repr(풋시가갭합_퍼센트평균) + '%' + ')'
 
-                tmp = np.array(put_gap_percent_local)            
-                풋시가갭합_퍼센트 = int(round(np.mean(tmp), 2))
-                put_str = repr(풋시가갭합_단위평균) + '\n(' + repr(풋시가갭합_퍼센트) + '%' + ')'
+            item = QTableWidgetItem(put_str)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
 
-                if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.시가갭.value).text():
-                    item = QTableWidgetItem(put_str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
-                else:
-                    pass
-            else:
-                print('put_gap_percent_local is empty...')
-
-            # 대비 갱신
-            #temp = put_db_percent[:]
-            temp = put_otm_db_percent[:]
-
-            put_db_percent_local = [value for value in temp if value == value]
-            put_db_percent_local.sort()
-
-            if put_db_percent_local:
-
-                #풋대비합 = round(df_put['대비'].sum(), 2)
-                풋대비합 = round(sum(put_otm_db), 2)
-
-                풋대비합_단위평균 = round(풋대비합/len(put_db_percent_local), 2)
-
-                tmp = np.array(put_db_percent_local)            
-                풋대비_퍼센트_평균 = round(np.mean(tmp), 1)
-                put_str = repr(풋대비합_단위평균) + '\n(' + repr(풋대비_퍼센트_평균) + '%' + ')'
-
-                #print('풋대비_퍼센트_평균 =', 풋대비_퍼센트_평균)
-
-                if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
-                    item = QTableWidgetItem(put_str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
-                else:
-                    pass            
-            else:
-                print('put_db_percent_local is empty...')
-
-                풋대비합 = 0
+            self.put_db_update()
         else:
             pass
 
@@ -16875,12 +16775,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # gap percent 초기화
-                call_gap_percent = [NaN] * option_pairs_count
-                put_gap_percent = [NaN] * option_pairs_count
+                call_gap_percent = [0] * option_pairs_count
+                put_gap_percent = [0] * option_pairs_count
 
                 # db percent 초기화
-                call_db_percent = [NaN] * option_pairs_count
-                put_db_percent = [NaN] * option_pairs_count
+                call_db_percent = [0] * option_pairs_count
+                put_db_percent = [0] * option_pairs_count
 
                 콜대비_퍼센트_평균 = 0
                 풋대비_퍼센트_평균 = 0
@@ -21494,43 +21394,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             gap_str = "{0:.2f}\n({1:.0f}%)".format(시가갭, yoc_call_gap_percent[index])
 
-                            if gap_str != self.tableWidget_call.item(index, Option_column.시가갭.value).text():
-
-                                item = QTableWidgetItem(gap_str)
-                                item.setTextAlignment(Qt.AlignCenter)
-                                self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
-
-                                if ResizeRowsToContents:
-                                    self.tableWidget_call.resizeRowsToContents()
-                                else:
-                                    pass
-                                self.tableWidget_call.resizeColumnsToContents()
-                            else:
-                                pass
-                        else:
-                            pass                            
-                    else:
-                        pass
-
-                    global 콜시가갭합, 콜시가갭합_퍼센트, 콜시가갭합_단위평균
-
-                    콜시가갭합 = round(df_call['시가갭'].sum(), 2)
-
-                    temp = yoc_call_gap_percent[:]
-                    call_gap_percent_local = [value for value in temp if value == value]
-                    call_gap_percent_local.sort()
-
-                    if call_gap_percent_local:
-
-                        콜시가갭합_단위평균 = round(콜시가갭합/len(call_gap_percent_local), 2)
-
-                        tmp = np.array(call_gap_percent_local)                            
-                        콜시가갭합_퍼센트 = int(round(np.mean(tmp), 2))
-                        call_str = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트) + '%' + ')'
-
-                        if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.시가갭.value).text():
-                            item = QTableWidgetItem(call_str)
-                            self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
+                            item = QTableWidgetItem(gap_str)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
 
                             if ResizeRowsToContents:
                                 self.tableWidget_call.resizeRowsToContents()
@@ -21538,18 +21404,36 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 pass
                             self.tableWidget_call.resizeColumnsToContents()
                         else:
-                            pass
-
-                        new_actval = repr(len(call_gap_percent_local))
-
-                        if new_actval != self.tableWidget_call.horizontalHeaderItem(1).text():
-                            item = QTableWidgetItem(new_actval)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            self.tableWidget_call.setHorizontalHeaderItem(1, item)
-                        else:
-                            pass
+                            pass                            
                     else:
                         pass
+
+                    global 콜시가갭합, 콜시가갭합_퍼센트평균, 콜시가갭합_단위평균
+
+                    call_gap_percent_local = copy.deepcopy(yoc_call_gap_percent)
+                    call_gap_percent_local.remove(0)
+
+                    np_call_gap_percent_local = np.array(call_gap_percent_local)
+
+                    콜시가갭합_단위평균 = round(df_call['시가갭'].sum()/len(call_gap_percent_local), 2)                          
+                    콜시가갭합_퍼센트평균 = int(round(np.mean(np_call_gap_percent_local), 2))
+
+                    call_str = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트평균) + '%' + ')'
+
+                    item = QTableWidgetItem(call_str)
+                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
+
+                    if ResizeRowsToContents:
+                        self.tableWidget_call.resizeRowsToContents()
+                    else:
+                        pass
+                    self.tableWidget_call.resizeColumnsToContents()
+
+                    new_actval = repr(len(call_gap_percent_local))
+
+                    item = QTableWidgetItem(new_actval)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setHorizontalHeaderItem(1, item)
 
                 elif result['단축코드'][0:3] == '301':
 
@@ -21629,68 +21513,50 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             gap_str = "{0:.2f}\n({1:.0f}%)".format(시가갭, yoc_put_gap_percent[index])
 
-                            if gap_str != self.tableWidget_put.item(index, Option_column.시가갭.value).text():
-
-                                item = QTableWidgetItem(gap_str)
-                                item.setTextAlignment(Qt.AlignCenter)
-                                self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
-
-                                if ResizeRowsToContents:
-                                    self.tableWidget_put.resizeRowsToContents()
-                                else:
-                                    pas
-                                self.tableWidget_put.resizeColumnsToContents()
-                            else:
-                                pass
-                        else:
-                            pass
-                    else:
-                        pass
-
-                    global 풋시가갭합, 풋시가갭합_퍼센트, 풋시가갭합_단위평균 
-
-                    풋시가갭합 = round(df_put['시가갭'].sum(), 2)
-
-                    temp = yoc_put_gap_percent[:]
-                    put_gap_percent_local = [value for value in temp if value == value]
-                    put_gap_percent_local.sort()
-
-                    if put_gap_percent_local:
-
-                        풋시가갭합_단위평균 = round(풋시가갭합/len(put_gap_percent_local), 2)
-
-                        tmp = np.array(put_gap_percent_local)                            
-                        풋시가갭합_퍼센트 = int(round(np.mean(tmp), 2))
-                        put_str = repr(풋시가갭합_단위평균) + '\n(' + repr(풋시가갭합_퍼센트) + '%' + ')'
-
-                        if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.시가갭.value).text():
-                            item = QTableWidgetItem(put_str)
-                            self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
+                            item = QTableWidgetItem(gap_str)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
 
                             if ResizeRowsToContents:
                                 self.tableWidget_put.resizeRowsToContents()
                             else:
-                                pass
+                                pas
                             self.tableWidget_put.resizeColumnsToContents()
-                        else:
-                            pass
-
-                        new_actval = repr(len(put_gap_percent_local))
-
-                        if new_actval != self.tableWidget_put.horizontalHeaderItem(1).text():
-                            item = QTableWidgetItem(new_actval)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            self.tableWidget_put.setHorizontalHeaderItem(1, item)
                         else:
                             pass
                     else:
                         pass
+
+                    global 풋시가갭합, 풋시가갭합_퍼센트평균, 풋시가갭합_단위평균
+
+                    put_gap_percent_local = copy.deepcopy(yoc_put_gap_percent)
+                    put_gap_percent_local.remove(0)
+
+                    np_put_gap_percent_local = np.array(put_gap_percent_local)
+
+                    풋시가갭합_단위평균 = round(df_put['시가갭'].sum()/len(put_gap_percent_local), 2)                          
+                    풋시가갭합_퍼센트평균 = int(round(np.mean(np_put_gap_percent_local), 2))
+
+                    put_str = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트평균) + '%' + ')'
+
+                    item = QTableWidgetItem(put_str)
+                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
+
+                    if ResizeRowsToContents:
+                        self.tableWidget_put.resizeRowsToContents()
+                    else:
+                        pass
+                    self.tableWidget_call.resizeColumnsToContents()
+
+                    new_actval = repr(len(put_gap_percent_local))
+
+                    item = QTableWidgetItem(new_actval)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setHorizontalHeaderItem(1, item)
                 else:
                     pass
             
             elif szTrCode == 'S3_':
-                
-                #현재가 = format(result['현재가'], ',')
 
                 # S3 데이타표시
                 if result['단축코드'] == SAMSUNG:
