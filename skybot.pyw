@@ -1983,7 +1983,11 @@ def logging_time_with_args(original_fn):
         start_time = timeit.default_timer()
         result = original_fn(*args, **kwargs)
         end_time = timeit.default_timer()
-        print("{0} Processing Time [{1:02d}:{2:02d}:{3:02d}]: {4:.2f} msec".format(args[-1]['szTrCode'], dt.hour, dt.minute, dt.second, (end_time-start_time) * 1000))
+
+        if args[-1]['szTrCode'] == 'EC0':
+            print("{0} Processing Time [{1:02d}:{2:02d}:{3:02d}]: {4:.2f} msec".format(args[-1]['szTrCode'], dt.hour, dt.minute, dt.second, (end_time-start_time) * 1000))
+        else:
+            pass
 
         return result
 
@@ -11869,8 +11873,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
         
         # 처리시간 줄여야함
-        #temp = call_db_percent[:]
-        temp = call_otm_db_percent[:]
+        #temp = call_db_percent[:]        
+        #temp = call_otm_db_percent[:]
+        
+        temp = copy.deepcopy(call_otm_db_percent)
 
         call_db_percent_local = [value for value in temp if value == value]
         call_db_percent_local.sort()
@@ -11899,7 +11905,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass                               
         else:
             print('call_db_percent_local is empty...')
-
             콜대비합 = 0
         
     def call_oi_update(self):
@@ -12991,8 +12996,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
         
         # 처리시간 줄여야함
-        #temp = put_db_percent[:]
-        temp = put_otm_db_percent[:]
+        #temp = put_db_percent[:]        
+        #temp = put_otm_db_percent[:]
+
+        temp = copy.deepcopy(put_otm_db_percent)
 
         put_db_percent_local = [value for value in temp if value == value]
         put_db_percent_local.sort()
@@ -13022,7 +13029,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass            
         else:
             print('put_db_percent_local is empty...')
-
             풋대비합 = 0
         
     def put_oi_update(self):
