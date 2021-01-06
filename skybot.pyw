@@ -23022,7 +23022,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
         else:
-            pass        
+            print('멀티프로세스 쓰레드 종료...')
+            self.mp_consumer.terminate()
+            Myprocess.shutdown()        
 
     def closeEvent(self,event):
 
