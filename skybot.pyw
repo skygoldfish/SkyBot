@@ -1362,8 +1362,8 @@ nm_put_oh = [False] * ActvalCount
 put_otm_db = [0] * ActvalCount
 put_otm_db_percent = [0] * ActvalCount
 
-콜대비_퍼센트_평균 = 0
-풋대비_퍼센트_평균 = 0
+콜대비_퍼센트평균 = 0
+풋대비_퍼센트평균 = 0
 
 opt_callreal_update_counter = 0
 opt_putreal_update_counter = 0
@@ -4869,7 +4869,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass                  
 
                     # 비대칭장 탐색
-                    if not dongsi_hoga and abs(콜대비_퍼센트_평균) > 0 and abs(풋대비_퍼센트_평균) > 0:
+                    if not dongsi_hoga and abs(콜대비_퍼센트평균) > 0 and abs(풋대비_퍼센트평균) > 0:
 
                         self.asym_detect(self.alternate_flag)
                     else:
@@ -6231,11 +6231,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        if 콜대비_퍼센트_평균 > 0 and 풋대비_퍼센트_평균 < 0:
+        if 콜대비_퍼센트평균 > 0 and 풋대비_퍼센트평균 < 0:
 
-            if abs(콜대비_퍼센트_평균/풋대비_퍼센트_평균) >= ASYM_RATIO:
+            if abs(콜대비_퍼센트평균/풋대비_퍼센트평균) >= ASYM_RATIO:
                 
-                if abs(콜대비_퍼센트_평균/풋대비_퍼센트_평균) >= ONEWAY_RATIO and flag_fut_dow_drate_energy_direction:
+                if abs(콜대비_퍼센트평균/풋대비_퍼센트평균) >= ONEWAY_RATIO and flag_fut_dow_drate_energy_direction:
 
                     # 콜 원웨이(원웨이장은 플래그 세팅을 나중에 해줌 --> 발생시각 표시를 위해)
                     call_ms_oneway = True
@@ -6253,12 +6253,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if TARGET_MONTH_SELECT == 'CM' and not call_ms_oneway:
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
 
                     elif TARGET_MONTH_SELECT == 'NM' and not call_ms_oneway:
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
                     else:
                         pass                    
 
@@ -6287,12 +6287,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if TARGET_MONTH_SELECT == 'CM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
 
                     elif TARGET_MONTH_SELECT == 'NM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
                     else:
                         pass 
                     
@@ -6306,7 +6306,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
                     '''
 
-            elif abs(풋대비_퍼센트_평균/콜대비_퍼센트_평균) >= ASYM_RATIO:
+            elif abs(풋대비_퍼센트평균/콜대비_퍼센트평균) >= ASYM_RATIO:
 
                 # 풋매도 비대칭
                 call_ms_oneway = False
@@ -6323,12 +6323,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if TARGET_MONTH_SELECT == 'CM':
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매도({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
-                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
 
                 elif TARGET_MONTH_SELECT == 'NM':
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매도({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
-                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
                 else:
                     pass
                 
@@ -6352,9 +6352,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_md_all_down = False
                 put_ms_all_up = False
 
-        elif 콜대비_퍼센트_평균 < 0 and 풋대비_퍼센트_평균 > 0:
+        elif 콜대비_퍼센트평균 < 0 and 풋대비_퍼센트평균 > 0:
 
-            if abs(콜대비_퍼센트_평균/풋대비_퍼센트_평균) >= ASYM_RATIO:
+            if abs(콜대비_퍼센트평균/풋대비_퍼센트평균) >= ASYM_RATIO:
 
                 # 콜매도 비대칭
                 call_ms_oneway = False
@@ -6371,12 +6371,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if TARGET_MONTH_SELECT == 'CM':
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매도({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
-                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)                    
+                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)                    
 
                 elif TARGET_MONTH_SELECT == 'NM':
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매도({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
-                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
                 else:
                     pass
                 
@@ -6386,9 +6386,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
                 '''
 
-            elif abs(풋대비_퍼센트_평균/콜대비_퍼센트_평균) >= ASYM_RATIO:
+            elif abs(풋대비_퍼센트평균/콜대비_퍼센트평균) >= ASYM_RATIO:
 
-                if abs(풋대비_퍼센트_평균/콜대비_퍼센트_평균) >= ONEWAY_RATIO and flag_fut_dow_drate_energy_direction:
+                if abs(풋대비_퍼센트평균/콜대비_퍼센트평균) >= ONEWAY_RATIO and flag_fut_dow_drate_energy_direction:
 
                     # 풋 원웨이(원웨이장은 플래그 세팅을 나중에 해줌 --> 발생시각 표시를 위해)
                     call_ms_oneway = False
@@ -6406,12 +6406,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if TARGET_MONTH_SELECT == 'CM' and not put_ms_oneway:
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
 
                     elif TARGET_MONTH_SELECT == 'NM' and not put_ms_oneway:
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
                     else:
                         pass                    
 
@@ -6440,12 +6440,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if TARGET_MONTH_SELECT == 'CM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
 
                     elif TARGET_MONTH_SELECT == 'NM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
                     else:
                         pass
                     
@@ -6473,9 +6473,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_md_all_down = False
                 put_ms_all_up = False
 
-        elif 콜대비_퍼센트_평균 < 0 and 풋대비_퍼센트_평균 < 0:
+        elif 콜대비_퍼센트평균 < 0 and 풋대비_퍼센트평균 < 0:
 
-            if 콜대비_퍼센트_평균 < 풋대비_퍼센트_평균:
+            if 콜대비_퍼센트평균 < 풋대비_퍼센트평균:
 
                 # 콜매도 양꽝장
                 call_ms_oneway = False
@@ -6492,12 +6492,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if TARGET_MONTH_SELECT == 'CM':
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매도({3:0.1f}:{4:0.1f}) 양꽝장\r'.format \
-                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
 
                 elif TARGET_MONTH_SELECT == 'NM':
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매도({3:0.1f}:{4:0.1f}) 양꽝장\r'.format \
-                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
                 else:
                     pass
                 
@@ -6507,7 +6507,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
                 '''
 
-            elif 콜대비_퍼센트_평균 > 풋대비_퍼센트_평균:
+            elif 콜대비_퍼센트평균 > 풋대비_퍼센트평균:
 
                 # 풋매도 양꽝장
                 call_ms_oneway = False
@@ -6524,12 +6524,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if TARGET_MONTH_SELECT == 'CM':
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매도({3:0.1f}:{4:0.1f}) 양꽝장\r'.format \
-                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
 
                 elif TARGET_MONTH_SELECT == 'NM':
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매도({3:0.1f}:{4:0.1f}) 양꽝장\r'.format \
-                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
                 else:
                     pass
                 
@@ -6553,9 +6553,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_md_all_down = False
                 put_ms_all_up = False
 
-        elif 콜대비_퍼센트_평균 > 0 and 풋대비_퍼센트_평균 > 0:
+        elif 콜대비_퍼센트평균 > 0 and 풋대비_퍼센트평균 > 0:
 
-            if 콜대비_퍼센트_평균 > 풋대비_퍼센트_평균:
+            if 콜대비_퍼센트평균 > 풋대비_퍼센트평균:
 
                 # 콜매수 양빵장
                 call_ms_oneway = False
@@ -6574,24 +6574,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if TARGET_MONTH_SELECT == 'CM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
 
                     elif TARGET_MONTH_SELECT == 'NM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
                     else:
                         pass
                 else:
                     if TARGET_MONTH_SELECT == 'CM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
 
                     elif TARGET_MONTH_SELECT == 'NM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
                     else:
                         pass                
 
@@ -6601,7 +6601,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
                 '''
 
-            elif 콜대비_퍼센트_평균 < 풋대비_퍼센트_평균:
+            elif 콜대비_퍼센트평균 < 풋대비_퍼센트평균:
 
                 # 풋매수 양빵장
                 call_ms_oneway = False
@@ -6620,24 +6620,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if TARGET_MONTH_SELECT == 'CM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
 
                     elif TARGET_MONTH_SELECT == 'NM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
                     else:
                         pass
                 else:
                     if TARGET_MONTH_SELECT == 'CM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
 
                     elif TARGET_MONTH_SELECT == 'NM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
                     else:
                         pass                
 
@@ -11394,7 +11394,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 콜_인덱스, 콜_시가, 콜_현재가, 콜_저가, 콜_고가
         global flag_call_low_update, flag_call_high_update
         global call_gap_percent, call_db_percent, call_otm_db, call_otm_db_percent 
-        global 콜대비_퍼센트_평균
+        global 콜대비_퍼센트평균
         global 콜등락율       
 
         start_time = timeit.default_timer()
@@ -11852,7 +11852,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     
     def call_db_update(self):
 
-        global call_진폭, 콜대비합, 콜대비합_단위평균, 콜대비_퍼센트_평균
+        global call_진폭, 콜대비합, 콜대비합_단위평균, 콜대비_퍼센트평균
         
         진폭최대값 = df_call['진폭'].max()
 
@@ -11876,9 +11876,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         콜대비합_단위평균 = round(np.mean(np_call_otm_db_local), 2) 
             
-        콜대비_퍼센트_평균 = round(np.mean(np_call_db_percent_local), 1)
+        콜대비_퍼센트평균 = round(np.mean(np_call_db_percent_local), 1)
 
-        call_str = repr(콜대비합_단위평균) + '\n(' + repr(콜대비_퍼센트_평균) + '%' + ')'
+        call_str = repr(콜대비합_단위평균) + '\n(' + repr(콜대비_퍼센트평균) + '%' + ')'
 
         if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
             item = QTableWidgetItem(call_str)
@@ -12114,7 +12114,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_ol_count, call_oh_count
         global 콜대비합, 콜대비합_단위평균
         global call_open_count        
-        global 콜시가갭합, 콜시가갭합_퍼센트평균, 콜시가갭합_단위평균, 콜대비_퍼센트_평균
+        global 콜시가갭합, 콜시가갭합_퍼센트평균, 콜시가갭합_단위평균, 콜대비_퍼센트평균
         global call_otm_db, call_otm_db_percent
         global nm_call_oloh_str 
         
@@ -12464,7 +12464,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 풋_인덱스, 풋_시가, 풋_현재가, 풋_저가, 풋_고가
         global flag_put_low_update, flag_put_high_update
         global put_gap_percent, put_db_percent, put_otm_db, put_otm_db_percent
-        global 풋대비_퍼센트_평균
+        global 풋대비_퍼센트평균
         global 풋등락율
 
         start_time = timeit.default_timer()
@@ -12922,7 +12922,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     
     def put_db_update(self):
 
-        global put_진폭, 풋대비합, 풋대비합_단위평균, 풋대비_퍼센트_평균 
+        global put_진폭, 풋대비합, 풋대비합_단위평균, 풋대비_퍼센트평균 
         
         #put_진폭 = df_put['진폭'].values.tolist()
         #진폭최대값 = max(put_진폭)
@@ -12947,9 +12947,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         np_put_db_percent_local = np.array(put_db_percent_local)
 
         풋대비합_단위평균 = round(np.mean(np_put_otm_db_local), 2)      
-        풋대비_퍼센트_평균 = round(np.mean(np_put_db_percent_local), 1)
+        풋대비_퍼센트평균 = round(np.mean(np_put_db_percent_local), 1)
 
-        put_str = repr(풋대비합_단위평균) + '\n(' + repr(풋대비_퍼센트_평균) + '%' + ')'
+        put_str = repr(풋대비합_단위평균) + '\n(' + repr(풋대비_퍼센트평균) + '%' + ')'
 
         if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
             item = QTableWidgetItem(put_str)
@@ -13188,7 +13188,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global put_ol_count, put_oh_count
         global 풋대비합, 풋대비합_단위평균 
         global put_open_count
-        global 풋시가갭합, 풋시가갭합_퍼센트평균, 풋시가갭합_단위평균, 풋대비_퍼센트_평균
+        global 풋시가갭합, 풋시가갭합_퍼센트평균, 풋시가갭합_단위평균, 풋대비_퍼센트평균
         global put_otm_db, put_otm_db_percent
         global nm_put_oloh_str
         
@@ -14176,7 +14176,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global t2835_month_info
         global server_date, server_time, system_server_timegap, server_x_idx
         global CM_OPTCODE, NM_OPTCODE
-        global 콜대비_퍼센트_평균, 풋대비_퍼센트_평균
+        global 콜대비_퍼센트평균, 풋대비_퍼센트평균
         global atm_zero_sum, atm_zero_cha
         global 선물_전일종가
         global CENTER_VAL, CENTER_VAL_PLUS5, CENTER_VAL_PLUS4, CENTER_VAL_PLUS3, CENTER_VAL_PLUS2, CENTER_VAL_PLUS1, CENTER_VAL_MINUS1, CENTER_VAL_MINUS2, CENTER_VAL_MINUS3, CENTER_VAL_MINUS4, CENTER_VAL_MINUS5
@@ -16782,8 +16782,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 call_db_percent = [0] * option_pairs_count
                 put_db_percent = [0] * option_pairs_count
 
-                콜대비_퍼센트_평균 = 0
-                풋대비_퍼센트_평균 = 0
+                콜대비_퍼센트평균 = 0
+                풋대비_퍼센트평균 = 0
 
                 item = QTableWidgetItem('행사가')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.행사가.value, item)
