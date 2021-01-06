@@ -2015,7 +2015,6 @@ class ScreenUpdateWorker(QThread):
         while True:
 
             if flag_produce_queue_empty:
-                #txt = 'Main UI Update...'
                 self.trigger.emit()
 
             QTest.qWait(scoreboard_update_interval)    
@@ -4601,10 +4600,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.display_atm(self.alternate_flag)
                 
                 if not NightTime:                    
-                    self.fut_etc_update(fut_result)
+                    self.fut_etc_update(fut_result)                    
                 else:
-                    pass                
-                                
+                    pass
+
                 if market_service and flag_option_start:                    
 
                     # 수정미결 표시
@@ -4615,7 +4614,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.oi_total_update()
                     else:
-                        pass
+                        pass                    
                     
                     self.call_volume_power_update()
                     self.put_volume_power_update()
@@ -11071,6 +11070,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def fut_etc_update(self, result):
 
+        global df_fut, 선물_진폭비, flag_call_strong, flag_put_strong
+
         if fut_quote_energy_direction == 'call':
 
             if NightTime:
@@ -11101,7 +11102,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setBackground(QBrush(흰색))
         item.setForeground(QBrush(검정색))
         self.tableWidget_fut.setItem(2, Futures_column.대비.value, item)
-                    
+
         item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(선물_대비, 선물_등락율))
         item.setTextAlignment(Qt.AlignCenter)
 
@@ -11136,7 +11137,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
         else:
             self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
-
+        
         # 종합 에너지방향 표시
         if TARGET_MONTH_SELECT == 'CM' and not NightTime:
 
@@ -11162,7 +11163,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             self.tableWidget_fut.setItem(0, Futures_column.거래량.value, item)
         else:
-            pass                           
+            pass                       
         
         # 미결 갱신
         if not NightTime:
@@ -11198,9 +11199,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             self.tableWidget_fut.setItem(1, Futures_column.OID.value, item)              
         else:
-            pass        
+            pass  
 
         # 선물 Up/Down Indicator 표시
+        '''
         global fut_bollinger_symbol, fut_psar_symbol, fut_oe_symbol, fut_mama_symbol
 
         if df_futures_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_graph.at[ovc_x_idx, 'BBMiddle']:
@@ -11251,6 +11253,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_fut.setHorizontalHeaderItem(0, item)
         else:
             pass
+        '''
 
     def check_call_oloh(self):
 
@@ -19477,7 +19480,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global gold_delta, old_gold_delta, gold_직전대비, gold_text_color
 
         global SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_현재가, SP500_전일대비, SP500_등락율, SP500_진폭, SP500_고가
-        global DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_현재가, DOW_전일대비, DOW_등락율, DOW_진폭, DOW_고가
+        global DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_현재가, DOW_전일대비, DOW_등락율, DOW_진폭, DOW_고가, DOW_진폭비
         global NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_현재가, NASDAQ_전일대비, NASDAQ_등락율, NASDAQ_진폭, NASDAQ_고가
         global WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭, WTI_고가
         global EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭, EUROFX_고가
@@ -20671,6 +20674,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global df_kp200_graph, df_futures_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
         global flag_futures_ohlc_open, flag_dow_ohlc_open, flag_sp500_ohlc_open, flag_nasdaq_ohlc_open, flag_wti_ohlc_open, flag_eurofx_ohlc_open, flag_hangseng_ohlc_open, flag_gold_ohlc_open
+        global flag_fut_dow_drate_energy_direction
 
         global 선물_현재가_버퍼
         global DOW_현재가_버퍼
@@ -24077,7 +24081,6 @@ class PlotUpdateWorker(QThread):
         while True:
 
             if flag_produce_queue_empty:
-                #txt = 'Big Chart Update...'
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
