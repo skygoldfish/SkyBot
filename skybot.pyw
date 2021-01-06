@@ -11874,23 +11874,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         np_call_otm_db_local = np.array(call_otm_db_local)
         np_call_db_percent_local = np.array(call_db_percent_local)
 
-        콜대비합_단위평균 = round(np.mean(np_call_otm_db_local), 2) 
-            
+        콜대비합_단위평균 = round(np.mean(np_call_otm_db_local), 2)            
         콜대비_퍼센트평균 = round(np.mean(np_call_db_percent_local), 1)
 
         call_str = repr(콜대비합_단위평균) + '\n(' + repr(콜대비_퍼센트평균) + '%' + ')'
 
-        if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
-            item = QTableWidgetItem(call_str)
-            self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
+        item = QTableWidgetItem(call_str)
+        self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
 
-            if ResizeRowsToContents:
-                self.tableWidget_call.resizeRowsToContents()
-            else:
-                pass
-            self.tableWidget_call.resizeColumnToContents(Option_column.대비.value)
+        if ResizeRowsToContents:
+            self.tableWidget_call.resizeRowsToContents()
         else:
-            pass            
+            pass
+
+        self.tableWidget_call.resizeColumnToContents(Option_column.대비.value)            
         
     def call_oi_update(self):
 	
@@ -12924,8 +12921,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global put_진폭, 풋대비합, 풋대비합_단위평균, 풋대비_퍼센트평균 
         
-        #put_진폭 = df_put['진폭'].values.tolist()
-        #진폭최대값 = max(put_진폭)
         진폭최대값 = df_put['진폭'].max()
 
         max_str = '{0:.2f}'.format(진폭최대값)
@@ -12951,18 +12946,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         put_str = repr(풋대비합_단위평균) + '\n(' + repr(풋대비_퍼센트평균) + '%' + ')'
 
-        if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
-            item = QTableWidgetItem(put_str)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
+        item = QTableWidgetItem(put_str)
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
 
-            if ResizeRowsToContents:
-                self.tableWidget_put.resizeRowsToContents()
-            else:
-                pass
-            self.tableWidget_put.resizeColumnToContents(Option_column.대비.value)
+        if ResizeRowsToContents:
+            self.tableWidget_put.resizeRowsToContents()
         else:
-            pass            
+            pass
+        
+        self.tableWidget_put.resizeColumnToContents(Option_column.대비.value)          
         
     def put_oi_update(self):
 		
