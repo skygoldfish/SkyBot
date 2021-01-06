@@ -1348,7 +1348,7 @@ call_gap_percent = [NaN] * ActvalCount
 call_db_percent = [NaN] * ActvalCount
 
 call_otm_db = [0] * ActvalCount
-call_otm_db_percent = [NaN] * ActvalCount
+call_otm_db_percent = [0] * ActvalCount
 
 put_open = [False] * ActvalCount
 put_ol = [False] * ActvalCount
@@ -1360,7 +1360,7 @@ nm_put_ol = [False] * ActvalCount
 nm_put_oh = [False] * ActvalCount
 
 put_otm_db = [0] * ActvalCount
-put_otm_db_percent = [NaN] * ActvalCount
+put_otm_db_percent = [0] * ActvalCount
 
 콜대비_퍼센트_평균 = 0
 풋대비_퍼센트_평균 = 0
@@ -11873,23 +11873,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
         
         # 처리시간 줄여야함
-        #temp = call_db_percent[:]        
-        #temp = call_otm_db_percent[:]
-        
-        temp = copy.deepcopy(call_otm_db_percent)
+        call_otm_db_local = copy.deepcopy(call_otm_db_percent)
+        call_otm_db_local.remove(0)
 
-        call_db_percent_local = [value for value in temp if value == value]
-        call_db_percent_local.sort()
+        call_db_percent_local = copy.deepcopy(call_otm_db_percent)
+        call_db_percent_local.remove(0)
 
-        if call_db_percent_local:
+        np_call_otm_db_local = np.array(call_db_percent_local)
+        np_call_db_percent_local = np.array(call_db_percent_local)
 
-            #콜대비합 = round(df_call['대비'].sum(), 2)
-            콜대비합 = round(sum(call_otm_db), 2)
+        if np_call_db_percent_local:
 
-            콜대비합_단위평균 = round(콜대비합/len(call_db_percent_local), 2) 
+            콜대비합_단위평균 = round(np.mean(np_call_otm_db_local), 2) 
+            
+            콜대비_퍼센트_평균 = round(np.mean(np_call_db_percent_local), 1)
 
-            tmp = np.array(call_db_percent_local)            
-            콜대비_퍼센트_평균 = round(np.mean(tmp), 1)
             call_str = repr(콜대비합_단위평균) + '\n(' + repr(콜대비_퍼센트_평균) + '%' + ')'
 
             if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
@@ -12143,7 +12141,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             call_db_percent = [NaN] * option_pairs_count
             call_itm_count = 0
             call_otm_db = [0] * option_pairs_count
-            call_otm_db_percent = [NaN] * option_pairs_count
+            call_otm_db_percent = [0] * option_pairs_count
             call_open = [False] * option_pairs_count
             call_ol_count = 0
             call_oh_count = 0
@@ -12996,23 +12994,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
         
         # 처리시간 줄여야함
-        #temp = put_db_percent[:]        
-        #temp = put_otm_db_percent[:]
+        put_otm_db_local = copy.deepcopy(put_otm_db)
+        put_otm_db_local.remove(0)
 
-        temp = copy.deepcopy(put_otm_db_percent)
+        put_db_percent_local = copy.deepcopy(put_otm_db_percent)
+        put_db_percent_local.remove(0)
 
-        put_db_percent_local = [value for value in temp if value == value]
-        put_db_percent_local.sort()
+        np_put_otm_db_local = np.array(put_otm_db_local)
+        np_put_db_percent_local = np.array(put_db_percent_local)
 
-        if put_db_percent_local:
+        if np_put_db_percent_local:
 
-            #풋대비합 = round(df_put['대비'].sum(), 2)
-            풋대비합 = round(sum(put_otm_db), 2)
+            풋대비합_단위평균 = round(np.mean(np_put_otm_db_local), 2)      
+            풋대비_퍼센트_평균 = round(np.mean(np_put_db_percent_local), 1)
 
-            풋대비합_단위평균 = round(풋대비합/len(put_db_percent_local), 2)
-
-            tmp = np.array(put_db_percent_local)            
-            풋대비_퍼센트_평균 = round(np.mean(tmp), 1)
             put_str = repr(풋대비합_단위평균) + '\n(' + repr(풋대비_퍼센트_평균) + '%' + ')'
 
             if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
@@ -13269,7 +13264,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             put_db_percent = [NaN] * option_pairs_count
             put_itm_count = 0
             put_otm_db = [0] * option_pairs_count
-            put_otm_db_percent = [NaN] * option_pairs_count
+            put_otm_db_percent = [0] * option_pairs_count
             put_open = [False] * option_pairs_count
             put_ol_count = 0
             put_oh_count = 0
