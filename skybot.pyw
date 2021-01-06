@@ -4634,10 +4634,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         # 수정미결 표시
                         if not NightTime:
 
-                            if self.alternate_flag:
-                                self.call_oi_update()
-                            else:
-                                self.put_oi_update()
+                            self.call_oi_update()
+                            self.put_oi_update()
                         else:
                             pass
                         
