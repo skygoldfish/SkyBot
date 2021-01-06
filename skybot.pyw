@@ -11643,7 +11643,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            # 미결갱신
+            # 체결량 갱신
+            if 콜현재가 <= 콜시가갭:
+
+                매도누적체결량 = result['매도누적체결량'] * 콜현재가
+                매수누적체결량 = result['매수누적체결량'] * 콜현재가
+            else:
+                매도누적체결량 = result['매도누적체결량'] * (콜현재가 - 콜시가갭)
+                매수누적체결량 = result['매수누적체결량'] * (콜현재가 - 콜시가갭)
+
+            df_call_volume.at[index, '매도누적체결량'] = int(매도누적체결량)
+            df_call_volume.at[index, '매수누적체결량'] = int(매수누적체결량)
+
+            call_volume_power = df_call_volume['매수누적체결량'].sum() - df_call_volume['매도누적체결량'].sum()
+            df_call_information_graph.at[ovc_x_idx, 'volume'] = call_volume_power
+
+            # 미결 갱신
             if not NightTime and 콜시가 > 0 and 콜저가 < 콜고가:
 
                 콜시가갭 = df_call.at[index, '시가갭']
@@ -11939,74 +11954,58 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         index = call_행사가.index(call_result['단축코드'][5:8])
 
-        #콜시가 = df_call.at[index, '시가']
-        #콜저가 = df_call.at[index, '저가']
-        #콜고가 = df_call.at[index, '고가']
         콜현재가 = df_call.at[index, '현재가']
         콜시가갭 = df_call.at[index, '시가갭']
 
-        #if 콜시가 > 0 and 콜저가 < 콜고가:
-        if True:
+        if 콜현재가 <= 콜시가갭:
 
-            if 콜현재가 <= 콜시가갭:
-
-                수정거래량 = (call_result['매수누적체결량'] - call_result['매도누적체결량']) * 콜현재가
-                매도누적체결량 = call_result['매도누적체결량'] * 콜현재가
-                매수누적체결량 = call_result['매수누적체결량'] * 콜현재가
-
-                if not NightTime:
-
-                    매도누적체결건수 = call_result['매도누적체결건수'] * 콜현재가
-                    매수누적체결건수 = call_result['매수누적체결건수'] * 콜현재가
-                else:
-                    pass
-            else:
-                수정거래량 = (call_result['매수누적체결량'] - call_result['매도누적체결량']) * (콜현재가 - 콜시가갭)
-                매도누적체결량 = call_result['매도누적체결량'] * (콜현재가 - 콜시가갭)
-                매수누적체결량 = call_result['매수누적체결량'] * (콜현재가 - 콜시가갭)
-
-                if not NightTime:
-
-                    매도누적체결건수 = call_result['매도누적체결건수'] * (콜현재가 - 콜시가갭)
-                    매수누적체결건수 = call_result['매수누적체결건수'] * (콜현재가 - 콜시가갭)
-                else:
-                    pass
-
-            콜수정거래량 = int(수정거래량)
-            df_call.at[index, '수정거래량'] = 콜수정거래량
-            df_call_volume.at[index, '매도누적체결량'] = int(매도누적체결량)
-            df_call_volume.at[index, '매수누적체결량'] = int(매수누적체결량)
-            df_call.at[index, '거래량'] = call_result['누적거래량']
+            수정거래량 = (call_result['매수누적체결량'] - call_result['매도누적체결량']) * 콜현재가
 
             if not NightTime:
 
-                df_call_volume.at[index, '매도누적체결건수'] = int(매도누적체결건수)
-                df_call_volume.at[index, '매수누적체결건수'] = int(매수누적체결건수)
-            else:
-                pass
-            
-            수정거래량 = format(콜수정거래량, ',')
-
-            if 수정거래량 != self.tableWidget_call.item(index, Option_column.VP.value).text():
-
-                item = QTableWidgetItem(수정거래량)
-                item.setTextAlignment(Qt.AlignCenter)
-
-                if 콜수정거래량 > 0:
-                    item.setBackground(QBrush(pink))
-                else:
-                    item.setBackground(QBrush(lightskyblue))
-
-                item.setForeground(QBrush(검정색))
-
-                self.tableWidget_call.setItem(index, Option_column.VP.value, item)
+                매도누적체결건수 = call_result['매도누적체결건수'] * 콜현재가
+                매수누적체결건수 = call_result['매수누적체결건수'] * 콜현재가
             else:
                 pass
         else:
-            pass        
 
-        call_volume_power = df_call_volume['매수누적체결량'].sum() - df_call_volume['매도누적체결량'].sum()
-        df_call_information_graph.at[ovc_x_idx, 'volume'] = call_volume_power
+            수정거래량 = (call_result['매수누적체결량'] - call_result['매도누적체결량']) * (콜현재가 - 콜시가갭)
+
+            if not NightTime:
+
+                매도누적체결건수 = call_result['매도누적체결건수'] * (콜현재가 - 콜시가갭)
+                매수누적체결건수 = call_result['매수누적체결건수'] * (콜현재가 - 콜시가갭)
+            else:
+                pass
+
+        콜수정거래량 = int(수정거래량)
+        df_call.at[index, '수정거래량'] = 콜수정거래량
+        df_call.at[index, '거래량'] = call_result['누적거래량']
+
+        if not NightTime:
+
+            df_call_volume.at[index, '매도누적체결건수'] = int(매도누적체결건수)
+            df_call_volume.at[index, '매수누적체결건수'] = int(매수누적체결건수)
+        else:
+            pass
+        
+        수정거래량 = format(콜수정거래량, ',')
+
+        if 수정거래량 != self.tableWidget_call.item(index, Option_column.VP.value).text():
+
+            item = QTableWidgetItem(수정거래량)
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if 콜수정거래량 > 0:
+                item.setBackground(QBrush(pink))
+            else:
+                item.setBackground(QBrush(lightskyblue))
+
+            item.setForeground(QBrush(검정색))
+
+            self.tableWidget_call.setItem(index, Option_column.VP.value, item)
+        else:
+            pass
 
         순매수누적체결량 = format(call_volume_power, ',')
 
@@ -12710,6 +12709,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
+            # 체결량 갱신
+            if 풋현재가 <= 풋시가갭:
+
+                매도누적체결량 = result['매도누적체결량'] * 풋현재가
+                매수누적체결량 = result['매수누적체결량'] * 풋현재가
+            else:
+                매도누적체결량 = result['매도누적체결량'] * (풋현재가 - 풋시가갭)
+                매수누적체결량 = result['매수누적체결량'] * (풋현재가 - 풋시가갭)
+
+            df_put_volume.at[index, '매도누적체결량'] = int(매도누적체결량)
+            df_put_volume.at[index, '매수누적체결량'] = int(매수누적체결량)
+
+            put_volume_power = df_put_volume['매수누적체결량'].sum() - df_put_volume['매도누적체결량'].sum()
+            df_put_information_graph.at[ovc_x_idx, 'volume'] = put_volume_power
+
             # 미결갱신
             if not NightTime and 풋시가 > 0 and 풋저가 < 풋고가:
 
@@ -13007,74 +13021,58 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         index = put_행사가.index(put_result['단축코드'][5:8])
 
-        #풋시가 = df_put.at[index, '시가']
-        #풋저가 = df_put.at[index, '저가']
-        #풋고가 = df_put.at[index, '고가']
         풋현재가 = df_put.at[index, '현재가']
         풋시가갭 = df_put.at[index, '시가갭']
 
-        #if 풋시가 > 0 and 풋저가 < 풋고가:
-        if True:
+        if 풋현재가 <= 풋시가갭:
 
-            if 풋현재가 <= 풋시가갭:
-
-                수정거래량 = (put_result['매수누적체결량'] - put_result['매도누적체결량']) * 풋현재가
-                매도누적체결량 = put_result['매도누적체결량'] * 풋현재가
-                매수누적체결량 = put_result['매수누적체결량'] * 풋현재가
-
-                if not NightTime:
-
-                    매도누적체결건수 = put_result['매도누적체결건수'] * 풋현재가
-                    매수누적체결건수 = put_result['매수누적체결건수'] * 풋현재가
-                else:
-                    pass
-            else:
-                수정거래량 = (put_result['매수누적체결량'] - put_result['매도누적체결량']) * (풋현재가 - 풋시가갭)
-                매도누적체결량 = put_result['매도누적체결량'] * (풋현재가 - 풋시가갭)
-                매수누적체결량 = put_result['매수누적체결량'] * (풋현재가 - 풋시가갭)
-
-                if not NightTime:
-
-                    매도누적체결건수 = put_result['매도누적체결건수'] * (풋현재가 - 풋시가갭)
-                    매수누적체결건수 = put_result['매수누적체결건수'] * (풋현재가 - 풋시가갭)
-                else:
-                    pass
-
-            풋수정거래량 = int(수정거래량)
-            df_put.at[index, '수정거래량'] = 풋수정거래량
-            df_put_volume.at[index, '매도누적체결량'] = int(매도누적체결량)
-            df_put_volume.at[index, '매수누적체결량'] = int(매수누적체결량)
-            df_put.at[index, '거래량'] = put_result['누적거래량']
+            수정거래량 = (put_result['매수누적체결량'] - put_result['매도누적체결량']) * 풋현재가
 
             if not NightTime:
-                
-                df_put_volume.at[index, '매도누적체결건수'] = int(매도누적체결건수)
-                df_put_volume.at[index, '매수누적체결건수'] = int(매수누적체결건수)
-            else:
-                pass
-            
-            수정거래량 = format(풋수정거래량, ',')
 
-            if 수정거래량 != self.tableWidget_put.item(index, Option_column.VP.value).text():
-
-                item = QTableWidgetItem(수정거래량)
-                item.setTextAlignment(Qt.AlignCenter)
-
-                if 풋수정거래량 > 0:
-                    item.setBackground(QBrush(pink))
-                else:
-                    item.setBackground(QBrush(lightskyblue))
-
-                item.setForeground(QBrush(검정색))
-
-                self.tableWidget_put.setItem(index, Option_column.VP.value, item)
+                매도누적체결건수 = put_result['매도누적체결건수'] * 풋현재가
+                매수누적체결건수 = put_result['매수누적체결건수'] * 풋현재가
             else:
                 pass
         else:
-            pass        
 
-        put_volume_power = df_put_volume['매수누적체결량'].sum() - df_put_volume['매도누적체결량'].sum()
-        df_put_information_graph.at[ovc_x_idx, 'volume'] = put_volume_power
+            수정거래량 = (put_result['매수누적체결량'] - put_result['매도누적체결량']) * (풋현재가 - 풋시가갭)
+
+            if not NightTime:
+
+                매도누적체결건수 = put_result['매도누적체결건수'] * (풋현재가 - 풋시가갭)
+                매수누적체결건수 = put_result['매수누적체결건수'] * (풋현재가 - 풋시가갭)
+            else:
+                pass
+
+        풋수정거래량 = int(수정거래량)
+        df_put.at[index, '수정거래량'] = 풋수정거래량
+        df_put.at[index, '거래량'] = put_result['누적거래량']
+
+        if not NightTime:
+            
+            df_put_volume.at[index, '매도누적체결건수'] = int(매도누적체결건수)
+            df_put_volume.at[index, '매수누적체결건수'] = int(매수누적체결건수)
+        else:
+            pass
+        
+        수정거래량 = format(풋수정거래량, ',')
+
+        if 수정거래량 != self.tableWidget_put.item(index, Option_column.VP.value).text():
+
+            item = QTableWidgetItem(수정거래량)
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if 풋수정거래량 > 0:
+                item.setBackground(QBrush(pink))
+            else:
+                item.setBackground(QBrush(lightskyblue))
+
+            item.setForeground(QBrush(검정색))
+
+            self.tableWidget_put.setItem(index, Option_column.VP.value, item)
+        else:
+            pass   
         
         option_volume_power = call_volume_power - put_volume_power
 
