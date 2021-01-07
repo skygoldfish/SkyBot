@@ -2387,7 +2387,7 @@ else:
 
                     if type(data) == list:
                         self.trigger_list.emit(data)
-                    elif type(data) == dict:
+                    elif type(data) == dict and not flag_realdata_update_is_running:
                         self.trigger_dict.emit(data)                    
                     else:
                         pass
@@ -36012,6 +36012,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 
     def OnQApplicationStarted(self):
+
         self.clock = QtCore.QTimer()
         self.clock.timeout.connect(self.OnClockTick)
         self.clock.start(1000)
