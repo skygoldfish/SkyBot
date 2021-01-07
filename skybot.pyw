@@ -2373,6 +2373,11 @@ else:
 
             self.daemon = True
             self.dataQ = dataQ
+            self.drop_count = 0
+
+        def get_drop_count(self):
+
+            return self.drop_count
 
         def run(self):
 
@@ -2384,6 +2389,11 @@ else:
                     flag_produce_queue_empty = False
 
                     data = self.dataQ.get(False)
+                    
+                    if flag_realdata_update_is_running:
+                        self.drop_count += 1
+                    else:
+                        pass
 
                     if type(data) == list:
                         self.trigger_list.emit(data)
@@ -35904,6 +35914,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         @pyqtSlot(dict)
         def mp_transfer_realdata(self, realdata):
 
+            dt = datetime.datetime.now() 
+
             # 데이타를 전광판 다이얼로그로 전달
             if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:                
 
@@ -35920,6 +35932,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setForeground(QBrush(녹색))                
 
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
+
+                dropcount = self.mp_consumer.get_drop_count()
+
+                item = QTableWidgetItem("{0}".format(dropcount))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.dialog['선물옵션전광판'].tableWidget_fut.setHorizontalHeaderItem(0, item)
 
                 self.dialog['선물옵션전광판'].UpdateRealdata(realdata)
             else:            
