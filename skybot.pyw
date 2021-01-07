@@ -4535,71 +4535,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.heartbeat_check()
             else:
                 pass
-
-            '''
-            # 증권사 및 인터넷 연결 확인
-            if not self.parent.connection.IsConnected():
-                
-                flag_service_provider_broken = True                
-
-                # 인터넷 연결 확인후 증권사 연결확인
-                ipaddress = socket.gethostbyname(socket.gethostname())
-
-                if ipaddress == '127.0.0.1':
-
-                    flag_internet_connection_broken = True
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 인터넷 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
-                    self.parent.statusbar.showMessage(txt)
-
-                    if TARGET_MONTH_SELECT == 'CM' and not flag_broken_capture:
-
-                        flag_broken_capture = True
-
-                        self.textBrowser.append(txt)
-                        print(txt)
-
-                        self.parent.statusbar.showMessage(txt) 
-
-                        self.capture_screenshot()              
-
-                        file = open('inernet_error.log', 'w')
-                        text = self.textBrowser.toPlainText()
-                        file.write(text)
-                        file.close()
-                    else:
-                        pass                    
-                else:
-                    flag_internet_connection_broken = False
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 증권사 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
-                    self.parent.statusbar.showMessage(txt)
-
-                    if TARGET_MONTH_SELECT == 'CM' and not flag_broken_capture:
-                        
-                        flag_broken_capture = True
-
-                        self.textBrowser.append(txt)
-                        print(txt)
-
-                        self.parent.statusbar.showMessage(txt) 
-
-                        self.capture_screenshot()             
-
-                        file = open('sc_error.log', 'w')
-                        text = self.textBrowser.toPlainText()
-                        file.write(text)
-                        file.close()
-
-                        # 모든 쓰레드를 중지시킨다.
-                        self.KillScoreBoardAllThread()                                                                        
-                    else:
-                        pass            
-            else:
-                flag_internet_connection_broken = False
-                flag_service_provider_broken = False
-            '''
-
+            
             # 옵션 행사가 총합이 200개를 넘을 경우 선물 변동성지수 요청을 위한 로직            
             if (not flag_internet_connection_broken and not flag_service_provider_broken) and flag_option_pair_full:
 
@@ -4639,13 +4575,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.option_quote_update()
             else:
                 pass
-            '''
-            if flag_realdata_update_is_running:
-                txt = '[{0:02d}:{1:02d}:{2:02d}] flag_realdata_update_is_running at update screen is {3}\r'.format(dt.hour, dt.minute, dt.second, flag_realdata_update_is_running)
-                self.textBrowser.append(txt)
-            else:
-                pass
-            '''
+            
             # 실시간 서비스                     
             #if (not flag_internet_connection_broken and not flag_service_provider_broken) and not flag_realdata_update_is_running and FLAG_GUEST_CONTROL and receive_real_ovc:
             if (not flag_internet_connection_broken and not flag_service_provider_broken) and FLAG_GUEST_CONTROL and receive_real_ovc:
@@ -4662,7 +4592,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if flag_checkBox_HS:
                         # 수정미결 표시
                         if not NightTime:
-
                             self.call_oi_update()
                             self.put_oi_update()
                         else:
@@ -4908,11 +4837,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             # 증권사 서버초기화(오전 7시 10분경)전에 프로그램을 미리 오프라인으로 전환하여야 Crash 발생안함
             if (not flag_internet_connection_broken and not flag_service_provider_broken):
-
-                if MULTIPROCESS:
-                    online_state = Myprocess.Check_Online()
-                else:
-                    online_state = self.parent.connection.IsConnected()
                 
                 if NightTime:
 
@@ -5091,7 +5015,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # 장종료 1분후에 프로그램을 오프라인으로 전환시킴
                     if jugan_service_terminate and 서버시간 >= (15 * 3600 + 46 * 60):
 
-                        if self.parent.connection.IsConnected():
+                        if online_state:
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                             self.textBrowser.append(txt)
@@ -13641,13 +13565,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item = QTableWidgetItem(oi_str)
         self.tableWidget_quote.setHorizontalHeaderItem(Quote_column.미결종합.value - 1, item)
         
-        #old_oi_delta = oi_delta
-        #oi_delta = 콜_수정미결합 - 풋_수정미결합
-        
         수정미결합 = 콜_수정미결합 + 풋_수정미결합
-        
-        #수정미결_직전대비.extend([oi_delta - old_oi_delta])
-        #temp = list(수정미결_직전대비)
 
         if 수정미결합 > 0:
 
@@ -13656,9 +13574,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             콜_수정미결퍼센트 = 0
             풋_수정미결퍼센트 = 0
-
-        #df_call_information_graph.at[ovc_x_idx, 'open_interest'] = 콜_수정미결퍼센트
-        #df_put_information_graph.at[ovc_x_idx, 'open_interest'] = 풋_수정미결퍼센트
 
         item_str = '{0:.2f}({1:.2f})% \n {2:.2f}({3:.2f})% '.format(콜_수정미결퍼센트, call_oi_init_percent, 풋_수정미결퍼센트, put_oi_init_percent)
 
