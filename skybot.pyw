@@ -23142,7 +23142,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.lineEdit_mp.setText(txt)
 
         txt = str(plot_update_interval)
-        self.lineEdit.setText(txt)
+        self.lineEdit_plot.setText(txt)
 
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
         #atexit.register(self.__del__) 
@@ -23176,7 +23176,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_news.stateChanged.connect(self.checkBox_news_checkState)
 
         self.lineEdit_mp.returnPressed.connect(self.change_mp_interval)
-        self.lineEdit.returnPressed.connect(self.change_plot_interval)
+        self.lineEdit_plot.returnPressed.connect(self.change_plot_interval)
 
     def change_mp_interval(self):
 
