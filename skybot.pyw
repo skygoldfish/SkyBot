@@ -11614,8 +11614,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 미결 갱신
             if not NightTime:
 
-                콜시가갭 = df_call.at[index, '시가갭']
-
                 if 콜현재가 <= 콜시가갭:
 
                     수정미결 = result['미결제약정수량'] * 콜현재가
@@ -12696,8 +12694,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             # 미결갱신
             if not NightTime:
-
-                풋시가갭 = df_put.at[index, '시가갭']
 
                 if 풋현재가 <= 풋시가갭:
 
