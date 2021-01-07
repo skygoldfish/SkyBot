@@ -359,6 +359,7 @@ NEWS_CHK = parser.getboolean('RealTime Request Item Switch', 'NEWS')
 MA_TYPE = parser.getint('Moving Average Type', 'MA Type')
 
 # [8]. << Initial Value >>
+MP_SEND_INTERVAL = parser.getint('Initial Value', 'MP Send Interval')
 CALL_ITM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Call ITM Request')
 CALL_OTM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Call OTM Request')
 PUT_ITM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Put ITM Request')
@@ -1858,6 +1859,9 @@ flag_plot_update_interval_changed = False
 processing_time = 0
 args_processing_time = 0
 
+flag_mp_interval_changed = False
+mp_send_interval = MP_SEND_INTERVAL
+
 #####################################################################################################################################################################
 # UI 파일정의
 #####################################################################################################################################################################
@@ -1975,7 +1979,7 @@ def logging_time(original_fn):
 
         processing_time = (end_time - start_time) * 1000
 
-        print("{0} Processing Time [{1:02d}:{2:02d}:{3:02d}]: {4:.2f} msec".format(original_fn.__name__, dt.hour, dt.minute, dt.second, processing_time))
+        print("************* {0} Processing Time [{1:02d}:{2:02d}:{3:02d}]: {4:.2f} msec".format(original_fn.__name__, dt.hour, dt.minute, dt.second, processing_time))
 
         return result
 
@@ -1997,7 +2001,7 @@ def logging_time_with_args(original_fn):
         args_processing_time = (end_time - start_time) * 1000
 
         if args[-1]['szTrCode'] == 'OC0' or args[-1]['szTrCode'] == 'EC0':
-            print("{0} Processing Time [{1:02d}:{2:02d}:{3:02d}]: {4:.2f} msec".format(args[-1]['szTrCode'], dt.hour, dt.minute, dt.second, args_processing_time))
+            print("************* {0} Processing Time [{1:02d}:{2:02d}:{3:02d}]: {4:.2f} msec".format(args[-1]['szTrCode'], dt.hour, dt.minute, dt.second, args_processing_time))
         else:
             pass
 
@@ -2372,7 +2376,7 @@ else:
 
         def run(self):
 
-            global flag_produce_queue_empty
+            global flag_produce_queue_empty, flag_mp_interval_changed
 
             while True:
                 if not self.dataQ.empty():
@@ -2387,6 +2391,15 @@ else:
                         self.trigger_dict.emit(data)                    
                     else:
                         pass
+
+                    if flag_mp_interval_changed:
+                        print('MP interval changed...')
+                        flag_mp_interval_changed = False
+                    else:
+                        pass
+
+                    QTest.qWait(mp_send_interval)
+                    #QTest.qWait(500)
                 else:
                     flag_produce_queue_empty = True
 ########################################################################################################################
@@ -23051,9 +23064,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
         else:
-            print('멀티프로세스 쓰레드 종료...')
-            self.mp_consumer.terminate()
-            Myprocess.shutdown()        
+            pass        
 
     def closeEvent(self,event):
 
@@ -23127,6 +23138,9 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_gold.setChecked(GOLD_CHK)
         self.checkBox_news.setChecked(NEWS_CHK)
 
+        txt = str(mp_send_interval)
+        self.lineEdit_mp.setText(txt)
+
         txt = str(plot_update_interval)
         self.lineEdit.setText(txt)
 
@@ -23161,11 +23175,28 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_gold.stateChanged.connect(self.checkBox_gold_checkState)
         self.checkBox_news.stateChanged.connect(self.checkBox_news_checkState)
 
+        self.lineEdit_mp.returnPressed.connect(self.change_mp_interval)
         self.lineEdit.returnPressed.connect(self.change_plot_interval)
+
+    def change_mp_interval(self):
+
+        global mp_send_interval, flag_mp_interval_changed
+
+        dt = datetime.datetime.now()
+
+        txt = self.lineEdit_mp.text()
+        mp_send_interval = int(txt)
+
+        flag_mp_interval_changed = True
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 주기를 {3} msec로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, mp_send_interval)
+        self.parent.textBrowser.append(txt)
 
     def change_plot_interval(self):
 
         global plot_update_interval, flag_plot_update_interval_changed
+
+        dt = datetime.datetime.now()
 
         txt = self.lineEdit.text()
         plot_update_interval = float(txt)
