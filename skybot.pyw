@@ -2399,7 +2399,6 @@ else:
                         pass
 
                     QTest.qWait(mp_send_interval)
-                    #QTest.qWait(500)
                 else:
                     flag_produce_queue_empty = True
 ########################################################################################################################
