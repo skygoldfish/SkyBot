@@ -4451,23 +4451,32 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             start_time = timeit.default_timer()
 
             self.alternate_flag = not self.alternate_flag
+            
+            # 온라인 여부확인
+            if MULTIPROCESS:
+                online_state = Myprocess.Check_Online()
+            else:
+                online_state = self.parent.connection.IsConnected()
 
             # 인터넷 연결확인
             ipaddress = socket.gethostbyname(socket.gethostname())
 
-            if ipaddress == '127.0.0.1':
+            if not online_state and ipaddress == '127.0.0.1':
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 인터넷 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.statusbar.showMessage(txt)
                 
-                if TARGET_MONTH_SELECT == 'CM' and not flag_broken_capture:                
+                if not flag_broken_capture:                
 
                     self.textBrowser.append(txt)
                     print(txt)
 
                     self.parent.statusbar.showMessage(txt)
 
-                    self.capture_screenshot()              
+                    if TARGET_MONTH_SELECT == 'CM':
+                        self.capture_screenshot()
+                    else:
+                        pass              
 
                     file = open('inernet_error.log', 'w')
                     text = self.textBrowser.toPlainText()
@@ -4484,14 +4493,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 flag_internet_connection_broken = True              
             else:
                 flag_internet_connection_broken = False
-
-            if MULTIPROCESS:
-                online_state = Myprocess.Check_Online()
-            else:
-                online_state = self.parent.connection.IsConnected()
             
             # 증권사 연결확인(인터넷이 연결된 상태에서만 확인가능)
-            if not online_state:
+            if not online_state and ipaddress != '127.0.0.1':
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 증권사 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.statusbar.showMessage(txt)
@@ -23052,12 +23056,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if not MULTIPROCESS:
             if self.realtime_data_worker.isRunning():
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 모든 실시간요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(txt)
-                self.parent.textBrowser.append(txt)
+                if not flag_internet_connection_broken:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 모든 실시간요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    self.parent.textBrowser.append(txt)
 
-                self.realtime_data_worker.CancelAllRealData()            
-                QTest.qWait(10)
+                    self.realtime_data_worker.CancelAllRealData()            
+                    QTest.qWait(10)
+                else:
+                    pass
 
                 self.realtime_data_worker.terminate()
                 print('realtime_data_worker is terminated at KillScoreBoardAllThread...')
