@@ -1855,6 +1855,9 @@ vb_txt = ''
 
 flag_plot_update_interval_changed = False
 
+processing_time = 0
+args_processing_time = 0
+
 #####################################################################################################################################################################
 # UI 파일정의
 #####################################################################################################################################################################
@@ -1961,13 +1964,18 @@ class RealDataTableModel(QAbstractTableModel):
 def logging_time(original_fn):
 
     def wrapper_fn(*args, **kwargs):
+
+        global processing_time
         
         dt = datetime.datetime.now()
 
         start_time = timeit.default_timer()
         result = original_fn(*args, **kwargs)
         end_time = timeit.default_timer()
-        print("{0} Processing Time [{1:02d}:{2:02d}:{3:02d}]: {4:.2f} msec".format(original_fn.__name__, dt.hour, dt.minute, dt.second, (end_time-start_time) * 1000))
+
+        processing_time = (end_time - start_time) * 1000
+
+        print("{0} Processing Time [{1:02d}:{2:02d}:{3:02d}]: {4:.2f} msec".format(original_fn.__name__, dt.hour, dt.minute, dt.second, processing_time))
 
         return result
 
@@ -1977,6 +1985,8 @@ def logging_time(original_fn):
 def logging_time_with_args(original_fn):
 
     def wrapper_fn(*args, **kwargs):
+
+        global args_processing_time
         
         dt = datetime.datetime.now()
 
@@ -1984,8 +1994,10 @@ def logging_time_with_args(original_fn):
         result = original_fn(*args, **kwargs)
         end_time = timeit.default_timer()
 
+        args_processing_time = (end_time - start_time) * 1000
+
         if args[-1]['szTrCode'] == 'OC0' or args[-1]['szTrCode'] == 'EC0':
-            print("{0} Processing Time [{1:02d}:{2:02d}:{3:02d}]: {4:.2f} msec".format(args[-1]['szTrCode'], dt.hour, dt.minute, dt.second, (end_time-start_time) * 1000))
+            print("{0} Processing Time [{1:02d}:{2:02d}:{3:02d}]: {4:.2f} msec".format(args[-1]['szTrCode'], dt.hour, dt.minute, dt.second, args_processing_time))
         else:
             pass
 
@@ -3078,7 +3090,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         data = self.consumerQ.get(False)
 
-        item = QTableWidgetItem("{0}".format(data['szTrCode']))
+        item = QTableWidgetItem("{0}\n({1:.2f})".format(data['szTrCode']), args_processing_time)
         item.setTextAlignment(Qt.AlignCenter)
 
         item.setBackground(QBrush(검정색))
@@ -35945,16 +35957,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         def mp_transfer_realdata(self, realdata):
 
             # 데이타를 전광판 다이얼로그로 전달
-            if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
+            if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:                
 
-                item = QTableWidgetItem("{0}".format(realdata['szTrCode']))
-                item.setTextAlignment(Qt.AlignCenter)
-                
-                item.setBackground(QBrush(검정색))
+                if realdata['szTrCode'] == 'OC0' or realdata['szTrCode'] == 'EC0':
 
-                if realdata['szTrCode'] == 'OH0' or realdata['szTrCode'] == 'EH0':
+                    item = QTableWidgetItem("{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(검정색))
                     item.setForeground(QBrush(적색))
                 else:
+                    item = QTableWidgetItem("{0}".format(realdata['szTrCode']))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(검정색))
                     item.setForeground(QBrush(녹색))                
 
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
