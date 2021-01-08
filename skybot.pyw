@@ -2396,12 +2396,15 @@ else:
 
                     data = self.dataQ.get(False)
                     
-                    if NightTime and data['szTrCode'] != 'OVC':
-                        self.total_count += 1
-                    else:
-                        self.total_count += 1
+                    if type(data) == dict:
+                        if NightTime and data['szTrCode'] != 'OVC':
+                            self.total_count += 1
+                        else:
+                            self.total_count += 1
 
-                    self.total_packet_size += sys.getsizeof(data)
+                        self.total_packet_size += sys.getsizeof(data)
+                    else:
+                        pass
                     
                     if flag_realdata_update_is_running:
                         self.drop_count += 1
