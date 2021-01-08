@@ -2378,10 +2378,12 @@ else:
             self.total_count = 0
             # 누락된 패킷수
             self.drop_count = 0
+            # 수신된 총 패킷크기
+            self.total_packet_size = 0
 
         def get_packet_count(self):
 
-            return self.drop_count, self.total_count
+            return self.drop_count, self.total_count, self.total_packet_size
 
         def run(self):
 
@@ -2393,8 +2395,9 @@ else:
                     flag_produce_queue_empty = False
 
                     data = self.dataQ.get(False)
-
+                    
                     self.total_count += 1
+                    self.total_packet_size += sys.getsizeof(data)
                     
                     if flag_realdata_update_is_running:
                         self.drop_count += 1
@@ -35939,8 +35942,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
 
-                dropcount, totalcount = self.mp_consumer.get_packet_count()
-                count_txt = '{0}/{1}'.format(format(dropcount, ','), format(totalcount, ','))
+                dropcount, totalcount, totalsize = self.mp_consumer.get_packet_count()
+                count_txt = '{0}/{1}({2}k)'.format(format(dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','))
 
                 item = QTableWidgetItem(count_txt)
                 item.setTextAlignment(Qt.AlignCenter)
