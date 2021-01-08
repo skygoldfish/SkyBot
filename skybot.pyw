@@ -27066,7 +27066,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot2_center_val_upper_line.setValue(0)
 
         # 옵션잔량비   
-        elif comboindex2 == 3:
+        elif comboindex2 == 7:
 
             self.label_21.setText(" - ")
             self.label_22.setText(" - ")
