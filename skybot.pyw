@@ -1999,12 +1999,12 @@ def logging_time_with_args(original_fn):
         end_time = timeit.default_timer()
 
         args_processing_time = (end_time - start_time) * 1000
-
+        '''
         if args[-1]['szTrCode'] == 'OC0' or args[-1]['szTrCode'] == 'EC0':
             print("************* {0} Processing Time [{1:02d}:{2:02d}:{3:02d}]: {4:.2f} msec".format(args[-1]['szTrCode'], dt.hour, dt.minute, dt.second, args_processing_time))
         else:
             pass
-
+        '''
         return result
 
     return wrapper_fn
@@ -15377,450 +15377,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if not MULTIPROCESS:
                     self.realtime_data_worker.start()
                 else:
-                    pass
-
-                #############################################################################################################################
-                # 실시간 정보요청
-                #############################################################################################################################
-
-                # 장운영 정보 요청
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 장운영 정보를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(txt)
-
-                if not MULTIPROCESS:
-                    self.realtime_data_worker.RequestRealData('JIF')
-                else:
-                    Myprocess.RequestRealData('JIF')                
-
-                # KOSPI200 지수요청
-                txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI200 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(txt)
-
-                if not MULTIPROCESS:
-                    self.realtime_data_worker.RequestRealData('IJ', KOSPI200)
-                else:
-                    Myprocess.RequestRealData('IJ', KOSPI200)
-                    #Myprocess.RequestRealData('IJ', DOW)                
-
-                if KOSPI_KOSDAQ:
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI/KOSDAQ 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-
-                    if not MULTIPROCESS:
-                        self.realtime_data_worker.RequestRealData('IJ', KOSPI)
-                        self.realtime_data_worker.RequestRealData('IJ', KOSDAQ)
-                    else:
-                        Myprocess.RequestRealData('IJ', KOSPI)
-                        Myprocess.RequestRealData('IJ', KOSDAQ)                    
-                else:
-                    pass
-
-                # SAMSUNG 체결지수 요청
-                txt = '[{0:02d}:{1:02d}:{2:02d}] SAMSUNG 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(txt)
-
-                if not MULTIPROCESS:
-                    self.realtime_data_worker.RequestRealData('S3', SAMSUNG)
-                else:
-                    Myprocess.RequestRealData('S3', SAMSUNG)                
-
-                if pre_start:
-
-                    # KOSPI200/FUTURES 예상지수 요청
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI200, KOSDAQ 예상체결을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-
-                    if not MULTIPROCESS:
-                        self.realtime_data_worker.RequestRealData('YJ', KOSPI200)
-                        self.realtime_data_worker.RequestRealData('YJ', KOSDAQ)
-                    else:
-                        Myprocess.RequestRealData('YJ', KOSPI200)
-                        Myprocess.RequestRealData('YJ', KOSDAQ)                    
-
-                    # 지수선물 예상체결 요청
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 선물 예상체결을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-
-                    if not MULTIPROCESS:
-                        self.realtime_data_worker.RequestRealData('YFC', FUT_CODE)
-                    else:
-                        Myprocess.RequestRealData('YFC', FUT_CODE)                    
-
-                    # KOSPI 예상체결 요청
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 삼성,현대 예상체결을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-
-                    if not MULTIPROCESS:
-                        self.realtime_data_worker.RequestRealData('YS3', SAMSUNG)
-                        self.realtime_data_worker.RequestRealData('YS3', HYUNDAI)
-                    else:
-                        Myprocess.RequestRealData('YS3', SAMSUNG)
-                        Myprocess.RequestRealData('YS3', HYUNDAI)                    
-                else:
-                    pass
-
-                # 실시간 본월물 선물 가격요청
-                if CM_FUT_PRICE:
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-
-                    if not MULTIPROCESS:
-                        self.realtime_data_worker.RequestRealData(FUT_REAL, GMSHCODE)
-                    else:
-                        Myprocess.RequestRealData(FUT_REAL, GMSHCODE)                    
-                else:
-                    pass
-
-                # 실시간 본월물 선물 호가요청
-                if CM_FUT_QUOTE:
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-
-                    if not MULTIPROCESS:
-                        self.realtime_data_worker.RequestRealData(FUT_HO, GMSHCODE)
-                    else:
-                        Myprocess.RequestRealData(FUT_HO, GMSHCODE)                    
-                else:
-                    pass
-
-                # 실시간 본월물 옵션 가격요청
-                if CM_OPT_PRICE:
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 예상가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)                      
-
-                    if not MULTIPROCESS:
-                        for i in range(CM_OPT_LENGTH):
-                            self.realtime_data_worker.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
-                            self.realtime_data_worker.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
-
-                            # 지수옵션 예상체결 요청
-                            if pre_start:
-                                self.realtime_data_worker.RequestRealData('YOC', CM_CALL_CODE[i])
-                                self.realtime_data_worker.RequestRealData('YOC', CM_PUT_CODE[i])
-                            else:
-                                pass
-                    else:
-                        for i in range(CM_OPT_LENGTH):
-                            Myprocess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
-                            Myprocess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
-
-                            # 지수옵션 예상체결 요청
-                            if pre_start:
-                                Myprocess.RequestRealData('YOC', CM_CALL_CODE[i])
-                                Myprocess.RequestRealData('YOC', CM_PUT_CODE[i])
-                            else:
-                                pass                                     
-                else:
-                    pass
-
-                if CM_OPT_PRICE1:
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 예상가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
-                    self.textBrowser.append(txt)
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
-                    self.textBrowser.append(txt)
-
-                    if not MULTIPROCESS:
-                        for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
-                            self.realtime_data_worker.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
-
-                            if pre_start:                            
-                                self.realtime_data_worker.RequestRealData('YOC', CM_CALL_CODE[i])
-                            else:
-                                pass
-
-                        for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
-                            self.realtime_data_worker.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
-
-                            if pre_start:
-                                self.realtime_data_worker.RequestRealData('YOC', CM_PUT_CODE[i])
-                            else:
-                                pass
-                    else:
-                        for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
-                            Myprocess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
-
-                            if pre_start:                            
-                                Myprocess.RequestRealData('YOC', CM_CALL_CODE[i])
-                            else:
-                                pass
-
-                        for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
-                            Myprocess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
-
-                            if pre_start:
-                                Myprocess.RequestRealData('YOC', CM_PUT_CODE[i])
-                            else:
-                                pass                                       
-                else:
-                    pass
-
-                # 실시간 본월물 옵션 호가요청
-                if CM_OPT_QUOTE:
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-
-                    if not MULTIPROCESS:
-                        for i in range(CM_OPT_LENGTH):
-                            self.realtime_data_worker.RequestRealData(OPT_HO, CM_CALL_CODE[i])
-                            self.realtime_data_worker.RequestRealData(OPT_HO, CM_PUT_CODE[i])
-                    else:
-                        for i in range(CM_OPT_LENGTH):
-                            Myprocess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
-                            Myprocess.RequestRealData(OPT_HO, CM_PUT_CODE[i])                      
-                else:
-                    pass
-
-                # 실시간 본월물 옵션 호가요청(등가근처 10개)
-                if CM_OPT_QUOTE1:
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가(내가 {3}개, 외가 {4}개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
-                    self.textBrowser.append(txt)
-
-                    if not MULTIPROCESS:
-                        for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
-                            self.realtime_data_worker.RequestRealData(OPT_HO, CM_CALL_CODE[i])
-
-                        for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
-                            self.realtime_data_worker.RequestRealData(OPT_HO, CM_PUT_CODE[i])
-                    else:
-                        for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
-                            Myprocess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
-
-                        for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
-                            Myprocess.RequestRealData(OPT_HO, CM_PUT_CODE[i])                    
-                else:
-                    pass
-
-                # 실시간 차월물 선물 가격요청
-                if NM_FUT_PRICE:
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 선물 가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-
-                    if not MULTIPROCESS:
-                        self.realtime_data_worker.RequestRealData(FUT_REAL, CMSHCODE)
-                    else:
-                        Myprocess.RequestRealData(FUT_REAL, CMSHCODE)                    
-                else:
-                    pass
-
-                # 실시간 차월물,차차월물 선물 호가요청
-                if NM_FUT_QUOTE:
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 선물 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-
-                    if not MULTIPROCESS:
-                        self.realtime_data_worker.RequestRealData(FUT_HO, CMSHCODE)
-                        self.realtime_data_worker.RequestRealData(FUT_HO, CCMSHCODE)
-                    else:
-                        Myprocess.RequestRealData(FUT_HO, CMSHCODE)
-                        Myprocess.RequestRealData(FUT_HO, CCMSHCODE)                    
-                else:
-                    pass
-
-                # 실시간 차월물 옵션 가격요청
-                if NM_OPT_PRICE:
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 예상가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-
-                    if not MULTIPROCESS:
-                        for i in range(NM_OPT_LENGTH):
-                            self.realtime_data_worker.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
-                            self.realtime_data_worker.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
-
-                            # 지수옵션 예상체결 요청
-                            if pre_start:
-                                self.realtime_data_worker.RequestRealData('YOC', NM_CALL_CODE[i])
-                                self.realtime_data_worker.RequestRealData('YOC', NM_PUT_CODE[i])
-                            else:
-                                pass
-                    else:
-                        for i in range(NM_OPT_LENGTH):
-                            Myprocess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
-                            Myprocess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
-
-                            # 지수옵션 예상체결 요청
-                            if pre_start:
-                                Myprocess.RequestRealData('YOC', NM_CALL_CODE[i])
-                                Myprocess.RequestRealData('YOC', NM_PUT_CODE[i])
-                            else:
-                                pass                                                           
-                else:
-                    pass
-
-                # 실시간 차월물 옵션 호가요청
-                if NM_OPT_QUOTE:
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-
-                    if not MULTIPROCESS:
-                        for i in range(NM_OPT_LENGTH):
-                            self.realtime_data_worker.RequestRealData(OPT_HO, NM_CALL_CODE[i])
-                            self.realtime_data_worker.RequestRealData(OPT_HO, NM_PUT_CODE[i])
-                    else:
-                        for i in range(NM_OPT_LENGTH):
-                            Myprocess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
-                            Myprocess.RequestRealData(OPT_HO, NM_PUT_CODE[i])                    
-                else:
-                    pass
-
-                # 실시간 차월물 옵션 호가요청(등가근처 10개)
-                if NM_OPT_QUOTE1:
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가(내가 {3}개, 외가 {4}개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
-                    self.textBrowser.append(txt)
-
-                    if not MULTIPROCESS:
-                        for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
-                            self.realtime_data_worker.RequestRealData(OPT_HO, NM_CALL_CODE[i])
-
-                        for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
-                            self.realtime_data_worker.RequestRealData(OPT_HO, NM_PUT_CODE[i])
-                    else:
-                        for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
-                            Myprocess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
-
-                        for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
-                            Myprocess.RequestRealData(OPT_HO, NM_PUT_CODE[i])                    
-                else:
-                    pass
-
-                # 실시간 업종별 투자자별 & 프로그램 매매현황 요청
-                if SUPPLY_DEMAND:
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 업종별 투자자별 & 프로그램 매매현황을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-                    
-                    if not MULTIPROCESS:
-                        self.realtime_data_worker.RequestRealData('BM', FUTURES)
-                        self.realtime_data_worker.RequestRealData('BM', KOSPI)
-                        self.realtime_data_worker.RequestRealData('PM', KOSPI)
-                    else:
-                        Myprocess.RequestRealData('BM', FUTURES)
-                        Myprocess.RequestRealData('BM', KOSPI)
-                        Myprocess.RequestRealData('PM', KOSPI)                    
-                else:
-                    pass
-
-                # 실시간 해외선물 DOW 요청
-                if DOW_CHK:
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 DOW를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-
-                    if not MULTIPROCESS:
-                        self.realtime_data_worker.RequestRealData('OVC', DOW)
-                    else:
-                        Myprocess.RequestRealData('OVC', DOW)                    
-                else:
-                    pass
-
-                # 실시간 해외선물 SP500 요청
-                if SP500_CHK:
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 S&P 500을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-
-                    if not MULTIPROCESS:
-                        self.realtime_data_worker.RequestRealData('OVC', SP500)
-                    else:
-                        Myprocess.RequestRealData('OVC', SP500)                    
-                else:
-                    pass
-
-                # 실시간 해외선물 NASDAQ 요청
-                if NASDAQ_CHK:
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 NASDAQ을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-
-                    if not MULTIPROCESS:
-                        self.realtime_data_worker.RequestRealData('OVC', NASDAQ)
-                    else:
-                        Myprocess.RequestRealData('OVC', NASDAQ)                    
-                else:
-                    pass
-
-                # 실시간 해외선물 WTI OIL 요청
-                if WTI_CHK:
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 WTI OIL을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-
-                    if not MULTIPROCESS:
-                        self.realtime_data_worker.RequestRealData('OVC', WTI)
-                    else:
-                        Myprocess.RequestRealData('OVC', WTI)                    
-                else:
-                    pass
-
-                # 실시간 해외선물 EUROFX 요청
-                if EUROFX_CHK:
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 EUROFX을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-
-                    if not MULTIPROCESS:
-                        self.realtime_data_worker.RequestRealData('OVC', EUROFX)
-                    else:
-                        Myprocess.RequestRealData('OVC', EUROFX)                    
-                else:
-                    pass
-
-                # 실시간 해외선물 HANGSENG 요청
-                if HANGSENG_CHK:
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 HANGSENG을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-
-                    if not MULTIPROCESS:
-                        self.realtime_data_worker.RequestRealData('OVC', HANGSENG)
-                    else:
-                        Myprocess.RequestRealData('OVC', HANGSENG)                    
-                else:
-                    pass
-
-                # 실시간 해외선물 GOLD 요청
-                if GOLD_CHK:
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 GOLD를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-
-                    if not MULTIPROCESS:
-                        self.realtime_data_worker.RequestRealData('OVC', GOLD)
-                    else:
-                        Myprocess.RequestRealData('OVC', GOLD)                    
-                else:
-                    pass
-
-                # 실시간 NEWS 요청
-                if NEWS_CHK:
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 NEWS를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.parent.textBrowser.append(txt)
-
-                    if not MULTIPROCESS:
-                        self.realtime_data_worker.RequestRealData('NWS')
-                    else:
-                        Myprocess.RequestRealData('NWS')                    
-                else:
-                    pass
+                    pass                
                 
                 # t8416 요청                
                 print('t8416 call 요청시작...')
@@ -19079,7 +18636,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.pushButton_start.setText(' Refresh ')
 
-                    #self.put_scroll_coloring()                              
+                    # 실시간데이타 요청
+                    self.request_realdata()                              
                 else:
                     pass
             else:
@@ -19338,6 +18896,450 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_gold_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga_remainder_ratio', 'drate', \
                 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
 
+        else:
+            pass
+    
+    #############################################################################################################################
+    # 실시간 정보요청
+    #############################################################################################################################
+    def request_realdata(self):
+
+        # 장운영 정보 요청
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 장운영 정보를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+        self.textBrowser.append(txt)
+
+        if not MULTIPROCESS:
+            self.realtime_data_worker.RequestRealData('JIF')
+        else:
+            Myprocess.RequestRealData('JIF')                
+
+        # KOSPI200 지수요청
+        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI200 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+        self.textBrowser.append(txt)
+
+        if not MULTIPROCESS:
+            self.realtime_data_worker.RequestRealData('IJ', KOSPI200)
+        else:
+            Myprocess.RequestRealData('IJ', KOSPI200)
+            #Myprocess.RequestRealData('IJ', DOW)                
+
+        if KOSPI_KOSDAQ:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI/KOSDAQ 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+
+            if not MULTIPROCESS:
+                self.realtime_data_worker.RequestRealData('IJ', KOSPI)
+                self.realtime_data_worker.RequestRealData('IJ', KOSDAQ)
+            else:
+                Myprocess.RequestRealData('IJ', KOSPI)
+                Myprocess.RequestRealData('IJ', KOSDAQ)                    
+        else:
+            pass
+
+        # SAMSUNG 체결지수 요청
+        txt = '[{0:02d}:{1:02d}:{2:02d}] SAMSUNG 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+        self.textBrowser.append(txt)
+
+        if not MULTIPROCESS:
+            self.realtime_data_worker.RequestRealData('S3', SAMSUNG)
+        else:
+            Myprocess.RequestRealData('S3', SAMSUNG)                
+
+        if pre_start:
+
+            # KOSPI200/FUTURES 예상지수 요청
+            txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI200, KOSDAQ 예상체결을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+
+            if not MULTIPROCESS:
+                self.realtime_data_worker.RequestRealData('YJ', KOSPI200)
+                self.realtime_data_worker.RequestRealData('YJ', KOSDAQ)
+            else:
+                Myprocess.RequestRealData('YJ', KOSPI200)
+                Myprocess.RequestRealData('YJ', KOSDAQ)                    
+
+            # 지수선물 예상체결 요청
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 선물 예상체결을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+
+            if not MULTIPROCESS:
+                self.realtime_data_worker.RequestRealData('YFC', FUT_CODE)
+            else:
+                Myprocess.RequestRealData('YFC', FUT_CODE)                    
+
+            # KOSPI 예상체결 요청
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 삼성,현대 예상체결을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+
+            if not MULTIPROCESS:
+                self.realtime_data_worker.RequestRealData('YS3', SAMSUNG)
+                self.realtime_data_worker.RequestRealData('YS3', HYUNDAI)
+            else:
+                Myprocess.RequestRealData('YS3', SAMSUNG)
+                Myprocess.RequestRealData('YS3', HYUNDAI)                    
+        else:
+            pass
+
+        # 실시간 본월물 선물 가격요청
+        if CM_FUT_PRICE:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+
+            if not MULTIPROCESS:
+                self.realtime_data_worker.RequestRealData(FUT_REAL, GMSHCODE)
+            else:
+                Myprocess.RequestRealData(FUT_REAL, GMSHCODE)                    
+        else:
+            pass
+
+        # 실시간 본월물 선물 호가요청
+        if CM_FUT_QUOTE:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+
+            if not MULTIPROCESS:
+                self.realtime_data_worker.RequestRealData(FUT_HO, GMSHCODE)
+            else:
+                Myprocess.RequestRealData(FUT_HO, GMSHCODE)                    
+        else:
+            pass
+
+        # 실시간 본월물 옵션 가격요청
+        if CM_OPT_PRICE:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 예상가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)                      
+
+            if not MULTIPROCESS:
+                for i in range(CM_OPT_LENGTH):
+                    self.realtime_data_worker.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+                    self.realtime_data_worker.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
+
+                    # 지수옵션 예상체결 요청
+                    if pre_start:
+                        self.realtime_data_worker.RequestRealData('YOC', CM_CALL_CODE[i])
+                        self.realtime_data_worker.RequestRealData('YOC', CM_PUT_CODE[i])
+                    else:
+                        pass
+            else:
+                for i in range(CM_OPT_LENGTH):
+                    Myprocess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+                    Myprocess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
+
+                    # 지수옵션 예상체결 요청
+                    if pre_start:
+                        Myprocess.RequestRealData('YOC', CM_CALL_CODE[i])
+                        Myprocess.RequestRealData('YOC', CM_PUT_CODE[i])
+                    else:
+                        pass                                     
+        else:
+            pass
+
+        if CM_OPT_PRICE1:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 예상가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
+            self.textBrowser.append(txt)
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
+            self.textBrowser.append(txt)
+
+            if not MULTIPROCESS:
+                for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
+                    self.realtime_data_worker.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+
+                    if pre_start:                            
+                        self.realtime_data_worker.RequestRealData('YOC', CM_CALL_CODE[i])
+                    else:
+                        pass
+
+                for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
+                    self.realtime_data_worker.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
+
+                    if pre_start:
+                        self.realtime_data_worker.RequestRealData('YOC', CM_PUT_CODE[i])
+                    else:
+                        pass
+            else:
+                for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
+                    Myprocess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+
+                    if pre_start:                            
+                        Myprocess.RequestRealData('YOC', CM_CALL_CODE[i])
+                    else:
+                        pass
+
+                for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
+                    Myprocess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
+
+                    if pre_start:
+                        Myprocess.RequestRealData('YOC', CM_PUT_CODE[i])
+                    else:
+                        pass                                       
+        else:
+            pass
+
+        # 실시간 본월물 옵션 호가요청
+        if CM_OPT_QUOTE:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+
+            if not MULTIPROCESS:
+                for i in range(CM_OPT_LENGTH):
+                    self.realtime_data_worker.RequestRealData(OPT_HO, CM_CALL_CODE[i])
+                    self.realtime_data_worker.RequestRealData(OPT_HO, CM_PUT_CODE[i])
+            else:
+                for i in range(CM_OPT_LENGTH):
+                    Myprocess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
+                    Myprocess.RequestRealData(OPT_HO, CM_PUT_CODE[i])                      
+        else:
+            pass
+
+        # 실시간 본월물 옵션 호가요청(등가근처 10개)
+        if CM_OPT_QUOTE1:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가(내가 {3}개, 외가 {4}개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
+            self.textBrowser.append(txt)
+
+            if not MULTIPROCESS:
+                for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
+                    self.realtime_data_worker.RequestRealData(OPT_HO, CM_CALL_CODE[i])
+
+                for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
+                    self.realtime_data_worker.RequestRealData(OPT_HO, CM_PUT_CODE[i])
+            else:
+                for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
+                    Myprocess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
+
+                for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
+                    Myprocess.RequestRealData(OPT_HO, CM_PUT_CODE[i])                    
+        else:
+            pass
+
+        # 실시간 차월물 선물 가격요청
+        if NM_FUT_PRICE:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 선물 가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+
+            if not MULTIPROCESS:
+                self.realtime_data_worker.RequestRealData(FUT_REAL, CMSHCODE)
+            else:
+                Myprocess.RequestRealData(FUT_REAL, CMSHCODE)                    
+        else:
+            pass
+
+        # 실시간 차월물,차차월물 선물 호가요청
+        if NM_FUT_QUOTE:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 선물 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+
+            if not MULTIPROCESS:
+                self.realtime_data_worker.RequestRealData(FUT_HO, CMSHCODE)
+                self.realtime_data_worker.RequestRealData(FUT_HO, CCMSHCODE)
+            else:
+                Myprocess.RequestRealData(FUT_HO, CMSHCODE)
+                Myprocess.RequestRealData(FUT_HO, CCMSHCODE)                    
+        else:
+            pass
+
+        # 실시간 차월물 옵션 가격요청
+        if NM_OPT_PRICE:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 예상가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+
+            if not MULTIPROCESS:
+                for i in range(NM_OPT_LENGTH):
+                    self.realtime_data_worker.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
+                    self.realtime_data_worker.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
+
+                    # 지수옵션 예상체결 요청
+                    if pre_start:
+                        self.realtime_data_worker.RequestRealData('YOC', NM_CALL_CODE[i])
+                        self.realtime_data_worker.RequestRealData('YOC', NM_PUT_CODE[i])
+                    else:
+                        pass
+            else:
+                for i in range(NM_OPT_LENGTH):
+                    Myprocess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
+                    Myprocess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
+
+                    # 지수옵션 예상체결 요청
+                    if pre_start:
+                        Myprocess.RequestRealData('YOC', NM_CALL_CODE[i])
+                        Myprocess.RequestRealData('YOC', NM_PUT_CODE[i])
+                    else:
+                        pass                                                           
+        else:
+            pass
+
+        # 실시간 차월물 옵션 호가요청
+        if NM_OPT_QUOTE:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+
+            if not MULTIPROCESS:
+                for i in range(NM_OPT_LENGTH):
+                    self.realtime_data_worker.RequestRealData(OPT_HO, NM_CALL_CODE[i])
+                    self.realtime_data_worker.RequestRealData(OPT_HO, NM_PUT_CODE[i])
+            else:
+                for i in range(NM_OPT_LENGTH):
+                    Myprocess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
+                    Myprocess.RequestRealData(OPT_HO, NM_PUT_CODE[i])                    
+        else:
+            pass
+
+        # 실시간 차월물 옵션 호가요청(등가근처 10개)
+        if NM_OPT_QUOTE1:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가(내가 {3}개, 외가 {4}개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
+            self.textBrowser.append(txt)
+
+            if not MULTIPROCESS:
+                for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
+                    self.realtime_data_worker.RequestRealData(OPT_HO, NM_CALL_CODE[i])
+
+                for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
+                    self.realtime_data_worker.RequestRealData(OPT_HO, NM_PUT_CODE[i])
+            else:
+                for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
+                    Myprocess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
+
+                for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
+                    Myprocess.RequestRealData(OPT_HO, NM_PUT_CODE[i])                    
+        else:
+            pass
+
+        # 실시간 업종별 투자자별 & 프로그램 매매현황 요청
+        if SUPPLY_DEMAND:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 업종별 투자자별 & 프로그램 매매현황을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+            
+            if not MULTIPROCESS:
+                self.realtime_data_worker.RequestRealData('BM', FUTURES)
+                self.realtime_data_worker.RequestRealData('BM', KOSPI)
+                self.realtime_data_worker.RequestRealData('PM', KOSPI)
+            else:
+                Myprocess.RequestRealData('BM', FUTURES)
+                Myprocess.RequestRealData('BM', KOSPI)
+                Myprocess.RequestRealData('PM', KOSPI)                    
+        else:
+            pass
+
+        # 실시간 해외선물 DOW 요청
+        if DOW_CHK:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 DOW를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+
+            if not MULTIPROCESS:
+                self.realtime_data_worker.RequestRealData('OVC', DOW)
+            else:
+                Myprocess.RequestRealData('OVC', DOW)                    
+        else:
+            pass
+
+        # 실시간 해외선물 SP500 요청
+        if SP500_CHK:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 S&P 500을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+
+            if not MULTIPROCESS:
+                self.realtime_data_worker.RequestRealData('OVC', SP500)
+            else:
+                Myprocess.RequestRealData('OVC', SP500)                    
+        else:
+            pass
+
+        # 실시간 해외선물 NASDAQ 요청
+        if NASDAQ_CHK:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 NASDAQ을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+
+            if not MULTIPROCESS:
+                self.realtime_data_worker.RequestRealData('OVC', NASDAQ)
+            else:
+                Myprocess.RequestRealData('OVC', NASDAQ)                    
+        else:
+            pass
+
+        # 실시간 해외선물 WTI OIL 요청
+        if WTI_CHK:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 WTI OIL을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+
+            if not MULTIPROCESS:
+                self.realtime_data_worker.RequestRealData('OVC', WTI)
+            else:
+                Myprocess.RequestRealData('OVC', WTI)                    
+        else:
+            pass
+
+        # 실시간 해외선물 EUROFX 요청
+        if EUROFX_CHK:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 EUROFX을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+
+            if not MULTIPROCESS:
+                self.realtime_data_worker.RequestRealData('OVC', EUROFX)
+            else:
+                Myprocess.RequestRealData('OVC', EUROFX)                    
+        else:
+            pass
+
+        # 실시간 해외선물 HANGSENG 요청
+        if HANGSENG_CHK:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 HANGSENG을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+
+            if not MULTIPROCESS:
+                self.realtime_data_worker.RequestRealData('OVC', HANGSENG)
+            else:
+                Myprocess.RequestRealData('OVC', HANGSENG)                    
+        else:
+            pass
+
+        # 실시간 해외선물 GOLD 요청
+        if GOLD_CHK:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 GOLD를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+
+            if not MULTIPROCESS:
+                self.realtime_data_worker.RequestRealData('OVC', GOLD)
+            else:
+                Myprocess.RequestRealData('OVC', GOLD)                    
+        else:
+            pass
+
+        # 실시간 NEWS 요청
+        if NEWS_CHK:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 NEWS를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+
+            if not MULTIPROCESS:
+                self.realtime_data_worker.RequestRealData('NWS')
+            else:
+                Myprocess.RequestRealData('NWS')                    
         else:
             pass
     #####################################################################################################################################################################
@@ -22542,6 +22544,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
 
+                    self.tableWidget_fut.resizeColumnToContents(Futures_column.매수건수.value)
+
                     item = QTableWidgetItem("{0}".format(format(result['매도호가총건수'], ',')))
                     item.setTextAlignment(Qt.AlignCenter)
 
@@ -22549,6 +22553,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
                     else:
                         self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
+
+                    self.tableWidget_fut.resizeColumnToContents(Futures_column.매도건수.value)
 
                     item = QTableWidgetItem("{0}".format(format(result['매수호가총수량'], ',')))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -22558,6 +22564,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
 
+                    self.tableWidget_fut.resizeColumnToContents(Futures_column.매수잔량.value)
+
                     item = QTableWidgetItem("{0}".format(format(result['매도호가총수량'], ',')))
                     item.setTextAlignment(Qt.AlignCenter)
 
@@ -22565,6 +22573,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
                     else:
                         self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
+
+                    self.tableWidget_fut.resizeColumnToContents(Futures_column.매도잔량.value)
 
                     if result['매도호가총건수'] > 0:
                         fut_hoga_cr = result['매수호가총건수'] / result['매도호가총건수']
@@ -22714,6 +22724,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     self.tableWidget_fut.setItem(1, Futures_column.건수비.value, item)
 
+                self.tableWidget_fut.resizeColumnToContents(Futures_column.건수비.value)
+
                 # 잔량비 표시
                 if TARGET_MONTH_SELECT == 'CM':
 
@@ -22731,6 +22743,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_fut.setItem(0, Futures_column.잔량비.value, item)
                 else:
                     self.tableWidget_fut.setItem(1, Futures_column.잔량비.value, item)
+
+                self.tableWidget_fut.resizeColumnToContents(Futures_column.잔량비.value)
 
                 if TARGET_MONTH_SELECT == 'CM':
                     hoga_cr = fut_hoga_cr
@@ -22778,13 +22792,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
                 
-                if pre_start:
-
-                    if ResizeRowsToContents:
-                        self.tableWidget_fut.resizeRowsToContents()
-                    else:
-                        pass
-                    self.tableWidget_fut.resizeColumnsToContents()
+                if ResizeRowsToContents:
+                    self.tableWidget_fut.resizeRowsToContents()
                 else:
                     pass
 
