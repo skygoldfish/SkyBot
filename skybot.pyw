@@ -22644,8 +22644,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 elif result['단축코드'] == CCMSHCODE:
 
-                    # 선물호가 갱신
-                    item = QTableWidgetItem("{0}".format(format(result['매수호가총건수'], ',')))
+                    # 선물호가 갱신                    
+                    item = QTableWidgetItem("C{0}".format(format(result['매수호가총건수'], ',')))
                     item.setTextAlignment(Qt.AlignCenter)
 
                     if NightTime:
@@ -22653,7 +22653,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
 
-                    item = QTableWidgetItem("{0}".format(format(result['매도호가총건수'], ',')))
+                    item = QTableWidgetItem("C{0}".format(format(result['매도호가총건수'], ',')))
                     item.setTextAlignment(Qt.AlignCenter)
 
                     if NightTime:
@@ -22661,7 +22661,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
 
-                    item = QTableWidgetItem("{0}".format(format(result['매수호가총수량'], ',')))
+                    item = QTableWidgetItem("C{0}".format(format(result['매수호가총수량'], ',')))
                     item.setTextAlignment(Qt.AlignCenter)
 
                     if NightTime:
@@ -22669,14 +22669,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
 
-                    item = QTableWidgetItem("{0}".format(format(result['매도호가총수량'], ',')))
+                    item = QTableWidgetItem("C{0}".format(format(result['매도호가총수량'], ',')))
                     item.setTextAlignment(Qt.AlignCenter)
 
                     if NightTime:
                         self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
                     else:
                         self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
-
+                    
                     if result['매도호가총건수'] > 0:
                         fut_ccms_hoga_cr = result['매수호가총건수'] / result['매도호가총건수']
                     else:
@@ -22690,33 +22690,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # 에너지방향
-                if not NightTime:
-                    if TARGET_MONTH_SELECT == 'CM':
-                        if fut_cms_hoga_rr > fut_hoga_rr:
-                            fut_quote_energy_direction = 'call'
-                        else:
-                            fut_quote_energy_direction = 'put'
-                    elif TARGET_MONTH_SELECT == 'NM':
-                        if fut_cms_hoga_rr > 1.0:
-                            fut_quote_energy_direction = 'call'
-                        else:
-                            fut_quote_energy_direction = 'put'
+                if not NightTime and CM_FUT_QUOTE and NM_FUT_QUOTE:
+                    if fut_cms_hoga_rr > fut_hoga_rr:
+                        fut_quote_energy_direction = 'call'
                     else:
-                        pass
+                        fut_quote_energy_direction = 'put'
                 else:
                     pass
                 
                 # 건수비 표시
-                if TARGET_MONTH_SELECT == 'CM':
-
-                    item = QTableWidgetItem("{0:.2f}\n({1:.2f})".format(fut_hoga_cr, fut_cms_hoga_cr))
-
-                elif TARGET_MONTH_SELECT == 'NM':
-
-                    item = QTableWidgetItem("{0:.2f}".format(fut_cms_hoga_cr))                    
-                else:
-                    pass
-
+                item = QTableWidgetItem("{0:.2f}\n({1:.2f})".format(fut_hoga_cr, fut_cms_hoga_cr))
                 item.setTextAlignment(Qt.AlignCenter)
 
                 if NightTime:
@@ -22727,16 +22710,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.resizeColumnToContents(Futures_column.건수비.value)
 
                 # 잔량비 표시
-                if TARGET_MONTH_SELECT == 'CM':
-
-                    item = QTableWidgetItem("{0:.2f}\n({1:.2f})".format(fut_hoga_rr, fut_cms_hoga_rr))
-
-                elif TARGET_MONTH_SELECT == 'NM':
-
-                    item = QTableWidgetItem("{0:.2f}".format(fut_cms_hoga_rr))                    
-                else:
-                    pass
-                
+                item = QTableWidgetItem("{0:.2f}\n({1:.2f})".format(fut_hoga_rr, fut_cms_hoga_rr))                
                 item.setTextAlignment(Qt.AlignCenter)
 
                 if NightTime:
