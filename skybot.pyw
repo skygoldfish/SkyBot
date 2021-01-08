@@ -23968,8 +23968,8 @@ class PlotUpdateWorker(QThread):
 
         while True:
 
-            if flag_produce_queue_empty:
-                self.trigger.emit()
+            #if flag_produce_queue_empty:
+            self.trigger.emit()
 
             if flag_plot_update_interval_changed:
                 print('plot_update_interval changed...')
