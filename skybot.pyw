@@ -23134,7 +23134,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
-        txt = self.lineEdit.text()
+        txt = self.lineEdit_plot.text()
         plot_update_interval = float(txt)
 
         flag_plot_update_interval_changed = True
