@@ -5102,7 +5102,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.main_ui_update_time = (timeit.default_timer() - start_time) * 1000
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f} ms\r'.format(dt.hour, dt.minute, dt.second, self.main_ui_update_time)                    
+                txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f} ms\r'.format(dt.hour, dt.minute, dt.second, self.main_ui_update_time)
+                print(txt)                    
 
                 if flag_checkBox_HS and dt.second % 10 == 0 and self.alternate_flag:
                     self.textBrowser.append(txt)
@@ -24002,6 +24003,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         
         self.flag_big_chart_open = True
         self.bc_ui_update_time = 0
+        self.plot_x_idx = 0
+        self.plot_count = 0
 
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
         atexit.register(self.__del__) 
@@ -31252,9 +31255,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
         else:
-            txt = ' {0:02d}:{1:02d}:{2:02d}({3:d}, {4:.2f} ms) '.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, self.bc_ui_update_time)
+            if SERVER_SEC == self.plot_x_idx:
+                self.plot_count += 1
+            else:
+                self.plot_count = 0
+
+            txt = ' {0:02d}:{1:02d}:{2:02d}({3:d}[{4}], {5:.2f} ms) '.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, self.plot_count, self.bc_ui_update_time)
+            self.plot_x_idx = SERVER_SEC
    
         self.label_time.setText(txt)
+        
         '''
         if flag_realdata_update_is_running:
 
