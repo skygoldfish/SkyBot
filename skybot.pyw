@@ -863,7 +863,7 @@ telegram_toggle = True
 
 Option_column = Enum('Option_column', '행사가 OLOH 기준가 월저 월고 전저 전고 종가 피봇 시가 저가 현재가 고가 시가갭 대비 진폭 VP OI OID')
 Futures_column = Enum('Futures_column', 'OLOH 매수건수 매도건수 매수잔량 매도잔량 건수비 잔량비 전저 전고 종가 피봇 시가 저가 현재가 고가 시가갭 대비 거래량 진폭 OI OID')
-Supply_column = Enum('Supply_column', '외인선옵 개인선옵 기관선옵 외인현물 프로그램')
+Supply_column = Enum('Supply_column', '외인선물 프로그램 외인현물 개인선물 기관선물 종합')
 Quote_column = Enum('Quote_column', 'C-MSCC C-MDCC C-MSCR C-MDCR P-MSCC P-MDCC P-MSCR P-MDCR 콜건수비 콜잔량비 풋건수비 풋잔량비 호가종합 미결종합')
 
 flag_offline = False
@@ -2373,11 +2373,15 @@ else:
 
             self.daemon = True
             self.dataQ = dataQ
+
+            # 큐로 들어온 총 패킷수
+            self.total_count = 0
+            # 누락된 패킷수
             self.drop_count = 0
 
-        def get_drop_count(self):
+        def get_packet_count(self):
 
-            return self.drop_count
+            return self.drop_count, self.total_count
 
         def run(self):
 
@@ -2389,6 +2393,8 @@ else:
                     flag_produce_queue_empty = False
 
                     data = self.dataQ.get(False)
+
+                    self.total_count += 1
                     
                     if flag_realdata_update_is_running:
                         self.drop_count += 1
@@ -2769,7 +2775,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         # 수급 tablewidget 초기화
         self.tableWidget_supply.setRowCount(1)
-        self.tableWidget_supply.setColumnCount(Supply_column.프로그램.value + 1)
+        self.tableWidget_supply.setColumnCount(Supply_column.종합.value)
 
         self.tableWidget_supply.horizontalHeader().setStyleSheet(supply_header_stylesheet)
 
@@ -2783,7 +2789,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_supply.verticalHeader().setStretchLastSection(True)
         self.tableWidget_supply.clearContents()
 
-        for i in range(Supply_column.프로그램.value + 1):
+        for i in range(Supply_column.종합.value):
             item = QTableWidgetItem('-')
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(검정색))
@@ -3578,7 +3584,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def supply_horizontal_header_clicked(self, idx):
 
         # cell focus 이동
-        self.tableWidget_supply.setCurrentCell(1, Supply_column.프로그램.value)
+        self.tableWidget_supply.setCurrentCell(1, Supply_column.종합.value)
 
         self.tableWidget_supply.resizeRowsToContents()
         self.tableWidget_supply.resizeColumnsToContents()
@@ -35933,11 +35939,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
 
-                dropcount = self.mp_consumer.get_drop_count()
+                dropcount, totalcount = self.mp_consumer.get_packet_count()
+                count_txt = '{0}/{1}'.format(format(dropcount, ','), format(totalcount, ','))
 
-                item = QTableWidgetItem("{0}".format(dropcount))
+                item = QTableWidgetItem(count_txt)
                 item.setTextAlignment(Qt.AlignCenter)
-                self.dialog['선물옵션전광판'].tableWidget_fut.setHorizontalHeaderItem(0, item)
+                self.dialog['선물옵션전광판'].tableWidget_supply.setHorizontalHeaderItem(Supply_column.종합.value - 1, item)
 
                 self.dialog['선물옵션전광판'].UpdateRealdata(realdata)
             else:            
