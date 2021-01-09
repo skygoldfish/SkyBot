@@ -5120,20 +5120,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.main_ui_update_time = (timeit.default_timer() - start_time) * 1000
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f} ms\r'.format(dt.hour, dt.minute, dt.second, self.main_ui_update_time)
-                print(txt)
+                #txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f} ms\r'.format(dt.hour, dt.minute, dt.second, self.main_ui_update_time)
+                #print(txt)
 
                 item_txt = '{0:.2f}'.format(self.main_ui_update_time)
                 item = QTableWidgetItem(item_txt)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_fut.setHorizontalHeaderItem(0, item)
 
-                self.tableWidget_fut.resizeColumnToContents(0)                   
-
-                if flag_checkBox_HS and dt.second % 10 == 0 and self.alternate_flag:
-                    self.textBrowser.append(txt)
-                else:
-                    pass
+                self.tableWidget_fut.resizeColumnToContents(0)
             else:
                 pass            
         except:
@@ -13640,6 +13635,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global t2301_month_info
         global 진성맥점, TTS, SEARCH_MOVING_NODE
 
+        playsound('click.wav')
+
         dt = datetime.datetime.now()
 
         # 백그라운드로 로그인해도 포어그라운드에서 TR조회 가능함(이유?)        
@@ -13852,6 +13849,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_telegram_on
         global flag_telegram_listen_worker, flag_telegram_send_worker
         global telegram_command
+
+        playsound('click.wav')
 
         dt = datetime.datetime.now()        
 
