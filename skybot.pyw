@@ -860,7 +860,10 @@ system_server_timegap = 0
 telegram_toggle = True
 
 시스템시간 = 0
+시스템시간_분 = 0
+
 서버시간 = 0
+서버시간_분 = 0
 시스템_서버_시간차 = 0
 
 Option_column = Enum('Option_column', '행사가 OLOH 기준가 월저 월고 전저 전고 종가 피봇 시가 저가 현재가 고가 시가갭 대비 진폭 VP OI OID')
@@ -4875,7 +4878,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if NightTime:
 
                     # 미국 주식장 종료 1분후에 프로그램을 오프라인으로 전환시킴
-                    if yagan_service_terminate or 서버시간 >= (6 * 3600 + 1 * 60):
+                    if yagan_service_terminate or 시스템시간_분 == (6 * 3600 + 1 * 60):
 
                         if online_state:
 
@@ -5046,7 +5049,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
                 else:
                     # 장종료 1분후에 프로그램을 오프라인으로 전환시킴
-                    if jugan_service_terminate or 서버시간 >= (15 * 3600 + 46 * 60):
+                    if jugan_service_terminate or 시스템시간_분 == (15 * 3600 + 46 * 60):
 
                         if online_state:
 
@@ -14182,17 +14185,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if szTrCode == 't0167':
             
             global 서버시간, 시스템_서버_시간차, flag_heartbeat
-            global SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx
+            global SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, 시스템시간_분, 서버시간_분
 
             szTrCode, server_date, server_time = result
             
             systemtime = dt.hour * 3600 + dt.minute * 60 + dt.second
+
+            시스템시간_분 = dt.hour * 3600 + dt.minute * 60
 
             SERVER_HOUR = int(server_time[0:2])
             SERVER_MIN = int(server_time[2:4])
             SERVER_SEC = int(server_time[4:6])
 
             서버시간 = SERVER_HOUR * 3600 + SERVER_MIN * 60 + SERVER_SEC
+            서버시간_분 = SERVER_HOUR * 3600 + SERVER_MIN * 60
+
             시스템_서버_시간차 = systemtime - 서버시간
             
             # X축 시간좌표 계산
@@ -35739,7 +35746,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif trdata[0] == 't0167':
 
                 global 서버시간, 시스템_서버_시간차, flag_heartbeat
-                global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx
+                global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, 시스템시간_분, 서버시간_분
                 
                 server_time = trdata[2]
 
@@ -35748,11 +35755,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 systemtime = dt.hour * 3600 + dt.minute * 60 + dt.second
 
+                시스템시간_분 = dt.hour * 3600 + dt.minute * 60
+
                 SERVER_HOUR = int(server_time[0:2])
                 SERVER_MIN = int(server_time[2:4])
                 SERVER_SEC = int(server_time[4:6])
 
                 서버시간 = SERVER_HOUR * 3600 + SERVER_MIN * 60 + SERVER_SEC
+                서버시간_분 = SERVER_HOUR * 3600 + SERVER_MIN * 60
+
                 시스템_서버_시간차 = systemtime - 서버시간
 
                 # X축 시간좌표 계산
@@ -36179,7 +36190,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         def OnReceiveData(self, result):
 
             global 서버시간, 시스템_서버_시간차, flag_heartbeat
-            global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, ovc_x_idx
+            global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, ovc_x_idx, 시스템시간_분, 서버시간_분
 
             dt = datetime.datetime.now()
 
@@ -36191,11 +36202,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 systemtime = dt.hour * 3600 + dt.minute * 60 + dt.second
 
+                시스템시간_분 = dt.hour * 3600 + dt.minute * 60
+
                 SERVER_HOUR = int(server_time[0:2])
                 SERVER_MIN = int(server_time[2:4])
                 SERVER_SEC = int(server_time[4:6])
 
-                서버시간 = SERVER_HOUR * 3600 + SERVER_MIN * 60 + SERVER_SEC            
+                서버시간 = SERVER_HOUR * 3600 + SERVER_MIN * 60 + SERVER_SEC
+                서버시간_분 = SERVER_HOUR * 3600 + SERVER_MIN * 60
+
                 시스템_서버_시간차 = systemtime - 서버시간
 
                 # X축 시간좌표 계산
