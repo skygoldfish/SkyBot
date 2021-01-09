@@ -1840,7 +1840,7 @@ flag_option_pair_full = False
 fut_avg_noise_ratio = 1
 k_value = 0
 
-flag_fut_dow_drate_energy_direction = False
+flag_fut_vs_dow_drate_direction = False
 fut_quote_energy_direction = ''
 fut_volume_power_energy_direction = ''
 
@@ -2728,7 +2728,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_fut.horizontalHeader().setStyleSheet(fut_header_stylesheet)
 
         self.tableWidget_fut.setHorizontalHeaderLabels(
-            ['SBOM', '▲▼', 'HMSC', 'HMDC', 'HMSR', 'MDHR', 'HCR', 'HRR', '전저', '전고', '종가', '피봇', '시가', '저가',
+            ['TIMER', '▲▼', 'HMSC', 'HMDC', 'HMSR', 'MDHR', 'HCR', 'HRR', '전저', '전고', '종가', '피봇', '시가', '저가',
              '현재가', '고가', '시가갭', '대비', '체결', '진폭', 'OI', 'OI↕'])
         self.tableWidget_fut.verticalHeader().setVisible(False)
         self.tableWidget_fut.setAlternatingRowColors(True)
@@ -6227,7 +6227,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if abs(콜대비_퍼센트평균/풋대비_퍼센트평균) >= ASYM_RATIO:
                 
-                if abs(콜대비_퍼센트평균/풋대비_퍼센트평균) >= ONEWAY_RATIO and flag_fut_dow_drate_energy_direction:
+                if abs(콜대비_퍼센트평균/풋대비_퍼센트평균) >= ONEWAY_RATIO and flag_fut_vs_dow_drate_direction:
 
                     # 콜 원웨이(원웨이장은 플래그 세팅을 나중에 해줌 --> 발생시각 표시를 위해)
                     call_ms_oneway = True
@@ -6380,7 +6380,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif abs(풋대비_퍼센트평균/콜대비_퍼센트평균) >= ASYM_RATIO:
 
-                if abs(풋대비_퍼센트평균/콜대비_퍼센트평균) >= ONEWAY_RATIO and flag_fut_dow_drate_energy_direction:
+                if abs(풋대비_퍼센트평균/콜대비_퍼센트평균) >= ONEWAY_RATIO and flag_fut_vs_dow_drate_direction:
 
                     # 풋 원웨이(원웨이장은 플래그 세팅을 나중에 해줌 --> 발생시각 표시를 위해)
                     call_ms_oneway = False
@@ -10603,7 +10603,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global df_futures_graph
         global flag_call_strong, flag_put_strong
         global plot_drate_scale_factor
-        global flag_fut_dow_drate_energy_direction
+        global flag_fut_vs_dow_drate_direction
         global volatility_breakout_downward_point, volatility_breakout_upward_point
         global df_futures_graph, flag_futures_ohlc_open, 선물_현재가_버퍼
 
@@ -10634,9 +10634,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if 선물_등락율 != 0:
 
             if abs(선물_등락율) > abs(DOW_등락율):
-                flag_fut_dow_drate_energy_direction = True
+                flag_fut_vs_dow_drate_direction = True
             else:
-                flag_fut_dow_drate_energy_direction = False
+                flag_fut_vs_dow_drate_direction = False
 
             plot_drate_scale_factor = int(abs(콜등락율 / 선물_등락율))
 
@@ -11124,12 +11124,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(선물_대비, 선물_등락율))
         item.setTextAlignment(Qt.AlignCenter)
 
-        if 선물_등락율 > 0 and DOW_등락율 > 0 and flag_fut_dow_drate_energy_direction:
+        if 선물_등락율 > 0 and DOW_등락율 > 0 and flag_fut_vs_dow_drate_direction:
 
             item.setBackground(QBrush(pink))
             item.setForeground(QBrush(검정색))
 
-        elif 선물_등락율 < 0 and DOW_등락율 < 0 and flag_fut_dow_drate_energy_direction:
+        elif 선물_등락율 < 0 and DOW_등락율 < 0 and flag_fut_vs_dow_drate_direction:
 
             item.setBackground(QBrush(lightskyblue))
             item.setForeground(QBrush(검정색))
@@ -11159,14 +11159,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 종합 에너지방향 표시
         if TARGET_MONTH_SELECT == 'CM' and DayTime:
 
-            if flag_fut_dow_drate_energy_direction and fut_quote_energy_direction == 'call' and fut_volume_power_energy_direction == 'call':
+            if flag_fut_vs_dow_drate_direction and fut_quote_energy_direction == 'call' and fut_volume_power_energy_direction == 'call':
 
                 item = QTableWidgetItem("CS")
                 item.setBackground(QBrush(red))
                 item.setForeground(QBrush(흰색))
                 flag_call_strong = True
 
-            elif flag_fut_dow_drate_energy_direction and fut_quote_energy_direction == 'put' and fut_volume_power_energy_direction == 'put':
+            elif flag_fut_vs_dow_drate_direction and fut_quote_energy_direction == 'put' and fut_volume_power_energy_direction == 'put':
 
                 item = QTableWidgetItem("PS")
                 item.setBackground(QBrush(blue))
@@ -19372,7 +19372,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
     #####################################################################################################################################################################
-    
+    # 오리지날 실시간 콜백수신 함수
     #####################################################################################################################################################################
     def OnReceiveRealData(self, result):
         pass
@@ -19491,7 +19491,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             DOW_고가 =  int(result['고가'])
             DOW_진폭 = int(DOW_고가 - DOW_저가)
             
-            if DOW_전일종가 > 0 and DayTime:                        
+            if DayTime and DOW_전일종가 > 0:                        
                 DOW_등락율 = ((DOW_현재가 - DOW_전일종가) / DOW_전일종가) * 100
             else:
                 pass
@@ -20587,7 +20587,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global df_kp200_graph, df_futures_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
         global flag_futures_ohlc_open, flag_dow_ohlc_open, flag_sp500_ohlc_open, flag_nasdaq_ohlc_open, flag_wti_ohlc_open, flag_eurofx_ohlc_open, flag_hangseng_ohlc_open, flag_gold_ohlc_open
-        global flag_fut_dow_drate_energy_direction
+        global flag_fut_vs_dow_drate_direction
 
         global 선물_현재가_버퍼
         global DOW_현재가_버퍼
@@ -21108,9 +21108,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if 선물_등락율 != 0:
 
                             if abs(선물_등락율) > abs(DOW_등락율):
-                                flag_fut_dow_drate_energy_direction = True
+                                flag_fut_vs_dow_drate_direction = True
                             else:
-                                flag_fut_dow_drate_energy_direction = False
+                                flag_fut_vs_dow_drate_direction = False
 
                             plot_drate_scale_factor = int(abs(콜등락율 / 선물_등락율))
 
@@ -21156,12 +21156,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(선물_대비, 선물_등락율))
                         item.setTextAlignment(Qt.AlignCenter)
 
-                        if 선물_등락율 > 0 and DOW_등락율 > 0 and flag_fut_dow_drate_energy_direction:
+                        if 선물_등락율 > 0 and DOW_등락율 > 0 and flag_fut_vs_dow_drate_direction:
 
                             item.setBackground(QBrush(pink))
                             item.setForeground(QBrush(검정색))
 
-                        elif 선물_등락율 < 0 and DOW_등락율 < 0 and flag_fut_dow_drate_energy_direction:
+                        elif 선물_등락율 < 0 and DOW_등락율 < 0 and flag_fut_vs_dow_drate_direction:
 
                             item.setBackground(QBrush(lightskyblue))
                             item.setForeground(QBrush(검정색))
