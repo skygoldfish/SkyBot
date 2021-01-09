@@ -831,11 +831,13 @@ GuardTime = 60 * 2
 # 오전 6시 ~ 7시는 Break Time
 if 7 <= dt.hour < NightTime_PreStart_Hour:
     # 오전 7시 ~ 오후 3시 59분
-    NightTime = False    
+    DayTime = True
+    NightTime = False        
     day_timespan = 7 * 60 + 10
     jugan_timespan = GuardTime + day_timespan
 else:
     # 오후 4시 ~ 익일 오전 5시 59분
+    DayTime = False
     NightTime = True
     nighttime_timespan = 12 * 60 + 10
     yagan_timespan = GuardTime + nighttime_timespan
@@ -1861,6 +1863,14 @@ args_processing_time = 0
 
 flag_mp_interval_changed = False
 mp_send_interval = MP_SEND_INTERVAL
+
+cm_fut_quote_min = 0
+cm_fut_quote_mean = 0
+cm_fut_quote_max = 0
+
+nm_fut_quote_min = 0
+nm_fut_quote_mean = 0
+nm_fut_quote_max = 0
 
 #####################################################################################################################################################################
 # UI 파일정의
@@ -2967,7 +2977,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            if not NightTime:
+            if DayTime:
 
                 if TARGET_MONTH_SELECT == 'CM':
 
@@ -4282,7 +4292,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.datetime.now()
 
         # 선물 OHLC 데이타프레임 생성
-        if market_service and not NightTime:
+        if market_service and DayTime:
                   
             time_str = 선물_체결시간[0:2] + ':' + 선물_체결시간[2:4] + ':' + 선물_체결시간[4:6]
             chetime = nowDate + ' ' + time_str
@@ -4601,13 +4611,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
             
-            # 실시간 서비스                     
-            #if (not flag_internet_connection_broken and not flag_service_provider_broken) and not flag_realdata_update_is_running and FLAG_GUEST_CONTROL and receive_real_ovc:
+            # 실시간 서비스
             if (not flag_internet_connection_broken and not flag_service_provider_broken) and FLAG_GUEST_CONTROL and receive_real_ovc:
                 
                 self.display_atm(self.alternate_flag)
                 
-                if not NightTime:                    
+                if DayTime:                    
                     self.fut_etc_update(fut_result)                    
                 else:
                     pass
@@ -4616,7 +4625,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                     if flag_checkBox_HS:
                         # 수정미결 표시
-                        if not NightTime:
+                        if DayTime:
                             self.call_oi_update()
                             self.put_oi_update()
                         else:
@@ -4633,7 +4642,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
                     
-                    if not NightTime:
+                    if DayTime:
                         self.oi_total_update()
                     else:
                         pass
@@ -4865,9 +4874,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 if NightTime:
 
-                    # 장종료 1분후에 프로그램을 오프라인으로 전환시킴
-                    #if yagan_service_terminate and 서버시간 >= (6 * 3600 + 1 * 60):
-                    if yagan_service_terminate:
+                    # 미국 주식장 종료 1분후에 프로그램을 오프라인으로 전환시킴
+                    if yagan_service_terminate or 서버시간 >= (6 * 3600 + 1 * 60):
 
                         if online_state:
 
@@ -5038,7 +5046,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
                 else:
                     # 장종료 1분후에 프로그램을 오프라인으로 전환시킴
-                    if jugan_service_terminate and 서버시간 >= (15 * 3600 + 46 * 60):
+                    if jugan_service_terminate or 서버시간 >= (15 * 3600 + 46 * 60):
 
                         if online_state:
 
@@ -5077,7 +5085,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.textBrowser.append(txt)
                                     print(txt)
                                 else:
-                                    self.parent.connection.disconnect()
+                                    self.parent.connection.disconnect()                                    
                             else:
                                 pass
                         else:
@@ -10639,7 +10647,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if TELEGRAM_SERVICE and not flag_telegram_send_worker and not NightTime:
+        if TELEGRAM_SERVICE and not flag_telegram_send_worker and DayTime:
             
             self.telegram_send_worker.start()
 
@@ -10666,7 +10674,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         # Telegram Send Worker 시작 후 TELEGRAM_START_TIME분에 Telegram Listen을 위한 Polling Thread 시작 !!!
-        if not flag_telegram_listen_worker and fut_time > telegram_send_worker_on_time + 60 * TELEGRAM_START_TIME and not NightTime:
+        if not flag_telegram_listen_worker and fut_time > telegram_send_worker_on_time + 60 * TELEGRAM_START_TIME and DayTime:
 
             if TELEGRAM_SERVICE:
                 
@@ -11142,7 +11150,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
         
         # 종합 에너지방향 표시
-        if TARGET_MONTH_SELECT == 'CM' and not NightTime:
+        if TARGET_MONTH_SELECT == 'CM' and DayTime:
 
             if flag_fut_dow_drate_energy_direction and fut_quote_energy_direction == 'call' and fut_volume_power_energy_direction == 'call':
 
@@ -11169,7 +11177,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass                       
         
         # 미결 갱신
-        if not NightTime:
+        if DayTime:
 
             df_fut.at[1, '미결'] = result['미결제약정수량'] 
             self.fut_realdata['미결'] = result['미결제약정수량']
@@ -11183,7 +11191,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         # 미결증감 갱신
-        if not NightTime:
+        if DayTime:
 
             df_fut.at[1, '미결증감'] = result['미결제약정증감']  
             self.fut_realdata['미결증감'] = result['미결제약정증감']
@@ -11437,7 +11445,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 (SERVER_HOUR, SERVER_MIN, SERVER_SEC, self.call_open_list)
             self.textBrowser.append(txt)
             
-            if not NightTime and index > ATM_INDEX:
+            if DayTime and index > ATM_INDEX:
                 call_itm_count += 1
             else:
                 pass
@@ -11598,7 +11606,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if 콜시가 > 0.1:
                 call_db_percent[index] = (콜현재가 / 콜시가 - 1) * 100
 
-                if not NightTime:
+                if DayTime:
 
                     if index == ATM_INDEX:
                         gap_str = "{0:.2f}\n({1:.2f}%)".format(콜대비, 콜등락율)
@@ -11614,7 +11622,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             # 콜 외가(등가포함) 대비 저장
-            if not NightTime and index <= ATM_INDEX and 콜시가 > 0.1 and 콜저가 < 콜고가:
+            if DayTime and index <= ATM_INDEX and 콜시가 > 0.1 and 콜저가 < 콜고가:
                 call_otm_db[index] = 콜대비
                 call_otm_db_percent[index] = (콜현재가 / 콜시가 - 1) * 100
             else:
@@ -11638,7 +11646,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_call_information_graph.at[ovc_x_idx, 'volume'] = call_volume_power
 
             # 미결 갱신
-            if not NightTime:
+            if DayTime:
 
                 if 콜현재가 <= 콜시가갭:
 
@@ -11738,7 +11746,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            if not NightTime and 콜기준가 >= 콜저가:
+            if DayTime and 콜기준가 >= 콜저가:
 
                 if ATM_INDEX - 3 <= index <= ATM_INDEX + 3:
                     pass
@@ -11953,7 +11961,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             수정거래량 = (call_result['매수누적체결량'] - call_result['매도누적체결량']) * 콜현재가
 
-            if not NightTime:
+            if DayTime:
 
                 매도누적체결건수 = call_result['매도누적체결건수'] * 콜현재가
                 매수누적체결건수 = call_result['매수누적체결건수'] * 콜현재가
@@ -11963,7 +11971,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             수정거래량 = (call_result['매수누적체결량'] - call_result['매도누적체결량']) * (콜현재가 - 콜시가갭)
 
-            if not NightTime:
+            if DayTime:
 
                 매도누적체결건수 = call_result['매도누적체결건수'] * (콜현재가 - 콜시가갭)
                 매수누적체결건수 = call_result['매수누적체결건수'] * (콜현재가 - 콜시가갭)
@@ -11974,7 +11982,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         df_call.at[index, '수정거래량'] = 콜수정거래량
         df_call.at[index, '거래량'] = call_result['누적거래량']
 
-        if not NightTime:
+        if DayTime:
 
             df_call_volume.at[index, '매도누적체결건수'] = int(매도누적체결건수)
             df_call_volume.at[index, '매수누적체결건수'] = int(매수누적체결건수)
@@ -12014,7 +12022,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         매수잔량 = format(call_volume['매수누적체결량'], ',')
         매도잔량 = format(call_volume['매도누적체결량'], ',')
         
-        if not NightTime:
+        if DayTime:
 
             매수건수 = format(call_volume['매수누적체결건수'], ',')
 
@@ -12518,7 +12526,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 (SERVER_HOUR, SERVER_MIN, SERVER_SEC, self.put_open_list)
             self.textBrowser.append(txt)
             
-            if not NightTime and index < ATM_INDEX:
+            if DayTime and index < ATM_INDEX:
                 put_itm_count += 1
             else:
                 pass
@@ -12679,7 +12687,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if 풋시가 > 0.1:
                 put_db_percent[index] = (풋현재가 / 풋시가 - 1) * 100
 
-                if not NightTime:
+                if DayTime:
 
                     if index == ATM_INDEX:
                         gap_str = "{0:.2f}\n({1:.2f}%)".format(풋대비, 풋등락율)
@@ -12695,7 +12703,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
             
             # 풋 외가(등가포함) 대비 저장
-            if not NightTime and index >= ATM_INDEX and 풋시가 > 0.1 and 풋저가 < 풋고가:
+            if DayTime and index >= ATM_INDEX and 풋시가 > 0.1 and 풋저가 < 풋고가:
                 put_otm_db[index] = 풋대비
                 put_otm_db_percent[index] = (풋현재가 / 풋시가 - 1) * 100
             else:
@@ -12719,7 +12727,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_put_information_graph.at[ovc_x_idx, 'volume'] = put_volume_power
 
             # 미결갱신
-            if not NightTime:
+            if DayTime:
 
                 if 풋현재가 <= 풋시가갭:
 
@@ -12804,7 +12812,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            if not NightTime and 풋기준가 >= 풋저가:
+            if DayTime and 풋기준가 >= 풋저가:
 
                 if ATM_INDEX - 3 <= index <= ATM_INDEX + 3:
                     pass
@@ -13020,7 +13028,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             수정거래량 = (put_result['매수누적체결량'] - put_result['매도누적체결량']) * 풋현재가
 
-            if not NightTime:
+            if DayTime:
 
                 매도누적체결건수 = put_result['매도누적체결건수'] * 풋현재가
                 매수누적체결건수 = put_result['매수누적체결건수'] * 풋현재가
@@ -13030,7 +13038,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             수정거래량 = (put_result['매수누적체결량'] - put_result['매도누적체결량']) * (풋현재가 - 풋시가갭)
 
-            if not NightTime:
+            if DayTime:
 
                 매도누적체결건수 = put_result['매도누적체결건수'] * (풋현재가 - 풋시가갭)
                 매수누적체결건수 = put_result['매수누적체결건수'] * (풋현재가 - 풋시가갭)
@@ -13041,7 +13049,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         df_put.at[index, '수정거래량'] = 풋수정거래량
         df_put.at[index, '거래량'] = put_result['누적거래량']
 
-        if not NightTime:
+        if DayTime:
             
             df_put_volume.at[index, '매도누적체결건수'] = int(매도누적체결건수)
             df_put_volume.at[index, '매수누적체결건수'] = int(매수누적체결건수)
@@ -13083,7 +13091,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         매수잔량 = format(put_volume['매수누적체결량'], ',')
         매도잔량 = format(put_volume['매도누적체결량'], ',')
 
-        if not NightTime:
+        if DayTime:
 
             매수건수 = format(put_volume['매수누적체결건수'], ',')
 
@@ -13723,7 +13731,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.textBrowser.append(txt)
                 print(txt)
 
-            if not NightTime:
+            if DayTime:
 
                 if 9 <= dt.hour < 16:
                     pass
@@ -13784,7 +13792,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if CSV_FILE:
 
-            if not NightTime:
+            if DayTime:
 
                 futures_graph_csv = "Futures {}{}".format(times, '.csv')
                 df_futures_graph.to_csv(futures_graph_csv, encoding='ms949')
@@ -14322,7 +14330,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             self.tableWidget_fut.setItem(1, Futures_column.시가.value, item)
 
-            if not NightTime:
+            if DayTime:
 
                 df_call_information_graph.at[0, 'centerval'] = CENTER_VAL
 
@@ -14339,7 +14347,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            if not NightTime and df['시가'] > 0:
+            if DayTime and df['시가'] > 0:
 
                 self.fut_realdata['피봇'] = self.calc_pivot(self.fut_realdata['전저'], self.fut_realdata['전고'],
                                                          self.fut_realdata['종가'], df['시가'])
@@ -14460,7 +14468,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             self.tableWidget_fut.setItem(1, Futures_column.OID.value, item)            
             
-            if not NightTime:
+            if DayTime:
 
                 선물_피봇 = self.fut_realdata['피봇']
                 선물_시가 = df['시가']
@@ -14497,7 +14505,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
                 
-                if not NightTime:
+                if DayTime:
 
                     call_open = [False] * option_pairs_count
                     put_open = [False] * option_pairs_count
@@ -14610,7 +14618,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.tableWidget_call.setItem(i, Option_column.고가.value, item)
 
-                    if not NightTime:
+                    if DayTime:
 
                         if df['저가'][i] < df['고가'][i]:
                             call_open[i] = True
@@ -14628,7 +14636,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(i, Option_column.진폭.value, item)
                     
-                    if not NightTime:
+                    if DayTime:
 
                         if 시가 > opt_search_start_value and df['저가'][i] < df['고가'][i]:
                             self.call_open_list.append(i)
@@ -14659,7 +14667,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        if not NightTime:
+                        if DayTime:
                             df_call_graph[i].at[GuardTime + 1, 'open'] = 시가
                             df_call_graph[i].at[GuardTime + 1, 'price'] = 시가
                         else:
@@ -14944,7 +14952,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.tableWidget_put.setItem(i, Option_column.고가.value, item)
 
-                    if not NightTime:
+                    if DayTime:
 
                         if df1['저가'][i] < df1['고가'][i]:
                             put_open[i] = True
@@ -14962,7 +14970,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_put.setItem(i, Option_column.진폭.value, item)
                     
-                    if not NightTime:
+                    if DayTime:
 
                         if 시가 > opt_search_start_value and df1['저가'][i] < df1['고가'][i]:
                             self.put_open_list.append(i)
@@ -14993,7 +15001,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        if not NightTime:
+                        if DayTime:
                             df_put_graph[i].at[GuardTime + 1, 'open'] = 시가
                             df_put_graph[i].at[GuardTime + 1, 'price'] = 시가
                         else:
@@ -15397,7 +15405,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.t8416_call_event_loop.exec_()
             else:
                 # Refresh
-                if not NightTime:
+                if DayTime:
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 주간옵션 전광판을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
@@ -15896,7 +15904,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setForeground(QBrush(검정색))
             self.tableWidget_fut.setItem(2, Futures_column.종가.value, item)
             
-            if not NightTime:
+            if DayTime:
                 atm_str = self.get_atm_str(kp200_현재가)
             else:
                 atm_str = self.get_atm_str(kp200_현재가)
@@ -19423,7 +19431,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 갱신된 현재값을 과거값과 비교(NaN 방지를 위해)
         if ovc_x_idx != old_ovc_x_idx:
 
-            if not NightTime and market_service:
+            if DayTime and market_service:
                 df_futures_graph.at[ovc_x_idx, 'high'] = df_futures_graph.at[ovc_x_idx- 1, 'high']
                 df_futures_graph.at[ovc_x_idx, 'low'] = df_futures_graph.at[ovc_x_idx - 1, 'low']
                 df_futures_graph.at[ovc_x_idx, 'middle'] = df_futures_graph.at[ovc_x_idx - 1, 'middle']
@@ -19470,7 +19478,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             DOW_고가 =  int(result['고가'])
             DOW_진폭 = int(DOW_고가 - DOW_저가)
             
-            if DOW_전일종가 > 0 and not NightTime:                        
+            if DOW_전일종가 > 0 and DayTime:                        
                 DOW_등락율 = ((DOW_현재가 - DOW_전일종가) / DOW_전일종가) * 100
             else:
                 pass
@@ -19650,7 +19658,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             NASDAQ_고가 =  result['고가']                    
             NASDAQ_진폭 = NASDAQ_고가 - NASDAQ_저가
             
-            if NASDAQ_전일종가 > 0 and not NightTime:
+            if NASDAQ_전일종가 > 0 and DayTime:
                 NASDAQ_등락율 = ((NASDAQ_현재가 - NASDAQ_전일종가) / NASDAQ_전일종가) * 100
             else:
                 pass
@@ -19812,7 +19820,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             SP500_고가 =  result['고가']
             SP500_진폭 = SP500_고가 - SP500_저가
             
-            if SP500_전일종가 > 0 and not NightTime:
+            if SP500_전일종가 > 0 and DayTime:
                 SP500_등락율 = ((SP500_현재가 - SP500_전일종가) / SP500_전일종가) * 100
             else:
                 pass
@@ -19976,7 +19984,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             WTI_고가 =  result['고가']
             WTI_진폭 = round((result['고가'] - result['저가']), 2)
             
-            if WTI_전일종가 > 0 and not NightTime:
+            if WTI_전일종가 > 0 and DayTime:
                 WTI_등락율 = ((WTI_현재가 - WTI_전일종가) / WTI_전일종가) * 100
             else:
                 pass
@@ -20140,7 +20148,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             HANGSENG_고가 =  int(result['고가'])                    
             HANGSENG_진폭 = int(result['고가'] - result['저가'])
             
-            if HANGSENG_전일종가 > 0 and not NightTime:
+            if HANGSENG_전일종가 > 0 and DayTime:
                 HANGSENG_등락율 = ((result['체결가격'] - HANGSENG_전일종가) / HANGSENG_전일종가) * 100
             else:
                 pass
@@ -20252,7 +20260,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             EUROFX_고가 =  result['고가']                    
             EUROFX_진폭 = round((result['고가'] - result['저가']), 2)
 
-            if EUROFX_전일종가 > 0 and not NightTime:
+            if EUROFX_전일종가 > 0 and DayTime:
                 EUROFX_등락율 = ((result['체결가격'] - EUROFX_전일종가) / EUROFX_전일종가) * 100
             else:
                 pass
@@ -20364,7 +20372,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             GOLD_고가 =  result['고가']                    
             GOLD_진폭 = result['고가'] - result['저가']
 
-            if GOLD_전일종가 > 0 and not NightTime:
+            if GOLD_전일종가 > 0 and DayTime:
                 GOLD_등락율 = ((result['체결가격'] - GOLD_전일종가) / GOLD_전일종가) * 100
             else:
                 pass
@@ -21763,7 +21771,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    if not NightTime and result['저가지수'] != self.tableWidget_fut.item(2, Futures_column.저가.value).text():
+                    if DayTime and result['저가지수'] != self.tableWidget_fut.item(2, Futures_column.저가.value).text():
 
                         flag_kp200_low = True
 
@@ -21794,7 +21802,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    if not NightTime and result['고가지수'] != self.tableWidget_fut.item(2, Futures_column.고가.value).text():
+                    if DayTime and result['고가지수'] != self.tableWidget_fut.item(2, Futures_column.고가.value).text():
 
                         flag_kp200_high = True
 
@@ -22536,10 +22544,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif szTrCode == 'FH0' or szTrCode == 'NH0':
 
-                global fut_hoga_cr, fut_hoga_rr, fut_cms_hoga_cr, fut_cms_hoga_rr, fut_ccms_hoga_cr, fut_ccms_hoga_rr
-                global 선물_호가순매수
+                global 선물_호가순매수, fut_hoga_cr, fut_hoga_rr, fut_cms_hoga_cr, fut_cms_hoga_rr, fut_ccms_hoga_cr, fut_ccms_hoga_rr
+                global cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max, nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max
 
-                market_service = True
+                if not market_service:
+                    market_service = True
+                else:
+                    pass
 
                 if result['단축코드'] == GMSHCODE:
 
@@ -22595,8 +22606,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_futures_graph.at[ovc_x_idx, 'c_md_hoga'] = result['매도호가총수량']
 
                     if result['매수호가총수량'] > 0 and result['매도호가총수량'] > 0:
+
                         fut_hoga_rr = result['매수호가총수량'] / result['매도호가총수량']
-                        df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'] = fut_hoga_rr                         
+                        df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'] = fut_hoga_rr
+
+                        cm_fut_quote_min = df_futures_graph['c_hoga_remainder_ratio'].min()
+                        cm_fut_quote_mean = df_futures_graph['c_hoga_remainder_ratio'].mean()
+                        cm_fut_quote_max = df_futures_graph['c_hoga_remainder_ratio'].max()                         
                     else:
                         pass
 
@@ -22645,8 +22661,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_futures_graph.at[ovc_x_idx, 'n_md_hoga'] = result['매도호가총수량']
 
                     if result['매수호가총수량'] > 0 and result['매도호가총수량'] > 0:
+
                         fut_cms_hoga_rr = result['매수호가총수량'] / result['매도호가총수량']
                         df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'] = fut_cms_hoga_rr
+
+                        nm_fut_quote_min = df_futures_graph['n_hoga_remainder_ratio'].min()
+                        nm_fut_quote_mean = df_futures_graph['n_hoga_remainder_ratio'].mean()
+                        nm_fut_quote_max = df_futures_graph['n_hoga_remainder_ratio'].max()
                     else:
                         pass
                 
@@ -22690,7 +22711,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    if result['매도호가총수량'] > 0:
+                    if result['매수호가총수량'] > 0 and result['매도호가총수량'] > 0:
                         fut_ccms_hoga_rr = result['매수호가총수량'] / result['매도호가총수량']
                     else:
                         pass
@@ -22698,7 +22719,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # 에너지방향
-                if not NightTime and CM_FUT_QUOTE and NM_FUT_QUOTE:
+                if DayTime and CM_FUT_QUOTE and NM_FUT_QUOTE:
                     if fut_cms_hoga_rr > fut_hoga_rr:
                         fut_quote_energy_direction = 'call'
                     else:
@@ -22737,7 +22758,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                if not NightTime:
+                if DayTime:
 
                     if hoga_cr > 1.0 and hoga_rr > 1.0:
 
@@ -22888,7 +22909,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     txt = '환율: {0} at {1}\r'.format(result['현재가'], result['한국시간'])
                     print(txt)
 
-                    if not NightTime: 
+                    if DayTime: 
                         self.label_kosdaq.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
                         self.label_kosdaq.setText(txt)
                     else:
@@ -24050,7 +24071,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.checkBox_plot5_oe.stateChanged.connect(self.checkBox_plot5_oe_checkState)
         self.checkBox_plot6_oe.stateChanged.connect(self.checkBox_plot6_oe_checkState)
         
-        if not NightTime:
+        if DayTime:
 
             if TARGET_MONTH_SELECT == 'CM':
 
@@ -30419,7 +30440,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not NightTime:
+                if DayTime:
                     self.plot1_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
                     self.plot1_center_val_line.setValue(CENTER_VAL)
                     self.plot1_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
@@ -30461,7 +30482,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot1_time_line.setValue(ovc_x_idx)
 
-                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(df_futures_graph['c_hoga_remainder_ratio'].min(), df_futures_graph['c_hoga_remainder_ratio'].mean(), df_futures_graph['c_hoga_remainder_ratio'].max())
+                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
                 self.label_16.setText(txt)
 
                 txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
@@ -30478,7 +30499,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_17.setText(txt)
 
-                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(df_futures_graph['n_hoga_remainder_ratio'].min(), df_futures_graph['n_hoga_remainder_ratio'].mean(), df_futures_graph['n_hoga_remainder_ratio'].max())
+                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, df_futures_graph['n_hoga_remainder_ratio'].max())
                 self.label_18.setText(txt)
 
                 self.plot1_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'].to_numpy())
@@ -30537,7 +30558,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.plot1_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy())                
                 self.plot1_call_drate_curve.setData(df_call_information_graph['drate'].to_numpy())
 
-                if not NightTime:
+                if DayTime:
                     
                     txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
                     self.label_17.setText(txt)
@@ -31430,7 +31451,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot2_time_line.setValue(ovc_x_idx)
 
-                txt = ' min: {0:.2f}, meam: {1:.2f}, max: {2:.2f} '.format(df_futures_graph['c_hoga_remainder_ratio'].min(), df_futures_graph['c_hoga_remainder_ratio'].mean(), df_futures_graph['c_hoga_remainder_ratio'].max())
+                txt = ' min: {0:.2f}, meam: {1:.2f}, max: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
                 self.label_26.setText(txt)
 
                 txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
@@ -31447,7 +31468,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_27.setText(txt)
 
-                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(df_futures_graph['n_hoga_remainder_ratio'].min(), df_futures_graph['n_hoga_remainder_ratio'].mean(), df_futures_graph['n_hoga_remainder_ratio'].max())
+                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
                 self.label_28.setText(txt)
 
                 self.plot2_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'].to_numpy())
@@ -31470,7 +31491,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.plot2_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy())
                 self.plot2_call_drate_curve.setData(df_call_information_graph['drate'].to_numpy())
 
-                if not NightTime:
+                if DayTime:
                     
                     txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
                     self.label_27.setText(txt)
@@ -31527,7 +31548,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not NightTime:
+                if DayTime:
                     self.plot2_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
                     self.plot2_center_val_line.setValue(CENTER_VAL)
                     self.plot2_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
@@ -32305,7 +32326,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot3_time_line.setValue(ovc_x_idx)
 
-                txt = ' min: {0:.2f}, meam: {1:.2f}, max: {2:.2f} '.format(df_futures_graph['c_hoga_remainder_ratio'].min(), df_futures_graph['c_hoga_remainder_ratio'].mean(), df_futures_graph['c_hoga_remainder_ratio'].max())
+                txt = ' min: {0:.2f}, meam: {1:.2f}, max: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
                 self.label_36.setText(txt)
 
                 txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
@@ -32322,7 +32343,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_37.setText(txt)
 
-                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(df_futures_graph['n_hoga_remainder_ratio'].min(), df_futures_graph['n_hoga_remainder_ratio'].mean(), df_futures_graph['n_hoga_remainder_ratio'].max())
+                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
                 self.label_38.setText(txt)
 
                 self.plot3_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'].to_numpy())
@@ -32345,7 +32366,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.plot3_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy())
                 self.plot3_call_drate_curve.setData(df_call_information_graph['drate'].to_numpy())
 
-                if not NightTime:
+                if DayTime:
                     
                     txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
                     self.label_37.setText(txt)
@@ -32402,7 +32423,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not NightTime:        
+                if DayTime:        
                     self.plot3_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
                     self.plot3_center_val_line.setValue(CENTER_VAL)
                     self.plot3_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
@@ -33016,7 +33037,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not NightTime:
+                if DayTime:
                     self.plot4_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
                     self.plot4_center_val_line.setValue(CENTER_VAL)
                     self.plot4_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
@@ -33058,7 +33079,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot4_time_line.setValue(ovc_x_idx)
 
-                txt = ' min: {0:.2f}, meam: {1:.2f}, max: {2:.2f} '.format(df_futures_graph['c_hoga_remainder_ratio'].min(), df_futures_graph['c_hoga_remainder_ratio'].mean(), df_futures_graph['c_hoga_remainder_ratio'].max())
+                txt = ' min: {0:.2f}, meam: {1:.2f}, max: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
                 self.label_46.setText(txt)
 
                 txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
@@ -33075,7 +33096,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_47.setText(txt)
 
-                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(df_futures_graph['n_hoga_remainder_ratio'].min(), df_futures_graph['n_hoga_remainder_ratio'].mean(), df_futures_graph['n_hoga_remainder_ratio'].max())
+                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
                 self.label_48.setText(txt)
 
                 self.plot4_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'].to_numpy())
@@ -33134,7 +33155,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.plot4_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy())
                 self.plot4_call_drate_curve.setData(df_call_information_graph['drate'].to_numpy())
 
-                if not NightTime:
+                if DayTime:
                     
                     txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
                     self.label_47.setText(txt)
@@ -34027,7 +34048,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot5_time_line.setValue(ovc_x_idx)
 
-                txt = ' min: {0:.2f}, meam: {1:.2f}, max: {2:.2f} '.format(df_futures_graph['c_hoga_remainder_ratio'].min(), df_futures_graph['c_hoga_remainder_ratio'].mean(), df_futures_graph['c_hoga_remainder_ratio'].max())
+                txt = ' min: {0:.2f}, meam: {1:.2f}, max: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
                 self.label_56.setText(txt)
 
                 txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
@@ -34044,7 +34065,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_57.setText(txt)
 
-                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(df_futures_graph['n_hoga_remainder_ratio'].min(), df_futures_graph['n_hoga_remainder_ratio'].mean(), df_futures_graph['n_hoga_remainder_ratio'].max())
+                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
                 self.label_58.setText(txt)
 
                 self.plot5_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'].to_numpy())
@@ -34067,7 +34088,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.plot5_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy())
                 self.plot5_call_drate_curve.setData(df_call_information_graph['drate'].to_numpy())
 
-                if not NightTime:
+                if DayTime:
                     
                     txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
                     self.label_57.setText(txt)
@@ -34124,7 +34145,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass                
                 
-                if not NightTime:        
+                if DayTime:        
                     self.plot5_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
                     self.plot5_center_val_line.setValue(CENTER_VAL)
                     self.plot5_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
@@ -34895,7 +34916,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot6_time_line.setValue(ovc_x_idx)
 
-                txt = ' min: {0:.2f}, meam: {1:.2f}, max: {2:.2f} '.format(df_futures_graph['c_hoga_remainder_ratio'].min(), df_futures_graph['c_hoga_remainder_ratio'].mean(), df_futures_graph['c_hoga_remainder_ratio'].max())
+                txt = ' min: {0:.2f}, meam: {1:.2f}, max: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
                 self.label_66.setText(txt)
 
                 txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
@@ -34912,7 +34933,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_67.setText(txt)
 
-                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(df_futures_graph['n_hoga_remainder_ratio'].min(), df_futures_graph['n_hoga_remainder_ratio'].mean(), df_futures_graph['n_hoga_remainder_ratio'].max())
+                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
                 self.label_68.setText(txt)
 
                 self.plot6_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'].to_numpy())
@@ -34935,7 +34956,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.plot6_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy())
                 self.plot6_call_drate_curve.setData(df_call_information_graph['drate'].to_numpy())
 
-                if not NightTime:
+                if DayTime:
                     
                     txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
                     self.label_67.setText(txt)
@@ -34992,7 +35013,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass                
                 
-                if not NightTime:     
+                if DayTime:     
                     self.plot6_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
                     self.plot6_center_val_line.setValue(CENTER_VAL)
                     self.plot6_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
