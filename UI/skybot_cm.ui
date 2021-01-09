@@ -21,7 +21,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>PNG/skybot_cm.png</normaloff>PNG/skybot_cm.png</iconset>
+    <normaloff>Resources/skybot_cm.png</normaloff>Resources/skybot_cm.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
@@ -103,7 +103,7 @@
   <action name="actionLogin">
    <property name="icon">
     <iconset>
-     <normaloff>PNG/로그인.png</normaloff>PNG/로그인.png</iconset>
+     <normaloff>Resources/로그인.png</normaloff>Resources/로그인.png</iconset>
    </property>
    <property name="text">
     <string>로그인</string>
@@ -118,7 +118,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>PNG/로그아웃.png</normaloff>PNG/로그아웃.png</iconset>
+     <normaloff>Resources/로그아웃.png</normaloff>Resources/로그아웃.png</iconset>
    </property>
    <property name="text">
     <string>로그아웃</string>
@@ -130,7 +130,7 @@
   <action name="actionExit">
    <property name="icon">
     <iconset>
-     <normaloff>PNG/종료.png</normaloff>PNG/종료.png</iconset>
+     <normaloff>Resources/종료.png</normaloff>Resources/종료.png</iconset>
    </property>
    <property name="text">
     <string>종료</string>
@@ -142,7 +142,7 @@
   <action name="actionAccountDialog">
    <property name="icon">
     <iconset>
-     <normaloff>PNG/계좌조회.png</normaloff>PNG/계좌조회.png</iconset>
+     <normaloff>Resources/계좌조회.png</normaloff>Resources/계좌조회.png</iconset>
    </property>
    <property name="text">
     <string>계좌조회</string>
@@ -151,7 +151,7 @@
   <action name="actionVersion">
    <property name="icon">
     <iconset>
-     <normaloff>PNG/version.png</normaloff>PNG/version.png</iconset>
+     <normaloff>Resources/version.png</normaloff>Resources/version.png</iconset>
    </property>
    <property name="text">
     <string>버전</string>
@@ -160,7 +160,7 @@
   <action name="actionScoreBoard">
    <property name="icon">
     <iconset>
-     <normaloff>PNG/전광판.png</normaloff>PNG/전광판.png</iconset>
+     <normaloff>Resources/전광판.png</normaloff>Resources/전광판.png</iconset>
    </property>
    <property name="text">
     <string>전광판</string>
@@ -169,7 +169,7 @@
   <action name="actionBigChart">
    <property name="icon">
     <iconset>
-     <normaloff>PNG/bigchart.png</normaloff>PNG/bigchart.png</iconset>
+     <normaloff>Resources/bigchart.png</normaloff>Resources/bigchart.png</iconset>
    </property>
    <property name="text">
     <string>Big Chart</string>
@@ -181,7 +181,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>PNG/bigchart.png</normaloff>PNG/bigchart.png</iconset>
+     <normaloff>Resources/bigchart.png</normaloff>Resources/bigchart.png</iconset>
    </property>
    <property name="text">
     <string>Big Chart</string>
@@ -200,7 +200,7 @@
   <action name="actionRealTimeItem">
    <property name="icon">
     <iconset>
-     <normaloff>PNG/설정.png</normaloff>PNG/설정.png</iconset>
+     <normaloff>Resources/설정.png</normaloff>Resources/설정.png</iconset>
    </property>
    <property name="text">
     <string>실시간요청</string>
@@ -209,7 +209,7 @@
   <action name="action_ToolBar_RealTime_Setting">
    <property name="icon">
     <iconset>
-     <normaloff>PNG/설정.png</normaloff>PNG/설정.png</iconset>
+     <normaloff>Resources/설정.png</normaloff>Resources/설정.png</iconset>
    </property>
    <property name="text">
     <string>실시간요청 설정</string>
@@ -218,7 +218,7 @@
   <action name="action_ToolBar_ScoreBoard">
    <property name="icon">
     <iconset>
-     <normaloff>PNG/전광판.png</normaloff>PNG/전광판.png</iconset>
+     <normaloff>Resources/전광판.png</normaloff>Resources/전광판.png</iconset>
    </property>
    <property name="text">
     <string>전광판</string>
