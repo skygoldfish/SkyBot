@@ -5123,9 +5123,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f} ms\r'.format(dt.hour, dt.minute, dt.second, self.main_ui_update_time)
                 print(txt)
 
-                item = QTableWidgetItem('{0:.2f}'.format(self.main_ui_update_time))
+                item_txt = '{0:.2f}'.format(self.main_ui_update_time)
+                item = QTableWidgetItem(item_txt)
                 item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_fut.setHorizontalHeaderItem(0, item)                    
+                self.tableWidget_fut.setHorizontalHeaderItem(0, item)                   
 
                 if flag_checkBox_HS and dt.second % 10 == 0 and self.alternate_flag:
                     self.textBrowser.append(txt)
@@ -5476,8 +5477,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 진성맥점.append(new_node[i][0])
 
-                item_str = "{0:.2f}\n({1})✓".format(new_node[i][0], new_node[i][1])
-                item = QTableWidgetItem(item_str)
+                item_txt = "{0:.2f}\n({1})✓".format(new_node[i][0], new_node[i][1])
+                item = QTableWidgetItem(item_txt)
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(lime))
                 item.setForeground(QBrush(검정색))
@@ -12080,10 +12081,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         temp = format(콜_순매수_체결량, ',')
-        item_str = "{0}\n({1})".format(매도잔량, temp)
+        item_txt = "{0}\n({1})".format(매도잔량, temp)
 
-        if item_str != self.tableWidget_quote.item(0, 3).text():
-            item = QTableWidgetItem(item_str)
+        if item_txt != self.tableWidget_quote.item(0, 3).text():
+            item = QTableWidgetItem(item_txt)
             item.setTextAlignment(Qt.AlignCenter)
 
             if 콜_순매수_체결량 > 0 and 풋_순매수_체결량 < 0:
@@ -13149,10 +13150,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         temp = format(풋_순매수_체결량, ',')
-        item_str = "{0}\n({1})".format(매도잔량, temp)
+        item_txt = "{0}\n({1})".format(매도잔량, temp)
 
-        if item_str != self.tableWidget_quote.item(0, 7).text():
-            item = QTableWidgetItem(item_str)
+        if item_txt != self.tableWidget_quote.item(0, 7).text():
+            item = QTableWidgetItem(item_txt)
             item.setTextAlignment(Qt.AlignCenter)
 
             if 콜_순매수_체결량 > 0 and 풋_순매수_체결량 < 0:
@@ -13505,11 +13506,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #temp = call_quote['매수건수'] + call_quote['매도건수']
         #건수합 = format(temp, ',')
 
-        item_str = "{0}\n({1})\n({2})".format(repr(call_count_ratio), format(call_quote['매수건수'], ','), format(call_quote['매도건수'], ','))
+        item_txt = "{0}\n({1})\n({2})".format(repr(call_count_ratio), format(call_quote['매수건수'], ','), format(call_quote['매도건수'], ','))
 
-        if item_str != self.tableWidget_quote.item(0, 8).text():
+        if item_txt != self.tableWidget_quote.item(0, 8).text():
 
-            item = QTableWidgetItem(item_str)
+            item = QTableWidgetItem(item_txt)
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_quote.setItem(0, 8, item)
         else:
@@ -13521,11 +13522,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #temp = 콜매수잔량 + 콜매도잔량
         #잔량합 = format(temp, ',')
 
-        item_str = "{0}\n({1})\n({2})".format(repr(call_remainder_ratio), format(call_quote['매수잔량'], ','), format(call_quote['매도잔량'], ','))
+        item_txt = "{0}\n({1})\n({2})".format(repr(call_remainder_ratio), format(call_quote['매수잔량'], ','), format(call_quote['매도잔량'], ','))
 
-        if item_str != self.tableWidget_quote.item(0, 9).text():
+        if item_txt != self.tableWidget_quote.item(0, 9).text():
 
-            item = QTableWidgetItem(item_str)
+            item = QTableWidgetItem(item_txt)
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_quote.setItem(0, 9, item)
         else:
@@ -13534,11 +13535,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #temp = put_quote['매수건수'] + put_quote['매도건수']
         #건수합 = format(temp, ',')
 
-        item_str = "{0}\n({1})\n({2})".format(repr(put_count_ratio), format(put_quote['매수건수'], ','), format(put_quote['매도건수'], ','))
+        item_txt = "{0}\n({1})\n({2})".format(repr(put_count_ratio), format(put_quote['매수건수'], ','), format(put_quote['매도건수'], ','))
 
-        if item_str != self.tableWidget_quote.item(0, 10).text():
+        if item_txt != self.tableWidget_quote.item(0, 10).text():
 
-            item = QTableWidgetItem(item_str)
+            item = QTableWidgetItem(item_txt)
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_quote.setItem(0, 10, item)
         else:
@@ -13550,11 +13551,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #temp = 풋매수잔량 + 풋매도잔량
         #잔량합 = format(temp, ',')
         
-        item_str = "{0}\n({1})\n({2})".format(repr(put_remainder_ratio), format(put_quote['매수잔량'], ','), format(put_quote['매도잔량'], ','))
+        item_txt = "{0}\n({1})\n({2})".format(repr(put_remainder_ratio), format(put_quote['매수잔량'], ','), format(put_quote['매도잔량'], ','))
 
-        if item_str != self.tableWidget_quote.item(0, 11).text():
+        if item_txt != self.tableWidget_quote.item(0, 11).text():
 
-            item = QTableWidgetItem(item_str)
+            item = QTableWidgetItem(item_txt)
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_quote.setItem(0, 11, item)
         else:
@@ -13566,12 +13567,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         temp = (call_quote['매수잔량'] + call_quote['매도잔량']) - (put_quote['매수잔량'] + put_quote['매도잔량'])
         잔량차 = format(temp, ',')
 
-        item_str = "{0:.2f}({1})\n{2:.2f}({3})".format(call_count_ratio - put_count_ratio, 건수차,
+        item_txt = "{0:.2f}({1})\n{2:.2f}({3})".format(call_count_ratio - put_count_ratio, 건수차,
                                                          call_remainder_ratio - put_remainder_ratio, 잔량차)
 
-        if item_str != self.tableWidget_quote.item(0, 12).text():
+        if item_txt != self.tableWidget_quote.item(0, 12).text():
 
-            item = QTableWidgetItem(item_str)
+            item = QTableWidgetItem(item_txt)
             item.setTextAlignment(Qt.AlignCenter)
 
             if call_count_ratio > put_count_ratio and call_remainder_ratio > put_remainder_ratio:
@@ -13612,9 +13613,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             콜_수정미결퍼센트 = 0
             풋_수정미결퍼센트 = 0
 
-        item_str = '{0:.2f}({1:.2f})% \n {2:.2f}({3:.2f})% '.format(콜_수정미결퍼센트, call_oi_init_percent, 풋_수정미결퍼센트, put_oi_init_percent)
+        item_txt = '{0:.2f}({1:.2f})% \n {2:.2f}({3:.2f})% '.format(콜_수정미결퍼센트, call_oi_init_percent, 풋_수정미결퍼센트, put_oi_init_percent)
 
-        item = QTableWidgetItem(item_str)
+        item = QTableWidgetItem(item_txt)
         item.setTextAlignment(Qt.AlignCenter)
 
         if 콜_수정미결퍼센트 > call_oi_init_percent:
@@ -14306,9 +14307,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_call_information_graph.at[0, 'drate'] = 0
                 df_put_information_graph.at[0, 'drate'] = 0
 
-                item_str = '{0:0.2f}% \n {1:0.2f}% '.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+                item_txt = '{0:0.2f}% \n {1:0.2f}% '.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
-                item = QTableWidgetItem(item_str)
+                item = QTableWidgetItem(item_txt)
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(흰색))
                 item.setForeground(QBrush(검정색))
@@ -15337,13 +15338,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # 행사가 갯수 표시
-                item_str = '{0:d}'.format(real_option_pairs_count)
+                item_txt = '{0:d}'.format(real_option_pairs_count)
 
-                item = QTableWidgetItem(item_str)
+                item = QTableWidgetItem(item_txt)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_call.setHorizontalHeaderItem(0, item)
                 
-                item = QTableWidgetItem(item_str)
+                item = QTableWidgetItem(item_txt)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setHorizontalHeaderItem(0, item)
 
@@ -15745,8 +15746,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             빈도수 = moving_list.count(저가)
 
                             if 1.20 < 저가 < 10.0:
-                                item_str = '{0:.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
-                                item = QTableWidgetItem(item_str)
+                                item_txt = '{0:.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
+                                item = QTableWidgetItem(item_txt)
                             else:
                                 item = QTableWidgetItem("{0:.2f}".format(저가))
 
@@ -15763,8 +15764,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             빈도수 = moving_list.count(고가)
 
                             if 1.20 < 고가 < 10.0:
-                                item_str = '{0:.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
-                                item = QTableWidgetItem(item_str)
+                                item_txt = '{0:.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
+                                item = QTableWidgetItem(item_txt)
                             else:
                                 item = QTableWidgetItem("{0:.2f}".format(고가))
 
@@ -15788,8 +15789,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             빈도수 = moving_list.count(저가)
 
                             if 1.20 < 저가 < 10.0:
-                                item_str = '{0:.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
-                                item = QTableWidgetItem(item_str)
+                                item_txt = '{0:.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
+                                item = QTableWidgetItem(item_txt)
                             else:
                                 item = QTableWidgetItem("{0:.2f}".format(저가))
 
@@ -15806,8 +15807,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             빈도수 = moving_list.count(고가)
 
                             if 1.20 < 고가 < 10.0:
-                                item_str = '{0:.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
-                                item = QTableWidgetItem(item_str)
+                                item_txt = '{0:.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
+                                item = QTableWidgetItem(item_txt)
                             else:
                                 item = QTableWidgetItem("{0:.2f}".format(고가))
 
@@ -16018,9 +16019,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             if NightTime:
                 
-                item_str = '{0:0.2f}% \n {1:0.2f}% '.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+                item_txt = '{0:0.2f}% \n {1:0.2f}% '.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
-                item = QTableWidgetItem(item_str)
+                item = QTableWidgetItem(item_txt)
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(흰색))
                 item.setForeground(QBrush(검정색))
@@ -17544,8 +17545,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         빈도수 = moving_list.count(저가)                    
 
                         if 1.20 < 저가 < 10.0:
-                            item_str = '{0:.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
-                            item = QTableWidgetItem(item_str)
+                            item_txt = '{0:.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
+                            item = QTableWidgetItem(item_txt)
                         else:
                             item = QTableWidgetItem("{0:.2f}".format(저가))
 
@@ -17564,8 +17565,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         빈도수 = moving_list.count(고가)
 
                         if 1.20 < 고가 < 10.0:
-                            item_str = '{0:.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
-                            item = QTableWidgetItem(item_str)
+                            item_txt = '{0:.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
+                            item = QTableWidgetItem(item_txt)
                         else:
                             item = QTableWidgetItem("{0:.2f}".format(고가))
 
@@ -17591,8 +17592,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         빈도수 = moving_list.count(저가)                    
 
                         if 1.20 < 저가 < 10.0:
-                            item_str = '{0:.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
-                            item = QTableWidgetItem(item_str)
+                            item_txt = '{0:.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
+                            item = QTableWidgetItem(item_txt)
                         else:
                             item = QTableWidgetItem("{0:.2f}".format(저가))
 
@@ -17611,8 +17612,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         빈도수 = moving_list.count(고가)                    
 
                         if 1.20 < 고가 < 10.0:
-                            item_str = '{0:.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
-                            item = QTableWidgetItem(item_str)
+                            item_txt = '{0:.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
+                            item = QTableWidgetItem(item_txt)
                         else:
                             item = QTableWidgetItem("{0:.2f}".format(고가))
 
@@ -17739,8 +17740,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     print(txt) 
 
                     # 추가된 행사가 갯수 표시
-                    item_str = '(+' + '{0:d})'.format(new_actval_up_count) + '\n' + '{0:d}'.format(real_option_pairs_count)
-                    item = QTableWidgetItem(item_str)
+                    item_txt = '(+' + '{0:d})'.format(new_actval_up_count) + '\n' + '{0:d}'.format(real_option_pairs_count)
+                    item = QTableWidgetItem(item_txt)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setHorizontalHeaderItem(0, item)
 
@@ -17750,8 +17751,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
                     self.tableWidget_call.resizeColumnsToContents()
 
-                    item_str = '(+' + '{0:d})'.format(new_actval_up_count) + '\n' + '{0:d}'.format(real_option_pairs_count)
-                    item = QTableWidgetItem(item_str)
+                    item_txt = '(+' + '{0:d})'.format(new_actval_up_count) + '\n' + '{0:d}'.format(real_option_pairs_count)
+                    item = QTableWidgetItem(item_txt)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setHorizontalHeaderItem(0, item)
 
@@ -17771,8 +17772,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     print(txt)  
 
                     # 추가된 행사가 갯수 표시
-                    item_str =  '{0:d}'.format(real_option_pairs_count) + '\n' + '(+' + '{0:d})'.format(new_actval_down_count)
-                    item = QTableWidgetItem(item_str)
+                    item_txt =  '{0:d}'.format(real_option_pairs_count) + '\n' + '(+' + '{0:d})'.format(new_actval_down_count)
+                    item = QTableWidgetItem(item_txt)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setHorizontalHeaderItem(0, item)
 
@@ -17782,8 +17783,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
                     self.tableWidget_call.resizeColumnsToContents()
 
-                    item_str = '{0:d}'.format(real_option_pairs_count) + '\n' + '(+' + '{0:d})'.format(new_actval_down_count)
-                    item = QTableWidgetItem(item_str)
+                    item_txt = '{0:d}'.format(real_option_pairs_count) + '\n' + '(+' + '{0:d})'.format(new_actval_down_count)
+                    item = QTableWidgetItem(item_txt)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setHorizontalHeaderItem(0, item) 
 
@@ -21974,10 +21975,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if min(temp) > 0:
 
-                        item_str = "{0}\n({1})⬈".format(순매수, result['거래대금순매수직전대비'])
+                        item_txt = "{0}\n({1})⬈".format(순매수, result['거래대금순매수직전대비'])
 
-                        if item_str != self.tableWidget_supply.item(0, 0).text():
-                            item = QTableWidgetItem(item_str)
+                        if item_txt != self.tableWidget_supply.item(0, 0).text():
+                            item = QTableWidgetItem(item_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(적색))
                             item.setForeground(QBrush(흰색))
@@ -21987,10 +21988,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     elif max(temp) < 0:
 
-                        item_str = "{0}\n({1})⬊".format(순매수, result['거래대금순매수직전대비'])
+                        item_txt = "{0}\n({1})⬊".format(순매수, result['거래대금순매수직전대비'])
 
-                        if item_str != self.tableWidget_supply.item(0, 0).text():
-                            item = QTableWidgetItem(item_str)
+                        if item_txt != self.tableWidget_supply.item(0, 0).text():
+                            item = QTableWidgetItem(item_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(청색))
                             item.setForeground(QBrush(흰색))
@@ -22000,10 +22001,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     else:
 
-                        item_str = "{0}\n({1})".format(순매수, result['거래대금순매수직전대비'])
+                        item_txt = "{0}\n({1})".format(순매수, result['거래대금순매수직전대비'])
 
-                        if item_str != self.tableWidget_supply.item(0, 0).text():
-                            item = QTableWidgetItem(item_str)
+                        if item_txt != self.tableWidget_supply.item(0, 0).text():
+                            item = QTableWidgetItem(item_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(흰색))
                             item.setForeground(QBrush(검정색))
@@ -22023,10 +22024,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if min(temp) > 0:
 
-                        item_str = "{0}\n({1})⬈".format(순매수, result['거래대금순매수직전대비'])
+                        item_txt = "{0}\n({1})⬈".format(순매수, result['거래대금순매수직전대비'])
 
-                        if item_str != self.tableWidget_supply.item(0, 3).text():
-                            item = QTableWidgetItem(item_str)
+                        if item_txt != self.tableWidget_supply.item(0, 3).text():
+                            item = QTableWidgetItem(item_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_supply.setItem(0, 3, item)
                         else:
@@ -22034,20 +22035,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     elif max(temp) < 0:
 
-                        item_str = "{0}\n({1})⬊".format(순매수, result['거래대금순매수직전대비'])
+                        item_txt = "{0}\n({1})⬊".format(순매수, result['거래대금순매수직전대비'])
 
-                        if item_str != self.tableWidget_supply.item(0, 3).text():
-                            item = QTableWidgetItem(item_str)
+                        if item_txt != self.tableWidget_supply.item(0, 3).text():
+                            item = QTableWidgetItem(item_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_supply.setItem(0, 3, item)
                         else:
                             pass
 
                     else:
-                        item_str = "{0}\n({1})".format(순매수, result['거래대금순매수직전대비'])
+                        item_txt = "{0}\n({1})".format(순매수, result['거래대금순매수직전대비'])
 
-                        if item_str != self.tableWidget_supply.item(0, 3).text():
-                            item = QTableWidgetItem(item_str)
+                        if item_txt != self.tableWidget_supply.item(0, 3).text():
+                            item = QTableWidgetItem(item_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_supply.setItem(0, 3, item)
                         else:
@@ -22073,10 +22074,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if min(temp) > 0:
 
-                        item_str = "{0}\n({1})⬈".format(순매수, 기관_거래대금순매수_직전대비)
+                        item_txt = "{0}\n({1})⬈".format(순매수, 기관_거래대금순매수_직전대비)
 
-                        if item_str != self.tableWidget_supply.item(0, 4).text():
-                            item = QTableWidgetItem(item_str)
+                        if item_txt != self.tableWidget_supply.item(0, 4).text():
+                            item = QTableWidgetItem(item_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(적색))
                             item.setForeground(QBrush(흰색))
@@ -22086,10 +22087,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     elif max(temp) < 0:
 
-                        item_str = "{0}\n({1})⬊".format(순매수, 기관_거래대금순매수_직전대비)
+                        item_txt = "{0}\n({1})⬊".format(순매수, 기관_거래대금순매수_직전대비)
 
-                        if item_str != self.tableWidget_supply.item(0, 4).text():
-                            item = QTableWidgetItem(item_str)
+                        if item_txt != self.tableWidget_supply.item(0, 4).text():
+                            item = QTableWidgetItem(item_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(청색))
                             item.setForeground(QBrush(흰색))
@@ -22098,10 +22099,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
 
                     else:
-                        item_str = "{0}\n({1})".format(순매수, 기관_거래대금순매수_직전대비)
+                        item_txt = "{0}\n({1})".format(순매수, 기관_거래대금순매수_직전대비)
 
-                        if item_str != self.tableWidget_supply.item(0, 4).text():
-                            item = QTableWidgetItem(item_str)
+                        if item_txt != self.tableWidget_supply.item(0, 4).text():
+                            item = QTableWidgetItem(item_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(흰색))
                             item.setForeground(QBrush(검정색))
@@ -22156,10 +22157,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if min(temp) > 0:
 
-                        item_str = "{0}\n({1})⬈".format(순매수, result['거래대금순매수직전대비'])
+                        item_txt = "{0}\n({1})⬈".format(순매수, result['거래대금순매수직전대비'])
 
-                        if item_str != self.tableWidget_supply.item(0, 2).text():
-                            item = QTableWidgetItem(item_str)
+                        if item_txt != self.tableWidget_supply.item(0, 2).text():
+                            item = QTableWidgetItem(item_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(적색))
                             item.setForeground(QBrush(흰색))
@@ -22169,10 +22170,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     elif max(temp) < 0:
 
-                        item_str = "{0}\n({1})⬊".format(순매수, result['거래대금순매수직전대비'])
+                        item_txt = "{0}\n({1})⬊".format(순매수, result['거래대금순매수직전대비'])
 
-                        if item_str != self.tableWidget_supply.item(0, 2).text():
-                            item = QTableWidgetItem(item_str)
+                        if item_txt != self.tableWidget_supply.item(0, 2).text():
+                            item = QTableWidgetItem(item_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(청색))
                             item.setForeground(QBrush(흰색))
@@ -22181,10 +22182,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
 
                     else:
-                        item_str = "{0}\n({1})".format(순매수, result['거래대금순매수직전대비'])
+                        item_txt = "{0}\n({1})".format(순매수, result['거래대금순매수직전대비'])
 
-                        if item_str != self.tableWidget_supply.item(0, 2).text():
-                            item = QTableWidgetItem(item_str)
+                        if item_txt != self.tableWidget_supply.item(0, 2).text():
+                            item = QTableWidgetItem(item_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(흰색))
                             item.setForeground(QBrush(검정색))
@@ -22258,10 +22259,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     temp1 = format(선물_거래대금순매수, ',')
                     temp2 = format(현물_거래대금순매수, ',')
                     
-                    item_str = "{0}({1})\n{2}({3})".format(temp1, 선물_거래대금순매수_직전대비, temp2, 현물_거래대금순매수_직전대비)
+                    item_txt = "{0}({1})\n{2}({3})".format(temp1, 선물_거래대금순매수_직전대비, temp2, 현물_거래대금순매수_직전대비)
 
-                    if item_str != self.tableWidget_supply.item(0, 5).text():
-                        item = QTableWidgetItem(item_str)
+                    if item_txt != self.tableWidget_supply.item(0, 5).text():
+                        item = QTableWidgetItem(item_txt)
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_supply.setItem(0, 5, item)                                             
                     else:
@@ -22303,10 +22304,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if min(temp) > 0:
 
-                    item_str = "{0}\n({1})⬈".format(순매수, 프로그램_전체순매수금액직전대비)
+                    item_txt = "{0}\n({1})⬈".format(순매수, 프로그램_전체순매수금액직전대비)
 
-                    if item_str != self.tableWidget_supply.item(0, 1).text():
-                        item = QTableWidgetItem(item_str)
+                    if item_txt != self.tableWidget_supply.item(0, 1).text():
+                        item = QTableWidgetItem(item_txt)
                         item.setTextAlignment(Qt.AlignCenter)
                         item.setBackground(QBrush(적색))
                         item.setForeground(QBrush(흰색))
@@ -22316,10 +22317,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif max(temp) < 0:
 
-                    item_str = "{0}\n({1})⬊".format(순매수, 프로그램_전체순매수금액직전대비)
+                    item_txt = "{0}\n({1})⬊".format(순매수, 프로그램_전체순매수금액직전대비)
 
-                    if item_str != self.tableWidget_supply.item(0, 1).text():
-                        item = QTableWidgetItem(item_str)
+                    if item_txt != self.tableWidget_supply.item(0, 1).text():
+                        item = QTableWidgetItem(item_txt)
                         item.setTextAlignment(Qt.AlignCenter)
                         item.setBackground(QBrush(청색))
                         item.setForeground(QBrush(흰색))
@@ -22328,10 +22329,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                 else:
-                    item_str = "{0}\n({1})".format(순매수, 프로그램_전체순매수금액직전대비)
+                    item_txt = "{0}\n({1})".format(순매수, 프로그램_전체순매수금액직전대비)
 
-                    if item_str != self.tableWidget_supply.item(0, 1).text():
-                        item = QTableWidgetItem(item_str)
+                    if item_txt != self.tableWidget_supply.item(0, 1).text():
+                        item = QTableWidgetItem(item_txt)
                         item.setTextAlignment(Qt.AlignCenter)
                         item.setBackground(QBrush(흰색))
                         item.setForeground(QBrush(검정색))
@@ -22342,10 +22343,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 temp1 = format(선물_거래대금순매수, ',')
                 temp2 = format(현물_거래대금순매수, ',')
                 
-                item_str = "{0}({1})\n{2}({3})".format(temp1, 선물_거래대금순매수_직전대비, temp2, 현물_거래대금순매수_직전대비)
+                item_txt = "{0}({1})\n{2}({3})".format(temp1, 선물_거래대금순매수_직전대비, temp2, 현물_거래대금순매수_직전대비)
 
-                if item_str != self.tableWidget_supply.item(0, 5).text():
-                    item = QTableWidgetItem(item_str)
+                if item_txt != self.tableWidget_supply.item(0, 5).text():
+                    item = QTableWidgetItem(item_txt)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_supply.setItem(0, 5, item)
                 else:
@@ -22681,6 +22682,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         nm_fut_quote_min = df_futures_graph['n_quote_remainder_ratio'].min()
                         nm_fut_quote_mean = df_futures_graph['n_quote_remainder_ratio'].mean()
                         nm_fut_quote_max = df_futures_graph['n_quote_remainder_ratio'].max()
+
+                        item_txt = '{0:.2f}'.format(nm_fut_quote_min)
+
+                        if item_txt != self.tableWidget_fut.horizontalHeaderItem(7).text():                        
+                            item = QTableWidgetItem(item_txt)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            self.tableWidget_fut.setHorizontalHeaderItem(7, item)
+                        else:
+                            pass
                     else:
                         pass
                 
