@@ -5126,7 +5126,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item_txt = '{0:.2f}'.format(self.main_ui_update_time)
                 item = QTableWidgetItem(item_txt)
                 item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_fut.setHorizontalHeaderItem(0, item)                   
+                self.tableWidget_fut.setHorizontalHeaderItem(0, item)
+
+                self.tableWidget_fut.resizeColumnToContents(0)                   
 
                 if flag_checkBox_HS and dt.second % 10 == 0 and self.alternate_flag:
                     self.textBrowser.append(txt)
