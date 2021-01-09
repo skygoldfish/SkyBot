@@ -14185,7 +14185,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if szTrCode == 't0167':
             
             global 서버시간, 시스템_서버_시간차, flag_heartbeat
-            global SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, 시스템시간_분, 서버시간_분
+            global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, ovc_x_idx, 시스템시간_분, 서버시간_분
 
             szTrCode, server_date, server_time = result
             
@@ -14215,6 +14215,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 server_x_idx = (night_time - NightTime_PreStart_Hour) * 60 + SERVER_MIN + 1             
             else:
                 server_x_idx = (SERVER_HOUR - DayTime_PreStart_Hour) * 60 + SERVER_MIN + 1
+
+            ovc_x_idx = server_x_idx
 
             flag_heartbeat = True
 
@@ -35746,7 +35748,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif trdata[0] == 't0167':
 
                 global 서버시간, 시스템_서버_시간차, flag_heartbeat
-                global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, 시스템시간_분, 서버시간_분
+                global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, ovc_x_idx, 시스템시간_분, 서버시간_분
                 
                 server_time = trdata[2]
 
@@ -35779,6 +35781,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     server_x_idx = (night_time - NightTime_PreStart_Hour) * 60 + SERVER_MIN + 1             
                 else:
                     server_x_idx = (SERVER_HOUR - DayTime_PreStart_Hour) * 60 + SERVER_MIN + 1
+
+                ovc_x_idx = server_x_idx
 
                 flag_heartbeat = True
 
@@ -36227,6 +36231,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:                    
                     # 해외선물 개장시간은 국내시장의 2시간 전
                     server_x_idx = (SERVER_HOUR - DayTime_PreStart_Hour) * 60 + SERVER_MIN + 1
+
+                ovc_x_idx = server_x_idx
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] : 시스템시간 = [{3:02d}:{4:02d}:{5:02d}], 시스템시간 - 서버시간 = {6}초\r'.format\
                     (SERVER_HOUR, SERVER_MIN, SERVER_SEC, dt.hour, dt.minute, dt.second, 시스템_서버_시간차)
