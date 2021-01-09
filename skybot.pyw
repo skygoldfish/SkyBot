@@ -3129,11 +3129,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     @pyqtSlot()
     def start_button_clicked(self):
 
+        playsound('Resources/click.wav')
         self.RunCode()
 
     @pyqtSlot()
     def telegram_button_clicked(self):
 
+        playsound('Resources/click.wav')
         self.RunTelegram()
     
     @pyqtSlot()
@@ -13635,8 +13637,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global t2301_month_info
         global 진성맥점, TTS, SEARCH_MOVING_NODE
 
-        playsound('click.wav')
-
         dt = datetime.datetime.now()
 
         # 백그라운드로 로그인해도 포어그라운드에서 TR조회 가능함(이유?)        
@@ -13849,8 +13849,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_telegram_on
         global flag_telegram_listen_worker, flag_telegram_send_worker
         global telegram_command
-
-        playsound('click.wav')
 
         dt = datetime.datetime.now()        
 
@@ -20674,7 +20672,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         Myprocess.CancelRealData('YS3')
 
                     if TTS and TARGET_MONTH_SELECT == 'CM':
-                        playsound( "Doorbell.wav" )
+                        playsound( "Resources/doorbell.wav" )
                     else:
                         pass
 
@@ -35740,7 +35738,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
                 self.statusbar.showMessage(trdata[1])
-                playsound( "Doorbell.wav" )
+                playsound( "Resources/doorbell.wav" )
                 
                 # 버티칼 스크롤바를 항상 bottom으로...
                 self.textBrowser.verticalScrollBar().setValue(self.textBrowser.verticalScrollBar().maximum())
@@ -36169,7 +36167,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 self.statusbar.showMessage("로그인 성공 !!!")
 
-                playsound( "Doorbell.wav" )
+                playsound( "Resources/doorbell.wav" )
 
                 # 옵션전광판 자동시작
 

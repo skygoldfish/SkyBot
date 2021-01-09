@@ -23,7 +23,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../PNG/skybot_nm.png</normaloff>../PNG/skybot_nm.png</iconset>
+    <normaloff>Resources/skybot_nm.png</normaloff>Resources/skybot_nm.png</iconset>
   </property>
   <widget class="QTableWidget" name="tableWidget_put">
    <property name="geometry">

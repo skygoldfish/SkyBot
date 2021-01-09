@@ -23,7 +23,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../PNG/skybot_cm.png</normaloff>../PNG/skybot_cm.png</iconset>
+    <normaloff>Resources/skybot_cm.png</normaloff>Resources/skybot_cm.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
