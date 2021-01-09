@@ -408,15 +408,15 @@ else:
 
 dt = datetime.datetime.now()        
 nowDate = dt.strftime('%Y-%m-%d')
-current_str = dt.strftime('%H:%M:%S')
+current_txt = dt.strftime('%H:%M:%S')
 
 today = datetime.date.today()
 now_Month = today.strftime('%Y%m')
-today_str = today.strftime('%Y%m%d')
+today_txt = today.strftime('%Y%m%d')
 today_title = today.strftime('%Y-%m-%d')
 
 yesterday = today - datetime.timedelta(1)
-yesterday_str = yesterday.strftime('%Y%m%d')
+yesterday_txt = yesterday.strftime('%Y%m%d')
 
 current_month = int(CURRENT_MONTH[4:6])
 next_month = int(NEXT_MONTH[4:6])
@@ -932,7 +932,7 @@ FLAG_OLOH = False
 
 FLAG_GUEST_CONTROL = True
 
-fut_oloh_str = ''
+fut_oloh_txt = ''
 flag_fut_oloh = False
 
 flag_call_low_update = False
@@ -941,7 +941,7 @@ flag_put_low_update = False
 flag_put_high_update = False
 
 oneway_first_touch = False
-oneway_str = ''
+oneway_txt = ''
 
 콜시가갭합 = 0
 풋시가갭합 = 0
@@ -974,30 +974,30 @@ call_high_node_list = []
 put_low_node_list = []
 put_high_node_list = []
 
-telegram_send_str_call_low = ''
-telegram_send_str_call_high = ''
-telegram_send_str_put_low = ''
-telegram_send_str_put_high = ''
+telegram_send_txt_call_low = ''
+telegram_send_txt_call_high = ''
+telegram_send_txt_put_low = ''
+telegram_send_txt_put_high = ''
 
-call_low_node_str = ''
-call_high_node_str = ''
-put_low_node_str = ''
-put_high_node_str = ''
+call_low_node_txt = ''
+call_high_node_txt = ''
+put_low_node_txt = ''
+put_high_node_txt = ''
 
-call_low_coreval_str = ''
-call_high_coreval_str = ''
-put_low_coreval_str = ''
-put_high_coreval_str = ''
+call_low_coreval_txt = ''
+call_high_coreval_txt = ''
+put_low_coreval_txt = ''
+put_high_coreval_txt = ''
 
-kp200_low_node_str = ''
-kp200_high_node_str = ''
+kp200_low_node_txt = ''
+kp200_high_node_txt = ''
 
 opt_search_start_value = 0.0
 opt_coreval_search_start_value = 0.5
 opt_search_end_value = 10
 
-start_time_str = ''
-end_time_str = ''
+start_time_txt = ''
+end_time_txt = ''
 
 콜_체결_초 = 0
 풋_체결_초 = 0
@@ -1259,7 +1259,7 @@ put_ckbox = []
 call_cell_widget = []
 put_cell_widget = []
 
-atm_str = ''
+atm_txt = ''
 atm_val = 0
 ATM_INDEX = 0
 old_atm_index = 0
@@ -1805,8 +1805,8 @@ fut_cms_quote_remainder_ratio = 0
 fut_ccms_quote_count_ratio = 0
 fut_ccms_quote_remainder_ratio = 0
 
-nm_call_oloh_str = ''
-nm_put_oloh_str = ''
+nm_call_oloh_txt = ''
+nm_put_oloh_txt = ''
 
 flag_heartbeat = False
 
@@ -2942,7 +2942,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         dt = datetime.datetime.now()
         
-        if int(current_str[0:2]) < 12:
+        if int(current_txt[0:2]) < 12:
             txt = '[{0:02d}:{1:02d}:{2:02d}] ♣♣♣ Good Morning! Have a Good Day ♣♣♣\r'.format(dt.hour, dt.minute, dt.second)
         else:
             txt = '[{0:02d}:{1:02d}:{2:02d}] ♣♣♣ Good Afternoon! Have a Good Day ♣♣♣\r'.format(dt.hour, dt.minute, dt.second)
@@ -3633,7 +3633,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             txt = "call table cell({0},{1}) clicked = {2}".format(row, col, cell.text())
             print(txt)
 
-            if atm_str != '':
+            if atm_txt != '':
 
                 if row < ATM_INDEX:
 
@@ -3667,7 +3667,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             txt = "put table cell({0},{1}) clicked = {2}".format(row, col, cell.text())
             print(txt)
 
-            if atm_str != '':
+            if atm_txt != '':
 
                 if row < ATM_INDEX:
 
@@ -3980,25 +3980,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def t8415_opt_request(self, code):
 
-        if today_str == MONTH_FIRSTDAY:
-            self.XQ_t8415.Query(단축코드=code, 시작일자=yesterday_str, 종료일자=today_str)
+        if today_txt == MONTH_FIRSTDAY:
+            self.XQ_t8415.Query(단축코드=code, 시작일자=yesterday_txt, 종료일자=today_txt)
         else:
-            self.XQ_t8415.Query(단축코드=code, 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
+            self.XQ_t8415.Query(단축코드=code, 시작일자=MONTH_FIRSTDAY, 종료일자=today_txt)
 
     def t8416_fut_request(self, code):
 
         # 휴일 포함 30일치 과거데이타를 요청한다.
         temp = today - datetime.timedelta(30)
-        startday_str = temp.strftime('%Y%m%d')
+        startday_txt = temp.strftime('%Y%m%d')
 
-        self.XQ_t8416.Query(단축코드=code, 시작일자=startday_str, 종료일자=today_str)
+        self.XQ_t8416.Query(단축코드=code, 시작일자=startday_txt, 종료일자=today_txt)
         
     def t8416_opt_request(self, code):
 
-        if today_str == MONTH_FIRSTDAY:
-            self.XQ_t8416.Query(단축코드=code, 시작일자=yesterday_str, 종료일자=today_str)
+        if today_txt == MONTH_FIRSTDAY:
+            self.XQ_t8416.Query(단축코드=code, 시작일자=yesterday_txt, 종료일자=today_txt)
         else:
-            self.XQ_t8416.Query(단축코드=code, 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
+            self.XQ_t8416.Query(단축코드=code, 시작일자=MONTH_FIRSTDAY, 종료일자=today_txt)
         
     @pyqtSlot()
     def send_telegram_message(self):
@@ -4137,8 +4137,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if telegram_toggle:
 
                         # 선물 OL/OH 알람
-                        if fut_oloh_str != '' and FLAG_OLOH:
-                            send_txt = fut_oloh_str
+                        if fut_oloh_txt != '' and FLAG_OLOH:
+                            send_txt = fut_oloh_txt
                             ToYourTelegram(send_txt)
                         else:
                             pass
@@ -4164,16 +4164,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if TARGET_MONTH_SELECT == 'CM':
                             
                             # kp200 맥점 알람
-                            if kp200_low_node_str != '' and FLAG_NODE:
+                            if kp200_low_node_txt != '' and FLAG_NODE:
 
-                                send_txt = kp200_low_node_str
+                                send_txt = kp200_low_node_txt
                                 ToYourTelegram(send_txt)
                             else:
                                 pass
 
-                            if kp200_high_node_str != '' and FLAG_NODE:
+                            if kp200_high_node_txt != '' and FLAG_NODE:
 
-                                send_txt = kp200_high_node_str
+                                send_txt = kp200_high_node_txt
                                 ToYourTelegram(send_txt)
                             else:
                                 pass
@@ -4191,25 +4191,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             
                             # 차월물 옵션 OLOH 보고
                             '''
-                            if nm_call_oloh_str != '' and nm_put_oloh_str == '':
-                                send_txt = nm_call_oloh_str
+                            if nm_call_oloh_txt != '' and nm_put_oloh_txt == '':
+                                send_txt = nm_call_oloh_txt
                                 ToYourTelegram(send_txt)
-                            elif nm_call_oloh_str == '' and nm_put_oloh_str != '':
-                                send_txt = nm_put_oloh_str
+                            elif nm_call_oloh_txt == '' and nm_put_oloh_txt != '':
+                                send_txt = nm_put_oloh_txt
                                 ToYourTelegram(send_txt)
-                            elif nm_call_oloh_str != '' and nm_put_oloh_str != '':
-                                send_txt = nm_call_oloh_str + ', ' + nm_put_oloh_str
+                            elif nm_call_oloh_txt != '' and nm_put_oloh_txt != '':
+                                send_txt = nm_call_oloh_txt + ', ' + nm_put_oloh_txt
                                 ToYourTelegram(send_txt)
                             else:
                                 pass
                             '''
                             if call_ol_count > call_oh_count and put_ol_count < put_oh_count:
                                 nm_txt = "[{0:02d}:{1:02d}:{2:02d}] NM Call 우세 ".format(dt.hour, dt.minute, dt.second)
-                                send_txt = nm_txt + nm_call_oloh_str + ', ' + nm_put_oloh_str
+                                send_txt = nm_txt + nm_call_oloh_txt + ', ' + nm_put_oloh_txt
                                 ToYourTelegram(send_txt)
                             elif call_ol_count < call_oh_count and put_ol_count > put_oh_count:
                                 nm_txt = "[{0:02d}:{1:02d}:{2:02d}] NM Put 우세 ".format(dt.hour, dt.minute, dt.second)
-                                send_txt = nm_txt + nm_call_oloh_str + ', ' + nm_put_oloh_str
+                                send_txt = nm_txt + nm_call_oloh_txt + ', ' + nm_put_oloh_txt
                                 ToYourTelegram(send_txt)
                             else:
                                 pass
@@ -4299,8 +4299,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 선물 OHLC 데이타프레임 생성
         if market_service and DayTime:
                   
-            time_str = 선물_체결시간[0:2] + ':' + 선물_체결시간[2:4] + ':' + 선물_체결시간[4:6]
-            chetime = nowDate + ' ' + time_str
+            time_txt = 선물_체결시간[0:2] + ':' + 선물_체결시간[2:4] + ':' + 선물_체결시간[4:6]
+            chetime = nowDate + ' ' + time_txt
 
             fut_tick_list.append(chetime)
             fut_value_list.append(선물_현재가)
@@ -4322,8 +4322,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
         
         # SP500 OHLC 데이타프레임 생성        
-        time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
-        chetime = nowDate + ' ' + time_str
+        time_txt = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
+        chetime = nowDate + ' ' + time_txt
 
         sp500_tick_list.append(chetime)
         sp500_value_list.append(SP500_현재가)
@@ -4342,8 +4342,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #df_sp500_ohlc_15min = df.resample('15T').ohlc()        
 
         # DOW OHLC 데이타프레임 생성        
-        time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
-        chetime = nowDate + ' ' + time_str
+        time_txt = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
+        chetime = nowDate + ' ' + time_txt
 
         dow_tick_list.append(chetime)
         dow_value_list.append(DOW_현재가)
@@ -4363,8 +4363,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #df_dow_ohlc_15min = df.resample('15T').ohlc()
         
         # NASDAQ OHLC 데이타프레임 생성        
-        time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
-        chetime = nowDate + ' ' + time_str
+        time_txt = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
+        chetime = nowDate + ' ' + time_txt
 
         nasdaq_tick_list.append(chetime)
         nasdaq_value_list.append(NASDAQ_현재가)
@@ -4383,8 +4383,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #df_nasdaq_ohlc_15min = df.resample('15T').ohlc()
 
         # WTI OHLC 데이타프레임 생성        
-        time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
-        chetime = nowDate + ' ' + time_str
+        time_txt = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
+        chetime = nowDate + ' ' + time_txt
 
         wti_tick_list.append(chetime)
         wti_value_list.append(WTI_현재가)
@@ -4403,8 +4403,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #df_wti_ohlc_15min = df.resample('15T').ohlc()
         
         # EUROFX OHLC 데이타프레임 생성        
-        time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
-        chetime = nowDate + ' ' + time_str
+        time_txt = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
+        chetime = nowDate + ' ' + time_txt
 
         eurofx_tick_list.append(chetime)
         eurofx_value_list.append(EUROFX_현재가)
@@ -4423,8 +4423,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #df_eurofx_ohlc_15min = df.resample('15T').ohlc()
         
         # HANGSENG OHLC 데이타프레임 생성        
-        time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
-        chetime = nowDate + ' ' + time_str
+        time_txt = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
+        chetime = nowDate + ' ' + time_txt
 
         hangseng_tick_list.append(chetime)
         hangseng_value_list.append(HANGSENG_현재가)
@@ -4443,8 +4443,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #df_hangseng_ohlc_15min = df.resample('15T').ohlc()
 
         # GOLD OHLC 데이타프레임 생성        
-        time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
-        chetime = nowDate + ' ' + time_str
+        time_txt = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
+        chetime = nowDate + ' ' + time_txt
 
         gold_tick_list.append(chetime)
         gold_value_list.append(GOLD_현재가)
@@ -4810,56 +4810,56 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if not dongsi_quote:
                     
                         # 진성 의미가인 경우 blinking(매우 중요 !!!)
-                        global call_low_coreval_str, call_high_coreval_str, put_low_coreval_str, put_high_coreval_str
+                        global call_low_coreval_txt, call_high_coreval_txt, put_low_coreval_txt, put_high_coreval_txt
                         global call_low_node_count, call_high_node_count, put_low_node_count, put_high_node_count
                         global call_low_node_list, call_high_node_list, put_low_node_list, put_high_node_list
-                        global call_low_node_str, call_high_node_str, put_low_node_str, put_high_node_str
+                        global call_low_node_txt, call_high_node_txt, put_low_node_txt, put_high_node_txt
 
                         if flag_call_low_coreval:
                             self.call_low_coreval_color_blink(self.alternate_flag)
                         else:                        
-                            call_low_coreval_str = ''
+                            call_low_coreval_txt = ''
                             #call_low_node_count = 0
                             call_low_node_list = []
-                            call_low_node_str = ''
+                            call_low_node_txt = ''
 
                         if flag_call_high_coreval:
                             self.call_high_coreval_color_blink(self.alternate_flag)
                         else:
-                            call_high_coreval_str = ''
+                            call_high_coreval_txt = ''
                             #call_high_node_count = 0
                             call_high_node_list = []
-                            call_high_node_str = ''
+                            call_high_node_txt = ''
 
                         if flag_put_low_coreval:
                             self.put_low_coreval_color_blink(self.alternate_flag)
                         else:
-                            put_low_coreval_str = ''
+                            put_low_coreval_txt = ''
                             #put_low_node_count = 0
                             put_low_node_list = []
-                            put_low_node_str = ''
+                            put_low_node_txt = ''
 
                         if flag_put_high_coreval:
                             self.put_high_coreval_color_blink(self.alternate_flag)                        
                         else:
-                            put_high_coreval_str = '' 
+                            put_high_coreval_txt = '' 
                             #put_high_node_count = 0
                             put_high_node_list = []
-                            put_high_node_str = ''
+                            put_high_node_txt = ''
 
-                        global kp200_low_node_str, kp200_high_node_str                            
+                        global kp200_low_node_txt, kp200_high_node_txt                            
 
                         if flag_kp200_low_node:
 
                             self.kp200_low_color_blink(self.alternate_flag)
                         else:
-                            kp200_low_node_str = ''
+                            kp200_low_node_txt = ''
 
                         if flag_kp200_high_node:
 
                             self.kp200_high_color_blink(self.alternate_flag)
                         else:
-                            kp200_high_node_str = ''
+                            kp200_high_node_txt = ''
                     else:
                         pass                  
 
@@ -4935,58 +4935,58 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 times = "%04d-%02d-%02d-%02d-%02d-%02d" % \
                                         (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
 
-                                file_str = '{}\n'.format(times)
-                                nighttime_file.write(file_str)
-                                file_str = '\n'
-                                nighttime_file.write(file_str)
-                                file_str = '################# < Futures Index of the Last Night > ###################\n'
-                                nighttime_file.write(file_str)                            
-                                file_str = 'CME FUT Last Close = {0}\n'.format(CME_당일종가)
-                                nighttime_file.write(file_str)
-                                file_str = '##################### < Foreign Futures Index of the Last Night > ####################\n'
-                                nighttime_file.write(file_str)
-                                file_str = 'S&P 500 Last Low = {0}\n'.format(SP500_저가)
-                                nighttime_file.write(file_str)
-                                file_str = 'S&P 500 Last High = {0}\n'.format(SP500_고가)
-                                nighttime_file.write(file_str)
-                                file_str = 'S&P 500 Last Close = {0}\n'.format(SP500_당일종가)
-                                nighttime_file.write(file_str)
-                                file_str = 'DOW Last Low = {0}\n'.format(DOW_저가)
-                                nighttime_file.write(file_str)
-                                file_str = 'DOW Last High = {0}\n'.format(DOW_고가)
-                                nighttime_file.write(file_str)
-                                file_str = 'DOW Last Close = {0}\n'.format(DOW_당일종가)
-                                nighttime_file.write(file_str)
-                                file_str = 'NASDAQ Last Low = {0}\n'.format(NASDAQ_저가)
-                                nighttime_file.write(file_str)
-                                file_str = 'NASDAQ Last High = {0}\n'.format(NASDAQ_고가)
-                                nighttime_file.write(file_str)
-                                file_str = 'NASDAQ Last Close = {0}\n'.format(NASDAQ_당일종가)
-                                nighttime_file.write(file_str)
-                                file_str = 'WTI Last Low = {0}\n'.format(WTI_저가)
-                                nighttime_file.write(file_str)
-                                file_str = 'WTI Last High = {0}\n'.format(WTI_고가)
-                                nighttime_file.write(file_str)
-                                file_str = 'WTI Last Close = {0}\n'.format(WTI_당일종가)
-                                nighttime_file.write(file_str)
-                                file_str = 'EUROFX Last Low = {0}\n'.format(EUROFX_저가)
-                                nighttime_file.write(file_str)
-                                file_str = 'EUROFX Last High = {0}\n'.format(EUROFX_고가)
-                                nighttime_file.write(file_str)
-                                file_str = 'EUROFX Last Close = {0}\n'.format(EUROFX_당일종가)
-                                nighttime_file.write(file_str)
-                                file_str = 'HANGSENG Last Low = {0}\n'.format(HANGSENG_저가)
-                                nighttime_file.write(file_str)
-                                file_str = 'HANGSENG Last High = {0}\n'.format(HANGSENG_고가)
-                                nighttime_file.write(file_str)
-                                file_str = 'HANGSENG Last Close = {0}\n'.format(HANGSENG_당일종가)
-                                nighttime_file.write(file_str)
-                                file_str = 'GOLD Last Low = {0}\n'.format(GOLD_저가)
-                                nighttime_file.write(file_str)
-                                file_str = 'GOLD Last High = {0}\n'.format(GOLD_고가)
-                                nighttime_file.write(file_str)
-                                file_str = 'GOLD Last Close = {0}\n'.format(GOLD_당일종가)
-                                nighttime_file.write(file_str)
+                                file_txt = '{}\n'.format(times)
+                                nighttime_file.write(file_txt)
+                                file_txt = '\n'
+                                nighttime_file.write(file_txt)
+                                file_txt = '################# < Futures Index of the Last Night > ###################\n'
+                                nighttime_file.write(file_txt)                            
+                                file_txt = 'CME FUT Last Close = {0}\n'.format(CME_당일종가)
+                                nighttime_file.write(file_txt)
+                                file_txt = '##################### < Foreign Futures Index of the Last Night > ####################\n'
+                                nighttime_file.write(file_txt)
+                                file_txt = 'S&P 500 Last Low = {0}\n'.format(SP500_저가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'S&P 500 Last High = {0}\n'.format(SP500_고가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'S&P 500 Last Close = {0}\n'.format(SP500_당일종가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'DOW Last Low = {0}\n'.format(DOW_저가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'DOW Last High = {0}\n'.format(DOW_고가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'DOW Last Close = {0}\n'.format(DOW_당일종가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'NASDAQ Last Low = {0}\n'.format(NASDAQ_저가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'NASDAQ Last High = {0}\n'.format(NASDAQ_고가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'NASDAQ Last Close = {0}\n'.format(NASDAQ_당일종가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'WTI Last Low = {0}\n'.format(WTI_저가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'WTI Last High = {0}\n'.format(WTI_고가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'WTI Last Close = {0}\n'.format(WTI_당일종가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'EUROFX Last Low = {0}\n'.format(EUROFX_저가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'EUROFX Last High = {0}\n'.format(EUROFX_고가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'EUROFX Last Close = {0}\n'.format(EUROFX_당일종가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'HANGSENG Last Low = {0}\n'.format(HANGSENG_저가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'HANGSENG Last High = {0}\n'.format(HANGSENG_고가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'HANGSENG Last Close = {0}\n'.format(HANGSENG_당일종가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'GOLD Last Low = {0}\n'.format(GOLD_저가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'GOLD Last High = {0}\n'.format(GOLD_고가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'GOLD Last Close = {0}\n'.format(GOLD_당일종가)
+                                nighttime_file.write(file_txt)
                                 nighttime_file.close()
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
@@ -5800,7 +5800,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def display_atm(self, blink):
 
         global basis
-        global atm_str, ATM_INDEX, old_atm_index, call_atm_value, put_atm_value 
+        global atm_txt, ATM_INDEX, old_atm_index, call_atm_value, put_atm_value 
         global atm_zero_sum, atm_zero_cha
         
         global CENTER_VAL, df_call_information_graph 
@@ -5810,8 +5810,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 등가 check & coloring        
         old_atm_index = ATM_INDEX
 
-        atm_str = self.get_atm_str(self.fut_realdata['KP200'])
-        ATM_INDEX = opt_actval.index(atm_str)
+        atm_txt = self.get_atm_txt(self.fut_realdata['KP200'])
+        ATM_INDEX = opt_actval.index(atm_txt)
         
         if ATM_INDEX != old_atm_index:
 
@@ -5887,7 +5887,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             CENTER_VAL = call_atm_value
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 등가 {3}에서 교차 중심가 {4} 발생 !!!\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, atm_str, CENTER_VAL)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 등가 {3}에서 교차 중심가 {4} 발생 !!!\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, atm_txt, CENTER_VAL)
             self.textBrowser.append(txt)
         
         df_call_information_graph.at[ovc_x_idx, 'centerval'] = CENTER_VAL
@@ -6138,7 +6138,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         return output_list
 
-    def get_atm_str(self, kp200):
+    def get_atm_txt(self, kp200):
 
         temp = math.floor(round(kp200 / 2.5, 0) * 2.5)
         str_atm = '{0:.0f}'.format(temp)
@@ -6767,8 +6767,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             '''
             if not market_service or call_scroll or refresh_coloring:
             
-                oloh_str = ''                           
-                item = QTableWidgetItem(oloh_str)
+                oloh_txt = ''                           
+                item = QTableWidgetItem(oloh_txt)
                 item.setBackground(QBrush(흰색))
                 item.setForeground(QBrush(검정색))
                 self.tableWidget_call.setItem(i, Option_column.OLOH.value, item)
@@ -7061,8 +7061,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def call_low_coreval_color_blink(self, blink):
 
-        global call_low_node_count, call_low_node_list, call_low_node_str
-        global telegram_send_str_call_low
+        global call_low_node_count, call_low_node_list, call_low_node_txt
+        global telegram_send_txt_call_low
 
         dt = datetime.datetime.now()
         
@@ -7096,25 +7096,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-        if call_low_node_list and call_low_node_str == '':
+        if call_low_node_list and call_low_node_txt == '':
 
             if TARGET_MONTH_SELECT == 'CM':
 
-                call_low_node_str = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 {3} 발생 C ▲".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, call_low_node_list)
+                call_low_node_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 {3} 발생 C ▲".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, call_low_node_list)
 
             elif TARGET_MONTH_SELECT == 'NM':
 
-                call_low_node_str = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 {3} 발생 C ▲".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, call_low_node_list)
+                call_low_node_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 {3} 발생 C ▲".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, call_low_node_list)
             else:
                 pass                        
         else:
-            call_low_node_str == ''
+            call_low_node_txt == ''
 
         call_low_node_count = count
 
         if count == 0:
 
-            telegram_send_str_call_low = ''
+            telegram_send_txt_call_low = ''
 
         elif count == 1:
             
@@ -7124,7 +7124,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
 
                 self.tableWidget_call.resizeColumnToContents(Option_column.저가.value)
-                telegram_send_str_call_low = ''
+                telegram_send_txt_call_low = ''
             else:
                 pass
 
@@ -7139,11 +7139,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 'CM' and call_low_node_count != call_low_node_old_count:
 
-                    telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    telegram_send_txt_call_low = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
                 elif TARGET_MONTH_SELECT == 'NM' and call_low_node_count != call_low_node_old_count:
 
-                    telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    telegram_send_txt_call_low = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
                     pass  
             else:
@@ -7160,11 +7160,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 'CM' and call_low_node_count != call_low_node_old_count:
 
-                    telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    telegram_send_txt_call_low = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
                 elif TARGET_MONTH_SELECT == 'NM' and call_low_node_count != call_low_node_old_count:
 
-                    telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    telegram_send_txt_call_low = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
                     pass  
             else:
@@ -7181,11 +7181,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 'CM' and call_low_node_count != call_low_node_old_count:
 
-                    telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    telegram_send_txt_call_low = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
                 elif TARGET_MONTH_SELECT == 'NM' and call_low_node_count != call_low_node_old_count:
 
-                    telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    telegram_send_txt_call_low = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
                     pass  
             else:
@@ -7193,8 +7193,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def call_high_coreval_color_blink(self, blink):
 
-        global call_high_node_count, call_high_node_list, call_high_node_str
-        global telegram_send_str_call_high 
+        global call_high_node_count, call_high_node_list, call_high_node_txt
+        global telegram_send_txt_call_high 
 
         dt = datetime.datetime.now()
         
@@ -7228,25 +7228,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-        if call_high_node_list and call_high_node_str == '':
+        if call_high_node_list and call_high_node_txt == '':
 
             if TARGET_MONTH_SELECT == 'CM':
 
-                call_high_node_str = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 {3} 발생 C ▼".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, call_high_node_list)
+                call_high_node_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 {3} 발생 C ▼".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, call_high_node_list)
 
             elif TARGET_MONTH_SELECT == 'NM':
 
-                call_high_node_str = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 {3} 발생 C ▼".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, call_high_node_list)
+                call_high_node_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 {3} 발생 C ▼".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, call_high_node_list)
             else:
                 pass
         else:
-            call_high_node_str == ''
+            call_high_node_txt == ''
 
         call_high_node_count = count 
 
         if count == 0:
 
-            telegram_send_str_call_high = ''   
+            telegram_send_txt_call_high = ''   
 
         elif count == 1:
             
@@ -7256,7 +7256,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
 
                 self.tableWidget_call.resizeColumnToContents(Option_column.고가.value)
-                telegram_send_str_call_high = '' 
+                telegram_send_txt_call_high = '' 
             else:
                 pass
 
@@ -7271,11 +7271,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 'CM' and call_high_node_count != call_high_node_old_count:
 
-                    telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    telegram_send_txt_call_high = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
                 elif TARGET_MONTH_SELECT == 'NM' and call_high_node_count != call_high_node_old_count:
 
-                    telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    telegram_send_txt_call_high = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
                     pass  
             else:
@@ -7292,11 +7292,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 'CM' and call_high_node_count != call_high_node_old_count:
 
-                    telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    telegram_send_txt_call_high = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
                 elif TARGET_MONTH_SELECT == 'NM' and call_high_node_count != call_high_node_old_count:
 
-                    telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    telegram_send_txt_call_high = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
                     pass 
             else:
@@ -7313,11 +7313,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 'CM' and call_high_node_count != call_high_node_old_count:
 
-                    telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    telegram_send_txt_call_high = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
                 elif TARGET_MONTH_SELECT == 'NM' and call_high_node_count != call_high_node_old_count:
 
-                    telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    telegram_send_txt_call_high = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
                     pass 
             else:
@@ -7327,7 +7327,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global flag_call_low_coreval, flag_call_high_coreval
         global call_low_node_count, call_high_node_count
-        global telegram_send_str_call_low, telegram_send_str_call_high
+        global telegram_send_txt_call_low, telegram_send_txt_call_high
 
         dt = datetime.datetime.now()
         
@@ -7432,13 +7432,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if count_low == 0:
 
-            telegram_send_str_call_low = ''  
+            telegram_send_txt_call_low = ''  
 
         elif count_low == 1:            
 
             item = QTableWidgetItem('★')
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
-            telegram_send_str_call_low = ''
+            telegram_send_txt_call_low = ''
 
         elif count_low == 2:
 
@@ -7457,13 +7457,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if count_high == 0:
 
-            telegram_send_str_call_high = ''    
+            telegram_send_txt_call_high = ''    
 
         elif count_high == 1:            
 
             item = QTableWidgetItem('★')
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
-            telegram_send_str_call_high = ''
+            telegram_send_txt_call_high = ''
 
         elif count_high == 2:
 
@@ -9497,8 +9497,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             '''
             if not market_service or put_scroll or refresh_coloring:
             
-                oloh_str = ''                           
-                item = QTableWidgetItem(oloh_str)
+                oloh_txt = ''                           
+                item = QTableWidgetItem(oloh_txt)
                 item.setBackground(QBrush(흰색))
                 item.setForeground(QBrush(검정색))
                 self.tableWidget_put.setItem(i, Option_column.OLOH.value, item)
@@ -9582,8 +9582,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
       
     def put_low_coreval_color_blink(self, blink):
 
-        global put_low_node_count, put_low_node_list, put_low_node_str
-        global telegram_send_str_put_low
+        global put_low_node_count, put_low_node_list, put_low_node_txt
+        global telegram_send_txt_put_low
 
         dt = datetime.datetime.now()
         
@@ -9617,25 +9617,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-        if put_low_node_list and put_low_node_str == '':
+        if put_low_node_list and put_low_node_txt == '':
 
             if TARGET_MONTH_SELECT == 'CM':
 
-                put_low_node_str = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 {3} 발생 P ▲".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, put_low_node_list)
+                put_low_node_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 {3} 발생 P ▲".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, put_low_node_list)
 
             elif TARGET_MONTH_SELECT == 'NM':
 
-                put_low_node_str = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 {3} 발생 P ▲".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, put_low_node_list)
+                put_low_node_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 {3} 발생 P ▲".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, put_low_node_list)
             else:
                 pass
         else:
-            put_low_node_str == ''    
+            put_low_node_txt == ''    
 
         put_low_node_count = count
 
         if count == 0:
 
-            telegram_send_str_put_low = ''
+            telegram_send_txt_put_low = ''
 
         elif count == 1:
             
@@ -9645,7 +9645,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
 
                 self.tableWidget_put.resizeColumnToContents(Option_column.저가.value)
-                telegram_send_str_put_low = ''
+                telegram_send_txt_put_low = ''
             else:
                 pass
 
@@ -9660,11 +9660,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 'CM' and put_low_node_count != put_low_node_old_count:
 
-                    telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    telegram_send_txt_put_low = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
                 elif TARGET_MONTH_SELECT == 'NM' and put_low_node_count != put_low_node_old_count:
 
-                    telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    telegram_send_txt_put_low = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
                     pass
             else:
@@ -9681,11 +9681,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 'CM' and put_low_node_count != put_low_node_old_count:
 
-                    telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    telegram_send_txt_put_low = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
                 elif TARGET_MONTH_SELECT == 'NM' and put_low_node_count != put_low_node_old_count:
 
-                    telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    telegram_send_txt_put_low = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
                     pass
             else:
@@ -9702,11 +9702,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 'CM' and put_low_node_count != put_low_node_old_count:
 
-                    telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    telegram_send_txt_put_low = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
                 elif TARGET_MONTH_SELECT == 'NM' and put_low_node_count != put_low_node_old_count:
 
-                    telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    telegram_send_txt_put_low = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
                     pass
             else:
@@ -9714,8 +9714,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def put_high_coreval_color_blink(self, blink):
 
-        global put_high_node_count, put_high_node_list, put_high_node_str
-        global telegram_send_str_put_high
+        global put_high_node_count, put_high_node_list, put_high_node_txt
+        global telegram_send_txt_put_high
 
         dt = datetime.datetime.now()
 
@@ -9749,25 +9749,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-        if put_high_node_list and put_high_node_str == '':
+        if put_high_node_list and put_high_node_txt == '':
 
             if TARGET_MONTH_SELECT == 'CM': 
 
-                put_high_node_str = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 {3} 발생 P ▼".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, put_high_node_list)
+                put_high_node_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 {3} 발생 P ▼".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, put_high_node_list)
 
             elif TARGET_MONTH_SELECT == 'NM':
 
-                put_high_node_str = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 {3} 발생 P ▼".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, put_high_node_list)
+                put_high_node_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 {3} 발생 P ▼".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, put_high_node_list)
             else:
                 pass
         else:
-            put_high_node_str == ''
+            put_high_node_txt == ''
 
         put_high_node_count = count
 
         if count == 0:
 
-            telegram_send_str_put_high = ''
+            telegram_send_txt_put_high = ''
 
         elif count == 1:
             
@@ -9778,7 +9778,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_put.resizeColumnToContents(Option_column.고가.value)
 
-                telegram_send_str_put_high = ''
+                telegram_send_txt_put_high = ''
             else:
                 pass
 
@@ -9793,11 +9793,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 'CM' and put_high_node_count != put_high_node_old_count:
 
-                    telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    telegram_send_txt_put_high = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
                 elif TARGET_MONTH_SELECT == 'NM' and put_high_node_count != put_high_node_old_count:
 
-                    telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    telegram_send_txt_put_high = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
                     pass
             else:
@@ -9814,11 +9814,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 'CM' and put_high_node_count != put_high_node_old_count:
 
-                    telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    telegram_send_txt_put_high = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
                 elif TARGET_MONTH_SELECT == 'NM' and put_high_node_count != put_high_node_old_count:
 
-                    telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    telegram_send_txt_put_high = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
                     pass
             else:
@@ -9834,11 +9834,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 'CM' and put_high_node_count != put_high_node_old_count:
 
-                    telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    telegram_send_txt_put_high = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
                 elif TARGET_MONTH_SELECT == 'NM' and put_high_node_count != put_high_node_old_count:
 
-                    telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    telegram_send_txt_put_high = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
                     pass
             else:
@@ -9848,7 +9848,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global flag_put_low_coreval, flag_put_high_coreval
         global put_low_node_count, put_high_node_count
-        global telegram_send_str_put_low, telegram_send_str_put_high
+        global telegram_send_txt_put_low, telegram_send_txt_put_high
 
         dt = datetime.datetime.now()
         
@@ -9953,13 +9953,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if count_low == 0:
 
-            telegram_send_str_put_low = ''  
+            telegram_send_txt_put_low = ''  
 
         elif count_low == 1:              
 
             item = QTableWidgetItem('★')
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
-            telegram_send_str_put_low = '' 
+            telegram_send_txt_put_low = '' 
 
         elif count_low == 2:
 
@@ -9978,13 +9978,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if count_high == 0:
 
-            telegram_send_str_put_high = ''
+            telegram_send_txt_put_high = ''
 
         elif count_high == 1:          
 
             item = QTableWidgetItem('★')
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
-            telegram_send_str_put_high = ''
+            telegram_send_txt_put_high = ''
 
         elif count_high == 2:
 
@@ -10178,7 +10178,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        global flag_kp200_low_node, kp200_low_node_time, kp200_low_node_str  
+        global flag_kp200_low_node, kp200_low_node_time, kp200_low_node_txt  
 
         flag_kp200_low_node = False    
                 
@@ -10191,7 +10191,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 flag_kp200_low_node = True
 
-                kp200_low_node_str = "[{0:02d}:{1:02d}:{2:02d}] kp200 저가맥점 {3:.2f} 발생 !!!".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, self.kp200_realdata['저가'])
+                kp200_low_node_txt = "[{0:02d}:{1:02d}:{2:02d}] kp200 저가맥점 {3:.2f} 발생 !!!".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, self.kp200_realdata['저가'])
             else:
                 pass
 
@@ -10199,7 +10199,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.datetime.now() 
 
-        global flag_kp200_high_node, kp200_high_node_time, kp200_high_node_str 
+        global flag_kp200_high_node, kp200_high_node_time, kp200_high_node_txt 
 
         flag_kp200_high_node = False    
                 
@@ -10212,13 +10212,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 flag_kp200_high_node = True
 
-                kp200_high_node_str = "[{0:02d}:{1:02d}:{2:02d}] kp200 고가맥점 {3:.2f} 발생 !!!".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, self.kp200_realdata['고가'])
+                kp200_high_node_txt = "[{0:02d}:{1:02d}:{2:02d}] kp200 고가맥점 {3:.2f} 발생 !!!".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, self.kp200_realdata['고가'])
             else:
                 pass
 
     def fut_oloh_check(self):
 
-        global flag_fut_ol, flag_fut_oh, fut_oloh_str, flag_fut_oloh
+        global flag_fut_ol, flag_fut_oh, fut_oloh_txt, flag_fut_oloh
 
         dt = datetime.datetime.now()
 
@@ -10249,12 +10249,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if TARGET_MONTH_SELECT == 'CM' and not flag_fut_ol and not flag_fut_oloh:
 
-                fut_oloh_str = "[{0:02d}:{1:02d}:{2:02d}] CM 선물 OL ▲".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                fut_oloh_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 선물 OL ▲".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 flag_fut_oloh = True
 
             elif TARGET_MONTH_SELECT == 'NM' and not flag_fut_ol and not flag_fut_oloh:
 
-                fut_oloh_str = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OL ▲".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                fut_oloh_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OL ▲".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 flag_fut_oloh = True
             else:
                 pass
@@ -10287,12 +10287,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if TARGET_MONTH_SELECT == 'CM' and not flag_fut_oh and not flag_fut_oloh:
 
-                fut_oloh_str = "[{0:02d}:{1:02d}:{2:02d}] CM 선물 OH ▼".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                fut_oloh_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 선물 OH ▼".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 flag_fut_oloh = True
 
             elif TARGET_MONTH_SELECT == 'NM' and not flag_fut_oh and not flag_fut_oloh:
 
-                fut_oloh_str = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OH ▼".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                fut_oloh_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OH ▼".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 flag_fut_oloh = True
             else:
                 pass
@@ -10302,7 +10302,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             flag_fut_ol = False
             flag_fut_oh = False
-            fut_oloh_str = ''
+            fut_oloh_txt = ''
             flag_fut_oloh = False
 
             item = QTableWidgetItem('')
@@ -10589,7 +10589,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         #global cme_realdata, fut_realdata
         global df_fut
-        global atm_str, atm_val, ATM_INDEX, old_atm_index        
+        global atm_txt, atm_val, ATM_INDEX, old_atm_index        
         global 선물_시가, 선물_현재가, 선물_저가, 선물_고가, 선물_피봇
         global flag_fut_low, flag_fut_high 
         global fut_cm_volume_power
@@ -11308,9 +11308,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # call OL/OH count
             if self.is_within_n_tick(콜시가, 콜저가, oloh_threshold) and not self.is_within_n_tick(콜시가, 콜고가, oloh_threshold):
 
-                oloh_str = '▲'
+                oloh_txt = '▲'
 
-                item = QTableWidgetItem(oloh_str)
+                item = QTableWidgetItem(oloh_txt)
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(적색))
                 item.setForeground(QBrush(흰색))
@@ -11326,9 +11326,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif self.is_within_n_tick(콜시가, 콜고가, oloh_threshold) and not self.is_within_n_tick(콜시가, 콜저가, oloh_threshold):
 
-                oloh_str = '▼'
+                oloh_txt = '▼'
 
-                item = QTableWidgetItem(oloh_str)
+                item = QTableWidgetItem(oloh_txt)
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(청색))
                 item.setForeground(QBrush(흰색))
@@ -11342,10 +11342,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 call_oh[index] = True
             else:
-                oloh_str = '-'
+                oloh_txt = '-'
 
-                if oloh_str != self.tableWidget_call.item(index, Option_column.OLOH.value).text():
-                    item = QTableWidgetItem(oloh_str)
+                if oloh_txt != self.tableWidget_call.item(index, Option_column.OLOH.value).text():
+                    item = QTableWidgetItem(oloh_txt)
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(검정색))
                     item.setForeground(QBrush(흰색))
@@ -11376,7 +11376,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_open, call_itm_count
         global df_call
         global df_call_price_graph, df_call_graph
-        global atm_str, ATM_INDEX, call_atm_value
+        global atm_txt, ATM_INDEX, call_atm_value
         global call_시가, call_시가_node_list, call_피봇, call_피봇_node_list, 콜시가리스트
         global call_저가, call_저가_node_list, call_고가, call_고가_node_list
         global opt_callreal_update_counter
@@ -11504,9 +11504,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             call_gap_percent[index] = (콜시가 / 콜종가 - 1) * 100
 
-            gap_str = "{0:.2f}\n({1:.0f}%)".format(시가갭, call_gap_percent[index])
+            gap_txt = "{0:.2f}\n({1:.0f}%)".format(시가갭, call_gap_percent[index])
         
-            item = QTableWidgetItem(gap_str)
+            item = QTableWidgetItem(gap_txt)
             item.setTextAlignment(Qt.AlignCenter)
 
             if 콜시가 > 콜종가:
@@ -11530,9 +11530,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             콜시가갭합_단위평균 = round(df_call['시가갭'].sum()/len(call_gap_percent_local), 2)        
             콜시가갭합_퍼센트평균 = int(round(np.mean(np_call_gap_percent_local), 2))
 
-            call_str = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트평균) + '%' + ')'
+            call_txt = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트평균) + '%' + ')'
 
-            item = QTableWidgetItem(call_str)
+            item = QTableWidgetItem(call_txt)
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
 
@@ -11616,13 +11616,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if DayTime:
 
                     if index == ATM_INDEX:
-                        gap_str = "{0:.2f}\n({1:.2f}%)".format(콜대비, 콜등락율)
+                        gap_txt = "{0:.2f}\n({1:.2f}%)".format(콜대비, 콜등락율)
                     else:
-                        gap_str = "{0:.2f}\n({1:.0f}%)".format(콜대비, call_db_percent[index])
+                        gap_txt = "{0:.2f}\n({1:.0f}%)".format(콜대비, call_db_percent[index])
                 else:
-                    gap_str = "{0:.2f}\n({1:.0f}%)".format(콜대비, call_db_percent[index])                    
+                    gap_txt = "{0:.2f}\n({1:.0f}%)".format(콜대비, call_db_percent[index])                    
 
-                item = QTableWidgetItem(gap_str)
+                item = QTableWidgetItem(gap_txt)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_call.setItem(index, Option_column.대비.value, item)
             else:
@@ -11878,10 +11878,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         진폭최대값 = df_call['진폭'].max()
 
-        max_str = '{0:.2f}'.format(진폭최대값)
+        max_txt = '{0:.2f}'.format(진폭최대값)
 
-        if max_str != self.tableWidget_call.horizontalHeaderItem(Option_column.진폭.value).text():
-            item = QTableWidgetItem(max_str)
+        if max_txt != self.tableWidget_call.horizontalHeaderItem(Option_column.진폭.value).text():
+            item = QTableWidgetItem(max_txt)
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.진폭.value, item)
         else:
             pass
@@ -11899,9 +11899,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         콜대비합_단위평균 = round(np.mean(np_call_otm_db_local), 2)            
         콜대비_퍼센트평균 = round(np.mean(np_call_db_percent_local), 1)
 
-        call_str = repr(콜대비합_단위평균) + '\n(' + repr(콜대비_퍼센트평균) + '%' + ')'
+        call_txt = repr(콜대비합_단위평균) + '\n(' + repr(콜대비_퍼센트평균) + '%' + ')'
 
-        item = QTableWidgetItem(call_str)
+        item = QTableWidgetItem(call_txt)
         self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
 
         if ResizeRowsToContents:
@@ -12119,7 +12119,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_open_count        
         global 콜시가갭합, 콜시가갭합_퍼센트평균, 콜시가갭합_단위평균, 콜대비_퍼센트평균
         global call_otm_db, call_otm_db_percent
-        global nm_call_oloh_str 
+        global nm_call_oloh_txt 
         
         dt = datetime.datetime.now()
 
@@ -12165,9 +12165,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_call.at[index, '시가갭'] = 시가갭
 
                         call_gap_percent[index] = (시가 / 종가 - 1) * 100
-                        gap_str = "{0:.2f}\n({1:.0f}%)".format(시가갭, call_gap_percent[index])
+                        gap_txt = "{0:.2f}\n({1:.0f}%)".format(시가갭, call_gap_percent[index])
 
-                        item = QTableWidgetItem(gap_str)
+                        item = QTableWidgetItem(gap_txt)
                         item.setTextAlignment(Qt.AlignCenter)
 
                         if 시가 > 종가:
@@ -12216,9 +12216,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             # call OL/OH count
                             if call_node_state['OLOH'] and self.is_within_n_tick(시가, 저가, oloh_threshold) and not self.is_within_n_tick(시가, 고가, oloh_threshold):
 
-                                oloh_str = '▲'
+                                oloh_txt = '▲'
 
-                                item = QTableWidgetItem(oloh_str)
+                                item = QTableWidgetItem(oloh_txt)
                                 item.setTextAlignment(Qt.AlignCenter)
                                 item.setBackground(QBrush(적색))
                                 item.setForeground(QBrush(흰색))
@@ -12234,9 +12234,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             elif call_node_state['OLOH'] and self.is_within_n_tick(시가, 고가, oloh_threshold) and not self.is_within_n_tick(시가, 저가, oloh_threshold):
 
-                                oloh_str = '▼'
+                                oloh_txt = '▼'
 
-                                item = QTableWidgetItem(oloh_str)
+                                item = QTableWidgetItem(oloh_txt)
                                 item.setTextAlignment(Qt.AlignCenter)
                                 item.setBackground(QBrush(청색))
                                 item.setForeground(QBrush(흰색))
@@ -12250,10 +12250,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 call_oh[index] = True
                             else:
-                                oloh_str = '-'
+                                oloh_txt = '-'
 
-                                if oloh_str != self.tableWidget_call.item(index, Option_column.OLOH.value).text():
-                                    item = QTableWidgetItem(oloh_str)
+                                if oloh_txt != self.tableWidget_call.item(index, Option_column.OLOH.value).text():
+                                    item = QTableWidgetItem(oloh_txt)
                                     item.setTextAlignment(Qt.AlignCenter)
                                     item.setBackground(QBrush(검정색))
                                     item.setForeground(QBrush(흰색))
@@ -12275,11 +12275,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_call.at[index, '대비'] = 대비
                         call_db_percent[index] = (현재가 / 시가 - 1) * 100
 
-                        gap_str = "{0:.2f}\n({1:.0f}%)".format(대비, call_db_percent[index])
+                        gap_txt = "{0:.2f}\n({1:.0f}%)".format(대비, call_db_percent[index])
 
-                        if gap_str != self.tableWidget_call.item(index, Option_column.대비.value).text():
+                        if gap_txt != self.tableWidget_call.item(index, Option_column.대비.value).text():
 
-                            item = QTableWidgetItem(gap_str)
+                            item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_call.setItem(index, Option_column.대비.value, item)
                         else:
@@ -12326,9 +12326,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if TARGET_MONTH_SELECT == 'NM':
 
                     if call_ol_count > 0 or call_oh_count > 0:
-                        nm_call_oloh_str = '▲:▼ = ' + repr(call_ol_count) + ':' + repr(call_oh_count)
+                        nm_call_oloh_txt = '▲:▼ = ' + repr(call_ol_count) + ':' + repr(call_oh_count)
                     else:
-                        nm_call_oloh_str = ''                        
+                        nm_call_oloh_txt = ''                        
                 else:
                     pass
             else:
@@ -12345,9 +12345,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             콜시가갭합_단위평균 = round(df_call['시가갭'].sum()/len(call_gap_percent_local), 2)        
             콜시가갭합_퍼센트평균 = int(round(np.mean(np_call_gap_percent_local), 2))
 
-            call_str = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트평균) + '%' + ')'
+            call_txt = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트평균) + '%' + ')'
 
-            item = QTableWidgetItem(call_str)
+            item = QTableWidgetItem(call_txt)
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
 
@@ -12390,9 +12390,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # call OL/OH count
             if self.is_within_n_tick(풋시가, 풋저가, oloh_threshold) and not self.is_within_n_tick(풋시가, 풋고가, oloh_threshold):
 
-                oloh_str = '▲'
+                oloh_txt = '▲'
 
-                item = QTableWidgetItem(oloh_str)
+                item = QTableWidgetItem(oloh_txt)
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(적색))
                 item.setForeground(QBrush(흰색))
@@ -12408,9 +12408,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif self.is_within_n_tick(풋시가, 풋고가, oloh_threshold) and not self.is_within_n_tick(풋시가, 풋저가, oloh_threshold):
 
-                oloh_str = '▼'
+                oloh_txt = '▼'
 
-                item = QTableWidgetItem(oloh_str)
+                item = QTableWidgetItem(oloh_txt)
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(청색))
                 item.setForeground(QBrush(흰색))
@@ -12424,10 +12424,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 put_oh[index] = True
             else:
-                oloh_str = '-'
+                oloh_txt = '-'
 
-                if oloh_str != self.tableWidget_put.item(index, Option_column.OLOH.value).text():
-                    item = QTableWidgetItem(oloh_str)
+                if oloh_txt != self.tableWidget_put.item(index, Option_column.OLOH.value).text():
+                    item = QTableWidgetItem(oloh_txt)
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(검정색))
                     item.setForeground(QBrush(흰색))
@@ -12458,7 +12458,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global put_open, put_itm_count
         global df_put
         global df_put_price_graph, df_put_graph
-        global atm_str, ATM_INDEX, put_atm_value
+        global atm_txt, ATM_INDEX, put_atm_value
         global put_시가, put_시가_node_list, put_피봇, put_피봇_node_list, 풋시가리스트
         global put_저가, put_저가_node_list, put_고가, put_고가_node_list
         global opt_putreal_update_counter
@@ -12585,9 +12585,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             put_gap_percent[index] = (풋시가 / 풋종가 - 1) * 100
 
-            gap_str = "{0:.2f}\n({1:.0f}%)".format(시가갭, put_gap_percent[index])
+            gap_txt = "{0:.2f}\n({1:.0f}%)".format(시가갭, put_gap_percent[index])
 
-            item = QTableWidgetItem(gap_str)
+            item = QTableWidgetItem(gap_txt)
             item.setTextAlignment(Qt.AlignCenter)
 
             if 풋시가 > 풋종가:
@@ -12611,9 +12611,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             풋시가갭합_단위평균 = round(df_put['시가갭'].sum()/len(put_gap_percent_local), 2)        
             풋시가갭합_퍼센트평균 = int(round(np.mean(np_put_gap_percent_local), 2))
 
-            put_str = repr(풋시가갭합_단위평균) + '\n(' + repr(풋시가갭합_퍼센트평균) + '%' + ')'
+            put_txt = repr(풋시가갭합_단위평균) + '\n(' + repr(풋시가갭합_퍼센트평균) + '%' + ')'
 
-            item = QTableWidgetItem(put_str)
+            item = QTableWidgetItem(put_txt)
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
 
@@ -12697,13 +12697,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if DayTime:
 
                     if index == ATM_INDEX:
-                        gap_str = "{0:.2f}\n({1:.2f}%)".format(풋대비, 풋등락율)
+                        gap_txt = "{0:.2f}\n({1:.2f}%)".format(풋대비, 풋등락율)
                     else:
-                        gap_str = "{0:.2f}\n({1:.0f}%)".format(풋대비, put_db_percent[index])
+                        gap_txt = "{0:.2f}\n({1:.0f}%)".format(풋대비, put_db_percent[index])
                 else:
-                    gap_str = "{0:.2f}\n({1:.0f}%)".format(풋대비, put_db_percent[index])  
+                    gap_txt = "{0:.2f}\n({1:.0f}%)".format(풋대비, put_db_percent[index])  
 
-                item = QTableWidgetItem(gap_str)
+                item = QTableWidgetItem(gap_txt)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setItem(index, Option_column.대비.value, item)
             else:
@@ -12944,10 +12944,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         진폭최대값 = df_put['진폭'].max()
 
-        max_str = '{0:.2f}'.format(진폭최대값)
+        max_txt = '{0:.2f}'.format(진폭최대값)
 
-        if max_str != self.tableWidget_put.horizontalHeaderItem(Option_column.진폭.value).text():
-            item = QTableWidgetItem(max_str)
+        if max_txt != self.tableWidget_put.horizontalHeaderItem(Option_column.진폭.value).text():
+            item = QTableWidgetItem(max_txt)
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.진폭.value, item)
         else:
             pass
@@ -12965,9 +12965,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         풋대비합_단위평균 = round(np.mean(np_put_otm_db_local), 2)      
         풋대비_퍼센트평균 = round(np.mean(np_put_db_percent_local), 1)
 
-        put_str = repr(풋대비합_단위평균) + '\n(' + repr(풋대비_퍼센트평균) + '%' + ')'
+        put_txt = repr(풋대비합_단위평균) + '\n(' + repr(풋대비_퍼센트평균) + '%' + ')'
 
-        item = QTableWidgetItem(put_str)
+        item = QTableWidgetItem(put_txt)
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
 
@@ -13188,7 +13188,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global put_open_count
         global 풋시가갭합, 풋시가갭합_퍼센트평균, 풋시가갭합_단위평균, 풋대비_퍼센트평균
         global put_otm_db, put_otm_db_percent
-        global nm_put_oloh_str
+        global nm_put_oloh_txt
         
         dt = datetime.datetime.now()
 
@@ -13238,9 +13238,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_put.at[index, '시가갭'] = 시가갭
                         put_gap_percent[index] = (시가 / 종가 - 1) * 100
 
-                        gap_str = "{0:.2f}\n({1:.0f}%)".format(시가갭, put_gap_percent[index])
+                        gap_txt = "{0:.2f}\n({1:.0f}%)".format(시가갭, put_gap_percent[index])
 
-                        item = QTableWidgetItem(gap_str)
+                        item = QTableWidgetItem(gap_txt)
                         item.setTextAlignment(Qt.AlignCenter)
 
                         if 시가 > 종가:
@@ -13289,9 +13289,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             # put OL/OH count
                             if put_node_state['OLOH'] and self.is_within_n_tick(시가, 저가, oloh_threshold) and not self.is_within_n_tick(시가, 고가, oloh_threshold):
 
-                                oloh_str = '▲'
+                                oloh_txt = '▲'
 
-                                item = QTableWidgetItem(oloh_str)
+                                item = QTableWidgetItem(oloh_txt)
                                 item.setTextAlignment(Qt.AlignCenter)
                                 item.setBackground(QBrush(적색))
                                 item.setForeground(QBrush(흰색))
@@ -13312,9 +13312,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             elif put_node_state['OLOH'] and self.is_within_n_tick(시가, 고가, oloh_threshold) and not self.is_within_n_tick(시가, 저가, oloh_threshold):
 
-                                oloh_str = '▼'
+                                oloh_txt = '▼'
 
-                                item = QTableWidgetItem(oloh_str)
+                                item = QTableWidgetItem(oloh_txt)
                                 item.setTextAlignment(Qt.AlignCenter)
                                 item.setBackground(QBrush(청색))
                                 item.setForeground(QBrush(흰색))
@@ -13333,10 +13333,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     pass
                             else:
-                                oloh_str = '-'
+                                oloh_txt = '-'
 
-                                if oloh_str != self.tableWidget_put.item(index, Option_column.OLOH.value).text():
-                                    item = QTableWidgetItem(oloh_str)
+                                if oloh_txt != self.tableWidget_put.item(index, Option_column.OLOH.value).text():
+                                    item = QTableWidgetItem(oloh_txt)
                                     item.setTextAlignment(Qt.AlignCenter)
                                     item.setBackground(QBrush(검정색))
                                     item.setForeground(QBrush(흰색))
@@ -13364,11 +13364,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_put.at[index, '대비'] = 대비                 
                         put_db_percent[index] = (현재가 / 시가 - 1) * 100
 
-                        gap_str = "{0:.2f}\n({1:.0f}%)".format(대비, put_db_percent[index])
+                        gap_txt = "{0:.2f}\n({1:.0f}%)".format(대비, put_db_percent[index])
 
-                        if gap_str != self.tableWidget_put.item(index, Option_column.대비.value).text():
+                        if gap_txt != self.tableWidget_put.item(index, Option_column.대비.value).text():
 
-                            item = QTableWidgetItem(gap_str)
+                            item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_put.setItem(index, Option_column.대비.value, item)
                         else:
@@ -13415,9 +13415,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if TARGET_MONTH_SELECT == 'NM':                     
 
                     if put_ol_count > 0 or put_oh_count > 0:
-                        nm_put_oloh_str = '▲:▼ = ' + repr(put_ol_count) + ':' + repr(put_oh_count)
+                        nm_put_oloh_txt = '▲:▼ = ' + repr(put_ol_count) + ':' + repr(put_oh_count)
                     else:
-                        nm_put_oloh_str = ''                            
+                        nm_put_oloh_txt = ''                            
                 else:
                     pass
             else:
@@ -13434,9 +13434,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             풋시가갭합_단위평균 = round(df_put['시가갭'].sum()/len(put_gap_percent_local), 2)        
             풋시가갭합_퍼센트평균 = int(round(np.mean(np_put_gap_percent_local), 2))
 
-            put_str = repr(풋시가갭합_단위평균) + '\n(' + repr(풋시가갭합_퍼센트평균) + '%' + ')'
+            put_txt = repr(풋시가갭합_단위평균) + '\n(' + repr(풋시가갭합_퍼센트평균) + '%' + ')'
 
-            item = QTableWidgetItem(put_str)
+            item = QTableWidgetItem(put_txt)
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
 
@@ -13597,9 +13597,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         콜_수정미결합 = df_call['수정미결'].sum()
         풋_수정미결합 = df_put['수정미결'].sum()
 
-        oi_str = '{0}:{1}'.format(format(int(콜_수정미결합), ','), format(int(풋_수정미결합), ','))
+        oi_txt = '{0}:{1}'.format(format(int(콜_수정미결합), ','), format(int(풋_수정미결합), ','))
 
-        item = QTableWidgetItem(oi_str)
+        item = QTableWidgetItem(oi_txt)
         self.tableWidget_quote.setHorizontalHeaderItem(Quote_column.미결종합.value - 1, item)
         
         수정미결합 = 콜_수정미결합 + 풋_수정미결합
@@ -14106,7 +14106,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global ATM_INDEX, old_atm_index
         global df_call_price_graph, df_put_price_graph, df_call_information_graph, df_put_information_graph
         global df_call_graph, df_put_graph
-        global atm_str, atm_val
+        global atm_txt, atm_val
 
         global call_ckbox
         global selected_call
@@ -14153,7 +14153,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_volume_power, put_volume_power
         global 콜시가리스트, 콜저가리스트, 콜고가리스트, 풋시가리스트, 풋저가리스트, 풋고가리스트
 
-        global start_time_str, end_time_str
+        global start_time_txt, end_time_txt
 
         global df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
         global view_actval
@@ -14277,17 +14277,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.fut_realdata['현재가'] = df['현재가']
             self.fut_realdata['KP200'] = df['KOSPI200지수']
             
-            atm_str = self.get_atm_str(self.fut_realdata['KP200'])
+            atm_txt = self.get_atm_txt(self.fut_realdata['KP200'])
 
-            if atm_str[-1] == '2' or atm_str[-1] == '7':
+            if atm_txt[-1] == '2' or atm_txt[-1] == '7':
 
-                atm_val = float(atm_str) + 0.5
+                atm_val = float(atm_txt) + 0.5
             else:
-                atm_val = float(atm_str)
+                atm_val = float(atm_txt)
 
-            if atm_str in opt_actval:
+            if atm_txt in opt_actval:
 
-                ATM_INDEX = opt_actval.index(atm_str)
+                ATM_INDEX = opt_actval.index(atm_txt)
 
                 view_actval = opt_actval[ATM_INDEX-5:ATM_INDEX+6]
 
@@ -14314,9 +14314,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setForeground(QBrush(검정색))
                 self.tableWidget_quote.setItem(0, Quote_column.미결종합.value - 1, item)
             else:
-                print("atm값({0})이 리스트에 없습니다.".format(atm_str))
+                print("atm값({0})이 리스트에 없습니다.".format(atm_txt))
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 등가지수는 {3}({4})입니다.\r'.format(dt.hour, dt.minute, dt.second, atm_str, ATM_INDEX)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 등가지수는 {3}({4})입니다.\r'.format(dt.hour, dt.minute, dt.second, atm_txt, ATM_INDEX)
             self.parent.textBrowser.append(txt)           
 
             self.fut_realdata['종가'] = df['전일종가']
@@ -14693,9 +14693,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             call_gap_percent[i] = (시가 / 종가 - 1) * 100
 
-                            gap_str = "{0:.2f}\n({1:.0f}%)".format(시가갭, call_gap_percent[i])
+                            gap_txt = "{0:.2f}\n({1:.0f}%)".format(시가갭, call_gap_percent[i])
 
-                            item = QTableWidgetItem(gap_str)
+                            item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(흰색))
                             item.setForeground(QBrush(검정색))
@@ -14703,25 +14703,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             call_db_percent[i] = (현재가 / 시가 - 1) * 100
 
-                            gap_str = "{0:.2f}\n({1:.0f}%)".format(대비, call_db_percent[i])
+                            gap_txt = "{0:.2f}\n({1:.0f}%)".format(대비, call_db_percent[i])
 
-                            item = QTableWidgetItem(gap_str)
+                            item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(흰색))
                             item.setForeground(QBrush(검정색))
                             self.tableWidget_call.setItem(i, Option_column.대비.value, item)
                         else:
-                            gap_str = "{0:.2f}".format(시가갭)
+                            gap_txt = "{0:.2f}".format(시가갭)
 
-                            item = QTableWidgetItem(gap_str)
+                            item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(흰색))
                             item.setForeground(QBrush(검정색))
                             self.tableWidget_call.setItem(i, Option_column.시가갭.value, item)
 
-                            gap_str = "{0:.2f}".format(대비)
+                            gap_txt = "{0:.2f}".format(대비)
 
-                            item = QTableWidgetItem(gap_str)
+                            item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(흰색))
                             item.setForeground(QBrush(검정색))
@@ -15027,9 +15027,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             put_gap_percent[i] = (시가 / 종가 - 1) * 100
 
-                            gap_str = "{0:.2f}\n({1:.0f}%)".format(시가갭, put_gap_percent[i])
+                            gap_txt = "{0:.2f}\n({1:.0f}%)".format(시가갭, put_gap_percent[i])
 
-                            item = QTableWidgetItem(gap_str)
+                            item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(흰색))
                             item.setForeground(QBrush(검정색))
@@ -15037,25 +15037,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             put_db_percent[i] = (현재가 / 시가 - 1) * 100
 
-                            gap_str = "{0:.2f}\n({1:.0f}%)".format(대비, put_db_percent[i])
+                            gap_txt = "{0:.2f}\n({1:.0f}%)".format(대비, put_db_percent[i])
 
-                            item = QTableWidgetItem(gap_str)
+                            item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(흰색))
                             item.setForeground(QBrush(검정색))
                             self.tableWidget_put.setItem(i, Option_column.대비.value, item)
                         else:
-                            gap_str = "{0:.2f}".format(시가갭)
+                            gap_txt = "{0:.2f}".format(시가갭)
 
-                            item = QTableWidgetItem(gap_str)
+                            item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(흰색))
                             item.setForeground(QBrush(검정색))
                             self.tableWidget_put.setItem(i, Option_column.시가갭.value, item)
 
-                            gap_str = "{0:.2f}".format(대비)
+                            gap_txt = "{0:.2f}".format(대비)
 
-                            item = QTableWidgetItem(gap_str)
+                            item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(흰색))
                             item.setForeground(QBrush(검정색))
@@ -15239,9 +15239,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                     call_진폭 = df_call['진폭'].values.tolist()
                     진폭최대값 = max(call_진폭)
-                    max_str = '{0:.2f}'.format(진폭최대값)
+                    max_txt = '{0:.2f}'.format(진폭최대값)
 
-                    item = QTableWidgetItem(max_str)
+                    item = QTableWidgetItem(max_txt)
                     self.tableWidget_call.setHorizontalHeaderItem(Option_column.진폭.value, item)
 
                     # 풋 컬러링 리스트 작성
@@ -15259,9 +15259,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                     put_진폭 = df_put['진폭'].values.tolist()
                     진폭최대값 = max(put_진폭)
-                    max_str = '{0:.2f}'.format(진폭최대값)
+                    max_txt = '{0:.2f}'.format(진폭최대값)
 
-                    item = QTableWidgetItem(max_str)
+                    item = QTableWidgetItem(max_txt)
                     self.tableWidget_put.setHorizontalHeaderItem(Option_column.진폭.value, item)
                 else:
                     pass
@@ -15329,9 +15329,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                             dt.minute, dt.second, format(콜_수정미결합, ','), format(풋_수정미결합, ','))
                     self.textBrowser.append(txt)
                     
-                    oi_str = '{0}k:{1}k'.format(format(int(콜_수정미결합/1000), ','), format(int(풋_수정미결합/1000), ','))
+                    oi_txt = '{0}k:{1}k'.format(format(int(콜_수정미결합/1000), ','), format(int(풋_수정미결합/1000), ','))
 
-                    item = QTableWidgetItem(oi_str)
+                    item = QTableWidgetItem(oi_txt)
                     self.tableWidget_quote.setHorizontalHeaderItem(Quote_column.미결종합.value - 1, item)
                 else:
                     pass
@@ -15451,12 +15451,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             if 종가 > 0:
 
                                 call_gap_percent[i] = (시가 / 종가 - 1) * 100
-                                gap_str = "{0:.2f}\n({1:.0f}%)".format(시가갭, call_gap_percent[i])
+                                gap_txt = "{0:.2f}\n({1:.0f}%)".format(시가갭, call_gap_percent[i])
                             else:
                                 call_gap_percent[i] = 0.0
-                                gap_str = "{0:.2f}".format(시가갭)
+                                gap_txt = "{0:.2f}".format(시가갭)
 
-                            item = QTableWidgetItem(gap_str)
+                            item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_call.setItem(i, Option_column.시가갭.value, item)
 
@@ -15586,12 +15586,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             if 종가 > 0:
 
                                 put_gap_percent[i] = (시가 / 종가 - 1) * 100
-                                gap_str = "{0:.2f}\n({1:.0f}%)".format(시가갭, put_gap_percent[i])
+                                gap_txt = "{0:.2f}\n({1:.0f}%)".format(시가갭, put_gap_percent[i])
                             else:
                                 put_gap_percent[i] = 0.0
-                                gap_str = "{0:.2f}".format(시가갭)
+                                gap_txt = "{0:.2f}".format(시가갭)
 
-                            item = QTableWidgetItem(gap_str)
+                            item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_put.setItem(i, Option_column.시가갭.value, item)
 
@@ -15918,21 +15918,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_fut.setItem(2, Futures_column.종가.value, item)
             
             if DayTime:
-                atm_str = self.get_atm_str(kp200_현재가)
+                atm_txt = self.get_atm_txt(kp200_현재가)
             else:
-                atm_str = self.get_atm_str(kp200_현재가)
+                atm_txt = self.get_atm_txt(kp200_현재가)
 
-            ATM_INDEX = opt_actval.index(atm_str)
+            ATM_INDEX = opt_actval.index(atm_txt)
             old_atm_index = ATM_INDEX
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] t2801 등가지수는 {3}({4})입니다.\r'.format(dt.hour, dt.minute, dt.second, atm_str, ATM_INDEX)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] t2801 등가지수는 {3}({4})입니다.\r'.format(dt.hour, dt.minute, dt.second, atm_txt, ATM_INDEX)
             self.parent.textBrowser.append(txt)
             
-            if atm_str[-1] == '2' or atm_str[-1] == '7':
+            if atm_txt[-1] == '2' or atm_txt[-1] == '7':
 
-                atm_val = float(atm_str) + 0.5
+                atm_val = float(atm_txt) + 0.5
             else:
-                atm_val = float(atm_str)
+                atm_val = float(atm_txt)
 
             if self.call_open_list:
 
@@ -15983,13 +15983,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             KP200_COREVAL.sort()
             print('t2801 KP200_COREVAL =', KP200_COREVAL)
 
-            #atm_str = self.get_atm_str(KP200_전일종가)
+            #atm_txt = self.get_atm_txt(KP200_전일종가)
 
-            if atm_str[-1] == '2' or atm_str[-1] == '7':
+            if atm_txt[-1] == '2' or atm_txt[-1] == '7':
 
-                atm_val = float(atm_str) + 0.5
+                atm_val = float(atm_txt) + 0.5
             else:
-                atm_val = float(atm_str)       
+                atm_val = float(atm_txt)       
             
             self.tableWidget_call.item(ATM_INDEX, Option_column.행사가.value).setBackground(QBrush(노란색))
             self.tableWidget_call.item(ATM_INDEX, Option_column.행사가.value).setForeground(QBrush(검정색))
@@ -16385,8 +16385,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.item(i, Option_column.행사가.value).setBackground(QBrush(검정색))
                     self.tableWidget_call.item(i, Option_column.행사가.value).setForeground(QBrush(흰색))
 
-                    oloh_str = '-'
-                    item = QTableWidgetItem(oloh_str)
+                    oloh_txt = '-'
+                    item = QTableWidgetItem(oloh_txt)
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(검정색))
                     item.setForeground(QBrush(흰색))
@@ -16563,9 +16563,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             call_gap_percent[i] = (시가 / 종가 - 1) * 100
 
-                            gap_str = "{0:.2f}\n({1:.0f}%)".format(시가갭, call_gap_percent[i])
+                            gap_txt = "{0:.2f}\n({1:.0f}%)".format(시가갭, call_gap_percent[i])
 
-                            item = QTableWidgetItem(gap_str)
+                            item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(흰색))
                             item.setForeground(QBrush(검정색))
@@ -16573,25 +16573,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             call_db_percent[i] = (현재가 / 시가 - 1) * 100
 
-                            gap_str = "{0:.2f}\n({1:.0f}%)".format(대비, call_db_percent[i])
+                            gap_txt = "{0:.2f}\n({1:.0f}%)".format(대비, call_db_percent[i])
 
-                            item = QTableWidgetItem(gap_str)
+                            item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(흰색))
                             item.setForeground(QBrush(검정색))
                             self.tableWidget_call.setItem(i, Option_column.대비.value, item)
                         else:
-                            gap_str = "{0:.2f}".format(시가갭)
+                            gap_txt = "{0:.2f}".format(시가갭)
 
-                            item = QTableWidgetItem(gap_str)
+                            item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(흰색))
                             item.setForeground(QBrush(검정색))
                             self.tableWidget_call.setItem(i, Option_column.시가갭.value, item)
 
-                            gap_str = "{0:.2f}".format(대비)
+                            gap_txt = "{0:.2f}".format(대비)
 
-                            item = QTableWidgetItem(gap_str)
+                            item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(흰색))
                             item.setForeground(QBrush(검정색))
@@ -16691,7 +16691,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.item(i, Option_column.행사가.value).setBackground(QBrush(검정색))
                     self.tableWidget_put.item(i, Option_column.행사가.value).setForeground(QBrush(흰색))
 
-                    item = QTableWidgetItem(oloh_str)
+                    item = QTableWidgetItem(oloh_txt)
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(검정색))
                     item.setForeground(QBrush(흰색))
@@ -16868,9 +16868,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             put_gap_percent[i] = (시가 / 종가 - 1) * 100
 
-                            gap_str = "{0:.2f}\n({1:.0f}%)".format(시가갭, put_gap_percent[i])
+                            gap_txt = "{0:.2f}\n({1:.0f}%)".format(시가갭, put_gap_percent[i])
 
-                            item = QTableWidgetItem(gap_str)
+                            item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(흰색))
                             item.setForeground(QBrush(검정색))
@@ -16878,25 +16878,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             put_db_percent[i] = (현재가 / 시가 - 1) * 100
 
-                            gap_str = "{0:.2f}\n({1:.0f}%)".format(대비, put_db_percent[i])
+                            gap_txt = "{0:.2f}\n({1:.0f}%)".format(대비, put_db_percent[i])
 
-                            item = QTableWidgetItem(gap_str)
+                            item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(흰색))
                             item.setForeground(QBrush(검정색))
                             self.tableWidget_put.setItem(i, Option_column.대비.value, item)
                         else:
-                            gap_str = "{0:.2f}".format(시가갭)
+                            gap_txt = "{0:.2f}".format(시가갭)
 
-                            item = QTableWidgetItem(gap_str)
+                            item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(흰색))
                             item.setForeground(QBrush(검정색))
                             self.tableWidget_put.setItem(i, Option_column.시가갭.value, item)
 
-                            gap_str = "{0:.2f}".format(대비)
+                            gap_txt = "{0:.2f}".format(대비)
 
-                            item = QTableWidgetItem(gap_str)
+                            item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(흰색))
                             item.setForeground(QBrush(검정색))
@@ -17031,9 +17031,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 call_진폭 = df_call['진폭'].values.tolist()
                 진폭최대값 = max(call_진폭)
-                max_str = '{0:.2f}'.format(진폭최대값)
+                max_txt = '{0:.2f}'.format(진폭최대값)
 
-                item = QTableWidgetItem(max_str)
+                item = QTableWidgetItem(max_txt)
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.진폭.value, item)
 
                 put_전저 = df_put['전저'].values.tolist()
@@ -17059,9 +17059,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 put_진폭 = df_put['진폭'].values.tolist()
                 진폭최대값 = max(put_진폭)
-                max_str = '{0:.2f}'.format(진폭최대값)
+                max_txt = '{0:.2f}'.format(진폭최대값)
 
-                item = QTableWidgetItem(max_str)
+                item = QTableWidgetItem(max_txt)
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.진폭.value, item)
 
                 self.opt_high_low_list_update()
@@ -17872,7 +17872,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                if today_str != MONTH_FIRSTDAY:
+                if today_txt != MONTH_FIRSTDAY:
 
                     df_call.at[t8416_call_count, '기준가'] = df['저가'][0]
 
@@ -18102,7 +18102,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                if today_str != MONTH_FIRSTDAY:
+                if today_txt != MONTH_FIRSTDAY:
 
                     df_put.at[t8416_put_count, '기준가'] = df['저가'][0]
 
@@ -20492,7 +20492,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def UpdateRealdata(self, result):
 
         global pre_start
-        global atm_str, atm_val, ATM_INDEX
+        global atm_txt, atm_val, ATM_INDEX
         global yj_atm_index
 
         global df_call, df_put
@@ -20817,34 +20817,34 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         # KP200의 주요정보를 저장
                         with open('daytime.txt', mode='w') as daytime_file:
 
-                            file_str = '################# < KP200 Index of the Last Day > ###################\n'                        
-                            daytime_file.write(file_str)
-                            file_str = 'Center Value = {0}\n'.format(CENTER_VAL)
-                            daytime_file.write(file_str)
-                            file_str = 'KP200 Open = {0}\n'.format(self.kp200_realdata['시가'])
-                            daytime_file.write(file_str)                            
-                            file_str = 'KP200 High = {0}\n'.format(self.kp200_realdata['고가'])
-                            daytime_file.write(file_str)
-                            file_str = 'KP200 Low = {0}\n'.format(self.kp200_realdata['저가'])
-                            daytime_file.write(file_str)
-                            file_str = 'KP200 Close = {0}\n'.format(self.kp200_realdata['현재가'])
-                            daytime_file.write(file_str)
-                            file_str = '################### < Foreign Futures Index of the Day > #####################\n'
-                            daytime_file.write(file_str)
-                            file_str = 'SP500 Day Close = {0}\n'.format(SP500_현재가)
-                            daytime_file.write(file_str)
-                            file_str = 'DOW Day Close = {0}\n'.format(DOW_현재가)
-                            daytime_file.write(file_str)
-                            file_str = 'NASDAQ Day Close = {0}\n'.format(NASDAQ_현재가)
-                            daytime_file.write(file_str)
-                            file_str = 'WTI Day Close = {0}\n'.format(WTI_현재가)
-                            daytime_file.write(file_str)
-                            file_str = 'EUROFX Day Close = {0}\n'.format(EUROFX_현재가)
-                            daytime_file.write(file_str)
-                            file_str = 'HANGSENG Day Close = {0}\n'.format(HANGSENG_현재가)
-                            daytime_file.write(file_str)
-                            file_str = 'GOLD Day Close = {0}\n'.format(GOLD_현재가)
-                            daytime_file.write(file_str)
+                            file_txt = '################# < KP200 Index of the Last Day > ###################\n'                        
+                            daytime_file.write(file_txt)
+                            file_txt = 'Center Value = {0}\n'.format(CENTER_VAL)
+                            daytime_file.write(file_txt)
+                            file_txt = 'KP200 Open = {0}\n'.format(self.kp200_realdata['시가'])
+                            daytime_file.write(file_txt)                            
+                            file_txt = 'KP200 High = {0}\n'.format(self.kp200_realdata['고가'])
+                            daytime_file.write(file_txt)
+                            file_txt = 'KP200 Low = {0}\n'.format(self.kp200_realdata['저가'])
+                            daytime_file.write(file_txt)
+                            file_txt = 'KP200 Close = {0}\n'.format(self.kp200_realdata['현재가'])
+                            daytime_file.write(file_txt)
+                            file_txt = '################### < Foreign Futures Index of the Day > #####################\n'
+                            daytime_file.write(file_txt)
+                            file_txt = 'SP500 Day Close = {0}\n'.format(SP500_현재가)
+                            daytime_file.write(file_txt)
+                            file_txt = 'DOW Day Close = {0}\n'.format(DOW_현재가)
+                            daytime_file.write(file_txt)
+                            file_txt = 'NASDAQ Day Close = {0}\n'.format(NASDAQ_현재가)
+                            daytime_file.write(file_txt)
+                            file_txt = 'WTI Day Close = {0}\n'.format(WTI_현재가)
+                            daytime_file.write(file_txt)
+                            file_txt = 'EUROFX Day Close = {0}\n'.format(EUROFX_현재가)
+                            daytime_file.write(file_txt)
+                            file_txt = 'HANGSENG Day Close = {0}\n'.format(HANGSENG_현재가)
+                            daytime_file.write(file_txt)
+                            file_txt = 'GOLD Day Close = {0}\n'.format(GOLD_현재가)
+                            daytime_file.write(file_txt)
 
                             daytime_file.close()
 
@@ -21004,13 +21004,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        atm_str = self.get_atm_str(result['예상지수'])
+                        atm_txt = self.get_atm_txt(result['예상지수'])
 
-                        if atm_str[-1] == '2' or atm_str[-1] == '7':
+                        if atm_txt[-1] == '2' or atm_txt[-1] == '7':
 
-                            atm_val = float(atm_str) + 0.5
+                            atm_val = float(atm_txt) + 0.5
                         else:
-                            atm_val = float(atm_str)
+                            atm_val = float(atm_txt)
 
                         if self.fut_realdata['시가'] > 0 and self.fut_realdata['KP200'] > 0:
 
@@ -21018,11 +21018,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
                         
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] YJ KOSPI200 예상시가 = {3}, 예상등가 = {4}\r'.format(int(result['시간'][0:2]), int(result['시간'][2:4]), int(result['시간'][4:6]), result['예상지수'], atm_str)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] YJ KOSPI200 예상시가 = {3}, 예상등가 = {4}\r'.format(int(result['시간'][0:2]), int(result['시간'][2:4]), int(result['시간'][4:6]), result['예상지수'], atm_txt)
                         self.textBrowser.append(txt)
 
-                        if atm_str in opt_actval:
-                            yj_atm_index = opt_actval.index(atm_str)
+                        if atm_txt in opt_actval:
+                            yj_atm_index = opt_actval.index(atm_txt)
                         else:
                             pass
 
@@ -21389,9 +21389,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             yoc_call_gap_percent[index] = (float(result['예상체결가격']) / 종가 - 1) * 100
 
-                            gap_str = "{0:.2f}\n({1:.0f}%)".format(시가갭, yoc_call_gap_percent[index])
+                            gap_txt = "{0:.2f}\n({1:.0f}%)".format(시가갭, yoc_call_gap_percent[index])
 
-                            item = QTableWidgetItem(gap_str)
+                            item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
 
@@ -21415,9 +21415,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     콜시가갭합_단위평균 = round(df_call['시가갭'].sum()/len(call_gap_percent_local), 2)                          
                     콜시가갭합_퍼센트평균 = int(round(np.mean(np_call_gap_percent_local), 2))
 
-                    call_str = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트평균) + '%' + ')'
+                    call_txt = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트평균) + '%' + ')'
 
-                    item = QTableWidgetItem(call_str)
+                    item = QTableWidgetItem(call_txt)
                     self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
 
                     if ResizeRowsToContents:
@@ -21508,9 +21508,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             yoc_put_gap_percent[index] = (float(result['예상체결가격']) / 종가 - 1) * 100
 
-                            gap_str = "{0:.2f}\n({1:.0f}%)".format(시가갭, yoc_put_gap_percent[index])
+                            gap_txt = "{0:.2f}\n({1:.0f}%)".format(시가갭, yoc_put_gap_percent[index])
 
-                            item = QTableWidgetItem(gap_str)
+                            item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
 
@@ -21534,9 +21534,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     풋시가갭합_단위평균 = round(df_put['시가갭'].sum()/len(put_gap_percent_local), 2)                          
                     풋시가갭합_퍼센트평균 = int(round(np.mean(np_put_gap_percent_local), 2))
 
-                    put_str = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트평균) + '%' + ')'
+                    put_txt = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트평균) + '%' + ')'
 
-                    item = QTableWidgetItem(put_str)
+                    item = QTableWidgetItem(put_txt)
                     self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
 
                     if ResizeRowsToContents:
@@ -21564,11 +21564,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if result['현재가'] > samsung_price:
 
-                            temp_str = format(result['현재가'], ',')
+                            temp_txt = format(result['현재가'], ',')
 
                             if result['전일대비구분'] == '5':
 
-                                jisu_txt = "SS: {0} ▲ (-{1}, {2:0.1f}%)".format(temp_str, format(result['전일대비'], ','), result['등락율'])
+                                jisu_txt = "SS: {0} ▲ (-{1}, {2:0.1f}%)".format(temp_txt, format(result['전일대비'], ','), result['등락율'])
                                 
                                 self.label_4th_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                                 self.label_4th_index.setText(jisu_txt)
@@ -21577,7 +21577,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             elif result['전일대비구분'] == '2':
 
-                                jisu_txt = "SS: {0} ▲ ({1}, {2:0.1f}%)".format(temp_str, format(result['전일대비'], ','), result['등락율'])
+                                jisu_txt = "SS: {0} ▲ ({1}, {2:0.1f}%)".format(temp_txt, format(result['전일대비'], ','), result['등락율'])
                                 
                                 self.label_4th_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                                 self.label_4th_index.setText(jisu_txt)
@@ -21588,11 +21588,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         elif result['현재가'] < samsung_price:
 
-                            temp_str = format(result['현재가'], ',')
+                            temp_txt = format(result['현재가'], ',')
 
                             if result['전일대비구분'] == '5':
 
-                                jisu_txt = "SS: {0} ▼ (-{1}, {2:0.1f}%)".format(temp_str, format(result['전일대비'], ','), result['등락율'])
+                                jisu_txt = "SS: {0} ▼ (-{1}, {2:0.1f}%)".format(temp_txt, format(result['전일대비'], ','), result['등락율'])
                                 
                                 self.label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                                 self.label_4th_index.setText(jisu_txt)
@@ -21601,7 +21601,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             elif result['전일대비구분'] == '2':
 
-                                jisu_txt = "SS: {0} ▼ ({1}, {2:0.1f}%)".format(temp_str, format(result['전일대비'], ','), result['등락율'])
+                                jisu_txt = "SS: {0} ▼ ({1}, {2:0.1f}%)".format(temp_txt, format(result['전일대비'], ','), result['등락율'])
                                 
                                 self.label_4th_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                                 self.label_4th_index.setText(jisu_txt)
@@ -21730,14 +21730,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             df_fut.at[1, '피봇'] = 선물_피봇
                             self.fut_realdata['피봇'] = 선물_피봇              
                         
-                        atm_str = self.get_atm_str(kp200_시가)
-                        ATM_INDEX = opt_actval.index(atm_str)
+                        atm_txt = self.get_atm_txt(kp200_시가)
+                        ATM_INDEX = opt_actval.index(atm_txt)
 
-                        if atm_str[-1] == '2' or atm_str[-1] == '7':
+                        if atm_txt[-1] == '2' or atm_txt[-1] == '7':
 
-                            atm_val = float(atm_str) + 0.5
+                            atm_val = float(atm_txt) + 0.5
                         else:
-                            atm_val = float(atm_str)
+                            atm_val = float(atm_txt)
 
                         call_atm_value = df_call.at[ATM_INDEX, '현재가']
                         put_atm_value = df_put.at[ATM_INDEX, '현재가']
@@ -21850,13 +21850,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if round(float(result['지수']), 2) != kospi_price:
 
-                        kospi_str = format(round(float(result['지수']), 2), ',')
+                        kospi_txt = format(round(float(result['지수']), 2), ',')
 
                         if round(float(result['지수']), 2) > kospi_price:
 
                             if result['전일대비구분'] == '5':
 
-                                jisu_txt = "KOSPI: {0} ▲ (-{1:.2f}, {2:0.1f}%)".format(kospi_str, result['전일비'], result['등락율'])
+                                jisu_txt = "KOSPI: {0} ▲ (-{1:.2f}, {2:0.1f}%)".format(kospi_txt, result['전일비'], result['등락율'])
                                 
                                 self.label_kospi.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                                 self.label_kospi.setText(jisu_txt)
@@ -21865,7 +21865,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             elif result['전일대비구분'] == '2':
 
-                                jisu_txt = "KOSPI: {0} ▲ ({1:.2f}, {2:0.1f}%)".format(kospi_str, result['전일비'], result['등락율'])
+                                jisu_txt = "KOSPI: {0} ▲ ({1:.2f}, {2:0.1f}%)".format(kospi_txt, result['전일비'], result['등락율'])
                                 
                                 self.label_kospi.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                                 self.label_kospi.setText(jisu_txt)
@@ -21878,7 +21878,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if result['전일대비구분'] == '5':
 
-                                jisu_txt = "KOSPI: {0} ▼ (-{1:.2f}, {2:0.1f}%)".format(kospi_str, result['전일비'], result['등락율'])
+                                jisu_txt = "KOSPI: {0} ▼ (-{1:.2f}, {2:0.1f}%)".format(kospi_txt, result['전일비'], result['등락율'])
                                 
                                 self.label_kospi.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                                 self.label_kospi.setText(jisu_txt)
@@ -21887,7 +21887,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             elif result['전일대비구분'] == '2':
 
-                                jisu_txt = "KOSPI: {0} ▼ ({1:.2f}, {2:0.1f}%)".format(kospi_str, result['전일비'], result['등락율'])
+                                jisu_txt = "KOSPI: {0} ▼ ({1:.2f}, {2:0.1f}%)".format(kospi_txt, result['전일비'], result['등락율'])
                                 
                                 self.label_kospi.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                                 self.label_kospi.setText(jisu_txt)
@@ -21906,13 +21906,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if round(float(result['지수']), 2) != kosdaq_price:    
                         
-                        kosdaq_str = format(round(float(result['지수']), 2), ',')                    
+                        kosdaq_txt = format(round(float(result['지수']), 2), ',')                    
 
                         if round(float(result['지수']), 2) > kosdaq_price:
 
                             if result['전일대비구분'] == '5':
 
-                                jisu_txt = "KOSDAQ: {0} ▲ (-{1:.2f}, {2:0.1f}%)".format(kosdaq_str, result['전일비'], result['등락율'])
+                                jisu_txt = "KOSDAQ: {0} ▲ (-{1:.2f}, {2:0.1f}%)".format(kosdaq_txt, result['전일비'], result['등락율'])
                                 
                                 self.label_kosdaq.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                                 self.label_kosdaq.setText(jisu_txt)
@@ -21921,7 +21921,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             elif result['전일대비구분'] == '2':
 
-                                jisu_txt = "KOSDAQ: {0} ▲ ({1:.2f}, {2:0.1f}%)".format(kosdaq_str, result['전일비'], result['등락율'])
+                                jisu_txt = "KOSDAQ: {0} ▲ ({1:.2f}, {2:0.1f}%)".format(kosdaq_txt, result['전일비'], result['등락율'])
                                 
                                 self.label_kosdaq.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                                 self.label_kosdaq.setText(jisu_txt)
@@ -21934,7 +21934,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if result['전일대비구분'] == '5':
 
-                                jisu_txt = "KOSDAQ: {0} ▼ (-{1:.2f}, {2:0.1f}%)".format(kosdaq_str, result['전일비'], result['등락율'])
+                                jisu_txt = "KOSDAQ: {0} ▼ (-{1:.2f}, {2:0.1f}%)".format(kosdaq_txt, result['전일비'], result['등락율'])
                                 
                                 self.label_kosdaq.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                                 self.label_kosdaq.setText(jisu_txt)
@@ -21943,7 +21943,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             elif result['전일대비구분'] == '2':
 
-                                jisu_txt = "KOSDAQ: {0} ▼ ({1:.2f}, {2:0.1f}%)".format(kosdaq_str, result['전일비'], result['등락율'])
+                                jisu_txt = "KOSDAQ: {0} ▼ ({1:.2f}, {2:0.1f}%)".format(kosdaq_txt, result['전일비'], result['등락율'])
                                 
                                 self.label_kosdaq.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                                 self.label_kosdaq.setText(jisu_txt)
@@ -30473,7 +30473,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.plot1_center_val_curve.setData(df_call_information_graph['centerval'].to_numpy())
 
                     # 등가표시
-                    txt = ' 등가: {0} '.format(atm_str)
+                    txt = ' 등가: {0} '.format(atm_txt)
                     self.label_11.setText(txt)
                     
                     txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
@@ -31581,7 +31581,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.plot2_center_val_curve.setData(df_call_information_graph['centerval'].to_numpy())
 
                     # 등가표시
-                    txt = ' 등가: {0} '.format(atm_str)
+                    txt = ' 등가: {0} '.format(atm_txt)
                     self.label_21.setText(txt)
                     
                     txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
@@ -32454,7 +32454,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.plot3_center_val_curve.setData(df_call_information_graph['centerval'].to_numpy())
 
                     # 등가표시
-                    txt = ' 등가: {0} '.format(atm_str)
+                    txt = ' 등가: {0} '.format(atm_txt)
                     self.label_31.setText(txt)
 
                     txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
@@ -33070,7 +33070,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.plot4_center_val_curve.setData(df_call_information_graph['centerval'].to_numpy())
 
                     # 등가표시
-                    txt = ' 등가: {0} '.format(atm_str)
+                    txt = ' 등가: {0} '.format(atm_txt)
                     self.label_41.setText(txt)
                     
                     txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
@@ -34175,7 +34175,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.plot5_center_val_curve.setData(df_call_information_graph['centerval'].to_numpy())
                     
                     # 등가표시
-                    txt = ' 등가: {0} '.format(atm_str)
+                    txt = ' 등가: {0} '.format(atm_txt)
                     self.label_51.setText(txt)
 
                     txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
@@ -35043,7 +35043,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.plot6_center_val_curve.setData(df_call_information_graph['centerval'].to_numpy())
 
                     # 등가표시
-                    txt = ' 등가: {0} '.format(atm_str)
+                    txt = ' 등가: {0} '.format(atm_txt)
                     self.label_61.setText(txt)
 
                     txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
@@ -35738,7 +35738,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
                 self.statusbar.showMessage(trdata[1])
-                playsound( "Resources/doorbell.wav" )
+                playsound( "Resources/ring.wav" )
                 
                 # 버티칼 스크롤바를 항상 bottom으로...
                 self.textBrowser.verticalScrollBar().setValue(self.textBrowser.verticalScrollBar().maximum())
@@ -36167,7 +36167,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 self.statusbar.showMessage("로그인 성공 !!!")
 
-                playsound( "Resources/doorbell.wav" )
+                playsound( "Resources/ring.wav" )
 
                 # 옵션전광판 자동시작
 
