@@ -22474,8 +22474,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_call_quote.at[index, '매수잔량'] = result['매수호가총수량']
                     df_call_quote.at[index, '매도잔량'] = result['매도호가총수량']
 
-                    #opt_call_ho_update_counter += 1
-
                 elif result['단축코드'][0:3] == '301':
 
                     index = put_행사가.index(result['단축코드'][5:8])
@@ -22484,9 +22482,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_put_quote.at[index, '매도건수'] = result['매도호가총건수']
                     df_put_quote.at[index, '매수잔량'] = result['매수호가총수량']
                     df_put_quote.at[index, '매도잔량'] = result['매도호가총수량']
-
-                    #opt_put_ho_update_counter += 1
-
                 else:
                     pass
                         
