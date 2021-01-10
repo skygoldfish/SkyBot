@@ -2130,7 +2130,7 @@ if not MULTIPROCESS:
             self.drop_code = ''
             # 수신된 총 패킷크기
             self.total_packet_size = 0
-
+            
             self.JIF = JIF(parent=self)
 
             self.YJ = YJ_(parent=self)
@@ -2159,7 +2159,7 @@ if not MULTIPROCESS:
             self.MK2 = MK2(parent=self)
 
             self.NWS = NWS(parent=self)
-
+            
         def get_packet_info(self):
 
             return self.drop_count, self.drop_code, self.total_count, self.total_packet_size
@@ -2365,7 +2365,7 @@ if not MULTIPROCESS:
             while True:
 
                 if not self.dataQ.empty():
-
+                    
                     flag_produce_queue_empty = False
 
                     data = self.dataQ.get(False)
@@ -2390,6 +2390,7 @@ if not MULTIPROCESS:
                         self.trigger.emit(data)
                     else:
                         pass
+                    
                 else:
                     flag_produce_queue_empty = True
                     #print('dataQ is empty...')
@@ -2521,12 +2522,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_node_state, put_node_state, COREVAL
 
         if not MULTIPROCESS:
-
-            from queue import Queue
+            
+            from multiprocessing import Queue
+            #from queue import Queue #--> 멀티프로세스 큐만 정상 동작함 ???
 
             self.dataQ = Queue()
             self.realtime_thread_data_worker = RealTime_Thread_DataWorker(self.dataQ)
             self.realtime_thread_data_worker.trigger.connect(self.transfer_thread_realdata)
+            self.realtime_thread_data_worker.start()
         else:
             pass
 
@@ -2535,8 +2538,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.t8416_put_event_loop = QEventLoop()
 
         # t2301, t2835 이벤트루프(1초당 2건) --> 옵션 실시간수신 문제 보완목적
-        self.t2301_event_loop = QEventLoop()
-        self.t2835_event_loop = QEventLoop()
+        #self.t2301_event_loop = QEventLoop()
+        #self.t2835_event_loop = QEventLoop()
 
         self.screen_update_worker = ScreenUpdateWorker()
         self.screen_update_worker.trigger.connect(self.update_screen)
@@ -14069,8 +14072,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         txt = '클래스이름 = {0} : systemError = {1}, messageCode = {2}, message = {3}'.format(ClassName, systemError, messageCode, message)
         print(txt)
 
-        dt = datetime.datetime.now()
-
+        #dt = datetime.datetime.now()
+        '''
         if ClassName == 't2835':
 
             global flag_t2835_eventloop
@@ -14114,8 +14117,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] t2301_event_loop fail exit...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
                 print(txt)
-            
-        elif ClassName == 't8416':
+        '''    
+        if ClassName == 't8416':
             
             global flag_t8416_eventloop
 
@@ -16352,7 +16355,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # open, ol/oh 초기화
                 if NightTime:
-
                     call_open = [False] * option_pairs_count
                     put_open = [False] * option_pairs_count
                 else:
@@ -16475,7 +16477,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(i, Option_column.종가.value, item)
 
-                    #df_call_price_graph.iat[0, i] = 종가
                     df_call_graph[i].at[0, 'open'] = 종가
                     df_call_graph[i].at[0, 'price'] = 종가
 
@@ -16581,7 +16582,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        #df_call_price_graph.iat[GuardTime + 1, i] = 시가
                         df_call_graph[i].at[GuardTime + 1, 'open'] = 시가
                         df_call_graph[i].at[GuardTime + 1, 'price'] = 시가
 
@@ -16681,7 +16681,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         수정거래량 = int((df['매수잔량'][i] - df['매도잔량'][i]) * df['현재가'][i])
                     else:
-
                         수정거래량 = int((df['매수잔량'][i] - df['매도잔량'][i]) * (df['현재가'][i] - 시가갭))
 
                     # 수정거래량 초기화
@@ -16780,7 +16779,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_put.setItem(i, Option_column.종가.value, item)
 
-                    #df_put_price_graph.iat[0, i] = 종가
                     df_put_graph[i].at[0, 'price'] = 종가
 
                     현재가 = df1['현재가'][i]
@@ -16886,7 +16884,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        #df_put_price_graph.iat[GuardTime + 1, i] = 시가
                         df_put_graph[i].at[GuardTime + 1, 'open'] = 시가
                         df_put_graph[i].at[GuardTime + 1, 'price'] = 시가
 
@@ -16986,7 +16983,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         수정거래량 = int((df1['매수잔량'][i] - df1['매도잔량'][i]) * df1['현재가'][i])
                     else:
-
                         수정거래량 = int((df1['매수잔량'][i] - df1['매도잔량'][i]) * (df1['현재가'][i] - 시가갭))
 
                     # 수정거래량 초기화
@@ -17021,6 +17017,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     df_put_information_graph.at[0, 'volume'] = 0
                 
+                print('======================================================================================================================================================================')
                 print('\r')
                 print('t2835 야간 전광판 콜 데이타 = ', df_call)
                 print('\r')
@@ -17030,6 +17027,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print('\r')
                 print('t2835 put open list = ', self.put_open_list, len(self.put_open_list))
                 print('\r')
+                print('======================================================================================================================================================================')
                 
                 call_atm_value = df_call.at[ATM_INDEX, '현재가']
                 put_atm_value = df_put.at[ATM_INDEX, '현재가']
@@ -17309,6 +17307,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
                 print(txt)
+                
+                self.screen_update_worker.start()
 
                 ui_start_time = dt.hour * 3600 + dt.minute * 60 + dt.second
                 print('야간 ui_start_time =', ui_start_time)
@@ -17329,9 +17329,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_fut.resizeRowsToContents()
                 else:
                     pass  
-                self.tableWidget_fut.resizeColumnsToContents()                
-               
-                self.screen_update_worker.start()
+                self.tableWidget_fut.resizeColumnsToContents()               
                 
                 self.flag_refresh = True
 
@@ -18675,11 +18673,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
                         self.tableWidget_fut.resizeColumnsToContents()
                         
-                        self.screen_update_worker.start()
-
                         txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
                         print(txt)
+                        
+                        self.screen_update_worker.start()
                         
                         ui_start_time = dt.hour * 3600 + dt.minute * 60 + dt.second
                         print('주간 ui_start_time =', ui_start_time)
@@ -18696,18 +18694,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                                                 QPushButton:pressed {background-color: gold}') 
 
                         self.pushButton_start.setText(' Refresh ')
-                    
-                    # 실시간데이타는 쓰레드를 통해 수신함
-                    if not MULTIPROCESS:
-
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 데이타수신 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(txt)
-                        print(txt)
-
-                        self.realtime_thread_data_worker.start()
-                    else:
-                        pass
-
+                                        
                     # 실시간데이타 요청
                     self.request_realdata()                              
                 else:
@@ -19069,9 +19056,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             print(txt)
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 예상가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(txt)
-            print(txt)                      
+            if pre_start:
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 예상가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
+                print(txt)
+            else:
+                pass                     
 
             if not MULTIPROCESS:
                 for i in range(CM_OPT_LENGTH):
@@ -19104,9 +19094,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             print(txt)
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 예상가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
-            self.textBrowser.append(txt)
-            print(txt)
+            if pre_start:
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 예상가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
+                self.textBrowser.append(txt)
+                print(txt)
+            else:
+                pass
 
             if not MULTIPROCESS:
                 for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
@@ -19220,9 +19213,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             print(txt)
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 예상가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(txt)
-            print(txt)
+            if pre_start:
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 예상가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
+                print(txt)
+            else:
+                pass
 
             if not MULTIPROCESS:
                 for i in range(NM_OPT_LENGTH):
