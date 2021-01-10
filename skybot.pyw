@@ -4,45 +4,46 @@
     ['프로그램명','SkyBot'],
     ['Version','1.0'],
     ['2018-08-07','프로그램 개발시작'],
-    ['2020-12-05','SkyBot v1.0 배포']
+    ['2020-12-05','SkyBot v1.0 배포'],
+    ['2021-01-04','멀티프로세스 적용']
 ]
 
 # 기본 모듈
 import sys, os
 import atexit
 import datetime, time
+import timeit
 import win32com.client
+from numpy import NaN, Inf, arange, isscalar, asarray, array
+from pandas import DataFrame, Series
+from threading import Timer
+
 import ctypes
 import webbrowser
 import numpy as np
 import pandas as pd
 import logging
-import timeit
-import pyqtgraph as pg
+
 import math
 import copy
 import locale
 import collections
 import operator
 import platform
-from numpy import NaN, Inf, arange, isscalar, asarray, array
-from pandas import DataFrame, Series
-from threading import Timer
+
 from enum import Enum
 from bisect import bisect
 from mss import mss
 from collections import Counter
 from PIL import Image
-import talib
-from talib import MA_Type
-import ta
 from configparser import ConfigParser
-import multiprocessing as mp
-from multiprocessing import Process, Queue, Pipe
-from queue import Queue
 import pyautogui
 from playsound import playsound
 import socket
+import talib
+from talib import MA_Type
+import ta
+
 #import pyttsx3
 #from gtts import gTTS
 #import sqlite3
@@ -64,7 +65,9 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtTest import *
+import pyqtgraph as pg
 import qdarkstyle
+
 #import qtmodern.styles
 #import qtmodern.windows
 
@@ -74,7 +77,6 @@ from XAQueries import *
 from XAReals import *
 from Utils import *
 #from FileWatcher import *
-#from XAReals import xarealdata
 
 # 4k 해상도 대응
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
@@ -85,22 +87,19 @@ pd.set_option('display.expand_frame_repr', False)
 #pd.set_option('max_colwidth', None)
 pd.set_option('max_colwidth', 100)
 
-# 시스템 기본 로케일 사용
-locale.setlocale(locale.LC_ALL, '') 
-
 DATABASE = 'DATA\\skybot.sqlite'
 
+locale.setlocale(locale.LC_ALL, '') 
 np.warnings.filterwarnings('ignore')
 
 pyqt_version = QtCore.PYQT_VERSION_STR
-
 print('pyqt_version =', pyqt_version)
-
-SELFID = ''
 
 os_type = platform.platform()
 print('\r')
 print('OS 유형 :', os_type)
+
+SELFID = ''
 
 # 업종코드
 KOSPI = '001'
@@ -2393,6 +2392,7 @@ if not MULTIPROCESS:
                         pass
                 else:
                     flag_produce_queue_empty = True
+                    #print('dataQ is empty...')
 else:
     ###########################################################
     # 실시간 데이타수신을 위한 멀티프로세스 쓰레드 클래스
@@ -2521,6 +2521,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_node_state, put_node_state, COREVAL
 
         if not MULTIPROCESS:
+
+            from queue import Queue
 
             self.dataQ = Queue()
             self.realtime_thread_data_worker = RealTime_Thread_DataWorker(self.dataQ)
@@ -23090,12 +23092,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.parent.textBrowser.append(txt)
 
                     self.realtime_thread_data_worker.CancelAllRealData()            
-                    QTest.qWait(10)
+                    #QTest.qWait(10)
                 else:
                     pass
 
-                self.realtime_thread_data_worker.terminate()
-                print('realtime_thread_data_worker is terminated at KillScoreBoardAllThread...')
+                #self.realtime_thread_data_worker.terminate()
+                #print('realtime_thread_data_worker is terminated at KillScoreBoardAllThread...')
             else:
                 pass
         else:
@@ -35781,7 +35783,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.realtime_mp_data_worker.start()
             
             # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
-            #atexit.register(self.__del__)
+            atexit.register(self.__del__)
 
         @pyqtSlot(list)
         def transfer_mp_trdata(self, trdata):
@@ -36003,8 +36005,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.XQ_t0167 = t0167(parent=self)
 
             # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
-            atexit.register(self.__del__)   
-
+            atexit.register(self.__del__)
 
     def OnQApplicationStarted(self):
 
@@ -36103,11 +36104,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             event.accept()
 
-            if self.dialog['선물옵션전광판'] is not None:
+            if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
                 
-                if self.dialog['선물옵션전광판'].flag_score_board_open:
-                    self.dialog['선물옵션전광판'].KillScoreBoardAllThread()
-                    self.dialog['선물옵션전광판'].close()
+                self.dialog['선물옵션전광판'].KillScoreBoardAllThread()
+
+                if not MULTIPROCESS:
+                    print('서버연결 해지...')
+                    self.connection.disconnect()
+                    print('쓰레드 종료...')
+                    self.dialog['선물옵션전광판'].realtime_thread_data_worker.terminate()
                 else:
                     pass
             else:
@@ -36125,10 +36130,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             logger.info("*************************************************************************************************************************")
             logger.info("LOG STOP")
 
-            if not MULTIPROCESS:
-                print('서버연결 해지...')
-                self.connection.disconnect()
-            else:
+            if MULTIPROCESS:
+
                 print('멀티프로세스 실시간요청 모두 취소...')
                 Myprocess.CancelAllRealData()
                 print('멀티프로세스 서버연결 해지...')
@@ -36137,6 +36140,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 print('멀티프로세스 쓰레드 종료...')
                 self.realtime_mp_data_worker.terminate()
                 Myprocess.shutdown()
+            else:
+                pass
 
             if TARGET_MONTH_SELECT == 'CM':
 
@@ -36153,6 +36158,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.clock.stop()
             else:
                 pass
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Main Window를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+            print(txt)
 
             self.close()
         else:
@@ -36528,6 +36537,8 @@ if __name__ == "__main__":
     # 멀티프로세스
     if MULTIPROCESS:
 
+        import multiprocessing as mp
+        from multiprocessing import Process, Queue, Pipe
         from RealTimeWorker import RealTimeWorker   
         
         # pyinstaller로 실행파일 만들때 필요함
