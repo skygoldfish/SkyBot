@@ -2391,12 +2391,14 @@ else:
             self.total_count = 0
             # 누락된 패킷수
             self.drop_count = 0
+            # 누락된 코드
+            self.drop_code = ''
             # 수신된 총 패킷크기
             self.total_packet_size = 0
 
         def get_packet_info(self):
 
-            return self.drop_count, self.total_count, self.total_packet_size
+            return self.drop_count, self.drop_code, self.total_count, self.total_packet_size
 
         def run(self):
 
@@ -2421,6 +2423,7 @@ else:
                     
                     if flag_realdata_update_is_running:
                         self.drop_count += 1
+                        self.drop_code = data['szTrCode']
                     else:
                         pass
 
@@ -35838,11 +35841,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
 
-                # 수신된 실시간데이타 정보표시(누락된 패킷수, 수신된 총 패킷수, 수신된 총 패킷크기)
-                dropcount, totalcount, totalsize = self.mp_consumer.get_packet_info()
-                count_txt = '{0}/{1}({2}k)'.format(format(dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','))
+                # 수신된 실시간데이타 정보표시(누락된 패킷수, 누락된 패킷, 수신된 총 패킷수, 수신된 총 패킷크기)
+                dropcount, dropcode, totalcount, totalsize = self.mp_consumer.get_packet_info()
+                drop_txt = '{0}({1})/{2}({3}k)'.format(format(dropcount, ','), dropcode, format(totalcount, ','), format(int(totalsize/1000), ','))
 
-                item = QTableWidgetItem(count_txt)
+                item = QTableWidgetItem(drop_txt)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.dialog['선물옵션전광판'].tableWidget_supply.setHorizontalHeaderItem(Supply_column.종합.value - 1, item)
 
