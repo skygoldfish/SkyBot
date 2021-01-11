@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>312</width>
-    <height>794</height>
+    <height>899</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>20</x>
      <y>10</y>
      <width>271</width>
-     <height>631</height>
+     <height>641</height>
     </rect>
    </property>
    <property name="font">
@@ -35,13 +35,13 @@
    <property name="flat">
     <bool>false</bool>
    </property>
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>30</y>
       <width>251</width>
-      <height>591</height>
+      <height>601</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -159,6 +159,20 @@
      </item>
      <item>
       <widget class="QCheckBox" name="checkBox_nm_opt_price">
+       <property name="font">
+        <font>
+         <family>Consolas</family>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>차월물 옵션가격(전체)</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="checkBox_nm_opt_price_1">
        <property name="font">
         <font>
          <family>Consolas</family>
@@ -346,7 +360,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>720</y>
+     <y>830</y>
      <width>271</width>
      <height>61</height>
     </rect>
@@ -409,7 +423,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>650</y>
+     <y>760</y>
      <width>271</width>
      <height>61</height>
     </rect>
@@ -451,6 +465,106 @@
        </property>
        <property name="text">
         <string>msec</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_3">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>660</y>
+     <width>271</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Consolas</family>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="title">
+    <string>내가, 외가 설정</string>
+   </property>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>31</y>
+      <width>251</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLabel" name="label_call_itm">
+       <property name="text">
+        <string>콜내가</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_call_itm">
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_call_otm">
+       <property name="text">
+        <string>콜외가</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_call_otm">
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>60</y>
+      <width>251</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QLabel" name="label_put_itm">
+       <property name="text">
+        <string>풋내가</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_put_itm">
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_put_otm">
+       <property name="text">
+        <string>풋외가</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_put_otm">
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
