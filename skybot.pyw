@@ -2513,6 +2513,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.call_open_list = []
         self.put_open_list = []
 
+        self.realdata_request_number = 0
+
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
         atexit.register(self.__del__)     
         
@@ -16412,7 +16414,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 수정거래량 = 0
 
-                for i in range(option_pairs_count):
+                t2835_length = len(df)
+
+                for i in range(t2835_length):
 
                     # 수정거래량 초기화
                     df_call.at[i, '시가갭'] = 0
@@ -17798,7 +17802,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 
                 if new_actval_up_count == 0 and t8416_put_count == 0:
 
-                    new_actval_down_count += 1 
+                    new_actval_down_count += 1
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 새로운 하방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_down_count)
                     print(txt)  
@@ -18979,7 +18983,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if not MULTIPROCESS:
             self.realtime_thread_data_worker.RequestRealData('JIF')
         else:
-            Myprocess.RequestRealData('JIF')                
+            Myprocess.RequestRealData('JIF')
+
+        self.realdata_request_number += 1               
 
         # KOSPI200 지수요청
         txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI200 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
@@ -18990,6 +18996,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.realtime_thread_data_worker.RequestRealData('IJ', KOSPI200)
         else:
             Myprocess.RequestRealData('IJ', KOSPI200)
+
+        self.realdata_request_number += 1
 
         if pre_start:
 
@@ -19039,7 +19047,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if not MULTIPROCESS:
                 self.realtime_thread_data_worker.RequestRealData(FUT_REAL, GMSHCODE)
             else:
-                Myprocess.RequestRealData(FUT_REAL, GMSHCODE)                    
+                Myprocess.RequestRealData(FUT_REAL, GMSHCODE)
+
+            self.realdata_request_number += 1                    
         else:
             pass
 
@@ -19053,7 +19063,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if not MULTIPROCESS:
                 self.realtime_thread_data_worker.RequestRealData(FUT_HO, GMSHCODE)
             else:
-                Myprocess.RequestRealData(FUT_HO, GMSHCODE)                    
+                Myprocess.RequestRealData(FUT_HO, GMSHCODE)
+
+            self.realdata_request_number += 1                    
         else:
             pass
 
@@ -19092,7 +19104,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         Myprocess.RequestRealData('YOC', CM_CALL_CODE[i])
                         Myprocess.RequestRealData('YOC', CM_PUT_CODE[i])
                     else:
-                        pass                                     
+                        pass
+
+            self.realdata_request_number += CM_OPT_LENGTH * 2                                     
         else:
             pass
 
@@ -19180,7 +19194,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 행사가 범위초과({3}) 요청입니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, i)
                         self.textBrowser.append(txt)
-                        print(txt)                                       
+                        print(txt)
+
+            
+            self.realdata_request_number += (CALL_OTM_REQUEST_NUMBER + CALL_ITM_REQUEST_NUMBER + 1) + (PUT_OTM_REQUEST_NUMBER + PUT_ITM_REQUEST_NUMBER + 1)                                       
         else:
             pass
 
@@ -19198,7 +19215,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 for i in range(CM_OPT_LENGTH):
                     Myprocess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
-                    Myprocess.RequestRealData(OPT_HO, CM_PUT_CODE[i])                      
+                    Myprocess.RequestRealData(OPT_HO, CM_PUT_CODE[i])
+
+            self.realdata_request_number += CM_OPT_LENGTH * 2                      
         else:
             pass
 
@@ -19260,7 +19279,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 행사가 범위초과({3}) 요청입니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, i)
                         self.textBrowser.append(txt)
-                        print(txt)                   
+                        print(txt)
+
+            self.realdata_request_number += (CALL_OTM_REQUEST_NUMBER + CALL_ITM_REQUEST_NUMBER + 1) + (PUT_OTM_REQUEST_NUMBER + PUT_ITM_REQUEST_NUMBER + 1)                   
         else:
             pass
 
@@ -19274,7 +19295,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if not MULTIPROCESS:
                 self.realtime_thread_data_worker.RequestRealData(FUT_REAL, CMSHCODE)
             else:
-                Myprocess.RequestRealData(FUT_REAL, CMSHCODE)                    
+                Myprocess.RequestRealData(FUT_REAL, CMSHCODE)
+
+            self.realdata_request_number += 1                    
         else:
             pass
 
@@ -19290,7 +19313,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.realtime_thread_data_worker.RequestRealData(FUT_HO, CCMSHCODE)
             else:
                 Myprocess.RequestRealData(FUT_HO, CMSHCODE)
-                Myprocess.RequestRealData(FUT_HO, CCMSHCODE)                    
+                Myprocess.RequestRealData(FUT_HO, CCMSHCODE)
+
+            self.realdata_request_number += 2                   
         else:
             pass
 
@@ -19329,7 +19354,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         Myprocess.RequestRealData('YOC', NM_CALL_CODE[i])
                         Myprocess.RequestRealData('YOC', NM_PUT_CODE[i])
                     else:
-                        pass                                                           
+                        pass
+
+            self.realdata_request_number += NM_OPT_LENGTH * 2                                                           
         else:
             pass
 
@@ -19347,7 +19374,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 for i in range(NM_OPT_LENGTH):
                     Myprocess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
-                    Myprocess.RequestRealData(OPT_HO, NM_PUT_CODE[i])                    
+                    Myprocess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
+
+            self.realdata_request_number += NM_OPT_LENGTH * 2                    
         else:
             pass
 
@@ -19411,7 +19440,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 행사가 범위초과({3}) 요청입니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, i)
                         self.textBrowser.append(txt)
-                        print(txt)                   
+                        print(txt)
+
+            self.realdata_request_number += (CALL_OTM_REQUEST_NUMBER + CALL_ITM_REQUEST_NUMBER + 1) + (PUT_OTM_REQUEST_NUMBER + PUT_ITM_REQUEST_NUMBER + 1)                   
         else:
             pass
         
@@ -19426,7 +19457,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.realtime_thread_data_worker.RequestRealData('IJ', KOSDAQ)
             else:
                 Myprocess.RequestRealData('IJ', KOSPI)
-                Myprocess.RequestRealData('IJ', KOSDAQ)                    
+                Myprocess.RequestRealData('IJ', KOSDAQ)
+
+            self.realdata_request_number += 2                    
         else:
             pass
 
@@ -19439,6 +19472,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.realtime_thread_data_worker.RequestRealData('S3', SAMSUNG)
         else:
             Myprocess.RequestRealData('S3', SAMSUNG)
+
+        self.realdata_request_number += 1
 
         # 실시간 업종별 투자자별 & 프로그램 매매현황 요청
         if SUPPLY_DEMAND:
@@ -19454,7 +19489,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 Myprocess.RequestRealData('BM', FUTURES)
                 Myprocess.RequestRealData('BM', KOSPI)
-                Myprocess.RequestRealData('PM', KOSPI)                    
+                Myprocess.RequestRealData('PM', KOSPI)
+
+            self.realdata_request_number += 3                    
         else:
             pass
 
@@ -19468,7 +19505,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if not MULTIPROCESS:
                 self.realtime_thread_data_worker.RequestRealData('OVC', DOW)
             else:
-                Myprocess.RequestRealData('OVC', DOW)                    
+                Myprocess.RequestRealData('OVC', DOW)
+
+            self.realdata_request_number += 1                    
         else:
             pass
 
@@ -19482,7 +19521,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if not MULTIPROCESS:
                 self.realtime_thread_data_worker.RequestRealData('OVC', SP500)
             else:
-                Myprocess.RequestRealData('OVC', SP500)                    
+                Myprocess.RequestRealData('OVC', SP500)
+
+            self.realdata_request_number += 1                    
         else:
             pass
 
@@ -19496,7 +19537,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if not MULTIPROCESS:
                 self.realtime_thread_data_worker.RequestRealData('OVC', NASDAQ)
             else:
-                Myprocess.RequestRealData('OVC', NASDAQ)                    
+                Myprocess.RequestRealData('OVC', NASDAQ)
+
+            self.realdata_request_number += 1                    
         else:
             pass
 
@@ -19510,7 +19553,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if not MULTIPROCESS:
                 self.realtime_thread_data_worker.RequestRealData('OVC', WTI)
             else:
-                Myprocess.RequestRealData('OVC', WTI)                    
+                Myprocess.RequestRealData('OVC', WTI)
+
+            self.realdata_request_number += 1                    
         else:
             pass
 
@@ -19524,7 +19569,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if not MULTIPROCESS:
                 self.realtime_thread_data_worker.RequestRealData('OVC', EUROFX)
             else:
-                Myprocess.RequestRealData('OVC', EUROFX)                    
+                Myprocess.RequestRealData('OVC', EUROFX)
+
+            self.realdata_request_number += 1                    
         else:
             pass
 
@@ -19538,7 +19585,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if not MULTIPROCESS:
                 self.realtime_thread_data_worker.RequestRealData('OVC', HANGSENG)
             else:
-                Myprocess.RequestRealData('OVC', HANGSENG)                    
+                Myprocess.RequestRealData('OVC', HANGSENG)
+
+            self.realdata_request_number += 1                    
         else:
             pass
 
@@ -19552,7 +19601,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if not MULTIPROCESS:
                 self.realtime_thread_data_worker.RequestRealData('OVC', GOLD)
             else:
-                Myprocess.RequestRealData('OVC', GOLD)                    
+                Myprocess.RequestRealData('OVC', GOLD)
+
+            self.realdata_request_number += 1                    
         else:
             pass
 
@@ -19566,9 +19617,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if not MULTIPROCESS:
                 self.realtime_thread_data_worker.RequestRealData('NWS')
             else:
-                Myprocess.RequestRealData('NWS')                    
+                Myprocess.RequestRealData('NWS')
+
+            self.realdata_request_number += 1                    
         else:
             pass
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 요청의 총수는 {3}개 입니다.\r'.format(dt.hour, dt.minute, dt.second, self.realdata_request_number)
+        self.parent.textBrowser.append(txt)
+        print(txt)
+
+        item_txt = '{0}'.format(self.realdata_request_number)
+        item = QTableWidgetItem(item_txt)
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setHorizontalHeaderItem(1, item)
+
     #####################################################################################################################################################################
     # 오리지날 실시간 콜백수신 함수
     #####################################################################################################################################################################
