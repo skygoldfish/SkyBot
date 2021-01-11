@@ -19142,7 +19142,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.realtime_thread_data_worker.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
 
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 콜 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_CALL_CODE[i])
-                        self.textBrowser.append(txt)
+                        self.parent.textBrowser.append(txt)
                         print(txt)
 
                         if pre_start:                            
@@ -19158,7 +19158,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.realtime_thread_data_worker.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
 
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 풋 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_PUT_CODE[i])
-                        self.textBrowser.append(txt)
+                        self.parent.textBrowser.append(txt)
                         print(txt)
 
                         if pre_start:
@@ -19174,7 +19174,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         Myprocess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
 
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 콜 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_CALL_CODE[i])
-                        self.textBrowser.append(txt)
+                        self.parent.textBrowser.append(txt)
                         print(txt)
 
                         if pre_start:                            
@@ -19190,7 +19190,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         Myprocess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
 
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 풋 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_PUT_CODE[i])
-                        self.textBrowser.append(txt)
+                        self.parent.textBrowser.append(txt)
                         print(txt)
 
                         if pre_start:
@@ -19237,8 +19237,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if i >= 0:
                         self.realtime_thread_data_worker.RequestRealData(OPT_HO, CM_CALL_CODE[i])
 
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 콜 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_CALL_CODE[i])
-                        self.textBrowser.append(txt)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 콜호가 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_CALL_CODE[i])
+                        self.parent.textBrowser.append(txt)
                         print(txt)
                     else:
                         pass
@@ -19248,8 +19248,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if i >= 0:
                         self.realtime_thread_data_worker.RequestRealData(OPT_HO, CM_PUT_CODE[i])
 
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 풋 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_PUT_CODE[i])
-                        self.textBrowser.append(txt)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 풋호가 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_PUT_CODE[i])
+                        self.parent.textBrowser.append(txt)
                         print(txt)
                     else:
                         pass
@@ -19259,8 +19259,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if i >= 0:
                         Myprocess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
 
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 콜 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_CALL_CODE[i])
-                        self.textBrowser.append(txt)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 콜호가 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_CALL_CODE[i])
+                        self.parent.textBrowser.append(txt)
                         print(txt)
                     else:
                         pass
@@ -19270,8 +19270,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if i >= 0:
                         Myprocess.RequestRealData(OPT_HO, CM_PUT_CODE[i])
 
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 풋 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_PUT_CODE[i])
-                        self.textBrowser.append(txt)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 풋호가 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_PUT_CODE[i])
+                        self.parent.textBrowser.append(txt)
                         print(txt)
                     else:
                         pass
@@ -19375,7 +19375,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.realtime_thread_data_worker.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
 
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 콜 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, NM_CALL_CODE[i])
-                        self.textBrowser.append(txt)
+                        self.parent.textBrowser.append(txt)
                         print(txt)
 
                         if pre_start:                            
@@ -19391,7 +19391,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.realtime_thread_data_worker.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
 
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 풋 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, NM_PUT_CODE[i])
-                        self.textBrowser.append(txt)
+                        self.parent.textBrowser.append(txt)
                         print(txt)
 
                         if pre_start:
@@ -19407,7 +19407,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         Myprocess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
 
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 콜 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, NM_CALL_CODE[i])
-                        self.textBrowser.append(txt)
+                        self.parent.textBrowser.append(txt)
                         print(txt)
 
                         if pre_start:                            
@@ -19423,7 +19423,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         Myprocess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
 
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 풋 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, NM_PUT_CODE[i])
-                        self.textBrowser.append(txt)
+                        self.parent.textBrowser.append(txt)
                         print(txt)
 
                         if pre_start:
@@ -19470,8 +19470,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if i >= 0:
                         self.realtime_thread_data_worker.RequestRealData(OPT_HO, NM_CALL_CODE[i])
 
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 콜 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_CALL_CODE[i])
-                        self.textBrowser.append(txt)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 콜호가 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_CALL_CODE[i])
+                        self.parent.textBrowser.append(txt)
                         print(txt)
 
                     else:
@@ -19482,8 +19482,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if i >= 0:
                         self.realtime_thread_data_worker.RequestRealData(OPT_HO, NM_PUT_CODE[i])
 
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 풋 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_PUT_CODE[i])
-                        self.textBrowser.append(txt)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 풋호가 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_PUT_CODE[i])
+                        self.parent.textBrowser.append(txt)
                         print(txt)
                     else:
                         pass
@@ -19493,8 +19493,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if i >= 0:
                         Myprocess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
 
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 콜 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_CALL_CODE[i])
-                        self.textBrowser.append(txt)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 콜호가 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_CALL_CODE[i])
+                        self.parent.textBrowser.append(txt)
                         print(txt)
 
                     else:
@@ -19505,8 +19505,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if i >= 0:
                         Myprocess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
 
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 풋 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_PUT_CODE[i])
-                        self.textBrowser.append(txt)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 풋호가 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_PUT_CODE[i])
+                        self.parent.textBrowser.append(txt)
                         print(txt)
                     else:
                         pass
@@ -19700,6 +19700,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item = QTableWidgetItem(item_txt)
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setHorizontalHeaderItem(1, item)
+
+        self.tableWidget_fut.resizeColumnToContents(1)
 
     #####################################################################################################################################################################
     # 오리지날 실시간 콜백수신 함수
