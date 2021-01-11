@@ -22628,7 +22628,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                if result['단축코드'] == FUT_CODE:
+                if result['단축코드'] == GMSHCODE:
 
                     # 선물호가 갱신
                     item = QTableWidgetItem("{0}".format(format(result['매수호가총건수'], ',')))
