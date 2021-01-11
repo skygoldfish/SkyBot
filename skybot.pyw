@@ -2536,19 +2536,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global widget_title, CURRENT_MONTH, NEXT_MONTH, MONTH_AFTER_NEXT, SP500, DOW, NASDAQ, FUT_CODE
         global KSE_START_HOUR        
         global call_node_state, put_node_state, COREVAL
-        '''
-        if not MULTIPROCESS:
-            
-            from multiprocessing import Queue
-            #from queue import Queue #--> 멀티프로세스 큐만 정상 동작함 ???
-
-            self.dataQ = Queue()
-            self.realtime_thread_data_worker = RealTime_Thread_DataWorker(self.dataQ)
-            self.realtime_thread_data_worker.trigger.connect(self.transfer_thread_realdata)
-            self.realtime_thread_data_worker.start()
-        else:
-            pass
-        '''
+        
         # 이벤트루프 & 쓰레드 정의, 쓰레드 시작은 start(), 종료는 terminate()
         self.t8416_call_event_loop = QEventLoop()
         self.t8416_put_event_loop = QEventLoop()
@@ -3182,36 +3170,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         playsound('Resources/click.wav')
         self.RunTelegram()
-    '''
-    @pyqtSlot(dict)
-    def transfer_thread_realdata(self, realdata):
-
-        global drop_txt
-
-        if realdata['szTrCode'] == 'OC0' or realdata['szTrCode'] == 'EC0':
-
-            item = QTableWidgetItem("{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time))
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(검정색))
-            item.setForeground(QBrush(적색))
-        else:
-            item = QTableWidgetItem("{0}".format(realdata['szTrCode']))
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(검정색))
-            item.setForeground(QBrush(녹색))                
-
-        self.tableWidget_fut.setItem(2, 0, item)
-
-        # 수신된 실시간데이타 정보표시(누락된 패킷수, 누락된 패킷, 수신된 총 패킷수, 수신된 총 패킷크기)
-        dropcount, dropcode, totalcount, totalsize = self.realtime_thread_data_worker.get_packet_info()
-        drop_txt = '{0}({1})/{2}({3}k)'.format(format(dropcount, ','), dropcode, format(totalcount, ','), format(int(totalsize/1000), ','))
-
-        item = QTableWidgetItem(drop_txt)
-        item.setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_supply.setHorizontalHeaderItem(Supply_column.종합.value - 1, item)
-
-        self.UpdateRealdata(realdata)
-    '''        
+    
     ## list에서 i번째 아이템을 리턴한다.
     def get_list_item(self, list, i):
 
@@ -5091,7 +5050,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if not flag_logfile:
 
-                                realdata_info_txt = '수신된 실시간데이타 통계 : ' + drop_txt
+                                realdata_info_txt = '수신된 실시간데이타 통계 : ' + drop_txt + '\r'
                                 self.textBrowser.append(realdata_info_txt)
 
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
@@ -5161,7 +5120,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if not flag_logfile:
 
-                                realdata_info_txt = '수신된 실시간데이타 통계 : ' + drop_txt
+                                realdata_info_txt = '수신된 실시간데이타 통계 : ' + drop_txt + '\r'
                                 self.textBrowser.append(realdata_info_txt)
 
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
@@ -13895,7 +13854,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         if not flag_logfile:
 
-            realdata_info_txt = '수신된 실시간데이타 통계 : ' + drop_txt
+            realdata_info_txt = '수신된 실시간데이타 통계 : ' + drop_txt + '\r'
             self.textBrowser.append(realdata_info_txt)
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
@@ -23359,27 +23318,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.telegram_listen_worker.terminate()
             print('telegram_listen_worker is terminated at KillScoreBoardAllThread...')
         else:
-            pass
-
-        if not MULTIPROCESS:
-            if self.parent.realtime_thread_data_worker.isRunning():
-
-                if not flag_internet_connection_broken:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 모든 실시간요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-                    self.parent.textBrowser.append(txt)
-
-                    self.parent.realtime_thread_data_worker.CancelAllRealData()            
-                    #QTest.qWait(10)
-                else:
-                    pass
-
-                #self.parent.realtime_thread_data_worker.terminate()
-                #print('realtime_thread_data_worker is terminated at KillScoreBoardAllThread...')
-            else:
-                pass
-        else:
-            pass        
+            pass    
 
     def closeEvent(self,event):
 
@@ -36980,8 +36919,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             except Exception as e:
                 pass
 
-        if dt.minute % 10 == 0 and dt.second == 0: # 매 10 분
-            pass
+        if dt.minute % 20 == 0 and dt.second == 0: # 매 20 분
+            
+            if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
+
+                if NightTime and TARGET_MONTH_SELECT == 'NM': # 차월물 야간인 경우 실행
+                    self.dialog['선물옵션전광판'].RunCode()
+                else:
+                    pass
+            else:
+                pass
 
     def OnChildDialogCloseEvent(self, dialog_type):
 
@@ -37019,6 +36966,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].KillScoreBoardAllThread()
 
                 if not MULTIPROCESS:
+                    print('모든 실시간요청 취소...')
+                    self.realtime_thread_data_worker.CancelAllRealData() 
                     print('서버연결 해지...')
                     self.connection.disconnect()
                     print('쓰레드 종료...')
