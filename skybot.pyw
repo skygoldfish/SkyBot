@@ -19569,6 +19569,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 등락율에 스파이크 발생하는 문제 임시해결
             if temp > 50:
                 temp = 50.0
+            elif temp < -50:
+                temp = -50.0
             else:
                 pass
             
