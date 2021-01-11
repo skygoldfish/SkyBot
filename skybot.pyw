@@ -1883,6 +1883,8 @@ flag_call_otm_number_changed = False
 flag_put_itm_number_changed = False
 flag_put_otm_number_changed = False
 
+drop_txt = ''
+
 #####################################################################################################################################################################
 # UI 파일정의
 #####################################################################################################################################################################
@@ -3183,6 +3185,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     
     @pyqtSlot(dict)
     def transfer_thread_realdata(self, realdata):
+
+        global drop_txt
 
         if realdata['szTrCode'] == 'OC0' or realdata['szTrCode'] == 'EC0':
 
@@ -5086,6 +5090,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.parent.statusbar.showMessage("오프라인")
 
                             if not flag_logfile:
+
+                                realdata_info_txt = '수신된 실시간데이타 통계 : ' + drop_txt
+                                self.textBrowser.append(realdata_info_txt)
+
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                                 self.textBrowser.append(txt)
 
@@ -5152,6 +5160,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.parent.statusbar.showMessage("오프라인")
 
                             if not flag_logfile:
+
+                                realdata_info_txt = '수신된 실시간데이타 통계 : ' + drop_txt
+                                self.textBrowser.append(realdata_info_txt)
+
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                                 self.textBrowser.append(txt)
 
@@ -13882,6 +13894,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
         
         if not flag_logfile:
+
+            realdata_info_txt = '수신된 실시간데이타 통계 : ' + drop_txt
+            self.textBrowser.append(realdata_info_txt)
+
             txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
             self.textBrowser.append(txt)
 
@@ -36741,7 +36757,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         @pyqtSlot(dict)
         def transfer_mp_realdata(self, realdata):
 
-            dt = datetime.datetime.now() 
+            dt = datetime.datetime.now()
+
+            global drop_txt 
 
             # 데이타를 전광판 다이얼로그로 전달
             if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:                
