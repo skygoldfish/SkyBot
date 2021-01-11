@@ -16312,6 +16312,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             print('df_fut', df_fut)
 
+            # 실시간데이타 요청
+            #self.request_realdata()
+
             # 선물 맥점 컬러 체크(실시간에서만 표시됨)
             if market_service:
                 self.fut_node_color_clear()
@@ -18894,6 +18897,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
+            CM_CALL_CODE.reverse()
+            CM_PUT_CODE.reverse()
+            NM_CALL_CODE.reverse()
+            NM_PUT_CODE.reverse()
+
             CM_OPT_LENGTH = len(CM_CALL_CODE)
             NM_OPT_LENGTH = len(NM_CALL_CODE)
 
@@ -19103,36 +19111,76 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if not MULTIPROCESS:
                 for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
-                    self.realtime_thread_data_worker.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
 
-                    if pre_start:                            
-                        self.realtime_thread_data_worker.RequestRealData('YOC', CM_CALL_CODE[i])
+                    if i >= 0:
+                        self.realtime_thread_data_worker.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 콜 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_CALL_CODE[i])
+                        self.textBrowser.append(txt)
+                        print(txt)
+
+                        if pre_start:                            
+                            self.realtime_thread_data_worker.RequestRealData('YOC', CM_CALL_CODE[i])
+                        else:
+                            pass
                     else:
-                        pass
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 행사가 범위초과({3}) 요청입니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, i)
+                        self.textBrowser.append(txt)
+                        print(txt)
 
                 for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
-                    self.realtime_thread_data_worker.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
 
-                    if pre_start:
-                        self.realtime_thread_data_worker.RequestRealData('YOC', CM_PUT_CODE[i])
+                    if i >= 0:
+                        self.realtime_thread_data_worker.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 풋 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_PUT_CODE[i])
+                        self.textBrowser.append(txt)
+                        print(txt)
+
+                        if pre_start:
+                            self.realtime_thread_data_worker.RequestRealData('YOC', CM_PUT_CODE[i])
+                        else:
+                            pass
                     else:
-                        pass
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 행사가 범위초과({3}) 요청입니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, i)
+                        self.textBrowser.append(txt)
+                        print(txt)
             else:
                 for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
-                    Myprocess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
 
-                    if pre_start:                            
-                        Myprocess.RequestRealData('YOC', CM_CALL_CODE[i])
+                    if i >= 0:
+                        Myprocess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 콜 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_CALL_CODE[i])
+                        self.textBrowser.append(txt)
+                        print(txt)
+
+                        if pre_start:                            
+                            Myprocess.RequestRealData('YOC', CM_CALL_CODE[i])
+                        else:
+                            pass
                     else:
-                        pass
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 행사가 범위초과({3}) 요청입니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, i)
+                        self.textBrowser.append(txt)
+                        print(txt)
 
                 for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
-                    Myprocess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
 
-                    if pre_start:
-                        Myprocess.RequestRealData('YOC', CM_PUT_CODE[i])
+                    if i >= 0:
+                        Myprocess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 풋 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_PUT_CODE[i])
+                        self.textBrowser.append(txt)
+                        print(txt)
+
+                        if pre_start:
+                            Myprocess.RequestRealData('YOC', CM_PUT_CODE[i])
+                        else:
+                            pass
                     else:
-                        pass                                       
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 행사가 범위초과({3}) 요청입니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, i)
+                        self.textBrowser.append(txt)
+                        print(txt)                                       
         else:
             pass
 
@@ -19163,16 +19211,56 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if not MULTIPROCESS:
                 for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
-                    self.realtime_thread_data_worker.RequestRealData(OPT_HO, CM_CALL_CODE[i])
+
+                    if i >= 0:
+                        self.realtime_thread_data_worker.RequestRealData(OPT_HO, CM_CALL_CODE[i])
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 콜 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_CALL_CODE[i])
+                        self.textBrowser.append(txt)
+                        print(txt)
+                    else:
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 행사가 범위초과({3}) 요청입니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, i)
+                        self.textBrowser.append(txt)
+                        print(txt)
 
                 for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
-                    self.realtime_thread_data_worker.RequestRealData(OPT_HO, CM_PUT_CODE[i])
+
+                    if i >= 0:
+                        self.realtime_thread_data_worker.RequestRealData(OPT_HO, CM_PUT_CODE[i])
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 풋 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_PUT_CODE[i])
+                        self.textBrowser.append(txt)
+                        print(txt)
+                    else:
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 행사가 범위초과({3}) 요청입니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, i)
+                        self.textBrowser.append(txt)
+                        print(txt)
             else:
                 for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
-                    Myprocess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
+
+                    if i >= 0:
+                        Myprocess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 콜 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_CALL_CODE[i])
+                        self.textBrowser.append(txt)
+                        print(txt)
+                    else:
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 행사가 범위초과({3}) 요청입니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, i)
+                        self.textBrowser.append(txt)
+                        print(txt)
 
                 for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
-                    Myprocess.RequestRealData(OPT_HO, CM_PUT_CODE[i])                    
+
+                    if i >= 0:
+                        Myprocess.RequestRealData(OPT_HO, CM_PUT_CODE[i])
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 풋 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_PUT_CODE[i])
+                        self.textBrowser.append(txt)
+                        print(txt)
+                    else:
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 행사가 범위초과({3}) 요청입니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, i)
+                        self.textBrowser.append(txt)
+                        print(txt)                   
         else:
             pass
 
@@ -19272,16 +19360,58 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if not MULTIPROCESS:
                 for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
-                    self.realtime_thread_data_worker.RequestRealData(OPT_HO, NM_CALL_CODE[i])
+
+                    if i >= 0:
+                        self.realtime_thread_data_worker.RequestRealData(OPT_HO, NM_CALL_CODE[i])
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 콜 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_CALL_CODE[i])
+                        self.textBrowser.append(txt)
+                        print(txt)
+
+                    else:
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 행사가 범위초과({3}) 요청입니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, i)
+                        self.textBrowser.append(txt)
+                        print(txt)
 
                 for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
-                    self.realtime_thread_data_worker.RequestRealData(OPT_HO, NM_PUT_CODE[i])
+
+                    if i >= 0:
+                        self.realtime_thread_data_worker.RequestRealData(OPT_HO, NM_PUT_CODE[i])
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 풋 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_PUT_CODE[i])
+                        self.textBrowser.append(txt)
+                        print(txt)
+                    else:
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 행사가 범위초과({3}) 요청입니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, i)
+                        self.textBrowser.append(txt)
+                        print(txt)
             else:
                 for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
-                    Myprocess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
+
+                    if i >= 0:
+                        Myprocess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 콜 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_CALL_CODE[i])
+                        self.textBrowser.append(txt)
+                        print(txt)
+
+                    else:
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 행사가 범위초과({3}) 요청입니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, i)
+                        self.textBrowser.append(txt)
+                        print(txt)
 
                 for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
-                    Myprocess.RequestRealData(OPT_HO, NM_PUT_CODE[i])                    
+
+                    if i >= 0:
+                        Myprocess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 풋 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_PUT_CODE[i])
+                        self.textBrowser.append(txt)
+                        print(txt)
+                    else:
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 행사가 범위초과({3}) 요청입니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, i)
+                        self.textBrowser.append(txt)
+                        print(txt)                   
         else:
             pass
         
@@ -23367,16 +23497,56 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                 if not MULTIPROCESS:
                     for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
-                        self.parent.dialog['선물옵션전광판'].realtime_thread_data_worker.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+
+                        if i >= 0:
+                            self.parent.dialog['선물옵션전광판'].realtime_thread_data_worker.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 콜 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_CALL_CODE[i])
+                            self.textBrowser.append(txt)
+                            print(txt)
+                        else:
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 행사가 범위초과({3}) 요청입니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, i)
+                            self.textBrowser.append(txt)
+                            print(txt)
 
                     for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
-                        self.parent.dialog['선물옵션전광판'].realtime_thread_data_worker.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
+
+                        if i >= 0:
+                            self.parent.dialog['선물옵션전광판'].realtime_thread_data_worker.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
+
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 풋 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_PUT_CODE[i])
+                            self.textBrowser.append(txt)
+                            print(txt)
+                        else:
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 행사가 범위초과({3}) 요청입니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, i)
+                            self.textBrowser.append(txt)
+                            print(txt)
                 else:
                     for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
-                        Myprocess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+
+                        if i >= 0:
+                            Myprocess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 콜 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_CALL_CODE[i])
+                            self.textBrowser.append(txt)
+                            print(txt)
+                        else:
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 행사가 범위초과({3}) 요청입니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, i)
+                            self.textBrowser.append(txt)
+                            print(txt)
 
                     for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
-                        Myprocess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
+
+                        if i >= 0:
+                            Myprocess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
+
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 풋 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_PUT_CODE[i])
+                            self.textBrowser.append(txt)
+                            print(txt)
+                        else:
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 행사가 범위초과({3}) 요청입니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, i)
+                            self.textBrowser.append(txt)
+                            print(txt)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
                 self.parent.textBrowser.append(txt)
@@ -23451,16 +23621,56 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                 if not MULTIPROCESS:
                     for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
-                        self.parent.dialog['선물옵션전광판'].realtime_thread_data_worker.RequestRealData(OPT_HO, CM_CALL_CODE[i])
+
+                        if i >= 0:
+                            self.parent.dialog['선물옵션전광판'].realtime_thread_data_worker.RequestRealData(OPT_HO, CM_CALL_CODE[i])
+
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 콜 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_CALL_CODE[i])
+                            self.textBrowser.append(txt)
+                            print(txt)
+                        else:
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 행사가 범위초과({3}) 요청입니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, i)
+                            self.textBrowser.append(txt)
+                            print(txt)
 
                     for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
-                        self.parent.dialog['선물옵션전광판'].realtime_thread_data_worker.RequestRealData(OPT_HO, CM_PUT_CODE[i])
+
+                        if i >= 0:
+                            self.parent.dialog['선물옵션전광판'].realtime_thread_data_worker.RequestRealData(OPT_HO, CM_PUT_CODE[i])
+
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 풋 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_PUT_CODE[i])
+                            self.textBrowser.append(txt)
+                            print(txt)
+                        else:
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 행사가 범위초과({3}) 요청입니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, i)
+                            self.textBrowser.append(txt)
+                            print(txt)
                 else:
                     for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
-                        Myprocess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
+
+                        if i >= 0:
+                            Myprocess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
+
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 콜 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_CALL_CODE[i])
+                            self.textBrowser.append(txt)
+                            print(txt)
+                        else:
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 행사가 범위초과({3}) 요청입니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, i)
+                            self.textBrowser.append(txt)
+                            print(txt)
 
                     for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
-                        Myprocess.RequestRealData(OPT_HO, CM_PUT_CODE[i])
+
+                        if i >= 0:
+                            Myprocess.RequestRealData(OPT_HO, CM_PUT_CODE[i])
+
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 풋 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_PUT_CODE[i])
+                            self.textBrowser.append(txt)
+                            print(txt)
+                        else:
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 행사가 범위초과({3}) 요청입니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, i)
+                            self.textBrowser.append(txt)
+                            print(txt)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가(내가 {3}개, 외가 {4}개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
                 self.parent.textBrowser.append(txt)
@@ -23647,16 +23857,56 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                 if not MULTIPROCESS:
                     for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
-                        self.parent.dialog['선물옵션전광판'].realtime_thread_data_worker.RequestRealData(OPT_HO, NM_CALL_CODE[i])
+
+                        if i >= 0:
+                            self.parent.dialog['선물옵션전광판'].realtime_thread_data_worker.RequestRealData(OPT_HO, NM_CALL_CODE[i])
+
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 콜 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_CALL_CODE[i])
+                            self.textBrowser.append(txt)
+                            print(txt)
+                        else:
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 행사가 범위초과({3}) 요청입니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, i)
+                            self.textBrowser.append(txt)
+                            print(txt)
 
                     for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
-                        self.parent.dialog['선물옵션전광판'].realtime_thread_data_worker.RequestRealData(OPT_HO, NM_PUT_CODE[i])
+
+                        if i >= 0:
+                            self.parent.dialog['선물옵션전광판'].realtime_thread_data_worker.RequestRealData(OPT_HO, NM_PUT_CODE[i])
+
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 풋 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_PUT_CODE[i])
+                            self.textBrowser.append(txt)
+                            print(txt)
+                        else:
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 행사가 범위초과({3}) 요청입니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, i)
+                            self.textBrowser.append(txt)
+                            print(txt)
                 else:
                     for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
-                        Myprocess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
+
+                        if i >= 0:
+                            Myprocess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
+
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 콜 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_CALL_CODE[i])
+                            self.textBrowser.append(txt)
+                            print(txt)
+                        else:
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 행사가 범위초과({3}) 요청입니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, i)
+                            self.textBrowser.append(txt)
+                            print(txt)
 
                     for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
-                        Myprocess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
+
+                        if i >= 0:
+                            Myprocess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
+
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 요청 풋 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_PUT_CODE[i])
+                            self.textBrowser.append(txt)
+                            print(txt)
+                        else:
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 행사가 범위초과({3}) 요청입니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, i)
+                            self.textBrowser.append(txt)
+                            print(txt)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가(내가 {3}개, 외가 {4}개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
                 self.parent.textBrowser.append(txt)
