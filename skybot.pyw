@@ -27111,9 +27111,24 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.plot2_quote_remainder_ratio_base_line.setValue(SP500_종가)
             self.plot2_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
+            
+            for i in range(10):
+                self.plot2_kp200_line[i].setValue(SP500_종가)
 
             for i in range(9):
                 self.plot2_mv_line[i].setValue(SP500_종가)
+
+            self.plot2_center_val_lower_line.setValue(SP500_종가)
+            self.plot2_center_val_line.setValue(SP500_종가)
+            self.plot2_center_val_upper_line.setValue(SP500_종가)
+            
+            self.plot2_fut_jl_line.setValue(SP500_종가)
+            self.plot2_fut_jh_line.setValue(SP500_종가)
+            self.plot2_fut_close_line.setValue(SP500_종가)
+            self.plot2_fut_pivot_line.setValue(SP500_종가)
+            self.plot2_fut_open_line.setValue(SP500_종가)
+            self.plot2_fut_low_line.setValue(SP500_종가)
+            self.plot2_fut_high_line.setValue(SP500_종가)
             
             if SP500_전저 == 0:
                 SP500_전저 = SP500_종가
@@ -27193,9 +27208,24 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.plot2_quote_remainder_ratio_base_line.setValue(DOW_종가)
             self.plot2_quote_remainder_ratio_bottom_line.setValue(DOW_종가)
+            
+            for i in range(10):
+                self.plot2_kp200_line[i].setValue(DOW_종가)
 
             for i in range(9):
                 self.plot2_mv_line[i].setValue(DOW_종가)
+
+            self.plot2_center_val_lower_line.setValue(DOW_종가)
+            self.plot2_center_val_line.setValue(DOW_종가)
+            self.plot2_center_val_upper_line.setValue(DOW_종가)
+            
+            self.plot2_fut_jl_line.setValue(DOW_종가)
+            self.plot2_fut_jh_line.setValue(DOW_종가)
+            self.plot2_fut_close_line.setValue(DOW_종가)
+            self.plot2_fut_pivot_line.setValue(DOW_종가)
+            self.plot2_fut_open_line.setValue(DOW_종가)
+            self.plot2_fut_low_line.setValue(DOW_종가)
+            self.plot2_fut_high_line.setValue(DOW_종가)
             
             if DOW_전저 == 0:
                 DOW_전저 = DOW_종가
@@ -27275,9 +27305,24 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.plot2_quote_remainder_ratio_base_line.setValue(NASDAQ_종가)
             self.plot2_quote_remainder_ratio_bottom_line.setValue(NASDAQ_종가)
-                        
+            
+            for i in range(10):
+                self.plot2_kp200_line[i].setValue(NASDAQ_종가)
+
             for i in range(9):
                 self.plot2_mv_line[i].setValue(NASDAQ_종가)
+
+            self.plot2_center_val_lower_line.setValue(NASDAQ_종가)
+            self.plot2_center_val_line.setValue(NASDAQ_종가)
+            self.plot2_center_val_upper_line.setValue(NASDAQ_종가)
+            
+            self.plot2_fut_jl_line.setValue(NASDAQ_종가)
+            self.plot2_fut_jh_line.setValue(NASDAQ_종가)
+            self.plot2_fut_close_line.setValue(NASDAQ_종가)
+            self.plot2_fut_pivot_line.setValue(NASDAQ_종가)
+            self.plot2_fut_open_line.setValue(NASDAQ_종가)
+            self.plot2_fut_low_line.setValue(NASDAQ_종가)
+            self.plot2_fut_high_line.setValue(NASDAQ_종가)
             
             if NASDAQ_전저 == 0:
                 NASDAQ_전저 = NASDAQ_종가
@@ -27357,9 +27402,24 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.plot2_quote_remainder_ratio_base_line.setValue(WTI_종가)
             self.plot2_quote_remainder_ratio_bottom_line.setValue(WTI_종가)
+            
+            for i in range(10):
+                self.plot2_kp200_line[i].setValue(WTI_종가)
 
             for i in range(9):
                 self.plot2_mv_line[i].setValue(WTI_종가)
+
+            self.plot2_center_val_lower_line.setValue(WTI_종가)
+            self.plot2_center_val_line.setValue(WTI_종가)
+            self.plot2_center_val_upper_line.setValue(WTI_종가)
+            
+            self.plot2_fut_jl_line.setValue(WTI_종가)
+            self.plot2_fut_jh_line.setValue(WTI_종가)
+            self.plot2_fut_close_line.setValue(WTI_종가)
+            self.plot2_fut_pivot_line.setValue(WTI_종가)
+            self.plot2_fut_open_line.setValue(WTI_종가)
+            self.plot2_fut_low_line.setValue(WTI_종가)
+            self.plot2_fut_high_line.setValue(WTI_종가)
             
             if WTI_전저 == 0:
                 WTI_전저 = WTI_종가
@@ -27823,9 +27883,24 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.plot3_quote_remainder_ratio_base_line.setValue(SP500_종가)
             self.plot3_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
+            
+            for i in range(10):
+                self.plot3_kp200_line[i].setValue(SP500_종가)
 
             for i in range(9):
                 self.plot3_mv_line[i].setValue(SP500_종가)
+
+            self.plot3_center_val_lower_line.setValue(SP500_종가)
+            self.plot3_center_val_line.setValue(SP500_종가)
+            self.plot3_center_val_upper_line.setValue(SP500_종가)
+            
+            self.plot3_fut_jl_line.setValue(SP500_종가)
+            self.plot3_fut_jh_line.setValue(SP500_종가)
+            self.plot3_fut_close_line.setValue(SP500_종가)
+            self.plot3_fut_pivot_line.setValue(SP500_종가)
+            self.plot3_fut_open_line.setValue(SP500_종가)
+            self.plot3_fut_low_line.setValue(SP500_종가)
+            self.plot3_fut_high_line.setValue(SP500_종가)
             
             if SP500_전저 == 0:
                 SP500_전저 = SP500_종가
@@ -27905,9 +27980,24 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.plot3_quote_remainder_ratio_base_line.setValue(DOW_종가)
             self.plot3_quote_remainder_ratio_bottom_line.setValue(DOW_종가)
+            
+            for i in range(10):
+                self.plot3_kp200_line[i].setValue(DOW_종가)
 
             for i in range(9):
                 self.plot3_mv_line[i].setValue(DOW_종가)
+
+            self.plot3_center_val_lower_line.setValue(DOW_종가)
+            self.plot3_center_val_line.setValue(DOW_종가)
+            self.plot3_center_val_upper_line.setValue(DOW_종가)
+            
+            self.plot3_fut_jl_line.setValue(DOW_종가)
+            self.plot3_fut_jh_line.setValue(DOW_종가)
+            self.plot3_fut_close_line.setValue(DOW_종가)
+            self.plot3_fut_pivot_line.setValue(DOW_종가)
+            self.plot3_fut_open_line.setValue(DOW_종가)
+            self.plot3_fut_low_line.setValue(DOW_종가)
+            self.plot3_fut_high_line.setValue(DOW_종가)
             
             if DOW_전저 == 0:
                 DOW_전저 = DOW_종가
@@ -27987,9 +28077,24 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.plot3_quote_remainder_ratio_base_line.setValue(NASDAQ_종가)
             self.plot3_quote_remainder_ratio_bottom_line.setValue(NASDAQ_종가)
+            
+            for i in range(10):
+                self.plot3_kp200_line[i].setValue(NASDAQ_종가)
 
             for i in range(9):
                 self.plot3_mv_line[i].setValue(NASDAQ_종가)
+
+            self.plot3_center_val_lower_line.setValue(NASDAQ_종가)
+            self.plot3_center_val_line.setValue(NASDAQ_종가)
+            self.plot3_center_val_upper_line.setValue(NASDAQ_종가)
+            
+            self.plot3_fut_jl_line.setValue(NASDAQ_종가)
+            self.plot3_fut_jh_line.setValue(NASDAQ_종가)
+            self.plot3_fut_close_line.setValue(NASDAQ_종가)
+            self.plot3_fut_pivot_line.setValue(NASDAQ_종가)
+            self.plot3_fut_open_line.setValue(NASDAQ_종가)
+            self.plot3_fut_low_line.setValue(NASDAQ_종가)
+            self.plot3_fut_high_line.setValue(NASDAQ_종가)
             
             if NASDAQ_전저 == 0:
                 NASDAQ_전저 = NASDAQ_종가
@@ -28068,10 +28173,25 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot3_clear()
 
             self.plot3_quote_remainder_ratio_base_line.setValue(WTI_종가)
-            self.plot3_quote_remainder_ratio_bottom_line.setValue(WTI_종가)  
+            self.plot3_quote_remainder_ratio_bottom_line.setValue(WTI_종가)
+            
+            for i in range(10):
+                self.plot3_kp200_line[i].setValue(WTI_종가)
 
             for i in range(9):
                 self.plot3_mv_line[i].setValue(WTI_종가)
+
+            self.plot3_center_val_lower_line.setValue(WTI_종가)
+            self.plot3_center_val_line.setValue(WTI_종가)
+            self.plot3_center_val_upper_line.setValue(WTI_종가)
+            
+            self.plot3_fut_jl_line.setValue(WTI_종가)
+            self.plot3_fut_jh_line.setValue(WTI_종가)
+            self.plot3_fut_close_line.setValue(WTI_종가)
+            self.plot3_fut_pivot_line.setValue(WTI_종가)
+            self.plot3_fut_open_line.setValue(WTI_종가)
+            self.plot3_fut_low_line.setValue(WTI_종가)
+            self.plot3_fut_high_line.setValue(WTI_종가)
             
             if WTI_전저 == 0:
                 WTI_전저 = WTI_종가
@@ -28539,6 +28659,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             for i in range(10):
                 self.plot4_kp200_line[i].setValue(SP500_종가)
+
+            for i in range(9):
+                self.plot4_mv_line[i].setValue(SP500_종가)
+
+            self.plot4_center_val_lower_line.setValue(SP500_종가)
+            self.plot4_center_val_line.setValue(SP500_종가)
+            self.plot4_center_val_upper_line.setValue(SP500_종가)
             
             self.plot4_fut_jl_line.setValue(SP500_종가)
             self.plot4_fut_jh_line.setValue(SP500_종가)
@@ -28625,6 +28752,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             for i in range(10):
                 self.plot4_kp200_line[i].setValue(DOW_종가)
+
+            for i in range(9):
+                self.plot4_mv_line[i].setValue(DOW_종가)
+
+            self.plot4_center_val_lower_line.setValue(DOW_종가)
+            self.plot4_center_val_line.setValue(DOW_종가)
+            self.plot4_center_val_upper_line.setValue(DOW_종가)
             
             self.plot4_fut_jl_line.setValue(DOW_종가)
             self.plot4_fut_jh_line.setValue(DOW_종가)
@@ -28711,6 +28845,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             for i in range(10):
                 self.plot4_kp200_line[i].setValue(NASDAQ_종가)
+
+            for i in range(9):
+                self.plot4_mv_line[i].setValue(NASDAQ_종가)
+
+            self.plot4_center_val_lower_line.setValue(NASDAQ_종가)
+            self.plot4_center_val_line.setValue(NASDAQ_종가)
+            self.plot4_center_val_upper_line.setValue(NASDAQ_종가)
             
             self.plot4_fut_jl_line.setValue(NASDAQ_종가)
             self.plot4_fut_jh_line.setValue(NASDAQ_종가)
@@ -28797,6 +28938,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             for i in range(10):
                 self.plot4_kp200_line[i].setValue(WTI_종가)
+
+            for i in range(9):
+                self.plot4_mv_line[i].setValue(WTI_종가)
+
+            self.plot4_center_val_lower_line.setValue(WTI_종가)
+            self.plot4_center_val_line.setValue(WTI_종가)
+            self.plot4_center_val_upper_line.setValue(WTI_종가)
             
             self.plot4_fut_jl_line.setValue(WTI_종가)
             self.plot4_fut_jh_line.setValue(WTI_종가)
@@ -29264,9 +29412,24 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.plot5_quote_remainder_ratio_base_line.setValue(SP500_종가)
             self.plot5_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
+            
+            for i in range(10):
+                self.plot5_kp200_line[i].setValue(SP500_종가)
 
             for i in range(9):
                 self.plot5_mv_line[i].setValue(SP500_종가)
+
+            self.plot5_center_val_lower_line.setValue(SP500_종가)
+            self.plot5_center_val_line.setValue(SP500_종가)
+            self.plot5_center_val_upper_line.setValue(SP500_종가)
+            
+            self.plot5_fut_jl_line.setValue(SP500_종가)
+            self.plot5_fut_jh_line.setValue(SP500_종가)
+            self.plot5_fut_close_line.setValue(SP500_종가)
+            self.plot5_fut_pivot_line.setValue(SP500_종가)
+            self.plot5_fut_open_line.setValue(SP500_종가)
+            self.plot5_fut_low_line.setValue(SP500_종가)
+            self.plot5_fut_high_line.setValue(SP500_종가)
             
             if SP500_전저 == 0:
                 SP500_전저 = SP500_종가
@@ -29346,9 +29509,24 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.plot5_quote_remainder_ratio_base_line.setValue(DOW_종가)
             self.plot5_quote_remainder_ratio_bottom_line.setValue(DOW_종가)
+            
+            for i in range(10):
+                self.plot5_kp200_line[i].setValue(DOW_종가)
 
             for i in range(9):
                 self.plot5_mv_line[i].setValue(DOW_종가)
+
+            self.plot5_center_val_lower_line.setValue(DOW_종가)
+            self.plot5_center_val_line.setValue(DOW_종가)
+            self.plot5_center_val_upper_line.setValue(DOW_종가)
+            
+            self.plot5_fut_jl_line.setValue(DOW_종가)
+            self.plot5_fut_jh_line.setValue(DOW_종가)
+            self.plot5_fut_close_line.setValue(DOW_종가)
+            self.plot5_fut_pivot_line.setValue(DOW_종가)
+            self.plot5_fut_open_line.setValue(DOW_종가)
+            self.plot5_fut_low_line.setValue(DOW_종가)
+            self.plot5_fut_high_line.setValue(DOW_종가)
             
             if DOW_전저 == 0:
                 DOW_전저 = DOW_종가
@@ -29428,9 +29606,24 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.plot5_quote_remainder_ratio_base_line.setValue(NASDAQ_종가)
             self.plot5_quote_remainder_ratio_bottom_line.setValue(NASDAQ_종가)
+            
+            for i in range(10):
+                self.plot5_kp200_line[i].setValue(NASDAQ_종가)
 
             for i in range(9):
                 self.plot5_mv_line[i].setValue(NASDAQ_종가)
+
+            self.plot5_center_val_lower_line.setValue(NASDAQ_종가)
+            self.plot5_center_val_line.setValue(NASDAQ_종가)
+            self.plot5_center_val_upper_line.setValue(NASDAQ_종가)
+            
+            self.plot5_fut_jl_line.setValue(NASDAQ_종가)
+            self.plot5_fut_jh_line.setValue(NASDAQ_종가)
+            self.plot5_fut_close_line.setValue(NASDAQ_종가)
+            self.plot5_fut_pivot_line.setValue(NASDAQ_종가)
+            self.plot5_fut_open_line.setValue(NASDAQ_종가)
+            self.plot5_fut_low_line.setValue(NASDAQ_종가)
+            self.plot5_fut_high_line.setValue(NASDAQ_종가)
             
             if NASDAQ_전저 == 0:
                 NASDAQ_전저 = NASDAQ_종가
@@ -29509,10 +29702,25 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot5_clear()
 
             self.plot5_quote_remainder_ratio_base_line.setValue(WTI_종가)
-            self.plot5_quote_remainder_ratio_bottom_line.setValue(WTI_종가) 
+            self.plot5_quote_remainder_ratio_bottom_line.setValue(WTI_종가)
+            
+            for i in range(10):
+                self.plot5_kp200_line[i].setValue(WTI_종가)
 
             for i in range(9):
                 self.plot5_mv_line[i].setValue(WTI_종가)
+
+            self.plot5_center_val_lower_line.setValue(WTI_종가)
+            self.plot5_center_val_line.setValue(WTI_종가)
+            self.plot5_center_val_upper_line.setValue(WTI_종가)
+            
+            self.plot5_fut_jl_line.setValue(WTI_종가)
+            self.plot5_fut_jh_line.setValue(WTI_종가)
+            self.plot5_fut_close_line.setValue(WTI_종가)
+            self.plot5_fut_pivot_line.setValue(WTI_종가)
+            self.plot5_fut_open_line.setValue(WTI_종가)
+            self.plot5_fut_low_line.setValue(WTI_종가)
+            self.plot5_fut_high_line.setValue(WTI_종가)
             
             if WTI_전저 == 0:
                 WTI_전저 = WTI_종가
@@ -29976,9 +30184,24 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.plot6_quote_remainder_ratio_base_line.setValue(SP500_종가)
             self.plot6_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
+            
+            for i in range(10):
+                self.plot6_kp200_line[i].setValue(SP500_종가)
 
             for i in range(9):
                 self.plot6_mv_line[i].setValue(SP500_종가)
+
+            self.plot6_center_val_lower_line.setValue(SP500_종가)
+            self.plot6_center_val_line.setValue(SP500_종가)
+            self.plot6_center_val_upper_line.setValue(SP500_종가)
+            
+            self.plot6_fut_jl_line.setValue(SP500_종가)
+            self.plot6_fut_jh_line.setValue(SP500_종가)
+            self.plot6_fut_close_line.setValue(SP500_종가)
+            self.plot6_fut_pivot_line.setValue(SP500_종가)
+            self.plot6_fut_open_line.setValue(SP500_종가)
+            self.plot6_fut_low_line.setValue(SP500_종가)
+            self.plot6_fut_high_line.setValue(SP500_종가)
             
             if SP500_전저 == 0:
                 SP500_전저 = SP500_종가
@@ -30058,9 +30281,24 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.plot6_quote_remainder_ratio_base_line.setValue(DOW_종가)
             self.plot6_quote_remainder_ratio_bottom_line.setValue(DOW_종가)
+            
+            for i in range(10):
+                self.plot6_kp200_line[i].setValue(DOW_종가)
 
             for i in range(9):
                 self.plot6_mv_line[i].setValue(DOW_종가)
+
+            self.plot6_center_val_lower_line.setValue(DOW_종가)
+            self.plot6_center_val_line.setValue(DOW_종가)
+            self.plot6_center_val_upper_line.setValue(DOW_종가)
+            
+            self.plot6_fut_jl_line.setValue(DOW_종가)
+            self.plot6_fut_jh_line.setValue(DOW_종가)
+            self.plot6_fut_close_line.setValue(DOW_종가)
+            self.plot6_fut_pivot_line.setValue(DOW_종가)
+            self.plot6_fut_open_line.setValue(DOW_종가)
+            self.plot6_fut_low_line.setValue(DOW_종가)
+            self.plot6_fut_high_line.setValue(DOW_종가)
             
             if DOW_전저 == 0:
                 DOW_전저 = DOW_종가
@@ -30140,9 +30378,24 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.plot6_quote_remainder_ratio_base_line.setValue(NASDAQ_종가)
             self.plot6_quote_remainder_ratio_bottom_line.setValue(NASDAQ_종가)
+            
+            for i in range(10):
+                self.plot6_kp200_line[i].setValue(NASDAQ_종가)
 
             for i in range(9):
                 self.plot6_mv_line[i].setValue(NASDAQ_종가)
+
+            self.plot6_center_val_lower_line.setValue(NASDAQ_종가)
+            self.plot6_center_val_line.setValue(NASDAQ_종가)
+            self.plot6_center_val_upper_line.setValue(NASDAQ_종가)
+            
+            self.plot6_fut_jl_line.setValue(NASDAQ_종가)
+            self.plot6_fut_jh_line.setValue(NASDAQ_종가)
+            self.plot6_fut_close_line.setValue(NASDAQ_종가)
+            self.plot6_fut_pivot_line.setValue(NASDAQ_종가)
+            self.plot6_fut_open_line.setValue(NASDAQ_종가)
+            self.plot6_fut_low_line.setValue(NASDAQ_종가)
+            self.plot6_fut_high_line.setValue(NASDAQ_종가)
             
             if NASDAQ_전저 == 0:
                 NASDAQ_전저 = NASDAQ_종가
@@ -30221,10 +30474,25 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot6_clear()
 
             self.plot6_quote_remainder_ratio_base_line.setValue(WTI_종가)
-            self.plot6_quote_remainder_ratio_bottom_line.setValue(WTI_종가) 
+            self.plot6_quote_remainder_ratio_bottom_line.setValue(WTI_종가)
+            
+            for i in range(10):
+                self.plot6_kp200_line[i].setValue(WTI_종가)
 
             for i in range(9):
                 self.plot6_mv_line[i].setValue(WTI_종가)
+
+            self.plot6_center_val_lower_line.setValue(WTI_종가)
+            self.plot6_center_val_line.setValue(WTI_종가)
+            self.plot6_center_val_upper_line.setValue(WTI_종가)
+            
+            self.plot6_fut_jl_line.setValue(WTI_종가)
+            self.plot6_fut_jh_line.setValue(WTI_종가)
+            self.plot6_fut_close_line.setValue(WTI_종가)
+            self.plot6_fut_pivot_line.setValue(WTI_종가)
+            self.plot6_fut_open_line.setValue(WTI_종가)
+            self.plot6_fut_low_line.setValue(WTI_종가)
+            self.plot6_fut_high_line.setValue(WTI_종가)
             
             if WTI_전저 == 0:
                 WTI_전저 = WTI_종가
