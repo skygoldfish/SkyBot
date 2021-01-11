@@ -22628,7 +22628,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                if result['단축코드'] == GMSHCODE:
+                if result['단축코드'] == FUT_CODE:
 
                     # 선물호가 갱신
                     item = QTableWidgetItem("{0}".format(format(result['매수호가총건수'], ',')))
@@ -26296,6 +26296,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot1_quote_remainder_ratio_base_line.setValue(선물_고가)
             self.plot1_quote_remainder_ratio_bottom_line.setValue(선물_고가)
 
+            for i in range(9):
+                self.plot1_mv_line[i].setValue(선물_고가)
+
+            self.plot1_center_val_lower_line.setValue(선물_고가)
+            self.plot1_center_val_line.setValue(선물_고가)
+            self.plot1_center_val_upper_line.setValue(선물_고가)
+
             self.plot1_ovc_open_line.setValue(선물_고가)
             self.plot1_ovc_jl_line.setValue(선물_고가)
             self.plot1_ovc_jh_line.setValue(선물_고가)
@@ -26351,6 +26358,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             for i in range(10):
                 self.plot1_kp200_line[i].setValue(SP500_종가)
+
+            for i in range(9):
+                self.plot1_mv_line[i].setValue(SP500_종가)
+
+            self.plot1_center_val_lower_line.setValue(SP500_종가)
+            self.plot1_center_val_line.setValue(SP500_종가)
+            self.plot1_center_val_upper_line.setValue(SP500_종가)
             
             self.plot1_fut_jl_line.setValue(SP500_종가)
             self.plot1_fut_jh_line.setValue(SP500_종가)
@@ -26358,7 +26372,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot1_fut_pivot_line.setValue(SP500_종가)
             self.plot1_fut_open_line.setValue(SP500_종가)
             self.plot1_fut_low_line.setValue(SP500_종가)
-            self.plot1_fut_high_line.setValue(SP500_종가)
+            self.plot1_fut_high_line.setValue(SP500_종가)            
             
             if SP500_전저 == 0:
                 SP500_전저 = SP500_종가
@@ -26437,6 +26451,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             for i in range(10):
                 self.plot1_kp200_line[i].setValue(DOW_종가)
+
+            for i in range(9):
+                self.plot1_mv_line[i].setValue(DOW_종가)
+
+            self.plot1_center_val_lower_line.setValue(DOW_종가)
+            self.plot1_center_val_line.setValue(DOW_종가)
+            self.plot1_center_val_upper_line.setValue(DOW_종가)
             
             self.plot1_fut_jl_line.setValue(DOW_종가)
             self.plot1_fut_jh_line.setValue(DOW_종가)
@@ -26523,6 +26544,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             for i in range(10):
                 self.plot1_kp200_line[i].setValue(NASDAQ_종가)
+
+            for i in range(9):
+                self.plot1_mv_line[i].setValue(NASDAQ_종가)
+
+            self.plot1_center_val_lower_line.setValue(NASDAQ_종가)
+            self.plot1_center_val_line.setValue(NASDAQ_종가)
+            self.plot1_center_val_upper_line.setValue(NASDAQ_종가)
             
             self.plot1_fut_jl_line.setValue(NASDAQ_종가)
             self.plot1_fut_jh_line.setValue(NASDAQ_종가)
@@ -26609,6 +26637,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             for i in range(10):
                 self.plot1_kp200_line[i].setValue(WTI_종가)
+
+            for i in range(9):
+                self.plot1_mv_line[i].setValue(WTI_종가)
+
+            self.plot1_center_val_lower_line.setValue(WTI_종가)
+            self.plot1_center_val_line.setValue(WTI_종가)
+            self.plot1_center_val_upper_line.setValue(WTI_종가)
             
             self.plot1_fut_jl_line.setValue(WTI_종가)
             self.plot1_fut_jh_line.setValue(WTI_종가)
@@ -26841,6 +26876,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # 종가선 컬러를 살리기위한 임시방편            
             self.plot2_quote_remainder_ratio_base_line.setValue(선물_고가)
             self.plot2_quote_remainder_ratio_bottom_line.setValue(선물_고가)
+
+            for i in range(9):
+                self.plot2_mv_line[i].setValue(선물_고가)
+
+            self.plot2_center_val_lower_line.setValue(선물_고가)
+            self.plot2_center_val_line.setValue(선물_고가)
+            self.plot2_center_val_upper_line.setValue(선물_고가)
 
             self.plot2_ovc_open_line.setValue(선물_고가)
             self.plot2_ovc_jl_line.setValue(선물_고가)
@@ -27546,6 +27588,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # 종가선 컬러를 살리기위한 임시방편            
             self.plot3_quote_remainder_ratio_base_line.setValue(선물_고가)
             self.plot3_quote_remainder_ratio_bottom_line.setValue(선물_고가)
+
+            for i in range(9):
+                self.plot3_mv_line[i].setValue(선물_고가)
+
+            self.plot3_center_val_lower_line.setValue(선물_고가)
+            self.plot3_center_val_line.setValue(선물_고가)
+            self.plot3_center_val_upper_line.setValue(선물_고가)
 
             self.plot3_ovc_open_line.setValue(선물_고가)
             self.plot3_ovc_jl_line.setValue(선물_고가)
@@ -28428,6 +28477,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot4_quote_remainder_ratio_base_line.setValue(선물_고가)
             self.plot4_quote_remainder_ratio_bottom_line.setValue(선물_고가)
 
+            for i in range(9):
+                self.plot4_mv_line[i].setValue(선물_고가)
+
+            self.plot4_center_val_lower_line.setValue(선물_고가)
+            self.plot4_center_val_line.setValue(선물_고가)
+            self.plot4_center_val_upper_line.setValue(선물_고가)
+
             self.plot4_ovc_open_line.setValue(선물_고가)
             self.plot4_ovc_jl_line.setValue(선물_고가)
             self.plot4_ovc_jh_line.setValue(선물_고가)
@@ -28973,6 +29029,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # 종가선 컬러를 살리기위한 임시방편            
             self.plot5_quote_remainder_ratio_base_line.setValue(선물_고가)
             self.plot5_quote_remainder_ratio_bottom_line.setValue(선물_고가)
+
+            for i in range(9):
+                self.plot5_mv_line[i].setValue(선물_고가)
+
+            self.plot5_center_val_lower_line.setValue(선물_고가)
+            self.plot5_center_val_line.setValue(선물_고가)
+            self.plot5_center_val_upper_line.setValue(선물_고가)
 
             self.plot5_ovc_open_line.setValue(선물_고가)
             self.plot5_ovc_jl_line.setValue(선물_고가)
@@ -29678,6 +29741,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # 종가선 컬러를 살리기위한 임시방편            
             self.plot6_quote_remainder_ratio_base_line.setValue(선물_고가)
             self.plot6_quote_remainder_ratio_bottom_line.setValue(선물_고가)
+
+            for i in range(9):
+                self.plot6_mv_line[i].setValue(선물_고가)
+
+            self.plot6_center_val_lower_line.setValue(선물_고가)
+            self.plot6_center_val_line.setValue(선물_고가)
+            self.plot6_center_val_upper_line.setValue(선물_고가)
 
             self.plot6_ovc_open_line.setValue(선물_고가)
             self.plot6_ovc_jl_line.setValue(선물_고가)
@@ -30584,7 +30654,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_17.setText(txt)
 
-                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, df_futures_graph['n_quote_remainder_ratio'].max())
+                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
                 self.label_18.setText(txt)
 
                 self.plot1_fut_cm_quote_remainder_ratio_curve.setData(df_futures_graph['c_quote_remainder_ratio'].to_numpy())
