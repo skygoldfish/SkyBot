@@ -36987,7 +36987,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 # 버티칼 스크롤바를 항상 bottom으로...
                 self.textBrowser.verticalScrollBar().setValue(self.textBrowser.verticalScrollBar().maximum())
-
+                '''
                 if AUTO_START:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
@@ -36998,7 +36998,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.dialog['선물옵션전광판'].RunCode()
                 else:
                     pass
-
+                '''
             elif trdata[0] == 't0167':
 
                 global 서버시간, 시스템_서버_시간차, flag_heartbeat
@@ -37177,6 +37177,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 self.statusbar.showMessage(trdata[1])
                 Speak('풋 프로세스 로그인 성공')
+
+                if AUTO_START:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+
+                    self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
+                    self.dialog['선물옵션전광판'].show()
+
+                    self.dialog['선물옵션전광판'].RunCode()
+                else:
+                    pass
             else:
                 txt = '풋 로그인 실패({0})!  로그인을 다시 시도합니다...'.format(trdata[0])
                 self.statusbar.showMessage(txt)
