@@ -281,8 +281,13 @@ class PutWorker(mp.Process):
 
         self.dataQ_input_count += 1
         self.dataQ.put(result, False)
-        #print('PUT =', result)
-    
+        '''
+        szTrCode = result['szTrCode']
+        if szTrCode == 'EC0':
+             print('옵션 풋 현재가 in putworker =', result['현재가'])
+        else:
+            pass
+        '''
     def login(self):
 
         계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})

@@ -2428,7 +2428,6 @@ else:
 
             self.daemon = True
             self.dataQ = dataQ
-            self.dataQ_output_count = 0
 
             # 큐로 들어온 총 패킷수
             self.total_count = 0
@@ -2452,23 +2451,9 @@ else:
 
                     flag_fut_produce_queue_empty = False
 
-                    self.dataQ_output_count += 1
-
                     data = self.dataQ.get(False)
-                    '''
-                    if type(data) == dict and data['szTrCode'] == 'FC0':
-                        print('선물 현재가 =', data['현재가'])
-                    else:
-                        pass 
-                    '''
-                    if NightTime and type(data) == dict:
-                        if data['szTrCode'] != 'OVC':
-                            self.total_count += 1
-                        else:
-                            pass                        
-                    else:
-                        self.total_count += 1
-
+                    
+                    self.total_count += 1
                     self.total_packet_size += sys.getsizeof(data)
                     
                     if flag_fut_realdata_update_is_running:
@@ -2505,7 +2490,6 @@ else:
 
             self.daemon = True
             self.dataQ = dataQ
-            self.dataQ_output_count = 0
 
             # 큐로 들어온 총 패킷수
             self.total_count = 0
@@ -2529,35 +2513,20 @@ else:
 
                     flag_call_produce_queue_empty = False
 
-                    self.dataQ_output_count += 1
-
                     data = self.dataQ.get(False)
                     
-                    if NightTime and type(data) == dict:
-                        if data['szTrCode'] != 'OVC':
-                            self.total_count += 1
-                        else:
-                            pass                        
-                    else:
-                        self.total_count += 1
-
+                    self.total_count += 1                    
                     self.total_packet_size += sys.getsizeof(data)
                     
-                    if flag_fut_realdata_update_is_running:
+                    if flag_call_realdata_update_is_running:
                         self.drop_count += 1
                         self.drop_code = data['szTrCode']
                     else:
                         pass
-
+                    
                     if type(data) == list:
                         self.trigger_list.emit(data)
                     elif type(data) == dict and not flag_call_realdata_update_is_running:
-                        '''
-                        if data['szTrCode'] == 'EC0':
-                            print('옵션 콜 현재가 =', data['현재가'])
-                        else:
-                            pass
-                        '''
                         self.trigger_dict.emit(data)                    
                     else:
                         pass
@@ -2583,7 +2552,6 @@ else:
 
             self.daemon = True
             self.dataQ = dataQ
-            self.dataQ_output_count = 0
 
             # 큐로 들어온 총 패킷수
             self.total_count = 0
@@ -2607,35 +2575,20 @@ else:
 
                     flag_put_produce_queue_empty = False
 
-                    self.dataQ_output_count += 1
+                    data = self.dataQ.get(False)
 
-                    data = self.dataQ.get(False)                     
-
-                    if NightTime and type(data) == dict:
-                        if data['szTrCode'] != 'OVC':
-                            self.total_count += 1
-                        else:
-                            pass                        
-                    else:
-                        self.total_count += 1
-
+                    self.total_count += 1                                        
                     self.total_packet_size += sys.getsizeof(data)
                     
-                    if flag_fut_realdata_update_is_running:
+                    if flag_put_realdata_update_is_running:
                         self.drop_count += 1
                         self.drop_code = data['szTrCode']
                     else:
                         pass
-
+                    
                     if type(data) == list:
                         self.trigger_list.emit(data)
                     elif type(data) == dict and not flag_put_realdata_update_is_running:
-                        '''
-                        if data['szTrCode'] == 'EC0':
-                            print('옵션 풋 현재가 =', data['현재가'])
-                        else:
-                            pass
-                        '''
                         self.trigger_dict.emit(data)                    
                     else:
                         pass
@@ -11600,7 +11553,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         콜저가 = float(저가)
         콜고가 = float(고가)
 
-        if index == ATM_INDEX:
+        if DayTime and index == ATM_INDEX:
             콜등락율 = result['등락율']
             df_call_information_graph.at[ovc_x_idx, 'drate'] = 콜등락율
         else:
@@ -12681,7 +12634,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         풋저가 = float(저가)
         풋고가 = float(고가)
         
-        if index == ATM_INDEX:
+        if DayTime and index == ATM_INDEX:
             풋등락율 = result['등락율']
             df_put_information_graph.at[ovc_x_idx, 'drate'] = 풋등락율
         else:
@@ -21105,21 +21058,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global fut_nm_volume_power, fut_volume_power_energy_direction
         global plot_drate_scale_factor
         global flag_fut_realdata_update_is_running
+           
+        flag_fut_realdata_update_is_running = True
 
-        try:            
-            flag_fut_realdata_update_is_running = True
+        dt = datetime.datetime.now()
 
-            dt = datetime.datetime.now()                        
-            #start_time = timeit.default_timer()
+        szTrCode = result['szTrCode']
 
-            szTrCode = result['szTrCode']
-
-            if szTrCode == 'NWS':
+        if szTrCode == 'NWS':
                 
                 txt = '[{0}] {1}\r'.format(result['시간'], result['제목'])
                 self.parent.textBrowser.append(txt)
 
-            elif szTrCode == 'JIF':
+        elif szTrCode == 'JIF':
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 장구분[{3}], 장상태[{4}]\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, result['장구분'], result['장상태'])
                 self.textBrowser.append(txt)
@@ -21480,7 +21431,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-            elif szTrCode == 'YJ_':
+        elif szTrCode == 'YJ_':
 
                 if pre_start:
 
@@ -21540,8 +21491,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
                 else:
                     pass
-                    
-            elif szTrCode == 'YFC':
+                
+        elif szTrCode == 'YFC':
 
                 if result['단축코드'] == GMSHCODE:                    
 
@@ -21758,7 +21709,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-            elif szTrCode == 'YS3':                
+        elif szTrCode == 'YS3':                
                 
                 if pre_start:
 
@@ -21816,7 +21767,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass                
 
-            elif szTrCode == 'YOC':
+        elif szTrCode == 'YOC':
 
                 if result['단축코드'][0:3] == '201':
 
@@ -22057,8 +22008,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.setHorizontalHeaderItem(1, item)
                 else:
                     pass
-            
-            elif szTrCode == 'S3_':
+        
+        elif szTrCode == 'S3_':
 
                 # S3 데이타표시
                 if result['단축코드'] == SAMSUNG:
@@ -22123,7 +22074,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass                
 
-            elif szTrCode == 'IJ_':
+        elif szTrCode == 'IJ_':
 
                 global kospi_price, kospi_text_color   
                 global kosdaq_price, kosdaq_text_color 
@@ -22465,7 +22416,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:                    
                     print('IJ 업종코드 = ', result['업종코드'])
 
-            elif szTrCode == 'BM_':
+        elif szTrCode == 'BM_':
 
                 if result['업종코드'] == FUTURES and result['투자자코드'] == FOREIGNER or result['업종코드'] == CME and result['투자자코드'] == FOREIGNER:
 
@@ -22774,7 +22725,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-            elif szTrCode == 'PM_':
+        elif szTrCode == 'PM_':
 
                 프로그램_전체순매수금액 = int(result['전체순매수금액합계'] / 100)
                 프로그램_전체순매수금액직전대비 = int(result['전체순매수금액직전대비'] / 100)
@@ -22856,7 +22807,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-            elif szTrCode == 'FC0' or szTrCode == 'NC0':
+        elif szTrCode == 'FC0' or szTrCode == 'NC0':
 
                 if pre_start:
                     pre_start = False
@@ -22909,7 +22860,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-            elif szTrCode == 'OC0' or szTrCode == 'EC0':
+        elif szTrCode == 'OC0' or szTrCode == 'EC0':
 
                 if not flag_option_start:
                     flag_option_start = True
@@ -22958,7 +22909,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-            elif szTrCode == 'OH0' or szTrCode == 'EH0':
+        elif szTrCode == 'OH0' or szTrCode == 'EH0':
 
                 if not receive_quote:
                     receive_quote = True
@@ -23055,7 +23006,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-            elif szTrCode == 'FH0' or szTrCode == 'NH0':
+        elif szTrCode == 'FH0' or szTrCode == 'NH0':
 
                 global 선물_호가순매수, fut_quote_count_ratio, fut_quote_remainder_ratio, fut_cms_quote_count_ratio, fut_cms_quote_remainder_ratio, fut_ccms_quote_count_ratio, fut_ccms_quote_remainder_ratio
                 global cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max, nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max
@@ -23322,11 +23273,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-            elif szTrCode == 'OVC':
+        elif szTrCode == 'OVC':
                 
                 self.OVC_Update(result)               
-              
-            elif szTrCode == 'OVH':
+          
+        elif szTrCode == 'OVH':
 
                 global NASDAQ_호가순매수, SP500_호가순매수, DOW_호가순매수, WTI_호가순매수, EUROFX_호가순매수, HANGSENG_호가순매수, GOLD_호가순매수
 
@@ -23409,8 +23360,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass                
 
-            # 분주기 데이타 제공하지 않음
-            elif szTrCode == 'MK2':
+        # 분주기 데이타 제공하지 않음
+        elif szTrCode == 'MK2':
 
                 pass
 
@@ -23481,28 +23432,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
                 '''
-            else:
-                pass
+        else:
+            pass
 
-            flag_fut_realdata_update_is_running = False          
+        flag_fut_realdata_update_is_running = False
 
-        except Exception as e:
-            pass        
-
-    #@logging_time_with_args
+    @logging_time_with_args
     def UpdateCallRealdata(self, result):
 
         global flag_call_realdata_update_is_running, flag_option_start, pre_start, market_service, receive_quote
         global call_result, put_result, df_call_quote, df_put_quote
+            
+        flag_call_realdata_update_is_running = True
 
-        try:            
-            flag_call_realdata_update_is_running = True
+        dt = datetime.datetime.now()
 
-            dt = datetime.datetime.now()
+        szTrCode = result['szTrCode']
 
-            szTrCode = result['szTrCode']
-
-            if szTrCode == 'OC0' or szTrCode == 'EC0':
+        if szTrCode == 'OC0' or szTrCode == 'EC0':
 
                 if not flag_option_start:
                     flag_option_start = True
@@ -23519,7 +23466,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                print('옵션 콜 현재가 =', result['현재가'])
+                #print('옵션 콜 현재가 =', result['현재가'])
 
                 if result['단축코드'][0:3] == '201':
 
@@ -23553,7 +23500,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-            elif szTrCode == 'OH0' or szTrCode == 'EH0':
+        elif szTrCode == 'OH0' or szTrCode == 'EH0':
 
                 if not receive_quote:
                     receive_quote = True
@@ -23584,28 +23531,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_put_quote.at[index, '매도잔량'] = result['매도호가총수량']
                 else:
                     pass
-            else:
-                pass
-
-            flag_call_realdata_update_is_running = False
-
-        except Exception as e:
+        else:
             pass
 
-    #@logging_time_with_args
+        flag_call_realdata_update_is_running = False
+
+    @logging_time_with_args
     def UpdatePutRealdata(self, result):
 
         global flag_put_realdata_update_is_running, flag_option_start, pre_start, market_service, receive_quote
         global call_result, put_result, df_call_quote, df_put_quote
+           
+        flag_put_realdata_update_is_running = True
 
-        try:            
-            flag_put_realdata_update_is_running = True
+        dt = datetime.datetime.now()
 
-            dt = datetime.datetime.now()
+        szTrCode = result['szTrCode']
 
-            szTrCode = result['szTrCode']
-
-            if szTrCode == 'OC0' or szTrCode == 'EC0':
+        if szTrCode == 'OC0' or szTrCode == 'EC0':
 
                 if not flag_option_start:
                     flag_option_start = True
@@ -23622,7 +23565,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                print('옵션 풋 현재가 =', result['현재가'])
+                #print('옵션 풋 현재가 =', result['현재가'])
 
                 if result['단축코드'][0:3] == '201':
 
@@ -23656,7 +23599,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-            elif szTrCode == 'OH0' or szTrCode == 'EH0':
+        elif szTrCode == 'OH0' or szTrCode == 'EH0':
 
                 if not receive_quote:
                     receive_quote = True
@@ -23687,13 +23630,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_put_quote.at[index, '매도잔량'] = result['매도호가총수량']
                 else:
                     pass
-            else:
-                pass
-
-            flag_put_realdata_update_is_running = False
-
-        except Exception as e:
+        else:
             pass
+
+        flag_put_realdata_update_is_running = False
  
     #####################################################################################################################################################################
     def KillScoreBoardAllThread(self):
@@ -36961,6 +36901,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.textBrowser.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 9pt; font: Normal")
             self.textBrowser.append('Welcome to SkyBot\r')
+
+            self.fut_dataQ = fut_dataQ
+            self.call_dataQ = call_dataQ
+            self.put_dataQ = put_dataQ
             
             self.시작시각 = datetime.datetime.now()
 
@@ -37003,17 +36947,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             # Thread for Multiprocess Real Data Consumer
             # 장의 변동성이 클때는 하나의 프로세스로 200종목 이상의 데이타를 실시간 처리못함 --> 3개의 프로세스 생성하여 로드분산 !!!
-            self.realtime_fut_data_worker = RealTime_Fut_Thread_DataWorker(fut_dataQ)
+            self.realtime_fut_data_worker = RealTime_Fut_Thread_DataWorker(self.fut_dataQ)
             self.realtime_fut_data_worker.trigger_list.connect(self.transfer_fut_trdata)
             self.realtime_fut_data_worker.trigger_dict.connect(self.transfer_fut_realdata)            
             self.realtime_fut_data_worker.start()
 
-            self.realtime_call_data_worker = RealTime_Call_Thread_DataWorker(call_dataQ)
+            self.realtime_call_data_worker = RealTime_Call_Thread_DataWorker(self.call_dataQ)
             self.realtime_call_data_worker.trigger_list.connect(self.transfer_call_trdata)
             self.realtime_call_data_worker.trigger_dict.connect(self.transfer_call_realdata)            
             self.realtime_call_data_worker.start()
 
-            self.realtime_put_data_worker = RealTime_Put_Thread_DataWorker(put_dataQ)
+            self.realtime_put_data_worker = RealTime_Put_Thread_DataWorker(self.put_dataQ)
             self.realtime_put_data_worker.trigger_list.connect(self.transfer_put_trdata)
             self.realtime_put_data_worker.trigger_dict.connect(self.transfer_put_realdata)            
             self.realtime_put_data_worker.start()
@@ -37132,36 +37076,28 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # 데이타를 전광판 다이얼로그로 전달
             if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:                
 
-                if realdata['szTrCode'] == 'OC0' or realdata['szTrCode'] == 'EC0':
+                item = QTableWidgetItem("{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time))
+                item.setTextAlignment(Qt.AlignCenter)
 
-                    item = QTableWidgetItem("{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time))
-                    item.setTextAlignment(Qt.AlignCenter)
-
-                    if flag_fut_produce_queue_empty:
-                        item.setBackground(QBrush(검정색))
-                    else:
-                        item.setBackground(QBrush(노란색))
-
-                    item.setForeground(QBrush(적색))
+                if flag_fut_produce_queue_empty:
+                    item.setBackground(QBrush(옅은회색))
                 else:
-                    item = QTableWidgetItem("{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time))
-                    item.setTextAlignment(Qt.AlignCenter)
-
-                    if flag_fut_produce_queue_empty:
-                        item.setBackground(QBrush(검정색))
-                    else:
-                        item.setBackground(QBrush(노란색))
-                    
-                    item.setForeground(QBrush(녹색))                
+                    item.setBackground(QBrush(검정색))
+                
+                item.setForeground(QBrush(적색))                                    
 
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
-                
-                #print('Q input count = ', Futprocess.dataQ_input_count)
-                #print('Q output count = ', self.realtime_fut_data_worker.dataQ_output_count)
 
                 # 수신된 실시간데이타 정보표시(누락된 패킷수, 누락된 패킷, 수신된 총 패킷수, 수신된 총 패킷크기)
-                dropcount, dropcode, totalcount, totalsize = self.realtime_fut_data_worker.get_packet_info()
-                drop_txt = '{0}({1})/{2}({3}k)'.format(format(dropcount, ','), dropcode, format(totalcount, ','), format(int(totalsize/1000), ','))
+                fut_dropcount, fut_dropcode, fut_totalcount, fut_totalsize = self.realtime_fut_data_worker.get_packet_info()
+                call_dropcount, call_dropcode, call_totalcount, call_totalsize = self.realtime_call_data_worker.get_packet_info()
+                put_dropcount, put_dropcode, put_totalcount, put_totalsize = self.realtime_put_data_worker.get_packet_info()
+
+                total_dropcount = fut_dropcount + call_dropcount + put_dropcount
+                totalcount = fut_totalcount + call_totalcount + put_totalcount
+                totalsize = fut_totalsize + call_totalsize + put_totalsize
+
+                drop_txt = '{0}/{1}({2}k)'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','))
 
                 item = QTableWidgetItem(drop_txt)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -37208,19 +37144,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             # 데이타를 전광판 다이얼로그로 전달
             if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
-                '''
+                
                 item = QTableWidgetItem("{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time))
                 item.setTextAlignment(Qt.AlignCenter)
 
                 if flag_call_produce_queue_empty:
-                    item.setBackground(QBrush(검정색))
+                    item.setBackground(QBrush(옅은회색))
                 else:
-                    item.setBackground(QBrush(노란색))
+                    item.setBackground(QBrush(검정색))
                 
                 item.setForeground(QBrush(녹색))                
 
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)                
-                '''
+                
                 self.dialog['선물옵션전광판'].UpdateCallRealdata(realdata)
             else:
                 pass
@@ -37255,19 +37191,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             # 데이타를 전광판 다이얼로그로 전달
             if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
-                '''
+                
                 item = QTableWidgetItem("{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time))
                 item.setTextAlignment(Qt.AlignCenter)
 
                 if flag_put_produce_queue_empty:
-                    item.setBackground(QBrush(검정색))
+                    item.setBackground(QBrush(옅은회색))
                 else:
-                    item.setBackground(QBrush(노란색))
+                    item.setBackground(QBrush(검정색))
                 
                 item.setForeground(QBrush(녹색))                
 
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)                
-                '''
+                
                 self.dialog['선물옵션전광판'].UpdatePutRealdata(realdata)
             else:
                 pass
