@@ -2295,7 +2295,8 @@ if not MULTIPROCESS:
 
             elif type == 'FUT_HO_FH0':
                 # 선물 실시간 호가 요청취소
-                self.FUT_HO_FH0.UnadviseRealData()
+                #self.FUT_HO_FH0.UnadviseRealData()
+                self.FUT_HO_FH0.UnadviseRealDataWithKey(code)
 
             elif type == 'OPT_REAL_OC0':
                 # 옵션 실시간 가격 요청취소
@@ -2311,7 +2312,8 @@ if not MULTIPROCESS:
 
             elif type == 'FUT_HO_NH0':
                 # 선물 실시간 호가 요청취소
-                self.FUT_HO_NH0.UnadviseRealData()
+                #self.FUT_HO_NH0.UnadviseRealData()
+                self.FUT_HO_NH0.UnadviseRealDataWithKey(code)
 
             elif type == 'OPT_REAL_EC0':
                 # 옵션 실시간 가격 요청취소
@@ -24163,9 +24165,9 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 if not MULTIPROCESS:
-                    self.parent.realtime_thread_data_worker.CancelRealData(FUT_HO)
+                    self.parent.realtime_thread_data_worker.CancelRealData(FUT_HO, GMSHCODE)
                 else:
-                    Futprocess.CancelRealData(FUT_HO)
+                    Futprocess.CancelRealData(FUT_HO, GMSHCODE)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 호가요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -24500,9 +24502,9 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 if not MULTIPROCESS:
-                    self.parent.realtime_thread_data_worker.CancelRealData(FUT_HO)
+                    self.parent.realtime_thread_data_worker.CancelRealData(FUT_HO, CMSHCODE)
                 else:
-                    Futprocess.CancelRealData(FUT_HO)
+                    Futprocess.CancelRealData(FUT_HO, CMSHCODE)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 선물 호가요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)

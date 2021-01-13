@@ -478,7 +478,8 @@ class FuturesWorker(mp.Process):
 
         elif type == 'FUT_HO_FH0':
             # 선물 실시간 호가 요청취소
-            self.FUT_HO_FH0.UnadviseRealData()
+            #self.FUT_HO_FH0.UnadviseRealData()
+            self.FUT_HO_FH0.UnadviseRealDataWithKey(code)
 
         elif type == 'OPT_REAL_OC0':
             # 옵션 실시간 가격 요청취소
@@ -494,7 +495,8 @@ class FuturesWorker(mp.Process):
 
         elif type == 'FUT_HO_NH0':
             # 선물 실시간 호가 요청취소
-            self.FUT_HO_NH0.UnadviseRealData()
+            #self.FUT_HO_NH0.UnadviseRealData()
+            self.FUT_HO_NH0.UnadviseRealDataWithKey(code)
 
         elif type == 'OPT_REAL_EC0':
             # 옵션 실시간 가격 요청취소
