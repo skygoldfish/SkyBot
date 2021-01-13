@@ -37602,7 +37602,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.거래비밀번호 = None
 
             # AxtiveX 설정
-            self.connection = None
+            self.fut_connection = None
 
             self.XQ_t0167 = t0167(parent=self)
 
@@ -37695,12 +37695,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         dt = datetime.datetime.now()
 
-        if dt.second == 30: # 매 30초 마다(1분 주기)            
+        if dt.second == 30: # 매 30초 마다(1분 주기)
 
             try:
-                if self.connection is not None:
+                if self.fut_connection is not None:
 
-                    if self.connection.IsConnected():
+                    if self.fut_connection.IsConnected():
 
                         if not MULTIPROCESS:
                             msg = "온라인"
@@ -37776,7 +37776,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     print('모든 실시간요청 취소...')
                     self.realtime_thread_data_worker.CancelAllRealData() 
                     print('서버연결 해지...')
-                    self.connection.disconnect()
+                    self.fut_connection.disconnect()
                     print('쓰레드 종료...')
                     self.realtime_thread_data_worker.terminate()
                 else:
@@ -37878,8 +37878,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 print('모의서버에 접속합니다.')        
 
             if len(주식계좌정보) > 0:
-                if self.connection is None:
-                    self.connection = XASession(parent=self)
+                if self.fut_connection is None:
+                    self.fut_connection = XASession(parent=self)
 
                 self.계좌번호 = 주식계좌정보['계좌번호'].values[0].strip()
                 self.id = 주식계좌정보['사용자ID'].values[0].strip()
@@ -37888,7 +37888,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.cert = 주식계좌정보['공인인증비밀번호'].values[0].strip()
                 self.거래비밀번호 = 주식계좌정보['거래비밀번호'].values[0].strip()
                 self.url = 주식계좌정보['url'].values[0].strip()
-                self.connection.login(url=self.url, id=self.id, pwd=self.pwd, cert=self.cert)
+                self.fut_connection.login(url=self.url, id=self.id, pwd=self.pwd, cert=self.cert)
             else:
                 print("secret디렉토리의 passwords.csv 파일에서 거래 계좌를 지정해 주세요")
 
@@ -37959,7 +37959,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         def OnDisconnect(self):
 
             self.statusbar.showMessage("연결이 끊겼습니다.")
-            self.connection.login(url='demo.ebestsec.co.kr', id=self.id, pwd=self.pwd, cert=self.cert)
+            self.fut_connection.login(url='demo.ebestsec.co.kr', id=self.id, pwd=self.pwd, cert=self.cert)
 
         # 조회성 TR메시지 수신 콜백함수
         def OnReceiveMessage(self, ClassName, systemError, messageCode, message):
@@ -38011,10 +38011,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 ovc_x_idx = server_x_idx
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] : 시스템시간 = [{3:02d}:{4:02d}:{5:02d}], 시스템시간 - 서버시간 = {6}초\r'.format\
-                    (SERVER_HOUR, SERVER_MIN, SERVER_SEC, dt.hour, dt.minute, dt.second, 시스템_서버_시간차)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] HeartBeat 수신...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 self.textBrowser.append(txt)
-                #print(txt)
 
                 flag_heartbeat = True                        
             else:
@@ -38054,8 +38052,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # 로그아웃
         if _action == "actionLogout":
-            #self.connection.logout()
-            self.connection.disconnect()
+            #self.fut_connection.logout()
+            self.fut_connection.disconnect()
             self.statusbar.showMessage("접속종료 되었습니다.")             
 
         # 계좌정보 조회
@@ -38072,7 +38070,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         # 종료
         if _action == "actionExit":
-            self.connection.disconnect()
+            self.fut_connection.disconnect()
             self.close() 
         
         # 옵션전광판
