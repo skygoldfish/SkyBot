@@ -21579,7 +21579,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
                         
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] YJ KOSPI200 예상시가 = {3}, 예상등가 = {4}\r'.format(int(result['시간'][0:2]), int(result['시간'][2:4]), int(result['시간'][4:6]), result['예상지수'], atm_txt)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] YJ KOSPI200 예상시가 = {3}, 예상등가 = {4}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, result['예상지수'], atm_txt)
                         self.textBrowser.append(txt)
 
                         if atm_txt in opt_actval:
@@ -21590,7 +21590,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     elif result['업종코드'] == KOSDAQ:
 
                         # YFC로 선물 예상지수 내려옴, 여기로 안옴... --> KOSDAQ 예상지수로 대체
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] YJ KOSDAQ 예상시가 = {3}\r'.format(int(result['시간'][0:2]), int(result['시간'][2:4]), int(result['시간'][4:6]), result['예상지수'])
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] YJ KOSDAQ 예상시가 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, result['예상지수'])
                         self.textBrowser.append(txt)
                     else:
                         pass
@@ -21623,7 +21623,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_fut.setItem(1, Futures_column.시가.value, item)
 
                         txt = '[{0:02d}:{1:02d}:{2:02d}] YFC 선물 예상시가 = {3}\r'.format\
-                            (int(result['예상체결시간'][0:2]), int(result['예상체결시간'][2:4]), int(result['예상체결시간'][4:6]), result['예상체결가격'])
+                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, result['예상체결가격'])
                         self.textBrowser.append(txt)
 
                         시가갭 = 선물_현재가 - self.fut_realdata['종가']
@@ -21752,11 +21752,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_fut.resizeRowsToContents()
                         self.tableWidget_fut.resizeColumnsToContents()                             
                         '''
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 등락율 = {3:.2f}, DOW 등락율 = {4:.2f}\r'.format(\
-                                        int(result['예상체결시간'][0:2]),
-                                        int(result['예상체결시간'][2:4]),
-                                        int(result['예상체결시간'][4:6]),
-                                        선물_등락율, DOW_등락율)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 등락율 = {3:.2f}, DOW 등락율 = {4:.2f}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 선물_등락율, DOW_등락율)
                         self.textBrowser.append(txt)
                         '''                        
                     else:
@@ -22259,11 +22255,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.tableWidget_fut.setItem(2, Futures_column.시가갭.value, item)
 
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] KP200 시작가 {3:.2f}를 수신했습니다.\r'.format(
-                            int(result['시간'][0:2]),
-                            int(result['시간'][2:4]),
-                            int(result['시간'][4:6]),
-                            kp200_시가)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] KP200 시작가 {3:.2f}를 수신했습니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, kp200_시가)
                         self.textBrowser.append(txt)
 
                         if KP200_전저 > 0 and KP200_전고 > 0:
@@ -22336,11 +22328,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         KP200_COREVAL.sort()
 
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] KP200 맥점리스트 = {3}\r'.format(
-                            int(result['시간'][0:2]),
-                            int(result['시간'][2:4]),
-                            int(result['시간'][4:6]),
-                            KP200_COREVAL)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] KP200 맥점리스트 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, KP200_COREVAL)
                         self.textBrowser.append(txt)                         
                     else:
                         pass
@@ -22368,10 +22356,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.kp200_low_node_coloring()
 
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] kp200 저가 {3} Update...\r'.format(
-                            int(result['시간'][0:2]),
-                            int(result['시간'][2:4]),
-                            int(result['시간'][4:6]), self.kp200_realdata['저가'])
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] kp200 저가 {3} Update...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, self.kp200_realdata['저가'])
                         self.textBrowser.append(txt)
                     else:
                         pass
@@ -22399,10 +22384,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.kp200_high_node_coloring()
 
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] kp200 고가 {3} Update...\r'.format(
-                            int(result['시간'][0:2]),
-                            int(result['시간'][2:4]),
-                            int(result['시간'][4:6]), self.kp200_realdata['고가'])
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] kp200 고가 {3} Update...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, self.kp200_realdata['고가'])
                         self.textBrowser.append(txt)
                     else:
                         pass
