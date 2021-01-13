@@ -37464,7 +37464,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
 
-            # 수신된 실시간데이타 정보표시(누락된 패킷수, 누락된 패킷, 수신된 총 패킷수, 수신된 총 패킷크기)                
+            # 수신된 실시간데이타 정보표시(누락된 패킷수, 누락된 패킷, 수신된 총 패킷수, 수신된 총 패킷크기)
+            
+            szTrCode = realdata['szTrCode']
+
+            if szTrCode == 'FH0':
+
+                time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (int(result['호가시간'][0:2]) * 3600 + int(result['호가시간'][2:4]) * 60 + int(result['호가시간'][4:6]))
+                #time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (OVC_HOUR * 3600 + OVC_MIN * 60 + OVC_SEC)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 선물호가 수신시간 = {3:02d}:{4:02d}:{5:02d}, 시간차 = {6}\r'.format(\
+                    dt.hour, dt.minute, dt.second, int(result['호가시간'][0:2]), int(result['호가시간'][2:4]), int(result['호가시간'][4:6]), time_gap)
+                self.textBrowser.append(txt)
+            else:
+                pass               
 
             if MP_NUMBER == 1:
 
