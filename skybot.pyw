@@ -4640,7 +4640,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if MULTIPROCESS:
                 online_state = Futprocess.Check_Online()
             else:
-                online_state = self.parent.connection.IsConnected()
+                online_state = self.parent.fut_connection.IsConnected()
 
             # 인터넷 연결확인
             ipaddress = socket.gethostbyname(socket.gethostname())
@@ -5187,7 +5187,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.textBrowser.append(txt)
                                     print(txt)
                                 else:
-                                    self.parent.connection.disconnect()
+                                    self.parent.fut_connection.disconnect()
                             else:
                                 pass
                         else:
@@ -5282,7 +5282,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.textBrowser.append(txt)
                                     print(txt)
                                 else:
-                                    self.parent.connection.disconnect()                                    
+                                    self.parent.fut_connection.disconnect()                                    
                             else:
                                 pass
                         else:
@@ -37146,17 +37146,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.textBrowser.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 9pt; font: Normal")
             self.textBrowser.append('Welcome to SkyBot\r')
-            
-            self.fut_dataQ = args[0]
-            print('args0 =', args[0])
 
-            if MP_NUMBER == 3:
+            if len(args) == 1:
+                self.fut_dataQ = args[0]
+            elif len(args) == 3:
+                self.fut_dataQ = args[0]
                 self.call_dataQ = args[1]
-                print('args1 =', args[1])
                 self.put_dataQ = args[2]
-                print('args2 =', args[2])
             else:
-                pass
+                print('지원하지 않는 인자갯수 입니다...')
 
             self.fut_login = False
             self.call_login = False
