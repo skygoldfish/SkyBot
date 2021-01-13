@@ -22614,9 +22614,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 elif result['업종코드'] == FUTURES and result['투자자코드'] == RETAIL or result['업종코드'] == CME and result['투자자코드'] == RETAIL:
 
                     FUT_RETAIL_거래대금순매수 = int(result['거래대금순매수'])
-                    FUT_RETAIL_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
 
-                    FUT_RETAIL_직전대비.extend([int(result['거래대금순매수직전대비'])])
+                    if result['거래대금순매수직전대비'] != '-':
+                        FUT_RETAIL_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                    else:
+                        pass
+
+                    FUT_RETAIL_직전대비.extend([FUT_RETAIL_거래대금순매수_직전대비])
                     temp = list(FUT_RETAIL_직전대비)
 
                     순매수 = format(FUT_RETAIL_거래대금순매수, ',')
@@ -22656,7 +22660,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 elif result['업종코드'] == FUTURES and result['투자자코드'] == INSTITUTIONAL or result['업종코드'] == CME and result['투자자코드'] == INSTITUTIONAL:
 
                     FUT_INSTITUTIONAL_거래대금순매수 = int(result['거래대금순매수'])
-                    FUT_INSTITUTIONAL_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+
+                    if result['거래대금순매수직전대비'] != '-':
+                        FUT_INSTITUTIONAL_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                    else:
+                        pass
 
                     기관_거래대금순매수 = FUT_INSTITUTIONAL_거래대금순매수 + FUT_STOCK_거래대금순매수 + FUT_BOHEOM_거래대금순매수 + \
                                  FUT_TOOSIN_거래대금순매수 + FUT_BANK_거래대금순매수 + FUT_JONGGEUM_거래대금순매수 + \
@@ -22712,44 +22720,76 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 elif result['업종코드'] == FUTURES and result['투자자코드'] == STOCK or result['업종코드'] == CME and result['투자자코드'] == STOCK:
 
                     FUT_STOCK_거래대금순매수 = int(result['거래대금순매수'])
-                    FUT_STOCK_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+
+                    if result['거래대금순매수직전대비'] != '-':
+                        FUT_STOCK_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                    else:
+                        pass
 
                 elif result['업종코드'] == FUTURES and result['투자자코드'] == BOHEOM or result['업종코드'] == CME and result['투자자코드'] == BOHEOM:
 
                     FUT_BOHEOM_거래대금순매수 = int(result['거래대금순매수'])
-                    FUT_BOHEOM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+
+                    if result['거래대금순매수직전대비'] != '-':
+                        FUT_BOHEOM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                    else:
+                        pass
 
                 elif result['업종코드'] == FUTURES and result['투자자코드'] == TOOSIN or result['업종코드'] == CME and result['투자자코드'] == TOOSIN:
 
                     FUT_TOOSIN_거래대금순매수 = int(result['거래대금순매수'])
-                    FUT_TOOSIN_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+
+                    if result['거래대금순매수직전대비'] != '-':
+                        FUT_TOOSIN_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                    else:
+                        pass
 
                 elif result['업종코드'] == FUTURES and result['투자자코드'] == BANK or result['업종코드'] == CME and result['투자자코드'] == BANK:
 
                     FUT_BANK_거래대금순매수 = int(result['거래대금순매수'])
-                    FUT_BANK_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+
+                    if result['거래대금순매수직전대비'] != '-':
+                        FUT_BANK_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                    else:
+                        pass
 
                 elif result['업종코드'] == FUTURES and result['투자자코드'] == JONGGEUM or result['업종코드'] == CME and result['투자자코드'] == JONGGEUM:
 
                     FUT_JONGGEUM_거래대금순매수 = int(result['거래대금순매수'])
-                    FUT_JONGGEUM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+
+                    if result['거래대금순매수직전대비'] != '-':
+                        FUT_JONGGEUM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                    else:
+                        pass
 
                 elif result['업종코드'] == FUTURES and result['투자자코드'] == GIGEUM or result['업종코드'] == CME and result['투자자코드'] == GIGEUM:
 
                     FUT_GIGEUM_거래대금순매수 = int(result['거래대금순매수'])
-                    FUT_GIGEUM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+
+                    if result['거래대금순매수직전대비'] != '-':
+                        FUT_GIGEUM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                    else:
+                        pass
 
                 elif result['업종코드'] == FUTURES and result['투자자코드'] == GITA or result['업종코드'] == CME and result['투자자코드'] == GITA:
 
                     FUT_GITA_거래대금순매수 = int(result['거래대금순매수'])
-                    FUT_GITA_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+
+                    if result['거래대금순매수직전대비'] != '-':
+                        FUT_GITA_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                    else:
+                        pass
 
                 elif result['업종코드'] == KOSPI and result['투자자코드'] == FOREIGNER:
 
                     KOSPI_FOREIGNER_거래대금순매수 = int(result['거래대금순매수'])
-                    KOSPI_FOREIGNER_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
 
-                    KOSPI_FOREIGNER_직전대비.extend([int(result['거래대금순매수직전대비'])])
+                    if result['거래대금순매수직전대비'] != '-':
+                        KOSPI_FOREIGNER_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                    else:
+                        pass
+
+                    KOSPI_FOREIGNER_직전대비.extend([KOSPI_FOREIGNER_거래대금순매수_직전대비])
                     temp = list(KOSPI_FOREIGNER_직전대비)
 
                     순매수 = format(KOSPI_FOREIGNER_거래대금순매수, ',')
@@ -22795,27 +22835,47 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 elif result['업종코드'] == KOSPI and result['투자자코드'] == RETAIL:
 
                     KOSPI_RETAIL_거래대금순매수 = int(result['거래대금순매수'])
-                    KOSPI_RETAIL_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+
+                    if result['거래대금순매수직전대비'] != '-':
+                        KOSPI_RETAIL_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                    else:
+                        pass
 
                 elif result['업종코드'] == KOSPI and result['투자자코드'] == INSTITUTIONAL:
 
                     KOSPI_INSTITUTIONAL_거래대금순매수 = int(result['거래대금순매수'])
-                    KOSPI_INSTITUTIONAL_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+
+                    if result['거래대금순매수직전대비'] != '-':
+                        KOSPI_INSTITUTIONAL_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                    else:
+                        pass
 
                 elif result['업종코드'] == KOSPI and result['투자자코드'] == STOCK:
 
                     KOSPI_STOCK_거래대금순매수 = int(result['거래대금순매수'])
-                    KOSPI_STOCK_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+
+                    if result['거래대금순매수직전대비'] != '-':
+                        KOSPI_STOCK_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                    else:
+                        pass
 
                 elif result['업종코드'] == KOSPI and result['투자자코드'] == BOHEOM:
 
                     KOSPI_BOHEOM_거래대금순매수 = int(result['거래대금순매수'])
-                    KOSPI_BOHEOM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+
+                    if result['거래대금순매수직전대비'] != '-':
+                        KOSPI_BOHEOM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                    else:
+                        pass
 
                 elif result['업종코드'] == KOSPI and result['투자자코드'] == TOOSIN:
 
                     KOSPI_TOOSIN_거래대금순매수 = int(result['거래대금순매수'])
-                    KOSPI_TOOSIN_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+
+                    if result['거래대금순매수직전대비'] != '-':
+                        KOSPI_TOOSIN_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                    else:
+                        pass
 
                 elif result['업종코드'] == KOSPI and result['투자자코드'] == BANK:
 
@@ -22838,12 +22898,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 elif result['업종코드'] == KOSPI and result['투자자코드'] == GIGEUM:
 
                     KOSPI_GIGEUM_거래대금순매수 = int(result['거래대금순매수'])
-                    KOSPI_GIGEUM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+
+                    if result['거래대금순매수직전대비'] != '-':
+                        KOSPI_GIGEUM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                    else:
+                        pass
 
                 elif result['업종코드'] == KOSPI and result['투자자코드'] == GITA:
 
                     KOSPI_GITA_거래대금순매수 = int(result['거래대금순매수'])
-                    KOSPI_GITA_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+
+                    if result['거래대금순매수직전대비'] != '-':
+                        KOSPI_GITA_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                    else:
+                        pass
                 else:
                     pass
 

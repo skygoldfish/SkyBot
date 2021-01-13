@@ -1165,6 +1165,9 @@ class FH0(XAReal):
         self.ActiveX.SetFieldData(self.INBLOCK, "futcode", 단축코드)
         self.ActiveX.AdviseRealData()
 
+    def UnadviseRealDataWithKey(self, 단축코드):
+        self.ActiveX.UnadviseRealDataWithKey(단축코드)
+
     def UnadviseRealData(self):
         self.ActiveX.UnadviseRealData()
 
