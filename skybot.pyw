@@ -37275,7 +37275,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             # 수신된 실시간데이타 정보표시(누락된 패킷수, 누락된 패킷, 수신된 총 패킷수, 수신된 총 패킷크기)
             dropcount, dropcode, totalcount, totalsize = self.realtime_thread_data_worker.get_packet_info()
-            drop_txt = '{0}({1})/{2}({3}k)'.format(format(dropcount, ','), dropcode, format(totalcount, ','), format(int(totalsize/1000), ','))
+            drop_txt = '{0}/{2}({3}k)'.format(format(dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','))
 
             item = QTableWidgetItem(drop_txt)
             item.setTextAlignment(Qt.AlignCenter)
