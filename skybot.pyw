@@ -2130,13 +2130,9 @@ class TelegramListenWorker(QThread):
 ########################################################################################################################
 # 실시간 데이타수신을 위한 쓰레드 클래스
 ########################################################################################################################
-if not MULTIPROCESS:
-
-    class RealTime_Thread_DataWorker(QThread):
-
-        trigger = pyqtSignal(dict)
-
-        def __init__(self, dataQ):
+class RealTime_Thread_DataWorker(QThread):
+    trigger = pyqtSignal(dict)
+    def __init__(self, dataQ):
             super().__init__()
 
             self.daemon = True
@@ -2179,12 +2175,11 @@ if not MULTIPROCESS:
             self.MK2 = MK2(parent=self)
 
             self.NWS = NWS(parent=self)
-            
-        def get_packet_info(self):
+        
+    def get_packet_info(self):
 
             return self.drop_count, self.drop_code, self.total_count, self.total_packet_size
-
-        def RequestRealData(self, type, code='0'):
+    def RequestRealData(self, type, code='0'):
 
             if type == 'JIF':
                 # 장운영 정보 요청
@@ -2263,8 +2258,7 @@ if not MULTIPROCESS:
                 self.NWS.AdviseRealData()
             else:
                 pass
-
-        def CancelRealData(self, type, code='0'):
+    def CancelRealData(self, type, code='0'):
 
             if type == 'JIF':
                 # 장운영 정보 요청취소
@@ -2346,8 +2340,7 @@ if not MULTIPROCESS:
                 self.NWS.UnadviseRealData()
             else:
                 pass
-
-        def CancelAllRealData(self):
+    def CancelAllRealData(self):
 
             self.JIF.UnadviseRealData()
 
@@ -2374,13 +2367,11 @@ if not MULTIPROCESS:
 
             self.OVC.UnadviseRealData()
             self.NWS.UnadviseRealData()
-
-        # 실시간 수신 콜백함수
-        def OnReceiveRealData(self, result):
+    # 실시간 수신 콜백함수
+    def OnReceiveRealData(self, result):
 
             self.dataQ.put(result, False)
-
-        def run(self):
+    def run(self):
 
             global flag_fut_produce_queue_empty
 
@@ -2416,17 +2407,15 @@ if not MULTIPROCESS:
                 else:
                     flag_fut_produce_queue_empty = True
                     #print('dataQ is empty...')
-else:
-    ###########################################################
-    # 실시간 데이타수신을 위한 멀티프로세스 쓰레드 클래스
-    ###########################################################
-    class RealTime_Fut_Thread_DataWorker(QThread):
 
-        # 수신데이타 타입이 list이면 TR데이타, dict이면 실시간데이타.        
-        trigger_list = pyqtSignal(list)
-        trigger_dict = pyqtSignal(dict)
-
-        def __init__(self, dataQ):
+###########################################################
+# 실시간 데이타수신을 위한 멀티프로세스 쓰레드 클래스
+###########################################################
+class RealTime_Fut_Thread_DataWorker(QThread):
+    # 수신데이타 타입이 list이면 TR데이타, dict이면 실시간데이타.        
+    trigger_list = pyqtSignal(list)
+    trigger_dict = pyqtSignal(dict)
+    def __init__(self, dataQ):
             super().__init__()
 
             self.daemon = True
@@ -2440,12 +2429,10 @@ else:
             self.drop_code = ''
             # 수신된 총 패킷크기
             self.total_packet_size = 0
-
-        def get_packet_info(self):
+    def get_packet_info(self):
 
             return self.drop_count, self.drop_code, self.total_count, self.total_packet_size
-
-        def run(self):
+    def run(self):
 
             global flag_fut_produce_queue_empty, flag_mp_interval_changed
 
@@ -2482,7 +2469,7 @@ else:
                 else:
                     flag_fut_produce_queue_empty = True
 
-    class RealTime_Call_Thread_DataWorker(QThread):
+class RealTime_Call_Thread_DataWorker(QThread):
 
         # 수신데이타 타입이 list이면 TR데이타, dict이면 실시간데이타.        
         trigger_list = pyqtSignal(list)
@@ -2543,8 +2530,7 @@ else:
                     QTest.qWait(mp_send_interval)
                 else:
                     flag_call_produce_queue_empty = True
-
-    class RealTime_Put_Thread_DataWorker(QThread):
+class RealTime_Put_Thread_DataWorker(QThread):
 
         # 수신데이타 타입이 list이면 TR데이타, dict이면 실시간데이타.        
         trigger_list = pyqtSignal(list)
@@ -37129,33 +37115,36 @@ else:
 ########################################################################################################################
 class MainWindow(QMainWindow, Ui_MainWindow):
 
-    if MULTIPROCESS:
+    def __init__(self, *args):
+        super(MainWindow, self).__init__()            
 
-        def __init__(self, *args):
-            super(MainWindow, self).__init__()            
+        QMainWindow.__init__(self)
+        Ui_MainWindow.__init__(self)
 
-            QMainWindow.__init__(self)
-            Ui_MainWindow.__init__(self)
+        #self.setWindowFlags(Qt.WindowStaysOnTopHint)
+        self.setAttribute(Qt.WA_DeleteOnClose)
 
-            #self.setWindowFlags(Qt.WindowStaysOnTopHint)
-            self.setAttribute(Qt.WA_DeleteOnClose)
+        self.setupUi(self)
 
-            self.setupUi(self)
+        self.setWindowTitle("SkyBot ver1.0")
 
-            self.setWindowTitle("SkyBot ver1.0")
+        self.textBrowser.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 9pt; font: Normal")
+        self.textBrowser.append('Welcome to SkyBot\r')
 
-            self.textBrowser.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 9pt; font: Normal")
-            self.textBrowser.append('Welcome to SkyBot\r')
+        if len(args) == 0:
+            self.mp_mode = False
+        elif len(args) == 1:
+            self.mp_mode = True
+            self.fut_dataQ = args[0]
+        elif len(args) == 3:
+            self.mp_mode = True
+            self.fut_dataQ = args[0]
+            self.call_dataQ = args[1]
+            self.put_dataQ = args[2]
+        else:
+            print('지원하지 않는 인자갯수 입니다...')
 
-            if len(args) == 1:
-                self.fut_dataQ = args[0]
-            elif len(args) == 3:
-                self.fut_dataQ = args[0]
-                self.call_dataQ = args[1]
-                self.put_dataQ = args[2]
-            else:
-                print('지원하지 않는 인자갯수 입니다...')
-
+        if self.mp_mode:
             self.fut_login = False
             self.call_login = False
             self.put_login = False
@@ -37163,42 +37152,49 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.fut_event_loop = QEventLoop()
             self.call_event_loop = QEventLoop()
             self.put_event_loop = QEventLoop()
+        else:
+            pass
+        
+        self.시작시각 = datetime.datetime.now()
+
+        txt = '시작시간 = {0}\r'.format(self.시작시각)
+        self.textBrowser.append(txt)
+
+        global all_screens, 스크린번호, screen_info
+
+        all_screens = QApplication.screens()
+
+        txt = '총 {0}개의 모니터가 사용가능합니다.\r'.format(len(all_screens))
+        self.textBrowser.append(txt)
+
+        for index, s in enumerate(all_screens):
             
-            self.시작시각 = datetime.datetime.now()
-
-            txt = '시작시간 = {0}\r'.format(self.시작시각)
+            txt = '<스크린 {0}번, 화면해상도 = {1}x{2}>\r'.format(index, s.size().width(), s.size().height())
             self.textBrowser.append(txt)
 
-            global all_screens, 스크린번호, screen_info
+        # 현재 커서가 위치한 화면정보
+        스크린번호 = QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
 
-            all_screens = QApplication.screens()
+        self.centerPoint = QApplication.desktop().screenGeometry(스크린번호).center()
+        screen_info = QDesktopWidget().screenGeometry(스크린번호)
 
-            txt = '총 {0}개의 모니터가 사용가능합니다.\r'.format(len(all_screens))
-            self.textBrowser.append(txt)
-
-            for index, s in enumerate(all_screens):
-                
-                txt = '<스크린 {0}번, 화면해상도 = {1}x{2}>\r'.format(index, s.size().width(), s.size().height())
-                self.textBrowser.append(txt)
-
-            # 현재 커서가 위치한 화면정보
-            스크린번호 = QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
-
-            self.centerPoint = QApplication.desktop().screenGeometry(스크린번호).center()
-            screen_info = QDesktopWidget().screenGeometry(스크린번호)
-
-            txt = '현재스크린 = {0}번, 화면해상도 = {1}x{2}, 중심좌표 X = {3}, Y = {4}\r'.format(스크린번호, screen_info.width(), screen_info.height(), self.centerPoint.x(), self.centerPoint.y())
-            self.textBrowser.append(txt)
+        txt = '현재스크린 = {0}번, 화면해상도 = {1}x{2}, 중심좌표 X = {3}, Y = {4}\r'.format(스크린번호, screen_info.width(), screen_info.height(), self.centerPoint.x(), self.centerPoint.y())
+        self.textBrowser.append(txt)
  
-            # 복수개의 Dialog 객체 처리용 변수선언
-            self.dialog = dict()
+        # 복수개의 Dialog 객체 처리용 변수선언
+        self.dialog = dict()
 
-            self.dialog['선물옵션전광판'] = None
-            self.dialog['BigChart'] = None
-            self.dialog['RealTimeItem'] = None
-            self.dialog['Version'] = None
+        self.dialog['선물옵션전광판'] = None
+        self.dialog['BigChart'] = None
+        self.dialog['RealTimeItem'] = None
+        self.dialog['Version'] = None
 
-            # AxtiveX 설정
+        self.id = ''
+        self.계좌번호 = None
+        self.거래비밀번호 = None
+
+        # AxtiveX 설정
+        if self.mp_mode:
             if MP_NUMBER == 1:
                 self.fut_connection = None
             elif MP_NUMBER == 3:
@@ -37231,357 +37227,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.realtime_put_data_worker.trigger_dict.connect(self.transfer_put_realdata)            
                 self.realtime_put_data_worker.start()
             else:
-                pass            
-            
-            # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
-            atexit.register(self.__del__)
-
-        @pyqtSlot(list)
-        def transfer_fut_trdata(self, trdata):
-
-            dt = datetime.datetime.now()
-
-            if trdata[0] == '0000':
-
-                self.fut_connection = Futprocess.connection
-
-                if self.fut_connection.IsConnected():
-
-                    txt = '선물 백그라운드 로그인 성공 !!!\r'
-                    self.textBrowser.append(txt)
-
-                    self.fut_login = True
-                    self.fut_event_loop.exit()
-                else:
-                    pass
-
-                self.statusbar.showMessage(trdata[1])
-                #playsound( "Resources/ring.wav" )
-                Speak('선물 프로세스 로그인 성공')
-                
-                # 버티칼 스크롤바를 항상 bottom으로...
-                self.textBrowser.verticalScrollBar().setValue(self.textBrowser.verticalScrollBar().maximum())
-                
-                if AUTO_START and MP_NUMBER == 1:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-
-                    self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
-                    self.dialog['선물옵션전광판'].show()
-
-                    self.dialog['선물옵션전광판'].RunCode()
-                else:
-                    pass
-                
-            elif trdata[0] == 't0167':
-
-                global 서버시간, 시스템_서버_시간차, flag_heartbeat
-                global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, ovc_x_idx, 시스템시간_분, 서버시간_분
-                
-                server_time = trdata[2]
-
-                txt = '[{0:02d}:{1:02d}:{2:02d}] HeartBeat 수신...\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(txt)
-
-                systemtime = dt.hour * 3600 + dt.minute * 60 + dt.second
-
-                시스템시간_분 = dt.hour * 3600 + dt.minute * 60
-
-                SERVER_HOUR = int(server_time[0:2])
-                SERVER_MIN = int(server_time[2:4])
-                SERVER_SEC = int(server_time[4:6])
-
-                서버시간 = SERVER_HOUR * 3600 + SERVER_MIN * 60 + SERVER_SEC
-                서버시간_분 = SERVER_HOUR * 3600 + SERVER_MIN * 60
-
-                시스템_서버_시간차 = systemtime - 서버시간
-
-                # X축 시간좌표 계산
-                if NightTime:
-
-                    night_time = SERVER_HOUR
-
-                    if 0 <= night_time <= 6:
-                        night_time = night_time + 24
-                    else:
-                        pass
-
-                    server_x_idx = (night_time - NightTime_PreStart_Hour) * 60 + SERVER_MIN + 1             
-                else:
-                    server_x_idx = (SERVER_HOUR - DayTime_PreStart_Hour) * 60 + SERVER_MIN + 1
-
-                ovc_x_idx = server_x_idx
-
-                flag_heartbeat = True
-
-                if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
-
-                    item = QTableWidgetItem("{0}".format('HB.'))
-                    item.setTextAlignment(Qt.AlignCenter)
-
-                    item.setBackground(QBrush(검정색))
-                    item.setForeground(QBrush(노란색))         
-
-                    self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
-                else:
-                    pass
-            else:
-                txt = '로그인 실패({0})!  로그인을 다시 시도합니다...'.format(trdata[0])
-                self.statusbar.showMessage(txt)
-
-                QTest.qWait(1000)
-                Futprocess.login()
-
-            # 데이타를 전광판 다이얼로그로 전달(조회성 TR은 포어그라운드에서 처리가능, 이유?)
-            '''
-            if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
-                self.dialog['선물옵션전광판'].OnReceiveData(trdata)
-            else:
-                pass
-            '''
-
-        @pyqtSlot(dict)
-        def transfer_fut_realdata(self, realdata):
-
-            dt = datetime.datetime.now()
-
-            global drop_txt 
-
-            # 데이타를 전광판 다이얼로그로 전달
-            if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:                
-
-                item = QTableWidgetItem("{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time))
-                item.setTextAlignment(Qt.AlignCenter)
-
-                if flag_fut_produce_queue_empty:
-                    item.setBackground(QBrush(옅은회색))
-                else:
-                    item.setBackground(QBrush(검정색))
-                
-                item.setForeground(QBrush(적색))                                    
-
-                self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
-
-                # 수신된 실시간데이타 정보표시(누락된 패킷수, 누락된 패킷, 수신된 총 패킷수, 수신된 총 패킷크기)                
-
-                if MP_NUMBER == 1:
-
-                    fut_dropcount, fut_dropcode, fut_totalcount, fut_totalsize = self.realtime_fut_data_worker.get_packet_info()
-
-                    drop_txt = '{0}/{1}({2}k)'.format(format(fut_dropcount, ','), format(fut_totalcount, ','), format(int(fut_totalsize/1000), ','))
-
-                elif MP_NUMBER == 3:
-
-                    fut_dropcount, fut_dropcode, fut_totalcount, fut_totalsize = self.realtime_fut_data_worker.get_packet_info()
-                    call_dropcount, call_dropcode, call_totalcount, call_totalsize = self.realtime_call_data_worker.get_packet_info()
-                    put_dropcount, put_dropcode, put_totalcount, put_totalsize = self.realtime_put_data_worker.get_packet_info()
-
-                    total_dropcount = fut_dropcount + call_dropcount + put_dropcount
-                    totalcount = fut_totalcount + call_totalcount + put_totalcount
-                    totalsize = fut_totalsize + call_totalsize + put_totalsize
-
-                    drop_txt = '{0}/{1}({2}k)'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','))
-                else:
-                    pass
-
-                item = QTableWidgetItem(drop_txt)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.dialog['선물옵션전광판'].tableWidget_supply.setHorizontalHeaderItem(Supply_column.종합.value - 1, item)
-
-                self.dialog['선물옵션전광판'].UpdateRealdata(realdata)
-            else:            
-                szTrCode = realdata['szTrCode']
-
-                if szTrCode == 'NWS':
-
-                    txt = '[{0}] {1}\r'.format(realdata['시간'], realdata['제목'])
-                    self.textBrowser.append(txt)
-                else:
-                    pass
-
-        @pyqtSlot(list)
-        def transfer_call_trdata(self, trdata):
-
-            if trdata[0] == '0000':
-
-                self.call_connection = Callprocess.connection
-
-                if self.call_connection.IsConnected():
-
-                    txt = '콜 백그라운드 로그인 성공 !!!\r'
-                    self.textBrowser.append(txt)
-
-                    self.call_login = True
-                    self.call_event_loop.exit()
-                else:
-                    pass
-
-                self.statusbar.showMessage(trdata[1])
-                Speak('콜 프로세스 로그인 성공')
-            else:
-                txt = '콜 로그인 실패({0})!  로그인을 다시 시도합니다...'.format(trdata[0])
-                self.statusbar.showMessage(txt)
-
-                QTest.qWait(1000)
-                Callprocess.login()
-
-        @pyqtSlot(dict)
-        def transfer_call_realdata(self, realdata):
-
-            dt = datetime.datetime.now()
-
-            # 데이타를 전광판 다이얼로그로 전달
-            if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
-                
-                item = QTableWidgetItem("{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time))
-                item.setTextAlignment(Qt.AlignCenter)
-
-                if flag_call_produce_queue_empty:
-                    item.setBackground(QBrush(옅은회색))
-                else:
-                    item.setBackground(QBrush(검정색))
-                
-                item.setForeground(QBrush(녹색))                
-
-                self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)                
-                
-                self.dialog['선물옵션전광판'].UpdateCallRealdata(realdata)
-            else:
-                pass
-
-        @pyqtSlot(list)
-        def transfer_put_trdata(self, trdata):
-            
-            if trdata[0] == '0000':
-
-                self.put_connection = Putprocess.connection
-
-                if self.put_connection.IsConnected():
-
-                    txt = '풋 백그라운드 로그인 성공 !!!\r'
-                    self.textBrowser.append(txt)
-
-                    self.put_login = True
-                    self.put_event_loop.exit()
-                else:
-                    pass
-
-                self.statusbar.showMessage(trdata[1])
-                Speak('풋 프로세스 로그인 성공')
-
-                if AUTO_START and self.fut_login and self.call_login and self.put_login:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-
-                    self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
-                    self.dialog['선물옵션전광판'].show()
-
-                    self.dialog['선물옵션전광판'].RunCode()
-                else:
-                    pass
-            else:
-                txt = '풋 로그인 실패({0})!  로그인을 다시 시도합니다...'.format(trdata[0])
-                self.statusbar.showMessage(txt)
-
-                QTest.qWait(1000)
-                Putprocess.login()
-
-        @pyqtSlot(dict)
-        def transfer_put_realdata(self, realdata):
-
-            dt = datetime.datetime.now()
-
-            # 데이타를 전광판 다이얼로그로 전달
-            if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
-                
-                item = QTableWidgetItem("{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time))
-                item.setTextAlignment(Qt.AlignCenter)
-
-                if flag_put_produce_queue_empty:
-                    item.setBackground(QBrush(옅은회색))
-                else:
-                    item.setBackground(QBrush(검정색))
-                
-                item.setForeground(QBrush(녹색))                
-
-                self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)                
-                
-                self.dialog['선물옵션전광판'].UpdatePutRealdata(realdata)
-            else:
-                pass
-
-    else:     
-        def __init__(self):
-            super(MainWindow, self).__init__()            
-
-            QMainWindow.__init__(self)
-            Ui_MainWindow.__init__(self)
-
-            #self.setWindowFlags(Qt.WindowStaysOnTopHint)
-            self.setAttribute(Qt.WA_DeleteOnClose)
-
-            self.setupUi(self)
-
-            self.setWindowTitle("SkyBot ver1.0")
-
-            self.textBrowser.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 9pt; font: Normal")
-            self.textBrowser.append('Welcome to SkyBot\r')
-            '''
-            if TARGET_MONTH_SELECT == 'CM':
-                currentMouseX, currentMouseY = pyautogui.position()
-                self.move(currentMouseX, currentMouseY)
-                self.showNormal()
-            else:
-                pass
-            '''
-            self.시작시각 = datetime.datetime.now()
-
-            txt = '시작시간 = {0}\r'.format(self.시작시각)
-            self.textBrowser.append(txt)
-
-            global all_screens, 스크린번호, screen_info
-
-            all_screens = QApplication.screens()
-
-            txt = '총 {0}개의 모니터가 사용가능합니다.\r'.format(len(all_screens))
-            self.textBrowser.append(txt)
-
-            for index, s in enumerate(all_screens):
-                '''
-                print()
-                print(s.name())
-                print(s.availableGeometry())
-                print(s.availableGeometry().width())
-                print(s.availableGeometry().height())
-                print(s.size())
-                print(s.size().width())
-                print(s.size().height())
-                '''
-                txt = '<스크린 {0}번, 화면해상도 = {1}x{2}>\r'.format(index, s.size().width(), s.size().height())
-                self.textBrowser.append(txt)
-
-            # 현재 커서가 위치한 화면정보
-            스크린번호 = QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
-
-            self.centerPoint = QApplication.desktop().screenGeometry(스크린번호).center()
-            screen_info = QDesktopWidget().screenGeometry(스크린번호)
-
-            txt = '현재스크린 = {0}번, 화면해상도 = {1}x{2}, 중심좌표 X = {3}, Y = {4}\r'.format(스크린번호, screen_info.width(), screen_info.height(), self.centerPoint.x(), self.centerPoint.y())
-            self.textBrowser.append(txt)
- 
-            # 복수개의 Dialog 처리용 선언
-            self.dialog = dict()
-
-            self.dialog['선물옵션전광판'] = None
-            self.dialog['BigChart'] = None
-            self.dialog['RealTimeItem'] = None
-            self.dialog['Version'] = None
-
-            self.id = ''
-            self.계좌번호 = None
-            self.거래비밀번호 = None
-
-            # AxtiveX 설정
+                pass   
+        else:
             self.fut_connection = None
 
             self.XQ_t0167 = t0167(parent=self)
@@ -37593,50 +37240,504 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.realtime_thread_data_worker = RealTime_Thread_DataWorker(self.dataQ)
             self.realtime_thread_data_worker.trigger.connect(self.transfer_thread_realdata)
             self.realtime_thread_data_worker.start()
+        
+        # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
+        atexit.register(self.__del__)
+            
+    @pyqtSlot(dict)
+    def transfer_thread_realdata(self, realdata):
 
-            # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
-            atexit.register(self.__del__)
+        global drop_txt
 
-        @pyqtSlot(dict)
-        def transfer_thread_realdata(self, realdata):
+        # 데이타를 전광판 다이얼로그로 전달
+        if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
 
-            global drop_txt
+            item = QTableWidgetItem("{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time))
+            item.setTextAlignment(Qt.AlignCenter)
 
-            # 데이타를 전광판 다이얼로그로 전달
-            if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
+            if realdata['szTrCode'] == 'OC0' or realdata['szTrCode'] == 'EC0' or realdata['szTrCode'] == 'OH0' or realdata['szTrCode'] == 'EH0':
 
-                if realdata['szTrCode'] == 'OC0' or realdata['szTrCode'] == 'EC0':
-
-                    item = QTableWidgetItem("{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(검정색))
-                    item.setForeground(QBrush(적색))
+                if flag_fut_produce_queue_empty:
+                    item.setBackground(QBrush(흰색))
                 else:
-                    item = QTableWidgetItem("{0}".format(realdata['szTrCode']))
-                    item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(검정색))
-                    item.setForeground(QBrush(녹색))                
+                
+                item.setForeground(QBrush(적색))
+            else:
+                if flag_fut_produce_queue_empty:
+                    item.setBackground(QBrush(흰색))
+                else:
+                    item.setBackground(QBrush(검정색))
 
-                self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
+                item.setForeground(QBrush(청색))                
 
-                # 수신된 실시간데이타 정보표시(누락된 패킷수, 누락된 패킷, 수신된 총 패킷수, 수신된 총 패킷크기)
-                dropcount, dropcode, totalcount, totalsize = self.realtime_thread_data_worker.get_packet_info()
-                drop_txt = '{0}({1})/{2}({3}k)'.format(format(dropcount, ','), dropcode, format(totalcount, ','), format(int(totalsize/1000), ','))
+            self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
 
-                item = QTableWidgetItem(drop_txt)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.dialog['선물옵션전광판'].tableWidget_supply.setHorizontalHeaderItem(Supply_column.종합.value - 1, item)
+            # 수신된 실시간데이타 정보표시(누락된 패킷수, 누락된 패킷, 수신된 총 패킷수, 수신된 총 패킷크기)
+            dropcount, dropcode, totalcount, totalsize = self.realtime_thread_data_worker.get_packet_info()
+            drop_txt = '{0}({1})/{2}({3}k)'.format(format(dropcount, ','), dropcode, format(totalcount, ','), format(int(totalsize/1000), ','))
 
-                self.dialog['선물옵션전광판'].UpdateRealdata(realdata)
+            item = QTableWidgetItem(drop_txt)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.dialog['선물옵션전광판'].tableWidget_supply.setHorizontalHeaderItem(Supply_column.종합.value - 1, item)
+
+            self.dialog['선물옵션전광판'].UpdateRealdata(realdata)
+        else:
+            pass
+
+    @pyqtSlot(list)
+    def transfer_fut_trdata(self, trdata):
+
+        dt = datetime.datetime.now()
+
+        if trdata[0] == '0000':
+
+            self.fut_connection = Futprocess.connection
+
+            if self.fut_connection.IsConnected():
+
+                txt = '선물 백그라운드 로그인 성공 !!!\r'
+                self.textBrowser.append(txt)
+
+                self.fut_login = True
+                self.fut_event_loop.exit()
             else:
                 pass
+
+            self.statusbar.showMessage(trdata[1])
+            #playsound( "Resources/ring.wav" )
+            Speak('선물 프로세스 로그인 성공')
+
+            # 버티칼 스크롤바를 항상 bottom으로...
+            self.textBrowser.verticalScrollBar().setValue(self.textBrowser.verticalScrollBar().maximum())
+
+            if AUTO_START and MP_NUMBER == 1:
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
+
+                self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
+                self.dialog['선물옵션전광판'].show()
+
+                self.dialog['선물옵션전광판'].RunCode()
+            else:
+                pass
+            
+        elif trdata[0] == 't0167':
+
+            global 서버시간, 시스템_서버_시간차, flag_heartbeat
+            global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, ovc_x_idx, 시스템시간_분, 서버시간_분
+
+            server_time = trdata[2]
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] HeartBeat 수신...\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+
+            systemtime = dt.hour * 3600 + dt.minute * 60 + dt.second
+
+            시스템시간_분 = dt.hour * 3600 + dt.minute * 60
+
+            SERVER_HOUR = int(server_time[0:2])
+            SERVER_MIN = int(server_time[2:4])
+            SERVER_SEC = int(server_time[4:6])
+
+            서버시간 = SERVER_HOUR * 3600 + SERVER_MIN * 60 + SERVER_SEC
+            서버시간_분 = SERVER_HOUR * 3600 + SERVER_MIN * 60
+
+            시스템_서버_시간차 = systemtime - 서버시간
+
+            # X축 시간좌표 계산
+            if NightTime:
+
+                night_time = SERVER_HOUR
+
+                if 0 <= night_time <= 6:
+                    night_time = night_time + 24
+                else:
+                    pass
+
+                server_x_idx = (night_time - NightTime_PreStart_Hour) * 60 + SERVER_MIN + 1             
+            else:
+                server_x_idx = (SERVER_HOUR - DayTime_PreStart_Hour) * 60 + SERVER_MIN + 1
+
+            ovc_x_idx = server_x_idx
+
+            flag_heartbeat = True
+
+            if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
+
+                item = QTableWidgetItem("{0}".format('HB.'))
+                item.setTextAlignment(Qt.AlignCenter)
+
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(노란색))         
+
+                self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
+            else:
+                pass
+        else:
+            txt = '로그인 실패({0})!  로그인을 다시 시도합니다...'.format(trdata[0])
+            self.statusbar.showMessage(txt)
+
+            QTest.qWait(1000)
+            Futprocess.login()
+
+        # 데이타를 전광판 다이얼로그로 전달(조회성 TR은 포어그라운드에서 처리가능, 이유?)
+        '''
+        if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
+            self.dialog['선물옵션전광판'].OnReceiveData(trdata)
+        else:
+            pass
+        '''
+
+    @pyqtSlot(dict)
+    def transfer_fut_realdata(self, realdata):
+
+        dt = datetime.datetime.now()
+
+        global drop_txt 
+
+        # 데이타를 전광판 다이얼로그로 전달
+        if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:                
+
+            item = QTableWidgetItem("{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time))
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if flag_fut_produce_queue_empty:
+                item.setBackground(QBrush(흰색))
+            else:
+                item.setBackground(QBrush(검정색))
+
+            item.setForeground(QBrush(청색))                                    
+
+            self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
+
+            # 수신된 실시간데이타 정보표시(누락된 패킷수, 누락된 패킷, 수신된 총 패킷수, 수신된 총 패킷크기)                
+
+            if MP_NUMBER == 1:
+
+                fut_dropcount, fut_dropcode, fut_totalcount, fut_totalsize = self.realtime_fut_data_worker.get_packet_info()
+
+                drop_txt = '{0}/{1}({2}k)'.format(format(fut_dropcount, ','), format(fut_totalcount, ','), format(int(fut_totalsize/1000), ','))
+
+            elif MP_NUMBER == 3:
+
+                fut_dropcount, fut_dropcode, fut_totalcount, fut_totalsize = self.realtime_fut_data_worker.get_packet_info()
+                call_dropcount, call_dropcode, call_totalcount, call_totalsize = self.realtime_call_data_worker.get_packet_info()
+                put_dropcount, put_dropcode, put_totalcount, put_totalsize = self.realtime_put_data_worker.get_packet_info()
+
+                total_dropcount = fut_dropcount + call_dropcount + put_dropcount
+                totalcount = fut_totalcount + call_totalcount + put_totalcount
+                totalsize = fut_totalsize + call_totalsize + put_totalsize
+
+                drop_txt = '{0}/{1}({2}k)'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','))
+            else:
+                pass
+
+            item = QTableWidgetItem(drop_txt)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.dialog['선물옵션전광판'].tableWidget_supply.setHorizontalHeaderItem(Supply_column.종합.value - 1, item)
+
+            self.dialog['선물옵션전광판'].UpdateRealdata(realdata)
+        else:            
+            szTrCode = realdata['szTrCode']
+
+            if szTrCode == 'NWS':
+
+                txt = '[{0}] {1}\r'.format(realdata['시간'], realdata['제목'])
+                self.textBrowser.append(txt)
+            else:
+                pass
+
+    @pyqtSlot(list)
+    def transfer_call_trdata(self, trdata):
+
+        if trdata[0] == '0000':
+
+            self.call_connection = Callprocess.connection
+
+            if self.call_connection.IsConnected():
+
+                txt = '콜 백그라운드 로그인 성공 !!!\r'
+                self.textBrowser.append(txt)
+
+                self.call_login = True
+                self.call_event_loop.exit()
+            else:
+                pass
+
+            self.statusbar.showMessage(trdata[1])
+            Speak('콜 프로세스 로그인 성공')
+        else:
+            txt = '콜 로그인 실패({0})!  로그인을 다시 시도합니다...'.format(trdata[0])
+            self.statusbar.showMessage(txt)
+
+            QTest.qWait(1000)
+            Callprocess.login()
+
+    @pyqtSlot(dict)
+    def transfer_call_realdata(self, realdata):
+
+        dt = datetime.datetime.now()
+
+        # 데이타를 전광판 다이얼로그로 전달
+        if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
+
+            item = QTableWidgetItem("{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time))
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if flag_call_produce_queue_empty:
+                item.setBackground(QBrush(흰색))
+            else:
+                item.setBackground(QBrush(검정색))
+
+            item.setForeground(QBrush(적색))                
+
+            self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)                
+
+            self.dialog['선물옵션전광판'].UpdateCallRealdata(realdata)
+        else:
+            pass
+
+    @pyqtSlot(list)
+    def transfer_put_trdata(self, trdata):
+    
+        if trdata[0] == '0000':
+
+            self.put_connection = Putprocess.connection
+
+            if self.put_connection.IsConnected():
+
+                txt = '풋 백그라운드 로그인 성공 !!!\r'
+                self.textBrowser.append(txt)
+
+                self.put_login = True
+                self.put_event_loop.exit()
+            else:
+                pass
+
+            self.statusbar.showMessage(trdata[1])
+            Speak('풋 프로세스 로그인 성공')
+
+            if AUTO_START and self.fut_login and self.call_login and self.put_login:
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
+
+                self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
+                self.dialog['선물옵션전광판'].show()
+
+                self.dialog['선물옵션전광판'].RunCode()
+            else:
+                pass
+        else:
+            txt = '풋 로그인 실패({0})!  로그인을 다시 시도합니다...'.format(trdata[0])
+            self.statusbar.showMessage(txt)
+
+            QTest.qWait(1000)
+            Putprocess.login()
+
+    @pyqtSlot(dict)
+    def transfer_put_realdata(self, realdata):
+
+        dt = datetime.datetime.now()
+
+        # 데이타를 전광판 다이얼로그로 전달
+        if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
+
+            item = QTableWidgetItem("{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time))
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if flag_put_produce_queue_empty:
+                item.setBackground(QBrush(흰색))
+            else:
+                item.setBackground(QBrush(검정색))
+
+            item.setForeground(QBrush(적색))                
+
+            self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)                
+
+            self.dialog['선물옵션전광판'].UpdatePutRealdata(realdata)
+        else:
+            pass 
+
+    def ThreadLogin(self):
+
+        global SELFID
+
+        계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})
+
+        if REAL_SERVER:
+            주식계좌정보 = 계좌정보.query("구분 == '거래'")
+            print('실서버에 접속합니다.')
+        else:
+            주식계좌정보 = 계좌정보.query("구분 == '모의'")
+            print('모의서버에 접속합니다.')        
+
+        if len(주식계좌정보) > 0:
+            if self.fut_connection is None:
+                self.fut_connection = XASession(parent=self)
+
+            self.계좌번호 = 주식계좌정보['계좌번호'].values[0].strip()
+            self.id = 주식계좌정보['사용자ID'].values[0].strip()
+            SELFID = self.id
+            self.pwd = 주식계좌정보['비밀번호'].values[0].strip()
+            self.cert = 주식계좌정보['공인인증비밀번호'].values[0].strip()
+            self.거래비밀번호 = 주식계좌정보['거래비밀번호'].values[0].strip()
+            self.url = 주식계좌정보['url'].values[0].strip()
+            self.fut_connection.login(url=self.url, id=self.id, pwd=self.pwd, cert=self.cert)
+        else:
+            print("secret디렉토리의 passwords.csv 파일에서 거래 계좌를 지정해 주세요")
+
+    def OnLogin(self, code, msg):        
+
+        dt = datetime.datetime.now()
+
+        if code == '0000':
+
+            token = ''
+            chat_id = 0
+
+            if os.path.exists('secret/telegram_token.txt'):
+
+                with open('secret/telegram_token.txt', mode='r') as tokenfile:
+                    try:
+                        token = tokenfile.readline().strip()
+
+                    except Exception as e:
+                        pass            
+
+            if os.path.exists('secret/chatid.txt'):
+
+                with open('secret/chatid.txt', mode='r') as chatfile:
+                    try:
+                        chat_id = int(chatfile.readline().strip())
+
+                    except Exception as e:
+                        pass
+
+            if TARGET_MONTH_SELECT == 'CM':
+
+                if token != '' and chat_id != 0:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 ({4}/{5}) 로그인 했습니다.'.format(dt.hour, dt.minute, dt.second, self.id, token, chat_id) 
+                else:
+                    if SELFID == 'soojin65':
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] ***님이 로그인 했습니다.'.format(dt.hour, dt.minute, dt.second)
+                    else:
+                        pass
+                    
+                #ToMyTelegram(txt)
+            else:
+                pass            
+            
+            self.statusbar.showMessage("로그인 성공 !!!")
+
+            playsound( "Resources/ring.wav" )
+
+            # 옵션전광판 자동시작
+
+            if AUTO_START:
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
+
+                self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
+                self.dialog['선물옵션전광판'].show()
+
+                self.dialog['선물옵션전광판'].RunCode()
+            else:
+                pass
+
+        else:
+            self.statusbar.showMessage("%s %s" % (code, msg))
+
+    def OnLogout(self):
+        self.statusbar.showMessage("로그아웃 되었습니다.")
+
+    def OnDisconnect(self):
+
+        self.statusbar.showMessage("연결이 끊겼습니다.")
+        self.fut_connection.login(url='demo.ebestsec.co.kr', id=self.id, pwd=self.pwd, cert=self.cert)
+
+    # 조회성 TR메시지 수신 콜백함수
+    def OnReceiveMessage(self, ClassName, systemError, messageCode, message):
+
+        txt = 'ClassName = {0} : systemError = {1}, messageCode = {2}, message = {3}'.format(ClassName, systemError, messageCode, message)
+        print(txt)
+
+        # 조회성 TR데이타 수신 콜백함수
+    
+    def OnReceiveData(self, result):
+
+        global 서버시간, 시스템_서버_시간차, flag_heartbeat
+        global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, ovc_x_idx, 시스템시간_분, 서버시간_분
+
+        dt = datetime.datetime.now()
+
+        szTrCode = result[0]
+
+        if szTrCode == 't0167':
+
+            szTrCode, server_date, server_time = result
+
+            systemtime = dt.hour * 3600 + dt.minute * 60 + dt.second
+
+            시스템시간_분 = dt.hour * 3600 + dt.minute * 60
+
+            SERVER_HOUR = int(server_time[0:2])
+            SERVER_MIN = int(server_time[2:4])
+            SERVER_SEC = int(server_time[4:6])
+
+            서버시간 = SERVER_HOUR * 3600 + SERVER_MIN * 60 + SERVER_SEC
+            서버시간_분 = SERVER_HOUR * 3600 + SERVER_MIN * 60
+
+            시스템_서버_시간차 = systemtime - 서버시간
+
+            # X축 시간좌표 계산
+            if NightTime:
+
+                night_time = SERVER_HOUR
+
+                if 0 <= night_time <= 6:
+                    night_time = night_time + 24
+                else:
+                    pass
+
+                server_x_idx = (night_time - NightTime_PreStart_Hour) * 60 + SERVER_MIN + 1         
+            else:                    
+                # 해외선물 개장시간은 국내시장의 2시간 전
+                server_x_idx = (SERVER_HOUR - DayTime_PreStart_Hour) * 60 + SERVER_MIN + 1
+
+            ovc_x_idx = server_x_idx
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] HeartBeat 수신...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+            self.textBrowser.append(txt)
+
+            flag_heartbeat = True                        
+        else:
+            pass
+
+    def OnReceiveRealData(self, result):
+
+        szTrCode = result['szTrCode']
+
+        if szTrCode == 'NWS':
+
+            txt = '[{0}] : {1}\r'.format(result['시간'], result['제목'])
+            self.textBrowser.append(txt)
+            print(txt)
+            '''
+            if self.dialog['선물옵션전광판'].flag_score_board_open:
+                self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            else:
+                pass
+            '''
+        else:
+            pass
 
     def OnQApplicationStarted(self):
 
         self.clock = QtCore.QTimer()
         self.clock.timeout.connect(self.OnClockTick)
         self.clock.start(1000)
-        
+
         if not MULTIPROCESS:
 
             if REAL_SERVER:
@@ -37646,7 +37747,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.textBrowser.append(txt)
 
-            self.MyLogin()
+            self.ThreadLogin()
         else:
             QTest.qWait(100)
 
@@ -37694,7 +37795,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         msg = "오프라인"
 
                 self.statusbar.showMessage(msg)
-                
+
                 # 자식 다이어로그가 open 되어있는지 체크
                 '''                
                 if self.dialog['선물옵션전광판'] is None:
@@ -37707,7 +37808,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
 
         if dt.minute % 20 == 0 and dt.second == 0: # 매 20 분
-            
+
             if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
 
                 if NightTime and TARGET_MONTH_SELECT == 'NM': # 차월물 야간인 경우 실행
@@ -37725,13 +37826,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.textBrowser.append(txt)
 
         if dialog_type == 'Score Board':            
-            
+
             self.dialog['선물옵션전광판'] = None
 
         if dialog_type == 'Big Chart':
-            
+
             self.dialog['BigChart'] = None
-    
+
     def __del__(self):
         '''
         종료시 실행할 작업
@@ -37749,7 +37850,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             event.accept()
 
             if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
-                
+
                 self.dialog['선물옵션전광판'].KillScoreBoardAllThread()
 
                 if not MULTIPROCESS:
@@ -37839,185 +37940,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.close()
         else:
-            event.ignore()    
+            event.ignore()   
 
     # ------------------------------------------------------------------------------------------------------------------
-    if not MULTIPROCESS:
-
-        def MyLogin(self):
-
-            global SELFID
-
-            계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})
-
-            if REAL_SERVER:
-                주식계좌정보 = 계좌정보.query("구분 == '거래'")
-                print('실서버에 접속합니다.')
-            else:
-                주식계좌정보 = 계좌정보.query("구분 == '모의'")
-                print('모의서버에 접속합니다.')        
-
-            if len(주식계좌정보) > 0:
-                if self.fut_connection is None:
-                    self.fut_connection = XASession(parent=self)
-
-                self.계좌번호 = 주식계좌정보['계좌번호'].values[0].strip()
-                self.id = 주식계좌정보['사용자ID'].values[0].strip()
-                SELFID = self.id
-                self.pwd = 주식계좌정보['비밀번호'].values[0].strip()
-                self.cert = 주식계좌정보['공인인증비밀번호'].values[0].strip()
-                self.거래비밀번호 = 주식계좌정보['거래비밀번호'].values[0].strip()
-                self.url = 주식계좌정보['url'].values[0].strip()
-                self.fut_connection.login(url=self.url, id=self.id, pwd=self.pwd, cert=self.cert)
-            else:
-                print("secret디렉토리의 passwords.csv 파일에서 거래 계좌를 지정해 주세요")
-
-        def OnLogin(self, code, msg):        
-
-            dt = datetime.datetime.now()
-
-            if code == '0000':
-
-                token = ''
-                chat_id = 0
-
-                if os.path.exists('secret/telegram_token.txt'):
-
-                    with open('secret/telegram_token.txt', mode='r') as tokenfile:
-                        try:
-                            token = tokenfile.readline().strip()
-
-                        except Exception as e:
-                            pass            
-
-                if os.path.exists('secret/chatid.txt'):
-
-                    with open('secret/chatid.txt', mode='r') as chatfile:
-                        try:
-                            chat_id = int(chatfile.readline().strip())
-
-                        except Exception as e:
-                            pass
-
-                if TARGET_MONTH_SELECT == 'CM':
-
-                    if token != '' and chat_id != 0:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 ({4}/{5}) 로그인 했습니다.'.format(dt.hour, dt.minute, dt.second, self.id, token, chat_id) 
-                    else:
-                        if SELFID == 'soojin65':
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] ***님이 로그인 했습니다.'.format(dt.hour, dt.minute, dt.second)
-                        else:
-                            pass
-                        
-                    #ToMyTelegram(txt)
-                else:
-                    pass            
-                
-                self.statusbar.showMessage("로그인 성공 !!!")
-
-                playsound( "Resources/ring.wav" )
-
-                # 옵션전광판 자동시작
-
-                if AUTO_START:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-
-                    self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
-                    self.dialog['선물옵션전광판'].show()
-
-                    self.dialog['선물옵션전광판'].RunCode()
-                else:
-                    pass
-
-            else:
-                self.statusbar.showMessage("%s %s" % (code, msg))
-
-        def OnLogout(self):
-            self.statusbar.showMessage("로그아웃 되었습니다.")
-
-        def OnDisconnect(self):
-
-            self.statusbar.showMessage("연결이 끊겼습니다.")
-            self.fut_connection.login(url='demo.ebestsec.co.kr', id=self.id, pwd=self.pwd, cert=self.cert)
-
-        # 조회성 TR메시지 수신 콜백함수
-        def OnReceiveMessage(self, ClassName, systemError, messageCode, message):
-
-            txt = 'ClassName = {0} : systemError = {1}, messageCode = {2}, message = {3}'.format(ClassName, systemError, messageCode, message)
-            print(txt)
-        
-        # 조회성 TR데이타 수신 콜백함수
-        def OnReceiveData(self, result):
-
-            global 서버시간, 시스템_서버_시간차, flag_heartbeat
-            global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, ovc_x_idx, 시스템시간_분, 서버시간_분
-
-            dt = datetime.datetime.now()
-
-            szTrCode = result[0]
-
-            if szTrCode == 't0167':
-
-                szTrCode, server_date, server_time = result
-
-                systemtime = dt.hour * 3600 + dt.minute * 60 + dt.second
-
-                시스템시간_분 = dt.hour * 3600 + dt.minute * 60
-
-                SERVER_HOUR = int(server_time[0:2])
-                SERVER_MIN = int(server_time[2:4])
-                SERVER_SEC = int(server_time[4:6])
-
-                서버시간 = SERVER_HOUR * 3600 + SERVER_MIN * 60 + SERVER_SEC
-                서버시간_분 = SERVER_HOUR * 3600 + SERVER_MIN * 60
-
-                시스템_서버_시간차 = systemtime - 서버시간
-
-                # X축 시간좌표 계산
-                if NightTime:
-
-                    night_time = SERVER_HOUR
-
-                    if 0 <= night_time <= 6:
-                        night_time = night_time + 24
-                    else:
-                        pass
-
-                    server_x_idx = (night_time - NightTime_PreStart_Hour) * 60 + SERVER_MIN + 1         
-                else:                    
-                    # 해외선물 개장시간은 국내시장의 2시간 전
-                    server_x_idx = (SERVER_HOUR - DayTime_PreStart_Hour) * 60 + SERVER_MIN + 1
-
-                ovc_x_idx = server_x_idx
-
-                txt = '[{0:02d}:{1:02d}:{2:02d}] HeartBeat 수신...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
-                self.textBrowser.append(txt)
-
-                flag_heartbeat = True                        
-            else:
-                pass
-
-        def OnReceiveRealData(self, result):
-
-            szTrCode = result['szTrCode']
-
-            if szTrCode == 'NWS':
-
-                txt = '[{0}] : {1}\r'.format(result['시간'], result['제목'])
-                self.textBrowser.append(txt)
-                print(txt)
-                '''
-                if self.dialog['선물옵션전광판'].flag_score_board_open:
-                    self.dialog['선물옵션전광판'].textBrowser.append(txt)
-                else:
-                    pass
-                '''
-            else:
-                pass 
-    else:
-        pass   
-
     # ------------------------------------------------------------------------------------------------------------------
     def MENU_Action(self, qaction):
 
@@ -38028,7 +37953,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # 로그인
         if _action == "actionLogin":
-            self.MyLogin()
+            self.ThreadLogin()
 
         # 로그아웃
         if _action == "actionLogout":
@@ -38136,6 +38061,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['Version'] = 화면_버전(parent=self)
                 self.dialog['Version'].show()
 
+    # ------------------------------------------------------------------------------------------------------------------
+    # ------------------------------------------------------------------------------------------------------------------
     def TOOLBAR_Action(self, qaction):
 
         dt = datetime.datetime.now()
@@ -38203,7 +38130,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간요청 설정 Dialog를 생성합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
 
-    # ------------------------------------------------------------
+# ------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------------------------------------
 if __name__ == "__main__":
     
     # 멀티프로세스
