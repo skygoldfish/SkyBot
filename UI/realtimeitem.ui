@@ -35,7 +35,7 @@
    <property name="flat">
     <bool>false</bool>
    </property>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -436,9 +436,9 @@
     </font>
    </property>
    <property name="title">
-    <string>Data 갱신주기</string>
+    <string>실시간 Data갱신 항목</string>
    </property>
-   <widget class="QWidget" name="layoutWidget_2">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -448,6 +448,20 @@
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QCheckBox" name="checkBox_valid_receive">
+       <property name="text">
+        <string>Valid Rx</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>갱신주기</string>
+       </property>
+      </widget>
+     </item>
      <item>
       <widget class="QLineEdit" name="lineEdit_mp">
        <property name="alignment">
@@ -490,7 +504,7 @@
    <property name="title">
     <string>내가, 외가 설정</string>
    </property>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -530,7 +544,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>

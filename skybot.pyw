@@ -23886,6 +23886,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_hangseng.setChecked(HANGSENG_CHK)
         self.checkBox_gold.setChecked(GOLD_CHK)
         self.checkBox_news.setChecked(NEWS_CHK)
+        self.checkBox_valid_receive.setChecked(False)
 
         txt = str(call_itm_number)
         self.lineEdit_call_itm.setText(txt)
@@ -23936,6 +23937,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_hangseng.stateChanged.connect(self.checkBox_hangseng_checkState)
         self.checkBox_gold.stateChanged.connect(self.checkBox_gold_checkState)
         self.checkBox_news.stateChanged.connect(self.checkBox_news_checkState)
+        self.checkBox_valid_receive.stateChanged.connect(self.checkBox_checkBox_valid_receive_checkState)
 
         self.lineEdit_call_itm.returnPressed.connect(self.change_call_itm)
         self.lineEdit_call_otm.returnPressed.connect(self.change_call_otm)
@@ -25118,6 +25120,57 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 self.parent.textBrowser.append(txt)
             else:
                 pass
+
+    def checkBox_checkBox_valid_receive_checkState(self):
+
+        dt = datetime.datetime.now()
+
+        if self.checkBox_valid_receive.isChecked() == True:
+
+            if MULTIPROCESS:
+
+                if MP_NUMBER == 1:
+
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 유효한 선물 실시간 수신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.parent.textBrowser.append(txt)
+
+                    Futprocess.Set_Valid_Data_Receive(True)
+
+                elif MP_NUMBER == 3:
+
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 유효한 선물, 옵션 실시간 수신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.parent.textBrowser.append(txt)
+
+                    Futprocess.Set_Valid_Data_Receive(True)
+                    Callprocess.Set_Valid_Data_Receive(True)
+                    Putprocess.Set_Valid_Data_Receive(True)
+                else:
+                    pass
+            else:
+                pass
+        else:
+            if MULTIPROCESS:
+
+                if MP_NUMBER == 1:
+
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 유효한 선물 실시간 수신요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.parent.textBrowser.append(txt)
+
+                    Futprocess.Set_Valid_Data_Receive(False)
+
+                elif MP_NUMBER == 3:
+
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 유효한 선물, 옵션 실시간 수신요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.parent.textBrowser.append(txt)
+
+                    Futprocess.Set_Valid_Data_Receive(False)
+                    Callprocess.Set_Valid_Data_Receive(False)
+                    Putprocess.Set_Valid_Data_Receive(False)
+                else:
+                    pass
+            else:
+                pass
+
 
     def closeEvent(self,event):
 

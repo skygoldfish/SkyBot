@@ -141,9 +141,12 @@ class CallWorker(mp.Process):
 
         self.dataQ = dataQ
         self.data = []
-        self.dataQ_input_count = 0
 
         self.connection = None
+
+        self.valid_data_receive = False
+        self.oc0_value = None
+        self.oh0_time = None
 
         # 조회요청 TR 초기화
         self.XQ_t0167 = None # 시간 조회
@@ -257,6 +260,15 @@ class CallWorker(mp.Process):
         ret = self.connection.IsConnected()
         return ret
 
+    def Set_Valid_Data_Receive(self, state):
+
+        print('콜 수신방식 변경요청 수신 =', state)
+
+        if state:
+            self.valid_data_receive = True
+        else:
+            self.valid_data_receive = False
+
     def OnReceiveMessage(self, ClassName, systemError, messageCode, message):
 
         pass
@@ -279,15 +291,30 @@ class CallWorker(mp.Process):
     # 실시간데이타 수신 콜백함수
     def OnReceiveRealData(self, result):
 
-        self.dataQ_input_count += 1
-        self.dataQ.put(result, False)
-        '''
-        szTrCode = result['szTrCode']
-        if szTrCode == 'EC0':
-             print('옵션 콜 현재가 in callworker =', result['현재가'])
+        if self.valid_data_receive:
+
+            szTrCode = result['szTrCode']
+
+            if szTrCode == 'OC0':
+
+                if result['현재가'] != self.oc0_value:
+                    self.dataQ.put(result, False)
+                    self.oc0_value = result['현재가']
+                else:
+                    pass
+
+            elif szTrCode == 'OH0':
+
+                if result['호가시간'] != self.oh0_time:
+                    self.dataQ.put(result, False)
+                    self.oh0_time = result['호가시간']
+                else:
+                    pass
+            else:
+                pass
         else:
-            pass
-        '''
+            self.dataQ.put(result, False)
+
     def login(self):
 
         계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})
