@@ -22820,12 +22820,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 elif result['업종코드'] == KOSPI and result['투자자코드'] == BANK:
 
                     KOSPI_BANK_거래대금순매수 = int(result['거래대금순매수'])
-                    KOSPI_BANK_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+
+                    if type(int(result['거래대금순매수직전대비'])) == int:
+                        KOSPI_BANK_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                    else:
+                        pass
 
                 elif result['업종코드'] == KOSPI and result['투자자코드'] == JONGGEUM:
 
                     KOSPI_JONGGEUM_거래대금순매수 = int(result['거래대금순매수'])
-                    KOSPI_JONGGEUM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+
+                    if type(int(result['거래대금순매수직전대비'])) == int:
+                        KOSPI_JONGGEUM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                    else:
+                        pass
 
                 elif result['업종코드'] == KOSPI and result['투자자코드'] == GIGEUM:
 
@@ -37131,6 +37139,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.fut_dataQ = fut_dataQ
             self.call_dataQ = call_dataQ
             self.put_dataQ = put_dataQ
+
+            self.fut_login = False
+            self.call_login = False
+            self.put_login = False
+
+            self.fut_event_loop = QEventLoop()
+            self.call_event_loop = QEventLoop()
+            self.put_event_loop = QEventLoop()
             
             self.시작시각 = datetime.datetime.now()
 
@@ -37217,6 +37233,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     txt = '선물 백그라운드 로그인 성공 !!!\r'
                     self.textBrowser.append(txt)
+
+                    self.fut_login = True
+                    self.fut_event_loop.exit()
                 else:
                     pass
 
@@ -37376,6 +37395,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     txt = '콜 백그라운드 로그인 성공 !!!\r'
                     self.textBrowser.append(txt)
+
+                    self.call_login = True
+                    self.call_event_loop.exit()
                 else:
                     pass
 
@@ -37423,13 +37445,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     txt = '풋 백그라운드 로그인 성공 !!!\r'
                     self.textBrowser.append(txt)
+
+                    self.put_login = True
+                    self.put_event_loop.exit()
                 else:
                     pass
 
                 self.statusbar.showMessage(trdata[1])
                 Speak('풋 프로세스 로그인 성공')
 
-                if AUTO_START:
+                if AUTO_START and self.fut_login and self.call_login and self.put_login:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
 
@@ -37620,13 +37645,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if MP_NUMBER == 1:
                 Futprocess.login()
             elif MP_NUMBER == 3:
-                Futprocess.login()            
-                QTest.qWait(1500)
+                Futprocess.login()
+                self.fut_event_loop.exec_() 
 
                 Callprocess.login()
-                QTest.qWait(1500)
+                self.call_event_loop.exec_() 
 
                 Putprocess.login()
+                self.put_event_loop.exec_() 
             else:
                 pass  
 
