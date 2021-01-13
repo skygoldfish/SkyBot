@@ -11291,6 +11291,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             self.tableWidget_fut.setItem(1, Futures_column.거래량.value, item)
 
+        self.tableWidget_fut.resizeColumnToContents(Futures_column.거래량.value)
+
     def fut_etc_update(self, result):
 
         global df_fut, 선물_진폭비, flag_call_strong, flag_put_strong
