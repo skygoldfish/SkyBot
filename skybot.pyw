@@ -359,6 +359,7 @@ NEWS_CHK = parser.getboolean('RealTime Request Item Switch', 'NEWS')
 MA_TYPE = parser.getint('Moving Average Type', 'MA Type')
 
 # [8]. << Initial Value >>
+MP_NUMBER = parser.getint('Initial Value', 'Number of Multiprocess')
 MP_SEND_INTERVAL = parser.getint('Initial Value', 'MP Send Interval')
 CALL_ITM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Call ITM Request')
 CALL_OTM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Call OTM Request')
@@ -835,16 +836,12 @@ if 7 <= dt.hour < NightTime_PreStart_Hour:
     NightTime = False        
     day_timespan = 7 * 60 + 10
     jugan_timespan = GuardTime + day_timespan
-
-    MP_NUMBER = 3
 else:
     # 오후 4시 ~ 익일 오전 5시 59분
     DayTime = False
     NightTime = True
     nighttime_timespan = 12 * 60 + 10
     yagan_timespan = GuardTime + nighttime_timespan
-
-    MP_NUMBER = 1
 
 if NightTime:
     FUT_REAL = 'FUT_REAL_NC0'
@@ -19276,15 +19273,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     # 지수옵션 예상체결 요청
                     if pre_start:
-
-                        if MP_NUMBER == 1:
-                            Futprocess.RequestRealData('YOC', CM_CALL_CODE[i])
-                            Futprocess.RequestRealData('YOC', CM_PUT_CODE[i])
-                        elif MP_NUMBER == 3:
-                            Callprocess.RequestRealData('YOC', CM_CALL_CODE[i])
-                            Putprocess.RequestRealData('YOC', CM_PUT_CODE[i])
-                        else:
-                            pass                        
+                        Futprocess.RequestRealData('YOC', CM_CALL_CODE[i])
+                        Futprocess.RequestRealData('YOC', CM_PUT_CODE[i])       
                     else:
                         pass
 
@@ -19354,13 +19344,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         print(txt)
 
                         if pre_start:
-
-                            if MP_NUMBER == 1:
-                                Futprocess.RequestRealData('YOC', CM_CALL_CODE[i])
-                            elif MP_NUMBER == 3:
-                                Callprocess.RequestRealData('YOC', CM_CALL_CODE[i])
-                            else:
-                                pass                            
+                            Futprocess.RequestRealData('YOC', CM_CALL_CODE[i])                           
                         else:
                             pass
                     else:
@@ -19382,13 +19366,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         print(txt)
 
                         if pre_start:
-
-                            if MP_NUMBER == 1:
-                                Futprocess.RequestRealData('YOC', CM_PUT_CODE[i])
-                            elif MP_NUMBER == 3:
-                                Putprocess.RequestRealData('YOC', CM_PUT_CODE[i])
-                            else:
-                                pass                            
+                            Futprocess.RequestRealData('YOC', CM_PUT_CODE[i])                            
                         else:
                             pass
                     else:
@@ -19566,15 +19544,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     # 지수옵션 예상체결 요청
                     if pre_start:
-
-                        if MP_NUMBER == 1:
-                            Futprocess.RequestRealData('YOC', NM_CALL_CODE[i])
-                            Futprocess.RequestRealData('YOC', NM_PUT_CODE[i])
-                        elif MP_NUMBER == 3:
-                            Callprocess.RequestRealData('YOC', NM_CALL_CODE[i])
-                            Putprocess.RequestRealData('YOC', NM_PUT_CODE[i])
-                        else:
-                            pass                        
+                        Futprocess.RequestRealData('YOC', NM_CALL_CODE[i])
+                        Futprocess.RequestRealData('YOC', NM_PUT_CODE[i])                
                     else:
                         pass
 
@@ -19645,7 +19616,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if pre_start:                            
                             Futprocess.RequestRealData('YOC', NM_CALL_CODE[i])
-                            Callprocess.RequestRealData('YOC', NM_CALL_CODE[i])
                         else:
                             pass
                     else:
@@ -19667,13 +19637,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         print(txt)
 
                         if pre_start:
-
-                            if MP_NUMBER == 1:
-                                Futprocess.RequestRealData('YOC', NM_PUT_CODE[i])
-                            elif MP_NUMBER == 3:
-                                Putprocess.RequestRealData('YOC', NM_PUT_CODE[i])
-                            else:
-                                pass
+                            Futprocess.RequestRealData('YOC', NM_PUT_CODE[i])
                         else:
                             pass
                     else:
@@ -21266,14 +21230,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         Futprocess.CancelRealData('YJ')
                         Futprocess.CancelRealData('YFC')                        
                         Futprocess.CancelRealData('YS3')
-
-                        if MP_NUMBER == 1:
-                            Futprocess.CancelRealData('YOC')
-                        elif MP_NUMBER == 3:
-                            Callprocess.CancelRealData('YOC')
-                            Putprocess.CancelRealData('YOC')
-                        else:
-                            pass
+                        Futprocess.CancelRealData('YOC')
 
                     if TTS and TARGET_MONTH_SELECT == 'CM':
                         playsound( "Resources/doorbell.wav" )
@@ -37192,7 +37149,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     if MULTIPROCESS:
 
-        def __init__(self, fut_dataQ, call_dataQ, put_dataQ):
+        def __init__(self, *args):
             super(MainWindow, self).__init__()            
 
             QMainWindow.__init__(self)
@@ -37207,10 +37164,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.textBrowser.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 9pt; font: Normal")
             self.textBrowser.append('Welcome to SkyBot\r')
+            
+            self.fut_dataQ = args[0]
+            print('args0 =', args[0])
 
-            self.fut_dataQ = fut_dataQ
-            self.call_dataQ = call_dataQ
-            self.put_dataQ = put_dataQ
+            if MP_NUMBER == 3:
+                self.call_dataQ = args[1]
+                print('args1 =', args[1])
+                self.put_dataQ = args[2]
+                print('args2 =', args[2])
+            else:
+                pass
 
             self.fut_login = False
             self.call_login = False
@@ -37418,8 +37382,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
 
-                # 수신된 실시간데이타 정보표시(누락된 패킷수, 누락된 패킷, 수신된 총 패킷수, 수신된 총 패킷크기)
-                
+                # 수신된 실시간데이타 정보표시(누락된 패킷수, 누락된 패킷, 수신된 총 패킷수, 수신된 총 패킷크기)                
 
                 if MP_NUMBER == 1:
 
@@ -38277,16 +38240,14 @@ if __name__ == "__main__":
         # pyinstaller로 실행파일 만들때 필요함
         mp.freeze_support()
 
-        fut_dataQ = mp.Queue()
-        call_dataQ = mp.Queue()
-        put_dataQ = mp.Queue()
-
         if MP_NUMBER == 1:
+            fut_dataQ = mp.Queue()
             Futprocess = FuturesWorker(fut_dataQ)
             Futprocess.start()
-        elif MP_NUMBER == 2:
-            pass
         elif MP_NUMBER == 3:
+            fut_dataQ = mp.Queue()
+            call_dataQ = mp.Queue()
+            put_dataQ = mp.Queue()
 
             # 멀티프로세스 객체생성
             Futprocess = FuturesWorker(fut_dataQ)
@@ -38358,7 +38319,12 @@ if __name__ == "__main__":
     
     if MULTIPROCESS:
 
-        window = MainWindow(fut_dataQ, call_dataQ, put_dataQ)      
+        if MP_NUMBER == 1:
+            window = MainWindow(fut_dataQ) 
+        elif MP_NUMBER == 3:
+            window = MainWindow(fut_dataQ, call_dataQ, put_dataQ)
+        else:
+            pass      
     else:
         window = MainWindow()
 
