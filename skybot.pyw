@@ -22821,7 +22821,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     KOSPI_BANK_거래대금순매수 = int(result['거래대금순매수'])
 
-                    if type(int(result['거래대금순매수직전대비'])) == int:
+                    if result['거래대금순매수직전대비'] != '-':
                         KOSPI_BANK_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
                     else:
                         pass
@@ -22830,7 +22830,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     KOSPI_JONGGEUM_거래대금순매수 = int(result['거래대금순매수'])
 
-                    if type(int(result['거래대금순매수직전대비'])) == int:
+                    if result['거래대금순매수직전대비'] != '-':
                         KOSPI_JONGGEUM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
                     else:
                         pass
