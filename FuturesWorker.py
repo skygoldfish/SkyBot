@@ -281,6 +281,11 @@ class FuturesWorker(mp.Process):
 
         self.dataQ_input_count += 1
         self.dataQ.put(result, False)
+
+        if result['szTrCode'] == 'FC0':
+            print('선물 현재가 =', result['현재가'])
+        else:
+            pass
     
     def login(self):
 
