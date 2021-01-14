@@ -1867,6 +1867,13 @@ flag_plot_update_interval_changed = False
 processing_time = 0
 args_processing_time = 0
 
+plot1_processing_time = 0
+plot2_processing_time = 0
+plot3_processing_time = 0
+plot4_processing_time = 0
+plot5_processing_time = 0
+plot6_processing_time = 0
+
 flag_mp_interval_changed = False
 mp_send_interval = MP_SEND_INTERVAL
 
@@ -2035,6 +2042,114 @@ def logging_time_with_args(original_fn):
         else:
             pass
         '''
+        return result
+
+    return wrapper_fn
+
+def logging_time_plot1(original_fn):
+
+    def wrapper_fn(*args, **kwargs):
+
+        global plot1_processing_time
+        
+        dt = datetime.datetime.now()
+
+        start_time = timeit.default_timer()
+        result = original_fn(*args, **kwargs)
+        end_time = timeit.default_timer()
+
+        plot1_processing_time = (end_time - start_time) * 1000
+
+        return result
+
+    return wrapper_fn
+
+def logging_time_plot2(original_fn):
+
+    def wrapper_fn(*args, **kwargs):
+
+        global plot2_processing_time
+        
+        dt = datetime.datetime.now()
+
+        start_time = timeit.default_timer()
+        result = original_fn(*args, **kwargs)
+        end_time = timeit.default_timer()
+
+        plot2_processing_time = (end_time - start_time) * 1000
+
+        return result
+
+    return wrapper_fn
+
+def logging_time_plot3(original_fn):
+
+    def wrapper_fn(*args, **kwargs):
+
+        global plot3_processing_time
+        
+        dt = datetime.datetime.now()
+
+        start_time = timeit.default_timer()
+        result = original_fn(*args, **kwargs)
+        end_time = timeit.default_timer()
+
+        plot3_processing_time = (end_time - start_time) * 1000
+
+        return result
+
+    return wrapper_fn
+
+def logging_time_plot4(original_fn):
+
+    def wrapper_fn(*args, **kwargs):
+
+        global plot4_processing_time
+        
+        dt = datetime.datetime.now()
+
+        start_time = timeit.default_timer()
+        result = original_fn(*args, **kwargs)
+        end_time = timeit.default_timer()
+
+        plot4_processing_time = (end_time - start_time) * 1000
+
+        return result
+
+    return wrapper_fn
+
+def logging_time_plot5(original_fn):
+
+    def wrapper_fn(*args, **kwargs):
+
+        global plot5_processing_time
+        
+        dt = datetime.datetime.now()
+
+        start_time = timeit.default_timer()
+        result = original_fn(*args, **kwargs)
+        end_time = timeit.default_timer()
+
+        plot5_processing_time = (end_time - start_time) * 1000
+
+        return result
+
+    return wrapper_fn
+
+def logging_time_plot6(original_fn):
+
+    def wrapper_fn(*args, **kwargs):
+
+        global plot6_processing_time
+        
+        dt = datetime.datetime.now()
+
+        start_time = timeit.default_timer()
+        result = original_fn(*args, **kwargs)
+        end_time = timeit.default_timer()
+
+        plot6_processing_time = (end_time - start_time) * 1000
+
         return result
 
     return wrapper_fn
@@ -19088,6 +19203,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             elif TARGET_MONTH_SELECT == 'NM':
                 option_pairs_count = NM_OPT_LENGTH
 
+            if MANGI_YAGAN:
+                option_pairs_count = NM_OPT_LENGTH
+            else:
+                pass
+
             for i in range(option_pairs_count):
 
                 self.opt_total_actval_list.append(i)
@@ -19928,7 +20048,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     #@logging_time
     def OVC_Update(self, result):
 
-        global receive_real_ovc, OVC_체결시간, OVC_SEC, SERVER_HOUR, SERVER_MIN, SERVER_SEC
+        global receive_real_ovc, OVC_체결시간, OVC_HOUR, OVC_MIN, OVC_SEC, SERVER_HOUR, SERVER_MIN, SERVER_SEC
         global old_ovc_x_idx, ovc_x_idx
         global df_futures_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
 
@@ -19960,6 +20080,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             receive_real_ovc = True
         else:
             pass
+
+        #print('체결시간_현지 =', result['체결시간_현지'])
+        #print('체결시간_한국 =', result['체결시간_한국'])
 
         OVC_체결시간 = result['체결시간_한국']
         OVC_HOUR = int(OVC_체결시간[0:2])
@@ -25188,7 +25311,137 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 #####################################################################################################################################################################
 # Big Chart Update Thread
 #####################################################################################################################################################################
-class PlotUpdateWorker(QThread):
+class PlotUpdateWorker1(QThread):
+
+    trigger = pyqtSignal()
+
+    def __init__(self):
+        super().__init__()
+
+        self.daemon = True
+
+    def run(self):
+
+        global flag_plot_update_interval_changed
+
+        while True:
+
+            if flag_fut_produce_queue_empty:
+                self.trigger.emit()
+
+            if flag_plot_update_interval_changed:
+                print('plot_update_interval changed...')
+                flag_plot_update_interval_changed = False
+            else:
+                pass
+
+            QTest.qWait(plot_update_interval)
+
+class PlotUpdateWorker2(QThread):
+
+    trigger = pyqtSignal()
+
+    def __init__(self):
+        super().__init__()
+
+        self.daemon = True
+
+    def run(self):
+
+        global flag_plot_update_interval_changed
+
+        while True:
+
+            if flag_fut_produce_queue_empty:
+                self.trigger.emit()
+
+            if flag_plot_update_interval_changed:
+                print('plot_update_interval changed...')
+                flag_plot_update_interval_changed = False
+            else:
+                pass
+
+            QTest.qWait(plot_update_interval)
+
+class PlotUpdateWorker3(QThread):
+
+    trigger = pyqtSignal()
+
+    def __init__(self):
+        super().__init__()
+
+        self.daemon = True
+
+    def run(self):
+
+        global flag_plot_update_interval_changed
+
+        while True:
+
+            if flag_fut_produce_queue_empty:
+                self.trigger.emit()
+
+            if flag_plot_update_interval_changed:
+                print('plot_update_interval changed...')
+                flag_plot_update_interval_changed = False
+            else:
+                pass
+
+            QTest.qWait(plot_update_interval)
+
+class PlotUpdateWorker4(QThread):
+
+    trigger = pyqtSignal()
+
+    def __init__(self):
+        super().__init__()
+
+        self.daemon = True
+
+    def run(self):
+
+        global flag_plot_update_interval_changed
+
+        while True:
+
+            if flag_fut_produce_queue_empty:
+                self.trigger.emit()
+
+            if flag_plot_update_interval_changed:
+                print('plot_update_interval changed...')
+                flag_plot_update_interval_changed = False
+            else:
+                pass
+
+            QTest.qWait(plot_update_interval)
+
+class PlotUpdateWorker5(QThread):
+
+    trigger = pyqtSignal()
+
+    def __init__(self):
+        super().__init__()
+
+        self.daemon = True
+
+    def run(self):
+
+        global flag_plot_update_interval_changed
+
+        while True:
+
+            if flag_fut_produce_queue_empty:
+                self.trigger.emit()
+
+            if flag_plot_update_interval_changed:
+                print('plot_update_interval changed...')
+                flag_plot_update_interval_changed = False
+            else:
+                pass
+
+            QTest.qWait(plot_update_interval)
+
+class PlotUpdateWorker6(QThread):
 
     trigger = pyqtSignal()
 
@@ -25315,8 +25568,23 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.setWindowTitle(widget_title)
 
         # 시간표시
-        self.label_time.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_time.setText("🕘")
+        self.label_time_1.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_time_1.setText("🕘")
+
+        self.label_time_2.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_time_2.setText("🕘")
+
+        self.label_time_3.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_time_3.setText("🕘")
+
+        self.label_time_4.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_time_4.setText("🕘")
+
+        self.label_time_5.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_time_5.setText("🕘")
+
+        self.label_time_6.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_time_6.setText("🕘")
 
         # Plot1 가격표시
         self.label_p1_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -26278,10 +26546,30 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot5_time_line_jugan_start.setValue(GuardTime)
             self.plot6_time_line_jugan_start.setValue(GuardTime)
 
-        # 그리기 쓰레드 시작...        
-        self.plot_update_worker = PlotUpdateWorker()
-        self.plot_update_worker.trigger.connect(self.update_bigchart)
-        self.plot_update_worker.start()
+        # 그리기 쓰레드       
+        self.plot_update_worker1 = PlotUpdateWorker1()
+        self.plot_update_worker1.trigger.connect(self.update_bigchart1)
+        self.plot_update_worker1.start()
+
+        self.plot_update_worker2 = PlotUpdateWorker2()
+        self.plot_update_worker2.trigger.connect(self.update_bigchart2)
+        self.plot_update_worker2.start()
+
+        self.plot_update_worker3 = PlotUpdateWorker3()
+        self.plot_update_worker3.trigger.connect(self.update_bigchart3)
+        self.plot_update_worker3.start()
+
+        self.plot_update_worker4 = PlotUpdateWorker4()
+        self.plot_update_worker4.trigger.connect(self.update_bigchart4)
+        self.plot_update_worker4.start()
+
+        self.plot_update_worker5 = PlotUpdateWorker5()
+        self.plot_update_worker5.trigger.connect(self.update_bigchart5)
+        self.plot_update_worker5.start()
+
+        self.plot_update_worker6 = PlotUpdateWorker6()
+        self.plot_update_worker6.trigger.connect(self.update_bigchart6)
+        self.plot_update_worker6.start()
 
     def __del__(self):
         '''
@@ -31905,16 +32193,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             pass
     #####################################################################################################################################################################
     # Plot Update
-    #####################################################################################################################################################################    
-    @pyqtSlot()
-    #@logging_time
-    def update_bigchart(self):
+    #####################################################################################################################################################################
+
+    @logging_time_plot1  
+    @pyqtSlot()    
+    def update_bigchart1(self):
 
         global flag_plot_update_is_running        
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
         
         dt = datetime.datetime.now()
-        start_time = timeit.default_timer()
 
         # 해외선물 한국시간 표시
         if OVC_체결시간 == '000000':
@@ -31926,24 +32214,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 self.plot_count = 0
 
-            txt = ' {0:02d}:{1:02d}:{2:02d}({3:d}[{4}], {5:.2f} ms) '.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, self.plot_count, self.bc_ui_update_time)
+            txt = ' {0:02d}:{1:02d}:{2:02d}({3:d}[{4}], {5:.2f} ms) '.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, self.plot_count, plot1_processing_time)
             self.plot_x_idx = SERVER_SEC
    
-        self.label_time.setText(txt)
-        
-        '''
-        if flag_fut_realdata_update_is_running:
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] flag_fut_realdata_update_is_running at update bigchart is {3}\r'.format(dt.hour, dt.minute, dt.second, flag_fut_realdata_update_is_running)
-
-            if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
-                self.parent.dialog['선물옵션전광판'].textBrowser.append(txt)
-            else:
-                pass
-        else:
-            pass
-        '''
-        
+        self.label_time_1.setText(txt)
+                
         if FLAG_GUEST_CONTROL and receive_real_ovc:
             
             flag_plot_update_is_running = True
@@ -32800,6 +33075,31 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
             else:
                 pass   
+            
+            flag_plot_update_is_running = False
+        else:
+            pass        
+        
+    @logging_time_plot2
+    @pyqtSlot()    
+    def update_bigchart2(self):
+
+        global flag_plot_update_is_running        
+        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
+        
+        dt = datetime.datetime.now()
+
+        if OVC_체결시간 == '000000':
+
+            txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
+        else:            
+            txt = ' {0:02d}:{1:02d}:{2:02d}({3:d}, {4:.2f} ms) '.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, plot2_processing_time)
+   
+        self.label_time_2.setText(txt)
+
+        if FLAG_GUEST_CONTROL and receive_real_ovc:
+
+            flag_plot_update_is_running = True
 
             # Plot2 그래프 그리기
             # 선물가격
@@ -33674,8 +33974,33 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass  
             else:
-                pass        
-            
+                pass
+
+            flag_plot_update_is_running = False
+        else:
+            pass
+
+    @logging_time_plot3
+    @pyqtSlot()    
+    def update_bigchart3(self):
+
+        global flag_plot_update_is_running        
+        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
+        
+        dt = datetime.datetime.now()
+
+        if OVC_체결시간 == '000000':
+
+            txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
+        else:            
+            txt = ' {0:02d}:{1:02d}:{2:02d}({3:d}, {4:.2f} ms) '.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, plot3_processing_time)
+   
+        self.label_time_3.setText(txt)
+
+        if FLAG_GUEST_CONTROL and receive_real_ovc:
+
+            flag_plot_update_is_running = True
+
             # Plot3 그래프 그리기
             # 선물가격
             if comboindex3 == 2 and market_service:
@@ -34545,6 +34870,31 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
 
+            flag_plot_update_is_running = False
+        else:
+            pass
+
+    @logging_time_plot4
+    @pyqtSlot()    
+    def update_bigchart4(self):
+
+        global flag_plot_update_is_running        
+        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
+        
+        dt = datetime.datetime.now()
+
+        if OVC_체결시간 == '000000':
+
+            txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
+        else:            
+            txt = ' {0:02d}:{1:02d}:{2:02d}({3:d}, {4:.2f} ms) '.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, plot4_processing_time)
+   
+        self.label_time_4.setText(txt)
+
+        if FLAG_GUEST_CONTROL and receive_real_ovc:
+
+            flag_plot_update_is_running = True
+
             # Plot4 그래프 그리기
             # 옵션가격
             if comboindex4 == 6 and market_service:
@@ -35396,7 +35746,32 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
             else:
-                pass   
+                pass
+
+            flag_plot_update_is_running = False
+        else:
+            pass   
+
+    @logging_time_plot5
+    @pyqtSlot()    
+    def update_bigchart5(self):
+
+        global flag_plot_update_is_running        
+        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
+        
+        dt = datetime.datetime.now()
+
+        if OVC_체결시간 == '000000':
+
+            txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
+        else:            
+            txt = ' {0:02d}:{1:02d}:{2:02d}({3:d}, {4:.2f} ms) '.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, plot5_processing_time)
+   
+        self.label_time_5.setText(txt)
+
+        if FLAG_GUEST_CONTROL and receive_real_ovc:
+
+            flag_plot_update_is_running = True
 
             # Plot5 그래프 그리기
             # 선물가격
@@ -36266,6 +36641,31 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
 
+            flag_plot_update_is_running = False
+        else:
+            pass
+
+    @logging_time_plot6
+    @pyqtSlot()    
+    def update_bigchart6(self):
+
+        global flag_plot_update_is_running        
+        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
+        
+        dt = datetime.datetime.now()
+
+        if OVC_체결시간 == '000000':
+
+            txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
+        else:            
+            txt = ' {0:02d}:{1:02d}:{2:02d}({3:d}, {4:.2f} ms) '.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, plot6_processing_time)
+   
+        self.label_time_6.setText(txt)
+
+        if FLAG_GUEST_CONTROL and receive_real_ovc:
+
+            flag_plot_update_is_running = True
+
             # Plot6 그래프 그리기
             # 선물가격
             if comboindex6 == 2 and market_service:
@@ -37133,22 +37533,49 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass  
             else:
                 pass
-        else:
-            pass
 
-        self.bc_ui_update_time = (timeit.default_timer() - start_time) * 1000        
-        
-        #txt = '[{0:02d}:{1:02d}:{2:02d}] Plot Update : {3:.2f} ms...\r'.format(dt.hour, dt.minute, dt.second, self.bc_ui_update_time)
-        #print(txt)
-        
-        flag_plot_update_is_running = False            
+            flag_plot_update_is_running = False
+        else:
+            pass       
+
 
     def closeEvent(self,event):
 
         self.flag_big_chart_open = False
         
-        if self.plot_update_worker.isRunning():
-            self.plot_update_worker.terminate()
+        if self.plot_update_worker1.isRunning():
+            self.plot_update_worker1.terminate()
+            print('plot1 thread is terminated...')
+        else:
+            pass
+
+        if self.plot_update_worker2.isRunning():
+            self.plot_update_worker2.terminate()
+            print('plot2 thread is terminated...')
+        else:
+            pass
+
+        if self.plot_update_worker3.isRunning():
+            self.plot_update_worker3.terminate()
+            print('plot3 thread is terminated...')
+        else:
+            pass
+
+        if self.plot_update_worker4.isRunning():
+            self.plot_update_worker4.terminate()
+            print('plot4 thread is terminated...')
+        else:
+            pass
+
+        if self.plot_update_worker5.isRunning():
+            self.plot_update_worker5.terminate()
+            print('plot5 thread is terminated...')
+        else:
+            pass
+
+        if self.plot_update_worker6.isRunning():
+            self.plot_update_worker6.terminate()
+            print('plot6 thread is terminated...')
         else:
             pass
 
@@ -37492,11 +37919,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if szTrCode == 'OVC':
                     
                     time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (OVC_HOUR * 3600 + OVC_MIN * 60 + OVC_SEC)
-                    '''
+                    
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 수신시간 = {3:02d}:{4:02d}:{5:02d}, 시간차 = {6}\r'.format(\
                         dt.hour, dt.minute, dt.second, OVC_HOUR, OVC_MIN, OVC_SEC, time_gap)
                     self.textBrowser.append(txt)
-                    '''
+                    
                 else:
                     pass
             
