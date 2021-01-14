@@ -1845,9 +1845,9 @@ flag_fut_vs_dow_drate_direction = False
 fut_quote_energy_direction = ''
 fut_volume_power_energy_direction = ''
 
-flag_fut_produce_queue_empty = True
-flag_call_produce_queue_empty = True
-flag_put_produce_queue_empty = True
+flag_main_process_queue_empty = True
+flag_call_process_queue_empty = True
+flag_put_process_queue_empty = True
 
 flag_call_strong = False
 flag_put_strong = False
@@ -1864,7 +1864,7 @@ vb_txt = ''
 
 flag_plot_update_interval_changed = False
 
-processing_time = 0
+main_loop_processing_time = 0
 args_processing_time = 0
 
 plot1_processing_time = 0
@@ -2002,11 +2002,11 @@ class RealDataTableModel(QAbstractTableModel):
         self.endResetModel()
 
 # 시간측정 함수
-def logging_time(original_fn):
+def logging_time_main_loop(original_fn):
 
     def wrapper_fn(*args, **kwargs):
 
-        global processing_time
+        global main_loop_processing_time
         
         dt = datetime.datetime.now()
 
@@ -2014,9 +2014,7 @@ def logging_time(original_fn):
         result = original_fn(*args, **kwargs)
         end_time = timeit.default_timer()
 
-        processing_time = (end_time - start_time) * 1000
-
-        print("************* {0} Processing Time [{1:02d}:{2:02d}:{3:02d}]: {4:.2f} msec".format(original_fn.__name__, dt.hour, dt.minute, dt.second, processing_time))
+        main_loop_processing_time = (end_time - start_time) * 1000
 
         return result
 
@@ -2198,7 +2196,7 @@ class ScreenUpdateWorker(QThread):
 
         while True:
 
-            if flag_fut_produce_queue_empty:
+            if flag_main_process_queue_empty:
                 self.trigger.emit()
 
             QTest.qWait(scoreboard_update_interval)    
@@ -2489,13 +2487,13 @@ class RealTime_Thread_DataWorker(QThread):
             self.dataQ.put(result, False)
     def run(self):
 
-            global flag_fut_produce_queue_empty
+            global flag_main_process_queue_empty
 
             while True:
 
                 if not self.dataQ.empty():
                     
-                    flag_fut_produce_queue_empty = False
+                    flag_main_process_queue_empty = False
 
                     data = self.dataQ.get(False)
 
@@ -2521,7 +2519,7 @@ class RealTime_Thread_DataWorker(QThread):
                         pass
                     
                 else:
-                    flag_fut_produce_queue_empty = True
+                    flag_main_process_queue_empty = True
                     #print('dataQ is empty...')
 
 ###########################################################
@@ -2550,12 +2548,12 @@ class RealTime_Fut_Thread_DataWorker(QThread):
             return self.drop_count, self.drop_code, self.total_count, self.total_packet_size
     def run(self):
 
-            global flag_fut_produce_queue_empty, flag_mp_interval_changed
+            global flag_main_process_queue_empty, flag_mp_interval_changed
 
             while True:
                 if not self.dataQ.empty():
 
-                    flag_fut_produce_queue_empty = False
+                    flag_main_process_queue_empty = False
 
                     data = self.dataQ.get(False)
                     
@@ -2583,7 +2581,7 @@ class RealTime_Fut_Thread_DataWorker(QThread):
 
                     QTest.qWait(mp_send_interval)
                 else:
-                    flag_fut_produce_queue_empty = True
+                    flag_main_process_queue_empty = True
 
 class RealTime_Call_Thread_DataWorker(QThread):
 
@@ -2612,12 +2610,12 @@ class RealTime_Call_Thread_DataWorker(QThread):
 
         def run(self):
 
-            global flag_call_produce_queue_empty
+            global flag_call_process_queue_empty
 
             while True:
                 if not self.dataQ.empty():
 
-                    flag_call_produce_queue_empty = False
+                    flag_call_process_queue_empty = False
 
                     data = self.dataQ.get(False)
                     
@@ -2645,7 +2643,7 @@ class RealTime_Call_Thread_DataWorker(QThread):
                     '''
                     QTest.qWait(mp_send_interval)
                 else:
-                    flag_call_produce_queue_empty = True
+                    flag_call_process_queue_empty = True
 class RealTime_Put_Thread_DataWorker(QThread):
 
         # 수신데이타 타입이 list이면 TR데이타, dict이면 실시간데이타.        
@@ -2673,12 +2671,12 @@ class RealTime_Put_Thread_DataWorker(QThread):
 
         def run(self):
 
-            global flag_put_produce_queue_empty
+            global flag_put_process_queue_empty
 
             while True:
                 if not self.dataQ.empty():
 
-                    flag_put_produce_queue_empty = False
+                    flag_put_process_queue_empty = False
 
                     data = self.dataQ.get(False)
 
@@ -2706,7 +2704,7 @@ class RealTime_Put_Thread_DataWorker(QThread):
                     '''
                     QTest.qWait(mp_send_interval)
                 else:
-                    flag_put_produce_queue_empty = True
+                    flag_put_process_queue_empty = True
 
 ########################################################################################################################
 # 옵션전광판 UI Class
@@ -2733,7 +2731,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         print('선물옵션전광판 다이얼로그를 초기화합니다...')  
 
         self.flag_score_board_open = True
-        self.main_ui_update_time = 0
+        #self.main_ui_update_time = 0
         self.flag_refresh = False
 
         # 조회요청 TR 객체생성
@@ -4515,12 +4513,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command is {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, telegram_command)                        
                         print(txt)
                     else:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message is {3}, {4:.2f} ms\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, telegram_command, self.main_ui_update_time)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message is {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, telegram_command)
                         self.textBrowser.append(txt)
                 else:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message is None, {3:.2f} ms\r'.format \
-                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, self.main_ui_update_time)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message is None\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                     self.textBrowser.append(txt)                
             else:
                 pass
@@ -4709,10 +4705,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #df_gold_ohlc_15min = df.resample('15T').ohlc()        
 
         txt = '[{0:02d}:{1:02d}:{2:02d}] OHLC_Gen Update : {3:.2f} ms...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, (timeit.default_timer() - start_time) * 1000)
-        print(txt)
+        print(txt)    
     
+    @logging_time_main_loop
     @pyqtSlot()
-    #@logging_time
     def update_screen(self):
 
         global flag_internet_connection_broken, flag_service_provider_broken
@@ -4734,7 +4730,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         try:
             flag_screen_update_is_running = True
 
-            start_time = timeit.default_timer()
+            #start_time = timeit.default_timer()
 
             self.alternate_flag = not self.alternate_flag
             
@@ -5424,12 +5420,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if not flag_offline:
 
-                self.main_ui_update_time = (timeit.default_timer() - start_time) * 1000
-
+                #self.main_ui_update_time = (timeit.default_timer() - start_time) * 1000
                 #txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f} ms\r'.format(dt.hour, dt.minute, dt.second, self.main_ui_update_time)
                 #print(txt)
 
-                item_txt = '{0:.2f}'.format(self.main_ui_update_time)
+                item_txt = '{0:.2f}'.format(main_loop_processing_time)
                 item = QTableWidgetItem(item_txt)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_fut.setHorizontalHeaderItem(0, item)
@@ -20045,7 +20040,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def OnReceiveRealData(self, result):
         pass
     
-    #@logging_time
     def OVC_Update(self, result):
 
         global receive_real_ovc, OVC_체결시간, OVC_HOUR, OVC_MIN, OVC_SEC, SERVER_HOUR, SERVER_MIN, SERVER_SEC
@@ -23993,7 +23987,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_nm_opt_price_1.setText('차월물 옵션가격(일부)')
 
         #txt = '차월물 옵션호가(내가 {0}, 외가 {1})'.format(PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
-        self.checkBox_nm_opt_quote_1.setText('본월물 옵션호가(일부)')
+        self.checkBox_nm_opt_quote_1.setText('차월물 옵션호가(일부)')
 
         self.checkBox_cm_fut_price.setChecked(CM_FUT_PRICE)
         self.checkBox_cm_fut_quote.setChecked(CM_FUT_QUOTE)
@@ -25326,7 +25320,7 @@ class PlotUpdateWorker1(QThread):
 
         while True:
 
-            if flag_fut_produce_queue_empty:
+            if flag_main_process_queue_empty:
                 self.trigger.emit()
 
             if flag_plot_update_interval_changed:
@@ -25348,18 +25342,10 @@ class PlotUpdateWorker2(QThread):
 
     def run(self):
 
-        global flag_plot_update_interval_changed
-
         while True:
 
-            if flag_fut_produce_queue_empty:
+            if flag_main_process_queue_empty:
                 self.trigger.emit()
-
-            if flag_plot_update_interval_changed:
-                print('plot_update_interval changed...')
-                flag_plot_update_interval_changed = False
-            else:
-                pass
 
             QTest.qWait(plot_update_interval)
 
@@ -25374,18 +25360,10 @@ class PlotUpdateWorker3(QThread):
 
     def run(self):
 
-        global flag_plot_update_interval_changed
-
         while True:
 
-            if flag_fut_produce_queue_empty:
+            if flag_main_process_queue_empty:
                 self.trigger.emit()
-
-            if flag_plot_update_interval_changed:
-                print('plot_update_interval changed...')
-                flag_plot_update_interval_changed = False
-            else:
-                pass
 
             QTest.qWait(plot_update_interval)
 
@@ -25400,18 +25378,10 @@ class PlotUpdateWorker4(QThread):
 
     def run(self):
 
-        global flag_plot_update_interval_changed
-
         while True:
 
-            if flag_fut_produce_queue_empty:
+            if flag_main_process_queue_empty:
                 self.trigger.emit()
-
-            if flag_plot_update_interval_changed:
-                print('plot_update_interval changed...')
-                flag_plot_update_interval_changed = False
-            else:
-                pass
 
             QTest.qWait(plot_update_interval)
 
@@ -25426,18 +25396,10 @@ class PlotUpdateWorker5(QThread):
 
     def run(self):
 
-        global flag_plot_update_interval_changed
-
         while True:
 
-            if flag_fut_produce_queue_empty:
+            if flag_main_process_queue_empty:
                 self.trigger.emit()
-
-            if flag_plot_update_interval_changed:
-                print('plot_update_interval changed...')
-                flag_plot_update_interval_changed = False
-            else:
-                pass
 
             QTest.qWait(plot_update_interval)
 
@@ -25452,18 +25414,10 @@ class PlotUpdateWorker6(QThread):
 
     def run(self):
 
-        global flag_plot_update_interval_changed
-
         while True:
 
-            if flag_fut_produce_queue_empty:
+            if flag_main_process_queue_empty:
                 self.trigger.emit()
-
-            if flag_plot_update_interval_changed:
-                print('plot_update_interval changed...')
-                flag_plot_update_interval_changed = False
-            else:
-                pass
 
             QTest.qWait(plot_update_interval)
 ########################################################################################################################
@@ -26548,27 +26502,27 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         # 그리기 쓰레드       
         self.plot_update_worker1 = PlotUpdateWorker1()
-        self.plot_update_worker1.trigger.connect(self.update_bigchart1)
+        self.plot_update_worker1.trigger.connect(self.update_plot1)
         self.plot_update_worker1.start()
 
         self.plot_update_worker2 = PlotUpdateWorker2()
-        self.plot_update_worker2.trigger.connect(self.update_bigchart2)
+        self.plot_update_worker2.trigger.connect(self.update_plot2)
         self.plot_update_worker2.start()
 
         self.plot_update_worker3 = PlotUpdateWorker3()
-        self.plot_update_worker3.trigger.connect(self.update_bigchart3)
+        self.plot_update_worker3.trigger.connect(self.update_plot3)
         self.plot_update_worker3.start()
 
         self.plot_update_worker4 = PlotUpdateWorker4()
-        self.plot_update_worker4.trigger.connect(self.update_bigchart4)
+        self.plot_update_worker4.trigger.connect(self.update_plot4)
         self.plot_update_worker4.start()
 
         self.plot_update_worker5 = PlotUpdateWorker5()
-        self.plot_update_worker5.trigger.connect(self.update_bigchart5)
+        self.plot_update_worker5.trigger.connect(self.update_plot5)
         self.plot_update_worker5.start()
 
         self.plot_update_worker6 = PlotUpdateWorker6()
-        self.plot_update_worker6.trigger.connect(self.update_bigchart6)
+        self.plot_update_worker6.trigger.connect(self.update_plot6)
         self.plot_update_worker6.start()
 
     def __del__(self):
@@ -32197,7 +32151,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
     @logging_time_plot1  
     @pyqtSlot()    
-    def update_bigchart1(self):
+    def update_plot1(self):
 
         global flag_plot_update_is_running        
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
@@ -33082,7 +33036,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         
     @logging_time_plot2
     @pyqtSlot()    
-    def update_bigchart2(self):
+    def update_plot2(self):
 
         global flag_plot_update_is_running        
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
@@ -33982,7 +33936,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
     @logging_time_plot3
     @pyqtSlot()    
-    def update_bigchart3(self):
+    def update_plot3(self):
 
         global flag_plot_update_is_running        
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
@@ -34876,7 +34830,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
     @logging_time_plot4
     @pyqtSlot()    
-    def update_bigchart4(self):
+    def update_plot4(self):
 
         global flag_plot_update_is_running        
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
@@ -35754,7 +35708,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
     @logging_time_plot5
     @pyqtSlot()    
-    def update_bigchart5(self):
+    def update_plot5(self):
 
         global flag_plot_update_is_running        
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
@@ -36647,7 +36601,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
     @logging_time_plot6
     @pyqtSlot()    
-    def update_bigchart6(self):
+    def update_plot6(self):
 
         global flag_plot_update_is_running        
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
@@ -37745,14 +37699,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if realdata['szTrCode'] == 'OC0' or realdata['szTrCode'] == 'EC0' or realdata['szTrCode'] == 'OH0' or realdata['szTrCode'] == 'EH0':
 
-                if flag_fut_produce_queue_empty:
+                if flag_main_process_queue_empty:
                     item.setBackground(QBrush(흰색))
                 else:
                     item.setBackground(QBrush(검정색))
                 
                 item.setForeground(QBrush(적색))
             else:
-                if flag_fut_produce_queue_empty:
+                if flag_main_process_queue_empty:
                     item.setBackground(QBrush(흰색))
                 else:
                     item.setBackground(QBrush(검정색))
@@ -37890,7 +37844,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             item = QTableWidgetItem("{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time))
             item.setTextAlignment(Qt.AlignCenter)
 
-            if flag_fut_produce_queue_empty:
+            if flag_main_process_queue_empty:
                 item.setBackground(QBrush(흰색))
             else:
                 item.setBackground(QBrush(검정색))
@@ -38003,7 +37957,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             item = QTableWidgetItem("{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time))
             item.setTextAlignment(Qt.AlignCenter)
 
-            if flag_call_produce_queue_empty:
+            if flag_call_process_queue_empty:
                 item.setBackground(QBrush(흰색))
             else:
                 item.setBackground(QBrush(검정색))
@@ -38064,7 +38018,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             item = QTableWidgetItem("{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time))
             item.setTextAlignment(Qt.AlignCenter)
 
-            if flag_put_produce_queue_empty:
+            if flag_put_process_queue_empty:
                 item.setBackground(QBrush(흰색))
             else:
                 item.setBackground(QBrush(검정색))
