@@ -1890,6 +1890,7 @@ flag_put_itm_number_changed = False
 flag_put_otm_number_changed = False
 
 drop_txt = ''
+time_gap = 0
 
 #####################################################################################################################################################################
 # UI 파일정의
@@ -37447,7 +37448,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         dt = datetime.datetime.now()
 
-        global drop_txt 
+        global drop_txt, time_gap
 
         # 데이타를 전광판 다이얼로그로 전달
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:                
@@ -37468,16 +37469,33 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
             szTrCode = realdata['szTrCode']
 
-            if szTrCode == 'FH0':
+            if DayTime:
 
-                time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (int(result['호가시간'][0:2]) * 3600 + int(result['호가시간'][2:4]) * 60 + int(result['호가시간'][4:6]))
-                #time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (OVC_HOUR * 3600 + OVC_MIN * 60 + OVC_SEC)
+                if szTrCode == 'FH0':
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 선물호가 수신시간 = {3:02d}:{4:02d}:{5:02d}, 시간차 = {6}\r'.format(\
-                    dt.hour, dt.minute, dt.second, int(result['호가시간'][0:2]), int(result['호가시간'][2:4]), int(result['호가시간'][4:6]), time_gap)
-                self.textBrowser.append(txt)
+                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (int(realdata['호가시간'][0:2]) * 3600 + int(realdata['호가시간'][2:4]) * 60 + int(realdata['호가시간'][4:6]))
+                    '''
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 선물호가 수신시간 = {3:02d}:{4:02d}:{5:02d}, 시간차 = {6}\r'.format(\
+                        dt.hour, dt.minute, dt.second, int(realdata['호가시간'][0:2]), int(realdata['호가시간'][2:4]), int(realdata['호가시간'][4:6]), time_gap)
+                    self.textBrowser.append(txt)
+                    '''
+                else:
+                    pass
             else:
-                pass               
+                if szTrCode == 'OVC':
+                    
+                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (OVC_HOUR * 3600 + OVC_MIN * 60 + OVC_SEC)
+                    '''
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 수신시간 = {3:02d}:{4:02d}:{5:02d}, 시간차 = {6}\r'.format(\
+                        dt.hour, dt.minute, dt.second, OVC_HOUR, OVC_MIN, OVC_SEC, time_gap)
+                    self.textBrowser.append(txt)
+                    '''
+                else:
+                    pass
+            
+            item = QTableWidgetItem('[{0}]'.format(time_gap))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.dialog['선물옵션전광판'].tableWidget_supply.setHorizontalHeaderItem(Supply_column.종합.value - 2, item)
 
             if MP_NUMBER == 1:
 
