@@ -2215,11 +2215,11 @@ class TelegramSendWorker(QThread):
 
     def run(self):
 
-        while True:
-            
-            #txt = 'Send Telegram Message...'       
+        while True:  
 
-            self.trigger.emit()
+            if flag_main_process_queue_empty:
+                self.trigger.emit()
+
             QTest.qWait(1000 * TELEGRAM_SEND_INTERVAL)
 ########################################################################################################################
 # 텔레그램 수신 쓰레드
@@ -2235,11 +2235,11 @@ class TelegramListenWorker(QThread):
 
     def run(self):
 
-        while True:
+        while True:      
 
-            #txt = 'Listn Telegram Message...'            
+            if flag_main_process_queue_empty:
+                self.trigger.emit()
 
-            self.trigger.emit()
             QTest.qWait(1000 * TELEGRAM_POLLING_INTERVAL)
 ########################################################################################################################
 # 실시간 데이타수신을 위한 쓰레드 클래스
@@ -2520,7 +2520,6 @@ class RealTime_Thread_DataWorker(QThread):
                     
                 else:
                     flag_main_process_queue_empty = True
-                    #print('dataQ is empty...')
 
 ###########################################################
 # 실시간 데이타수신을 위한 멀티프로세스 쓰레드 클래스
@@ -2644,6 +2643,7 @@ class RealTime_Call_Thread_DataWorker(QThread):
                     QTest.qWait(mp_send_interval)
                 else:
                     flag_call_process_queue_empty = True
+                    
 class RealTime_Put_Thread_DataWorker(QThread):
 
         # 수신데이타 타입이 list이면 TR데이타, dict이면 실시간데이타.        
@@ -37861,7 +37861,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if szTrCode == 'FH0':
 
-                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (int(realdata['호가시간'][0:2]) * 3600 + int(realdata['호가시간'][2:4]) * 60 + int(realdata['호가시간'][4:6]))
+                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['호가시간'][0:2]) * 3600 + int(realdata['호가시간'][2:4]) * 60 + int(realdata['호가시간'][4:6]))
                     '''
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 선물호가 수신시간 = {3:02d}:{4:02d}:{5:02d}, 시간차 = {6}\r'.format(\
                         dt.hour, dt.minute, dt.second, int(realdata['호가시간'][0:2]), int(realdata['호가시간'][2:4]), int(realdata['호가시간'][4:6]), time_gap)
@@ -37872,7 +37872,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 if szTrCode == 'OVC':
                     
-                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (OVC_HOUR * 3600 + OVC_MIN * 60 + OVC_SEC)
+                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (OVC_HOUR * 3600 + OVC_MIN * 60 + OVC_SEC)
                     
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 수신시간 = {3:02d}:{4:02d}:{5:02d}, 시간차 = {6}\r'.format(\
                         dt.hour, dt.minute, dt.second, OVC_HOUR, OVC_MIN, OVC_SEC, time_gap)
