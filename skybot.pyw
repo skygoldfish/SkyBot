@@ -25203,8 +25203,8 @@ class PlotUpdateWorker(QThread):
 
         while True:
 
-            #if flag_fut_produce_queue_empty:
-            self.trigger.emit()
+            if flag_fut_produce_queue_empty:
+                self.trigger.emit()
 
             if flag_plot_update_interval_changed:
                 print('plot_update_interval changed...')
@@ -31943,7 +31943,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass
         '''
-        #if not flag_fut_realdata_update_is_running and FLAG_GUEST_CONTROL and receive_real_ovc:
+        
         if FLAG_GUEST_CONTROL and receive_real_ovc:
             
             flag_plot_update_is_running = True
