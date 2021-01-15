@@ -19203,6 +19203,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
+            if option_pairs_count > 100:
+                option_pairs_count = 100
+            else:
+                pass
+
             for i in range(option_pairs_count):
 
                 self.opt_total_actval_list.append(i)
