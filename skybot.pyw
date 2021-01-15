@@ -2547,7 +2547,7 @@ class RealTime_Fut_Thread_DataWorker(QThread):
             return self.drop_count, self.drop_code, self.total_count, self.total_packet_size
     def run(self):
 
-            global flag_main_process_queue_empty, flag_mp_interval_changed
+            global flag_main_process_queue_empty, flag_mp_interval_changed            
 
             while True:
                 if not self.dataQ.empty():
@@ -2567,7 +2567,7 @@ class RealTime_Fut_Thread_DataWorker(QThread):
                             self.trigger_dict.emit(data)                    
                         else:
                             pass
-                        # 실시간 그래프 호출을 여기서 할수 있음!!!
+                        # 실시간 그래프 호출을 여기서 할수 있음!!! --> 데이타프레임을 만든후 emit
                     else:
                         self.drop_count += 1
                         self.drop_code = data['szTrCode']
