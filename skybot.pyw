@@ -1088,6 +1088,7 @@ update_end = 10.0
 
 basis = 0
 option_pairs_count = 0
+t8416_option_pairs_count = 0
 real_option_pairs_count = 0
 
 fut_result = dict()
@@ -12457,13 +12458,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             call_otm_db_percent = [0] * option_pairs_count
             call_open = [False] * option_pairs_count
             call_ol_count = 0
-            call_oh_count = 0
+            call_oh_count = 0            
 
-            if self.call_open_list:
-
-                loop_list = self.call_open_list
-            else:
+            if refresh_coloring:
                 loop_list = self.opt_total_actval_list
+            else:
+                if self.call_open_list:
+                    loop_list = self.call_open_list
+                else:
+                    loop_list = self.opt_total_actval_list
 
             for index in loop_list:
 
@@ -13531,11 +13534,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             nm_put_ol = [False] * option_pairs_count
             nm_put_oh = [False] * option_pairs_count
             
-            if self.put_open_list:
-
-                loop_list = self.put_open_list
-            else:
+            if refresh_coloring:
                 loop_list = self.opt_total_actval_list
+            else:
+                if self.put_open_list:
+                    loop_list = self.put_open_list
+                else:
+                    loop_list = self.opt_total_actval_list
             
             for index in loop_list:
 
@@ -14828,7 +14833,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             szTrCode, block, df, df1 = result
 
-            global 옵션잔존일, flag_option_pair_full
+            global 옵션잔존일, flag_option_pair_full, t8416_option_pairs_count
 
             if not self.flag_refresh:
 
@@ -14838,13 +14843,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 옵션 행사가 갯수
                 option_pairs_count = len(df)
                 real_option_pairs_count = len(df)
-
+                '''
                 if option_pairs_count > 100:
                     option_pairs_count = 100
                     flag_option_pair_full = True
                 else:
                     pass
-                
+                '''
                 if DayTime:
 
                     call_open = [False] * option_pairs_count
@@ -14926,13 +14931,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     df_call_graph[i].at[0, 'open'] = 종가
                     df_call_graph[i].at[0, 'price'] = 종가
-
+                    '''
                     if df['저가'][i] < df['고가'][i]:
                         저가 = df['저가'][i]
                         고가 = df['고가'][i]                        
                     else:
                         저가 = 0.0
                         고가 = 0.0
+                    '''
+                    저가 = df['저가'][i]
+                    고가 = df['고가'][i] 
 
                     item = QTableWidgetItem("{0:.2f}".format(저가))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -15260,13 +15268,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     df_put_graph[i].at[0, 'open'] = 종가
                     df_put_graph[i].at[0, 'price'] = 종가
-
+                    '''
                     if df1['저가'][i] < df1['고가'][i]:
                         저가 = df1['저가'][i]
                         고가 = df1['고가'][i]                        
                     else:
                         저가 = 0.0
                         고가 = 0.0
+                    '''
+                    저가 = df1['저가'][i]
+                    고가 = df1['고가'][i]  
 
                     item = QTableWidgetItem("{0:.2f}".format(저가))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -15732,8 +15743,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # t8416 요청                
                 print('t8416 call 요청시작...')
                 QTest.qWait(100)
+
+                if option_pairs_count > 99:
+                    t8416_option_pairs_count = 99
+                else:
+                    t8416_option_pairs_count = option_pairs_count
                 
-                for i in range(option_pairs_count):
+                for i in range(t8416_option_pairs_count):
                     t8416_call_count = i
                     self.t8416_opt_request(self.call_code[i])
                     self.t8416_call_event_loop.exec_()
@@ -15817,13 +15833,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
                         
                         self.tableWidget_call.setItem(i, Option_column.현재가.value, item)
-                        
+                        '''
                         if df['저가'][i] < df['고가'][i]:
                             저가 = df['저가'][i]
                             고가 = df['고가'][i]                        
                         else:
                             저가 = 0.0
                             고가 = 0.0
+                        '''
+                        저가 = df['저가'][i]
+                        고가 = df['고가'][i]
                         
                         df_call.at[i, '저가'] = 저가
 
@@ -15952,13 +15971,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
                         
                         self.tableWidget_put.setItem(i, Option_column.현재가.value, item)
-
+                        '''
                         if df1['저가'][i] < df1['고가'][i]:
                             저가 = df1['저가'][i]
                             고가 = df1['고가'][i]                        
                         else:
                             저가 = 0.0
                             고가 = 0.0
+                        '''
+                        저가 = df1['저가'][i]
+                        고가 = df1['고가'][i]
                         
                         df_put.at[i, '저가'] = 저가
 
@@ -16054,13 +16076,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if True:
 
                         for i in range(option_pairs_count):
-
+                            '''
                             if df['저가'][i] < df['고가'][i]:
                                 저가 = df['저가'][i]
                                 고가 = df['고가'][i]                        
                             else:
                                 저가 = 0.0
                                 고가 = 0.0
+                            '''
+                            저가 = df['저가'][i]
+                            고가 = df['고가'][i]
 
                             df_call.at[i, '저가'] = 저가
                             빈도수 = moving_list.count(저가)
@@ -16097,13 +16122,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 item.setBackground(QBrush(흰색))
 
                             self.tableWidget_call.setItem(i, Option_column.고가.value, item)
-
+                            '''
                             if df1['저가'][i] < df1['고가'][i]:
                                 저가 = df1['저가'][i]
                                 고가 = df1['고가'][i]                        
                             else:
                                 저가 = 0.0
                                 고가 = 0.0
+                            '''
+                            저가 = df1['저가'][i]
+                            고가 = df1['고가'][i]
 
                             df_put.at[i, '저가'] = 저가
                             빈도수 = moving_list.count(저가)
@@ -16164,6 +16192,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                        
                 else:                    
                     # EUREX 야간옵션 시세전광판
+                    print('t2835 요청')
                     self.XQ_t2835.Query(월물=t2835_month_info)
                     
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
@@ -16700,12 +16729,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 t2835_length = len(df)
                 print('t2835 length =', t2835_length)
-
+                '''
                 if t2835_length > 100:
                     t2835_length = 100
                 else:
                     pass
-
+                '''
                 for i in range(t2835_length):
 
                     # 수정거래량 초기화
@@ -16796,13 +16825,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item.setForeground(QBrush(검정색))
 
                     self.tableWidget_call.setItem(i, Option_column.현재가.value, item)
-
+                    '''
                     if df['저가'][i] < df['고가'][i]:
                         저가 = df['저가'][i]
                         고가 = df['고가'][i]
                     else:
                         저가 = 0.0
                         고가 = 0.0
+                    '''
+                    저가 = df['저가'][i]
+                    고가 = df['고가'][i]
                     
                     df_call.at[i, '저가'] = 저가
                     
@@ -17097,13 +17129,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item.setForeground(QBrush(검정색))
 
                     self.tableWidget_put.setItem(i, Option_column.현재가.value, item)
-
+                    '''
                     if df1['저가'][i] < df1['고가'][i]:
                         저가 = df1['저가'][i]
                         고가 = df1['고가'][i]
                     else:
                         저가 = 0.0
                         고가 = 0.0
+                    '''
+                    저가 = df1['저가'][i]
+                    고가 = df1['고가'][i]
                     
                     df_put.at[i, '저가'] = 저가
 
@@ -17644,6 +17679,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # Refresh
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판을 갱신합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 self.textBrowser.append(txt)
+                print(txt)
 
                 del self.call_open_list[:]
                 del self.put_open_list[:]
@@ -17696,13 +17732,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item.setForeground(QBrush(검정색))
 
                     self.tableWidget_call.setItem(i, Option_column.현재가.value, item)
-
+                    '''
                     if df['저가'][i] < df['고가'][i]:
                         저가 = df['저가'][i]
                         고가 = df['고가'][i]
                     else:
                         저가 = 0.0
                         고가 = 0.0
+                    '''
+                    저가 = df['저가'][i]
+                    고가 = df['고가'][i]
 
                     df_call.at[i, '저가'] = 저가
 
@@ -17785,13 +17824,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item.setForeground(QBrush(검정색))
 
                     self.tableWidget_put.setItem(i, Option_column.현재가.value, item)
-
+                    '''
                     if df1['저가'][i] < df1['고가'][i]:
                         저가 = df1['저가'][i]
                         고가 = df1['고가'][i]
                     else:
                         저가 = 0.0
                         고가 = 0.0
+                    '''
+                    저가 = df1['저가'][i]
+                    고가 = df1['고가'][i]
                     
                     df_put.at[i, '저가'] = 저가
 
@@ -17850,6 +17892,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 put_고가 = df_put['고가'].values.tolist()
                 put_고가_node_list = self.make_node_list(put_고가)
+
+                print('t2835 call low =', call_저가_node_list)
+                print('t2835 call high =', call_고가_node_list)
+                print('t2835 put low =', put_저가_node_list)
+                print('t2835 put high =', put_고가_node_list)
                 
                 self.opt_high_low_list_update()
 
@@ -17859,13 +17906,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     print(txt)
 
                     for i in range(option_pairs_count):
-
+                        '''
                         if df['저가'][i] < df['고가'][i]:
                             저가 = df['저가'][i]
                             고가 = df['고가'][i]
                         else:
                             저가 = 0.0
                             고가 = 0.0
+                        '''
+                        저가 = df['저가'][i]
+                        고가 = df['고가'][i]
 
                         df_call.at[i, '저가'] = 저가
                         빈도수 = moving_list.count(저가)                    
@@ -17906,13 +17956,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item.setForeground(QBrush(검정색))
 
                         self.tableWidget_call.setItem(i, Option_column.고가.value, item)
-
+                        '''
                         if df1['저가'][i] < df1['고가'][i]:
                             저가 = df1['저가'][i]
                             고가 = df1['고가'][i]
                         else:
                             저가 = 0.0
                             고가 = 0.0
+                        '''
+                        저가 = df1['저가'][i]
+                        고가 = df1['고가'][i]
 
                         df_put.at[i, '저가'] = 저가
                         빈도수 = moving_list.count(저가)                    
@@ -18120,7 +18173,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass                   
                     self.tableWidget_put.resizeColumnsToContents()                 
 
-                    if t8416_call_count == (option_pairs_count - 1) - new_actval_down_count:
+                    if t8416_call_count == (t8416_option_pairs_count - 1) - new_actval_down_count:
 
                         call_기준가 = df_call['기준가'].values.tolist()
                         call_월저 = df_call['월저'].values.tolist()
@@ -18157,7 +18210,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         print('t8416 put 요청시작...')
                         QTest.qWait(1000)
 
-                        for i in range(option_pairs_count):
+                        if option_pairs_count > 99:
+                            t8416_option_pairs_count = 99
+                        else:
+                            t8416_option_pairs_count = option_pairs_count
+
+                        for i in range(t8416_option_pairs_count):
                             t8416_put_count = i
                             self.t8416_opt_request(self.put_code[i])
                             self.t8416_put_event_loop.exec_()
@@ -18374,7 +18432,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print('======================================================================================================================================================================\r')
                 
                 # to be checked !!!
-                if t8416_call_count == option_pairs_count - 1:
+                if t8416_call_count == t8416_option_pairs_count - 1:
 
                     call_기준가 = df_call['기준가'].values.tolist()
                     call_월저 = df_call['월저'].values.tolist()
@@ -18413,7 +18471,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     print('t8416 put 요청시작...')
                     QTest.qWait(1000)
 
-                    for i in range(option_pairs_count):
+                    if option_pairs_count > 99:
+                        t8416_option_pairs_count = 99
+                    else:
+                        t8416_option_pairs_count = option_pairs_count
+
+                    for i in range(t8416_option_pairs_count):
                             t8416_put_count = i
                             self.t8416_opt_request(self.put_code[i])
                             self.t8416_put_event_loop.exec_()
@@ -18596,14 +18659,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] Put 행사가 {3}개중 {4}개를 수신했습니다.\r'.format(dt.hour, dt.minute, dt.second, 
-                    option_pairs_count, t8416_put_count + 1)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Put 행사가 {3}개중 {4}개를 수신했습니다.\r'.format(dt.hour, dt.minute, dt.second, option_pairs_count, t8416_put_count + 1)
                 self.textBrowser.append(txt)
                 print(txt)
 
                 print('======================================================================================================================================================================\r')
 
-                if t8416_put_count == (option_pairs_count - 1) - new_actval_down_count:
+                if t8416_put_count == (t8416_option_pairs_count - 1) - new_actval_down_count:
                     
                     txt = '[{0:02d}:{1:02d}:{2:02d}] Put 전체 행사가 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
@@ -18904,6 +18966,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
+                        print('t2835 요청')
                         self.XQ_t2835.Query(월물=t2835_month_info)                        
                     else:
                             
@@ -19230,12 +19293,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 option_pairs_count = NM_OPT_LENGTH
             else:
                 pass
-
+            '''
             if option_pairs_count > 100:
                 option_pairs_count = 100
             else:
                 pass
-
+            '''
             for i in range(option_pairs_count):
 
                 self.opt_total_actval_list.append(i)
