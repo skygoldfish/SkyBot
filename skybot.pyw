@@ -24018,6 +24018,12 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.spinBox_put_itm.setValue(put_itm_number)
         self.spinBox_put_otm.setValue(put_otm_number)
 
+        txt = str(mp_send_interval)
+        self.lineEdit_mp.setText(txt)
+
+        txt = str(plot_update_interval)
+        self.lineEdit_plot.setText(txt)
+
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
         #atexit.register(self.__del__) 
         
