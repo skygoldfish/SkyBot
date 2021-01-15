@@ -37819,10 +37819,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, ovc_x_idx, 시스템시간_분, 서버시간_분
 
             server_time = trdata[2]
-
+            '''
             txt = '[{0:02d}:{1:02d}:{2:02d}] HeartBeat 수신...\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
-
+            '''
             systemtime = dt.hour * 3600 + dt.minute * 60 + dt.second
 
             시스템시간_분 = dt.hour * 3600 + dt.minute * 60
@@ -37911,11 +37911,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if szTrCode == 'FH0':
 
                     time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['호가시간'][0:2]) * 3600 + int(realdata['호가시간'][2:4]) * 60 + int(realdata['호가시간'][4:6]))
-                    '''
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 선물호가 수신시간 = {3:02d}:{4:02d}:{5:02d}, 시간차 = {6}\r'.format(\
+                    
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] FH0 수신시간 = {3:02d}:{4:02d}:{5:02d}, 시간차 = {6}초\r'.format(\
                         dt.hour, dt.minute, dt.second, int(realdata['호가시간'][0:2]), int(realdata['호가시간'][2:4]), int(realdata['호가시간'][4:6]), time_gap)
-                    self.textBrowser.append(txt)
-                    '''
+
+                    if abs(time_gap) > 1:
+                        self.statusbar.setStyleSheet("color : red")
+                    else:
+                        self.statusbar.setStyleSheet("color : springgreen")
+
+                    self.statusbar.showMessage(txt)                   
                 else:
                     pass
             else:
@@ -37923,10 +37928,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     
                     time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (OVC_HOUR * 3600 + OVC_MIN * 60 + OVC_SEC)
                     
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 수신시간 = {3:02d}:{4:02d}:{5:02d}, 시간차 = {6}\r'.format(\
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] OVC 수신시간 = {3:02d}:{4:02d}:{5:02d}, 시간차 = {6}초\r'.format(\
                         dt.hour, dt.minute, dt.second, OVC_HOUR, OVC_MIN, OVC_SEC, time_gap)
-                    self.textBrowser.append(txt)
-                    
+
+                    if abs(time_gap) > 1:
+                        self.statusbar.setStyleSheet("color : red")
+                    else:
+                        self.statusbar.setStyleSheet("color : springgreen")
+
+                    self.statusbar.showMessage(txt)
                 else:
                     pass
             
@@ -38227,10 +38237,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 server_x_idx = (SERVER_HOUR - DayTime_PreStart_Hour) * 60 + SERVER_MIN + 1
 
             ovc_x_idx = server_x_idx
-
+            '''
             txt = '[{0:02d}:{1:02d}:{2:02d}] HeartBeat 수신...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
             self.textBrowser.append(txt)
-
+            '''
             flag_heartbeat = True                        
         else:
             pass
