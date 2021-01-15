@@ -25459,6 +25459,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         
         self.setupUi(self)
         self.parent = parent
+
+        dt = datetime.datetime.now()
+        start_time = timeit.default_timer()
         
         self.flag_big_chart_open = True
         self.bc_ui_update_time = 0
@@ -25472,7 +25475,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         qr = self.frameGeometry()
         qr.moveCenter(self.parent.centerPoint)
         self.move(qr.topLeft())     
-        self.showNormal()  
+        self.showNormal()
+
+        self.plot_update_worker1 = None
+        self.plot_update_worker2 = None
+        self.plot_update_worker3 = None
+        self.plot_update_worker4 = None
+        self.plot_update_worker5 = None
+        self.plot_update_worker6 = None
         
         self.comboBox1.setStyleSheet('background-color: lightgreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.comboBox2.setStyleSheet('background-color: lightgreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -26518,7 +26528,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot5_time_line_jugan_start.setValue(GuardTime)
             self.plot6_time_line_jugan_start.setValue(GuardTime)
 
-        # 그리기 쓰레드       
+        # 그리기 쓰레드
         self.plot_update_worker1 = PlotUpdateWorker1()
         self.plot_update_worker1.trigger.connect(self.update_plot1)
         self.plot_update_worker1.start()
@@ -26542,6 +26552,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot_update_worker6 = PlotUpdateWorker6()
         self.plot_update_worker6.trigger.connect(self.update_plot6)
         self.plot_update_worker6.start()
+
+        end_time = timeit.default_timer()
+        processing_time = (end_time - start_time) * 1000
+
+        print('init time =', processing_time)
 
     def __del__(self):
         '''
@@ -32186,7 +32201,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 self.plot_count = 0
 
-            txt = ' {0:02d}:{1:02d}:{2:02d}({3:d}[{4}], {5:.2f} ms) '.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, self.plot_count, plot1_processing_time)
+            txt = '{0:02d}:{1:02d}:{2:02d}({3:d}[{4}], {5:.2f} ms)'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, self.plot_count, plot1_processing_time)
             self.plot_x_idx = SERVER_SEC
    
         self.label_time_1.setText(txt)
@@ -32249,13 +32264,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_12.setText(txt)
 
                     if CENTER_VAL < 1.0:
-                        txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                        txt = ' 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
                     else:
-                        txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                        txt = ' 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
 
                     self.label_13.setText(txt)
 
-                    txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
+                    txt = ' 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
                     self.label_14.setText(txt)
 
                     txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[ATM_INDEX, '대비'], (put_atm_value / df_put.at[ATM_INDEX, '시가'] - 1) * 100)
@@ -32276,7 +32291,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
                 self.label_16.setText(txt)
 
-                txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
+                txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
                     fut_quote_remainder_ratio, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
                     fut_cms_quote_remainder_ratio, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
                     fut_ccms_quote_remainder_ratio)
@@ -33065,7 +33080,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
         else:            
-            txt = ' {0:02d}:{1:02d}:{2:02d}({3:d}[{4}], {5:.2f} ms) '.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, time_gap, plot2_processing_time)
+            txt = '{0:02d}:{1:02d}:{2:02d}({3:d}[{4}], {5:.2f} ms)'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, time_gap, plot2_processing_time)
    
         self.label_time_2.setText(txt)
 
@@ -33270,7 +33285,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' min: {0:.2f}, meam: {1:.2f}, max: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
                 self.label_26.setText(txt)
 
-                txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
+                txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
                     fut_quote_remainder_ratio, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
                     fut_cms_quote_remainder_ratio, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
                     fut_ccms_quote_remainder_ratio)
@@ -33382,13 +33397,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_22.setText(txt)
 
                     if CENTER_VAL < 1.0:
-                        txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                        txt = ' 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
                     else:
-                        txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                        txt = ' 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
 
                     self.label_23.setText(txt)
 
-                    txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
+                    txt = ' 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
                     self.label_24.setText(txt)
 
                     txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[ATM_INDEX, '대비'], (put_atm_value / df_put.at[ATM_INDEX, '시가'] - 1) * 100)
@@ -33965,7 +33980,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
         else:            
-            txt = txt = ' {0:02d}:{1:02d}:{2:02d}({3:d}[{4}], {5:.2f} ms) '.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, time_gap, plot3_processing_time)
+            txt = txt = '{0:02d}:{1:02d}:{2:02d}({3:d}[{4}], {5:.2f} ms)'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, time_gap, plot3_processing_time)
    
         self.label_time_3.setText(txt)
 
@@ -34170,7 +34185,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' min: {0:.2f}, meam: {1:.2f}, max: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
                 self.label_36.setText(txt)
 
-                txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
+                txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
                     fut_quote_remainder_ratio, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
                     fut_cms_quote_remainder_ratio, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
                     fut_ccms_quote_remainder_ratio)
@@ -34280,13 +34295,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_32.setText(txt)
 
                     if CENTER_VAL < 1.0:
-                        txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                        txt = ' 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
                     else:
-                        txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                        txt = ' 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
 
                     self.label_33.setText(txt)
 
-                    txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
+                    txt = ' 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
                     self.label_34.setText(txt)
 
                     txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[ATM_INDEX, '대비'], (put_atm_value / df_put.at[ATM_INDEX, '시가'] - 1) * 100)
@@ -34859,7 +34874,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
         else:            
-            txt = txt = ' {0:02d}:{1:02d}:{2:02d}({3:d}[{4}], {5:.2f} ms) '.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, time_gap, plot4_processing_time)
+            txt = txt = '{0:02d}:{1:02d}:{2:02d}({3:d}[{4}], {5:.2f} ms)'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, time_gap, plot4_processing_time)
    
         self.label_time_4.setText(txt)
 
@@ -34921,13 +34936,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_42.setText(txt)
 
                     if CENTER_VAL < 1.0:
-                        txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                        txt = ' 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
                     else:
-                        txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                        txt = ' 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
 
                     self.label_43.setText(txt)
 
-                    txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
+                    txt = ' 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
                     self.label_44.setText(txt)
 
                     txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[ATM_INDEX, '대비'], (put_atm_value / df_put.at[ATM_INDEX, '시가'] - 1) * 100)
@@ -34948,7 +34963,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' min: {0:.2f}, meam: {1:.2f}, max: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
                 self.label_46.setText(txt)
 
-                txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
+                txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
                     fut_quote_remainder_ratio, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
                     fut_cms_quote_remainder_ratio, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
                     fut_ccms_quote_remainder_ratio)
@@ -35737,7 +35752,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
         else:            
-            txt = txt = ' {0:02d}:{1:02d}:{2:02d}({3:d}[{4}], {5:.2f} ms) '.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, time_gap, plot5_processing_time)
+            txt = txt = '{0:02d}:{1:02d}:{2:02d}({3:d}[{4}], {5:.2f} ms)'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, time_gap, plot5_processing_time)
    
         self.label_time_5.setText(txt)
 
@@ -35942,7 +35957,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' min: {0:.2f}, meam: {1:.2f}, max: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
                 self.label_56.setText(txt)
 
-                txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
+                txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
                     fut_quote_remainder_ratio, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
                     fut_cms_quote_remainder_ratio, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
                     fut_ccms_quote_remainder_ratio)
@@ -36051,13 +36066,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_52.setText(txt)
 
                     if CENTER_VAL < 1.0:
-                        txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                        txt = ' 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
                     else:
-                        txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                        txt = ' 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
 
                     self.label_53.setText(txt)
 
-                    txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
+                    txt = ' 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
                     self.label_54.setText(txt)
 
                     txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[ATM_INDEX, '대비'], (put_atm_value / df_put.at[ATM_INDEX, '시가'] - 1) * 100)
@@ -36630,7 +36645,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
         else:            
-            txt = txt = ' {0:02d}:{1:02d}:{2:02d}({3:d}[{4}], {5:.2f} ms) '.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, time_gap, plot6_processing_time)
+            txt = txt = '{0:02d}:{1:02d}:{2:02d}({3:d}[{4}], {5:.2f} ms)'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, time_gap, plot6_processing_time)
    
         self.label_time_6.setText(txt)
 
@@ -36835,7 +36850,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' min: {0:.2f}, meam: {1:.2f}, max: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
                 self.label_66.setText(txt)
 
-                txt = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
+                txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
                     fut_quote_remainder_ratio, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
                     fut_cms_quote_remainder_ratio, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
                     fut_ccms_quote_remainder_ratio)
@@ -36944,13 +36959,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_62.setText(txt)
 
                     if CENTER_VAL < 1.0:
-                        txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                        txt = ' 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
                     else:
-                        txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                        txt = ' 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
 
                     self.label_63.setText(txt)
 
-                    txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
+                    txt = ' 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
                     self.label_64.setText(txt)
 
                     txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[ATM_INDEX, '대비'], (put_atm_value / df_put.at[ATM_INDEX, '시가'] - 1) * 100)
@@ -37556,7 +37571,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         print(txt)
 
         self.close()
-        self.parent.OnChildDialogCloseEvent('Big Chart')        
+        #self.parent.OnChildDialogCloseEvent('Big Chart')        
 
 ########################################################################################################################
 # MainWindow UI Class
@@ -38588,8 +38603,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 try:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] Big Chart Dialog를 표시합니다...\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
+                    print(txt)
 
                     self.dialog['BigChart'].show()
+                    
                 except Exception as e:
                     self.dialog['BigChart'] = 화면_BigChart(parent=self)
                     self.dialog['BigChart'].show()
