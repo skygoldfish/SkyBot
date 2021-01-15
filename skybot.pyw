@@ -16677,6 +16677,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 수정거래량 = 0
 
                 t2835_length = len(df)
+                print('t2835 length =', t2835_length)
+
+                if t2835_length > 100:
+                    t2835_length = 100
+                else:
+                    pass
 
                 for i in range(t2835_length):
 
