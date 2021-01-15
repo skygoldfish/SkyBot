@@ -23982,17 +23982,41 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         self.flag_realtimeitem_open = True
 
-        #txt = '본월물 옵션가격(내가 {0}, 외가 {1})'.format(PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
-        self.checkBox_cm_opt_price_1.setText('본월물 옵션가격(일부)')
+        if TARGET_MONTH_SELECT == 'CM':
 
-        #txt = '본월물 옵션호가(내가 {0}, 외가 {1})'.format(PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
-        self.checkBox_cm_opt_quote_1.setText('본월물 옵션호가(일부)')
+            cm_price_all_txt = '본월물 옵션가격(전체)'
+            cm_price_part_txt = '본월물 옵션가격(일부)'
+            cm_quote_all_txt = '본월물 옵션호가(전체)'
+            cm_quote_part_txt = '본월물 옵션호가(일부)'
 
-        #txt = '차월물 옵션가격(내가 {0}, 외가 {1})'.format(PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
-        self.checkBox_nm_opt_price_1.setText('차월물 옵션가격(일부)')
+            nm_price_all_txt = '차월물 옵션가격(전체)'
+            nm_price_part_txt = '차월물 옵션가격(일부)'
+            nm_quote_all_txt = '차월물 옵션호가(전체)'
+            nm_quote_part_txt = '차월물 옵션호가(일부)'
 
-        #txt = '차월물 옵션호가(내가 {0}, 외가 {1})'.format(PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
-        self.checkBox_nm_opt_quote_1.setText('차월물 옵션호가(일부)')
+        elif TARGET_MONTH_SELECT == 'NM':
+
+            cm_price_all_txt = '차월물 옵션가격(전체)'
+            cm_price_part_txt = '차월물 옵션가격(일부)'
+            cm_quote_all_txt = '차월물 옵션호가(전체)'
+            cm_quote_part_txt = '차월물 옵션호가(일부)'
+
+            nm_price_all_txt = '차차월물 옵션가격(전체)'
+            nm_price_part_txt = '차차월물 옵션가격(일부)'
+            nm_quote_all_txt = '차차월물 옵션호가(전체)'
+            nm_quote_part_txt = '차차월물 옵션호가(일부)'
+        else:
+            pass
+
+        self.checkBox_cm_opt_price.setText(cm_price_all_txt)
+        self.checkBox_cm_opt_price_1.setText(cm_price_part_txt)
+        self.checkBox_cm_opt_quote.setText(cm_quote_all_txt)
+        self.checkBox_cm_opt_quote_1.setText(cm_quote_part_txt)
+
+        self.checkBox_nm_opt_price.setText(nm_price_all_txt)
+        self.checkBox_nm_opt_price_1.setText(nm_price_part_txt)
+        self.checkBox_nm_opt_quote.setText(nm_quote_all_txt)
+        self.checkBox_nm_opt_quote_1.setText(nm_quote_part_txt)
 
         self.checkBox_cm_fut_price.setChecked(CM_FUT_PRICE)
         self.checkBox_cm_fut_quote.setChecked(CM_FUT_QUOTE)
