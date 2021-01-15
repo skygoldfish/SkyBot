@@ -313,7 +313,7 @@ CURRENT_MONTH = parser.get('Month Info', 'Current Month')
 MONTH_FIRSTDAY = parser.get('Month Info', 'First Day of the Current Month')
 
 # [3]. << Target Month Select : current month = 1, next month = 2 >>
-TARGET_MONTH_SELECT = parser.get('Target Month Select', 'Target Month Select')
+TARGET_MONTH = parser.get('Target Month Select', 'Target Month Select')
 
 # [4]. << Window Style >>
 DARK_STYLESHEET = parser.getboolean('Window Style', 'Dark Style')
@@ -1907,7 +1907,7 @@ print('UI HIDE 기능 =', UI_HIDE)
 if not UI_HIDE:
     UI_DIR = 'UI\\'
 
-    if TARGET_MONTH_SELECT == 'NM':    
+    if TARGET_MONTH == 'NM':    
         main_ui_type = 'skybot_nm.ui'
     else:
         main_ui_type = 'skybot_cm.ui'
@@ -2758,7 +2758,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
         atexit.register(self.__del__)     
         
-        global TARGET_MONTH_SELECT, MONTH_FIRSTDAY
+        global TARGET_MONTH, MONTH_FIRSTDAY
         global widget_title, CURRENT_MONTH, NEXT_MONTH, MONTH_AFTER_NEXT, SP500, DOW, NASDAQ, FUT_CODE
         global KSE_START_HOUR        
         global call_node_state, put_node_state, COREVAL
@@ -2823,7 +2823,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.showMaximized()        
         
         print('current month = %s, month firstday = %s, next month = %s, month after next = %s, next month select = %s, SP500 = %s, DOW = %s, NASDAQ = %s, WTI = %s' \
-            % (CURRENT_MONTH, MONTH_FIRSTDAY, NEXT_MONTH, MONTH_AFTER_NEXT, TARGET_MONTH_SELECT, SP500, DOW, NASDAQ, WTI))
+            % (CURRENT_MONTH, MONTH_FIRSTDAY, NEXT_MONTH, MONTH_AFTER_NEXT, TARGET_MONTH, SP500, DOW, NASDAQ, WTI))
         
         # 위젯 초기화
         self.textBrowser.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 9pt; font: Normal")
@@ -3241,7 +3241,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if DayTime:
 
-                if TARGET_MONTH_SELECT == 'CM':
+                if TARGET_MONTH == 'CM':
 
                     if not REAL_SERVER:
                         widget_title = repr(current_month) + '월 만기 주간 선물옵션(모의투자) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
@@ -3251,7 +3251,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     print(widget_title)
                     ToYourTelegram("{0}월물 주간 선물옵션 SkyBot이 실행되었습니다.".format(repr(current_month)))
 
-                elif TARGET_MONTH_SELECT == 'NM':
+                elif TARGET_MONTH == 'NM':
 
                     if not REAL_SERVER:
                         widget_title = repr(next_month) + '월 만기 주간 선물옵션(모의투자) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
@@ -3267,7 +3267,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if MANGI_YAGAN:
 
-                    if TARGET_MONTH_SELECT == 'CM':
+                    if TARGET_MONTH == 'CM':
 
                         if not REAL_SERVER:
                             widget_title = repr(next_month) + '월 만기 야간 선물옵션(모의투자) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
@@ -3278,7 +3278,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         print('next_month =', next_month)
 
-                    elif TARGET_MONTH_SELECT == 'NM':
+                    elif TARGET_MONTH == 'NM':
 
                         if not REAL_SERVER:
                             widget_title = repr(month_after_next) + '월 만기 야간 선물옵션(모의투자) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
@@ -3289,7 +3289,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
                 else:
-                    if TARGET_MONTH_SELECT == 'CM':
+                    if TARGET_MONTH == 'CM':
 
                         if not REAL_SERVER:
                             widget_title = repr(current_month) + '월 만기 야간 선물옵션(모의투자) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
@@ -3298,7 +3298,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         ToYourTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(current_month)))
 
-                    elif TARGET_MONTH_SELECT == 'NM':
+                    elif TARGET_MONTH == 'NM':
 
                         if not REAL_SERVER:
                             widget_title = repr(next_month) + '월 만기 야간 선물옵션(모의투자) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
@@ -3409,8 +3409,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global selected_call, flag_calltable_checkstate_changed
 
-        flag_calltable_checkstate_changed = True
-        #print('Call Table {0}행 checked = {1}\r'.format(row, checked))        
+        flag_calltable_checkstate_changed = True       
 
         if checked:
             selected_call.append(row)
@@ -3421,12 +3420,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         print('selected_call =', selected_call)
 
+        if TARGET_MONTH == 'CM':
+
+            for i in range(len(selected_call)):
+                print('CM call code =', CM_CALL_CODE[selected_call[i]])
+
+        elif TARGET_MONTH == 'NM':
+
+            for i in range(len(selected_call)):
+                print('NM call code =', NM_CALL_CODE[selected_call[i]])
+        else:
+            pass
+
     def OnPutTable_CheckStateChanged(self, checked, row, column):
 
         global selected_put, flag_puttable_checkstate_changed
 
         flag_puttable_checkstate_changed = True
-        #print('Put Table {0}행 checked = {1}\r'.format(row, checked))
 
         if checked:
             selected_put.append(row)
@@ -3436,6 +3446,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         selected_put.sort()
 
         print('selected_put =', selected_put)
+
+        if TARGET_MONTH == 'CM':
+
+            for i in range(len(selected_put)):
+                print('CM put code =', CM_PUT_CODE[selected_put[i]])
+
+        elif TARGET_MONTH == 'NM':
+
+            for i in range(len(selected_call)):
+                print('NM put code =', NM_PUT_CODE[selected_put[i]])
+        else:
+            pass
     
     # Xing 관리자모드 실행 체크함수
     def XingAdminCheck(self):
@@ -4405,7 +4427,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
 
                         # 원웨이 알람
-                        if TARGET_MONTH_SELECT == 'CM':
+                        if TARGET_MONTH == 'CM':
                             
                             # kp200 맥점 알람
                             if kp200_low_node_txt != '' and FLAG_NODE:
@@ -4431,7 +4453,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 pass
 
-                        elif TARGET_MONTH_SELECT == 'NM':
+                        elif TARGET_MONTH == 'NM':
                             
                             # 차월물 옵션 OLOH 보고
                             '''
@@ -4755,7 +4777,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.parent.statusbar.showMessage(txt)
 
-                    if TARGET_MONTH_SELECT == 'CM':
+                    if TARGET_MONTH == 'CM':
                         self.capture_screenshot()
                     else:
                         pass              
@@ -4782,7 +4804,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 증권사 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.statusbar.showMessage(txt)
                 
-                if TARGET_MONTH_SELECT == 'CM' and not flag_broken_capture:
+                if TARGET_MONTH == 'CM' and not flag_broken_capture:
 
                     self.textBrowser.append(txt)
                     print(txt)
@@ -4827,14 +4849,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if flag_option_pair_full and self.alternate_flag and ui_update_time == ui_start_time + 10 * 60:
 
                     # t8416 선물요청
-                    if TARGET_MONTH_SELECT == 'CM':
+                    if TARGET_MONTH == 'CM':
                         txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 본월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, GMSHCODE)
                         self.textBrowser.append(txt)
                         print(txt)
 
                         self.t8416_fut_request(GMSHCODE)
 
-                    elif TARGET_MONTH_SELECT == 'NM':
+                    elif TARGET_MONTH == 'NM':
                         txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 차월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, CMSHCODE)
                         self.textBrowser.append(txt)
                         print(txt)
@@ -5445,7 +5467,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         flag_heartbeat = False
 
-        if TARGET_MONTH_SELECT == 'CM':
+        if TARGET_MONTH == 'CM':
 
             if flag_call_strong:
                 txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call Strong({3:.2f}/{4:.2f}) ▲\r".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 선물_등락율, DOW_등락율)
@@ -5484,7 +5506,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 vb_txt = ''
 
-        elif TARGET_MONTH_SELECT == 'NM':
+        elif TARGET_MONTH == 'NM':
 
             if 선물_현재가 < volatility_breakout_downward_point:
 
@@ -6541,12 +6563,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     put_ms_all_up = False
 
                     '''
-                    if TARGET_MONTH_SELECT == 'CM' and not call_ms_oneway:
+                    if TARGET_MONTH == 'CM' and not call_ms_oneway:
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
                             (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
 
-                    elif TARGET_MONTH_SELECT == 'NM' and not call_ms_oneway:
+                    elif TARGET_MONTH == 'NM' and not call_ms_oneway:
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
                             (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
@@ -6575,12 +6597,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     put_md_all_down = False
                     put_ms_all_up = False
                     '''
-                    if TARGET_MONTH_SELECT == 'CM':
+                    if TARGET_MONTH == 'CM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
                             (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
 
-                    elif TARGET_MONTH_SELECT == 'NM':
+                    elif TARGET_MONTH == 'NM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
                             (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
@@ -6611,12 +6633,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_md_all_down = False
                 put_ms_all_up = False
                 '''
-                if TARGET_MONTH_SELECT == 'CM':
+                if TARGET_MONTH == 'CM':
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매도({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
                         (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
 
-                elif TARGET_MONTH_SELECT == 'NM':
+                elif TARGET_MONTH == 'NM':
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매도({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
                         (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
@@ -6659,12 +6681,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_md_all_down = False
                 put_ms_all_up = False
                 '''
-                if TARGET_MONTH_SELECT == 'CM':
+                if TARGET_MONTH == 'CM':
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매도({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
                         (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)                    
 
-                elif TARGET_MONTH_SELECT == 'NM':
+                elif TARGET_MONTH == 'NM':
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매도({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
                         (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
@@ -6694,12 +6716,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     put_ms_all_up = False
 
                     '''
-                    if TARGET_MONTH_SELECT == 'CM' and not put_ms_oneway:
+                    if TARGET_MONTH == 'CM' and not put_ms_oneway:
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
                             (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
 
-                    elif TARGET_MONTH_SELECT == 'NM' and not put_ms_oneway:
+                    elif TARGET_MONTH == 'NM' and not put_ms_oneway:
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
                             (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
@@ -6728,12 +6750,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     put_md_all_down = False
                     put_ms_all_up = False
                     '''
-                    if TARGET_MONTH_SELECT == 'CM':
+                    if TARGET_MONTH == 'CM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
                             (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
 
-                    elif TARGET_MONTH_SELECT == 'NM':
+                    elif TARGET_MONTH == 'NM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
                             (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
@@ -6780,12 +6802,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_md_all_down = False
                 put_ms_all_up = False
                 '''
-                if TARGET_MONTH_SELECT == 'CM':
+                if TARGET_MONTH == 'CM':
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매도({3:0.1f}:{4:0.1f}) 양꽝장\r'.format \
                         (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
 
-                elif TARGET_MONTH_SELECT == 'NM':
+                elif TARGET_MONTH == 'NM':
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매도({3:0.1f}:{4:0.1f}) 양꽝장\r'.format \
                         (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
@@ -6812,12 +6834,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_md_all_down = True
                 put_ms_all_up = False
                 '''
-                if TARGET_MONTH_SELECT == 'CM':
+                if TARGET_MONTH == 'CM':
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매도({3:0.1f}:{4:0.1f}) 양꽝장\r'.format \
                         (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
 
-                elif TARGET_MONTH_SELECT == 'NM':
+                elif TARGET_MONTH == 'NM':
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매도({3:0.1f}:{4:0.1f}) 양꽝장\r'.format \
                         (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
@@ -6862,24 +6884,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 '''
                 if 선물_대비 > 0:
 
-                    if TARGET_MONTH_SELECT == 'CM':
+                    if TARGET_MONTH == 'CM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
                             (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
 
-                    elif TARGET_MONTH_SELECT == 'NM':
+                    elif TARGET_MONTH == 'NM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
                             (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
                     else:
                         pass
                 else:
-                    if TARGET_MONTH_SELECT == 'CM':
+                    if TARGET_MONTH == 'CM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
                             (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
 
-                    elif TARGET_MONTH_SELECT == 'NM':
+                    elif TARGET_MONTH == 'NM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
                             (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
@@ -6908,24 +6930,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 '''
                 if 선물_대비 > 0:
 
-                    if TARGET_MONTH_SELECT == 'CM':
+                    if TARGET_MONTH == 'CM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
                             (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
 
-                    elif TARGET_MONTH_SELECT == 'NM':
+                    elif TARGET_MONTH == 'NM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
                             (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
                     else:
                         pass
                 else:
-                    if TARGET_MONTH_SELECT == 'CM':
+                    if TARGET_MONTH == 'CM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
                             (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
 
-                    elif TARGET_MONTH_SELECT == 'NM':
+                    elif TARGET_MONTH == 'NM':
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
                             (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
@@ -7397,11 +7419,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if call_low_node_list and call_low_node_txt == '':
 
-            if TARGET_MONTH_SELECT == 'CM':
+            if TARGET_MONTH == 'CM':
 
                 call_low_node_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 {3} 발생 C ▲".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, call_low_node_list)
 
-            elif TARGET_MONTH_SELECT == 'NM':
+            elif TARGET_MONTH == 'NM':
 
                 call_low_node_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 {3} 발생 C ▲".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, call_low_node_list)
             else:
@@ -7436,11 +7458,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_call.resizeColumnToContents(Option_column.저가.value)
 
-                if TARGET_MONTH_SELECT == 'CM' and call_low_node_count != call_low_node_old_count:
+                if TARGET_MONTH == 'CM' and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_txt_call_low = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
-                elif TARGET_MONTH_SELECT == 'NM' and call_low_node_count != call_low_node_old_count:
+                elif TARGET_MONTH == 'NM' and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_txt_call_low = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
@@ -7457,11 +7479,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_call.resizeColumnToContents(Option_column.저가.value)
 
-                if TARGET_MONTH_SELECT == 'CM' and call_low_node_count != call_low_node_old_count:
+                if TARGET_MONTH == 'CM' and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_txt_call_low = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
-                elif TARGET_MONTH_SELECT == 'NM' and call_low_node_count != call_low_node_old_count:
+                elif TARGET_MONTH == 'NM' and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_txt_call_low = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
@@ -7478,11 +7500,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_call.resizeColumnToContents(Option_column.저가.value)
 
-                if TARGET_MONTH_SELECT == 'CM' and call_low_node_count != call_low_node_old_count:
+                if TARGET_MONTH == 'CM' and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_txt_call_low = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
-                elif TARGET_MONTH_SELECT == 'NM' and call_low_node_count != call_low_node_old_count:
+                elif TARGET_MONTH == 'NM' and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_txt_call_low = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
@@ -7529,11 +7551,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if call_high_node_list and call_high_node_txt == '':
 
-            if TARGET_MONTH_SELECT == 'CM':
+            if TARGET_MONTH == 'CM':
 
                 call_high_node_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 {3} 발생 C ▼".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, call_high_node_list)
 
-            elif TARGET_MONTH_SELECT == 'NM':
+            elif TARGET_MONTH == 'NM':
 
                 call_high_node_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 {3} 발생 C ▼".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, call_high_node_list)
             else:
@@ -7568,11 +7590,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_call.resizeColumnToContents(Option_column.고가.value)
 
-                if TARGET_MONTH_SELECT == 'CM' and call_high_node_count != call_high_node_old_count:
+                if TARGET_MONTH == 'CM' and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_txt_call_high = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
-                elif TARGET_MONTH_SELECT == 'NM' and call_high_node_count != call_high_node_old_count:
+                elif TARGET_MONTH == 'NM' and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_txt_call_high = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
@@ -7589,11 +7611,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_call.resizeColumnToContents(Option_column.고가.value)
 
-                if TARGET_MONTH_SELECT == 'CM' and call_high_node_count != call_high_node_old_count:
+                if TARGET_MONTH == 'CM' and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_txt_call_high = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
-                elif TARGET_MONTH_SELECT == 'NM' and call_high_node_count != call_high_node_old_count:
+                elif TARGET_MONTH == 'NM' and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_txt_call_high = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
@@ -7610,11 +7632,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_call.resizeColumnToContents(Option_column.고가.value)
 
-                if TARGET_MONTH_SELECT == 'CM' and call_high_node_count != call_high_node_old_count:
+                if TARGET_MONTH == 'CM' and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_txt_call_high = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
-                elif TARGET_MONTH_SELECT == 'NM' and call_high_node_count != call_high_node_old_count:
+                elif TARGET_MONTH == 'NM' and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_txt_call_high = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
@@ -9918,11 +9940,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if put_low_node_list and put_low_node_txt == '':
 
-            if TARGET_MONTH_SELECT == 'CM':
+            if TARGET_MONTH == 'CM':
 
                 put_low_node_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 {3} 발생 P ▲".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, put_low_node_list)
 
-            elif TARGET_MONTH_SELECT == 'NM':
+            elif TARGET_MONTH == 'NM':
 
                 put_low_node_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 {3} 발생 P ▲".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, put_low_node_list)
             else:
@@ -9957,11 +9979,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_put.resizeColumnToContents(Option_column.저가.value)
 
-                if TARGET_MONTH_SELECT == 'CM' and put_low_node_count != put_low_node_old_count:
+                if TARGET_MONTH == 'CM' and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_txt_put_low = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
-                elif TARGET_MONTH_SELECT == 'NM' and put_low_node_count != put_low_node_old_count:
+                elif TARGET_MONTH == 'NM' and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_txt_put_low = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
@@ -9978,11 +10000,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_put.resizeColumnToContents(Option_column.저가.value)
 
-                if TARGET_MONTH_SELECT == 'CM' and put_low_node_count != put_low_node_old_count:
+                if TARGET_MONTH == 'CM' and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_txt_put_low = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
-                elif TARGET_MONTH_SELECT == 'NM' and put_low_node_count != put_low_node_old_count:
+                elif TARGET_MONTH == 'NM' and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_txt_put_low = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
@@ -9999,11 +10021,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_put.resizeColumnToContents(Option_column.저가.value)
 
-                if TARGET_MONTH_SELECT == 'CM' and put_low_node_count != put_low_node_old_count:
+                if TARGET_MONTH == 'CM' and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_txt_put_low = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
-                elif TARGET_MONTH_SELECT == 'NM' and put_low_node_count != put_low_node_old_count:
+                elif TARGET_MONTH == 'NM' and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_txt_put_low = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
@@ -10050,11 +10072,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if put_high_node_list and put_high_node_txt == '':
 
-            if TARGET_MONTH_SELECT == 'CM': 
+            if TARGET_MONTH == 'CM': 
 
                 put_high_node_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 {3} 발생 P ▼".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, put_high_node_list)
 
-            elif TARGET_MONTH_SELECT == 'NM':
+            elif TARGET_MONTH == 'NM':
 
                 put_high_node_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 {3} 발생 P ▼".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, put_high_node_list)
             else:
@@ -10090,11 +10112,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_put.resizeColumnToContents(Option_column.고가.value)
 
-                if TARGET_MONTH_SELECT == 'CM' and put_high_node_count != put_high_node_old_count:
+                if TARGET_MONTH == 'CM' and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_txt_put_high = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
-                elif TARGET_MONTH_SELECT == 'NM' and put_high_node_count != put_high_node_old_count:
+                elif TARGET_MONTH == 'NM' and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_txt_put_high = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 ★ 2 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
@@ -10111,11 +10133,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_put.resizeColumnToContents(Option_column.고가.value)
 
-                if TARGET_MONTH_SELECT == 'CM' and put_high_node_count != put_high_node_old_count:
+                if TARGET_MONTH == 'CM' and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_txt_put_high = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
-                elif TARGET_MONTH_SELECT == 'NM' and put_high_node_count != put_high_node_old_count:
+                elif TARGET_MONTH == 'NM' and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_txt_put_high = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 ★ 3 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
@@ -10131,11 +10153,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_put.resizeColumnToContents(Option_column.고가.value)
 
-                if TARGET_MONTH_SELECT == 'CM' and put_high_node_count != put_high_node_old_count:
+                if TARGET_MONTH == 'CM' and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_txt_put_high = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
 
-                elif TARGET_MONTH_SELECT == 'NM' and put_high_node_count != put_high_node_old_count:
+                elif TARGET_MONTH == 'NM' and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_txt_put_high = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 ★ + 발생".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
@@ -10546,12 +10568,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.item(1, Futures_column.저가.value).setBackground(QBrush(적색))
                 self.tableWidget_fut.item(1, Futures_column.저가.value).setForeground(QBrush(흰색))
 
-            if TARGET_MONTH_SELECT == 'CM' and not flag_fut_ol and not flag_fut_oloh:
+            if TARGET_MONTH == 'CM' and not flag_fut_ol and not flag_fut_oloh:
 
                 fut_oloh_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 선물 OL ▲".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 flag_fut_oloh = True
 
-            elif TARGET_MONTH_SELECT == 'NM' and not flag_fut_ol and not flag_fut_oloh:
+            elif TARGET_MONTH == 'NM' and not flag_fut_ol and not flag_fut_oloh:
 
                 fut_oloh_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OL ▲".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 flag_fut_oloh = True
@@ -10584,12 +10606,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.item(1, Futures_column.고가.value).setBackground(QBrush(청색))
                 self.tableWidget_fut.item(1, Futures_column.고가.value).setForeground(QBrush(흰색))
 
-            if TARGET_MONTH_SELECT == 'CM' and not flag_fut_oh and not flag_fut_oloh:
+            if TARGET_MONTH == 'CM' and not flag_fut_oh and not flag_fut_oloh:
 
                 fut_oloh_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 선물 OH ▼".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 flag_fut_oloh = True
 
-            elif TARGET_MONTH_SELECT == 'NM' and not flag_fut_oh and not flag_fut_oloh:
+            elif TARGET_MONTH == 'NM' and not flag_fut_oh and not flag_fut_oloh:
 
                 fut_oloh_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OH ▼".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 flag_fut_oloh = True
@@ -10963,12 +10985,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             print(txt) 
 
-            if TARGET_MONTH_SELECT == 'CM':
+            if TARGET_MONTH == 'CM':
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] CM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                 ToYourTelegram(txt)
 
-            elif TARGET_MONTH_SELECT == 'NM':
+            elif TARGET_MONTH == 'NM':
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] NM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                 ToYourTelegram(txt)
@@ -10986,7 +11008,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 self.telegram_listen_worker.start()
 
-                if TARGET_MONTH_SELECT == 'CM':
+                if TARGET_MONTH == 'CM':
 
                     if SELFID == 'soojin65':
                         txt = '[{0:02d}:{1:02d}:{2:02d}] ***님 텔레그램 Polling이 시작됩니다.'.format(dt.hour, dt.minute, dt.second)
@@ -10994,7 +11016,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         ToYourTelegram("CM 텔레그램 Polling이 시작됩니다.")
 
-                elif TARGET_MONTH_SELECT == 'NM':
+                elif TARGET_MONTH == 'NM':
 
                     ToYourTelegram("NM 텔레그램 Polling이 시작됩니다.")
                 else:
@@ -11458,7 +11480,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
         
         # 종합 에너지방향 표시
-        if TARGET_MONTH_SELECT == 'CM' and DayTime:
+        if TARGET_MONTH == 'CM' and DayTime:
 
             if flag_fut_vs_dow_drate_direction and fut_quote_energy_direction == 'call' and fut_volume_power_energy_direction == 'call':
 
@@ -12624,7 +12646,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_call.setHorizontalHeaderItem(2, item)
 
-                if TARGET_MONTH_SELECT == 'NM':
+                if TARGET_MONTH == 'NM':
 
                     if call_ol_count > 0 or call_oh_count > 0:
                         nm_call_oloh_txt = '▲:▼ = ' + repr(call_ol_count) + ':' + repr(call_oh_count)
@@ -13606,7 +13628,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 put_ol[index] = True
 
-                                if TARGET_MONTH_SELECT == 'NM' and 시가 < 0.5:
+                                if TARGET_MONTH == 'NM' and 시가 < 0.5:
                                     nm_put_ol[index] = True
                                 else:
                                     pass
@@ -13629,7 +13651,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 put_oh[index] = True
 
-                                if TARGET_MONTH_SELECT == 'NM' and 시가 < 0.5:
+                                if TARGET_MONTH == 'NM' and 시가 < 0.5:
                                     nm_put_oh[index] = True
                                 else:
                                     pass
@@ -13648,7 +13670,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 put_ol[index] = False
                                 put_oh[index] = False
 
-                                if TARGET_MONTH_SELECT == 'NM' and 시가 < 0.5:
+                                if TARGET_MONTH == 'NM' and 시가 < 0.5:
                                     nm_put_ol[index] = False
                                     nm_put_oh[index] = False
                                 else:
@@ -13713,7 +13735,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setHorizontalHeaderItem(2, item)
 
-                if TARGET_MONTH_SELECT == 'NM':                     
+                if TARGET_MONTH == 'NM':                     
 
                     if put_ol_count > 0 or put_oh_count > 0:
                         nm_put_oloh_txt = '▲:▼ = ' + repr(put_ol_count) + ':' + repr(put_oh_count)
@@ -13949,7 +13971,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         if service_terminate:
 
-            if TARGET_MONTH_SELECT == 'CM':
+            if TARGET_MONTH == 'CM':
                 self.capture_screenshot()
             else:
                 pass 
@@ -14054,7 +14076,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 주간 옵션전광판 요청(주간=FC0/OC0, 야간=NC0/EC0)
             print('t2301 요청...')
 
-            if TARGET_MONTH_SELECT == 'CM':
+            if TARGET_MONTH == 'CM':
 
                 if MANGI_YAGAN:
                     t2301_month_info = NEXT_MONTH
@@ -14064,7 +14086,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 주간옵션 전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
                 self.textBrowser.append(txt)
 
-            elif TARGET_MONTH_SELECT == 'NM':
+            elif TARGET_MONTH == 'NM':
 
                 if MANGI_YAGAN:
                     t2301_month_info = MONTH_AFTER_NEXT
@@ -14197,11 +14219,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Polling이 시작됩니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
             self.textBrowser.append(txt)
 
-            if TARGET_MONTH_SELECT == 'CM':
+            if TARGET_MONTH == 'CM':
 
                 ToYourTelegram("CM 텔레그램 Polling이 시작됩니다.")
 
-            elif TARGET_MONTH_SELECT == 'NM':
+            elif TARGET_MONTH == 'NM':
 
                 ToYourTelegram("NM 텔레그램 Polling이 시작됩니다.")
 
@@ -14225,12 +14247,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             telegram_command = ''
 
-            if TARGET_MONTH_SELECT == 'CM':
+            if TARGET_MONTH == 'CM':
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] CM 텔레그램 Polling을 중지합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 self.textBrowser.append(txt)
 
-            elif TARGET_MONTH_SELECT == 'NM':
+            elif TARGET_MONTH == 'NM':
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] NM 텔레그램 Polling을 중지합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 self.textBrowser.append(txt)
@@ -15658,14 +15680,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # t8416 선물요청
                     QTest.qWait(1000)                       
 
-                    if TARGET_MONTH_SELECT == 'CM':
+                    if TARGET_MONTH == 'CM':
                         txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 변동성지수 본월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, GMSHCODE)
                         self.textBrowser.append(txt)
                         print(txt)
 
                         self.t8416_fut_request(GMSHCODE)
 
-                    elif TARGET_MONTH_SELECT == 'NM':
+                    elif TARGET_MONTH == 'NM':
                         txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 변동성지수 차월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, CMSHCODE)
                         self.textBrowser.append(txt)
                         print(txt)
@@ -18859,7 +18881,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         # EUREX 야간옵션 시세전광판
 
-                        if TARGET_MONTH_SELECT == 'CM':
+                        if TARGET_MONTH == 'CM':
 
                             if MANGI_YAGAN:
                                 t2835_month_info = NEXT_MONTH
@@ -18869,7 +18891,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             txt = '[{0:02d}:{1:02d}:{2:02d}] EUREX(t2835) 본월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(txt) 
 
-                        elif TARGET_MONTH_SELECT == 'NM':
+                        elif TARGET_MONTH == 'NM':
 
                             if MANGI_YAGAN:
                                 t2835_month_info = MONTH_AFTER_NEXT
@@ -19009,7 +19031,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.parent.textBrowser.append(txt)
             print(txt)
 
-            if TARGET_MONTH_SELECT == 'CM':
+            if TARGET_MONTH == 'CM':
 
                 FUT_CODE = GMSHCODE
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, current_month, FUT_CODE)
@@ -19037,7 +19059,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)
 
-            elif TARGET_MONTH_SELECT == 'NM':
+            elif TARGET_MONTH == 'NM':
 
                 FUT_CODE = CMSHCODE
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, next_month, FUT_CODE)
@@ -19199,9 +19221,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 timespan = jugan_timespan
 
-            if TARGET_MONTH_SELECT == 'CM':
+            if TARGET_MONTH == 'CM':
                 option_pairs_count = CM_OPT_LENGTH
-            elif TARGET_MONTH_SELECT == 'NM':
+            elif TARGET_MONTH == 'NM':
                 option_pairs_count = NM_OPT_LENGTH
 
             if MANGI_YAGAN:
@@ -21347,7 +21369,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         Futprocess.CancelRealData('YS3')
                         Futprocess.CancelRealData('YOC')
 
-                    if TTS and TARGET_MONTH_SELECT == 'CM':
+                    if TTS and TARGET_MONTH == 'CM':
                         playsound( "Resources/doorbell.wav" )
                     else:
                         pass
@@ -23113,7 +23135,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     fut_result = copy.deepcopy(result)
                     self.fut_update(result)
 
-                elif TARGET_MONTH_SELECT == 'CM' and result['단축코드'] == CMSHCODE:
+                elif TARGET_MONTH == 'CM' and result['단축코드'] == CMSHCODE:
 
                     fut_nm_volume_power = result['매수누적체결량'] - result['매도누적체결량']
 
@@ -23243,12 +23265,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.textBrowser.append(txt)
                         print(txt) 
 
-                        if TARGET_MONTH_SELECT == 'CM':
+                        if TARGET_MONTH == 'CM':
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] CM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                             ToYourTelegram(txt)
 
-                        elif TARGET_MONTH_SELECT == 'NM':
+                        elif TARGET_MONTH == 'NM':
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] NM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                             ToYourTelegram(txt)
@@ -23266,7 +23288,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             
                             self.telegram_listen_worker.start()
 
-                            if TARGET_MONTH_SELECT == 'CM':                        
+                            if TARGET_MONTH == 'CM':                        
 
                                 if SELFID == 'soojin65':
                                     txt = '[{0:02d}:{1:02d}:{2:02d}] ***님 텔레그램 Polling이 시작됩니다.'.format(dt.hour, dt.minute, dt.second)
@@ -23274,7 +23296,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     ToYourTelegram("CM 텔레그램 Polling이 시작됩니다.")
 
-                            elif TARGET_MONTH_SELECT == 'NM':
+                            elif TARGET_MONTH == 'NM':
 
                                 ToYourTelegram("NM 텔레그램 Polling이 시작됩니다.")
                             else:
@@ -23507,10 +23529,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_fut.resizeColumnToContents(Futures_column.잔량비.value)
 
-                if TARGET_MONTH_SELECT == 'CM':
+                if TARGET_MONTH == 'CM':
                     quote_count_ratio = fut_quote_count_ratio
                     quote_remainder_ratio = fut_quote_remainder_ratio
-                elif TARGET_MONTH_SELECT == 'NM':
+                elif TARGET_MONTH == 'NM':
                     quote_count_ratio = fut_cms_quote_count_ratio
                     quote_remainder_ratio = fut_cms_quote_remainder_ratio
                 else:
@@ -23988,7 +24010,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         self.flag_realtimeitem_open = True
 
-        if TARGET_MONTH_SELECT == 'CM':
+        if TARGET_MONTH == 'CM':
 
             cm_price_all_txt = '본월물 옵션가격(전체)'
             cm_price_part_txt = '본월물 옵션가격(일부)'
@@ -24000,7 +24022,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             nm_quote_all_txt = '차월물 옵션호가(전체)'
             nm_quote_part_txt = '차월물 옵션호가(일부)'
 
-        elif TARGET_MONTH_SELECT == 'NM':
+        elif TARGET_MONTH == 'NM':
 
             cm_price_all_txt = '차월물 옵션가격(전체)'
             cm_price_part_txt = '차월물 옵션가격(일부)'
@@ -25520,11 +25542,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         
         if DayTime:
 
-            if TARGET_MONTH_SELECT == 'CM':
+            if TARGET_MONTH == 'CM':
 
                 widget_title = repr(current_month) + '월 만기 주간 Big Chart'
 
-            elif TARGET_MONTH_SELECT == 'NM':
+            elif TARGET_MONTH == 'NM':
 
                 widget_title = repr(next_month) + '월 만기 주간 Big Chart'
             else:
@@ -25532,21 +25554,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             if MANGI_YAGAN:
 
-                if TARGET_MONTH_SELECT == 'CM':
+                if TARGET_MONTH == 'CM':
 
                     widget_title = repr(next_month) + '월 만기 야간 Big Chart'
 
-                elif TARGET_MONTH_SELECT == 'NM':
+                elif TARGET_MONTH == 'NM':
 
                     widget_title = repr(month_after_next) + '월 만기 야간 Big Chart'
                 else:
                     pass
             else:
-                if TARGET_MONTH_SELECT == 'CM':
+                if TARGET_MONTH == 'CM':
 
                     widget_title = repr(current_month) + '월 만기 야간 Big Chart'
 
-                elif TARGET_MONTH_SELECT == 'NM':
+                elif TARGET_MONTH == 'NM':
 
                     widget_title = repr(next_month) + '월 만기 야간 Big Chart'
 
@@ -32222,7 +32244,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot1_time_line.setValue(ovc_x_idx)
 
-                #if not selected_call or flag_calltable_checkstate_changed:
                 if flag_calltable_checkstate_changed:
                     flag_calltable_checkstate_changed = False
                     for i in range(option_pairs_count):
@@ -32230,7 +32251,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                #if not selected_put or flag_puttable_checkstate_changed:
                 if flag_puttable_checkstate_changed:
                     flag_puttable_checkstate_changed = False
                     for i in range(option_pairs_count):
@@ -33355,7 +33375,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot2_time_line.setValue(ovc_x_idx)
 
-                #if not selected_call or flag_calltable_checkstate_changed:
                 if flag_calltable_checkstate_changed:
                     flag_calltable_checkstate_changed = False
                     for i in range(option_pairs_count):
@@ -33363,7 +33382,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                #if not selected_put or flag_puttable_checkstate_changed:
                 if flag_puttable_checkstate_changed:
                     flag_puttable_checkstate_changed = False
                     for i in range(option_pairs_count):
@@ -34255,7 +34273,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot3_time_line.setValue(ovc_x_idx)
 
-                #if not selected_call or flag_calltable_checkstate_changed:
                 if flag_calltable_checkstate_changed:
                     flag_calltable_checkstate_changed = False
                     for i in range(option_pairs_count):
@@ -34263,7 +34280,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                #if not selected_put or flag_puttable_checkstate_changed:
                 if flag_puttable_checkstate_changed:
                     flag_puttable_checkstate_changed = False
                     for i in range(option_pairs_count):
@@ -34894,7 +34910,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot4_time_line.setValue(ovc_x_idx)
 
-                #if not selected_call or flag_calltable_checkstate_changed:
                 if flag_calltable_checkstate_changed:
                     flag_calltable_checkstate_changed = False
                     for i in range(option_pairs_count):
@@ -34902,7 +34917,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                #if not selected_put or flag_puttable_checkstate_changed:
                 if flag_puttable_checkstate_changed:
                     flag_puttable_checkstate_changed = False
                     for i in range(option_pairs_count):
@@ -36027,7 +36041,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot5_time_line.setValue(ovc_x_idx)
 
-                #if not selected_call or flag_calltable_checkstate_changed:
                 if flag_calltable_checkstate_changed:
                     flag_calltable_checkstate_changed = False
                     for i in range(option_pairs_count):
@@ -36035,7 +36048,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                #if not selected_put or flag_puttable_checkstate_changed:
                 if flag_puttable_checkstate_changed:
                     flag_puttable_checkstate_changed = False
                     for i in range(option_pairs_count):
@@ -36920,7 +36932,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot6_time_line.setValue(ovc_x_idx)
 
-                #if not selected_call or flag_calltable_checkstate_changed:
                 if flag_calltable_checkstate_changed:
                     flag_calltable_checkstate_changed = False
                     for i in range(option_pairs_count):
@@ -36928,7 +36939,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                #if not selected_put or flag_puttable_checkstate_changed:
                 if flag_puttable_checkstate_changed:
                     flag_puttable_checkstate_changed = False
                     for i in range(option_pairs_count):
@@ -37585,10 +37595,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 # 주의할 점은 아이콘 파일의 위치를 잘 설정(실행위치 기준 상대경로 설정필요)해야만 아이콘이 보인다.
 ########################################################################################################################
 if UI_HIDE:
-    if TARGET_MONTH_SELECT == 'CM':
+    if TARGET_MONTH == 'CM':
         import skybot_cm_ui
         Ui_MainWindow = skybot_cm_ui.Ui_MainWindow
-    elif TARGET_MONTH_SELECT == 'NM':
+    elif TARGET_MONTH == 'NM':
         import skybot_nm_ui
         Ui_MainWindow = skybot_nm_ui.Ui_MainWindow    
 else:
@@ -38125,7 +38135,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     except Exception as e:
                         pass
 
-            if TARGET_MONTH_SELECT == 'CM':
+            if TARGET_MONTH == 'CM':
 
                 if token != '' and chat_id != 0:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 ({4}/{5}) 로그인 했습니다.'.format(dt.hour, dt.minute, dt.second, self.id, token, chat_id) 
@@ -38322,7 +38332,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
 
-                if NightTime and TARGET_MONTH_SELECT == 'NM': # 차월물 야간인 경우 실행
+                if NightTime and TARGET_MONTH == 'NM': # 차월물 야간인 경우 실행
                     self.dialog['선물옵션전광판'].RunCode()
                 else:
                     pass
@@ -38429,7 +38439,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-            if TARGET_MONTH_SELECT == 'CM':
+            if TARGET_MONTH == 'CM':
 
                 if SELFID == 'soojin65':
                     txt = '[{0:02d}:{1:02d}:{2:02d}] ***님이 로그아웃 했습니다.'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
@@ -38729,7 +38739,7 @@ if __name__ == "__main__":
     else:
         pass
     
-    if TARGET_MONTH_SELECT == 'NM':
+    if TARGET_MONTH == 'NM':
         txt = '마우스 위치를 X = {0}, Y = {1} 위치로 이동합니다.\r'.format(SECOND_DISPLAY_X_POSITION, SECOND_DISPLAY_Y_POSITION)
         print(txt)            
         pyautogui.moveTo(SECOND_DISPLAY_X_POSITION, SECOND_DISPLAY_Y_POSITION)
