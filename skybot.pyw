@@ -2559,18 +2559,18 @@ class RealTime_Fut_Thread_DataWorker(QThread):
                     self.total_count += 1
                     self.total_packet_size += sys.getsizeof(data)
                     
-                    if flag_fut_realdata_update_is_running:
+                    if not flag_fut_realdata_update_is_running:
+
+                        if type(data) == list:
+                            self.trigger_list.emit(data)
+                        elif type(data) == dict:
+                            self.trigger_dict.emit(data)                    
+                        else:
+                            pass
+                        # 실시간 그래프 호출을 여기서 할수 있음!!!
+                    else:
                         self.drop_count += 1
                         self.drop_code = data['szTrCode']
-                    else:
-                        pass
-
-                    if type(data) == list:
-                        self.trigger_list.emit(data)
-                    elif type(data) == dict and not flag_fut_realdata_update_is_running:
-                        self.trigger_dict.emit(data)                    
-                    else:
-                        pass
 
                     if flag_mp_interval_changed:
                         print('MP interval changed...')
@@ -25366,7 +25366,7 @@ class PlotUpdateWorker1(QThread):
 
         while True:
 
-            if flag_main_process_queue_empty:
+            if flag_main_process_queue_empty and not flag_fut_realdata_update_is_running:
                 self.trigger.emit()
 
             if flag_plot_update_interval_changed:
@@ -25390,7 +25390,7 @@ class PlotUpdateWorker2(QThread):
 
         while True:
 
-            if flag_main_process_queue_empty:
+            if flag_main_process_queue_empty and not flag_fut_realdata_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -25408,7 +25408,7 @@ class PlotUpdateWorker3(QThread):
 
         while True:
 
-            if flag_main_process_queue_empty:
+            if flag_main_process_queue_empty and not flag_fut_realdata_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -25426,7 +25426,7 @@ class PlotUpdateWorker4(QThread):
 
         while True:
 
-            if flag_main_process_queue_empty:
+            if flag_main_process_queue_empty and not flag_fut_realdata_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -25444,7 +25444,7 @@ class PlotUpdateWorker5(QThread):
 
         while True:
 
-            if flag_main_process_queue_empty:
+            if flag_main_process_queue_empty and not flag_fut_realdata_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -25462,7 +25462,7 @@ class PlotUpdateWorker6(QThread):
 
         while True:
 
-            if flag_main_process_queue_empty:
+            if flag_main_process_queue_empty and not flag_fut_realdata_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -25492,6 +25492,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         start_time = timeit.default_timer()
         
         self.flag_big_chart_open = True
+
         self.bc_ui_update_time = 0
         self.plot_x_idx = 0
         self.plot_count = 0
@@ -25504,13 +25505,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         qr.moveCenter(self.parent.centerPoint)
         self.move(qr.topLeft())     
         self.showNormal()
-
-        self.plot_update_worker1 = None
-        self.plot_update_worker2 = None
-        self.plot_update_worker3 = None
-        self.plot_update_worker4 = None
-        self.plot_update_worker5 = None
-        self.plot_update_worker6 = None
         
         self.comboBox1.setStyleSheet('background-color: lightgreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.comboBox2.setStyleSheet('background-color: lightgreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -26584,13 +26578,20 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         end_time = timeit.default_timer()
         processing_time = (end_time - start_time) * 1000
 
-        print('init time =', processing_time)
+        print('bigchart init time =', processing_time)
 
     def __del__(self):
         '''
         종료시 실행할 작업
         '''
-        print('Big Chart Dialog를 종료합니다...') 
+        print('Big Chart Dialog를 종료합니다...')
+
+        self.plot_update_worker1 = None
+        self.plot_update_worker2 = None
+        self.plot_update_worker3 = None
+        self.plot_update_worker4 = None
+        self.plot_update_worker5 = None
+        self.plot_update_worker6 = None 
 
     #cross hair
     def plot1_mouseMoved(self, evt):
@@ -37819,10 +37820,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, ovc_x_idx, 시스템시간_분, 서버시간_분
 
             server_time = trdata[2]
-            '''
+            
             txt = '[{0:02d}:{1:02d}:{2:02d}] HeartBeat 수신...\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(txt)
-            '''
+            #self.textBrowser.append(txt)
+            print(txt)
+
             systemtime = dt.hour * 3600 + dt.minute * 60 + dt.second
 
             시스템시간_분 = dt.hour * 3600 + dt.minute * 60
@@ -38237,10 +38239,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 server_x_idx = (SERVER_HOUR - DayTime_PreStart_Hour) * 60 + SERVER_MIN + 1
 
             ovc_x_idx = server_x_idx
-            '''
+            
             txt = '[{0:02d}:{1:02d}:{2:02d}] HeartBeat 수신...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
-            self.textBrowser.append(txt)
-            '''
+            #self.textBrowser.append(txt)
+            print(txt)
+
             flag_heartbeat = True                        
         else:
             pass
