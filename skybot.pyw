@@ -24013,23 +24013,10 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_news.setChecked(NEWS_CHK)
         self.checkBox_valid_receive.setChecked(False)
 
-        txt = str(call_itm_number)
-        self.lineEdit_call_itm.setText(txt)
-
-        txt = str(call_otm_number)
-        self.lineEdit_call_otm.setText(txt)
-
-        txt = str(put_itm_number)
-        self.lineEdit_put_itm.setText(txt)
-
-        txt = str(put_otm_number)
-        self.lineEdit_put_otm.setText(txt)
-
-        txt = str(mp_send_interval)
-        self.lineEdit_mp.setText(txt)
-
-        txt = str(plot_update_interval)
-        self.lineEdit_plot.setText(txt)
+        self.spinBox_call_itm.setValue(call_itm_number)
+        self.spinBox_call_otm.setValue(call_otm_number)
+        self.spinBox_put_itm.setValue(put_itm_number)
+        self.spinBox_put_otm.setValue(put_otm_number)
 
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
         #atexit.register(self.__del__) 
@@ -24064,10 +24051,10 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_news.stateChanged.connect(self.checkBox_news_checkState)
         self.checkBox_valid_receive.stateChanged.connect(self.checkBox_checkBox_valid_receive_checkState)
 
-        self.lineEdit_call_itm.textChanged.connect(self.change_call_itm)
-        self.lineEdit_call_otm.textChanged.connect(self.change_call_otm)
-        self.lineEdit_put_itm.textChanged.connect(self.change_put_itm)
-        self.lineEdit_put_otm.textChanged.connect(self.change_put_otm)
+        self.spinBox_call_itm.valueChanged.connect(self.change_call_itm)
+        self.spinBox_call_otm.valueChanged.connect(self.change_call_otm)
+        self.spinBox_put_itm.valueChanged.connect(self.change_put_itm)
+        self.spinBox_put_otm.valueChanged.connect(self.change_put_otm)
 
         self.lineEdit_mp.returnPressed.connect(self.change_mp_interval)
         self.lineEdit_plot.returnPressed.connect(self.change_plot_interval)
@@ -24078,8 +24065,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
-        txt = self.lineEdit_call_itm.text()
-        call_itm_number = int(txt)
+        call_itm_number = self.spinBox_call_itm.value()
 
         flag_call_itm_number_changed = True
 
@@ -24092,8 +24078,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
-        txt = self.lineEdit_call_otm.text()
-        call_otm_number = int(txt)
+        call_otm_number = self.spinBox_call_otm.value()
 
         flag_call_otm_number_changed = True
 
@@ -24106,8 +24091,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
-        txt = self.lineEdit_put_itm.text()
-        put_itm_number = int(txt)
+        put_itm_number = self.spinBox_put_itm.value()
 
         flag_put_itm_number_changed = True
 
@@ -24120,8 +24104,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
-        txt = self.lineEdit_put_otm.text()
-        put_otm_number = int(txt)
+        put_otm_number = self.spinBox_put_otm.value()
 
         flag_put_otm_number_changed = True
 

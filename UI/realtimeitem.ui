@@ -438,7 +438,7 @@
    <property name="title">
     <string>실시간 Data갱신 항목</string>
    </property>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -504,56 +504,16 @@
    <property name="title">
     <string>내가, 외가 설정</string>
    </property>
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>31</y>
-      <width>251</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
-     <item>
-      <widget class="QLabel" name="label_call_itm">
-       <property name="text">
-        <string>콜내가</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="lineEdit_call_itm">
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_call_otm">
-       <property name="text">
-        <string>콜외가</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="lineEdit_call_otm">
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
+      <x>11</x>
       <y>60</y>
       <width>251</width>
       <height>22</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
       <widget class="QLabel" name="label_put_itm">
        <property name="text">
@@ -562,11 +522,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit_put_itm">
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
+      <widget class="QSpinBox" name="spinBox_put_itm"/>
      </item>
      <item>
       <widget class="QLabel" name="label_put_otm">
@@ -576,11 +532,39 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit_put_otm">
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      <widget class="QSpinBox" name="spinBox_put_otm"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>11</x>
+      <y>30</y>
+      <width>251</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QLabel" name="label_call_itm">
+       <property name="text">
+        <string>콜내가</string>
        </property>
       </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="spinBox_call_itm"/>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_call_otm">
+       <property name="text">
+        <string>콜외가</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="spinBox_call_otm"/>
      </item>
     </layout>
    </widget>
