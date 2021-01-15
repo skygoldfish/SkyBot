@@ -37821,10 +37821,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 if flag_main_process_queue_empty:
                     item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(청색))
                 else:
                     item.setBackground(QBrush(검정색))
-
-                item.setForeground(QBrush(청색))                
+                    item.setForeground(QBrush(cyan))                                
 
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
 
@@ -37960,10 +37960,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if flag_main_process_queue_empty:
                 item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(청색))
             else:
                 item.setBackground(QBrush(검정색))
-
-            item.setForeground(QBrush(청색))                                    
+                item.setForeground(QBrush(cyan))                                                
 
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
 
