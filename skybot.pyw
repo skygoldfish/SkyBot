@@ -38405,33 +38405,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-    def ThreadLogin(self):
+    def Thread_Login(self, url, port, svrtype, id, pwd, cert):
+        
+        if self.fut_connection is None:
+            self.fut_connection = XASession(parent=self)
 
-        global SELFID
-
-        계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})
-
-        if REAL_SERVER:
-            주식계좌정보 = 계좌정보.query("구분 == '거래'")
-            print('실서버에 접속합니다.')
-        else:
-            주식계좌정보 = 계좌정보.query("구분 == '모의'")
-            print('모의서버에 접속합니다.')        
-
-        if len(주식계좌정보) > 0:
-            if self.fut_connection is None:
-                self.fut_connection = XASession(parent=self)
-
-            self.계좌번호 = 주식계좌정보['계좌번호'].values[0].strip()
-            self.id = 주식계좌정보['사용자ID'].values[0].strip()
-            SELFID = self.id
-            self.pwd = 주식계좌정보['비밀번호'].values[0].strip()
-            self.cert = 주식계좌정보['공인인증비밀번호'].values[0].strip()
-            self.거래비밀번호 = 주식계좌정보['거래비밀번호'].values[0].strip()
-            self.url = 주식계좌정보['url'].values[0].strip()
-            self.fut_connection.login(url=self.url, id=self.id, pwd=self.pwd, cert=self.cert)
-        else:
-            print("secret디렉토리의 passwords.csv 파일에서 거래 계좌를 지정해 주세요")
+        self.fut_connection.login(url, port, svrtype, id, pwd, cert)
 
     def OnLogin(self, code, msg):        
 
@@ -38588,6 +38567,32 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.clock.timeout.connect(self.OnClockTick)
         self.clock.start(1000)
 
+        global SELFID
+
+        계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})
+
+        if REAL_SERVER:
+            주식계좌정보 = 계좌정보.query("구분 == '거래'")
+            print('실서버에 접속합니다.')
+        else:
+            주식계좌정보 = 계좌정보.query("구분 == '모의'")
+            print('모의서버에 접속합니다.')        
+
+        if len(주식계좌정보) > 0:
+            
+            self.url = 주식계좌정보['url'].values[0].strip()
+            self.port = 200001
+            self.svrtype = 0
+            self.id = 주식계좌정보['사용자ID'].values[0].strip()            
+            self.pwd = 주식계좌정보['비밀번호'].values[0].strip()
+            self.cert = 주식계좌정보['공인인증비밀번호'].values[0].strip()
+            self.거래비밀번호 = 주식계좌정보['거래비밀번호'].values[0].strip()
+            self.계좌번호 = 주식계좌정보['계좌번호'].values[0].strip()
+
+            SELFID = self.id            
+        else:
+            print("secret디렉토리의 passwords.csv 파일에서 거래 계좌를 지정해 주세요")
+
         if not MULTIPROCESS:
 
             if REAL_SERVER:
@@ -38597,10 +38602,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.textBrowser.append(txt)
 
-            self.ThreadLogin()
+            self.Thread_Login(self.url, self.port, self.svrtype, self.id, self.pwd, self.cert)
         else:
-            QTest.qWait(100)
-
             if REAL_SERVER:
                 txt = '멀티프로세스 실서버에 접속합니다.\r'
             else:
@@ -38609,15 +38612,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.textBrowser.append(txt)
 
             if MP_NUMBER == 1:
-                Futprocess.login()
+                Futprocess.Login(self.url, self.port, self.svrtype, self.id, self.pwd, self.cert)
             elif MP_NUMBER == 3:
-                Futprocess.login()
+                Futprocess.Login(self.url, self.port, self.svrtype, self.id, self.pwd, self.cert)
                 self.fut_event_loop.exec_() 
 
-                Callprocess.login()
+                Callprocess.Login(self.url, self.port, self.svrtype, self.id, self.pwd, self.cert)
                 self.call_event_loop.exec_() 
 
-                Putprocess.login()
+                Putprocess.Login(self.url, self.port, self.svrtype, self.id, self.pwd, self.cert)
                 self.put_event_loop.exec_() 
             else:
                 pass  
@@ -38677,7 +38680,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # 로그인
         if _action == "actionLogin":
-            self.ThreadLogin()
+            self.Thread_Login()
 
         # 로그아웃
         if _action == "actionLogout":

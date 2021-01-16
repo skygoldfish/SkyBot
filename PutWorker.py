@@ -315,25 +315,12 @@ class PutWorker(mp.Process):
         else:
             self.dataQ.put(result, False)
 
-    def login(self):
+    def Login(self, url, port, svrtype, id, pwd, cert):
 
-        계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})
-
-        if REAL_SERVER:
-            주식계좌정보 = 계좌정보.query("구분 == '거래'")
-            print('MP 풋 실서버에 접속합니다.')
-        else:
-            주식계좌정보 = 계좌정보.query("구분 == '모의'")
-            print('MP 풋 모의서버에 접속합니다.')
-
-        self.connection = XASession(parent=self)
-
-        self.url = 주식계좌정보['url'].values[0].strip()
-        self.id = 주식계좌정보['사용자ID'].values[0].strip()
-        self.pwd = 주식계좌정보['비밀번호'].values[0].strip()
-        self.cert = 주식계좌정보['공인인증비밀번호'].values[0].strip()
+        if self.connection is None:
+            self.connection = XASession(parent=self)
         
-        self.connection.login(url=self.url, id=self.id, pwd=self.pwd, cert=self.cert)
+        self.connection.login(url, port, svrtype, id, pwd, cert)
 
     def RequestTRData(self, type, code='0'):
 
