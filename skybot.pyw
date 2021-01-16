@@ -1900,6 +1900,12 @@ flag_put_otm_number_changed = False
 drop_txt = ''
 time_gap = 0
 
+flag_t8416_rerequest = False
+flag_t8416_re_request_start = False
+
+t8416_option_pairs_count = 0
+t8416_loop_finish_time = 0
+
 #####################################################################################################################################################################
 # UI 파일정의
 #####################################################################################################################################################################
@@ -4883,6 +4889,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 서버시간 기준으로 1분마다 체크!!!            
             if not flag_internet_connection_broken and self.alternate_flag and flag_heartbeat:
                 self.heartbeat_check()
+            else:
+                pass
+            
+            # 옵션 행사가가 200개 이상일 경우 대응
+            if flag_t8416_rerequest and not flag_internet_connection_broken and self.alternate_flag:
+
+                system_time = dt.hour * 3600 + dt.minute * 60 + dt.second
+
+                txt = '시스템시간 = {0}, t8416 재요청시간 = {1}'.format(system_time, t8416_loop_finish_time)
+                print(txt)
+
+                if system_time == (t8416_loop_finish_time + 10 * 60):
+                    self.t8416_additive_request()
+                else:
+                    pass
             else:
                 pass
             
@@ -14556,6 +14577,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global fut_avg_noise_ratio, k_value
 
         global CM_CALL_CODE, CM_PUT_CODE, NM_CALL_CODE, NM_PUT_CODE, CM_OPT_LENGTH, NM_OPT_LENGTH
+        global t8416_option_pairs_count, t8416_loop_finish_time
 
         dt = datetime.datetime.now()
 
@@ -15791,9 +15813,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print('t8416 call 요청시작...')
                 QTest.qWait(100)
 
+                global flag_t8416_rerequest
+
                 # 10분내에 200회 전송제약으로 인해 콜, 풋 각각 99개씩 만 요청함
                 if option_pairs_count > 99:
                     t8416_option_pairs_count = 99
+                    flag_t8416_rerequest = True
                 else:
                     t8416_option_pairs_count = option_pairs_count
                 
@@ -18479,9 +18504,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.textBrowser.append(txt)
                 print(txt)
                 print('======================================================================================================================================================================\r')
+
+                if flag_t8416_rerequest:
+                    count = t8416_option_pairs_count 
+                else:
+                    count = option_pairs_count
+
+                if flag_t8416_re_request_start:
+                    count = option_pairs_count
+                else:
+                    pass
+
+                print('t8416 call count =', t8416_call_count, count)
                 
                 # to be checked !!!
-                if t8416_call_count == t8416_option_pairs_count - 1:
+                if t8416_call_count == count - 1:
 
                     call_기준가 = df_call['기준가'].values.tolist()
                     call_월저 = df_call['월저'].values.tolist()
@@ -18517,19 +18554,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     call_positionCell = self.tableWidget_call.item(ATM_INDEX + 9, 1)
                     self.tableWidget_call.scrollToItem(call_positionCell)
 
-                    print('t8416 put 요청시작...')
-                    QTest.qWait(1000)
+                    if not flag_t8416_re_request_start:
+                        print('t8416 put 요청시작...')
+                        QTest.qWait(1000)
 
-                    # 10분내에 200회 전송제약으로 인해 콜, 풋 각각 99개씩 만 요청함
-                    if option_pairs_count > 99:
-                        t8416_option_pairs_count = 99
+                        # 10분내에 200회 전송제약으로 인해 콜, 풋 각각 99개씩 만 요청함
+                        if option_pairs_count > 99:
+                            t8416_option_pairs_count = 99
+                        else:
+                            t8416_option_pairs_count = option_pairs_count
+
+                        for i in range(t8416_option_pairs_count):
+                                t8416_put_count = i
+                                self.t8416_opt_request(self.put_code[i])
+                                self.t8416_put_event_loop.exec_()
                     else:
-                        t8416_option_pairs_count = option_pairs_count
-
-                    for i in range(t8416_option_pairs_count):
-                            t8416_put_count = i
-                            self.t8416_opt_request(self.put_code[i])
-                            self.t8416_put_event_loop.exec_()
+                        pass
                 else:
                     pass
                 
@@ -18715,11 +18755,30 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 print('======================================================================================================================================================================\r')
 
-                if t8416_put_count == (t8416_option_pairs_count - 1) - new_actval_down_count:
+                if flag_t8416_rerequest:
+                    count = t8416_option_pairs_count 
+                else:
+                    count = option_pairs_count
+
+                if flag_t8416_re_request_start:
+                    count = option_pairs_count
+                else:
+                    pass
+
+                print('t8416 put count =', t8416_put_count, count)
+
+                if t8416_put_count == (count - 1) - new_actval_down_count:
                     
                     txt = '[{0:02d}:{1:02d}:{2:02d}] Put 전체 행사가 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
                     print(txt)
+
+                    if not flag_t8416_re_request_start:
+                        t8416_loop_finish_time = dt.hour * 3600 + dt.minute * 60 + dt.second
+
+                        print('t8416_loop_finish_time =', t8416_loop_finish_time)
+                    else:
+                        pass
 
                     print('======================================================================================================================================================================\r')
 
@@ -19320,18 +19379,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             print('df nm call = {0}\r'.format(df_nm_call))
             print('df nm put = {0}\r'.format(df_nm_put))
             '''
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 옵션크기 = {4}\r'.format(dt.hour, dt.minute, dt.second, CM_OPTCODE, CM_OPT_LENGTH)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 옵션갯수 = {4}\r'.format(dt.hour, dt.minute, dt.second, CM_OPTCODE, CM_OPT_LENGTH)
             self.textBrowser.append(txt)
             print(txt)
 
-            txt = '본월물 옵션크기가 {0}개 입니다.'.format(CM_OPT_LENGTH)
+            txt = '본월물 옵션갯수는 {0}개 입니다.'.format(CM_OPT_LENGTH)
             Speak(txt)
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 옵션크기 = {4}\r'.format(dt.hour, dt.minute, dt.second, NM_OPTCODE, NM_OPT_LENGTH)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 옵션갯수 = {4}\r'.format(dt.hour, dt.minute, dt.second, NM_OPTCODE, NM_OPT_LENGTH)
             self.textBrowser.append(txt)
             print(txt)
 
-            txt = '차월물 옵션크기가 {0}개 입니다.'.format(NM_OPT_LENGTH)
+            txt = '차월물 옵션갯수는 {0}개 입니다.'.format(NM_OPT_LENGTH)
             Speak(txt)
 
             # 그래프를 위한 데이타프레임 생성
@@ -19383,7 +19442,34 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         else:
             pass
-    
+
+    #############################################################################################################################
+    # t8416 재요청 함수, 콜/풋 행사가가 전체 200개 이상인 경우 처리목적
+    #############################################################################################################################
+    def t8416_additive_request(self):
+
+        global flag_t8416_re_request_start, flag_t8416_call_done, flag_t8416_put_done
+        global t8416_call_count, t8416_put_count, flag_t8416_rerequest 
+
+        flag_t8416_re_request_start = True
+        flag_t8416_call_done = False
+        flag_t8416_put_done = False
+
+        print('t8416 재요청 시작...')
+
+        for i in range(t8416_option_pairs_count, option_pairs_count):
+            t8416_call_count = i
+            self.t8416_opt_request(self.call_code[i])
+            self.t8416_call_event_loop.exec_()        
+
+        for i in range(t8416_option_pairs_count, option_pairs_count):
+            t8416_put_count = i
+            self.t8416_opt_request(self.put_code[i])
+            self.t8416_put_event_loop.exec_()
+
+        print('t8416 재요청 완료...')
+        flag_t8416_rerequest = False
+
     #############################################################################################################################
     # 실시간 정보요청
     #############################################################################################################################
