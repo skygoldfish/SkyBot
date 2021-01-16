@@ -2708,6 +2708,51 @@ class RealTime_Put_Thread_DataWorker(QThread):
                     flag_put_process_queue_empty = True
 
 ########################################################################################################################
+# Xing API 각 객체의 요청(시간/횟수)제한을 관리하기 위한 Class
+########################################################################################################################
+class Xing_Limit(object):
+
+    def __init__(self):
+
+        # xing_api 선옵,업종,주식의 조회 객체는 대부분 1초당 1건, 10분당 200건의 제한이 있음
+        objs = ['t8414', 't8415', 't8416', 't8417', 't8418', 't8419', 't8411', 't8412', 't8413', 't2301', 't2835', 't0434', 't0441']
+        self.master = {}
+
+        for x in objs:
+
+            d = {}
+            if x == 't2301':
+                d['time0'] = time.time()
+                d['time_last'] = d['time0']
+                d['limit'] = 0.6
+                d['limit2'] = 600.0
+                d['limit2_cnt'] = 200
+            else:
+                d['time0'] = time.time()
+                d['time_last'] = d['time0']
+                d['limit'] = 1.2
+                d['limit2'] = 600.0
+                d['limit2_cnt'] = 200
+
+            self.master[x] = d
+
+    # 마지막 사용시 정보 업데이트
+    def update(self, obj):
+
+        if obj in self.master.keys():
+            self.master[obj]['time_last'] = time.time() # 최종 요청시간(현재시각) 업데이트
+
+    # 해당 객체를 사용하기 위해 남은 시간은 얼마인가? 초(float) 리턴
+    def remain(self, obj):
+
+        if obj in self.master.keys():
+            t = time.time()
+            delta = (self.master[obj]['time_last'] + self.master[obj]['limit']) - t
+            return delta
+        else:
+            return -1
+
+########################################################################################################################
 # 옵션전광판 UI Class
 ########################################################################################################################
 if UI_HIDE:
@@ -12462,11 +12507,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if refresh_coloring:
                 loop_list = self.opt_total_actval_list
+                #print('loop list =', loop_list)
             else:
                 if self.call_open_list:
                     loop_list = self.call_open_list
                 else:
-                    loop_list = self.opt_total_actval_list
+                    loop_list = self.opt_total_actval_list            
 
             for index in loop_list:
 
@@ -12625,6 +12671,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             # Call Open Count 및 OLOH 표시
             call_open_count = call_open.count(True)
+            #print('call open count =', call_open_count)
 
             if call_open[option_pairs_count - 1]:
 
@@ -15744,6 +15791,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print('t8416 call 요청시작...')
                 QTest.qWait(100)
 
+                # 10분내에 200회 전송제약으로 인해 콜, 풋 각각 99개씩 만 요청함
                 if option_pairs_count > 99:
                     t8416_option_pairs_count = 99
                 else:
@@ -18210,6 +18258,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         print('t8416 put 요청시작...')
                         QTest.qWait(1000)
 
+                        # 10분내에 200회 전송제약으로 인해 콜, 풋 각각 99개씩 만 요청함
                         if option_pairs_count > 99:
                             t8416_option_pairs_count = 99
                         else:
@@ -18471,6 +18520,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     print('t8416 put 요청시작...')
                     QTest.qWait(1000)
 
+                    # 10분내에 200회 전송제약으로 인해 콜, 풋 각각 99개씩 만 요청함
                     if option_pairs_count > 99:
                         t8416_option_pairs_count = 99
                     else:
@@ -19272,11 +19322,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             '''
             txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 옵션크기 = {4}\r'.format(dt.hour, dt.minute, dt.second, CM_OPTCODE, CM_OPT_LENGTH)
             self.textBrowser.append(txt)
-            print(txt) 
+            print(txt)
+
+            txt = '본월물 옵션크기가 {0}개 입니다.'.format(CM_OPT_LENGTH)
+            Speak(txt)
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 옵션크기 = {4}\r'.format(dt.hour, dt.minute, dt.second, NM_OPTCODE, NM_OPT_LENGTH)
             self.textBrowser.append(txt)
             print(txt)
+
+            txt = '차월물 옵션크기가 {0}개 입니다.'.format(NM_OPT_LENGTH)
+            Speak(txt)
 
             # 그래프를 위한 데이타프레임 생성
             if NightTime:
@@ -19293,12 +19349,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 option_pairs_count = NM_OPT_LENGTH
             else:
                 pass
-            '''
-            if option_pairs_count > 100:
-                option_pairs_count = 100
-            else:
-                pass
-            '''
+            
             for i in range(option_pairs_count):
 
                 self.opt_total_actval_list.append(i)
@@ -20122,6 +20173,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 요청의 총수는 {3}개 입니다.\r'.format(dt.hour, dt.minute, dt.second, self.realdata_request_number)
         self.parent.textBrowser.append(txt)
         print(txt)
+
+        if TTS:
+            playsound( "Resources/doorbell.wav" )
+        else:
+            pass
 
         item_txt = '{0}'.format(self.realdata_request_number)
         item = QTableWidgetItem(item_txt)
@@ -24076,26 +24132,26 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         if TARGET_MONTH == 'CM':
 
             cm_price_all_txt = '본월물 옵션가격(전체)'
-            cm_price_part_txt = '본월물 옵션가격(일부)'
+            cm_price_part_txt = '본월물 옵션가격(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
             cm_quote_all_txt = '본월물 옵션호가(전체)'
-            cm_quote_part_txt = '본월물 옵션호가(일부)'
+            cm_quote_part_txt = '본월물 옵션호가(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
 
             nm_price_all_txt = '차월물 옵션가격(전체)'
-            nm_price_part_txt = '차월물 옵션가격(일부)'
+            nm_price_part_txt = '차월물 옵션가격(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
             nm_quote_all_txt = '차월물 옵션호가(전체)'
-            nm_quote_part_txt = '차월물 옵션호가(일부)'
+            nm_quote_part_txt = '차월물 옵션호가(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
 
         elif TARGET_MONTH == 'NM':
 
             cm_price_all_txt = '차월물 옵션가격(전체)'
-            cm_price_part_txt = '차월물 옵션가격(일부)'
+            cm_price_part_txt = '차월물 옵션가격(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
             cm_quote_all_txt = '차월물 옵션호가(전체)'
-            cm_quote_part_txt = '차월물 옵션호가(일부)'
+            cm_quote_part_txt = '차월물 옵션호가(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
 
             nm_price_all_txt = '차차월물 옵션가격(전체)'
-            nm_price_part_txt = '차차월물 옵션가격(일부)'
+            nm_price_part_txt = '차차월물 옵션가격(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
             nm_quote_all_txt = '차차월물 옵션호가(전체)'
-            nm_quote_part_txt = '차차월물 옵션호가(일부)'
+            nm_quote_part_txt = '차차월물 옵션호가(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
         else:
             pass
 
@@ -24198,6 +24254,30 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         txt = '[{0:02d}:{1:02d}:{2:02d}] 콜내가를 {3}개로 설정합니다.\r'.format(dt.hour, dt.minute, dt.second, call_itm_number)
         self.parent.textBrowser.append(txt)
 
+        if TARGET_MONTH == 'CM':
+
+            cm_price_part_txt = '본월물 옵션가격(C내가:{0}, C외가:{1})'.format(call_itm_number, call_otm_number)
+            cm_quote_part_txt = '본월물 옵션호가(C내가:{0}, C외가:{1})'.format(call_itm_number, call_otm_number)
+
+            nm_price_part_txt = '차월물 옵션가격(C내가:{0}, C외가:{1})'.format(call_itm_number, call_otm_number)
+            nm_quote_part_txt = '차월물 옵션호가(C내가:{0}, C외가:{1})'.format(call_itm_number, call_otm_number)
+
+        elif TARGET_MONTH == 'NM':
+
+            cm_price_part_txt = '차월물 옵션가격(C내가:{0}, C외가:{1})'.format(call_itm_number, call_otm_number)
+            cm_quote_part_txt = '차월물 옵션호가(C내가:{0}, C외가:{1})'.format(call_itm_number, call_otm_number)
+
+            nm_price_part_txt = '차차월물 옵션가격(C내가:{0}, C외가:{1})'.format(call_itm_number, call_otm_number)
+            nm_quote_part_txt = '차차월물 옵션호가(C내가:{0}, C외가:{1})'.format(call_itm_number, call_otm_number)
+        else:
+            pass
+
+        self.checkBox_cm_opt_price_1.setText(cm_price_part_txt)
+        self.checkBox_cm_opt_quote_1.setText(cm_quote_part_txt)
+
+        self.checkBox_nm_opt_price_1.setText(nm_price_part_txt)
+        self.checkBox_nm_opt_quote_1.setText(nm_quote_part_txt)
+
     def change_call_otm(self):
 
         global call_otm_number, flag_call_otm_number_changed
@@ -24210,6 +24290,30 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         txt = '[{0:02d}:{1:02d}:{2:02d}] 콜외가를 {3}개로 설정합니다.\r'.format(dt.hour, dt.minute, dt.second, call_otm_number)
         self.parent.textBrowser.append(txt)
+
+        if TARGET_MONTH == 'CM':
+
+            cm_price_part_txt = '본월물 옵션가격(C내가:{0}, C외가:{1})'.format(call_itm_number, call_otm_number)
+            cm_quote_part_txt = '본월물 옵션호가(C내가:{0}, C외가:{1})'.format(call_itm_number, call_otm_number)
+
+            nm_price_part_txt = '차월물 옵션가격(C내가:{0}, C외가:{1})'.format(call_itm_number, call_otm_number)
+            nm_quote_part_txt = '차월물 옵션호가(C내가:{0}, C외가:{1})'.format(call_itm_number, call_otm_number)
+
+        elif TARGET_MONTH == 'NM':
+
+            cm_price_part_txt = '차월물 옵션가격(C내가:{0}, C외가:{1})'.format(call_itm_number, call_otm_number)
+            cm_quote_part_txt = '차월물 옵션호가(C내가:{0}, C외가:{1})'.format(call_itm_number, call_otm_number)
+
+            nm_price_part_txt = '차차월물 옵션가격(C내가:{0}, C외가:{1})'.format(call_itm_number, call_otm_number)
+            nm_quote_part_txt = '차차월물 옵션호가(C내가:{0}, C외가:{1})'.format(call_itm_number, call_otm_number)
+        else:
+            pass
+
+        self.checkBox_cm_opt_price_1.setText(cm_price_part_txt)
+        self.checkBox_cm_opt_quote_1.setText(cm_quote_part_txt)
+
+        self.checkBox_nm_opt_price_1.setText(nm_price_part_txt)
+        self.checkBox_nm_opt_quote_1.setText(nm_quote_part_txt)
 
     def change_put_itm(self):
 
@@ -24224,6 +24328,30 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         txt = '[{0:02d}:{1:02d}:{2:02d}] 풋내가를 {3}개로 설정합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number)
         self.parent.textBrowser.append(txt)
 
+        if TARGET_MONTH == 'CM':
+
+            cm_price_part_txt = '본월물 옵션가격(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
+            cm_quote_part_txt = '본월물 옵션호가(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
+
+            nm_price_part_txt = '차월물 옵션가격(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
+            nm_quote_part_txt = '차월물 옵션호가(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
+
+        elif TARGET_MONTH == 'NM':
+
+            cm_price_part_txt = '차월물 옵션가격(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
+            cm_quote_part_txt = '차월물 옵션호가(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
+
+            nm_price_part_txt = '차차월물 옵션가격(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
+            nm_quote_part_txt = '차차월물 옵션호가(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
+        else:
+            pass
+
+        self.checkBox_cm_opt_price_1.setText(cm_price_part_txt)
+        self.checkBox_cm_opt_quote_1.setText(cm_quote_part_txt)
+
+        self.checkBox_nm_opt_price_1.setText(nm_price_part_txt)
+        self.checkBox_nm_opt_quote_1.setText(nm_quote_part_txt)
+
     def change_put_otm(self):
 
         global put_otm_number, flag_put_otm_number_changed
@@ -24236,6 +24364,30 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         txt = '[{0:02d}:{1:02d}:{2:02d}] 풋외가를 {3}개로 설정합니다.\r'.format(dt.hour, dt.minute, dt.second, put_otm_number)
         self.parent.textBrowser.append(txt)
+
+        if TARGET_MONTH == 'CM':
+
+            cm_price_part_txt = '본월물 옵션가격(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
+            cm_quote_part_txt = '본월물 옵션호가(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
+
+            nm_price_part_txt = '차월물 옵션가격(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
+            nm_quote_part_txt = '차월물 옵션호가(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
+
+        elif TARGET_MONTH == 'NM':
+
+            cm_price_part_txt = '차월물 옵션가격(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
+            cm_quote_part_txt = '차월물 옵션호가(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
+
+            nm_price_part_txt = '차차월물 옵션가격(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
+            nm_quote_part_txt = '차차월물 옵션호가(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
+        else:
+            pass
+
+        self.checkBox_cm_opt_price_1.setText(cm_price_part_txt)
+        self.checkBox_cm_opt_quote_1.setText(cm_quote_part_txt)
+
+        self.checkBox_nm_opt_price_1.setText(nm_price_part_txt)
+        self.checkBox_nm_opt_quote_1.setText(nm_quote_part_txt)
 
     def change_mp_interval(self):
 
@@ -37682,7 +37834,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
 
         self.setWindowTitle("SkyBot ver1.0")
-
         self.textBrowser.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 9pt; font: Normal")
         self.textBrowser.append('Welcome to SkyBot\r')
 
@@ -37710,6 +37861,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
         
+        # 복수개의 Dialog 객체 처리용 변수선언
+        self.dialog = dict()
+
+        self.dialog['선물옵션전광판'] = None
+        self.dialog['BigChart'] = None
+        self.dialog['RealTimeItem'] = None
+        self.dialog['Version'] = None
+
+        self.id = ''
+        self.계좌번호 = None
+        self.거래비밀번호 = None
+        
         self.시작시각 = datetime.datetime.now()
 
         txt = '시작시간 = {0}\r'.format(self.시작시각)
@@ -37736,18 +37899,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         txt = '현재스크린 = {0}번, 화면해상도 = {1}x{2}, 중심좌표 X = {3}, Y = {4}\r'.format(스크린번호, screen_info.width(), screen_info.height(), self.centerPoint.x(), self.centerPoint.y())
         self.textBrowser.append(txt)
  
-        # 복수개의 Dialog 객체 처리용 변수선언
-        self.dialog = dict()
-
-        self.dialog['선물옵션전광판'] = None
-        self.dialog['BigChart'] = None
-        self.dialog['RealTimeItem'] = None
-        self.dialog['Version'] = None
-
-        self.id = ''
-        self.계좌번호 = None
-        self.거래비밀번호 = None
-
         # AxtiveX 설정
         if self.mp_mode:
             if MP_NUMBER == 1:
@@ -37763,29 +37914,28 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # 장의 변동성이 클때는 하나의 프로세스로 200종목 이상의 데이타를 실시간 처리못함 --> 3개의 프로세스 생성하여 로드분산 !!!
             if MP_NUMBER == 1:
                 self.realtime_fut_data_worker = RealTime_Fut_Thread_DataWorker(self.fut_dataQ)
-                self.realtime_fut_data_worker.trigger_list.connect(self.transfer_fut_trdata)
-                self.realtime_fut_data_worker.trigger_dict.connect(self.transfer_fut_realdata)            
+                self.realtime_fut_data_worker.trigger_list.connect(self.transfer_mp_fut_trdata)
+                self.realtime_fut_data_worker.trigger_dict.connect(self.transfer_mp_fut_realdata)            
                 self.realtime_fut_data_worker.start()
             elif MP_NUMBER == 3:
                 self.realtime_fut_data_worker = RealTime_Fut_Thread_DataWorker(self.fut_dataQ)
-                self.realtime_fut_data_worker.trigger_list.connect(self.transfer_fut_trdata)
-                self.realtime_fut_data_worker.trigger_dict.connect(self.transfer_fut_realdata)            
+                self.realtime_fut_data_worker.trigger_list.connect(self.transfer_mp_fut_trdata)
+                self.realtime_fut_data_worker.trigger_dict.connect(self.transfer_mp_fut_realdata)            
                 self.realtime_fut_data_worker.start()
 
                 self.realtime_call_data_worker = RealTime_Call_Thread_DataWorker(self.call_dataQ)
-                self.realtime_call_data_worker.trigger_list.connect(self.transfer_call_trdata)
-                self.realtime_call_data_worker.trigger_dict.connect(self.transfer_call_realdata)            
+                self.realtime_call_data_worker.trigger_list.connect(self.transfer_mp_call_trdata)
+                self.realtime_call_data_worker.trigger_dict.connect(self.transfer_mp_call_realdata)            
                 self.realtime_call_data_worker.start()
 
                 self.realtime_put_data_worker = RealTime_Put_Thread_DataWorker(self.put_dataQ)
-                self.realtime_put_data_worker.trigger_list.connect(self.transfer_put_trdata)
-                self.realtime_put_data_worker.trigger_dict.connect(self.transfer_put_realdata)            
+                self.realtime_put_data_worker.trigger_list.connect(self.transfer_mp_put_trdata)
+                self.realtime_put_data_worker.trigger_dict.connect(self.transfer_mp_put_realdata)            
                 self.realtime_put_data_worker.start()
             else:
                 pass   
         else:
             self.fut_connection = None
-
             self.XQ_t0167 = t0167(parent=self)
 
             from multiprocessing import Queue
@@ -37798,50 +37948,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
         atexit.register(self.__del__)
-            
-    @pyqtSlot(dict)
-    def transfer_thread_realdata(self, realdata):
-
-        global drop_txt
-
-        # 데이타를 전광판 다이얼로그로 전달
-        if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
-
-            item = QTableWidgetItem("{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time))
-            item.setTextAlignment(Qt.AlignCenter)
-
-            if realdata['szTrCode'] == 'OC0' or realdata['szTrCode'] == 'EC0' or realdata['szTrCode'] == 'OH0' or realdata['szTrCode'] == 'EH0':
-
-                if flag_main_process_queue_empty:
-                    item.setBackground(QBrush(흰색))
-                else:
-                    item.setBackground(QBrush(검정색))
-                
-                item.setForeground(QBrush(적색))
-            else:
-                if flag_main_process_queue_empty:
-                    item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(청색))
-                else:
-                    item.setBackground(QBrush(검정색))
-                    item.setForeground(QBrush(cyan))                                
-
-            self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
-
-            # 수신된 실시간데이타 정보표시(누락된 패킷수, 누락된 패킷, 수신된 총 패킷수, 수신된 총 패킷크기)
-            dropcount, dropcode, totalcount, totalsize = self.realtime_thread_data_worker.get_packet_info()
-            drop_txt = '{0}/{2}({3}k)'.format(format(dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','))
-
-            item = QTableWidgetItem(drop_txt)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.dialog['선물옵션전광판'].tableWidget_supply.setHorizontalHeaderItem(Supply_column.종합.value - 1, item)
-
-            self.dialog['선물옵션전광판'].UpdateRealdata(realdata)
-        else:
-            pass
-
+    
+    ########################################################################################################################
+    # 멀티프로세스방식 처리관련 함수들
+    ########################################################################################################################
     @pyqtSlot(list)
-    def transfer_fut_trdata(self, trdata):
+    def transfer_mp_fut_trdata(self, trdata):
 
         dt = datetime.datetime.now()
 
@@ -37946,7 +38058,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         '''
 
     @pyqtSlot(dict)
-    def transfer_fut_realdata(self, realdata):
+    def transfer_mp_fut_realdata(self, realdata):
 
         dt = datetime.datetime.now()
 
@@ -38045,7 +38157,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
 
     @pyqtSlot(list)
-    def transfer_call_trdata(self, trdata):
+    def transfer_mp_call_trdata(self, trdata):
 
         if trdata[0] == '0000':
 
@@ -38071,7 +38183,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             Callprocess.login()
 
     @pyqtSlot(dict)
-    def transfer_call_realdata(self, realdata):
+    def transfer_mp_call_realdata(self, realdata):
 
         dt = datetime.datetime.now()
 
@@ -38095,7 +38207,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
 
     @pyqtSlot(list)
-    def transfer_put_trdata(self, trdata):
+    def transfer_mp_put_trdata(self, trdata):
     
         if trdata[0] == '0000':
 
@@ -38132,7 +38244,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             Putprocess.login()
 
     @pyqtSlot(dict)
-    def transfer_put_realdata(self, realdata):
+    def transfer_mp_put_realdata(self, realdata):
 
         dt = datetime.datetime.now()
 
@@ -38154,6 +38266,50 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.dialog['선물옵션전광판'].UpdatePutRealdata(realdata)
         else:
             pass 
+
+    ########################################################################################################################
+    # 쓰레드방식 처리관련 함수들
+    ########################################################################################################################
+    @pyqtSlot(dict)
+    def transfer_thread_realdata(self, realdata):
+
+        global drop_txt
+
+        # 데이타를 전광판 다이얼로그로 전달
+        if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
+
+            item = QTableWidgetItem("{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time))
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if realdata['szTrCode'] == 'OC0' or realdata['szTrCode'] == 'EC0' or realdata['szTrCode'] == 'OH0' or realdata['szTrCode'] == 'EH0':
+
+                if flag_main_process_queue_empty:
+                    item.setBackground(QBrush(흰색))
+                else:
+                    item.setBackground(QBrush(검정색))
+                
+                item.setForeground(QBrush(적색))
+            else:
+                if flag_main_process_queue_empty:
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(청색))
+                else:
+                    item.setBackground(QBrush(검정색))
+                    item.setForeground(QBrush(cyan))                                
+
+            self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
+
+            # 수신된 실시간데이타 정보표시(누락된 패킷수, 누락된 패킷, 수신된 총 패킷수, 수신된 총 패킷크기)
+            dropcount, dropcode, totalcount, totalsize = self.realtime_thread_data_worker.get_packet_info()
+            drop_txt = '{0}/{2}({3}k)'.format(format(dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','))
+
+            item = QTableWidgetItem(drop_txt)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.dialog['선물옵션전광판'].tableWidget_supply.setHorizontalHeaderItem(Supply_column.종합.value - 1, item)
+
+            self.dialog['선물옵션전광판'].UpdateRealdata(realdata)
+        else:
+            pass
 
     def ThreadLogin(self):
 
@@ -38329,6 +38485,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
+    ########################################################################################################################
+    # 공통 함수들
+    ########################################################################################################################
     def OnQApplicationStarted(self):
 
         self.clock = QtCore.QTimer()
@@ -38415,132 +38574,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-    def OnChildDialogCloseEvent(self, dialog_type):
-
-        dt = datetime.datetime.now()
-
-        txt = '[{0:02d}:{1:02d}:{2:02d}] {3} 객체바인딩을 해제합니다.\r'.format(dt.hour, dt.minute, dt.second, dialog_type)
-        self.textBrowser.append(txt)
-
-        if dialog_type == 'Score Board':            
-
-            self.dialog['선물옵션전광판'] = None
-
-        if dialog_type == 'Big Chart':
-
-            self.dialog['BigChart'] = None
-
-    def __del__(self):
-        '''
-        종료시 실행할 작업
-        '''
-        print('SkyBot을 종료합니다...')  
-
-    def closeEvent(self,event):
-
-        dt = datetime.datetime.now()
-
-        result = QMessageBox.question(self,"프로그램 종료"," SkyBot을 종료하시겠습니까 ? ", QMessageBox.Yes | QMessageBox.No)
-
-        if result == QMessageBox.Yes:
-
-            event.accept()
-
-            if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
-
-                self.dialog['선물옵션전광판'].KillScoreBoardAllThread()
-
-                if not MULTIPROCESS:
-                    print('모든 실시간요청 취소...')
-                    self.realtime_thread_data_worker.CancelAllRealData() 
-                    print('서버연결 해지...')
-                    self.fut_connection.disconnect()
-                    print('쓰레드 종료...')
-                    self.realtime_thread_data_worker.terminate()
-                else:
-                    pass
-            else:
-                print('선물옵션전광판 다이얼로그가 없습니다.')
-
-            if self.dialog['BigChart'] is not None:
-
-                if self.dialog['BigChart'].flag_big_chart_open:
-                    self.dialog['BigChart'].close()
-                else:
-                    pass
-            else:
-                print('BigChart 다이얼로그가 없습니다.')
-
-            logger.info("*************************************************************************************************************************")
-            logger.info("LOG STOP")
-
-            if MULTIPROCESS:
-
-                print('모든 멀티프로세스 실시간요청 취소...')
-                Futprocess.CancelAllRealData()
-
-                if MP_NUMBER == 3:
-                    Callprocess.CancelAllRealData()
-                    Putprocess.CancelAllRealData()
-                else:
-                    pass
-
-                print('모든 멀티프로세스 서버연결 해지...')
-                Futprocess.connection.disconnect()
-
-                if MP_NUMBER == 3:
-                    Callprocess.connection.disconnect()
-                    Putprocess.connection.disconnect()
-                else:
-                    pass
-
-                QTest.qWait(10)
-                print('모든 멀티프로세스 쓰레드 종료...')
-                self.realtime_fut_data_worker.terminate()
-
-                if MP_NUMBER == 3:
-                    self.realtime_call_data_worker.terminate()
-                    self.realtime_put_data_worker.terminate()
-                else:
-                    pass
-
-                print('모든 멀티프로세스 Shutdown...')
-                Futprocess.shutdown()
-
-                if MP_NUMBER == 3:
-                    Callprocess.shutdown()
-                    Putprocess.shutdown()
-                else:
-                    pass
-            else:
-                pass
-
-            if TARGET_MONTH == 'CM':
-
-                if SELFID == 'soojin65':
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] ***님이 로그아웃 했습니다.'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
-                else:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 로그아웃 했습니다.'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, SELFID)
-
-                #ToMyTelegram(txt)
-            else:
-                pass
-
-            if not MULTIPROCESS:
-                self.clock.stop()
-            else:
-                pass
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Main Window를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(txt)
-            print(txt)
-
-            self.close()
-        else:
-            event.ignore()   
-
-    # ------------------------------------------------------------------------------------------------------------------
-    # ------------------------------------------------------------------------------------------------------------------
     def MENU_Action(self, qaction):
 
         dt = datetime.datetime.now()
@@ -38657,9 +38690,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.dialog['Version'] = 화면_버전(parent=self)
                 self.dialog['Version'].show()
-
-    # ------------------------------------------------------------------------------------------------------------------
-    # ------------------------------------------------------------------------------------------------------------------
+    
     def TOOLBAR_Action(self, qaction):
 
         dt = datetime.datetime.now()
@@ -38728,9 +38759,134 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간요청 설정 Dialog를 생성합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
+    
+    def OnChildDialogCloseEvent(self, dialog_type):
 
-# ------------------------------------------------------------------------------------------------------------------
-# ------------------------------------------------------------------------------------------------------------------
+        dt = datetime.datetime.now()
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] {3} 객체바인딩을 해제합니다.\r'.format(dt.hour, dt.minute, dt.second, dialog_type)
+        self.textBrowser.append(txt)
+
+        if dialog_type == 'Score Board':            
+
+            self.dialog['선물옵션전광판'] = None
+
+        if dialog_type == 'Big Chart':
+
+            self.dialog['BigChart'] = None
+
+    def closeEvent(self,event):
+
+        dt = datetime.datetime.now()
+
+        result = QMessageBox.question(self,"프로그램 종료"," SkyBot을 종료하시겠습니까 ? ", QMessageBox.Yes | QMessageBox.No)
+
+        if result == QMessageBox.Yes:
+
+            event.accept()
+
+            if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
+
+                self.dialog['선물옵션전광판'].KillScoreBoardAllThread()
+
+                if not MULTIPROCESS:
+                    print('모든 실시간요청 취소...')
+                    self.realtime_thread_data_worker.CancelAllRealData() 
+                    print('서버연결 해지...')
+                    self.fut_connection.disconnect()
+                    print('쓰레드 종료...')
+                    self.realtime_thread_data_worker.terminate()
+                else:
+                    pass
+            else:
+                print('선물옵션전광판 다이얼로그가 없습니다.')
+
+            if self.dialog['BigChart'] is not None:
+
+                if self.dialog['BigChart'].flag_big_chart_open:
+                    self.dialog['BigChart'].close()
+                else:
+                    pass
+            else:
+                print('BigChart 다이얼로그가 없습니다.')
+
+            logger.info("*************************************************************************************************************************")
+            logger.info("LOG STOP")
+
+            if MULTIPROCESS:
+
+                print('모든 멀티프로세스 실시간요청 취소...')
+                Futprocess.CancelAllRealData()
+
+                if MP_NUMBER == 3:
+                    Callprocess.CancelAllRealData()
+                    Putprocess.CancelAllRealData()
+                else:
+                    pass
+
+                print('모든 멀티프로세스 서버연결 해지...')
+                Futprocess.connection.disconnect()
+
+                if MP_NUMBER == 3:
+                    Callprocess.connection.disconnect()
+                    Putprocess.connection.disconnect()
+                else:
+                    pass
+
+                QTest.qWait(10)
+                print('모든 멀티프로세스 쓰레드 종료...')
+                self.realtime_fut_data_worker.terminate()
+
+                if MP_NUMBER == 3:
+                    self.realtime_call_data_worker.terminate()
+                    self.realtime_put_data_worker.terminate()
+                else:
+                    pass
+
+                print('모든 멀티프로세스 Shutdown...')
+                Futprocess.shutdown()
+
+                if MP_NUMBER == 3:
+                    Callprocess.shutdown()
+                    Putprocess.shutdown()
+                else:
+                    pass
+            else:
+                pass
+
+            if TARGET_MONTH == 'CM':
+
+                if SELFID == 'soojin65':
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] ***님이 로그아웃 했습니다.'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                else:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 로그아웃 했습니다.'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, SELFID)
+
+                #ToMyTelegram(txt)
+            else:
+                pass
+
+            if not MULTIPROCESS:
+                self.clock.stop()
+            else:
+                pass
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Main Window를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+            print(txt)
+
+            self.close()
+        else:
+            event.ignore()   
+        
+    def __del__(self):
+        '''
+        종료시 실행할 작업
+        '''
+        print('SkyBot을 종료합니다...')  
+    
+########################################################################################################################
+# Main
+########################################################################################################################
 if __name__ == "__main__":
     
     # 멀티프로세스
