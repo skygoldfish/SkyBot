@@ -99,8 +99,6 @@ os_type = platform.platform()
 print('\r')
 print('OS 유형 :', os_type)
 
-SELFID = ''
-
 # 업종코드
 KOSPI = '001'
 KOSPI200 = '101'
@@ -3244,7 +3242,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             list_high4.append(round(DEFAULT_NODE_LIST[i] + 0.04, 2))
             list_high5.append(round(DEFAULT_NODE_LIST[i] + 0.05, 2))
 
-        if SELFID == 'soojin65':
+        if window.id == 'soojin65':
             global ResizeRowsToContents
 
             ResizeRowsToContents = True
@@ -3369,7 +3367,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         self.setWindowTitle(widget_title)
         
-        if SELFID == 'soojin65':
+        if window.id == 'soojin65':
             txt = '[{0:02d}:{1:02d}:{2:02d}] COREVAL = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, COREVAL)
             self.textBrowser.append(txt)
 
@@ -4434,7 +4432,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     FLAG_NODE = False
                     FLAG_OLOH = False
 
-                if SELFID == 'soojin65':
+                if window.id == 'soojin65':
                     
                     if command[0] == 'Allstop':
                         if FLAG_GUEST_CONTROL:
@@ -4574,7 +4572,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if TELEGRAM_SERVICE and flag_telegram_on:
 
                     # 텔레그램 메시지 수신
-                    if SELFID == 'soojin65':
+                    if window.id == 'soojin65':
                         #telegram_command = FromMyTelegram()
                         print('텔레그램 수신 메시지 =', str)
                         pass
@@ -4586,7 +4584,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 if telegram_command != '':
                     
-                    if SELFID == 'soojin65':
+                    if window.id == 'soojin65':
                         txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command is {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, telegram_command)                        
                         print(txt)
                     else:
@@ -11080,7 +11078,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if TARGET_MONTH == 'CM':
 
-                    if SELFID == 'soojin65':
+                    if window.id == 'soojin65':
                         txt = '[{0:02d}:{1:02d}:{2:02d}] ***님 텔레그램 Polling이 시작됩니다.'.format(dt.hour, dt.minute, dt.second)
                         #ToMyTelegram(txt)
                     else:
@@ -14340,7 +14338,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                                     QPushButton:hover {background-color: black; color: white} \
                                                     QPushButton:pressed {background-color: gold}')
             
-            if SELFID == 'soojin65':
+            if window.id == 'soojin65':
                 flag_telegram_on = True
             else:
                 pass
@@ -23506,7 +23504,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if TARGET_MONTH == 'CM':                        
 
-                                if SELFID == 'soojin65':
+                                if window.id == 'soojin65':
                                     txt = '[{0:02d}:{1:02d}:{2:02d}] ***님 텔레그램 Polling이 시작됩니다.'.format(dt.hour, dt.minute, dt.second)
                                     #ToMyTelegram(txt)
                                 else:
@@ -37966,9 +37964,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.dialog['RealTimeItem'] = None
         self.dialog['Version'] = None
 
+        self.url = ''
+        self.port = 200001
+        self.svrtype = 0
         self.id = ''
-        self.계좌번호 = None
-        self.거래비밀번호 = None
+        self.pwd = ''
+        self.cert = ''
+        self.계좌번호 = ''
+        self.거래비밀번호 = ''
         
         self.시작시각 = datetime.datetime.now()
 
@@ -38447,7 +38450,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if token != '' and chat_id != 0:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 ({4}/{5}) 로그인 했습니다.'.format(dt.hour, dt.minute, dt.second, self.id, token, chat_id) 
                 else:
-                    if SELFID == 'soojin65':
+                    if window.id == 'soojin65':
                         txt = '[{0:02d}:{1:02d}:{2:02d}] ***님이 로그인 했습니다.'.format(dt.hour, dt.minute, dt.second)
                     else:
                         pass
@@ -38569,8 +38572,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.clock.timeout.connect(self.OnClockTick)
         self.clock.start(1000)
 
-        global SELFID
-
         계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})
 
         if REAL_SERVER:
@@ -38583,15 +38584,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if len(주식계좌정보) > 0:
             
             self.url = 주식계좌정보['url'].values[0].strip()
-            self.port = 200001
-            self.svrtype = 0
             self.id = 주식계좌정보['사용자ID'].values[0].strip()            
             self.pwd = 주식계좌정보['비밀번호'].values[0].strip()
-            self.cert = 주식계좌정보['공인인증비밀번호'].values[0].strip()
-            self.거래비밀번호 = 주식계좌정보['거래비밀번호'].values[0].strip()
+            self.cert = 주식계좌정보['공인인증비밀번호'].values[0].strip()            
             self.계좌번호 = 주식계좌정보['계좌번호'].values[0].strip()
-
-            SELFID = self.id            
+            self.거래비밀번호 = 주식계좌정보['거래비밀번호'].values[0].strip()
         else:
             print("secret디렉토리의 passwords.csv 파일에서 거래 계좌를 지정해 주세요")
 
@@ -38955,10 +38952,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if TARGET_MONTH == 'CM':
 
-                if SELFID == 'soojin65':
+                if window.id == 'soojin65':
                     txt = '[{0:02d}:{1:02d}:{2:02d}] ***님이 로그아웃 했습니다.'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 로그아웃 했습니다.'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, SELFID)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 로그아웃 했습니다.'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, window.id)
 
                 #ToMyTelegram(txt)
             else:
