@@ -359,6 +359,7 @@ NEWS_CHK = parser.getboolean('RealTime Request Item Switch', 'NEWS')
 MA_TYPE = parser.getint('Moving Average Type', 'MA Type')
 
 # [8]. << Initial Value >>
+DOW_START = parser.get('Initial Value', 'Dow Start Time')
 MP_NUMBER = parser.getint('Initial Value', 'Number of Multiprocess')
 MP_SEND_INTERVAL = parser.getint('Initial Value', 'MP Send Interval')
 CALL_ITM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Call ITM Request')
@@ -26845,12 +26846,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot5_time_line_jugan_start.setValue(GuardTime + 1)
             self.plot6_time_line_jugan_start.setValue(GuardTime + 1)
 
-            self.plot1_time_line_yagan_start.setValue(GuardTime + 4 * 60 + 30)
-            self.plot2_time_line_yagan_start.setValue(GuardTime + 4 * 60 + 30)
-            self.plot3_time_line_yagan_start.setValue(GuardTime + 4 * 60 + 30)
-            self.plot4_time_line_yagan_start.setValue(GuardTime + 4 * 60 + 30)
-            self.plot5_time_line_yagan_start.setValue(GuardTime + 4 * 60 + 30)
-            self.plot6_time_line_yagan_start.setValue(GuardTime + 4 * 60 + 30)
+            dow_start_time = (int(DOW_START[0:2]) - NightTime_PreStart_Hour) * 60 + int(DOW_START[2:4])
+
+            self.plot1_time_line_yagan_start.setValue(dow_start_time)
+            self.plot2_time_line_yagan_start.setValue(dow_start_time)
+            self.plot3_time_line_yagan_start.setValue(dow_start_time)
+            self.plot4_time_line_yagan_start.setValue(dow_start_time)
+            self.plot5_time_line_yagan_start.setValue(dow_start_time)
+            self.plot6_time_line_yagan_start.setValue(dow_start_time)
         else:
             # 시작시간 X축 표시(index 60은 시가)
             self.plot1_time_line_jugan_start.setValue(GuardTime)
