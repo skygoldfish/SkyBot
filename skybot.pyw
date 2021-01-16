@@ -3301,7 +3301,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         widget_title = repr(current_month) + '월 만기 주간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
 
                     print(widget_title)
-                    ToYourTelegram("{0}월물 주간 선물옵션 SkyBot이 실행되었습니다.".format(repr(current_month)))
+                    ToYourTelegram("{0}월 만기 주간 SkyBot이 실행되었습니다.".format(current_month))
 
                 elif TARGET_MONTH == 'NM':
 
@@ -3310,7 +3310,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         widget_title = repr(next_month) + '월 만기 주간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
 
-                    ToYourTelegram("{0}월물 주간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
+                    ToYourTelegram("{0}월 만기 주간 SkyBot이 실행되었습니다.".format(next_month))
 
                 else:
                     pass
@@ -3326,7 +3326,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             widget_title = repr(next_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
 
-                        ToYourTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
+                        ToYourTelegram("{0}월 만기 야간 SkyBot이 실행되었습니다.".format(next_month))
 
                         print('next_month =', next_month)
 
@@ -3337,7 +3337,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             widget_title = repr(month_after_next) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
 
-                        ToYourTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(month_after_next)))
+                        ToYourTelegram("{0}월 만기 야간 SkyBot이 실행되었습니다.".format(month_after_next))
                     else:
                         pass
                 else:
@@ -3348,7 +3348,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             widget_title = repr(current_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
 
-                        ToYourTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(current_month)))
+                        ToYourTelegram("{0}월 만기 야간 SkyBot이 실행되었습니다.".format(current_month))
 
                     elif TARGET_MONTH == 'NM':
 
@@ -3357,7 +3357,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             widget_title = repr(next_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
 
-                        ToYourTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
+                        ToYourTelegram("{0}월 만기 야간 SkyBot이 실행되었습니다.".format(next_month))
 
                     else:
                         pass
@@ -18515,7 +18515,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                print('t8416 call count =', t8416_call_count, count)
+                #print('t8416 call count =', t8416_call_count, count)
                 
                 # to be checked !!!
                 if t8416_call_count == count - 1:
@@ -18765,7 +18765,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                print('t8416 put count =', t8416_put_count, count)
+                #print('t8416 put count =', t8416_put_count, count)
 
                 if t8416_put_count == (count - 1) - new_actval_down_count:
                     
@@ -18774,9 +18774,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     print(txt)
 
                     if not flag_t8416_re_request_start:
-                        t8416_loop_finish_time = dt.hour * 3600 + dt.minute * 60 + dt.second
 
-                        print('t8416_loop_finish_time =', t8416_loop_finish_time)
+                        t8416_loop_finish_time = dt.hour * 3600 + dt.minute * 60 + dt.second
+                        
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 10분후 t8416 나머지 데이타를 요청할 예정입니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.parent.textBrowser.append(txt)
+                        print(txt)
                     else:
                         pass
 
@@ -19449,13 +19452,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def t8416_additive_request(self):
 
         global flag_t8416_re_request_start, flag_t8416_call_done, flag_t8416_put_done
-        global t8416_call_count, t8416_put_count, flag_t8416_rerequest 
+        global t8416_call_count, t8416_put_count, flag_t8416_rerequest
+
+        dt = datetime.datetime.now() 
 
         flag_t8416_re_request_start = True
         flag_t8416_call_done = False
         flag_t8416_put_done = False
 
-        print('t8416 재요청 시작...')
+        txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 잔여데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+        self.parent.statusbar.showMessage(txt)
 
         for i in range(t8416_option_pairs_count, option_pairs_count):
             t8416_call_count = i
@@ -19467,7 +19473,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.t8416_opt_request(self.put_code[i])
             self.t8416_put_event_loop.exec_()
 
-        print('t8416 재요청 완료...')
+        txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 잔여데이타를 모두 수신하였습니다.\r'.format(dt.hour, dt.minute, dt.second)
+        self.parent.statusbar.showMessage(txt)
+
         flag_t8416_rerequest = False
 
     #############################################################################################################################
