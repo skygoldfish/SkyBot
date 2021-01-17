@@ -1905,6 +1905,10 @@ flag_t8416_re_request_start = False
 t8416_option_pairs_count = 0
 t8416_loop_finish_time = 0
 
+schedule_hour = 0
+schedule_min = 0
+schedule_sec = 0
+
 #####################################################################################################################################################################
 # UI 파일정의
 #####################################################################################################################################################################
@@ -4930,7 +4934,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 system_time = dt.hour * 3600 + dt.minute * 60 + dt.second
 
-                txt = '시스템시간 = {0}, t8416 재요청시간 = {1}'.format(system_time, t8416_loop_finish_time)
+                txt = 't8416 재요청 CountDown = {0}'.format((t8416_loop_finish_time + 10 * 60) - system_time)
                 print(txt)
 
                 if system_time == (t8416_loop_finish_time + 10 * 60):
@@ -4939,36 +4943,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
             else:
                 pass
-            
-            # 옵션 행사가 총합이 200개를 넘을 경우 선물 변동성지수 요청을 위한 로직            
-            if (not flag_internet_connection_broken and not flag_service_provider_broken) and flag_option_pair_full:
-
-                ui_update_time = dt.hour * 3600 + dt.minute * 60 + dt.second
-
-                # t8416 요청제한이 10분내에 200회, 회피 로직추가
-                if flag_option_pair_full and self.alternate_flag and ui_update_time == ui_start_time + 10 * 60:
-
-                    # t8416 선물요청
-                    if TARGET_MONTH == 'CM':
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 본월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, GMSHCODE)
-                        self.textBrowser.append(txt)
-                        print(txt)
-
-                        self.t8416_fut_request(GMSHCODE)
-
-                    elif TARGET_MONTH == 'NM':
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 차월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, CMSHCODE)
-                        self.textBrowser.append(txt)
-                        print(txt)
-
-                        self.t8416_fut_request(CMSHCODE)
-                    else:
-                        pass
-                else:
-                    pass
-            else:
-                pass            
-            
+                        
             # Market 유형을 시간과 함께 표시
             if (not flag_internet_connection_broken and not flag_service_provider_broken):
                 self.market_type_display(self.alternate_flag)
@@ -5584,8 +5559,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 self.parent.textBrowser.append(txt)
 
-                #Speak('본월물 하향 변동성 생성')
-                self.speaker.setText('본월물 하향 변동성 생성')
+                #Speak('본월물 하향 변동성 출현')
+                self.speaker.setText('본월물 하향 변동성 출현')
                 '''
                 tts = gTTS(text=vb_txt, lang='en')
                 tts.save("tts.mp3")
@@ -5598,8 +5573,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 self.parent.textBrowser.append(txt)
 
-                #Speak('본월물 상향 변동성 생성')
-                self.speaker.setText('본월물 상향 변동성 생성')
+                #Speak('본월물 상향 변동성 출현')
+                self.speaker.setText('본월물 상향 변동성 출현')
                 '''
                 tts = gTTS(text=vb_txt, lang='en')
                 tts.save("tts.mp3")
@@ -5616,8 +5591,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 self.parent.textBrowser.append(txt)
 
-                #Speak('차월물 하향 변동성 생성')
-                self.speaker.setText('차월물 하향 변동성 생성')
+                #Speak('차월물 하향 변동성 출현')
+                self.speaker.setText('차월물 하향 변동성 출현')
                 '''
                 tts = gTTS(text=vb_txt, lang='en')
                 tts.save("tts.mp3")
@@ -5630,8 +5605,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 self.parent.textBrowser.append(txt)
 
-                #Speak('차월물 상향 변동성 생성')
-                self.speaker.setText('차월물 상향 변동성 생성')
+                #Speak('차월물 상향 변동성 출현')
+                self.speaker.setText('차월물 상향 변동성 출현')
                 '''
                 tts = gTTS(text=vb_txt, lang='en')
                 tts.save("tts.mp3")
@@ -14941,7 +14916,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             szTrCode, block, df, df1 = result
 
-            global 옵션잔존일, flag_option_pair_full, t8416_option_pairs_count
+            global 옵션잔존일, t8416_option_pairs_count
 
             if not self.flag_refresh:
 
@@ -14951,13 +14926,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 옵션 행사가 갯수
                 option_pairs_count = len(df)
                 real_option_pairs_count = len(df)
-                '''
-                if option_pairs_count > 100:
-                    option_pairs_count = 100
-                    flag_option_pair_full = True
-                else:
-                    pass
-                '''
+                
                 if DayTime:
 
                     call_open = [False] * option_pairs_count
@@ -15793,27 +15762,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setHorizontalHeaderItem(0, item)
 
-                # 선물 변동성지수 탐색요청
-                if not flag_option_pair_full:
+                # t8416 선물요청
+                QTest.qWait(1000)                       
 
-                    # t8416 선물요청
-                    QTest.qWait(1000)                       
+                if TARGET_MONTH == 'CM':
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 변동성지수 본월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, GMSHCODE)
+                    self.textBrowser.append(txt)
+                    #self.parent.textBrowser.append(txt)
+                    print(txt)
 
-                    if TARGET_MONTH == 'CM':
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 변동성지수 본월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, GMSHCODE)
-                        self.textBrowser.append(txt)
-                        print(txt)
+                    self.t8416_fut_request(GMSHCODE)
 
-                        self.t8416_fut_request(GMSHCODE)
+                elif TARGET_MONTH == 'NM':
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 변동성지수 차월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, CMSHCODE)
+                    self.textBrowser.append(txt)
+                    #self.parent.textBrowser.append(txt)
+                    print(txt)
 
-                    elif TARGET_MONTH == 'NM':
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 변동성지수 차월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, CMSHCODE)
-                        self.textBrowser.append(txt)
-                        print(txt)
-
-                        self.t8416_fut_request(CMSHCODE)
-                    else:
-                        pass
+                    self.t8416_fut_request(CMSHCODE)
                 else:
                     pass
 
@@ -18349,8 +18315,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 fut_avg_noise_ratio = df_fut_t8416['noise_ratio'].sum() / len(df_fut_t8416)
                 k_value = (선물_전고 - 선물_전저) * fut_avg_noise_ratio
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] noise_ratio 평균 = {3:.2f}, k_value = {4:.2f}\r'.format(dt.hour, dt.minute, dt.second, fut_avg_noise_ratio, k_value)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 변동성지수 Noise Ratio 평균 = {3:.2f}, K value = {4:.2f}\r'.format(dt.hour, dt.minute, dt.second, fut_avg_noise_ratio, k_value)
                 self.textBrowser.append(txt)
+                self.parent.textBrowser.append(txt)
                 print(txt)
                 
                 item = QTableWidgetItem("{0}\n({1:.2f})".format('주간', k_value))
@@ -18812,13 +18779,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.textBrowser.append(txt)
                     print(txt)
 
-                    if not flag_t8416_re_request_start:
+                    if flag_t8416_rerequest:
+
+                        global schedule_hour, schedule_min, schedule_sec
 
                         t8416_loop_finish_time = dt.hour * 3600 + dt.minute * 60 + dt.second
+
+                        schedule_time = t8416_loop_finish_time + 10 * 60
                         
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 10분후 t8416 나머지 데이타를 요청할 예정입니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        schedule_hour = int(schedule_time / 3600)
+                        schedule_min = int((schedule_time - schedule_hour * 3600) / 60)
+                        schedule_sec = schedule_time - (schedule_hour * 3600 + schedule_min * 60)
+                        
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 나머지 데이타를 {3}시 {4}분 {5}초에 재요청할 예정입니다.\r'.format(dt.hour, dt.minute, dt.second, schedule_hour, schedule_min, schedule_sec)
                         self.parent.textBrowser.append(txt)
                         print(txt)
+
+                        speak_txt = '나머지 데이타를 {0}시 {1}분 {2}초에 재요청할 예정입니다.'.format(schedule_hour, schedule_min, schedule_sec)
+                        self.speaker.setText(speak_txt)
                     else:
                         pass
 
@@ -19496,6 +19474,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         flag_t8416_call_done = False
         flag_t8416_put_done = False
 
+        flag_t8416_rerequest = False
+
         txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 잔여데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.parent.statusbar.showMessage(txt)
 
@@ -19510,9 +19490,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.t8416_put_event_loop.exec_()
 
         txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 잔여데이타를 모두 수신하였습니다.\r'.format(dt.hour, dt.minute, dt.second)
-        self.parent.statusbar.showMessage(txt)
-
-        flag_t8416_rerequest = False
+        self.parent.statusbar.showMessage(txt)        
 
     #####################################################################################################################################################################
     # 실시간 정보요청
@@ -20304,7 +20282,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.parent.textBrowser.append(txt)
         print(txt)
 
-        if TTS:
+        if TTS and not flag_t8416_rerequest:
             playsound( "Resources/doorbell.wav" )
         else:
             pass
@@ -38087,6 +38065,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.realtime_thread_dataworker.trigger.connect(self.transfer_thread_realdata)
             self.realtime_thread_dataworker.start()
         
+        #self.speaker = SpeakerWorker() --> 에러발생, 이유???
+        #self.speaker.start()
+        
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
         atexit.register(self.__del__)
     
@@ -38704,8 +38685,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
 
-                if NightTime and TARGET_MONTH == 'NM': # 차월물 야간인 경우 실행
-                    self.dialog['선물옵션전광판'].RunCode()
+                if NightTime and TARGET_MONTH == 'NM' and market_service: # 차월물 야간인 경우 실행 --> 추후 검토!!!
+                    pass
+                    #self.dialog['선물옵션전광판'].RunCode()
                 else:
                     pass
             else:
@@ -39064,7 +39046,7 @@ if __name__ == "__main__":
     
     # TTS test...
     if TTS:
-        #Speak('본월물 하향 변동성 발생')
+        #Speak('본월물 하향 변동성 출현')
         '''
         text ="Welcome to SkyBot"
         tts = gTTS(text=text, lang='en')
