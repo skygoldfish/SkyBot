@@ -37946,21 +37946,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.mp_mode = False
         elif len(args) == 1:
             self.mp_mode = True
-            self.fut_dataQ = args[0]
+            self.main_dataQ = args[0]
         elif len(args) == 3:
             self.mp_mode = True
-            self.fut_dataQ = args[0]
+            self.main_dataQ = args[0]
             self.call_dataQ = args[1]
             self.put_dataQ = args[2]
         else:
             print('지원하지 않는 인자갯수 입니다...')
 
         if self.mp_mode:
-            self.fut_login = False
+            self.main_login = False
             self.call_login = False
             self.put_login = False
 
-            self.fut_event_loop = QEventLoop()
+            self.main_event_loop = QEventLoop()
             self.call_event_loop = QEventLoop()
             self.put_event_loop = QEventLoop()
         else:
@@ -38023,12 +38023,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # Thread for Multiprocess Real Data Consumer
             # 장의 변동성이 클때는 하나의 프로세스로 200종목 이상의 데이타를 실시간 처리못함 --> 3개의 프로세스 생성하여 로드분산 !!!
             if MP_NUMBER == 1:
-                self.realtime_fut_dataworker = RealTime_FutThread_DataWorker(self.fut_dataQ)
+                self.realtime_fut_dataworker = RealTime_FutThread_DataWorker(self.main_dataQ)
                 self.realtime_fut_dataworker.trigger_list.connect(self.transfer_mp_fut_trdata)
                 self.realtime_fut_dataworker.trigger_dict.connect(self.transfer_mp_fut_realdata)            
                 self.realtime_fut_dataworker.start()
             elif MP_NUMBER == 3:
-                self.realtime_fut_dataworker = RealTime_FutThread_DataWorker(self.fut_dataQ)
+                self.realtime_fut_dataworker = RealTime_FutThread_DataWorker(self.main_dataQ)
                 self.realtime_fut_dataworker.trigger_list.connect(self.transfer_mp_fut_trdata)
                 self.realtime_fut_dataworker.trigger_dict.connect(self.transfer_mp_fut_realdata)            
                 self.realtime_fut_dataworker.start()
@@ -38080,8 +38080,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 txt = '선물 백그라운드 로그인 성공 !!!\r'
                 self.textBrowser.append(txt)
 
-                self.fut_login = True
-                self.fut_event_loop.exit()
+                self.main_login = True
+                self.main_event_loop.exit()
             else:
                 pass
 
@@ -38342,7 +38342,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.statusbar.showMessage(trdata[1])
             Speak('풋 프로세스 로그인 성공')
 
-            if AUTO_START and self.fut_login and self.call_login and self.put_login:
+            if AUTO_START and self.main_login and self.call_login and self.put_login:
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
 
@@ -38630,7 +38630,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 Futprocess.Login(self.url, self.port, self.svrtype, self.id, self.pwd, self.cert)
             elif MP_NUMBER == 3:
                 Futprocess.Login(self.url, self.port, self.svrtype, self.id, self.pwd, self.cert)
-                self.fut_event_loop.exec_() 
+                self.main_event_loop.exec_() 
 
                 Callprocess.Login(self.url, self.port, self.svrtype, self.id, self.pwd, self.cert)
                 self.call_event_loop.exec_() 
@@ -39023,17 +39023,17 @@ if __name__ == "__main__":
         mp.freeze_support()
 
         if MP_NUMBER == 1:
-            fut_dataQ = mp.Queue()
+            main_dataQ = mp.Queue()
 
-            Futprocess = FuturesWorker(fut_dataQ)
+            Futprocess = FuturesWorker(main_dataQ)
             Futprocess.start()
         elif MP_NUMBER == 3:
-            fut_dataQ = mp.Queue()
+            main_dataQ = mp.Queue()
             call_dataQ = mp.Queue()
             put_dataQ = mp.Queue()
 
             # 멀티프로세스 객체생성
-            Futprocess = FuturesWorker(fut_dataQ)
+            Futprocess = FuturesWorker(main_dataQ)
             Futprocess.start()
 
             Callprocess = CallWorker(call_dataQ)
@@ -39103,9 +39103,9 @@ if __name__ == "__main__":
     if MULTIPROCESS:
 
         if MP_NUMBER == 1:
-            window = MainWindow(fut_dataQ) 
+            window = MainWindow(main_dataQ) 
         elif MP_NUMBER == 3:
-            window = MainWindow(fut_dataQ, call_dataQ, put_dataQ)
+            window = MainWindow(main_dataQ, call_dataQ, put_dataQ)
         else:
             pass      
     else:
