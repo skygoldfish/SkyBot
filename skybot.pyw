@@ -14,6 +14,7 @@ import atexit
 import datetime, time
 import timeit
 import win32com.client
+import pythoncom
 from numpy import NaN, Inf, arange, isscalar, asarray, array
 from pandas import DataFrame, Series
 from threading import Timer
@@ -2738,14 +2739,20 @@ class SpeakerWorker(QThread):
     
     def run(self):
 
+        # 서브 스레드에서 COM 객체를 사용하려면 COM 라이브러리를 초기화 해야함
+        pythoncom.CoInitialize()
+
         while True:
 
             if self.flag_speak:
-                print('TTS text =', self.txt)
+                print('TTS Text =', self.txt)
                 Speak(self.txt)
                 self.flag_speak = False
 
             QTest.qWait(1)
+
+        # 사용 후 uninitialize
+        pythoncom.CoUninitialize()
 
 #####################################################################################################################################################################
 # Xing API 각 객체의 요청(시간/횟수)제한을 관리하기 위한 Class
@@ -38089,7 +38096,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             #playsound( "Resources/ring.wav" )
             Speak('선물 프로세스 로그인 성공')
 
-            #self.speaker.setText('선물 프로세스 로그인 성공') --> 에러발생!!!
+            #self.speaker.setText('선물 프로세스 로그인 성공')
 
             # 버티칼 스크롤바를 항상 bottom으로...
             self.textBrowser.verticalScrollBar().setValue(self.textBrowser.verticalScrollBar().maximum())
@@ -38291,6 +38298,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.statusbar.showMessage(trdata[1])
             Speak('콜 프로세스 로그인 성공')
+            #self.speaker.setText('콜 프로세스 로그인 성공')
         else:
             txt = '콜 로그인 실패({0})!  로그인을 다시 시도합니다...'.format(trdata[0])
             self.statusbar.showMessage(txt)
@@ -38341,6 +38349,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.statusbar.showMessage(trdata[1])
             Speak('풋 프로세스 로그인 성공')
+            #self.speaker.setText('풋 프로세스 로그인 성공')
 
             if AUTO_START and self.main_login and self.call_login and self.put_login:
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
@@ -38476,8 +38485,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass            
             
             self.statusbar.showMessage("로그인 성공 !!!")
-
-            playsound( "Resources/ring.wav" )
+            #playsound( "Resources/ring.wav" )
+            self.speaker.setText('로그인 성공')
 
             # 옵션전광판 자동시작
 
