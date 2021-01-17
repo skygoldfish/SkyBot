@@ -2258,466 +2258,477 @@ class TelegramListenWorker(QThread):
 # 실시간 데이타수신을 위한 쓰레드 클래스
 #####################################################################################################################################################################
 class RealTime_Thread_DataWorker(QThread):
+
     trigger = pyqtSignal(dict)
+
     def __init__(self, dataQ):
-            super().__init__()
+        super().__init__()
 
-            self.daemon = True
-            self.dataQ = dataQ
+        self.daemon = True
+        self.dataQ = dataQ
 
-            # 큐로 들어온 총 패킷수
-            self.total_count = 0
-            # 누락된 패킷수
-            self.drop_count = 0
-            # 누락된 코드
-            self.drop_code = ''
-            # 수신된 총 패킷크기
-            self.total_packet_size = 0
-            
-            self.JIF = JIF(parent=self)
+        # 큐로 들어온 총 패킷수
+        self.total_count = 0
+        # 누락된 패킷수
+        self.drop_count = 0
+        # 누락된 코드
+        self.drop_code = ''
+        # 수신된 총 패킷크기
+        self.total_packet_size = 0
+        
+        self.JIF = JIF(parent=self)
 
-            self.YJ = YJ_(parent=self)
-            self.YFC = YFC(parent=self)
-            self.YS3 = YS3(parent=self)
-            self.YOC = YOC(parent=self)
+        self.YJ = YJ_(parent=self)
+        self.YFC = YFC(parent=self)
+        self.YS3 = YS3(parent=self)
+        self.YOC = YOC(parent=self)
 
-            self.FUT_REAL_FC0 = FC0(parent=self)
-            self.FUT_HO_FH0 = FH0(parent=self)
-            self.OPT_REAL_OC0 = OC0(parent=self)
-            self.OPT_HO_OH0 = OH0(parent=self)
+        self.FUT_REAL_FC0 = FC0(parent=self)
+        self.FUT_HO_FH0 = FH0(parent=self)
+        self.OPT_REAL_OC0 = OC0(parent=self)
+        self.OPT_HO_OH0 = OH0(parent=self)
 
-            self.FUT_REAL_NC0 = NC0(parent=self)
-            self.FUT_HO_NH0 = NH0(parent=self)
-            self.OPT_REAL_EC0 = EC0(parent=self)
-            self.OPT_HO_EH0 = EH0(parent=self)
+        self.FUT_REAL_NC0 = NC0(parent=self)
+        self.FUT_HO_NH0 = NH0(parent=self)
+        self.OPT_REAL_EC0 = EC0(parent=self)
+        self.OPT_HO_EH0 = EH0(parent=self)
 
-            self.IJ = IJ_(parent=self)
-            self.S3 = S3_(parent=self)
-            self.BM = BM_(parent=self)
-            self.PM = PM_(parent=self)
+        self.IJ = IJ_(parent=self)
+        self.S3 = S3_(parent=self)
+        self.BM = BM_(parent=self)
+        self.PM = PM_(parent=self)
 
-            self.OVC = OVC(parent=self)
-            self.OVH = OVH(parent=self)
-            self.WOC = WOC(parent=self)
-            self.MK2 = MK2(parent=self)
+        self.OVC = OVC(parent=self)
+        self.OVH = OVH(parent=self)
+        self.WOC = WOC(parent=self)
+        self.MK2 = MK2(parent=self)
 
-            self.NWS = NWS(parent=self)
+        self.NWS = NWS(parent=self)
         
     def get_packet_info(self):
 
-            return self.drop_count, self.drop_code, self.total_count, self.total_packet_size
+        return self.drop_count, self.drop_code, self.total_count, self.total_packet_size
+
     def RequestRealData(self, type, code='0'):
 
-            if type == 'JIF':
-                # 장운영 정보 요청
-                self.JIF.AdviseRealData(code)
+        if type == 'JIF':
+            # 장운영 정보 요청
+            self.JIF.AdviseRealData(code)
 
-            elif type == 'YJ':
-                # KOSPI 예상체결 요청
-                self.YJ.AdviseRealData(code)
+        elif type == 'YJ':
+            # KOSPI 예상체결 요청
+            self.YJ.AdviseRealData(code)
 
-            elif type == 'YFC':
-                # 지수선물 예상체결 요청
-                self.YFC.AdviseRealData(code)
+        elif type == 'YFC':
+            # 지수선물 예상체결 요청
+            self.YFC.AdviseRealData(code)
 
-            elif type == 'YS3':
-                # KOSPI 주요업체 예상체결 요청
-                self.YS3.AdviseRealData(code)
+        elif type == 'YS3':
+            # KOSPI 주요업체 예상체결 요청
+            self.YS3.AdviseRealData(code)
 
-            elif type == 'YOC':
-                # 지수옵션 예상체결 요청
-                self.YOC.AdviseRealData(code)
+        elif type == 'YOC':
+            # 지수옵션 예상체결 요청
+            self.YOC.AdviseRealData(code)
 
-            elif type == 'FUT_REAL_FC0':
-                # 선물 실시간 주간 가격 요청
-                self.FUT_REAL_FC0.AdviseRealData(code)
+        elif type == 'FUT_REAL_FC0':
+            # 선물 실시간 주간 가격 요청
+            self.FUT_REAL_FC0.AdviseRealData(code)
 
-            elif type == 'FUT_HO_FH0':
-                # 선물 실시간 주간 호가 요청
-                self.FUT_HO_FH0.AdviseRealData(code)
+        elif type == 'FUT_HO_FH0':
+            # 선물 실시간 주간 호가 요청
+            self.FUT_HO_FH0.AdviseRealData(code)
 
-            elif type == 'OPT_REAL_OC0':
-                # 옵션 실시간 주간 가격 요청
-                self.OPT_REAL_OC0.AdviseRealData(code)
+        elif type == 'OPT_REAL_OC0':
+            # 옵션 실시간 주간 가격 요청
+            self.OPT_REAL_OC0.AdviseRealData(code)
 
-            elif type == 'OPT_HO_OH0':
-                # 옵션 실시간 주간 호가 요청
-                self.OPT_HO_OH0.AdviseRealData(code)
+        elif type == 'OPT_HO_OH0':
+            # 옵션 실시간 주간 호가 요청
+            self.OPT_HO_OH0.AdviseRealData(code)
 
-            elif type == 'FUT_REAL_NC0':
-                # 선물 실시간 야간 가격 요청
-                self.FUT_REAL_NC0.AdviseRealData(code)
+        elif type == 'FUT_REAL_NC0':
+            # 선물 실시간 야간 가격 요청
+            self.FUT_REAL_NC0.AdviseRealData(code)
 
-            elif type == 'FUT_HO_NH0':
-                # 선물 실시간 야간 호가 요청
-                self.FUT_HO_NH0.AdviseRealData(code)
+        elif type == 'FUT_HO_NH0':
+            # 선물 실시간 야간 호가 요청
+            self.FUT_HO_NH0.AdviseRealData(code)
 
-            elif type == 'OPT_REAL_EC0':
-                # 옵션 실시간 야간 가격 요청
-                self.OPT_REAL_EC0.AdviseRealData(code)
+        elif type == 'OPT_REAL_EC0':
+            # 옵션 실시간 야간 가격 요청
+            self.OPT_REAL_EC0.AdviseRealData(code)
 
-            elif type == 'OPT_HO_EH0':
-                # 옵션 실시간 야간 호가 요청
-                self.OPT_HO_EH0.AdviseRealData(code)
+        elif type == 'OPT_HO_EH0':
+            # 옵션 실시간 야간 호가 요청
+            self.OPT_HO_EH0.AdviseRealData(code)
 
-            elif type == 'IJ':
-                # KOSPI/KOSPI200/KOSDAQ 지수요청
-                self.IJ.AdviseRealData(code)
+        elif type == 'IJ':
+            # KOSPI/KOSPI200/KOSDAQ 지수요청
+            self.IJ.AdviseRealData(code)
 
-            elif type == 'S3':
-                # KOSPI 주요업체(SAMSUNG) 체결 요청
-                self.S3.AdviseRealData(code)
+        elif type == 'S3':
+            # KOSPI 주요업체(SAMSUNG) 체결 요청
+            self.S3.AdviseRealData(code)
 
-            elif type == 'BM':
-                # 업종별 투자자별 매매현황 요청
-                self.BM.AdviseRealData(code)
+        elif type == 'BM':
+            # 업종별 투자자별 매매현황 요청
+            self.BM.AdviseRealData(code)
 
-            elif type == 'PM':
-                # 프로그램 매매현황 요청
-                self.PM.AdviseRealData()
+        elif type == 'PM':
+            # 프로그램 매매현황 요청
+            self.PM.AdviseRealData()
 
-            elif type == 'OVC':
-                # 해외선물 체결가격 실시간 요청
-                self.OVC.AdviseRealData(code)
+        elif type == 'OVC':
+            # 해외선물 체결가격 실시간 요청
+            self.OVC.AdviseRealData(code)
 
-            elif type == 'NWS':
-                # 실시간 뉴스요청
-                self.NWS.AdviseRealData()
-            else:
-                pass
+        elif type == 'NWS':
+            # 실시간 뉴스요청
+            self.NWS.AdviseRealData()
+        else:
+            pass
+
     def CancelRealData(self, type, code='0'):
 
-            if type == 'JIF':
-                # 장운영 정보 요청취소
-                self.JIF.UnadviseRealData()
-
-            elif type == 'YJ':
-                # KOSPI 예상체결 요청취소
-                self.YJ.UnadviseRealData()
-
-            elif type == 'YFC':
-                # 지수선물 예상체결 요청취소
-                self.YFC.UnadviseRealData()
-
-            elif type == 'YS3':
-                # KOSPI 주요업체 예상체결 요청취소
-                self.YS3.UnadviseRealData()
-
-            elif type == 'YOC':
-                # 지수옵션 예상체결 요청취소
-                self.YOC.UnadviseRealData()
-
-            elif type == 'FUT_REAL_FC0':
-                # 선물 실시간 가격 요청취소
-                self.FUT_REAL_FC0.UnadviseRealData()
-
-            elif type == 'FUT_HO_FH0':
-                # 선물 실시간 호가 요청취소
-                #self.FUT_HO_FH0.UnadviseRealData()
-                self.FUT_HO_FH0.UnadviseRealDataWithKey(code)
-
-            elif type == 'OPT_REAL_OC0':
-                # 옵션 실시간 가격 요청취소
-                self.OPT_REAL_OC0.UnadviseRealData()
-
-            elif type == 'OPT_HO_OH0':
-                # 옵션 실시간 호가 요청취소
-                self.OPT_HO_OH0.UnadviseRealData()
-
-            elif type == 'FUT_REAL_NC0':
-                # 선물 실시간 가격 요청취소
-                self.FUT_REAL_NC0.UnadviseRealData()
-
-            elif type == 'FUT_HO_NH0':
-                # 선물 실시간 호가 요청취소
-                #self.FUT_HO_NH0.UnadviseRealData()
-                self.FUT_HO_NH0.UnadviseRealDataWithKey(code)
-
-            elif type == 'OPT_REAL_EC0':
-                # 옵션 실시간 가격 요청취소
-                self.OPT_REAL_EC0.UnadviseRealData()
-
-            elif type == 'OPT_HO_EH0':
-                # 옵션 실시간 호가 요청취소
-                self.OPT_HO_EH0.UnadviseRealData()
-
-            elif type == 'IJ':
-                # KOSPI/KOSPI200/KOSDAQ 지수 요청취소
-                self.IJ.UnadviseRealDataWithKey(code)
-
-            elif type == 'S3':
-                # KOSPI 주요업체(SAMSUNG) 체결 요청취소
-                self.S3.UnadviseRealData()
-
-            elif type == 'BM':
-                # 업종별 투자자별 매매현황 요청취소
-                self.BM.UnadviseRealData()
-
-            elif type == 'PM':
-                # 프로그램 매매현황 요청취소
-                self.PM.UnadviseRealData()
-
-            elif type == 'OVC':
-                # 해외선물 체결가격 실시간 요청취소
-                # 개별항목 취소가 안됨!!! --> 좌측정열로 8자리 맞추어야함(ljust함수 사용)
-                self.OVC.UnadviseRealDataWithKey(code)
-
-            elif type == 'NWS':
-                # 실시간 뉴스 요청취소
-                self.NWS.UnadviseRealData()
-            else:
-                pass
-    def CancelAllRealData(self):
-
+        if type == 'JIF':
+            # 장운영 정보 요청취소
             self.JIF.UnadviseRealData()
 
+        elif type == 'YJ':
+            # KOSPI 예상체결 요청취소
             self.YJ.UnadviseRealData()
+
+        elif type == 'YFC':
+            # 지수선물 예상체결 요청취소
             self.YFC.UnadviseRealData()
+
+        elif type == 'YS3':
+            # KOSPI 주요업체 예상체결 요청취소
             self.YS3.UnadviseRealData()
+
+        elif type == 'YOC':
+            # 지수옵션 예상체결 요청취소
             self.YOC.UnadviseRealData()
 
+        elif type == 'FUT_REAL_FC0':
+            # 선물 실시간 가격 요청취소
             self.FUT_REAL_FC0.UnadviseRealData()
-            self.FUT_HO_FH0.UnadviseRealData()
+
+        elif type == 'FUT_HO_FH0':
+            # 선물 실시간 호가 요청취소
+            #self.FUT_HO_FH0.UnadviseRealData()
+            self.FUT_HO_FH0.UnadviseRealDataWithKey(code)
+
+        elif type == 'OPT_REAL_OC0':
+            # 옵션 실시간 가격 요청취소
             self.OPT_REAL_OC0.UnadviseRealData()
+
+        elif type == 'OPT_HO_OH0':
+            # 옵션 실시간 호가 요청취소
             self.OPT_HO_OH0.UnadviseRealData()
 
+        elif type == 'FUT_REAL_NC0':
+            # 선물 실시간 가격 요청취소
             self.FUT_REAL_NC0.UnadviseRealData()
-            self.FUT_HO_NH0.UnadviseRealData()
+
+        elif type == 'FUT_HO_NH0':
+            # 선물 실시간 호가 요청취소
+            #self.FUT_HO_NH0.UnadviseRealData()
+            self.FUT_HO_NH0.UnadviseRealDataWithKey(code)
+
+        elif type == 'OPT_REAL_EC0':
+            # 옵션 실시간 가격 요청취소
             self.OPT_REAL_EC0.UnadviseRealData()
+
+        elif type == 'OPT_HO_EH0':
+            # 옵션 실시간 호가 요청취소
             self.OPT_HO_EH0.UnadviseRealData()
 
-            self.IJ.UnadviseRealData()
+        elif type == 'IJ':
+            # KOSPI/KOSPI200/KOSDAQ 지수 요청취소
+            self.IJ.UnadviseRealDataWithKey(code)
 
+        elif type == 'S3':
+            # KOSPI 주요업체(SAMSUNG) 체결 요청취소
             self.S3.UnadviseRealData()
+
+        elif type == 'BM':
+            # 업종별 투자자별 매매현황 요청취소
             self.BM.UnadviseRealData()
+
+        elif type == 'PM':
+            # 프로그램 매매현황 요청취소
             self.PM.UnadviseRealData()
 
-            self.OVC.UnadviseRealData()
+        elif type == 'OVC':
+            # 해외선물 체결가격 실시간 요청취소
+            # 개별항목 취소가 안됨!!! --> 좌측정열로 8자리 맞추어야함(ljust함수 사용)
+            self.OVC.UnadviseRealDataWithKey(code)
+
+        elif type == 'NWS':
+            # 실시간 뉴스 요청취소
             self.NWS.UnadviseRealData()
+        else:
+            pass
+
+    def CancelAllRealData(self):
+
+        self.JIF.UnadviseRealData()
+
+        self.YJ.UnadviseRealData()
+        self.YFC.UnadviseRealData()
+        self.YS3.UnadviseRealData()
+        self.YOC.UnadviseRealData()
+
+        self.FUT_REAL_FC0.UnadviseRealData()
+        self.FUT_HO_FH0.UnadviseRealData()
+        self.OPT_REAL_OC0.UnadviseRealData()
+        self.OPT_HO_OH0.UnadviseRealData()
+
+        self.FUT_REAL_NC0.UnadviseRealData()
+        self.FUT_HO_NH0.UnadviseRealData()
+        self.OPT_REAL_EC0.UnadviseRealData()
+        self.OPT_HO_EH0.UnadviseRealData()
+
+        self.IJ.UnadviseRealData()
+
+        self.S3.UnadviseRealData()
+        self.BM.UnadviseRealData()
+        self.PM.UnadviseRealData()
+
+        self.OVC.UnadviseRealData()
+        self.NWS.UnadviseRealData()
+
     # 실시간 수신 콜백함수
     def OnReceiveRealData(self, result):
 
-            self.dataQ.put(result, False)
+        self.dataQ.put(result, False)
+
     def run(self):
 
-            global flag_main_process_queue_empty
+        global flag_main_process_queue_empty
 
-            while True:
+        while True:
 
-                if not self.dataQ.empty():
-                    
-                    flag_main_process_queue_empty = False
+            if not self.dataQ.empty():
+                
+                flag_main_process_queue_empty = False
 
-                    data = self.dataQ.get(False)
+                data = self.dataQ.get(False)
 
-                    if NightTime:
-                        if data['szTrCode'] != 'OVC':
-                            self.total_count += 1
-                        else:
-                            pass                        
-                    else:
+                if NightTime:
+                    if data['szTrCode'] != 'OVC':
                         self.total_count += 1
-
-                    self.total_packet_size += sys.getsizeof(data)
-                    
-                    if flag_fut_realdata_update_is_running:
-                        self.drop_count += 1
-                        self.drop_code = data['szTrCode']
                     else:
-                        pass
-
-                    if not flag_fut_realdata_update_is_running:
-                        self.trigger.emit(data)
-                    else:
-                        pass
-                    
+                        pass                        
                 else:
-                    flag_main_process_queue_empty = True
+                    self.total_count += 1
+
+                self.total_packet_size += sys.getsizeof(data)
+                
+                if flag_fut_realdata_update_is_running:
+                    self.drop_count += 1
+                    self.drop_code = data['szTrCode']
+                else:
+                    pass
+
+                if not flag_fut_realdata_update_is_running:
+                    self.trigger.emit(data)
+                else:
+                    pass
+                
+            else:
+                flag_main_process_queue_empty = True
 
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 멀티프로세스 쓰레드 클래스
 #####################################################################################################################################################################
 class RealTime_FutThread_DataWorker(QThread):
+
     # 수신데이타 타입이 list이면 TR데이타, dict이면 실시간데이타.        
     trigger_list = pyqtSignal(list)
     trigger_dict = pyqtSignal(dict)
+
     def __init__(self, dataQ):
-            super().__init__()
+        super().__init__()
 
-            self.daemon = True
-            self.dataQ = dataQ
+        self.daemon = True
+        self.dataQ = dataQ
 
-            # 큐로 들어온 총 패킷수
-            self.total_count = 0
-            # 누락된 패킷수
-            self.drop_count = 0
-            # 누락된 코드
-            self.drop_code = ''
-            # 수신된 총 패킷크기
-            self.total_packet_size = 0
+        # 큐로 들어온 총 패킷수
+        self.total_count = 0
+        # 누락된 패킷수
+        self.drop_count = 0
+        # 누락된 코드
+        self.drop_code = ''
+        # 수신된 총 패킷크기
+        self.total_packet_size = 0
+
     def get_packet_info(self):
 
-            return self.drop_count, self.drop_code, self.total_count, self.total_packet_size
+        return self.drop_count, self.drop_code, self.total_count, self.total_packet_size
+
     def run(self):
 
-            global flag_main_process_queue_empty, flag_mp_interval_changed            
+        global flag_main_process_queue_empty, flag_mp_interval_changed            
 
-            while True:
-                if not self.dataQ.empty():
+        while True:
+            if not self.dataQ.empty():
 
-                    flag_main_process_queue_empty = False
+                flag_main_process_queue_empty = False
 
-                    data = self.dataQ.get(False)
-                    
-                    self.total_count += 1
-                    self.total_packet_size += sys.getsizeof(data)
-                    
-                    if not flag_fut_realdata_update_is_running:
+                data = self.dataQ.get(False)
+                
+                self.total_count += 1
+                self.total_packet_size += sys.getsizeof(data)
+                
+                if not flag_fut_realdata_update_is_running:
 
-                        if type(data) == list:
-                            self.trigger_list.emit(data)
-                        elif type(data) == dict:
-                            self.trigger_dict.emit(data)                    
-                        else:
-                            pass
-                        # 실시간 그래프 호출을 여기서 할수 있음!!! --> 데이타프레임을 만든후 emit
-                    else:
-                        self.drop_count += 1
-                        self.drop_code = data['szTrCode']
-
-                    if flag_mp_interval_changed:
-                        print('MP interval changed...')
-                        flag_mp_interval_changed = False
+                    if type(data) == list:
+                        self.trigger_list.emit(data)
+                    elif type(data) == dict:
+                        self.trigger_dict.emit(data)                    
                     else:
                         pass
-
-                    QTest.qWait(mp_send_interval)
+                    # 실시간 그래프 호출을 여기서 할수 있음!!! --> 데이타프레임을 만든후 emit
                 else:
-                    flag_main_process_queue_empty = True
+                    self.drop_count += 1
+                    self.drop_code = data['szTrCode']
+
+                if flag_mp_interval_changed:
+                    print('MP interval changed...')
+                    flag_mp_interval_changed = False
+                else:
+                    pass
+
+                QTest.qWait(mp_send_interval)
+            else:
+                flag_main_process_queue_empty = True
 
 class RealTime_CallThread_DataWorker(QThread):
 
-        # 수신데이타 타입이 list이면 TR데이타, dict이면 실시간데이타.        
-        trigger_list = pyqtSignal(list)
-        trigger_dict = pyqtSignal(dict)
+    # 수신데이타 타입이 list이면 TR데이타, dict이면 실시간데이타.        
+    trigger_list = pyqtSignal(list)
+    trigger_dict = pyqtSignal(dict)
 
-        def __init__(self, dataQ):
-            super().__init__()
+    def __init__(self, dataQ):
+        super().__init__()
 
-            self.daemon = True
-            self.dataQ = dataQ
+        self.daemon = True
+        self.dataQ = dataQ
 
-            # 큐로 들어온 총 패킷수
-            self.total_count = 0
-            # 누락된 패킷수
-            self.drop_count = 0
-            # 누락된 코드
-            self.drop_code = ''
-            # 수신된 총 패킷크기
-            self.total_packet_size = 0
+        # 큐로 들어온 총 패킷수
+        self.total_count = 0
+        # 누락된 패킷수
+        self.drop_count = 0
+        # 누락된 코드
+        self.drop_code = ''
+        # 수신된 총 패킷크기
+        self.total_packet_size = 0
 
-        def get_packet_info(self):
+    def get_packet_info(self):
 
-            return self.drop_count, self.drop_code, self.total_count, self.total_packet_size
+        return self.drop_count, self.drop_code, self.total_count, self.total_packet_size
 
-        def run(self):
+    def run(self):
 
-            global flag_call_process_queue_empty
+        global flag_call_process_queue_empty
 
-            while True:
-                if not self.dataQ.empty():
+        while True:
+            if not self.dataQ.empty():
 
-                    flag_call_process_queue_empty = False
+                flag_call_process_queue_empty = False
 
-                    data = self.dataQ.get(False)
-                    
-                    self.total_count += 1                    
-                    self.total_packet_size += sys.getsizeof(data)
-                    
-                    if flag_call_realdata_update_is_running:
-                        self.drop_count += 1
-                        self.drop_code = data['szTrCode']
-                    else:
-                        pass
-                    
-                    if type(data) == list:
-                        self.trigger_list.emit(data)
-                    elif type(data) == dict and not flag_call_realdata_update_is_running:
-                        self.trigger_dict.emit(data)                    
-                    else:
-                        pass
-                    '''
-                    if flag_mp_interval_changed:
-                        print('MP interval changed...')
-                        flag_mp_interval_changed = False
-                    else:
-                        pass
-                    '''
-                    QTest.qWait(mp_send_interval)
+                data = self.dataQ.get(False)
+                
+                self.total_count += 1                    
+                self.total_packet_size += sys.getsizeof(data)
+                
+                if flag_call_realdata_update_is_running:
+                    self.drop_count += 1
+                    self.drop_code = data['szTrCode']
                 else:
-                    flag_call_process_queue_empty = True
+                    pass
+                
+                if type(data) == list:
+                    self.trigger_list.emit(data)
+                elif type(data) == dict and not flag_call_realdata_update_is_running:
+                    self.trigger_dict.emit(data)                    
+                else:
+                    pass
+                '''
+                if flag_mp_interval_changed:
+                    print('MP interval changed...')
+                    flag_mp_interval_changed = False
+                else:
+                    pass
+                '''
+                QTest.qWait(mp_send_interval)
+            else:
+                flag_call_process_queue_empty = True
                     
 class RealTime_PutThread_DataWorker(QThread):
 
-        # 수신데이타 타입이 list이면 TR데이타, dict이면 실시간데이타.        
-        trigger_list = pyqtSignal(list)
-        trigger_dict = pyqtSignal(dict)
+    # 수신데이타 타입이 list이면 TR데이타, dict이면 실시간데이타.        
+    trigger_list = pyqtSignal(list)
+    trigger_dict = pyqtSignal(dict)
 
-        def __init__(self, dataQ):
-            super().__init__()
+    def __init__(self, dataQ):
+        super().__init__()
 
-            self.daemon = True
-            self.dataQ = dataQ
+        self.daemon = True
+        self.dataQ = dataQ
 
-            # 큐로 들어온 총 패킷수
-            self.total_count = 0
-            # 누락된 패킷수
-            self.drop_count = 0
-            # 누락된 코드
-            self.drop_code = ''
-            # 수신된 총 패킷크기
-            self.total_packet_size = 0
+        # 큐로 들어온 총 패킷수
+        self.total_count = 0
+        # 누락된 패킷수
+        self.drop_count = 0
+        # 누락된 코드
+        self.drop_code = ''
+        # 수신된 총 패킷크기
+        self.total_packet_size = 0
 
-        def get_packet_info(self):
+    def get_packet_info(self):
 
-            return self.drop_count, self.drop_code, self.total_count, self.total_packet_size
+        return self.drop_count, self.drop_code, self.total_count, self.total_packet_size
 
-        def run(self):
+    def run(self):
 
-            global flag_put_process_queue_empty
+        global flag_put_process_queue_empty
 
-            while True:
-                if not self.dataQ.empty():
+        while True:
+            if not self.dataQ.empty():
 
-                    flag_put_process_queue_empty = False
+                flag_put_process_queue_empty = False
 
-                    data = self.dataQ.get(False)
+                data = self.dataQ.get(False)
 
-                    self.total_count += 1                                        
-                    self.total_packet_size += sys.getsizeof(data)
-                    
-                    if flag_put_realdata_update_is_running:
-                        self.drop_count += 1
-                        self.drop_code = data['szTrCode']
-                    else:
-                        pass
-                    
-                    if type(data) == list:
-                        self.trigger_list.emit(data)
-                    elif type(data) == dict and not flag_put_realdata_update_is_running:
-                        self.trigger_dict.emit(data)                    
-                    else:
-                        pass
-                    '''
-                    if flag_mp_interval_changed:
-                        print('MP interval changed...')
-                        flag_mp_interval_changed = False
-                    else:
-                        pass
-                    '''
-                    QTest.qWait(mp_send_interval)
+                self.total_count += 1                                        
+                self.total_packet_size += sys.getsizeof(data)
+                
+                if flag_put_realdata_update_is_running:
+                    self.drop_count += 1
+                    self.drop_code = data['szTrCode']
                 else:
-                    flag_put_process_queue_empty = True
+                    pass
+                
+                if type(data) == list:
+                    self.trigger_list.emit(data)
+                elif type(data) == dict and not flag_put_realdata_update_is_running:
+                    self.trigger_dict.emit(data)                    
+                else:
+                    pass
+                '''
+                if flag_mp_interval_changed:
+                    print('MP interval changed...')
+                    flag_mp_interval_changed = False
+                else:
+                    pass
+                '''
+                QTest.qWait(mp_send_interval)
+            else:
+                flag_put_process_queue_empty = True
 
 #####################################################################################################################################################################
 # Speaker Thread Class
@@ -19460,7 +19471,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
             df_gold_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate', \
                 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
-
         else:
             pass
 
