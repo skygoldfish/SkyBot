@@ -2532,7 +2532,7 @@ class RealTime_Thread_DataWorker(QThread):
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 멀티프로세스 쓰레드 클래스
 #####################################################################################################################################################################
-class RealTime_Fut_Thread_DataWorker(QThread):
+class RealTime_FutThread_DataWorker(QThread):
     # 수신데이타 타입이 list이면 TR데이타, dict이면 실시간데이타.        
     trigger_list = pyqtSignal(list)
     trigger_dict = pyqtSignal(dict)
@@ -2590,7 +2590,7 @@ class RealTime_Fut_Thread_DataWorker(QThread):
                 else:
                     flag_main_process_queue_empty = True
 
-class RealTime_Call_Thread_DataWorker(QThread):
+class RealTime_CallThread_DataWorker(QThread):
 
         # 수신데이타 타입이 list이면 TR데이타, dict이면 실시간데이타.        
         trigger_list = pyqtSignal(list)
@@ -2652,7 +2652,7 @@ class RealTime_Call_Thread_DataWorker(QThread):
                 else:
                     flag_call_process_queue_empty = True
                     
-class RealTime_Put_Thread_DataWorker(QThread):
+class RealTime_PutThread_DataWorker(QThread):
 
         # 수신데이타 타입이 list이면 TR데이타, dict이면 실시간데이타.        
         trigger_list = pyqtSignal(list)
@@ -2713,6 +2713,35 @@ class RealTime_Put_Thread_DataWorker(QThread):
                     QTest.qWait(mp_send_interval)
                 else:
                     flag_put_process_queue_empty = True
+
+#####################################################################################################################################################################
+# Speaker Thread Class
+#####################################################################################################################################################################
+class SpeakerWorker(QThread):
+
+    def __init__(self):
+        super().__init__()
+
+        self.daemon = True
+
+        self.txt = ''
+        self.flag_speak = False
+
+    def setText(self, txt):
+
+        self.txt = txt
+        self.flag_speak = True
+    
+    def run(self):
+
+        while True:
+
+            if self.flag_speak:
+                print('speak text =', self.txt)
+                Speak(self.txt)
+                self.flag_speak = False
+
+            QTest.qWait(1)
 
 #####################################################################################################################################################################
 # Xing API 각 객체의 요청(시간/횟수)제한을 관리하기 위한 Class
@@ -2823,7 +2852,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # t2301, t2835 이벤트루프(1초당 2건) --> 옵션 실시간수신 문제 보완목적
         #self.t2301_event_loop = QEventLoop()
         #self.t2835_event_loop = QEventLoop()
-
+        
+        self.speaker = SpeakerWorker()
+        self.speaker.start()
+        
         self.screen_update_worker = ScreenUpdateWorker()
         self.screen_update_worker.trigger.connect(self.update_screen)
         
@@ -5552,7 +5584,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 self.parent.textBrowser.append(txt)
 
-                Speak('본월물 하향 변동성 출현')
+                #Speak('본월물 하향 변동성 생성')
+                self.speaker.setText('본월물 하향 변동성 생성')
                 '''
                 tts = gTTS(text=vb_txt, lang='en')
                 tts.save("tts.mp3")
@@ -5565,7 +5598,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 self.parent.textBrowser.append(txt)
 
-                Speak('본월물 상향 변동성 출현')
+                #Speak('본월물 상향 변동성 생성')
+                self.speaker.setText('본월물 상향 변동성 생성')
                 '''
                 tts = gTTS(text=vb_txt, lang='en')
                 tts.save("tts.mp3")
@@ -5582,7 +5616,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 self.parent.textBrowser.append(txt)
 
-                Speak('차월물 하향 변동성 출현')
+                #Speak('차월물 하향 변동성 생성')
+                self.speaker.setText('차월물 하향 변동성 생성')
                 '''
                 tts = gTTS(text=vb_txt, lang='en')
                 tts.save("tts.mp3")
@@ -5595,7 +5630,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 self.parent.textBrowser.append(txt)
 
-                Speak('차월물 상향 변동성 출현')
+                #Speak('차월물 상향 변동성 생성')
+                self.speaker.setText('차월물 상향 변동성 생성')
                 '''
                 tts = gTTS(text=vb_txt, lang='en')
                 tts.save("tts.mp3")
@@ -5612,7 +5648,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.parent.textBrowser.append(txt)
 
                 if TTS:
-                    Speak('콜 우세')
+                    #Speak('콜 우세')
+                    self.speaker.setText('콜 우세')
                 else:
                     pass
                 '''
@@ -5633,7 +5670,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.parent.textBrowser.append(txt)
 
                 if TTS:
-                    Speak('풋 우세')
+                    #Speak('풋 우세')
+                    self.speaker.setText('풋 우세')
                 else:
                     pass
                 '''
@@ -19387,15 +19425,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             print(txt)
 
-            txt = '본월물 옵션갯수는 {0}개 입니다.'.format(CM_OPT_LENGTH)
-            Speak(txt)
-
             txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 옵션갯수 = {4}\r'.format(dt.hour, dt.minute, dt.second, NM_OPTCODE, NM_OPT_LENGTH)
             self.textBrowser.append(txt)
             print(txt)
 
-            txt = '차월물 옵션갯수는 {0}개 입니다.'.format(NM_OPT_LENGTH)
-            Speak(txt)
+            txt = '본월물 옵션갯수는 {0}개, 차월물 옵션갯수는 {1}개 입니다.'.format(CM_OPT_LENGTH, NM_OPT_LENGTH)
+            self.speaker.setText(txt)
 
             # 그래프를 위한 데이타프레임 생성
             if NightTime:
@@ -20265,7 +20300,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 요청의 총수는 {3}개 입니다.\r'.format(dt.hour, dt.minute, dt.second, self.realdata_request_number)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 요청 항목의 총수는 {3}개 입니다.\r'.format(dt.hour, dt.minute, dt.second, self.realdata_request_number)
         self.parent.textBrowser.append(txt)
         print(txt)
 
@@ -24164,6 +24199,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board의 모든 쓰레드를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.textBrowser.append(txt)
         self.parent.textBrowser.append(txt)
+
+        if self.speaker.isRunning():
+            self.speaker.terminate()
+            print('speaker is terminated at KillScoreBoardAllThread...')
+        else:
+            pass
 
         if self.screen_update_worker.isRunning():
             self.screen_update_worker.terminate()
@@ -37998,7 +38039,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         txt = '현재스크린 = {0}번, 화면해상도 = {1}x{2}, 중심좌표 X = {3}, Y = {4}\r'.format(스크린번호, screen_info.width(), screen_info.height(), self.centerPoint.x(), self.centerPoint.y())
         self.textBrowser.append(txt)
- 
+         
         # AxtiveX 설정
         if self.mp_mode:
             if MP_NUMBER == 1:
@@ -38013,22 +38054,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # Thread for Multiprocess Real Data Consumer
             # 장의 변동성이 클때는 하나의 프로세스로 200종목 이상의 데이타를 실시간 처리못함 --> 3개의 프로세스 생성하여 로드분산 !!!
             if MP_NUMBER == 1:
-                self.realtime_fut_data_worker = RealTime_Fut_Thread_DataWorker(self.fut_dataQ)
+                self.realtime_fut_data_worker = RealTime_FutThread_DataWorker(self.fut_dataQ)
                 self.realtime_fut_data_worker.trigger_list.connect(self.transfer_mp_fut_trdata)
                 self.realtime_fut_data_worker.trigger_dict.connect(self.transfer_mp_fut_realdata)            
                 self.realtime_fut_data_worker.start()
             elif MP_NUMBER == 3:
-                self.realtime_fut_data_worker = RealTime_Fut_Thread_DataWorker(self.fut_dataQ)
+                self.realtime_fut_data_worker = RealTime_FutThread_DataWorker(self.fut_dataQ)
                 self.realtime_fut_data_worker.trigger_list.connect(self.transfer_mp_fut_trdata)
                 self.realtime_fut_data_worker.trigger_dict.connect(self.transfer_mp_fut_realdata)            
                 self.realtime_fut_data_worker.start()
 
-                self.realtime_call_data_worker = RealTime_Call_Thread_DataWorker(self.call_dataQ)
+                self.realtime_call_data_worker = RealTime_CallThread_DataWorker(self.call_dataQ)
                 self.realtime_call_data_worker.trigger_list.connect(self.transfer_mp_call_trdata)
                 self.realtime_call_data_worker.trigger_dict.connect(self.transfer_mp_call_realdata)            
                 self.realtime_call_data_worker.start()
 
-                self.realtime_put_data_worker = RealTime_Put_Thread_DataWorker(self.put_dataQ)
+                self.realtime_put_data_worker = RealTime_PutThread_DataWorker(self.put_dataQ)
                 self.realtime_put_data_worker.trigger_list.connect(self.transfer_mp_put_trdata)
                 self.realtime_put_data_worker.trigger_dict.connect(self.transfer_mp_put_realdata)            
                 self.realtime_put_data_worker.start()
@@ -38411,7 +38452,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-    def Thread_Login(self, url, port, svrtype, id, pwd, cert):
+    def LoginThread(self, url, port, svrtype, id, pwd, cert):
         
         if self.fut_connection is None:
             self.fut_connection = XASession(parent=self)
@@ -38601,7 +38642,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.textBrowser.append(txt)
 
-            self.Thread_Login(self.url, self.port, self.svrtype, self.id, self.pwd, self.cert)
+            self.LoginThread(self.url, self.port, self.svrtype, self.id, self.pwd, self.cert)
         else:
             if REAL_SERVER:
                 txt = '멀티프로세스 실서버에 접속합니다.\r'
@@ -38679,7 +38720,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # 로그인
         if _action == "actionLogin":
-            self.Thread_Login()
+            self.LoginThread()
 
         # 로그아웃
         if _action == "actionLogout":
@@ -39023,7 +39064,7 @@ if __name__ == "__main__":
     
     # TTS test...
     if TTS:
-        #Speak('본월물 하향 변동성 출현')
+        #Speak('본월물 하향 변동성 발생')
         '''
         text ="Welcome to SkyBot"
         tts = gTTS(text=text, lang='en')
