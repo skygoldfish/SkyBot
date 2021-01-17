@@ -2741,7 +2741,7 @@ class SpeakerWorker(QThread):
         while True:
 
             if self.flag_speak:
-                print('speak text =', self.txt)
+                print('TTS text =', self.txt)
                 Speak(self.txt)
                 self.flag_speak = False
 
@@ -2856,10 +2856,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # t2301, t2835 이벤트루프(1초당 2건) --> 옵션 실시간수신 문제 보완목적
         #self.t2301_event_loop = QEventLoop()
         #self.t2835_event_loop = QEventLoop()
-        
-        self.speaker = SpeakerWorker()
-        self.speaker.start()
-        
+                
         self.screen_update_worker = ScreenUpdateWorker()
         self.screen_update_worker.trigger.connect(self.update_screen)
         
@@ -5560,7 +5557,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.parent.textBrowser.append(txt)
 
                 #Speak('본월물 하향 변동성 출현')
-                self.speaker.setText('본월물 하향 변동성 출현')
+                self.parent.speaker.setText('본월물 하향 변동성 출현')
                 '''
                 tts = gTTS(text=vb_txt, lang='en')
                 tts.save("tts.mp3")
@@ -5574,7 +5571,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.parent.textBrowser.append(txt)
 
                 #Speak('본월물 상향 변동성 출현')
-                self.speaker.setText('본월물 상향 변동성 출현')
+                self.parent.speaker.setText('본월물 상향 변동성 출현')
                 '''
                 tts = gTTS(text=vb_txt, lang='en')
                 tts.save("tts.mp3")
@@ -5592,7 +5589,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.parent.textBrowser.append(txt)
 
                 #Speak('차월물 하향 변동성 출현')
-                self.speaker.setText('차월물 하향 변동성 출현')
+                self.parent.speaker.setText('차월물 하향 변동성 출현')
                 '''
                 tts = gTTS(text=vb_txt, lang='en')
                 tts.save("tts.mp3")
@@ -5606,7 +5603,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.parent.textBrowser.append(txt)
 
                 #Speak('차월물 상향 변동성 출현')
-                self.speaker.setText('차월물 상향 변동성 출현')
+                self.parent.speaker.setText('차월물 상향 변동성 출현')
                 '''
                 tts = gTTS(text=vb_txt, lang='en')
                 tts.save("tts.mp3")
@@ -5624,7 +5621,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if TTS:
                     #Speak('콜 우세')
-                    self.speaker.setText('콜 우세')
+                    self.parent.speaker.setText('콜 우세')
                 else:
                     pass
                 '''
@@ -5646,7 +5643,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if TTS:
                     #Speak('풋 우세')
-                    self.speaker.setText('풋 우세')
+                    self.parent.speaker.setText('풋 우세')
                 else:
                     pass
                 '''
@@ -18786,7 +18783,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         t8416_loop_finish_time = dt.hour * 3600 + dt.minute * 60 + dt.second
 
                         schedule_time = t8416_loop_finish_time + 10 * 60
-                        
+
                         schedule_hour = int(schedule_time / 3600)
                         schedule_min = int((schedule_time - schedule_hour * 3600) / 60)
                         schedule_sec = schedule_time - (schedule_hour * 3600 + schedule_min * 60)
@@ -18796,7 +18793,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         print(txt)
 
                         speak_txt = '나머지 데이타를 {0}시 {1}분 {2}초에 재요청할 예정입니다.'.format(schedule_hour, schedule_min, schedule_sec)
-                        self.speaker.setText(speak_txt)
+                        self.parent.speaker.setText(speak_txt)
                     else:
                         pass
 
@@ -19408,7 +19405,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             print(txt)
 
             txt = '본월물 옵션갯수는 {0}개, 차월물 옵션갯수는 {1}개 입니다.'.format(CM_OPT_LENGTH, NM_OPT_LENGTH)
-            self.speaker.setText(txt)
+            self.parent.speaker.setText(txt)
 
             # 그래프를 위한 데이타프레임 생성
             if NightTime:
@@ -24177,12 +24174,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board의 모든 쓰레드를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.textBrowser.append(txt)
         self.parent.textBrowser.append(txt)
-
-        if self.speaker.isRunning():
-            self.speaker.terminate()
-            print('speaker is terminated at KillScoreBoardAllThread...')
-        else:
-            pass
 
         if self.screen_update_worker.isRunning():
             self.screen_update_worker.terminate()
@@ -38065,8 +38056,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.realtime_thread_dataworker.trigger.connect(self.transfer_thread_realdata)
             self.realtime_thread_dataworker.start()
         
-        #self.speaker = SpeakerWorker() --> 에러발생, 이유???
-        #self.speaker.start()
+        # TTS 쓰레드 설정
+        self.speaker = SpeakerWorker()
+        self.speaker.start()        
         
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
         atexit.register(self.__del__)
@@ -38096,6 +38088,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.statusbar.showMessage(trdata[1])
             #playsound( "Resources/ring.wav" )
             Speak('선물 프로세스 로그인 성공')
+
+            #self.speaker.setText('선물 프로세스 로그인 성공') --> 에러발생!!!
 
             # 버티칼 스크롤바를 항상 bottom으로...
             self.textBrowser.verticalScrollBar().setValue(self.textBrowser.verticalScrollBar().maximum())
@@ -38904,6 +38898,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             event.accept()
 
+            self.speaker.setText('프로그램을 종료합니다.')
+
             if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
 
                 self.dialog['선물옵션전광판'].KillScoreBoardAllThread()
@@ -38992,6 +38988,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             txt = '[{0:02d}:{1:02d}:{2:02d}] Main Window를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
             print(txt)
+            
+            if self.speaker.isRunning():
+                self.speaker.terminate()
+                print('TTS Speaker is terminated at Main Window...')
+            else:
+                pass
 
             self.close()
         else:
