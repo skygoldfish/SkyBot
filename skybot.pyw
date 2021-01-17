@@ -38898,7 +38898,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             event.accept()
 
-            self.speaker.setText('프로그램을 종료합니다.')
+            #self.speaker.setText('프로그램을 종료합니다.')
 
             if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
 
