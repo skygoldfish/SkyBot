@@ -148,7 +148,6 @@ class FuturesWorker(mp.Process):
 
         self.fc0_value = None
         self.oc0_value = None
-        self.oh0_time = None
 
         # 조회요청 TR 초기화
         self.XQ_t0167 = None # 시간 조회
@@ -310,14 +309,6 @@ class FuturesWorker(mp.Process):
                 if result['현재가'] != self.oc0_value:
                     self.dataQ.put(result, False)
                     self.oc0_value = result['현재가']
-                else:
-                    pass
-
-            elif szTrCode == 'OH0':
-
-                if result['호가시간'] != self.oh0_time:
-                    self.dataQ.put(result, False)
-                    self.oh0_time = result['호가시간']
                 else:
                     pass
             else:

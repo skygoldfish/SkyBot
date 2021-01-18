@@ -1458,6 +1458,7 @@ greenyellow = QColor(0xAD, 0xFF, 0x2F)
 lawngreen = QColor(0x7C, 0xFC, 0x00)
 lightgreen = QColor(0x99, 0xFF, 0x33)
 springgreen = QColor(0x0, 0xFF, 0x7F)
+darkgreen = QColor(0x03, 0x35, 0x00)
 gold = QColor(0xFF, 0xD7, 0x00)
 goldenrod = QColor(0xDA, 0xA5, 0x20)
 skyblue = QColor(0x87, 0xCE, 0xEB)
@@ -4952,7 +4953,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = 't8416 재요청 CountDown = {0}'.format((t8416_loop_finish_time + 10 * 60) - system_time)
                 print(txt)
 
-                if system_time == (t8416_loop_finish_time + 10 * 60):
+                if (t8416_loop_finish_time + 10 * 60) - system_time < 1:
                     self.t8416_additive_request()
                 else:
                     pass
@@ -16308,7 +16309,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
                                        
                 else:                    
-                    # EUREX 야간옵션 시세전광판
+                    # EUREX 야간옵션 시세전광판 --> 갱신이 안되는 오류!!!
                     print('t2835 요청')
                     self.XQ_t2835.Query(월물=t2835_month_info)
                     
@@ -16843,16 +16844,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.OI.value, item)
 
                 수정거래량 = 0
-
-                t2835_length = len(df)
-                print('t2835 length =', t2835_length)
-                '''
-                if t2835_length > 100:
-                    t2835_length = 100
-                else:
-                    pass
-                '''
-                for i in range(t2835_length):
+                
+                for i in range(option_pairs_count):
 
                     # 수정거래량 초기화
                     df_call.at[i, '시가갭'] = 0
@@ -23396,8 +23389,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
             
             if result['단축코드'] == FUT_CODE:
-                
-                print('단축코드 =', result['단축코드'], FUT_CODE)
 
                 fut_result = copy.deepcopy(result)
                 self.fut_update(result)
@@ -38247,7 +38238,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     if abs(time_gap) > 1:
                         self.statusbar.setStyleSheet("color : red")
                     else:
-                        self.statusbar.setStyleSheet("color : lawngreen")
+                        if DARK_STYLESHEET:
+                            self.statusbar.setStyleSheet("color : lawngreen")
+                        else:
+                            self.statusbar.setStyleSheet("color : darkgreen")
 
                     self.statusbar.showMessage(txt)                   
                 else:
@@ -38263,7 +38257,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     if abs(time_gap) > 1:
                         self.statusbar.setStyleSheet("color : red")
                     else:
-                        self.statusbar.setStyleSheet("color : lawngreen")
+                        if DARK_STYLESHEET:
+                            self.statusbar.setStyleSheet("color : lawngreen")
+                        else:
+                            self.statusbar.setStyleSheet("color : darkgreen")
 
                     self.statusbar.showMessage(txt)
                 else:
