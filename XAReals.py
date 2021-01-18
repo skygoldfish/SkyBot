@@ -1042,6 +1042,9 @@ class FC0(XAReal):
         self.ActiveX.SetFieldData(self.INBLOCK, "futcode", 선물코드)
         self.ActiveX.AdviseRealData()
 
+    def UnadviseRealDataWithKey(self, 선물코드):
+        self.ActiveX.UnadviseRealDataWithKey(선물코드)
+
     def UnadviseRealData(self):
         self.ActiveX.UnadviseRealData()
 
@@ -1102,6 +1105,9 @@ class NC0(XAReal):
     def AdviseRealData(self, 선물코드):
         self.ActiveX.SetFieldData(self.INBLOCK, "futcode", 선물코드)
         self.ActiveX.AdviseRealData()
+
+    def UnadviseRealDataWithKey(self, 선물코드):
+        self.ActiveX.UnadviseRealDataWithKey(선물코드)
 
     def UnadviseRealData(self):
         self.ActiveX.UnadviseRealData()
