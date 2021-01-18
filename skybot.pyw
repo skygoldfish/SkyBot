@@ -11565,8 +11565,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
         
-        선물_진폭비 = (선물_고가 - 선물_저가) / 선물_시가            
-        선물_DOW_진폭비율 = 선물_진폭비 / DOW_진폭비 
+        if 선물_시가 > 0:
+            선물_진폭비 = (선물_고가 - 선물_저가) / 선물_시가
+        else:
+            선물_진폭비 = 0
+
+        if DOW_진폭비 > 0:           
+            선물_DOW_진폭비율 = 선물_진폭비 / DOW_진폭비 
+        else:
+            선물_DOW_진폭비율 = 0
 
         item = QTableWidgetItem("{0:.2f}".format(선물_DOW_진폭비율))
         item.setTextAlignment(Qt.AlignCenter)
@@ -11604,43 +11611,39 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             self.tableWidget_fut.setItem(0, Futures_column.거래량.value, item)
         else:
-            pass                      
-        
-        # 미결 갱신
-        if DayTime:
-
-            df_fut.at[1, '미결'] = result['미결제약정수량'] 
-            self.fut_realdata['미결'] = result['미결제약정수량']
-
-            temp = format(self.fut_realdata['미결'], ',')                     
-
-            item = QTableWidgetItem(temp)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(1, Futures_column.OI.value, item)            
-        else:
             pass
 
+        '''
+        # 미결 갱신
+        print('미결제약정수량 =', result['미결제약정수량'])
+        df_fut.at[1, '미결'] = result['미결제약정수량'] 
+        self.fut_realdata['미결'] = result['미결제약정수량']
+
+        temp = format(result['미결제약정수량'], ',')                
+
+        item = QTableWidgetItem(temp)
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(1, Futures_column.OI.value, item) 
+
         # 미결증감 갱신
-        if DayTime:
+        print('미결제약정증감 =', result['미결제약정증감'])
+        df_fut.at[1, '미결증감'] = result['미결제약정증감']  
+        self.fut_realdata['미결증감'] = result['미결제약정증감']
 
-            df_fut.at[1, '미결증감'] = result['미결제약정증감']  
-            self.fut_realdata['미결증감'] = result['미결제약정증감']
+        temp = format(result['미결제약정증감'], ',')  
 
-            temp = format(self.fut_realdata['미결증감'], ',')  
+        item = QTableWidgetItem(temp)
+        item.setTextAlignment(Qt.AlignCenter)
 
-            item = QTableWidgetItem(temp)
-            item.setTextAlignment(Qt.AlignCenter)
-
-            if result['미결제약정증감'] < 0:
-                item.setBackground(QBrush(라임))
-            else:
-                item.setBackground(QBrush(흰색))
-
-            item.setForeground(QBrush(검정색))
-
-            self.tableWidget_fut.setItem(1, Futures_column.OID.value, item)              
+        if result['미결제약정증감'] < 0:
+            item.setBackground(QBrush(라임))
         else:
-            pass  
+            item.setBackground(QBrush(흰색))
+
+        item.setForeground(QBrush(검정색))
+
+        self.tableWidget_fut.setItem(1, Futures_column.OID.value, item)
+        '''
 
         # 선물 Up/Down Indicator 표시
         '''
