@@ -38114,7 +38114,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.statusbar.showMessage(trdata[1])
             #playsound( "Resources/ring.wav" )
-            Speak('선물 프로세스 로그인 성공')
+            if TARGET_MONTH == 'CM':
+                Speak('본월물 선물 프로세스 로그인 성공')
+            elif TARGET_MONTH == 'NM':
+                Speak('차월물 선물 프로세스 로그인 성공')
 
             #self.speaker.setText('선물 프로세스 로그인 성공')
 
