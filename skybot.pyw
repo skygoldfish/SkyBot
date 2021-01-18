@@ -2307,7 +2307,7 @@ class RealTime_Thread_DataWorker(QThread):
         
     def get_packet_info(self):
 
-        return self.drop_count, self.drop_code, self.total_count, self.total_packet_size
+        return self.drop_count, self.dataQ.qsize(), self.total_count, self.total_packet_size
 
     def RequestRealData(self, type, code='0'):
 
@@ -2567,7 +2567,7 @@ class RealTime_FutThread_DataWorker(QThread):
 
     def get_packet_info(self):
 
-        return self.drop_count, self.drop_code, self.total_count, self.total_packet_size
+        return self.drop_count, self.dataQ.qsize(), self.total_count, self.total_packet_size
 
     def run(self):
 
@@ -2629,7 +2629,7 @@ class RealTime_CallThread_DataWorker(QThread):
 
     def get_packet_info(self):
 
-        return self.drop_count, self.drop_code, self.total_count, self.total_packet_size
+        return self.drop_count, self.dataQ.qsize(), self.total_count, self.total_packet_size
 
     def run(self):
 
@@ -2691,7 +2691,7 @@ class RealTime_PutThread_DataWorker(QThread):
 
     def get_packet_info(self):
 
-        return self.drop_count, self.drop_code, self.total_count, self.total_packet_size
+        return self.drop_count, self.dataQ.qsize(), self.total_count, self.total_packet_size
 
     def run(self):
 
@@ -38253,15 +38253,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if MP_NUMBER == 1:
 
-                fut_dropcount, fut_dropcode, fut_totalcount, fut_totalsize = self.realtime_fut_dataworker.get_packet_info()
+                fut_dropcount, fut_qsize, fut_totalcount, fut_totalsize = self.realtime_fut_dataworker.get_packet_info()
 
-                drop_txt = '{0}/{1}({2}k)'.format(format(fut_dropcount, ','), format(fut_totalcount, ','), format(int(fut_totalsize/1000), ','))
+                drop_txt = '{0}({1})/{2}({3}k)'.format(format(fut_dropcount, ','), format(fut_qsize, ','), format(fut_totalcount, ','), format(int(fut_totalsize/1000), ','))
 
             elif MP_NUMBER == 3:
 
-                fut_dropcount, fut_dropcode, fut_totalcount, fut_totalsize = self.realtime_fut_dataworker.get_packet_info()
-                call_dropcount, call_dropcode, call_totalcount, call_totalsize = self.realtime_call_dataworker.get_packet_info()
-                put_dropcount, put_dropcode, put_totalcount, put_totalsize = self.realtime_put_dataworker.get_packet_info()
+                fut_dropcount, fut_qsize, fut_totalcount, fut_totalsize = self.realtime_fut_dataworker.get_packet_info()
+                call_dropcount, call_qsize, call_totalcount, call_totalsize = self.realtime_call_dataworker.get_packet_info()
+                put_dropcount, put_qsize, put_totalcount, put_totalsize = self.realtime_put_dataworker.get_packet_info()
 
                 total_dropcount = fut_dropcount + call_dropcount + put_dropcount
                 totalcount = fut_totalcount + call_totalcount + put_totalcount
@@ -38432,8 +38432,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
 
             # 수신된 실시간데이타 정보표시(누락된 패킷수, 누락된 패킷, 수신된 총 패킷수, 수신된 총 패킷크기)
-            dropcount, dropcode, totalcount, totalsize = self.realtime_thread_dataworker.get_packet_info()
-            drop_txt = '{0}/{2}({3}k)'.format(format(dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','))
+            dropcount, qsize, totalcount, totalsize = self.realtime_thread_dataworker.get_packet_info()
+            drop_txt = '{0}({1})/{2}({3}k)'.format(format(dropcount, ','), format(qsize, ','), format(totalcount, ','), format(int(totalsize/1000), ','))
 
             item = QTableWidgetItem(drop_txt)
             item.setTextAlignment(Qt.AlignCenter)
