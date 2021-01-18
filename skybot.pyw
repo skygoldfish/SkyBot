@@ -4976,28 +4976,32 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.display_atm(self.alternate_flag)
                 
                 if DayTime:                    
-                    self.fut_etc_update(fut_result)                    
+                    self.fut_etc_update(fut_result)
                 else:
                     pass
 
-                if market_service and flag_option_start:                                  
+                if market_service and flag_option_start:      
                     
                     if flag_checkBox_HS:
+
+                        self.call_update(call_result)
+                        self.put_update(put_result)                       
+                        
+                        if self.alternate_flag:
+                            # 콜 테이블 데이타 갱신                            
+                            self.call_volume_power_update()
+                            self.call_db_update()
+                        else:
+                            # 풋 테이블 데이타 갱신                            
+                            self.put_volume_power_update()
+                            self.put_db_update()
+
                         # 수정미결 표시
                         if DayTime:
                             self.call_oi_update()
                             self.put_oi_update()
                         else:
-                            pass
-                        
-                        if self.alternate_flag:
-                            # 콜 테이블 데이타 갱신
-                            self.call_volume_power_update()
-                            self.call_db_update()
-                        else:
-                            # 풋 테이블 데이타 갱신
-                            self.put_volume_power_update()
-                            self.put_db_update()                        
+                            pass                        
                     else:
                         pass
                     
@@ -11600,7 +11604,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             self.tableWidget_fut.setItem(0, Futures_column.거래량.value, item)
         else:
-            pass                       
+            pass                      
         
         # 미결 갱신
         if DayTime:
@@ -23429,11 +23433,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     call_result = copy.deepcopy(result)
 
-                    if FLAG_GUEST_CONTROL:
-
-                        self.call_update(result)                        
+                    if FLAG_GUEST_CONTROL:                                                
 
                         if not flag_checkBox_HS:
+                            self.call_update(result)
                             self.call_db_update()
                             self.call_volume_power_update()
                             self.call_oi_update()
@@ -23444,11 +23447,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif result['단축코드'][0:3] == '301':
 
-                    put_result = copy.deepcopy(result)
-
-                    self.put_update(result)                    
+                    put_result = copy.deepcopy(result)                                        
 
                     if not flag_checkBox_HS:
+                        self.put_update(result)
                         self.put_db_update()
                         self.put_volume_power_update()
                         self.put_oi_update()
@@ -24020,11 +24022,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     call_result = copy.deepcopy(result)
 
-                    if FLAG_GUEST_CONTROL:
-
-                        self.call_update(result)                        
+                    if FLAG_GUEST_CONTROL:                                                
 
                         if not flag_checkBox_HS:
+                            self.call_update(result)
                             self.call_db_update()
                             self.call_volume_power_update()
                             self.call_oi_update()
@@ -24035,11 +24036,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif result['단축코드'][0:3] == '301':
 
-                    put_result = copy.deepcopy(result)
-
-                    self.put_update(result)                    
+                    put_result = copy.deepcopy(result)                                        
 
                     if not flag_checkBox_HS:
+                        self.put_update(result)
                         self.put_db_update()
                         self.put_volume_power_update()
                         self.put_oi_update()
@@ -24119,11 +24119,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     call_result = copy.deepcopy(result)
 
-                    if FLAG_GUEST_CONTROL:
-
-                        self.call_update(result)                        
+                    if FLAG_GUEST_CONTROL:                                                
 
                         if not flag_checkBox_HS:
+                            self.call_update(result)
                             self.call_db_update()
                             self.call_volume_power_update()
                             self.call_oi_update()
@@ -24134,11 +24133,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif result['단축코드'][0:3] == '301':
 
-                    put_result = copy.deepcopy(result)
-
-                    self.put_update(result)                    
+                    put_result = copy.deepcopy(result)                                        
 
                     if not flag_checkBox_HS:
+                        self.put_update(result)
                         self.put_db_update()
                         self.put_volume_power_update()
                         self.put_oi_update()
@@ -37879,8 +37877,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             flag_plot_update_is_running = False
         else:
-            pass       
-
+            pass
 
     def closeEvent(self,event):
 
