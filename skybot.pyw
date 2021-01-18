@@ -2518,14 +2518,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                 data = self.dataQ.get(False)
 
-                if NightTime:
-                    if data['szTrCode'] != 'OVC':
-                        self.total_count += 1
-                    else:
-                        pass                        
-                else:
-                    self.total_count += 1
-
+                self.total_count += 1
                 self.total_packet_size += sys.getsizeof(data)
                 
                 if flag_fut_realdata_update_is_running:
@@ -2537,8 +2530,7 @@ class RealTime_Thread_DataWorker(QThread):
                 if not flag_fut_realdata_update_is_running:
                     self.trigger.emit(data)
                 else:
-                    pass
-                
+                    pass                
             else:
                 flag_main_process_queue_empty = True
 
@@ -38224,8 +38216,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
 
-            # 수신된 실시간데이타 정보표시(누락된 패킷수, 누락된 패킷, 수신된 총 패킷수, 수신된 총 패킷크기)
-            
+            # 수신된 실시간데이타 정보표시(누락된 패킷수, 큐의 크기, 수신된 총 패킷수, 수신된 총 패킷크기)            
             szTrCode = realdata['szTrCode']
 
             if DayTime:
@@ -38426,7 +38417,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @pyqtSlot(dict)
     def transfer_thread_realdata(self, realdata):
 
-        global drop_txt
+        global drop_txt, time_gap
 
         # 데이타를 전광판 다이얼로그로 전달
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
@@ -38434,23 +38425,61 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             item = QTableWidgetItem("{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time))
             item.setTextAlignment(Qt.AlignCenter)
 
-            if realdata['szTrCode'] == 'OC0' or realdata['szTrCode'] == 'EC0' or realdata['szTrCode'] == 'OH0' or realdata['szTrCode'] == 'EH0':
-
-                if flag_main_process_queue_empty:
-                    item.setBackground(QBrush(흰색))
-                else:
-                    item.setBackground(QBrush(검정색))
-                
-                item.setForeground(QBrush(적색))
+            if flag_main_process_queue_empty:
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(청색))
             else:
-                if flag_main_process_queue_empty:
-                    item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(청색))
-                else:
-                    item.setBackground(QBrush(검정색))
-                    item.setForeground(QBrush(cyan))                                
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(cyan))                                                
 
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
+
+            # 수신된 실시간데이타 정보표시(누락된 패킷수, 큐의 크기, 수신된 총 패킷수, 수신된 총 패킷크기)            
+            szTrCode = realdata['szTrCode']
+
+            if DayTime:
+
+                if szTrCode == 'FH0':
+
+                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['호가시간'][0:2]) * 3600 + int(realdata['호가시간'][2:4]) * 60 + int(realdata['호가시간'][4:6]))
+                    
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] FH0 수신시간 = {3:02d}:{4:02d}:{5:02d}, 시간차 = {6}초\r'.format(\
+                        dt.hour, dt.minute, dt.second, int(realdata['호가시간'][0:2]), int(realdata['호가시간'][2:4]), int(realdata['호가시간'][4:6]), time_gap)
+
+                    if abs(time_gap) > 1:
+                        self.statusbar.setStyleSheet("color : red")
+                    else:
+                        if DARK_STYLESHEET:
+                            self.statusbar.setStyleSheet("color : lawngreen")
+                        else:
+                            self.statusbar.setStyleSheet("color : darkgreen")
+
+                    self.statusbar.showMessage(txt)                   
+                else:
+                    pass
+            else:
+                if szTrCode == 'OVC':
+                    
+                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (OVC_HOUR * 3600 + OVC_MIN * 60 + OVC_SEC)
+                    
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] OVC 수신시간 = {3:02d}:{4:02d}:{5:02d}, 시간차 = {6}초\r'.format(\
+                        dt.hour, dt.minute, dt.second, OVC_HOUR, OVC_MIN, OVC_SEC, time_gap)
+
+                    if abs(time_gap) > 1:
+                        self.statusbar.setStyleSheet("color : red")
+                    else:
+                        if DARK_STYLESHEET:
+                            self.statusbar.setStyleSheet("color : lawngreen")
+                        else:
+                            self.statusbar.setStyleSheet("color : darkgreen")
+
+                    self.statusbar.showMessage(txt)
+                else:
+                    pass
+            
+            item = QTableWidgetItem('[{0}]'.format(time_gap))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.dialog['선물옵션전광판'].tableWidget_supply.setHorizontalHeaderItem(Supply_column.종합.value - 2, item)
 
             # 수신된 실시간데이타 정보표시(누락된 패킷수, 누락된 패킷, 수신된 총 패킷수, 수신된 총 패킷크기)
             dropcount, qsize, totalcount, totalsize = self.realtime_thread_dataworker.get_packet_info()
