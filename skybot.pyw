@@ -22209,57 +22209,57 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
             if pre_start:
 
-                    현재가 = format(result['예상체결가격'], ',')
+                현재가 = format(result['예상체결가격'], ',')
 
-                    if result['단축코드'] == SAMSUNG:
+                if result['단축코드'] == SAMSUNG:
 
-                        if result['예상체결가전일종가대비구분'] == '5':
+                    if result['예상체결가전일종가대비구분'] == '5':
 
-                            jisu_txt = "SAMSUNG: {0}({1}, {2:0.1f}%)".format(현재가, format(-result['예상체결가전일종가대비'], ','),
-                                                                                result['예상체결가전일종가등락율'])
-                            
-                            self.label_4th_index.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
-                            self.label_4th_index.setText(jisu_txt)
+                        jisu_txt = "SAMSUNG: {0}({1}, {2:0.1f}%)".format(현재가, format(-result['예상체결가전일종가대비'], ','),
+                                                                            result['예상체결가전일종가등락율'])
+                        
+                        self.label_4th_index.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
+                        self.label_4th_index.setText(jisu_txt)
 
-                        elif result['예상체결가전일종가대비구분'] == '2':
+                    elif result['예상체결가전일종가대비구분'] == '2':
 
-                            jisu_txt = "SAMSUNG: {0}({1}, {2:0.1f}%)".format(현재가, format(result['예상체결가전일종가대비'], ','),
-                                                                                result['예상체결가전일종가등락율'])
-                            
-                            self.label_4th_index.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
-                            self.label_4th_index.setText(jisu_txt)
+                        jisu_txt = "SAMSUNG: {0}({1}, {2:0.1f}%)".format(현재가, format(result['예상체결가전일종가대비'], ','),
+                                                                            result['예상체결가전일종가등락율'])
+                        
+                        self.label_4th_index.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
+                        self.label_4th_index.setText(jisu_txt)
 
-                        else:
-                            jisu_txt = "SAMSUNG: {0}({1})".format(현재가, format(result['예상체결가전일종가대비'], ','))
-                            
-                            self.label_4th_index.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
-                            self.label_4th_index.setText(jisu_txt)
-                    
-                    elif result['단축코드'] == HYUNDAI:
-
-                        if result['예상체결가전일종가대비구분'] == '5':
-
-                            jisu_txt = "HYUNDAI: {0}({1}, {2:0.1f}%)".format(현재가, format(-result['예상체결가전일종가대비'], ','),
-                                                                              result['예상체결가전일종가등락율'])
-                            
-                            self.label_kosdaq.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
-                            self.label_kosdaq.setText(jisu_txt)
-
-                        elif result['예상체결가전일종가대비구분'] == '2':
-
-                            jisu_txt = "HYUNDAI: {0}({1}, {2:0.1f}%)".format(현재가, format(result['예상체결가전일종가대비'], ','),
-                                                                              result['예상체결가전일종가등락율'])
-                            
-                            self.label_kosdaq.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
-                            self.label_kosdaq.setText(jisu_txt)
-
-                        else:
-                            jisu_txt = "HYUNDAI: {0}({1})".format(현재가, format(result['예상체결가전일종가대비'], ','))
-                            
-                            self.label_kosdaq.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
-                            self.label_kosdaq.setText(jisu_txt)
                     else:
-                        pass
+                        jisu_txt = "SAMSUNG: {0}({1})".format(현재가, format(result['예상체결가전일종가대비'], ','))
+                        
+                        self.label_4th_index.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+                        self.label_4th_index.setText(jisu_txt)
+                
+                elif result['단축코드'] == HYUNDAI:
+
+                    if result['예상체결가전일종가대비구분'] == '5':
+
+                        jisu_txt = "HYUNDAI: {0}({1}, {2:0.1f}%)".format(현재가, format(-result['예상체결가전일종가대비'], ','),
+                                                                          result['예상체결가전일종가등락율'])
+                        
+                        self.label_kosdaq.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
+                        self.label_kosdaq.setText(jisu_txt)
+
+                    elif result['예상체결가전일종가대비구분'] == '2':
+
+                        jisu_txt = "HYUNDAI: {0}({1}, {2:0.1f}%)".format(현재가, format(result['예상체결가전일종가대비'], ','),
+                                                                          result['예상체결가전일종가등락율'])
+                        
+                        self.label_kosdaq.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
+                        self.label_kosdaq.setText(jisu_txt)
+
+                    else:
+                        jisu_txt = "HYUNDAI: {0}({1})".format(현재가, format(result['예상체결가전일종가대비'], ','))
+                        
+                        self.label_kosdaq.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+                        self.label_kosdaq.setText(jisu_txt)
+                else:
+                    pass
             else:
                 pass                
 
@@ -22267,241 +22267,241 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if result['단축코드'][0:3] == '201':
 
-                    index = call_행사가.index(result['단축코드'][5:8])
+                index = call_행사가.index(result['단축코드'][5:8])
 
-                    if result['예상체결가격'] != self.tableWidget_call.item(index, Option_column.시가.value).text():
+                if result['예상체결가격'] != self.tableWidget_call.item(index, Option_column.시가.value).text():
 
-                        if float(result['예상체결가격']) > 0:
-                            df_call.at[index, '시가'] = float(result['예상체결가격'])
-                        else:
-                            pass
-
-                        if yj_atm_index > 0:
-                            call_atm_value = df_call.at[yj_atm_index, '현재가']
-                        else:
-                            pass
-
-                        전저 = df_call.at[index, '전저']
-                        전고 = df_call.at[index, '전고']
-                        종가 = df_call.at[index, '종가']
-
-                        self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(흰색))
-
-                        item = QTableWidgetItem("{0}".format(result['예상체결가격']))
-                        item.setTextAlignment(Qt.AlignCenter)
-
-                        if float(result['예상체결가격']) > 종가:
-
-                            item.setForeground(QBrush(적색))
-
-                            if float(result['예상체결가격']) >= 10.0:
-                                item.setBackground(QBrush(청색))
-                            else:
-                                item.setBackground(QBrush(흰색))
-
-                        elif float(result['예상체결가격']) < 종가:
-
-                            item.setForeground(QBrush(청색))
-
-                            if float(result['예상체결가격']) >= 10.0:
-                                item.setBackground(QBrush(적색))
-                            else:
-                                item.setBackground(QBrush(흰색))
-                        else:
-                            item.setForeground(QBrush(검정색))
-
-                        self.tableWidget_call.setItem(index, Option_column.시가.value, item)
-                        
-                        if float(result['예상체결가격']) >= 10.0:
-                            df_call_graph[index].at[ovc_x_idx, 'price'] = 9.99
-                        elif 0 < float(result['예상체결가격']) < 10.0:
-                            df_call_graph[index].at[ovc_x_idx, 'price'] = float(result['예상체결가격'])
-                        else:
-                            pass
-
-                        if float(result['예상체결가격']) in COREVAL:
-
-                            self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
-                            self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
-                        else:
-                            pass
-
-                        피봇 = self.calc_pivot(전저, 전고, 종가, float(result['예상체결가격']))
-
-                        df_call.at[index, '피봇'] = 피봇
-
-                        item = QTableWidgetItem("{0:.2f}".format(피봇))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        self.tableWidget_call.setItem(index, Option_column.피봇.value, item)
-
-                        if float(result['예상체결가격']) > 0 and 종가 > 0:
-
-                            시가갭 = float(result['예상체결가격']) - 종가
-                            df_call.at[index, '시가갭'] = 시가갭
-
-                            yoc_call_gap_percent[index] = (float(result['예상체결가격']) / 종가 - 1) * 100
-
-                            gap_txt = "{0:.2f}\n({1:.0f}%)".format(시가갭, yoc_call_gap_percent[index])
-
-                            item = QTableWidgetItem(gap_txt)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
-
-                            if ResizeRowsToContents:
-                                self.tableWidget_call.resizeRowsToContents()
-                            else:
-                                pass
-                            self.tableWidget_call.resizeColumnsToContents()
-                        else:
-                            pass                            
+                    if float(result['예상체결가격']) > 0:
+                        df_call.at[index, '시가'] = float(result['예상체결가격'])
                     else:
                         pass
 
-                    global 콜시가갭합, 콜시가갭합_퍼센트평균, 콜시가갭합_단위평균
-
-                    call_gap_percent_local = copy.deepcopy(yoc_call_gap_percent)
-                    call_gap_percent_local.remove(0)
-
-                    np_call_gap_percent_local = np.array(call_gap_percent_local)
-
-                    콜시가갭합_단위평균 = round(df_call['시가갭'].sum()/len(call_gap_percent_local), 2)                          
-                    콜시가갭합_퍼센트평균 = int(round(np.mean(np_call_gap_percent_local), 2))
-
-                    call_txt = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트평균) + '%' + ')'
-
-                    item = QTableWidgetItem(call_txt)
-                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
-
-                    if ResizeRowsToContents:
-                        self.tableWidget_call.resizeRowsToContents()
+                    if yj_atm_index > 0:
+                        call_atm_value = df_call.at[yj_atm_index, '현재가']
                     else:
                         pass
-                    self.tableWidget_call.resizeColumnsToContents()
 
-                    new_actval = repr(len(call_gap_percent_local))
+                    전저 = df_call.at[index, '전저']
+                    전고 = df_call.at[index, '전고']
+                    종가 = df_call.at[index, '종가']
 
-                    item = QTableWidgetItem(new_actval)
+                    self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(흰색))
+
+                    item = QTableWidgetItem("{0}".format(result['예상체결가격']))
                     item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setHorizontalHeaderItem(1, item)
+
+                    if float(result['예상체결가격']) > 종가:
+
+                        item.setForeground(QBrush(적색))
+
+                        if float(result['예상체결가격']) >= 10.0:
+                            item.setBackground(QBrush(청색))
+                        else:
+                            item.setBackground(QBrush(흰색))
+
+                    elif float(result['예상체결가격']) < 종가:
+
+                        item.setForeground(QBrush(청색))
+
+                        if float(result['예상체결가격']) >= 10.0:
+                            item.setBackground(QBrush(적색))
+                        else:
+                            item.setBackground(QBrush(흰색))
+                    else:
+                        item.setForeground(QBrush(검정색))
+
+                    self.tableWidget_call.setItem(index, Option_column.시가.value, item)
+                    
+                    if float(result['예상체결가격']) >= 10.0:
+                        df_call_graph[index].at[ovc_x_idx, 'price'] = 9.99
+                    elif 0 < float(result['예상체결가격']) < 10.0:
+                        df_call_graph[index].at[ovc_x_idx, 'price'] = float(result['예상체결가격'])
+                    else:
+                        pass
+
+                    if float(result['예상체결가격']) in COREVAL:
+
+                        self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
+                        self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
+                    else:
+                        pass
+
+                    피봇 = self.calc_pivot(전저, 전고, 종가, float(result['예상체결가격']))
+
+                    df_call.at[index, '피봇'] = 피봇
+
+                    item = QTableWidgetItem("{0:.2f}".format(피봇))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setItem(index, Option_column.피봇.value, item)
+
+                    if float(result['예상체결가격']) > 0 and 종가 > 0:
+
+                        시가갭 = float(result['예상체결가격']) - 종가
+                        df_call.at[index, '시가갭'] = 시가갭
+
+                        yoc_call_gap_percent[index] = (float(result['예상체결가격']) / 종가 - 1) * 100
+
+                        gap_txt = "{0:.2f}\n({1:.0f}%)".format(시가갭, yoc_call_gap_percent[index])
+
+                        item = QTableWidgetItem(gap_txt)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
+
+                        if ResizeRowsToContents:
+                            self.tableWidget_call.resizeRowsToContents()
+                        else:
+                            pass
+                        self.tableWidget_call.resizeColumnsToContents()
+                    else:
+                        pass                            
+                else:
+                    pass
+
+                global 콜시가갭합, 콜시가갭합_퍼센트평균, 콜시가갭합_단위평균
+
+                call_gap_percent_local = copy.deepcopy(yoc_call_gap_percent)
+                call_gap_percent_local.remove(0)
+
+                np_call_gap_percent_local = np.array(call_gap_percent_local)
+
+                콜시가갭합_단위평균 = round(df_call['시가갭'].sum()/len(call_gap_percent_local), 2)                          
+                콜시가갭합_퍼센트평균 = int(round(np.mean(np_call_gap_percent_local), 2))
+
+                call_txt = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트평균) + '%' + ')'
+
+                item = QTableWidgetItem(call_txt)
+                self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
+
+                if ResizeRowsToContents:
+                    self.tableWidget_call.resizeRowsToContents()
+                else:
+                    pass
+                self.tableWidget_call.resizeColumnsToContents()
+
+                new_actval = repr(len(call_gap_percent_local))
+
+                item = QTableWidgetItem(new_actval)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_call.setHorizontalHeaderItem(1, item)
 
             elif result['단축코드'][0:3] == '301':
 
-                    index = put_행사가.index(result['단축코드'][5:8])
+                index = put_행사가.index(result['단축코드'][5:8])
 
-                    if result['예상체결가격'] != self.tableWidget_put.item(index, Option_column.시가.value).text():
+                if result['예상체결가격'] != self.tableWidget_put.item(index, Option_column.시가.value).text():
 
-                        if float(result['예상체결가격']) > 0:
-                            df_put.at[index, '시가'] = float(result['예상체결가격'])
-                        else:
-                            pass
-
-                        if yj_atm_index > 0:
-                            put_atm_value = df_put.at[yj_atm_index, '현재가']
-                        else:
-                            pass
-
-                        전저 = df_put.at[index, '전저']
-                        전고 = df_put.at[index, '전고']
-                        종가 = df_put.at[index, '종가']
-
-                        self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(흰색))
-
-                        item = QTableWidgetItem("{0}".format(result['예상체결가격']))
-                        item.setTextAlignment(Qt.AlignCenter)
-
-                        if float(result['예상체결가격']) > 종가:
-
-                            item.setForeground(QBrush(적색))
-
-                            if float(result['예상체결가격']) >= 10.0:
-                                item.setBackground(QBrush(청색))
-                            else:
-                                item.setBackground(QBrush(흰색))
-
-                        elif float(result['예상체결가격']) < 종가:
-
-                            item.setForeground(QBrush(청색))
-
-                            if float(result['예상체결가격']) >= 10.0:
-                                item.setBackground(QBrush(적색))
-                            else:
-                                item.setBackground(QBrush(흰색))
-                        else:
-                            item.setForeground(QBrush(검정색))
-
-                        self.tableWidget_put.setItem(index, Option_column.시가.value, item)
-                        
-                        if float(result['예상체결가격']) >= 10.0:
-                            df_put_graph[index].at[ovc_x_idx, 'price'] = 9.99
-                        elif 0 < float(result['예상체결가격']) < 10.0:
-                            df_put_graph[index].at[ovc_x_idx, 'price'] = float(result['예상체결가격'])
-                        else:
-                            pass
-
-                        if float(result['예상체결가격']) in COREVAL:
-
-                            self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
-                            self.tableWidget_put.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
-                        else:
-                            pass
-
-                        피봇 = self.calc_pivot(전저, 전고, 종가, float(result['예상체결가격']))
-
-                        df_put.at[index, '피봇'] = 피봇
-
-                        item = QTableWidgetItem("{0:.2f}".format(피봇))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        self.tableWidget_put.setItem(index, Option_column.피봇.value, item)
-
-                        if float(result['예상체결가격']) > 0 and 종가 > 0:
-
-                            시가갭 = float(result['예상체결가격']) - 종가
-                            df_put.at[index, '시가갭'] = 시가갭
-
-                            yoc_put_gap_percent[index] = (float(result['예상체결가격']) / 종가 - 1) * 100
-
-                            gap_txt = "{0:.2f}\n({1:.0f}%)".format(시가갭, yoc_put_gap_percent[index])
-
-                            item = QTableWidgetItem(gap_txt)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
-
-                            if ResizeRowsToContents:
-                                self.tableWidget_put.resizeRowsToContents()
-                            else:
-                                pas
-                            self.tableWidget_put.resizeColumnsToContents()
-                        else:
-                            pass
+                    if float(result['예상체결가격']) > 0:
+                        df_put.at[index, '시가'] = float(result['예상체결가격'])
                     else:
                         pass
 
-                    global 풋시가갭합, 풋시가갭합_퍼센트평균, 풋시가갭합_단위평균
-
-                    put_gap_percent_local = copy.deepcopy(yoc_put_gap_percent)
-                    put_gap_percent_local.remove(0)
-
-                    np_put_gap_percent_local = np.array(put_gap_percent_local)
-
-                    풋시가갭합_단위평균 = round(df_put['시가갭'].sum()/len(put_gap_percent_local), 2)                          
-                    풋시가갭합_퍼센트평균 = int(round(np.mean(np_put_gap_percent_local), 2))
-
-                    put_txt = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트평균) + '%' + ')'
-
-                    item = QTableWidgetItem(put_txt)
-                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
-
-                    if ResizeRowsToContents:
-                        self.tableWidget_put.resizeRowsToContents()
+                    if yj_atm_index > 0:
+                        put_atm_value = df_put.at[yj_atm_index, '현재가']
                     else:
                         pass
-                    self.tableWidget_call.resizeColumnsToContents()
 
-                    new_actval = repr(len(put_gap_percent_local))
+                    전저 = df_put.at[index, '전저']
+                    전고 = df_put.at[index, '전고']
+                    종가 = df_put.at[index, '종가']
 
-                    item = QTableWidgetItem(new_actval)
+                    self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(흰색))
+
+                    item = QTableWidgetItem("{0}".format(result['예상체결가격']))
                     item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setHorizontalHeaderItem(1, item)
+
+                    if float(result['예상체결가격']) > 종가:
+
+                        item.setForeground(QBrush(적색))
+
+                        if float(result['예상체결가격']) >= 10.0:
+                            item.setBackground(QBrush(청색))
+                        else:
+                            item.setBackground(QBrush(흰색))
+
+                    elif float(result['예상체결가격']) < 종가:
+
+                        item.setForeground(QBrush(청색))
+
+                        if float(result['예상체결가격']) >= 10.0:
+                            item.setBackground(QBrush(적색))
+                        else:
+                            item.setBackground(QBrush(흰색))
+                    else:
+                        item.setForeground(QBrush(검정색))
+
+                    self.tableWidget_put.setItem(index, Option_column.시가.value, item)
+                    
+                    if float(result['예상체결가격']) >= 10.0:
+                        df_put_graph[index].at[ovc_x_idx, 'price'] = 9.99
+                    elif 0 < float(result['예상체결가격']) < 10.0:
+                        df_put_graph[index].at[ovc_x_idx, 'price'] = float(result['예상체결가격'])
+                    else:
+                        pass
+
+                    if float(result['예상체결가격']) in COREVAL:
+
+                        self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
+                        self.tableWidget_put.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
+                    else:
+                        pass
+
+                    피봇 = self.calc_pivot(전저, 전고, 종가, float(result['예상체결가격']))
+
+                    df_put.at[index, '피봇'] = 피봇
+
+                    item = QTableWidgetItem("{0:.2f}".format(피봇))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setItem(index, Option_column.피봇.value, item)
+
+                    if float(result['예상체결가격']) > 0 and 종가 > 0:
+
+                        시가갭 = float(result['예상체결가격']) - 종가
+                        df_put.at[index, '시가갭'] = 시가갭
+
+                        yoc_put_gap_percent[index] = (float(result['예상체결가격']) / 종가 - 1) * 100
+
+                        gap_txt = "{0:.2f}\n({1:.0f}%)".format(시가갭, yoc_put_gap_percent[index])
+
+                        item = QTableWidgetItem(gap_txt)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
+
+                        if ResizeRowsToContents:
+                            self.tableWidget_put.resizeRowsToContents()
+                        else:
+                            pas
+                        self.tableWidget_put.resizeColumnsToContents()
+                    else:
+                        pass
+                else:
+                    pass
+
+                global 풋시가갭합, 풋시가갭합_퍼센트평균, 풋시가갭합_단위평균
+
+                put_gap_percent_local = copy.deepcopy(yoc_put_gap_percent)
+                put_gap_percent_local.remove(0)
+
+                np_put_gap_percent_local = np.array(put_gap_percent_local)
+
+                풋시가갭합_단위평균 = round(df_put['시가갭'].sum()/len(put_gap_percent_local), 2)                          
+                풋시가갭합_퍼센트평균 = int(round(np.mean(np_put_gap_percent_local), 2))
+
+                put_txt = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트평균) + '%' + ')'
+
+                item = QTableWidgetItem(put_txt)
+                self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
+
+                if ResizeRowsToContents:
+                    self.tableWidget_put.resizeRowsToContents()
+                else:
+                    pass
+                self.tableWidget_call.resizeColumnsToContents()
+
+                new_actval = repr(len(put_gap_percent_local))
+
+                item = QTableWidgetItem(new_actval)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_put.setHorizontalHeaderItem(1, item)
             else:
                 pass
         
@@ -22510,63 +22510,63 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # S3 데이타표시
             if result['단축코드'] == SAMSUNG:
                     
-                    global samsung_price, samsung_text_color                    
+                global samsung_price, samsung_text_color                    
 
-                    if result['현재가'] != samsung_price:
+                if result['현재가'] != samsung_price:
 
-                        if result['현재가'] > samsung_price:
+                    if result['현재가'] > samsung_price:
 
-                            temp_txt = format(result['현재가'], ',')
+                        temp_txt = format(result['현재가'], ',')
 
-                            if result['전일대비구분'] == '5':
+                        if result['전일대비구분'] == '5':
 
-                                jisu_txt = "SS: {0} ▲ (-{1}, {2:0.1f}%)".format(temp_txt, format(result['전일대비'], ','), result['등락율'])
-                                
-                                self.label_4th_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.label_4th_index.setText(jisu_txt)
+                            jisu_txt = "SS: {0} ▲ (-{1}, {2:0.1f}%)".format(temp_txt, format(result['전일대비'], ','), result['등락율'])
+                            
+                            self.label_4th_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                            self.label_4th_index.setText(jisu_txt)
 
-                                samsung_text_color = 'blue'
+                            samsung_text_color = 'blue'
 
-                            elif result['전일대비구분'] == '2':
+                        elif result['전일대비구분'] == '2':
 
-                                jisu_txt = "SS: {0} ▲ ({1}, {2:0.1f}%)".format(temp_txt, format(result['전일대비'], ','), result['등락율'])
-                                
-                                self.label_4th_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.label_4th_index.setText(jisu_txt)
+                            jisu_txt = "SS: {0} ▲ ({1}, {2:0.1f}%)".format(temp_txt, format(result['전일대비'], ','), result['등락율'])
+                            
+                            self.label_4th_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                            self.label_4th_index.setText(jisu_txt)
 
-                                samsung_text_color = 'red'
-                            else:
-                                pass
-
-                        elif result['현재가'] < samsung_price:
-
-                            temp_txt = format(result['현재가'], ',')
-
-                            if result['전일대비구분'] == '5':
-
-                                jisu_txt = "SS: {0} ▼ (-{1}, {2:0.1f}%)".format(temp_txt, format(result['전일대비'], ','), result['등락율'])
-                                
-                                self.label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.label_4th_index.setText(jisu_txt)
-
-                                samsung_text_color = 'blue'
-
-                            elif result['전일대비구분'] == '2':
-
-                                jisu_txt = "SS: {0} ▼ ({1}, {2:0.1f}%)".format(temp_txt, format(result['전일대비'], ','), result['등락율'])
-                                
-                                self.label_4th_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.label_4th_index.setText(jisu_txt)
-
-                                samsung_text_color = 'red'
-                            else:
-                                pass
+                            samsung_text_color = 'red'
                         else:
                             pass
 
-                        samsung_price = result['현재가']
+                    elif result['현재가'] < samsung_price:
+
+                        temp_txt = format(result['현재가'], ',')
+
+                        if result['전일대비구분'] == '5':
+
+                            jisu_txt = "SS: {0} ▼ (-{1}, {2:0.1f}%)".format(temp_txt, format(result['전일대비'], ','), result['등락율'])
+                            
+                            self.label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                            self.label_4th_index.setText(jisu_txt)
+
+                            samsung_text_color = 'blue'
+
+                        elif result['전일대비구분'] == '2':
+
+                            jisu_txt = "SS: {0} ▼ ({1}, {2:0.1f}%)".format(temp_txt, format(result['전일대비'], ','), result['등락율'])
+                            
+                            self.label_4th_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                            self.label_4th_index.setText(jisu_txt)
+
+                            samsung_text_color = 'red'
+                        else:
+                            pass
                     else:
-                        pass                    
+                        pass
+
+                    samsung_price = result['현재가']
+                else:
+                    pass                    
             else:
                 pass                
 
@@ -22581,320 +22581,320 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # IJ 데이타표시
             if result['업종코드'] == KOSPI200:
 
-                    # kp200 현재가
-                    if result['지수'] != self.tableWidget_fut.item(2, Futures_column.현재가.value).text().split('\n')[0]:
+                # kp200 현재가
+                if result['지수'] != self.tableWidget_fut.item(2, Futures_column.현재가.value).text().split('\n')[0]:
 
-                        self.fut_realdata['KP200'] = float(result['지수'])
-                        self.kp200_realdata['현재가'] = float(result['지수'])
-                        df_fut.at[2, '현재가'] = float(result['지수'])
-                        
-                        df_futures_graph.at[ovc_x_idx, 'kp200'] = float(result['지수'])
-                        df_kp200_graph.at[ovc_x_idx, 'price'] = float(result['지수'])
+                    self.fut_realdata['KP200'] = float(result['지수'])
+                    self.kp200_realdata['현재가'] = float(result['지수'])
+                    df_fut.at[2, '현재가'] = float(result['지수'])
+                    
+                    df_futures_graph.at[ovc_x_idx, 'kp200'] = float(result['지수'])
+                    df_kp200_graph.at[ovc_x_idx, 'price'] = float(result['지수'])
 
-                        if float(result['지수']) < float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text().split('\n')[0]):
-                            item = QTableWidgetItem(result['지수'] + '\n' + '▼')
-                            item.setBackground(QBrush(lightskyblue))
-                        elif float(result['지수']) > float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text().split('\n')[0]):
-                            item = QTableWidgetItem(result['지수'] + '\n' + '▲')
-                            item.setBackground(QBrush(pink))
-                        else:    
-                            item = QTableWidgetItem(result['지수'])
-                            item.setBackground(QBrush(옅은회색))
+                    if float(result['지수']) < float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text().split('\n')[0]):
+                        item = QTableWidgetItem(result['지수'] + '\n' + '▼')
+                        item.setBackground(QBrush(lightskyblue))
+                    elif float(result['지수']) > float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text().split('\n')[0]):
+                        item = QTableWidgetItem(result['지수'] + '\n' + '▲')
+                        item.setBackground(QBrush(pink))
+                    else:    
+                        item = QTableWidgetItem(result['지수'])
+                        item.setBackground(QBrush(옅은회색))
 
-                        if float(result['지수']) > kp200_시가:
-                            item.setForeground(QBrush(적색))
-                        elif float(result['지수']) < kp200_시가:
-                            item.setForeground(QBrush(청색))
-                        else:
-                            item.setForeground(QBrush(검정색))
+                    if float(result['지수']) > kp200_시가:
+                        item.setForeground(QBrush(적색))
+                    elif float(result['지수']) < kp200_시가:
+                        item.setForeground(QBrush(청색))
+                    else:
+                        item.setForeground(QBrush(검정색))
 
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
+
+                    self.tableWidget_fut.resizeRowToContents(2)
+                else:
+                    pass
+
+                if result['시가지수'] != self.tableWidget_fut.item(2, Futures_column.시가.value).text() and not flag_kp200_start_set:
+
+                    flag_kp200_start_set = True
+
+                    kp200_시가 = float(result['시가지수'])
+                    self.kp200_realdata['시가'] = float(result['시가지수'])
+                    df_futures_graph.at[ovc_x_idx, 'kp200'] = float(result['시가지수'])
+                    df_kp200_graph.at[ovc_x_idx, 'price'] = float(result['시가지수'])
+
+                    item = QTableWidgetItem(result['시가지수'])
+                    item.setTextAlignment(Qt.AlignCenter)
+
+                    if kp200_시가 > KP200_전일종가:
+                        item.setForeground(QBrush(적색))
+                    elif kp200_시가 < KP200_전일종가:
+                        item.setForeground(QBrush(청색))
+                    else:
+                        item.setForeground(QBrush(검정색))
+
+                    self.tableWidget_fut.setItem(2, Futures_column.시가.value, item)
+
+                    item = QTableWidgetItem("{0:.2f}".format(kp200_시가 - KP200_전일종가))
+                    item.setTextAlignment(Qt.AlignCenter)
+
+                    if kp200_시가 > KP200_전일종가:
+                        item.setBackground(QBrush(콜기준가색))
+                        item.setForeground(QBrush(검정색))
+                    elif kp200_시가 < KP200_전일종가:
+                        item.setBackground(QBrush(풋기준가색))
+                        item.setForeground(QBrush(흰색))
+                    else:
+                        item.setBackground(QBrush(흰색)) 
+
+                    self.tableWidget_fut.setItem(2, Futures_column.시가갭.value, item)
+
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] KP200 시작가 {3:.2f}를 수신했습니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, kp200_시가)
+                    self.textBrowser.append(txt)
+
+                    if KP200_전저 > 0 and KP200_전고 > 0:
+
+                        kp200_피봇 = self.calc_pivot(KP200_전저, KP200_전고, KP200_전일종가, kp200_시가)         
+
+                        item = QTableWidgetItem("{0:.2f}".format(kp200_피봇))
                         item.setTextAlignment(Qt.AlignCenter)
-                        self.tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
-
-                        self.tableWidget_fut.resizeRowToContents(2)
+                        self.tableWidget_fut.setItem(2, Futures_column.피봇.value, item)
                     else:
                         pass
 
-                    if result['시가지수'] != self.tableWidget_fut.item(2, Futures_column.시가.value).text() and not flag_kp200_start_set:
+                    # 선물 피봇을 다시 계산하여 표시한다.
+                    선물_피봇 = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
 
-                        flag_kp200_start_set = True
+                    item = QTableWidgetItem("{0:.2f}".format(선물_피봇))
+                    item.setTextAlignment(Qt.AlignCenter)
 
-                        kp200_시가 = float(result['시가지수'])
-                        self.kp200_realdata['시가'] = float(result['시가지수'])
-                        df_futures_graph.at[ovc_x_idx, 'kp200'] = float(result['시가지수'])
-                        df_kp200_graph.at[ovc_x_idx, 'price'] = float(result['시가지수'])
-
-                        item = QTableWidgetItem(result['시가지수'])
-                        item.setTextAlignment(Qt.AlignCenter)
-
-                        if kp200_시가 > KP200_전일종가:
-                            item.setForeground(QBrush(적색))
-                        elif kp200_시가 < KP200_전일종가:
-                            item.setForeground(QBrush(청색))
-                        else:
-                            item.setForeground(QBrush(검정색))
-
-                        self.tableWidget_fut.setItem(2, Futures_column.시가.value, item)
-
-                        item = QTableWidgetItem("{0:.2f}".format(kp200_시가 - KP200_전일종가))
-                        item.setTextAlignment(Qt.AlignCenter)
-
-                        if kp200_시가 > KP200_전일종가:
-                            item.setBackground(QBrush(콜기준가색))
-                            item.setForeground(QBrush(검정색))
-                        elif kp200_시가 < KP200_전일종가:
-                            item.setBackground(QBrush(풋기준가색))
-                            item.setForeground(QBrush(흰색))
-                        else:
-                            item.setBackground(QBrush(흰색)) 
-
-                        self.tableWidget_fut.setItem(2, Futures_column.시가갭.value, item)
-
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] KP200 시작가 {3:.2f}를 수신했습니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, kp200_시가)
-                        self.textBrowser.append(txt)
-
-                        if KP200_전저 > 0 and KP200_전고 > 0:
-
-                            kp200_피봇 = self.calc_pivot(KP200_전저, KP200_전고, KP200_전일종가, kp200_시가)         
-
-                            item = QTableWidgetItem("{0:.2f}".format(kp200_피봇))
-                            item.setTextAlignment(Qt.AlignCenter)
-                            self.tableWidget_fut.setItem(2, Futures_column.피봇.value, item)
-                        else:
-                            pass
-
-                        # 선물 피봇을 다시 계산하여 표시한다.
-                        선물_피봇 = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
-
-                        item = QTableWidgetItem("{0:.2f}".format(선물_피봇))
-                        item.setTextAlignment(Qt.AlignCenter)
-
-                        if NightTime:
-                            self.tableWidget_fut.setItem(0, Futures_column.피봇.value, item)
-                            df_fut.at[0, '피봇'] = 선물_피봇
-                            self.cme_realdata['피봇'] = 선물_피봇
-                        else:
-                            self.tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
-                            df_fut.at[1, '피봇'] = 선물_피봇
-                            self.fut_realdata['피봇'] = 선물_피봇              
-                        
-                        atm_txt = self.get_atm_txt(kp200_시가)
-                        ATM_INDEX = opt_actval.index(atm_txt)
-
-                        if atm_txt[-1] == '2' or atm_txt[-1] == '7':
-
-                            atm_val = float(atm_txt) + 0.5
-                        else:
-                            atm_val = float(atm_txt)
-
-                        call_atm_value = df_call.at[ATM_INDEX, '현재가']
-                        put_atm_value = df_put.at[ATM_INDEX, '현재가']
-
-                        if call_atm_value >= put_atm_value:
-                            atm_zero_cha = round((call_atm_value - put_atm_value) , 2)
-                        else:
-                            atm_zero_cha = round((put_atm_value - call_atm_value) , 2)
-
-                        장시작_양합 = call_atm_value + put_atm_value
-
-                        if call_atm_value > put_atm_value:
-
-                            장시작_중심가 = round((put_atm_value + atm_zero_cha / 2), 2)
-
-                        elif put_atm_value > call_atm_value:
-
-                            장시작_중심가 = round((call_atm_value + atm_zero_cha / 2), 2)
-                        else:
-                            장시작_중심가 = call_atm_value 
-
-                        # kp200 맥점 10개를 리스트로 만듬
-                        global KP200_COREVAL
-
-                        # KP200_COREVAL 리스트 기존데이타 삭제(초기화)
-                        del KP200_COREVAL[:]
-
-                        for i in range(6):
-
-                            KP200_COREVAL.append(atm_val - 2.5 * i + 1.25) 
-
-                        for i in range(1, 5):
-
-                            KP200_COREVAL.append(atm_val + 2.5 * i + 1.25)
-
-                        KP200_COREVAL.sort()
-
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] KP200 맥점리스트 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, KP200_COREVAL)
-                        self.textBrowser.append(txt)                         
+                    if NightTime:
+                        self.tableWidget_fut.setItem(0, Futures_column.피봇.value, item)
+                        df_fut.at[0, '피봇'] = 선물_피봇
+                        self.cme_realdata['피봇'] = 선물_피봇
                     else:
-                        pass
+                        self.tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
+                        df_fut.at[1, '피봇'] = 선물_피봇
+                        self.fut_realdata['피봇'] = 선물_피봇              
+                    
+                    atm_txt = self.get_atm_txt(kp200_시가)
+                    ATM_INDEX = opt_actval.index(atm_txt)
 
-                    if DayTime and result['저가지수'] != self.tableWidget_fut.item(2, Futures_column.저가.value).text():
+                    if atm_txt[-1] == '2' or atm_txt[-1] == '7':
 
-                        flag_kp200_low = True
-
-                        self.kp200_realdata['저가'] = round(float(result['저가지수']), 2)
-                        kp200_저가 = round(float(result['저가지수']), 2)
-
-                        item = QTableWidgetItem(result['저가지수'])
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setBackground(QBrush(흰색))                     
-                        self.tableWidget_fut.setItem(2, Futures_column.저가.value, item)
-
-                        kp200_진폭 = kp200_고가 - kp200_저가
-
-                        item = QTableWidgetItem("{0:.2f}".format(kp200_진폭))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        self.tableWidget_fut.setItem(2, Futures_column.진폭.value, item)
-
-                        self.kp200_node_color_clear()
-                        self.kp200_node_coloring()
-
-                        self.kp200_low_node_coloring()
-
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] kp200 저가 {3} Update...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, self.kp200_realdata['저가'])
-                        self.textBrowser.append(txt)
+                        atm_val = float(atm_txt) + 0.5
                     else:
-                        pass
+                        atm_val = float(atm_txt)
 
-                    if DayTime and result['고가지수'] != self.tableWidget_fut.item(2, Futures_column.고가.value).text():
+                    call_atm_value = df_call.at[ATM_INDEX, '현재가']
+                    put_atm_value = df_put.at[ATM_INDEX, '현재가']
 
-                        flag_kp200_high = True
-
-                        self.kp200_realdata['고가'] = round(float(result['고가지수']), 2)
-                        kp200_고가 = round(float(result['고가지수']), 2)
-
-                        item = QTableWidgetItem(result['고가지수'])
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setBackground(QBrush(흰색))
-                        self.tableWidget_fut.setItem(2, Futures_column.고가.value, item)
-
-                        kp200_진폭 = kp200_고가 - kp200_저가
-
-                        item = QTableWidgetItem("{0:.2f}".format(kp200_진폭))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        self.tableWidget_fut.setItem(2, Futures_column.진폭.value, item)
-
-                        self.kp200_node_color_clear()
-                        self.kp200_node_coloring()
-
-                        self.kp200_high_node_coloring()
-
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] kp200 고가 {3} Update...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, self.kp200_realdata['고가'])
-                        self.textBrowser.append(txt)
+                    if call_atm_value >= put_atm_value:
+                        atm_zero_cha = round((call_atm_value - put_atm_value) , 2)
                     else:
-                        pass
+                        atm_zero_cha = round((put_atm_value - call_atm_value) , 2)
+
+                    장시작_양합 = call_atm_value + put_atm_value
+
+                    if call_atm_value > put_atm_value:
+
+                        장시작_중심가 = round((put_atm_value + atm_zero_cha / 2), 2)
+
+                    elif put_atm_value > call_atm_value:
+
+                        장시작_중심가 = round((call_atm_value + atm_zero_cha / 2), 2)
+                    else:
+                        장시작_중심가 = call_atm_value 
+
+                    # kp200 맥점 10개를 리스트로 만듬
+                    global KP200_COREVAL
+
+                    # KP200_COREVAL 리스트 기존데이타 삭제(초기화)
+                    del KP200_COREVAL[:]
+
+                    for i in range(6):
+
+                        KP200_COREVAL.append(atm_val - 2.5 * i + 1.25) 
+
+                    for i in range(1, 5):
+
+                        KP200_COREVAL.append(atm_val + 2.5 * i + 1.25)
+
+                    KP200_COREVAL.sort()
+
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] KP200 맥점리스트 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, KP200_COREVAL)
+                    self.textBrowser.append(txt)                         
+                else:
+                    pass
+
+                if DayTime and result['저가지수'] != self.tableWidget_fut.item(2, Futures_column.저가.value).text():
+
+                    flag_kp200_low = True
+
+                    self.kp200_realdata['저가'] = round(float(result['저가지수']), 2)
+                    kp200_저가 = round(float(result['저가지수']), 2)
+
+                    item = QTableWidgetItem(result['저가지수'])
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))                     
+                    self.tableWidget_fut.setItem(2, Futures_column.저가.value, item)
+
+                    kp200_진폭 = kp200_고가 - kp200_저가
+
+                    item = QTableWidgetItem("{0:.2f}".format(kp200_진폭))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_fut.setItem(2, Futures_column.진폭.value, item)
+
+                    self.kp200_node_color_clear()
+                    self.kp200_node_coloring()
+
+                    self.kp200_low_node_coloring()
+
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] kp200 저가 {3} Update...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, self.kp200_realdata['저가'])
+                    self.textBrowser.append(txt)
+                else:
+                    pass
+
+                if DayTime and result['고가지수'] != self.tableWidget_fut.item(2, Futures_column.고가.value).text():
+
+                    flag_kp200_high = True
+
+                    self.kp200_realdata['고가'] = round(float(result['고가지수']), 2)
+                    kp200_고가 = round(float(result['고가지수']), 2)
+
+                    item = QTableWidgetItem(result['고가지수'])
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    self.tableWidget_fut.setItem(2, Futures_column.고가.value, item)
+
+                    kp200_진폭 = kp200_고가 - kp200_저가
+
+                    item = QTableWidgetItem("{0:.2f}".format(kp200_진폭))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_fut.setItem(2, Futures_column.진폭.value, item)
+
+                    self.kp200_node_color_clear()
+                    self.kp200_node_coloring()
+
+                    self.kp200_high_node_coloring()
+
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] kp200 고가 {3} Update...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, self.kp200_realdata['고가'])
+                    self.textBrowser.append(txt)
+                else:
+                    pass
 
             elif result['업종코드'] == KOSPI:                                     
 
-                    if round(float(result['지수']), 2) != kospi_price:
+                if round(float(result['지수']), 2) != kospi_price:
 
-                        kospi_txt = format(round(float(result['지수']), 2), ',')
+                    kospi_txt = format(round(float(result['지수']), 2), ',')
 
-                        if round(float(result['지수']), 2) > kospi_price:
+                    if round(float(result['지수']), 2) > kospi_price:
 
-                            if result['전일대비구분'] == '5':
+                        if result['전일대비구분'] == '5':
 
-                                jisu_txt = "KOSPI: {0} ▲ (-{1:.2f}, {2:0.1f}%)".format(kospi_txt, result['전일비'], result['등락율'])
-                                
-                                self.label_kospi.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.label_kospi.setText(jisu_txt)
+                            jisu_txt = "KOSPI: {0} ▲ (-{1:.2f}, {2:0.1f}%)".format(kospi_txt, result['전일비'], result['등락율'])
+                            
+                            self.label_kospi.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                            self.label_kospi.setText(jisu_txt)
 
-                                kospi_text_color = 'blue'
+                            kospi_text_color = 'blue'
 
-                            elif result['전일대비구분'] == '2':
+                        elif result['전일대비구분'] == '2':
 
-                                jisu_txt = "KOSPI: {0} ▲ ({1:.2f}, {2:0.1f}%)".format(kospi_txt, result['전일비'], result['등락율'])
-                                
-                                self.label_kospi.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.label_kospi.setText(jisu_txt)
+                            jisu_txt = "KOSPI: {0} ▲ ({1:.2f}, {2:0.1f}%)".format(kospi_txt, result['전일비'], result['등락율'])
+                            
+                            self.label_kospi.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                            self.label_kospi.setText(jisu_txt)
 
-                                kospi_text_color = 'red'
-                            else:
-                                pass
-
-                        elif round(float(result['지수']), 2) < kospi_price:
-
-                            if result['전일대비구분'] == '5':
-
-                                jisu_txt = "KOSPI: {0} ▼ (-{1:.2f}, {2:0.1f}%)".format(kospi_txt, result['전일비'], result['등락율'])
-                                
-                                self.label_kospi.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.label_kospi.setText(jisu_txt)
-
-                                kospi_text_color = 'blue'
-
-                            elif result['전일대비구분'] == '2':
-
-                                jisu_txt = "KOSPI: {0} ▼ ({1:.2f}, {2:0.1f}%)".format(kospi_txt, result['전일비'], result['등락율'])
-                                
-                                self.label_kospi.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.label_kospi.setText(jisu_txt)
-
-                                kospi_text_color = 'red'
-                            else:
-                                pass
+                            kospi_text_color = 'red'
                         else:
                             pass
 
-                        kospi_price = round(float(result['지수']), 2)
+                    elif round(float(result['지수']), 2) < kospi_price:
+
+                        if result['전일대비구분'] == '5':
+
+                            jisu_txt = "KOSPI: {0} ▼ (-{1:.2f}, {2:0.1f}%)".format(kospi_txt, result['전일비'], result['등락율'])
+                            
+                            self.label_kospi.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                            self.label_kospi.setText(jisu_txt)
+
+                            kospi_text_color = 'blue'
+
+                        elif result['전일대비구분'] == '2':
+
+                            jisu_txt = "KOSPI: {0} ▼ ({1:.2f}, {2:0.1f}%)".format(kospi_txt, result['전일비'], result['등락율'])
+                            
+                            self.label_kospi.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                            self.label_kospi.setText(jisu_txt)
+
+                            kospi_text_color = 'red'
+                        else:
+                            pass
                     else:
-                        pass                    
+                        pass
+
+                    kospi_price = round(float(result['지수']), 2)
+                else:
+                    pass                    
 
             elif result['업종코드'] == KOSDAQ:                                       
 
-                    if round(float(result['지수']), 2) != kosdaq_price:    
-                        
-                        kosdaq_txt = format(round(float(result['지수']), 2), ',')                    
+                if round(float(result['지수']), 2) != kosdaq_price:    
+                    
+                    kosdaq_txt = format(round(float(result['지수']), 2), ',')                    
 
-                        if round(float(result['지수']), 2) > kosdaq_price:
+                    if round(float(result['지수']), 2) > kosdaq_price:
 
-                            if result['전일대비구분'] == '5':
+                        if result['전일대비구분'] == '5':
 
-                                jisu_txt = "KOSDAQ: {0} ▲ (-{1:.2f}, {2:0.1f}%)".format(kosdaq_txt, result['전일비'], result['등락율'])
-                                
-                                self.label_kosdaq.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.label_kosdaq.setText(jisu_txt)
+                            jisu_txt = "KOSDAQ: {0} ▲ (-{1:.2f}, {2:0.1f}%)".format(kosdaq_txt, result['전일비'], result['등락율'])
+                            
+                            self.label_kosdaq.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                            self.label_kosdaq.setText(jisu_txt)
 
-                                kosdaq_text_color = 'blue'
+                            kosdaq_text_color = 'blue'
 
-                            elif result['전일대비구분'] == '2':
+                        elif result['전일대비구분'] == '2':
 
-                                jisu_txt = "KOSDAQ: {0} ▲ ({1:.2f}, {2:0.1f}%)".format(kosdaq_txt, result['전일비'], result['등락율'])
-                                
-                                self.label_kosdaq.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.label_kosdaq.setText(jisu_txt)
+                            jisu_txt = "KOSDAQ: {0} ▲ ({1:.2f}, {2:0.1f}%)".format(kosdaq_txt, result['전일비'], result['등락율'])
+                            
+                            self.label_kosdaq.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                            self.label_kosdaq.setText(jisu_txt)
 
-                                kosdaq_text_color = 'red'
-                            else:
-                                pass
-
-                        elif round(float(result['지수']), 2) < kosdaq_price:
-
-                            if result['전일대비구분'] == '5':
-
-                                jisu_txt = "KOSDAQ: {0} ▼ (-{1:.2f}, {2:0.1f}%)".format(kosdaq_txt, result['전일비'], result['등락율'])
-                                
-                                self.label_kosdaq.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.label_kosdaq.setText(jisu_txt)
-
-                                kosdaq_text_color = 'blue'
-
-                            elif result['전일대비구분'] == '2':
-
-                                jisu_txt = "KOSDAQ: {0} ▼ ({1:.2f}, {2:0.1f}%)".format(kosdaq_txt, result['전일비'], result['등락율'])
-                                
-                                self.label_kosdaq.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.label_kosdaq.setText(jisu_txt)
-
-                                kosdaq_text_color = 'red'
-                            else:
-                                pass
+                            kosdaq_text_color = 'red'
                         else:
                             pass
 
-                        kosdaq_price = round(float(result['지수']), 2)
+                    elif round(float(result['지수']), 2) < kosdaq_price:
+
+                        if result['전일대비구분'] == '5':
+
+                            jisu_txt = "KOSDAQ: {0} ▼ (-{1:.2f}, {2:0.1f}%)".format(kosdaq_txt, result['전일비'], result['등락율'])
+                            
+                            self.label_kosdaq.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                            self.label_kosdaq.setText(jisu_txt)
+
+                            kosdaq_text_color = 'blue'
+
+                        elif result['전일대비구분'] == '2':
+
+                            jisu_txt = "KOSDAQ: {0} ▼ ({1:.2f}, {2:0.1f}%)".format(kosdaq_txt, result['전일비'], result['등락율'])
+                            
+                            self.label_kosdaq.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                            self.label_kosdaq.setText(jisu_txt)
+
+                            kosdaq_text_color = 'red'
+                        else:
+                            pass
                     else:
-                        pass                    
+                        pass
+
+                    kosdaq_price = round(float(result['지수']), 2)
+                else:
+                    pass                    
             else:                    
                 print('IJ 업종코드 = ', result['업종코드'])
 
@@ -22902,354 +22902,354 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if result['업종코드'] == FUTURES and result['투자자코드'] == FOREIGNER or result['업종코드'] == CME and result['투자자코드'] == FOREIGNER:
 
-                    FUT_FOREIGNER_거래대금순매수 = int(result['거래대금순매수'])
-                    FUT_FOREIGNER_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                FUT_FOREIGNER_거래대금순매수 = int(result['거래대금순매수'])
+                FUT_FOREIGNER_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
 
-                    FUT_FOREIGNER_직전대비.extend([int(result['거래대금순매수직전대비'])])
-                    temp = list(FUT_FOREIGNER_직전대비)
+                FUT_FOREIGNER_직전대비.extend([int(result['거래대금순매수직전대비'])])
+                temp = list(FUT_FOREIGNER_직전대비)
 
-                    순매수 = format(FUT_FOREIGNER_거래대금순매수, ',')
+                순매수 = format(FUT_FOREIGNER_거래대금순매수, ',')
 
-                    if min(temp) > 0:
+                if min(temp) > 0:
 
-                        item_txt = "{0}\n({1})⬈".format(순매수, result['거래대금순매수직전대비'])
+                    item_txt = "{0}\n({1})⬈".format(순매수, result['거래대금순매수직전대비'])
 
-                        if item_txt != self.tableWidget_supply.item(0, 0).text():
-                            item = QTableWidgetItem(item_txt)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            item.setBackground(QBrush(적색))
-                            item.setForeground(QBrush(흰색))
-                            self.tableWidget_supply.setItem(0, 0, item)
-                        else:
-                            pass
-
-                    elif max(temp) < 0:
-
-                        item_txt = "{0}\n({1})⬊".format(순매수, result['거래대금순매수직전대비'])
-
-                        if item_txt != self.tableWidget_supply.item(0, 0).text():
-                            item = QTableWidgetItem(item_txt)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            item.setBackground(QBrush(청색))
-                            item.setForeground(QBrush(흰색))
-                            self.tableWidget_supply.setItem(0, 0, item)
-                        else:
-                            pass
-
+                    if item_txt != self.tableWidget_supply.item(0, 0).text():
+                        item = QTableWidgetItem(item_txt)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(적색))
+                        item.setForeground(QBrush(흰색))
+                        self.tableWidget_supply.setItem(0, 0, item)
                     else:
+                        pass
 
-                        item_txt = "{0}\n({1})".format(순매수, result['거래대금순매수직전대비'])
+                elif max(temp) < 0:
 
-                        if item_txt != self.tableWidget_supply.item(0, 0).text():
-                            item = QTableWidgetItem(item_txt)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            item.setBackground(QBrush(흰색))
-                            item.setForeground(QBrush(검정색))
-                            self.tableWidget_supply.setItem(0, 0, item)
-                        else:
-                            pass
+                    item_txt = "{0}\n({1})⬊".format(순매수, result['거래대금순매수직전대비'])
+
+                    if item_txt != self.tableWidget_supply.item(0, 0).text():
+                        item = QTableWidgetItem(item_txt)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(청색))
+                        item.setForeground(QBrush(흰색))
+                        self.tableWidget_supply.setItem(0, 0, item)
+                    else:
+                        pass
+
+                else:
+
+                    item_txt = "{0}\n({1})".format(순매수, result['거래대금순매수직전대비'])
+
+                    if item_txt != self.tableWidget_supply.item(0, 0).text():
+                        item = QTableWidgetItem(item_txt)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
+                        self.tableWidget_supply.setItem(0, 0, item)
+                    else:
+                        pass
 
             elif result['업종코드'] == FUTURES and result['투자자코드'] == RETAIL or result['업종코드'] == CME and result['투자자코드'] == RETAIL:
 
-                    FUT_RETAIL_거래대금순매수 = int(result['거래대금순매수'])
+                FUT_RETAIL_거래대금순매수 = int(result['거래대금순매수'])
 
-                    if result['거래대금순매수직전대비'] != '-':
-                        FUT_RETAIL_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                if result['거래대금순매수직전대비'] != '-':
+                    FUT_RETAIL_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                else:
+                    pass
+
+                FUT_RETAIL_직전대비.extend([FUT_RETAIL_거래대금순매수_직전대비])
+                temp = list(FUT_RETAIL_직전대비)
+
+                순매수 = format(FUT_RETAIL_거래대금순매수, ',')
+
+                if min(temp) > 0:
+
+                    item_txt = "{0}\n({1})⬈".format(순매수, result['거래대금순매수직전대비'])
+
+                    if item_txt != self.tableWidget_supply.item(0, 3).text():
+                        item = QTableWidgetItem(item_txt)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_supply.setItem(0, 3, item)
                     else:
                         pass
 
-                    FUT_RETAIL_직전대비.extend([FUT_RETAIL_거래대금순매수_직전대비])
-                    temp = list(FUT_RETAIL_직전대비)
+                elif max(temp) < 0:
 
-                    순매수 = format(FUT_RETAIL_거래대금순매수, ',')
+                    item_txt = "{0}\n({1})⬊".format(순매수, result['거래대금순매수직전대비'])
 
-                    if min(temp) > 0:
-
-                        item_txt = "{0}\n({1})⬈".format(순매수, result['거래대금순매수직전대비'])
-
-                        if item_txt != self.tableWidget_supply.item(0, 3).text():
-                            item = QTableWidgetItem(item_txt)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            self.tableWidget_supply.setItem(0, 3, item)
-                        else:
-                            pass
-
-                    elif max(temp) < 0:
-
-                        item_txt = "{0}\n({1})⬊".format(순매수, result['거래대금순매수직전대비'])
-
-                        if item_txt != self.tableWidget_supply.item(0, 3).text():
-                            item = QTableWidgetItem(item_txt)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            self.tableWidget_supply.setItem(0, 3, item)
-                        else:
-                            pass
-
+                    if item_txt != self.tableWidget_supply.item(0, 3).text():
+                        item = QTableWidgetItem(item_txt)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_supply.setItem(0, 3, item)
                     else:
-                        item_txt = "{0}\n({1})".format(순매수, result['거래대금순매수직전대비'])
+                        pass
 
-                        if item_txt != self.tableWidget_supply.item(0, 3).text():
-                            item = QTableWidgetItem(item_txt)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            self.tableWidget_supply.setItem(0, 3, item)
-                        else:
-                            pass
+                else:
+                    item_txt = "{0}\n({1})".format(순매수, result['거래대금순매수직전대비'])
+
+                    if item_txt != self.tableWidget_supply.item(0, 3).text():
+                        item = QTableWidgetItem(item_txt)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_supply.setItem(0, 3, item)
+                    else:
+                        pass
 
             elif result['업종코드'] == FUTURES and result['투자자코드'] == INSTITUTIONAL or result['업종코드'] == CME and result['투자자코드'] == INSTITUTIONAL:
 
-                    FUT_INSTITUTIONAL_거래대금순매수 = int(result['거래대금순매수'])
+                FUT_INSTITUTIONAL_거래대금순매수 = int(result['거래대금순매수'])
 
-                    if result['거래대금순매수직전대비'] != '-':
-                        FUT_INSTITUTIONAL_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                if result['거래대금순매수직전대비'] != '-':
+                    FUT_INSTITUTIONAL_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                else:
+                    pass
+
+                기관_거래대금순매수 = FUT_INSTITUTIONAL_거래대금순매수 + FUT_STOCK_거래대금순매수 + FUT_BOHEOM_거래대금순매수 + \
+                             FUT_TOOSIN_거래대금순매수 + FUT_BANK_거래대금순매수 + FUT_JONGGEUM_거래대금순매수 + \
+                             FUT_GIGEUM_거래대금순매수 + FUT_GITA_거래대금순매수
+
+                기관_거래대금순매수_직전대비 = FUT_INSTITUTIONAL_거래대금순매수_직전대비 + FUT_STOCK_거래대금순매수_직전대비 + \
+                                  FUT_BOHEOM_거래대금순매수_직전대비 + FUT_TOOSIN_거래대금순매수_직전대비 + FUT_BANK_거래대금순매수_직전대비 + \
+                                  FUT_JONGGEUM_거래대금순매수_직전대비 + FUT_GIGEUM_거래대금순매수_직전대비 + FUT_GITA_거래대금순매수_직전대비
+
+                FUT_INSTITUTIONAL_직전대비.extend([기관_거래대금순매수_직전대비])
+                temp = list(FUT_INSTITUTIONAL_직전대비)
+
+                순매수 = format(기관_거래대금순매수, ',')
+
+                if min(temp) > 0:
+
+                    item_txt = "{0}\n({1})⬈".format(순매수, 기관_거래대금순매수_직전대비)
+
+                    if item_txt != self.tableWidget_supply.item(0, 4).text():
+                        item = QTableWidgetItem(item_txt)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(적색))
+                        item.setForeground(QBrush(흰색))
+                        self.tableWidget_supply.setItem(0, 4, item)
                     else:
                         pass
 
-                    기관_거래대금순매수 = FUT_INSTITUTIONAL_거래대금순매수 + FUT_STOCK_거래대금순매수 + FUT_BOHEOM_거래대금순매수 + \
-                                 FUT_TOOSIN_거래대금순매수 + FUT_BANK_거래대금순매수 + FUT_JONGGEUM_거래대금순매수 + \
-                                 FUT_GIGEUM_거래대금순매수 + FUT_GITA_거래대금순매수
+                elif max(temp) < 0:
 
-                    기관_거래대금순매수_직전대비 = FUT_INSTITUTIONAL_거래대금순매수_직전대비 + FUT_STOCK_거래대금순매수_직전대비 + \
-                                      FUT_BOHEOM_거래대금순매수_직전대비 + FUT_TOOSIN_거래대금순매수_직전대비 + FUT_BANK_거래대금순매수_직전대비 + \
-                                      FUT_JONGGEUM_거래대금순매수_직전대비 + FUT_GIGEUM_거래대금순매수_직전대비 + FUT_GITA_거래대금순매수_직전대비
+                    item_txt = "{0}\n({1})⬊".format(순매수, 기관_거래대금순매수_직전대비)
 
-                    FUT_INSTITUTIONAL_직전대비.extend([기관_거래대금순매수_직전대비])
-                    temp = list(FUT_INSTITUTIONAL_직전대비)
-
-                    순매수 = format(기관_거래대금순매수, ',')
-
-                    if min(temp) > 0:
-
-                        item_txt = "{0}\n({1})⬈".format(순매수, 기관_거래대금순매수_직전대비)
-
-                        if item_txt != self.tableWidget_supply.item(0, 4).text():
-                            item = QTableWidgetItem(item_txt)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            item.setBackground(QBrush(적색))
-                            item.setForeground(QBrush(흰색))
-                            self.tableWidget_supply.setItem(0, 4, item)
-                        else:
-                            pass
-
-                    elif max(temp) < 0:
-
-                        item_txt = "{0}\n({1})⬊".format(순매수, 기관_거래대금순매수_직전대비)
-
-                        if item_txt != self.tableWidget_supply.item(0, 4).text():
-                            item = QTableWidgetItem(item_txt)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            item.setBackground(QBrush(청색))
-                            item.setForeground(QBrush(흰색))
-                            self.tableWidget_supply.setItem(0, 4, item)
-                        else:
-                            pass
-
+                    if item_txt != self.tableWidget_supply.item(0, 4).text():
+                        item = QTableWidgetItem(item_txt)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(청색))
+                        item.setForeground(QBrush(흰색))
+                        self.tableWidget_supply.setItem(0, 4, item)
                     else:
-                        item_txt = "{0}\n({1})".format(순매수, 기관_거래대금순매수_직전대비)
+                        pass
 
-                        if item_txt != self.tableWidget_supply.item(0, 4).text():
-                            item = QTableWidgetItem(item_txt)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            item.setBackground(QBrush(흰색))
-                            item.setForeground(QBrush(검정색))
-                            self.tableWidget_supply.setItem(0, 4, item)
-                        else:
-                            pass
+                else:
+                    item_txt = "{0}\n({1})".format(순매수, 기관_거래대금순매수_직전대비)
+
+                    if item_txt != self.tableWidget_supply.item(0, 4).text():
+                        item = QTableWidgetItem(item_txt)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
+                        self.tableWidget_supply.setItem(0, 4, item)
+                    else:
+                        pass
 
             elif result['업종코드'] == FUTURES and result['투자자코드'] == STOCK or result['업종코드'] == CME and result['투자자코드'] == STOCK:
 
-                    FUT_STOCK_거래대금순매수 = int(result['거래대금순매수'])
+                FUT_STOCK_거래대금순매수 = int(result['거래대금순매수'])
 
-                    if result['거래대금순매수직전대비'] != '-':
-                        FUT_STOCK_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                    else:
-                        pass
+                if result['거래대금순매수직전대비'] != '-':
+                    FUT_STOCK_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                else:
+                    pass
 
             elif result['업종코드'] == FUTURES and result['투자자코드'] == BOHEOM or result['업종코드'] == CME and result['투자자코드'] == BOHEOM:
 
-                    FUT_BOHEOM_거래대금순매수 = int(result['거래대금순매수'])
+                FUT_BOHEOM_거래대금순매수 = int(result['거래대금순매수'])
 
-                    if result['거래대금순매수직전대비'] != '-':
-                        FUT_BOHEOM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                    else:
-                        pass
+                if result['거래대금순매수직전대비'] != '-':
+                    FUT_BOHEOM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                else:
+                    pass
 
             elif result['업종코드'] == FUTURES and result['투자자코드'] == TOOSIN or result['업종코드'] == CME and result['투자자코드'] == TOOSIN:
 
-                    FUT_TOOSIN_거래대금순매수 = int(result['거래대금순매수'])
+                FUT_TOOSIN_거래대금순매수 = int(result['거래대금순매수'])
 
-                    if result['거래대금순매수직전대비'] != '-':
-                        FUT_TOOSIN_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                    else:
-                        pass
+                if result['거래대금순매수직전대비'] != '-':
+                    FUT_TOOSIN_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                else:
+                    pass
 
             elif result['업종코드'] == FUTURES and result['투자자코드'] == BANK or result['업종코드'] == CME and result['투자자코드'] == BANK:
 
-                    FUT_BANK_거래대금순매수 = int(result['거래대금순매수'])
+                FUT_BANK_거래대금순매수 = int(result['거래대금순매수'])
 
-                    if result['거래대금순매수직전대비'] != '-':
-                        FUT_BANK_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                    else:
-                        pass
+                if result['거래대금순매수직전대비'] != '-':
+                    FUT_BANK_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                else:
+                    pass
 
             elif result['업종코드'] == FUTURES and result['투자자코드'] == JONGGEUM or result['업종코드'] == CME and result['투자자코드'] == JONGGEUM:
 
-                    FUT_JONGGEUM_거래대금순매수 = int(result['거래대금순매수'])
+                FUT_JONGGEUM_거래대금순매수 = int(result['거래대금순매수'])
 
-                    if result['거래대금순매수직전대비'] != '-':
-                        FUT_JONGGEUM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                    else:
-                        pass
+                if result['거래대금순매수직전대비'] != '-':
+                    FUT_JONGGEUM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                else:
+                    pass
 
             elif result['업종코드'] == FUTURES and result['투자자코드'] == GIGEUM or result['업종코드'] == CME and result['투자자코드'] == GIGEUM:
 
-                    FUT_GIGEUM_거래대금순매수 = int(result['거래대금순매수'])
+                FUT_GIGEUM_거래대금순매수 = int(result['거래대금순매수'])
 
-                    if result['거래대금순매수직전대비'] != '-':
-                        FUT_GIGEUM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                    else:
-                        pass
+                if result['거래대금순매수직전대비'] != '-':
+                    FUT_GIGEUM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                else:
+                    pass
 
             elif result['업종코드'] == FUTURES and result['투자자코드'] == GITA or result['업종코드'] == CME and result['투자자코드'] == GITA:
 
-                    FUT_GITA_거래대금순매수 = int(result['거래대금순매수'])
+                FUT_GITA_거래대금순매수 = int(result['거래대금순매수'])
 
-                    if result['거래대금순매수직전대비'] != '-':
-                        FUT_GITA_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                    else:
-                        pass
+                if result['거래대금순매수직전대비'] != '-':
+                    FUT_GITA_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                else:
+                    pass
 
             elif result['업종코드'] == KOSPI and result['투자자코드'] == FOREIGNER:
 
-                    KOSPI_FOREIGNER_거래대금순매수 = int(result['거래대금순매수'])
+                KOSPI_FOREIGNER_거래대금순매수 = int(result['거래대금순매수'])
 
-                    if result['거래대금순매수직전대비'] != '-':
-                        KOSPI_FOREIGNER_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                if result['거래대금순매수직전대비'] != '-':
+                    KOSPI_FOREIGNER_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                else:
+                    pass
+
+                KOSPI_FOREIGNER_직전대비.extend([KOSPI_FOREIGNER_거래대금순매수_직전대비])
+                temp = list(KOSPI_FOREIGNER_직전대비)
+
+                순매수 = format(KOSPI_FOREIGNER_거래대금순매수, ',')
+
+                if min(temp) > 0:
+
+                    item_txt = "{0}\n({1})⬈".format(순매수, result['거래대금순매수직전대비'])
+
+                    if item_txt != self.tableWidget_supply.item(0, 2).text():
+                        item = QTableWidgetItem(item_txt)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(적색))
+                        item.setForeground(QBrush(흰색))
+                        self.tableWidget_supply.setItem(0, 2, item)
                     else:
                         pass
 
-                    KOSPI_FOREIGNER_직전대비.extend([KOSPI_FOREIGNER_거래대금순매수_직전대비])
-                    temp = list(KOSPI_FOREIGNER_직전대비)
+                elif max(temp) < 0:
 
-                    순매수 = format(KOSPI_FOREIGNER_거래대금순매수, ',')
+                    item_txt = "{0}\n({1})⬊".format(순매수, result['거래대금순매수직전대비'])
 
-                    if min(temp) > 0:
-
-                        item_txt = "{0}\n({1})⬈".format(순매수, result['거래대금순매수직전대비'])
-
-                        if item_txt != self.tableWidget_supply.item(0, 2).text():
-                            item = QTableWidgetItem(item_txt)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            item.setBackground(QBrush(적색))
-                            item.setForeground(QBrush(흰색))
-                            self.tableWidget_supply.setItem(0, 2, item)
-                        else:
-                            pass
-
-                    elif max(temp) < 0:
-
-                        item_txt = "{0}\n({1})⬊".format(순매수, result['거래대금순매수직전대비'])
-
-                        if item_txt != self.tableWidget_supply.item(0, 2).text():
-                            item = QTableWidgetItem(item_txt)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            item.setBackground(QBrush(청색))
-                            item.setForeground(QBrush(흰색))
-                            self.tableWidget_supply.setItem(0, 2, item)
-                        else:
-                            pass
-
+                    if item_txt != self.tableWidget_supply.item(0, 2).text():
+                        item = QTableWidgetItem(item_txt)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(청색))
+                        item.setForeground(QBrush(흰색))
+                        self.tableWidget_supply.setItem(0, 2, item)
                     else:
-                        item_txt = "{0}\n({1})".format(순매수, result['거래대금순매수직전대비'])
+                        pass
 
-                        if item_txt != self.tableWidget_supply.item(0, 2).text():
-                            item = QTableWidgetItem(item_txt)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            item.setBackground(QBrush(흰색))
-                            item.setForeground(QBrush(검정색))
-                            self.tableWidget_supply.setItem(0, 2, item)
-                        else:
-                            pass
+                else:
+                    item_txt = "{0}\n({1})".format(순매수, result['거래대금순매수직전대비'])
+
+                    if item_txt != self.tableWidget_supply.item(0, 2).text():
+                        item = QTableWidgetItem(item_txt)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
+                        self.tableWidget_supply.setItem(0, 2, item)
+                    else:
+                        pass
 
             elif result['업종코드'] == KOSPI and result['투자자코드'] == RETAIL:
 
-                    KOSPI_RETAIL_거래대금순매수 = int(result['거래대금순매수'])
+                KOSPI_RETAIL_거래대금순매수 = int(result['거래대금순매수'])
 
-                    if result['거래대금순매수직전대비'] != '-':
-                        KOSPI_RETAIL_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                    else:
-                        pass
+                if result['거래대금순매수직전대비'] != '-':
+                    KOSPI_RETAIL_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                else:
+                    pass
 
             elif result['업종코드'] == KOSPI and result['투자자코드'] == INSTITUTIONAL:
 
-                    KOSPI_INSTITUTIONAL_거래대금순매수 = int(result['거래대금순매수'])
+                KOSPI_INSTITUTIONAL_거래대금순매수 = int(result['거래대금순매수'])
 
-                    if result['거래대금순매수직전대비'] != '-':
-                        KOSPI_INSTITUTIONAL_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                    else:
-                        pass
+                if result['거래대금순매수직전대비'] != '-':
+                    KOSPI_INSTITUTIONAL_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                else:
+                    pass
 
             elif result['업종코드'] == KOSPI and result['투자자코드'] == STOCK:
 
-                    KOSPI_STOCK_거래대금순매수 = int(result['거래대금순매수'])
+                KOSPI_STOCK_거래대금순매수 = int(result['거래대금순매수'])
 
-                    if result['거래대금순매수직전대비'] != '-':
-                        KOSPI_STOCK_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                    else:
-                        pass
+                if result['거래대금순매수직전대비'] != '-':
+                    KOSPI_STOCK_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                else:
+                    pass
 
             elif result['업종코드'] == KOSPI and result['투자자코드'] == BOHEOM:
 
-                    KOSPI_BOHEOM_거래대금순매수 = int(result['거래대금순매수'])
+                KOSPI_BOHEOM_거래대금순매수 = int(result['거래대금순매수'])
 
-                    if result['거래대금순매수직전대비'] != '-':
-                        KOSPI_BOHEOM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                    else:
-                        pass
+                if result['거래대금순매수직전대비'] != '-':
+                    KOSPI_BOHEOM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                else:
+                    pass
 
             elif result['업종코드'] == KOSPI and result['투자자코드'] == TOOSIN:
 
-                    KOSPI_TOOSIN_거래대금순매수 = int(result['거래대금순매수'])
+                KOSPI_TOOSIN_거래대금순매수 = int(result['거래대금순매수'])
 
-                    if result['거래대금순매수직전대비'] != '-':
-                        KOSPI_TOOSIN_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                    else:
-                        pass
+                if result['거래대금순매수직전대비'] != '-':
+                    KOSPI_TOOSIN_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                else:
+                    pass
 
             elif result['업종코드'] == KOSPI and result['투자자코드'] == BANK:
 
-                    KOSPI_BANK_거래대금순매수 = int(result['거래대금순매수'])
+                KOSPI_BANK_거래대금순매수 = int(result['거래대금순매수'])
 
-                    if result['거래대금순매수직전대비'] != '-':
-                        KOSPI_BANK_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                    else:
-                        pass
+                if result['거래대금순매수직전대비'] != '-':
+                    KOSPI_BANK_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                else:
+                    pass
 
             elif result['업종코드'] == KOSPI and result['투자자코드'] == JONGGEUM:
 
-                    KOSPI_JONGGEUM_거래대금순매수 = int(result['거래대금순매수'])
+                KOSPI_JONGGEUM_거래대금순매수 = int(result['거래대금순매수'])
 
-                    if result['거래대금순매수직전대비'] != '-':
-                        KOSPI_JONGGEUM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                    else:
-                        pass
+                if result['거래대금순매수직전대비'] != '-':
+                    KOSPI_JONGGEUM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                else:
+                    pass
 
             elif result['업종코드'] == KOSPI and result['투자자코드'] == GIGEUM:
 
-                    KOSPI_GIGEUM_거래대금순매수 = int(result['거래대금순매수'])
+                KOSPI_GIGEUM_거래대금순매수 = int(result['거래대금순매수'])
 
-                    if result['거래대금순매수직전대비'] != '-':
-                        KOSPI_GIGEUM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                    else:
-                        pass
+                if result['거래대금순매수직전대비'] != '-':
+                    KOSPI_GIGEUM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                else:
+                    pass
 
             elif result['업종코드'] == KOSPI and result['투자자코드'] == GITA:
 
-                    KOSPI_GITA_거래대금순매수 = int(result['거래대금순매수'])
+                KOSPI_GITA_거래대금순매수 = int(result['거래대금순매수'])
 
-                    if result['거래대금순매수직전대비'] != '-':
-                        KOSPI_GITA_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                    else:
-                        pass
+                if result['거래대금순매수직전대비'] != '-':
+                    KOSPI_GITA_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
+                else:
+                    pass
             else:
                 pass
 
@@ -23395,33 +23395,33 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif TARGET_MONTH == 'CM' and result['단축코드'] == CMSHCODE:
 
-                    fut_nm_volume_power = result['매수누적체결량'] - result['매도누적체결량']
+                fut_nm_volume_power = result['매수누적체결량'] - result['매도누적체결량']
 
-                    temp = format(fut_nm_volume_power, ',')
+                temp = format(fut_nm_volume_power, ',')
 
-                    item = QTableWidgetItem(temp)
-                    item.setTextAlignment(Qt.AlignCenter)
+                item = QTableWidgetItem(temp)
+                item.setTextAlignment(Qt.AlignCenter)
 
-                    if fut_nm_volume_power > 0:
+                if fut_nm_volume_power > 0:
 
-                        item.setBackground(QBrush(적색))
-                        item.setForeground(QBrush(흰색))
-                    elif fut_nm_volume_power < 0:
+                    item.setBackground(QBrush(적색))
+                    item.setForeground(QBrush(흰색))
+                elif fut_nm_volume_power < 0:
 
-                        item.setBackground(QBrush(청색))
-                        item.setForeground(QBrush(흰색))
-                    else:
-                        item.setBackground(QBrush(흰색))
-                        item.setForeground(QBrush(검정색))
+                    item.setBackground(QBrush(청색))
+                    item.setForeground(QBrush(흰색))
+                else:
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
 
-                    self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
+                self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
 
-                    if fut_cm_volume_power > 0 and fut_nm_volume_power > 0:
-                        fut_volume_power_energy_direction = 'call'
-                    elif fut_cm_volume_power < 0 and fut_nm_volume_power < 0:
-                        fut_volume_power_energy_direction = 'put'
-                    else:
-                        fut_volume_power_energy_direction = ''        
+                if fut_cm_volume_power > 0 and fut_nm_volume_power > 0:
+                    fut_volume_power_energy_direction = 'call'
+                elif fut_cm_volume_power < 0 and fut_nm_volume_power < 0:
+                    fut_volume_power_energy_direction = 'put'
+                else:
+                    fut_volume_power_energy_direction = ''        
             else:
                 pass
 
@@ -23581,185 +23581,185 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if result['단축코드'] == GMSHCODE:
 
-                    # 선물호가 갱신
-                    item = QTableWidgetItem("{0}".format(format(result['매수호가총건수'], ',')))
-                    item.setTextAlignment(Qt.AlignCenter)
+                # 선물호가 갱신
+                item = QTableWidgetItem("{0}".format(format(result['매수호가총건수'], ',')))
+                item.setTextAlignment(Qt.AlignCenter)
 
-                    if NightTime:
-                        self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
-                    else:
-                        self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
+                if NightTime:
+                    self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
+                else:
+                    self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
 
-                    self.tableWidget_fut.resizeColumnToContents(Futures_column.매수건수.value)
+                self.tableWidget_fut.resizeColumnToContents(Futures_column.매수건수.value)
 
-                    item = QTableWidgetItem("{0}".format(format(result['매도호가총건수'], ',')))
-                    item.setTextAlignment(Qt.AlignCenter)
+                item = QTableWidgetItem("{0}".format(format(result['매도호가총건수'], ',')))
+                item.setTextAlignment(Qt.AlignCenter)
 
-                    if NightTime:
-                        self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
-                    else:
-                        self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
+                if NightTime:
+                    self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
+                else:
+                    self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
 
-                    self.tableWidget_fut.resizeColumnToContents(Futures_column.매도건수.value)
+                self.tableWidget_fut.resizeColumnToContents(Futures_column.매도건수.value)
 
-                    item = QTableWidgetItem("{0}".format(format(result['매수호가총수량'], ',')))
-                    item.setTextAlignment(Qt.AlignCenter)
+                item = QTableWidgetItem("{0}".format(format(result['매수호가총수량'], ',')))
+                item.setTextAlignment(Qt.AlignCenter)
 
-                    if NightTime:
-                        self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)
-                    else:
-                        self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
+                if NightTime:
+                    self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)
+                else:
+                    self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
 
-                    self.tableWidget_fut.resizeColumnToContents(Futures_column.매수잔량.value)
+                self.tableWidget_fut.resizeColumnToContents(Futures_column.매수잔량.value)
 
-                    item = QTableWidgetItem("{0}".format(format(result['매도호가총수량'], ',')))
-                    item.setTextAlignment(Qt.AlignCenter)
+                item = QTableWidgetItem("{0}".format(format(result['매도호가총수량'], ',')))
+                item.setTextAlignment(Qt.AlignCenter)
 
-                    if NightTime:
-                        self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
-                    else:
-                        self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
+                if NightTime:
+                    self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
+                else:
+                    self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
 
-                    self.tableWidget_fut.resizeColumnToContents(Futures_column.매도잔량.value)
+                self.tableWidget_fut.resizeColumnToContents(Futures_column.매도잔량.value)
 
-                    if result['매도호가총건수'] > 0:
-                        fut_quote_count_ratio = result['매수호가총건수'] / result['매도호가총건수']
-                    else:
-                        pass
+                if result['매도호가총건수'] > 0:
+                    fut_quote_count_ratio = result['매수호가총건수'] / result['매도호가총건수']
+                else:
+                    pass
 
-                    선물_호가순매수 = result['매수호가총수량'] - result['매도호가총수량']
+                선물_호가순매수 = result['매수호가총수량'] - result['매도호가총수량']
 
-                    df_futures_graph.at[ovc_x_idx, 'c_ms_quote'] = result['매수호가총수량']
-                    df_futures_graph.at[ovc_x_idx, 'c_md_quote'] = result['매도호가총수량']
+                df_futures_graph.at[ovc_x_idx, 'c_ms_quote'] = result['매수호가총수량']
+                df_futures_graph.at[ovc_x_idx, 'c_md_quote'] = result['매도호가총수량']
 
-                    if result['매수호가총수량'] > 0 and result['매도호가총수량'] > 0:
+                if result['매수호가총수량'] > 0 and result['매도호가총수량'] > 0:
 
-                        fut_quote_remainder_ratio = result['매수호가총수량'] / result['매도호가총수량']
-                        df_futures_graph.at[ovc_x_idx, 'c_quote_remainder_ratio'] = fut_quote_remainder_ratio
+                    fut_quote_remainder_ratio = result['매수호가총수량'] / result['매도호가총수량']
+                    df_futures_graph.at[ovc_x_idx, 'c_quote_remainder_ratio'] = fut_quote_remainder_ratio
 
-                        cm_fut_quote_min = df_futures_graph['c_quote_remainder_ratio'].min()
-                        cm_fut_quote_mean = df_futures_graph['c_quote_remainder_ratio'].mean()
-                        cm_fut_quote_max = df_futures_graph['c_quote_remainder_ratio'].max()                         
-                    else:
-                        pass
+                    cm_fut_quote_min = df_futures_graph['c_quote_remainder_ratio'].min()
+                    cm_fut_quote_mean = df_futures_graph['c_quote_remainder_ratio'].mean()
+                    cm_fut_quote_max = df_futures_graph['c_quote_remainder_ratio'].max()                         
+                else:
+                    pass
 
             # 차월물 처리
             elif result['단축코드'] == CMSHCODE:
 
-                    # 선물호가 갱신
-                    item = QTableWidgetItem("{0}".format(format(result['매수호가총건수'], ',')))
-                    item.setTextAlignment(Qt.AlignCenter)
+                # 선물호가 갱신
+                item = QTableWidgetItem("{0}".format(format(result['매수호가총건수'], ',')))
+                item.setTextAlignment(Qt.AlignCenter)
 
-                    if NightTime:
-                        self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
-                    else:
-                        self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
+                if NightTime:
+                    self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
+                else:
+                    self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
 
-                    item = QTableWidgetItem("{0}".format(format(result['매도호가총건수'], ',')))
-                    item.setTextAlignment(Qt.AlignCenter)
+                item = QTableWidgetItem("{0}".format(format(result['매도호가총건수'], ',')))
+                item.setTextAlignment(Qt.AlignCenter)
 
-                    if NightTime:
-                        self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
-                    else:
-                        self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
+                if NightTime:
+                    self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
+                else:
+                    self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
 
-                    item = QTableWidgetItem("{0}".format(format(result['매수호가총수량'], ',')))
-                    item.setTextAlignment(Qt.AlignCenter)
+                item = QTableWidgetItem("{0}".format(format(result['매수호가총수량'], ',')))
+                item.setTextAlignment(Qt.AlignCenter)
 
-                    if NightTime:
-                        self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)
-                    else:
-                        self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
+                if NightTime:
+                    self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)
+                else:
+                    self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
 
-                    item = QTableWidgetItem("{0}".format(format(result['매도호가총수량'], ',')))
-                    item.setTextAlignment(Qt.AlignCenter)
+                item = QTableWidgetItem("{0}".format(format(result['매도호가총수량'], ',')))
+                item.setTextAlignment(Qt.AlignCenter)
 
-                    if NightTime:
-                        self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
-                    else:
-                        self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
+                if NightTime:
+                    self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
+                else:
+                    self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
 
-                    if result['매도호가총건수'] > 0:
-                        fut_cms_quote_count_ratio = result['매수호가총건수'] / result['매도호가총건수']
-                    else:
-                        pass
-                    
-                    df_futures_graph.at[ovc_x_idx, 'n_ms_quote'] = result['매수호가총수량']
-                    df_futures_graph.at[ovc_x_idx, 'n_md_quote'] = result['매도호가총수량']
+                if result['매도호가총건수'] > 0:
+                    fut_cms_quote_count_ratio = result['매수호가총건수'] / result['매도호가총건수']
+                else:
+                    pass
+                
+                df_futures_graph.at[ovc_x_idx, 'n_ms_quote'] = result['매수호가총수량']
+                df_futures_graph.at[ovc_x_idx, 'n_md_quote'] = result['매도호가총수량']
 
-                    if result['매수호가총수량'] > 0 and result['매도호가총수량'] > 0:
+                if result['매수호가총수량'] > 0 and result['매도호가총수량'] > 0:
 
-                        fut_cms_quote_remainder_ratio = result['매수호가총수량'] / result['매도호가총수량']
-                        df_futures_graph.at[ovc_x_idx, 'n_quote_remainder_ratio'] = fut_cms_quote_remainder_ratio
+                    fut_cms_quote_remainder_ratio = result['매수호가총수량'] / result['매도호가총수량']
+                    df_futures_graph.at[ovc_x_idx, 'n_quote_remainder_ratio'] = fut_cms_quote_remainder_ratio
 
-                        nm_fut_quote_min = df_futures_graph['n_quote_remainder_ratio'].min()
-                        nm_fut_quote_mean = df_futures_graph['n_quote_remainder_ratio'].mean()
-                        nm_fut_quote_max = df_futures_graph['n_quote_remainder_ratio'].max()
+                    nm_fut_quote_min = df_futures_graph['n_quote_remainder_ratio'].min()
+                    nm_fut_quote_mean = df_futures_graph['n_quote_remainder_ratio'].mean()
+                    nm_fut_quote_max = df_futures_graph['n_quote_remainder_ratio'].max()
 
-                        item_txt = '{0:.2f}'.format(nm_fut_quote_min)
+                    item_txt = '{0:.2f}'.format(nm_fut_quote_min)
 
-                        if item_txt != self.tableWidget_fut.horizontalHeaderItem(7).text():                        
-                            item = QTableWidgetItem(item_txt)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            self.tableWidget_fut.setHorizontalHeaderItem(7, item)
-                        else:
-                            pass
+                    if item_txt != self.tableWidget_fut.horizontalHeaderItem(7).text():                        
+                        item = QTableWidgetItem(item_txt)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_fut.setHorizontalHeaderItem(7, item)
                     else:
                         pass
+                else:
+                    pass
             
             elif result['단축코드'] == CCMSHCODE:
 
-                    # 선물호가 갱신                    
-                    item = QTableWidgetItem("C{0}".format(format(result['매수호가총건수'], ',')))
-                    item.setTextAlignment(Qt.AlignCenter)
+                # 선물호가 갱신                    
+                item = QTableWidgetItem("C{0}".format(format(result['매수호가총건수'], ',')))
+                item.setTextAlignment(Qt.AlignCenter)
 
-                    if NightTime:
-                        self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
-                    else:
-                        self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
+                if NightTime:
+                    self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
+                else:
+                    self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
 
-                    item = QTableWidgetItem("C{0}".format(format(result['매도호가총건수'], ',')))
-                    item.setTextAlignment(Qt.AlignCenter)
+                item = QTableWidgetItem("C{0}".format(format(result['매도호가총건수'], ',')))
+                item.setTextAlignment(Qt.AlignCenter)
 
-                    if NightTime:
-                        self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
-                    else:
-                        self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
+                if NightTime:
+                    self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
+                else:
+                    self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
 
-                    item = QTableWidgetItem("C{0}".format(format(result['매수호가총수량'], ',')))
-                    item.setTextAlignment(Qt.AlignCenter)
+                item = QTableWidgetItem("C{0}".format(format(result['매수호가총수량'], ',')))
+                item.setTextAlignment(Qt.AlignCenter)
 
-                    if NightTime:
-                        self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)
-                    else:
-                        self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
+                if NightTime:
+                    self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)
+                else:
+                    self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
 
-                    item = QTableWidgetItem("C{0}".format(format(result['매도호가총수량'], ',')))
-                    item.setTextAlignment(Qt.AlignCenter)
+                item = QTableWidgetItem("C{0}".format(format(result['매도호가총수량'], ',')))
+                item.setTextAlignment(Qt.AlignCenter)
 
-                    if NightTime:
-                        self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
-                    else:
-                        self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
-                    
-                    if result['매도호가총건수'] > 0:
-                        fut_ccms_quote_count_ratio = result['매수호가총건수'] / result['매도호가총건수']
-                    else:
-                        pass
+                if NightTime:
+                    self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
+                else:
+                    self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
+                
+                if result['매도호가총건수'] > 0:
+                    fut_ccms_quote_count_ratio = result['매수호가총건수'] / result['매도호가총건수']
+                else:
+                    pass
 
-                    if result['매수호가총수량'] > 0 and result['매도호가총수량'] > 0:
-                        fut_ccms_quote_remainder_ratio = result['매수호가총수량'] / result['매도호가총수량']
-                    else:
-                        pass
+                if result['매수호가총수량'] > 0 and result['매도호가총수량'] > 0:
+                    fut_ccms_quote_remainder_ratio = result['매수호가총수량'] / result['매도호가총수량']
+                else:
+                    pass
             else:
                 pass
 
             # 에너지방향
             if DayTime and CM_FUT_QUOTE and NM_FUT_QUOTE:
-                    if fut_cms_quote_remainder_ratio > fut_quote_remainder_ratio:
-                        fut_quote_energy_direction = 'call'
-                    else:
-                        fut_quote_energy_direction = 'put'
+                if fut_cms_quote_remainder_ratio > fut_quote_remainder_ratio:
+                    fut_quote_energy_direction = 'call'
+                else:
+                    fut_quote_energy_direction = 'put'
             else:
                 pass
             
