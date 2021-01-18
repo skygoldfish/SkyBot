@@ -38002,14 +38002,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.dialog['RealTimeItem'] = None
         self.dialog['Version'] = None
 
-        self.url = ''
-        self.port = 200001
-        self.svrtype = 0
-        self.id = ''
-        self.pwd = ''
-        self.cert = ''
-        self.계좌번호 = ''
-        self.거래비밀번호 = ''
+        self.url = None
+        self.id = None
+        self.pwd = None
+        self.cert = None
+        self.계좌번호 = None
+        self.거래비밀번호 = None
         
         self.시작시각 = datetime.datetime.now()
 
@@ -38466,12 +38464,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-    def LoginThread(self, url, port, svrtype, id, pwd, cert):
+    def LoginThread(self, url, id, pwd, cert):
         
         if self.main_connection is None:
             self.main_connection = XASession(parent=self)
 
-        self.main_connection.login(url, port, svrtype, id, pwd, cert)
+        self.url = url
+        self.id = id
+        self.pwd = pwd
+        self.cert = cert
+
+        self.main_connection.login(url=self.url, id=self.id, pwd=self.pwd, cert=self.cert)
 
     def OnLogin(self, code, msg):        
 
@@ -38656,7 +38659,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.textBrowser.append(txt)
 
-            self.LoginThread(self.url, self.port, self.svrtype, self.id, self.pwd, self.cert)
+            self.LoginThread(self.url, self.id, self.pwd, self.cert)
         else:
             if REAL_SERVER:
                 txt = '멀티프로세스 실서버에 접속합니다.\r'
@@ -38666,15 +38669,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.textBrowser.append(txt)
 
             if MP_NUMBER == 1:
-                Futprocess.Login(self.url, self.port, self.svrtype, self.id, self.pwd, self.cert)
+                Futprocess.Login(self.url, self.id, self.pwd, self.cert)
             elif MP_NUMBER == 3:
-                Futprocess.Login(self.url, self.port, self.svrtype, self.id, self.pwd, self.cert)
+                Futprocess.Login(self.url, self.id, self.pwd, self.cert)
                 self.main_event_loop.exec_() 
 
-                Callprocess.Login(self.url, self.port, self.svrtype, self.id, self.pwd, self.cert)
+                Callprocess.Login(self.url, self.id, self.pwd, self.cert)
                 self.call_event_loop.exec_() 
 
-                Putprocess.Login(self.url, self.port, self.svrtype, self.id, self.pwd, self.cert)
+                Putprocess.Login(self.url, self.id, self.pwd, self.cert)
                 self.put_event_loop.exec_() 
             else:
                 pass  

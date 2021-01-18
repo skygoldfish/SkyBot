@@ -306,12 +306,17 @@ class PutWorker(mp.Process):
         else:
             self.dataQ.put(result, False)
 
-    def Login(self, url, port, svrtype, id, pwd, cert):
+    def Login(self, url, id, pwd, cert):
 
         if self.connection is None:
             self.connection = XASession(parent=self)
         
-        self.connection.login(url, port, svrtype, id, pwd, cert)
+        self.url = url
+        self.id = id
+        self.pwd = pwd
+        self.cert = cert
+
+        self.connection.login(url=self.url, id=self.id, pwd=self.pwd, cert=self.cert)
 
     def RequestTRData(self, type, code='0'):
 
