@@ -4954,6 +4954,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print(txt)
 
                 if (t8416_loop_finish_time + 10 * 60) - system_time < 1:
+                    self.parent.speaker.setText('나머지 데이타를 수신합니다.')
                     self.t8416_additive_request()
                 else:
                     pass
