@@ -18827,7 +18827,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.parent.textBrowser.append(txt)
                         print(txt)
 
-                        speak_txt = '나머지 데이타를 {0}시 {1}분 {2}초에 재요청할 예정입니다.'.format(schedule_hour, schedule_min, schedule_sec)
+                        speak_txt = '나머지 데이타를 10분후에 재요청할 예정입니다.'
                         self.parent.speaker.setText(speak_txt)
                     else:
                         pass
