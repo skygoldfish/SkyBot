@@ -24023,84 +24023,84 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if szTrCode == 'OC0' or szTrCode == 'EC0':
 
-                if not flag_option_start:
-                    flag_option_start = True
-                else:
-                    pass
+            if not flag_option_start:
+                flag_option_start = True
+            else:
+                pass
 
-                if pre_start:
-                    pre_start = False
-                else:
-                    pass
+            if pre_start:
+                pre_start = False
+            else:
+                pass
 
-                if not market_service:
-                    market_service = True
-                else:
-                    pass
+            if not market_service:
+                market_service = True
+            else:
+                pass
 
-                #print('옵션 콜 현재가 =', result['현재가'])
+            #print('옵션 콜 현재가 =', result['현재가'])
 
-                if result['단축코드'][0:3] == '201':
+            if result['단축코드'][0:3] == '201':
 
-                    call_result = copy.deepcopy(result)
+                call_result = copy.deepcopy(result)
 
-                    if FLAG_GUEST_CONTROL:                                                
-
-                        if not flag_checkBox_HS:
-                            self.call_update(result)
-                            self.call_db_update()
-                            self.call_volume_power_update()
-                            self.call_oi_update()
-                        else:
-                            pass
-                    else:
-                        pass                 
-
-                elif result['단축코드'][0:3] == '301':
-
-                    put_result = copy.deepcopy(result)                                        
+                if FLAG_GUEST_CONTROL:                                                
 
                     if not flag_checkBox_HS:
-                        self.put_update(result)
-                        self.put_db_update()
-                        self.put_volume_power_update()
-                        self.put_oi_update()
+                        self.call_update(result)
+                        self.call_db_update()
+                        self.call_volume_power_update()
+                        self.call_oi_update()
                     else:
-                        pass               
+                        pass
                 else:
-                    pass
+                    pass                 
+
+            elif result['단축코드'][0:3] == '301':
+
+                put_result = copy.deepcopy(result)                                        
+
+                if not flag_checkBox_HS:
+                    self.put_update(result)
+                    self.put_db_update()
+                    self.put_volume_power_update()
+                    self.put_oi_update()
+                else:
+                    pass               
+            else:
+                pass
 
         elif szTrCode == 'OH0' or szTrCode == 'EH0':
 
-                if not receive_quote:
-                    receive_quote = True
-                else:
-                    pass
+            if not receive_quote:
+                receive_quote = True
+            else:
+                pass
 
-                if not market_service:
-                    market_service = True
-                else:
-                    pass
+            if not market_service:
+                market_service = True
+            else:
+                pass
 
-                if result['단축코드'][0:3] == '201':
+            if result['단축코드'][0:3] == '201':
 
-                    index = call_행사가.index(result['단축코드'][5:8])
+                index = call_행사가.index(result['단축코드'][5:8])
 
-                    df_call_quote.at[index, '매수건수'] = result['매수호가총건수']
-                    df_call_quote.at[index, '매도건수'] = result['매도호가총건수']
-                    df_call_quote.at[index, '매수잔량'] = result['매수호가총수량']
-                    df_call_quote.at[index, '매도잔량'] = result['매도호가총수량']
+                df_call_quote.at[index, '매수건수'] = result['매수호가총건수']
+                df_call_quote.at[index, '매도건수'] = result['매도호가총건수']
+                df_call_quote.at[index, '매수잔량'] = result['매수호가총수량']
+                df_call_quote.at[index, '매도잔량'] = result['매도호가총수량']
 
-                elif result['단축코드'][0:3] == '301':
+            elif result['단축코드'][0:3] == '301':
 
-                    index = put_행사가.index(result['단축코드'][5:8])
+                index = put_행사가.index(result['단축코드'][5:8])
 
-                    df_put_quote.at[index, '매수건수'] = result['매수호가총건수']
-                    df_put_quote.at[index, '매도건수'] = result['매도호가총건수']
-                    df_put_quote.at[index, '매수잔량'] = result['매수호가총수량']
-                    df_put_quote.at[index, '매도잔량'] = result['매도호가총수량']
-                else:
-                    pass
+                df_put_quote.at[index, '매수건수'] = result['매수호가총건수']
+                df_put_quote.at[index, '매도건수'] = result['매도호가총건수']
+                df_put_quote.at[index, '매수잔량'] = result['매수호가총수량']
+                df_put_quote.at[index, '매도잔량'] = result['매도호가총수량']
+            else:
+                pass
         else:
             pass
 
@@ -24120,84 +24120,84 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if szTrCode == 'OC0' or szTrCode == 'EC0':
 
-                if not flag_option_start:
-                    flag_option_start = True
-                else:
-                    pass
+            if not flag_option_start:
+                flag_option_start = True
+            else:
+                pass
 
-                if pre_start:
-                    pre_start = False
-                else:
-                    pass
+            if pre_start:
+                pre_start = False
+            else:
+                pass
 
-                if not market_service:
-                    market_service = True
-                else:
-                    pass
+            if not market_service:
+                market_service = True
+            else:
+                pass
 
-                #print('옵션 풋 현재가 =', result['현재가'])
+            #print('옵션 풋 현재가 =', result['현재가'])
 
-                if result['단축코드'][0:3] == '201':
+            if result['단축코드'][0:3] == '201':
 
-                    call_result = copy.deepcopy(result)
+                call_result = copy.deepcopy(result)
 
-                    if FLAG_GUEST_CONTROL:                                                
-
-                        if not flag_checkBox_HS:
-                            self.call_update(result)
-                            self.call_db_update()
-                            self.call_volume_power_update()
-                            self.call_oi_update()
-                        else:
-                            pass
-                    else:
-                        pass                 
-
-                elif result['단축코드'][0:3] == '301':
-
-                    put_result = copy.deepcopy(result)                                        
+                if FLAG_GUEST_CONTROL:                                                
 
                     if not flag_checkBox_HS:
-                        self.put_update(result)
-                        self.put_db_update()
-                        self.put_volume_power_update()
-                        self.put_oi_update()
+                        self.call_update(result)
+                        self.call_db_update()
+                        self.call_volume_power_update()
+                        self.call_oi_update()
                     else:
-                        pass               
+                        pass
                 else:
-                    pass
+                    pass                 
+
+            elif result['단축코드'][0:3] == '301':
+
+                put_result = copy.deepcopy(result)                                        
+
+                if not flag_checkBox_HS:
+                    self.put_update(result)
+                    self.put_db_update()
+                    self.put_volume_power_update()
+                    self.put_oi_update()
+                else:
+                    pass               
+            else:
+                pass
 
         elif szTrCode == 'OH0' or szTrCode == 'EH0':
 
-                if not receive_quote:
-                    receive_quote = True
-                else:
-                    pass
+            if not receive_quote:
+                receive_quote = True
+            else:
+                pass
 
-                if not market_service:
-                    market_service = True
-                else:
-                    pass
+            if not market_service:
+                market_service = True
+            else:
+                pass
 
-                if result['단축코드'][0:3] == '201':
+            if result['단축코드'][0:3] == '201':
 
-                    index = call_행사가.index(result['단축코드'][5:8])
+                index = call_행사가.index(result['단축코드'][5:8])
 
-                    df_call_quote.at[index, '매수건수'] = result['매수호가총건수']
-                    df_call_quote.at[index, '매도건수'] = result['매도호가총건수']
-                    df_call_quote.at[index, '매수잔량'] = result['매수호가총수량']
-                    df_call_quote.at[index, '매도잔량'] = result['매도호가총수량']
+                df_call_quote.at[index, '매수건수'] = result['매수호가총건수']
+                df_call_quote.at[index, '매도건수'] = result['매도호가총건수']
+                df_call_quote.at[index, '매수잔량'] = result['매수호가총수량']
+                df_call_quote.at[index, '매도잔량'] = result['매도호가총수량']
 
-                elif result['단축코드'][0:3] == '301':
+            elif result['단축코드'][0:3] == '301':
 
-                    index = put_행사가.index(result['단축코드'][5:8])
+                index = put_행사가.index(result['단축코드'][5:8])
 
-                    df_put_quote.at[index, '매수건수'] = result['매수호가총건수']
-                    df_put_quote.at[index, '매도건수'] = result['매도호가총건수']
-                    df_put_quote.at[index, '매수잔량'] = result['매수호가총수량']
-                    df_put_quote.at[index, '매도잔량'] = result['매도호가총수량']
-                else:
-                    pass
+                df_put_quote.at[index, '매수건수'] = result['매수호가총건수']
+                df_put_quote.at[index, '매도건수'] = result['매도호가총건수']
+                df_put_quote.at[index, '매수잔량'] = result['매수호가총수량']
+                df_put_quote.at[index, '매도잔량'] = result['매도호가총수량']
+            else:
+                pass
         else:
             pass
 
