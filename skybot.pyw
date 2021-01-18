@@ -4995,18 +4995,31 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass                      
                         
                         if self.alternate_flag:
-                            # 콜 테이블 데이타 갱신                            
-                            self.call_volume_power_update()
-                            self.call_db_update()
+                            # 콜 테이블 데이타 갱신 
+                            if call_result:
+                                self.call_volume_power_update()
+                                self.call_db_update()
+                            else:
+                                pass
                         else:
-                            # 풋 테이블 데이타 갱신                            
-                            self.put_volume_power_update()
-                            self.put_db_update()
+                            # 풋 테이블 데이타 갱신
+                            if put_result:                           
+                                self.put_volume_power_update()
+                                self.put_db_update()
+                            else:
+                                pass
 
                         # 수정미결 표시
                         if DayTime:
-                            self.call_oi_update()
-                            self.put_oi_update()
+                            if call_result:
+                                self.call_oi_update()
+                            else:
+                                pass
+
+                            if put_result:
+                                self.put_oi_update()
+                            else:
+                                pass
                         else:
                             pass                        
                     else:
@@ -11619,7 +11632,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_fut.setItem(0, Futures_column.거래량.value, item)
         else:
             pass
-
         
         # 미결 갱신
         df_fut.at[1, '미결'] = result['미결제약정수량'] 
