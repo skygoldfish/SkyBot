@@ -378,6 +378,8 @@ BIGCHART_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Big Chart Update In
 SCORE_BOARD_UPDATE_INTERVAL = parser.getint('Initial Value', 'Score Board Update Interval(sec)')
 SECOND_DISPLAY_X_POSITION = parser.getint('Initial Value', 'X Position of the Second Display')
 SECOND_DISPLAY_Y_POSITION = parser.getint('Initial Value', 'Y Position of the Second Display')
+TIME_INDEX1 = parser.getint('Initial Value', 'Time Gap Index1')
+TIME_INDEX2 = parser.getint('Initial Value', 'Time Gap Index2')
 
 # [9]. << Code of the Foreign Futures (H/M/U/Z) >>
 SP500 = parser.get('Code of the Foreign Futures', 'S&P 500')
@@ -2582,10 +2584,10 @@ class RealTime_FutThread_DataWorker(QThread):
                         self.trigger_list.emit(data)
                     elif type(data) == dict:
 
-                        if abs(time_gap) < 4:
+                        if abs(time_gap) <= TIME_INDEX1:
                             self.trigger_dict.emit(data)
                         else:
-                            if abs(time_gap) > 9:
+                            if abs(time_gap) >= TIME_INDEX2:
                                 if data['szTrCode'] == 'IJ' or data['szTrCode'] == 'FC0' or data['szTrCode'] == 'FH0':
                                     self.trigger_dict.emit(data)
                                 else:
@@ -2660,7 +2662,14 @@ class RealTime_CallThread_DataWorker(QThread):
                 if type(data) == list:
                     self.trigger_list.emit(data)
                 elif type(data) == dict and not flag_call_realdata_update_is_running:
-                    self.trigger_dict.emit(data)                    
+
+                    if abs(time_gap) <= TIME_INDEX1:
+                        self.trigger_dict.emit(data)
+                    else:
+                        if data['szTrCode'] == 'OC0':
+                            self.trigger_dict.emit(data)
+                        else:
+                            pass                   
                 else:
                     pass
                 '''
@@ -2722,7 +2731,14 @@ class RealTime_PutThread_DataWorker(QThread):
                 if type(data) == list:
                     self.trigger_list.emit(data)
                 elif type(data) == dict and not flag_put_realdata_update_is_running:
-                    self.trigger_dict.emit(data)                    
+
+                    if abs(time_gap) <= TIME_INDEX1:
+                        self.trigger_dict.emit(data)
+                    else:
+                        if data['szTrCode'] == 'OC0':
+                            self.trigger_dict.emit(data)
+                        else:
+                            pass                   
                 else:
                     pass
                 '''
