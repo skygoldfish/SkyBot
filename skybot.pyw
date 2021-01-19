@@ -2591,12 +2591,12 @@ class RealTime_FutThread_DataWorker(QThread):
                                 if data['szTrCode'] == 'OVC' or data['szTrCode'] == 'IJ' or data['szTrCode'] == 'FC0' or data['szTrCode'] == 'FH0':
                                     self.trigger_dict.emit(data)
                                 else:
-                                    pass
+                                    self.drop_count += 1
                             else:
                                 if data['szTrCode'] == 'OVC' or data['szTrCode'] == 'IJ' or data['szTrCode'] == 'FC0' or data['szTrCode'] == 'FH0' or data['szTrCode'] == 'OC0':
                                     self.trigger_dict.emit(data)
                                 else:
-                                    pass              
+                                    self.drop_count += 1              
                     else:
                         pass
                     # 실시간 그래프 호출을 여기서 할수 있음!!! --> 데이타프레임을 만든후 emit
@@ -2669,7 +2669,7 @@ class RealTime_CallThread_DataWorker(QThread):
                         if data['szTrCode'] == 'OC0':
                             self.trigger_dict.emit(data)
                         else:
-                            pass                   
+                            self.drop_count += 1                   
                 else:
                     pass
                 '''
@@ -2738,7 +2738,7 @@ class RealTime_PutThread_DataWorker(QThread):
                         if data['szTrCode'] == 'OC0':
                             self.trigger_dict.emit(data)
                         else:
-                            pass                   
+                            self.drop_count += 1                   
                 else:
                     pass
                 '''
@@ -19459,7 +19459,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             print(txt)
 
-            txt = '본월물 옵션갯수는 {0}개, 차월물 옵션갯수는 {1}개 입니다.'.format(CM_OPT_LENGTH, NM_OPT_LENGTH)
+            txt = '본월물 옵션갯수는 콜 {0}개, 풋 {1}개, 차월물 옵션갯수는 콜 {2}개, 풋 {3}개 입니다.'.format(CM_OPT_LENGTH, CM_OPT_LENGTH, NM_OPT_LENGTH, NM_OPT_LENGTH)
             self.parent.speaker.setText(txt)
 
             # 그래프를 위한 데이타프레임 생성
@@ -26954,18 +26954,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         end_time = timeit.default_timer()
         processing_time = (end_time - start_time) * 1000
 
-        print('bigchart init time =', processing_time)
-
-    def __del__(self):
-        
-        self.plot_update_worker1 = None
-        self.plot_update_worker2 = None
-        self.plot_update_worker3 = None
-        self.plot_update_worker4 = None
-        self.plot_update_worker5 = None
-        self.plot_update_worker6 = None
-
-        print('Big Chart Diaglog객체가 소멸됩니다.')         
+        print('bigchart init time =', processing_time)   
 
     #cross hair
     def plot1_mouseMoved(self, evt):
@@ -27765,6 +27754,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot6_oe_base_curve.clear()
 
     def plot1_clear(self):
+
+        print('plot1 clear...')
 
         self.plot1_fut_jl_line.setValue(0)
         self.plot1_fut_jh_line.setValue(0)
@@ -37919,6 +37910,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
     def closeEvent(self,event):
 
         self.flag_big_chart_open = False
+
+        self.comboBox1.setCurrentIndex(0)
+        self.comboBox2.setCurrentIndex(0)
+        self.comboBox3.setCurrentIndex(0)
+        self.comboBox4.setCurrentIndex(0)
+        self.comboBox5.setCurrentIndex(0)
+        self.comboBox6.setCurrentIndex(0)
         
         if self.plot_update_worker1.isRunning():
             self.plot_update_worker1.terminate()
@@ -37960,8 +37958,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.parent.textBrowser.append(txt)
         print(txt)
 
-        self.close()
-        #self.parent.OnChildDialogCloseEvent('Big Chart')        
+        self.close()        
+         
+    def __del__(self):
+
+        print('Big Chart Diaglog객체가 소멸됩니다.')         
 
 #####################################################################################################################################################################
 # MainWindow UI Class
@@ -38298,8 +38299,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if MP_NUMBER == 1:
 
                 fut_dropcount, fut_qsize, fut_totalcount, fut_totalsize = self.realtime_fut_dataworker.get_packet_info()
-
-                drop_txt = '{0}({1})/{2}({3}k)'.format(format(fut_dropcount, ','), format(fut_qsize, ','), format(fut_totalcount, ','), format(int(fut_totalsize/1000), ','))
+                drop_txt = '{0}/{1}({2}k)'.format(format(fut_dropcount, ','), format(fut_totalcount, ','), format(int(fut_totalsize/1000), ','))
 
             elif MP_NUMBER == 3:
 
@@ -38518,7 +38518,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             # 수신된 실시간데이타 정보표시(누락된 패킷수, 누락된 패킷, 수신된 총 패킷수, 수신된 총 패킷크기)
             dropcount, qsize, totalcount, totalsize = self.realtime_thread_dataworker.get_packet_info()
-            drop_txt = '{0}({1})/{2}({3}k)'.format(format(dropcount, ','), format(qsize, ','), format(totalcount, ','), format(int(totalsize/1000), ','))
+            drop_txt = '{0}/{1}({2}k)'.format(format(dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','))
 
             item = QTableWidgetItem(drop_txt)
             item.setTextAlignment(Qt.AlignCenter)
