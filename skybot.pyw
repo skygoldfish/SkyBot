@@ -2584,19 +2584,22 @@ class RealTime_FutThread_DataWorker(QThread):
                         self.trigger_list.emit(data)
                     elif type(data) == dict:
 
-                        if abs(time_gap) <= TIME_INDEX1:
-                            self.trigger_dict.emit(data)
-                        else:
-                            if abs(time_gap) >= TIME_INDEX2:
-                                if data['szTrCode'] == 'IJ' or data['szTrCode'] == 'FC0' or data['szTrCode'] == 'FH0':
-                                    self.trigger_dict.emit(data)
-                                else:
-                                    pass
+                        if DayTime:
+                            if abs(time_gap) <= TIME_INDEX1:
+                                self.trigger_dict.emit(data)
                             else:
-                                if data['szTrCode'] == 'IJ' or data['szTrCode'] == 'FC0' or data['szTrCode'] == 'FH0' or data['szTrCode'] == 'OC0':
-                                    self.trigger_dict.emit(data)
+                                if abs(time_gap) >= TIME_INDEX2:
+                                    if data['szTrCode'] == 'IJ' or data['szTrCode'] == 'FC0' or data['szTrCode'] == 'FH0':
+                                        self.trigger_dict.emit(data)
+                                    else:
+                                        pass
                                 else:
-                                    pass               
+                                    if data['szTrCode'] == 'IJ' or data['szTrCode'] == 'FC0' or data['szTrCode'] == 'FH0' or data['szTrCode'] == 'OC0':
+                                        self.trigger_dict.emit(data)
+                                    else:
+                                        pass
+                        else:
+                            self.trigger_dict.emit(data)               
                     else:
                         pass
                     # 실시간 그래프 호출을 여기서 할수 있음!!! --> 데이타프레임을 만든후 emit
