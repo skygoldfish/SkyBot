@@ -12602,7 +12602,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if refresh_coloring:
                 loop_list = self.opt_total_actval_list
-                #print('loop list =', loop_list)
             else:
                 if self.call_open_list:
                     loop_list = self.call_open_list
@@ -12616,6 +12615,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 저가 = df_call.at[index, '저가']
                 고가 = df_call.at[index, '고가']
                 현재가 = df_call.at[index, '현재가']
+
+                item = QTableWidgetItem('-')
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
+                self.tableWidget_call.setItem(index, Option_column.OLOH.value, item)
 
                 if 시가 > opt_search_start_value:
 
@@ -12766,7 +12771,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             # Call Open Count 및 OLOH 표시
             call_open_count = call_open.count(True)
-            #print('call open count =', call_open_count)
 
             if call_open[option_pairs_count - 1]:
 
@@ -13691,6 +13695,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 저가 = df_put.at[index, '저가']
                 고가 = df_put.at[index, '고가']
                 현재가 = df_put.at[index, '현재가']
+
+                item = QTableWidgetItem('-')
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
+                self.tableWidget_put.setItem(index, Option_column.OLOH.value, item)
 
                 if 시가 > opt_search_start_value:
 
