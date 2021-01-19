@@ -2588,12 +2588,12 @@ class RealTime_FutThread_DataWorker(QThread):
                             self.trigger_dict.emit(data)
                         else:
                             if abs(time_gap) >= TIME_INDEX2:
-                                if data['szTrCode'] == 'IJ' or data['szTrCode'] == 'FC0' or data['szTrCode'] == 'FH0' or data['szTrCode'] == 'OVC':
+                                if data['szTrCode'] == 'OVC' or data['szTrCode'] == 'IJ' or data['szTrCode'] == 'FC0' or data['szTrCode'] == 'FH0':
                                     self.trigger_dict.emit(data)
                                 else:
                                     pass
                             else:
-                                if data['szTrCode'] == 'IJ' or data['szTrCode'] == 'FC0' or data['szTrCode'] == 'FH0' or data['szTrCode'] == 'OC0' or data['szTrCode'] == 'OVC':
+                                if data['szTrCode'] == 'OVC' or data['szTrCode'] == 'IJ' or data['szTrCode'] == 'FC0' or data['szTrCode'] == 'FH0' or data['szTrCode'] == 'OC0':
                                     self.trigger_dict.emit(data)
                                 else:
                                     pass              
