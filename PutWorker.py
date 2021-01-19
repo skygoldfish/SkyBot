@@ -147,6 +147,9 @@ class PutWorker(mp.Process):
         self.valid_data_receive = False
         self.oc0_value = None
 
+        self.oh0_code = None
+        self.oh0_time = None
+
         # 조회요청 TR 초기화
         self.XQ_t0167 = None # 시간 조회
         self.XQ_t1514 = None # 코스피/코스닥 지수 조회
@@ -299,6 +302,15 @@ class PutWorker(mp.Process):
                 if result['현재가'] != self.oc0_value:
                     self.dataQ.put(result, False)
                     self.oc0_value = result['현재가']
+                else:
+                    pass
+
+            elif szTrCode == 'OH0':
+
+                if result['단축코드'] != self.oh0_code or result['호가시간'] != self.oh0_time:
+                    self.dataQ.put(result, False)
+                    self.oh0_code = result['단축코드']
+                    self.oh0_time = result['호가시간']
                 else:
                     pass
             else:
