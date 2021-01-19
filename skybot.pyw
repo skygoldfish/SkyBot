@@ -38215,6 +38215,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 item.setForeground(QBrush(cyan))                                                
 
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
+            self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnToContents(0)
 
             # 수신된 실시간데이타 정보표시(누락된 패킷수, 큐의 크기, 수신된 총 패킷수, 수신된 총 패킷크기)            
             szTrCode = realdata['szTrCode']
@@ -38343,7 +38344,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             item.setForeground(QBrush(적색))                
 
-            self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)                
+            self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
+            self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnToContents(0)                
 
             self.dialog['선물옵션전광판'].UpdateCallRealdata(realdata)
         else:
@@ -38405,7 +38407,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             item.setForeground(QBrush(적색))                
 
-            self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)                
+            self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
+            self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnToContents(0)                
 
             self.dialog['선물옵션전광판'].UpdatePutRealdata(realdata)
         else:
@@ -38433,6 +38436,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 item.setForeground(QBrush(cyan))                                                
 
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
+            self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnToContents(0)
 
             # 수신된 실시간데이타 정보표시(누락된 패킷수, 큐의 크기, 수신된 총 패킷수, 수신된 총 패킷크기)            
             szTrCode = realdata['szTrCode']
