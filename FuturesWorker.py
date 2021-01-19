@@ -545,7 +545,7 @@ class FuturesWorker(mp.Process):
 
         elif type == 'S3':
             # KOSPI 주요업체(SAMSUNG) 체결 요청취소
-            self.S3.UnadviseRealData()
+            self.S3.UnadviseRealDataWithKey(code)
 
         elif type == 'BM':
             # 업종별 투자자별 매매현황 요청취소
