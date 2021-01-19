@@ -3506,10 +3506,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.parent.textBrowser.verticalScrollBar().setValue(self.parent.textBrowser.verticalScrollBar().maximum())
 
     def __del__(self):
-        '''
-        종료시 실행할 작업
-        '''
-        print('Score Board Dialog를 종료합니다...') 
+        
+        print('Score Board Diaglog객체가 소멸됩니다.')
 
     @pyqtSlot()
     def start_button_clicked(self):
@@ -24356,7 +24354,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.lineEdit_plot.setText(txt)
 
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
-        #atexit.register(self.__del__) 
+        atexit.register(self.__del__) 
         
         # 현재화면의 중앙에 표시
         qr = self.frameGeometry()
@@ -25717,6 +25715,12 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         self.flag_realtimeitem_open = False
 
+        print('설정 Diaglog를 닫습니다.')
+        self.close()
+
+    def __del__(self):
+
+        print('설정 Diaglog객체가 소멸됩니다.')
 
 #####################################################################################################################################################################
 # Big Chart Update Thread
@@ -26953,17 +26957,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         print('bigchart init time =', processing_time)
 
     def __del__(self):
-        '''
-        종료시 실행할 작업
-        '''
-        print('Big Chart Dialog를 종료합니다...')
-
+        
         self.plot_update_worker1 = None
         self.plot_update_worker2 = None
         self.plot_update_worker3 = None
         self.plot_update_worker4 = None
         self.plot_update_worker5 = None
-        self.plot_update_worker6 = None 
+        self.plot_update_worker6 = None
+
+        print('Big Chart Diaglog객체가 소멸됩니다.')         
 
     #cross hair
     def plot1_mouseMoved(self, evt):
@@ -38692,7 +38694,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.clock.timeout.connect(self.OnClockTick)
         self.clock.start(1000)
 
-        계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})
+        계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래���밀번호': str})
 
         if REAL_SERVER:
             주식계좌정보 = 계좌정보.query("구분 == '거래'")
@@ -39029,6 +39031,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 print('BigChart 다이얼로그가 없습니다.')
 
+            if self.dialog['RealTimeItem'] is not None:
+
+                #self.dialog['RealTimeItem'].close()
+                del self.dialog['RealTimeItem']
+            else:
+                pass
+
             logger.info("*************************************************************************************************************************")
             logger.info("LOG STOP")
 
@@ -39104,10 +39113,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             event.ignore()   
         
     def __del__(self):
-        '''
-        종료시 실행할 작업
-        '''
-        print('SkyBot을 종료합니다...')  
+                
+        print('SkyBot 객체가 소멸됩니다.') 
     
 #####################################################################################################################################################################
 # Main
