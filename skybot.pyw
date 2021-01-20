@@ -2524,14 +2524,15 @@ class RealTime_Thread_DataWorker(QThread):
 
                 self.total_count += 1
                 self.total_packet_size += sys.getsizeof(data)
+
+                if data['szTrCode'] == 'JIF':
+                    self.trigger_dict.emit(data)
+                else:
+                    pass
                 
-                if not flag_main_realdata_update_is_running:
+                if not flag_main_realdata_update_is_running:                    
 
-                    if data['szTrCode'] == 'JIF':
-
-                        self.trigger_dict.emit(data)
-
-                    elif data['szTrCode'] == 'OVC':
+                    if data['szTrCode'] == 'OVC':
 
                         realtime_hour = int(data['체결시간_한국'][0:2])
                         realtime_min = int(data['체결시간_한국'][2:4])
@@ -2750,6 +2751,11 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                 
                 self.total_count += 1
                 self.total_packet_size += sys.getsizeof(data)
+
+                if data['szTrCode'] == 'JIF':
+                    self.trigger_dict.emit(data)
+                else:
+                    pass
                 
                 if not flag_main_realdata_update_is_running:
 
@@ -2759,11 +2765,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                     elif type(data) == dict:
 
-                        if data['szTrCode'] == 'JIF':
-
-                            self.trigger_dict.emit(data)
-
-                        elif data['szTrCode'] == 'OVC':
+                        if data['szTrCode'] == 'OVC':
 
                             realtime_hour = int(data['체결시간_한국'][0:2])
                             realtime_min = int(data['체결시간_한국'][2:4])
