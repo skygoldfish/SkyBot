@@ -2887,7 +2887,7 @@ class RealTime_FutThread_DataWorker(QThread):
             else:
                 flag_main_process_queue_empty = True
 
-class RealTime_CallThread_DataWorker(QThread):
+class RealTime_2ND_Thread_DataWorker(QThread):
 
     # 수신데이타 타입이 list이면 TR데이타, dict이면 실시간데이타.        
     trigger_list = pyqtSignal(list)
@@ -2973,7 +2973,7 @@ class RealTime_CallThread_DataWorker(QThread):
             else:
                 flag_call_process_queue_empty = True
                     
-class RealTime_PutThread_DataWorker(QThread):
+class RealTime_3RD_Thread_DataWorker(QThread):
 
     # 수신데이타 타입이 list이면 TR데이타, dict이면 실시간데이타.        
     trigger_list = pyqtSignal(list)
@@ -5740,8 +5740,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.realtime_fut_dataworker.terminate()
 
                                     if MP_NUMBER == 3:
-                                        self.realtime_call_dataworker.terminate()
-                                        self.realtime_put_dataworker.terminate()
+                                        self.realtime_2nd_dataworker.terminate()
+                                        self.realtime_3rd_dataworker.terminate()
                                     else:
                                         pass
 
@@ -5835,8 +5835,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.realtime_fut_dataworker.terminate()
 
                                     if MP_NUMBER == 3:
-                                        self.realtime_call_dataworker.terminate()
-                                        self.realtime_put_dataworker.terminate()
+                                        self.realtime_2nd_dataworker.terminate()
+                                        self.realtime_3rd_dataworker.terminate()
                                     else:
                                         pass
 
@@ -15558,7 +15558,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if df['현재가'][i] <= 시가갭:
 
                         수정미결 = int(df['미결제약정'][i] * df['현재가'][i])
-                        수정거래량 = int((df['매수잔량'][i] - df['매도잔량'][i]) * df['현재가'][i])
+                        수정거래량 = int((df['매수잔량'][i] - df['매도잔량'][i]) * df['현��가'][i])
                     else:
                         수정미결 = int(df['미결제약정'][i] * (df['현재가'][i] - 시가갭))
                         수정거래량 = int((df['매수잔량'][i] - df['매도잔량'][i]) * (df['현재가'][i] - 시가갭))
@@ -38412,15 +38412,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.realtime_fut_dataworker.trigger_dict.connect(self.transfer_mp_fut_realdata)            
                 self.realtime_fut_dataworker.start()
 
-                self.realtime_call_dataworker = RealTime_CallThread_DataWorker(self.call_dataQ)
-                self.realtime_call_dataworker.trigger_list.connect(self.transfer_mp_call_trdata)
-                self.realtime_call_dataworker.trigger_dict.connect(self.transfer_mp_call_realdata)            
-                self.realtime_call_dataworker.start()
+                self.realtime_2nd_dataworker = RealTime_2ND_Thread_DataWorker(self.call_dataQ)
+                self.realtime_2nd_dataworker.trigger_list.connect(self.transfer_mp_call_trdata)
+                self.realtime_2nd_dataworker.trigger_dict.connect(self.transfer_mp_call_realdata)            
+                self.realtime_2nd_dataworker.start()
 
-                self.realtime_put_dataworker = RealTime_PutThread_DataWorker(self.put_dataQ)
-                self.realtime_put_dataworker.trigger_list.connect(self.transfer_mp_put_trdata)
-                self.realtime_put_dataworker.trigger_dict.connect(self.transfer_mp_put_realdata)            
-                self.realtime_put_dataworker.start()
+                self.realtime_3rd_dataworker = RealTime_3RD_Thread_DataWorker(self.put_dataQ)
+                self.realtime_3rd_dataworker.trigger_list.connect(self.transfer_mp_put_trdata)
+                self.realtime_3rd_dataworker.trigger_dict.connect(self.transfer_mp_put_realdata)            
+                self.realtime_3rd_dataworker.start()
             else:
                 pass   
         else:
@@ -38633,8 +38633,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif MP_NUMBER == 3:
 
                 fut_dropcount, fut_qsize, fut_totalcount, fut_totalsize = self.realtime_fut_dataworker.get_packet_info()
-                call_dropcount, call_qsize, call_totalcount, call_totalsize = self.realtime_call_dataworker.get_packet_info()
-                put_dropcount, put_qsize, put_totalcount, put_totalsize = self.realtime_put_dataworker.get_packet_info()
+                call_dropcount, call_qsize, call_totalcount, call_totalsize = self.realtime_2nd_dataworker.get_packet_info()
+                put_dropcount, put_qsize, put_totalcount, put_totalsize = self.realtime_3rd_dataworker.get_packet_info()
 
                 total_dropcount = fut_dropcount + call_dropcount + put_dropcount
                 totalcount = fut_totalcount + call_totalcount + put_totalcount
@@ -39395,8 +39395,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.realtime_fut_dataworker.terminate()
 
                 if MP_NUMBER == 3:
-                    self.realtime_call_dataworker.terminate()
-                    self.realtime_put_dataworker.terminate()
+                    self.realtime_2nd_dataworker.terminate()
+                    self.realtime_3rd_dataworker.terminate()
                 else:
                     pass
 
@@ -39456,8 +39456,8 @@ if __name__ == "__main__":
         import multiprocessing as mp
         from multiprocessing import Process, Queue, Pipe
         from FuturesWorker import FuturesWorker
-        from CallWorker import CallWorker
-        from PutWorker import PutWorker   
+        from SecondWorker import SecondWorker
+        from ThirdWorker import ThirdWorker   
         
         # pyinstaller로 실행파일 만들때 필요함
         mp.freeze_support()
