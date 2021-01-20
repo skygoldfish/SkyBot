@@ -242,10 +242,10 @@ class SecondWorker(mp.Process):
             self.data.append(code)
 
             if REAL_SERVER:
-                txt = '실서버 콜 백그라운드 로그인 성공 !!!'
+                txt = '실서버 세컨드 백그라운드 로그인 성공 !!!'
                 self.data.append(txt)
             else:
-                txt = '모의서버 콜 백그라운드 로그인 성공 !!!'
+                txt = '모의서버 세컨드 백그라운드 로그인 성공 !!!'
                 self.data.append(txt)
             
             print(txt)

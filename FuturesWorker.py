@@ -244,10 +244,10 @@ class FuturesWorker(mp.Process):
             self.data.append(code)
 
             if REAL_SERVER:
-                txt = '실서버 선물 백그라운드 로그인 성공 !!!'
+                txt = '실서버 메인 백그라운드 로그인 성공 !!!'
                 self.data.append(txt)
             else:
-                txt = '모의서버 선물 백그라운드 로그인 성공 !!!'
+                txt = '모의서버 메인 백그라운드 로그인 성공 !!!'
                 self.data.append(txt)
             
             print(txt)

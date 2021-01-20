@@ -1830,9 +1830,9 @@ flag_logfile = False
 flag_t8416_call_done = False
 flag_t8416_put_done = False
 
-flag_fut_realdata_update_is_running = False
-flag_call_realdata_update_is_running = False
-flag_put_realdata_update_is_running = False
+flag_main_realdata_update_is_running = False
+flag_2nd_realdata_update_is_running = False
+flag_3rd_realdata_update_is_running = False
 
 flag_screen_update_is_running = False
 flag_plot_update_is_running = False
@@ -1849,8 +1849,8 @@ fut_quote_energy_direction = ''
 fut_volume_power_energy_direction = ''
 
 flag_main_process_queue_empty = True
-flag_call_process_queue_empty = True
-flag_put_process_queue_empty = True
+flag_2nd_process_queue_empty = True
+flag_3rd_process_queue_empty = True
 
 flag_call_strong = False
 flag_put_strong = False
@@ -2524,7 +2524,7 @@ class RealTime_Thread_DataWorker(QThread):
                 self.total_count += 1
                 self.total_packet_size += sys.getsizeof(data)
                 
-                if not flag_fut_realdata_update_is_running:
+                if not flag_main_realdata_update_is_running:
 
                     if data['szTrCode'] == 'OVC':
 
@@ -2679,7 +2679,7 @@ class RealTime_Thread_DataWorker(QThread):
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 멀티프로세스 쓰레드 클래스
 #####################################################################################################################################################################
-class RealTime_FutThread_DataWorker(QThread):
+class RealTime_Main_Thread_DataWorker(QThread):
 
     # 수신데이타 타입이 list이면 TR데이타, dict이면 실시간데이타.        
     trigger_list = pyqtSignal(list)
@@ -2720,10 +2720,12 @@ class RealTime_FutThread_DataWorker(QThread):
                 self.total_count += 1
                 self.total_packet_size += sys.getsizeof(data)
                 
-                if not flag_fut_realdata_update_is_running:
+                if not flag_main_realdata_update_is_running:
 
                     if type(data) == list:
+
                         self.trigger_list.emit(data)
+
                     elif type(data) == dict:
 
                         if data['szTrCode'] == 'OVC':
@@ -2914,12 +2916,12 @@ class RealTime_2ND_Thread_DataWorker(QThread):
 
     def run(self):
 
-        global flag_call_process_queue_empty
+        global flag_2nd_process_queue_empty
 
         while True:
             if not self.dataQ.empty():
 
-                flag_call_process_queue_empty = False
+                flag_2nd_process_queue_empty = False
 
                 dt = datetime.datetime.now()
 
@@ -2928,11 +2930,11 @@ class RealTime_2ND_Thread_DataWorker(QThread):
                 self.total_count += 1                    
                 self.total_packet_size += sys.getsizeof(data)
                 
-                if not flag_call_realdata_update_is_running:
+                if not flag_2nd_realdata_update_is_running:
                 
                     if type(data) == list:
                         self.trigger_list.emit(data)
-                    elif type(data) == dict and not flag_call_realdata_update_is_running:
+                    elif type(data) == dict and not flag_2nd_realdata_update_is_running:
 
                         if data['szTrCode'] == 'OC0':
 
@@ -2962,16 +2964,10 @@ class RealTime_2ND_Thread_DataWorker(QThread):
                 else:
                     self.drop_count += 1
                     self.drop_code = data['szTrCode']
-                '''
-                if flag_mp_interval_changed:
-                    print('MP interval changed...')
-                    flag_mp_interval_changed = False
-                else:
-                    pass
-                '''
+                
                 QTest.qWait(mp_send_interval)
             else:
-                flag_call_process_queue_empty = True
+                flag_2nd_process_queue_empty = True
                     
 class RealTime_3RD_Thread_DataWorker(QThread):
 
@@ -3000,12 +2996,12 @@ class RealTime_3RD_Thread_DataWorker(QThread):
 
     def run(self):
 
-        global flag_put_process_queue_empty
+        global flag_3rd_process_queue_empty
 
         while True:
             if not self.dataQ.empty():
 
-                flag_put_process_queue_empty = False
+                flag_3rd_process_queue_empty = False
 
                 dt = datetime.datetime.now()
 
@@ -3014,11 +3010,11 @@ class RealTime_3RD_Thread_DataWorker(QThread):
                 self.total_count += 1                                        
                 self.total_packet_size += sys.getsizeof(data)
                 
-                if not flag_put_realdata_update_is_running:
+                if not flag_3rd_realdata_update_is_running:
                 
                     if type(data) == list:
                         self.trigger_list.emit(data)
-                    elif type(data) == dict and not flag_put_realdata_update_is_running:
+                    elif type(data) == dict and not flag_3rd_realdata_update_is_running:
 
                         if data['szTrCode'] == 'OC0':
 
@@ -3048,16 +3044,10 @@ class RealTime_3RD_Thread_DataWorker(QThread):
                 else:
                     self.drop_count += 1
                     self.drop_code = data['szTrCode']
-                '''
-                if flag_mp_interval_changed:
-                    print('MP interval changed...')
-                    flag_mp_interval_changed = False
-                else:
-                    pass
-                '''
+
                 QTest.qWait(mp_send_interval)
             else:
-                flag_put_process_queue_empty = True
+                flag_3rd_process_queue_empty = True
 
 #####################################################################################################################################################################
 # Speaker Thread Class
@@ -5189,7 +5179,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             # 온라인 여부확인
             if MULTIPROCESS:
-                online_state = Futprocess.Check_Online()
+                online_state = MainProcess.Check_Online()
             else:
                 online_state = self.parent.fut_connection.IsConnected()
 
@@ -5711,11 +5701,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.textBrowser.append(txt)
                                     print(txt)
 
-                                    Futprocess.CancelAllRealData()
+                                    MainProcess.CancelAllRealData()
 
                                     if MP_NUMBER == 3:
-                                        Callprocess.CancelAllRealData()
-                                        Putprocess.CancelAllRealData()
+                                        SecondProcess.CancelAllRealData()
+                                        ThirdProcess.CancelAllRealData()
                                     else:
                                         pass
 
@@ -5723,11 +5713,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.textBrowser.append(txt)
                                     print(txt)
 
-                                    Futprocess.connection.disconnect()
+                                    MainProcess.connection.disconnect()
 
                                     if MP_NUMBER == 3:
-                                        Callprocess.connection.disconnect()
-                                        Putprocess.connection.disconnect()
+                                        SecondProcess.connection.disconnect()
+                                        ThirdProcess.connection.disconnect()
                                     else:
                                         pass
 
@@ -5737,7 +5727,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.textBrowser.append(txt)
                                     print(txt)
 
-                                    self.realtime_fut_dataworker.terminate()
+                                    self.realtime_main_dataworker.terminate()
 
                                     if MP_NUMBER == 3:
                                         self.realtime_2nd_dataworker.terminate()
@@ -5771,11 +5761,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 flag_logfile = True
 
                                 if MULTIPROCESS:
-                                    Futprocess.shutdown()
+                                    MainProcess.shutdown()
 
                                     if MP_NUMBER == 3:
-                                        Callprocess.shutdown()
-                                        Putprocess.shutdown()
+                                        SecondProcess.shutdown()
+                                        ThirdProcess.shutdown()
                                     else:
                                         pass
                                 else:
@@ -5806,11 +5796,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.textBrowser.append(txt)
                                     print(txt)
 
-                                    Futprocess.CancelAllRealData()
+                                    MainProcess.CancelAllRealData()
 
                                     if MP_NUMBER == 3:
-                                        Callprocess.CancelAllRealData()
-                                        Putprocess.CancelAllRealData()
+                                        SecondProcess.CancelAllRealData()
+                                        ThirdProcess.CancelAllRealData()
                                     else:
                                         pass
 
@@ -5818,11 +5808,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.textBrowser.append(txt)
                                     print(txt)
 
-                                    Futprocess.connection.disconnect()
+                                    MainProcess.connection.disconnect()
 
                                     if MP_NUMBER == 3:
-                                        Callprocess.connection.disconnect()
-                                        Putprocess.connection.disconnect()
+                                        SecondProcess.connection.disconnect()
+                                        ThirdProcess.connection.disconnect()
                                     else:
                                         pass
 
@@ -5832,7 +5822,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.textBrowser.append(txt)
                                     print(txt)
 
-                                    self.realtime_fut_dataworker.terminate()
+                                    self.realtime_main_dataworker.terminate()
 
                                     if MP_NUMBER == 3:
                                         self.realtime_2nd_dataworker.terminate()
@@ -5866,11 +5856,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 flag_logfile = True
 
                                 if MULTIPROCESS:
-                                    Futprocess.shutdown()
+                                    MainProcess.shutdown()
 
                                     if MP_NUMBER == 3:
-                                        Callprocess.shutdown()
-                                        Putprocess.shutdown()
+                                        SecondProcess.shutdown()
+                                        ThirdProcess.shutdown()
                                     else:
                                         pass
                                 else:
@@ -15558,7 +15548,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if df['현재가'][i] <= 시가갭:
 
                         수정미결 = int(df['미결제약정'][i] * df['현재가'][i])
-                        수정거래량 = int((df['매수잔량'][i] - df['매도잔량'][i]) * df['현��가'][i])
+                        수정거래량 = int((df['매수잔량'][i] - df['매도잔량'][i]) * df['현재가'][i])
                     else:
                         수정미결 = int(df['미결제약정'][i] * (df['현재가'][i] - 시가갭))
                         수정거래량 = int((df['매수잔량'][i] - df['매도잔량'][i]) * (df['현재가'][i] - 시가갭))
@@ -19873,7 +19863,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if not MULTIPROCESS:
             self.parent.realtime_thread_dataworker.RequestRealData('JIF')
         else:
-            Futprocess.RequestRealData('JIF')
+            MainProcess.RequestRealData('JIF')
 
         self.realdata_request_number += 1               
 
@@ -19885,7 +19875,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if not MULTIPROCESS:
             self.parent.realtime_thread_dataworker.RequestRealData('IJ', KOSPI200)
         else:
-            Futprocess.RequestRealData('IJ', KOSPI200)
+            MainProcess.RequestRealData('IJ', KOSPI200)
 
         self.realdata_request_number += 1
 
@@ -19900,8 +19890,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.parent.realtime_thread_dataworker.RequestRealData('YJ', KOSPI200)
                 self.parent.realtime_thread_dataworker.RequestRealData('YJ', KOSDAQ)
             else:
-                Futprocess.RequestRealData('YJ', KOSPI200)
-                Futprocess.RequestRealData('YJ', KOSDAQ)                    
+                MainProcess.RequestRealData('YJ', KOSPI200)
+                MainProcess.RequestRealData('YJ', KOSDAQ)                    
 
             # 지수선물 예상체결 요청
             txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 선물 예상체결을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
@@ -19911,7 +19901,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if not MULTIPROCESS:
                 self.parent.realtime_thread_dataworker.RequestRealData('YFC', FUT_CODE)
             else:
-                Futprocess.RequestRealData('YFC', FUT_CODE)                    
+                MainProcess.RequestRealData('YFC', FUT_CODE)                    
 
             # KOSPI 예상체결 요청
             txt = '[{0:02d}:{1:02d}:{2:02d}] 삼성,현대 예상체결을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
@@ -19922,8 +19912,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.parent.realtime_thread_dataworker.RequestRealData('YS3', SAMSUNG)
                 self.parent.realtime_thread_dataworker.RequestRealData('YS3', HYUNDAI)
             else:
-                Futprocess.RequestRealData('YS3', SAMSUNG)
-                Futprocess.RequestRealData('YS3', HYUNDAI)                    
+                MainProcess.RequestRealData('YS3', SAMSUNG)
+                MainProcess.RequestRealData('YS3', HYUNDAI)                    
         else:
             pass
 
@@ -19937,7 +19927,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if not MULTIPROCESS:
                 self.parent.realtime_thread_dataworker.RequestRealData(FUT_REAL, GMSHCODE)
             else:
-                Futprocess.RequestRealData(FUT_REAL, GMSHCODE)
+                MainProcess.RequestRealData(FUT_REAL, GMSHCODE)
 
             self.realdata_request_number += 1                    
         else:
@@ -19953,7 +19943,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if not MULTIPROCESS:
                 self.parent.realtime_thread_dataworker.RequestRealData(FUT_HO, GMSHCODE)
             else:
-                Futprocess.RequestRealData(FUT_HO, GMSHCODE)
+                MainProcess.RequestRealData(FUT_HO, GMSHCODE)
 
             self.realdata_request_number += 1                    
         else:
@@ -19988,18 +19978,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 for i in range(CM_OPT_LENGTH):
 
                     if MP_NUMBER == 1:
-                        Futprocess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
-                        Futprocess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
+                        MainProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+                        MainProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
                     elif MP_NUMBER == 3:
-                        Callprocess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
-                        Putprocess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
+                        SecondProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+                        ThirdProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
                     else:
                         pass                    
 
                     # 지수옵션 예상체결 요청
                     if pre_start:
-                        Futprocess.RequestRealData('YOC', CM_CALL_CODE[i])
-                        Futprocess.RequestRealData('YOC', CM_PUT_CODE[i])       
+                        MainProcess.RequestRealData('YOC', CM_CALL_CODE[i])
+                        MainProcess.RequestRealData('YOC', CM_PUT_CODE[i])       
                     else:
                         pass
 
@@ -20058,9 +20048,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if i >= 0:
 
                         if MP_NUMBER == 1:
-                            Futprocess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+                            MainProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
                         elif MP_NUMBER == 3:
-                            Callprocess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+                            SecondProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
                         else:
                             pass                        
 
@@ -20069,7 +20059,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         print(txt)
 
                         if pre_start:
-                            Futprocess.RequestRealData('YOC', CM_CALL_CODE[i])                           
+                            MainProcess.RequestRealData('YOC', CM_CALL_CODE[i])                           
                         else:
                             pass
                     else:
@@ -20080,9 +20070,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if i >= 0:
 
                         if MP_NUMBER == 1:
-                            Futprocess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
+                            MainProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
                         elif MP_NUMBER == 3:
-                            Putprocess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
+                            ThirdProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
                         else:
                             pass
 
@@ -20091,7 +20081,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         print(txt)
 
                         if pre_start:
-                            Futprocess.RequestRealData('YOC', CM_PUT_CODE[i])                            
+                            MainProcess.RequestRealData('YOC', CM_PUT_CODE[i])                            
                         else:
                             pass
                     else:
@@ -20116,11 +20106,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 for i in range(CM_OPT_LENGTH):
 
                     if MP_NUMBER == 1:
-                        Futprocess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
-                        Futprocess.RequestRealData(OPT_HO, CM_PUT_CODE[i])
+                        MainProcess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
+                        MainProcess.RequestRealData(OPT_HO, CM_PUT_CODE[i])
                     elif MP_NUMBER == 3:
-                        Callprocess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
-                        Putprocess.RequestRealData(OPT_HO, CM_PUT_CODE[i])
+                        SecondProcess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
+                        ThirdProcess.RequestRealData(OPT_HO, CM_PUT_CODE[i])
                     else:
                         pass
 
@@ -20163,9 +20153,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if i >= 0:
 
                         if MP_NUMBER == 1:
-                            Futprocess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
+                            MainProcess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
                         elif MP_NUMBER == 3:
-                            Callprocess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
+                            SecondProcess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
                         else:
                             pass
 
@@ -20180,9 +20170,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if i >= 0:
 
                         if MP_NUMBER == 1:
-                            Futprocess.RequestRealData(OPT_HO, CM_PUT_CODE[i])
+                            MainProcess.RequestRealData(OPT_HO, CM_PUT_CODE[i])
                         elif MP_NUMBER == 3:
-                            Putprocess.RequestRealData(OPT_HO, CM_PUT_CODE[i])
+                            ThirdProcess.RequestRealData(OPT_HO, CM_PUT_CODE[i])
                         else:
                             pass
 
@@ -20206,7 +20196,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if not MULTIPROCESS:
                 self.parent.realtime_thread_dataworker.RequestRealData(FUT_REAL, CMSHCODE)
             else:
-                Futprocess.RequestRealData(FUT_REAL, CMSHCODE)
+                MainProcess.RequestRealData(FUT_REAL, CMSHCODE)
 
             self.realdata_request_number += 1                    
         else:
@@ -20223,8 +20213,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.parent.realtime_thread_dataworker.RequestRealData(FUT_HO, CMSHCODE)
                 self.parent.realtime_thread_dataworker.RequestRealData(FUT_HO, CCMSHCODE)
             else:
-                Futprocess.RequestRealData(FUT_HO, CMSHCODE)
-                Futprocess.RequestRealData(FUT_HO, CCMSHCODE)
+                MainProcess.RequestRealData(FUT_HO, CMSHCODE)
+                MainProcess.RequestRealData(FUT_HO, CCMSHCODE)
 
             self.realdata_request_number += 2                   
         else:
@@ -20259,18 +20249,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 for i in range(NM_OPT_LENGTH):
 
                     if MP_NUMBER == 1:
-                        Futprocess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
-                        Futprocess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
+                        MainProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
+                        MainProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
                     elif MP_NUMBER == 3:
-                        Callprocess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
-                        Putprocess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
+                        SecondProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
+                        ThirdProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
                     else:
                         pass
 
                     # 지수옵션 예상체결 요청
                     if pre_start:
-                        Futprocess.RequestRealData('YOC', NM_CALL_CODE[i])
-                        Futprocess.RequestRealData('YOC', NM_PUT_CODE[i])                
+                        MainProcess.RequestRealData('YOC', NM_CALL_CODE[i])
+                        MainProcess.RequestRealData('YOC', NM_PUT_CODE[i])                
                     else:
                         pass
 
@@ -20329,9 +20319,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if i >= 0:
 
                         if MP_NUMBER == 1:
-                            Futprocess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
+                            MainProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
                         elif MP_NUMBER == 3:
-                            Callprocess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
+                            SecondProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
                         else:
                             pass
 
@@ -20340,7 +20330,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         print(txt)
 
                         if pre_start:                            
-                            Futprocess.RequestRealData('YOC', NM_CALL_CODE[i])
+                            MainProcess.RequestRealData('YOC', NM_CALL_CODE[i])
                         else:
                             pass
                     else:
@@ -20351,9 +20341,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if i >= 0:
 
                         if MP_NUMBER == 1:
-                            Futprocess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
+                            MainProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
                         elif MP_NUMBER == 3:
-                            Putprocess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
+                            ThirdProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
                         else:
                             pass
 
@@ -20362,7 +20352,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         print(txt)
 
                         if pre_start:
-                            Futprocess.RequestRealData('YOC', NM_PUT_CODE[i])
+                            MainProcess.RequestRealData('YOC', NM_PUT_CODE[i])
                         else:
                             pass
                     else:
@@ -20387,11 +20377,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 for i in range(NM_OPT_LENGTH):
 
                     if MP_NUMBER == 1:
-                        Futprocess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
-                        Futprocess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
+                        MainProcess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
+                        MainProcess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
                     elif MP_NUMBER == 3:
-                        Callprocess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
-                        Putprocess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
+                        SecondProcess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
+                        ThirdProcess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
                     else:
                         pass
 
@@ -20435,9 +20425,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if i >= 0:
 
                         if MP_NUMBER == 1:
-                            Futprocess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
+                            MainProcess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
                         elif MP_NUMBER == 3:
-                            Callprocess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
+                            SecondProcess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
                         else:
                             pass
 
@@ -20453,9 +20443,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if i >= 0:
 
                         if MP_NUMBER == 1:
-                            Futprocess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
+                            MainProcess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
                         elif MP_NUMBER == 3:
-                            Putprocess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
+                            ThirdProcess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
                         else:
                             pass
 
@@ -20479,8 +20469,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.parent.realtime_thread_dataworker.RequestRealData('IJ', KOSPI)
                 self.parent.realtime_thread_dataworker.RequestRealData('IJ', KOSDAQ)
             else:
-                Futprocess.RequestRealData('IJ', KOSPI)
-                Futprocess.RequestRealData('IJ', KOSDAQ)
+                MainProcess.RequestRealData('IJ', KOSPI)
+                MainProcess.RequestRealData('IJ', KOSDAQ)
 
             self.realdata_request_number += 2                    
         else:
@@ -20494,7 +20484,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if not MULTIPROCESS:
             self.parent.realtime_thread_dataworker.RequestRealData('S3', SAMSUNG)
         else:
-            Futprocess.RequestRealData('S3', SAMSUNG)
+            MainProcess.RequestRealData('S3', SAMSUNG)
 
         self.realdata_request_number += 1
 
@@ -20510,9 +20500,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.parent.realtime_thread_dataworker.RequestRealData('BM', KOSPI)
                 self.parent.realtime_thread_dataworker.RequestRealData('PM', KOSPI)
             else:
-                Futprocess.RequestRealData('BM', FUTURES)
-                Futprocess.RequestRealData('BM', KOSPI)
-                Futprocess.RequestRealData('PM', KOSPI)
+                MainProcess.RequestRealData('BM', FUTURES)
+                MainProcess.RequestRealData('BM', KOSPI)
+                MainProcess.RequestRealData('PM', KOSPI)
 
             self.realdata_request_number += 3                    
         else:
@@ -20528,7 +20518,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if not MULTIPROCESS:
                 self.parent.realtime_thread_dataworker.RequestRealData('OVC', DOW)
             else:
-                Futprocess.RequestRealData('OVC', DOW)
+                MainProcess.RequestRealData('OVC', DOW)
 
             self.realdata_request_number += 1                    
         else:
@@ -20544,7 +20534,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if not MULTIPROCESS:
                 self.parent.realtime_thread_dataworker.RequestRealData('OVC', SP500)
             else:
-                Futprocess.RequestRealData('OVC', SP500)
+                MainProcess.RequestRealData('OVC', SP500)
 
             self.realdata_request_number += 1                    
         else:
@@ -20560,7 +20550,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if not MULTIPROCESS:
                 self.parent.realtime_thread_dataworker.RequestRealData('OVC', NASDAQ)
             else:
-                Futprocess.RequestRealData('OVC', NASDAQ)
+                MainProcess.RequestRealData('OVC', NASDAQ)
 
             self.realdata_request_number += 1                    
         else:
@@ -20576,7 +20566,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if not MULTIPROCESS:
                 self.parent.realtime_thread_dataworker.RequestRealData('OVC', WTI)
             else:
-                Futprocess.RequestRealData('OVC', WTI)
+                MainProcess.RequestRealData('OVC', WTI)
 
             self.realdata_request_number += 1                    
         else:
@@ -20592,7 +20582,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if not MULTIPROCESS:
                 self.parent.realtime_thread_dataworker.RequestRealData('OVC', EUROFX)
             else:
-                Futprocess.RequestRealData('OVC', EUROFX)
+                MainProcess.RequestRealData('OVC', EUROFX)
 
             self.realdata_request_number += 1                    
         else:
@@ -20608,7 +20598,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if not MULTIPROCESS:
                 self.parent.realtime_thread_dataworker.RequestRealData('OVC', HANGSENG)
             else:
-                Futprocess.RequestRealData('OVC', HANGSENG)
+                MainProcess.RequestRealData('OVC', HANGSENG)
 
             self.realdata_request_number += 1                    
         else:
@@ -20624,7 +20614,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if not MULTIPROCESS:
                 self.parent.realtime_thread_dataworker.RequestRealData('OVC', GOLD)
             else:
-                Futprocess.RequestRealData('OVC', GOLD)
+                MainProcess.RequestRealData('OVC', GOLD)
 
             self.realdata_request_number += 1                    
         else:
@@ -20640,7 +20630,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if not MULTIPROCESS:
                 self.parent.realtime_thread_dataworker.RequestRealData('NWS')
             else:
-                Futprocess.RequestRealData('NWS')
+                MainProcess.RequestRealData('NWS')
 
             self.realdata_request_number += 1                    
         else:
@@ -21896,9 +21886,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global fut_quote_energy_direction            
         global fut_nm_volume_power, fut_volume_power_energy_direction
         global plot_drate_scale_factor
-        global flag_fut_realdata_update_is_running
+        global flag_main_realdata_update_is_running
            
-        flag_fut_realdata_update_is_running = True
+        flag_main_realdata_update_is_running = True
 
         dt = datetime.datetime.now()
 
@@ -21959,10 +21949,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.parent.realtime_thread_dataworker.CancelRealData('YS3')
                     self.parent.realtime_thread_dataworker.CancelRealData('YOC')                        
                 else:
-                    Futprocess.CancelRealData('YJ')
-                    Futprocess.CancelRealData('YFC')                        
-                    Futprocess.CancelRealData('YS3')
-                    Futprocess.CancelRealData('YOC')
+                    MainProcess.CancelRealData('YJ')
+                    MainProcess.CancelRealData('YFC')                        
+                    MainProcess.CancelRealData('YS3')
+                    MainProcess.CancelRealData('YOC')
 
                 if TTS and TARGET_MONTH == 'CM':
                     playsound( "Resources/doorbell.wav" )
@@ -24337,15 +24327,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        flag_fut_realdata_update_is_running = False
+        flag_main_realdata_update_is_running = False
 
     @logging_time_with_args
     def UpdateCallRealdata(self, result):
 
-        global flag_call_realdata_update_is_running, flag_option_start, pre_start, market_service, receive_quote
+        global flag_2nd_realdata_update_is_running, flag_option_start, pre_start, market_service, receive_quote
         global call_result, put_result, df_call_quote, df_put_quote
             
-        flag_call_realdata_update_is_running = True
+        flag_2nd_realdata_update_is_running = True
 
         dt = datetime.datetime.now()
 
@@ -24434,15 +24424,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        flag_call_realdata_update_is_running = False
+        flag_2nd_realdata_update_is_running = False
 
     @logging_time_with_args
     def UpdatePutRealdata(self, result):
 
-        global flag_put_realdata_update_is_running, flag_option_start, pre_start, market_service, receive_quote
+        global flag_3rd_realdata_update_is_running, flag_option_start, pre_start, market_service, receive_quote
         global call_result, put_result, df_call_quote, df_put_quote
            
-        flag_put_realdata_update_is_running = True
+        flag_3rd_realdata_update_is_running = True
 
         dt = datetime.datetime.now()
 
@@ -24531,7 +24521,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        flag_put_realdata_update_is_running = False
+        flag_3rd_realdata_update_is_running = False
  
     #####################################################################################################################################################################
     def KillScoreBoardAllThread(self):
@@ -24914,7 +24904,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 if not MULTIPROCESS:
                     self.parent.realtime_thread_dataworker.RequestRealData(FUT_REAL, GMSHCODE)
                 else:
-                    Futprocess.RequestRealData(FUT_REAL, GMSHCODE)
+                    MainProcess.RequestRealData(FUT_REAL, GMSHCODE)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -24928,7 +24918,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 if not MULTIPROCESS:
                     self.parent.realtime_thread_dataworker.CancelRealData(FUT_REAL, GMSHCODE)
                 else:
-                    Futprocess.CancelRealData(FUT_REAL, GMSHCODE)
+                    MainProcess.CancelRealData(FUT_REAL, GMSHCODE)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 가격요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -24950,7 +24940,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 if not MULTIPROCESS:
                     self.parent.realtime_thread_dataworker.RequestRealData(FUT_HO, GMSHCODE)
                 else:
-                    Futprocess.RequestRealData(FUT_HO, GMSHCODE)
+                    MainProcess.RequestRealData(FUT_HO, GMSHCODE)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -24964,7 +24954,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 if not MULTIPROCESS:
                     self.parent.realtime_thread_dataworker.CancelRealData(FUT_HO, GMSHCODE)
                 else:
-                    Futprocess.CancelRealData(FUT_HO, GMSHCODE)
+                    MainProcess.CancelRealData(FUT_HO, GMSHCODE)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 호가요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -24991,11 +24981,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                     for i in range(CM_OPT_LENGTH):
 
                         if MP_NUMBER == 1:
-                            Futprocess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
-                            Futprocess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
+                            MainProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+                            MainProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
                         elif MP_NUMBER == 3:
-                            Callprocess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
-                            Putprocess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
+                            SecondProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+                            ThirdProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
                         else:
                             pass
 
@@ -25013,10 +25003,10 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 else:
 
                     if MP_NUMBER == 1:
-                        Futprocess.CancelRealData(OPT_REAL)
+                        MainProcess.CancelRealData(OPT_REAL)
                     elif MP_NUMBER == 3:
-                        Callprocess.CancelRealData(OPT_REAL)
-                        Putprocess.CancelRealData(OPT_REAL)
+                        SecondProcess.CancelRealData(OPT_REAL)
+                        ThirdProcess.CancelRealData(OPT_REAL)
                     else:
                         pass
 
@@ -25065,9 +25055,9 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                         if i >= 0:
 
                             if MP_NUMBER == 1:
-                                Futprocess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+                                MainProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
                             elif MP_NUMBER == 3:
-                                Callprocess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+                                SecondProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
                             else:
                                 pass
 
@@ -25082,9 +25072,9 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                         if i >= 0:
 
                             if MP_NUMBER == 1:
-                                Futprocess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
+                                MainProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
                             elif MP_NUMBER == 3:
-                                Putprocess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
+                                ThirdProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
                             else:
                                 pass
 
@@ -25108,10 +25098,10 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 else:
 
                     if MP_NUMBER == 1:
-                        Futprocess.CancelRealData(OPT_REAL)
+                        MainProcess.CancelRealData(OPT_REAL)
                     elif MP_NUMBER == 3:
-                        Callprocess.CancelRealData(OPT_REAL)
-                        Putprocess.CancelRealData(OPT_REAL)
+                        SecondProcess.CancelRealData(OPT_REAL)
+                        ThirdProcess.CancelRealData(OPT_REAL)
                     else:
                         pass
 
@@ -25138,8 +25128,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                         self.parent.realtime_thread_dataworker.RequestRealData(OPT_HO, CM_PUT_CODE[i])
                 else:
                     for i in range(CM_OPT_LENGTH):
-                        Futprocess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
-                        Futprocess.RequestRealData(OPT_HO, CM_PUT_CODE[i])
+                        MainProcess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
+                        MainProcess.RequestRealData(OPT_HO, CM_PUT_CODE[i])
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -25153,7 +25143,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 if not MULTIPROCESS:
                     self.parent.realtime_thread_dataworker.CancelRealData(OPT_HO)
                 else:
-                    Futprocess.CancelRealData(OPT_HO)
+                    MainProcess.CancelRealData(OPT_HO)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가요청 전체를 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -25198,7 +25188,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                     for i in range(ATM_INDEX - call_otm_number, ATM_INDEX + call_itm_number + 1):
 
                         if i >= 0:
-                            Futprocess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
+                            MainProcess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] 재요청된 콜 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_CALL_CODE[i])
                             self.parent.textBrowser.append(txt)
@@ -25209,7 +25199,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                     for i in range(ATM_INDEX - put_itm_number, ATM_INDEX + put_otm_number + 1):
 
                         if i >= 0:
-                            Futprocess.RequestRealData(OPT_HO, CM_PUT_CODE[i])
+                            MainProcess.RequestRealData(OPT_HO, CM_PUT_CODE[i])
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] 재요청된 풋 행사가는 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, CM_PUT_CODE[i])
                             self.parent.textBrowser.append(txt)
@@ -25229,7 +25219,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 if not MULTIPROCESS:
                     self.parent.realtime_thread_dataworker.CancelRealData(OPT_HO)
                 else:
-                    Futprocess.CancelRealData(OPT_HO)
+                    MainProcess.CancelRealData(OPT_HO)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가요청(풋내가 {3}개, 풋외가 {4}개)을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
                 self.parent.textBrowser.append(txt)
@@ -25251,7 +25241,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 if not MULTIPROCESS:
                     self.parent.realtime_thread_dataworker.RequestRealData(FUT_REAL, CMSHCODE)
                 else:
-                    Futprocess.RequestRealData(FUT_REAL, CMSHCODE)
+                    MainProcess.RequestRealData(FUT_REAL, CMSHCODE)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 선물 가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -25265,7 +25255,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 if not MULTIPROCESS:
                     self.parent.realtime_thread_dataworker.CancelRealData(FUT_REAL, CMSHCODE)
                 else:
-                    Futprocess.CancelRealData(FUT_REAL, CMSHCODE)
+                    MainProcess.CancelRealData(FUT_REAL, CMSHCODE)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 선물 가격요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -25287,7 +25277,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 if not MULTIPROCESS:
                     self.parent.realtime_thread_dataworker.RequestRealData(FUT_HO, CMSHCODE)
                 else:
-                    Futprocess.RequestRealData(FUT_HO, CMSHCODE)
+                    MainProcess.RequestRealData(FUT_HO, CMSHCODE)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 선물 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -25301,7 +25291,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 if not MULTIPROCESS:
                     self.parent.realtime_thread_dataworker.CancelRealData(FUT_HO, CMSHCODE)
                 else:
-                    Futprocess.CancelRealData(FUT_HO, CMSHCODE)
+                    MainProcess.CancelRealData(FUT_HO, CMSHCODE)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 선물 호가요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -25328,11 +25318,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                     for i in range(NM_OPT_LENGTH):
 
                         if MP_NUMBER == 1:
-                            Futprocess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
-                            Futprocess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
+                            MainProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
+                            MainProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
                         elif MP_NUMBER == 3:
-                            Callprocess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
-                            Putprocess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
+                            SecondProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
+                            ThirdProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
                         else:
                             pass
 
@@ -25350,10 +25340,10 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 else:
 
                     if MP_NUMBER == 1:
-                        Futprocess.CancelRealData(OPT_REAL)
+                        MainProcess.CancelRealData(OPT_REAL)
                     elif MP_NUMBER == 3:
-                        Callprocess.CancelRealData(OPT_REAL)
-                        Putprocess.CancelRealData(OPT_REAL)
+                        SecondProcess.CancelRealData(OPT_REAL)
+                        ThirdProcess.CancelRealData(OPT_REAL)
                     else:
                         pass
 
@@ -25402,9 +25392,9 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                         if i >= 0:
 
                             if MP_NUMBER == 1:
-                                Futprocess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
+                                MainProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
                             elif MP_NUMBER == 3:
-                                Callprocess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
+                                SecondProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
                             else:
                                 pass
 
@@ -25419,9 +25409,9 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                         if i >= 0:
 
                             if MP_NUMBER == 1:
-                                Futprocess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
+                                MainProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
                             elif MP_NUMBER == 3:
-                                Putprocess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
+                                ThirdProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
                             else:
                                 pass
 
@@ -25445,10 +25435,10 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 else:
 
                     if MP_NUMBER == 1:
-                        Futprocess.CancelRealData(OPT_REAL)
+                        MainProcess.CancelRealData(OPT_REAL)
                     elif MP_NUMBER == 3:
-                        Callprocess.CancelRealData(OPT_REAL)
-                        Putprocess.CancelRealData(OPT_REAL)
+                        SecondProcess.CancelRealData(OPT_REAL)
+                        ThirdProcess.CancelRealData(OPT_REAL)
                     else:
                         pass
 
@@ -25477,11 +25467,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                     for i in range(NM_OPT_LENGTH):
 
                         if MP_NUMBER == 1:
-                            Futprocess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
-                            Futprocess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
+                            MainProcess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
+                            MainProcess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
                         elif MP_NUMBER == 3:
-                            Callprocess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
-                            Putprocess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
+                            SecondProcess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
+                            ThirdProcess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
                         else:
                             pass
 
@@ -25498,10 +25488,10 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                     self.parent.realtime_thread_dataworker.CancelRealData(OPT_HO)
                 else:
                     if MP_NUMBER == 1:
-                        Futprocess.CancelRealData(OPT_HO)
+                        MainProcess.CancelRealData(OPT_HO)
                     elif MP_NUMBER == 3:
-                        Callprocess.CancelRealData(OPT_HO)
-                        Putprocess.CancelRealData(OPT_HO)
+                        SecondProcess.CancelRealData(OPT_HO)
+                        ThirdProcess.CancelRealData(OPT_HO)
                     else:
                         pass                    
 
@@ -25550,9 +25540,9 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                         if i >= 0:
 
                             if MP_NUMBER == 1:
-                                Futprocess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
+                                MainProcess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
                             elif MP_NUMBER == 3:
-                                Callprocess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
+                                SecondProcess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
                             else:
                                 pass
 
@@ -25567,9 +25557,9 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                         if i >= 0:
 
                             if MP_NUMBER == 1:
-                                Futprocess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
+                                MainProcess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
                             elif MP_NUMBER == 3:
-                                Putprocess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
+                                ThirdProcess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
                             else:
                                 pass                            
 
@@ -25593,10 +25583,10 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 else:
 
                     if MP_NUMBER == 1:
-                        Futprocess.CancelRealData(OPT_HO)
+                        MainProcess.CancelRealData(OPT_HO)
                     elif MP_NUMBER == 3:
-                        Callprocess.CancelRealData(OPT_HO)
-                        Putprocess.CancelRealData(OPT_HO)
+                        SecondProcess.CancelRealData(OPT_HO)
+                        ThirdProcess.CancelRealData(OPT_HO)
                     else:
                         pass                    
 
@@ -25621,8 +25611,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                     self.parent.realtime_thread_dataworker.RequestRealData('IJ', KOSPI)
                     self.parent.realtime_thread_dataworker.RequestRealData('IJ', KOSDAQ)
                 else:
-                    Futprocess.RequestRealData('IJ', KOSPI)
-                    Futprocess.RequestRealData('IJ', KOSDAQ)
+                    MainProcess.RequestRealData('IJ', KOSPI)
+                    MainProcess.RequestRealData('IJ', KOSDAQ)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI, KOSDAQ 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -25637,8 +25627,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                     self.parent.realtime_thread_dataworker.CancelRealData('IJ', KOSPI)
                     self.parent.realtime_thread_dataworker.CancelRealData('IJ', KOSDAQ)
                 else:
-                    Futprocess.CancelRealData('IJ', KOSPI)
-                    Futprocess.CancelRealData('IJ', KOSDAQ)
+                    MainProcess.CancelRealData('IJ', KOSPI)
+                    MainProcess.CancelRealData('IJ', KOSDAQ)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI, KOSDAQ 지수 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -25662,9 +25652,9 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                     self.parent.realtime_thread_dataworker.RequestRealData('BM', KOSPI)
                     self.parent.realtime_thread_dataworker.RequestRealData('PM', KOSPI)
                 else:
-                    Futprocess.RequestRealData('BM', FUTURES)
-                    Futprocess.RequestRealData('BM', KOSPI)
-                    Futprocess.RequestRealData('PM', KOSPI)
+                    MainProcess.RequestRealData('BM', FUTURES)
+                    MainProcess.RequestRealData('BM', KOSPI)
+                    MainProcess.RequestRealData('PM', KOSPI)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 투자자별 매매현황을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -25679,8 +25669,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                     self.parent.realtime_thread_dataworker.CancelRealData('BM')
                     self.parent.realtime_thread_dataworker.CancelRealData('PM')
                 else:
-                    Futprocess.CancelRealData('BM')
-                    Futprocess.CancelRealData('PM')
+                    MainProcess.CancelRealData('BM')
+                    MainProcess.CancelRealData('PM')
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 투자자별 매매현황 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -25702,7 +25692,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 if not MULTIPROCESS:
                     self.parent.realtime_thread_dataworker.RequestRealData('OVC', DOW)
                 else:
-                    Futprocess.RequestRealData('OVC', DOW)
+                    MainProcess.RequestRealData('OVC', DOW)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 DOW를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -25718,7 +25708,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 if not MULTIPROCESS:
                     self.parent.realtime_thread_dataworker.CancelRealData('OVC', dow_ljust)
                 else:
-                    Futprocess.CancelRealData('OVC', dow_ljust)
+                    MainProcess.CancelRealData('OVC', dow_ljust)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 DOW 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -25740,7 +25730,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 if not MULTIPROCESS:
                     self.parent.realtime_thread_dataworker.RequestRealData('OVC', SP500)
                 else:
-                    Futprocess.RequestRealData('OVC', SP500)
+                    MainProcess.RequestRealData('OVC', SP500)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 S&P 500을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -25756,7 +25746,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 if not MULTIPROCESS:
                     self.parent.realtime_thread_dataworker.CancelRealData('OVC', sp500_ljust)
                 else:
-                    Futprocess.CancelRealData('OVC', sp500_ljust)
+                    MainProcess.CancelRealData('OVC', sp500_ljust)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 S&P 500 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -25778,7 +25768,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 if not MULTIPROCESS:
                     self.parent.realtime_thread_dataworker.RequestRealData('OVC', NASDAQ)
                 else:
-                    Futprocess.RequestRealData('OVC', NASDAQ)
+                    MainProcess.RequestRealData('OVC', NASDAQ)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 NASDAQ을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -25794,7 +25784,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 if not MULTIPROCESS:
                     self.parent.realtime_thread_dataworker.CancelRealData('OVC', nasdaq_ljust)
                 else:
-                    Futprocess.CancelRealData('OVC', nasdaq_ljust)
+                    MainProcess.CancelRealData('OVC', nasdaq_ljust)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 NASDAQ 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -25816,7 +25806,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 if not MULTIPROCESS:
                     self.parent.realtime_thread_dataworker.RequestRealData('OVC', WTI)
                 else:
-                    Futprocess.RequestRealData('OVC', WTI)
+                    MainProcess.RequestRealData('OVC', WTI)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 WTI OIL을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -25832,7 +25822,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 if not MULTIPROCESS:
                     self.parent.realtime_thread_dataworker.CancelRealData('OVC', wti_ljust)
                 else:
-                    Futprocess.CancelRealData('OVC', wti_ljust)
+                    MainProcess.CancelRealData('OVC', wti_ljust)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 WTI OIL 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -25854,7 +25844,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 if not MULTIPROCESS:
                     self.parent.realtime_thread_dataworker.RequestRealData('OVC', EUROFX)
                 else:
-                    Futprocess.RequestRealData('OVC', EUROFX)
+                    MainProcess.RequestRealData('OVC', EUROFX)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 EUROFX을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -25870,7 +25860,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 if not MULTIPROCESS:
                     self.parent.realtime_thread_dataworker.CancelRealData('OVC', eurofx_ljust)
                 else:
-                    Futprocess.CancelRealData('OVC', eurofx_ljust)
+                    MainProcess.CancelRealData('OVC', eurofx_ljust)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 EUROFX 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -25892,7 +25882,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 if not MULTIPROCESS:
                     self.parent.realtime_thread_dataworker.RequestRealData('OVC', HANGSENG)
                 else:
-                    Futprocess.RequestRealData('OVC', HANGSENG)
+                    MainProcess.RequestRealData('OVC', HANGSENG)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 HANGSENG을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -25908,7 +25898,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 if not MULTIPROCESS:
                     self.parent.realtime_thread_dataworker.CancelRealData('OVC', hangseng_ljust)
                 else:
-                    Futprocess.CancelRealData('OVC', hangseng_ljust)
+                    MainProcess.CancelRealData('OVC', hangseng_ljust)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 HANGSENG 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -25930,7 +25920,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 if not MULTIPROCESS:
                     self.parent.realtime_thread_dataworker.RequestRealData('OVC', GOLD)
                 else:
-                    Futprocess.RequestRealData('OVC', GOLD)
+                    MainProcess.RequestRealData('OVC', GOLD)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 GOLD를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -25946,7 +25936,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 if not MULTIPROCESS:
                     self.parent.realtime_thread_dataworker.CancelRealData('OVC', gold_ljust)
                 else:
-                    Futprocess.CancelRealData('OVC', gold_ljust)
+                    MainProcess.CancelRealData('OVC', gold_ljust)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 GOLD 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -25968,7 +25958,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 if not MULTIPROCESS:
                     self.parent.realtime_thread_dataworker.RequestRealData('NWS')
                 else:
-                    Futprocess.RequestRealData('NWS')
+                    MainProcess.RequestRealData('NWS')
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 NEWS를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -25982,7 +25972,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 if not MULTIPROCESS:
                     self.parent.realtime_thread_dataworker.CancelRealData('NWS')
                 else:
-                    Futprocess.CancelRealData('NWS')
+                    MainProcess.CancelRealData('NWS')
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 NEWS 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -26002,16 +25992,16 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 유효한 선물 실시간 수신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.parent.textBrowser.append(txt)
 
-                    Futprocess.Set_Valid_Data_Receive(True)
+                    MainProcess.Set_Valid_Data_Receive(True)
 
                 elif MP_NUMBER == 3:
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 유효한 선물, 옵션 실시간 수신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.parent.textBrowser.append(txt)
 
-                    Futprocess.Set_Valid_Data_Receive(True)
-                    Callprocess.Set_Valid_Data_Receive(True)
-                    Putprocess.Set_Valid_Data_Receive(True)
+                    MainProcess.Set_Valid_Data_Receive(True)
+                    SecondProcess.Set_Valid_Data_Receive(True)
+                    ThirdProcess.Set_Valid_Data_Receive(True)
                 else:
                     pass
             else:
@@ -26024,16 +26014,16 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 유효한 선물 실시간 수신요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.parent.textBrowser.append(txt)
 
-                    Futprocess.Set_Valid_Data_Receive(False)
+                    MainProcess.Set_Valid_Data_Receive(False)
 
                 elif MP_NUMBER == 3:
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 유효한 선물, 옵션 실시간 수신요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.parent.textBrowser.append(txt)
 
-                    Futprocess.Set_Valid_Data_Receive(False)
-                    Callprocess.Set_Valid_Data_Receive(False)
-                    Putprocess.Set_Valid_Data_Receive(False)
+                    MainProcess.Set_Valid_Data_Receive(False)
+                    SecondProcess.Set_Valid_Data_Receive(False)
+                    ThirdProcess.Set_Valid_Data_Receive(False)
                 else:
                     pass
             else:
@@ -26069,7 +26059,7 @@ class PlotUpdateWorker1(QThread):
 
         while True:
 
-            if flag_main_process_queue_empty and not flag_fut_realdata_update_is_running:
+            if flag_main_process_queue_empty and not flag_main_realdata_update_is_running:
                 self.trigger.emit()
 
             if flag_plot_update_interval_changed:
@@ -26093,7 +26083,7 @@ class PlotUpdateWorker2(QThread):
 
         while True:
 
-            if flag_main_process_queue_empty and not flag_fut_realdata_update_is_running:
+            if flag_main_process_queue_empty and not flag_main_realdata_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -26111,7 +26101,7 @@ class PlotUpdateWorker3(QThread):
 
         while True:
 
-            if flag_main_process_queue_empty and not flag_fut_realdata_update_is_running:
+            if flag_main_process_queue_empty and not flag_main_realdata_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -26129,7 +26119,7 @@ class PlotUpdateWorker4(QThread):
 
         while True:
 
-            if flag_main_process_queue_empty and not flag_fut_realdata_update_is_running:
+            if flag_main_process_queue_empty and not flag_main_realdata_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -26147,7 +26137,7 @@ class PlotUpdateWorker5(QThread):
 
         while True:
 
-            if flag_main_process_queue_empty and not flag_fut_realdata_update_is_running:
+            if flag_main_process_queue_empty and not flag_main_realdata_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -26165,7 +26155,7 @@ class PlotUpdateWorker6(QThread):
 
         while True:
 
-            if flag_main_process_queue_empty and not flag_fut_realdata_update_is_running:
+            if flag_main_process_queue_empty and not flag_main_realdata_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -38331,19 +38321,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         elif len(args) == 3:
             self.mp_mode = True
             self.main_dataQ = args[0]
-            self.call_dataQ = args[1]
-            self.put_dataQ = args[2]
+            self.second_dataQ = args[1]
+            self.third_dataQ = args[2]
         else:
             print('지원하지 않는 인자갯수 입니다...')
 
         if self.mp_mode:
             self.main_login = False
-            self.call_login = False
-            self.put_login = False
+            self.second_login = False
+            self.third_login = False
 
             self.main_event_loop = QEventLoop()
-            self.call_event_loop = QEventLoop()
-            self.put_event_loop = QEventLoop()
+            self.second_event_loop = QEventLoop()
+            self.third_event_loop = QEventLoop()
         else:
             pass
         
@@ -38394,32 +38384,32 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.main_connection = None
             elif MP_NUMBER == 3:
                 self.main_connection = None
-                self.call_connection = None
-                self.put_connection = None
+                self.second_connection = None
+                self.third_connection = None
             else:
                 pass
 
             # Thread for Multiprocess Real Data Consumer
             # 장의 변동성이 클때는 하나의 프로세스로 200종목 이상의 데이타를 실시간 처리못함 --> 3개의 프로세스 생성하여 로드분산 !!!
             if MP_NUMBER == 1:
-                self.realtime_fut_dataworker = RealTime_FutThread_DataWorker(self.main_dataQ)
-                self.realtime_fut_dataworker.trigger_list.connect(self.transfer_mp_fut_trdata)
-                self.realtime_fut_dataworker.trigger_dict.connect(self.transfer_mp_fut_realdata)            
-                self.realtime_fut_dataworker.start()
+                self.realtime_main_dataworker = RealTime_Main_Thread_DataWorker(self.main_dataQ)
+                self.realtime_main_dataworker.trigger_list.connect(self.transfer_mp_main_trdata)
+                self.realtime_main_dataworker.trigger_dict.connect(self.transfer_mp_main_realdata)            
+                self.realtime_main_dataworker.start()
             elif MP_NUMBER == 3:
-                self.realtime_fut_dataworker = RealTime_FutThread_DataWorker(self.main_dataQ)
-                self.realtime_fut_dataworker.trigger_list.connect(self.transfer_mp_fut_trdata)
-                self.realtime_fut_dataworker.trigger_dict.connect(self.transfer_mp_fut_realdata)            
-                self.realtime_fut_dataworker.start()
+                self.realtime_main_dataworker = RealTime_Main_Thread_DataWorker(self.main_dataQ)
+                self.realtime_main_dataworker.trigger_list.connect(self.transfer_mp_main_trdata)
+                self.realtime_main_dataworker.trigger_dict.connect(self.transfer_mp_main_realdata)            
+                self.realtime_main_dataworker.start()
 
-                self.realtime_2nd_dataworker = RealTime_2ND_Thread_DataWorker(self.call_dataQ)
-                self.realtime_2nd_dataworker.trigger_list.connect(self.transfer_mp_call_trdata)
-                self.realtime_2nd_dataworker.trigger_dict.connect(self.transfer_mp_call_realdata)            
+                self.realtime_2nd_dataworker = RealTime_2ND_Thread_DataWorker(self.second_dataQ)
+                self.realtime_2nd_dataworker.trigger_list.connect(self.transfer_mp_2nd_trdata)
+                self.realtime_2nd_dataworker.trigger_dict.connect(self.transfer_mp_2nd_realdata)            
                 self.realtime_2nd_dataworker.start()
 
-                self.realtime_3rd_dataworker = RealTime_3RD_Thread_DataWorker(self.put_dataQ)
-                self.realtime_3rd_dataworker.trigger_list.connect(self.transfer_mp_put_trdata)
-                self.realtime_3rd_dataworker.trigger_dict.connect(self.transfer_mp_put_realdata)            
+                self.realtime_3rd_dataworker = RealTime_3RD_Thread_DataWorker(self.third_dataQ)
+                self.realtime_3rd_dataworker.trigger_list.connect(self.transfer_mp_3rd_trdata)
+                self.realtime_3rd_dataworker.trigger_dict.connect(self.transfer_mp_3rd_realdata)            
                 self.realtime_3rd_dataworker.start()
             else:
                 pass   
@@ -38446,17 +38436,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     # 멀티프로세스방식 처리관련 함수들
     #####################################################################################################################################################################
     @pyqtSlot(list)
-    def transfer_mp_fut_trdata(self, trdata):
+    def transfer_mp_main_trdata(self, trdata):
 
         dt = datetime.datetime.now()
 
         if trdata[0] == '0000':
 
-            self.main_connection = Futprocess.connection
+            self.main_connection = MainProcess.connection
 
             if self.main_connection.IsConnected():
 
-                txt = '선물 백그라운드 로그인 성공 !!!\r'
+                txt = '메인 백그라운드 로그인 성공 !!!\r'
                 self.textBrowser.append(txt)
 
                 self.main_login = True
@@ -38467,9 +38457,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.statusbar.showMessage(trdata[1])
             #playsound( "Resources/ring.wav" )
             if TARGET_MONTH == 'CM':
-                Speak('본월물 선물 프로세스 로그인 성공')
+                Speak('본월물 메인 프로세스 로그인 성공')
             elif TARGET_MONTH == 'NM':
-                Speak('차월물 선물 프로세스 로그인 성공')
+                Speak('차월물 메인 프로세스 로그인 성공')
 
             #self.speaker.setText('선물 프로세스 로그인 성공')
 
@@ -38545,7 +38535,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.statusbar.showMessage(txt)
 
             QTest.qWait(1000)
-            Futprocess.login()
+            MainProcess.login()
 
         # 데이타를 전광판 다이얼로그로 전달(조회성 TR은 포어그라운드에서 처리가능, 이유?)
         '''
@@ -38556,7 +38546,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         '''
 
     @pyqtSlot(dict)
-    def transfer_mp_fut_realdata(self, realdata):
+    def transfer_mp_main_realdata(self, realdata):
 
         dt = datetime.datetime.now()
 
@@ -38627,12 +38617,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if MP_NUMBER == 1:
 
-                fut_dropcount, fut_qsize, fut_totalcount, fut_totalsize = self.realtime_fut_dataworker.get_packet_info()
+                fut_dropcount, fut_qsize, fut_totalcount, fut_totalsize = self.realtime_main_dataworker.get_packet_info()
                 drop_txt = '{0}/{1}({2}k)'.format(format(fut_dropcount, ','), format(fut_totalcount, ','), format(int(fut_totalsize/1000), ','))
 
             elif MP_NUMBER == 3:
 
-                fut_dropcount, fut_qsize, fut_totalcount, fut_totalsize = self.realtime_fut_dataworker.get_packet_info()
+                fut_dropcount, fut_qsize, fut_totalcount, fut_totalsize = self.realtime_main_dataworker.get_packet_info()
                 call_dropcount, call_qsize, call_totalcount, call_totalsize = self.realtime_2nd_dataworker.get_packet_info()
                 put_dropcount, put_qsize, put_totalcount, put_totalsize = self.realtime_3rd_dataworker.get_packet_info()
 
@@ -38660,34 +38650,34 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
 
     @pyqtSlot(list)
-    def transfer_mp_call_trdata(self, trdata):
+    def transfer_mp_2nd_trdata(self, trdata):
 
         if trdata[0] == '0000':
 
-            self.call_connection = Callprocess.connection
+            self.second_connection = SecondProcess.connection
 
-            if self.call_connection.IsConnected():
+            if self.second_connection.IsConnected():
 
-                txt = '콜 백그라운드 로그인 성공 !!!\r'
+                txt = '세컨드 백그라운드 로그인 성공 !!!\r'
                 self.textBrowser.append(txt)
 
-                self.call_login = True
-                self.call_event_loop.exit()
+                self.second_login = True
+                self.second_event_loop.exit()
             else:
                 pass
 
             self.statusbar.showMessage(trdata[1])
-            Speak('콜 프로세스 로그인 성공')
-            #self.speaker.setText('콜 프로세스 로그인 성공')
+            Speak('세컨드 프로세스 로그인 성공')
+            #self.speaker.setText('세컨드 프로세스 로그인 성공')
         else:
-            txt = '콜 로그인 실패({0})!  로그인을 다시 시도합니다...'.format(trdata[0])
+            txt = '세컨드 로그인 실패({0})!  로그인을 다시 시도합니다...'.format(trdata[0])
             self.statusbar.showMessage(txt)
 
             QTest.qWait(1000)
-            Callprocess.login()
+            SecondProcess.login()
 
     @pyqtSlot(dict)
-    def transfer_mp_call_realdata(self, realdata):
+    def transfer_mp_2nd_realdata(self, realdata):
 
         dt = datetime.datetime.now()
 
@@ -38697,7 +38687,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             item = QTableWidgetItem("{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time))
             item.setTextAlignment(Qt.AlignCenter)
 
-            if flag_call_process_queue_empty:
+            if flag_2nd_process_queue_empty:
                 item.setBackground(QBrush(흰색))
             else:
                 item.setBackground(QBrush(검정색))
@@ -38712,27 +38702,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
 
     @pyqtSlot(list)
-    def transfer_mp_put_trdata(self, trdata):
+    def transfer_mp_3rd_trdata(self, trdata):
     
         if trdata[0] == '0000':
 
-            self.put_connection = Putprocess.connection
+            self.third_connection = ThirdProcess.connection
 
-            if self.put_connection.IsConnected():
+            if self.third_connection.IsConnected():
 
-                txt = '풋 백그라운드 로그인 성공 !!!\r'
+                txt = '써드 백그라운드 로그인 성공 !!!\r'
                 self.textBrowser.append(txt)
 
-                self.put_login = True
-                self.put_event_loop.exit()
+                self.third_login = True
+                self.third_event_loop.exit()
             else:
                 pass
 
             self.statusbar.showMessage(trdata[1])
-            Speak('풋 프로세스 로그인 성공')
-            #self.speaker.setText('풋 프로세스 로그인 성공')
+            Speak('써드 프로세스 로그인 성공')
+            #self.speaker.setText('써드 프로세스 로그인 성공')
 
-            if AUTO_START and self.main_login and self.call_login and self.put_login:
+            if AUTO_START and self.main_login and self.second_login and self.third_login:
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
 
@@ -38743,14 +38733,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
         else:
-            txt = '풋 로그인 실패({0})!  로그인을 다시 시도합니다...'.format(trdata[0])
+            txt = '써드 로그인 실패({0})!  로그인을 다시 시도합니다...'.format(trdata[0])
             self.statusbar.showMessage(txt)
 
             QTest.qWait(1000)
-            Putprocess.login()
+            ThirdProcess.login()
 
     @pyqtSlot(dict)
-    def transfer_mp_put_realdata(self, realdata):
+    def transfer_mp_3rd_realdata(self, realdata):
 
         dt = datetime.datetime.now()
 
@@ -38760,7 +38750,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             item = QTableWidgetItem("{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time))
             item.setTextAlignment(Qt.AlignCenter)
 
-            if flag_put_process_queue_empty:
+            if flag_3rd_process_queue_empty:
                 item.setBackground(QBrush(흰색))
             else:
                 item.setBackground(QBrush(검정색))
@@ -39023,7 +39013,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.clock.timeout.connect(self.OnClockTick)
         self.clock.start(1000)
 
-        계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래���밀번호': str})
+        계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})
 
         if REAL_SERVER:
             주식계좌정보 = 계좌정보.query("구분 == '거래'")
@@ -39062,16 +39052,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.textBrowser.append(txt)
 
             if MP_NUMBER == 1:
-                Futprocess.Login(self.url, self.id, self.pwd, self.cert)
+                MainProcess.Login(self.url, self.id, self.pwd, self.cert)
             elif MP_NUMBER == 3:
-                Futprocess.Login(self.url, self.id, self.pwd, self.cert)
+                MainProcess.Login(self.url, self.id, self.pwd, self.cert)
                 self.main_event_loop.exec_() 
 
-                Callprocess.Login(self.url, self.id, self.pwd, self.cert)
-                self.call_event_loop.exec_() 
+                SecondProcess.Login(self.url, self.id, self.pwd, self.cert)
+                self.second_event_loop.exec_() 
 
-                Putprocess.Login(self.url, self.id, self.pwd, self.cert)
-                self.put_event_loop.exec_() 
+                ThirdProcess.Login(self.url, self.id, self.pwd, self.cert)
+                self.third_event_loop.exec_() 
             else:
                 pass  
 
@@ -39093,7 +39083,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         else:
                             msg = "백그라운드 온라인"
                             # 현재시간 조회
-                            Futprocess.RequestTRData('t0167') 
+                            MainProcess.RequestTRData('t0167') 
                     else:
                         msg = "오프라인"
 
@@ -39373,26 +39363,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if MULTIPROCESS:
 
                 print('모든 멀티프로세스 실시간요청 취소...')
-                Futprocess.CancelAllRealData()
+                MainProcess.CancelAllRealData()
 
                 if MP_NUMBER == 3:
-                    Callprocess.CancelAllRealData()
-                    Putprocess.CancelAllRealData()
+                    SecondProcess.CancelAllRealData()
+                    ThirdProcess.CancelAllRealData()
                 else:
                     pass
 
                 print('모든 멀티프로세스 서버연결 해지...')
-                Futprocess.connection.disconnect()
+                MainProcess.connection.disconnect()
 
                 if MP_NUMBER == 3:
-                    Callprocess.connection.disconnect()
-                    Putprocess.connection.disconnect()
+                    SecondProcess.connection.disconnect()
+                    ThirdProcess.connection.disconnect()
                 else:
                     pass
 
                 QTest.qWait(10)
                 print('모든 멀티프로세스 쓰레드 종료...')
-                self.realtime_fut_dataworker.terminate()
+                self.realtime_main_dataworker.terminate()
 
                 if MP_NUMBER == 3:
                     self.realtime_2nd_dataworker.terminate()
@@ -39401,11 +39391,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
                 print('모든 멀티프로세스 Shutdown...')
-                Futprocess.shutdown()
+                MainProcess.shutdown()
 
                 if MP_NUMBER == 3:
-                    Callprocess.shutdown()
-                    Putprocess.shutdown()
+                    SecondProcess.shutdown()
+                    ThirdProcess.shutdown()
                 else:
                     pass
             else:
@@ -39465,22 +39455,22 @@ if __name__ == "__main__":
         if MP_NUMBER == 1:
             main_dataQ = mp.Queue()
 
-            Futprocess = FuturesWorker(main_dataQ)
-            Futprocess.start()
+            MainProcess = FuturesWorker(main_dataQ)
+            MainProcess.start()
         elif MP_NUMBER == 3:
             main_dataQ = mp.Queue()
-            call_dataQ = mp.Queue()
-            put_dataQ = mp.Queue()
+            second_dataQ = mp.Queue()
+            third_dataQ = mp.Queue()
 
             # 멀티프로세스 객체생성
-            Futprocess = FuturesWorker(main_dataQ)
-            Futprocess.start()
+            MainProcess = FuturesWorker(main_dataQ)
+            MainProcess.start()
 
-            Callprocess = CallWorker(call_dataQ)
-            Callprocess.start()
+            SecondProcess = CallWorker(second_dataQ)
+            SecondProcess.start()
 
-            Putprocess = PutWorker(put_dataQ)
-            Putprocess.start()
+            ThirdProcess = PutWorker(third_dataQ)
+            ThirdProcess.start()
         else:
             pass        
     else:
@@ -39545,7 +39535,7 @@ if __name__ == "__main__":
         if MP_NUMBER == 1:
             window = MainWindow(main_dataQ) 
         elif MP_NUMBER == 3:
-            window = MainWindow(main_dataQ, call_dataQ, put_dataQ)
+            window = MainWindow(main_dataQ, second_dataQ, third_dataQ)
         else:
             pass      
     else:
