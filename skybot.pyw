@@ -2757,7 +2757,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                 else:
                     pass
 
-                if data['szTrCode'] == 'JIF':
+                if type(data) == dict and data['szTrCode'] == 'JIF':
                     self.trigger_dict.emit(data)
                 else:
                     pass
@@ -2993,12 +2993,15 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
                 
                 self.total_count += 1                    
                 self.total_packet_size += sys.getsizeof(data)
+
+                if type(data) == list:
+                    self.trigger_list.emit(data)
+                else:
+                    pass
                 
-                if not flag_2nd_realdata_update_is_running:
-                
-                    if type(data) == list:
-                        self.trigger_list.emit(data)
-                    elif type(data) == dict and not flag_2nd_realdata_update_is_running:
+                if not flag_2nd_realdata_update_is_running:                
+                    
+                    if type(data) == dict:
 
                         if data['szTrCode'] == 'OC0':
 
@@ -3103,12 +3106,15 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
 
                 self.total_count += 1                                        
                 self.total_packet_size += sys.getsizeof(data)
+
+                if type(data) == list:
+                    self.trigger_list.emit(data)
+                else:
+                    pass
                 
-                if not flag_3rd_realdata_update_is_running:
-                
-                    if type(data) == list:
-                        self.trigger_list.emit(data)
-                    elif type(data) == dict and not flag_3rd_realdata_update_is_running:
+                if not flag_3rd_realdata_update_is_running:                
+                    
+                    elif type(data) == dict:
 
                         if data['szTrCode'] == 'OC0':
 
