@@ -5832,7 +5832,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                     MainProcess.CancelAllRealData()
 
-                                    if MP_NUMBER == 3:
+                                    if MP_NUMBER == 2:
+                                        SecondProcess.CancelAllRealData()
+                                    elif MP_NUMBER == 3:
                                         SecondProcess.CancelAllRealData()
                                         ThirdProcess.CancelAllRealData()
                                     else:
@@ -5844,7 +5846,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                     MainProcess.connection.disconnect()
 
-                                    if MP_NUMBER == 3:
+                                    if MP_NUMBER == 2:
+                                        SecondProcess.connection.disconnect()
+                                    elif MP_NUMBER == 3:
                                         SecondProcess.connection.disconnect()
                                         ThirdProcess.connection.disconnect()
                                     else:
@@ -5858,7 +5862,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                     self.realtime_main_dataworker.terminate()
 
-                                    if MP_NUMBER == 3:
+                                    if MP_NUMBER == 2:
+                                        self.realtime_2nd_dataworker.terminate()
+                                    elif MP_NUMBER == 3:
                                         self.realtime_2nd_dataworker.terminate()
                                         self.realtime_3rd_dataworker.terminate()
                                     else:
@@ -5892,7 +5898,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 if MULTIPROCESS:
                                     MainProcess.shutdown()
 
-                                    if MP_NUMBER == 3:
+                                    if MP_NUMBER == 2:
+                                        SecondProcess.shutdown()
+                                    elif MP_NUMBER == 3:
                                         SecondProcess.shutdown()
                                         ThirdProcess.shutdown()
                                     else:
@@ -5927,7 +5935,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                     MainProcess.CancelAllRealData()
 
-                                    if MP_NUMBER == 3:
+                                    if MP_NUMBER == 2:
+                                        SecondProcess.CancelAllRealData()
+                                    elif MP_NUMBER == 3:
                                         SecondProcess.CancelAllRealData()
                                         ThirdProcess.CancelAllRealData()
                                     else:
@@ -5939,7 +5949,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                     MainProcess.connection.disconnect()
 
-                                    if MP_NUMBER == 3:
+                                    if MP_NUMBER == 2:
+                                        SecondProcess.connection.disconnect()
+                                    elif MP_NUMBER == 3:
                                         SecondProcess.connection.disconnect()
                                         ThirdProcess.connection.disconnect()
                                     else:
@@ -5953,7 +5965,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                     self.realtime_main_dataworker.terminate()
 
-                                    if MP_NUMBER == 3:
+                                    if MP_NUMBER == 2:
+                                        self.realtime_2nd_dataworker.terminate()
+                                    elif MP_NUMBER == 3:
                                         self.realtime_2nd_dataworker.terminate()
                                         self.realtime_3rd_dataworker.terminate()
                                     else:
@@ -5987,7 +6001,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 if MULTIPROCESS:
                                     MainProcess.shutdown()
 
-                                    if MP_NUMBER == 3:
+                                    if MP_NUMBER == 2:
+                                        SecondProcess.shutdown()
+                                    elif MP_NUMBER == 3:
                                         SecondProcess.shutdown()
                                         ThirdProcess.shutdown()
                                     else:
@@ -20109,8 +20125,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if MP_NUMBER == 1:
                         MainProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
                         MainProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
-                    elif MP_NUMBER == 3:
+                    elif MP_NUMBER == 2:
                         SecondProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+                    elif MP_NUMBER == 3:                        
                         ThirdProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
                     else:
                         pass                    
@@ -20178,8 +20195,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if MP_NUMBER == 1:
                             MainProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
-                        elif MP_NUMBER == 3:
+                        elif MP_NUMBER == 2:
                             SecondProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+                        elif MP_NUMBER == 3:
+                            ThirdProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
                         else:
                             pass                        
 
@@ -20200,6 +20219,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if MP_NUMBER == 1:
                             MainProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
+                        elif MP_NUMBER == 2:
+                            SecondProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
                         elif MP_NUMBER == 3:
                             ThirdProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
                         else:
@@ -20237,8 +20258,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if MP_NUMBER == 1:
                         MainProcess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
                         MainProcess.RequestRealData(OPT_HO, CM_PUT_CODE[i])
-                    elif MP_NUMBER == 3:
+                    elif MP_NUMBER == 2:
                         SecondProcess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
+                    elif MP_NUMBER == 3:                        
                         ThirdProcess.RequestRealData(OPT_HO, CM_PUT_CODE[i])
                     else:
                         pass
@@ -20283,8 +20305,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if MP_NUMBER == 1:
                             MainProcess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
-                        elif MP_NUMBER == 3:
+                        elif MP_NUMBER == 2:
                             SecondProcess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
+                        elif MP_NUMBER == 3:
+                            ThirdProcess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
                         else:
                             pass
 
@@ -20300,6 +20324,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if MP_NUMBER == 1:
                             MainProcess.RequestRealData(OPT_HO, CM_PUT_CODE[i])
+                        elif MP_NUMBER == 2:
+                            SecondProcess.RequestRealData(OPT_HO, CM_PUT_CODE[i])
                         elif MP_NUMBER == 3:
                             ThirdProcess.RequestRealData(OPT_HO, CM_PUT_CODE[i])
                         else:
@@ -20380,8 +20406,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if MP_NUMBER == 1:
                         MainProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
                         MainProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
-                    elif MP_NUMBER == 3:
+                    elif MP_NUMBER == 2:
                         SecondProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
+                    elif MP_NUMBER == 3:                        
                         ThirdProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
                     else:
                         pass
@@ -20449,8 +20476,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if MP_NUMBER == 1:
                             MainProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
-                        elif MP_NUMBER == 3:
+                        elif MP_NUMBER == 2:
                             SecondProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
+                        elif MP_NUMBER == 3:
+                            ThirdProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
                         else:
                             pass
 
@@ -20471,6 +20500,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if MP_NUMBER == 1:
                             MainProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
+                        elif MP_NUMBER == 2:
+                            SecondProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
                         elif MP_NUMBER == 3:
                             ThirdProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
                         else:
@@ -20508,8 +20539,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if MP_NUMBER == 1:
                         MainProcess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
                         MainProcess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
-                    elif MP_NUMBER == 3:
+                    elif MP_NUMBER == 2:
                         SecondProcess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
+                        SecondProcess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
+                    elif MP_NUMBER == 3:
+                        ThirdProcess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
                         ThirdProcess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
                     else:
                         pass
@@ -20555,8 +20589,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if MP_NUMBER == 1:
                             MainProcess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
-                        elif MP_NUMBER == 3:
+                        elif MP_NUMBER == 2:
                             SecondProcess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
+                        elif MP_NUMBER == 3:
+                            ThirdProcess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
                         else:
                             pass
 
@@ -20573,6 +20609,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if MP_NUMBER == 1:
                             MainProcess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
+                        elif MP_NUMBER == 2:
+                            SecondProcess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
                         elif MP_NUMBER == 3:
                             ThirdProcess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
                         else:
@@ -25112,8 +25150,9 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                         if MP_NUMBER == 1:
                             MainProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
                             MainProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
-                        elif MP_NUMBER == 3:
+                        elif MP_NUMBER == 2:
                             SecondProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+                        elif MP_NUMBER == 3:                            
                             ThirdProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
                         else:
                             pass
@@ -25133,8 +25172,9 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                     if MP_NUMBER == 1:
                         MainProcess.CancelRealData(OPT_REAL)
-                    elif MP_NUMBER == 3:
+                    elif MP_NUMBER == 2:
                         SecondProcess.CancelRealData(OPT_REAL)
+                    elif MP_NUMBER == 3:                        
                         ThirdProcess.CancelRealData(OPT_REAL)
                     else:
                         pass
@@ -25185,8 +25225,10 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                             if MP_NUMBER == 1:
                                 MainProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
-                            elif MP_NUMBER == 3:
+                            elif MP_NUMBER == 2:
                                 SecondProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+                            elif MP_NUMBER == 3:
+                                ThirdProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
                             else:
                                 pass
 
@@ -25202,6 +25244,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                             if MP_NUMBER == 1:
                                 MainProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
+                            elif MP_NUMBER == 2:
+                                SecondProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
                             elif MP_NUMBER == 3:
                                 ThirdProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
                             else:
@@ -25228,8 +25272,9 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                     if MP_NUMBER == 1:
                         MainProcess.CancelRealData(OPT_REAL)
-                    elif MP_NUMBER == 3:
+                    elif MP_NUMBER == 2:
                         SecondProcess.CancelRealData(OPT_REAL)
+                    elif MP_NUMBER == 3:                        
                         ThirdProcess.CancelRealData(OPT_REAL)
                     else:
                         pass
@@ -25449,8 +25494,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                         if MP_NUMBER == 1:
                             MainProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
                             MainProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
-                        elif MP_NUMBER == 3:
+                        elif MP_NUMBER == 2:
                             SecondProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
+                            SecondProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
+                        elif MP_NUMBER == 3:
+                            ThirdProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
                             ThirdProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
                         else:
                             pass
@@ -25470,8 +25518,9 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                     if MP_NUMBER == 1:
                         MainProcess.CancelRealData(OPT_REAL)
-                    elif MP_NUMBER == 3:
+                    elif MP_NUMBER == 2:
                         SecondProcess.CancelRealData(OPT_REAL)
+                    elif MP_NUMBER == 3:                        
                         ThirdProcess.CancelRealData(OPT_REAL)
                     else:
                         pass
@@ -25522,8 +25571,10 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                             if MP_NUMBER == 1:
                                 MainProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
-                            elif MP_NUMBER == 3:
+                            elif MP_NUMBER == 2:
                                 SecondProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
+                            elif MP_NUMBER == 3:
+                                ThirdProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
                             else:
                                 pass
 
@@ -25539,6 +25590,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                             if MP_NUMBER == 1:
                                 MainProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
+                            elif MP_NUMBER == 2:
+                                SecondProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
                             elif MP_NUMBER == 3:
                                 ThirdProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
                             else:
@@ -25565,8 +25618,9 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                     if MP_NUMBER == 1:
                         MainProcess.CancelRealData(OPT_REAL)
-                    elif MP_NUMBER == 3:
+                    elif MP_NUMBER == 2:
                         SecondProcess.CancelRealData(OPT_REAL)
+                    elif MP_NUMBER == 3:
                         ThirdProcess.CancelRealData(OPT_REAL)
                     else:
                         pass
@@ -25598,8 +25652,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                         if MP_NUMBER == 1:
                             MainProcess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
                             MainProcess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
-                        elif MP_NUMBER == 3:
+                        elif MP_NUMBER == 2:
                             SecondProcess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
+                            SecondProcess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
+                        elif MP_NUMBER == 3:
+                            ThirdProcess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
                             ThirdProcess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
                         else:
                             pass
@@ -25618,8 +25675,9 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 else:
                     if MP_NUMBER == 1:
                         MainProcess.CancelRealData(OPT_HO)
-                    elif MP_NUMBER == 3:
+                    elif MP_NUMBER == 2:
                         SecondProcess.CancelRealData(OPT_HO)
+                    elif MP_NUMBER == 3:
                         ThirdProcess.CancelRealData(OPT_HO)
                     else:
                         pass                    
@@ -25670,8 +25728,10 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                             if MP_NUMBER == 1:
                                 MainProcess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
-                            elif MP_NUMBER == 3:
+                            elif MP_NUMBER == 2:
                                 SecondProcess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
+                            elif MP_NUMBER == 3:
+                                ThirdProcess.RequestRealData(OPT_HO, NM_CALL_CODE[i])
                             else:
                                 pass
 
@@ -25687,6 +25747,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                             if MP_NUMBER == 1:
                                 MainProcess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
+                            elif MP_NUMBER == 2:
+                                SecondProcess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
                             elif MP_NUMBER == 3:
                                 ThirdProcess.RequestRealData(OPT_HO, NM_PUT_CODE[i])
                             else:
@@ -25713,7 +25775,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                     if MP_NUMBER == 1:
                         MainProcess.CancelRealData(OPT_HO)
+                    elif MP_NUMBER == 2:
+                        MainProcess.CancelRealData(OPT_HO)
+                        SecondProcess.CancelRealData(OPT_HO)
                     elif MP_NUMBER == 3:
+                        MainProcess.CancelRealData(OPT_HO)
                         SecondProcess.CancelRealData(OPT_HO)
                         ThirdProcess.CancelRealData(OPT_HO)
                     else:
@@ -26123,6 +26189,14 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                     MainProcess.Set_Valid_Data_Receive(True)
 
+                elif MP_NUMBER == 2:
+
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 유효한 선물, 옵션 실시간 수신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.parent.textBrowser.append(txt)
+
+                    MainProcess.Set_Valid_Data_Receive(True)
+                    SecondProcess.Set_Valid_Data_Receive(True)
+
                 elif MP_NUMBER == 3:
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 유효한 선물, 옵션 실시간 수신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
@@ -26144,6 +26218,14 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                     self.parent.textBrowser.append(txt)
 
                     MainProcess.Set_Valid_Data_Receive(False)
+
+                elif MP_NUMBER == 2:
+
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 유효한 선물, 옵션 실시간 수신요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.parent.textBrowser.append(txt)
+
+                    MainProcess.Set_Valid_Data_Receive(False)
+                    SecondProcess.Set_Valid_Data_Receive(False)
 
                 elif MP_NUMBER == 3:
 
@@ -38447,6 +38529,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         elif len(args) == 1:
             self.mp_mode = True
             self.main_dataQ = args[0]
+        elif len(args) == 2:
+            self.mp_mode = True
+            self.main_dataQ = args[0]
+            self.second_dataQ = args[1]
         elif len(args) == 3:
             self.mp_mode = True
             self.main_dataQ = args[0]
@@ -38511,6 +38597,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.mp_mode:
             if MP_NUMBER == 1:
                 self.main_connection = None
+            elif MP_NUMBER == 2:
+                self.main_connection = None
+                self.second_connection = None
             elif MP_NUMBER == 3:
                 self.main_connection = None
                 self.second_connection = None
@@ -38525,6 +38614,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.realtime_main_dataworker.trigger_list.connect(self.transfer_mp_main_trdata)
                 self.realtime_main_dataworker.trigger_dict.connect(self.transfer_mp_main_realdata)            
                 self.realtime_main_dataworker.start()
+            elif MP_NUMBER == 2:
+                self.realtime_main_dataworker = RealTime_Main_MP_Thread_DataWorker(self.main_dataQ)
+                self.realtime_main_dataworker.trigger_list.connect(self.transfer_mp_main_trdata)
+                self.realtime_main_dataworker.trigger_dict.connect(self.transfer_mp_main_realdata)            
+                self.realtime_main_dataworker.start()
+
+                self.realtime_2nd_dataworker = RealTime_2ND_MP_Thread_DataWorker(self.second_dataQ)
+                self.realtime_2nd_dataworker.trigger_list.connect(self.transfer_mp_2nd_trdata)
+                self.realtime_2nd_dataworker.trigger_dict.connect(self.transfer_mp_2nd_realdata)            
+                self.realtime_2nd_dataworker.start()
             elif MP_NUMBER == 3:
                 self.realtime_main_dataworker = RealTime_Main_MP_Thread_DataWorker(self.main_dataQ)
                 self.realtime_main_dataworker.trigger_list.connect(self.transfer_mp_main_trdata)
@@ -38749,15 +38848,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 fut_dropcount, fut_qsize, fut_totalcount, fut_totalsize = self.realtime_main_dataworker.get_packet_info()
                 drop_txt = '{0}/{1}({2}k)'.format(format(fut_dropcount, ','), format(fut_totalcount, ','), format(int(fut_totalsize/1000), ','))
 
+            elif MP_NUMBER == 2:
+
+                fut_dropcount, fut_qsize, fut_totalcount, fut_totalsize = self.realtime_main_dataworker.get_packet_info()
+                second_dropcount, second_qsize, second_totalcount, second_totalsize = self.realtime_2nd_dataworker.get_packet_info()
+
+                total_dropcount = fut_dropcount + second_dropcount
+                totalcount = fut_totalcount + second_totalcount
+                totalsize = fut_totalsize + second_totalsize
+
+                drop_txt = '{0}/{1}({2}k)'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','))
             elif MP_NUMBER == 3:
 
                 fut_dropcount, fut_qsize, fut_totalcount, fut_totalsize = self.realtime_main_dataworker.get_packet_info()
-                call_dropcount, call_qsize, call_totalcount, call_totalsize = self.realtime_2nd_dataworker.get_packet_info()
-                put_dropcount, put_qsize, put_totalcount, put_totalsize = self.realtime_3rd_dataworker.get_packet_info()
+                second_dropcount, second_qsize, second_totalcount, second_totalsize = self.realtime_2nd_dataworker.get_packet_info()
+                third_dropcount, third_qsize, third_totalcount, third_totalsize = self.realtime_3rd_dataworker.get_packet_info()
 
-                total_dropcount = fut_dropcount + call_dropcount + put_dropcount
-                totalcount = fut_totalcount + call_totalcount + put_totalcount
-                totalsize = fut_totalsize + call_totalsize + put_totalsize
+                total_dropcount = fut_dropcount + second_dropcount + third_dropcount
+                totalcount = fut_totalcount + second_totalcount + third_totalcount
+                totalsize = fut_totalsize + second_totalsize + third_totalsize
 
                 drop_txt = '{0}/{1}({2}k)'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','))
             else:
@@ -39182,6 +39291,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if MP_NUMBER == 1:
                 MainProcess.Login(self.url, self.id, self.pwd, self.cert)
+            elif MP_NUMBER == 2:
+                MainProcess.Login(self.url, self.id, self.pwd, self.cert)
+                self.main_event_loop.exec_() 
+
+                SecondProcess.Login(self.url, self.id, self.pwd, self.cert)
+                self.second_event_loop.exec_()
             elif MP_NUMBER == 3:
                 MainProcess.Login(self.url, self.id, self.pwd, self.cert)
                 self.main_event_loop.exec_() 
@@ -39494,7 +39609,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 print('모든 멀티프로세스 실시간요청 취소...')
                 MainProcess.CancelAllRealData()
 
-                if MP_NUMBER == 3:
+                if MP_NUMBER == 2:
+                    SecondProcess.CancelAllRealData()
+                elif MP_NUMBER == 3:
                     SecondProcess.CancelAllRealData()
                     ThirdProcess.CancelAllRealData()
                 else:
@@ -39503,7 +39620,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 print('모든 멀티프로세스 서버연결 해지...')
                 MainProcess.connection.disconnect()
 
-                if MP_NUMBER == 3:
+                if MP_NUMBER == 2:
+                    SecondProcess.connection.disconnect()
+                elif MP_NUMBER == 3:
                     SecondProcess.connection.disconnect()
                     ThirdProcess.connection.disconnect()
                 else:
@@ -39513,7 +39632,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 print('모든 멀티프로세스 쓰레드 종료...')
                 self.realtime_main_dataworker.terminate()
 
-                if MP_NUMBER == 3:
+                if MP_NUMBER == 2:
+                    self.realtime_2nd_dataworker.terminate()
+                elif MP_NUMBER == 3:
                     self.realtime_2nd_dataworker.terminate()
                     self.realtime_3rd_dataworker.terminate()
                 else:
@@ -39522,7 +39643,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 print('모든 멀티프로세스 Shutdown...')
                 MainProcess.shutdown()
 
-                if MP_NUMBER == 3:
+                if MP_NUMBER == 2:
+                    SecondProcess.shutdown()
+                elif MP_NUMBER == 3:
                     SecondProcess.shutdown()
                     ThirdProcess.shutdown()
                 else:
@@ -39582,11 +39705,25 @@ if __name__ == "__main__":
         mp.freeze_support()
 
         if MP_NUMBER == 1:
+
             main_dataQ = mp.Queue()
 
             MainProcess = MainWorker(main_dataQ)
             MainProcess.start()
+
+        elif MP_NUMBER == 2:
+
+            main_dataQ = mp.Queue()
+            second_dataQ = mp.Queue()
+
+            MainProcess = MainWorker(main_dataQ)
+            MainProcess.start()
+
+            SecondProcess = SecondWorker(second_dataQ)
+            SecondProcess.start()
+
         elif MP_NUMBER == 3:
+
             main_dataQ = mp.Queue()
             second_dataQ = mp.Queue()
             third_dataQ = mp.Queue()
@@ -39595,10 +39732,10 @@ if __name__ == "__main__":
             MainProcess = MainWorker(main_dataQ)
             MainProcess.start()
 
-            SecondProcess = CallWorker(second_dataQ)
+            SecondProcess = SecondWorker(second_dataQ)
             SecondProcess.start()
 
-            ThirdProcess = PutWorker(third_dataQ)
+            ThirdProcess = ThirdWorker(third_dataQ)
             ThirdProcess.start()
         else:
             pass        
@@ -39662,7 +39799,9 @@ if __name__ == "__main__":
     if MULTIPROCESS:
 
         if MP_NUMBER == 1:
-            window = MainWindow(main_dataQ) 
+            window = MainWindow(main_dataQ)
+        elif MP_NUMBER == 2:
+            window = MainWindow(main_dataQ, second_dataQ)
         elif MP_NUMBER == 3:
             window = MainWindow(main_dataQ, second_dataQ, third_dataQ)
         else:
