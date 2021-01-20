@@ -2752,18 +2752,19 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                 self.total_count += 1
                 self.total_packet_size += sys.getsizeof(data)
 
+                if type(data) == list:
+                    self.trigger_list.emit(data)
+                else:
+                    pass
+
                 if data['szTrCode'] == 'JIF':
                     self.trigger_dict.emit(data)
                 else:
                     pass
                 
-                if not flag_main_realdata_update_is_running:
+                if not flag_main_realdata_update_is_running:                    
 
-                    if type(data) == list:
-
-                        self.trigger_list.emit(data)
-
-                    elif type(data) == dict:
+                    if type(data) == dict:
 
                         if data['szTrCode'] == 'OVC':
 
