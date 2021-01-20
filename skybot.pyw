@@ -39445,7 +39445,7 @@ if __name__ == "__main__":
 
         import multiprocessing as mp
         from multiprocessing import Process, Queue, Pipe
-        from FuturesWorker import FuturesWorker
+        from MainWorker import MainWorker
         from SecondWorker import SecondWorker
         from ThirdWorker import ThirdWorker   
         
