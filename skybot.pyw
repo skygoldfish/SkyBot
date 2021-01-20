@@ -38709,7 +38709,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 시스템서버간 시간차 = {3}초, FH0 수신시간 = {4:02d}:{5:02d}:{6:02d}, 시간차 = {7}초\r'.format(\
                         dt.hour, dt.minute, dt.second, 시스템_서버_시간차, int(realdata['호가시간'][0:2]), int(realdata['호가시간'][2:4]), int(realdata['호가시간'][4:6]), time_gap)
 
-                    if abs(time_gap) > 1:
+                    if abs(time_gap) >= TIME_INDEX1:
                         self.statusbar.setStyleSheet("color : red")
                     else:
                         if DARK_STYLESHEET:
@@ -38728,7 +38728,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 시스템서버간 시간차 = {3}초, OVC 수신시간 = {4:02d}:{5:02d}:{6:02d}, 시간차 = {7}초\r'.format(\
                         dt.hour, dt.minute, dt.second, 시스템_서버_시간차, OVC_HOUR, OVC_MIN, OVC_SEC, time_gap)
 
-                    if abs(time_gap) > 1:
+                    if abs(time_gap) >= TIME_INDEX1:
                         self.statusbar.setStyleSheet("color : red")
                     else:
                         if DARK_STYLESHEET:
@@ -38929,7 +38929,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 시스템서버간 시간차 = {3}초, FH0 수신시간 = {4:02d}:{5:02d}:{6:02d}, 시간차 = {7}초\r'.format(\
                         dt.hour, dt.minute, dt.second, 시스템_서버_시간차, int(realdata['호가시간'][0:2]), int(realdata['호가시간'][2:4]), int(realdata['호가시간'][4:6]), time_gap)
 
-                    if abs(time_gap) > 1:
+                    if abs(time_gap) >= TIME_INDEX1:
                         self.statusbar.setStyleSheet("color : red")
                     else:
                         if DARK_STYLESHEET:
@@ -38948,7 +38948,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 시스템서버간 시간차 = {3}초, OVC 수신시간 = {4:02d}:{5:02d}:{6:02d}, 시간차 = {7}초\r'.format(\
                         dt.hour, dt.minute, dt.second, 시스템_서버_시간차, OVC_HOUR, OVC_MIN, OVC_SEC, time_gap)
 
-                    if abs(time_gap) > 1:
+                    if abs(time_gap) >= TIME_INDEX1:
                         self.statusbar.setStyleSheet("color : red")
                     else:
                         if DARK_STYLESHEET:
