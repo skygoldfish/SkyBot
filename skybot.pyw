@@ -2581,7 +2581,7 @@ class RealTime_Thread_DataWorker(QThread):
                         else:
                             self.drop_count += 1
 
-                    elif data['szTrCode'] == 'IJ':
+                    elif data['szTrCode'] == 'IJ_':
 
                         realtime_hour = int(data['시간'][0:2])
                         realtime_min = int(data['시간'][2:4])
@@ -2781,7 +2781,7 @@ class RealTime_FutThread_DataWorker(QThread):
                             else:
                                 self.drop_count += 1
 
-                        elif data['szTrCode'] == 'IJ':
+                        elif data['szTrCode'] == 'IJ_':
 
                             realtime_hour = int(data['시간'][0:2])
                             realtime_min = int(data['시간'][2:4])
