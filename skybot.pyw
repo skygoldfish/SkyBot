@@ -3114,7 +3114,7 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
                 
                 if not flag_3rd_realdata_update_is_running:                
                     
-                    elif type(data) == dict:
+                    if type(data) == dict:
 
                         if data['szTrCode'] == 'OC0':
 
