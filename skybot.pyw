@@ -23205,14 +23205,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
             elif result['업종코드'] == FUTURES and result['투자자코드'] == BANK or result['업종코드'] == CME and result['투자자코드'] == BANK:
-
+                pass
+                '''
+                나중에 원인분석 필요!!!
                 FUT_BANK_거래대금순매수 = int(result['거래대금순매수'])
 
                 if result['거래대금순매수직전대비'] != '-':
                     FUT_BANK_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
                 else:
                     pass
-
+                '''
             elif result['업종코드'] == FUTURES and result['투자자코드'] == JONGGEUM or result['업종코드'] == CME and result['투자자코드'] == JONGGEUM:
 
                 FUT_JONGGEUM_거래대금순매수 = int(result['거래대금순매수'])
