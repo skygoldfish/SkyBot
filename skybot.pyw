@@ -2683,7 +2683,7 @@ class RealTime_Thread_DataWorker(QThread):
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 멀티프로세스 쓰레드 클래스
 #####################################################################################################################################################################
-class RealTime_Main_Thread_DataWorker(QThread):
+class RealTime_Main_MP_Thread_DataWorker(QThread):
 
     # 수신데이타 타입이 list이면 TR데이타, dict이면 실시간데이타.        
     trigger_list = pyqtSignal(list)
@@ -2897,7 +2897,7 @@ class RealTime_Main_Thread_DataWorker(QThread):
             else:
                 flag_main_process_queue_empty = True
 
-class RealTime_2ND_Thread_DataWorker(QThread):
+class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
     # 수신데이타 타입이 list이면 TR데이타, dict이면 실시간데이타.        
     trigger_list = pyqtSignal(list)
@@ -2999,7 +2999,7 @@ class RealTime_2ND_Thread_DataWorker(QThread):
             else:
                 flag_2nd_process_queue_empty = True
                     
-class RealTime_3RD_Thread_DataWorker(QThread):
+class RealTime_3RD_MP_Thread_DataWorker(QThread):
 
     # 수신데이타 타입이 list이면 TR데이타, dict이면 실시간데이타.        
     trigger_list = pyqtSignal(list)
@@ -38444,22 +38444,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # Thread for Multiprocess Real Data Consumer
             # 장의 변동성이 클때는 하나의 프로세스로 200종목 이상의 데이타를 실시간 처리못함 --> 3개의 프로세스 생성하여 로드분산 !!!
             if MP_NUMBER == 1:
-                self.realtime_main_dataworker = RealTime_Main_Thread_DataWorker(self.main_dataQ)
+                self.realtime_main_dataworker = RealTime_Main_MP_Thread_DataWorker(self.main_dataQ)
                 self.realtime_main_dataworker.trigger_list.connect(self.transfer_mp_main_trdata)
                 self.realtime_main_dataworker.trigger_dict.connect(self.transfer_mp_main_realdata)            
                 self.realtime_main_dataworker.start()
             elif MP_NUMBER == 3:
-                self.realtime_main_dataworker = RealTime_Main_Thread_DataWorker(self.main_dataQ)
+                self.realtime_main_dataworker = RealTime_Main_MP_Thread_DataWorker(self.main_dataQ)
                 self.realtime_main_dataworker.trigger_list.connect(self.transfer_mp_main_trdata)
                 self.realtime_main_dataworker.trigger_dict.connect(self.transfer_mp_main_realdata)            
                 self.realtime_main_dataworker.start()
 
-                self.realtime_2nd_dataworker = RealTime_2ND_Thread_DataWorker(self.second_dataQ)
+                self.realtime_2nd_dataworker = RealTime_2ND_MP_Thread_DataWorker(self.second_dataQ)
                 self.realtime_2nd_dataworker.trigger_list.connect(self.transfer_mp_2nd_trdata)
                 self.realtime_2nd_dataworker.trigger_dict.connect(self.transfer_mp_2nd_realdata)            
                 self.realtime_2nd_dataworker.start()
 
-                self.realtime_3rd_dataworker = RealTime_3RD_Thread_DataWorker(self.third_dataQ)
+                self.realtime_3rd_dataworker = RealTime_3RD_MP_Thread_DataWorker(self.third_dataQ)
                 self.realtime_3rd_dataworker.trigger_list.connect(self.transfer_mp_3rd_trdata)
                 self.realtime_3rd_dataworker.trigger_dict.connect(self.transfer_mp_3rd_realdata)            
                 self.realtime_3rd_dataworker.start()
