@@ -24462,7 +24462,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.parent = parent
 
         self.flag_realtimeitem_open = True
-
+        '''
         if TARGET_MONTH == 'CM':
 
             cm_price_all_txt = '본월물 옵션가격(전체)'
@@ -24488,6 +24488,16 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             nm_quote_part_txt = '차차월물 옵션호가(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
         else:
             pass
+        '''
+        cm_price_all_txt = '본월물 옵션가격(전체)'
+        cm_price_part_txt = '본월물 옵션가격(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
+        cm_quote_all_txt = '본월물 옵션호가(전체)'
+        cm_quote_part_txt = '본월물 옵션호가(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
+
+        nm_price_all_txt = '차월물 옵션가격(전체)'
+        nm_price_part_txt = '차월물 옵션가격(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
+        nm_quote_all_txt = '차월물 옵션호가(전체)'
+        nm_quote_part_txt = '차월물 옵션호가(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
 
         self.checkBox_cm_opt_price.setText(cm_price_all_txt)
         self.checkBox_cm_opt_price_1.setText(cm_price_part_txt)
