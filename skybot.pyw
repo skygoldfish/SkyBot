@@ -2518,6 +2518,7 @@ class RealTime_Thread_DataWorker(QThread):
                 flag_main_process_queue_empty = False
 
                 dt = datetime.datetime.now()
+                systime = dt.hour * 3600 + dt.minute * 60 + dt.second 
 
                 data = self.dataQ.get(False)
 
@@ -2536,7 +2537,9 @@ class RealTime_Thread_DataWorker(QThread):
                         realtime_min = int(data['체결시간_한국'][2:4])
                         realtime_sec = int(data['체결시간_한국'][4:6])
 
-                        if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                        if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                             self.trigger_dict.emit(data)
                         else:
                             self.drop_count += 1
@@ -2547,7 +2550,9 @@ class RealTime_Thread_DataWorker(QThread):
                         realtime_min = int(data['호가시간'][2:4])
                         realtime_sec = int(data['호가시간'][4:6])
 
-                        if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                        if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                             self.trigger_dict.emit(data)
                         else:
                             self.drop_count += 1
@@ -2558,7 +2563,9 @@ class RealTime_Thread_DataWorker(QThread):
                         realtime_min = int(data['호가시간'][2:4])
                         realtime_sec = int(data['호가시간'][4:6])
 
-                        if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                        if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                             self.trigger_dict.emit(data)
                         else:
                             self.drop_count += 1
@@ -2569,7 +2576,9 @@ class RealTime_Thread_DataWorker(QThread):
                         realtime_min = int(data['체결시간'][2:4])
                         realtime_sec = int(data['체결시간'][4:6])
 
-                        if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                        if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                             self.trigger_dict.emit(data)
                         else:
                             self.drop_count += 1
@@ -2580,7 +2589,9 @@ class RealTime_Thread_DataWorker(QThread):
                         realtime_min = int(data['체결시간'][2:4])
                         realtime_sec = int(data['체결시간'][4:6])
 
-                        if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                        if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                             self.trigger_dict.emit(data)
                         else:
                             self.drop_count += 1
@@ -2591,7 +2602,9 @@ class RealTime_Thread_DataWorker(QThread):
                         realtime_min = int(data['시간'][2:4])
                         realtime_sec = int(data['시간'][4:6])
 
-                        if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                        if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                             self.trigger_dict.emit(data)
                         else:
                             self.drop_count += 1
@@ -2602,7 +2615,9 @@ class RealTime_Thread_DataWorker(QThread):
                         realtime_min = int(data['체결시간'][2:4])
                         realtime_sec = int(data['체결시간'][4:6])
 
-                        if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                        if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                             self.trigger_dict.emit(data)
                         else:
                             self.drop_count += 1
@@ -2613,7 +2628,9 @@ class RealTime_Thread_DataWorker(QThread):
                         realtime_min = int(data['호가시간'][2:4])
                         realtime_sec = int(data['호가시간'][4:6])
 
-                        if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                        if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                             self.trigger_dict.emit(data)
                         else:
                             self.drop_count += 1
@@ -2624,7 +2641,9 @@ class RealTime_Thread_DataWorker(QThread):
                         realtime_min = int(data['체결시간'][2:4])
                         realtime_sec = int(data['체결시간'][4:6])
 
-                        if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                        if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                             self.trigger_dict.emit(data)
                         else:
                             self.drop_count += 1
@@ -2635,7 +2654,9 @@ class RealTime_Thread_DataWorker(QThread):
                         realtime_min = int(data['호가시간'][2:4])
                         realtime_sec = int(data['호가시간'][4:6])
 
-                        if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                        if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                             self.trigger_dict.emit(data)
                         else:
                             self.drop_count += 1
@@ -2646,7 +2667,9 @@ class RealTime_Thread_DataWorker(QThread):
                         realtime_min = int(data['체결시간'][2:4])
                         realtime_sec = int(data['체결시간'][4:6])
 
-                        if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                        if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                             self.trigger_dict.emit(data)
                         else:
                             self.drop_count += 1
@@ -2657,7 +2680,9 @@ class RealTime_Thread_DataWorker(QThread):
                         realtime_min = int(data['수신시간'][2:4])
                         realtime_sec = int(data['수신시간'][4:6])
 
-                        if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                        if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                             self.trigger_dict.emit(data)
                         else:
                             self.drop_count += 1
@@ -2668,7 +2693,9 @@ class RealTime_Thread_DataWorker(QThread):
                         realtime_min = int(data['수신시간'][2:4])
                         realtime_sec = int(data['수신시간'][4:6])
 
-                        if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                        if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                             self.trigger_dict.emit(data)
                         else:
                             self.drop_count += 1
@@ -2718,6 +2745,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                 flag_main_process_queue_empty = False
 
                 dt = datetime.datetime.now()
+                systime = dt.hour * 3600 + dt.minute * 60 + dt.second
 
                 data = self.dataQ.get(False)
                 
@@ -2742,7 +2770,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                             realtime_min = int(data['체결시간_한국'][2:4])
                             realtime_sec = int(data['체결시간_한국'][4:6])
 
-                            if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2753,7 +2783,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                             realtime_min = int(data['호가시간'][2:4])
                             realtime_sec = int(data['호가시간'][4:6])
 
-                            if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2764,7 +2796,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                             realtime_min = int(data['호가시간'][2:4])
                             realtime_sec = int(data['호가시간'][4:6])
 
-                            if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2775,7 +2809,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                             realtime_min = int(data['체결시간'][2:4])
                             realtime_sec = int(data['체결시간'][4:6])
 
-                            if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2786,7 +2822,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                             realtime_min = int(data['체결시간'][2:4])
                             realtime_sec = int(data['체결시간'][4:6])
 
-                            if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2797,7 +2835,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                             realtime_min = int(data['시간'][2:4])
                             realtime_sec = int(data['시간'][4:6])
 
-                            if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2808,18 +2848,22 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                             realtime_min = int(data['체결시간'][2:4])
                             realtime_sec = int(data['체결시간'][4:6])
 
-                            if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
-                        
+
                         elif data['szTrCode'] == 'OH0':
 
                             realtime_hour = int(data['호가시간'][0:2])
                             realtime_min = int(data['호가시간'][2:4])
                             realtime_sec = int(data['호가시간'][4:6])
 
-                            if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2830,7 +2874,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                             realtime_min = int(data['체결시간'][2:4])
                             realtime_sec = int(data['체결시간'][4:6])
 
-                            if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2841,7 +2887,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                             realtime_min = int(data['호가시간'][2:4])
                             realtime_sec = int(data['호가시간'][4:6])
 
-                            if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2852,7 +2900,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                             realtime_min = int(data['체결시간'][2:4])
                             realtime_sec = int(data['체결시간'][4:6])
 
-                            if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2863,7 +2913,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                             realtime_min = int(data['수신시간'][2:4])
                             realtime_sec = int(data['수신시간'][4:6])
 
-                            if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2874,12 +2926,14 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                             realtime_min = int(data['수신시간'][2:4])
                             realtime_sec = int(data['수신시간'][4:6])
 
-                            if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
                         else:
-                            pass                                     
+                            pass        
                     else:
                         pass
                     # 실시간 그래프 호출을 여기서 할수 있음!!! --> 데이타프레임을 만든후 emit
@@ -2932,6 +2986,7 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
                 flag_2nd_process_queue_empty = False
 
                 dt = datetime.datetime.now()
+                systime = dt.hour * 3600 + dt.minute * 60 + dt.second
 
                 data = self.dataQ.get(False)
                 
@@ -2950,7 +3005,9 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
                             realtime_min = int(data['체결시간'][2:4])
                             realtime_sec = int(data['체결시간'][4:6])
 
-                            if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2961,7 +3018,9 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
                             realtime_min = int(data['체결시간'][2:4])
                             realtime_sec = int(data['체결시간'][4:6])
 
-                            if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2972,7 +3031,9 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
                             realtime_min = int(data['호가시간'][2:4])
                             realtime_sec = int(data['호가시간'][4:6])
 
-                            if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2983,7 +3044,9 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
                             realtime_min = int(data['호가시간'][2:4])
                             realtime_sec = int(data['호가시간'][4:6])
 
-                            if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -3034,6 +3097,7 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
                 flag_3rd_process_queue_empty = False
 
                 dt = datetime.datetime.now()
+                systime = dt.hour * 3600 + dt.minute * 60 + dt.second
 
                 data = self.dataQ.get(False)
 
@@ -3052,7 +3116,9 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
                             realtime_min = int(data['체결시간'][2:4])
                             realtime_sec = int(data['체결시간'][4:6])
 
-                            if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -3063,7 +3129,9 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
                             realtime_min = int(data['체결시간'][2:4])
                             realtime_sec = int(data['체결시간'][4:6])
 
-                            if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -3074,7 +3142,9 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
                             realtime_min = int(data['호가시간'][2:4])
                             realtime_sec = int(data['호가시간'][4:6])
 
-                            if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -3085,7 +3155,9 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
                             realtime_min = int(data['호가시간'][2:4])
                             realtime_sec = int(data['호가시간'][4:6])
 
-                            if (dt.hour - realtime_hour) == 0 and (dt.minute - realtime_min) == 0 and abs(dt.second - realtime_sec) < 시스템_서버_시간차 + TIME_INDEX1:
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
