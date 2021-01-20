@@ -39507,7 +39507,7 @@ if __name__ == "__main__":
         if MP_NUMBER == 1:
             main_dataQ = mp.Queue()
 
-            MainProcess = FuturesWorker(main_dataQ)
+            MainProcess = MainWorker(main_dataQ)
             MainProcess.start()
         elif MP_NUMBER == 3:
             main_dataQ = mp.Queue()
@@ -39515,7 +39515,7 @@ if __name__ == "__main__":
             third_dataQ = mp.Queue()
 
             # 멀티프로세스 객체생성
-            MainProcess = FuturesWorker(main_dataQ)
+            MainProcess = MainWorker(main_dataQ)
             MainProcess.start()
 
             SecondProcess = CallWorker(second_dataQ)

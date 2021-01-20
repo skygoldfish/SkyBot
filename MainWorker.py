@@ -135,7 +135,7 @@ month_after_next = int(MONTH_AFTER_NEXT[4:6])
 class MainWorker(mp.Process):
 
     def __init__(self, dataQ):
-        super(FuturesWorker, self).__init__()
+        super(MainWorker, self).__init__()
 
         self.daemon = True
 
