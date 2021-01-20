@@ -143,12 +143,7 @@ class ThirdWorker(mp.Process):
         self.data = []
 
         self.connection = None
-
         self.valid_data_receive = False
-        self.oc0_value = None
-
-        self.oh0_code = None
-        self.oh0_time = None
 
         # 조회요청 TR 초기화
         self.XQ_t0167 = None # 시간 조회
@@ -293,30 +288,9 @@ class ThirdWorker(mp.Process):
     # 실시간데이타 수신 콜백함수
     def OnReceiveRealData(self, result):
 
-        if self.valid_data_receive:
+        dt = datetime.datetime.now()
 
-            szTrCode = result['szTrCode']
-
-            if szTrCode == 'OC0':
-
-                if result['현재가'] != self.oc0_value:
-                    self.dataQ.put(result, False)
-                    self.oc0_value = result['현재가']
-                else:
-                    pass
-
-            elif szTrCode == 'OH0':
-
-                if result['단축코드'] != self.oh0_code or result['호가시간'] != self.oh0_time:
-                    self.dataQ.put(result, False)
-                    self.oh0_code = result['단축코드']
-                    self.oh0_time = result['호가시간']
-                else:
-                    pass
-            else:
-                pass
-        else:
-            self.dataQ.put(result, False)
+        self.dataQ.put(result, False)
 
     def Login(self, url, id, pwd, cert):
 
