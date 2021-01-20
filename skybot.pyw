@@ -379,7 +379,6 @@ SCORE_BOARD_UPDATE_INTERVAL = parser.getint('Initial Value', 'Score Board Update
 SECOND_DISPLAY_X_POSITION = parser.getint('Initial Value', 'X Position of the Second Display')
 SECOND_DISPLAY_Y_POSITION = parser.getint('Initial Value', 'Y Position of the Second Display')
 TIME_INDEX1 = parser.getint('Initial Value', 'Time Gap Index1')
-TIME_INDEX2 = parser.getint('Initial Value', 'Time Gap Index2')
 
 # [9]. << Code of the Foreign Futures (H/M/U/Z) >>
 SP500 = parser.get('Code of the Foreign Futures', 'S&P 500')
