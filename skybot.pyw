@@ -2702,8 +2702,7 @@ class RealTime_Thread_DataWorker(QThread):
                     else:
                         pass                    
                 else:
-                    self.drop_count += 1
-                    self.drop_code = data['szTrCode']                
+                    self.drop_count += 1                
             else:
                 flag_main_process_queue_empty = True
 
@@ -2939,7 +2938,6 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                     # 실시간 그래프 호출을 여기서 할수 있음!!! --> 데이타프레임을 만든후 emit
                 else:
                     self.drop_count += 1
-                    self.drop_code = data['szTrCode']
 
                 if flag_mp_interval_changed:
                     print('MP interval changed...')
@@ -3056,7 +3054,6 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
                         pass
                 else:
                     self.drop_count += 1
-                    self.drop_code = data['szTrCode']
                 
                 QTest.qWait(mp_send_interval)
             else:
@@ -3167,7 +3164,6 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
                         pass
                 else:
                     self.drop_count += 1
-                    self.drop_code = data['szTrCode']
 
                 QTest.qWait(mp_send_interval)
             else:
