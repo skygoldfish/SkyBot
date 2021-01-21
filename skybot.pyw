@@ -329,6 +329,7 @@ CSV_FILE = parser.getboolean('User Switch', 'CSV Data File')
 TTS = parser.getboolean('User Switch', 'Text To Speach')
 SEARCH_MOVING_NODE = parser.getboolean('User Switch', 'Search Moving Node')
 UI_HIDE = parser.getboolean('User Switch', 'UI Hide')
+OPTION_SIZE = parser.getboolean('User Switch', 'Option Total Size')
 
 # [6]. << Real Time Request Item Switch = 'ON or OFF' >>
 CM_FUT_PRICE = parser.getboolean('RealTime Request Item Switch', 'Current Month Futures Price')
@@ -2277,6 +2278,8 @@ class RealTime_Thread_DataWorker(QThread):
         self.drop_code = ''
         # 수신된 총 패킷크기
         self.total_packet_size = 0
+        # 수신된 총 옵션 패킷크기
+        self.total_option_packet_size = 0
         
         self.JIF = JIF(parent=self)
 
@@ -2309,7 +2312,7 @@ class RealTime_Thread_DataWorker(QThread):
         
     def get_packet_info(self):
 
-        return self.drop_count, self.dataQ.qsize(), self.total_count, self.total_packet_size
+        return self.drop_count, self.dataQ.qsize(), self.total_count, self.total_packet_size, self.total_option_packet_size
 
     def RequestRealData(self, type, code='0'):
 
@@ -2524,6 +2527,11 @@ class RealTime_Thread_DataWorker(QThread):
 
                 self.total_count += 1
                 self.total_packet_size += sys.getsizeof(data)
+
+                if data['szTrCode'] == 'OC0':
+                    self.total_option_packet_size += sys.getsizeof(data)
+                else:
+                    pass
 
                 if data['szTrCode'] == 'JIF':
                     self.trigger.emit(data)
@@ -2746,10 +2754,12 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
         self.drop_code = ''
         # 수신된 총 패킷크기
         self.total_packet_size = 0
+        # 수신된 총 옵션 패킷크기
+        self.total_option_packet_size = 0
 
     def get_packet_info(self):
 
-        return self.drop_count, self.dataQ.qsize(), self.total_count, self.total_packet_size
+        return self.drop_count, self.dataQ.qsize(), self.total_count, self.total_packet_size, self.total_option_packet_size
 
     def run(self):
 
@@ -2767,6 +2777,11 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                 
                 self.total_count += 1
                 self.total_packet_size += sys.getsizeof(data)
+
+                if type(data) == dict and data['szTrCode'] == 'OC0':
+                    self.total_option_packet_size += sys.getsizeof(data)
+                else:
+                    pass
 
                 if type(data) == list:
                     self.trigger_list.emit(data)
@@ -3004,10 +3019,12 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
         self.drop_code = ''
         # 수신된 총 패킷크기
         self.total_packet_size = 0
+        # 수신된 총 옵션 패킷크기
+        self.total_option_packet_size = 0
 
     def get_packet_info(self):
 
-        return self.drop_count, self.dataQ.qsize(), self.total_count, self.total_packet_size
+        return self.drop_count, self.dataQ.qsize(), self.total_count, self.total_packet_size, self.total_option_packet_size
 
     def run(self):
 
@@ -3025,6 +3042,11 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
                 
                 self.total_count += 1                    
                 self.total_packet_size += sys.getsizeof(data)
+
+                if data['szTrCode'] == 'OC0':
+                    self.total_option_packet_size += sys.getsizeof(data)
+                else:
+                    pass
 
                 if type(data) == list:
                     self.trigger_list.emit(data)
@@ -3117,10 +3139,12 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
         self.drop_code = ''
         # 수신된 총 패킷크기
         self.total_packet_size = 0
+        # 수신된 총 옵션 패킷크기
+        self.total_option_packet_size = 0
 
     def get_packet_info(self):
 
-        return self.drop_count, self.dataQ.qsize(), self.total_count, self.total_packet_size
+        return self.drop_count, self.dataQ.qsize(), self.total_count, self.total_packet_size, self.total_option_packet_size
 
     def run(self):
 
@@ -3138,6 +3162,11 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
 
                 self.total_count += 1                                        
                 self.total_packet_size += sys.getsizeof(data)
+
+                if data['szTrCode'] == 'OC0':
+                    self.total_option_packet_size += sys.getsizeof(data)
+                else:
+                    pass
 
                 if type(data) == list:
                     self.trigger_list.emit(data)
@@ -38912,28 +38941,33 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if MP_NUMBER == 1:
 
-                fut_dropcount, fut_qsize, fut_totalcount, fut_totalsize = self.realtime_main_dataworker.get_packet_info()
-                drop_txt = '{0}/{1}({2}k)'.format(format(fut_dropcount, ','), format(fut_totalcount, ','), format(int(fut_totalsize/1000), ','))
+                main_dropcount, main_qsize, main_totalcount, main_totalsize, main_opt_totalsize = self.realtime_main_dataworker.get_packet_info()
+
+                if OPTION_SIZE:
+                    drop_txt = '{0}/{1}({2}k)'.format(format(main_dropcount, ','), format(main_totalcount, ','), format(int(main_opt_totalsize/1000), ','))
+                else:
+                    drop_txt = '{0}/{1}({2}k)'.format(format(main_dropcount, ','), format(main_totalcount, ','), format(int(main_totalsize/1000), ','))
 
             elif MP_NUMBER == 2:
 
-                fut_dropcount, fut_qsize, fut_totalcount, fut_totalsize = self.realtime_main_dataworker.get_packet_info()
-                second_dropcount, second_qsize, second_totalcount, second_totalsize = self.realtime_2nd_dataworker.get_packet_info()
+                main_dropcount, main_qsize, main_totalcount, main_totalsize, main_opt_totalsize = self.realtime_main_dataworker.get_packet_info()
+                second_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
 
-                total_dropcount = fut_dropcount + second_dropcount
-                totalcount = fut_totalcount + second_totalcount
-                totalsize = fut_totalsize + second_totalsize
+                total_dropcount = main_dropcount + second_dropcount
+                totalcount = main_totalcount + second_totalcount
+                totalsize = main_totalsize + second_totalsize
 
                 drop_txt = '{0}/{1}({2}k)'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','))
+                    
             elif MP_NUMBER == 3:
 
-                fut_dropcount, fut_qsize, fut_totalcount, fut_totalsize = self.realtime_main_dataworker.get_packet_info()
-                second_dropcount, second_qsize, second_totalcount, second_totalsize = self.realtime_2nd_dataworker.get_packet_info()
-                third_dropcount, third_qsize, third_totalcount, third_totalsize = self.realtime_3rd_dataworker.get_packet_info()
+                main_dropcount, main_qsize, main_totalcount, main_totalsize, main_opt_totalsize = self.realtime_main_dataworker.get_packet_info()
+                second_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
+                third_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_3rd_dataworker.get_packet_info()
 
-                total_dropcount = fut_dropcount + second_dropcount + third_dropcount
-                totalcount = fut_totalcount + second_totalcount + third_totalcount
-                totalsize = fut_totalsize + second_totalsize + third_totalsize
+                total_dropcount = main_dropcount + second_dropcount + third_dropcount
+                totalcount = main_totalcount + second_totalcount + third_totalcount
+                totalsize = main_totalsize + second_totalsize + third_totalsize
 
                 drop_txt = '{0}/{1}({2}k)'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','))
             else:
@@ -39147,8 +39181,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.dialog['선물옵션전광판'].tableWidget_supply.setHorizontalHeaderItem(Supply_column.종합.value - 2, item)
 
             # 수신된 실시간데이타 정보표시(누락된 패킷수, 누락된 패킷, 수신된 총 패킷수, 수신된 총 패킷크기)
-            dropcount, qsize, totalcount, totalsize = self.realtime_thread_dataworker.get_packet_info()
-            drop_txt = '{0}/{1}({2}k)'.format(format(dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','))
+            dropcount, qsize, totalcount, totalsize, opt_totalsize = self.realtime_thread_dataworker.get_packet_info()
+
+            if OPTION_SIZE:
+                drop_txt = '{0}/{1}({2}k)'.format(format(dropcount, ','), format(totalcount, ','), format(int(opt_totalsize/1000), ','))
+            else:
+                drop_txt = '{0}/{1}({2}k)'.format(format(dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','))
 
             item = QTableWidgetItem(drop_txt)
             item.setTextAlignment(Qt.AlignCenter)
