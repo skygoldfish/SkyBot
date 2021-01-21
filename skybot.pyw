@@ -22540,17 +22540,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 if result['예상체결가격'] != float(self.tableWidget_fut.item(1, Futures_column.시가.value).text()):
 
-                    선물_현재가 = result['예상체결가격']
+                    선물_시가 = result['예상체결가격']
                     self.fut_realdata['시가'] = result['예상체결가격']
 
-                    df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
+                    df_futures_graph.at[ovc_x_idx, 'price'] = 선물_시가
 
-                    item = QTableWidgetItem("{0:.2f}".format(선물_현재가))
+                    item = QTableWidgetItem("{0:.2f}".format(선물_시가))
                     item.setTextAlignment(Qt.AlignCenter)
 
-                    if 선물_현재가 > self.fut_realdata['종가']:
+                    if 선물_시가 > self.fut_realdata['종가']:
                         item.setForeground(QBrush(적색))
-                    elif 선물_현재가 < self.fut_realdata['종가']:
+                    elif 선물_시가 < self.fut_realdata['종가']:
                         item.setForeground(QBrush(청색))
                     else:
                         item.setForeground(QBrush(검정색))
@@ -22561,15 +22561,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         (SERVER_HOUR, SERVER_MIN, SERVER_SEC, result['예상체결가격'])
                     self.textBrowser.append(txt)
 
-                    시가갭 = 선물_현재가 - self.fut_realdata['종가']
+                    시가갭 = 선물_시가 - self.fut_realdata['종가']
 
                     item = QTableWidgetItem("{0:.2f}".format(시가갭))
                     item.setTextAlignment(Qt.AlignCenter)
 
-                    if 선물_현재가 > self.fut_realdata['종가']:
+                    if 선물_시가 > self.fut_realdata['종가']:
                         item.setBackground(QBrush(콜기준가색))
                         item.setForeground(QBrush(검정색))
-                    elif 선물_현재가 < self.fut_realdata['종가']:
+                    elif 선물_시가 < self.fut_realdata['종가']:
                         item.setBackground(QBrush(풋기준가색))
                         item.setForeground(QBrush(흰색))
                     else:
@@ -22577,7 +22577,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
 
-                    선물_피봇 = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_현재가)
+                    선물_피봇 = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
 
                     item = QTableWidgetItem("{0:.2f}".format(self.fut_realdata['피봇']))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -22585,7 +22585,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.fut_realdata['피봇'] = 선물_피봇
 
-                    DOW_기준_예상시가 = (선물_전일종가 * DOW_현재가) / DOW_전일종가
+                    if DOW_전일종가 > 0:
+                        DOW_기준_예상시가 = (선물_전일종가 * DOW_현재가) / DOW_전일종가
+                    else:
+                        pass
 
                     item = QTableWidgetItem("{0:.2f}".format(DOW_기준_예상시가))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -22593,7 +22596,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(대맥점색))
                     self.tableWidget_fut.setItem(0, Futures_column.시가.value, item)
 
-                    선물_등락율 = ((result['예상체결가격'] - 선물_전일종가) / 선물_전일종가) * 100
+                    if 선물_전일종가 > 0:
+                        선물_등락율 = ((result['예상체결가격'] - 선물_전일종가) / 선물_전일종가) * 100
+                    else:
+                        pass
 
                     item = QTableWidgetItem("선물\n({0:.2f}%)".format(선물_등락율))
                     item.setTextAlignment(Qt.AlignCenter)
