@@ -2676,7 +2676,7 @@ class RealTime_Thread_DataWorker(QThread):
                         realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                         if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                            self.trigger_dict.emit(data)
+                            self.trigger.emit(data)
                         else:
                             self.drop_count += 1 
 
@@ -24815,6 +24815,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.flag_score_board_open = False
 
+        self.KillScoreBoardAllThread()
+        '''
         if not MULTIPROCESS:
 
             if self.parent.realtime_thread_dataworker.isRunning():
@@ -24826,7 +24828,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
         else:
             pass
-
+        '''
         txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.parent.textBrowser.append(txt)
         print(txt)   
