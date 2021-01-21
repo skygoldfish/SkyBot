@@ -5869,6 +5869,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                         ThirdProcess.CancelAllRealData()
                                     else:
                                         pass
+                                    
+                                    QTest.qWait(10)
 
                                     txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 서버연결을 해지합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                                     self.textBrowser.append(txt)
@@ -5972,6 +5974,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                         ThirdProcess.CancelAllRealData()
                                     else:
                                         pass
+                                    
+                                    QTest.qWait(10)
 
                                     txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 서버연결을 해지합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                                     self.textBrowser.append(txt)
@@ -24783,8 +24787,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.flag_score_board_open = False
 
         if not MULTIPROCESS:
+
             if self.parent.realtime_thread_dataworker.isRunning():
+                print('Score Board의 모든 쓰레드를 종료합니다.')
                 self.KillScoreBoardAllThread()
+                #print('모든 실시간요청 취소...')
+                #self.parent.realtime_thread_dataworker.CancelAllRealData()
             else:
                 pass
         else:
@@ -24795,7 +24803,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         print(txt)   
 
         self.close()
-        self.parent.OnChildDialogCloseEvent('Score Board')
+        #self.parent.OnChildDialogCloseEvent('Score Board')
 #####################################################################################################################################################################
 # RealTime Item UI Class
 #####################################################################################################################################################################
@@ -39632,23 +39640,28 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             event.accept()
 
-            #self.speaker.setText('프로그램을 종료합니다.')
+            if self.dialog['선물옵션전광판'] is not None:
 
-            if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
-
-                self.dialog['선물옵션전광판'].KillScoreBoardAllThread()
+                if self.dialog['선물옵션전광판'].flag_score_board_open:
+                    self.dialog['선물옵션전광판'].KillScoreBoardAllThread()
+                else:
+                    pass
 
                 if not MULTIPROCESS:
                     print('모든 실시간요청 취소...')
-                    self.realtime_thread_dataworker.CancelAllRealData() 
+                    self.realtime_thread_dataworker.CancelAllRealData()
+
+                    QTest.qWait(10)
+                    
                     print('서버연결 해지...')
                     self.main_connection.disconnect()
+                    
                     print('쓰레드 종료...')
                     self.realtime_thread_dataworker.terminate()
                 else:
                     pass
             else:
-                print('선물옵션전광판 다이얼로그가 없습니다.')
+                pass
 
             if self.dialog['BigChart'] is not None:
 
@@ -39682,6 +39695,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
+                QTest.qWait(10)
+
                 print('모든 멀티프로세스 서버연결 해지...')
                 MainProcess.connection.disconnect()
 
@@ -39694,6 +39709,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
                 QTest.qWait(10)
+
                 print('모든 멀티프로세스 쓰레드 종료...')
                 self.realtime_main_dataworker.terminate()
 
