@@ -2687,6 +2687,8 @@ class RealTime_Thread_DataWorker(QThread):
 
                     elif data['szTrCode'] == 'BM_':
 
+                        self.trigger.emit(data)
+                        '''
                         realtime_hour = int(data['수신시간'][0:2])
                         realtime_min = int(data['수신시간'][2:4])
                         realtime_sec = int(data['수신시간'][4:6])
@@ -2697,9 +2699,12 @@ class RealTime_Thread_DataWorker(QThread):
                             self.trigger.emit(data)
                         else:
                             self.drop_count += 1
+                        '''
 
                     elif data['szTrCode'] == 'PM_':
 
+                        self.trigger.emit(data)
+                        '''
                         realtime_hour = int(data['수신시간'][0:2])
                         realtime_min = int(data['수신시간'][2:4])
                         realtime_sec = int(data['수신시간'][4:6])
@@ -2710,6 +2715,7 @@ class RealTime_Thread_DataWorker(QThread):
                             self.trigger.emit(data)
                         else:
                             self.drop_count += 1
+                        '''
                     else:
                         self.trigger.emit(data)                    
                 else:
@@ -2931,6 +2937,8 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                         elif data['szTrCode'] == 'BM_':
 
+                            self.trigger_dict.emit(data)
+                            '''
                             realtime_hour = int(data['수신시간'][0:2])
                             realtime_min = int(data['수신시간'][2:4])
                             realtime_sec = int(data['수신시간'][4:6])
@@ -2941,9 +2949,12 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
+                            '''
 
                         elif data['szTrCode'] == 'PM_':
 
+                            self.trigger_dict.emit(data)
+                            '''
                             realtime_hour = int(data['수신시간'][0:2])
                             realtime_min = int(data['수신시간'][2:4])
                             realtime_sec = int(data['수신시간'][4:6])
@@ -2954,6 +2965,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
+                            '''
                         else:
                             self.trigger_dict.emit(data)      
                     else:
@@ -3077,7 +3089,7 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
                         else:
                             pass 
                     else:
-                        pass
+                        self.trigger_dict.emit(data)
                 else:
                     self.drop_count += 1
                 
@@ -3188,7 +3200,7 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
                             else:
                                 self.drop_count += 1
                         else:
-                            pass                  
+                            self.trigger_dict.emit(data)                  
                     else:
                         pass
                 else:
