@@ -22658,8 +22658,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
 
-                    선물_진폭비 = (선물_고가 - 선물_저가) / 선물_시가            
-                    선물_DOW_진폭비율 = 선물_진폭비 / DOW_진폭비 
+                    if 선물_시가 > 0:
+                        선물_진폭비 = (선물_고가 - 선물_저가) / 선물_시가
+                    else:
+                        pass
+
+                    if DOW_진폭비 > 0:            
+                        선물_DOW_진폭비율 = 선물_진폭비 / DOW_진폭비
+                    else:
+                        pass 
 
                     item = QTableWidgetItem("{0:.2f}".format(선물_DOW_진폭비율))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -22997,7 +23004,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if ResizeRowsToContents:
                             self.tableWidget_put.resizeRowsToContents()
                         else:
-                            pas
+                            pass
                         self.tableWidget_put.resizeColumnsToContents()
                     else:
                         pass
