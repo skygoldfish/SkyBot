@@ -2528,11 +2528,6 @@ class RealTime_Thread_DataWorker(QThread):
                 self.total_count += 1
                 self.total_packet_size += sys.getsizeof(data)
 
-                if data['szTrCode'] == 'OC0':
-                    self.total_option_packet_size += sys.getsizeof(data)
-                else:
-                    pass
-
                 if data['szTrCode'] == 'JIF':
                     self.trigger.emit(data)
                 else:
@@ -2622,6 +2617,8 @@ class RealTime_Thread_DataWorker(QThread):
                             self.drop_count += 1
 
                     elif data['szTrCode'] == 'OC0':
+
+                        self.total_option_packet_size += sys.getsizeof(data)
 
                         realtime_hour = int(data['체결시간'][0:2])
                         realtime_min = int(data['체결시간'][2:4])
@@ -2778,11 +2775,6 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                 self.total_count += 1
                 self.total_packet_size += sys.getsizeof(data)
 
-                if type(data) == dict and data['szTrCode'] == 'OC0':
-                    self.total_option_packet_size += sys.getsizeof(data)
-                else:
-                    pass
-
                 if type(data) == list:
                     self.trigger_list.emit(data)
                 else:
@@ -2879,6 +2871,8 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                                 self.drop_count += 1
 
                         elif data['szTrCode'] == 'OC0':
+
+                            self.total_option_packet_size += sys.getsizeof(data)
 
                             realtime_hour = int(data['체결시간'][0:2])
                             realtime_min = int(data['체결시간'][2:4])
@@ -3043,11 +3037,6 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
                 self.total_count += 1                    
                 self.total_packet_size += sys.getsizeof(data)
 
-                if data['szTrCode'] == 'OC0':
-                    self.total_option_packet_size += sys.getsizeof(data)
-                else:
-                    pass
-
                 if type(data) == list:
                     self.trigger_list.emit(data)
                 else:
@@ -3058,6 +3047,8 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
                     if type(data) == dict:
 
                         if data['szTrCode'] == 'OC0':
+
+                            self.total_option_packet_size += sys.getsizeof(data)
 
                             realtime_hour = int(data['체결시간'][0:2])
                             realtime_min = int(data['체결시간'][2:4])
@@ -3163,11 +3154,6 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
                 self.total_count += 1                                        
                 self.total_packet_size += sys.getsizeof(data)
 
-                if data['szTrCode'] == 'OC0':
-                    self.total_option_packet_size += sys.getsizeof(data)
-                else:
-                    pass
-
                 if type(data) == list:
                     self.trigger_list.emit(data)
                 else:
@@ -3178,6 +3164,8 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
                     if type(data) == dict:
 
                         if data['szTrCode'] == 'OC0':
+
+                            self.total_option_packet_size += sys.getsizeof(data)
 
                             realtime_hour = int(data['체결시간'][0:2])
                             realtime_min = int(data['체결시간'][2:4])
@@ -38920,10 +38908,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 if szTrCode == 'OVC':
                     
-                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (OVC_HOUR * 3600 + OVC_MIN * 60 + OVC_SEC)
+                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['체결시간_한국'][0:2]) * 3600 + int(realdata['체결시간_한국'][2:4]) * 60 + int(realdata['체결시간_한국'][4:6]))
                     
                     txt = ' 시스템 시간/데이타수신 시간 = [{0:02d}:{1:02d}:{2:02d}/{3:02d}:{4:02d}:{5:02d}]({6}), 시스템서버간 시간차 = {7}초\r'.format(\
-                        dt.hour, dt.minute, dt.second, OVC_HOUR, OVC_MIN, OVC_SEC, time_gap, 시스템_서버_시간차)
+                        dt.hour, dt.minute, dt.second, int(realdata['체결시간_한국'][0:2]), int(realdata['체결시간_한국'][2:4]), int(realdata['체결시간_한국'][4:6]), time_gap, 시스템_서버_시간차)
 
                     if abs(time_gap) >= TIME_INDEX1:
                         self.statusbar.setStyleSheet("color : red")
@@ -39161,10 +39149,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 if szTrCode == 'OVC':
                     
-                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (OVC_HOUR * 3600 + OVC_MIN * 60 + OVC_SEC)
+                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['체결시간_한국'][0:2]) * 3600 + int(realdata['체결시간_한국'][2:4]) * 60 + int(realdata['체결시간_한국'][4:6]))
                     
                     txt = ' 시스템 시간/데이타수신 시간 = [{0:02d}:{1:02d}:{2:02d}/{3:02d}:{4:02d}:{5:02d}]({6}), 시스템서버간 시간차 = {7}초\r'.format(\
-                        dt.hour, dt.minute, dt.second, OVC_HOUR, OVC_MIN, OVC_SEC, time_gap, 시스템_서버_시간차)
+                        dt.hour, dt.minute, dt.second, int(realdata['체결시간_한국'][0:2]), int(realdata['체결시간_한국'][2:4]), int(realdata['체결시간_한국'][4:6]), time_gap, 시스템_서버_시간차)
 
                     if abs(time_gap) >= TIME_INDEX1:
                         self.statusbar.setStyleSheet("color : red")
