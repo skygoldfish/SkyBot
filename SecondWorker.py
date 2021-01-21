@@ -563,19 +563,19 @@ class SecondWorker(mp.Process):
 
     def run(self):
 
-        print('Call MultiProcess RealTimeWorker Start...')
+        print('Second MultiProcess RealTimeWorker Start...')
         
         while not self.exit.is_set():
             pass
 
-        print("Call MultiProcess RealTimeWorker Terminated !!!")
+        print("Second MultiProcess RealTimeWorker Terminated !!!")
 
     def disconnect(self):
 
-        print('Call 서버연결 해지...')
+        print('Second 서버연결 해지...')
         self.connection.disconnect()
 
     def shutdown(self):
 
-        print("Call MultiProcess Shutdown initiated...")        
+        print("Second MultiProcess Shutdown initiated...")        
         self.exit.set()            

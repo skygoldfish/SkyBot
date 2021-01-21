@@ -563,19 +563,19 @@ class ThirdWorker(mp.Process):
 
     def run(self):
 
-        print('Put MultiProcess RealTimeWorker Start...')
+        print('Third MultiProcess RealTimeWorker Start...')
         
         while not self.exit.is_set():
             pass
 
-        print("Put MultiProcess RealTimeWorker Terminated !!!")
+        print("Third MultiProcess RealTimeWorker Terminated !!!")
 
     def disconnect(self):
 
-        print('Put 서버연결 해지...')
+        print('Third 서버연결 해지...')
         self.connection.disconnect()
 
     def shutdown(self):
 
-        print("Put MultiProcess Shutdown initiated...")        
+        print("Third MultiProcess Shutdown initiated...")        
         self.exit.set()            

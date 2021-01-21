@@ -565,19 +565,19 @@ class MainWorker(mp.Process):
 
     def run(self):
 
-        print('Futures MultiProcess RealTimeWorker Start...')
+        print('Main MultiProcess RealTimeWorker Start...')
         
         while not self.exit.is_set():
             pass
 
-        print("Futures MultiProcess RealTimeWorker Terminated !!!")
+        print("Main MultiProcess RealTimeWorker Terminated !!!")
 
     def disconnect(self):
 
-        print('Futures 서버연결 해지...')
+        print('Main 서버연결 해지...')
         self.connection.disconnect()
 
     def shutdown(self):
 
-        print("Futures MultiProcess Shutdown initiated...")        
+        print("Main MultiProcess Shutdown initiated...")        
         self.exit.set()            
