@@ -1903,6 +1903,9 @@ flag_put_otm_number_changed = False
 drop_txt = ''
 time_gap = 0
 
+main_opt_totalsize = 0
+main_totalsize = 0
+
 flag_t8416_rerequest = False
 flag_t8416_re_request_start = False
 
@@ -2633,6 +2636,8 @@ class RealTime_Thread_DataWorker(QThread):
                     
                     elif data['szTrCode'] == 'OH0':
 
+                        self.total_option_packet_size += sys.getsizeof(data)
+
                         if not pre_start:
                             realtime_hour = int(data['호가시간'][0:2])
                             realtime_min = int(data['호가시간'][2:4])
@@ -2887,6 +2892,8 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                         elif data['szTrCode'] == 'OH0':
 
+                            self.total_option_packet_size += sys.getsizeof(data)
+
                             if not pre_start:
                                 realtime_hour = int(data['호가시간'][0:2])
                                 realtime_min = int(data['호가시간'][2:4])
@@ -3076,6 +3083,8 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
                         elif data['szTrCode'] == 'OH0':
 
+                            self.total_option_packet_size += sys.getsizeof(data)
+
                             realtime_hour = int(data['호가시간'][0:2])
                             realtime_min = int(data['호가시간'][2:4])
                             realtime_sec = int(data['호가시간'][4:6])
@@ -3192,6 +3201,8 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
                                 self.drop_count += 1
 
                         elif data['szTrCode'] == 'OH0':
+
+                            self.total_option_packet_size += sys.getsizeof(data)
 
                             realtime_hour = int(data['호가시간'][0:2])
                             realtime_min = int(data['호가시간'][2:4])
@@ -5931,7 +5942,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if not flag_logfile:
 
-                                realdata_info_txt = '수신된 실시간데이타 통계 : ' + drop_txt + '\r'
+                                realdata_option_info_txt = '[{0:02d}:{1:02d}:{2:02d}] 수신된 옵션 데이타 크기 : ' + main_opt_totalsize + '\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                                self.textBrowser.append(realdata_option_info_txt)
+
+                                realdata_info_txt = '[{0:02d}:{1:02d}:{2:02d}] 수신된 실시간데이타 전체 통계 : ' + drop_txt + '\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                                 self.textBrowser.append(realdata_info_txt)
 
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
@@ -23474,20 +23488,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if (result['업종코드'] == FUTURES and result['투자자코드'] == FOREIGNER) or (result['업종코드'] == CME and result['투자자코드'] == FOREIGNER):
 
-                if result['거래대금순매수'] != '-':
+                try : 
                     FUT_FOREIGNER_거래대금순매수 = int(result['거래대금순매수'])
-                else:
-                    pass
+                    순매수 = format(FUT_FOREIGNER_거래대금순매수, ',')
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_FOREIGNER_거래대금순매수에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
-                if result['거래대금순매수'] != '-':
+                try : 
                     FUT_FOREIGNER_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                else:
-                    pass
-
-                FUT_FOREIGNER_직전대비.extend([FUT_FOREIGNER_거래대금순매수_직전대비])
-                temp = list(FUT_FOREIGNER_직전대비)
-
-                순매수 = format(FUT_FOREIGNER_거래대금순매수, ',')
+                    FUT_FOREIGNER_직전대비.extend([FUT_FOREIGNER_거래대금순매수_직전대비])
+                    temp = list(FUT_FOREIGNER_직전대비)
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_FOREIGNER_거래대금순매수_직전대비에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
+                    temp = 0                
 
                 if min(temp) > 0:
 
@@ -23516,7 +23533,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                 else:
-
                     item_txt = "{0}\n({1})".format(순매수, result['거래대금순매수직전대비'])
 
                     if item_txt != self.tableWidget_supply.item(0, 0).text():
@@ -23530,20 +23546,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif (result['업종코드'] == FUTURES and result['투자자코드'] == RETAIL) or (result['업종코드'] == CME and result['투자자코드'] == RETAIL):
 
-                if result['거래대금순매수'] != '-':
+                try : 
                     FUT_RETAIL_거래대금순매수 = int(result['거래대금순매수'])
-                else:
-                    pass
+                    순매수 = format(FUT_RETAIL_거래대금순매수, ',')
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_RETAIL_거래대금순매수에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
-                if result['거래대금순매수직전대비'] != '-':
+                try : 
                     FUT_RETAIL_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                else:
-                    pass
-
-                FUT_RETAIL_직전대비.extend([FUT_RETAIL_거래대금순매수_직전대비])
-                temp = list(FUT_RETAIL_직전대비)
-
-                순매수 = format(FUT_RETAIL_거래대금순매수, ',')
+                    FUT_FOREIGNER_직전대비.extend([FUT_RETAIL_거래대금순매수_직전대비])
+                    temp = list(FUT_FOREIGNER_직전대비)
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_RETAIL_거래대금순매수_직전대비에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
+                    temp = 0 
 
                 if min(temp) > 0:
 
@@ -23579,15 +23598,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif (result['업종코드'] == FUTURES and result['투자자코드'] == INSTITUTIONAL) or (result['업종코드'] == CME and result['투자자코드'] == INSTITUTIONAL):
 
-                if result['거래대금순매수'] != '-':
+                try : 
                     FUT_INSTITUTIONAL_거래대금순매수 = int(result['거래대금순매수'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_INSTITUTIONAL_거래대금순매수에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
-                if result['거래대금순매수직전대비'] != '-':
+                try : 
                     FUT_INSTITUTIONAL_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_RETAIL_거래대금순매수_직전대비에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
                 기관_거래대금순매수 = FUT_INSTITUTIONAL_거래대금순매수 + FUT_STOCK_거래대금순매수 + FUT_BOHEOM_거래대금순매수 + \
                              FUT_TOOSIN_거래대금순매수 + FUT_BANK_거래대금순매수 + FUT_JONGGEUM_거래대금순매수 + \
@@ -23642,104 +23665,135 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif (result['업종코드'] == FUTURES and result['투자자코드'] == STOCK) or (result['업종코드'] == CME and result['투자자코드'] == STOCK):
 
-                if result['거래대금순매수'] != '-':
+                try : 
                     FUT_STOCK_거래대금순매수 = int(result['거래대금순매수'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_STOCK_거래대금순매수에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
-                if result['거래대금순매수직전대비'] != '-':
+                try : 
                     FUT_STOCK_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_STOCK_거래대금순매수_직전대비에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
             elif (result['업종코드'] == FUTURES and result['투자자코드'] == BOHEOM) or (result['업종코드'] == CME and result['투자자코드'] == BOHEOM):
 
-                if result['거래대금순매수'] != '-':
+                try : 
                     FUT_BOHEOM_거래대금순매수 = int(result['거래대금순매수'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_BOHEOM_거래대금순매수에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
-                if result['거래대금순매수직전대비'] != '-':
+                try : 
                     FUT_BOHEOM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_BOHEOM_거래대금순매수_직전대비에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
             elif (result['업종코드'] == FUTURES and result['투자자코드'] == TOOSIN) or (result['업종코드'] == CME and result['투자자코드'] == TOOSIN):
 
-                if result['거래대금순매수'] != '-':
+                try : 
                     FUT_TOOSIN_거래대금순매수 = int(result['거래대금순매수'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_TOOSIN_거래대금순매수에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
-                if result['거래대금순매수직전대비'] != '-':
+                try : 
                     FUT_TOOSIN_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_TOOSIN_거래대금순매수_직전대비에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
             elif (result['업종코드'] == FUTURES and result['투자자코드'] == BANK) or (result['업종코드'] == CME and result['투자자코드'] == BANK):
-                
-                if result['거래대금순매수'] != '-':
-                    FUT_BANK_거래대금순매수 = int(result['거래대금순매수'])
-                else:
-                    pass
 
-                if result['거래대금순매수직전대비'] != '-':
+                try : 
+                    FUT_BANK_거래대금순매수 = int(result['거래대금순매수'])
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_BANK_거래대금순매수에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
+
+                try : 
                     FUT_BANK_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_BANK_거래대금순매수_직전대비에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
                 
             elif (result['업종코드'] == FUTURES and result['투자자코드'] == JONGGEUM) or (result['업종코드'] == CME and result['투자자코드'] == JONGGEUM):
 
-                if result['거래대금순매수'] != '-':
+                try : 
                     FUT_JONGGEUM_거래대금순매수 = int(result['거래대금순매수'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_JONGGEUM_거래대금순매수에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
-                if result['거래대금순매수직전대비'] != '-':
+                try : 
                     FUT_JONGGEUM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_JONGGEUM_거래대금순매수_직전대비에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
             elif (result['업종코드'] == FUTURES and result['투자자코드'] == GIGEUM) or (result['업종코드'] == CME and result['투자자코드'] == GIGEUM):
 
-                if result['거래대금순매수'] != '-':
+                try : 
                     FUT_GIGEUM_거래대금순매수 = int(result['거래대금순매수'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_GIGEUM_거래대금순매수에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
-                if result['거래대금순매수직전대비'] != '-':
+                try : 
                     FUT_GIGEUM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_GIGEUM_거래대금순매수_직전대비에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
             elif (result['업종코드'] == FUTURES and result['투자자코드'] == GITA) or (result['업종코드'] == CME and result['투자자코드'] == GITA):
 
-                if result['거래대금순매수'] != '-':
+                try : 
                     FUT_GITA_거래대금순매수 = int(result['거래대금순매수'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_GITA_거래대금순매수에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
-                if result['거래대금순매수직전대비'] != '-':
+                try : 
                     FUT_GITA_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_GITA_거래대금순매수_직전대비에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
             elif result['업종코드'] == KOSPI and result['투자자코드'] == FOREIGNER:
 
-                if result['거래대금순매수'] != '-':
+                try : 
                     KOSPI_FOREIGNER_거래대금순매수 = int(result['거래대금순매수'])
-                else:
-                    pass
+                    순매수 = format(KOSPI_FOREIGNER_거래대금순매수, ',')
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_FOREIGNER_거래대금순매수에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
-                if result['거래대금순매수직전대비'] != '-':
+                try : 
                     KOSPI_FOREIGNER_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                else:
-                    pass
-
-                KOSPI_FOREIGNER_직전대비.extend([KOSPI_FOREIGNER_거래대금순매수_직전대비])
-                temp = list(KOSPI_FOREIGNER_직전대비)
-
-                순매수 = format(KOSPI_FOREIGNER_거래대금순매수, ',')
+                    KOSPI_FOREIGNER_직전대비.extend([KOSPI_FOREIGNER_거래대금순매수_직전대비])
+                    temp = list(KOSPI_FOREIGNER_직전대비)
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_FOREIGNER_거래대금순매수_직전대비에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
+                    temp = 0                
 
                 if min(temp) > 0:
 
@@ -23781,111 +23835,147 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif result['업종코드'] == KOSPI and result['투자자코드'] == RETAIL:
 
-                if result['거래대금순매수'] != '-':
+                try : 
                     KOSPI_RETAIL_거래대금순매수 = int(result['거래대금순매수'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_RETAIL_거래대금순매수에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
-                if result['거래대금순매수직전대비'] != '-':
+                try : 
                     KOSPI_RETAIL_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_RETAIL_거래대금순매수_직전대비에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
             elif result['업종코드'] == KOSPI and result['투자자코드'] == INSTITUTIONAL:
 
-                if result['거래대금순매수'] != '-':
+                try : 
                     KOSPI_INSTITUTIONAL_거래대금순매수 = int(result['거래대금순매수'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_INSTITUTIONAL_거래대금순매수에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
-                if result['거래대금순매수직전대비'] != '-':
+                try : 
                     KOSPI_INSTITUTIONAL_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_INSTITUTIONAL_거래대금순매수_직전대비에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
             elif result['업종코드'] == KOSPI and result['투자자코드'] == STOCK:
 
-                if result['거래대금순매수'] != '-':
+                try : 
                     KOSPI_STOCK_거래대금순매수 = int(result['거래대금순매수'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_STOCK_거래대금순매수에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
-                if result['거래대금순매수직전대비'] != '-':
+                try : 
                     KOSPI_STOCK_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_STOCK_거래대금순매수_직전대비에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
             elif result['업종코드'] == KOSPI and result['투자자코드'] == BOHEOM:
 
-                if result['거래대금순매수'] != '-':
+                try : 
                     KOSPI_BOHEOM_거래대금순매수 = int(result['거래대금순매수'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_BOHEOM_거래대금순매수에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
-                if result['거래대금순매수직전대비'] != '-':
+                try : 
                     KOSPI_BOHEOM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_BOHEOM_거래대금순매수_직전대비에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
             elif result['업종코드'] == KOSPI and result['투자자코드'] == TOOSIN:
 
-                if result['거래대금순매수'] != '-':
+                try : 
                     KOSPI_TOOSIN_거래대금순매수 = int(result['거래대금순매수'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_TOOSIN_거래대금순매수에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
-                if result['거래대금순매수직전대비'] != '-':
+                try : 
                     KOSPI_TOOSIN_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_TOOSIN_거래대금순매수_직전대비에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
             elif result['업종코드'] == KOSPI and result['투자자코드'] == BANK:
 
-                if result['거래대금순매수'] != '-':
+                try : 
                     KOSPI_BANK_거래대금순매수 = int(result['거래대금순매수'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_BANK_거래대금순매수에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
-                if result['거래대금순매수직전대비'] != '-':
+                try : 
                     KOSPI_BANK_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_BANK_거래대금순매수_직전대비에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
             elif result['업종코드'] == KOSPI and result['투자자코드'] == JONGGEUM:
 
-                if result['거래대금순매수'] != '-':
+                try : 
                     KOSPI_JONGGEUM_거래대금순매수 = int(result['거래대금순매수'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_JONGGEUM_거래대금순매수에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
-                if result['거래대금순매수직전대비'] != '-':
+                try : 
                     KOSPI_JONGGEUM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_JONGGEUM_거래대금순매수_직전대비에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
             elif result['업종코드'] == KOSPI and result['투자자코드'] == GIGEUM:
 
-                if result['거래대금순매수'] != '-':
+                try : 
                     KOSPI_GIGEUM_거래대금순매수 = int(result['거래대금순매수'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_GIGEUM_거래대금순매수에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
-                if result['거래대금순매수직전대비'] != '-':
+                try : 
                     KOSPI_GIGEUM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_GIGEUM_거래대금순매수_직전대비에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
             elif result['업종코드'] == KOSPI and result['투자자코드'] == GITA:
 
-                if result['거래대금순매수'] != '-':
+                try : 
                     KOSPI_GITA_거래대금순매수 = int(result['거래대금순매수'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_GITA_거래대금순매수에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
 
-                if result['거래대금순매수직전대비'] != '-':
+                try : 
                     KOSPI_GITA_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
-                else:
-                    pass
+                except ValueError  :
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_GITA_거래대금순매수_직전대비에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                    print(txt)
             else:
                 pass
 
@@ -38915,7 +39005,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @pyqtSlot(dict)
     def transfer_mp_main_realdata(self, realdata):
 
-        global drop_txt, time_gap
+        global drop_txt, time_gap, main_opt_totalsize, main_totalsize
         
         dt = datetime.datetime.now()
 
@@ -39156,7 +39246,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @pyqtSlot(dict)
     def transfer_thread_realdata(self, realdata):
 
-        global drop_txt, time_gap
+        global drop_txt, time_gap, main_opt_totalsize, main_totalsize
 
         dt = datetime.datetime.now()
 
@@ -39224,12 +39314,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.dialog['선물옵션전광판'].tableWidget_supply.setHorizontalHeaderItem(Supply_column.종합.value - 2, item)
 
             # 수신된 실시간데이타 정보표시(누락된 패킷수, 누락된 패킷, 수신된 총 패킷수, 수신된 총 패킷크기)
-            dropcount, qsize, totalcount, totalsize, opt_totalsize = self.realtime_thread_dataworker.get_packet_info()
+            dropcount, qsize, totalcount, main_totalsize, main_opt_totalsize = self.realtime_thread_dataworker.get_packet_info()
 
             if OPTION_SIZE:
-                drop_txt = '{0}/{1}({2}k)'.format(format(dropcount, ','), format(totalcount, ','), format(int(opt_totalsize/1000), ','))
+                drop_txt = '{0}/{1}({2}k)'.format(format(dropcount, ','), format(totalcount, ','), format(int(main_opt_totalsize/1000), ','))
             else:
-                drop_txt = '{0}/{1}({2}k)'.format(format(dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','))
+                drop_txt = '{0}/{1}({2}k)'.format(format(dropcount, ','), format(totalcount, ','), format(int(main_totalsize/1000), ','))
 
             item = QTableWidgetItem(drop_txt)
             item.setTextAlignment(Qt.AlignCenter)
