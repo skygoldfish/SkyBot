@@ -23921,15 +23921,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         elif szTrCode == 'PM_':
 
-            if result['전체순매수금액합계'] != '-':
-                프로그램_전체순매수금액 = int(result['전체순매수금액합계'] / 100)
-            else:
-                pass
-
-            if result['전체순매수금액직전대비'] != '-':
-                프로그램_전체순매수금액직전대비 = int(result['전체순매수금액직전대비'] / 100)
-            else:
-                pass
+            프로그램_전체순매수금액 = int(result['전체순매수금액합계'] / 100)
+            프로그램_전체순매수금액직전대비 = int(result['전체순매수금액직전대비'] / 100)
 
             선물_거래대금순매수 = FUT_FOREIGNER_거래대금순매수 + FUT_RETAIL_거래대금순매수 + \
                          FUT_INSTITUTIONAL_거래대금순매수 + FUT_STOCK_거래대금순매수 + FUT_BOHEOM_거래대금순매수 + \
