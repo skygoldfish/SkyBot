@@ -23472,7 +23472,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         elif szTrCode == 'BM_':
 
-            if result['업종코드'] == FUTURES and result['투자자코드'] == FOREIGNER or result['업종코드'] == CME and result['투자자코드'] == FOREIGNER:
+            if (result['업종코드'] == FUTURES and result['투자자코드'] == FOREIGNER) or (result['업종코드'] == CME and result['투자자코드'] == FOREIGNER):
 
                 if result['거래대금순매수'] != '-':
                     FUT_FOREIGNER_거래대금순매수 = int(result['거래대금순매수'])
@@ -23528,7 +23528,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-            elif result['업종코드'] == FUTURES and result['투자자코드'] == RETAIL or result['업종코드'] == CME and result['투자자코드'] == RETAIL:
+            elif (result['업종코드'] == FUTURES and result['투자자코드'] == RETAIL) or (result['업종코드'] == CME and result['투자자코드'] == RETAIL):
 
                 if result['거래대금순매수'] != '-':
                     FUT_RETAIL_거래대금순매수 = int(result['거래대금순매수'])
@@ -23577,7 +23577,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-            elif result['업종코드'] == FUTURES and result['투자자코드'] == INSTITUTIONAL or result['업종코드'] == CME and result['투자자코드'] == INSTITUTIONAL:
+            elif (result['업종코드'] == FUTURES and result['투자자코드'] == INSTITUTIONAL) or (result['업종코드'] == CME and result['투자자코드'] == INSTITUTIONAL):
 
                 if result['거래대금순매수'] != '-':
                     FUT_INSTITUTIONAL_거래대금순매수 = int(result['거래대금순매수'])
@@ -23640,7 +23640,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-            elif result['업종코드'] == FUTURES and result['투자자코드'] == STOCK or result['업종코드'] == CME and result['투자자코드'] == STOCK:
+            elif (result['업종코드'] == FUTURES and result['투자자코드'] == STOCK) or (result['업종코드'] == CME and result['투자자코드'] == STOCK):
 
                 if result['거래대금순매수'] != '-':
                     FUT_STOCK_거래대금순매수 = int(result['거래대금순매수'])
@@ -23652,7 +23652,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-            elif result['업종코드'] == FUTURES and result['투자자코드'] == BOHEOM or result['업종코드'] == CME and result['투자자코드'] == BOHEOM:
+            elif (result['업종코드'] == FUTURES and result['투자자코드'] == BOHEOM) or (result['업종코드'] == CME and result['투자자코드'] == BOHEOM):
 
                 if result['거래대금순매수'] != '-':
                     FUT_BOHEOM_거래대금순매수 = int(result['거래대금순매수'])
@@ -23664,7 +23664,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-            elif result['업종코드'] == FUTURES and result['투자자코드'] == TOOSIN or result['업종코드'] == CME and result['투자자코드'] == TOOSIN:
+            elif (result['업종코드'] == FUTURES and result['투자자코드'] == TOOSIN) or (result['업종코드'] == CME and result['투자자코드'] == TOOSIN):
 
                 if result['거래대금순매수'] != '-':
                     FUT_TOOSIN_거래대금순매수 = int(result['거래대금순매수'])
@@ -23676,7 +23676,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-            elif result['업종코드'] == FUTURES and result['투자자코드'] == BANK or result['업종코드'] == CME and result['투자자코드'] == BANK:
+            elif (result['업종코드'] == FUTURES and result['투자자코드'] == BANK) or (result['업종코드'] == CME and result['투자자코드'] == BANK):
                 
                 if result['거래대금순매수'] != '-':
                     FUT_BANK_거래대금순매수 = int(result['거래대금순매수'])
@@ -23688,7 +23688,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
                 
-            elif result['업종코드'] == FUTURES and result['투자자코드'] == JONGGEUM or result['업종코드'] == CME and result['투자자코드'] == JONGGEUM:
+            elif (result['업종코드'] == FUTURES and result['투자자코드'] == JONGGEUM) or (result['업종코드'] == CME and result['투자자코드'] == JONGGEUM):
 
                 if result['거래대금순매수'] != '-':
                     FUT_JONGGEUM_거래대금순매수 = int(result['거래대금순매수'])
@@ -23700,7 +23700,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-            elif result['업종코드'] == FUTURES and result['투자자코드'] == GIGEUM or result['업종코드'] == CME and result['투자자코드'] == GIGEUM:
+            elif (result['업종코드'] == FUTURES and result['투자자코드'] == GIGEUM) or (result['업종코드'] == CME and result['투자자코드'] == GIGEUM):
 
                 if result['거래대금순매수'] != '-':
                     FUT_GIGEUM_거래대금순매수 = int(result['거래대금순매수'])
@@ -23712,7 +23712,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-            elif result['업종코드'] == FUTURES and result['투자자코드'] == GITA or result['업종코드'] == CME and result['투자자코드'] == GITA:
+            elif (result['업종코드'] == FUTURES and result['투자자코드'] == GITA) or (result['업종코드'] == CME and result['투자자코드'] == GITA):
 
                 if result['거래대금순매수'] != '-':
                     FUT_GITA_거래대금순매수 = int(result['거래대금순매수'])
