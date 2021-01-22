@@ -22564,8 +22564,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     선물_시가 = result['예상체결가격']
                     self.fut_realdata['시가'] = result['예상체결가격']
 
-                    df_futures_graph.at[ovc_x_idx, 'price'] = 선물_시가
-
                     item = QTableWidgetItem("{0:.2f}".format(선물_시가))
                     item.setTextAlignment(Qt.AlignCenter)
 
@@ -22727,7 +22725,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
+                df_futures_graph.at[ovc_x_idx, 'price'] = result['예상체결가격']
 
                 # 1T OHLC 생성
                 df_futures_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
@@ -22736,18 +22734,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if not flag_futures_ohlc_open:
 
-                        df_futures_graph.at[ovc_x_idx, 'open'] = 선물_현재가
-                        df_futures_graph.at[ovc_x_idx, 'high'] = 선물_현재가
-                        df_futures_graph.at[ovc_x_idx, 'low'] = 선물_현재가
-                        df_futures_graph.at[ovc_x_idx, 'middle'] = 선물_현재가
-                        df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
-                        df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
+                        df_futures_graph.at[ovc_x_idx, 'open'] = result['예상체결가격']
+                        df_futures_graph.at[ovc_x_idx, 'high'] = result['예상체결가격']
+                        df_futures_graph.at[ovc_x_idx, 'low'] = result['예상체결가격']
+                        df_futures_graph.at[ovc_x_idx, 'middle'] = result['예상체결가격']
+                        df_futures_graph.at[ovc_x_idx, 'close'] = result['예상체결가격']
+                        df_futures_graph.at[ovc_x_idx, 'price'] = result['예상체결가격']
 
                         del 선물_현재가_버퍼[:]
 
                         flag_futures_ohlc_open = True
                     else:
-                        선물_현재가_버퍼.append(선물_현재가)                            
+                        선물_현재가_버퍼.append(result['예상체결가격'])                            
                 else:
                     if df_futures_graph.at[ovc_x_idx, 'open'] != df_futures_graph.at[ovc_x_idx, 'open']:
                         df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
@@ -22755,7 +22753,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    선물_현재가_버퍼.append(선물_현재가)
+                    선물_현재가_버퍼.append(result['예상체결가격'])
 
                     if max(선물_현재가_버퍼) > 0:
                         df_futures_graph.at[ovc_x_idx, 'high'] = max(선물_현재가_버퍼)
@@ -22771,7 +22769,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         df_futures_graph.at[ovc_x_idx, 'low'] = min(선물_현재가_버퍼)
 
-                    df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
+                    df_futures_graph.at[ovc_x_idx, 'close'] = result['예상체결가격']
 
                     flag_futures_ohlc_open = False
 
