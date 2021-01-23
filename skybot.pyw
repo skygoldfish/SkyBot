@@ -23986,226 +23986,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-            elif szTrCode == 'OC0' or szTrCode == 'EC0':                
-
-                if not flag_option_start:
-                    flag_option_start = True
-                else:
-                    pass
-
-                if pre_start:
-                    pre_start = False
-                else:
-                    pass
-
-                if not market_service:
-                    market_service = True
-                else:
-                    pass
-
-                if result['단축코드'][0:3] == '201':
-
-                    index = call_행사가.index(result['단축코드'][5:8])
-                    df_call_graph[index].at[ovc_x_idx, 'price'] = result['현재가']
-
-                    if DayTime and index == ATM_INDEX:
-                        콜_등가_등락율 = result['등락율']
-                        df_call_information_graph.at[ovc_x_idx, 'drate'] = 콜_등가_등락율
-                    else:
-                        pass
-
-                    call_result = copy.deepcopy(result)
-
-                    if FLAG_GUEST_CONTROL:
-
-                        self.call_update(result)
-
-                        call_volume_power = df_call_volume['매수누적체결량'].sum() - df_call_volume['매도누적체결량'].sum()
-                        df_call_information_graph.at[ovc_x_idx, 'volume'] = call_volume_power                                                 
-
-                        if not flag_checkBox_HS:                            
-                            self.call_db_update()
-                            self.call_volume_power_update()
-                            self.call_oi_update()
-                        else:
-                            pass
-                    else:
-                        pass                                    
-
-                elif result['단축코드'][0:3] == '301':
-
-                    index = put_행사가.index(result['단축코드'][5:8])
-                    df_put_graph[index].at[ovc_x_idx, 'price'] = result['현재가']
-
-                    if DayTime and index == ATM_INDEX:
-                        풋_등가_등락율 = result['등락율']
-                        df_put_information_graph.at[ovc_x_idx, 'drate'] = 풋_등가_등락율
-                    else:
-                        pass
-
-                    put_result = copy.deepcopy(result)
-                    self.put_update(result)
-
-                    put_volume_power = df_put_volume['매수누적체결량'].sum() - df_put_volume['매도누적체결량'].sum()
-                    df_put_information_graph.at[ovc_x_idx, 'volume'] = put_volume_power                                          
-
-                    if not flag_checkBox_HS:                        
-                        self.put_db_update()
-                        self.put_volume_power_update()
-                        self.put_oi_update()
-                    else:
-                        pass                                 
-                else:
-                    pass
-
-                if DayTime:
-
-                    콜_수정미결합 = df_call['수정미결'].sum()
-                    풋_수정미결합 = df_put['수정미결'].sum()
-                    수정미결합 = 콜_수정미결합 + 풋_수정미결합
-
-                    if 수정미결합 > 0:
-
-                        콜_수정미결퍼센트 = (콜_수정미결합 / 수정미결합) * 100
-                        풋_수정미결퍼센트 = 100 - 콜_수정미결퍼센트
-                    else:
-                        콜_수정미결퍼센트 = 0
-                        풋_수정미결퍼센트 = 0
-
-                    df_call_information_graph.at[ovc_x_idx, 'open_interest'] = 콜_수정미결퍼센트
-                    df_put_information_graph.at[ovc_x_idx, 'open_interest'] = 풋_수정미결퍼센트
-                else:
-                    pass
-
-            elif szTrCode == 'OH0' or szTrCode == 'EH0':
-
-                if not receive_quote:
-                    receive_quote = True
-                else:
-                    pass
-
-                if not market_service:
-                    market_service = True
-                else:
-                    pass
-
-                if result['단축코드'][0:3] == '201':
-
-                    index = call_행사가.index(result['단축코드'][5:8])
-
-                    df_call_quote.at[index, '매수건수'] = result['매수호가총건수']
-                    df_call_quote.at[index, '매도건수'] = result['매도호가총건수']
-                    df_call_quote.at[index, '매수잔량'] = result['매수호가총수량']
-                    df_call_quote.at[index, '매도잔량'] = result['매도호가총수량']
-
-                    call_quote = df_call_quote.sum()
-
-                    if call_quote['매도잔량'] > 0:
-                        call_remainder_ratio = round((call_quote['매수잔량'] / call_quote['매도잔량']), 2)
-                    else:
-                        call_remainder_ratio = 0
-
-                    콜잔량비 = call_remainder_ratio
-
-                elif result['단축코드'][0:3] == '301':
-
-                    index = put_행사가.index(result['단축코드'][5:8])
-
-                    df_put_quote.at[index, '매수건수'] = result['매수호가총건수']
-                    df_put_quote.at[index, '매도건수'] = result['매도호가총건수']
-                    df_put_quote.at[index, '매수잔량'] = result['매수호가총수량']
-                    df_put_quote.at[index, '매도잔량'] = result['매도호가총수량']
-
-                    put_quote = df_put_quote.sum()
-
-                    if put_quote['매도잔량'] > 0:
-                        put_remainder_ratio = round((put_quote['매수잔량'] / put_quote['매도잔량']), 2)
-                    else:
-                        put_remainder_ratio = 0
-
-                    풋잔량비 = put_remainder_ratio
-                else:
-                    pass
-
-                if NightTime:
-                    df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
-                    df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비
-                else:
-                    if 콜잔량비 > 5.0:
-                        df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
-                    else:
-                        df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
-
-                    if 풋잔량비 > 5.0:
-                        df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
-                    else:
-                        df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비               
-
-                # 야간선물이 없어짐에 따른 텔레그램 기동 대응
-                if NightTime:
-
-                    global telegram_send_worker_on_time, flag_telegram_send_worker, flag_telegram_listen_worker
-
-                    opt_time = dt.hour * 3600 + dt.minute * 60 + dt.second
-
-                    if TELEGRAM_SERVICE and not flag_telegram_send_worker:
-
-                        self.telegram_send_worker.start()
-
-                        telegram_send_worker_on_time = opt_time 
-
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] telegram send worker({3})가 시작됩니다...\r'.format(dt.hour, dt.minute, dt.second, telegram_send_worker_on_time)
-                        self.textBrowser.append(txt)
-                        print(txt) 
-
-                        if TARGET_MONTH == 'CM':
-
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] CM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                            ToYourTelegram(txt)
-
-                        elif TARGET_MONTH == 'NM':
-
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] NM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                            ToYourTelegram(txt)
-                        else:
-                            pass         
-
-                        flag_telegram_send_worker = True             
-                    else:
-                        pass
-
-                    # Telegram Send Worker 시작 후 TELEGRAM_START_TIME분에 Telegram Listen을 위한 Polling Thread 시작 !!!
-                    if not flag_telegram_listen_worker and opt_time > telegram_send_worker_on_time + 60 * TELEGRAM_START_TIME:
-
-                        if TELEGRAM_SERVICE:
-
-                            self.telegram_listen_worker.start()
-
-                            if TARGET_MONTH == 'CM':                        
-
-                                if window.id == 'soojin65':
-                                    txt = '[{0:02d}:{1:02d}:{2:02d}] ***님 텔레그램 Polling이 시작됩니다.'.format(dt.hour, dt.minute, dt.second)
-                                    #ToMyTelegram(txt)
-                                else:
-                                    ToYourTelegram("CM 텔레그램 Polling이 시작됩니다.")
-
-                            elif TARGET_MONTH == 'NM':
-
-                                ToYourTelegram("NM 텔레그램 Polling이 시작됩니다.")
-                            else:
-                                pass
-
-                            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
-                                                                    QPushButton:hover {background-color: black; color: white} \
-                                                                    QPushButton:pressed {background-color: gold}')
-                            flag_telegram_listen_worker = True
-                        else:
-                            pass            
-                    else:
-                        pass
-                else:
-                    pass
-
             elif szTrCode == 'FH0' or szTrCode == 'NH0':            
 
                 if not market_service:
@@ -24472,6 +24252,226 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_fut.resizeRowsToContents()
                 else:
                     pass
+
+            elif szTrCode == 'OC0' or szTrCode == 'EC0':                
+
+                if not flag_option_start:
+                    flag_option_start = True
+                else:
+                    pass
+
+                if pre_start:
+                    pre_start = False
+                else:
+                    pass
+
+                if not market_service:
+                    market_service = True
+                else:
+                    pass
+
+                if result['단축코드'][0:3] == '201':
+
+                    index = call_행사가.index(result['단축코드'][5:8])
+                    df_call_graph[index].at[ovc_x_idx, 'price'] = result['현재가']
+
+                    if DayTime and index == ATM_INDEX:
+                        콜_등가_등락율 = result['등락율']
+                        df_call_information_graph.at[ovc_x_idx, 'drate'] = 콜_등가_등락율
+                    else:
+                        pass
+
+                    call_result = copy.deepcopy(result)
+
+                    if FLAG_GUEST_CONTROL:
+
+                        self.call_update(result)
+
+                        call_volume_power = df_call_volume['매수누적체결량'].sum() - df_call_volume['매도누적체결량'].sum()
+                        df_call_information_graph.at[ovc_x_idx, 'volume'] = call_volume_power                                                 
+
+                        if not flag_checkBox_HS:                            
+                            self.call_db_update()
+                            self.call_volume_power_update()
+                            self.call_oi_update()
+                        else:
+                            pass
+                    else:
+                        pass                                    
+
+                elif result['단축코드'][0:3] == '301':
+
+                    index = put_행사가.index(result['단축코드'][5:8])
+                    df_put_graph[index].at[ovc_x_idx, 'price'] = result['현재가']
+
+                    if DayTime and index == ATM_INDEX:
+                        풋_등가_등락율 = result['등락율']
+                        df_put_information_graph.at[ovc_x_idx, 'drate'] = 풋_등가_등락율
+                    else:
+                        pass
+
+                    put_result = copy.deepcopy(result)
+                    self.put_update(result)
+
+                    put_volume_power = df_put_volume['매수누적체결량'].sum() - df_put_volume['매도누적체결량'].sum()
+                    df_put_information_graph.at[ovc_x_idx, 'volume'] = put_volume_power                                          
+
+                    if not flag_checkBox_HS:                        
+                        self.put_db_update()
+                        self.put_volume_power_update()
+                        self.put_oi_update()
+                    else:
+                        pass                                 
+                else:
+                    pass
+
+                if DayTime:
+
+                    콜_수정미결합 = df_call['수정미결'].sum()
+                    풋_수정미결합 = df_put['수정미결'].sum()
+                    수정미결합 = 콜_수정미결합 + 풋_수정미결합
+
+                    if 수정미결합 > 0:
+
+                        콜_수정미결퍼센트 = (콜_수정미결합 / 수정미결합) * 100
+                        풋_수정미결퍼센트 = 100 - 콜_수정미결퍼센트
+                    else:
+                        콜_수정미결퍼센트 = 0
+                        풋_수정미결퍼센트 = 0
+
+                    df_call_information_graph.at[ovc_x_idx, 'open_interest'] = 콜_수정미결퍼센트
+                    df_put_information_graph.at[ovc_x_idx, 'open_interest'] = 풋_수정미결퍼센트
+                else:
+                    pass
+
+            elif szTrCode == 'OH0' or szTrCode == 'EH0':
+
+                if not receive_quote:
+                    receive_quote = True
+                else:
+                    pass
+
+                if not market_service:
+                    market_service = True
+                else:
+                    pass
+
+                if result['단축코드'][0:3] == '201':
+
+                    index = call_행사가.index(result['단축코드'][5:8])
+
+                    df_call_quote.at[index, '매수건수'] = result['매수호가총건수']
+                    df_call_quote.at[index, '매도건수'] = result['매도호가총건수']
+                    df_call_quote.at[index, '매수잔량'] = result['매수호가총수량']
+                    df_call_quote.at[index, '매도잔량'] = result['매도호가총수량']
+
+                    call_quote = df_call_quote.sum()
+
+                    if call_quote['매도잔량'] > 0:
+                        call_remainder_ratio = round((call_quote['매수잔량'] / call_quote['매도잔량']), 2)
+                    else:
+                        call_remainder_ratio = 0
+
+                    콜잔량비 = call_remainder_ratio
+
+                elif result['단축코드'][0:3] == '301':
+
+                    index = put_행사가.index(result['단축코드'][5:8])
+
+                    df_put_quote.at[index, '매수건수'] = result['매수호가총건수']
+                    df_put_quote.at[index, '매도건수'] = result['매도호가총건수']
+                    df_put_quote.at[index, '매수잔량'] = result['매수호가총수량']
+                    df_put_quote.at[index, '매도잔량'] = result['매도호가총수량']
+
+                    put_quote = df_put_quote.sum()
+
+                    if put_quote['매도잔량'] > 0:
+                        put_remainder_ratio = round((put_quote['매수잔량'] / put_quote['매도잔량']), 2)
+                    else:
+                        put_remainder_ratio = 0
+
+                    풋잔량비 = put_remainder_ratio
+                else:
+                    pass
+
+                if NightTime:
+                    df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
+                    df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비
+                else:
+                    if 콜잔량비 > 5.0:
+                        df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
+                    else:
+                        df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
+
+                    if 풋잔량비 > 5.0:
+                        df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
+                    else:
+                        df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비               
+
+                # 야간선물이 없어짐에 따른 텔레그램 기동 대응
+                if NightTime:
+
+                    global telegram_send_worker_on_time, flag_telegram_send_worker, flag_telegram_listen_worker
+
+                    opt_time = dt.hour * 3600 + dt.minute * 60 + dt.second
+
+                    if TELEGRAM_SERVICE and not flag_telegram_send_worker:
+
+                        self.telegram_send_worker.start()
+
+                        telegram_send_worker_on_time = opt_time 
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] telegram send worker({3})가 시작됩니다...\r'.format(dt.hour, dt.minute, dt.second, telegram_send_worker_on_time)
+                        self.textBrowser.append(txt)
+                        print(txt) 
+
+                        if TARGET_MONTH == 'CM':
+
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] CM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                            ToYourTelegram(txt)
+
+                        elif TARGET_MONTH == 'NM':
+
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] NM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                            ToYourTelegram(txt)
+                        else:
+                            pass         
+
+                        flag_telegram_send_worker = True             
+                    else:
+                        pass
+
+                    # Telegram Send Worker 시작 후 TELEGRAM_START_TIME분에 Telegram Listen을 위한 Polling Thread 시작 !!!
+                    if not flag_telegram_listen_worker and opt_time > telegram_send_worker_on_time + 60 * TELEGRAM_START_TIME:
+
+                        if TELEGRAM_SERVICE:
+
+                            self.telegram_listen_worker.start()
+
+                            if TARGET_MONTH == 'CM':                        
+
+                                if window.id == 'soojin65':
+                                    txt = '[{0:02d}:{1:02d}:{2:02d}] ***님 텔레그램 Polling이 시작됩니다.'.format(dt.hour, dt.minute, dt.second)
+                                    #ToMyTelegram(txt)
+                                else:
+                                    ToYourTelegram("CM 텔레그램 Polling이 시작됩니다.")
+
+                            elif TARGET_MONTH == 'NM':
+
+                                ToYourTelegram("NM 텔레그램 Polling이 시작됩니다.")
+                            else:
+                                pass
+
+                            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                                                                    QPushButton:hover {background-color: black; color: white} \
+                                                                    QPushButton:pressed {background-color: gold}')
+                            flag_telegram_listen_worker = True
+                        else:
+                            pass            
+                    else:
+                        pass
+                else:
+                    pass            
 
             elif szTrCode == 'OVC':
                 
