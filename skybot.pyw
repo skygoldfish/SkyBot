@@ -23983,8 +23983,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         elif szTrCode == 'PM_':
 
-            프로그램_전체순매수금액 = int(result['전체순매수금액합계'] / 100)
-            프로그램_전체순매수금액직전대비 = int(result['전체순매수금액직전대비'] / 100)
+            try : 
+                프로그램_전체순매수금액 = int(int(result['전체순매수금액합계']) / 100)
+            except ValueError  :
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 프로그램_전체순매수금액에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
+                print(txt)
+
+            try : 
+                프로그램_전체순매수금액직전대비 = int(int(result['전체순매수금액직전대비']) / 100)
+            except ValueError  :
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 프로그램_전체순매수금액직전대비에 integer가 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
+                print(txt)
 
             선물_거래대금순매수 = FUT_FOREIGNER_거래대금순매수 + FUT_RETAIL_거래대금순매수 + \
                          FUT_INSTITUTIONAL_거래대금순매수 + FUT_STOCK_거래대금순매수 + FUT_BOHEOM_거래대금순매수 + \

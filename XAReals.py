@@ -1855,20 +1855,17 @@ class BM_(XAReal):
         self.ActiveX.UnadviseRealData()
 
     def OnReceiveRealData(self, szTrCode):
-        #클래스이름 = self.__class__.__name__
-        #함수이름 = inspect.currentframe().f_code.co_name
-        #print("ENTER : %s --> %s" %(클래스이름, 함수이름))
 
         try:
             result = dict()
             result['투자자코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "tjjcode")
             result['수신시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "tjjtime")
-            result['매수거래량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "msvolume"))
-            result['매도거래량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "mdvolume"))
-            result['거래량순매수'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "msvol"))
-            result['거래량순매수직전대비'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "p_msvol"))
-            result['매수거래대금'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "msvalue"))
-            result['매도거래대금'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "mdvalue"))
+            result['매수거래량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "msvolume")
+            result['매도거래량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "mdvolume")
+            result['거래량순매수'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "msvol")
+            result['거래량순매수직전대비'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "p_msvol")
+            result['매수거래대금'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "msvalue")
+            result['매도거래대금'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "mdvalue")
             result['거래대금순매수'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "msval")
             result['거래대금순매수직전대비'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "p_msval")
             result['업종코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "upcode")
@@ -1881,8 +1878,6 @@ class BM_(XAReal):
             클래스이름 = self.__class__.__name__
             함수이름 = inspect.currentframe().f_code.co_name
             print("%s-%s " % (클래스이름, 함수이름), e, result)
-
-        # print(" EXIT : %s --> %s" % (클래스이름, 함수이름))
 
 # 시간대별 투자자 매매추이(BMT)
 class BMT(XAReal):
@@ -1901,9 +1896,6 @@ class BMT(XAReal):
         self.ActiveX.UnadviseRealData()
 
     def OnReceiveRealData(self, szTrCode):
-        #클래스이름 = self.__class__.__name__
-        #함수이름 = inspect.currentframe().f_code.co_name
-        #print("ENTER : %s --> %s" %(클래스이름, 함수이름))
 
         try:
             result = dict()
@@ -2032,17 +2024,14 @@ class PM_(XAReal):
         self.ActiveX.UnadviseRealData()
 
     def OnReceiveRealData(self, szTrCode):
-        #클래스이름 = self.__class__.__name__
-        #함수이름 = inspect.currentframe().f_code.co_name
-        #print("ENTER : %s --> %s" %(클래스이름, 함수이름))
 
         try:
             result = dict()
             result['수신시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "time")
-            result['전체매도체결금액합계'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "tdvalue"))
-            result['전체매수체결금액합계'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "tsvalue"))
-            result['전체순매수금액합계'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "tval"))
-            result['전체순매수금액직전대비'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "p_tvalcha"))
+            result['전체매도체결금액합계'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "tdvalue")
+            result['전체매수체결금액합계'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "tsvalue")
+            result['전체순매수금액합계'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "tval")
+            result['전체순매수금액직전대비'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "p_tvalcha")
             result['구분값'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "gubun")
             result['szTrCode'] = szTrCode
 
@@ -2053,8 +2042,6 @@ class PM_(XAReal):
             클래스이름 = self.__class__.__name__
             함수이름 = inspect.currentframe().f_code.co_name
             print("%s-%s " % (클래스이름, 함수이름), e)
-
-        # print(" EXIT : %s --> %s" % (클래스이름, 함수이름))
 
 ##----------------------------------------------------------------------------------------------------------------------
 # 해외선물
