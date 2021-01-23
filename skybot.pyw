@@ -20937,9 +20937,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] {3} 매수누적체결수량 = {4}, 매도누적체결수량 = {5}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, result['종목코드'], result['매수누적체결수량'], result['매도누적체결수량'])
-        self.parent.textBrowser.append(txt)
-        print(txt)
+        # result['매수누적체결수량'], result['매도누적체결수량'] 필드로 데이타 들어오지않음
+        #txt = '[{0:02d}:{1:02d}:{2:02d}] {3} 매수누적체결수량 = {4}, 매도누적체결수량 = {5}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, result['종목코드'], result['매수누적체결수량'], result['매도누적체결수량'])
+        #self.parent.textBrowser.append(txt)
+        #print(txt)
 
         if result['종목코드'] == DOW:
 
