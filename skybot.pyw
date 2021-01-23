@@ -11580,15 +11580,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         선물_체결시간 = result['체결시간']
 
-        시가 = result['시가']
-        현재가 = result['현재가']
-        저가 = result['저가']
-        고가 = result['고가']       
+        시가 = str(result['시가'])
+        현재가 = str(result['현재가'])
+        저가 = str(result['저가'])
+        고가 = str(result['고가'])       
         
-        선물_시가 = float(시가)
-        선물_현재가 = float(현재가)
-        선물_저가 = float(저가)
-        선물_고가 = float(고가)
+        선물_시가 = result['시가']
+        선물_현재가 = result['현재가']
+        선물_저가 = result['저가']
+        선물_고가 = result['고가']
         
         선물_대비 = 선물_현재가 - 선물_시가
         선물_전일대비 = 선물_현재가 - 선물_종가         
@@ -12365,44 +12365,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         index = call_행사가.index(result['단축코드'][5:8])
         
-        시가 = result['시가']
-        현재가 = result['현재가']
-        저가 = result['저가']
-        고가 = result['고가']
+        시가 = str(result['시가'])
+        현재가 = str(result['현재가'])
+        저가 = str(result['저가'])
+        고가 = str(result['고가'])
 
-        콜시가 = float(시가)
-        콜현재가 = float(현재가)
-        콜저가 = float(저가)
-        콜고가 = float(고가)
+        콜시가 = result['시가']
+        콜현재가 = result['현재가']
+        콜저가 = result['저가']
+        콜고가 = result['고가']
 
         if DayTime and index == ATM_INDEX:
             콜등락율 = result['등락율']
             df_call_information_graph.at[ovc_x_idx, 'drate'] = 콜등락율
         else:
-            pass        
-        
-        '''
-        df_call.at[index, '시가'] = 콜시가
-        df_call.at[index, '현재가'] = 콜현재가
-
-        df_call_graph[index].at[ovc_x_idx, 'price'] = 콜현재가
-
-        콜대비 = 콜현재가 - 콜시가
-        df_call.at[index, '대비'] = 콜대비
-
-        df_call.at[index, '저가'] = 콜저가
-        df_call.at[index, '고가'] = 콜고가
-
-        콜진폭 = 콜고가 - 콜저가
-        df_call.at[index, '진폭'] = 콜진폭        
-        
-        콜종가 = df_call.at[index, '종가']
-        콜기준가 = df_call.at[index, '기준가']
-        콜월저 = df_call.at[index, '월저']
-        콜월고 = df_call.at[index, '월고']
-        콜전저 = df_call.at[index, '전저']
-        콜전고 = df_call.at[index, '전고']        
-        '''
+            pass
 
         if 저가 != 고가 and not call_open[index]:
 
@@ -13454,44 +13431,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         index = put_행사가.index(result['단축코드'][5:8])
         
-        시가 = result['시가']
-        현재가 = result['현재가']
-        저가 = result['저가']
-        고가 = result['고가']
+        시가 = str(result['시가'])
+        현재가 = str(result['현재가'])
+        저가 = str(result['저가'])
+        고가 = str(result['고가'])
 
-        풋시가 = float(시가)
-        풋현재가 = float(현재가)
-        풋저가 = float(저가)
-        풋고가 = float(고가)
+        풋시가 = result['시가']
+        풋현재가 = result['현재가']
+        풋저가 = result['저가']
+        풋고가 = result['고가']
         
         if DayTime and index == ATM_INDEX:
             풋등락율 = result['등락율']
             df_put_information_graph.at[ovc_x_idx, 'drate'] = 풋등락율
         else:
             pass
-        
-        '''
-        df_put.at[index, '시가'] = 풋시가
-        df_put.at[index, '현재가'] = 풋현재가
-
-        df_put_graph[index].at[ovc_x_idx, 'price'] = 풋현재가
-
-        풋대비 = 풋현재가 - 풋시가
-        df_put.at[index, '대비'] = 풋대비
-
-        df_put.at[index, '저가'] = 풋저가
-        df_put.at[index, '고가'] = 풋고가
-
-        풋진폭 = 풋고가 - 풋저가
-        df_put.at[index, '진폭'] = 풋진폭   
-        
-        풋종가 = df_put.at[index, '종가']
-        풋기준가 = df_put.at[index, '기준가']
-        풋월저 = df_put.at[index, '월저']
-        풋월고 = df_put.at[index, '월고']
-        풋전저 = df_put.at[index, '전저']
-        풋전고 = df_put.at[index, '전고']
-        '''
 
         if 저가 != 고가 and not put_open[index]:
 
