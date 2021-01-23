@@ -24013,7 +24013,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if FLAG_GUEST_CONTROL:
 
-                        self.call_update(result)                                                
+                        self.call_update(result)
+
+                        call_volume_power = df_call_volume['매수누적체결량'].sum() - df_call_volume['매도누적체결량'].sum()
+                        df_call_information_graph.at[ovc_x_idx, 'volume'] = call_volume_power                                                 
 
                         if not flag_checkBox_HS:                            
                             self.call_db_update()
@@ -24022,10 +24025,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
                     else:
-                        pass
-
-                    call_volume_power = df_call_volume['매수누적체결량'].sum() - df_call_volume['매도누적체결량'].sum()
-                    df_call_information_graph.at[ovc_x_idx, 'volume'] = call_volume_power                 
+                        pass                                    
 
                 elif result['단축코드'][0:3] == '301':
 
@@ -24039,17 +24039,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                     put_result = copy.deepcopy(result)
-                    self.put_update(result)                                        
+                    self.put_update(result)
+
+                    put_volume_power = df_put_volume['매수누적체결량'].sum() - df_put_volume['매도누적체결량'].sum()
+                    df_put_information_graph.at[ovc_x_idx, 'volume'] = put_volume_power                                          
 
                     if not flag_checkBox_HS:                        
                         self.put_db_update()
                         self.put_volume_power_update()
                         self.put_oi_update()
                     else:
-                        pass
-
-                    put_volume_power = df_put_volume['매수누적체결량'].sum() - df_put_volume['매도누적체결량'].sum()
-                    df_put_information_graph.at[ovc_x_idx, 'volume'] = put_volume_power               
+                        pass                                 
                 else:
                     pass
 
@@ -24209,6 +24209,28 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 if result['단축코드'] == GMSHCODE:
+                    
+                    # 그래프관련 처리 먼저...
+                    if result['매도호가총건수'] > 0:
+                        fut_quote_count_ratio = result['매수호가총건수'] / result['매도호가총건수']
+                    else:
+                        pass
+
+                    선물_호가순매수 = result['매수호가총수량'] - result['매도호가총수량']
+
+                    df_futures_graph.at[ovc_x_idx, 'c_ms_quote'] = result['매수호가총수량']
+                    df_futures_graph.at[ovc_x_idx, 'c_md_quote'] = result['매도호가총수량']
+
+                    if result['매수호가총수량'] > 0 and result['매도호가총수량'] > 0:
+
+                        fut_quote_remainder_ratio = result['매수호가총수량'] / result['매도호가총수량']
+                        df_futures_graph.at[ovc_x_idx, 'c_quote_remainder_ratio'] = fut_quote_remainder_ratio
+
+                        cm_fut_quote_min = df_futures_graph['c_quote_remainder_ratio'].min()
+                        cm_fut_quote_mean = df_futures_graph['c_quote_remainder_ratio'].mean()
+                        cm_fut_quote_max = df_futures_graph['c_quote_remainder_ratio'].max()                         
+                    else:
+                        pass
 
                     # 선물호가 갱신
                     item = QTableWidgetItem("{0}".format(format(result['매수호가총건수'], ',')))
@@ -24251,29 +24273,37 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.tableWidget_fut.resizeColumnToContents(Futures_column.매도잔량.value)
 
+                # 차월물 처리
+                elif result['단축코드'] == CMSHCODE:
+
+                    # 그래프관련 처리 먼저...
                     if result['매도호가총건수'] > 0:
-                        fut_quote_count_ratio = result['매수호가총건수'] / result['매도호가총건수']
+                        fut_cms_quote_count_ratio = result['매수호가총건수'] / result['매도호가총건수']
                     else:
                         pass
 
-                    선물_호가순매수 = result['매수호가총수량'] - result['매도호가총수량']
-
-                    df_futures_graph.at[ovc_x_idx, 'c_ms_quote'] = result['매수호가총수량']
-                    df_futures_graph.at[ovc_x_idx, 'c_md_quote'] = result['매도호가총수량']
+                    df_futures_graph.at[ovc_x_idx, 'n_ms_quote'] = result['매수호가총수량']
+                    df_futures_graph.at[ovc_x_idx, 'n_md_quote'] = result['매도호가총수량']
 
                     if result['매수호가총수량'] > 0 and result['매도호가총수량'] > 0:
 
-                        fut_quote_remainder_ratio = result['매수호가총수량'] / result['매도호가총수량']
-                        df_futures_graph.at[ovc_x_idx, 'c_quote_remainder_ratio'] = fut_quote_remainder_ratio
+                        fut_cms_quote_remainder_ratio = result['매수호가총수량'] / result['매도호가총수량']
+                        df_futures_graph.at[ovc_x_idx, 'n_quote_remainder_ratio'] = fut_cms_quote_remainder_ratio
 
-                        cm_fut_quote_min = df_futures_graph['c_quote_remainder_ratio'].min()
-                        cm_fut_quote_mean = df_futures_graph['c_quote_remainder_ratio'].mean()
-                        cm_fut_quote_max = df_futures_graph['c_quote_remainder_ratio'].max()                         
+                        nm_fut_quote_min = df_futures_graph['n_quote_remainder_ratio'].min()
+                        nm_fut_quote_mean = df_futures_graph['n_quote_remainder_ratio'].mean()
+                        nm_fut_quote_max = df_futures_graph['n_quote_remainder_ratio'].max()
+
+                        item_txt = '{0:.2f}'.format(nm_fut_quote_min)
+
+                        if item_txt != self.tableWidget_fut.horizontalHeaderItem(7).text():                        
+                            item = QTableWidgetItem(item_txt)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            self.tableWidget_fut.setHorizontalHeaderItem(7, item)
+                        else:
+                            pass
                     else:
                         pass
-
-                # 차월물 처리
-                elif result['단축코드'] == CMSHCODE:
 
                     # 선물호가 갱신
                     item = QTableWidgetItem("{0}".format(format(result['매수호가총건수'], ',')))
@@ -24306,37 +24336,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if NightTime:
                         self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
                     else:
-                        self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
-
-                    if result['매도호가총건수'] > 0:
-                        fut_cms_quote_count_ratio = result['매수호가총건수'] / result['매도호가총건수']
-                    else:
-                        pass
-
-                    df_futures_graph.at[ovc_x_idx, 'n_ms_quote'] = result['매수호가총수량']
-                    df_futures_graph.at[ovc_x_idx, 'n_md_quote'] = result['매도호가총수량']
-
-                    if result['매수호가총수량'] > 0 and result['매도호가총수량'] > 0:
-
-                        fut_cms_quote_remainder_ratio = result['매수호가총수량'] / result['매도호가총수량']
-                        df_futures_graph.at[ovc_x_idx, 'n_quote_remainder_ratio'] = fut_cms_quote_remainder_ratio
-
-                        nm_fut_quote_min = df_futures_graph['n_quote_remainder_ratio'].min()
-                        nm_fut_quote_mean = df_futures_graph['n_quote_remainder_ratio'].mean()
-                        nm_fut_quote_max = df_futures_graph['n_quote_remainder_ratio'].max()
-
-                        item_txt = '{0:.2f}'.format(nm_fut_quote_min)
-
-                        if item_txt != self.tableWidget_fut.horizontalHeaderItem(7).text():                        
-                            item = QTableWidgetItem(item_txt)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            self.tableWidget_fut.setHorizontalHeaderItem(7, item)
-                        else:
-                            pass
-                    else:
-                        pass
+                        self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)                    
 
                 elif result['단축코드'] == CCMSHCODE:
+                    
+                    # 그래프관련 처리 먼저...
+                    if result['매도호가총건수'] > 0:
+                        fut_ccms_quote_count_ratio = result['매수호가총건수'] / result['매도호가총건수']
+                    else:
+                        pass
+
+                    if result['매수호가총수량'] > 0 and result['매도호가총수량'] > 0:
+                        fut_ccms_quote_remainder_ratio = result['매수호가총수량'] / result['매도호가총수량']
+                    else:
+                        pass
 
                     # 선물호가 갱신                    
                     item = QTableWidgetItem("C{0}".format(format(result['매수호가총건수'], ',')))
@@ -24370,16 +24383,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
                     else:
                         self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
-
-                    if result['매도호가총건수'] > 0:
-                        fut_ccms_quote_count_ratio = result['매수호가총건수'] / result['매도호가총건수']
-                    else:
-                        pass
-
-                    if result['매수호가총수량'] > 0 and result['매도호가총수량'] > 0:
-                        fut_ccms_quote_remainder_ratio = result['매수호가총수량'] / result['매도호가총수량']
-                    else:
-                        pass
                 else:
                     pass
 
