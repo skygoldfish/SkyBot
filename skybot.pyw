@@ -27060,7 +27060,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot1.setMouseTracking(True)
             self.plot1.scene().sigMouseMoved.connect(self.plot1_mouseMoved)
         else:
-            pass  
+            pass
 
         # Line & Curve of the Plot2 선물가격(new)
         self.plot2_time_line_jugan_start = self.plot2.addLine(x=0, y=None, pen=jugan_x_start_pen)
@@ -27650,7 +27650,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         end_time = timeit.default_timer()
         processing_time = (end_time - start_time) * 1000
 
-        print('bigchart init time =', processing_time)   
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Big Chart 초기화 시간 = {3} ms\r'.format(dt.hour, dt.minute, dt.second, processing_time)
+        self.parent.textBrowser.append(txt)
+        print(txt)
 
     #cross hair
     def plot1_mouseMoved(self, evt):
