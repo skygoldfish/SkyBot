@@ -1486,10 +1486,6 @@ class EC0(XAReal):
             함수이름 = inspect.currentframe().f_code.co_name
             print("%s-%s " % (클래스이름, 함수이름), e)
 
-        # print(" EXIT : %s --> %s" % (클래스이름, 함수이름))
-        # 야간은 미결정보 미제공임
-        # print('미결제약정수량, 미결제약정증감', result['미결제약정수량'], result['미결제약정증감'])
-
 # EUREX연계 KP200지수옵션 선물호가(EH0)
 class EH0(XAReal):
     def __init__(self, parent=None, 식별자='식별자'):
