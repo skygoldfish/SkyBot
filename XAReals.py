@@ -2058,7 +2058,6 @@ class OVC(XAReal):
         if self.parent != None:
             self.parent.OnReceiveRealData(result)
 
-
 # 해외선물 호가(OVH)
 class OVH(XAReal):
     def __init__(self, parent=None, 식별자='식별자'):
@@ -2109,7 +2108,6 @@ class OVH(XAReal):
         if self.parent != None:
             self.parent.OnReceiveRealData(result)
 
-
 # 해외선물주문
 class TC1(XAReal):
     def __init__(self, parent=None, 식별자='식별자'):
@@ -2150,7 +2148,6 @@ class TC1(XAReal):
 
         if self.parent != None:
             self.parent.OnReceiveRealData(result)
-
 
 # 해외선물응답
 class TC2(XAReal):
