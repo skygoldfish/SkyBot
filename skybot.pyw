@@ -2266,6 +2266,7 @@ class TelegramListenWorker(QThread):
 class RealTime_Thread_DataWorker(QThread):
 
     trigger = pyqtSignal(dict)
+    trigger_exception = pyqtSignal(str)
 
     def __init__(self, dataQ):
         super().__init__()
@@ -2519,219 +2520,203 @@ class RealTime_Thread_DataWorker(QThread):
 
         while True:
 
-            if not self.dataQ.empty():
+            try:
+                if not self.dataQ.empty():
                 
-                flag_main_process_queue_empty = False
+                    flag_main_process_queue_empty = False
 
-                dt = datetime.datetime.now()
-                systime = dt.hour * 3600 + dt.minute * 60 + dt.second 
+                    dt = datetime.datetime.now()
+                    systime = dt.hour * 3600 + dt.minute * 60 + dt.second 
 
-                data = self.dataQ.get(False)
+                    data = self.dataQ.get(False)
 
-                self.total_count += 1
-                self.total_packet_size += sys.getsizeof(data)
+                    self.total_count += 1
+                    self.total_packet_size += sys.getsizeof(data)
 
-                if data['szTrCode'] == 'JIF':
-                    self.trigger.emit(data)
-                else:
-                    pass
-                
-                if not flag_main_realdata_update_is_running:                    
-
-                    if data['szTrCode'] == 'OVC':
-
-                        realtime_hour = int(data['체결시간_한국'][0:2])
-                        realtime_min = int(data['체결시간_한국'][2:4])
-                        realtime_sec = int(data['체결시간_한국'][4:6])
-
-                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                        if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                            self.trigger.emit(data)
-                        else:
-                            self.drop_count += 1
-
-                    elif data['szTrCode'] == 'FH0':
-
-                        if not pre_start:
-                            realtime_hour = int(data['호가시간'][0:2])
-                            realtime_min = int(data['호가시간'][2:4])
-                            realtime_sec = int(data['호가시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                                self.trigger.emit(data)
-                            else:
-                                self.drop_count += 1
-                        else:
-                            self.trigger.emit(data)
-
-                    elif data['szTrCode'] == 'NH0':
-
-                        realtime_hour = int(data['호가시간'][0:2])
-                        realtime_min = int(data['호가시간'][2:4])
-                        realtime_sec = int(data['호가시간'][4:6])
-
-                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                        if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                            self.trigger.emit(data)
-                        else:
-                            self.drop_count += 1
-
-                    elif data['szTrCode'] == 'FC0':
-
-                        realtime_hour = int(data['체결시간'][0:2])
-                        realtime_min = int(data['체결시간'][2:4])
-                        realtime_sec = int(data['체결시간'][4:6])
-
-                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                        if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                            self.trigger.emit(data)
-                        else:
-                            self.drop_count += 1
-
-                    elif data['szTrCode'] == 'NC0':
-
-                        realtime_hour = int(data['체결시간'][0:2])
-                        realtime_min = int(data['체결시간'][2:4])
-                        realtime_sec = int(data['체결시간'][4:6])
-
-                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                        if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                            self.trigger.emit(data)
-                        else:
-                            self.drop_count += 1
-
-                    elif data['szTrCode'] == 'IJ_':
-
-                        realtime_hour = int(data['시간'][0:2])
-                        realtime_min = int(data['시간'][2:4])
-                        realtime_sec = int(data['시간'][4:6])
-
-                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                        if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                            self.trigger.emit(data)
-                        else:
-                            self.drop_count += 1
-
-                    elif data['szTrCode'] == 'OC0':
-
-                        self.total_option_packet_size += sys.getsizeof(data)
-
-                        realtime_hour = int(data['체결시간'][0:2])
-                        realtime_min = int(data['체결시간'][2:4])
-                        realtime_sec = int(data['체결시간'][4:6])
-
-                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                        if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                            self.trigger.emit(data)
-                        else:
-                            self.drop_count += 1
-                    
-                    elif data['szTrCode'] == 'OH0':
-
-                        self.total_option_packet_size += sys.getsizeof(data)
-
-                        if not pre_start:
-                            realtime_hour = int(data['호가시간'][0:2])
-                            realtime_min = int(data['호가시간'][2:4])
-                            realtime_sec = int(data['호가시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                                self.trigger.emit(data)
-                            else:
-                                self.drop_count += 1
-                        else:
-                            self.trigger.emit(data)
-
-                    elif data['szTrCode'] == 'EC0':
-
-                        realtime_hour = int(data['체결시간'][0:2])
-                        realtime_min = int(data['체결시간'][2:4])
-                        realtime_sec = int(data['체결시간'][4:6])
-
-                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                        if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                            self.trigger.emit(data)
-                        else:
-                            self.drop_count += 1
-
-                    elif data['szTrCode'] == 'EH0':
-
-                        if int(data['호가시간(36시간)'][0:2]) >= 24:
-                            realtime_hour = int(data['호가시간(36시간)'][0:2]) - 24
-                        else:                            
-                            realtime_hour = int(data['호가시간(36시간)'][0:2])
-
-                        realtime_min = int(data['호가시간(36시간)'][2:4])
-                        realtime_sec = int(data['호가시간(36시간)'][4:6])
-
-                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                        if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                            self.trigger.emit(data)
-                        else:
-                            self.drop_count += 1 
-
-                    elif data['szTrCode'] == 'S3_':
-
-                        realtime_hour = int(data['체결시간'][0:2])
-                        realtime_min = int(data['체결시간'][2:4])
-                        realtime_sec = int(data['체결시간'][4:6])
-
-                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                        if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                            self.trigger.emit(data)
-                        else:
-                            self.drop_count += 1
-
-                    elif data['szTrCode'] == 'BM_':
-
+                    if data['szTrCode'] == 'JIF':
                         self.trigger.emit(data)
-                        '''
-                        realtime_hour = int(data['수신시간'][0:2])
-                        realtime_min = int(data['수신시간'][2:4])
-                        realtime_sec = int(data['수신시간'][4:6])
-
-                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                        if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                            self.trigger.emit(data)
-                        else:
-                            self.drop_count += 1
-                        '''
-
-                    elif data['szTrCode'] == 'PM_':
-
-                        self.trigger.emit(data)
-                        '''
-                        realtime_hour = int(data['수신시간'][0:2])
-                        realtime_min = int(data['수신시간'][2:4])
-                        realtime_sec = int(data['수신시간'][4:6])
-
-                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                        if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                            self.trigger.emit(data)
-                        else:
-                            self.drop_count += 1
-                        '''
                     else:
-                        self.trigger.emit(data)                    
+                        pass
+                    
+                    if not flag_main_realdata_update_is_running:                    
+
+                        if data['szTrCode'] == 'OVC':
+
+                            realtime_hour = int(data['체결시간_한국'][0:2])
+                            realtime_min = int(data['체결시간_한국'][2:4])
+                            realtime_sec = int(data['체결시간_한국'][4:6])
+
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                self.trigger.emit(data)
+                            else:
+                                self.drop_count += 1
+
+                        elif data['szTrCode'] == 'FH0':
+
+                            if not pre_start:
+                                realtime_hour = int(data['호가시간'][0:2])
+                                realtime_min = int(data['호가시간'][2:4])
+                                realtime_sec = int(data['호가시간'][4:6])
+
+                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                    self.trigger.emit(data)
+                                else:
+                                    self.drop_count += 1
+                            else:
+                                self.trigger.emit(data)
+
+                        elif data['szTrCode'] == 'NH0':
+
+                            realtime_hour = int(data['호가시간'][0:2])
+                            realtime_min = int(data['호가시간'][2:4])
+                            realtime_sec = int(data['호가시간'][4:6])
+
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                self.trigger.emit(data)
+                            else:
+                                self.drop_count += 1
+
+                        elif data['szTrCode'] == 'FC0':
+
+                            realtime_hour = int(data['체결시간'][0:2])
+                            realtime_min = int(data['체결시간'][2:4])
+                            realtime_sec = int(data['체결시간'][4:6])
+
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                self.trigger.emit(data)
+                            else:
+                                self.drop_count += 1
+
+                        elif data['szTrCode'] == 'NC0':
+
+                            realtime_hour = int(data['체결시간'][0:2])
+                            realtime_min = int(data['체결시간'][2:4])
+                            realtime_sec = int(data['체결시간'][4:6])
+
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                self.trigger.emit(data)
+                            else:
+                                self.drop_count += 1
+
+                        elif data['szTrCode'] == 'IJ_':
+
+                            realtime_hour = int(data['시간'][0:2])
+                            realtime_min = int(data['시간'][2:4])
+                            realtime_sec = int(data['시간'][4:6])
+
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                self.trigger.emit(data)
+                            else:
+                                self.drop_count += 1
+
+                        elif data['szTrCode'] == 'OC0':
+
+                            self.total_option_packet_size += sys.getsizeof(data)
+
+                            realtime_hour = int(data['체결시간'][0:2])
+                            realtime_min = int(data['체결시간'][2:4])
+                            realtime_sec = int(data['체결시간'][4:6])
+
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                self.trigger.emit(data)
+                            else:
+                                self.drop_count += 1
+
+                        elif data['szTrCode'] == 'OH0':
+
+                            self.total_option_packet_size += sys.getsizeof(data)
+
+                            if not pre_start:
+                                realtime_hour = int(data['호가시간'][0:2])
+                                realtime_min = int(data['호가시간'][2:4])
+                                realtime_sec = int(data['호가시간'][4:6])
+
+                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                    self.trigger.emit(data)
+                                else:
+                                    self.drop_count += 1
+                            else:
+                                self.trigger.emit(data)
+
+                        elif data['szTrCode'] == 'EC0':
+
+                            realtime_hour = int(data['체결시간'][0:2])
+                            realtime_min = int(data['체결시간'][2:4])
+                            realtime_sec = int(data['체결시간'][4:6])
+
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                self.trigger.emit(data)
+                            else:
+                                self.drop_count += 1
+
+                        elif data['szTrCode'] == 'EH0':
+
+                            if int(data['호가시간(36시간)'][0:2]) >= 24:
+                                realtime_hour = int(data['호가시간(36시간)'][0:2]) - 24
+                            else:                            
+                                realtime_hour = int(data['호가시간(36시간)'][0:2])
+
+                            realtime_min = int(data['호가시간(36시간)'][2:4])
+                            realtime_sec = int(data['호가시간(36시간)'][4:6])
+
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                self.trigger.emit(data)
+                            else:
+                                self.drop_count += 1 
+
+                        elif data['szTrCode'] == 'S3_':
+
+                            realtime_hour = int(data['체결시간'][0:2])
+                            realtime_min = int(data['체결시간'][2:4])
+                            realtime_sec = int(data['체결시간'][4:6])
+
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                self.trigger.emit(data)
+                            else:
+                                self.drop_count += 1
+
+                        elif data['szTrCode'] == 'BM_':
+
+                            self.trigger.emit(data)
+                            
+                        elif data['szTrCode'] == 'PM_':
+
+                            self.trigger.emit(data)                            
+                        else:
+                            self.trigger.emit(data)                    
+                    else:
+                        self.drop_count += 1                
                 else:
-                    self.drop_count += 1                
-            else:
-                flag_main_process_queue_empty = True
+                    flag_main_process_queue_empty = True
+
+            except Exception as e:
+
+                self.trigger_exception.emit(data['szTrCode'])
+
+                txt = '{0} 큐 쓰레드에서 예외가 발생했습니다.'.format(data['szTrCode'])
+                print(txt)
 
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 멀티프로세스 쓰레드 클래스
@@ -2741,6 +2726,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
     # 수신데이타 타입이 list이면 TR데이타, dict이면 실시간데이타.        
     trigger_list = pyqtSignal(list)
     trigger_dict = pyqtSignal(dict)
+    trigger_exception = pyqtSignal(str)
 
     def __init__(self, dataQ):
         super().__init__()
@@ -2768,237 +2754,222 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
         global flag_main_process_queue_empty, flag_mp_interval_changed                  
 
         while True:
-            if not self.dataQ.empty():
 
-                flag_main_process_queue_empty = False
+            try:
+                if not self.dataQ.empty():
 
-                dt = datetime.datetime.now()
-                systime = dt.hour * 3600 + dt.minute * 60 + dt.second
+                    flag_main_process_queue_empty = False
 
-                data = self.dataQ.get(False)
-                
-                self.total_count += 1
-                self.total_packet_size += sys.getsizeof(data)
+                    dt = datetime.datetime.now()
+                    systime = dt.hour * 3600 + dt.minute * 60 + dt.second
 
-                if type(data) == list:
-                    self.trigger_list.emit(data)
-                else:
-                    pass
+                    data = self.dataQ.get(False)
 
-                if type(data) == dict and data['szTrCode'] == 'JIF':
-                    self.trigger_dict.emit(data)
-                else:
-                    pass
-                
-                if not flag_main_realdata_update_is_running:                    
+                    self.total_count += 1
+                    self.total_packet_size += sys.getsizeof(data)
 
-                    if type(data) == dict:
-
-                        if data['szTrCode'] == 'OVC':
-
-                            realtime_hour = int(data['체결시간_한국'][0:2])
-                            realtime_min = int(data['체결시간_한국'][2:4])
-                            realtime_sec = int(data['체결시간_한국'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                                self.trigger_dict.emit(data)
-                            else:
-                                self.drop_count += 1
-
-                        elif data['szTrCode'] == 'FH0':
-
-                            if not pre_start:
-                                realtime_hour = int(data['호가시간'][0:2])
-                                realtime_min = int(data['호가시간'][2:4])
-                                realtime_sec = int(data['호가시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                                    self.trigger_dict.emit(data)
-                                else:
-                                    self.drop_count += 1
-                            else:
-                                self.trigger_dict.emit(data)
-
-                        elif data['szTrCode'] == 'NH0':
-
-                            realtime_hour = int(data['호가시간'][0:2])
-                            realtime_min = int(data['호가시간'][2:4])
-                            realtime_sec = int(data['호가시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                                self.trigger_dict.emit(data)
-                            else:
-                                self.drop_count += 1
-
-                        elif data['szTrCode'] == 'FC0':
-
-                            realtime_hour = int(data['체결시간'][0:2])
-                            realtime_min = int(data['체결시간'][2:4])
-                            realtime_sec = int(data['체결시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                                self.trigger_dict.emit(data)
-                            else:
-                                self.drop_count += 1
-
-                        elif data['szTrCode'] == 'NC0':
-
-                            realtime_hour = int(data['체결시간'][0:2])
-                            realtime_min = int(data['체결시간'][2:4])
-                            realtime_sec = int(data['체결시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                                self.trigger_dict.emit(data)
-                            else:
-                                self.drop_count += 1
-
-                        elif data['szTrCode'] == 'IJ_':
-
-                            realtime_hour = int(data['시간'][0:2])
-                            realtime_min = int(data['시간'][2:4])
-                            realtime_sec = int(data['시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                                self.trigger_dict.emit(data)
-                            else:
-                                self.drop_count += 1
-
-                        elif data['szTrCode'] == 'OC0':
-
-                            self.total_option_packet_size += sys.getsizeof(data)
-
-                            realtime_hour = int(data['체결시간'][0:2])
-                            realtime_min = int(data['체결시간'][2:4])
-                            realtime_sec = int(data['체결시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                                self.trigger_dict.emit(data)
-                            else:
-                                self.drop_count += 1
-
-                        elif data['szTrCode'] == 'OH0':
-
-                            self.total_option_packet_size += sys.getsizeof(data)
-
-                            if not pre_start:
-                                realtime_hour = int(data['호가시간'][0:2])
-                                realtime_min = int(data['호가시간'][2:4])
-                                realtime_sec = int(data['호가시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                                    self.trigger_dict.emit(data)
-                                else:
-                                    self.drop_count += 1
-                            else:
-                                self.trigger_dict.emit(data)
-
-                        elif data['szTrCode'] == 'EC0':
-
-                            realtime_hour = int(data['체결시간'][0:2])
-                            realtime_min = int(data['체결시간'][2:4])
-                            realtime_sec = int(data['체결시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                                self.trigger_dict.emit(data)
-                            else:
-                                self.drop_count += 1
-
-                        elif data['szTrCode'] == 'EH0':
-
-                            if int(data['호가시간(36시간)'][0:2]) >= 24:
-                                realtime_hour = int(data['호가시간(36시간)'][0:2]) - 24
-                            else:                            
-                                realtime_hour = int(data['호가시간(36시간)'][0:2])
-
-                            realtime_min = int(data['호가시간(36시간)'][2:4])
-                            realtime_sec = int(data['호가시간(36시간)'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                                self.trigger_dict.emit(data)
-                            else:
-                                self.drop_count += 1                            
-
-                        elif data['szTrCode'] == 'S3_':
-
-                            realtime_hour = int(data['체결시간'][0:2])
-                            realtime_min = int(data['체결시간'][2:4])
-                            realtime_sec = int(data['체결시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                                self.trigger_dict.emit(data)
-                            else:
-                                self.drop_count += 1
-
-                        elif data['szTrCode'] == 'BM_':
-
-                            self.trigger_dict.emit(data)
-                            '''
-                            realtime_hour = int(data['수신시간'][0:2])
-                            realtime_min = int(data['수신시간'][2:4])
-                            realtime_sec = int(data['수신시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                                self.trigger_dict.emit(data)
-                            else:
-                                self.drop_count += 1
-                            '''
-
-                        elif data['szTrCode'] == 'PM_':
-
-                            self.trigger_dict.emit(data)
-                            '''
-                            realtime_hour = int(data['수신시간'][0:2])
-                            realtime_min = int(data['수신시간'][2:4])
-                            realtime_sec = int(data['수신시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                                self.trigger_dict.emit(data)
-                            else:
-                                self.drop_count += 1
-                            '''
-                        else:
-                            self.trigger_dict.emit(data)      
+                    if type(data) == list:
+                        self.trigger_list.emit(data)
                     else:
                         pass
-                    # 실시간 그래프 호출을 여기서 할수 있음!!! --> 데이타프레임을 만든후 emit
-                else:
-                    self.drop_count += 1
 
-                if flag_mp_interval_changed:
-                    print('MP interval changed...')
-                    flag_mp_interval_changed = False
-                else:
-                    pass
+                    if type(data) == dict and data['szTrCode'] == 'JIF':
+                        self.trigger_dict.emit(data)
+                    else:
+                        pass
+                    
+                    if not flag_main_realdata_update_is_running:                    
 
-                QTest.qWait(mp_send_interval)
-            else:
-                flag_main_process_queue_empty = True
+                        if type(data) == dict:
+
+                            if data['szTrCode'] == 'OVC':
+
+                                realtime_hour = int(data['체결시간_한국'][0:2])
+                                realtime_min = int(data['체결시간_한국'][2:4])
+                                realtime_sec = int(data['체결시간_한국'][4:6])
+
+                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                    self.trigger_dict.emit(data)
+                                else:
+                                    self.drop_count += 1
+
+                            elif data['szTrCode'] == 'FH0':
+
+                                if not pre_start:
+                                    realtime_hour = int(data['호가시간'][0:2])
+                                    realtime_min = int(data['호가시간'][2:4])
+                                    realtime_sec = int(data['호가시간'][4:6])
+
+                                    realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                                    if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                        self.trigger_dict.emit(data)
+                                    else:
+                                        self.drop_count += 1
+                                else:
+                                    self.trigger_dict.emit(data)
+
+                            elif data['szTrCode'] == 'NH0':
+
+                                realtime_hour = int(data['호가시간'][0:2])
+                                realtime_min = int(data['호가시간'][2:4])
+                                realtime_sec = int(data['호가시간'][4:6])
+
+                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                    self.trigger_dict.emit(data)
+                                else:
+                                    self.drop_count += 1
+
+                            elif data['szTrCode'] == 'FC0':
+
+                                realtime_hour = int(data['체결시간'][0:2])
+                                realtime_min = int(data['체결시간'][2:4])
+                                realtime_sec = int(data['체결시간'][4:6])
+
+                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                    self.trigger_dict.emit(data)
+                                else:
+                                    self.drop_count += 1
+
+                            elif data['szTrCode'] == 'NC0':
+
+                                realtime_hour = int(data['체결시간'][0:2])
+                                realtime_min = int(data['체결시간'][2:4])
+                                realtime_sec = int(data['체결시간'][4:6])
+
+                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                    self.trigger_dict.emit(data)
+                                else:
+                                    self.drop_count += 1
+
+                            elif data['szTrCode'] == 'IJ_':
+
+                                realtime_hour = int(data['시간'][0:2])
+                                realtime_min = int(data['시간'][2:4])
+                                realtime_sec = int(data['시간'][4:6])
+
+                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                    self.trigger_dict.emit(data)
+                                else:
+                                    self.drop_count += 1
+
+                            elif data['szTrCode'] == 'OC0':
+
+                                self.total_option_packet_size += sys.getsizeof(data)
+
+                                realtime_hour = int(data['체결시간'][0:2])
+                                realtime_min = int(data['체결시간'][2:4])
+                                realtime_sec = int(data['체결시간'][4:6])
+
+                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                    self.trigger_dict.emit(data)
+                                else:
+                                    self.drop_count += 1
+
+                            elif data['szTrCode'] == 'OH0':
+
+                                self.total_option_packet_size += sys.getsizeof(data)
+
+                                if not pre_start:
+                                    realtime_hour = int(data['호가시간'][0:2])
+                                    realtime_min = int(data['호가시간'][2:4])
+                                    realtime_sec = int(data['호가시간'][4:6])
+
+                                    realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                                    if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                        self.trigger_dict.emit(data)
+                                    else:
+                                        self.drop_count += 1
+                                else:
+                                    self.trigger_dict.emit(data)
+
+                            elif data['szTrCode'] == 'EC0':
+
+                                realtime_hour = int(data['체결시간'][0:2])
+                                realtime_min = int(data['체결시간'][2:4])
+                                realtime_sec = int(data['체결시간'][4:6])
+
+                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                    self.trigger_dict.emit(data)
+                                else:
+                                    self.drop_count += 1
+
+                            elif data['szTrCode'] == 'EH0':
+
+                                if int(data['호가시간(36시간)'][0:2]) >= 24:
+                                    realtime_hour = int(data['호가시간(36시간)'][0:2]) - 24
+                                else:                            
+                                    realtime_hour = int(data['호가시간(36시간)'][0:2])
+
+                                realtime_min = int(data['호가시간(36시간)'][2:4])
+                                realtime_sec = int(data['호가시간(36시간)'][4:6])
+
+                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                    self.trigger_dict.emit(data)
+                                else:
+                                    self.drop_count += 1                            
+
+                            elif data['szTrCode'] == 'S3_':
+
+                                realtime_hour = int(data['체결시간'][0:2])
+                                realtime_min = int(data['체결시간'][2:4])
+                                realtime_sec = int(data['체결시간'][4:6])
+
+                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                    self.trigger_dict.emit(data)
+                                else:
+                                    self.drop_count += 1
+
+                            elif data['szTrCode'] == 'BM_':
+
+                                self.trigger_dict.emit(data)
+                                
+                            elif data['szTrCode'] == 'PM_':
+
+                                self.trigger_dict.emit(data)                                
+                            else:
+                                self.trigger_dict.emit(data)      
+                        else:
+                            pass
+                        # 실시간 그래프 호출을 여기서 할수 있음!!! --> 데이타프레임을 만든후 emit
+                    else:
+                        self.drop_count += 1
+
+                    if flag_mp_interval_changed:
+                        print('MP interval changed...')
+                        flag_mp_interval_changed = False
+                    else:
+                        pass
+
+                    QTest.qWait(mp_send_interval)
+                else:
+                    flag_main_process_queue_empty = True
+
+            except Exception as e:
+
+                self.trigger_exception.emit(data['szTrCode'])
+
+                txt = '{0} 멀티프로세스 큐 쓰레드에서 예외가 발생했습니다.'.format(data['szTrCode'])
+                print(txt)
 
 class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
@@ -38794,7 +38765,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if MP_NUMBER == 1:
                 self.realtime_main_dataworker = RealTime_Main_MP_Thread_DataWorker(self.main_dataQ)
                 self.realtime_main_dataworker.trigger_list.connect(self.transfer_mp_main_trdata)
-                self.realtime_main_dataworker.trigger_dict.connect(self.transfer_mp_main_realdata)            
+                self.realtime_main_dataworker.trigger_dict.connect(self.transfer_mp_main_realdata)
+                self.realtime_main_dataworker.trigger_exception.connect(self.transfer_mp_main_exception)            
                 self.realtime_main_dataworker.start()
             elif MP_NUMBER == 2:
                 self.realtime_main_dataworker = RealTime_Main_MP_Thread_DataWorker(self.main_dataQ)
@@ -38833,6 +38805,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.dataQ = Queue()
             self.realtime_thread_dataworker = RealTime_Thread_DataWorker(self.dataQ)
             self.realtime_thread_dataworker.trigger.connect(self.transfer_thread_realdata)
+            self.realtime_thread_dataworker.trigger_exception.connect(self.transfer_thread_exception)
             self.realtime_thread_dataworker.start()
         
         # TTS 쓰레드 설정
@@ -38845,6 +38818,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     #####################################################################################################################################################################
     # 멀티프로세스방식 처리관련 함수들
     #####################################################################################################################################################################
+    @pyqtSlot(str)
+    def transfer_mp_main_exception(self, str):
+
+        dt = datetime.datetime.now()
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] {3} 멀티프로세스 큐 쓰레드에서 예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, str)
+        self.textBrowser.append(txt)
+
+        playsound('Resources/notify.wav')
+
     @pyqtSlot(list)
     def transfer_mp_main_trdata(self, trdata):
 
@@ -39196,6 +39179,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     #####################################################################################################################################################################
     # 쓰레드방식 처리관련 함수들
     #####################################################################################################################################################################
+    @pyqtSlot(str)
+    def transfer_thread_exception(self, str):
+
+        dt = datetime.datetime.now()
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] {3} 큐 쓰레드에서 예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, str)
+        self.textBrowser.append(txt)
+
+        playsound('Resources/notify.wav')
+
     @pyqtSlot(dict)
     def transfer_thread_realdata(self, realdata):
 
