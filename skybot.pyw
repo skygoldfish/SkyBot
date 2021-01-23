@@ -88,7 +88,8 @@ pd.set_option('display.expand_frame_repr', False)
 #pd.set_option('max_colwidth', None)
 pd.set_option('max_colwidth', 100)
 
-DATABASE = 'DATA\\skybot.sqlite'
+DATABASE = 'Database\\skybot.sqlite'
+log_filename = "Log\\SkyBot.log"
 
 locale.setlocale(locale.LC_ALL, '') 
 np.warnings.filterwarnings('ignore')
@@ -25013,7 +25014,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_hangseng.stateChanged.connect(self.checkBox_hangseng_checkState)
         self.checkBox_gold.stateChanged.connect(self.checkBox_gold_checkState)
         self.checkBox_news.stateChanged.connect(self.checkBox_news_checkState)
-        self.checkBox_plot_first.stateChanged.connect(self.checkBox_checkBox_plot_first_checkState)
+        self.checkBox_plot_first.stateChanged.connect(self.checkBox_plot_first_state_change)
 
         self.spinBox_call_itm.valueChanged.connect(self.change_call_itm)
         self.spinBox_call_otm.valueChanged.connect(self.change_call_otm)
@@ -26317,7 +26318,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
 
-    def checkBox_checkBox_plot_first_checkState(self):
+    def checkBox_plot_first_state_change(self):
 
         dt = datetime.datetime.now()
 
@@ -39905,10 +39906,9 @@ if __name__ == "__main__":
     formatter = logging.Formatter('[%(levelname)s|%(filename)s:%(lineno)s]%(asctime)s>%(message)s')
 
     loggerLevel = Logging_Level
-    filename = "LOG/SkyBot.log"
 
     # 스트림과 파일로 로그를 출력하는 핸들러를 각각 만든다.
-    filehandler = logging.FileHandler(filename)
+    filehandler = logging.FileHandler(log_filename)
     streamhandler = logging.StreamHandler()
 
     # 각 핸들러에 formatter를 지정한다.
