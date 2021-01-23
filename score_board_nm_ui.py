@@ -207,6 +207,7 @@ class Ui_Dialog(object):
         font.setWeight(50)
         self.pushButton_start.setFont(font)
         self.pushButton_start.setCheckable(False)
+        self.pushButton_start.setAutoDefault(False)
         self.pushButton_start.setObjectName("pushButton_start")
         self.horizontalLayout.addWidget(self.pushButton_start)
         self.pushButton_telegram = QtWidgets.QPushButton(self.layoutWidget)
@@ -218,6 +219,7 @@ class Ui_Dialog(object):
         self.pushButton_telegram.setFont(font)
         self.pushButton_telegram.setFocusPolicy(QtCore.Qt.NoFocus)
         self.pushButton_telegram.setCheckable(True)
+        self.pushButton_telegram.setAutoDefault(False)
         self.pushButton_telegram.setObjectName("pushButton_telegram")
         self.horizontalLayout.addWidget(self.pushButton_telegram)
 

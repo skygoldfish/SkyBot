@@ -5441,15 +5441,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
             
-            if (not flag_internet_connection_broken and not flag_service_provider_broken) and receive_quote:                
-                self.option_quote_update()
-            else:
-                pass
-            
             # 실시간 서비스
             if (not flag_internet_connection_broken and not flag_service_provider_broken) and FLAG_GUEST_CONTROL and receive_real_ovc:
                 
                 self.display_atm(self.alternate_flag)
+
+                self.option_quote_update()
                 
                 if DayTime and fut_result:                    
                     self.fut_etc_update(fut_result)
@@ -39926,7 +39923,6 @@ if __name__ == "__main__":
             second_dataQ = mp.Queue()
             third_dataQ = mp.Queue()
 
-            # 멀티프로세스 객체생성
             MainProcess = MainWorker(main_dataQ)
             MainProcess.start()
 
