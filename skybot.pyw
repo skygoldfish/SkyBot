@@ -11797,56 +11797,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.resizeRowToContents(1)
             
             self.tableWidget_fut.resizeColumnToContents(Futures_column.현재가.value)
-
-            # 1T OHLC 생성
-            df_futures_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
-
-            if OVC_SEC == 0:
-
-                if not flag_futures_ohlc_open:
-
-                    df_futures_graph.at[ovc_x_idx, 'open'] = 선물_현재가
-                    df_futures_graph.at[ovc_x_idx, 'high'] = 선물_현재가
-                    df_futures_graph.at[ovc_x_idx, 'low'] = 선물_현재가
-                    df_futures_graph.at[ovc_x_idx, 'middle'] = 선물_현재가
-                    df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
-                    df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
-
-                    del 선물_현재가_버퍼[:]
-
-                    flag_futures_ohlc_open = True
-                else:
-                    선물_현재가_버퍼.append(선물_현재가)              
-            else:
-                if df_futures_graph.at[ovc_x_idx, 'open'] != df_futures_graph.at[ovc_x_idx, 'open']:
-                    df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
-                    del 선물_현재가_버퍼[:]
-                else:
-                    pass
-
-                선물_현재가_버퍼.append(선물_현재가)
-
-                if max(선물_현재가_버퍼) > 0:
-                    df_futures_graph.at[ovc_x_idx, 'high'] = max(선물_현재가_버퍼)
-                else:
-                    pass
-
-                if min(선물_현재가_버퍼) == 0:
-
-                    if max(선물_현재가_버퍼) > 0:
-                        df_futures_graph.at[ovc_x_idx, 'low'] = max(선물_현재가_버퍼)
-                    else:
-                        pass
-                else:
-                    df_futures_graph.at[ovc_x_idx, 'low'] = min(선물_현재가_버퍼)
-
-                df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
-
-                flag_futures_ohlc_open = False
-
-            df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2            
-            
-            self.tableWidget_fut.resizeColumnToContents(Futures_column.대비.value)            
         else:
             pass
 
@@ -12078,6 +12028,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
         else:
             self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
+
+        self.tableWidget_fut.resizeColumnToContents(Futures_column.대비.value)
         
         # 종합 에너지방향 표시
         if TARGET_MONTH == 'CM' and DayTime:
@@ -20792,15 +20744,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 갱신된 현재값을 과거값과 비교(NaN 방지를 위해)
         if ovc_x_idx != old_ovc_x_idx:
 
-            if DayTime and market_service:
-                df_futures_graph.at[ovc_x_idx, 'high'] = df_futures_graph.at[ovc_x_idx- 1, 'high']
-                df_futures_graph.at[ovc_x_idx, 'low'] = df_futures_graph.at[ovc_x_idx - 1, 'low']
-                df_futures_graph.at[ovc_x_idx, 'middle'] = df_futures_graph.at[ovc_x_idx - 1, 'middle']
-                df_futures_graph.at[ovc_x_idx, 'close'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
-                df_futures_graph.at[ovc_x_idx, 'price'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
-            else:
-                pass
-
             df_dow_graph.at[ovc_x_idx, 'high'] = df_dow_graph.at[ovc_x_idx - 1, 'high']
             df_dow_graph.at[ovc_x_idx, 'low'] = df_dow_graph.at[ovc_x_idx - 1, 'low']
             df_dow_graph.at[ovc_x_idx, 'middle'] = df_dow_graph.at[ovc_x_idx - 1, 'middle']
@@ -23924,6 +23867,68 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
                 
                 if result['단축코드'] == FUT_CODE:
+
+                    # 그래프관련 처리 먼저...
+                    if ovc_x_idx != old_ovc_x_idx:
+
+                        if DayTime and market_service:
+                            df_futures_graph.at[ovc_x_idx, 'high'] = df_futures_graph.at[ovc_x_idx- 1, 'high']
+                            df_futures_graph.at[ovc_x_idx, 'low'] = df_futures_graph.at[ovc_x_idx - 1, 'low']
+                            df_futures_graph.at[ovc_x_idx, 'middle'] = df_futures_graph.at[ovc_x_idx - 1, 'middle']
+                            df_futures_graph.at[ovc_x_idx, 'close'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
+                            df_futures_graph.at[ovc_x_idx, 'price'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
+                        else:
+                            pass
+                    else:
+                        pass
+
+                    # 1T OHLC 생성
+                    df_futures_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
+
+                    if OVC_SEC == 0:
+
+                        if not flag_futures_ohlc_open:
+
+                            df_futures_graph.at[ovc_x_idx, 'open'] = result['현재가']
+                            df_futures_graph.at[ovc_x_idx, 'high'] = result['현재가']
+                            df_futures_graph.at[ovc_x_idx, 'low'] = result['현재가']
+                            df_futures_graph.at[ovc_x_idx, 'middle'] = result['현재가']
+                            df_futures_graph.at[ovc_x_idx, 'close'] = result['현재가']
+                            df_futures_graph.at[ovc_x_idx, 'price'] = result['현재가']
+
+                            del 선물_현재가_버퍼[:]
+
+                            flag_futures_ohlc_open = True
+                        else:
+                            선물_현재가_버퍼.append(result['현재가'])              
+                    else:
+                        if df_futures_graph.at[ovc_x_idx, 'open'] != df_futures_graph.at[ovc_x_idx, 'open']:
+                            df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
+                            del 선물_현재가_버퍼[:]
+                        else:
+                            pass
+
+                        선물_현재가_버퍼.append(result['현재가'])
+
+                        if max(선물_현재가_버퍼) > 0:
+                            df_futures_graph.at[ovc_x_idx, 'high'] = max(선물_현재가_버퍼)
+                        else:
+                            pass
+
+                        if min(선물_현재가_버퍼) == 0:
+
+                            if max(선물_현재가_버퍼) > 0:
+                                df_futures_graph.at[ovc_x_idx, 'low'] = max(선물_현재가_버퍼)
+                            else:
+                                pass
+                        else:
+                            df_futures_graph.at[ovc_x_idx, 'low'] = min(선물_현재가_버퍼)
+
+                        df_futures_graph.at[ovc_x_idx, 'close'] = result['현재가']
+
+                        flag_futures_ohlc_open = False
+
+                    df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2                
 
                     df_futures_graph.at[ovc_x_idx, 'price'] = result['현재가']
 
