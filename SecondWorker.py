@@ -143,7 +143,6 @@ class SecondWorker(mp.Process):
         self.data = []
 
         self.connection = None
-        self.valid_data_receive = False
 
         # 조회요청 TR 초기화
         self.XQ_t0167 = None # 시간 조회
@@ -256,15 +255,6 @@ class SecondWorker(mp.Process):
 
         ret = self.connection.IsConnected()
         return ret
-
-    def Set_Valid_Data_Receive(self, state):
-
-        print('콜 수신방식 변경요청 수신 =', state)
-
-        if state:
-            self.valid_data_receive = True
-        else:
-            self.valid_data_receive = False
 
     def OnReceiveMessage(self, ClassName, systemError, messageCode, message):
 

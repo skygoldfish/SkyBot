@@ -373,9 +373,9 @@
     </font>
    </property>
    <property name="title">
-    <string>Plot 갱신주기</string>
+    <string>Plot 우선모드 및 갱신주기</string>
    </property>
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -385,6 +385,26 @@
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QCheckBox" name="checkBox_plot_first">
+       <property name="text">
+        <string>Plot First</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
      <item>
       <widget class="QLineEdit" name="lineEdit_plot">
        <property name="alignment">
@@ -436,32 +456,18 @@
     </font>
    </property>
    <property name="title">
-    <string>실시간 Data갱신 항목</string>
+    <string>실시간 Data 갱신주기</string>
    </property>
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>30</y>
+      <y>31</y>
       <width>271</width>
       <height>22</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="QCheckBox" name="checkBox_valid_receive">
-       <property name="text">
-        <string>Valid Rx</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>갱신주기</string>
-       </property>
-      </widget>
-     </item>
      <item>
       <widget class="QLineEdit" name="lineEdit_mp">
        <property name="alignment">
@@ -507,7 +513,7 @@
    <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>11</x>
+      <x>12</x>
       <y>60</y>
       <width>271</width>
       <height>22</height>
@@ -525,6 +531,19 @@
       <widget class="QSpinBox" name="spinBox_put_itm"/>
      </item>
      <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
       <widget class="QLabel" name="label_put_otm">
        <property name="text">
         <string>풋외가</string>
@@ -539,7 +558,7 @@
    <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>11</x>
+      <x>12</x>
       <y>30</y>
       <width>271</width>
       <height>22</height>
@@ -555,6 +574,19 @@
      </item>
      <item>
       <widget class="QSpinBox" name="spinBox_call_itm"/>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
      </item>
      <item>
       <widget class="QLabel" name="label_call_otm">

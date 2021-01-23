@@ -135,8 +135,8 @@ all_screens = None
 스크린번호 = 0
 screen_info = None
 
-콜등락율 = 0
-풋등락율 = 0
+콜_등가_등락율 = 0
+풋_등가_등락율 = 0
 
 drate_scale_factor = 1
 plot_drate_scale_factor = 1
@@ -1915,6 +1915,8 @@ t8416_loop_finish_time = 0
 schedule_hour = 0
 schedule_min = 0
 schedule_sec = 0
+
+flag_plot_first_mode = False
 
 #####################################################################################################################################################################
 # UI 파일정의
@@ -5455,17 +5457,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if market_service and flag_option_start:   
                     
-                    if flag_checkBox_HS:
-
-                        if call_result:
-                            self.call_update(call_result)
-                        else:
-                            pass
-
-                        if put_result:
-                            self.put_update(put_result)
-                        else:
-                            pass                      
+                    if flag_checkBox_HS:                 
                         
                         if self.alternate_flag:
                             # 콜 테이블 데이타 갱신 
@@ -11564,31 +11556,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         선물_고가 = result['고가']
         
         선물_대비 = 선물_현재가 - 선물_시가
-        선물_전일대비 = 선물_현재가 - 선물_종가         
-        선물_등락율 = result['등락율']
+        선물_전일대비 = 선물_현재가 - 선물_종가        
         선물_진폭 = 선물_고가 - 선물_저가        
-        
-        # Plot 데이타프레임 생성
-        df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
-        
+                
         fut_time = dt.hour * 3600 + dt.minute * 60 + dt.second
-
-        if 선물_등락율 != 0:
-
-            if abs(선물_등락율) > abs(DOW_등락율):
-                flag_fut_vs_dow_drate_direction = True
-            else:
-                flag_fut_vs_dow_drate_direction = False
-
-            plot_drate_scale_factor = int(abs(콜등락율 / 선물_등락율))
-
-            item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(2, Futures_column.OI.value, item)
-
-            df_futures_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 선물_등락율
-        else:
-            pass
         
         if not flag_first_arrive:
             fut_first_arrive_time = fut_time
@@ -12331,7 +12302,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_call_low_update, flag_call_high_update
         global call_gap_percent, call_db_percent, call_otm_db, call_otm_db_percent 
         global 콜대비_퍼센트평균
-        global 콜등락율       
+        global 콜_등가_등락율       
 
         start_time = timeit.default_timer()
         dt = datetime.datetime.now()
@@ -12347,12 +12318,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         콜현재가 = result['현재가']
         콜저가 = result['저가']
         콜고가 = result['고가']
-
-        if DayTime and index == ATM_INDEX:
-            콜등락율 = result['등락율']
-            df_call_information_graph.at[ovc_x_idx, 'drate'] = 콜등락율
-        else:
-            pass
 
         if 저가 != 고가 and not call_open[index]:
 
@@ -12500,7 +12465,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if 현재가 != 콜_현재가:
 
-            df_call_graph[index].at[ovc_x_idx, 'price'] = 콜현재가
             df_call.at[index, '현재가'] = 콜현재가
 
             if 콜현재가 < float(콜_현재가):
@@ -12537,7 +12501,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if DayTime:
 
                     if index == ATM_INDEX:
-                        gap_txt = "{0:.2f}\n({1:.2f}%)".format(콜대비, 콜등락율)
+                        gap_txt = "{0:.2f}\n({1:.2f}%)".format(콜대비, 콜_등가_등락율)
                     else:
                         gap_txt = "{0:.2f}\n({1:.0f}%)".format(콜대비, call_db_percent[index])
                 else:
@@ -12570,8 +12534,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_call_volume.at[index, '매도누적체결량'] = int(매도누적체결량)
             df_call_volume.at[index, '매수누적체결량'] = int(매수누적체결량)
 
-            call_volume_power = df_call_volume['매수누적체결량'].sum() - df_call_volume['매도누적체결량'].sum()
-            df_call_information_graph.at[ovc_x_idx, 'volume'] = call_volume_power
+            #call_volume_power = df_call_volume['매수누적체결량'].sum() - df_call_volume['매도누적체결량'].sum()
+            #df_call_information_graph.at[ovc_x_idx, 'volume'] = call_volume_power
 
             # 미결 갱신
             if DayTime:
@@ -12586,21 +12550,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_call.at[index, '수정미결'] = int(수정미결)
                 df_call.at[index, '수정미결증감'] = int(수정미결증감)
-
-                콜_수정미결합 = df_call['수정미결'].sum()
-                풋_수정미결합 = df_put['수정미결'].sum()
-                수정미결합 = 콜_수정미결합 + 풋_수정미결합
-
-                if 수정미결합 > 0:
-
-                    콜_수정미결퍼센트 = (콜_수정미결합 / 수정미결합) * 100
-                    풋_수정미결퍼센트 = 100 - 콜_수정미결퍼센트
-                else:
-                    콜_수정미결퍼센트 = 0
-                    풋_수정미결퍼센트 = 0
-
-                df_call_information_graph.at[ovc_x_idx, 'open_interest'] = 콜_수정미결퍼센트
-                df_put_information_graph.at[ovc_x_idx, 'open_interest'] = 풋_수정미결퍼센트
             else:
                 pass            
         else:
@@ -13397,7 +13346,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_put_low_update, flag_put_high_update
         global put_gap_percent, put_db_percent, put_otm_db, put_otm_db_percent
         global 풋대비_퍼센트평균
-        global 풋등락율
+        global 풋_등가_등락율
 
         start_time = timeit.default_timer()
         dt = datetime.datetime.now()
@@ -13414,12 +13363,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         풋저가 = result['저가']
         풋고가 = result['고가']
         
-        if DayTime and index == ATM_INDEX:
-            풋등락율 = result['등락율']
-            df_put_information_graph.at[ovc_x_idx, 'drate'] = 풋등락율
-        else:
-            pass
-
         if 저가 != 고가 and not put_open[index]:
 
             # 등가 check & coloring
@@ -13567,7 +13510,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if 현재가 != 풋_현재가:
 
             df_put.at[index, '현재가'] = 풋현재가
-            df_put_graph[index].at[ovc_x_idx, 'price'] = 풋현재가
 
             if 풋현재가 < float(풋_현재가):
                 item = QTableWidgetItem(현재가 + '\n' + '▼')
@@ -13603,7 +13545,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if DayTime:
 
                     if index == ATM_INDEX:
-                        gap_txt = "{0:.2f}\n({1:.2f}%)".format(풋대비, 풋등락율)
+                        gap_txt = "{0:.2f}\n({1:.2f}%)".format(풋대비, 풋_등가_등락율)
                     else:
                         gap_txt = "{0:.2f}\n({1:.0f}%)".format(풋대비, put_db_percent[index])
                 else:
@@ -13636,8 +13578,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_put_volume.at[index, '매도누적체결량'] = int(매도누적체결량)
             df_put_volume.at[index, '매수누적체결량'] = int(매수누적체결량)
 
-            put_volume_power = df_put_volume['매수누적체결량'].sum() - df_put_volume['매도누적체결량'].sum()
-            df_put_information_graph.at[ovc_x_idx, 'volume'] = put_volume_power
+            #put_volume_power = df_put_volume['매수누적체결량'].sum() - df_put_volume['매도누적체결량'].sum()
+            #df_put_information_graph.at[ovc_x_idx, 'volume'] = put_volume_power
 
             # 미결갱신
             if DayTime:
@@ -14375,15 +14317,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         콜건수비 = call_count_ratio
 
-        if call_quote['매도잔량'] > 0:
-            call_remainder_ratio = round((call_quote['매수잔량'] / call_quote['매도잔량']), 2)
-        else:
-            call_remainder_ratio = 0
-
         df_call_information_graph.at[ovc_x_idx, 'ms_quote'] = call_quote['매수잔량']
         df_call_information_graph.at[ovc_x_idx, 'md_quote'] = call_quote['매도잔량']
-
-        콜잔량비 = call_remainder_ratio
 
         if put_quote['매도건수'] > 0:
             put_count_ratio = round((put_quote['매수건수'] / put_quote['매도건수']), 2)
@@ -14392,32 +14327,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         풋건수비 = put_count_ratio
 
-        if put_quote['매도잔량'] > 0:
-            put_remainder_ratio = round((put_quote['매수잔량'] / put_quote['매도잔량']), 2)
-        else:
-            put_remainder_ratio = 0
-
         df_put_information_graph.at[ovc_x_idx, 'ms_quote'] = put_quote['매수잔량']
         df_put_information_graph.at[ovc_x_idx, 'md_quote'] = put_quote['매도잔량']
-
-        풋잔량비 = put_remainder_ratio
-
-        if NightTime:
-            df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
-            df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비
-        else:
-            if 콜잔량비 > 5.0:
-                df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
-            else:
-                df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
-
-            if 풋잔량비 > 5.0:
-                df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
-            else:
-                df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비
-
-        #temp = call_quote['매수건수'] + call_quote['매도건수']
-        #건수합 = format(temp, ',')
 
         item_txt = "{0}\n({1})\n({2})".format(repr(call_count_ratio), format(call_quote['매수건수'], ','), format(call_quote['매도건수'], ','))
 
@@ -14432,9 +14343,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         콜매수잔량 = call_quote['매수잔량']
         콜매도잔량 = call_quote['매도잔량']
 
-        #temp = 콜매수잔량 + 콜매도잔량
-        #잔량합 = format(temp, ',')
-
         item_txt = "{0}\n({1})\n({2})".format(repr(call_remainder_ratio), format(call_quote['매수잔량'], ','), format(call_quote['매도잔량'], ','))
 
         if item_txt != self.tableWidget_quote.item(0, 9).text():
@@ -14444,9 +14352,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_quote.setItem(0, 9, item)
         else:
             pass
-
-        #temp = put_quote['매수건수'] + put_quote['매도건수']
-        #건수합 = format(temp, ',')
 
         item_txt = "{0}\n({1})\n({2})".format(repr(put_count_ratio), format(put_quote['매수건수'], ','), format(put_quote['매도건수'], ','))
 
@@ -14460,9 +14365,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         풋매수잔량 = put_quote['매수잔량']
         풋매도잔량 = put_quote['매도잔량']
-
-        #temp = 풋매수잔량 + 풋매도잔량
-        #잔량합 = format(temp, ',')
         
         item_txt = "{0}\n({1})\n({2})".format(repr(put_remainder_ratio), format(put_quote['매수잔량'], ','), format(put_quote['매도잔량'], ','))
 
@@ -14508,24 +14410,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global oi_delta, old_oi_delta, 수정미결_직전대비
         global df_call_information_graph, df_put_information_graph
 
-        콜_수정미결합 = df_call['수정미결'].sum()
-        풋_수정미결합 = df_put['수정미결'].sum()
-
         oi_txt = '{0}:{1}'.format(format(int(콜_수정미결합), ','), format(int(풋_수정미결합), ','))
 
         item = QTableWidgetItem(oi_txt)
         self.tableWidget_quote.setHorizontalHeaderItem(Quote_column.미결종합.value - 1, item)
         
-        수정미결합 = 콜_수정미결합 + 풋_수정미결합
-
-        if 수정미결합 > 0:
-
-            콜_수정미결퍼센트 = (콜_수정미결합 / 수정미결합) * 100
-            풋_수정미결퍼센트 = 100 - 콜_수정미결퍼센트
-        else:
-            콜_수정미결퍼센트 = 0
-            풋_수정미결퍼센트 = 0
-
         item_txt = '{0:.2f}({1:.2f})% \n {2:.2f}({3:.2f})% '.format(콜_수정미결퍼센트, call_oi_init_percent, 풋_수정미결퍼센트, put_oi_init_percent)
 
         item = QTableWidgetItem(item_txt)
@@ -21964,7 +21853,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global df_call_quote, df_put_quote
 
         global df_call_price_graph, df_put_price_graph
-        global df_call_graph, df_put_graph
 
         global opt_callreal_update_counter, opt_putreal_update_counter
         global opt_call_ho_update_counter, opt_put_ho_update_counter
@@ -22011,7 +21899,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global OVC_체결시간, OVC_SEC, SERVER_HOUR, SERVER_MIN, SERVER_SEC
 
+        global df_call_graph, df_put_graph, df_call_information_graph, df_put_information_graph
         global df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
+        
+        global 콜_등가_등락율, 풋_등가_등락율, 콜잔량비, 풋잔량비, 콜_수정미결합, 풋_수정미결합, 콜_수정미결퍼센트, 풋_수정미결퍼센트
+        global call_volume_power, put_volume_power
+        global 선물_등락율, flag_fut_vs_dow_drate_direction, plot_drate_scale_factor
 
         global sp500_delta, old_sp500_delta, sp500_직전대비, sp500_text_color
         global dow_delta, old_dow_delta, dow_직전대비, dow_text_color
@@ -22588,7 +22481,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             flag_fut_vs_dow_drate_direction = False
 
-                        plot_drate_scale_factor = int(abs(콜등락율 / 선물_등락율))
+                        plot_drate_scale_factor = int(abs(콜_등가_등락율 / 선물_등락율))
 
                         item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
                         item.setTextAlignment(Qt.AlignCenter)
@@ -24031,6 +23924,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 if result['단축코드'] == FUT_CODE:
 
+                    df_futures_graph.at[ovc_x_idx, 'price'] = result['현재가']
+
+                    선물_등락율 = result['등락율']
+
+                    if 선물_등락율 != 0:
+
+                        if abs(선물_등락율) > abs(DOW_등락율):
+                            flag_fut_vs_dow_drate_direction = True
+                        else:
+                            flag_fut_vs_dow_drate_direction = False
+
+                        plot_drate_scale_factor = int(abs(콜_등가_등락율 / 선물_등락율))
+
+                        item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_fut.setItem(2, Futures_column.OI.value, item)
+
+                        df_futures_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 선물_등락율
+                    else:
+                        pass
+
                     fut_result = copy.deepcopy(result)
                     self.fut_update(result)
 
@@ -24066,7 +23980,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-            elif szTrCode == 'OC0' or szTrCode == 'EC0':
+            elif szTrCode == 'OC0' or szTrCode == 'EC0':                
 
                 if not flag_option_start:
                     flag_option_start = True
@@ -24085,31 +23999,75 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if result['단축코드'][0:3] == '201':
 
+                    index = call_행사가.index(result['단축코드'][5:8])
+                    df_call_graph[index].at[ovc_x_idx, 'price'] = result['현재가']
+
+                    if DayTime and index == ATM_INDEX:
+                        콜_등가_등락율 = result['등락율']
+                        df_call_information_graph.at[ovc_x_idx, 'drate'] = 콜_등가_등락율
+                    else:
+                        pass
+
                     call_result = copy.deepcopy(result)
 
-                    if FLAG_GUEST_CONTROL:                                                
+                    if FLAG_GUEST_CONTROL:
 
-                        if not flag_checkBox_HS:
-                            self.call_update(result)
+                        self.call_update(result)                                                
+
+                        if not flag_checkBox_HS:                            
                             self.call_db_update()
                             self.call_volume_power_update()
                             self.call_oi_update()
                         else:
                             pass
                     else:
-                        pass                 
+                        pass
+
+                    call_volume_power = df_call_volume['매수누적체결량'].sum() - df_call_volume['매도누적체결량'].sum()
+                    df_call_information_graph.at[ovc_x_idx, 'volume'] = call_volume_power                 
 
                 elif result['단축코드'][0:3] == '301':
 
-                    put_result = copy.deepcopy(result)                                        
+                    index = put_행사가.index(result['단축코드'][5:8])
+                    df_put_graph[index].at[ovc_x_idx, 'price'] = result['현재가']
 
-                    if not flag_checkBox_HS:
-                        self.put_update(result)
+                    if DayTime and index == ATM_INDEX:
+                        풋_등가_등락율 = result['등락율']
+                        df_put_information_graph.at[ovc_x_idx, 'drate'] = 풋_등가_등락율
+                    else:
+                        pass
+
+                    put_result = copy.deepcopy(result)
+                    self.put_update(result)                                        
+
+                    if not flag_checkBox_HS:                        
                         self.put_db_update()
                         self.put_volume_power_update()
                         self.put_oi_update()
                     else:
-                        pass               
+                        pass
+
+                    put_volume_power = df_put_volume['매수누적체결량'].sum() - df_put_volume['매도누적체결량'].sum()
+                    df_put_information_graph.at[ovc_x_idx, 'volume'] = put_volume_power               
+                else:
+                    pass
+
+                if DayTime:
+
+                    콜_수정미결합 = df_call['수정미결'].sum()
+                    풋_수정미결합 = df_put['수정미결'].sum()
+                    수정미결합 = 콜_수정미결합 + 풋_수정미결합
+
+                    if 수정미결합 > 0:
+
+                        콜_수정미결퍼센트 = (콜_수정미결합 / 수정미결합) * 100
+                        풋_수정미결퍼센트 = 100 - 콜_수정미결퍼센트
+                    else:
+                        콜_수정미결퍼센트 = 0
+                        풋_수정미결퍼센트 = 0
+
+                    df_call_information_graph.at[ovc_x_idx, 'open_interest'] = 콜_수정미결퍼센트
+                    df_put_information_graph.at[ovc_x_idx, 'open_interest'] = 풋_수정미결퍼센트
                 else:
                     pass
 
@@ -24134,6 +24092,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_call_quote.at[index, '매수잔량'] = result['매수호가총수량']
                     df_call_quote.at[index, '매도잔량'] = result['매도호가총수량']
 
+                    call_quote = df_call_quote.sum()
+
+                    if call_quote['매도잔량'] > 0:
+                        call_remainder_ratio = round((call_quote['매수잔량'] / call_quote['매도잔량']), 2)
+                    else:
+                        call_remainder_ratio = 0
+
+                    콜잔량비 = call_remainder_ratio
+
                 elif result['단축코드'][0:3] == '301':
 
                     index = put_행사가.index(result['단축코드'][5:8])
@@ -24142,8 +24109,31 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_put_quote.at[index, '매도건수'] = result['매도호가총건수']
                     df_put_quote.at[index, '매수잔량'] = result['매수호가총수량']
                     df_put_quote.at[index, '매도잔량'] = result['매도호가총수량']
+
+                    put_quote = df_put_quote.sum()
+
+                    if put_quote['매도잔량'] > 0:
+                        put_remainder_ratio = round((put_quote['매수잔량'] / put_quote['매도잔량']), 2)
+                    else:
+                        put_remainder_ratio = 0
+
+                    풋잔량비 = put_remainder_ratio
                 else:
                     pass
+
+                if NightTime:
+                    df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
+                    df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비
+                else:
+                    if 콜잔량비 > 5.0:
+                        df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
+                    else:
+                        df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
+
+                    if 풋잔량비 > 5.0:
+                        df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
+                    else:
+                        df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비               
 
                 # 야간선물이 없어짐에 따른 텔레그램 기동 대응
                 if NightTime:
@@ -24979,7 +24969,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_hangseng.setChecked(HANGSENG_CHK)
         self.checkBox_gold.setChecked(GOLD_CHK)
         self.checkBox_news.setChecked(NEWS_CHK)
-        self.checkBox_valid_receive.setChecked(False)
+        self.checkBox_plot_first.setChecked(False)
 
         self.spinBox_call_itm.setValue(call_itm_number)
         self.spinBox_call_otm.setValue(call_otm_number)
@@ -25023,7 +25013,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_hangseng.stateChanged.connect(self.checkBox_hangseng_checkState)
         self.checkBox_gold.stateChanged.connect(self.checkBox_gold_checkState)
         self.checkBox_news.stateChanged.connect(self.checkBox_news_checkState)
-        self.checkBox_valid_receive.stateChanged.connect(self.checkBox_checkBox_valid_receive_checkState)
+        self.checkBox_plot_first.stateChanged.connect(self.checkBox_checkBox_plot_first_checkState)
 
         self.spinBox_call_itm.valueChanged.connect(self.change_call_itm)
         self.spinBox_call_otm.valueChanged.connect(self.change_call_otm)
@@ -26327,72 +26317,25 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
 
-    def checkBox_checkBox_valid_receive_checkState(self):
+    def checkBox_checkBox_plot_first_checkState(self):
 
         dt = datetime.datetime.now()
 
-        if self.checkBox_valid_receive.isChecked() == True:
+        global flag_plot_first_mode
 
-            if MULTIPROCESS:
+        if self.checkBox_plot_first.isChecked() == True:
 
-                if MP_NUMBER == 1:
+            flag_plot_first_mode = True
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 유효한 선물 실시간 수신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.parent.textBrowser.append(txt)
-
-                    MainProcess.Set_Valid_Data_Receive(True)
-
-                elif MP_NUMBER == 2:
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 유효한 선물, 옵션 실시간 수신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.parent.textBrowser.append(txt)
-
-                    MainProcess.Set_Valid_Data_Receive(True)
-                    SecondProcess.Set_Valid_Data_Receive(True)
-
-                elif MP_NUMBER == 3:
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 유효한 선물, 옵션 실시간 수신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.parent.textBrowser.append(txt)
-
-                    MainProcess.Set_Valid_Data_Receive(True)
-                    SecondProcess.Set_Valid_Data_Receive(True)
-                    ThirdProcess.Set_Valid_Data_Receive(True)
-                else:
-                    pass
-            else:
-                pass
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Plot 우선모드로 설정합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
         else:
-            if MULTIPROCESS:
+            flag_plot_first_mode = False
 
-                if MP_NUMBER == 1:
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 유효한 선물 실시간 수신요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.parent.textBrowser.append(txt)
-
-                    MainProcess.Set_Valid_Data_Receive(False)
-
-                elif MP_NUMBER == 2:
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 유효한 선물, 옵션 실시간 수신요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.parent.textBrowser.append(txt)
-
-                    MainProcess.Set_Valid_Data_Receive(False)
-                    SecondProcess.Set_Valid_Data_Receive(False)
-
-                elif MP_NUMBER == 3:
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 유효한 선물, 옵션 실시간 수신요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.parent.textBrowser.append(txt)
-
-                    MainProcess.Set_Valid_Data_Receive(False)
-                    SecondProcess.Set_Valid_Data_Receive(False)
-                    ThirdProcess.Set_Valid_Data_Receive(False)
-                else:
-                    pass
-            else:
-                pass
-
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Plot 우선모드를 해지합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
 
     def closeEvent(self,event):
 
@@ -33431,10 +33374,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_15.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(풋등락율, put_atm_value)
+                txt = " {0:.2f}({1}) ".format(풋_등가_등락율, put_atm_value)
                 self.label_16.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(콜등락율, call_atm_value)
+                txt = " {0:.2f}({1}) ".format(콜_등가_등락율, call_atm_value)
                 self.label_18.setText(txt)
                 
                 self.plot1_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
@@ -34389,10 +34332,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_25.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(풋등락율, put_atm_value)
+                txt = " {0:.2f}({1}) ".format(풋_등가_등락율, put_atm_value)
                 self.label_26.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(콜등락율, call_atm_value)
+                txt = " {0:.2f}({1}) ".format(콜_등가_등락율, call_atm_value)
                 self.label_28.setText(txt)
                 
                 self.plot2_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
@@ -35287,10 +35230,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_35.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(풋등락율, put_atm_value)
+                txt = " {0:.2f}({1}) ".format(풋_등가_등락율, put_atm_value)
                 self.label_36.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(콜등락율, call_atm_value)
+                txt = " {0:.2f}({1}) ".format(콜_등가_등락율, call_atm_value)
                 self.label_38.setText(txt)
                 
                 self.plot3_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
@@ -36097,10 +36040,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_45.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(풋등락율, put_atm_value)
+                txt = " {0:.2f}({1}) ".format(풋_등가_등락율, put_atm_value)
                 self.label_46.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(콜등락율, call_atm_value)
+                txt = " {0:.2f}({1}) ".format(콜_등가_등락율, call_atm_value)
                 self.label_48.setText(txt)
                 
                 self.plot4_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
@@ -37055,10 +36998,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_55.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(풋등락율, put_atm_value)
+                txt = " {0:.2f}({1}) ".format(풋_등가_등락율, put_atm_value)
                 self.label_56.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(콜등락율, call_atm_value)
+                txt = " {0:.2f}({1}) ".format(콜_등가_등락율, call_atm_value)
                 self.label_58.setText(txt)
                 
                 self.plot5_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
@@ -37946,10 +37889,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_65.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(풋등락율, put_atm_value)
+                txt = " {0:.2f}({1}) ".format(풋_등가_등락율, put_atm_value)
                 self.label_66.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(콜등락율, call_atm_value)
+                txt = " {0:.2f}({1}) ".format(콜_등가_등락율, call_atm_value)
                 self.label_68.setText(txt)
                 
                 self.plot6_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
