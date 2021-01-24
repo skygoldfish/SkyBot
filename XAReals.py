@@ -3,11 +3,9 @@
 import sys, os
 import datetime, time
 import win32com.client
-#import pythoncom
 import inspect
 
 import pandas as pd
-#from pandas import Panel, DataFrame, Series
 from pandas import DataFrame, Series
 
 xarealdata = dict()
@@ -71,7 +69,6 @@ class XAReal(object):
     def OnReceiveLinkData(self, szLinkName, szData, szFiller):
         print(szLinkName, szData, szFiller)
 
-
 # KOSPI호가잔랑
 class H1_(XAReal):
     def __init__(self, parent=None, 식별자='식별자'):
@@ -116,7 +113,6 @@ class H1_(XAReal):
         if self.parent != None:
             self.parent.OnReceiveRealData(result)
 
-
 # KOSDAQ호가잔랑
 class HA_(XAReal):
     def __init__(self, parent=None, 식별자='식별자'):
@@ -160,7 +156,6 @@ class HA_(XAReal):
 
         if self.parent != None:
             self.parent.OnReceiveRealData(result)
-
 
 # KOSDAQ체결
 class K3_(XAReal):
@@ -215,7 +210,6 @@ class K3_(XAReal):
         if self.parent != None:
             self.parent.OnReceiveRealData(result)
 
-
 # KOSPI체결
 class S3_(XAReal):
     def __init__(self, parent=None, 식별자='식별자'):
@@ -238,38 +232,44 @@ class S3_(XAReal):
         self.ActiveX.UnadviseRealData()
 
     def OnReceiveRealData(self, szTrCode):
-        result = dict()
-        result['체결시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "chetime")
-        result['전일대비구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "sign")
-        result['전일대비'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "change"))
-        result['등락율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "drate"))
-        result['현재가'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "price"))
-        result['시가시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "opentime")
-        result['시가'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "open"))
-        result['고가시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "hightime")
-        result['고가'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "high"))
-        result['저가시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "lowtime")
-        result['저가'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "low"))
-        result['체결구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "cgubun")
-        result['체결량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "cvolume"))
-        result['누적거래량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "volume"))
-        result['누적거래대금'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "value"))
-        result['매도누적체결량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "mdvolume"))
-        result['매도누적체결건수'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "mdchecnt"))
-        result['매수누적체결량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "msvolume"))
-        result['매수누적체결건수'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "mschecnt"))
-        result['체결강도'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "cpower"))
-        result['가중평균가'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "w_avrg"))
-        result['매도호가'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerho"))
-        result['매수호가'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidho"))
-        result['장정보'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "status")
-        result['전일동시간대거래량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "jnilvolume"))
-        result['단축코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "shcode")
-        result['szTrCode'] = szTrCode
 
-        if self.parent != None:
-            self.parent.OnReceiveRealData(result)
+        try:
+            result = dict()
+            result['체결시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "chetime")
+            result['전일대비구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "sign")
+            result['전일대비'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "change"))
+            result['등락율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "drate"))
+            result['현재가'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "price"))
+            result['시가시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "opentime")
+            result['시가'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "open"))
+            result['고가시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "hightime")
+            result['고가'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "high"))
+            result['저가시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "lowtime")
+            result['저가'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "low"))
+            result['체결구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "cgubun")
+            result['체결량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "cvolume"))
+            result['누적거래량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "volume"))
+            result['누적거래대금'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "value"))
+            result['매도누적체결량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "mdvolume"))
+            result['매도누적체결건수'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "mdchecnt"))
+            result['매수누적체결량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "msvolume"))
+            result['매수누적체결건수'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "mschecnt"))
+            result['체결강도'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "cpower"))
+            result['가중평균가'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "w_avrg"))
+            result['매도호가'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerho"))
+            result['매수호가'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidho"))
+            result['장정보'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "status")
+            result['전일동시간대거래량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "jnilvolume"))
+            result['단축코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "shcode")
+            result['szTrCode'] = szTrCode
 
+            if self.parent != None:
+                self.parent.OnReceiveRealData(result)
+
+        except Exception as e:
+            클래스이름 = self.__class__.__name__
+            함수이름 = inspect.currentframe().f_code.co_name
+            print("%s-%s " % (클래스이름, 함수이름), e)
 
 # 주식주문접수
 class SC0(XAReal):
@@ -402,7 +402,6 @@ class SC0(XAReal):
 
         if self.parent != None:
             self.parent.OnReceiveRealData(result)
-
 
 # 주식주문체결
 class SC1(XAReal):
@@ -553,7 +552,6 @@ class SC1(XAReal):
         if self.parent != None:
             self.parent.OnReceiveRealData(result)
 
-
 # 주식주문정정
 class SC2(XAReal):
     def __init__(self, parent=None, 식별자='식별자'):
@@ -702,7 +700,6 @@ class SC2(XAReal):
 
         if self.parent != None:
             self.parent.OnReceiveRealData(result)
-
 
 # 주식주문취소
 class SC3(XAReal):
@@ -853,7 +850,6 @@ class SC3(XAReal):
         if self.parent != None:
             self.parent.OnReceiveRealData(result)
 
-
 # 주식주문거부
 class SC4(XAReal):
     def __init__(self, parent=None, 식별자='식별자'):
@@ -1003,7 +999,6 @@ class SC4(XAReal):
         if self.parent != None:
             self.parent.OnReceiveRealData(result)
 
-
 # 실시간 뉴스 제목 패킷(NWS)
 class NWS(XAReal):
     def __init__(self, parent=None, 식별자='식별자'):
@@ -1018,19 +1013,25 @@ class NWS(XAReal):
         self.ActiveX.UnadviseRealData()
 
     def OnReceiveRealData(self, szTrCode):
-        result = dict()
-        result['날짜'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "date")
-        result['시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "time")
-        result['뉴스구분자'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "id")
-        result['키값'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "realkey")
-        result['제목'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "title")
-        result['단축종목코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "code")
-        result['BODY길이'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "bodysize"))
-        result['szTrCode'] = szTrCode
 
-        if self.parent != None:
-            self.parent.OnReceiveRealData(result)
+        try:
+            result = dict()
+            result['날짜'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "date")
+            result['시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "time")
+            result['뉴스구분자'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "id")
+            result['키값'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "realkey")
+            result['제목'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "title")
+            result['단축종목코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "code")
+            result['BODY길이'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "bodysize"))
+            result['szTrCode'] = szTrCode
 
+            if self.parent != None:
+                self.parent.OnReceiveRealData(result)
+
+        except Exception as e:
+            클래스이름 = self.__class__.__name__
+            함수이름 = inspect.currentframe().f_code.co_name
+            print("%s-%s " % (클래스이름, 함수이름), e)
 
 # KOSPI200 선물체결(FC0)
 class FC0(XAReal):
@@ -1108,9 +1109,6 @@ class NC0(XAReal):
         self.ActiveX.UnadviseRealData()
 
     def OnReceiveRealData(self, szTrCode):
-        # 클래스이름 = self.__class__.__name__
-        # 함수이름 = inspect.currentframe().f_code.co_name
-        # print("ENTER : %s --> %s" %(클래스이름, 함수이름))
 
         try:
             result = dict()
@@ -1153,8 +1151,6 @@ class NC0(XAReal):
             클래스이름 = self.__class__.__name__
             함수이름 = inspect.currentframe().f_code.co_name
             print("%s-%s " % (클래스이름, 함수이름), e)
-
-        # print(" EXIT : %s --> %s" % (클래스이름, 함수이름))
 
 # KOSPI200 선물호가(FH0)
 class FH0(XAReal):
@@ -1224,8 +1220,6 @@ class FH0(XAReal):
             함수이름 = inspect.currentframe().f_code.co_name
             print("%s-%s " % (클래스이름, 함수이름), e)
 
-        # print(" EXIT : %s --> %s" % (클래스이름, 함수이름))
-
 # CME연계 KP200지수선물호가(NH0)
 class NH0(XAReal):
     def __init__(self, parent=None, 식별자='식별자'):
@@ -1243,9 +1237,6 @@ class NH0(XAReal):
         self.ActiveX.UnadviseRealData()
 
     def OnReceiveRealData(self, szTrCode):
-        # 클래스이름 = self.__class__.__name__
-        # 함수이름 = inspect.currentframe().f_code.co_name
-        # print("ENTER : %s --> %s" %(클래스이름, 함수이름))
 
         try:
             result = dict()
@@ -1296,8 +1287,6 @@ class NH0(XAReal):
             함수이름 = inspect.currentframe().f_code.co_name
             print("%s-%s " % (클래스이름, 함수이름), e)
 
-        # print(" EXIT : %s --> %s" % (클래스이름, 함수이름))
-
 # 당월물 옵션실시간(OC0)
 class OC0(XAReal):
     def __init__(self, parent=None, 식별자='식별자'):
@@ -1307,7 +1296,6 @@ class OC0(XAReal):
     def AdviseRealData(self, 단축코드):
         self.ActiveX.SetFieldData(self.INBLOCK, "optcode", 단축코드)
         self.ActiveX.AdviseRealData()
-        #print('실시간요청 옵션코드 : %s' %(단축코드))
 
     def UnadviseRealDataWithKey(self, 단축코드):
         self.ActiveX.UnadviseRealDataWithKey(단축코드)
@@ -1568,9 +1556,6 @@ class JIF(XAReal):
         self.ActiveX.UnadviseRealData()
 
     def OnReceiveRealData(self, szTrCode):
-        #클래스이름 = self.__class__.__name__
-        #함수이름 = inspect.currentframe().f_code.co_name
-        #print("ENTER : %s --> %s" %(클래스이름, 함수이름))
 
         try:
             result = dict()
@@ -1586,8 +1571,6 @@ class JIF(XAReal):
             함수이름 = inspect.currentframe().f_code.co_name
             print("%s-%s " % (클래스이름, 함수이름), e)
 
-        # print(" EXIT : %s --> %s" % (클래스이름, 함수이름))
-
 # 예상지수(YJ_)
 class YJ_(XAReal):
     def __init__(self, parent=None, 식별자='식별자'):
@@ -1602,9 +1585,6 @@ class YJ_(XAReal):
         self.ActiveX.UnadviseRealData()
 
     def OnReceiveRealData(self, szTrCode):
-        #클래스이름 = self.__class__.__name__
-        #함수이름 = inspect.currentframe().f_code.co_name
-        #print("ENTER : %s --> %s" %(클래스이름, 함수이름))
 
         try:
             result = dict()
@@ -1627,8 +1607,6 @@ class YJ_(XAReal):
             함수이름 = inspect.currentframe().f_code.co_name
             print("%s-%s " % (클래스이름, 함수이름), e)
 
-        # print(" EXIT : %s --> %s" % (클래스이름, 함수이름))
-
 # 지수선물예상체결(YFC)
 class YFC(XAReal):
     def __init__(self, parent=None, 식별자='식별자'):
@@ -1643,9 +1621,6 @@ class YFC(XAReal):
         self.ActiveX.UnadviseRealData()
 
     def OnReceiveRealData(self, szTrCode):
-        #클래스이름 = self.__class__.__name__
-        #함수이름 = inspect.currentframe().f_code.co_name
-        #print("ENTER : %s --> %s" %(클래스이름, 함수이름))
 
         try:
             result = dict()
@@ -1665,8 +1640,6 @@ class YFC(XAReal):
             함수이름 = inspect.currentframe().f_code.co_name
             print("%s-%s " % (클래스이름, 함수이름), e)
 
-        # print(" EXIT : %s --> %s" % (클래스이름, 함수이름))
-
 # 지수옵션예상체결(YOC)
 class YOC(XAReal):
     def __init__(self, parent=None, 식별자='식별자'):
@@ -1681,9 +1654,6 @@ class YOC(XAReal):
         self.ActiveX.UnadviseRealData()
 
     def OnReceiveRealData(self, szTrCode):
-        #클래스이름 = self.__class__.__name__
-        #함수이름 = inspect.currentframe().f_code.co_name
-        #print("ENTER : %s --> %s" %(클래스이름, 함수이름))
 
         try:
             result = dict()
@@ -1703,8 +1673,6 @@ class YOC(XAReal):
             함수이름 = inspect.currentframe().f_code.co_name
             print("%s-%s " % (클래스이름, 함수이름), e)
 
-        # print(" EXIT : %s --> %s" % (클래스이름, 함수이름))
-
 # KOSPI예상체결(YS3)
 class YS3(XAReal):
     def __init__(self, parent=None, 식별자='식별자'):
@@ -1719,9 +1687,6 @@ class YS3(XAReal):
         self.ActiveX.UnadviseRealData()
 
     def OnReceiveRealData(self, szTrCode):
-        #클래스이름 = self.__class__.__name__
-        #함수이름 = inspect.currentframe().f_code.co_name
-        #print("ENTER : %s --> %s" %(클래스이름, 함수이름))
 
         try:
             result = dict()
@@ -1745,8 +1710,6 @@ class YS3(XAReal):
             클래스이름 = self.__class__.__name__
             함수이름 = inspect.currentframe().f_code.co_name
             print("%s-%s " % (클래스이름, 함수이름), e)
-
-        # print(" EXIT : %s --> %s" % (클래스이름, 함수이름))
 
 # 지수(IJ_)
 class IJ_(XAReal):
@@ -1802,8 +1765,6 @@ class IJ_(XAReal):
             클래스이름 = self.__class__.__name__
             함수이름 = inspect.currentframe().f_code.co_name
             print("%s-%s " % (클래스이름, 함수이름), e)
-
-        # print(" EXIT : %s --> %s" % (클래스이름, 함수이름))
 
 # 업종별 투자자별 매매현황(BM_)
 class BM_(XAReal):
@@ -1975,8 +1936,6 @@ class BMT(XAReal):
             함수이름 = inspect.currentframe().f_code.co_name
             print("%s-%s " % (클래스이름, 함수이름), e, result)
 
-        # print(" EXIT : %s --> %s" % (클래스이름, 함수이름))
-
 # KOSPI프로그램매매전체집계(PM_)
 class PM_(XAReal):
     def __init__(self, parent=None, 식별자='식별자'):
@@ -2031,29 +1990,36 @@ class OVC(XAReal):
         self.ActiveX.UnadviseRealData()
 
     def OnReceiveRealData(self, szTrCode):
-        result = dict()
-        result['종목코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "symbol")
-        result['체결일자_현지'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ovsdate")
-        result['체결일자_한국'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kordate")
-        result['체결시간_현지'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "trdtm")
-        result['체결시간_한국'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kortm")
-        result['체결가격'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "curpr"))
-        result['전일대비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "ydiffpr"))
-        result['전일대비기호'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ydiffSign")
-        result['시가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "open"))
-        result['고가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "high"))
-        result['저가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "low"))
-        result['등락율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "chgrate"))
-        result['건별체결수량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "trdq"))
-        result['누적체결수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "totq")
-        result['체결구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "cgubun")
-        result['매도누적체결수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "mdvolume")
-        result['매수누적체결수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "msvolume")
-        result['장마감일'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ovsmkend")
-        result['szTrCode'] = szTrCode
 
-        if self.parent != None:
-            self.parent.OnReceiveRealData(result)
+        try:
+            result = dict()
+            result['종목코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "symbol")
+            result['체결일자_현지'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ovsdate")
+            result['체결일자_한국'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kordate")
+            result['체결시간_현지'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "trdtm")
+            result['체결시간_한국'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kortm")
+            result['체결가격'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "curpr"))
+            result['전일대비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "ydiffpr"))
+            result['전일대비기호'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ydiffSign")
+            result['시가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "open"))
+            result['고가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "high"))
+            result['저가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "low"))
+            result['등락율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "chgrate"))
+            result['건별체결수량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "trdq"))
+            result['누적체결수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "totq")
+            result['체결구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "cgubun")
+            result['매도누적체결수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "mdvolume")
+            result['매수누적체결수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "msvolume")
+            result['장마감일'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ovsmkend")
+            result['szTrCode'] = szTrCode
+
+            if self.parent != None:
+                self.parent.OnReceiveRealData(result)
+
+        except Exception as e:
+            클래스이름 = self.__class__.__name__
+            함수이름 = inspect.currentframe().f_code.co_name
+            print("%s-%s " % (클래스이름, 함수이름), e)
 
 # 해외선물 호가(OVH)
 class OVH(XAReal):
@@ -2072,38 +2038,45 @@ class OVH(XAReal):
         self.ActiveX.UnadviseRealData()
 
     def OnReceiveRealData(self, szTrCode):
-        result = dict()
-        result['종목코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "symbol")
-        result['호가시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "hotime")
-        매도호가 = []
-        매수호가 = []
-        매도호가잔량 = []
-        매수호가잔량 = []
-        매도호가건수 = []
-        매수호가건수 = []
-        for i in range(1,6):
-            매도호가.append(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerho%s" % i))
-            매수호가.append(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidho%s" % i))
-            매도호가잔량.append(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerrem%s" % i))
-            매수호가잔량.append(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidrem%s" % i))
-            매도호가건수.append(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerno%s" % i))
-            매수호가건수.append(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidno%s" % i))
 
-        result['매도호가'] = 매도호가
-        result['매수호가'] = 매수호가
-        result['매도호가잔량'] = 매도호가잔량
-        result['매수호가잔량'] = 매수호가잔량
-        result['매도호가건수'] = 매도호가건수
-        result['매수호가건수'] = 매수호가건수
+        try:
+            result = dict()
+            result['종목코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "symbol")
+            result['호가시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "hotime")
+            매도호가 = []
+            매수호가 = []
+            매도호가잔량 = []
+            매수호가잔량 = []
+            매도호가건수 = []
+            매수호가건수 = []
+            for i in range(1,6):
+                매도호가.append(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerho%s" % i))
+                매수호가.append(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidho%s" % i))
+                매도호가잔량.append(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerrem%s" % i))
+                매수호가잔량.append(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidrem%s" % i))
+                매도호가건수.append(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerno%s" % i))
+                매수호가건수.append(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidno%s" % i))
 
-        result['매도호가총건수'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "totoffercnt")
-        result['매수호가총건수'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "totbidcnt")
-        result['매도호가총수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "totofferrem")
-        result['매수호가총수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "totbidrem")
-        result['szTrCode'] = szTrCode
+            result['매도호가'] = 매도호가
+            result['매수호가'] = 매수호가
+            result['매도호가잔량'] = 매도호가잔량
+            result['매수호가잔량'] = 매수호가잔량
+            result['매도호가건수'] = 매도호가건수
+            result['매수호가건수'] = 매수호가건수
 
-        if self.parent != None:
-            self.parent.OnReceiveRealData(result)
+            result['매도호가총건수'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "totoffercnt")
+            result['매수호가총건수'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "totbidcnt")
+            result['매도호가총수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "totofferrem")
+            result['매수호가총수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "totbidrem")
+            result['szTrCode'] = szTrCode
+
+            if self.parent != None:
+                self.parent.OnReceiveRealData(result)
+
+        except Exception as e:
+            클래스이름 = self.__class__.__name__
+            함수이름 = inspect.currentframe().f_code.co_name
+            print("%s-%s " % (클래스이름, 함수이름), e)
 
 # 해외선물주문
 class TC1(XAReal):
@@ -2189,7 +2162,6 @@ class TC2(XAReal):
         if self.parent != None:
             self.parent.OnReceiveRealData(result)
 
-
 # 해외선물체결
 class TC3(XAReal):
     def __init__(self, parent=None, 식별자='식별자'):
@@ -2235,7 +2207,6 @@ class TC3(XAReal):
         if self.parent != None:
             self.parent.OnReceiveRealData(result)
 
-
 # 해외옵션 현재가체결(WOC)
 class WOC(XAReal):
     def __init__(self, parent=None, 식별자='식별자'):
@@ -2253,30 +2224,36 @@ class WOC(XAReal):
         self.ActiveX.UnadviseRealData()
 
     def OnReceiveRealData(self, szTrCode):
-        result = dict()
-        result['종목코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "symbol")
-        result['체결일자_현지'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ovsdate")
-        result['체결일자_한국'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kordate")
-        result['체결시간_현지'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "trdtm")
-        result['체결시간_한국'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kortm")
-        result['체결가격'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "curpr"))
-        result['전일대비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "ydiffpr"))
-        result['전일대비기호'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ydiffSign")
-        result['시가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "open"))
-        result['고가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "high"))
-        result['저가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "low"))
-        result['등락율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "chgrate"))
-        result['건별체결수량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "trdq"))
-        result['누적체결수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "totq")
-        result['체결구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "cgubun")
-        result['매도누적체결수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "mdvolume")
-        result['매수누적체결수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "msvolume")
-        result['장마감일'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ovsmkend")
-        result['szTrCode'] = szTrCode
 
-        if self.parent != None:
-            self.parent.OnReceiveRealData(result)
+        try:
+            result = dict()
+            result['종목코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "symbol")
+            result['체결일자_현지'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ovsdate")
+            result['체결일자_한국'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kordate")
+            result['체결시간_현지'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "trdtm")
+            result['체결시간_한국'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kortm")
+            result['체결가격'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "curpr"))
+            result['전일대비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "ydiffpr"))
+            result['전일대비기호'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ydiffSign")
+            result['시가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "open"))
+            result['고가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "high"))
+            result['저가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "low"))
+            result['등락율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "chgrate"))
+            result['건별체결수량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "trdq"))
+            result['누적체결수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "totq")
+            result['체결구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "cgubun")
+            result['매도누적체결수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "mdvolume")
+            result['매수누적체결수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "msvolume")
+            result['장마감일'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ovsmkend")
+            result['szTrCode'] = szTrCode
 
+            if self.parent != None:
+                self.parent.OnReceiveRealData(result)
+
+        except Exception as e:
+            클래스이름 = self.__class__.__name__
+            함수이름 = inspect.currentframe().f_code.co_name
+            print("%s-%s " % (클래스이름, 함수이름), e)
 
 # 해외옵션 호가(WOH)
 class WOH(XAReal):
@@ -2295,39 +2272,45 @@ class WOH(XAReal):
         self.ActiveX.UnadviseRealData()
 
     def OnReceiveRealData(self, szTrCode):
-        result = dict()
-        result['종목코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "symbol")
-        result['호가시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "hotime")
-        매도호가 = []
-        매수호가 = []
-        매도호가잔량 = []
-        매수호가잔량 = []
-        매도호가건수 = []
-        매수호가건수 = []
-        for i in range(1,6):
-            매도호가.append(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerho%s" % i))
-            매수호가.append(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidho%s" % i))
-            매도호가잔량.append(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerrem%s" % i))
-            매수호가잔량.append(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidrem%s" % i))
-            매도호가건수.append(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerno%s" % i))
-            매수호가건수.append(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidno%s" % i))
 
-        result['매도호가'] = 매도호가
-        result['매수호가'] = 매수호가
-        result['매도호가잔량'] = 매도호가잔량
-        result['매수호가잔량'] = 매수호가잔량
-        result['매도호가건수'] = 매도호가건수
-        result['매수호가건수'] = 매수호가건수
+        try:
+            result = dict()
+            result['종목코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "symbol")
+            result['호가시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "hotime")
+            매도호가 = []
+            매수호가 = []
+            매도호가잔량 = []
+            매수호가잔량 = []
+            매도호가건수 = []
+            매수호가건수 = []
+            for i in range(1,6):
+                매도호가.append(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerho%s" % i))
+                매수호가.append(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidho%s" % i))
+                매도호가잔량.append(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerrem%s" % i))
+                매수호가잔량.append(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidrem%s" % i))
+                매도호가건수.append(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerno%s" % i))
+                매수호가건수.append(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidno%s" % i))
 
-        result['매도호가총건수'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "totoffercnt")
-        result['매수호가총건수'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "totbidcnt")
-        result['매도호가총수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "totofferrem")
-        result['매수호가총수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "totbidrem")
-        result['szTrCode'] = szTrCode
+            result['매도호가'] = 매도호가
+            result['매수호가'] = 매수호가
+            result['매도호가잔량'] = 매도호가잔량
+            result['매수호가잔량'] = 매수호가잔량
+            result['매도호가건수'] = 매도호가건수
+            result['매수호가건수'] = 매수호가건수
 
-        if self.parent != None:
-            self.parent.OnReceiveRealData(result)
+            result['매도호가총건수'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "totoffercnt")
+            result['매수호가총건수'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "totbidcnt")
+            result['매도호가총수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "totofferrem")
+            result['매수호가총수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "totbidrem")
+            result['szTrCode'] = szTrCode
 
+            if self.parent != None:
+                self.parent.OnReceiveRealData(result)
+
+        except Exception as e:
+            클래스이름 = self.__class__.__name__
+            함수이름 = inspect.currentframe().f_code.co_name
+            print("%s-%s " % (클래스이름, 함수이름), e)
 
 # US지수(MK2) : 수급파악 용도로사용
 class MK2(XAReal):
@@ -2346,26 +2329,33 @@ class MK2(XAReal):
         self.ActiveX.UnadviseRealData()
 
     def OnReceiveRealData(self, szTrCode):
-        result = dict()
-        result['일자'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "date")
-        result['시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "time")
-        result['한국일자'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kodate")
-        result['한국시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kotime")
-        result['시가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "open"))
-        result['고가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "high"))
-        result['저가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "low"))
-        result['현재가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "price"))
-        result['전일대비구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "sign")
-        result['전일대비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "change"))
-        result['등락율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "uprate"))
-        result['매수호가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidho"))
-        result['매수잔량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidrem"))
-        result['매도호가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerho"))
-        result['매도잔량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerrem"))
-        result['누적거래량'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "volume"))
-        result['심볼'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "xsymbol")
-        result['체결거래량'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "cvolume"))
-        result['szTrCode'] = szTrCode
 
-        if self.parent != None:
-            self.parent.OnReceiveRealData(result)
+        try:
+            result = dict()
+            result['일자'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "date")
+            result['시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "time")
+            result['한국일자'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kodate")
+            result['한국시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kotime")
+            result['시가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "open"))
+            result['고가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "high"))
+            result['저가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "low"))
+            result['현재가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "price"))
+            result['전일대비구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "sign")
+            result['전일대비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "change"))
+            result['등락율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "uprate"))
+            result['매수호가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidho"))
+            result['매수잔량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidrem"))
+            result['매도호가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerho"))
+            result['매도잔량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerrem"))
+            result['누적거래량'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "volume"))
+            result['심볼'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "xsymbol")
+            result['체결거래량'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "cvolume"))
+            result['szTrCode'] = szTrCode
+
+            if self.parent != None:
+                self.parent.OnReceiveRealData(result)
+
+        except Exception as e:
+            클래스이름 = self.__class__.__name__
+            함수이름 = inspect.currentframe().f_code.co_name
+            print("%s-%s " % (클래스이름, 함수이름), e)
