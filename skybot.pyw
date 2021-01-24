@@ -22613,12 +22613,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    전저 = df_call.at[index, '전저']
-                    전고 = df_call.at[index, '전고']
-                    종가 = df_call.at[index, '종가']
-
-                    self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(흰색))
-
                     item = QTableWidgetItem("{0}".format(result['예상체결가격']))
                     item.setTextAlignment(Qt.AlignCenter)
 
@@ -22652,11 +22646,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                     if result['예상체결가격'] in COREVAL:
-
                         self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
                         self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
                     else:
                         pass
+                    
+                    전저 = df_call.at[index, '전저']
+                    전고 = df_call.at[index, '전고']
+                    종가 = df_call.at[index, '종가']
 
                     피봇 = self.calc_pivot(전저, 전고, 종가, result['예상체결가격'])
 
@@ -22687,7 +22684,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    global 콜시가갭합, 콜시가갭합_퍼센트평균, 콜시가갭합_단위평균
+                    global 콜시가갭합_단위평균, 콜시가갭합_퍼센트평균
 
                     call_gap_percent_local = copy.deepcopy(yoc_call_gap_percent)
                     call_gap_percent_local.remove(0)
@@ -22725,12 +22722,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    전저 = df_put.at[index, '전저']
-                    전고 = df_put.at[index, '전고']
-                    종가 = df_put.at[index, '종가']
-
-                    self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(흰색))
-
                     item = QTableWidgetItem("{0}".format(result['예상체결가격']))
                     item.setTextAlignment(Qt.AlignCenter)
 
@@ -22764,11 +22755,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                     if result['예상체결가격'] in COREVAL:
-
                         self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
                         self.tableWidget_put.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
                     else:
                         pass
+                    
+                    전저 = df_put.at[index, '전저']
+                    전고 = df_put.at[index, '전고']
+                    종가 = df_put.at[index, '종가']
 
                     피봇 = self.calc_pivot(전저, 전고, 종가, result['예상체결가격'])
 
@@ -22799,7 +22793,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    global 풋시가갭합, 풋시가갭합_퍼센트평균, 풋시가갭합_단위평균
+                    global 풋시가갭합_단위평균, 풋시가갭합_퍼센트평균
 
                     put_gap_percent_local = copy.deepcopy(yoc_put_gap_percent)
                     put_gap_percent_local.remove(0)
