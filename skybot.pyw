@@ -18476,7 +18476,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     new_actval_up_count += 1
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 새로운 상방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_up_count)
-                    print(txt) 
+                    print(txt)                    
 
                     # 추가된 행사가 갯수 표시
                     item_txt = '(+' + '{0:d})'.format(new_actval_up_count) + '\n' + '{0:d}'.format(real_option_pairs_count)
@@ -19060,6 +19060,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     txt = '[{0:02d}:{1:02d}:{2:02d}] Put 전체 행사가 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
                     print(txt)
+
+                    if new_actval_up_count > 0:
+                        txt = '새로운 상방 행사가가 {0}개 추가되었습니다.'.format(new_actval_up_count)
+                        self.parent.speaker.setText(txt)
+                    else:
+                        pass
+
+                    if new_actval_down_count > 0:
+                        txt = '새로운 하방 행사가가 {0}개 추가되었습니다.'.format(new_actval_down_count)
+                        self.parent.speaker.setText(txt)
+                    else:
+                        pass
 
                     if flag_t8416_rerequest:
 
@@ -20600,6 +20612,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 요청 항목의 총수는 {3}개 입니다.\r'.format(dt.hour, dt.minute, dt.second, self.realdata_request_number)
         self.parent.textBrowser.append(txt)
         print(txt)
+
+        txt = '실시간 요청의 총수는 {0}개 입니다.'.format(self.realdata_request_number)
+        self.parent.speaker.setText(txt)
 
         if TTS and not flag_t8416_rerequest:
             playsound( "Resources/doorbell.wav" )
