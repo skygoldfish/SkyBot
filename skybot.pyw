@@ -6084,8 +6084,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             playsound('Resources/notify.wav')
 
-        flag_screen_update_is_running = False
-        #print('flag_screen_update_is_running =', flag_screen_update_is_running)
+        finally:
+            flag_screen_update_is_running = False
+            #print('flag_screen_update_is_running =', flag_screen_update_is_running)
 
     def heartbeat_check(self):
 
@@ -24679,7 +24680,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             playsound('Resources/notify.wav')
 
-        flag_main_realdata_update_is_running = False
+        finally:
+            flag_main_realdata_update_is_running = False
 
     @logging_time_with_args
     def UpdateCallRealdata(self, result):
