@@ -3604,7 +3604,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setForeground(QBrush(녹색))
         self.tableWidget_fut.setItem(2, 0, item)        
 
-        item = QTableWidgetItem("{0}".format('FD\n진폭비'))
+        item = QTableWidgetItem("{0}".format('F/D\n진폭비'))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
@@ -5335,6 +5335,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         try:
             flag_screen_update_is_running = True
+            #print('flag_screen_update_is_running =', flag_screen_update_is_running)
 
             self.alternate_flag = not self.alternate_flag
             
@@ -6084,6 +6085,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             playsound('Resources/notify.wav')
 
         flag_screen_update_is_running = False
+        #print('flag_screen_update_is_running =', flag_screen_update_is_running)
 
     def heartbeat_check(self):
 
