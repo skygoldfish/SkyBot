@@ -5449,10 +5449,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 self.display_atm(self.alternate_flag)
 
-                self.option_quote_update()
-                
-                if DayTime and fut_result:                    
-                    self.fut_etc_update(fut_result)
+                if market_service:
+                    self.option_quote_update()
+
+                    if DayTime and flag_checkBox_HS and fut_result: 
+                        self.fut_update(result)
+                    else:
+                        pass
+                    
+                    if DayTime and fut_result:                    
+                        self.fut_etc_update(fut_result)
+                    else:
+                        pass
                 else:
                     pass
 
@@ -23831,15 +23839,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pre_start = False
                 else:
                     pass
-
-                if szTrCode == 'NC0':    
-
-                    if not market_service:
-                        market_service = True
-                    else:
-                        pass
-                else:
-                    pass
                 
                 if result['단축코드'] == FUT_CODE:
 
@@ -23923,7 +23922,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2                
 
                     fut_result = copy.deepcopy(result)
-                    self.fut_update(result)
+
+                    if not flag_checkBox_HS:
+                        self.fut_update(result)
+                    else:
+                        pass
 
                 elif TARGET_MONTH == 'CM' and result['단축코드'] == CMSHCODE:
 
@@ -24233,11 +24236,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if pre_start:
                     pre_start = False
-                else:
-                    pass
-
-                if not market_service:
-                    market_service = True
                 else:
                     pass
 
