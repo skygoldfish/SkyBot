@@ -1688,7 +1688,7 @@ class YOC(XAReal):
         try:
             result = dict()
             result['예상체결시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ychetime")
-            result['예상체결가격'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "yeprice")
+            result['예상체결가격'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "yeprice"))
             result['예상체결가전일종가대비구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "jnilysign")
             result['예상체결가전일종가대비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "preychange"))
             result['예상체결가전일종가등락율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "jnilydrate"))
@@ -1765,14 +1765,11 @@ class IJ_(XAReal):
         self.ActiveX.UnadviseRealData()
 
     def OnReceiveRealData(self, szTrCode):
-        #클래스이름 = self.__class__.__name__
-        #함수이름 = inspect.currentframe().f_code.co_name
-        #print("ENTER : %s --> %s" %(클래스이름, 함수이름))
 
         try:
             result = dict()
             result['시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "time")
-            result['지수'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "jisu")
+            result['지수'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "jisu"))
             result['전일대비구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "sign")
             result['전일비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "change"))
             result['등락율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "drate"))
@@ -1785,11 +1782,11 @@ class IJ_(XAReal):
             result['하락종목수'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "lowjo"))
             result['하한종목수'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "downjo"))
             result['상승종목비율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "upjrate"))
-            result['시가지수'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "openjisu")
+            result['시가지수'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "openjisu"))
             result['시가시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "opentime")
-            result['고가지수'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "highjisu")
+            result['고가지수'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "highjisu"))
             result['고가시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "hightime")
-            result['저가지수'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "lowjisu")
+            result['저가지수'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "lowjisu"))
             result['저가시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "lowtime")
             result['외인순매수수량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "frgsvolume"))
             result['기관순매수수량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "orgsvolume"))
