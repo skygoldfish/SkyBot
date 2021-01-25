@@ -19830,8 +19830,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if not MULTIPROCESS:
             self.parent.realtime_thread_dataworker.RequestRealData('IJ', KOSPI200)
+            self.parent.realtime_thread_dataworker.RequestRealData('IJ', FUTURES)
         else:
             MainProcess.RequestRealData('IJ', KOSPI200)
+            MainProcess.RequestRealData('IJ', FUTURES)
 
         self.realdata_request_number += 1
 
@@ -23230,7 +23232,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         kosdaq_price = result['지수']
                     else:
-                        pass                   
+                        pass
+
+                elif result['업종코드'] == FUTURES:
+
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 외인 순매수금액 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, result['외인순매수금액'])
+                    self.textBrowser.append(txt)
                 else:                    
                     pass
 
