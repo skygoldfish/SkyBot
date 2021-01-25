@@ -22906,32 +22906,31 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if result['업종코드'] == KOSPI200:
 
                     지수 = str(result['지수'])
-                    실수_지수 = result['지수']
                     
                     # 그래프 가격갱신
-                    df_futures_graph.at[ovc_x_idx, 'kp200'] = 실수_지수
-                    df_kp200_graph.at[ovc_x_idx, 'price'] = 실수_지수
+                    df_futures_graph.at[ovc_x_idx, 'kp200'] = result['지수']
+                    df_kp200_graph.at[ovc_x_idx, 'price'] = result['지수']
 
                     # kp200 현재가
                     if 지수 != self.tableWidget_fut.item(2, Futures_column.현재가.value).text().split('\n')[0]:
 
-                        self.fut_realdata['KP200'] = 실수_지수
-                        self.kp200_realdata['현재가'] = 실수_지수
-                        df_fut.at[2, '현재가'] = 실수_지수
+                        self.fut_realdata['KP200'] = result['지수']
+                        self.kp200_realdata['현재가'] = result['지수']
+                        df_fut.at[2, '현재가'] = result['지수']
 
-                        if 실수_지수 < float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text().split('\n')[0]):
+                        if result['지수'] < float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text().split('\n')[0]):
                             item = QTableWidgetItem(지수 + '\n' + '▼')
                             item.setBackground(QBrush(lightskyblue))
-                        elif 실수_지수 > float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text().split('\n')[0]):
+                        elif result['지수'] > float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text().split('\n')[0]):
                             item = QTableWidgetItem(지수 + '\n' + '▲')
                             item.setBackground(QBrush(pink))
                         else:    
                             item = QTableWidgetItem(지수)
                             item.setBackground(QBrush(옅은회색))
 
-                        if 실수_지수 > kp200_시가:
+                        if result['지수'] > kp200_시가:
                             item.setForeground(QBrush(적색))
-                        elif 실수_지수 < kp200_시가:
+                        elif result['지수'] < kp200_시가:
                             item.setForeground(QBrush(청색))
                         else:
                             item.setForeground(QBrush(검정색))
@@ -23060,8 +23059,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         flag_kp200_low = True
 
-                        self.kp200_realdata['저가'] = round(result['저가지수'], 2)
-                        kp200_저가 = round(result['저가지수'], 2)
+                        self.kp200_realdata['저가'] = result['저가지수']
+                        kp200_저가 = result['저가지수']
 
                         item = QTableWidgetItem(str(result['저가지수']))
                         item.setTextAlignment(Qt.AlignCenter)
@@ -23088,8 +23087,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         flag_kp200_high = True
 
-                        self.kp200_realdata['고가'] = round(result['고가지수'], 2)
-                        kp200_고가 = round(result['고가지수'], 2)
+                        self.kp200_realdata['고가'] = result['고가지수']
+                        kp200_고가 = result['고가지수']
 
                         item = QTableWidgetItem(str(result['고가지수']))
                         item.setTextAlignment(Qt.AlignCenter)
@@ -23112,16 +23111,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                elif result['업종코드'] == KOSPI:
+                elif result['업종코드'] == KOSPI:                                
 
-                    지수 = str(result['지수'])
-                    실수_지수 = result['지수']                                     
+                    if result['지수'] != kospi_price:
 
-                    if 실수_지수 != kospi_price:
+                        kospi_txt = format(result['지수'], ',')
 
-                        kospi_txt = format(실수_지수, ',')
-
-                        if 실수_지수 > kospi_price:
+                        if result['지수'] > kospi_price:
 
                             if result['전일대비구분'] == '5':
 
@@ -23143,7 +23139,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 pass
 
-                        elif 실수_지수 < kospi_price:
+                        elif result['지수'] < kospi_price:
 
                             if result['전일대비구분'] == '5':
 
@@ -23167,20 +23163,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        kospi_price = 실수_지수
+                        kospi_price = result['지수']
                     else:
                         pass                    
 
-                elif result['업종코드'] == KOSDAQ:
+                elif result['업종코드'] == KOSDAQ:                                
 
-                    지수 = str(result['지수'])
-                    실수_지수 = result['지수']                                       
-
-                    if 실수_지수 != kosdaq_price:    
+                    if result['지수'] != kosdaq_price:    
                     
-                        kosdaq_txt = format(실수_지수, ',')                    
+                        kosdaq_txt = format(result['지수'], ',')                    
 
-                        if 실수_지수 > kosdaq_price:
+                        if result['지수'] > kosdaq_price:
 
                             if result['전일대비구분'] == '5':
 
@@ -23202,7 +23195,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 pass
 
-                        elif 실수_지수 < kosdaq_price:
+                        elif result['지수'] < kosdaq_price:
 
                             if result['전일대비구분'] == '5':
 
@@ -23226,7 +23219,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        kosdaq_price = 실수_지수
+                        kosdaq_price = result['지수']
                     else:
                         pass                   
                 else:                    
