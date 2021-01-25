@@ -21897,7 +21897,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global NASDAQ_현재가_버퍼
         global WTI_현재가_버퍼
         global 선물_시가, 선물_피봇, 선물_현재가
-        global call_remainder_ratio, put_remainder_ratio, 선물_DOW_진폭비율
+        global call_remainder_ratio, put_remainder_ratio, 선물_진폭비, 선물_DOW_진폭비율
         
         global kospi_price, kospi_text_color   
         global kosdaq_price, kosdaq_text_color 
