@@ -1732,7 +1732,7 @@ class IJ_(XAReal):
         try:
             result = dict()
             result['시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "time")
-            result['지수'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "jisu")
+            result['지수'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "jisu"))
             result['전일대비구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "sign")
             result['전일비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "change"))
             result['등락율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "drate"))

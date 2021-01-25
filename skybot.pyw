@@ -22905,8 +22905,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # IJ 데이타표시
                 if result['업종코드'] == KOSPI200:
 
-                    지수 = result['지수']
-                    실수_지수 = float(result['지수'])
+                    지수 = str(result['지수'])
+                    실수_지수 = result['지수']
                     
                     # 그래프 가격갱신
                     df_futures_graph.at[ovc_x_idx, 'kp200'] = 실수_지수
@@ -23114,8 +23114,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif result['업종코드'] == KOSPI:
 
-                    지수 = result['지수']
-                    실수_지수 = float(result['지수'])                                     
+                    지수 = str(result['지수'])
+                    실수_지수 = result['지수']                                     
 
                     if 실수_지수 != kospi_price:
 
@@ -23173,8 +23173,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif result['업종코드'] == KOSDAQ:
 
-                    지수 = result['지수']
-                    실수_지수 = float(result['지수'])                                       
+                    지수 = str(result['지수'])
+                    실수_지수 = result['지수']                                       
 
                     if 실수_지수 != kosdaq_price:    
                     
