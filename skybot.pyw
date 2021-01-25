@@ -23240,7 +23240,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         FUT_FOREIGNER_거래대금순매수 = int(result['거래대금순매수'])
                         순매수 = format(FUT_FOREIGNER_거래대금순매수, ',')
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_FOREIGNER_거래대금순매수의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_FOREIGNER_거래대금순매수의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수'])
                         self.textBrowser.append(txt)
                         print(txt)
 
@@ -23249,7 +23249,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         FUT_FOREIGNER_직전대비.extend([FUT_FOREIGNER_거래대금순매수_직전대비])
                         temp = list(FUT_FOREIGNER_직전대비)
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_FOREIGNER_거래대금순매수_직전대비의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_FOREIGNER_거래대금순매수_직전대비의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수직전대비'])
                         self.textBrowser.append(txt)
                         print(txt)
                         temp = 0                
@@ -23298,7 +23298,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         FUT_RETAIL_거래대금순매수 = int(result['거래대금순매수'])
                         순매수 = format(FUT_RETAIL_거래대금순매수, ',')
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_RETAIL_거래대금순매수의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_RETAIL_거래대금순매수의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수'])
                         self.textBrowser.append(txt)
                         print(txt)
 
@@ -23307,7 +23307,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         FUT_FOREIGNER_직전대비.extend([FUT_RETAIL_거래대금순매수_직전대비])
                         temp = list(FUT_FOREIGNER_직전대비)
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_RETAIL_거래대금순매수_직전대비의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_RETAIL_거래대금순매수_직전대비의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수직전대비'])
                         self.textBrowser.append(txt)
                         print(txt)
                         temp = 0 
@@ -23349,14 +23349,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     try: 
                         FUT_INSTITUTIONAL_거래대금순매수 = int(result['거래대금순매수'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_INSTITUTIONAL_거래대금순매수의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_INSTITUTIONAL_거래대금순매수의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수'])
                         self.textBrowser.append(txt)
                         print(txt)
 
                     try: 
                         FUT_INSTITUTIONAL_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_RETAIL_거래대금순매수_직전대비의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_RETAIL_거래대금순매수_직전대비의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수직전대비'])
                         self.textBrowser.append(txt)
                         print(txt)
 
@@ -23416,14 +23416,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     try: 
                         FUT_STOCK_거래대금순매수 = int(result['거래대금순매수'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_STOCK_거래대금순매수의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_STOCK_거래대금순매수의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수'])
                         self.textBrowser.append(txt)
                         print(txt)
 
                     try: 
                         FUT_STOCK_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_STOCK_거래대금순매수_직전대비의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_STOCK_거래대금순매수_직전대비의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수직전대비'])
                         self.textBrowser.append(txt)
                         print(txt)
 
@@ -23432,14 +23432,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     try: 
                         FUT_BOHEOM_거래대금순매수 = int(result['거래대금순매수'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_BOHEOM_거래대금순매수의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_BOHEOM_거래대금순매수의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수'])
                         self.textBrowser.append(txt)
                         print(txt)
 
                     try: 
                         FUT_BOHEOM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_BOHEOM_거래대금순매수_직전대비의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_BOHEOM_거래대금순매수_직전대비의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수직전대비'])
                         self.textBrowser.append(txt)
                         print(txt)
 
@@ -23448,14 +23448,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     try: 
                         FUT_TOOSIN_거래대금순매수 = int(result['거래대금순매수'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_TOOSIN_거래대금순매수의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_TOOSIN_거래대금순매수의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수'])
                         self.textBrowser.append(txt)
                         print(txt)
 
                     try: 
                         FUT_TOOSIN_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_TOOSIN_거래대금순매수_직전대비의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_TOOSIN_거래대금순매수_직전대비의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수직전대비'])
                         self.textBrowser.append(txt)
                         print(txt)
 
@@ -23464,14 +23464,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     try: 
                         FUT_BANK_거래대금순매수 = int(result['거래대금순매수'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_BANK_거래대금순매수의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_BANK_거래대금순매수의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수'])
                         self.textBrowser.append(txt)
                         print(txt)
 
                     try: 
                         FUT_BANK_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_BANK_거래대금순매수_직전대비의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_BANK_거래대금순매수_직전대비의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수직전대비'])
                         self.textBrowser.append(txt)
                         print(txt)
 
@@ -23480,14 +23480,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     try: 
                         FUT_JONGGEUM_거래대금순매수 = int(result['거래대금순매수'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_JONGGEUM_거래대금순매수의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_JONGGEUM_거래대금순매수의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수'])
                         self.textBrowser.append(txt)
                         print(txt)
 
                     try: 
                         FUT_JONGGEUM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_JONGGEUM_거래대금순매수_직전대비의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_JONGGEUM_거래대금순매수_직전대비의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수직전대비'])
                         self.textBrowser.append(txt)
                         print(txt)
 
@@ -23496,14 +23496,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     try: 
                         FUT_GIGEUM_거래대금순매수 = int(result['거래대금순매수'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_GIGEUM_거래대금순매수의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_GIGEUM_거래대금순매수의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수'])
                         self.textBrowser.append(txt)
                         print(txt)
 
                     try: 
                         FUT_GIGEUM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_GIGEUM_거래대금순매수_직전대비의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_GIGEUM_거래대금순매수_직전대비의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수직전대비'])
                         self.textBrowser.append(txt)
                         print(txt)
 
@@ -23512,14 +23512,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     try: 
                         FUT_GITA_거래대금순매수 = int(result['거래대금순매수'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_GITA_거래대금순매수의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_GITA_거래대금순매수의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수'])
                         self.textBrowser.append(txt)
                         print(txt)
 
                     try: 
                         FUT_GITA_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_GITA_거래대금순매수_직전대비의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT_GITA_거래대금순매수_직전대비의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수직전대비'])
                         self.textBrowser.append(txt)
                         print(txt)
 
@@ -23529,7 +23529,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         KOSPI_FOREIGNER_거래대금순매수 = int(result['거래대금순매수'])
                         순매수 = format(KOSPI_FOREIGNER_거래대금순매수, ',')
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_FOREIGNER_거래대금순매수의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_FOREIGNER_거래대금순매수의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수'])
                         self.textBrowser.append(txt)
                         print(txt)
 
@@ -23538,7 +23538,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         KOSPI_FOREIGNER_직전대비.extend([KOSPI_FOREIGNER_거래대금순매수_직전대비])
                         temp = list(KOSPI_FOREIGNER_직전대비)
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_FOREIGNER_거래대금순매수_직전대비의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_FOREIGNER_거래대금순매수_직전대비의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수직전대비'])
                         self.textBrowser.append(txt)
                         print(txt)
                         temp = 0                
@@ -23586,14 +23586,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     try: 
                         KOSPI_RETAIL_거래대금순매수 = int(result['거래대금순매수'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_RETAIL_거래대금순매수의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_RETAIL_거래대금순매수의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수'])
                         self.textBrowser.append(txt)
                         print(txt)
 
                     try: 
                         KOSPI_RETAIL_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_RETAIL_거래대금순매수_직전대비의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_RETAIL_거래대금순매수_직전대비의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수직전대비'])
                         self.textBrowser.append(txt)
                         print(txt)
 
@@ -23602,14 +23602,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     try: 
                         KOSPI_INSTITUTIONAL_거래대금순매수 = int(result['거래대금순매수'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_INSTITUTIONAL_거래대금순매수의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_INSTITUTIONAL_거래대금순매수의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수'])
                         self.textBrowser.append(txt)
                         print(txt)
 
                     try: 
                         KOSPI_INSTITUTIONAL_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_INSTITUTIONAL_거래대금순매수_직전대비의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_INSTITUTIONAL_거래대금순매수_직전대비의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수직전대비'])
                         self.textBrowser.append(txt)
                         print(txt)
 
@@ -23618,14 +23618,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     try: 
                         KOSPI_STOCK_거래대금순매수 = int(result['거래대금순매수'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_STOCK_거래대금순매수의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_STOCK_거래대금순매수의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수'])
                         self.textBrowser.append(txt)
                         print(txt)
 
                     try: 
                         KOSPI_STOCK_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_STOCK_거래대금순매수_직전대비의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_STOCK_거래대금순매수_직전대비의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수직전대비'])
                         self.textBrowser.append(txt)
                         print(txt)
 
@@ -23634,14 +23634,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     try: 
                         KOSPI_BOHEOM_거래대금순매수 = int(result['거래대금순매수'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_BOHEOM_거래대금순매수의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_BOHEOM_거래대금순매수의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수'])
                         self.textBrowser.append(txt)
                         print(txt)
 
                     try: 
                         KOSPI_BOHEOM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_BOHEOM_거래대금순매수_직전대비의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_BOHEOM_거래대금순매수_직전대비의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수직전대비'])
                         self.textBrowser.append(txt)
                         print(txt)
 
@@ -23650,14 +23650,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     try: 
                         KOSPI_TOOSIN_거래대금순매수 = int(result['거래대금순매수'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_TOOSIN_거래대금순매수의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_TOOSIN_거래대금순매수의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수'])
                         self.textBrowser.append(txt)
                         print(txt)
 
                     try: 
                         KOSPI_TOOSIN_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_TOOSIN_거래대금순매수_직전대비의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_TOOSIN_거래대금순매수_직전대비의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수직전대비'])
                         self.textBrowser.append(txt)
                         print(txt)
 
@@ -23666,14 +23666,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     try: 
                         KOSPI_BANK_거래대금순매수 = int(result['거래대금순매수'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_BANK_거래대금순매수의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_BANK_거래대금순매수의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수'])
                         self.textBrowser.append(txt)
                         print(txt)
 
                     try: 
                         KOSPI_BANK_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_BANK_거래대금순매수_직전대비의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_BANK_거래대금순매수_직전대비의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수직전대비'])
                         self.textBrowser.append(txt)
                         print(txt)
 
@@ -23682,14 +23682,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     try: 
                         KOSPI_JONGGEUM_거래대금순매수 = int(result['거래대금순매수'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_JONGGEUM_거래대금순매수의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_JONGGEUM_거래대금순매수의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수'])
                         self.textBrowser.append(txt)
                         print(txt)
 
                     try: 
                         KOSPI_JONGGEUM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_JONGGEUM_거래대금순매수_직전대비의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_JONGGEUM_거래대금순매수_직전대비의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수직전대비'])
                         self.textBrowser.append(txt)
                         print(txt)
 
@@ -23698,14 +23698,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     try: 
                         KOSPI_GIGEUM_거래대금순매수 = int(result['거래대금순매수'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_GIGEUM_거래대금순매수의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_GIGEUM_거래대금순매수의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수'])
                         self.textBrowser.append(txt)
                         print(txt)
 
                     try: 
                         KOSPI_GIGEUM_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_GIGEUM_거래대금순매수_직전대비의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_GIGEUM_거래대금순매수_직전대비의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수직전대비'])
                         self.textBrowser.append(txt)
                         print(txt)
 
@@ -23714,14 +23714,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     try: 
                         KOSPI_GITA_거래대금순매수 = int(result['거래대금순매수'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_GITA_거래대금순매수의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_GITA_거래대금순매수의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수'])
                         self.textBrowser.append(txt)
                         print(txt)
 
                     try: 
                         KOSPI_GITA_거래대금순매수_직전대비 = int(result['거래대금순매수직전대비'])
                     except ValueError:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_GITA_거래대금순매수_직전대비의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI_GITA_거래대금순매수_직전대비의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['거래대금순매수직전대비'])
                         self.textBrowser.append(txt)
                         print(txt)
                 else:
@@ -23762,14 +23762,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 try: 
                     프로그램_전체순매수금액 = int(int(result['전체순매수금액합계']) / 100)
                 except ValueError:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 프로그램_전체순매수금액의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 프로그램_전체순매수금액의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['전체순매수금액합계'])
                     self.textBrowser.append(txt)
                     print(txt)
 
                 try: 
                     프로그램_전체순매수금액직전대비 = int(int(result['전체순매수금액직전대비']) / 100)
                 except ValueError:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 프로그램_전체순매수금액직전대비의 type이 integer가 아닙니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 프로그램_전체순매수금액직전대비의 type이 integer가 아닙니다. {3}\r'.format(dt.hour, dt.minute, dt.second, result['전체순매수금액직전대비'])
                     self.textBrowser.append(txt)
                     print(txt)
 
