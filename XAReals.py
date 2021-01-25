@@ -1994,9 +1994,9 @@ class OVC(XAReal):
         try:
             result = dict()
             result['종목코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "symbol")
-            result['체결일자_현지'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ovsdate")
-            result['체결일자_한국'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kordate")
-            result['체결시간_현지'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "trdtm")
+            #result['체결일자_현지'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ovsdate")
+            #result['체결일자_한국'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kordate")
+            #result['체결시간_현지'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "trdtm")
             result['체결시간_한국'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kortm")
             result['체결가격'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "curpr"))
             result['전일대비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "ydiffpr"))
@@ -2005,12 +2005,12 @@ class OVC(XAReal):
             result['고가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "high"))
             result['저가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "low"))
             result['등락율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "chgrate"))
-            result['건별체결수량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "trdq"))
-            result['누적체결수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "totq")
-            result['체결구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "cgubun")
-            result['매도누적체결수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "mdvolume")
-            result['매수누적체결수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "msvolume")
-            result['장마감일'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ovsmkend")
+            #result['건별체결수량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "trdq"))
+            #result['누적체결수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "totq")
+            #result['체결구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "cgubun")
+            #result['매도누적체결수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "mdvolume")
+            #result['매수누적체결수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "msvolume")
+            #result['장마감일'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ovsmkend")
             result['szTrCode'] = szTrCode
 
             if self.parent != None:
