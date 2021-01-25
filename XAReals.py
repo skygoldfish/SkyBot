@@ -1794,8 +1794,8 @@ class BM_(XAReal):
             #result['거래량순매수직전대비'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "p_msvol")
             #result['매수거래대금'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "msvalue")
             #result['매도거래대금'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "mdvalue")
-            result['거래대금순매수'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "msval")
-            result['거래대금순매수직전대비'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "p_msval")
+            result['거래대금순매수'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "msval"))
+            result['거래대금순매수직전대비'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "p_msval"))
             result['업종코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "upcode")
             result['szTrCode'] = szTrCode
 
@@ -1956,8 +1956,8 @@ class PM_(XAReal):
             result['수신시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "time")
             #result['전체매도체결금액합계'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "tdvalue")
             #result['전체매수체결금액합계'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "tsvalue")
-            result['전체순매수금액합계'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "tval")
-            result['전체순매수금액직전대비'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "p_tvalcha")
+            result['전체순매수금액합계'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "tval"))
+            result['전체순매수금액직전대비'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "p_tvalcha"))
             result['구분값'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "gubun")
             result['szTrCode'] = szTrCode
 
