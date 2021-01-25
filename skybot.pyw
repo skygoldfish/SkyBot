@@ -6082,7 +6082,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             self.parent.textBrowser.append(txt)
 
-            playsound('Resources/notify.wav')
+            #playsound('Resources/notify.wav')
 
         finally:
             flag_screen_update_is_running = False
@@ -21781,7 +21781,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             self.parent.textBrowser.append(txt)
 
-            playsound('Resources/notify.wav')
+            #playsound('Resources/notify.wav')
             
     # 수신된 실시간 데이타를 화면에 표시
     @logging_time_with_args
