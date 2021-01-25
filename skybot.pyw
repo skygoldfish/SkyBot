@@ -11567,10 +11567,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         선물_체결시간 = result['체결시간']
 
-        시가 = str(result['시가'])
-        현재가 = str(result['현재가'])
-        저가 = str(result['저가'])
-        고가 = str(result['고가'])       
+        시가 = '{0:.2f}'.format(result['시가'])
+        현재가 = '{0:.2f}'.format(result['현재가'])
+        저가 = '{0:.2f}'.format(result['저가'])
+        고가 = '{0:.2f}'.format(result['고가'])       
         
         선물_시가 = result['시가']
         선물_현재가 = result['현재가']
@@ -12283,10 +12283,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         index = call_행사가.index(result['단축코드'][5:8])
         
-        시가 = str(result['시가'])
-        현재가 = str(result['현재가'])
-        저가 = str(result['저가'])
-        고가 = str(result['고가'])
+        시가 = '{0:.2f}'.format(result['시가'])
+        현재가 = '{0:.2f}'.format(result['현재가'])
+        저가 = '{0:.2f}'.format(result['저가'])
+        고가 = '{0:.2f}'.format(result['고가'])
 
         콜시가 = result['시가']
         콜현재가 = result['현재가']
@@ -13294,10 +13294,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         index = put_행사가.index(result['단축코드'][5:8])
         
-        시가 = str(result['시가'])
-        현재가 = str(result['현재가'])
-        저가 = str(result['저가'])
-        고가 = str(result['고가'])
+        시가 = '{0:.2f}'.format(result['시가'])
+        현재가 = '{0:.2f}'.format(result['현재가'])
+        저가 = '{0:.2f}'.format(result['저가'])
+        고가 = '{0:.2f}'.format(result['고가'])
 
         풋시가 = result['시가']
         풋현재가 = result['현재가']
@@ -20634,13 +20634,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.parent.textBrowser.append(txt)
         print(txt)
 
-        txt = '실시간 요청의 총수는 {0}개 입니다.'.format(self.realdata_request_number)
-        self.parent.speaker.setText(txt)
-
         if TTS and not flag_t8416_rerequest:
             playsound( "Resources/doorbell.wav" )
         else:
             pass
+        
+        txt = '실시간 요청의 총수는 {0}개 입니다.'.format(self.realdata_request_number)
+        self.parent.speaker.setText(txt)
 
         item_txt = '{0}'.format(self.realdata_request_number)
         item = QTableWidgetItem(item_txt)
@@ -22290,6 +22290,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if result['업종코드'] == KOSPI200:
 
+                    예상지수 = '{0:.2f}'.format(result['예상지수'])
+
                     kp200_시가 = result['예상지수']
                     self.kp200_realdata['시가'] = result['예상지수']
                     self.fut_realdata['KP200'] = result['예상지수']
@@ -22297,7 +22299,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_futures_graph.at[ovc_x_idx, 'kp200'] = result['예상지수']
                     df_kp200_graph.at[ovc_x_idx, 'price'] = result['예상지수']
 
-                    item = QTableWidgetItem("{0:.2f}".format(result['예상지수']))
+                    item = QTableWidgetItem(예상지수)
                     item.setTextAlignment(Qt.AlignCenter)
 
                     if kp200_시가 > KP200_전일종가:
@@ -22346,6 +22348,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 if result['단축코드'] == GMSHCODE:
+
+                    예상체결가격 = '{0:.2f}'.format(result['예상체결가격'])
 
                     # 그래프 가격갱신
                     df_futures_graph.at[ovc_x_idx, 'price'] = result['예상체결가격']
@@ -22398,10 +22402,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2
 
-                    선물_시가 = result['예상체결가격']
+                    선물_시가 = result['예상체결가격']                    
                     self.fut_realdata['시가'] = result['예상체결가격']
 
-                    item = QTableWidgetItem("{0:.2f}".format(선물_시가))
+                    item = QTableWidgetItem(예상체결가격)
                     item.setTextAlignment(Qt.AlignCenter)
 
                     if 선물_시가 > self.fut_realdata['종가']:
@@ -22613,6 +22617,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif szTrCode == 'YOC':
 
+                예상체결가격 = '{0:.2f}'.format(result['예상체결가격'])
+
                 if result['단축코드'][0:3] == '201':
 
                     index = call_행사가.index(result['단축코드'][5:8])
@@ -22626,7 +22632,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     종가 = df_call.at[index, '종가']
 
-                    item = QTableWidgetItem("{0}".format(result['예상체결가격']))
+                    item = QTableWidgetItem(예상체결가격)
                     item.setTextAlignment(Qt.AlignCenter)
 
                     if result['예상체결가격'] > 종가:
@@ -22736,7 +22742,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     종가 = df_put.at[index, '종가']
 
-                    item = QTableWidgetItem("{0}".format(result['예상체결가격']))
+                    item = QTableWidgetItem(예상체결가격)
                     item.setTextAlignment(Qt.AlignCenter)
 
                     if result['예상체결가격'] > 종가:
@@ -22905,7 +22911,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # IJ 데이타표시
                 if result['업종코드'] == KOSPI200:
 
-                    지수 = str(result['지수'])
+                    지수 = '{0:.2f}'.format(result['지수'])
+                    시가지수 = '{0:.2f}'.format(result['시가지수'])
+                    저가지수 = '{0:.2f}'.format(result['저가지수'])
+                    고가지수 = '{0:.2f}'.format(result['고가지수'])
                     
                     # 그래프 가격갱신
                     df_futures_graph.at[ovc_x_idx, 'kp200'] = result['지수']
@@ -22942,7 +22951,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    if str(result['시가지수']) != self.tableWidget_fut.item(2, Futures_column.시가.value).text() and not flag_kp200_start_set:
+                    if 시가지수 != self.tableWidget_fut.item(2, Futures_column.시가.value).text() and not flag_kp200_start_set:
 
                         flag_kp200_start_set = True
 
@@ -22951,7 +22960,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_futures_graph.at[ovc_x_idx, 'kp200'] = result['시가지수']
                         df_kp200_graph.at[ovc_x_idx, 'price'] = result['시가지수']
 
-                        item = QTableWidgetItem(str(result['시가지수']))
+                        item = QTableWidgetItem(시가지수)
                         item.setTextAlignment(Qt.AlignCenter)
 
                         if kp200_시가 > KP200_전일종가:
@@ -23055,14 +23064,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    if str(result['저가지수']) != self.tableWidget_fut.item(2, Futures_column.저가.value).text():
+                    if 저가지수 != self.tableWidget_fut.item(2, Futures_column.저가.value).text():
 
                         flag_kp200_low = True
 
                         self.kp200_realdata['저가'] = result['저가지수']
                         kp200_저가 = result['저가지수']
 
-                        item = QTableWidgetItem(str(result['저가지수']))
+                        item = QTableWidgetItem(저가지수)
                         item.setTextAlignment(Qt.AlignCenter)
                         item.setBackground(QBrush(흰색))                     
                         self.tableWidget_fut.setItem(2, Futures_column.저가.value, item)
@@ -23083,14 +23092,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    if str(result['고가지수']) != self.tableWidget_fut.item(2, Futures_column.고가.value).text():
+                    if 고가지수 != self.tableWidget_fut.item(2, Futures_column.고가.value).text():
 
                         flag_kp200_high = True
 
                         self.kp200_realdata['고가'] = result['고가지수']
                         kp200_고가 = result['고가지수']
 
-                        item = QTableWidgetItem(str(result['고가지수']))
+                        item = QTableWidgetItem(고가지수)
                         item.setTextAlignment(Qt.AlignCenter)
                         item.setBackground(QBrush(흰색))
                         self.tableWidget_fut.setItem(2, Futures_column.고가.value, item)
