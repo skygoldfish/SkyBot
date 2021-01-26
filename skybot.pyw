@@ -2535,12 +2535,12 @@ class RealTime_Thread_DataWorker(QThread):
 
                     self.total_count += 1
                     self.total_packet_size += sys.getsizeof(data)
-
+                    '''
                     if data['szTrCode'] == 'JIF':
                         self.trigger.emit(data)
                     else:
                         pass
-                    
+                    '''
                     if not flag_main_realdata_update_is_running:
 
                         if data['szTrCode'] == 'BM_' or data['szTrCode'] == 'PM_':
@@ -2668,7 +2668,7 @@ class RealTime_Thread_DataWorker(QThread):
                             else:
                                 self.drop_count += 1                       
                         else:
-                            # BM, PM은 시간정보 검사 안함
+                            # JIF, BM, PM은 시간정보 검사 안함
                             self.trigger.emit(data)                    
                     else:
                         self.drop_count += 1                
@@ -2736,12 +2736,12 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                         self.trigger_list.emit(data)
                     else:
                         pass
-
+                    '''
                     if type(data) == dict and data['szTrCode'] == 'JIF':
                         self.trigger_dict.emit(data)
                     else:
                         pass
-                    
+                    '''
                     if not flag_main_realdata_update_is_running:                    
 
                         if type(data) == dict:
@@ -2871,7 +2871,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                                 else:
                                     self.drop_count += 1                            
                             else:
-                                # BM, PM은 시간정보 검사 안함
+                                # JIF, BM, PM은 시간정보 검사 안함
                                 self.trigger_dict.emit(data)      
                         else:
                             pass
