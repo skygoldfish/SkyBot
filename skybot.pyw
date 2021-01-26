@@ -38677,20 +38677,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # 수신된 실시간데이타 정보표시(누락된 패킷수, 큐의 크기, 수신된 총 패킷수, 수신된 총 패킷크기)            
             szTrCode = realdata['szTrCode']
 
-            time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
-                    
-            txt = ' 시스템 시간/[{0}] 수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), 시스템서버간 시간차 = {8}초\r'.format(szTrCode, \
-                dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, 시스템_서버_시간차)
+            if szTrCode != 'JIF' or szTrCode != 'BM_' or szTrCode != 'PM_':
 
-            if abs(time_gap) >= TIME_INDEX1:
-                self.statusbar.setStyleSheet("color : red")
-            else:
-                if DARK_STYLESHEET:
-                    self.statusbar.setStyleSheet("color : lawngreen")
+                time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
+
+                txt = ' 시스템 시간/[{0}] 수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), 시스템서버간 시간차 = {8}초\r'.format(szTrCode, \
+                    dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, 시스템_서버_시간차)
+
+                if abs(time_gap) >= TIME_INDEX1:
+                    self.statusbar.setStyleSheet("color : red")
                 else:
-                    self.statusbar.setStyleSheet("color : darkgreen")
+                    if DARK_STYLESHEET:
+                        self.statusbar.setStyleSheet("color : lawngreen")
+                    else:
+                        self.statusbar.setStyleSheet("color : darkgreen")
 
-            self.statusbar.showMessage(txt) 
+                self.statusbar.showMessage(txt)
+            else:
+                pass 
             '''
             if DayTime:
 
