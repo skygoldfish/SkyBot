@@ -18587,7 +18587,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     new_actval_up_count += 1
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 새로운 상방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_up_count)
-                    print(txt)                    
+                    print(txt)
+
+                    playsound( "Resources/doorbell.wav" )                    
 
                     # 추가된 행사가 갯수 표시
                     item_txt = '(+' + '{0:d})'.format(new_actval_up_count) + '\n' + '{0:d}'.format(real_option_pairs_count)
@@ -18619,7 +18621,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     new_actval_down_count += 1
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 새로운 하방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_down_count)
-                    print(txt)  
+                    print(txt)
+
+                    playsound( "Resources/doorbell.wav" )  
 
                     # 추가된 행사가 갯수 표시
                     item_txt =  '{0:d}'.format(real_option_pairs_count) + '\n' + '(+' + '{0:d})'.format(new_actval_down_count)
@@ -19175,12 +19179,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if new_actval_up_count > 0:
                         txt = '새로운 상방 행사가가 {0}개 추가되었습니다.'.format(new_actval_up_count)
                         self.parent.speaker.setText(txt)
+                        QTest.qWait(1500)
                     else:
                         pass
 
                     if new_actval_down_count > 0:
                         txt = '새로운 하방 행사가가 {0}개 추가되었습니다.'.format(new_actval_down_count)
                         self.parent.speaker.setText(txt)
+                        QTest.qWait(1500)
                     else:
                         pass
 
@@ -19202,6 +19208,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         speak_txt = '나머지 데이타를 10분후에 재요청할 예정입니다.'
                         self.parent.speaker.setText(speak_txt)
+                        QTest.qWait(1500)
                     else:
                         pass
 
@@ -20727,7 +20734,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         print(txt)
 
         if TTS and not flag_t8416_rerequest:
+            QTest.qWait(1000)
             playsound( "Resources/doorbell.wav" )
+            QTest.qWait(1000)
         else:
             pass
         
@@ -33159,7 +33168,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 self.plot_count = 0
 
-            txt = '{0:02d}:{1:02d}:{2:02d}({3:d}[{4}], {5:.2f} ms)'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, self.plot_count, plot1_processing_time)
+            txt = ' {0:02d}:{1:02d}:{2:02d}({3:d}[{4}], {5:.2f} ms) '.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, self.plot_count, plot1_processing_time)
             self.plot_x_idx = SERVER_SEC
    
         self.label_time_1.setText(txt)
@@ -34036,7 +34045,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
         else:            
-            txt = '{0:02d}:{1:02d}:{2:02d}({3:d}[{4}], {5:.2f} ms)'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, time_gap, plot2_processing_time)
+            txt = ' [{0}], {1:.2f} ms '.format(time_gap, plot2_processing_time)
    
         self.label_time_2.setText(txt)
 
@@ -34934,7 +34943,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
         else:            
-            txt = txt = '{0:02d}:{1:02d}:{2:02d}({3:d}[{4}], {5:.2f} ms)'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, time_gap, plot3_processing_time)
+            txt = txt = ' [{0}], {1:.2f} ms '.format(time_gap, plot3_processing_time)
    
         self.label_time_3.setText(txt)
 
@@ -35826,7 +35835,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
         else:            
-            txt = txt = '{0:02d}:{1:02d}:{2:02d}({3:d}[{4}], {5:.2f} ms)'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, time_gap, plot4_processing_time)
+            txt = txt = ' [{0}], {1:.2f} ms '.format(time_gap, plot4_processing_time)
    
         self.label_time_4.setText(txt)
 
@@ -36702,7 +36711,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
         else:            
-            txt = txt = '{0:02d}:{1:02d}:{2:02d}({3:d}[{4}], {5:.2f} ms)'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, time_gap, plot5_processing_time)
+            txt = txt = ' [{0}], {1:.2f} ms '.format(time_gap, plot5_processing_time)
    
         self.label_time_5.setText(txt)
 
@@ -37593,7 +37602,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
         else:            
-            txt = txt = '{0:02d}:{1:02d}:{2:02d}({3:d}[{4}], {5:.2f} ms)'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, time_gap, plot6_processing_time)
+            txt = txt = ' [{0}], {1:.2f} ms '.format(ovc_x_idx, time_gap, plot6_processing_time)
    
         self.label_time_6.setText(txt)
 
