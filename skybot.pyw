@@ -2535,12 +2535,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                     self.total_count += 1
                     self.total_packet_size += sys.getsizeof(data)
-                    '''
-                    if data['szTrCode'] == 'JIF':
-                        self.trigger.emit(data)
-                    else:
-                        pass
-                    '''
+                    
                     if not flag_main_realdata_update_is_running:                          
 
                         if data['szTrCode'] == 'JIF':
@@ -2740,8 +2735,6 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
                             if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger.emit(data)
                             else:
@@ -2827,12 +2820,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                         self.trigger_list.emit(data)
                     else:
                         pass
-                    '''
-                    if type(data) == dict and data['szTrCode'] == 'JIF':
-                        self.trigger_dict.emit(data)
-                    else:
-                        pass
-                    '''
+
                     if not flag_main_realdata_update_is_running:                    
 
                         if type(data) == dict:                                
@@ -3031,8 +3019,6 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime_min = int(data['수신시간'][2:4])
                                 realtime_sec = int(data['수신시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -38879,49 +38865,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 item = QTableWidgetItem('[{0}]'.format(time_gap))
                 item.setTextAlignment(Qt.AlignCenter)
-                self.dialog['선물옵션전광판'].tableWidget_supply.setHorizontalHeaderItem(Supply_column.종합.value - 2, item)
-            
-            '''
-            if DayTime:
-
-                if szTrCode == 'FH0':
-
-                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
-                    
-                    txt = ' 시스템 시간/데이타수신 시간 = [{0:02d}:{1:02d}:{2:02d}/{3:02d}:{4:02d}:{5:02d}]({6}), 시스템서버간 시간차 = {7}초\r'.format(\
-                        dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, 시스템_서버_시간차)
-
-                    if abs(time_gap) >= TIME_INDEX1:
-                        self.statusbar.setStyleSheet("color : red")
-                    else:
-                        if DARK_STYLESHEET:
-                            self.statusbar.setStyleSheet("color : lawngreen")
-                        else:
-                            self.statusbar.setStyleSheet("color : darkgreen")
-
-                    self.statusbar.showMessage(txt)                   
-                else:
-                    pass
-            else:
-                if szTrCode == 'OVC':
-                    
-                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
-                    
-                    txt = ' 시스템 시간/데이타수신 시간 = [{0:02d}:{1:02d}:{2:02d}/{3:02d}:{4:02d}:{5:02d}]({6}), 시스템서버간 시간차 = {7}초\r'.format(\
-                        dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, 시스템_서버_시간차)
-
-                    if abs(time_gap) >= TIME_INDEX1:
-                        self.statusbar.setStyleSheet("color : red")
-                    else:
-                        if DARK_STYLESHEET:
-                            self.statusbar.setStyleSheet("color : lawngreen")
-                        else:
-                            self.statusbar.setStyleSheet("color : darkgreen")
-
-                    self.statusbar.showMessage(txt)
-                else:
-                    pass
-            '''            
+                self.dialog['선물옵션전광판'].tableWidget_supply.setHorizontalHeaderItem(Supply_column.종합.value - 2, item)            
 
             if MP_NUMBER == 1:
 
@@ -39130,49 +39074,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # 수신된 실시간데이타 정보표시(누락된 패킷수, 큐의 크기, 수신된 총 패킷수, 수신된 총 패킷크기)            
             szTrCode = realdata['szTrCode']
 
-            if DayTime:
-
-                if szTrCode == 'FH0':
-
-                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
-                    
-                    txt = ' 시스템 시간/데이타수신 시간 = [{0:02d}:{1:02d}:{2:02d}/{3:02d}:{4:02d}:{5:02d}]({6}), 시스템서버간 시간차 = {7}초\r'.format(\
-                        dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, 시스템_서버_시간차)
-
-                    if abs(time_gap) >= TIME_INDEX1:
-                        self.statusbar.setStyleSheet("color : red")
-                    else:
-                        if DARK_STYLESHEET:
-                            self.statusbar.setStyleSheet("color : lawngreen")
-                        else:
-                            self.statusbar.setStyleSheet("color : darkgreen")
-
-                    self.statusbar.showMessage(txt)                   
-                else:
-                    pass
+            if szTrCode == 'JIF' or szTrCode == 'BM_' or szTrCode == 'PM_':
+                pass
             else:
-                if szTrCode == 'OVC':
-                    
-                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
-                    
-                    txt = ' 시스템 시간/데이타수신 시간 = [{0:02d}:{1:02d}:{2:02d}/{3:02d}:{4:02d}:{5:02d}]({6}), 시스템서버간 시간차 = {7}초\r'.format(\
-                        dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, 시스템_서버_시간차)
+                time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
 
-                    if abs(time_gap) >= TIME_INDEX1:
-                        self.statusbar.setStyleSheet("color : red")
-                    else:
-                        if DARK_STYLESHEET:
-                            self.statusbar.setStyleSheet("color : lawngreen")
-                        else:
-                            self.statusbar.setStyleSheet("color : darkgreen")
+                txt = ' 시스템 시간/[{0}] 수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), 시스템서버간 시간차 = {8}초\r'.format(szTrCode, \
+                    dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, 시스템_서버_시간차)
 
-                    self.statusbar.showMessage(txt)
+                if abs(time_gap) >= TIME_INDEX1:
+                    self.statusbar.setStyleSheet("color : red")
                 else:
-                    pass
-            
-            item = QTableWidgetItem('[{0}]'.format(time_gap))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.dialog['선물옵션전광판'].tableWidget_supply.setHorizontalHeaderItem(Supply_column.종합.value - 2, item)
+                    if DARK_STYLESHEET:
+                        self.statusbar.setStyleSheet("color : lawngreen")
+                    else:
+                        self.statusbar.setStyleSheet("color : darkgreen")
+
+                self.statusbar.showMessage(txt)
+
+                item = QTableWidgetItem('[{0}]'.format(time_gap))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.dialog['선물옵션전광판'].tableWidget_supply.setHorizontalHeaderItem(Supply_column.종합.value - 2, item)            
 
             # 수신된 실시간데이타 정보표시(누락된 패킷수, 누락된 패킷, 수신된 총 패킷수, 수신된 총 패킷크기)
             dropcount, qsize, totalcount, main_totalsize, main_opt_totalsize = self.realtime_thread_dataworker.get_packet_info()

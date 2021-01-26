@@ -1240,6 +1240,7 @@ class NH0(XAReal):
 
         try:
             result = dict()
+            # 추후 체크필요 !!!
             result['수신시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "hotime")
             result['호가시간(36시간)'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "hotime1")
             #result['매도호가1'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerho1"))
