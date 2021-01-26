@@ -38857,7 +38857,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if szTrCode == 'JIF' or szTrCode == 'BM_' or szTrCode == 'PM_':
                 pass
             else:
-                time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
+                if szTrCode == 'EH0' and int(realdata['수신시간'][0:2]) >= 24:
+                        time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - ((int(realdata['수신시간'][0:2]) - 24) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
+                else:                    
+                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
 
                 txt = ' 시스템 시간/[{0}] 수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), 시스템서버간 시간차 = {8}초\r'.format(szTrCode, \
                     dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, 시스템_서버_시간차)
@@ -39086,7 +39089,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if szTrCode == 'JIF' or szTrCode == 'BM_' or szTrCode == 'PM_':
                 pass
             else:
-                time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
+                if szTrCode == 'EH0' and int(realdata['수신시간'][0:2]) >= 24:
+                        time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - ((int(realdata['수신시간'][0:2]) - 24) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
+                else:                    
+                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
 
                 txt = ' 시스템 시간/[{0}] 수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), 시스템서버간 시간차 = {8}초\r'.format(szTrCode, \
                     dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, 시스템_서버_시간차)
