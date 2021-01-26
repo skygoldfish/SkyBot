@@ -1805,9 +1805,12 @@ class BM_(XAReal):
                 #print('BM =', result)
 
         except Exception as e:
+            pass
+            '''
             클래스이름 = self.__class__.__name__
             함수이름 = inspect.currentframe().f_code.co_name
             print("%s-%s " % (클래스이름, 함수이름), e, result)
+            '''
 
 # 시간대별 투자자 매매추이(BMT)
 class BMT(XAReal):
