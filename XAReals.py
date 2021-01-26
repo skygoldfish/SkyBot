@@ -235,7 +235,7 @@ class S3_(XAReal):
 
         try:
             result = dict()
-            result['체결시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "chetime")
+            result['수신시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "chetime")
             result['전일대비구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "sign")
             result['전일대비'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "change"))
             result['등락율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "drate"))
@@ -1017,7 +1017,7 @@ class NWS(XAReal):
         try:
             result = dict()
             result['날짜'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "date")
-            result['시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "time")
+            result['수신시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "time")
             result['뉴스구분자'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "id")
             result['키값'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "realkey")
             result['제목'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "title")
@@ -1053,7 +1053,7 @@ class FC0(XAReal):
 
         try:
             result = dict()
-            result['체결시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "chetime")
+            result['수신시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "chetime")
             #result['전일대비구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "sign")
             #result['전일대비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "change"))
             result['등락율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "drate"))
@@ -1112,7 +1112,7 @@ class NC0(XAReal):
 
         try:
             result = dict()
-            result['체결시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "chetime")
+            result['수신시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "chetime")
             result['체결시간(36시간)'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "chetime1")
             #result['전일대비구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "sign")
             #result['전일대비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "change"))
@@ -1172,7 +1172,7 @@ class FH0(XAReal):
 
         try:
             result = dict()
-            result['호가시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "hotime")
+            result['수신시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "hotime")
             #result['매도호가1'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerho1"))
             #result['매수호가1'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidho1"))
             #result['매도호가수량1'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerrem1"))
@@ -1240,7 +1240,7 @@ class NH0(XAReal):
 
         try:
             result = dict()
-            result['호가시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "hotime")
+            result['수신시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "hotime")
             result['호가시간(36시간)'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "hotime1")
             #result['매도호가1'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerho1"))
             #result['매수호가1'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidho1"))
@@ -1307,7 +1307,7 @@ class OC0(XAReal):
 
         try:
             result = dict()
-            result['체결시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "chetime")
+            result['수신시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "chetime")
             #result['전일대비구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "sign")
             #result['전일대비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "change"))
             result['등락율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "drate"))
@@ -1366,7 +1366,7 @@ class OH0(XAReal):
 
         try:
             result = dict()
-            result['호가시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "hotime")
+            result['수신시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "hotime")
             #result['매도호가1'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerho1"))
             #result['매수호가1'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidho1"))
             #result['매도호가수량1'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerrem1"))
@@ -1434,7 +1434,7 @@ class EC0(XAReal):
 
         try:
             result = dict()
-            result['체결시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "chetime")
+            result['수신시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "chetime")
             result['체결시간(36시간)'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "chetime1")
             #result['정규장종가대비구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "sign")
             #result['정규장종가대비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "change"))
@@ -1495,7 +1495,7 @@ class EH0(XAReal):
         try:
             result = dict()
             result['호가시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "hotime")
-            result['호가시간(36시간)'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "hotime1")
+            result['수신시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "hotime1")
             #result['매도호가1'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerho1"))
             #result['매수호가1'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidho1"))
             #result['매도호가수량1'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerrem1"))
@@ -1588,7 +1588,7 @@ class YJ_(XAReal):
 
         try:
             result = dict()
-            result['시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "time")
+            result['수신시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "time")
             result['예상지수'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "jisu"))
             result['예상전일대비구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "sign")
             result['예상전일비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "change"))
@@ -1624,7 +1624,7 @@ class YFC(XAReal):
 
         try:
             result = dict()
-            result['예상체결시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ychetime")
+            result['수신시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ychetime")
             result['예상체결가격'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "yeprice"))
             result['예상체결가전일종가대비구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "jnilysign")
             result['예상체결가전일종가대비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "preychange"))
@@ -1657,7 +1657,7 @@ class YOC(XAReal):
 
         try:
             result = dict()
-            result['예상체결시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ychetime")
+            result['수신시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ychetime")
             result['예상체결가격'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "yeprice"))
             result['예상체결가전일종가대비구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "jnilysign")
             result['예상체결가전일종가대비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "preychange"))
@@ -1690,7 +1690,7 @@ class YS3(XAReal):
 
         try:
             result = dict()
-            result['호가시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "hotime")
+            result['수신시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "hotime")
             result['예상체결가격'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "yeprice"))
             result['예상체결수량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "yevolume"))
             result['예상체결가전일종가대비구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "jnilysign")
@@ -1731,7 +1731,7 @@ class IJ_(XAReal):
 
         try:
             result = dict()
-            result['시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "time")
+            result['수신시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "time")
             result['지수'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "jisu"))
             result['전일대비구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "sign")
             result['전일비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "change"))
@@ -1787,6 +1787,7 @@ class BM_(XAReal):
         try:
             result = dict()
             result['투자자코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "tjjcode")
+            # 수신시간이 6자리가 아닌 8자리임 !!!
             result['수신시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "tjjtime")
             #result['매수거래량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "msvolume")
             #result['매도거래량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "mdvolume")
@@ -1801,6 +1802,7 @@ class BM_(XAReal):
 
             if self.parent != None:
                 self.parent.OnReceiveRealData(result)
+                #print('BM =', result)
 
         except Exception as e:
             클래스이름 = self.__class__.__name__
@@ -1828,7 +1830,6 @@ class BMT(XAReal):
         try:
             result = dict()
             result['수신시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "tjjtime")
-
             result['투자자코드1(개인)'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "tjjcode1")
             result['매수거래량1'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "msvolume1"))
             result['매도거래량1'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "mdvolume1"))
@@ -1997,7 +1998,8 @@ class OVC(XAReal):
             #result['체결일자_현지'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ovsdate")
             #result['체결일자_한국'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kordate")
             #result['체결시간_현지'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "trdtm")
-            result['체결시간_한국'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kortm")
+            #result['체결시간_한국'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kortm")
+            result['수신시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kortm")
             result['체결가격'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "curpr"))
             result['전일대비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "ydiffpr"))
             result['전일대비기호'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ydiffSign")
@@ -2042,7 +2044,7 @@ class OVH(XAReal):
         try:
             result = dict()
             result['종목코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "symbol")
-            result['호가시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "hotime")
+            result['수신시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "hotime")
             매도호가 = []
             매수호가 = []
             매도호가잔량 = []
@@ -2231,7 +2233,8 @@ class WOC(XAReal):
             result['체결일자_현지'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ovsdate")
             result['체결일자_한국'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kordate")
             result['체결시간_현지'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "trdtm")
-            result['체결시간_한국'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kortm")
+            #result['체결시간_한국'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kortm")
+            result['수신시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kortm")            
             result['체결가격'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "curpr"))
             result['전일대비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "ydiffpr"))
             result['전일대비기호'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ydiffSign")
@@ -2276,7 +2279,7 @@ class WOH(XAReal):
         try:
             result = dict()
             result['종목코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "symbol")
-            result['호가시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "hotime")
+            result['수신시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "hotime")
             매도호가 = []
             매수호가 = []
             매도호가잔량 = []
@@ -2335,7 +2338,8 @@ class MK2(XAReal):
             result['일자'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "date")
             result['시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "time")
             result['한국일자'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kodate")
-            result['한국시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kotime")
+            #result['한국시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kotime")
+            result['수신시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kotime")
             result['시가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "open"))
             result['고가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "high"))
             result['저가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "low"))

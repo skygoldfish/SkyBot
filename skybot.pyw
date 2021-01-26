@@ -2543,13 +2543,16 @@ class RealTime_Thread_DataWorker(QThread):
                     
                     if not flag_main_realdata_update_is_running:
 
+                        if data['szTrCode'] == 'BM_' or data['szTrCode'] == 'PM_':
+                            pass
+                        else:
+                            realtime_hour = int(data['수신시간'][0:2])
+                            realtime_min = int(data['수신시간'][2:4])
+                            realtime_sec = int(data['수신시간'][4:6])
+
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec                        
+
                         if data['szTrCode'] == 'YJ_':
-
-                            realtime_hour = int(data['시간'][0:2])
-                            realtime_min = int(data['시간'][2:4])
-                            realtime_sec = int(data['시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                             if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger.emit(data)
@@ -2558,24 +2561,12 @@ class RealTime_Thread_DataWorker(QThread):
 
                         elif data['szTrCode'] == 'YFC':
 
-                            realtime_hour = int(data['예상체결시간'][0:2])
-                            realtime_min = int(data['예상체결시간'][2:4])
-                            realtime_sec = int(data['예상체결시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
                             if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1       
 
                         elif data['szTrCode'] == 'YOC':
-
-                            realtime_hour = int(data['예상체결시간'][0:2])
-                            realtime_min = int(data['예상체결시간'][2:4])
-                            realtime_sec = int(data['예상체결시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                             if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger.emit(data)
@@ -2584,24 +2575,12 @@ class RealTime_Thread_DataWorker(QThread):
 
                         elif data['szTrCode'] == 'YS3':
 
-                            realtime_hour = int(data['호가시간'][0:2])
-                            realtime_min = int(data['호가시간'][2:4])
-                            realtime_sec = int(data['호가시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
                             if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1             
 
                         elif data['szTrCode'] == 'OVC':
-
-                            realtime_hour = int(data['체결시간_한국'][0:2])
-                            realtime_min = int(data['체결시간_한국'][2:4])
-                            realtime_sec = int(data['체결시간_한국'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                             if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger.emit(data)
@@ -2610,24 +2589,12 @@ class RealTime_Thread_DataWorker(QThread):
 
                         elif data['szTrCode'] == 'FH0':
 
-                            realtime_hour = int(data['호가시간'][0:2])
-                            realtime_min = int(data['호가시간'][2:4])
-                            realtime_sec = int(data['호가시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
                             if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
 
                         elif data['szTrCode'] == 'NH0':
-
-                            realtime_hour = int(data['호가시간'][0:2])
-                            realtime_min = int(data['호가시간'][2:4])
-                            realtime_sec = int(data['호가시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                             if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger.emit(data)
@@ -2636,12 +2603,6 @@ class RealTime_Thread_DataWorker(QThread):
 
                         elif data['szTrCode'] == 'FC0':
 
-                            realtime_hour = int(data['체결시간'][0:2])
-                            realtime_min = int(data['체결시간'][2:4])
-                            realtime_sec = int(data['체결시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
                             if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger.emit(data)
                             else:
@@ -2649,24 +2610,12 @@ class RealTime_Thread_DataWorker(QThread):
 
                         elif data['szTrCode'] == 'NC0':
 
-                            realtime_hour = int(data['체결시간'][0:2])
-                            realtime_min = int(data['체결시간'][2:4])
-                            realtime_sec = int(data['체결시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
                             if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
 
                         elif data['szTrCode'] == 'IJ_':
-
-                            realtime_hour = int(data['시간'][0:2])
-                            realtime_min = int(data['시간'][2:4])
-                            realtime_sec = int(data['시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                             if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger.emit(data)
@@ -2677,12 +2626,6 @@ class RealTime_Thread_DataWorker(QThread):
 
                             self.total_option_packet_size += sys.getsizeof(data)
 
-                            realtime_hour = int(data['체결시간'][0:2])
-                            realtime_min = int(data['체결시간'][2:4])
-                            realtime_sec = int(data['체결시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
                             if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger.emit(data)
                             else:
@@ -2692,24 +2635,12 @@ class RealTime_Thread_DataWorker(QThread):
 
                             self.total_option_packet_size += sys.getsizeof(data)
 
-                            realtime_hour = int(data['호가시간'][0:2])
-                            realtime_min = int(data['호가시간'][2:4])
-                            realtime_sec = int(data['호가시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
                             if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
 
                         elif data['szTrCode'] == 'EC0':
-
-                            realtime_hour = int(data['체결시간'][0:2])
-                            realtime_min = int(data['체결시간'][2:4])
-                            realtime_sec = int(data['체결시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                             if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger.emit(data)
@@ -2718,13 +2649,10 @@ class RealTime_Thread_DataWorker(QThread):
 
                         elif data['szTrCode'] == 'EH0':
 
-                            if int(data['호가시간(36시간)'][0:2]) >= 24:
-                                realtime_hour = int(data['호가시간(36시간)'][0:2]) - 24
+                            if int(data['수신시간'][0:2]) >= 24:
+                                realtime_hour = int(data['수신시간'][0:2]) - 24
                             else:                            
-                                realtime_hour = int(data['호가시간(36시간)'][0:2])
-
-                            realtime_min = int(data['호가시간(36시간)'][2:4])
-                            realtime_sec = int(data['호가시간(36시간)'][4:6])
+                                realtime_hour = int(data['수신시간'][0:2])
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -2735,18 +2663,12 @@ class RealTime_Thread_DataWorker(QThread):
 
                         elif data['szTrCode'] == 'S3_':
 
-                            realtime_hour = int(data['체결시간'][0:2])
-                            realtime_min = int(data['체결시간'][2:4])
-                            realtime_sec = int(data['체결시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
                             if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1                       
                         else:
-                            # JIF, BM, PM은 시간정보 검사 안함
+                            # BM, PM은 시간정보 검사 안함
                             self.trigger.emit(data)                    
                     else:
                         self.drop_count += 1                
@@ -2824,65 +2746,44 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                         if type(data) == dict:
 
+                            if data['szTrCode'] == 'BM_' or data['szTrCode'] == 'PM_':
+                                pass
+                            else:
+                                realtime_hour = int(data['수신시간'][0:2])
+                                realtime_min = int(data['수신시간'][2:4])
+                                realtime_sec = int(data['수신시간'][4:6])
+
+                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec 
+
                             if data['szTrCode'] == 'YJ_':
 
-                                realtime_hour = int(data['시간'][0:2])
-                                realtime_min = int(data['시간'][2:4])
-                                realtime_sec = int(data['시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
                                 if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                                    self.trigger.emit(data)
+                                    self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
 
                             elif data['szTrCode'] == 'YFC':
 
-                                realtime_hour = int(data['예상체결시간'][0:2])
-                                realtime_min = int(data['예상체결시간'][2:4])
-                                realtime_sec = int(data['예상체결시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
                                 if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                                    self.trigger.emit(data)
+                                    self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1       
 
                             elif data['szTrCode'] == 'YOC':
 
-                                realtime_hour = int(data['예상체결시간'][0:2])
-                                realtime_min = int(data['예상체결시간'][2:4])
-                                realtime_sec = int(data['예상체결시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
                                 if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                                    self.trigger.emit(data)
+                                    self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
 
                             elif data['szTrCode'] == 'YS3':
 
-                                realtime_hour = int(data['호가시간'][0:2])
-                                realtime_min = int(data['호가시간'][2:4])
-                                realtime_sec = int(data['호가시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
                                 if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
-                                    self.trigger.emit(data)
+                                    self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
 
                             elif data['szTrCode'] == 'OVC':
-
-                                realtime_hour = int(data['체결시간_한국'][0:2])
-                                realtime_min = int(data['체결시간_한국'][2:4])
-                                realtime_sec = int(data['체결시간_한국'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                                 if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                     self.trigger_dict.emit(data)
@@ -2891,24 +2792,12 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif data['szTrCode'] == 'FH0':
 
-                                realtime_hour = int(data['호가시간'][0:2])
-                                realtime_min = int(data['호가시간'][2:4])
-                                realtime_sec = int(data['호가시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
                                 if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
 
                             elif data['szTrCode'] == 'NH0':
-
-                                realtime_hour = int(data['호가시간'][0:2])
-                                realtime_min = int(data['호가시간'][2:4])
-                                realtime_sec = int(data['호가시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                                 if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                     self.trigger_dict.emit(data)
@@ -2917,12 +2806,6 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif data['szTrCode'] == 'FC0':
 
-                                realtime_hour = int(data['체결시간'][0:2])
-                                realtime_min = int(data['체결시간'][2:4])
-                                realtime_sec = int(data['체결시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
                                 if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                     self.trigger_dict.emit(data)
                                 else:
@@ -2930,24 +2813,12 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif data['szTrCode'] == 'NC0':
 
-                                realtime_hour = int(data['체결시간'][0:2])
-                                realtime_min = int(data['체결시간'][2:4])
-                                realtime_sec = int(data['체결시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
                                 if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
 
                             elif data['szTrCode'] == 'IJ_':
-
-                                realtime_hour = int(data['시간'][0:2])
-                                realtime_min = int(data['시간'][2:4])
-                                realtime_sec = int(data['시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                                 if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                     self.trigger_dict.emit(data)
@@ -2958,12 +2829,6 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 self.total_option_packet_size += sys.getsizeof(data)
 
-                                realtime_hour = int(data['체결시간'][0:2])
-                                realtime_min = int(data['체결시간'][2:4])
-                                realtime_sec = int(data['체결시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
                                 if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                     self.trigger_dict.emit(data)
                                 else:
@@ -2973,24 +2838,12 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 self.total_option_packet_size += sys.getsizeof(data)
 
-                                realtime_hour = int(data['호가시간'][0:2])
-                                realtime_min = int(data['호가시간'][2:4])
-                                realtime_sec = int(data['호가시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
                                 if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
 
                             elif data['szTrCode'] == 'EC0':
-
-                                realtime_hour = int(data['체결시간'][0:2])
-                                realtime_min = int(data['체결시간'][2:4])
-                                realtime_sec = int(data['체결시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                                 if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                     self.trigger_dict.emit(data)
@@ -2999,13 +2852,10 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif data['szTrCode'] == 'EH0':
 
-                                if int(data['호가시간(36시간)'][0:2]) >= 24:
-                                    realtime_hour = int(data['호가시간(36시간)'][0:2]) - 24
+                                if int(data['수신시간'][0:2]) >= 24:
+                                    realtime_hour = int(data['수신시간'][0:2]) - 24
                                 else:                            
-                                    realtime_hour = int(data['호가시간(36시간)'][0:2])
-
-                                realtime_min = int(data['호가시간(36시간)'][2:4])
-                                realtime_sec = int(data['호가시간(36시간)'][4:6])
+                                    realtime_hour = int(data['수신시간'][0:2])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3016,18 +2866,12 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif data['szTrCode'] == 'S3_':
 
-                                realtime_hour = int(data['체결시간'][0:2])
-                                realtime_min = int(data['체결시간'][2:4])
-                                realtime_sec = int(data['체결시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
                                 if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1                            
                             else:
-                                # JIF, BM, PM은 시간정보 검사 안함
+                                # BM, PM은 시간정보 검사 안함
                                 self.trigger_dict.emit(data)      
                         else:
                             pass
@@ -3109,9 +2953,9 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
                             self.total_option_packet_size += sys.getsizeof(data)
 
-                            realtime_hour = int(data['체결시간'][0:2])
-                            realtime_min = int(data['체결시간'][2:4])
-                            realtime_sec = int(data['체결시간'][4:6])
+                            realtime_hour = int(data['수신시간'][0:2])
+                            realtime_min = int(data['수신시간'][2:4])
+                            realtime_sec = int(data['수신시간'][4:6])
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3122,9 +2966,9 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
                         elif data['szTrCode'] == 'EC0':
 
-                            realtime_hour = int(data['체결시간'][0:2])
-                            realtime_min = int(data['체결시간'][2:4])
-                            realtime_sec = int(data['체결시간'][4:6])
+                            realtime_hour = int(data['수신시간'][0:2])
+                            realtime_min = int(data['수신시간'][2:4])
+                            realtime_sec = int(data['수신시간'][4:6])
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3137,9 +2981,9 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
                             self.total_option_packet_size += sys.getsizeof(data)
 
-                            realtime_hour = int(data['호가시간'][0:2])
-                            realtime_min = int(data['호가시간'][2:4])
-                            realtime_sec = int(data['호가시간'][4:6])
+                            realtime_hour = int(data['수신시간'][0:2])
+                            realtime_min = int(data['수신시간'][2:4])
+                            realtime_sec = int(data['수신시간'][4:6])
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3150,9 +2994,9 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
                         elif data['szTrCode'] == 'EH0':
 
-                            realtime_hour = int(data['호가시간'][0:2])
-                            realtime_min = int(data['호가시간'][2:4])
-                            realtime_sec = int(data['호가시간'][4:6])
+                            realtime_hour = int(data['수신시간'][0:2])
+                            realtime_min = int(data['수신시간'][2:4])
+                            realtime_sec = int(data['수신시간'][4:6])
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3228,9 +3072,9 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
 
                             self.total_option_packet_size += sys.getsizeof(data)
 
-                            realtime_hour = int(data['체결시간'][0:2])
-                            realtime_min = int(data['체결시간'][2:4])
-                            realtime_sec = int(data['체결시간'][4:6])
+                            realtime_hour = int(data['수신시간'][0:2])
+                            realtime_min = int(data['수신시간'][2:4])
+                            realtime_sec = int(data['수신시간'][4:6])
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3241,9 +3085,9 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
 
                         elif data['szTrCode'] == 'EC0':
 
-                            realtime_hour = int(data['체결시간'][0:2])
-                            realtime_min = int(data['체결시간'][2:4])
-                            realtime_sec = int(data['체결시간'][4:6])
+                            realtime_hour = int(data['수신시간'][0:2])
+                            realtime_min = int(data['수신시간'][2:4])
+                            realtime_sec = int(data['수신시간'][4:6])
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3256,9 +3100,9 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
 
                             self.total_option_packet_size += sys.getsizeof(data)
 
-                            realtime_hour = int(data['호가시간'][0:2])
-                            realtime_min = int(data['호가시간'][2:4])
-                            realtime_sec = int(data['호가시간'][4:6])
+                            realtime_hour = int(data['수신시간'][0:2])
+                            realtime_min = int(data['수신시간'][2:4])
+                            realtime_sec = int(data['수신시간'][4:6])
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3269,9 +3113,9 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
 
                         elif data['szTrCode'] == 'EH0':
 
-                            realtime_hour = int(data['호가시간'][0:2])
-                            realtime_min = int(data['호가시간'][2:4])
-                            realtime_sec = int(data['호가시간'][4:6])
+                            realtime_hour = int(data['수신시간'][0:2])
+                            realtime_min = int(data['수신시간'][2:4])
+                            realtime_sec = int(data['수신시간'][4:6])
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -11643,7 +11487,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        선물_체결시간 = result['체결시간']
+        선물_체결시간 = result['수신시간']
 
         시가 = '{0:.2f}'.format(result['시가'])
         현재가 = '{0:.2f}'.format(result['현재가'])
@@ -20776,7 +20620,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             #print('체결시간_현지 =', result['체결시간_현지'])
             #print('체결시간_한국 =', result['체결시간_한국'])
 
-            OVC_체결시간 = result['체결시간_한국']
+            OVC_체결시간 = result['수신시간']
             OVC_HOUR = int(OVC_체결시간[0:2])
             OVC_MIN = int(OVC_체결시간[2:4])
             OVC_SEC = int(OVC_체결시간[4:6])
@@ -22439,7 +22283,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_futures_graph.at[ovc_x_idx, 'price'] = result['예상체결가격']
 
                     # 1T OHLC 생성
-                    df_futures_graph.at[ovc_x_idx, 'ctime'] = result['예상체결시간']
+                    df_futures_graph.at[ovc_x_idx, 'ctime'] = result['수신시간']
 
                     if OVC_SEC == 0:
 
@@ -23740,7 +23584,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                     # 1T OHLC 생성
-                    df_futures_graph.at[ovc_x_idx, 'ctime'] = result['체결시간']
+                    df_futures_graph.at[ovc_x_idx, 'ctime'] = result['수신시간']
                     df_futures_graph.at[ovc_x_idx, 'price'] = result['현재가']
 
                     if ovc_x_idx != old_ovc_x_idx:
@@ -38833,14 +38677,29 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # 수신된 실시간데이타 정보표시(누락된 패킷수, 큐의 크기, 수신된 총 패킷수, 수신된 총 패킷크기)            
             szTrCode = realdata['szTrCode']
 
+            time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
+                    
+            txt = ' 시스템 시간/[{0}] 수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), 시스템서버간 시간차 = {8}초\r'.format(szTrCode, \
+                dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, 시스템_서버_시간차)
+
+            if abs(time_gap) >= TIME_INDEX1:
+                self.statusbar.setStyleSheet("color : red")
+            else:
+                if DARK_STYLESHEET:
+                    self.statusbar.setStyleSheet("color : lawngreen")
+                else:
+                    self.statusbar.setStyleSheet("color : darkgreen")
+
+            self.statusbar.showMessage(txt) 
+            '''
             if DayTime:
 
                 if szTrCode == 'FH0':
 
-                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['호가시간'][0:2]) * 3600 + int(realdata['호가시간'][2:4]) * 60 + int(realdata['호가시간'][4:6]))
+                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
                     
                     txt = ' 시스템 시간/데이타수신 시간 = [{0:02d}:{1:02d}:{2:02d}/{3:02d}:{4:02d}:{5:02d}]({6}), 시스템서버간 시간차 = {7}초\r'.format(\
-                        dt.hour, dt.minute, dt.second, int(realdata['호가시간'][0:2]), int(realdata['호가시간'][2:4]), int(realdata['호가시간'][4:6]), time_gap, 시스템_서버_시간차)
+                        dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, 시스템_서버_시간차)
 
                     if abs(time_gap) >= TIME_INDEX1:
                         self.statusbar.setStyleSheet("color : red")
@@ -38856,10 +38715,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 if szTrCode == 'OVC':
                     
-                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['체결시간_한국'][0:2]) * 3600 + int(realdata['체결시간_한국'][2:4]) * 60 + int(realdata['체결시간_한국'][4:6]))
+                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
                     
                     txt = ' 시스템 시간/데이타수신 시간 = [{0:02d}:{1:02d}:{2:02d}/{3:02d}:{4:02d}:{5:02d}]({6}), 시스템서버간 시간차 = {7}초\r'.format(\
-                        dt.hour, dt.minute, dt.second, int(realdata['체결시간_한국'][0:2]), int(realdata['체결시간_한국'][2:4]), int(realdata['체결시간_한국'][4:6]), time_gap, 시스템_서버_시간차)
+                        dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, 시스템_서버_시간차)
 
                     if abs(time_gap) >= TIME_INDEX1:
                         self.statusbar.setStyleSheet("color : red")
@@ -38872,7 +38731,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.statusbar.showMessage(txt)
                 else:
                     pass
-            
+            '''
             item = QTableWidgetItem('[{0}]'.format(time_gap))
             item.setTextAlignment(Qt.AlignCenter)
             self.dialog['선물옵션전광판'].tableWidget_supply.setHorizontalHeaderItem(Supply_column.종합.value - 2, item)
@@ -39088,10 +38947,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if szTrCode == 'FH0':
 
-                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['호가시간'][0:2]) * 3600 + int(realdata['호가시간'][2:4]) * 60 + int(realdata['호가시간'][4:6]))
+                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
                     
                     txt = ' 시스템 시간/데이타수신 시간 = [{0:02d}:{1:02d}:{2:02d}/{3:02d}:{4:02d}:{5:02d}]({6}), 시스템서버간 시간차 = {7}초\r'.format(\
-                        dt.hour, dt.minute, dt.second, int(realdata['호가시간'][0:2]), int(realdata['호가시간'][2:4]), int(realdata['호가시간'][4:6]), time_gap, 시스템_서버_시간차)
+                        dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, 시스템_서버_시간차)
 
                     if abs(time_gap) >= TIME_INDEX1:
                         self.statusbar.setStyleSheet("color : red")
@@ -39107,10 +38966,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 if szTrCode == 'OVC':
                     
-                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['체결시간_한국'][0:2]) * 3600 + int(realdata['체결시간_한국'][2:4]) * 60 + int(realdata['체결시간_한국'][4:6]))
+                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
                     
                     txt = ' 시스템 시간/데이타수신 시간 = [{0:02d}:{1:02d}:{2:02d}/{3:02d}:{4:02d}:{5:02d}]({6}), 시스템서버간 시간차 = {7}초\r'.format(\
-                        dt.hour, dt.minute, dt.second, int(realdata['체결시간_한국'][0:2]), int(realdata['체결시간_한국'][2:4]), int(realdata['체결시간_한국'][4:6]), time_gap, 시스템_서버_시간차)
+                        dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, 시스템_서버_시간차)
 
                     if abs(time_gap) >= TIME_INDEX1:
                         self.statusbar.setStyleSheet("color : red")
