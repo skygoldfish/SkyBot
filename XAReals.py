@@ -1802,16 +1802,18 @@ class BM_(XAReal):
             result['szTrCode'] = szTrCode
 
             if self.parent != None:
-                self.parent.OnReceiveRealData(result)
-                #print('BM =', result)
+
+                if '거래대금순매수' in result and '거래대금순매수직전대비' in result:
+                    self.parent.OnReceiveRealData(result)
+                else:
+                    print('BM =', result)
 
         except Exception as e:
-            pass
-            '''
+            
             클래스이름 = self.__class__.__name__
             함수이름 = inspect.currentframe().f_code.co_name
             print("%s-%s " % (클래스이름, 함수이름), e, result)
-            '''
+            
 
 # 시간대별 투자자 매매추이(BMT)
 class BMT(XAReal):
