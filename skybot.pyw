@@ -2541,9 +2541,61 @@ class RealTime_Thread_DataWorker(QThread):
                     else:
                         pass
                     
-                    if not flag_main_realdata_update_is_running:                    
+                    if not flag_main_realdata_update_is_running:
 
-                        if data['szTrCode'] == 'OVC':
+                        if data['szTrCode'] == 'YJ_':
+
+                            realtime_hour = int(data['시간'][0:2])
+                            realtime_min = int(data['시간'][2:4])
+                            realtime_sec = int(data['시간'][4:6])
+
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                self.trigger.emit(data)
+                            else:
+                                self.drop_count += 1
+
+                        elif data['szTrCode'] == 'YFC':
+
+                            realtime_hour = int(data['예상체결시간'][0:2])
+                            realtime_min = int(data['예상체결시간'][2:4])
+                            realtime_sec = int(data['예상체결시간'][4:6])
+
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                self.trigger.emit(data)
+                            else:
+                                self.drop_count += 1       
+
+                        elif data['szTrCode'] == 'YOC':
+
+                            realtime_hour = int(data['예상체결시간'][0:2])
+                            realtime_min = int(data['예상체결시간'][2:4])
+                            realtime_sec = int(data['예상체결시간'][4:6])
+
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                self.trigger.emit(data)
+                            else:
+                                self.drop_count += 1
+
+                        elif data['szTrCode'] == 'YS3':
+
+                            realtime_hour = int(data['호가시간'][0:2])
+                            realtime_min = int(data['호가시간'][2:4])
+                            realtime_sec = int(data['호가시간'][4:6])
+
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                self.trigger.emit(data)
+                            else:
+                                self.drop_count += 1             
+
+                        elif data['szTrCode'] == 'OVC':
 
                             realtime_hour = int(data['체결시간_한국'][0:2])
                             realtime_min = int(data['체결시간_한국'][2:4])
@@ -2785,7 +2837,59 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                         if type(data) == dict:
 
-                            if data['szTrCode'] == 'OVC':
+                            if data['szTrCode'] == 'YJ_':
+
+                                realtime_hour = int(data['시간'][0:2])
+                                realtime_min = int(data['시간'][2:4])
+                                realtime_sec = int(data['시간'][4:6])
+
+                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                    self.trigger.emit(data)
+                                else:
+                                    self.drop_count += 1
+
+                            elif data['szTrCode'] == 'YFC':
+
+                                realtime_hour = int(data['예상체결시간'][0:2])
+                                realtime_min = int(data['예상체결시간'][2:4])
+                                realtime_sec = int(data['예상체결시간'][4:6])
+
+                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                    self.trigger.emit(data)
+                                else:
+                                    self.drop_count += 1       
+
+                            elif data['szTrCode'] == 'YOC':
+
+                                realtime_hour = int(data['예상체결시간'][0:2])
+                                realtime_min = int(data['예상체결시간'][2:4])
+                                realtime_sec = int(data['예상체결시간'][4:6])
+
+                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                    self.trigger.emit(data)
+                                else:
+                                    self.drop_count += 1
+
+                            elif data['szTrCode'] == 'YS3':
+
+                                realtime_hour = int(data['호가시간'][0:2])
+                                realtime_min = int(data['호가시간'][2:4])
+                                realtime_sec = int(data['호가시간'][4:6])
+
+                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                    self.trigger.emit(data)
+                                else:
+                                    self.drop_count += 1
+
+                            elif data['szTrCode'] == 'OVC':
 
                                 realtime_hour = int(data['체결시간_한국'][0:2])
                                 realtime_min = int(data['체결시간_한국'][2:4])
@@ -21896,8 +22000,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global SP500_현재가_버퍼
         global NASDAQ_현재가_버퍼
         global WTI_현재가_버퍼
-        global 선물_시가, 선물_피봇, 선물_현재가
-        global call_remainder_ratio, put_remainder_ratio, 선물_진폭비, 선물_DOW_진폭비율
+        global 선물_시가, 선물_피봇, 선물_현재가, 선물_진폭비, 선물_DOW_진폭비율
+        global call_remainder_ratio, put_remainder_ratio
         
         global kospi_price, kospi_text_color   
         global kosdaq_price, kosdaq_text_color 
@@ -21931,26 +22035,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif szTrCode == 'JIF':
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 장구분[{3}], 장상태[{4}]\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, result['장구분'], result['장상태'])
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 장구분[{3}], 장상태[{4}]\r'.format(dt.hour, dt.minute, dt.second, result['장구분'], result['장상태'])
                 self.textBrowser.append(txt)
                 self.parent.textBrowser.append(txt)
 
                 # 장시작 10분전
                 if result['장구분'] == '5' and result['장상태'] == '25':
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 장시작 10분전입니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 장시작 10분전입니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
 
                 # 현물장 시작 10초전
                 elif result['장구분'] == '1' and result['장상태'] == '22':
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 현물장 시작 10초전입니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 현물장 시작 10초전입니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
 
                 # 선물장 시작 10초전
                 elif result['장구분'] == '5' and result['장상태'] == '22':
                 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 선물장 시작 10초전입니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 선물장 시작 10초전입니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
 
                 # 주간 선물/옵션장 시작
@@ -21961,16 +22065,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     DOW_주간_시작가 = DOW_현재가
                     WTI_주간_시작가 = WTI_현재가
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장이 시작됩니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] DOW 주간시작가 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, DOW_주간_시작가)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] DOW 주간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, DOW_주간_시작가)
                     self.textBrowser.append(txt)
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] WTI 주간시작가 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, WTI_주간_시작가)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] WTI 주간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, WTI_주간_시작가)
                     self.textBrowser.append(txt)
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 예상지수요청을 취소합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 예상지수요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
 
                     if not MULTIPROCESS:
@@ -21994,7 +22098,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                     market_service = True
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 시작됩니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
 
                     DOW_야간_시작가 = DOW_현재가
@@ -22005,7 +22109,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.label_kospi.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
                     self.label_kospi.setText(jisu_txt)
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] DOW 야간시작가 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, DOW_야간_시작가)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] DOW 야간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, DOW_야간_시작가)
                     self.textBrowser.append(txt)
 
                     jisu_txt = "WTI 야간시작가: {0}".format(WTI_야간_시작가)
@@ -22013,7 +22117,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.label_kosdaq.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
                     self.label_kosdaq.setText(jisu_txt)
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] WTI 야간시작가 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, WTI_야간_시작가)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] WTI 야간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, WTI_야간_시작가)
                     self.textBrowser.append(txt)
 
                 # 야간 옵션장 시작
@@ -22021,7 +22125,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     market_service = True
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 시작됩니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
 
                     DOW_야간_시작가 = DOW_현재가
@@ -22032,7 +22136,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.label_kospi.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
                     self.label_kospi.setText(jisu_txt)
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] DOW 야간시작가 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, DOW_야간_시작가)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] DOW 야간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, DOW_야간_시작가)
                     self.textBrowser.append(txt)
 
                     jisu_txt = "WTI 야간시작가: {0}".format(WTI_야간_시작가)
@@ -22040,36 +22144,36 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.label_kosdaq.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
                     self.label_kosdaq.setText(jisu_txt)
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] WTI 야간시작가 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, WTI_야간_시작가)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] WTI 야간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, WTI_야간_시작가)
                     self.textBrowser.append(txt)
 
                 # 미국 주식장 시작
                 elif result['장구분'] == '9' and result['장상태'] == '21':
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 미국 주식장이 시작됩니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 미국 주식장이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
 
                 # 현물 장마감 5분전
                 elif result['장구분'] == '1' and result['장상태'] == '44':
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 현물 장마감 5분전입니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 현물 장마감 5분전입니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
 
                 # 현물 장마감 1분전
                 elif result['장구분'] == '1' and result['장상태'] == '43':
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 현물 장마감 1분전입니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 현물 장마감 1분전입니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
 
                 # 장후 동시호가 시작
                 elif result['장구분'] == '5' and result['장상태'] == '31':
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 장후 동시호가가 시작되었습니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 장후 동시호가가 시작되었습니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
 
                     dongsi_quote = True
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
 
                     if self.telegram_send_worker.isRunning():
@@ -22085,20 +22189,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 주간 선물/옵션장 종료
                 elif result['장구분'] == '5' and result['장상태'] == '41':
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물/옵션장이 종료되었습니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물/옵션장이 종료되었습니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
                     self.parent.textBrowser.append(txt)
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 S&P 500 지수 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, SP500_현재가)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 S&P 500 지수 = {3}\r'.format(dt.hour, dt.minute, dt.second, SP500_현재가)
                     self.textBrowser.append(txt)
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 DOW 지수 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, DOW_현재가)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 DOW 지수 = {3}\r'.format(dt.hour, dt.minute, dt.second, DOW_현재가)
                     self.textBrowser.append(txt)
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 NASDAQ 지수 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, NASDAQ_현재가)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 NASDAQ 지수 = {3}\r'.format(dt.hour, dt.minute, dt.second, NASDAQ_현재가)
                     self.textBrowser.append(txt)
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 WTI 지수 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, WTI_현재가)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 WTI 지수 = {3}\r'.format(dt.hour, dt.minute, dt.second, WTI_현재가)
                     self.textBrowser.append(txt)
 
                     if market_service:
@@ -22181,7 +22285,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 야간 선물장 종료
                 elif result['장구분'] == '7' and result['장상태'] == '41':
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 종료되었습니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 종료되었습니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
                     self.parent.textBrowser.append(txt)
 
@@ -22222,7 +22326,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.pushButton_start.setText(' ScrShot ')
 
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
 
                         if self.telegram_send_worker.isRunning():
@@ -22242,7 +22346,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 야간 옵션장 종료(선물장보다 1시간 먼저 종료됨)
                 elif result['장구분'] == '8' and result['장상태'] == '41':
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 종료되었습니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 종료되었습니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
                     self.parent.textBrowser.append(txt)
 
@@ -22265,7 +22369,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.pushButton_start.setText(' ScrShot ')
 
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
 
                         if self.telegram_send_worker.isRunning():
@@ -22284,6 +22388,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # 아침 6경 발생 --> 미국주식 장마감
                 elif result['장구분'] == '9' and result['장상태'] == '41':
+
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 미국주식장 마감합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+
                     yagan_service_terminate = True
                 else:
                     pass
