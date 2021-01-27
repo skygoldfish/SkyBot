@@ -152,6 +152,7 @@ put_scroll_depth = 30
 선물_종가 = 0
 선물_피봇 = 0
 선물_시가 = 0
+선물_예상시가 = 0
 
 선물_저가 = 0
 
@@ -1879,8 +1880,8 @@ plot4_processing_time = 0
 plot5_processing_time = 0
 plot6_processing_time = 0
 
-flag_mp_interval_changed = False
-mp_send_interval = MP_SEND_INTERVAL
+flag_realdata_view_changed = False
+realdata_view_tolerance = TIME_INDEX1
 
 cm_fut_quote_min = 0
 cm_fut_quote_mean = 0
@@ -2558,7 +2559,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2571,7 +2572,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1       
@@ -2584,7 +2585,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2597,7 +2598,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1             
@@ -2610,7 +2611,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2623,7 +2624,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2636,7 +2637,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2649,7 +2650,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2662,7 +2663,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2675,7 +2676,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2690,7 +2691,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             self.total_option_packet_size += sys.getsizeof(data)
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2705,7 +2706,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             self.total_option_packet_size += sys.getsizeof(data)
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2718,7 +2719,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2735,7 +2736,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1 
@@ -2748,7 +2749,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1                       
@@ -2799,7 +2800,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
     def run(self):
 
-        global flag_main_process_queue_empty, flag_mp_interval_changed                  
+        global flag_main_process_queue_empty, flag_realdata_view_changed                  
 
         while True:
 
@@ -2845,7 +2846,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -2858,7 +2859,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1       
@@ -2871,7 +2872,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -2884,7 +2885,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -2897,7 +2898,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -2910,7 +2911,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -2923,7 +2924,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -2936,7 +2937,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -2949,7 +2950,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -2962,7 +2963,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -2977,7 +2978,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 self.total_option_packet_size += sys.getsizeof(data)
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -2992,7 +2993,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 self.total_option_packet_size += sys.getsizeof(data)
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -3005,7 +3006,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -3022,7 +3023,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1                            
@@ -3035,7 +3036,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1                            
@@ -3047,13 +3048,13 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                     else:
                         self.drop_count += 1
 
-                    if flag_mp_interval_changed:
-                        print('MP interval changed...')
-                        flag_mp_interval_changed = False
+                    if flag_realdata_view_changed:
+                        print('RealTime View interval changed...')
+                        flag_realdata_view_changed = False
                     else:
                         pass
 
-                    QTest.qWait(mp_send_interval)
+                    #QTest.qWait(mp_send_interval)
                 else:
                     flag_main_process_queue_empty = True
 
@@ -3127,7 +3128,7 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -3140,7 +3141,7 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -3155,7 +3156,7 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -3168,7 +3169,7 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -3179,7 +3180,7 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
                 else:
                     self.drop_count += 1
                 
-                QTest.qWait(mp_send_interval)
+                #QTest.qWait(mp_send_interval)
             else:
                 flag_2nd_process_queue_empty = True
                     
@@ -3246,7 +3247,7 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -3259,7 +3260,7 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -3274,7 +3275,7 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -3287,7 +3288,7 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_INDEX1:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -3298,7 +3299,7 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
                 else:
                     self.drop_count += 1
 
-                QTest.qWait(mp_send_interval)
+                #QTest.qWait(mp_send_interval)
             else:
                 flag_3rd_process_queue_empty = True
 
@@ -5990,7 +5991,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.textBrowser.append(txt)
                                     print(txt)
 
-                                    self.realtime_main_dataworker.terminate()
+                                    if self.realtime_main_dataworker.isRunning():
+                                        self.realtime_main_dataworker.terminate()
+                                    else:
+                                        pass
 
                                     if MP_NUMBER == 2:
                                         self.realtime_2nd_dataworker.terminate()
@@ -6075,6 +6079,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                         ThirdProcess.CancelAllRealData()
                                     else:
                                         pass
+
+                                    QTest.qWait(10)
+
+                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 쓰레드를 종료합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                                    self.textBrowser.append(txt)
+                                    print(txt)
+
+                                    if self.realtime_main_dataworker.isRunning():
+                                        self.realtime_main_dataworker.terminate()
+                                    else:
+                                        pass
+
+                                    if MP_NUMBER == 2:
+                                        self.realtime_2nd_dataworker.terminate()
+                                    elif MP_NUMBER == 3:
+                                        self.realtime_2nd_dataworker.terminate()
+                                        self.realtime_3rd_dataworker.terminate()
+                                    else:
+                                        pass
                                     
                                     QTest.qWait(10)
 
@@ -6090,23 +6113,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                         SecondProcess.connection.disconnect()
                                         ThirdProcess.connection.disconnect()
                                     else:
-                                        pass
-
-                                    QTest.qWait(10)
-
-                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 쓰레드를 종료합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
-                                    self.textBrowser.append(txt)
-                                    print(txt)
-
-                                    self.realtime_main_dataworker.terminate()
-
-                                    if MP_NUMBER == 2:
-                                        self.realtime_2nd_dataworker.terminate()
-                                    elif MP_NUMBER == 3:
-                                        self.realtime_2nd_dataworker.terminate()
-                                        self.realtime_3rd_dataworker.terminate()
-                                    else:
-                                        pass
+                                        pass                                    
 
                                     txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 로그인을 종료합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                                     self.textBrowser.append(txt)
@@ -21995,7 +22002,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global SP500_현재가_버퍼
         global NASDAQ_현재가_버퍼
         global WTI_현재가_버퍼
-        global 선물_시가, 선물_피봇, 선물_현재가, 선물_진폭비, 선물_DOW_진폭비율
+        global 선물_시가, 선물_피봇, 선물_현재가, 선물_진폭비, 선물_DOW_진폭비율, 선물_예상시가
         global call_remainder_ratio, put_remainder_ratio
         
         global kospi_price, kospi_text_color   
@@ -22044,6 +22051,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 elif result['장구분'] == '1' and result['장상태'] == '22':
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 현물장 시작 10초전입니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+
+                # 선물장 장전 동시호가 개시
+                elif result['장구분'] == '5' and result['장상태'] == '11':
+
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 선물장 장전 동시호가 개시합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
 
                 # 선물장 시작 10초전
@@ -22434,7 +22447,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
                     
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] YJ KOSPI200 예상시가 = {3}, 예상등가 = {4}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, result['예상지수'], atm_txt)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 선물/KOSPI200 예상시가 = {3}/{4}, 예상등가 = {5}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 선물_예상시가, result['예상지수'], atm_txt)
                     self.textBrowser.append(txt)
 
                     if atm_txt in opt_actval:
@@ -22460,6 +22473,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if result['단축코드'] == GMSHCODE:
 
                     예상체결가격 = '{0:.2f}'.format(result['예상체결가격'])
+                    선물_예상시가 = result['예상체결가격']
 
                     # 그래프 가격갱신
                     df_futures_graph.at[ovc_x_idx, 'price'] = result['예상체결가격']
@@ -22527,8 +22541,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.tableWidget_fut.setItem(1, Futures_column.시가.value, item)
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] YFC 선물 예상시가 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, result['예상체결가격'])
-                    self.textBrowser.append(txt)
+                    #txt = '[{0:02d}:{1:02d}:{2:02d}] YFC 선물 예상시가 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, result['예상체결가격'])
+                    #self.textBrowser.append(txt)
 
                     시가갭 = 선물_시가 - self.fut_realdata['종가']
 
@@ -24926,7 +24940,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.spinBox_put_itm.setValue(put_itm_number)
         self.spinBox_put_otm.setValue(put_otm_number)
 
-        txt = str(mp_send_interval)
+        txt = str(realdata_view_tolerance)
         self.lineEdit_mp.setText(txt)
 
         txt = str(plot_update_interval)
@@ -25123,16 +25137,16 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
     def change_mp_interval(self):
 
-        global mp_send_interval, flag_mp_interval_changed
+        global realdata_view_tolerance, flag_realdata_view_changed
 
         dt = datetime.datetime.now()
 
         txt = self.lineEdit_mp.text()
-        mp_send_interval = int(txt)
+        realdata_view_tolerance = int(txt)
 
-        flag_mp_interval_changed = True
+        flag_realdata_view_changed = True
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 주기를 {3} msec로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, mp_send_interval)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 데이타보기 허용오차 시간을 {3} sec로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, realdata_view_tolerance)
         self.parent.textBrowser.append(txt)
 
     def change_plot_interval(self):
@@ -37607,7 +37621,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
         else:            
-            txt = txt = ' [{0}], {1:.2f} ms '.format(ovc_x_idx, time_gap, plot6_processing_time)
+            txt = txt = ' [{0}], {1:.2f} ms '.format(time_gap, plot6_processing_time)
    
         self.label_time_6.setText(txt)
 
@@ -38867,10 +38881,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:                    
                     time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
 
-                txt = ' 시스템 시간/[{0}] 수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), 시스템서버간 시간차 = {8}초\r'.format(szTrCode, \
+                txt = ' 시스템시간/[{0}] 수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), 시스템서버간 시간차 = {8}초\r'.format(szTrCode, \
                     dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, 시스템_서버_시간차)
 
-                if abs(time_gap) >= TIME_INDEX1:
+                if abs(time_gap) >= realdata_view_tolerance:
                     self.statusbar.setStyleSheet("color : red")
                 else:
                     if DARK_STYLESHEET:
@@ -39102,7 +39116,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 txt = ' 시스템 시간/[{0}] 수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), 시스템서버간 시간차 = {8}초\r'.format(szTrCode, \
                     dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, 시스템_서버_시간차)
 
-                if abs(time_gap) >= TIME_INDEX1:
+                if abs(time_gap) >= realdata_view_tolerance:
                     self.statusbar.setStyleSheet("color : red")
                 else:
                     if DARK_STYLESHEET:
@@ -39685,7 +39699,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 QTest.qWait(10)
 
                 print('모든 멀티프로세스 쓰레드 종료...')
-                self.realtime_main_dataworker.terminate()
+
+                if self.realtime_main_dataworker.isRunning():
+                    self.realtime_main_dataworker.terminate()
+                else:
+                    pass
 
                 if MP_NUMBER == 2:
                     self.realtime_2nd_dataworker.terminate()

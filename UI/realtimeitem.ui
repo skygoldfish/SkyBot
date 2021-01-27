@@ -375,7 +375,7 @@
    <property name="title">
     <string>Plot 우선모드 및 갱신주기</string>
    </property>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -456,9 +456,9 @@
     </font>
    </property>
    <property name="title">
-    <string>실시간 Data 갱신주기</string>
+    <string>실시간 Data 갱신 허용오차</string>
    </property>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -484,7 +484,7 @@
         </font>
        </property>
        <property name="text">
-        <string>msec</string>
+        <string>sec</string>
        </property>
       </widget>
      </item>
@@ -510,7 +510,7 @@
    <property name="title">
     <string>내가, 외가 설정</string>
    </property>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>12</x>
@@ -555,7 +555,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>12</x>
