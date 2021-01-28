@@ -2818,13 +2818,12 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                     self.total_packet_size += sys.getsizeof(data)
 
                     if type(data) == list:
+
                         self.trigger_list.emit(data)
-                    else:
-                        pass
 
-                    if not flag_main_realdata_update_is_running:                    
+                    elif type(data) == dict:
 
-                        if type(data) == dict:                                
+                        if not flag_main_realdata_update_is_running:
 
                             if data['szTrCode'] == 'JIF':
 
@@ -3041,12 +3040,11 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                                 else:
                                     self.drop_count += 1                            
                             else:
-                                pass     
+                                pass
                         else:
-                            pass
-                        # 실시간 그래프 호출을 여기서 할수 있음!!! --> 데이타프레임을 만든후 emit
+                            self.drop_count += 1
                     else:
-                        self.drop_count += 1
+                        pass
 
                     if flag_realdata_view_changed:
                         print('RealTime View interval changed...')
@@ -23907,7 +23905,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         cm_fut_quote_min = df_futures_graph['c_quote_remainder_ratio'].min()
                         cm_fut_quote_mean = df_futures_graph['c_quote_remainder_ratio'].mean()
-                        cm_fut_quote_max = df_futures_graph['c_quote_remainder_ratio'].max()                         
+                        cm_fut_quote_max = df_futures_graph['c_quote_remainder_ratio'].max()
+
+                        item_txt = '{0:.2f}'.format(cm_fut_quote_min)
+
+                        if item_txt != self.tableWidget_fut.horizontalHeaderItem(6).text():                        
+                            item = QTableWidgetItem(item_txt)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            self.tableWidget_fut.setHorizontalHeaderItem(6, item)
+                        else:
+                            pass                         
                     else:
                         pass
 
