@@ -5991,16 +5991,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.textBrowser.append(txt)
                                     print(txt)
 
-                                    if self.realtime_main_dataworker.isRunning():
-                                        self.realtime_main_dataworker.terminate()
+                                    if self.parent.realtime_main_dataworker.isRunning():
+                                        self.parent.realtime_main_dataworker.terminate()
                                     else:
                                         pass
 
                                     if MP_NUMBER == 2:
-                                        self.realtime_2nd_dataworker.terminate()
+                                        self.parent.realtime_2nd_dataworker.terminate()
                                     elif MP_NUMBER == 3:
-                                        self.realtime_2nd_dataworker.terminate()
-                                        self.realtime_3rd_dataworker.terminate()
+                                        self.parent.realtime_2nd_dataworker.terminate()
+                                        self.parent.realtime_3rd_dataworker.terminate()
                                     else:
                                         pass
 
@@ -6086,16 +6086,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.textBrowser.append(txt)
                                     print(txt)
 
-                                    if self.realtime_main_dataworker.isRunning():
-                                        self.realtime_main_dataworker.terminate()
+                                    if self.parent.realtime_main_dataworker.isRunning():
+                                        self.parent.realtime_main_dataworker.terminate()
                                     else:
                                         pass
 
                                     if MP_NUMBER == 2:
-                                        self.realtime_2nd_dataworker.terminate()
+                                        self.parent.realtime_2nd_dataworker.terminate()
                                     elif MP_NUMBER == 3:
-                                        self.realtime_2nd_dataworker.terminate()
-                                        self.realtime_3rd_dataworker.terminate()
+                                        self.parent.realtime_2nd_dataworker.terminate()
+                                        self.parent.realtime_3rd_dataworker.terminate()
                                     else:
                                         pass
                                     
