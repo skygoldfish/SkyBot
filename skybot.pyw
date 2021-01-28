@@ -2762,9 +2762,9 @@ class RealTime_Thread_DataWorker(QThread):
 
             except Exception as e:
 
-                self.trigger_exception.emit(data['szTrCode'], e)
+                self.trigger_exception.emit(data['szTrCode'], str(e))
 
-                txt = '{0} 큐 쓰레드에서 {1}예외가 발생했습니다.'.format(data['szTrCode'], e)
+                txt = '{0} 큐 쓰레드에서 {1}예외가 발생했습니다.'.format(data['szTrCode'], str(e))
                 print(txt)
 
 #####################################################################################################################################################################
@@ -3060,9 +3060,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
             except Exception as e:
 
-                self.trigger_exception.emit(data['szTrCode'], e)
+                self.trigger_exception.emit(data['szTrCode'], str(e))
 
-                txt = '{0} 멀티프로세스 큐 쓰레드에서 {1}예외가 발생했습니다.'.format(data['szTrCode'], e)
+                txt = '{0} 멀티프로세스 큐 쓰레드에서 {1}예외가 발생했습니다.'.format(data['szTrCode'], str(e))
                 print(txt)
 
 class RealTime_2ND_MP_Thread_DataWorker(QThread):
@@ -15377,7 +15377,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
 
-                    if pre_start:
+                    if DayTime and pre_start:
                         item.setForeground(QBrush(검정색))
                     else:
                         if 시가 > 0:
@@ -15605,7 +15605,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(i, Option_column.VP.value, item)
 
-                    if pre_start:
+                    if DayTime and pre_start:
 
                         temp = format(순미결, ',')
                     else:
@@ -15669,7 +15669,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem(temp)
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.VP.value, item)
 
-                if pre_start:
+                if DayTime and pre_start:
 
                     순미결합 = format(df_call['순미결'].sum(), ',')
 
@@ -15714,7 +15714,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
 
-                    if pre_start:
+                    if DayTime and pre_start:
                         item.setForeground(QBrush(검정색))
                     else:
                         if 시가 > 0:
@@ -15942,7 +15942,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_put.setItem(i, Option_column.VP.value, item)                   
 
-                    if pre_start:
+                    if DayTime and pre_start:
 
                         temp = format(순미결, ',')
                     else:
@@ -16006,7 +16006,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem(temp)
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.VP.value, item)
 
-                if pre_start:
+                if DayTime and pre_start:
 
                     순미결합 = format(df_put['순미결'].sum(), ',')
 
@@ -16711,7 +16711,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             szTrCode, df = result
 
-            if pre_start:
+            if DayTime and pre_start:
 
                 if df['종합지수전일대비구분'] == '5':
 
@@ -19928,20 +19928,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.realdata_request_number += 1               
 
         # KOSPI200 지수요청
-        txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI200 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-        self.textBrowser.append(txt)
-        print(txt)
+        if DayTime:
+            txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI200 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+            print(txt)
 
-        if not MULTIPROCESS:
-            self.parent.realtime_thread_dataworker.RequestRealData('IJ', KOSPI200)
-            self.parent.realtime_thread_dataworker.RequestRealData('IJ', FUTURES)
+            if not MULTIPROCESS:
+                self.parent.realtime_thread_dataworker.RequestRealData('IJ', KOSPI200)
+                self.parent.realtime_thread_dataworker.RequestRealData('IJ', FUTURES)
+            else:
+                MainProcess.RequestRealData('IJ', KOSPI200)
+                MainProcess.RequestRealData('IJ', FUTURES)
+
+            self.realdata_request_number += 1
         else:
-            MainProcess.RequestRealData('IJ', KOSPI200)
-            MainProcess.RequestRealData('IJ', FUTURES)
+            pass
 
-        self.realdata_request_number += 1
-
-        if pre_start:
+        if DayTime and pre_start:
 
             # KOSPI200/FUTURES 예상지수 요청
             txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI200, KOSDAQ 예상체결을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
@@ -20026,7 +20029,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             print(txt)
 
-            if pre_start:
+            if DayTime and pre_start:
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 예상가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
                 print(txt)
@@ -20039,7 +20042,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.parent.realtime_thread_dataworker.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
 
                     # 지수옵션 예상체결 요청
-                    if pre_start:
+                    if DayTime and pre_start:
                         self.parent.realtime_thread_dataworker.RequestRealData('YOC', CM_CALL_CODE[i])
                         self.parent.realtime_thread_dataworker.RequestRealData('YOC', CM_PUT_CODE[i])
                     else:
@@ -20058,7 +20061,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass                    
 
                     # 지수옵션 예상체결 요청
-                    if pre_start:
+                    if DayTime and pre_start:
                         MainProcess.RequestRealData('YOC', CM_CALL_CODE[i])
                         MainProcess.RequestRealData('YOC', CM_PUT_CODE[i])       
                     else:
@@ -20074,7 +20077,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             print(txt)
 
-            if pre_start:
+            if DayTime and pre_start:
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 예상가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
                 self.textBrowser.append(txt)
                 print(txt)
@@ -20091,7 +20094,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.parent.textBrowser.append(txt)
                         print(txt)
 
-                        if pre_start:                            
+                        if DayTime and pre_start:                            
                             self.parent.realtime_thread_dataworker.RequestRealData('YOC', CM_CALL_CODE[i])
                         else:
                             pass
@@ -20107,7 +20110,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.parent.textBrowser.append(txt)
                         print(txt)
 
-                        if pre_start:
+                        if DayTime and pre_start:
                             self.parent.realtime_thread_dataworker.RequestRealData('YOC', CM_PUT_CODE[i])
                         else:
                             pass
@@ -20131,7 +20134,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.parent.textBrowser.append(txt)
                         print(txt)
 
-                        if pre_start:
+                        if DayTime and pre_start:
                             MainProcess.RequestRealData('YOC', CM_CALL_CODE[i])                           
                         else:
                             pass
@@ -20155,7 +20158,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.parent.textBrowser.append(txt)
                         print(txt)
 
-                        if pre_start:
+                        if DayTime and pre_start:
                             MainProcess.RequestRealData('YOC', CM_PUT_CODE[i])                            
                         else:
                             pass
@@ -20315,7 +20318,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             print(txt)
 
-            if pre_start:
+            if DayTime and pre_start:
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 예상가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
                 print(txt)
@@ -20328,7 +20331,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.parent.realtime_thread_dataworker.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
 
                     # 지수옵션 예상체결 요청
-                    if pre_start:
+                    if DayTime and pre_start:
                         self.parent.realtime_thread_dataworker.RequestRealData('YOC', NM_CALL_CODE[i])
                         self.parent.realtime_thread_dataworker.RequestRealData('YOC', NM_PUT_CODE[i])
                     else:
@@ -20347,7 +20350,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                     # 지수옵션 예상체결 요청
-                    if pre_start:
+                    if DayTime and pre_start:
                         MainProcess.RequestRealData('YOC', NM_CALL_CODE[i])
                         MainProcess.RequestRealData('YOC', NM_PUT_CODE[i])                
                     else:
@@ -20363,7 +20366,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             print(txt)
 
-            if pre_start:
+            if DayTime and pre_start:
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 예상가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
                 self.textBrowser.append(txt)
                 print(txt)
@@ -20380,7 +20383,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.parent.textBrowser.append(txt)
                         print(txt)
 
-                        if pre_start:                            
+                        if DayTime and pre_start:                            
                             self.parent.realtime_thread_dataworker.RequestRealData('YOC', NM_CALL_CODE[i])
                         else:
                             pass
@@ -20396,7 +20399,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.parent.textBrowser.append(txt)
                         print(txt)
 
-                        if pre_start:
+                        if DayTime and pre_start:
                             self.parent.realtime_thread_dataworker.RequestRealData('YOC', NM_PUT_CODE[i])
                         else:
                             pass
@@ -20420,7 +20423,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.parent.textBrowser.append(txt)
                         print(txt)
 
-                        if pre_start:                            
+                        if DayTime and pre_start:                            
                             MainProcess.RequestRealData('YOC', NM_CALL_CODE[i])
                         else:
                             pass
@@ -20444,7 +20447,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.parent.textBrowser.append(txt)
                         print(txt)
 
-                        if pre_start:
+                        if DayTime and pre_start:
                             MainProcess.RequestRealData('YOC', NM_PUT_CODE[i])
                         else:
                             pass
