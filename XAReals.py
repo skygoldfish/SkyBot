@@ -1806,7 +1806,7 @@ class BM_(XAReal):
                 if '거래대금순매수' in result and '거래대금순매수직전대비' in result:
                     self.parent.OnReceiveRealData(result)
                 else:
-                    print('BM =', result)
+                    pass
 
         except Exception as e:
             
