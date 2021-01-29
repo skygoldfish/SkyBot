@@ -2761,11 +2761,12 @@ class RealTime_Thread_DataWorker(QThread):
                     flag_main_process_queue_empty = True
 
             except Exception as e:
-
-                self.trigger_exception.emit(data['szTrCode'], str(e))
-
+                
+                # e 클래스의 이름은 type(e).__name__, 예외항목 내용은 str(e)
                 txt = '{0} 큐 쓰레드에서 {1}예외가 발생했습니다.'.format(data['szTrCode'], str(e))
                 print(txt)
+
+                self.trigger_exception.emit(data['szTrCode'], str(e))
 
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 멀티프로세스 쓰레드 클래스
@@ -3057,11 +3058,11 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                     flag_main_process_queue_empty = True
 
             except Exception as e:
-
-                self.trigger_exception.emit(data['szTrCode'], str(e))
-
+                
                 txt = '{0} 멀티프로세스 큐 쓰레드에서 {1}예외가 발생했습니다.'.format(data['szTrCode'], str(e))
                 print(txt)
+
+                self.trigger_exception.emit(data['szTrCode'], str(e))
 
 class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
@@ -6173,7 +6174,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
         except Exception as e:
-            txt = '[{0:02d}:{1:02d}:{2:02d}] update screen에서 {3}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, e)
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] update screen에서 {3}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, str(e))
             self.textBrowser.append(txt)
             self.parent.textBrowser.append(txt)
 
@@ -21886,7 +21888,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
         except Exception as e:
-            txt = '[{0:02d}:{1:02d}:{2:02d}] OVC {3}에서 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, result['종목코드'], e)
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] OVC {3}에서 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, result['종목코드'], str(e))
             self.textBrowser.append(txt)
             self.parent.textBrowser.append(txt)
 
@@ -24598,7 +24601,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
         except Exception as e:
-            txt = '[{0:02d}:{1:02d}:{2:02d}] {3}에서 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, szTrCode, e)
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] {3}에서 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, szTrCode, str(e))
             self.textBrowser.append(txt)
             self.parent.textBrowser.append(txt)
 
