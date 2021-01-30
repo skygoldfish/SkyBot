@@ -3606,6 +3606,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_put.item(i, 0).setBackground(QBrush(검정색))
             self.tableWidget_put.item(i, 0).setForeground(QBrush(흰색))
 
+            # 테이블위젯내 체크박스 스테이트 변화 이벤트 발생로직
+            call_ch = self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox()))
+            call_ch.clicked.connect(lambda checked, row=i, col=0: self.OnCallTable_CheckStateChanged(checked, row, col))
+
+            put_ch = self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox()))
+            put_ch.clicked.connect(lambda checked, row=i, col=0: self.OnPutTable_CheckStateChanged(checked, row, col))
+
             for j in range(self.tableWidget_call.columnCount() - 1):
 
                 item = QTableWidgetItem("{0}".format('-'))
@@ -3613,6 +3620,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.setItem(i, j + 1, item)
                 self.tableWidget_call.item(i, j + 1).setBackground(QBrush(검정색))
                 self.tableWidget_call.item(i, j + 1).setForeground(QBrush(흰색))
+                
+                self.tableWidget_call.resizeColumnToContents(j + 1)
 
                 item = QTableWidgetItem("{0}".format('-'))
                 item.setTextAlignment(Qt.AlignCenter)
@@ -3620,18 +3629,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.item(i, j + 1).setBackground(QBrush(검정색))
                 self.tableWidget_put.item(i, j + 1).setForeground(QBrush(흰색))
 
-        # 테이블위젯내 체크박스 스테이트 변화 이벤트 발생로직
-        for i in range(ActvalCount):
-            call_ch = self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox()))
-            call_ch.clicked.connect(lambda checked, row=i, col=0: self.OnCallTable_CheckStateChanged(checked, row, col))
+                self.tableWidget_put.resizeColumnToContents(j + 1)
 
-            put_ch = self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox()))
-            put_ch.clicked.connect(lambda checked, row=i, col=0: self.OnPutTable_CheckStateChanged(checked, row, col))
-
+                # 긴 loop를 도는 동안 GUI 응답없음을 방지하기 위함
+                QApplication.processEvents()
+        
         # 선물 tablewidget 초기화
         self.tableWidget_fut.setRowCount(3)
         self.tableWidget_fut.setColumnCount(Futures_column.OID.value + 1)
-
         self.tableWidget_fut.horizontalHeader().setStyleSheet(fut_header_stylesheet)
 
         self.tableWidget_fut.setHorizontalHeaderLabels(
@@ -3647,6 +3652,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setBackground(QBrush(검정색))
                 item.setForeground(QBrush(흰색))
                 self.tableWidget_fut.setItem(i, j, item)
+                self.tableWidget_fut.resizeColumnToContents(j)
         
         item = QTableWidgetItem("{0}".format('야간'))
         item.setTextAlignment(Qt.AlignCenter)
@@ -4017,10 +4023,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.XingAdminCheck()
 
-        self.checkBox_HS.stateChanged.connect(self.checkBox_HS_checkState)
-        
-        self.tableWidget_call.resizeColumnsToContents()
-        self.tableWidget_put.resizeColumnsToContents()
+        self.checkBox_HS.stateChanged.connect(self.checkBox_HS_checkState)        
 
         self.pushButton_start.setFocus()
 
@@ -27154,6 +27157,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         for i in range(option_pairs_count):
             self.plot1_call_curve.append(self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
             self.plot1_put_curve.append(self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+            QApplication.processEvents()
         
         # 옵션잔량비
         self.plot1_call_quote_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
@@ -27256,6 +27260,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         for i in range(option_pairs_count):
             self.plot2_call_curve.append(self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
             self.plot2_put_curve.append(self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+            QApplication.processEvents()
         
         # 옵션잔량비
         self.plot2_call_quote_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
@@ -27358,6 +27363,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         for i in range(option_pairs_count):
             self.plot3_call_curve.append(self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
             self.plot3_put_curve.append(self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+            QApplication.processEvents()
         
         # 옵션잔량비
         self.plot3_call_quote_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
@@ -27460,6 +27466,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         for i in range(option_pairs_count):
             self.plot4_call_curve.append(self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
             self.plot4_put_curve.append(self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+            QApplication.processEvents()
         
         # 옵션잔량비
         self.plot4_call_quote_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
@@ -27562,6 +27569,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         for i in range(option_pairs_count):
             self.plot5_call_curve.append(self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
             self.plot5_put_curve.append(self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+            QApplication.processEvents()
         
         # 옵션잔량비
         self.plot5_call_quote_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
@@ -27664,6 +27672,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         for i in range(option_pairs_count):
             self.plot6_call_curve.append(self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
             self.plot6_put_curve.append(self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+            QApplication.processEvents()
         
         # 옵션잔량비
         self.plot6_call_quote_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
@@ -39035,7 +39044,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
                 self.dialog['선물옵션전광판'].show()
 
-                QTest.qWait(3000)
+                #QTest.qWait(3000)
 
                 self.dialog['선물옵션전광판'].RunCode()
             else:
@@ -39265,7 +39274,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
                 self.dialog['선물옵션전광판'].show()
 
-                QTest.qWait(3000)
+                #QTest.qWait(3000)
 
                 self.dialog['선물옵션전광판'].RunCode()
             else:
@@ -39356,7 +39365,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
                 self.dialog['선물옵션전광판'].show()
 
-                QTest.qWait(3000)
+                #QTest.qWait(3000)
 
                 self.dialog['선물옵션전광판'].RunCode()
             else:
@@ -39563,7 +39572,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
                 self.dialog['선물옵션전광판'].show()
 
-                QTest.qWait(2000)
+                #QTest.qWait(2000)
 
                 self.dialog['선물옵션전광판'].RunCode()
             else:
