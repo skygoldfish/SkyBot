@@ -39111,9 +39111,41 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         dt = datetime.datetime.now()
 
+        if flag_main_process_queue_empty:
+            self.label_1st.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal")
+        else:
+            self.label_1st.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal")
+
+        txt = "{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time)
+        self.label_1st.setText(txt)
+
+        # 수신된 실시간데이타 정보표시(누락된 패킷수, 큐의 크기, 수신된 총 패킷수, 수신된 총 패킷크기)            
+        szTrCode = realdata['szTrCode']
+
+        if szTrCode == 'JIF' or szTrCode == 'BM_' or szTrCode == 'PM_':
+            pass
+        else:
+            if szTrCode == 'EH0' and int(realdata['수신시간'][0:2]) >= 24:
+                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - ((int(realdata['수신시간'][0:2]) - 24) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
+            else:                    
+                time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
+
+            txt = ' 시스템시간/[{0}] 수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), 시스템서버간 시간차 = {8}초\r'.format(szTrCode, \
+                dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, 시스템_서버_시간차)
+
+            if abs(time_gap) >= realdata_view_tolerance:
+                self.statusbar.setStyleSheet("color : red")
+            else:
+                if DARK_STYLESHEET:
+                    self.statusbar.setStyleSheet("color : lawngreen")
+                else:
+                    self.statusbar.setStyleSheet("color : darkgreen")
+
+            self.statusbar.showMessage(txt)
+
         # 데이타를 전광판 다이얼로그로 전달
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:                
-
+            '''
             item = QTableWidgetItem("{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time))
             item.setTextAlignment(Qt.AlignCenter)
 
@@ -39125,35 +39157,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 item.setForeground(QBrush(cyan))                                                
 
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
-            self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnToContents(0)
+            self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnToContents(0)                       
 
-            # 수신된 실시간데이타 정보표시(누락된 패킷수, 큐의 크기, 수신된 총 패킷수, 수신된 총 패킷크기)            
-            szTrCode = realdata['szTrCode']
-
-            if szTrCode == 'JIF' or szTrCode == 'BM_' or szTrCode == 'PM_':
-                pass
-            else:
-                if szTrCode == 'EH0' and int(realdata['수신시간'][0:2]) >= 24:
-                        time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - ((int(realdata['수신시간'][0:2]) - 24) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
-                else:                    
-                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
-
-                txt = ' 시스템시간/[{0}] 수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), 시스템서버간 시간차 = {8}초\r'.format(szTrCode, \
-                    dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, 시스템_서버_시간차)
-
-                if abs(time_gap) >= realdata_view_tolerance:
-                    self.statusbar.setStyleSheet("color : red")
-                else:
-                    if DARK_STYLESHEET:
-                        self.statusbar.setStyleSheet("color : lawngreen")
-                    else:
-                        self.statusbar.setStyleSheet("color : darkgreen")
-
-                self.statusbar.showMessage(txt)
-
-                item = QTableWidgetItem('[{0}]'.format(time_gap))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.dialog['선물옵션전광판'].tableWidget_supply.setHorizontalHeaderItem(Supply_column.종합.value - 2, item)            
+            item = QTableWidgetItem('[{0}]'.format(time_gap))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.dialog['선물옵션전광판'].tableWidget_supply.setHorizontalHeaderItem(Supply_column.종합.value - 2, item)
+            '''            
 
             if MP_NUMBER == 1:
 
@@ -39194,15 +39203,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.dialog['선물옵션전광판'].tableWidget_supply.setHorizontalHeaderItem(Supply_column.종합.value - 1, item)
 
             self.dialog['선물옵션전광판'].UpdateRealdata(realdata)
-        else:            
-            szTrCode = realdata['szTrCode']
-
+        else:
+            pass
+            '''
             if szTrCode == 'NWS':
 
                 txt = '[{0}] {1}\r'.format(realdata['시간'], realdata['제목'])
                 self.textBrowser.append(txt)
             else:
                 pass
+            '''
 
     @pyqtSlot(list)
     def transfer_mp_2nd_trdata(self, trdata):
@@ -39249,22 +39259,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         dt = datetime.datetime.now()
 
+        if flag_2nd_process_queue_empty:
+            self.label_2nd.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal")
+        else:
+            self.label_2nd.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal")
+
+        txt = "{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time)
+        self.label_2nd.setText(txt)
+
         # 데이타를 전광판 다이얼로그로 전달
-        if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
-
-            item = QTableWidgetItem("{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time))
-            item.setTextAlignment(Qt.AlignCenter)
-
-            if flag_2nd_process_queue_empty:
-                item.setBackground(QBrush(흰색))
-            else:
-                item.setBackground(QBrush(검정색))
-
-            item.setForeground(QBrush(적색))                
-
-            self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
-            self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnToContents(0)                
-
+        if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:            
             self.dialog['선물옵션전광판'].UpdateSecondRealdata(realdata)
         else:
             pass
@@ -39314,22 +39318,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         dt = datetime.datetime.now()
 
+        if flag_3rd_process_queue_empty:
+            self.label_3rd.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal")
+        else:
+            self.label_3rd.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal")
+
+        txt = "{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time)
+        self.label_3rd.setText(txt)
+
         # 데이타를 전광판 다이얼로그로 전달
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
-
-            item = QTableWidgetItem("{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time))
-            item.setTextAlignment(Qt.AlignCenter)
-
-            if flag_3rd_process_queue_empty:
-                item.setBackground(QBrush(흰색))
-            else:
-                item.setBackground(QBrush(검정색))
-
-            item.setForeground(QBrush(적색))                
-
-            self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
-            self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnToContents(0)                
-
             self.dialog['선물옵션전광판'].UpdateThirdRealdata(realdata)
         else:
             pass 
