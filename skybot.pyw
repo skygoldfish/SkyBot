@@ -361,6 +361,7 @@ NEWS_CHK = parser.getboolean('RealTime Request Item Switch', 'NEWS')
 MA_TYPE = parser.getint('Moving Average Type', 'MA Type')
 
 # [8]. << Initial Value >>
+TIME_TOLERANCE = parser.getint('Initial Value', 'RealTime Tolerance(sec)')
 DOW_START = parser.get('Initial Value', 'Dow Start Time')
 MP_NUMBER = parser.getint('Initial Value', 'Number of Multiprocess')
 MP_SEND_INTERVAL = parser.getint('Initial Value', 'MP Send Interval')
@@ -381,7 +382,6 @@ BIGCHART_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Big Chart Update In
 SCORE_BOARD_UPDATE_INTERVAL = parser.getint('Initial Value', 'Score Board Update Interval(sec)')
 SECOND_DISPLAY_X_POSITION = parser.getint('Initial Value', 'X Position of the Second Display')
 SECOND_DISPLAY_Y_POSITION = parser.getint('Initial Value', 'Y Position of the Second Display')
-TIME_INDEX1 = parser.getint('Initial Value', 'Time Gap Index1')
 
 # [9]. << Code of the Foreign Futures (H/M/U/Z) >>
 SP500 = parser.get('Code of the Foreign Futures', 'S&P 500')
@@ -1881,7 +1881,7 @@ plot5_processing_time = 0
 plot6_processing_time = 0
 
 flag_realdata_view_changed = False
-realdata_view_tolerance = TIME_INDEX1
+realdata_view_tolerance = TIME_TOLERANCE
 
 cm_fut_quote_min = 0
 cm_fut_quote_mean = 0
