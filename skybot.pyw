@@ -20731,7 +20731,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
         
-        txt = '실시간 요청의 총수는 {0}개 입니다.'.format(self.realdata_request_number)
+        txt = '{0}개가 실시간 요청되었습니다.'.format(self.realdata_request_number)
         self.parent.speaker.setText(txt)
 
         item_txt = '{0}'.format(self.realdata_request_number)
@@ -39019,9 +39019,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.statusbar.showMessage(trdata[1])
             #playsound( "Resources/ring.wav" )
             if TARGET_MONTH == 'CM':
-                Speak('본월물 메인 프로세스 로그인 성공')
+                Speak('본월물 메인 프로세스를 생성합니다.')
             elif TARGET_MONTH == 'NM':
-                Speak('차월물 메인 프로세스 로그인 성공')
+                Speak('차월물 메인 프로세스를 생성합니다.')
 
             #self.speaker.setText('선물 프로세스 로그인 성공')
 
@@ -39244,7 +39244,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if self.second_connection.IsConnected():
 
-                txt = '2nd 백그라운드 로그인 성공 !!!\r'
+                txt = '2nd 백그라운드 프로세스 생성 !!!\r'
                 self.textBrowser.append(txt)
 
                 self.second_login = True
@@ -39253,7 +39253,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
 
             self.statusbar.showMessage(trdata[1])
-            Speak('세컨드 프로세스 로그인 성공')
+            Speak('Second 프로세스를 생성합니다.')
             #self.speaker.setText('세컨드 프로세스 로그인 성공')
 
             if AUTO_START and MP_NUMBER == 2 and self.main_login and self.second_login:
@@ -39333,7 +39333,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if self.third_connection.IsConnected():
 
-                txt = '3rd 백그라운드 로그인 성공 !!!\r'
+                txt = '3rd 백그라운드 프로세스 생성 !!!\r'
                 self.textBrowser.append(txt)
 
                 self.third_login = True
@@ -39342,7 +39342,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
 
             self.statusbar.showMessage(trdata[1])
-            Speak('써드 프로세스 로그인 성공')
+            Speak('써드 프로세스를 생성합니다.')
             #self.speaker.setText('써드 프로세스 로그인 성공')
 
             if AUTO_START and MP_NUMBER == 3 and self.main_login and self.second_login and self.third_login:

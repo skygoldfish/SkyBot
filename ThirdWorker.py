@@ -236,10 +236,10 @@ class ThirdWorker(mp.Process):
             self.data.append(code)
 
             if REAL_SERVER:
-                txt = '실서버 3rd 백그라운드 로그인 성공 !!!'
+                txt = '실서버 3rd 백그라운드 프로세스 생성 !!!'
                 self.data.append(txt)
             else:
-                txt = '모의서버 3rd 백그라운드 로그인 성공 !!!'
+                txt = '모의서버 3rd 백그라운드 프로세스 생성 !!!'
                 self.data.append(txt)
             
             print(txt)
