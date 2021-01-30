@@ -3146,6 +3146,34 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
+
+                        elif data['szTrCode'] == 'OH0':
+
+                            self.total_option_packet_size += sys.getsizeof(data)
+
+                            realtime_hour = int(data['수신시간'][0:2])
+                            realtime_min = int(data['수신시간'][2:4])
+                            realtime_sec = int(data['수신시간'][4:6])
+
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
+                                self.trigger_dict.emit(data)
+                            else:
+                                self.drop_count += 1
+
+                        elif data['szTrCode'] == 'EH0':
+
+                            realtime_hour = int(data['수신시간'][0:2])
+                            realtime_min = int(data['수신시간'][2:4])
+                            realtime_sec = int(data['수신시간'][4:6])
+
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
+                                self.trigger_dict.emit(data)
+                            else:
+                                self.drop_count += 1
                         else:
                             pass
                     else:
@@ -19998,7 +20026,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         MainProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
                         MainProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
                     elif MP_NUMBER == 2:
-                        SecondProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+                        MainProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+                        MainProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
                     elif MP_NUMBER == 3:
                         SecondProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])                        
                         SecondProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
@@ -20069,7 +20098,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if MP_NUMBER == 1:
                             MainProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
                         elif MP_NUMBER == 2:
-                            SecondProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+                            MainProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
                         elif MP_NUMBER == 3:
                             SecondProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
                         else:
@@ -20093,7 +20122,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if MP_NUMBER == 1:
                             MainProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
                         elif MP_NUMBER == 2:
-                            SecondProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
+                            MainProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
                         elif MP_NUMBER == 3:
                             SecondProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
                         else:
@@ -20133,6 +20162,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         MainProcess.RequestRealData(OPT_HO, CM_PUT_CODE[i])
                     elif MP_NUMBER == 2:
                         SecondProcess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
+                        SecondProcess.RequestRealData(OPT_HO, CM_PUT_CODE[i])
                     elif MP_NUMBER == 3:
                         ThirdProcess.RequestRealData(OPT_HO, CM_CALL_CODE[i])                        
                         ThirdProcess.RequestRealData(OPT_HO, CM_PUT_CODE[i])
@@ -20289,7 +20319,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         MainProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
                         MainProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
                     elif MP_NUMBER == 2:
-                        SecondProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
+                        MainProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
+                        MainProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
                     elif MP_NUMBER == 3:
                         SecondProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])                        
                         SecondProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
@@ -20360,7 +20391,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if MP_NUMBER == 1:
                             MainProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
                         elif MP_NUMBER == 2:
-                            SecondProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
+                            MainProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
                         elif MP_NUMBER == 3:
                             SecondProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
                         else:
@@ -20384,7 +20415,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if MP_NUMBER == 1:
                             MainProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
                         elif MP_NUMBER == 2:
-                            SecondProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
+                            MainProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
                         elif MP_NUMBER == 3:
                             SecondProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
                         else:
@@ -20509,7 +20540,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
         
-        if KOSPI_KOSDAQ:
+        if KOSPI_KOSDAQ and DayTime:
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI/KOSDAQ 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
@@ -20527,19 +20558,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         # SAMSUNG 체결지수 요청
-        txt = '[{0:02d}:{1:02d}:{2:02d}] SAMSUNG 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-        self.textBrowser.append(txt)
-        print(txt)
+        if DayTime:
+            txt = '[{0:02d}:{1:02d}:{2:02d}] SAMSUNG 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+            print(txt)
 
-        if not MULTIPROCESS:
-            self.parent.realtime_thread_dataworker.RequestRealData('S3', SAMSUNG)
+            if not MULTIPROCESS:
+                self.parent.realtime_thread_dataworker.RequestRealData('S3', SAMSUNG)
+            else:
+                MainProcess.RequestRealData('S3', SAMSUNG)
+
+            self.realdata_request_number += 1
         else:
-            MainProcess.RequestRealData('S3', SAMSUNG)
-
-        self.realdata_request_number += 1
+            pass
 
         # 실시간 업종별 투자자별 & 프로그램 매매현황 요청
-        if SUPPLY_DEMAND:
+        if SUPPLY_DEMAND and DayTime:
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 업종별 투자자별 & 프로그램 매매현황을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
@@ -24559,7 +24593,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             flag_main_realdata_update_is_running = False
 
     @logging_time_with_args
-    def UpdatePriceRealdata(self, result):
+    def UpdateSecondRealdata(self, result):
 
         global flag_2nd_realdata_update_is_running, flag_option_start, pre_start
         global df_call, call_result, df_call_graph, df_call_information_graph, df_call_volume, call_volume_power, 콜_등가_등락율
@@ -24725,13 +24759,142 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_put_information_graph.at[ovc_x_idx, 'open_interest'] = 풋_수정미결퍼센트
             else:
                 pass
+
+        elif szTrCode == 'OH0' or szTrCode == 'EH0':
+
+            if not receive_quote:
+                receive_quote = True
+            else:
+                pass
+
+            if not market_service:
+                market_service = True
+            else:
+                pass
+
+            if result['단축코드'][0:3] == '201':
+
+                index = call_행사가.index(result['단축코드'][5:8])
+
+                df_call_quote.at[index, '매수건수'] = result['매수호가총건수']
+                df_call_quote.at[index, '매도건수'] = result['매도호가총건수']
+                df_call_quote.at[index, '매수잔량'] = result['매수호가총수량']
+                df_call_quote.at[index, '매도잔량'] = result['매도호가총수량']
+
+                call_quote = df_call_quote.sum()
+
+                if call_quote['매도잔량'] > 0:
+                    call_remainder_ratio = round((call_quote['매수잔량'] / call_quote['매도잔량']), 2)
+                else:
+                    call_remainder_ratio = 0
+
+                콜잔량비 = call_remainder_ratio
+
+            elif result['단축코드'][0:3] == '301':
+
+                index = put_행사가.index(result['단축코드'][5:8])
+
+                df_put_quote.at[index, '매수건수'] = result['매수호가총건수']
+                df_put_quote.at[index, '매도건수'] = result['매도호가총건수']
+                df_put_quote.at[index, '매수잔량'] = result['매수호가총수량']
+                df_put_quote.at[index, '매도잔량'] = result['매도호가총수량']
+
+                put_quote = df_put_quote.sum()
+
+                if put_quote['매도잔량'] > 0:
+                    put_remainder_ratio = round((put_quote['매수잔량'] / put_quote['매도잔량']), 2)
+                else:
+                    put_remainder_ratio = 0
+
+                풋잔량비 = put_remainder_ratio
+            else:
+                pass
+
+            if NightTime:
+                df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
+                df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비
+            else:
+                if 콜잔량비 > 5.0:
+                    df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
+                else:
+                    df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
+
+                if 풋잔량비 > 5.0:
+                    df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
+                else:
+                    df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비               
+
+            # 야간선물이 없어짐에 따른 텔레그램 기동 대응
+            if NightTime:
+
+                global telegram_send_worker_on_time, flag_telegram_send_worker, flag_telegram_listen_worker
+
+                opt_time = dt.hour * 3600 + dt.minute * 60 + dt.second
+
+                if TELEGRAM_SERVICE and not flag_telegram_send_worker:
+
+                    self.telegram_send_worker.start()
+
+                    telegram_send_worker_on_time = opt_time 
+
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] telegram send worker({3})가 시작됩니다...\r'.format(dt.hour, dt.minute, dt.second, telegram_send_worker_on_time)
+                    self.textBrowser.append(txt)
+                    print(txt) 
+
+                    if TARGET_MONTH == 'CM':
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] CM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        ToYourTelegram(txt)
+
+                    elif TARGET_MONTH == 'NM':
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] NM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        ToYourTelegram(txt)
+                    else:
+                        pass         
+
+                    flag_telegram_send_worker = True             
+                else:
+                    pass
+
+                # Telegram Send Worker 시작 후 TELEGRAM_START_TIME분에 Telegram Listen을 위한 Polling Thread 시작 !!!
+                if not flag_telegram_listen_worker and opt_time > telegram_send_worker_on_time + 60 * TELEGRAM_START_TIME:
+
+                    if TELEGRAM_SERVICE:
+
+                        self.telegram_listen_worker.start()
+
+                        if TARGET_MONTH == 'CM':                        
+
+                            if window.id == 'soojin65':
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] ***님 텔레그램 Polling이 시작됩니다.'.format(dt.hour, dt.minute, dt.second)
+                                #ToMyTelegram(txt)
+                            else:
+                                ToYourTelegram("CM 텔레그램 Polling이 시작됩니다.")
+
+                        elif TARGET_MONTH == 'NM':
+
+                            ToYourTelegram("NM 텔레그램 Polling이 시작됩니다.")
+                        else:
+                            pass
+
+                        self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                                                                QPushButton:hover {background-color: black; color: white} \
+                                                                QPushButton:pressed {background-color: gold}')
+                        flag_telegram_listen_worker = True
+                    else:
+                        pass            
+                else:
+                    pass
+            else:
+                pass
         else:
             pass
 
         flag_2nd_realdata_update_is_running = False
 
     @logging_time_with_args
-    def UpdateQuoteRealdata(self, result):
+    def UpdateThirdRealdata(self, result):
 
         global flag_3rd_realdata_update_is_running, pre_start, market_service, receive_quote
         global df_call_quote, call_remainder_ratio, 콜잔량비, df_call_information_graph
@@ -39043,7 +39206,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if self.second_connection.IsConnected():
 
-                txt = '세컨드 백그라운드 로그인 성공 !!!\r'
+                txt = '2nd 백그라운드 로그인 성공 !!!\r'
                 self.textBrowser.append(txt)
 
                 self.second_login = True
@@ -39054,8 +39217,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.statusbar.showMessage(trdata[1])
             Speak('세컨드 프로세스 로그인 성공')
             #self.speaker.setText('세컨드 프로세스 로그인 성공')
+
+            if AUTO_START and MP_NUMBER == 2 and self.main_login and self.second_login:
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
+
+                self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
+                self.dialog['선물옵션전광판'].show()
+
+                self.dialog['선물옵션전광판'].RunCode()
+            else:
+                pass
         else:
-            txt = '세컨드 로그인 실패({0})!  로그인을 다시 시도합니다...'.format(trdata[0])
+            txt = '2nd 로그인 실패({0})!  로그인을 다시 시도합니다...'.format(trdata[0])
             self.statusbar.showMessage(txt)
 
             QTest.qWait(1000)
@@ -39082,7 +39256,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
             self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnToContents(0)                
 
-            self.dialog['선물옵션전광판'].UpdatePriceRealdata(realdata)
+            self.dialog['선물옵션전광판'].UpdateSecondRealdata(realdata)
         else:
             pass
 
@@ -39097,7 +39271,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if self.third_connection.IsConnected():
 
-                txt = '써드 백그라운드 로그인 성공 !!!\r'
+                txt = '3rd 백그라운드 로그인 성공 !!!\r'
                 self.textBrowser.append(txt)
 
                 self.third_login = True
@@ -39109,7 +39283,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             Speak('써드 프로세스 로그인 성공')
             #self.speaker.setText('써드 프로세스 로그인 성공')
 
-            if AUTO_START and self.main_login and self.second_login and self.third_login:
+            if AUTO_START and MP_NUMBER == 3 and self.main_login and self.second_login and self.third_login:
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
 
@@ -39120,7 +39294,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
         else:
-            txt = '써드 로그인 실패({0})!  로그인을 다시 시도합니다...'.format(trdata[0])
+            txt = '3rd 로그인 실패({0})!  로그인을 다시 시도합니다...'.format(trdata[0])
             self.statusbar.showMessage(txt)
 
             QTest.qWait(1000)
@@ -39147,7 +39321,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
             self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnToContents(0)                
 
-            self.dialog['선물옵션전광판'].UpdateQuoteRealdata(realdata)
+            self.dialog['선물옵션전광판'].UpdateThirdRealdata(realdata)
         else:
             pass 
 
