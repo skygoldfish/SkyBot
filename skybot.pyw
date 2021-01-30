@@ -19181,11 +19181,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         schedule_min = int((schedule_time - schedule_hour * 3600) / 60)
                         schedule_sec = schedule_time - (schedule_hour * 3600 + schedule_min * 60)
                         
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 나머지 데이타를 {3}시 {4}분 {5}초에 재요청할 예정입니다.\r'.format(dt.hour, dt.minute, dt.second, schedule_hour, schedule_min, schedule_sec)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 나머지 데이타를 {3}시 {4}분 {5}초에 재요청 합니다.\r'.format(dt.hour, dt.minute, dt.second, schedule_hour, schedule_min, schedule_sec)
                         self.parent.textBrowser.append(txt)
                         print(txt)
 
-                        speak_txt = '나머지 데이타를 10분후에 재요청할 예정입니다.'
+                        speak_txt = '나머지 데이타를 10분후에 재요청 합니다'
                         self.parent.speaker.setText(speak_txt)
                         QTest.qWait(1500)
                     else:
