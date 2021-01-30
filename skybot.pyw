@@ -20731,7 +20731,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
         
-        txt = '{0}개가 실시간 요청되었습니다.'.format(self.realdata_request_number)
+        txt = '총 {0}개 항목이 실시간 요청되었습니다.'.format(self.realdata_request_number)
         self.parent.speaker.setText(txt)
 
         item_txt = '{0}'.format(self.realdata_request_number)
@@ -39035,6 +39035,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
                 self.dialog['선물옵션전광판'].show()
 
+                QTest.qWait(3000)
+
                 self.dialog['선물옵션전광판'].RunCode()
             else:
                 pass
@@ -39263,6 +39265,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
                 self.dialog['선물옵션전광판'].show()
 
+                QTest.qWait(3000)
+
                 self.dialog['선물옵션전광판'].RunCode()
             else:
                 pass
@@ -39351,6 +39355,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
                 self.dialog['선물옵션전광판'].show()
+
+                QTest.qWait(3000)
 
                 self.dialog['선물옵션전광판'].RunCode()
             else:
@@ -39556,6 +39562,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
                 self.dialog['선물옵션전광판'].show()
+
+                QTest.qWait(2000)
 
                 self.dialog['선물옵션전광판'].RunCode()
             else:
