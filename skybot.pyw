@@ -38834,13 +38834,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.textBrowser.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
         self.textBrowser.append('Welcome to SkyBot\r')
 
-        self.label_1st.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
+        self.label_1st.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
         self.label_1st.setText('1st\nQueue')
 
-        self.label_2nd.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
+        self.label_2nd.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
         self.label_2nd.setText('2nd\nQueue')
 
-        self.label_3rd.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
+        self.label_3rd.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
         self.label_3rd.setText('3rd\nQueue')
 
         if len(args) == 0:
