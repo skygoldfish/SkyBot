@@ -6185,27 +6185,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 self.parent.textBrowser.append(txt)
 
-                #Speak('본월물 하향 변동성 출현')
                 self.parent.speaker.setText('본월물 하향 변동성 출현')
-                '''
-                tts = gTTS(text=vb_txt, lang='en')
-                tts.save("tts.mp3")
-                playsound("tts.mp3")
-                '''
-
+                
             elif 선물_현재가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
 
                 vb_txt = 'CM Volatility Upward Breakout'
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 self.parent.textBrowser.append(txt)
 
-                #Speak('본월물 상향 변동성 출현')
-                self.parent.speaker.setText('본월물 상향 변동성 출현')
-                '''
-                tts = gTTS(text=vb_txt, lang='en')
-                tts.save("tts.mp3")
-                playsound("tts.mp3")
-                '''
+                self.parent.speaker.setText('본월물 상향 변동성 출현')                
             else:
                 vb_txt = ''
 
@@ -6217,27 +6205,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 self.parent.textBrowser.append(txt)
 
-                #Speak('차월물 하향 변동성 출현')
                 self.parent.speaker.setText('차월물 하향 변동성 출현')
-                '''
-                tts = gTTS(text=vb_txt, lang='en')
-                tts.save("tts.mp3")
-                playsound("tts.mp3")
-                '''
-
+                
             elif 선물_현재가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
 
                 vb_txt = 'NM Volatility Upward Breakout'
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 self.parent.textBrowser.append(txt)
 
-                #Speak('차월물 상향 변동성 출현')
-                self.parent.speaker.setText('차월물 상향 변동성 출현')
-                '''
-                tts = gTTS(text=vb_txt, lang='en')
-                tts.save("tts.mp3")
-                playsound("tts.mp3")
-                '''
+                self.parent.speaker.setText('차월물 상향 변동성 출현')                
             else:
                 vb_txt = ''
 
@@ -6246,18 +6222,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 speak_txt = 'Call Dominant'
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, speak_txt)
+                self.textBrowser.append(txt)
                 self.parent.textBrowser.append(txt)
 
                 if TTS:
-                    #Speak('콜 우세')
                     self.parent.speaker.setText('콜 우세')
                 else:
                     pass
-                '''
-                tts = gTTS(text=speak_txt, lang='en')
-                tts.save("tts.mp3")
-                playsound("tts.mp3")
-                '''
+                
                 item = QTableWidgetItem("CD")
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(적색))
@@ -6268,18 +6240,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 speak_txt = 'Put Dominant'
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, speak_txt)
+                self.textBrowser.append(txt)
                 self.parent.textBrowser.append(txt)
 
                 if TTS:
-                    #Speak('풋 우세')
                     self.parent.speaker.setText('풋 우세')
                 else:
                     pass
-                '''
-                tts = gTTS(text=speak_txt, lang='en')
-                tts.save("tts.mp3")
-                playsound("tts.mp3")
-                '''
+                
                 item = QTableWidgetItem("PD")
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(청색))
