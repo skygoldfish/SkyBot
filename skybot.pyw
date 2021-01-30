@@ -3064,6 +3064,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                 self.trigger_exception.emit(data['szTrCode'], str(e))
 
+#####################################################################################################################################################################
+# 실시간 데이타수신을 위한 멀티프로세스 2nd 쓰레드 클래스(옵션 가격만 처리)
+#####################################################################################################################################################################
 class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
     # 수신데이타 타입이 list이면 TR데이타, dict이면 실시간데이타.        
@@ -3109,13 +3112,12 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
                 self.total_packet_size += sys.getsizeof(data)
 
                 if type(data) == list:
+
                     self.trigger_list.emit(data)
-                else:
-                    pass
-                
-                if not flag_2nd_realdata_update_is_running:                
-                    
-                    if type(data) == dict:
+
+                elif type(data) == dict:
+
+                    if not flag_2nd_realdata_update_is_running:
 
                         if data['szTrCode'] == 'OC0':
 
@@ -3144,45 +3146,18 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
-
-                        elif data['szTrCode'] == 'OH0':
-
-                            self.total_option_packet_size += sys.getsizeof(data)
-
-                            realtime_hour = int(data['수신시간'][0:2])
-                            realtime_min = int(data['수신시간'][2:4])
-                            realtime_sec = int(data['수신시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
-                                self.trigger_dict.emit(data)
-                            else:
-                                self.drop_count += 1
-
-                        elif data['szTrCode'] == 'EH0':
-
-                            realtime_hour = int(data['수신시간'][0:2])
-                            realtime_min = int(data['수신시간'][2:4])
-                            realtime_sec = int(data['수신시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
-                                self.trigger_dict.emit(data)
-                            else:
-                                self.drop_count += 1
                         else:
-                            pass 
+                            pass
                     else:
-                        self.trigger_dict.emit(data)
+                        self.drop_count += 1
                 else:
-                    self.drop_count += 1
-                
-                #QTest.qWait(mp_send_interval)
+                    pass
             else:
                 flag_2nd_process_queue_empty = True
-                    
+
+#####################################################################################################################################################################
+# 실시간 데이타수신을 위한 멀티프로세스 3rd 쓰레드 클래스(옵션 호가만 처리)
+#####################################################################################################################################################################                    
 class RealTime_3RD_MP_Thread_DataWorker(QThread):
 
     # 수신데이타 타입이 list이면 TR데이타, dict이면 실시간데이타.        
@@ -3228,43 +3203,14 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
                 self.total_packet_size += sys.getsizeof(data)
 
                 if type(data) == list:
+
                     self.trigger_list.emit(data)
-                else:
-                    pass
-                
-                if not flag_3rd_realdata_update_is_running:                
-                    
-                    if type(data) == dict:
 
-                        if data['szTrCode'] == 'OC0':
+                elif type(data) == dict:
 
-                            self.total_option_packet_size += sys.getsizeof(data)
+                    if not flag_3rd_realdata_update_is_running:
 
-                            realtime_hour = int(data['수신시간'][0:2])
-                            realtime_min = int(data['수신시간'][2:4])
-                            realtime_sec = int(data['수신시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
-                                self.trigger_dict.emit(data)
-                            else:
-                                self.drop_count += 1
-
-                        elif data['szTrCode'] == 'EC0':
-
-                            realtime_hour = int(data['수신시간'][0:2])
-                            realtime_min = int(data['수신시간'][2:4])
-                            realtime_sec = int(data['수신시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                            if abs((systime - 시스템_서버_시간차) - realtime) < realdata_view_tolerance:
-                                self.trigger_dict.emit(data)
-                            else:
-                                self.drop_count += 1
-
-                        elif data['szTrCode'] == 'OH0':
+                        if data['szTrCode'] == 'OH0':
 
                             self.total_option_packet_size += sys.getsizeof(data)
 
@@ -3292,13 +3238,11 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
                             else:
                                 self.drop_count += 1
                         else:
-                            self.trigger_dict.emit(data)                  
+                            pass  
                     else:
-                        pass
+                         self.drop_count += 1       
                 else:
-                    self.drop_count += 1
-
-                #QTest.qWait(mp_send_interval)
+                    pass                
             else:
                 flag_3rd_process_queue_empty = True
 
@@ -20055,8 +19999,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         MainProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
                     elif MP_NUMBER == 2:
                         SecondProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
-                    elif MP_NUMBER == 3:                        
-                        ThirdProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
+                    elif MP_NUMBER == 3:
+                        SecondProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])                        
+                        SecondProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
                     else:
                         pass                    
 
@@ -20126,7 +20071,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         elif MP_NUMBER == 2:
                             SecondProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
                         elif MP_NUMBER == 3:
-                            ThirdProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+                            SecondProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
                         else:
                             pass                        
 
@@ -20150,7 +20095,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         elif MP_NUMBER == 2:
                             SecondProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
                         elif MP_NUMBER == 3:
-                            ThirdProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
+                            SecondProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
                         else:
                             pass
 
@@ -20188,7 +20133,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         MainProcess.RequestRealData(OPT_HO, CM_PUT_CODE[i])
                     elif MP_NUMBER == 2:
                         SecondProcess.RequestRealData(OPT_HO, CM_CALL_CODE[i])
-                    elif MP_NUMBER == 3:                        
+                    elif MP_NUMBER == 3:
+                        ThirdProcess.RequestRealData(OPT_HO, CM_CALL_CODE[i])                        
                         ThirdProcess.RequestRealData(OPT_HO, CM_PUT_CODE[i])
                     else:
                         pass
@@ -20344,8 +20290,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         MainProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
                     elif MP_NUMBER == 2:
                         SecondProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
-                    elif MP_NUMBER == 3:                        
-                        ThirdProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
+                    elif MP_NUMBER == 3:
+                        SecondProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])                        
+                        SecondProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
                     else:
                         pass
 
@@ -20415,7 +20362,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         elif MP_NUMBER == 2:
                             SecondProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
                         elif MP_NUMBER == 3:
-                            ThirdProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
+                            SecondProcess.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
                         else:
                             pass
 
@@ -20439,7 +20386,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         elif MP_NUMBER == 2:
                             SecondProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
                         elif MP_NUMBER == 3:
-                            ThirdProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
+                            SecondProcess.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
                         else:
                             pass
 
@@ -24612,10 +24559,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             flag_main_realdata_update_is_running = False
 
     @logging_time_with_args
-    def UpdateCallRealdata(self, result):
+    def UpdatePriceRealdata(self, result):
 
-        global flag_2nd_realdata_update_is_running, flag_option_start, pre_start, market_service, receive_quote
-        global call_result, put_result, df_call_quote, df_put_quote
+        global flag_2nd_realdata_update_is_running, flag_option_start, pre_start
+        global df_call, call_result, df_call_graph, df_call_information_graph, df_call_volume, call_volume_power, 콜_등가_등락율
+        global df_put, put_result, df_put_graph, df_put_information_graph, df_put_volume, put_volume_power, 풋_등가_등락율
+        global 콜_수정미결합, 풋_수정미결합, 콜_수정미결퍼센트, 풋_수정미결퍼센트
             
         flag_2nd_realdata_update_is_running = True
 
@@ -24635,72 +24584,145 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            if not market_service:
-                market_service = True
-            else:
-                pass
-
-            #print('옵션 콜 현재가 =', result['현재가'])
-
             if result['단축코드'][0:3] == '201':
 
-                call_result = copy.deepcopy(result)
+                index = call_행사가.index(result['단축코드'][5:8])
 
-                if FLAG_GUEST_CONTROL:                                                
+                # 현재가 갱신
+                df_call_graph[index].at[ovc_x_idx, 'price'] = result['현재가']
+
+                # 등락율 갱신
+                if DayTime and index == ATM_INDEX:
+                    콜_등가_등락율 = result['등락율']
+                    df_call_information_graph.at[ovc_x_idx, 'drate'] = 콜_등가_등락율
+                else:
+                    pass
+
+                # 체결량 갱신
+                콜시가갭 = df_call.at[index, '시가갭']
+
+                if result['현재가'] <= 콜시가갭:
+
+                    매도누적체결량 = result['매도누적체결량'] * result['현재가']
+                    매수누적체결량 = result['매수누적체결량'] * result['현재가']
+                else:
+                    매도누적체결량 = result['매도누적체결량'] * (result['현재가'] - 콜시가갭)
+                    매수누적체결량 = result['매수누적체결량'] * (result['현재가'] - 콜시가갭)
+
+                df_call_volume.at[index, '매도누적체결량'] = int(매도누적체결량)
+                df_call_volume.at[index, '매수누적체결량'] = int(매수누적체결량)
+                
+                call_volume_power = df_call_volume['매수누적체결량'].sum() - df_call_volume['매도누적체결량'].sum()
+                df_call_information_graph.at[ovc_x_idx, 'volume'] = call_volume_power
+
+                # 미결 갱신
+                if DayTime:
+
+                    if result['현재가'] <= 콜시가갭:
+
+                        수정미결 = result['미결제약정수량'] * result['현재가']
+                        수정미결증감 = result['미결제약정증감'] * result['현재가']
+                    else:
+                        수정미결 = result['미결제약정수량'] * (result['현재가'] - 콜시가갭)
+                        수정미결증감 = result['미결제약정증감'] * (result['현재가'] - 콜시가갭)
+
+                    df_call.at[index, '수정미결'] = int(수정미결)
+                    df_call.at[index, '수정미결증감'] = int(수정미결증감)
+                else:
+                    pass                    
+
+                if FLAG_GUEST_CONTROL:
+
+                    # 테이블 갱신
+                    call_result = copy.deepcopy(result)
 
                     if not flag_checkBox_HS:
-                        self.call_update(result)
+                        self.call_update(result)                       
                         self.call_db_update()
                         self.call_volume_power_update()
                         self.call_oi_update()
                     else:
                         pass
                 else:
-                    pass                 
-
-            elif result['단축코드'][0:3] == '301':
-
-                put_result = copy.deepcopy(result)                                        
-
-                if not flag_checkBox_HS:
-                    self.put_update(result)
-                    self.put_db_update()
-                    self.put_volume_power_update()
-                    self.put_oi_update()
-                else:
-                    pass               
-            else:
-                pass
-
-        elif szTrCode == 'OH0' or szTrCode == 'EH0':
-
-            if not receive_quote:
-                receive_quote = True
-            else:
-                pass
-
-            if not market_service:
-                market_service = True
-            else:
-                pass
-
-            if result['단축코드'][0:3] == '201':
-
-                index = call_행사가.index(result['단축코드'][5:8])
-
-                df_call_quote.at[index, '매수건수'] = result['매수호가총건수']
-                df_call_quote.at[index, '매도건수'] = result['매도호가총건수']
-                df_call_quote.at[index, '매수잔량'] = result['매수호가총수량']
-                df_call_quote.at[index, '매도잔량'] = result['매도호가총수량']
+                    pass                                    
 
             elif result['단축코드'][0:3] == '301':
 
                 index = put_행사가.index(result['단축코드'][5:8])
 
-                df_put_quote.at[index, '매수건수'] = result['매수호가총건수']
-                df_put_quote.at[index, '매도건수'] = result['매도호가총건수']
-                df_put_quote.at[index, '매수잔량'] = result['매수호가총수량']
-                df_put_quote.at[index, '매도잔량'] = result['매도호가총수량']
+                # 현재가 갱신
+                df_put_graph[index].at[ovc_x_idx, 'price'] = result['현재가']
+
+                # 등락율 갱신
+                if DayTime and index == ATM_INDEX:
+                    풋_등가_등락율 = result['등락율']
+                    df_put_information_graph.at[ovc_x_idx, 'drate'] = 풋_등가_등락율
+                else:
+                    pass
+
+                # 체결량 갱신
+                풋시가갭 = df_put.at[index, '시가갭']
+
+                if result['현재가'] <= 풋시가갭:
+
+                    매도누적체결량 = result['매도누적체결량'] * result['현재가']
+                    매수누적체결량 = result['매수누적체결량'] * result['현재가']
+                else:
+                    매도누적체결량 = result['매도누적체결량'] * (result['현재가'] - 풋시가갭)
+                    매수누적체결량 = result['매수누적체결량'] * (result['현재가'] - 풋시가갭)
+
+                df_put_volume.at[index, '매도누적체결량'] = int(매도누적체결량)
+                df_put_volume.at[index, '매수누적체결량'] = int(매수누적체결량)
+                
+                put_volume_power = df_put_volume['매수누적체결량'].sum() - df_put_volume['매도누적체결량'].sum()
+                df_put_information_graph.at[ovc_x_idx, 'volume'] = put_volume_power 
+
+                # 미결 갱신
+                if DayTime:
+
+                    if result['현재가'] <= 풋시가갭:
+
+                        수정미결 = result['미결제약정수량'] * result['현재가']
+                        수정미결증감 = result['미결제약정증감'] * result['현재가']
+                    else:
+                        수정미결 = result['미결제약정수량'] * (result['현재가'] - 풋시가갭)
+                        수정미결증감 = result['미결제약정증감'] * (result['현재가'] - 풋시가갭)
+
+                    df_put.at[index, '수정미결'] = int(수정미결)
+                    df_put.at[index, '수정미결증감'] = int(수정미결증감)
+                else:
+                    pass 
+
+                # 테이블 갱신
+                put_result = copy.deepcopy(result)                                                           
+
+                if not flag_checkBox_HS:
+                    self.put_update(result)                    
+                    self.put_db_update()
+                    self.put_volume_power_update()
+                    self.put_oi_update()
+                else:
+                    pass                                 
+            else:
+                pass
+
+            # 미결 그래프 갱신
+            if DayTime:
+
+                콜_수정미결합 = df_call['수정미결'].sum()
+                풋_수정미결합 = df_put['수정미결'].sum()
+                수정미결합 = 콜_수정미결합 + 풋_수정미결합
+
+                if 수정미결합 > 0:
+
+                    콜_수정미결퍼센트 = (콜_수정미결합 / 수정미결합) * 100
+                    풋_수정미결퍼센트 = 100 - 콜_수정미결퍼센트
+                else:
+                    콜_수정미결퍼센트 = 0
+                    풋_수정미결퍼센트 = 0
+
+                df_call_information_graph.at[ovc_x_idx, 'open_interest'] = 콜_수정미결퍼센트
+                df_put_information_graph.at[ovc_x_idx, 'open_interest'] = 풋_수정미결퍼센트
             else:
                 pass
         else:
@@ -24709,67 +24731,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         flag_2nd_realdata_update_is_running = False
 
     @logging_time_with_args
-    def UpdatePutRealdata(self, result):
+    def UpdateQuoteRealdata(self, result):
 
-        global flag_3rd_realdata_update_is_running, flag_option_start, pre_start, market_service, receive_quote
-        global call_result, put_result, df_call_quote, df_put_quote
+        global flag_3rd_realdata_update_is_running, pre_start, market_service, receive_quote
+        global df_call_quote, call_remainder_ratio, 콜잔량비, df_call_information_graph
+        global df_put_quote, put_remainder_ratio, 풋잔량비, df_put_information_graph
            
         flag_3rd_realdata_update_is_running = True
 
         dt = datetime.datetime.now()
 
-        szTrCode = result['szTrCode']
+        szTrCode = result['szTrCode']            
 
-        if szTrCode == 'OC0' or szTrCode == 'EC0':
-
-            if not flag_option_start:
-                flag_option_start = True
-            else:
-                pass
-
-            if pre_start:
-                pre_start = False
-            else:
-                pass
-
-            if not market_service:
-                market_service = True
-            else:
-                pass
-
-            #print('옵션 풋 현재가 =', result['현재가'])
-
-            if result['단축코드'][0:3] == '201':
-
-                call_result = copy.deepcopy(result)
-
-                if FLAG_GUEST_CONTROL:                                                
-
-                    if not flag_checkBox_HS:
-                        self.call_update(result)
-                        self.call_db_update()
-                        self.call_volume_power_update()
-                        self.call_oi_update()
-                    else:
-                        pass
-                else:
-                    pass                 
-
-            elif result['단축코드'][0:3] == '301':
-
-                put_result = copy.deepcopy(result)                                        
-
-                if not flag_checkBox_HS:
-                    self.put_update(result)
-                    self.put_db_update()
-                    self.put_volume_power_update()
-                    self.put_oi_update()
-                else:
-                    pass               
-            else:
-                pass
-
-        elif szTrCode == 'OH0' or szTrCode == 'EH0':
+        if szTrCode == 'OH0' or szTrCode == 'EH0':
 
             if not receive_quote:
                 receive_quote = True
@@ -24790,6 +24764,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_call_quote.at[index, '매수잔량'] = result['매수호가총수량']
                 df_call_quote.at[index, '매도잔량'] = result['매도호가총수량']
 
+                call_quote = df_call_quote.sum()
+
+                if call_quote['매도잔량'] > 0:
+                    call_remainder_ratio = round((call_quote['매수잔량'] / call_quote['매도잔량']), 2)
+                else:
+                    call_remainder_ratio = 0
+
+                콜잔량비 = call_remainder_ratio
+
             elif result['단축코드'][0:3] == '301':
 
                 index = put_행사가.index(result['단축코드'][5:8])
@@ -24798,6 +24781,94 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_put_quote.at[index, '매도건수'] = result['매도호가총건수']
                 df_put_quote.at[index, '매수잔량'] = result['매수호가총수량']
                 df_put_quote.at[index, '매도잔량'] = result['매도호가총수량']
+
+                put_quote = df_put_quote.sum()
+
+                if put_quote['매도잔량'] > 0:
+                    put_remainder_ratio = round((put_quote['매수잔량'] / put_quote['매도잔량']), 2)
+                else:
+                    put_remainder_ratio = 0
+
+                풋잔량비 = put_remainder_ratio
+            else:
+                pass
+
+            if NightTime:
+                df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
+                df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비
+            else:
+                if 콜잔량비 > 5.0:
+                    df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
+                else:
+                    df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
+
+                if 풋잔량비 > 5.0:
+                    df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
+                else:
+                    df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비               
+
+            # 야간선물이 없어짐에 따른 텔레그램 기동 대응
+            if NightTime:
+
+                global telegram_send_worker_on_time, flag_telegram_send_worker, flag_telegram_listen_worker
+
+                opt_time = dt.hour * 3600 + dt.minute * 60 + dt.second
+
+                if TELEGRAM_SERVICE and not flag_telegram_send_worker:
+
+                    self.telegram_send_worker.start()
+
+                    telegram_send_worker_on_time = opt_time 
+
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] telegram send worker({3})가 시작됩니다...\r'.format(dt.hour, dt.minute, dt.second, telegram_send_worker_on_time)
+                    self.textBrowser.append(txt)
+                    print(txt) 
+
+                    if TARGET_MONTH == 'CM':
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] CM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        ToYourTelegram(txt)
+
+                    elif TARGET_MONTH == 'NM':
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] NM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        ToYourTelegram(txt)
+                    else:
+                        pass         
+
+                    flag_telegram_send_worker = True             
+                else:
+                    pass
+
+                # Telegram Send Worker 시작 후 TELEGRAM_START_TIME분에 Telegram Listen을 위한 Polling Thread 시작 !!!
+                if not flag_telegram_listen_worker and opt_time > telegram_send_worker_on_time + 60 * TELEGRAM_START_TIME:
+
+                    if TELEGRAM_SERVICE:
+
+                        self.telegram_listen_worker.start()
+
+                        if TARGET_MONTH == 'CM':                        
+
+                            if window.id == 'soojin65':
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] ***님 텔레그램 Polling이 시작됩니다.'.format(dt.hour, dt.minute, dt.second)
+                                #ToMyTelegram(txt)
+                            else:
+                                ToYourTelegram("CM 텔레그램 Polling이 시작됩니다.")
+
+                        elif TARGET_MONTH == 'NM':
+
+                            ToYourTelegram("NM 텔레그램 Polling이 시작됩니다.")
+                        else:
+                            pass
+
+                        self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                                                                QPushButton:hover {background-color: black; color: white} \
+                                                                QPushButton:pressed {background-color: gold}')
+                        flag_telegram_listen_worker = True
+                    else:
+                        pass            
+                else:
+                    pass
             else:
                 pass
         else:
@@ -39011,7 +39082,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
             self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnToContents(0)                
 
-            self.dialog['선물옵션전광판'].UpdateCallRealdata(realdata)
+            self.dialog['선물옵션전광판'].UpdatePriceRealdata(realdata)
         else:
             pass
 
@@ -39076,7 +39147,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
             self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnToContents(0)                
 
-            self.dialog['선물옵션전광판'].UpdatePutRealdata(realdata)
+            self.dialog['선물옵션전광판'].UpdateQuoteRealdata(realdata)
         else:
             pass 
 
