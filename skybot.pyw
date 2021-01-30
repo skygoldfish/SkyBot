@@ -39124,10 +39124,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     self.label_1st.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal")
 
-                if realdata['단축코드'][0:3] == '201':
-                    txt = "{0}\n({1:.2f})".format('Call', args_processing_time)
-                elif realdata['단축코드'][0:3] == '301':
-                    txt = "{0}\n({1:.2f})".format('Put', args_processing_time)
+                if szTrCode == 'OC0' and realdata['단축코드'][0:3] == '201':
+                    txt = "{0}\n({1:.2f})".format('COC0', args_processing_time)
+                elif (szTrCode == 'EC0' and realdata['단축코드'][0:3] == '201'):
+                     txt = "{0}\n({1:.2f})".format('CEC0', args_processing_time)
+                elif szTrCode == 'OC0' and realdata['단축코드'][0:3] == '301':
+                    txt = "{0}\n({1:.2f})".format('POC0', args_processing_time)
+                elif szTrCode == 'EC0' and realdata['단축코드'][0:3] == '301':
+                    txt = "{0}\n({1:.2f})".format('PEC0', args_processing_time)
+                elif szTrCode == 'OH0' and realdata['단축코드'][0:3] == '201':
+                    txt = "{0}\n({1:.2f})".format('COH0', args_processing_time)
+                elif (szTrCode == 'EH0' and realdata['단축코드'][0:3] == '201'):
+                     txt = "{0}\n({1:.2f})".format('CEH0', args_processing_time)
+                elif szTrCode == 'OH0' and realdata['단축코드'][0:3] == '301':
+                    txt = "{0}\n({1:.2f})".format('POH0', args_processing_time)
+                elif szTrCode == 'EH0' and realdata['단축코드'][0:3] == '301':
+                    txt = "{0}\n({1:.2f})".format('PEH0', args_processing_time)
                 else:
                     pass
                 
@@ -39138,7 +39150,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     self.label_1st.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal")
 
-                txt = "{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time)
+                txt = "{0}\n({1:.2f})".format(szTrCode, args_processing_time)
                 self.label_1st.setText(txt)
 
         # 데이타를 전광판 다이얼로그로 전달
@@ -39286,10 +39298,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.label_2nd.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal")
 
-            if realdata['단축코드'][0:3] == '201':
-                txt = "{0}\n({1:.2f})".format('Call', args_processing_time)
-            elif realdata['단축코드'][0:3] == '301':
-                txt = "{0}\n({1:.2f})".format('Put', args_processing_time)
+            if szTrCode == 'OC0' and realdata['단축코드'][0:3] == '201':
+                txt = "{0}\n({1:.2f})".format('COC0', args_processing_time)
+            elif (szTrCode == 'EC0' and realdata['단축코드'][0:3] == '201'):
+                 txt = "{0}\n({1:.2f})".format('CEC0', args_processing_time)
+            elif szTrCode == 'OC0' and realdata['단축코드'][0:3] == '301':
+                txt = "{0}\n({1:.2f})".format('POC0', args_processing_time)
+            elif szTrCode == 'EC0' and realdata['단축코드'][0:3] == '301':
+                txt = "{0}\n({1:.2f})".format('PEC0', args_processing_time)
+            elif szTrCode == 'OH0' and realdata['단축코드'][0:3] == '201':
+                txt = "{0}\n({1:.2f})".format('COH0', args_processing_time)
+            elif (szTrCode == 'EH0' and realdata['단축코드'][0:3] == '201'):
+                 txt = "{0}\n({1:.2f})".format('CEH0', args_processing_time)
+            elif szTrCode == 'OH0' and realdata['단축코드'][0:3] == '301':
+                txt = "{0}\n({1:.2f})".format('POH0', args_processing_time)
+            elif szTrCode == 'EH0' and realdata['단축코드'][0:3] == '301':
+                txt = "{0}\n({1:.2f})".format('PEH0', args_processing_time)
             else:
                 pass
             
@@ -39377,10 +39401,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.label_3rd.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal")
 
-            if realdata['단축코드'][0:3] == '201':
-                txt = "{0}\n({1:.2f})".format('Call', args_processing_time)
-            elif realdata['단축코드'][0:3] == '301':
-                txt = "{0}\n({1:.2f})".format('Put', args_processing_time)
+            if szTrCode == 'OH0' and realdata['단축코드'][0:3] == '201':
+                txt = "{0}\n({1:.2f})".format('COH0', args_processing_time)
+            elif (szTrCode == 'EH0' and realdata['단축코드'][0:3] == '201'):
+                 txt = "{0}\n({1:.2f})".format('CEH0', args_processing_time)
+            elif szTrCode == 'OH0' and realdata['단축코드'][0:3] == '301':
+                txt = "{0}\n({1:.2f})".format('POH0', args_processing_time)
+            elif szTrCode == 'EH0' and realdata['단축코드'][0:3] == '301':
+                txt = "{0}\n({1:.2f})".format('PEH0', args_processing_time)
             else:
                 pass
 
