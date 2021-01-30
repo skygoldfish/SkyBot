@@ -27087,11 +27087,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot1_fut_low_line = self.plot1.addLine(x=None, pen=skyblue_pen)
         self.plot1_fut_high_line = self.plot1.addLine(x=None, pen=pink_pen)
 
-        self.plot1_kp200_line = []
-        
-        for i in range(10):
-            self.plot1_kp200_line.append(self.plot1.addLine(x=None, pen=kp200_pen))
-
         self.plot1_fut_price_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_kp200_curve = self.plot1.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -27105,27 +27100,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         # 선옵체결
         self.plot1_fut_volume_curve = self.plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_call_volume_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_put_volume_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
-
-        # 옵션가격(new)
-        self.plot1_mv_line = []
-        
-        for i in range(9):
-            self.plot1_mv_line.append(self.plot1.addLine(x=None, pen=mvpen))
+        self.plot1_put_volume_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)        
 
         self.plot1_center_val_lower_line = self.plot1.addLine(x=None, pen=skyblue_pen)
         self.plot1_center_val_line = self.plot1.addLine(x=None, pen=gold_pen)
         self.plot1_center_val_upper_line = self.plot1.addLine(x=None, pen=pink_pen)
 
         self.plot1_center_val_curve = self.plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
-
-        self.plot1_call_curve = []
-        self.plot1_put_curve = []
-        
-        for i in range(option_pairs_count):
-            self.plot1_call_curve.append(self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
-            self.plot1_put_curve.append(self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
-            QApplication.processEvents()
         
         # 옵션잔량비
         self.plot1_call_quote_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
@@ -27190,11 +27171,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot2_fut_low_line = self.plot2.addLine(x=None, pen=skyblue_pen)
         self.plot2_fut_high_line = self.plot2.addLine(x=None, pen=pink_pen)
 
-        self.plot2_kp200_line = []
-        
-        for i in range(10):
-            self.plot2_kp200_line.append(self.plot2.addLine(x=None, pen=kp200_pen))
-
         self.plot2_fut_price_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_kp200_curve = self.plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -27208,27 +27184,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         # 선옵체결
         self.plot2_fut_volume_curve = self.plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_call_volume_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_put_volume_curve = self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
-
-        # 옵션가격(new)
-        self.plot2_mv_line = []
-        
-        for i in range(9):
-            self.plot2_mv_line.append(self.plot2.addLine(x=None, pen=mvpen))
+        self.plot2_put_volume_curve = self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)        
 
         self.plot2_center_val_lower_line = self.plot2.addLine(x=None, pen=skyblue_pen)
         self.plot2_center_val_line = self.plot2.addLine(x=None, pen=gold_pen)
         self.plot2_center_val_upper_line = self.plot2.addLine(x=None, pen=pink_pen)
 
         self.plot2_center_val_curve = self.plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
-
-        self.plot2_call_curve = []
-        self.plot2_put_curve = []
-        
-        for i in range(option_pairs_count):
-            self.plot2_call_curve.append(self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
-            self.plot2_put_curve.append(self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
-            QApplication.processEvents()
         
         # 옵션잔량비
         self.plot2_call_quote_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
@@ -27293,11 +27255,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot3_fut_low_line = self.plot3.addLine(x=None, pen=skyblue_pen)
         self.plot3_fut_high_line = self.plot3.addLine(x=None, pen=pink_pen)
 
-        self.plot3_kp200_line = []
-        
-        for i in range(10):
-            self.plot3_kp200_line.append(self.plot3.addLine(x=None, pen=kp200_pen))
-
         self.plot3_fut_price_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_kp200_curve = self.plot3.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -27313,25 +27270,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot3_call_volume_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_put_volume_curve = self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
-        # 옵션가격(new)
-        self.plot3_mv_line = []
-        
-        for i in range(9):
-            self.plot3_mv_line.append(self.plot3.addLine(x=None, pen=mvpen))
-
         self.plot3_center_val_lower_line = self.plot3.addLine(x=None, pen=skyblue_pen)
         self.plot3_center_val_line = self.plot3.addLine(x=None, pen=gold_pen)
         self.plot3_center_val_upper_line = self.plot3.addLine(x=None, pen=pink_pen)
 
         self.plot3_center_val_curve = self.plot3.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
-
-        self.plot3_call_curve = []
-        self.plot3_put_curve = []
-        
-        for i in range(option_pairs_count):
-            self.plot3_call_curve.append(self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
-            self.plot3_put_curve.append(self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
-            QApplication.processEvents()
         
         # 옵션잔량비
         self.plot3_call_quote_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
@@ -27396,11 +27339,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot4_fut_low_line = self.plot4.addLine(x=None, pen=skyblue_pen)
         self.plot4_fut_high_line = self.plot4.addLine(x=None, pen=pink_pen)
 
-        self.plot4_kp200_line = []
-        
-        for i in range(10):
-            self.plot4_kp200_line.append(self.plot4.addLine(x=None, pen=kp200_pen))
-
         self.plot4_fut_price_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_kp200_curve = self.plot4.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -27414,27 +27352,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         # 선옵체결
         self.plot4_fut_volume_curve = self.plot4.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_call_volume_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_put_volume_curve = self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
-
-        # 옵션가격(new)
-        self.plot4_mv_line = []
-        
-        for i in range(9):
-            self.plot4_mv_line.append(self.plot4.addLine(x=None, pen=mvpen))
+        self.plot4_put_volume_curve = self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)        
 
         self.plot4_center_val_lower_line = self.plot4.addLine(x=None, pen=skyblue_pen)
         self.plot4_center_val_line = self.plot4.addLine(x=None, pen=gold_pen)
         self.plot4_center_val_upper_line = self.plot4.addLine(x=None, pen=pink_pen)
 
         self.plot4_center_val_curve = self.plot4.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
-
-        self.plot4_call_curve = []
-        self.plot4_put_curve = []
-        
-        for i in range(option_pairs_count):
-            self.plot4_call_curve.append(self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
-            self.plot4_put_curve.append(self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
-            QApplication.processEvents()
         
         # 옵션잔량비
         self.plot4_call_quote_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
@@ -27499,11 +27423,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot5_fut_low_line = self.plot5.addLine(x=None, pen=skyblue_pen)
         self.plot5_fut_high_line = self.plot5.addLine(x=None, pen=pink_pen)
 
-        self.plot5_kp200_line = []
-        
-        for i in range(10):
-            self.plot5_kp200_line.append(self.plot5.addLine(x=None, pen=kp200_pen))
-
         self.plot5_fut_price_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_kp200_curve = self.plot5.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -27519,25 +27438,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot5_call_volume_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_put_volume_curve = self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
-        # 옵션가격(new)
-        self.plot5_mv_line = []
-        
-        for i in range(9):
-            self.plot5_mv_line.append(self.plot5.addLine(x=None, pen=mvpen))
-
         self.plot5_center_val_lower_line = self.plot5.addLine(x=None, pen=skyblue_pen)
         self.plot5_center_val_line = self.plot5.addLine(x=None, pen=gold_pen)
         self.plot5_center_val_upper_line = self.plot5.addLine(x=None, pen=pink_pen)
 
         self.plot5_center_val_curve = self.plot5.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
-
-        self.plot5_call_curve = []
-        self.plot5_put_curve = []
-        
-        for i in range(option_pairs_count):
-            self.plot5_call_curve.append(self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
-            self.plot5_put_curve.append(self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
-            QApplication.processEvents()
         
         # 옵션잔량비
         self.plot5_call_quote_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
@@ -27602,11 +27507,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot6_fut_low_line = self.plot6.addLine(x=None, pen=skyblue_pen)
         self.plot6_fut_high_line = self.plot6.addLine(x=None, pen=pink_pen)
 
-        self.plot6_kp200_line = []
-        
-        for i in range(10):
-            self.plot6_kp200_line.append(self.plot6.addLine(x=None, pen=kp200_pen))
-
         self.plot6_fut_price_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_kp200_curve = self.plot6.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -27622,25 +27522,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot6_call_volume_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_put_volume_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
-        # 옵션가격(new)
-        self.plot6_mv_line = []
-        
-        for i in range(9):
-            self.plot6_mv_line.append(self.plot6.addLine(x=None, pen=mvpen))
-
         self.plot6_center_val_lower_line = self.plot6.addLine(x=None, pen=skyblue_pen)
         self.plot6_center_val_line = self.plot6.addLine(x=None, pen=gold_pen)
         self.plot6_center_val_upper_line = self.plot6.addLine(x=None, pen=pink_pen)
 
         self.plot6_center_val_curve = self.plot6.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
-
-        self.plot6_call_curve = []
-        self.plot6_put_curve = []
-        
-        for i in range(option_pairs_count):
-            self.plot6_call_curve.append(self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
-            self.plot6_put_curve.append(self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
-            QApplication.processEvents()
         
         # 옵션잔량비
         self.plot6_call_quote_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
@@ -27690,6 +27576,78 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot6.scene().sigMouseMoved.connect(self.plot6_mouseMoved)
         else:
             pass
+
+        # 선물관련 그래프 초기화(시간을 줄이기위해 for문 일괄처리)
+        self.plot1_kp200_line = []
+        self.plot2_kp200_line = []
+        self.plot3_kp200_line = []
+        self.plot4_kp200_line = []
+        self.plot5_kp200_line = []
+        self.plot6_kp200_line = []
+        
+        for i in range(10):
+            self.plot1_kp200_line.append(self.plot1.addLine(x=None, pen=kp200_pen))
+            self.plot2_kp200_line.append(self.plot2.addLine(x=None, pen=kp200_pen))
+            self.plot3_kp200_line.append(self.plot3.addLine(x=None, pen=kp200_pen))
+            self.plot4_kp200_line.append(self.plot4.addLine(x=None, pen=kp200_pen))
+            self.plot5_kp200_line.append(self.plot5.addLine(x=None, pen=kp200_pen))
+            self.plot6_kp200_line.append(self.plot6.addLine(x=None, pen=kp200_pen))            
+
+        # 옵션가격 그래프 초기화(시간을 줄이기위해 for문 일괄처리)        
+        self.plot1_mv_line = []
+        self.plot2_mv_line = []
+        self.plot3_mv_line = []
+        self.plot4_mv_line = []
+        self.plot5_mv_line = []
+        self.plot6_mv_line = []
+        
+        for i in range(9):
+            self.plot1_mv_line.append(self.plot1.addLine(x=None, pen=mvpen))
+            self.plot2_mv_line.append(self.plot2.addLine(x=None, pen=mvpen))
+            self.plot3_mv_line.append(self.plot3.addLine(x=None, pen=mvpen))
+            self.plot4_mv_line.append(self.plot4.addLine(x=None, pen=mvpen))
+            self.plot5_mv_line.append(self.plot5.addLine(x=None, pen=mvpen))
+            self.plot6_mv_line.append(self.plot6.addLine(x=None, pen=mvpen))
+
+        self.plot1_call_curve = []
+        self.plot1_put_curve = []
+
+        self.plot2_call_curve = []
+        self.plot2_put_curve = []
+
+        self.plot3_call_curve = []
+        self.plot3_put_curve = []
+
+        self.plot4_call_curve = []
+        self.plot4_put_curve = []
+
+        self.plot5_call_curve = []
+        self.plot5_put_curve = []
+
+        self.plot6_call_curve = []
+        self.plot6_put_curve = []
+        
+        for i in range(option_pairs_count):
+
+            self.plot1_call_curve.append(self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
+            self.plot1_put_curve.append(self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+
+            self.plot2_call_curve.append(self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
+            self.plot2_put_curve.append(self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+
+            self.plot3_call_curve.append(self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
+            self.plot3_put_curve.append(self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+
+            self.plot4_call_curve.append(self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
+            self.plot4_put_curve.append(self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+
+            self.plot5_call_curve.append(self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
+            self.plot5_put_curve.append(self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+
+            self.plot6_call_curve.append(self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
+            self.plot6_put_curve.append(self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+
+            QApplication.processEvents()
 
         if NightTime:
             timespan = yagan_timespan
