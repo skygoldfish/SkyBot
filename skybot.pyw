@@ -38831,8 +38831,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
 
         self.setWindowTitle("SkyBot ver1.0")
-        self.textBrowser.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 9pt; font: Normal")
+        self.textBrowser.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
         self.textBrowser.append('Welcome to SkyBot\r')
+
+        self.label_1st.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
+        self.label_1st.setText('1st\nQueue')
+
+        self.label_2nd.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
+        self.label_2nd.setText('2nd\nQueue')
+
+        self.label_3rd.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
+        self.label_3rd.setText('3rd\nQueue')
 
         if len(args) == 0:
             self.mp_mode = False
