@@ -39109,15 +39109,31 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         global drop_txt, time_gap, main_opt_totalsize, main_totalsize
         
-        dt = datetime.datetime.now()
+        dt = datetime.datetime.now()        
 
-        if flag_main_process_queue_empty:
-            self.label_1st.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal")
+        if realdata['szTrCode'] == 'OC0' or realdata['szTrCode'] == 'EC0' or realdata['szTrCode'] == 'OH0' or realdata['szTrCode'] == 'EH0':
+
+            if flag_main_process_queue_empty:
+                self.label_1st.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal")
+            else:
+                self.label_1st.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal")
+        
+            if realdata['단축코드'][0:3] == '201':
+                txt = "{0}\n({1:.2f})".format('Call', args_processing_time)
+            elif realdata['단축코드'][0:3] == '301':
+                txt = "{0}\n({1:.2f})".format('Put', args_processing_time)
+            else:
+                pass
+            
+            self.label_1st.setText(txt)
         else:
-            self.label_1st.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal")
+            if flag_main_process_queue_empty:
+                self.label_1st.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal")
+            else:
+                self.label_1st.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal")
 
-        txt = "{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time)
-        self.label_1st.setText(txt)
+            txt = "{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time)
+            self.label_1st.setText(txt)
 
         # 수신된 실시간데이타 정보표시(누락된 패킷수, 큐의 크기, 수신된 총 패킷수, 수신된 총 패킷크기)            
         szTrCode = realdata['szTrCode']
@@ -39259,13 +39275,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         dt = datetime.datetime.now()
 
-        if flag_2nd_process_queue_empty:
-            self.label_2nd.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal")
-        else:
-            self.label_2nd.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal")
+        if realdata['szTrCode'] == 'OC0' or realdata['szTrCode'] == 'EC0' or realdata['szTrCode'] == 'OH0' or realdata['szTrCode'] == 'EH0':
 
-        txt = "{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time)
-        self.label_2nd.setText(txt)
+            if flag_2nd_process_queue_empty:
+                self.label_2nd.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal")
+            else:
+                self.label_2nd.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal")
+        
+            if realdata['단축코드'][0:3] == '201':
+                txt = "{0}\n({1:.2f})".format('Call', args_processing_time)
+            elif realdata['단축코드'][0:3] == '301':
+                txt = "{0}\n({1:.2f})".format('Put', args_processing_time)
+            else:
+                pass
+            
+            self.label_2nd.setText(txt)
+        else:
+            pass
 
         # 데이타를 전광판 다이얼로그로 전달
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:            
@@ -39318,13 +39344,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         dt = datetime.datetime.now()
 
-        if flag_3rd_process_queue_empty:
-            self.label_3rd.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal")
-        else:
-            self.label_3rd.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal")
+        if realdata['szTrCode'] == 'OH0' or realdata['szTrCode'] == 'EH0':
 
-        txt = "{0}\n({1:.2f})".format(realdata['szTrCode'], args_processing_time)
-        self.label_3rd.setText(txt)
+            if flag_3rd_process_queue_empty:
+                self.label_3rd.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal")
+            else:
+                self.label_3rd.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal")
+
+            if realdata['단축코드'][0:3] == '201':
+                txt = "{0}\n({1:.2f})".format('Call', args_processing_time)
+            elif realdata['단축코드'][0:3] == '301':
+                txt = "{0}\n({1:.2f})".format('Put', args_processing_time)
+            else:
+                pass
+
+            self.label_3rd.setText(txt)
+        else:
+            pass
 
         # 데이타를 전광판 다이얼로그로 전달
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
