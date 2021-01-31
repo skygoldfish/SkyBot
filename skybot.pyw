@@ -14800,7 +14800,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-    # 조회성 TR메시지 수신 콜백함수
+    # 조회성 TR메시지 수신 콜백함수, OnReceiveMessage가 OnReceiveData보다 먼저 도착함
     def OnReceiveMessage(self, ClassName, systemError, messageCode, message):
 
         txt = '클래스이름 = {0} : systemError = {1}, messageCode = {2}, message = {3}'.format(ClassName, systemError, messageCode, message)
