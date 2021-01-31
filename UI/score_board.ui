@@ -389,9 +389,9 @@
      </spacer>
     </item>
     <item>
-     <widget class="QCheckBox" name="checkBox_HS">
+     <widget class="QCheckBox" name="checkBox_NM">
       <property name="text">
-       <string>HS</string>
+       <string>NM</string>
       </property>
      </widget>
     </item>

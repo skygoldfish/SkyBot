@@ -1775,7 +1775,7 @@ flag_eurofx_ohlc_open = False
 flag_hangseng_ohlc_open = False
 flag_gold_ohlc_open = False
 
-flag_checkBox_HS = False
+flag_checkBox_NM = False
 
 flag_checkBox_plot1_bband = False
 flag_checkBox_plot2_bband = False
@@ -1919,6 +1919,7 @@ schedule_min = 0
 schedule_sec = 0
 
 flag_plot_first_mode = False
+flag_periodic_plot_mode = False
 
 #####################################################################################################################################################################
 # UI 파일정의
@@ -3495,7 +3496,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.pushButton_telegram.setFont(QFont("Consolas", 10, QFont.Bold))
         else:
             pass
-        '''
+        '''        
         self.pushButton_start.setText(' Start ')          
         self.pushButton_telegram.setText(' Telegram ')
         
@@ -3823,6 +3824,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         self.tableWidget_call.verticalScrollBar().valueChanged.connect(self.calltable_vertical_scroll_position)
         self.tableWidget_put.verticalScrollBar().valueChanged.connect(self.puttable_vertical_scroll_position)        
+        
+        self.checkBox_NM.stateChanged.connect(self.checkBox_NM_checkState)        
 
         self.alternate_flag = True
 
@@ -4031,9 +4034,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        self.XingAdminCheck()
-
-        self.checkBox_HS.stateChanged.connect(self.checkBox_HS_checkState)        
+        self.XingAdminCheck()       
 
         self.pushButton_start.setFocus()
 
@@ -4190,62 +4191,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.textBrowser.append(txt)
                 print(txt)
 
-    def checkBox_HS_checkState(self):
+    def checkBox_NM_checkState(self):
 
-        global flag_checkBox_HS, flag_telegram_on
-        global scoreboard_update_interval, plot_update_interval  
+        global flag_checkBox_NM 
 
         dt = datetime.datetime.now()
         
-        if self.checkBox_HS.isChecked() == True:
+        if self.checkBox_NM.isChecked() == True:
 
-            flag_checkBox_HS = True
-
-            #scoreboard_update_interval = MAIN_UPDATE_INTERVAL * 1
-            #plot_update_interval = BIGCHART_UPDATE_INTERVAL * 2
-            '''
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 화면 갱신주기를 {3:.1f}초 --> {4:.1f}초로 늘립니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, MAIN_UPDATE_INTERVAL / 1000, scoreboard_update_interval / 1000)
-            self.textBrowser.append(txt)            
-            
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 중지합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
-            self.textBrowser.append(txt)
-
-            if self.telegram_send_worker.isRunning():
-                self.telegram_send_worker.terminate()
-            else:
-                pass
-
-            if self.telegram_listen_worker.isRunning():
-                self.telegram_listen_worker.terminate()
-            else:
-                pass
-
-            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: white; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
-                                                    QPushButton:hover {background-color: black; color: white} \
-                                                    QPushButton:pressed {background-color: gold}')
-            flag_telegram_on = False
-            '''            
+            flag_checkBox_NM = True
         else:
-            flag_checkBox_HS = False
-            
-            #txt = '[{0:02d}:{1:02d}:{2:02d}] 화면 갱신주기를 {3:.1f}초 --> {4:.1f}초로 복구합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, scoreboard_update_interval / 1000, MAIN_UPDATE_INTERVAL / 1000)
-            #self.textBrowser.append(txt)
-
-            #scoreboard_update_interval = MAIN_UPDATE_INTERVAL
-            #plot_update_interval = BIGCHART_UPDATE_INTERVAL
-            '''
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 재기동합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
-            self.textBrowser.append(txt)
-            
-            self.telegram_send_worker.start()
-            
-            self.telegram_listen_worker.start()
-
-            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
-                                                    QPushButton:hover {background-color: black; color: white} \
-                                                    QPushButton:pressed {background-color: gold}')
-            flag_telegram_on = True
-            '''
+            flag_checkBox_NM = False
 
     @pyqtSlot(int)
     def call_horizontal_header_clicked(self, idx):
@@ -5528,7 +5484,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if market_service:
                     self.option_quote_update()
 
-                    if DayTime and flag_checkBox_HS and fut_result: 
+                    if DayTime and flag_periodic_plot_mode and fut_result: 
                         self.fut_update(result)
                     else:
                         pass
@@ -5542,7 +5498,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if market_service and flag_option_start:   
                     
-                    if flag_checkBox_HS:
+                    if flag_periodic_plot_mode:
 
                         if call_result:
                             self.call_update()
@@ -23810,7 +23766,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     fut_result = copy.deepcopy(result)
 
-                    if not flag_checkBox_HS:
+                    if not flag_periodic_plot_mode:
                         self.fut_update(result)
                     else:
                         pass
@@ -24187,7 +24143,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         # 테이블 갱신
                         call_result = copy.deepcopy(result)
 
-                        if not flag_checkBox_HS:
+                        if not flag_periodic_plot_mode:
                             self.call_update(result)                       
                             self.call_db_update()
                             self.call_volume_power_update()
@@ -24247,7 +24203,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # 테이블 갱신
                     put_result = copy.deepcopy(result)                                                           
 
-                    if not flag_checkBox_HS:
+                    if not flag_periodic_plot_mode:
                         self.put_update(result)                    
                         self.put_db_update()
                         self.put_volume_power_update()
@@ -24656,7 +24612,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         # 테이블 갱신
                         call_result = copy.deepcopy(result)
 
-                        if not flag_checkBox_HS:
+                        if not flag_periodic_plot_mode:
                             self.call_update(result)                       
                             self.call_db_update()
                             self.call_volume_power_update()
@@ -24716,7 +24672,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # 테이블 갱신
                     put_result = copy.deepcopy(result)                                                           
 
-                    if not flag_checkBox_HS:
+                    if not flag_periodic_plot_mode:
                         self.put_update(result)                    
                         self.put_db_update()
                         self.put_volume_power_update()
@@ -25182,6 +25138,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_hangseng.setChecked(HANGSENG_CHK)
         self.checkBox_gold.setChecked(GOLD_CHK)
         self.checkBox_news.setChecked(NEWS_CHK)
+
+        self.checkBox_periodic_plot.setChecked(False)
         self.checkBox_plot_first.setChecked(False)
 
         self.spinBox_call_itm.setValue(call_itm_number)
@@ -25226,6 +25184,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_hangseng.stateChanged.connect(self.checkBox_hangseng_checkState)
         self.checkBox_gold.stateChanged.connect(self.checkBox_gold_checkState)
         self.checkBox_news.stateChanged.connect(self.checkBox_news_checkState)
+
+        self.checkBox_periodic_plot.stateChanged.connect(self.checkBox_periodic_plot_state_change)
         self.checkBox_plot_first.stateChanged.connect(self.checkBox_plot_first_state_change)
 
         self.spinBox_call_itm.valueChanged.connect(self.change_call_itm)
@@ -26529,6 +26489,27 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 self.parent.textBrowser.append(txt)
             else:
                 pass
+
+    def checkBox_periodic_plot_state_change(self):
+
+        dt = datetime.datetime.now()
+
+        global flag_periodic_plot_mode
+
+        if self.checkBox_periodic_plot.isChecked() == True:
+
+            flag_periodic_plot_mode = True
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Plot을 주기적 갱신모드로 설정합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+        else:
+            flag_periodic_plot_mode = False
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Plot의 주기적 갱신모드를 해지합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+
 
     def checkBox_plot_first_state_change(self):
 
