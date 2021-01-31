@@ -3416,7 +3416,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.t8416_put_event_loop = QEventLoop()
 
         # t2301, t2835 이벤트루프(1초당 2건) --> 옵션 실시간수신 문제 보완목적
-        #self.t2301_event_loop = QEventLoop()
+        self.t2301_event_loop = QEventLoop()
         #self.t2835_event_loop = QEventLoop()
                 
         self.screen_update_worker = ScreenUpdateWorker()
@@ -3555,14 +3555,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         quote_header_stylesheet = '::section{Background-color: black; color: lightgreen; font-family: Consolas; font-size: 9pt; font: Normal; border-style: solid; border-width: 1px; border-color: gray}'
         supply_header_stylesheet = '::section{Background-color: black; color: lightgreen; font-family: Consolas; font-size: 9pt; font: Normal; border-style: solid; border-width: 1px; border-color: gray}'
         
+        dt = datetime.datetime.now()
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] GUI 초기화중...\r'.format(dt.hour, dt.minute, dt.second)
+        self.textBrowser.append(txt)
+
+        self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                                                        QPushButton:hover {background-color: black; color: white} \
+                                                        QPushButton:pressed {background-color: gold}')
+        self.pushButton_start.setText(' 초기화중... ')
+        
         # 선물 tablewidget 초기화
         self.tableWidget_fut.setRowCount(3)
         self.tableWidget_fut.setColumnCount(Futures_column.OID.value + 1)
         self.tableWidget_fut.horizontalHeader().setStyleSheet(fut_header_stylesheet)
 
-        self.tableWidget_fut.setHorizontalHeaderLabels(
-            ['TIMER', '▲▼', 'HMSC', 'HMDC', 'HMSR', 'MDHR', 'HCR', 'HRR', '전저', '전고', '종가', '피봇', '시가', '저가',
-             '현재가', '고가', '시가갭', '대비', '체결', '진폭', 'OI', 'OI↕'])
+        self.tableWidget_fut.setHorizontalHeaderLabels(['TIMER', '▲▼', 'HMSC', 'HMDC', 'HMSR', 'MDHR', 'HCR', 'HRR', '전저', '전고', '종가', '피봇', '시가', '저가', '현재가', '고가', '시가갭', '대비', '체결', '진폭', 'OI', 'OI↕'])
         self.tableWidget_fut.verticalHeader().setVisible(False)
         self.tableWidget_fut.setAlternatingRowColors(True)
 
@@ -3705,11 +3713,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_put.item(i, 0).setForeground(QBrush(흰색))
 
             # 테이블위젯내 체크박스 스테이트 변화 이벤트 발생로직
-            call_ch = self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox()))
-            call_ch.clicked.connect(lambda checked, row=i, col=0: self.OnCallTable_CheckStateChanged(checked, row, col))
+            call_channel = self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox()))
+            call_channel.clicked.connect(lambda checked, row=i, col=0: self.OnCallTable_CheckStateChanged(checked, row, col))
 
-            put_ch = self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox()))
-            put_ch.clicked.connect(lambda checked, row=i, col=0: self.OnPutTable_CheckStateChanged(checked, row, col))
+            put_channel = self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox()))
+            put_channel.clicked.connect(lambda checked, row=i, col=0: self.OnPutTable_CheckStateChanged(checked, row, col))
 
             for j in range(self.tableWidget_call.columnCount() - 1):
 
@@ -3854,9 +3862,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             COREVAL = DEFAULT_NODE_LIST + list_low1 + list_low2 + list_low3 + list_low4 + list_low5 + list_high1 + list_high2 + list_high3 + list_high4 + list_high5
         
-        COREVAL.sort()
-        
-        dt = datetime.datetime.now()
+        COREVAL.sort()        
         
         if int(current_txt[0:2]) < 12:
             txt = '[{0:02d}:{1:02d}:{2:02d}] ♣♣♣ Good Morning! Have a Good Day ♣♣♣\r'.format(dt.hour, dt.minute, dt.second)
@@ -14540,6 +14546,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             self.XQ_t2301.Query(월물=t2301_month_info)
+            self.t2301_event_loop.exec_()
            
 
     def SaveResult(self):
@@ -14822,8 +14829,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] t2835_event_loop fail exit...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
                 print(txt)
-            
-        elif ClassName == 't2301':
+        '''    
+        if ClassName == 't2301':
 
             global flag_t2301_eventloop
 
@@ -14844,8 +14851,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] t2301_event_loop fail exit...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
                 print(txt)
-        '''    
-        if ClassName == 't8416':
+           
+        elif ClassName == 't8416':
             
             global flag_t8416_eventloop
 
@@ -16117,7 +16124,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.setHorizontalHeaderItem(0, item)
 
                 # t8416 선물요청
-                QTest.qWait(1000)                       
+                #QTest.qWait(1500)
+                
+                print('flag_t2301_eventloop =', flag_t2301_eventloop)                       
 
                 if TARGET_MONTH == 'CM':
                     txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 변동성지수 본월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, GMSHCODE)
@@ -26691,6 +26700,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         qr.moveCenter(self.parent.centerPoint)
         self.move(qr.topLeft())     
         self.showNormal()
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Big Chart 초기화중...\r'.format(dt.hour, dt.minute, dt.second)
+        self.parent.textBrowser.append(txt)
         
         self.comboBox1.setStyleSheet('background-color: lightgreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.comboBox2.setStyleSheet('background-color: lightgreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -27733,7 +27745,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         end_time = timeit.default_timer()
         processing_time = (end_time - start_time) * 1000
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] Big Chart 초기화 시간 = {3} ms\r'.format(dt.hour, dt.minute, dt.second, processing_time)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Big Chart 초기화완료, 시간 = {3} ms\r'.format(dt.hour, dt.minute, dt.second, processing_time)
         self.parent.textBrowser.append(txt)
         print(txt)
 
