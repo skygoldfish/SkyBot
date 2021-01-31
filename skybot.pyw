@@ -3558,12 +3558,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.datetime.now()
 
         txt = '[{0:02d}:{1:02d}:{2:02d}] GUI 초기화중...\r'.format(dt.hour, dt.minute, dt.second)
+        self.parent.textBrowser.append(txt)
         self.textBrowser.append(txt)
-
-        self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
-                                                        QPushButton:hover {background-color: black; color: white} \
-                                                        QPushButton:pressed {background-color: gold}')
-        self.pushButton_start.setText(' 초기화중... ')
         
         # 선물 tablewidget 초기화
         self.tableWidget_fut.setRowCount(3)
@@ -3737,11 +3733,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_put.resizeColumnToContents(j + 1)
 
-                # 긴 loop를 도는 동안 GUI 응답없음을 방지하기 위함
-                if j % 10 == 0:
-                    QApplication.processEvents()
-                else:
-                    pass
+            # 긴 loop를 도는 동안 GUI 응답없음을 방지하기 위함
+            if i % 10 == 0:
+                QApplication.processEvents()
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션테이블 초기화중({3:.0f}%)...\r'.format(dt.hour, dt.minute, dt.second, (i / ActvalCount) * 100)
+                self.parent.textBrowser.append(txt)
+            else:
+                pass
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션테이블 초기화 완료({3:.0f}%)...\r'.format(dt.hour, dt.minute, dt.second, 100)
+        self.parent.textBrowser.append(txt)
 
         # 선물관련 변수 초기화
         self.kp200_realdata = dict()
@@ -15092,8 +15093,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 print("atm값({0})이 리스트에 없습니다.".format(atm_txt))
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 등가지수는 {3}({4})입니다.\r'.format(dt.hour, dt.minute, dt.second, atm_txt, ATM_INDEX)
-            self.parent.textBrowser.append(txt)           
+            #txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 등가지수는 {3}({4})입니다.\r'.format(dt.hour, dt.minute, dt.second, atm_txt, ATM_INDEX)
+            #self.parent.textBrowser.append(txt)           
 
             self.fut_realdata['종가'] = df['전일종가']
             선물_전일종가 = df['전일종가']
@@ -16124,7 +16125,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.setHorizontalHeaderItem(0, item)
 
                 # t8416 선물요청
-                #QTest.qWait(1500)
+                QTest.qWait(1100)
                 
                 print('flag_t2301_eventloop =', flag_t2301_eventloop)                       
 
@@ -17067,9 +17068,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_fut = DataFrame(data=[self.cme_realdata, self.fut_realdata, self.kp200_realdata], columns=columns)
 
             print('df_fut', df_fut)
-
-            # 실시간데이타 요청
-            #self.request_realdata()
 
             # 선물 맥점 컬러 체크(실시간에서만 표시됨)
             if market_service:
@@ -19885,6 +19883,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # KOSPI200 지수요청
         if DayTime:
             txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI200 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+            print(txt)
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
             print(txt)
 
@@ -27664,8 +27666,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             if i % 10 == 0:
                 QApplication.processEvents()
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Plot 초기화중({3:.0f}%)...\r'.format(dt.hour, dt.minute, dt.second, (i / option_pairs_count) * 100)
+                self.parent.textBrowser.append(txt)
             else:
                 pass
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Plot 초기화 완료({3:.0f}%)...\r'.format(dt.hour, dt.minute, dt.second, 100)
+        self.parent.textBrowser.append(txt)
 
         if NightTime:
             timespan = yagan_timespan
