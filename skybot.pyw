@@ -24536,7 +24536,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     @logging_time_with_args
     def UpdateSecondRealdata(self, result):
 
-        global flag_2nd_realdata_update_is_running, flag_option_start, pre_start
+        global flag_2nd_realdata_update_is_running, flag_option_start, pre_start, receive_quote
         global df_call, call_result, df_call_graph, df_call_information_graph, df_call_volume, call_volume_power, 콜_등가_등락율
         global df_put, put_result, df_put_graph, df_put_information_graph, df_put_volume, put_volume_power, 풋_등가_등락율
         global 콜_수정미결합, 풋_수정미결합, 콜_수정미결퍼센트, 풋_수정미결퍼센트        
