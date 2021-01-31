@@ -3730,7 +3730,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.resizeColumnToContents(j + 1)
 
                 # 긴 loop를 도는 동안 GUI 응답없음을 방지하기 위함
-                QApplication.processEvents()
+                if j % 10 == 0:
+                    QApplication.processEvents()
+                else:
+                    pass
 
         # 선물관련 변수 초기화
         self.kp200_realdata = dict()
@@ -27647,7 +27650,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot6_call_curve.append(self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
             self.plot6_put_curve.append(self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
 
-            QApplication.processEvents()
+            if i % 10 == 0:
+                QApplication.processEvents()
+            else:
+                pass
 
         if NightTime:
             timespan = yagan_timespan
