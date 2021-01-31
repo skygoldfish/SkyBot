@@ -3554,85 +3554,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         fut_header_stylesheet = '::section{Background-color: black; color: lightgreen; font-family: Consolas; font-size: 9pt; font: Normal; border-style: solid; border-width: 1px; border-color: gray}'
         quote_header_stylesheet = '::section{Background-color: black; color: lightgreen; font-family: Consolas; font-size: 9pt; font: Normal; border-style: solid; border-width: 1px; border-color: gray}'
         supply_header_stylesheet = '::section{Background-color: black; color: lightgreen; font-family: Consolas; font-size: 9pt; font: Normal; border-style: solid; border-width: 1px; border-color: gray}'
-
-        # call tablewidget 초기화
-        self.tableWidget_call.setRowCount(ActvalCount)
-        self.tableWidget_call.setColumnCount(Option_column.OID.value + 1)
-        
-        self.tableWidget_call.horizontalHeader().setStyleSheet(call_header_stylesheet)
-
-        self.tableWidget_call.setHorizontalHeaderLabels(['콜', '행사가', '▲:▼\n✓', '기준가', '월저', '월고', '전저', '전고', 
-        '종가\n✓', '피봇\n✓', '시가\n✓', '저가', '현재가', '고가', '시가갭\n(%)', '대비\n(%)', '진폭', '체결', '∑OI', 'OI↕'])
-        self.tableWidget_call.verticalHeader().setVisible(False)
-        self.tableWidget_call.setAlternatingRowColors(True)
-
-        # put tablewidget 초기화
-        self.tableWidget_put.setRowCount(ActvalCount)
-        self.tableWidget_put.setColumnCount(Option_column.OID.value + 1)
-
-        self.tableWidget_put.horizontalHeader().setStyleSheet(put_header_stylesheet)
-
-        self.tableWidget_put.setHorizontalHeaderLabels(['풋', '행사가', '▲:▼\n✓', '기준가', '월저', '월고', '전저', '전고', 
-        '종가\n✓', '피봇\n✓', '시가\n✓', '저가', '현재가', '고가', '시가갭\n(%)', '대비\n(%)', '진폭', '체결', '∑OI', 'OI↕'])
-        self.tableWidget_put.verticalHeader().setVisible(False)
-        self.tableWidget_put.setAlternatingRowColors(True)
-        
-        call_cell_widget = []
-        put_cell_widget = []
-        
-        for i in range(ActvalCount):
-
-            call_cell_widget.append(QWidget())            
-            lay_out = QHBoxLayout(call_cell_widget[i])
-            lay_out.addWidget(QCheckBox())
-            lay_out.setAlignment(Qt.AlignCenter)          
-            call_cell_widget[i].setLayout(lay_out)         
-            self.tableWidget_call.setCellWidget(i, 0, call_cell_widget[i])
-
-            put_cell_widget.append(QWidget())            
-            lay_out = QHBoxLayout(put_cell_widget[i])
-            lay_out.addWidget(QCheckBox())
-            lay_out.setAlignment(Qt.AlignCenter)           
-            put_cell_widget[i].setLayout(lay_out)
-            self.tableWidget_put.setCellWidget(i, 0, put_cell_widget[i])
-
-            item = QTableWidgetItem("{0}".format(''))
-            self.tableWidget_call.setItem(i, 0, item)
-            self.tableWidget_call.item(i, 0).setBackground(QBrush(검정색))
-            self.tableWidget_call.item(i, 0).setForeground(QBrush(흰색))
-
-            item = QTableWidgetItem("{0}".format(''))
-            self.tableWidget_put.setItem(i, 0, item)
-            self.tableWidget_put.item(i, 0).setBackground(QBrush(검정색))
-            self.tableWidget_put.item(i, 0).setForeground(QBrush(흰색))
-
-            # 테이블위젯내 체크박스 스테이트 변화 이벤트 발생로직
-            call_ch = self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox()))
-            call_ch.clicked.connect(lambda checked, row=i, col=0: self.OnCallTable_CheckStateChanged(checked, row, col))
-
-            put_ch = self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox()))
-            put_ch.clicked.connect(lambda checked, row=i, col=0: self.OnPutTable_CheckStateChanged(checked, row, col))
-
-            for j in range(self.tableWidget_call.columnCount() - 1):
-
-                item = QTableWidgetItem("{0}".format('-'))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setItem(i, j + 1, item)
-                self.tableWidget_call.item(i, j + 1).setBackground(QBrush(검정색))
-                self.tableWidget_call.item(i, j + 1).setForeground(QBrush(흰색))
-                
-                self.tableWidget_call.resizeColumnToContents(j + 1)
-
-                item = QTableWidgetItem("{0}".format('-'))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setItem(i, j + 1, item)
-                self.tableWidget_put.item(i, j + 1).setBackground(QBrush(검정색))
-                self.tableWidget_put.item(i, j + 1).setForeground(QBrush(흰색))
-
-                self.tableWidget_put.resizeColumnToContents(j + 1)
-
-                # 긴 loop를 도는 동안 GUI 응답없음을 방지하기 위함
-                QApplication.processEvents()
         
         # 선물 tablewidget 초기화
         self.tableWidget_fut.setRowCount(3)
@@ -3731,6 +3652,85 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setBackground(QBrush(검정색))
             item.setForeground(QBrush(흰색))
             self.tableWidget_supply.setItem(0, i, item)
+        
+        # call tablewidget 초기화
+        self.tableWidget_call.setRowCount(ActvalCount)
+        self.tableWidget_call.setColumnCount(Option_column.OID.value + 1)
+        
+        self.tableWidget_call.horizontalHeader().setStyleSheet(call_header_stylesheet)
+
+        self.tableWidget_call.setHorizontalHeaderLabels(['콜', '행사가', '▲:▼\n✓', '기준가', '월저', '월고', '전저', '전고', 
+        '종가\n✓', '피봇\n✓', '시가\n✓', '저가', '현재가', '고가', '시가갭\n(%)', '대비\n(%)', '진폭', '체결', '∑OI', 'OI↕'])
+        self.tableWidget_call.verticalHeader().setVisible(False)
+        self.tableWidget_call.setAlternatingRowColors(True)
+
+        # put tablewidget 초기화
+        self.tableWidget_put.setRowCount(ActvalCount)
+        self.tableWidget_put.setColumnCount(Option_column.OID.value + 1)
+
+        self.tableWidget_put.horizontalHeader().setStyleSheet(put_header_stylesheet)
+
+        self.tableWidget_put.setHorizontalHeaderLabels(['풋', '행사가', '▲:▼\n✓', '기준가', '월저', '월고', '전저', '전고', 
+        '종가\n✓', '피봇\n✓', '시가\n✓', '저가', '현재가', '고가', '시가갭\n(%)', '대비\n(%)', '진폭', '체결', '∑OI', 'OI↕'])
+        self.tableWidget_put.verticalHeader().setVisible(False)
+        self.tableWidget_put.setAlternatingRowColors(True)
+        
+        call_cell_widget = []
+        put_cell_widget = []
+        
+        for i in range(ActvalCount):
+
+            call_cell_widget.append(QWidget())            
+            lay_out = QHBoxLayout(call_cell_widget[i])
+            lay_out.addWidget(QCheckBox())
+            lay_out.setAlignment(Qt.AlignCenter)          
+            call_cell_widget[i].setLayout(lay_out)         
+            self.tableWidget_call.setCellWidget(i, 0, call_cell_widget[i])
+
+            put_cell_widget.append(QWidget())            
+            lay_out = QHBoxLayout(put_cell_widget[i])
+            lay_out.addWidget(QCheckBox())
+            lay_out.setAlignment(Qt.AlignCenter)           
+            put_cell_widget[i].setLayout(lay_out)
+            self.tableWidget_put.setCellWidget(i, 0, put_cell_widget[i])
+
+            item = QTableWidgetItem("{0}".format(''))
+            self.tableWidget_call.setItem(i, 0, item)
+            self.tableWidget_call.item(i, 0).setBackground(QBrush(검정색))
+            self.tableWidget_call.item(i, 0).setForeground(QBrush(흰색))
+
+            item = QTableWidgetItem("{0}".format(''))
+            self.tableWidget_put.setItem(i, 0, item)
+            self.tableWidget_put.item(i, 0).setBackground(QBrush(검정색))
+            self.tableWidget_put.item(i, 0).setForeground(QBrush(흰색))
+
+            # 테이블위젯내 체크박스 스테이트 변화 이벤트 발생로직
+            call_ch = self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox()))
+            call_ch.clicked.connect(lambda checked, row=i, col=0: self.OnCallTable_CheckStateChanged(checked, row, col))
+
+            put_ch = self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox()))
+            put_ch.clicked.connect(lambda checked, row=i, col=0: self.OnPutTable_CheckStateChanged(checked, row, col))
+
+            for j in range(self.tableWidget_call.columnCount() - 1):
+
+                item = QTableWidgetItem("{0}".format('-'))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_call.setItem(i, j + 1, item)
+                self.tableWidget_call.item(i, j + 1).setBackground(QBrush(검정색))
+                self.tableWidget_call.item(i, j + 1).setForeground(QBrush(흰색))
+                
+                self.tableWidget_call.resizeColumnToContents(j + 1)
+
+                item = QTableWidgetItem("{0}".format('-'))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_put.setItem(i, j + 1, item)
+                self.tableWidget_put.item(i, j + 1).setBackground(QBrush(검정색))
+                self.tableWidget_put.item(i, j + 1).setForeground(QBrush(흰색))
+
+                self.tableWidget_put.resizeColumnToContents(j + 1)
+
+                # 긴 loop를 도는 동안 GUI 응답없음을 방지하기 위함
+                QApplication.processEvents()
 
         # 선물관련 변수 초기화
         self.kp200_realdata = dict()
