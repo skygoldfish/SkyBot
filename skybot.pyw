@@ -39263,7 +39263,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dt = datetime.datetime.now()
 
         szTrCode = realdata['szTrCode']
-
+        '''
         if szTrCode == 'EH0' and int(realdata['수신시간'][0:2]) >= 24:
                 time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - ((int(realdata['수신시간'][0:2]) - 24) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
         else:                    
@@ -39281,7 +39281,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.statusbar.setStyleSheet("color : darkgreen")
 
         self.statusbar.showMessage(txt)
-
+        '''
         if szTrCode == 'OC0' or szTrCode == 'EC0' or szTrCode == 'OH0' or szTrCode == 'EH0':
 
             if flag_2nd_process_queue_empty:
@@ -39366,7 +39366,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dt = datetime.datetime.now()
 
         szTrCode = realdata['szTrCode']
-
+        '''
         if szTrCode == 'EH0' and int(realdata['수신시간'][0:2]) >= 24:
                 time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - ((int(realdata['수신시간'][0:2]) - 24) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
         else:                    
@@ -39384,7 +39384,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.statusbar.setStyleSheet("color : darkgreen")
 
         self.statusbar.showMessage(txt)
-
+        '''
         if szTrCode == 'OH0' or szTrCode == 'EH0':
 
             if flag_3rd_process_queue_empty:
