@@ -1815,7 +1815,7 @@ fut_ccms_quote_remainder_ratio = 0
 nm_call_oloh_txt = ''
 nm_put_oloh_txt = ''
 
-flag_heartbeat = False
+flag_heartbeat = True
 
 SERVER_HOUR = 0
 SERVER_MIN = 0
@@ -6134,8 +6134,48 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         flag_heartbeat = False
 
+        print('heartbeat_check 진입...')
+
         if TARGET_MONTH == 'CM':
 
+            if 선물_현재가 < volatility_breakout_downward_point:
+
+                vb_txt = 'CM Volatility Downward Breakout'
+                txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
+                #self.parent.textBrowser.append(txt)
+                print(txt)
+
+                item = QTableWidgetItem('VDB')
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(cyan))
+                self.tableWidget_fut.setItem(2, 0, item)
+
+                self.parent.speaker.setText('본월물 하향 변동성 출현')                
+                
+            elif 선물_현재가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
+
+                vb_txt = 'CM Volatility Upward Breakout'
+                txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
+                #self.parent.textBrowser.append(txt)
+                print(txt)
+
+                item = QTableWidgetItem('VUB')
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(magenta))
+                self.tableWidget_fut.setItem(2, 0, item)
+
+                self.parent.speaker.setText('본월물 상향 변동성 출현')                                
+            else:
+                vb_txt = ''
+
+                item = QTableWidgetItem('-')
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(white))
+                self.tableWidget_fut.setItem(2, 0, item)
+            
             if flag_call_strong:
                 txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call Strong({3:.2f}/{4:.2f}) ▲\r".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 선물_등락율, DOW_등락율)
                 self.parent.textBrowser.append(txt)
@@ -6145,43 +6185,45 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            if 선물_현재가 < volatility_breakout_downward_point:
-
-                vb_txt = 'CM Volatility Downward Breakout'
-                txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
-                self.parent.textBrowser.append(txt)
-
-                self.parent.speaker.setText('본월물 하향 변동성 출현')
-                
-            elif 선물_현재가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
-
-                vb_txt = 'CM Volatility Upward Breakout'
-                txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
-                self.parent.textBrowser.append(txt)
-
-                self.parent.speaker.setText('본월물 상향 변동성 출현')                
-            else:
-                vb_txt = ''
-
         elif TARGET_MONTH == 'NM':
 
             if 선물_현재가 < volatility_breakout_downward_point:
 
                 vb_txt = 'NM Volatility Downward Breakout'
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
-                self.parent.textBrowser.append(txt)
+                #self.parent.textBrowser.append(txt)
+                print(txt)
 
-                self.parent.speaker.setText('차월물 하향 변동성 출현')
+                item = QTableWidgetItem('VDB')
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(cyan))
+                self.tableWidget_fut.setItem(2, 0, item)
+
+                self.parent.speaker.setText('차월물 하향 변동성 출현')                
                 
             elif 선물_현재가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
 
                 vb_txt = 'NM Volatility Upward Breakout'
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
-                self.parent.textBrowser.append(txt)
+                #self.parent.textBrowser.append(txt)
+                print(txt)
+
+                item = QTableWidgetItem('VUB')
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(magenta))
+                self.tableWidget_fut.setItem(2, 0, item)
 
                 self.parent.speaker.setText('차월물 상향 변동성 출현')                
             else:
                 vb_txt = ''
+
+                item = QTableWidgetItem('-')
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(white))
+                self.tableWidget_fut.setItem(2, 0, item)
 
             if call_ol_count > call_oh_count and put_ol_count < put_oh_count:
 
@@ -39004,6 +39046,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, ovc_x_idx, 시스템시간_분, 서버시간_분
 
             server_time = trdata[2]
+
+            flag_heartbeat = True
             
             txt = '[{0:02d}:{1:02d}:{2:02d}] HeartBeat 수신...\r'.format(dt.hour, dt.minute, dt.second)
             #self.textBrowser.append(txt)
@@ -39036,9 +39080,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 server_x_idx = (SERVER_HOUR - DayTime_PreStart_Hour) * 60 + SERVER_MIN + 1
 
-            ovc_x_idx = server_x_idx
-
-            flag_heartbeat = True
+            ovc_x_idx = server_x_idx            
 
             if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -39534,6 +39576,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         dt = datetime.datetime.now()
 
+        flag_heartbeat = True 
+
         szTrCode = result[0]
 
         if szTrCode == 't0167':
@@ -39572,9 +39616,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
             txt = '[{0:02d}:{1:02d}:{2:02d}] HeartBeat 수신...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
             #self.textBrowser.append(txt)
-            print(txt)
-
-            flag_heartbeat = True                        
+            print(txt)                       
         else:
             pass
 
