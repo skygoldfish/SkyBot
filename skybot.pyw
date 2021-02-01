@@ -6173,7 +6173,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem('-')
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(검정색))
-                item.setForeground(QBrush(white))
+                item.setForeground(QBrush(흰색))
                 self.tableWidget_fut.setItem(2, 0, item)
             
             if flag_call_strong:
@@ -6222,7 +6222,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem('-')
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(검정색))
-                item.setForeground(QBrush(white))
+                item.setForeground(QBrush(흰색))
                 self.tableWidget_fut.setItem(2, 0, item)
 
             if call_ol_count > call_oh_count and put_ol_count < put_oh_count:
