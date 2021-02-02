@@ -5493,7 +5493,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.option_quote_update()
 
                     if DayTime and flag_periodic_plot_mode and fut_result: 
-                        self.fut_update(result)
+                        self.fut_update(fut_result)
                     else:
                         pass
                     
@@ -5509,12 +5509,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if flag_periodic_plot_mode:
 
                         if call_result:
-                            self.call_update()
+                            self.call_update(call_result)
                         else:
                             pass
 
                         if put_result:
-                            self.put_update()
+                            self.put_update(put_result)
                         else:
                             pass                
                         
@@ -6132,7 +6132,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         finally:
             flag_screen_update_is_running = False
-            #print('flag_screen_update_is_running =', flag_screen_update_is_running)
+            
 
     def heartbeat_check(self):
 
@@ -6142,7 +6142,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         flag_heartbeat = False
 
-        print('heartbeat_check 진입...')
+        #print('heartbeat_check 진입...')
 
         if TARGET_MONTH == 'CM':
 
