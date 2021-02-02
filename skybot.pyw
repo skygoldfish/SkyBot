@@ -6132,7 +6132,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         finally:
             flag_screen_update_is_running = False
-            
+
 
     def heartbeat_check(self):
 
@@ -25189,8 +25189,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_gold.setChecked(GOLD_CHK)
         self.checkBox_news.setChecked(NEWS_CHK)
 
-        self.checkBox_periodic_plot.setChecked(False)
-        self.checkBox_plot_first.setChecked(False)
+        self.checkBox_periodic_plot.setChecked(flag_periodic_plot_mode)
+        self.checkBox_plot_first.setChecked(flag_plot_first_mode)
 
         self.spinBox_call_itm.setValue(call_itm_number)
         self.spinBox_call_otm.setValue(call_otm_number)
