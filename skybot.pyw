@@ -25414,7 +25414,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         dt = datetime.datetime.now()
 
         txt = self.lineEdit_mp.text()
-        scoreboard_update_interval = int(txt)
+        scoreboard_update_interval = float(txt)
 
         txt = '[{0:02d}:{1:02d}:{2:02d}] 주기적 갱신시간을 {3} msec로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, scoreboard_update_interval)
         self.parent.textBrowser.append(txt)
