@@ -378,8 +378,8 @@ ASYM_RATIO = parser.getfloat('Initial Value', 'Asymmetric Market Ratio')
 ONEWAY_RATIO = parser.getfloat('Initial Value', 'OneWay Market Ratio')
 GOLDEN_RATIO = parser.getfloat('Initial Value', 'Golden Ratio')
 CROSS_COLOR_INTERVAL = parser.getint('Initial Value', 'Cross Coloring Interval(minute)')
-MAIN_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Main Update Interval(msec)')
-BIGCHART_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Big Chart Update Interval(msec)')
+MAIN_UPDATE_INTERVAL = parser.getint('Initial Value', 'Main Update Interval(msec)')
+BIGCHART_UPDATE_INTERVAL = parser.getint('Initial Value', 'Big Chart Update Interval(msec)')
 SCORE_BOARD_UPDATE_INTERVAL = parser.getint('Initial Value', 'Score Board Update Interval(sec)')
 SECOND_DISPLAY_X_POSITION = parser.getint('Initial Value', 'X Position of the Second Display')
 SECOND_DISPLAY_Y_POSITION = parser.getint('Initial Value', 'Y Position of the Second Display')
@@ -25414,7 +25414,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         dt = datetime.datetime.now()
 
         txt = self.lineEdit_mp.text()
-        scoreboard_update_interval = float(txt)
+        scoreboard_update_interval = int(txt)
 
         txt = '[{0:02d}:{1:02d}:{2:02d}] 주기적 갱신시간을 {3} msec로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, scoreboard_update_interval)
         self.parent.textBrowser.append(txt)
@@ -25426,7 +25426,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         dt = datetime.datetime.now()
 
         txt = self.lineEdit_plot.text()
-        plot_update_interval = float(txt)
+        plot_update_interval = int(txt)
 
         flag_plot_update_interval_changed = True
 
