@@ -34378,7 +34378,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
         else:            
-            txt = ' [{0}], {1:.2f} ms '.format(time_gap, plot2_processing_time)
+            txt = ' [{0:.1f}%], {1:.2f} ms '.format(drop_percent, plot2_processing_time)
    
         self.label_time_2.setText(txt)
 
@@ -35276,7 +35276,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
         else:            
-            txt = txt = ' [{0}], {1:.2f} ms '.format(time_gap, plot3_processing_time)
+            txt = ' [{0:.1f}%], {1:.2f} ms '.format(drop_percent, plot3_processing_time)
    
         self.label_time_3.setText(txt)
 
@@ -36168,7 +36168,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
         else:            
-            txt = txt = ' [{0}], {1:.2f} ms '.format(time_gap, plot4_processing_time)
+            txt = ' [{0:.1f}%], {1:.2f} ms '.format(drop_percent, plot4_processing_time)
    
         self.label_time_4.setText(txt)
 
@@ -37044,7 +37044,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
         else:            
-            txt = txt = ' [{0}], {1:.2f} ms '.format(time_gap, plot5_processing_time)
+            txt = ' [{0:.1f}%], {1:.2f} ms '.format(drop_percent, plot5_processing_time)
    
         self.label_time_5.setText(txt)
 
@@ -37935,7 +37935,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
         else:            
-            txt = txt = ' [{0}], {1:.2f} ms '.format(time_gap, plot6_processing_time)
+            txt = ' [{0:.1f}%], {1:.2f} ms '.format(drop_percent, plot6_processing_time)
    
         self.label_time_6.setText(txt)
 
