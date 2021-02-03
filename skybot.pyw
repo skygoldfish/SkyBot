@@ -12491,144 +12491,105 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        # 현재가 갱신
-        콜_현재가 = self.tableWidget_call.item(index, Option_column.현재가.value).text().split('\n')[0]
+        if call_scroll_begin_position <= index <= call_scroll_end_position:
 
-        if 현재가 != 콜_현재가:
+            # 현재가 갱신
+            콜_현재가 = self.tableWidget_call.item(index, Option_column.현재가.value).text().split('\n')[0]
 
-            df_call.at[index, '현재가'] = 콜현재가
+            if 현재가 != 콜_현재가:
 
-            if 콜현재가 < float(콜_현재가):
-                item = QTableWidgetItem(현재가 + '\n' + '▼')
-                item.setBackground(QBrush(lightskyblue))
-            elif 콜현재가 > float(콜_현재가):
-                item = QTableWidgetItem(현재가 + '\n' + '▲')
-                item.setBackground(QBrush(pink))
-            else:    
-                item = QTableWidgetItem(현재가)
-                item.setBackground(QBrush(흰색))
+                df_call.at[index, '현재가'] = 콜현재가
 
-            if 콜시가 < 콜현재가:
-                item.setForeground(QBrush(적색))
-            elif 콜시가 > 콜현재가:
-                item.setForeground(QBrush(청색))
-            else:
-                item.setForeground(QBrush(검정색))
+                if 콜현재가 < float(콜_현재가):
+                    item = QTableWidgetItem(현재가 + '\n' + '▼')
+                    item.setBackground(QBrush(lightskyblue))
+                elif 콜현재가 > float(콜_현재가):
+                    item = QTableWidgetItem(현재가 + '\n' + '▲')
+                    item.setBackground(QBrush(pink))
+                else:    
+                    item = QTableWidgetItem(현재가)
+                    item.setBackground(QBrush(흰색))
 
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_call.setItem(index, Option_column.현재가.value, item)
-
-            if ResizeRowsToContents:
-                self.tableWidget_call.resizeRowToContents(index)
-            else:
-                pass
-
-            콜대비 = 콜현재가 - 콜시가
-            df_call.at[index, '대비'] = 콜대비
-
-            if 콜시가 > 0.1:
-                call_db_percent[index] = (콜현재가 / 콜시가 - 1) * 100
-
-                if DayTime:
-
-                    if index == ATM_INDEX:
-                        gap_txt = "{0:.2f}\n({1:.2f}%)".format(콜대비, 콜_등가_등락율)
-                    else:
-                        gap_txt = "{0:.2f}\n({1:.0f}%)".format(콜대비, call_db_percent[index])
+                if 콜시가 < 콜현재가:
+                    item.setForeground(QBrush(적색))
+                elif 콜시가 > 콜현재가:
+                    item.setForeground(QBrush(청색))
                 else:
-                    gap_txt = "{0:.2f}\n({1:.0f}%)".format(콜대비, call_db_percent[index])                    
+                    item.setForeground(QBrush(검정색))
 
-                item = QTableWidgetItem(gap_txt)
                 item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setItem(index, Option_column.대비.value, item)
-            else:
-                pass
+                self.tableWidget_call.setItem(index, Option_column.현재가.value, item)
 
-            # 콜 외가(등가포함) 대비 저장
-            if DayTime and index <= ATM_INDEX and 콜시가 > 0.1 and 콜저가 < 콜고가:
-                call_otm_db[index] = 콜대비
-                call_otm_db_percent[index] = (콜현재가 / 콜시가 - 1) * 100
-            else:
-                pass            
-        else:
-            pass
-        
-        # 저가 갱신
-        if 저가 != 고가 and 저가 != self.tableWidget_call.item(index, Option_column.저가.value).text().split('\n')[0]:
+                if ResizeRowsToContents:
+                    self.tableWidget_call.resizeRowToContents(index)
+                else:
+                    pass
 
-            df_call.at[index, '저가'] = 콜저가
+                콜대비 = 콜현재가 - 콜시가
+                df_call.at[index, '대비'] = 콜대비
 
-            콜진폭 = 콜고가 - 콜저가
-            df_call.at[index, '진폭'] = 콜진폭
+                if 콜시가 > 0.1:
+                    call_db_percent[index] = (콜현재가 / 콜시가 - 1) * 100
 
-            콜기준가 = df_call.at[index, '기준가']
-            콜월저 = df_call.at[index, '월저']
-            콜전저 = df_call.at[index, '전저']
+                    if DayTime:
 
-            item = QTableWidgetItem('▼')
-            self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
-
-            call_저가 = df_call['저가'].values.tolist()
-            call_저가_node_list = self.make_node_list(call_저가)
-
-            if 1.20 < 콜저가 < 10.0:
-                self.opt_high_low_list_update()
-                빈도수 = moving_list.count(콜저가)
-                item = QTableWidgetItem(저가 + '\n(' + repr(빈도수) + ')')
-            else:
-                item = QTableWidgetItem(저가)
-
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(lightskyblue))
-            item.setForeground(QBrush(검정색))
-            self.tableWidget_call.setItem(index, Option_column.저가.value, item)
-
-            if 콜전저 >= 콜저가:
-
-                txt = '{0:.2f}'.format(콜전저) + '\n' + '▼'
-
-                if str != self.tableWidget_call.item(index, Option_column.전저.value).text():
-                    item = QTableWidgetItem(txt)
-                    item.setTextAlignment(Qt.AlignCenter)
-
-                    if DARK_STYLESHEET:
-                        item.setForeground(QBrush(cyan))
+                        if index == ATM_INDEX:
+                            gap_txt = "{0:.2f}\n({1:.2f}%)".format(콜대비, 콜_등가_등락율)
+                        else:
+                            gap_txt = "{0:.2f}\n({1:.0f}%)".format(콜대비, call_db_percent[index])
                     else:
-                        item.setForeground(QBrush(청색))
+                        gap_txt = "{0:.2f}\n({1:.0f}%)".format(콜대비, call_db_percent[index])                    
 
-                    self.tableWidget_call.setItem(index, Option_column.전저.value, item)
-                else:
-                    pass
-            else:
-                pass
-
-            if 콜월저 >= 콜저가:
-
-                txt = '{0:.2f}'.format(콜월저) + '\n' + '▼'
-
-                if str != self.tableWidget_call.item(index, Option_column.월저.value).text():
-                    item = QTableWidgetItem(txt)
+                    item = QTableWidgetItem(gap_txt)
                     item.setTextAlignment(Qt.AlignCenter)
-
-                    if DARK_STYLESHEET:
-                        item.setForeground(QBrush(cyan))
-                    else:
-                        item.setForeground(QBrush(청색))
-
-                    self.tableWidget_call.setItem(index, Option_column.월저.value, item)
+                    self.tableWidget_call.setItem(index, Option_column.대비.value, item)
                 else:
                     pass
+
+                # 콜 외가(등가포함) 대비 저장
+                if DayTime and index <= ATM_INDEX and 콜시가 > 0.1 and 콜저가 < 콜고가:
+                    call_otm_db[index] = 콜대비
+                    call_otm_db_percent[index] = (콜현재가 / 콜시가 - 1) * 100
+                else:
+                    pass            
             else:
                 pass
+            
+            # 저가 갱신
+            if 저가 != 고가 and 저가 != self.tableWidget_call.item(index, Option_column.저가.value).text().split('\n')[0]:
 
-            if DayTime and 콜기준가 >= 콜저가:
+                df_call.at[index, '저가'] = 콜저가
 
-                if ATM_INDEX - 3 <= index <= ATM_INDEX + 3:
-                    pass
+                콜진폭 = 콜고가 - 콜저가
+                df_call.at[index, '진폭'] = 콜진폭
+
+                콜기준가 = df_call.at[index, '기준가']
+                콜월저 = df_call.at[index, '월저']
+                콜전저 = df_call.at[index, '전저']
+
+                item = QTableWidgetItem('▼')
+                self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+
+                call_저가 = df_call['저가'].values.tolist()
+                call_저가_node_list = self.make_node_list(call_저가)
+
+                if 1.20 < 콜저가 < 10.0:
+                    self.opt_high_low_list_update()
+                    빈도수 = moving_list.count(콜저가)
+                    item = QTableWidgetItem(저가 + '\n(' + repr(빈도수) + ')')
                 else:
-                    txt = '{0:.2f}'.format(콜기준가) + '\n' + '▼'
+                    item = QTableWidgetItem(저가)
 
-                    if str != self.tableWidget_call.item(index, Option_column.기준가.value).text():
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(lightskyblue))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_call.setItem(index, Option_column.저가.value, item)
+
+                if 콜전저 >= 콜저가:
+
+                    txt = '{0:.2f}'.format(콜전저) + '\n' + '▼'
+
+                    if str != self.tableWidget_call.item(index, Option_column.전저.value).text():
                         item = QTableWidgetItem(txt)
                         item.setTextAlignment(Qt.AlignCenter)
 
@@ -12637,106 +12598,149 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             item.setForeground(QBrush(청색))
 
-                        self.tableWidget_call.setItem(index, Option_column.기준가.value, item)
+                        self.tableWidget_call.setItem(index, Option_column.전저.value, item)
                     else:
                         pass
-            else:
-                pass
-
-            item = QTableWidgetItem("{0:.2f}".format(콜진폭))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
-
-            self.check_call_oloh()
-
-            # 콜은 인덱스 기준으로 갱신
-            if 콜저가 < 콜고가 and call_scroll_begin_position <= index <= call_scroll_end_position:
-                flag_call_low_update = True
-            else:
-                pass
-
-            process_time = (timeit.default_timer() - start_time) * 1000
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Call 저가 {3} Update : {4:.2f} ms\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜저가, process_time)
-            self.textBrowser.append(txt)
-            print(txt) 
-        else:
-            pass             
-
-        # 고가 갱신
-        if 저가 != 고가 and 고가 != self.tableWidget_call.item(index, Option_column.고가.value).text().split('\n')[0]:
-
-            df_call.at[index, '고가'] = 콜고가
-
-            콜진폭 = 콜고가 - 콜저가
-            df_call.at[index, '진폭'] = 콜진폭
-
-            콜월고 = df_call.at[index, '월고']
-            콜전고 = df_call.at[index, '전고']
-
-            item = QTableWidgetItem('▲')
-            self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
-
-            call_고가 = df_call['고가'].values.tolist()
-            call_고가_node_list = self.make_node_list(call_고가)
-
-            if 1.20 < 콜고가 < 10.0:
-                self.opt_high_low_list_update()
-                빈도수 = moving_list.count(콜고가)
-                item = QTableWidgetItem(고가 + '\n(' + repr(빈도수) + ')')
-            else:
-                item = QTableWidgetItem(고가)            
-
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(pink))
-            item.setForeground(QBrush(검정색))
-            self.tableWidget_call.setItem(index, Option_column.고가.value, item)
-
-            if 콜전고 <= 콜고가:
-
-                txt = '{0:.2f}'.format(콜전고) + '\n' + '▲'
-
-                if str != self.tableWidget_call.item(index, Option_column.전고.value).text():
-                    item = QTableWidgetItem(txt)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setForeground(QBrush(magenta))             
-                    self.tableWidget_call.setItem(index, Option_column.전고.value, item)
                 else:
                     pass
-            else:
-                pass
 
-            if 콜월고 <= 콜고가:
+                if 콜월저 >= 콜저가:
 
-                txt = '{0:.2f}'.format(콜월고) + '\n' + '▲'
+                    txt = '{0:.2f}'.format(콜월저) + '\n' + '▼'
 
-                if str != self.tableWidget_call.item(index, Option_column.월고.value).text():
-                    item = QTableWidgetItem(txt)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setForeground(QBrush(magenta))             
-                    self.tableWidget_call.setItem(index, Option_column.월고.value, item)
+                    if str != self.tableWidget_call.item(index, Option_column.월저.value).text():
+                        item = QTableWidgetItem(txt)
+                        item.setTextAlignment(Qt.AlignCenter)
+
+                        if DARK_STYLESHEET:
+                            item.setForeground(QBrush(cyan))
+                        else:
+                            item.setForeground(QBrush(청색))
+
+                        self.tableWidget_call.setItem(index, Option_column.월저.value, item)
+                    else:
+                        pass
                 else:
                     pass
+
+                if DayTime and 콜기준가 >= 콜저가:
+
+                    if ATM_INDEX - 3 <= index <= ATM_INDEX + 3:
+                        pass
+                    else:
+                        txt = '{0:.2f}'.format(콜기준가) + '\n' + '▼'
+
+                        if str != self.tableWidget_call.item(index, Option_column.기준가.value).text():
+                            item = QTableWidgetItem(txt)
+                            item.setTextAlignment(Qt.AlignCenter)
+
+                            if DARK_STYLESHEET:
+                                item.setForeground(QBrush(cyan))
+                            else:
+                                item.setForeground(QBrush(청색))
+
+                            self.tableWidget_call.setItem(index, Option_column.기준가.value, item)
+                        else:
+                            pass
+                else:
+                    pass
+
+                item = QTableWidgetItem("{0:.2f}".format(콜진폭))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
+
+                self.check_call_oloh()
+
+                # 콜은 인덱스 기준으로 갱신
+                if 콜저가 < 콜고가:
+                    flag_call_low_update = True
+                else:
+                    pass
+
+                process_time = (timeit.default_timer() - start_time) * 1000
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Call 저가 {3} Update : {4:.2f} ms\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜저가, process_time)
+                self.textBrowser.append(txt)
+                print(txt) 
+            else:
+                pass             
+
+            # 고가 갱신
+            if 저가 != 고가 and 고가 != self.tableWidget_call.item(index, Option_column.고가.value).text().split('\n')[0]:
+
+                df_call.at[index, '고가'] = 콜고가
+
+                콜진폭 = 콜고가 - 콜저가
+                df_call.at[index, '진폭'] = 콜진폭
+
+                콜월고 = df_call.at[index, '월고']
+                콜전고 = df_call.at[index, '전고']
+
+                item = QTableWidgetItem('▲')
+                self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+
+                call_고가 = df_call['고가'].values.tolist()
+                call_고가_node_list = self.make_node_list(call_고가)
+
+                if 1.20 < 콜고가 < 10.0:
+                    self.opt_high_low_list_update()
+                    빈도수 = moving_list.count(콜고가)
+                    item = QTableWidgetItem(고가 + '\n(' + repr(빈도수) + ')')
+                else:
+                    item = QTableWidgetItem(고가)            
+
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(pink))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_call.setItem(index, Option_column.고가.value, item)
+
+                if 콜전고 <= 콜고가:
+
+                    txt = '{0:.2f}'.format(콜전고) + '\n' + '▲'
+
+                    if str != self.tableWidget_call.item(index, Option_column.전고.value).text():
+                        item = QTableWidgetItem(txt)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setForeground(QBrush(magenta))             
+                        self.tableWidget_call.setItem(index, Option_column.전고.value, item)
+                    else:
+                        pass
+                else:
+                    pass
+
+                if 콜월고 <= 콜고가:
+
+                    txt = '{0:.2f}'.format(콜월고) + '\n' + '▲'
+
+                    if str != self.tableWidget_call.item(index, Option_column.월고.value).text():
+                        item = QTableWidgetItem(txt)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setForeground(QBrush(magenta))             
+                        self.tableWidget_call.setItem(index, Option_column.월고.value, item)
+                    else:
+                        pass
+                else:
+                    pass
+
+                item = QTableWidgetItem("{0:.2f}".format(콜진폭))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
+
+                self.check_call_oloh()
+
+                # 콜은 인덱스 기준으로 갱신
+                if 콜저가 < 콜고가:
+                    flag_call_high_update = True
+                else:
+                    pass
+
+                process_time = (timeit.default_timer() - start_time) * 1000
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Call 고가 {3} Update : {4:.2f} ms\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜고가, process_time)
+                self.textBrowser.append(txt)
+                print(txt) 
             else:
                 pass
-
-            item = QTableWidgetItem("{0:.2f}".format(콜진폭))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
-
-            self.check_call_oloh()
-
-            # 콜은 인덱스 기준으로 갱신
-            if 콜저가 < 콜고가 and call_scroll_begin_position <= index <= call_scroll_end_position:
-                flag_call_high_update = True
-            else:
-                pass
-
-            process_time = (timeit.default_timer() - start_time) * 1000
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Call 고가 {3} Update : {4:.2f} ms\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜고가, process_time)
-            self.textBrowser.append(txt)
-            print(txt) 
         else:
             pass    
     
@@ -13502,144 +13506,105 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
         
-        # 현재가 갱신
-        풋_현재가 = self.tableWidget_put.item(index, Option_column.현재가.value).text().split('\n')[0]
+        if put_scroll_begin_position <= index <= put_scroll_end_position:
 
-        if 현재가 != 풋_현재가:
+            # 현재가 갱신
+            풋_현재가 = self.tableWidget_put.item(index, Option_column.현재가.value).text().split('\n')[0]
 
-            df_put.at[index, '현재가'] = 풋현재가
+            if 현재가 != 풋_현재가:
 
-            if 풋현재가 < float(풋_현재가):
-                item = QTableWidgetItem(현재가 + '\n' + '▼')
-                item.setBackground(QBrush(lightskyblue))
-            elif 풋현재가 > float(풋_현재가):
-                item = QTableWidgetItem(현재가 + '\n' + '▲')
-                item.setBackground(QBrush(pink))
-            else:    
-                item = QTableWidgetItem(현재가)
-                item.setBackground(QBrush(흰색))
+                df_put.at[index, '현재가'] = 풋현재가
 
-            if 풋시가 < 풋현재가:
-                item.setForeground(QBrush(적색))
-            elif 풋시가 > 풋현재가:
-                item.setForeground(QBrush(청색))
-            else:
-                item.setForeground(QBrush(검정색))
+                if 풋현재가 < float(풋_현재가):
+                    item = QTableWidgetItem(현재가 + '\n' + '▼')
+                    item.setBackground(QBrush(lightskyblue))
+                elif 풋현재가 > float(풋_현재가):
+                    item = QTableWidgetItem(현재가 + '\n' + '▲')
+                    item.setBackground(QBrush(pink))
+                else:    
+                    item = QTableWidgetItem(현재가)
+                    item.setBackground(QBrush(흰색))
 
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_put.setItem(index, Option_column.현재가.value, item)
-
-            if ResizeRowsToContents:
-                self.tableWidget_put.resizeRowToContents(index)
-            else:
-                pass
-
-            풋대비 = 풋현재가 - 풋시가
-            df_put.at[index, '대비'] = 풋대비
-
-            if 풋시가 > 0.1:
-                put_db_percent[index] = (풋현재가 / 풋시가 - 1) * 100
-
-                if DayTime:
-
-                    if index == ATM_INDEX:
-                        gap_txt = "{0:.2f}\n({1:.2f}%)".format(풋대비, 풋_등가_등락율)
-                    else:
-                        gap_txt = "{0:.2f}\n({1:.0f}%)".format(풋대비, put_db_percent[index])
+                if 풋시가 < 풋현재가:
+                    item.setForeground(QBrush(적색))
+                elif 풋시가 > 풋현재가:
+                    item.setForeground(QBrush(청색))
                 else:
-                    gap_txt = "{0:.2f}\n({1:.0f}%)".format(풋대비, put_db_percent[index])  
+                    item.setForeground(QBrush(검정색))
 
-                item = QTableWidgetItem(gap_txt)
                 item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setItem(index, Option_column.대비.value, item)
+                self.tableWidget_put.setItem(index, Option_column.현재가.value, item)
+
+                if ResizeRowsToContents:
+                    self.tableWidget_put.resizeRowToContents(index)
+                else:
+                    pass
+
+                풋대비 = 풋현재가 - 풋시가
+                df_put.at[index, '대비'] = 풋대비
+
+                if 풋시가 > 0.1:
+                    put_db_percent[index] = (풋현재가 / 풋시가 - 1) * 100
+
+                    if DayTime:
+
+                        if index == ATM_INDEX:
+                            gap_txt = "{0:.2f}\n({1:.2f}%)".format(풋대비, 풋_등가_등락율)
+                        else:
+                            gap_txt = "{0:.2f}\n({1:.0f}%)".format(풋대비, put_db_percent[index])
+                    else:
+                        gap_txt = "{0:.2f}\n({1:.0f}%)".format(풋대비, put_db_percent[index])  
+
+                    item = QTableWidgetItem(gap_txt)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setItem(index, Option_column.대비.value, item)
+                else:
+                    pass
+                
+                # 풋 외가(등가포함) 대비 저장
+                if DayTime and index >= ATM_INDEX and 풋시가 > 0.1 and 풋저가 < 풋고가:
+                    put_otm_db[index] = 풋대비
+                    put_otm_db_percent[index] = (풋현재가 / 풋시가 - 1) * 100
+                else:
+                    pass                       
             else:
                 pass
             
-            # 풋 외가(등가포함) 대비 저장
-            if DayTime and index >= ATM_INDEX and 풋시가 > 0.1 and 풋저가 < 풋고가:
-                put_otm_db[index] = 풋대비
-                put_otm_db_percent[index] = (풋현재가 / 풋시가 - 1) * 100
-            else:
-                pass                       
-        else:
-            pass
-        
-        # 저가 갱신
-        if 저가 != 고가 and 저가 != self.tableWidget_put.item(index, Option_column.저가.value).text().split('\n')[0]:
+            # 저가 갱신
+            if 저가 != 고가 and 저가 != self.tableWidget_put.item(index, Option_column.저가.value).text().split('\n')[0]:
 
-            df_put.at[index, '저가'] = 풋저가
+                df_put.at[index, '저가'] = 풋저가
 
-            풋진폭 = 풋고가 - 풋저가
-            df_put.at[index, '진폭'] = 풋진폭
+                풋진폭 = 풋고가 - 풋저가
+                df_put.at[index, '진폭'] = 풋진폭
 
-            풋기준가 = df_put.at[index, '기준가']
-            풋월저 = df_put.at[index, '월저']
-            풋전저 = df_put.at[index, '전저']
+                풋기준가 = df_put.at[index, '기준가']
+                풋월저 = df_put.at[index, '월저']
+                풋전저 = df_put.at[index, '전저']
 
-            item = QTableWidgetItem('▼')
-            self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+                item = QTableWidgetItem('▼')
+                self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
 
-            put_저가 = df_put['저가'].values.tolist()
-            put_저가_node_list = self.make_node_list(put_저가)
+                put_저가 = df_put['저가'].values.tolist()
+                put_저가_node_list = self.make_node_list(put_저가)
 
-            if 1.20 < 풋저가 < 10.0:
-                self.opt_high_low_list_update()
-                빈도수 = moving_list.count(풋저가)
-                item = QTableWidgetItem(저가 + '\n(' + repr(빈도수) + ')')
-            else:
-                item = QTableWidgetItem(저가)
-
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(lightskyblue))
-            item.setForeground(QBrush(검정색))
-            self.tableWidget_put.setItem(index, Option_column.저가.value, item)
-
-            if 풋전저 >= 풋저가:
-
-                txt = '{0:.2f}'.format(풋전저) + '\n' + '▼'
-
-                if str != self.tableWidget_put.item(index, Option_column.전저.value).text():
-                    item = QTableWidgetItem(txt)
-                    item.setTextAlignment(Qt.AlignCenter)
-
-                    if DARK_STYLESHEET:
-                        item.setForeground(QBrush(cyan))
-                    else:
-                        item.setForeground(QBrush(청색))
-
-                    self.tableWidget_put.setItem(index, Option_column.전저.value, item)
+                if 1.20 < 풋저가 < 10.0:
+                    self.opt_high_low_list_update()
+                    빈도수 = moving_list.count(풋저가)
+                    item = QTableWidgetItem(저가 + '\n(' + repr(빈도수) + ')')
                 else:
-                    pass
-            else:
-                pass
+                    item = QTableWidgetItem(저가)
 
-            if 풋월저 >= 풋저가:
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(lightskyblue))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_put.setItem(index, Option_column.저가.value, item)
 
-                txt = '{0:.2f}'.format(풋월저) + '\n' + '▼'
+                if 풋전저 >= 풋저가:
 
-                if str != self.tableWidget_put.item(index, Option_column.월저.value).text():
-                    item = QTableWidgetItem(txt)
-                    item.setTextAlignment(Qt.AlignCenter)
+                    txt = '{0:.2f}'.format(풋전저) + '\n' + '▼'
 
-                    if DARK_STYLESHEET:
-                        item.setForeground(QBrush(cyan))
-                    else:
-                        item.setForeground(QBrush(청색))
-
-                    self.tableWidget_put.setItem(index, Option_column.월저.value, item)
-                else:
-                    pass
-            else:
-                pass
-
-            if DayTime and 풋기준가 >= 풋저가:
-
-                if ATM_INDEX - 3 <= index <= ATM_INDEX + 3:
-                    pass
-                else:
-                    txt = '{0:.2f}'.format(풋기준가) + '\n' + '▼'
-
-                    if str != self.tableWidget_put.item(index, Option_column.기준가.value).text():
+                    if str != self.tableWidget_put.item(index, Option_column.전저.value).text():
                         item = QTableWidgetItem(txt)
                         item.setTextAlignment(Qt.AlignCenter)
 
@@ -13648,106 +13613,149 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             item.setForeground(QBrush(청색))
 
-                        self.tableWidget_put.setItem(index, Option_column.기준가.value, item)
+                        self.tableWidget_put.setItem(index, Option_column.전저.value, item)
                     else:
-                        pass                    
-            else:
-                pass
-
-            item = QTableWidgetItem("{0:.2f}".format(풋진폭))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
-
-            self.check_put_oloh()
-
-            # 풋은 가격기준으로 갱신
-            if 풋저가 < 풋고가 and update_start < 풋저가 < update_end:            
-                flag_put_low_update = True
-            else:
-                pass
-
-            process_time = (timeit.default_timer() - start_time) * 1000
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Put 저가 {3} Update : {4:.2f} ms\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 풋저가, process_time)
-            self.textBrowser.append(txt)
-            print(txt) 
-        else:
-            pass
-
-        # 고가 갱신
-        if 저가 != 고가 and 고가 != self.tableWidget_put.item(index, Option_column.고가.value).text().split('\n')[0]:
-
-            df_put.at[index, '고가'] = 풋고가
-
-            풋진폭 = 풋고가 - 풋저가
-            df_put.at[index, '진폭'] = 풋진폭
-
-            풋월고 = df_put.at[index, '월고']
-            풋전고 = df_put.at[index, '전고']
-
-            item = QTableWidgetItem('▲')
-            self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
-
-            put_고가 = df_put['고가'].values.tolist()
-            put_고가_node_list = self.make_node_list(put_고가)
-
-            if 1.20 < 풋고가 < 10.0:
-                self.opt_high_low_list_update()
-                빈도수 = moving_list.count(풋고가)
-                item = QTableWidgetItem(고가 + '\n(' + repr(빈도수) + ')')
-            else:
-                item = QTableWidgetItem(고가)
-
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(pink))
-            item.setForeground(QBrush(검정색))
-            self.tableWidget_put.setItem(index, Option_column.고가.value, item)
-
-            if 풋전고 <= 풋고가:
-
-                txt = '{0:.2f}'.format(풋전고) + '\n' + '▲'
-
-                if str != self.tableWidget_put.item(index, Option_column.전고.value).text():
-                    item = QTableWidgetItem(txt)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setForeground(QBrush(magenta))             
-                    self.tableWidget_put.setItem(index, Option_column.전고.value, item)
+                        pass
                 else:
                     pass
-            else:
-                pass
 
-            if 풋월고 <= 풋고가:
+                if 풋월저 >= 풋저가:
 
-                txt = '{0:.2f}'.format(풋월고) + '\n' + '▲'
+                    txt = '{0:.2f}'.format(풋월저) + '\n' + '▼'
 
-                if str != self.tableWidget_put.item(index, Option_column.월고.value).text():
-                    item = QTableWidgetItem(txt)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setForeground(QBrush(magenta))             
-                    self.tableWidget_put.setItem(index, Option_column.월고.value, item)
+                    if str != self.tableWidget_put.item(index, Option_column.월저.value).text():
+                        item = QTableWidgetItem(txt)
+                        item.setTextAlignment(Qt.AlignCenter)
+
+                        if DARK_STYLESHEET:
+                            item.setForeground(QBrush(cyan))
+                        else:
+                            item.setForeground(QBrush(청색))
+
+                        self.tableWidget_put.setItem(index, Option_column.월저.value, item)
+                    else:
+                        pass
                 else:
                     pass
+
+                if DayTime and 풋기준가 >= 풋저가:
+
+                    if ATM_INDEX - 3 <= index <= ATM_INDEX + 3:
+                        pass
+                    else:
+                        txt = '{0:.2f}'.format(풋기준가) + '\n' + '▼'
+
+                        if str != self.tableWidget_put.item(index, Option_column.기준가.value).text():
+                            item = QTableWidgetItem(txt)
+                            item.setTextAlignment(Qt.AlignCenter)
+
+                            if DARK_STYLESHEET:
+                                item.setForeground(QBrush(cyan))
+                            else:
+                                item.setForeground(QBrush(청색))
+
+                            self.tableWidget_put.setItem(index, Option_column.기준가.value, item)
+                        else:
+                            pass                    
+                else:
+                    pass
+
+                item = QTableWidgetItem("{0:.2f}".format(풋진폭))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
+
+                self.check_put_oloh()
+
+                # 풋은 가격기준으로 갱신
+                if 풋저가 < 풋고가 and update_start < 풋저가 < update_end:            
+                    flag_put_low_update = True
+                else:
+                    pass
+
+                process_time = (timeit.default_timer() - start_time) * 1000
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Put 저가 {3} Update : {4:.2f} ms\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 풋저가, process_time)
+                self.textBrowser.append(txt)
+                print(txt) 
             else:
                 pass
 
-            item = QTableWidgetItem("{0:.2f}".format(풋진폭))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
+            # 고가 갱신
+            if 저가 != 고가 and 고가 != self.tableWidget_put.item(index, Option_column.고가.value).text().split('\n')[0]:
 
-            self.check_put_oloh()
+                df_put.at[index, '고가'] = 풋고가
 
-            # 풋은 가격기준으로 갱신
-            if 풋저가 < 풋고가 and update_start < 풋고가 < update_end:            
-                flag_put_high_update = True
+                풋진폭 = 풋고가 - 풋저가
+                df_put.at[index, '진폭'] = 풋진폭
+
+                풋월고 = df_put.at[index, '월고']
+                풋전고 = df_put.at[index, '전고']
+
+                item = QTableWidgetItem('▲')
+                self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
+
+                put_고가 = df_put['고가'].values.tolist()
+                put_고가_node_list = self.make_node_list(put_고가)
+
+                if 1.20 < 풋고가 < 10.0:
+                    self.opt_high_low_list_update()
+                    빈도수 = moving_list.count(풋고가)
+                    item = QTableWidgetItem(고가 + '\n(' + repr(빈도수) + ')')
+                else:
+                    item = QTableWidgetItem(고가)
+
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(pink))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_put.setItem(index, Option_column.고가.value, item)
+
+                if 풋전고 <= 풋고가:
+
+                    txt = '{0:.2f}'.format(풋전고) + '\n' + '▲'
+
+                    if str != self.tableWidget_put.item(index, Option_column.전고.value).text():
+                        item = QTableWidgetItem(txt)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setForeground(QBrush(magenta))             
+                        self.tableWidget_put.setItem(index, Option_column.전고.value, item)
+                    else:
+                        pass
+                else:
+                    pass
+
+                if 풋월고 <= 풋고가:
+
+                    txt = '{0:.2f}'.format(풋월고) + '\n' + '▲'
+
+                    if str != self.tableWidget_put.item(index, Option_column.월고.value).text():
+                        item = QTableWidgetItem(txt)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setForeground(QBrush(magenta))             
+                        self.tableWidget_put.setItem(index, Option_column.월고.value, item)
+                    else:
+                        pass
+                else:
+                    pass
+
+                item = QTableWidgetItem("{0:.2f}".format(풋진폭))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
+
+                self.check_put_oloh()
+
+                # 풋은 가격기준으로 갱신
+                if 풋저가 < 풋고가 and update_start < 풋고가 < update_end:            
+                    flag_put_high_update = True
+                else:
+                    pass
+
+                process_time = (timeit.default_timer() - start_time) * 1000
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Put 고가 {3} Update : {4:.2f} ms\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 풋고가, process_time)
+                self.textBrowser.append(txt)
+                print(txt) 
             else:
                 pass
-
-            process_time = (timeit.default_timer() - start_time) * 1000
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Put 고가 {3} Update : {4:.2f} ms\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 풋고가, process_time)
-            self.textBrowser.append(txt)
-            print(txt) 
         else:
             pass      
     
