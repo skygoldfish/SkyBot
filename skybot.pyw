@@ -1904,6 +1904,7 @@ flag_put_itm_number_changed = False
 flag_put_otm_number_changed = False
 
 drop_txt = ''
+drop_percent = 0
 time_gap = 0
 
 main_opt_totalsize = 0
@@ -39190,7 +39191,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @pyqtSlot(dict)
     def transfer_mp_main_realdata(self, realdata):
 
-        global drop_txt, time_gap, main_opt_totalsize, main_totalsize
+        global drop_txt, drop_percent, time_gap, main_opt_totalsize, main_totalsize
         
         dt = datetime.datetime.now()        
 
@@ -39209,10 +39210,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 main_dropcount, main_qsize, main_totalcount, main_totalsize, main_opt_totalsize = self.realtime_main_dataworker.get_packet_info()
 
+                drop_percent = (main_dropcount / main_totalcount) * 100
+
                 if OPTION_SIZE:
-                    drop_txt = '{0}/{1}({2}k)'.format(format(main_dropcount, ','), format(main_totalcount, ','), format(int(main_opt_totalsize/1000), ','))
+                    drop_txt = '{0}/{1}({2}k), [{3:.1f}%]'.format(format(main_dropcount, ','), format(main_totalcount, ','), format(int(main_opt_totalsize/1000), ','), drop_percent)
                 else:
-                    drop_txt = '{0}/{1}({2}k)'.format(format(main_dropcount, ','), format(main_totalcount, ','), format(int(main_totalsize/1000), ','))
+                    drop_txt = '{0}/{1}({2}k), [{3:.1f}%]'.format(format(main_dropcount, ','), format(main_totalcount, ','), format(int(main_totalsize/1000), ','), drop_percent)
 
             elif MP_NUMBER == 2:
 
@@ -39223,7 +39226,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 totalcount = main_totalcount + second_totalcount
                 totalsize = main_totalsize + second_totalsize
 
-                drop_txt = '{0}/{1}({2}k)'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','))
+                drop_percent = (total_dropcount / totalcount) * 100
+
+                drop_txt = '{0}/{1}({2}k), [{3:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','), drop_percent)
                     
             elif MP_NUMBER == 3:
 
@@ -39235,7 +39240,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 totalcount = main_totalcount + second_totalcount + third_totalcount
                 totalsize = main_totalsize + second_totalsize + third_totalsize
 
-                drop_txt = '{0}/{1}({2}k)'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','))
+                drop_percent = (total_dropcount / totalcount) * 100
+
+                drop_txt = '{0}/{1}({2}k), [{3:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','), drop_percent)
             else:
                 pass
 
@@ -39508,7 +39515,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @pyqtSlot(dict)
     def transfer_thread_realdata(self, realdata):
 
-        global drop_txt, time_gap, main_opt_totalsize, main_totalsize
+        global drop_txt, drop_percent, time_gap, main_opt_totalsize, main_totalsize
 
         dt = datetime.datetime.now()
 
@@ -39534,10 +39541,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
              # 수신된 실시간데이타 정보표시(누락된 패킷수, 누락된 패킷, 수신된 총 패킷수, 수신된 총 패킷크기)
             dropcount, qsize, totalcount, main_totalsize, main_opt_totalsize = self.realtime_thread_dataworker.get_packet_info()
 
+            drop_percent = (dropcount / main_totalcount) * 100
+
             if OPTION_SIZE:
-                drop_txt = '{0}/{1}({2}k)'.format(format(dropcount, ','), format(totalcount, ','), format(int(main_opt_totalsize/1000), ','))
+                drop_txt = '{0}/{1}({2}k), [{3:.1f}%]'.format(format(dropcount, ','), format(totalcount, ','), format(int(main_opt_totalsize/1000), ','), drop_percent)
             else:
-                drop_txt = '{0}/{1}({2}k)'.format(format(dropcount, ','), format(totalcount, ','), format(int(main_totalsize/1000), ','))
+                drop_txt = '{0}/{1}({2}k), [{3:.1f}%]'.format(format(dropcount, ','), format(totalcount, ','), format(int(main_totalsize/1000), ','), drop_percent)
 
             txt = ' 시스템 시간/[{0}] 수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
                 dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
