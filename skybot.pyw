@@ -321,6 +321,7 @@ DARK_STYLESHEET = parser.getboolean('Window Style', 'Dark Style')
 
 # [5]. << User Switch = 'ON or OFF' >>
 MULTIPROCESS = parser.getboolean('User Switch', 'Multiprocess')
+PLOT_FIRST = parser.getboolean('User Switch', 'Plot First')
 TELEGRAM_SERVICE = parser.getboolean('User Switch', 'Telegram service')
 MANGI_YAGAN = parser.getboolean('User Switch', 'Mangi Yagan')
 AUTO_START = parser.getboolean('User Switch', 'Auto Start')
@@ -1918,7 +1919,7 @@ schedule_hour = 0
 schedule_min = 0
 schedule_sec = 0
 
-flag_plot_first_mode = False
+flag_plot_first_mode = PLOT_FIRST
 flag_periodic_plot_mode = False
 
 #####################################################################################################################################################################
@@ -18077,7 +18078,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.textBrowser.append(txt)
                 print(txt)
                 
-                self.screen_update_worker.start()
+                if not flag_plot_first_mode:
+                    self.screen_update_worker.start()
+                else:
+                    pass
 
                 ui_start_time = dt.hour * 3600 + dt.minute * 60 + dt.second
                 print('야간 ui_start_time =', ui_start_time)
@@ -19544,7 +19548,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.textBrowser.append(txt)
                         print(txt)
                         
-                        self.screen_update_worker.start()
+                        if not flag_plot_first_mode:
+                            self.screen_update_worker.start()
+                        else:
+                            pass
                         
                         ui_start_time = dt.hour * 3600 + dt.minute * 60 + dt.second
                         print('주간 ui_start_time =', ui_start_time)
@@ -24194,10 +24201,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         call_result = copy.deepcopy(result)
 
                         if not flag_periodic_plot_mode:
-                            self.call_update(result)                       
-                            self.call_db_update()
-                            self.call_volume_power_update()
-                            self.call_oi_update()
+
+                            if not flag_plot_first_mode:
+                                self.call_update(result)                       
+                                self.call_db_update()
+                                self.call_volume_power_update()
+                                self.call_oi_update()
+                            else:
+                                pass
                         else:
                             pass
                     else:
@@ -24254,10 +24265,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     put_result = copy.deepcopy(result)                                                           
 
                     if not flag_periodic_plot_mode:
-                        self.put_update(result)                    
-                        self.put_db_update()
-                        self.put_volume_power_update()
-                        self.put_oi_update()
+
+                        if not flag_plot_first_mode:
+                            self.put_update(result)                    
+                            self.put_db_update()
+                            self.put_volume_power_update()
+                            self.put_oi_update()
+                        else:
+                            pass
                     else:
                         pass                                 
                 else:
@@ -26594,17 +26609,36 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.datetime.now()
 
-        global flag_plot_first_mode
+        global flag_plot_first_mode, scoreboard_update_interval
 
         if self.checkBox_plot_first.isChecked() == True:
 
             flag_plot_first_mode = True
+
+            if self.parent.dialog['선물옵션전광판'].screen_update_worker.isRunning():
+                self.parent.dialog['선물옵션전광판'].screen_update_worker.terminate()
+            else:
+                pass
+
+            if self.parent.dialog['선물옵션전광판'].telegram_send_worker.isRunning():
+                self.parent.dialog['선물옵션전광판'].telegram_send_worker.terminate()
+            else:
+                pass
+
+            if self.parent.dialog['선물옵션전광판'].telegram_listen_worker.isRunning():
+                self.parent.dialog['선물옵션전광판'].telegram_listen_worker.terminate()
+            else:
+                pass
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] Plot 우선모드로 설정합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.parent.textBrowser.append(txt)
             print(txt)
         else:
             flag_plot_first_mode = False
+
+            self.parent.dialog['선물옵션전광판'].screen_update_worker.start()
+            self.parent.dialog['선물옵션전광판'].telegram_send_worker.start()
+            self.parent.dialog['선물옵션전광판'].telegram_listen_worker.start()
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] Plot 우선모드를 해지합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.parent.textBrowser.append(txt)
