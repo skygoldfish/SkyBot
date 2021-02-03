@@ -456,9 +456,9 @@
     </font>
    </property>
    <property name="title">
-    <string>실시간 Data 갱신 허용오차</string>
+    <string>실시간 Data 갱신주기</string>
    </property>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -504,7 +504,7 @@
         </font>
        </property>
        <property name="text">
-        <string>sec</string>
+        <string>msec</string>
        </property>
       </widget>
      </item>
