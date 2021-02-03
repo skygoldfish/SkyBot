@@ -467,7 +467,7 @@
       <height>22</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="4,2,1,1">
+    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="4,1,2,1">
      <item>
       <widget class="QCheckBox" name="checkBox_periodic_plot">
        <property name="text">
