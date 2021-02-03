@@ -5958,8 +5958,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 realdata_option_info_txt = '[{0:02d}:{1:02d}:{2:02d}] 수신된 옵션 데이타 크기 : ' + main_opt_totalsize + '\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                                 self.textBrowser.append(realdata_option_info_txt)
 
-                                realdata_info_txt = '[{0:02d}:{1:02d}:{2:02d}] 수신된 실시간데이타 전체 통계 : ' + drop_txt + '\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
-                                self.textBrowser.append(realdata_info_txt)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간데이타 통계 : {3}, 패킷 손실율 : {4}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, drop_txt, drop_percent)
+                                self.textBrowser.append(txt)
 
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                                 self.textBrowser.append(txt)
@@ -6065,9 +6065,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.parent.statusbar.showMessage("오프라인")
 
                             if not flag_logfile:
-
-                                realdata_info_txt = '수신된 실시간데이타 통계 : ' + drop_txt + '\r'
-                                self.textBrowser.append(realdata_info_txt)
+                                
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간데이타 통계 : {3}, 패킷 손실율 : {4}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, drop_txt, drop_percent)
+                                self.textBrowser.append(txt)
 
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                                 self.textBrowser.append(txt)
