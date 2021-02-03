@@ -2221,7 +2221,7 @@ class ScreenUpdateWorker(QThread):
 
         while True:
 
-            if flag_main_process_queue_empty:
+            if flag_main_process_queue_empty and not flag_main_realdata_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(scoreboard_update_interval)    
