@@ -2240,7 +2240,7 @@ class TelegramSendWorker(QThread):
 
         while True:  
 
-            if flag_main_process_queue_empty:
+            if flag_main_process_queue_empty and not flag_main_realdata_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(1000 * TELEGRAM_SEND_INTERVAL)
@@ -2260,7 +2260,7 @@ class TelegramListenWorker(QThread):
 
         while True:      
 
-            if flag_main_process_queue_empty:
+            if flag_main_process_queue_empty and not flag_main_realdata_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(1000 * TELEGRAM_POLLING_INTERVAL)
