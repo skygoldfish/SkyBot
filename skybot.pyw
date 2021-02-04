@@ -6133,22 +6133,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         flag_heartbeat = False
 
-        #print('heartbeat_check 진입...')
-
         if TARGET_MONTH == 'CM':
 
             if 선물_현재가 < volatility_breakout_downward_point:
 
                 vb_txt = 'CM Volatility Downward Breakout'
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
-                #self.parent.textBrowser.append(txt)
                 print(txt)
-
-                item = QTableWidgetItem('VDB')
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(검정색))
-                item.setForeground(QBrush(cyan))
-                self.tableWidget_fut.setItem(2, 0, item)
 
                 self.parent.speaker.setText('본월물 하향 변동성 출현')                
                 
@@ -6156,24 +6147,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 vb_txt = 'CM Volatility Upward Breakout'
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
-                #self.parent.textBrowser.append(txt)
                 print(txt)
-
-                item = QTableWidgetItem('VUB')
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(검정색))
-                item.setForeground(QBrush(magenta))
-                self.tableWidget_fut.setItem(2, 0, item)
 
                 self.parent.speaker.setText('본월물 상향 변동성 출현')                                
             else:
-                vb_txt = ''
-
-                item = QTableWidgetItem('-')
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(검정색))
-                item.setForeground(QBrush(흰색))
-                self.tableWidget_fut.setItem(2, 0, item)
+                pass
             
             if flag_call_strong:
                 txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call Strong({3:.2f}/{4:.2f}) ▲\r".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 선물_등락율, DOW_등락율)
@@ -6190,14 +6168,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 vb_txt = 'NM Volatility Downward Breakout'
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
-                #self.parent.textBrowser.append(txt)
                 print(txt)
-
-                item = QTableWidgetItem('VDB')
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(검정색))
-                item.setForeground(QBrush(cyan))
-                self.tableWidget_fut.setItem(2, 0, item)
 
                 self.parent.speaker.setText('차월물 하향 변동성 출현')                
                 
@@ -6205,24 +6176,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 vb_txt = 'NM Volatility Upward Breakout'
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
-                #self.parent.textBrowser.append(txt)
                 print(txt)
-
-                item = QTableWidgetItem('VUB')
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(검정색))
-                item.setForeground(QBrush(magenta))
-                self.tableWidget_fut.setItem(2, 0, item)
 
                 self.parent.speaker.setText('차월물 상향 변동성 출현')                
             else:
-                vb_txt = ''
-
-                item = QTableWidgetItem('-')
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(검정색))
-                item.setForeground(QBrush(흰색))
-                self.tableWidget_fut.setItem(2, 0, item)
+                pass
 
             if call_ol_count > call_oh_count and put_ol_count < put_oh_count:
 
@@ -6236,11 +6194,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.parent.speaker.setText('콜 우세')
                 else:
                     pass
-                
-                item = QTableWidgetItem("CD")
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(적색))
-                item.setForeground(QBrush(흰색))
 
             elif call_ol_count < call_oh_count and put_ol_count > put_oh_count:
 
@@ -6254,16 +6207,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.parent.speaker.setText('풋 우세')
                 else:
                     pass
-                
-                item = QTableWidgetItem("PD")
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(청색))
-                item.setForeground(QBrush(흰색))
             else:
-                item = QTableWidgetItem("-")
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(검정색))
-                item.setForeground(QBrush(흰색))
+                pass
                 
             self.tableWidget_fut.setItem(0, 0, item)
         else:
@@ -11626,7 +11571,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         선물_대비 = 선물_현재가 - 선물_시가
         선물_전일대비 = 선물_현재가 - 선물_종가        
-        선물_진폭 = 선물_고가 - 선물_저가        
+        선물_진폭 = 선물_고가 - 선물_저가
+        
+        volatility_breakout_downward_point = 선물_시가 - k_value
+        volatility_breakout_upward_point = 선물_시가 + k_value
                 
         fut_time = dt.hour * 3600 + dt.minute * 60 + dt.second
         
@@ -11878,8 +11826,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             flag_fut_low = True
 
-            volatility_breakout_downward_point = 선물_시가 - k_value
-
             txt = '{0:.2f}'.format(선물_저가) + '\n' + '({0:.2f})'.format(volatility_breakout_downward_point)
 
             item = QTableWidgetItem(txt)
@@ -11939,8 +11885,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if 고가 != fut_high:
 
             flag_fut_high = True
-
-            volatility_breakout_upward_point = 선물_시가 + k_value
 
             txt = '{0:.2f}'.format(선물_고가) + '\n' + '({0:.2f})'.format(volatility_breakout_upward_point)
 
@@ -12019,6 +11963,77 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_fut.setItem(1, Futures_column.거래량.value, item)
 
         self.tableWidget_fut.resizeColumnToContents(Futures_column.거래량.value)
+
+        if TARGET_MONTH == 'CM':
+
+            if 선물_현재가 < volatility_breakout_downward_point:
+
+                item = QTableWidgetItem('VDB')
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(cyan))
+                self.tableWidget_fut.setItem(2, 0, item)               
+                
+            elif 선물_현재가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
+
+                item = QTableWidgetItem('VUB')
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(magenta))
+                self.tableWidget_fut.setItem(2, 0, item)                               
+            else:
+                item = QTableWidgetItem('-')
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
+                self.tableWidget_fut.setItem(2, 0, item)
+            
+        elif TARGET_MONTH == 'NM':
+
+            if 선물_현재가 < volatility_breakout_downward_point:
+
+                item = QTableWidgetItem('VDB')
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(cyan))
+                self.tableWidget_fut.setItem(2, 0, item)              
+                
+            elif 선물_현재가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
+
+                item = QTableWidgetItem('VUB')
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(magenta))
+                self.tableWidget_fut.setItem(2, 0, item)             
+            else:
+                item = QTableWidgetItem('-')
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
+                self.tableWidget_fut.setItem(2, 0, item)
+
+            if call_ol_count > call_oh_count and put_ol_count < put_oh_count:
+                
+                item = QTableWidgetItem("CD")
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(적색))
+                item.setForeground(QBrush(흰색))
+
+            elif call_ol_count < call_oh_count and put_ol_count > put_oh_count:
+                
+                item = QTableWidgetItem("PD")
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(청색))
+                item.setForeground(QBrush(흰색))
+            else:
+                item = QTableWidgetItem("-")
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
+                
+            self.tableWidget_fut.setItem(0, 0, item)
+        else:
+            pass
 
     def fut_etc_update(self, result):
 
@@ -20043,19 +20058,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if CM_OPT_PRICE1:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
             self.textBrowser.append(txt)
             print(txt)
 
             if DayTime and pre_start:
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 예상가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 예상가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
                 self.textBrowser.append(txt)
                 print(txt)
             else:
                 pass
 
             if not MULTIPROCESS:
-                for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
+                for i in range(ATM_INDEX - call_otm_number, ATM_INDEX + call_itm_number + 1):
 
                     if i >= 0:
                         self.parent.realtime_thread_dataworker.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
@@ -20071,7 +20086,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
+                for i in range(ATM_INDEX - put_itm_number, ATM_INDEX + put_otm_number + 1):
 
                     if i >= 0:
                         self.parent.realtime_thread_dataworker.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
@@ -20087,7 +20102,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
             else:
-                for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
+                for i in range(ATM_INDEX - call_otm_number, ATM_INDEX + call_itm_number + 1):
 
                     if i >= 0:
 
@@ -20111,7 +20126,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
+                for i in range(ATM_INDEX - put_itm_number, ATM_INDEX + put_otm_number + 1):
 
                     if i >= 0:
 
@@ -20135,7 +20150,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
             
-            self.realdata_request_number += (CALL_OTM_REQUEST_NUMBER + CALL_ITM_REQUEST_NUMBER + 1) + (PUT_OTM_REQUEST_NUMBER + PUT_ITM_REQUEST_NUMBER + 1)                                       
+            self.realdata_request_number += (call_otm_number + call_itm_number + 1) + (put_otm_number + put_itm_number + 1)                                       
         else:
             pass
 
@@ -20172,12 +20187,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 실시간 본월물 옵션 호가요청(등가근처 10개)
         if CM_OPT_QUOTE1:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가(내가 {3}개, 외가 {4}개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가(내가 {3}개, 외가 {4}개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
             self.textBrowser.append(txt)
             print(txt)
 
             if not MULTIPROCESS:
-                for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
+                for i in range(ATM_INDEX - call_otm_number, ATM_INDEX + call_itm_number + 1):
 
                     if i >= 0:
                         self.parent.realtime_thread_dataworker.RequestRealData(OPT_HO, CM_CALL_CODE[i])
@@ -20188,7 +20203,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
+                for i in range(ATM_INDEX - put_itm_number, ATM_INDEX + put_otm_number + 1):
 
                     if i >= 0:
                         self.parent.realtime_thread_dataworker.RequestRealData(OPT_HO, CM_PUT_CODE[i])
@@ -20199,7 +20214,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
             else:
-                for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
+                for i in range(ATM_INDEX - call_otm_number, ATM_INDEX + call_itm_number + 1):
 
                     if i >= 0:
 
@@ -20218,7 +20233,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
+                for i in range(ATM_INDEX - put_itm_number, ATM_INDEX + put_otm_number + 1):
 
                     if i >= 0:
 
@@ -20237,7 +20252,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-            self.realdata_request_number += (CALL_OTM_REQUEST_NUMBER + CALL_ITM_REQUEST_NUMBER + 1) + (PUT_OTM_REQUEST_NUMBER + PUT_ITM_REQUEST_NUMBER + 1)                   
+            self.realdata_request_number += (call_otm_number + call_itm_number + 1) + (put_otm_number + put_itm_number + 1)                   
         else:
             pass
 
@@ -20336,19 +20351,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if NM_OPT_PRICE1:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
             self.textBrowser.append(txt)
             print(txt)
 
             if DayTime and pre_start:
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 예상가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 예상가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
                 self.textBrowser.append(txt)
                 print(txt)
             else:
                 pass
 
             if not MULTIPROCESS:
-                for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
+                for i in range(ATM_INDEX - call_otm_number, ATM_INDEX + call_itm_number + 1):
 
                     if i >= 0:
                         self.parent.realtime_thread_dataworker.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
@@ -20364,7 +20379,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
+                for i in range(ATM_INDEX - put_itm_number, ATM_INDEX + put_otm_number + 1):
 
                     if i >= 0:
                         self.parent.realtime_thread_dataworker.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
@@ -20380,7 +20395,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
             else:
-                for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
+                for i in range(ATM_INDEX - call_otm_number, ATM_INDEX + call_itm_number + 1):
 
                     if i >= 0:
 
@@ -20404,7 +20419,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
+                for i in range(ATM_INDEX - put_itm_number, ATM_INDEX + put_otm_number + 1):
 
                     if i >= 0:
 
@@ -20428,7 +20443,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
             
-            self.realdata_request_number += (CALL_OTM_REQUEST_NUMBER + CALL_ITM_REQUEST_NUMBER + 1) + (PUT_OTM_REQUEST_NUMBER + PUT_ITM_REQUEST_NUMBER + 1)                                       
+            self.realdata_request_number += (call_otm_number + call_itm_number + 1) + (put_otm_number + put_itm_number + 1)                                       
         else:
             pass
 
@@ -20465,12 +20480,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 실시간 차월물 옵션 호가요청(등가근처 10개)
         if NM_OPT_QUOTE1:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가(내가 {3}개, 외가 {4}개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가(내가 {3}개, 외가 {4}개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
             self.textBrowser.append(txt)
             print(txt)
 
             if not MULTIPROCESS:
-                for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
+                for i in range(ATM_INDEX - call_otm_number, ATM_INDEX + call_itm_number + 1):
 
                     if i >= 0:
                         self.parent.realtime_thread_dataworker.RequestRealData(OPT_HO, NM_CALL_CODE[i])
@@ -20482,7 +20497,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
+                for i in range(ATM_INDEX - put_itm_number, ATM_INDEX + put_otm_number + 1):
 
                     if i >= 0:
                         self.parent.realtime_thread_dataworker.RequestRealData(OPT_HO, NM_PUT_CODE[i])
@@ -20493,7 +20508,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
             else:
-                for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
+                for i in range(ATM_INDEX - call_otm_number, ATM_INDEX + call_itm_number + 1):
 
                     if i >= 0:
 
@@ -20513,7 +20528,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
+                for i in range(ATM_INDEX - put_itm_number, ATM_INDEX + put_otm_number + 1):
 
                     if i >= 0:
 
@@ -20532,7 +20547,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-            self.realdata_request_number += (CALL_OTM_REQUEST_NUMBER + CALL_ITM_REQUEST_NUMBER + 1) + (PUT_OTM_REQUEST_NUMBER + PUT_ITM_REQUEST_NUMBER + 1)                   
+            self.realdata_request_number += (call_otm_number + call_itm_number + 1) + (put_otm_number + put_itm_number + 1)                   
         else:
             pass
         
@@ -25528,9 +25543,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                             MainProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
                             MainProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
                         elif MP_NUMBER == 2:
+                            MainProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
+                            MainProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
+                        elif MP_NUMBER == 3:
                             SecondProcess.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
-                        elif MP_NUMBER == 3:                            
-                            ThirdProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
+                            SecondProcess.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
                         else:
                             pass
 
@@ -25550,9 +25567,9 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                     if MP_NUMBER == 1:
                         MainProcess.CancelRealData(OPT_REAL)
                     elif MP_NUMBER == 2:
-                        SecondProcess.CancelRealData(OPT_REAL)
+                        MainProcess.CancelRealData(OPT_REAL)                        
                     elif MP_NUMBER == 3:                        
-                        ThirdProcess.CancelRealData(OPT_REAL)
+                        SecondProcess.CancelRealData(OPT_REAL)
                     else:
                         pass
 
@@ -25634,7 +25651,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                         else:
                             pass
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -25784,7 +25801,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                         else:
                             pass
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가(내가 {3}개, 외가 {4}개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가(내가 {3}개, 외가 {4}개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -26013,7 +26030,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                         else:
                             pass
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -26110,7 +26127,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 if not MULTIPROCESS:
-                    for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
+                    for i in range(ATM_INDEX - call_otm_number, ATM_INDEX + call_itm_number + 1):
 
                         if i >= 0:
                             self.parent.realtime_thread_dataworker.RequestRealData(OPT_HO, NM_CALL_CODE[i])
@@ -26121,7 +26138,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                         else:
                             pass
 
-                    for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
+                    for i in range(ATM_INDEX - put_itm_number, ATM_INDEX + put_otm_number + 1):
 
                         if i >= 0:
                             self.parent.realtime_thread_dataworker.RequestRealData(OPT_HO, NM_PUT_CODE[i])
@@ -26132,7 +26149,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                         else:
                             pass
                 else:
-                    for i in range(ATM_INDEX - CALL_OTM_REQUEST_NUMBER, ATM_INDEX + CALL_ITM_REQUEST_NUMBER + 1):
+                    for i in range(ATM_INDEX - call_otm_number, ATM_INDEX + call_itm_number + 1):
 
                         if i >= 0:
 
@@ -26151,7 +26168,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                         else:
                             pass
 
-                    for i in range(ATM_INDEX - PUT_ITM_REQUEST_NUMBER, ATM_INDEX + PUT_OTM_REQUEST_NUMBER + 1):
+                    for i in range(ATM_INDEX - put_itm_number, ATM_INDEX + put_otm_number + 1):
 
                         if i >= 0:
 
@@ -26170,7 +26187,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                         else:
                             pass
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가(내가 {3}개, 외가 {4}개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가(내가 {3}개, 외가 {4}개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
