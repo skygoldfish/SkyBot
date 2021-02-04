@@ -2824,7 +2824,8 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                     elif type(data) == dict:
 
-                        if not flag_main_realdata_update_is_running:
+                        #if not flag_main_realdata_update_is_running:
+                        if True:
 
                             if data['szTrCode'] == 'JIF':
 
@@ -3109,7 +3110,8 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
                 elif type(data) == dict:
 
-                    if not flag_2nd_realdata_update_is_running:
+                    #if not flag_2nd_realdata_update_is_running:
+                    if True:
 
                         if data['szTrCode'] == 'OC0':
 
@@ -3232,7 +3234,8 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
 
                 elif type(data) == dict:
 
-                    if not flag_3rd_realdata_update_is_running:
+                    #if not flag_3rd_realdata_update_is_running:
+                    if True:
 
                         if data['szTrCode'] == 'OH0':
 
