@@ -2903,6 +2903,8 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
+                                    #txt = 'drop OVC, {0}'.format((systime - 시스템_서버_시간차) - realtime)
+                                    #print(txt)
 
                             elif data['szTrCode'] == 'FH0':
 
@@ -3011,6 +3013,8 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
+                                    #txt = 'drop EC0, {0}'.format((systime - 시스템_서버_시간차) - realtime)
+                                    #print(txt)
 
                             elif data['szTrCode'] == 'EH0':
 
@@ -3027,7 +3031,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                                 if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
                                     self.trigger_dict.emit(data)
                                 else:
-                                    self.drop_count += 1                            
+                                    self.drop_count += 1
+                                    #txt = 'drop EH0, {0}'.format((systime - 시스템_서버_시간차) - realtime)
+                                    #print(txt)
 
                             elif data['szTrCode'] == 'S3_':
 
@@ -27903,7 +27909,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             if comboindex1 == 2:
 
-                if df_futures_graph.at[plot_x, 'price'] == df_futures_graph.at[plot_x, 'price']:                    
+                if not np.isnan(df_futures_graph.at[plot_x, 'price']):                    
                 
                     Open = df_futures_graph.at[plot_x, 'open']                    
                     High = df_futures_graph.at[plot_x, 'high']
@@ -27917,7 +27923,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex1 == 15:
 
-                if df_sp500_graph.at[plot_x, 'price'] == df_sp500_graph.at[plot_x, 'price']:
+                if not np.isnan(df_sp500_graph.at[plot_x, 'price']):
                     
                     Open = df_sp500_graph.at[plot_x, 'open']                    
                     High = df_sp500_graph.at[plot_x, 'high']
@@ -27931,7 +27937,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex1 == 12:
 
-                if df_dow_graph.at[plot_x, 'price'] == df_dow_graph.at[plot_x, 'price']:
+                if not np.isnan(df_dow_graph.at[plot_x, 'price']):
                     
                     Open = df_dow_graph.at[plot_x, 'open']                    
                     High = df_dow_graph.at[plot_x, 'high']
@@ -27945,7 +27951,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex1 == 13:
 
-                if df_nasdaq_graph.at[plot_x, 'price'] == df_nasdaq_graph.at[plot_x, 'price']:
+                if not np.isnan(df_nasdaq_graph.at[plot_x, 'price']):
                     
                     Open = df_nasdaq_graph.at[plot_x, 'open']                    
                     High = df_nasdaq_graph.at[plot_x, 'high']
@@ -27959,7 +27965,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex1 == 14:
 
-                if df_wti_graph.at[plot_x, 'price'] == df_wti_graph.at[plot_x, 'price']:
+                if not np.isnan(df_wti_graph.at[plot_x, 'price']):
                     
                     Open = df_wti_graph.at[plot_x, 'open']                    
                     High = df_wti_graph.at[plot_x, 'high']
@@ -27995,7 +28001,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             if comboindex2 == 2:
 
-                if df_futures_graph.at[plot_x, 'price'] == df_futures_graph.at[plot_x, 'price']:                    
+                if not np.isnan(df_futures_graph.at[plot_x, 'price']):                    
                 
                     Open = df_futures_graph.at[plot_x, 'open']                    
                     High = df_futures_graph.at[plot_x, 'high']
@@ -28009,7 +28015,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex2 == 15:
 
-                if df_sp500_graph.at[plot_x, 'price'] == df_sp500_graph.at[plot_x, 'price']:
+                if not np.isnan(df_sp500_graph.at[plot_x, 'price']):
                     
                     Open = df_sp500_graph.at[plot_x, 'open']                    
                     High = df_sp500_graph.at[plot_x, 'high']
@@ -28023,7 +28029,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex2 == 12:
 
-                if df_dow_graph.at[plot_x, 'price'] == df_dow_graph.at[plot_x, 'price']:
+                if not np.isnan(df_dow_graph.at[plot_x, 'price']):
                     
                     Open = df_dow_graph.at[plot_x, 'open']                    
                     High = df_dow_graph.at[plot_x, 'high']
@@ -28037,7 +28043,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex2 == 13:
 
-                if df_nasdaq_graph.at[plot_x, 'price'] == df_nasdaq_graph.at[plot_x, 'price']:
+                if not np.isnan(df_nasdaq_graph.at[plot_x, 'price']):
                     
                     Open = df_nasdaq_graph.at[plot_x, 'open']                    
                     High = df_nasdaq_graph.at[plot_x, 'high']
@@ -28051,7 +28057,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex2 == 14:
 
-                if df_wti_graph.at[plot_x, 'price'] == df_wti_graph.at[plot_x, 'price']:
+                if not np.isnan(df_wti_graph.at[plot_x, 'price']):
                     
                     Open = df_wti_graph.at[plot_x, 'open']                    
                     High = df_wti_graph.at[plot_x, 'high']
@@ -28087,7 +28093,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             if comboindex3 == 2:
 
-                if df_futures_graph.at[plot_x, 'price'] == df_futures_graph.at[plot_x, 'price']:                    
+                if not np.isnan(df_futures_graph.at[plot_x, 'price']):                    
                 
                     Open = df_futures_graph.at[plot_x, 'open']                    
                     High = df_futures_graph.at[plot_x, 'high']
@@ -28101,7 +28107,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex3 == 15:
 
-                if df_sp500_graph.at[plot_x, 'price'] == df_sp500_graph.at[plot_x, 'price']:
+                if not np.isnan(df_sp500_graph.at[plot_x, 'price']):
                     
                     Open = df_sp500_graph.at[plot_x, 'open']                    
                     High = df_sp500_graph.at[plot_x, 'high']
@@ -28115,7 +28121,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex3 == 12:
 
-                if df_dow_graph.at[plot_x, 'price'] == df_dow_graph.at[plot_x, 'price']:
+                if not np.isnan(df_dow_graph.at[plot_x, 'price']):
                     
                     Open = df_dow_graph.at[plot_x, 'open']                    
                     High = df_dow_graph.at[plot_x, 'high']
@@ -28129,7 +28135,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex3 == 13:
 
-                if df_nasdaq_graph.at[plot_x, 'price'] == df_nasdaq_graph.at[plot_x, 'price']:
+                if not np.isnan(df_nasdaq_graph.at[plot_x, 'price']):
                     
                     Open = df_nasdaq_graph.at[plot_x, 'open']                    
                     High = df_nasdaq_graph.at[plot_x, 'high']
@@ -28143,7 +28149,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex3 == 14:
 
-                if df_wti_graph.at[plot_x, 'price'] == df_wti_graph.at[plot_x, 'price']:
+                if not np.isnan(df_wti_graph.at[plot_x, 'price']):
                     
                     Open = df_wti_graph.at[plot_x, 'open']                    
                     High = df_wti_graph.at[plot_x, 'high']
@@ -28179,7 +28185,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             if comboindex4 == 2:
 
-                if df_futures_graph.at[plot_x, 'price'] == df_futures_graph.at[plot_x, 'price']:
+                if not np.isnan(df_futures_graph.at[plot_x, 'price']):
                     
                     Open = df_futures_graph.at[plot_x, 'open']                    
                     High = df_futures_graph.at[plot_x, 'high']
@@ -28193,7 +28199,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex4 == 15:
 
-                if df_sp500_graph.at[plot_x, 'price'] == df_sp500_graph.at[plot_x, 'price']:
+                if not np.isnan(df_sp500_graph.at[plot_x, 'price']):
                     
                     Open = df_sp500_graph.at[plot_x, 'open']                    
                     High = df_sp500_graph.at[plot_x, 'high']
@@ -28207,7 +28213,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex4 == 12:
 
-                if df_dow_graph.at[plot_x, 'price'] == df_dow_graph.at[plot_x, 'price']:
+                if not np.isnan(df_dow_graph.at[plot_x, 'price']):
                     
                     Open = df_dow_graph.at[plot_x, 'open']                    
                     High = df_dow_graph.at[plot_x, 'high']
@@ -28221,7 +28227,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex4 == 13:
 
-                if df_nasdaq_graph.at[plot_x, 'price'] == df_nasdaq_graph.at[plot_x, 'price']:
+                if not np.isnan(df_nasdaq_graph.at[plot_x, 'price']):
                     
                     Open = df_nasdaq_graph.at[plot_x, 'open']                    
                     High = df_nasdaq_graph.at[plot_x, 'high']
@@ -28235,7 +28241,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex4 == 14:
 
-                if df_wti_graph.at[plot_x, 'price'] == df_wti_graph.at[plot_x, 'price']:
+                if not np.isnan(df_wti_graph.at[plot_x, 'price']):
                     
                     Open = df_wti_graph.at[plot_x, 'open']                    
                     High = df_wti_graph.at[plot_x, 'high']
@@ -28269,7 +28275,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             if comboindex5 == 2:
 
-                if df_futures_graph.at[plot_x, 'price'] == df_futures_graph.at[plot_x, 'price']:
+                if not np.isnan(df_futures_graph.at[plot_x, 'price']):
                     
                     Open = df_futures_graph.at[plot_x, 'open']                    
                     High = df_futures_graph.at[plot_x, 'high']
@@ -28283,7 +28289,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex5 == 15:
 
-                if df_sp500_graph.at[plot_x, 'price'] == df_sp500_graph.at[plot_x, 'price']:
+                if not np.isnan(df_sp500_graph.at[plot_x, 'price']):
                     
                     Open = df_sp500_graph.at[plot_x, 'open']                    
                     High = df_sp500_graph.at[plot_x, 'high']
@@ -28297,7 +28303,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex5 == 12:
 
-                if df_dow_graph.at[plot_x, 'price'] == df_dow_graph.at[plot_x, 'price']:
+                if not np.isnan(df_dow_graph.at[plot_x, 'price']):
                     
                     Open = df_dow_graph.at[plot_x, 'open']                    
                     High = df_dow_graph.at[plot_x, 'high']
@@ -28311,7 +28317,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex5 == 13:
 
-                if df_nasdaq_graph.at[plot_x, 'price'] == df_nasdaq_graph.at[plot_x, 'price']:
+                if not np.isnan(df_nasdaq_graph.at[plot_x, 'price']):
                     
                     Open = df_nasdaq_graph.at[plot_x, 'open']                    
                     High = df_nasdaq_graph.at[plot_x, 'high']
@@ -28325,7 +28331,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex5 == 14:
 
-                if df_wti_graph.at[plot_x, 'price'] == df_wti_graph.at[plot_x, 'price']:
+                if not np.isnan(df_wti_graph.at[plot_x, 'price']):
                     
                     Open = df_wti_graph.at[plot_x, 'open']                    
                     High = df_wti_graph.at[plot_x, 'high']
@@ -28361,7 +28367,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             if comboindex6 == 2:
 
-                if df_futures_graph.at[plot_x, 'price'] == df_futures_graph.at[plot_x, 'price']:
+                if not np.isnan(df_futures_graph.at[plot_x, 'price']):
                     
                     Open = df_futures_graph.at[plot_x, 'open']                    
                     High = df_futures_graph.at[plot_x, 'high']
@@ -28375,7 +28381,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex6 == 15:
 
-                if df_sp500_graph.at[plot_x, 'price'] == df_sp500_graph.at[plot_x, 'price']:
+                if not np.isnan(df_sp500_graph.at[plot_x, 'price']):
                     
                     Open = df_sp500_graph.at[plot_x, 'open']                    
                     High = df_sp500_graph.at[plot_x, 'high']
@@ -28389,7 +28395,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex6 == 12:
 
-                if df_dow_graph.at[plot_x, 'price'] == df_dow_graph.at[plot_x, 'price']:
+                if not np.isnan(df_dow_graph.at[plot_x, 'price']):
                     
                     Open = df_dow_graph.at[plot_x, 'open']                    
                     High = df_dow_graph.at[plot_x, 'high']
@@ -28403,7 +28409,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex6 == 13:
 
-                if df_nasdaq_graph.at[plot_x, 'price'] == df_nasdaq_graph.at[plot_x, 'price']:
+                if not np.isnan(df_nasdaq_graph.at[plot_x, 'price']):
                     
                     Open = df_nasdaq_graph.at[plot_x, 'open']                    
                     High = df_nasdaq_graph.at[plot_x, 'high']
@@ -28417,7 +28423,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex6 == 14:
 
-                if df_wti_graph.at[plot_x, 'price'] == df_wti_graph.at[plot_x, 'price']:
+                if not np.isnan(df_wti_graph.at[plot_x, 'price']):
                     
                     Open = df_wti_graph.at[plot_x, 'open']                    
                     High = df_wti_graph.at[plot_x, 'high']
