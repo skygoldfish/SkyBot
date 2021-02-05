@@ -1920,6 +1920,8 @@ schedule_sec = 0
 flag_plot_first_mode = PLOT_FIRST
 flag_periodic_plot_mode = False
 
+flag_drop_reset = False
+
 #####################################################################################################################################################################
 # UI 파일정의
 #####################################################################################################################################################################
@@ -2520,7 +2522,7 @@ class RealTime_Thread_DataWorker(QThread):
 
     def run(self):
 
-        global flag_main_process_queue_empty
+        global flag_main_process_queue_empty, flag_drop_reset
 
         while True:
 
@@ -2536,6 +2538,13 @@ class RealTime_Thread_DataWorker(QThread):
 
                     self.total_count += 1
                     self.total_packet_size += sys.getsizeof(data)
+
+                    if flag_drop_reset:
+                        self.drop_count = 0
+                        self.total_count = 0
+                        flag_drop_reset = False
+                    else:
+                        pass
                     
                     if not flag_main_realdata_update_is_running:                          
 
@@ -2801,7 +2810,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
     def run(self):
 
-        global flag_main_process_queue_empty                  
+        global flag_main_process_queue_empty, flag_drop_reset                  
 
         while True:
 
@@ -2817,6 +2826,13 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                     self.total_count += 1
                     self.total_packet_size += sys.getsizeof(data)
+
+                    if flag_drop_reset:
+                        self.drop_count = 0
+                        self.total_count = 0
+                        flag_drop_reset = False
+                    else:
+                        pass
 
                     if type(data) == list:
 
@@ -3095,7 +3111,7 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
     def run(self):
 
-        global flag_2nd_process_queue_empty
+        global flag_2nd_process_queue_empty, flag_drop_reset
 
         while True:
             if not self.dataQ.empty():
@@ -3109,6 +3125,13 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
                 
                 self.total_count += 1                    
                 self.total_packet_size += sys.getsizeof(data)
+
+                if flag_drop_reset:
+                    self.drop_count = 0
+                    self.total_count = 0
+                    flag_drop_reset = False
+                else:
+                    pass
 
                 if type(data) == list:
 
@@ -3219,7 +3242,7 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
 
     def run(self):
 
-        global flag_3rd_process_queue_empty
+        global flag_3rd_process_queue_empty, flag_drop_reset
 
         while True:
             if not self.dataQ.empty():
@@ -3233,6 +3256,13 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
 
                 self.total_count += 1                                        
                 self.total_packet_size += sys.getsizeof(data)
+
+                if flag_drop_reset:
+                    self.drop_count = 0
+                    self.total_count = 0
+                    flag_drop_reset = False
+                else:
+                    pass
 
                 if type(data) == list:
 
@@ -38937,6 +38967,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                     color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
         self.label_3rd.setText('3rd\nQueue')
 
+        self.pushButton_reset.setStyleSheet('QPushButton \
+                                            {background-color: \
+                                            qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
+                                            color: yellow; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px} \
+                                            QPushButton:hover {background-color: black; color: white} \
+                                            QPushButton:pressed {background-color: gold}')
+
+        self.pushButton_reset.setText(' Reset ')
+        self.pushButton_reset.clicked.connect(self.reset_button_clicked)
+
         if len(args) == 0:
             self.mp_mode = False
         elif len(args) == 1:
@@ -39074,6 +39114,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
         atexit.register(self.__del__)
+
+    @pyqtSlot()
+    def reset_button_clicked(self):
+
+        global flag_drop_reset
+
+        flag_drop_reset = True
+
+        playsound('Resources/click.wav')
     
     #####################################################################################################################################################################
     # 멀티프로세스방식 처리관련 함수들
