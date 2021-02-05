@@ -36,10 +36,10 @@
     <property name="title">
      <string/>
     </property>
-    <widget class="QWidget" name="layoutWidget">
+    <widget class="QWidget" name="">
      <property name="geometry">
       <rect>
-       <x>11</x>
+       <x>12</x>
        <y>20</y>
        <width>601</width>
        <height>251</height>
@@ -78,6 +78,13 @@
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_reset">
+          <property name="text">
+           <string>Reset</string>
           </property>
          </widget>
         </item>
