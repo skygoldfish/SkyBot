@@ -11405,41 +11405,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def fut_node_coloring(self):
 
         dt = datetime.datetime.now()
-        '''
-        if 선물_시가 > 0:
-
-            if 선물_현재가 > 선물_시가:
-
-                if NightTime:
-
-                    self.tableWidget_fut.item(0, 0).setBackground(QBrush(적색))
-                    self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
-                else:
-                    self.tableWidget_fut.item(1, 0).setBackground(QBrush(적색))
-                    self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
-
-            elif 선물_현재가 < 선물_시가:
-
-                if NightTime:
-
-                    self.tableWidget_fut.item(0, 0).setBackground(QBrush(청색))
-                    self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
-                else:
-                    self.tableWidget_fut.item(1, 0).setBackground(QBrush(청색))
-                    self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
-
-            else:
-
-                if NightTime:
-
-                    self.tableWidget_fut.item(0, 0).setBackground(QBrush(검정색))
-                    self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
-                else:
-                    self.tableWidget_fut.item(1, 0).setBackground(QBrush(검정색))
-                    self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
-        else:
-            pass
-        '''        
+        
         # 전저, 전고, 종가, 피봇 컬러링
         if self.is_within_n_tick(선물_전저, 선물_저가, 10):
 
@@ -12075,31 +12041,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def fut_etc_update(self, result):
 
         global df_fut, 선물_진폭비, flag_call_strong, flag_put_strong
-
-        if fut_quote_energy_direction == 'call':
-
-            if NightTime:
-                self.tableWidget_fut.item(0, 0).setBackground(QBrush(적색))
-                self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
-            else:
-                self.tableWidget_fut.item(1, 0).setBackground(QBrush(적색))
-                self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
-
-        elif fut_quote_energy_direction == 'put':
-
-            if NightTime:
-                self.tableWidget_fut.item(0, 0).setBackground(QBrush(청색))
-                self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
-            else:
-                self.tableWidget_fut.item(1, 0).setBackground(QBrush(청색))
-                self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
-        else:
-            if NightTime:
-                self.tableWidget_fut.item(0, 0).setBackground(QBrush(검정색))
-                self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
-            else:
-                self.tableWidget_fut.item(1, 0).setBackground(QBrush(검정색))
-                self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
 
         item = QTableWidgetItem("DOW\n({0:.2f}%)".format(DOW_등락율))
         item.setTextAlignment(Qt.AlignCenter)
@@ -24106,10 +24047,36 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # 에너지방향
                 if DayTime and CM_FUT_QUOTE and NM_FUT_QUOTE:
+
                     if fut_cms_quote_remainder_ratio > fut_quote_remainder_ratio:
+
                         fut_quote_energy_direction = 'call'
-                    else:
+
+                        if NightTime:
+                            self.tableWidget_fut.item(0, 0).setBackground(QBrush(적색))
+                            self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
+                        else:
+                            self.tableWidget_fut.item(1, 0).setBackground(QBrush(적색))
+                            self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
+
+                    elif fut_cms_quote_remainder_ratio < fut_quote_remainder_ratio:
+
                         fut_quote_energy_direction = 'put'
+
+                        if NightTime:
+                            self.tableWidget_fut.item(0, 0).setBackground(QBrush(청색))
+                            self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
+                        else:
+                            self.tableWidget_fut.item(1, 0).setBackground(QBrush(청색))
+                            self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
+
+                    else:
+                        if NightTime:
+                            self.tableWidget_fut.item(0, 0).setBackground(QBrush(검정색))
+                            self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
+                        else:
+                            self.tableWidget_fut.item(1, 0).setBackground(QBrush(검정색))
+                            self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))                    
                 else:
                     pass
 
