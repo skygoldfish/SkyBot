@@ -2221,7 +2221,7 @@ class ScreenUpdateWorker(QThread):
 
         while True:
 
-            if flag_main_process_queue_empty and not flag_main_realdata_update_is_running:
+            if not flag_main_realdata_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(scoreboard_update_interval)    
@@ -2242,7 +2242,7 @@ class TelegramSendWorker(QThread):
 
         while True:  
 
-            if flag_main_process_queue_empty and not flag_main_realdata_update_is_running:
+            if not flag_main_realdata_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(1000 * TELEGRAM_SEND_INTERVAL)
@@ -2262,7 +2262,7 @@ class TelegramListenWorker(QThread):
 
         while True:      
 
-            if flag_main_process_queue_empty and not flag_main_realdata_update_is_running:
+            if not flag_main_realdata_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(1000 * TELEGRAM_POLLING_INTERVAL)
@@ -6003,8 +6003,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if not flag_logfile:
 
-                                realdata_option_info_txt = '[{0:02d}:{1:02d}:{2:02d}] 수신된 옵션 데이타 크기 : ' + main_opt_totalsize + '\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
-                                self.textBrowser.append(realdata_option_info_txt)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] 수신된 옵션 데이타 크기 : {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, main_opt_totalsize)
+                                self.textBrowser.append(txt)
 
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간데이타 통계 : {3}, 패킷 손실율 : {4}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, drop_txt, drop_percent)
                                 self.textBrowser.append(txt)
@@ -6113,6 +6113,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.parent.statusbar.showMessage("오프라인")
 
                             if not flag_logfile:
+
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] 수신된 옵션 데이타 크기 : {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, main_opt_totalsize)
+                                self.textBrowser.append(txt)
                                 
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간데이타 통계 : {3}, 패킷 손실율 : {4}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, drop_txt, drop_percent)
                                 self.textBrowser.append(txt)
@@ -24619,8 +24622,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             self.parent.textBrowser.append(txt)
 
-            #playsound('Resources/notify.wav')
-
         finally:
             flag_main_realdata_update_is_running = False
 
@@ -26241,11 +26242,13 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 if not MULTIPROCESS:
                     self.parent.realtime_thread_dataworker.RequestRealData('IJ', KOSPI)
                     self.parent.realtime_thread_dataworker.RequestRealData('IJ', KOSDAQ)
+                    self.parent.realtime_thread_dataworker.RequestRealData('S3', SAMSUNG)
                 else:
                     MainProcess.RequestRealData('IJ', KOSPI)
                     MainProcess.RequestRealData('IJ', KOSDAQ)
+                    MainProcess.RequestRealData('S3', SAMSUNG)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI, KOSDAQ 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI, KOSDAQ, SAMSUNG 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -26257,11 +26260,13 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 if not MULTIPROCESS:
                     self.parent.realtime_thread_dataworker.CancelRealData('IJ', KOSPI)
                     self.parent.realtime_thread_dataworker.CancelRealData('IJ', KOSDAQ)
+                    self.parent.realtime_thread_dataworker.CancelRealData('S3', SAMSUNG)
                 else:
                     MainProcess.CancelRealData('IJ', KOSPI)
                     MainProcess.CancelRealData('IJ', KOSDAQ)
+                    MainProcess.CancelRealData('S3', SAMSUNG)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI, KOSDAQ 지수 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI, KOSDAQ, SAMSUNG 지수 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -26699,7 +26704,6 @@ class PlotUpdateWorker1(QThread):
 
         while True:
 
-            #if flag_main_process_queue_empty and not flag_main_realdata_update_is_running:
             if not flag_main_realdata_update_is_running:
                 self.trigger.emit()
 
@@ -39166,10 +39170,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             flag_heartbeat = True
             
-            txt = '[{0:02d}:{1:02d}:{2:02d}] HeartBeat 수신...\r'.format(dt.hour, dt.minute, dt.second)
-            #self.textBrowser.append(txt)
-            print(txt)
-
             systemtime = dt.hour * 3600 + dt.minute * 60 + dt.second
 
             시스템시간_분 = dt.hour * 3600 + dt.minute * 60
@@ -39182,6 +39182,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             서버시간_분 = SERVER_HOUR * 3600 + SERVER_MIN * 60
 
             시스템_서버_시간차 = systemtime - 서버시간
+            
+            txt = '[{0:02d}:{1:02d}:{2:02d}] HeartBeat 수신, 시스템서버간 시간차 = {3}\r'.format(dt.hour, dt.minute, dt.second, 시스템_서버_시간차)
+            print(txt)
 
             # X축 시간좌표 계산
             if NightTime:
@@ -39247,7 +39250,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 main_dropcount, main_sys_dropcount, main_qsize, main_totalcount, main_totalsize, main_opt_totalsize = self.realtime_main_dataworker.get_packet_info()
 
-                drop_percent = ((main_dropcount + main_sys_dropcount) / main_totalcount) * 100
+                if main_totalcount > 0:
+                    drop_percent = ((main_dropcount + main_sys_dropcount) / main_totalcount) * 100
+                else:
+                    pass
 
                 if OPTION_SIZE:
                     drop_txt = '{0}({1})/{2}({3}k), [{4:.1f}%]'.format(format(main_dropcount, ','), format(main_sys_dropcount, ','), format(main_totalcount, ','), format(int(main_opt_totalsize/1000), ','), drop_percent)
@@ -39260,12 +39266,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
 
                 total_dropcount = main_dropcount + second_dropcount
+                total_sys_dropcount = main_sys_dropcount + second_sys_dropcount
                 totalcount = main_totalcount + second_totalcount
                 totalsize = main_totalsize + second_totalsize
 
-                drop_percent = (total_dropcount / totalcount) * 100
+                if totalcount > 0:
+                    drop_percent = (total_dropcount / totalcount) * 100
+                else:
+                    pass
 
-                drop_txt = '{0}/{1}({2}k), [{3:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','), drop_percent)
+                drop_txt = '{0}({1})/{2}({3}k), [{4:.1f}%]'.format(format(total_dropcount, ','), format(total_sys_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','), drop_percent)
                     
             elif MP_NUMBER == 3:
 
@@ -39274,16 +39284,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_3rd_dataworker.get_packet_info()
 
                 total_dropcount = main_dropcount + second_dropcount + third_dropcount
+                total_sys_dropcount = main_sys_dropcount + second_sys_dropcount + third_sys_dropcount
                 totalcount = main_totalcount + second_totalcount + third_totalcount
                 totalsize = main_totalsize + second_totalsize + third_totalsize
 
-                drop_percent = (total_dropcount / totalcount) * 100
+                if totalcount > 0:
+                    drop_percent = (total_dropcount / totalcount) * 100
+                else:
+                    pass
 
-                drop_txt = '{0}/{1}({2}k), [{3:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','), drop_percent)
+                drop_txt = '{0}({1})/{2}({3}k), [{4:.1f}%]'.format(format(total_dropcount, ','), format(total_sys_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','), drop_percent)
             else:
                 pass
 
-            txt = ' 시스템시간/[{0}] 수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
+            txt = ' 시스템시간/[{0}]수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
                 dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
 
             if abs(time_gap) >= TIME_TOLERANCE:
@@ -39392,7 +39406,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:                    
             time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
 
-        txt = ' 시스템시간/[{0}] 수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
+        txt = ' 시스템시간/[{0}]수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
             dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
 
         if abs(time_gap) >= TIME_TOLERANCE:
@@ -39495,7 +39509,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:                    
             time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
 
-        txt = ' 시스템시간/[{0}] 수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
+        txt = ' 시스템시간/[{0}]수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
             dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
 
         if abs(time_gap) >= TIME_TOLERANCE:
@@ -39578,14 +39592,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
              # 수신된 실시간데이타 정보표시(누락된 패킷수, 누락된 패킷, 수신된 총 패킷수, 수신된 총 패킷크기)
             dropcount, sys_dropcount, qsize, totalcount, main_totalsize, main_opt_totalsize = self.realtime_thread_dataworker.get_packet_info()
 
-            drop_percent = (dropcount / main_totalcount) * 100
+            if totalcount > 0:
+                drop_percent = ((dropcount + sys_dropcount) / totalcount) * 100
+            else:
+                pass
 
             if OPTION_SIZE:
-                drop_txt = '{0}/{1}({2}k), [{3:.1f}%]'.format(format(dropcount, ','), format(totalcount, ','), format(int(main_opt_totalsize/1000), ','), drop_percent)
+                drop_txt = '{0}({1})/{2}({3}k), [{4:.1f}%]'.format(format(dropcount, ','), format(sys_dropcount, ','), format(totalcount, ','), format(int(main_opt_totalsize/1000), ','), drop_percent)
             else:
-                drop_txt = '{0}/{1}({2}k), [{3:.1f}%]'.format(format(dropcount, ','), format(totalcount, ','), format(int(main_totalsize/1000), ','), drop_percent)
+                drop_txt = '{0}({1})/{2}({3}k), [{4:.1f}%]'.format(format(dropcount, ','), format(sys_dropcount, ','), format(totalcount, ','), format(int(main_totalsize/1000), ','), drop_percent)
 
-            txt = ' 시스템 시간/[{0}] 수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
+            txt = ' 시스템 시간/[{0}]수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
                 dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
 
             if abs(time_gap) >= TIME_TOLERANCE:
