@@ -6218,8 +6218,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
             else:
                 pass
-                
-            self.tableWidget_fut.setItem(0, 0, item)
         else:
             pass
         
