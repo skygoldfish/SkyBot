@@ -12,6 +12,7 @@
 import sys, os
 import atexit
 import datetime, time
+import ntplib
 import timeit
 import win32com.client
 import pythoncom
@@ -78,6 +79,9 @@ from XAQueries import *
 from XAReals import *
 from Utils import *
 #from FileWatcher import *
+
+# NTP Server Domain Or IP
+TimeServer = 'time.windows.com'               
 
 # 4k 해상도 대응
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
@@ -2210,19 +2214,27 @@ class 화면_버전(QDialog, Ui_버전):
 #####################################################################################################################################################################
 class ScreenUpdateWorker(QThread):
 
-    trigger = pyqtSignal()
+    trigger = pyqtSignal(int)
 
     def __init__(self):
         super().__init__()
 
-        self.daemon = True
+        self.daemon = True        
+        self.ntpclient = ntplib.NTPClient()        
 
     def run(self):
 
         while True:
 
             if not flag_main_realdata_update_is_running:
-                self.trigger.emit()
+
+                try:
+                    response = self.ntpclient.request(TimeServer, version=3)
+                    print('NTP Server Time =', time.ctime(response.tx_time))
+                    timegap = round(-response.offset)
+                    self.trigger.emit(timegap)
+                except Exception as e:
+                    print('NTP Server Time Get Error...')
 
             QTest.qWait(scoreboard_update_interval)    
 #####################################################################################################################################################################
@@ -5392,8 +5404,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         print(txt)    
     
     @logging_time_main_loop
-    @pyqtSlot()
-    def update_screen(self):
+    @pyqtSlot(int)
+    def update_screen(self, timegap):
 
         global flag_internet_connection_broken, flag_service_provider_broken
         global flag_screen_update_is_running
@@ -5409,11 +5421,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_call_low_update, flag_call_high_update, flag_put_low_update, flag_put_high_update
         global flag_call_cross_coloring, flag_put_cross_coloring, flag_clear
 
+        global 시스템_서버_시간차
+
         dt = datetime.datetime.now()
 
         try:
             flag_screen_update_is_running = True
             #print('flag_screen_update_is_running =', flag_screen_update_is_running)
+
+            시스템_서버_시간차 = timegap
+            print('시스템_서버_시간차 =', 시스템_서버_시간차)
 
             self.alternate_flag = not self.alternate_flag
             
@@ -5457,7 +5474,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 flag_internet_connection_broken = True              
             else:
-                flag_internet_connection_broken = False
+                flag_internet_connection_broken = False                
             
             # 증권사 연결확인(인터넷이 연결된 상태에서만 확인가능)
             if not online_state and ipaddress != '127.0.0.1':
@@ -6516,7 +6533,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 해외선물 한국시간 표시
         if OVC_체결시간 == '000000':
 
-            txt = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
+            txt = '{0:02d}:{1:02d}:{2:02d}({3:+d})'.format(dt.hour, dt.minute, dt.second, 시스템_서버_시간차)
         else:
             txt = '{0:02d}:{1:02d}:{2:02d}({3:+d})'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 시스템_서버_시간차)
         
@@ -38998,7 +39015,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.pwd = None
         self.cert = None
         self.계좌번호 = None
-        self.거래비밀번호 = None
+        self.거래비밀번호 = None         
         
         self.시작시각 = datetime.datetime.now()
 
@@ -39184,8 +39201,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             시스템_서버_시간차 = systemtime - 서버시간
             
             txt = '[{0:02d}:{1:02d}:{2:02d}] HeartBeat 수신, 시스템서버간 시간차 = {3}\r'.format(dt.hour, dt.minute, dt.second, 시스템_서버_시간차)
-            print(txt)
-
+            print(txt)            
+            
             # X축 시간좌표 계산
             if NightTime:
 
