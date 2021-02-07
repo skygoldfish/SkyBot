@@ -93,7 +93,7 @@ pd.set_option('display.expand_frame_repr', False)
 pd.set_option('max_colwidth', 100)
 
 DATABASE = 'Database\\skybot.sqlite'
-log_filename = "Log\\SkyBot.log"
+log_filename = 'Log\\SkyBot.log'
 
 locale.setlocale(locale.LC_ALL, '') 
 np.warnings.filterwarnings('ignore')
@@ -39821,43 +39821,47 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             print("secret디렉토리의 passwords.csv 파일에서 거래 계좌를 지정해 주세요")
 
-        if not MULTIPROCESS:
-
-            if REAL_SERVER:
-                txt = '실서버에 접속합니다.\r'
-            else:
-                txt = '모의서버에 접속합니다.\r'
-
-            self.textBrowser.append(txt)
-
-            self.LoginThread(self.url, self.id, self.pwd, self.cert)
+        if not flag_internet:
+            QMessageBox.critical(self, 'Error!', '인터넷 연결을 확인해주세요.', QMessageBox.Ok)
+            self.close()
         else:
-            if REAL_SERVER:
-                txt = '멀티프로세스 실서버에 접속합니다.\r'
+            if not MULTIPROCESS:
+
+                if REAL_SERVER:
+                    txt = '실서버에 접속합니다.\r'
+                else:
+                    txt = '모의서버에 접속합니다.\r'
+
+                self.textBrowser.append(txt)
+
+                self.LoginThread(self.url, self.id, self.pwd, self.cert)
             else:
-                txt = '멀티프로세스 모의서버에 접속합니다.\r'
+                if REAL_SERVER:
+                    txt = '멀티프로세스 실서버에 접속합니다.\r'
+                else:
+                    txt = '멀티프로세스 모의서버에 접속합니다.\r'
 
-            self.textBrowser.append(txt)
+                self.textBrowser.append(txt)
 
-            if MP_NUMBER == 1:
-                MainProcess.Login(self.url, self.id, self.pwd, self.cert)
-            elif MP_NUMBER == 2:
-                MainProcess.Login(self.url, self.id, self.pwd, self.cert)
-                self.main_event_loop.exec_() 
+                if MP_NUMBER == 1:
+                    MainProcess.Login(self.url, self.id, self.pwd, self.cert)
+                elif MP_NUMBER == 2:
+                    MainProcess.Login(self.url, self.id, self.pwd, self.cert)
+                    self.main_event_loop.exec_() 
 
-                SecondProcess.Login(self.url, self.id, self.pwd, self.cert)
-                self.second_event_loop.exec_()
-            elif MP_NUMBER == 3:
-                MainProcess.Login(self.url, self.id, self.pwd, self.cert)
-                self.main_event_loop.exec_() 
+                    SecondProcess.Login(self.url, self.id, self.pwd, self.cert)
+                    self.second_event_loop.exec_()
+                elif MP_NUMBER == 3:
+                    MainProcess.Login(self.url, self.id, self.pwd, self.cert)
+                    self.main_event_loop.exec_() 
 
-                SecondProcess.Login(self.url, self.id, self.pwd, self.cert)
-                self.second_event_loop.exec_() 
+                    SecondProcess.Login(self.url, self.id, self.pwd, self.cert)
+                    self.second_event_loop.exec_() 
 
-                ThirdProcess.Login(self.url, self.id, self.pwd, self.cert)
-                self.third_event_loop.exec_() 
-            else:
-                pass  
+                    ThirdProcess.Login(self.url, self.id, self.pwd, self.cert)
+                    self.third_event_loop.exec_() 
+                else:
+                    pass  
 
     def OnClockTick(self):
 
@@ -40159,7 +40163,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             logger.info("*************************************************************************************************************************")
             logger.info("LOG STOP")
 
-            if MULTIPROCESS:
+            if MULTIPROCESS and flag_internet:
 
                 print('모든 멀티프로세스 실시간요청 취소...')
                 MainProcess.CancelAllRealData()
@@ -40253,9 +40257,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 # Main
 #####################################################################################################################################################################
 if __name__ == "__main__":
+
+    global flag_internet
+
+    # 인터넷 연결확인
+    ipaddress = socket.gethostbyname(socket.gethostname())
+
+    if ipaddress == '127.0.0.1':
+        flag_internet = False
+    else:
+        flag_internet = True
     
     # 멀티프로세스
-    if MULTIPROCESS:
+    if MULTIPROCESS and flag_internet:
 
         import multiprocessing as mp
         from multiprocessing import Process, Queue, Pipe
@@ -40356,7 +40370,7 @@ if __name__ == "__main__":
     else:
         pass
     
-    if MULTIPROCESS:
+    if MULTIPROCESS and flag_internet:
 
         if MP_NUMBER == 1:
             window = MainWindow(main_dataQ)
