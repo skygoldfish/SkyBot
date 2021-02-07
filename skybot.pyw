@@ -2235,6 +2235,8 @@ class ScreenUpdateWorker(QThread):
                     self.trigger.emit(timegap)
                 except Exception as e:
                     print('NTP Server Time Get Error...')
+            else:
+                pass
 
             QTest.qWait(scoreboard_update_interval)    
 #####################################################################################################################################################################
@@ -2256,6 +2258,8 @@ class TelegramSendWorker(QThread):
 
             if not flag_main_realdata_update_is_running:
                 self.trigger.emit()
+            else:
+                pass
 
             QTest.qWait(1000 * TELEGRAM_SEND_INTERVAL)
 #####################################################################################################################################################################
@@ -2276,6 +2280,8 @@ class TelegramListenWorker(QThread):
 
             if not flag_main_realdata_update_is_running:
                 self.trigger.emit()
+            else:
+                pass
 
             QTest.qWait(1000 * TELEGRAM_POLLING_INTERVAL)
 #####################################################################################################################################################################
@@ -3363,6 +3369,8 @@ class SpeakerWorker(QThread):
                 print('TTS Text =', self.txt)
                 Speak(self.txt)
                 self.flag_speak = False
+            else:
+                pass
 
             QTest.qWait(1)
 
@@ -5427,10 +5435,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         try:
             flag_screen_update_is_running = True
-            #print('flag_screen_update_is_running =', flag_screen_update_is_running)
 
             시스템_서버_시간차 = timegap
-            print('시스템_서버_시간차 =', 시스템_서버_시간차)
+            #print('시스템_서버_시간차 =', 시스템_서버_시간차)
 
             self.alternate_flag = not self.alternate_flag
             
@@ -6536,18 +6543,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             txt = '{0:02d}:{1:02d}:{2:02d}({3:+d})'.format(dt.hour, dt.minute, dt.second, 시스템_서버_시간차)
         else:
             txt = '{0:02d}:{1:02d}:{2:02d}({3:+d})'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 시스템_서버_시간차)
-        
-        # 클래스간 데이타 교환
-        
-        #print(화면_뉴스.news_on)
-        '''
-        if 화면_뉴스.news_on:
-
-            txt = 'sky...\r'
-            화면_뉴스.testcode(txt)
-        else:
-            pass
-        '''
 
         if flag_option_start:
 
