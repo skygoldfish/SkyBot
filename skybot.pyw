@@ -25475,7 +25475,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         txt = self.lineEdit_tolerance.text()
         view_time_tolerance = int(txt)
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] 데이타보기 허용시간을 {3} sec로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, view_time_tolerance)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 데이타보기 허용시간을 {3}sec로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, view_time_tolerance)
         self.parent.textBrowser.append(txt)
 
     def change_plot_interval(self):
