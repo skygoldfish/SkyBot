@@ -1926,6 +1926,8 @@ flag_periodic_plot_mode = False
 
 flag_drop_reset = False
 
+view_time_tolerance = TIME_TOLERANCE
+
 #####################################################################################################################################################################
 # UI 파일정의
 #####################################################################################################################################################################
@@ -2589,7 +2591,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2602,7 +2604,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1       
@@ -2615,7 +2617,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2628,7 +2630,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1             
@@ -2641,7 +2643,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2654,7 +2656,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2667,7 +2669,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2680,7 +2682,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2693,7 +2695,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2706,7 +2708,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2721,7 +2723,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             self.total_option_packet_size += sys.getsizeof(data)
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2736,7 +2738,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             self.total_option_packet_size += sys.getsizeof(data)
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2749,7 +2751,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2766,7 +2768,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1 
@@ -2779,7 +2781,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1                       
@@ -2886,7 +2888,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -2899,7 +2901,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1       
@@ -2912,7 +2914,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -2925,7 +2927,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -2938,7 +2940,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -2953,7 +2955,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -2966,7 +2968,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -2979,7 +2981,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -2992,7 +2994,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -3005,7 +3007,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -3020,7 +3022,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 self.total_option_packet_size += sys.getsizeof(data)
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -3035,7 +3037,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 self.total_option_packet_size += sys.getsizeof(data)
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -3048,7 +3050,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -3067,7 +3069,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -3082,7 +3084,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                                if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1                            
@@ -3177,7 +3179,7 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -3190,7 +3192,7 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -3205,7 +3207,7 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -3222,7 +3224,7 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -3310,7 +3312,7 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -3327,7 +3329,7 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - 시스템_서버_시간차) - realtime) < TIME_TOLERANCE:
+                            if abs((systime - 시스템_서버_시간차) - realtime) < view_time_tolerance:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -25254,6 +25256,9 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         txt = str(scoreboard_update_interval)
         self.lineEdit_mp.setText(txt)
 
+        txt = str(view_time_tolerance)
+        self.lineEdit_tolerance.setText(txt)
+
         txt = str(plot_update_interval)
         self.lineEdit_plot.setText(txt)
 
@@ -25298,6 +25303,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.spinBox_put_otm.valueChanged.connect(self.change_put_otm)
 
         self.lineEdit_mp.returnPressed.connect(self.change_scoreboard_interval)
+        self.lineEdit_tolerance.returnPressed.connect(self.change_view_time_interval)
         self.lineEdit_plot.returnPressed.connect(self.change_plot_interval)
 
     def change_call_itm(self):
@@ -25458,6 +25464,18 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         scoreboard_update_interval = int(txt)
 
         txt = '[{0:02d}:{1:02d}:{2:02d}] 주기적 갱신시간을 {3} msec로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, scoreboard_update_interval)
+        self.parent.textBrowser.append(txt)
+
+    def change_view_time_interval(self):
+
+        global view_time_tolerance
+
+        dt = datetime.datetime.now()
+
+        txt = self.lineEdit_tolerance.text()
+        view_time_tolerance = int(txt)
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 데이타보기 허용시간을 {3} sec로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, view_time_tolerance)
         self.parent.textBrowser.append(txt)
 
     def change_plot_interval(self):
@@ -39312,7 +39330,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             txt = ' 시스템시간/[{0}]수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
                 dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
 
-            if abs(time_gap) >= TIME_TOLERANCE:
+            if abs(time_gap) >= view_time_tolerance:
                 self.statusbar.setStyleSheet("color : red")
             else:
                 if DARK_STYLESHEET:
@@ -39421,7 +39439,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         txt = ' 시스템시간/[{0}]수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
             dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
 
-        if abs(time_gap) >= TIME_TOLERANCE:
+        if abs(time_gap) >= view_time_tolerance:
             self.statusbar.setStyleSheet("color : red")
         else:
             if DARK_STYLESHEET:
@@ -39524,7 +39542,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         txt = ' 시스템시간/[{0}]수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
             dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
 
-        if abs(time_gap) >= TIME_TOLERANCE:
+        if abs(time_gap) >= view_time_tolerance:
             self.statusbar.setStyleSheet("color : red")
         else:
             if DARK_STYLESHEET:
@@ -39617,7 +39635,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             txt = ' 시스템 시간/[{0}]수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
                 dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
 
-            if abs(time_gap) >= TIME_TOLERANCE:
+            if abs(time_gap) >= view_time_tolerance:
                 self.statusbar.setStyleSheet("color : red")
             else:
                 if DARK_STYLESHEET:

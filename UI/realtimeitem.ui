@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>327</width>
+    <width>332</width>
     <height>910</height>
    </rect>
   </property>
@@ -444,7 +444,7 @@
     <rect>
      <x>20</x>
      <y>760</y>
-     <width>293</width>
+     <width>291</width>
      <height>61</height>
     </rect>
    </property>
@@ -456,9 +456,9 @@
     </font>
    </property>
    <property name="title">
-    <string>실시간 Data 갱신주기</string>
+    <string>실시간 갱신주기/허용오차</string>
    </property>
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -467,26 +467,13 @@
       <height>22</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="4,1,2,1">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QCheckBox" name="checkBox_periodic_plot">
        <property name="text">
-        <string>Periodic Plot</string>
+        <string>P-Plot</string>
        </property>
       </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_4">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
      </item>
      <item>
       <widget class="QLineEdit" name="lineEdit_mp">
@@ -505,6 +492,26 @@
        </property>
        <property name="text">
         <string>msec</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_tolerance">
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>sec</string>
        </property>
       </widget>
      </item>
