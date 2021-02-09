@@ -16,9 +16,8 @@ import ntplib
 import timeit
 import win32com.client
 import pythoncom
-from numpy import NaN, Inf, arange, isscalar, asarray, array
+from numpy import NaN
 from pandas import DataFrame, Series
-from threading import Timer
 
 import ctypes
 import webbrowser
@@ -3806,13 +3805,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 긴 loop를 도는 동안 GUI 응답없음을 방지하기 위함
             if i % 10 == 0:
                 QApplication.processEvents()
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션테이블 초기화중({3:.0f}%)...\r'.format(dt.hour, dt.minute, dt.second, (i / ActvalCount) * 100)
-                self.parent.textBrowser.append(txt)
+                txt = '옵션테이블 초기화중({0:.0f}%)...\r'.format((i / ActvalCount) * 100)
+                self.parent.statusbar.showMessage(txt)
             else:
                 pass
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션테이블 초기화 완료({3:.0f}%)...\r'.format(dt.hour, dt.minute, dt.second, 100)
-        self.parent.textBrowser.append(txt)
+        txt = '옵션테이블 초기화 완료({0:.0f}%)...\r'.format(100)
+        self.parent.statusbar.showMessage(txt)
 
         # 선물관련 변수 초기화
         self.kp200_realdata = dict()
@@ -27837,13 +27836,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             if i % 10 == 0:
                 QApplication.processEvents()
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Plot 초기화중({3:.0f}%)...\r'.format(dt.hour, dt.minute, dt.second, (i / option_pairs_count) * 100)
-                self.parent.textBrowser.append(txt)
+                txt = '옵션 Plot 초기화중({0:.0f}%)...\r'.format((i / option_pairs_count) * 100)
+                self.parent.statusbar.showMessage(txt)
             else:
                 pass
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Plot 초기화 완료({3:.0f}%)...\r'.format(dt.hour, dt.minute, dt.second, 100)
-        self.parent.textBrowser.append(txt)
+        txt = '옵션 Plot 초기화 완료({0:.0f}%)...\r'.format(100)
+        self.parent.statusbar.showMessage(txt)
 
         if NightTime:
             timespan = yagan_timespan
@@ -39327,7 +39326,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-            txt = ' 시스템시간/[{0}]수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
+            txt = ' [{0}]수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
                 dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
 
             if abs(time_gap) >= view_time_tolerance:
@@ -39436,7 +39435,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:                    
             time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
 
-        txt = ' 시스템시간/[{0}]수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
+        txt = ' [{0}]수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
             dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
 
         if abs(time_gap) >= view_time_tolerance:
@@ -39539,7 +39538,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:                    
             time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - 시스템_서버_시간차 - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
 
-        txt = ' 시스템시간/[{0}]수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
+        txt = ' [{0}]수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
             dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
 
         if abs(time_gap) >= view_time_tolerance:
