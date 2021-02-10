@@ -873,7 +873,7 @@ telegram_toggle = True
 
 서버시간 = 0
 서버시간_분 = 0
-system_srver_time_gap = 0
+system_server_time_gap = 0
 
 Option_column = Enum('Option_column', '행사가 OLOH 기준가 월저 월고 전저 전고 종가 피봇 시가 저가 현재가 고가 시가갭 대비 진폭 VP OI OID')
 Futures_column = Enum('Futures_column', 'OLOH 매수건수 매도건수 매수잔량 매도잔량 건수비 잔량비 전저 전고 종가 피봇 시가 저가 현재가 고가 시가갭 대비 거래량 진폭 OI OID')
@@ -2590,7 +2590,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2603,7 +2603,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1       
@@ -2616,7 +2616,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2629,7 +2629,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1             
@@ -2642,7 +2642,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2655,7 +2655,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2668,7 +2668,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2681,7 +2681,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2694,7 +2694,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2707,7 +2707,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2722,7 +2722,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             self.total_option_packet_size += sys.getsizeof(data)
 
-                            if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2737,7 +2737,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             self.total_option_packet_size += sys.getsizeof(data)
 
-                            if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2750,7 +2750,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1
@@ -2767,7 +2767,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1 
@@ -2780,7 +2780,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                 self.trigger.emit(data)
                             else:
                                 self.drop_count += 1                       
@@ -2887,7 +2887,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -2900,7 +2900,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1       
@@ -2913,7 +2913,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -2926,7 +2926,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -2939,11 +2939,11 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
-                                    #txt = 'drop OVC, {0}'.format((systime - system_srver_time_gap) - realtime)
+                                    #txt = 'drop OVC, {0}'.format((systime - system_server_time_gap) - realtime)
                                     #print(txt)
 
                             elif data['szTrCode'] == 'FH0':
@@ -2954,7 +2954,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -2967,7 +2967,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -2980,7 +2980,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -2993,7 +2993,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -3006,7 +3006,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -3021,7 +3021,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 self.total_option_packet_size += sys.getsizeof(data)
 
-                                if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -3036,7 +3036,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 self.total_option_packet_size += sys.getsizeof(data)
 
-                                if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
@@ -3049,11 +3049,11 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
-                                    #txt = 'drop EC0, {0}'.format((systime - system_srver_time_gap) - realtime)
+                                    #txt = 'drop EC0, {0}'.format((systime - system_server_time_gap) - realtime)
                                     #print(txt)
 
                             elif data['szTrCode'] == 'EH0':
@@ -3068,11 +3068,11 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1
-                                    #txt = 'drop EH0, {0}'.format((systime - system_srver_time_gap) - realtime)
+                                    #txt = 'drop EH0, {0}'.format((systime - system_server_time_gap) - realtime)
                                     #print(txt)
 
                             elif data['szTrCode'] == 'S3_':
@@ -3083,7 +3083,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(data)
                                 else:
                                     self.drop_count += 1                            
@@ -3178,7 +3178,7 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -3191,7 +3191,7 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -3206,7 +3206,7 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -3223,7 +3223,7 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -3311,7 +3311,7 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -3328,7 +3328,7 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - system_srver_time_gap) - realtime) < view_time_tolerance:
+                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                 self.trigger_dict.emit(data)
                             else:
                                 self.drop_count += 1
@@ -3810,7 +3810,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-        txt = '옵션테이블 초기화 완료({0:.0f}%)...\r'.format(100)
+        txt = '옵션테이블 초기화 완료\r'
         self.parent.statusbar.showMessage(txt)
 
         # 선물관련 변수 초기화
@@ -5430,15 +5430,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_call_low_update, flag_call_high_update, flag_put_low_update, flag_put_high_update
         global flag_call_cross_coloring, flag_put_cross_coloring, flag_clear
 
-        global system_srver_time_gap
+        global system_server_time_gap
 
         dt = datetime.datetime.now()
 
         try:
             flag_screen_update_is_running = True
 
-            system_srver_time_gap = timegap
-            #print('system_srver_time_gap =', system_srver_time_gap)
+            system_server_time_gap = timegap
+            #print('system_server_time_gap =', system_server_time_gap)
 
             self.alternate_flag = not self.alternate_flag
             
@@ -6288,7 +6288,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
         
-        txt = '[{0:02d}:{1:02d}:{2:02d}] Heartbeat({3}), 시스템서버 시간차 = {4}초\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, system_srver_time_gap)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Heartbeat({3}), 시스템서버 시간차 = {4}초\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, system_server_time_gap)
         self.textBrowser.append(txt)       
         
         self.tableWidget_fut.resizeRowsToContents()
@@ -6541,9 +6541,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 해외선물 한국시간 표시
         if OVC_체결시간 == '000000':
 
-            txt = '{0:02d}:{1:02d}:{2:02d}({3:+d})'.format(dt.hour, dt.minute, dt.second, system_srver_time_gap)
+            txt = '{0:02d}:{1:02d}:{2:02d}({3:+d})'.format(dt.hour, dt.minute, dt.second, system_server_time_gap)
         else:
-            txt = '{0:02d}:{1:02d}:{2:02d}({3:+d})'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, system_srver_time_gap)
+            txt = '{0:02d}:{1:02d}:{2:02d}({3:+d})'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, system_server_time_gap)
 
         if flag_option_start:
 
@@ -14984,7 +14984,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if szTrCode == 't0167':
             
-            global 서버시간, system_srver_time_gap, flag_heartbeat
+            global 서버시간, system_server_time_gap, flag_heartbeat
             global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, ovc_x_idx, 시스템시간_분, 서버시간_분
 
             szTrCode, server_date, server_time = result
@@ -15000,7 +15000,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             서버시간 = SERVER_HOUR * 3600 + SERVER_MIN * 60 + SERVER_SEC
             서버시간_분 = SERVER_HOUR * 3600 + SERVER_MIN * 60
 
-            system_srver_time_gap = systemtime - 서버시간
+            system_server_time_gap = systemtime - 서버시간
             
             # X축 시간좌표 계산
             if NightTime:
@@ -20799,7 +20799,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            #print('체결시간_현지 =', result['체결시간_현지'])
+            #print('체결시간_현지 =', result['체결시간_�������지'])
             #print('체결시간_한국 =', result['체결시간_한국'])
 
             OVC_체결시간 = result['수신시간']
@@ -21986,7 +21986,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global GOLD_순매수, GOLD_잔량비
 
         global CME_당일종가, DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가, GOLD_당일종가
-        global 시스템시간, 서버시간, system_srver_time_gap
+        global 시스템시간, 서버시간, system_server_time_gap
         global kp200_시가, kp200_피봇, kp200_저가, kp200_현재가, kp200_고가, kp200_진폭 
         global DOW_주간_시작가, WTI_주간_시작가
         global DOW_야간_시작가, WTI_야간_시작가
@@ -27841,7 +27841,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
 
-        txt = '옵션 Plot 초기화 완료({0:.0f}%)...\r'.format(100)
+        txt = '옵션 Plot 초기화 완료\r'
         self.parent.statusbar.showMessage(txt)
 
         if NightTime:
@@ -39192,7 +39192,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
         elif trdata[0] == 't0167':
 
-            global 서버시간, system_srver_time_gap, flag_heartbeat
+            global 서버시간, system_server_time_gap, flag_heartbeat
             global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, ovc_x_idx, 시스템시간_분, 서버시간_분
 
             server_time = trdata[2]
@@ -39210,9 +39210,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             서버시간 = SERVER_HOUR * 3600 + SERVER_MIN * 60 + SERVER_SEC
             서버시간_분 = SERVER_HOUR * 3600 + SERVER_MIN * 60
 
-            system_srver_time_gap = systemtime - 서버시간
+            system_server_time_gap = systemtime - 서버시간
             
-            txt = '[{0:02d}:{1:02d}:{2:02d}] HeartBeat 수신, 시스템서버간 시간차 = {3}\r'.format(dt.hour, dt.minute, dt.second, system_srver_time_gap)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] HeartBeat 수신, 시스템서버간 시간차 = {3}\r'.format(dt.hour, dt.minute, dt.second, system_server_time_gap)
             print(txt)            
             
             # X축 시간좌표 계산
@@ -39271,9 +39271,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
         else:
             if szTrCode == 'EH0' and int(realdata['수신시간'][0:2]) >= 24:
-                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_srver_time_gap - ((int(realdata['수신시간'][0:2]) - 24) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
+                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - ((int(realdata['수신시간'][0:2]) - 24) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
             else:                    
-                time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_srver_time_gap - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
+                time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
 
             if MP_NUMBER == 1:
 
@@ -39431,9 +39431,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         szTrCode = realdata['szTrCode']
         
         if szTrCode == 'EH0' and int(realdata['수신시간'][0:2]) >= 24:
-                time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_srver_time_gap - ((int(realdata['수신시간'][0:2]) - 24) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
+                time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - ((int(realdata['수신시간'][0:2]) - 24) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
         else:                    
-            time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_srver_time_gap - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
+            time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
 
         txt = ' [{0}]수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
             dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
@@ -39534,9 +39534,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         szTrCode = realdata['szTrCode']
         
         if szTrCode == 'EH0' and int(realdata['수신시간'][0:2]) >= 24:
-                time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_srver_time_gap - ((int(realdata['수신시간'][0:2]) - 24) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
+                time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - ((int(realdata['수신시간'][0:2]) - 24) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
         else:                    
-            time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_srver_time_gap - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
+            time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
 
         txt = ' [{0}]수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
             dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
@@ -39614,9 +39614,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
         else:
             if szTrCode == 'EH0' and int(realdata['수신시간'][0:2]) >= 24:
-                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_srver_time_gap - ((int(realdata['수신시간'][0:2]) - 24) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
+                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - ((int(realdata['수신시간'][0:2]) - 24) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
             else:                    
-                time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_srver_time_gap - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
+                time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
 
              # 수신된 실시간데이타 정보표시(누락된 패킷수, 누락된 패킷, 수신된 총 패킷수, 수신된 총 패킷크기)
             dropcount, sys_dropcount, qsize, totalcount, main_totalsize, main_opt_totalsize = self.realtime_thread_dataworker.get_packet_info()
@@ -39742,7 +39742,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def OnReceiveData(self, result):
 
-        global 서버시간, system_srver_time_gap, flag_heartbeat
+        global 서버시간, system_server_time_gap, flag_heartbeat
         global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, ovc_x_idx, 시스템시간_분, 서버시간_분
 
         dt = datetime.datetime.now()
@@ -39766,7 +39766,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             서버시간 = SERVER_HOUR * 3600 + SERVER_MIN * 60 + SERVER_SEC
             서버시간_분 = SERVER_HOUR * 3600 + SERVER_MIN * 60
 
-            system_srver_time_gap = systemtime - 서버시간
+            system_server_time_gap = systemtime - 서버시간
 
             # X축 시간좌표 계산
             if NightTime:
