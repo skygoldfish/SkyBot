@@ -4,6 +4,9 @@ import pandas as pd
 import multiprocessing as mp
 from multiprocessing import Process, Queue
 from configparser import ConfigParser
+#import ntplib
+
+from PyQt5.QtTest import *
 
 from XASessions import *
 from XAQueries import *
@@ -13,96 +16,17 @@ from XAReals import *
 parser = ConfigParser()
 parser.read('skybot.ini')
 
-# [0]. << Logging Level >>
-Logging_Level = parser.getint('Logging Level', 'Log Level')
-
 # [1]. << Server Type >>
 REAL_SERVER = parser.getboolean('Server Type', 'Real Server')
+TimeServer = parser.get('Server Type', 'NTP Server')
 
 # [2]. << Month Info >>
-KSE_START_HOUR = parser.getint('Month Info', 'KSE Start Hour')
 CURRENT_MONTH = parser.get('Month Info', 'Current Month')
-MONTH_FIRSTDAY = parser.get('Month Info', 'First Day of the Current Month')
-
-# [3]. << Target Month Select : current month = 1, next month = 2 >>
-TARGET_MONTH_SELECT = parser.get('Target Month Select', 'Target Month Select')
-
-# [4]. << Window Style >>
-DARK_STYLESHEET = parser.getboolean('Window Style', 'Dark Style')
-
-# [5]. << User Switch = 'ON or OFF' >>
-MULTIPROCESS = parser.getboolean('User Switch', 'Multiprocess')
-TELEGRAM_SERVICE = parser.getboolean('User Switch', 'Telegram service')
-MANGI_YAGAN = parser.getboolean('User Switch', 'Mangi Yagan')
-AUTO_START = parser.getboolean('User Switch', 'Auto Start')
-ResizeRowsToContents = parser.getboolean('User Switch', 'Resize Rows To Contents')
-CROSS_HAIR_LINE = parser.getboolean('User Switch', 'Cross Hair Line')
-SECOND_PLOT_SYNC = parser.getboolean('User Switch', 'Second Plot Sync')
-CSV_FILE = parser.getboolean('User Switch', 'CSV Data File')
-TTS = parser.getboolean('User Switch', 'Text To Speach')
-SEARCH_MOVING_NODE = parser.getboolean('User Switch', 'Search Moving Node')
-UI_HIDE = parser.getboolean('User Switch', 'UI Hide')
-
-# [6]. << Real Time Request Item Switch = 'ON or OFF' >>
-CM_FUT_PRICE = parser.getboolean('RealTime Request Item Switch', 'Current Month Futures Price')
-CM_FUT_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Current Month Futures Quote')
-CM_OPT_PRICE = parser.getboolean('RealTime Request Item Switch', 'Current Month Option Price')
-CM_OPT_PRICE1 = parser.getboolean('RealTime Request Item Switch', 'Current Month Option Price1')
-CM_OPT_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Current Month Option Quote')
-CM_OPT_QUOTE1 = parser.getboolean('RealTime Request Item Switch', 'Current Month Option Quote1')
-NM_FUT_PRICE = parser.getboolean('RealTime Request Item Switch', 'Next Month Futures Price')
-NM_FUT_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Next Month Futures Quote')
-NM_OPT_PRICE = parser.getboolean('RealTime Request Item Switch', 'Next Month Option Price')
-NM_OPT_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Next Month Option Quote')
-NM_OPT_QUOTE1 = parser.getboolean('RealTime Request Item Switch', 'Next Month Option Quote1')
-SUPPLY_DEMAND = parser.getboolean('RealTime Request Item Switch', 'Supply & Demand')
-DOW_CHK = parser.getboolean('RealTime Request Item Switch', 'DOW')
-SP500_CHK = parser.getboolean('RealTime Request Item Switch', 'S&P 500')
-NASDAQ_CHK = parser.getboolean('RealTime Request Item Switch', 'NASDAQ')
-WTI_CHK = parser.getboolean('RealTime Request Item Switch', 'WTI OIL')
-EUROFX_CHK = parser.getboolean('RealTime Request Item Switch', 'EUROFX')
-HANGSENG_CHK = parser.getboolean('RealTime Request Item Switch', 'HANGSENG')
-GOLD_CHK = parser.getboolean('RealTime Request Item Switch', 'GOLD')
-NEWS_CHK = parser.getboolean('RealTime Request Item Switch', 'NEWS')
-
-# [7]. << Moving Average Type >>
-MA_TYPE = parser.getint('Moving Average Type', 'MA Type')
 
 # [8]. << Initial Value >>
-CALL_ITM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Call ITM Request')
-CALL_OTM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Call OTM Request')
-PUT_ITM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Put ITM Request')
-PUT_OTM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Put OTM Request')
-HL_Depth = parser.getint('Initial Value', 'HL List Depth')
-NightTime_PreStart_Hour = parser.getint('Initial Value', 'NightTime Pre-Start Hour')
-ActvalCount = parser.getint('Initial Value', 'Actval Count of the Option Pairs')
-MY_COREVAL = parser.getfloat('Initial Value', 'My Coreval')
-ASYM_RATIO = parser.getfloat('Initial Value', 'Asymmetric Market Ratio')
-ONEWAY_RATIO = parser.getfloat('Initial Value', 'OneWay Market Ratio')
-GOLDEN_RATIO = parser.getfloat('Initial Value', 'Golden Ratio')
-CROSS_COLOR_INTERVAL = parser.getint('Initial Value', 'Cross Coloring Interval(minute)')
-MAIN_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Main Update Interval(msec)')
-BIGCHART_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Big Chart Update Interval(msec)')
-SCORE_BOARD_UPDATE_INTERVAL = parser.getint('Initial Value', 'Score Board Update Interval(sec)')
-SECOND_DISPLAY_X_POSITION = parser.getint('Initial Value', 'X Position of the Second Display')
-SECOND_DISPLAY_Y_POSITION = parser.getint('Initial Value', 'Y Position of the Second Display')
+TIME_TOLERANCE = parser.getint('Initial Value', 'RealTime Tolerance(sec)')
 
-# [9]. << Code of the Foreign Futures (H/M/U/Z) >>
-SP500 = parser.get('Code of the Foreign Futures', 'S&P 500')
-DOW = parser.get('Code of the Foreign Futures', 'DOW')
-NASDAQ = parser.get('Code of the Foreign Futures', 'NASDAQ')
-WTI = parser.get('Code of the Foreign Futures', 'WTI')
-EUROFX = parser.get('Code of the Foreign Futures', 'EUROFX')
-HANGSENG = parser.get('Code of the Foreign Futures', 'HANGSENG')
-GOLD = parser.get('Code of the Foreign Futures', 'GOLD')
-
-# [10]. << Telegram >>
-TELEGRAM_START_TIME = parser.getint('Telegram', 'Telegram polling start time(minute) after service')
-TELEGRAM_POLLING_INTERVAL = parser.getint('Telegram', 'Telegram polling interval(second)')
-TELEGRAM_SEND_INTERVAL = parser.getint('Telegram', 'Telegram send interval(second)')
-
-# [11]. << Rules >>
-ONEWAY_THRESHOLD = parser.getint('Rules', 'Threshold of the institutional party supply & demand')
+view_time_tolerance = TIME_TOLERANCE
 ########################################################################################################################
 
 if int(CURRENT_MONTH[4:6]) == 11:
@@ -183,6 +107,14 @@ class MainWorker(mp.Process):
         self.OVH = None
         self.NWS = None
 
+        # NTP Server Domain Or IP
+        '''
+        self.ntpclient = ntplib.NTPClient()
+        
+        self.server_hour = 0
+        self.server_minute = 0
+        self.server_second = 0
+        '''
         self.exit = mp.Event()
 
     def OnLogin(self, code, msg):
@@ -256,6 +188,12 @@ class MainWorker(mp.Process):
         ret = self.connection.IsConnected()
         return ret
 
+    def Set_Time_Tolerance(self, tolerance):
+
+        global view_time_tolerance
+
+        view_time_tolerance = tolerance
+
     def OnReceiveMessage(self, ClassName, systemError, messageCode, message):
 
         pass
@@ -277,9 +215,28 @@ class MainWorker(mp.Process):
 
     # 실시간데이타 수신 콜백함수
     def OnReceiveRealData(self, result):
+        '''
+        servertime = self.server_hour * 3600 + self.server_minute * 60 + self.server_second
 
-        dt = datetime.datetime.now()
+        print('servertime =', self.server_hour, self.server_minute, self.server_second, servertime)
 
+        if result['szTrCode'] == 'EH0' and int(result['수신시간'][0:2]) >= 24:
+            realtime_hour = int(result['수신시간'][0:2]) - 24
+        else:
+            realtime_hour = int(result['수신시간'][0:2])
+
+        realtime_min = int(result['수신시간'][2:4])
+        realtime_sec = int(result['수신시간'][4:6])
+
+        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+        print('realtime =', realtime)
+        
+        if abs(servertime - realtime) < view_time_tolerance:
+            self.dataQ.put(result, False)
+        else:
+            pass
+        '''
         self.dataQ.put(result, False)            
     
     def Login(self, url, id, pwd, cert):
@@ -555,9 +512,27 @@ class MainWorker(mp.Process):
 
     def run(self):
 
-        print('Main MultiProcess RealTimeWorker Start...')
+        print('Main MultiProcess RealTimeWorker Start...')         
         
         while not self.exit.is_set():
+            '''
+            try:
+                response = self.ntpclient.request(TimeServer, version=3)
+
+                time_str = time.ctime(response.tx_time).split(' ')
+                srever_time = time_str[3]
+
+                self.server_hour = int(srever_time[0:2])
+                self.server_minute = int(srever_time[3:5])
+                self.server_second = int(srever_time[6:8])
+
+                txt = 'NTP Server Time = {0}:{1}:{2}\r'.format(self.server_hour, self.server_minute, self.server_second)
+                print(txt)
+            except Exception as e:
+                print('NTP Server Time Get Error...')
+
+            QTest.qWait(500)
+            '''
             pass
 
         print("Main MultiProcess RealTimeWorker Terminated !!!")

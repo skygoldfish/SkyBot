@@ -77,10 +77,7 @@ from XASessions import *
 from XAQueries import *
 from XAReals import *
 from Utils import *
-#from FileWatcher import *
-
-# NTP Server Domain Or IP
-TimeServer = 'time.windows.com'               
+#from FileWatcher import *             
 
 # 4k 해상도 대응
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
@@ -310,6 +307,7 @@ Logging_Level = parser.getint('Logging Level', 'Log Level')
 
 # [1]. << Server Type >>
 REAL_SERVER = parser.getboolean('Server Type', 'Real Server')
+TimeServer = parser.get('Server Type', 'NTP Server')
 
 # [2]. << Month Info >>
 KSE_START_HOUR = parser.getint('Month Info', 'KSE Start Hour')
@@ -1927,6 +1925,12 @@ flag_drop_reset = False
 
 view_time_tolerance = TIME_TOLERANCE
 
+fh0_drop_percent = 0
+
+ntp_server_hour = 0
+ntp_server_minute = 0
+ntp_server_second = 0
+
 #####################################################################################################################################################################
 # UI 파일정의
 #####################################################################################################################################################################
@@ -2215,13 +2219,17 @@ class 화면_버전(QDialog, Ui_버전):
 #####################################################################################################################################################################
 class ScreenUpdateWorker(QThread):
 
-    trigger = pyqtSignal(int)
+    trigger = pyqtSignal(int, int, int, int)
 
     def __init__(self):
         super().__init__()
 
         self.daemon = True        
-        self.ntpclient = ntplib.NTPClient()        
+        self.ntpclient = ntplib.NTPClient()
+
+        self.server_hour = 0
+        self.server_minute = 0
+        self.server_second = 0        
 
     def run(self):
 
@@ -2231,11 +2239,21 @@ class ScreenUpdateWorker(QThread):
 
                 try:
                     response = self.ntpclient.request(TimeServer, version=3)
-                    print('NTP Server Time =', time.ctime(response.tx_time))
+
+                    time_str = time.ctime(response.tx_time).split(' ')
+                    srever_time = time_str[3]
+
+                    self.server_hour = int(srever_time[0:2])
+                    self.server_minute = int(srever_time[3:5])
+                    self.server_second = int(srever_time[6:8])
+
                     timegap = round(-response.offset)
-                    self.trigger.emit(timegap)
+
+                    self.trigger.emit(self.server_hour, self.server_minute, self.server_second, timegap)
                 except Exception as e:
                     print('NTP Server Time Get Error...')
+                    #dt = datetime.datetime.now()
+                    #self.trigger.emit(dt.hour, dt.minute, dt.second, system_server_time_gap)
             else:
                 pass
 
@@ -2827,11 +2845,18 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
         # 수신된 총 옵션 패킷크기
         self.total_option_packet_size = 0
 
+        self.fh0_total_count = 0
+        self.fh0_drop_count = 0
+
         self.sys_drop_count = 0
 
     def get_packet_info(self):
 
         return self.drop_count, self.sys_drop_count, self.dataQ.qsize(), self.total_count, self.total_packet_size, self.total_option_packet_size
+
+    def get_fh0_packet_info(self):
+
+        return self.fh0_drop_count, self.fh0_total_count
 
     # 큐로부터 주기적으로 데이타를 가져오기 위함
     def get_realdata(self):
@@ -2852,10 +2877,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                     dt = datetime.datetime.now()
                     systime = dt.hour * 3600 + dt.minute * 60 + dt.second
 
-                    self.realdata = self.dataQ.get(False)                    
+                    #servertime = ntp_server_hour * 3600 + ntp_server_minute * 60 + ntp_server_second
 
-                    self.total_count += 1
-                    self.total_packet_size += sys.getsizeof(self.realdata)
+                    self.realdata = self.dataQ.get(False)                    
 
                     if flag_drop_reset:
                         self.drop_count = 0
@@ -2871,7 +2895,15 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                     elif type(self.realdata) == dict:
                         
+                        self.total_count += 1
+                        self.total_packet_size += sys.getsizeof(self.realdata)
+                        
                         szTrCode = self.realdata['szTrCode']
+
+                        if szTrCode == 'FH0':
+                            self.fh0_total_count += 1
+                        else:
+                            pass
 
                         # 옵션가격 및 호가를 표시
                         if szTrCode == 'OC0' or szTrCode == 'OH0':
@@ -2973,6 +3005,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                                     self.trigger_dict.emit(self.realdata)
                                 else:
                                     self.drop_count += 1
+                                    self.fh0_drop_count += 1
 
                             elif szTrCode == 'NH0':
 
@@ -5428,8 +5461,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         print(txt)    
     
     @logging_time_main_loop
-    @pyqtSlot(int)
-    def update_screen(self, timegap):
+    @pyqtSlot(int, int, int, int)
+    def update_screen(self, hour, minute, second, timegap):
 
         global flag_internet_connection_broken, flag_service_provider_broken
         global flag_screen_update_is_running
@@ -5445,15 +5478,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_call_low_update, flag_call_high_update, flag_put_low_update, flag_put_high_update
         global flag_call_cross_coloring, flag_put_cross_coloring, flag_clear
 
-        global system_server_time_gap
+        global system_server_time_gap, ntp_server_hour, ntp_server_minute, ntp_server_second
 
         dt = datetime.datetime.now()
 
         try:
             flag_screen_update_is_running = True
 
+            ntp_server_hour = hour
+            ntp_server_minute = minute
+            ntp_server_second = second
             system_server_time_gap = timegap
-            #print('system_server_time_gap =', system_server_time_gap)
+
+            txt = 'NTP Server Time = {0}:{1}:{2}[{3}]\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second, system_server_time_gap)
+            print(txt)
 
             self.alternate_flag = not self.alternate_flag
             
@@ -25489,6 +25527,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         txt = self.lineEdit_tolerance.text()
         view_time_tolerance = int(txt)
 
+        if MULTIPROCESS:
+            MainProcess.Set_Time_Tolerance(view_time_tolerance)
+        else:
+            pass
+
         txt = '[{0:02d}:{1:02d}:{2:02d}] 데이타보기 허용시간을 {3}sec로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, view_time_tolerance)
         self.parent.textBrowser.append(txt)
 
@@ -34456,8 +34499,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if OVC_체결시간 == '000000':
 
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
-        else:            
-            txt = ' [{0:.1f}%], {1:.2f} ms '.format(drop_percent, plot2_processing_time)
+        else:
+            if comboindex2 == 3:
+                txt = ' [{0:.1f}%], {1:.2f} ms '.format(fh0_drop_percent, plot2_processing_time)
+            else:            
+                txt = ' [{0:.1f}%], {1:.2f} ms '.format(drop_percent, plot2_processing_time)
    
         self.label_time_2.setText(txt)
 
@@ -35354,8 +35400,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if OVC_체결시간 == '000000':
 
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
-        else:            
-            txt = ' [{0:.1f}%], {1:.2f} ms '.format(drop_percent, plot3_processing_time)
+        else: 
+            if comboindex3 == 3:
+                txt = ' [{0:.1f}%], {1:.2f} ms '.format(fh0_drop_percent, plot3_processing_time)
+            else:            
+                txt = ' [{0:.1f}%], {1:.2f} ms '.format(drop_percent, plot3_processing_time)
    
         self.label_time_3.setText(txt)
 
@@ -36246,8 +36295,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if OVC_체결시간 == '000000':
 
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
-        else:            
-            txt = ' [{0:.1f}%], {1:.2f} ms '.format(drop_percent, plot4_processing_time)
+        else:
+            if comboindex4 == 3:
+                txt = ' [{0:.1f}%], {1:.2f} ms '.format(fh0_drop_percent, plot4_processing_time)
+            else:            
+                txt = ' [{0:.1f}%], {1:.2f} ms '.format(drop_percent, plot4_processing_time)
    
         self.label_time_4.setText(txt)
 
@@ -37122,8 +37174,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if OVC_체결시간 == '000000':
 
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
-        else:            
-            txt = ' [{0:.1f}%], {1:.2f} ms '.format(drop_percent, plot5_processing_time)
+        else:
+            if comboindex5 == 3:
+                txt = ' [{0:.1f}%], {1:.2f} ms '.format(fh0_drop_percent, plot5_processing_time)
+            else:            
+                txt = ' [{0:.1f}%], {1:.2f} ms '.format(drop_percent, plot5_processing_time)
    
         self.label_time_5.setText(txt)
 
@@ -38013,8 +38068,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if OVC_체결시간 == '000000':
 
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
-        else:            
-            txt = ' [{0:.1f}%], {1:.2f} ms '.format(drop_percent, plot6_processing_time)
+        else:
+            if comboindex6 == 3:
+                txt = ' [{0:.1f}%], {1:.2f} ms '.format(fh0_drop_percent, plot6_processing_time)
+            else:            
+                txt = ' [{0:.1f}%], {1:.2f} ms '.format(drop_percent, plot6_processing_time)
    
         self.label_time_6.setText(txt)
 
@@ -39275,7 +39333,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @pyqtSlot(dict)
     def transfer_mp_main_realdata(self, realdata):
 
-        global drop_txt, drop_percent, time_gap, main_opt_totalsize, main_totalsize
+        global drop_txt, drop_percent, time_gap, main_opt_totalsize, main_totalsize, fh0_drop_percent
         
         dt = datetime.datetime.now()       
 
@@ -39293,9 +39351,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if MP_NUMBER == 1:
 
                 main_dropcount, main_sys_dropcount, main_qsize, main_totalcount, main_totalsize, main_opt_totalsize = self.realtime_main_dataworker.get_packet_info()
+                fh0_dropcount, fh0_totalcount = self.realtime_main_dataworker.get_fh0_packet_info()
 
                 if main_totalcount > 0:
                     drop_percent = ((main_dropcount + main_sys_dropcount) / main_totalcount) * 100
+                else:
+                    pass
+
+                if fh0_totalcount > 0:
+                    fh0_drop_percent = (fh0_dropcount / fh0_totalcount) * 100
                 else:
                     pass
 
