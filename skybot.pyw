@@ -2254,10 +2254,10 @@ class ScreenUpdateWorker(QThread):
                     print('NTP Server Time Get Error...')
                     #dt = datetime.datetime.now()
                     #self.trigger.emit(dt.hour, dt.minute, dt.second, system_server_time_gap)
-            else:
-                pass
 
-            QTest.qWait(scoreboard_update_interval)    
+                QTest.qWait(scoreboard_update_interval)    
+            else:
+                pass 
 #####################################################################################################################################################################
 # 텔레그램 송신 쓰레드
 #####################################################################################################################################################################
@@ -2900,17 +2900,14 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                         
                         szTrCode = self.realdata['szTrCode']
 
-                        if szTrCode == 'FH0':
-                            self.fh0_total_count += 1
-                        else:
-                            pass
-
                         # 옵션가격 및 호가를 표시
+                        '''
                         if szTrCode == 'OC0' or szTrCode == 'OH0':
                             txt = '[{0:02d}:{1:02d}:{2:02d}] {3}수신 {4}\r'.format(dt.hour, dt.minute, dt.second, szTrCode, self.realdata)
                             print(txt)
                         else:
                             pass
+                        '''
 
                         if not flag_main_realdata_update_is_running:
                             
@@ -2994,6 +2991,8 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                                     #print(txt)
 
                             elif szTrCode == 'FH0':
+
+                                self.fh0_total_count += 1
 
                                 realtime_hour = int(self.realdata['수신시간'][0:2])
                                 realtime_min = int(self.realdata['수신시간'][2:4])
@@ -3188,6 +3187,7 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
         global flag_2nd_process_queue_empty, flag_drop_reset
 
         while True:
+
             if not self.dataQ.empty():
 
                 flag_2nd_process_queue_empty = False
@@ -3321,6 +3321,7 @@ class RealTime_3RD_MP_Thread_DataWorker(QThread):
         global flag_3rd_process_queue_empty, flag_drop_reset
 
         while True:
+
             if not self.dataQ.empty():
 
                 flag_3rd_process_queue_empty = False
@@ -5478,7 +5479,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_call_low_update, flag_call_high_update, flag_put_low_update, flag_put_high_update
         global flag_call_cross_coloring, flag_put_cross_coloring, flag_clear
 
-        global system_server_time_gap, ntp_server_hour, ntp_server_minute, ntp_server_second
+        global ntp_server_hour, ntp_server_minute, ntp_server_second, system_server_time_gap
 
         dt = datetime.datetime.now()
 
@@ -5490,7 +5491,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             ntp_server_second = second
             system_server_time_gap = timegap
 
-            txt = 'NTP Server Time = {0}:{1}:{2}[{3}]\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second, system_server_time_gap)
+            txt = 'NTP Server Time = {0:02d}:{1:02d}:{2:02d}[{3}]\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second, system_server_time_gap)
             print(txt)
 
             self.alternate_flag = not self.alternate_flag
@@ -6229,10 +6230,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if not flag_offline:
 
-                #self.main_ui_update_time = (timeit.default_timer() - start_time) * 1000
-                #txt = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f} ms\r'.format(dt.hour, dt.minute, dt.second, self.main_ui_update_time)
-                #print(txt)
-
                 item_txt = '{0:.2f}'.format(main_loop_processing_time)
                 item = QTableWidgetItem(item_txt)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -6593,10 +6590,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         # 해외선물 한국시간 표시
         if OVC_체결시간 == '000000':
-
             txt = '{0:02d}:{1:02d}:{2:02d}({3:+d})'.format(dt.hour, dt.minute, dt.second, system_server_time_gap)
         else:
-            txt = '{0:02d}:{1:02d}:{2:02d}({3:+d})'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, system_server_time_gap)
+            txt = '{0:02d}:{1:02d}:{2:02d}({3:+d})'.format(ntp_server_hour, ntp_server_minute, ntp_server_second, system_server_time_gap)
 
         if flag_option_start:
 
@@ -22077,10 +22073,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         dt = datetime.datetime.now()
 
-        szTrCode = result['szTrCode']
-
         try:               
             flag_main_realdata_update_is_running = True
+            
+            szTrCode = result['szTrCode']
 
             if szTrCode == 'NWS':
                 
