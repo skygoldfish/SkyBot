@@ -1,6 +1,5 @@
 import sys, os
 import datetime, time
-import pandas as pd
 import multiprocessing as mp
 from multiprocessing import Process, Queue
 from configparser import ConfigParser
@@ -13,96 +12,12 @@ from XAReals import *
 parser = ConfigParser()
 parser.read('skybot.ini')
 
-# [0]. << Logging Level >>
-Logging_Level = parser.getint('Logging Level', 'Log Level')
-
 # [1]. << Server Type >>
 REAL_SERVER = parser.getboolean('Server Type', 'Real Server')
 
 # [2]. << Month Info >>
-KSE_START_HOUR = parser.getint('Month Info', 'KSE Start Hour')
 CURRENT_MONTH = parser.get('Month Info', 'Current Month')
-MONTH_FIRSTDAY = parser.get('Month Info', 'First Day of the Current Month')
 
-# [3]. << Target Month Select : current month = 1, next month = 2 >>
-TARGET_MONTH_SELECT = parser.get('Target Month Select', 'Target Month Select')
-
-# [4]. << Window Style >>
-DARK_STYLESHEET = parser.getboolean('Window Style', 'Dark Style')
-
-# [5]. << User Switch = 'ON or OFF' >>
-MULTIPROCESS = parser.getboolean('User Switch', 'Multiprocess')
-TELEGRAM_SERVICE = parser.getboolean('User Switch', 'Telegram service')
-MANGI_YAGAN = parser.getboolean('User Switch', 'Mangi Yagan')
-AUTO_START = parser.getboolean('User Switch', 'Auto Start')
-ResizeRowsToContents = parser.getboolean('User Switch', 'Resize Rows To Contents')
-CROSS_HAIR_LINE = parser.getboolean('User Switch', 'Cross Hair Line')
-SECOND_PLOT_SYNC = parser.getboolean('User Switch', 'Second Plot Sync')
-CSV_FILE = parser.getboolean('User Switch', 'CSV Data File')
-TTS = parser.getboolean('User Switch', 'Text To Speach')
-SEARCH_MOVING_NODE = parser.getboolean('User Switch', 'Search Moving Node')
-UI_HIDE = parser.getboolean('User Switch', 'UI Hide')
-
-# [6]. << Real Time Request Item Switch = 'ON or OFF' >>
-CM_FUT_PRICE = parser.getboolean('RealTime Request Item Switch', 'Current Month Futures Price')
-CM_FUT_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Current Month Futures Quote')
-CM_OPT_PRICE = parser.getboolean('RealTime Request Item Switch', 'Current Month Option Price')
-CM_OPT_PRICE1 = parser.getboolean('RealTime Request Item Switch', 'Current Month Option Price1')
-CM_OPT_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Current Month Option Quote')
-CM_OPT_QUOTE1 = parser.getboolean('RealTime Request Item Switch', 'Current Month Option Quote1')
-NM_FUT_PRICE = parser.getboolean('RealTime Request Item Switch', 'Next Month Futures Price')
-NM_FUT_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Next Month Futures Quote')
-NM_OPT_PRICE = parser.getboolean('RealTime Request Item Switch', 'Next Month Option Price')
-NM_OPT_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Next Month Option Quote')
-NM_OPT_QUOTE1 = parser.getboolean('RealTime Request Item Switch', 'Next Month Option Quote1')
-SUPPLY_DEMAND = parser.getboolean('RealTime Request Item Switch', 'Supply & Demand')
-DOW_CHK = parser.getboolean('RealTime Request Item Switch', 'DOW')
-SP500_CHK = parser.getboolean('RealTime Request Item Switch', 'S&P 500')
-NASDAQ_CHK = parser.getboolean('RealTime Request Item Switch', 'NASDAQ')
-WTI_CHK = parser.getboolean('RealTime Request Item Switch', 'WTI OIL')
-EUROFX_CHK = parser.getboolean('RealTime Request Item Switch', 'EUROFX')
-HANGSENG_CHK = parser.getboolean('RealTime Request Item Switch', 'HANGSENG')
-GOLD_CHK = parser.getboolean('RealTime Request Item Switch', 'GOLD')
-NEWS_CHK = parser.getboolean('RealTime Request Item Switch', 'NEWS')
-
-# [7]. << Moving Average Type >>
-MA_TYPE = parser.getint('Moving Average Type', 'MA Type')
-
-# [8]. << Initial Value >>
-CALL_ITM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Call ITM Request')
-CALL_OTM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Call OTM Request')
-PUT_ITM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Put ITM Request')
-PUT_OTM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Put OTM Request')
-HL_Depth = parser.getint('Initial Value', 'HL List Depth')
-NightTime_PreStart_Hour = parser.getint('Initial Value', 'NightTime Pre-Start Hour')
-ActvalCount = parser.getint('Initial Value', 'Actval Count of the Option Pairs')
-MY_COREVAL = parser.getfloat('Initial Value', 'My Coreval')
-ASYM_RATIO = parser.getfloat('Initial Value', 'Asymmetric Market Ratio')
-ONEWAY_RATIO = parser.getfloat('Initial Value', 'OneWay Market Ratio')
-GOLDEN_RATIO = parser.getfloat('Initial Value', 'Golden Ratio')
-CROSS_COLOR_INTERVAL = parser.getint('Initial Value', 'Cross Coloring Interval(minute)')
-MAIN_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Main Update Interval(msec)')
-BIGCHART_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Big Chart Update Interval(msec)')
-SCORE_BOARD_UPDATE_INTERVAL = parser.getint('Initial Value', 'Score Board Update Interval(sec)')
-SECOND_DISPLAY_X_POSITION = parser.getint('Initial Value', 'X Position of the Second Display')
-SECOND_DISPLAY_Y_POSITION = parser.getint('Initial Value', 'Y Position of the Second Display')
-
-# [9]. << Code of the Foreign Futures (H/M/U/Z) >>
-SP500 = parser.get('Code of the Foreign Futures', 'S&P 500')
-DOW = parser.get('Code of the Foreign Futures', 'DOW')
-NASDAQ = parser.get('Code of the Foreign Futures', 'NASDAQ')
-WTI = parser.get('Code of the Foreign Futures', 'WTI')
-EUROFX = parser.get('Code of the Foreign Futures', 'EUROFX')
-HANGSENG = parser.get('Code of the Foreign Futures', 'HANGSENG')
-GOLD = parser.get('Code of the Foreign Futures', 'GOLD')
-
-# [10]. << Telegram >>
-TELEGRAM_START_TIME = parser.getint('Telegram', 'Telegram polling start time(minute) after service')
-TELEGRAM_POLLING_INTERVAL = parser.getint('Telegram', 'Telegram polling interval(second)')
-TELEGRAM_SEND_INTERVAL = parser.getint('Telegram', 'Telegram send interval(second)')
-
-# [11]. << Rules >>
-ONEWAY_THRESHOLD = parser.getint('Rules', 'Threshold of the institutional party supply & demand')
 ########################################################################################################################
 
 if int(CURRENT_MONTH[4:6]) == 11:
@@ -277,8 +192,6 @@ class ThirdWorker(mp.Process):
 
     # 실시간데이타 수신 콜백함수
     def OnReceiveRealData(self, result):
-
-        dt = datetime.datetime.now()
 
         self.dataQ.put(result, False)
 

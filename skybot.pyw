@@ -5491,8 +5491,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             ntp_server_second = second
             system_server_time_gap = timegap
 
-            txt = 'NTP Server Time = {0:02d}:{1:02d}:{2:02d}[{3}]\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second, system_server_time_gap)
-            print(txt)
+            #txt = 'NTP Server Time = {0:02d}:{1:02d}:{2:02d}[{3}]\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second, system_server_time_gap)
+            #print(txt)
 
             self.alternate_flag = not self.alternate_flag
             
@@ -25517,12 +25517,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         txt = self.lineEdit_tolerance.text()
         view_time_tolerance = int(txt)
-        '''
-        if MULTIPROCESS:
-            MainProcess.Set_Time_Tolerance(view_time_tolerance)
-        else:
-            pass
-        '''
+        
         txt = '[{0:02d}:{1:02d}:{2:02d}] 데이타보기 허용시간을 {3}sec로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, view_time_tolerance)
         self.parent.textBrowser.append(txt)
 

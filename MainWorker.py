@@ -1,12 +1,8 @@
 import sys, os
 import datetime, time
-import pandas as pd
 import multiprocessing as mp
 from multiprocessing import Process, Queue
 from configparser import ConfigParser
-#import ntplib
-
-from PyQt5.QtTest import *
 
 from XASessions import *
 from XAQueries import *
@@ -18,15 +14,9 @@ parser.read('skybot.ini')
 
 # [1]. << Server Type >>
 REAL_SERVER = parser.getboolean('Server Type', 'Real Server')
-TimeServer = parser.get('Server Type', 'NTP Server')
 
 # [2]. << Month Info >>
 CURRENT_MONTH = parser.get('Month Info', 'Current Month')
-
-# [8]. << Initial Value >>
-TIME_TOLERANCE = parser.getint('Initial Value', 'RealTime Tolerance(sec)')
-
-view_time_tolerance = TIME_TOLERANCE
 ########################################################################################################################
 
 if int(CURRENT_MONTH[4:6]) == 11:
@@ -106,15 +96,7 @@ class MainWorker(mp.Process):
         self.OVC = None
         self.OVH = None
         self.NWS = None
-
-        # NTP Server Domain Or IP
-        '''
-        self.ntpclient = ntplib.NTPClient()
         
-        self.server_hour = 0
-        self.server_minute = 0
-        self.server_second = 0
-        '''
         self.exit = mp.Event()
 
     def OnLogin(self, code, msg):
@@ -188,12 +170,6 @@ class MainWorker(mp.Process):
         ret = self.connection.IsConnected()
         return ret
 
-    def Set_Time_Tolerance(self, tolerance):
-
-        global view_time_tolerance
-
-        view_time_tolerance = tolerance
-
     def OnReceiveMessage(self, ClassName, systemError, messageCode, message):
 
         pass
@@ -215,28 +191,7 @@ class MainWorker(mp.Process):
 
     # 실시간데이타 수신 콜백함수
     def OnReceiveRealData(self, result):
-        '''
-        servertime = self.server_hour * 3600 + self.server_minute * 60 + self.server_second
 
-        print('servertime =', self.server_hour, self.server_minute, self.server_second, servertime)
-
-        if result['szTrCode'] == 'EH0' and int(result['수신시간'][0:2]) >= 24:
-            realtime_hour = int(result['수신시간'][0:2]) - 24
-        else:
-            realtime_hour = int(result['수신시간'][0:2])
-
-        realtime_min = int(result['수신시간'][2:4])
-        realtime_sec = int(result['수신시간'][4:6])
-
-        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-        print('realtime =', realtime)
-        
-        if abs(servertime - realtime) < view_time_tolerance:
-            self.dataQ.put(result, False)
-        else:
-            pass
-        '''
         self.dataQ.put(result, False)            
     
     def Login(self, url, id, pwd, cert):
@@ -514,25 +469,7 @@ class MainWorker(mp.Process):
 
         print('Main MultiProcess RealTimeWorker Start...')         
         
-        while not self.exit.is_set():
-            '''
-            try:
-                response = self.ntpclient.request(TimeServer, version=3)
-
-                time_str = time.ctime(response.tx_time).split(' ')
-                srever_time = time_str[3]
-
-                self.server_hour = int(srever_time[0:2])
-                self.server_minute = int(srever_time[3:5])
-                self.server_second = int(srever_time[6:8])
-
-                txt = 'NTP Server Time = {0}:{1}:{2}\r'.format(self.server_hour, self.server_minute, self.server_second)
-                print(txt)
-            except Exception as e:
-                print('NTP Server Time Get Error...')
-
-            QTest.qWait(500)
-            '''
+        while not self.exit.is_set():            
             pass
 
         print("Main MultiProcess RealTimeWorker Terminated !!!")
