@@ -22075,7 +22075,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         try:               
             flag_main_realdata_update_is_running = True
-            
+
             szTrCode = result['szTrCode']
 
             if szTrCode == 'NWS':
@@ -22441,11 +22441,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.SaveResult()
                     else:
                         pass
-
-                elif result['장구분'] == '9' and result['장상태'] == '21':
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 미국주식장 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
 
                 # 아침 6경 발생 --> 미국주식 장마감
                 elif result['장구분'] == '9' and result['장상태'] == '41':
