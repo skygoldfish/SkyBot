@@ -6077,8 +6077,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.parent.main_connection.disconnect()
                             else:
                                 pass
-                        else:
-                            self.parent.statusbar.showMessage("오프라인")
 
                             if not flag_logfile:
 
@@ -6097,17 +6095,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 file.close()
 
                                 flag_logfile = True
+                            else:
+                                pass
+                        else:
+                            self.parent.statusbar.showMessage("오프라인")
 
-                                if MULTIPROCESS:
-                                    MainProcess.shutdown()
+                            if MULTIPROCESS:
+                                MainProcess.shutdown()
 
-                                    if MP_NUMBER == 2:
-                                        SecondProcess.shutdown()
-                                    elif MP_NUMBER == 3:
-                                        SecondProcess.shutdown()
-                                        ThirdProcess.shutdown()
-                                    else:
-                                        pass
+                                if MP_NUMBER == 2:
+                                    SecondProcess.shutdown()
+                                elif MP_NUMBER == 3:
+                                    SecondProcess.shutdown()
+                                    ThirdProcess.shutdown()
                                 else:
                                     pass
                             else:
@@ -6188,8 +6188,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.parent.main_connection.disconnect()                                    
                             else:
                                 pass
-                        else:
-                            self.parent.statusbar.showMessage("오프라인")
 
                             if not flag_logfile:
 
@@ -6208,17 +6206,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 file.close()
 
                                 flag_logfile = True
+                            else:
+                                pass
+                        else:
+                            self.parent.statusbar.showMessage("오프라인")
 
-                                if MULTIPROCESS:
-                                    MainProcess.shutdown()
+                            if MULTIPROCESS:
+                                MainProcess.shutdown()
 
-                                    if MP_NUMBER == 2:
-                                        SecondProcess.shutdown()
-                                    elif MP_NUMBER == 3:
-                                        SecondProcess.shutdown()
-                                        ThirdProcess.shutdown()
-                                    else:
-                                        pass
+                                if MP_NUMBER == 2:
+                                    SecondProcess.shutdown()
+                                elif MP_NUMBER == 3:
+                                    SecondProcess.shutdown()
+                                    ThirdProcess.shutdown()
                                 else:
                                     pass
                             else:
