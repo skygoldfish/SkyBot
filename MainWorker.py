@@ -4,6 +4,8 @@ import multiprocessing as mp
 from multiprocessing import Process, Queue
 from configparser import ConfigParser
 
+from PyQt5.QtTest import *
+
 from XASessions import *
 from XAQueries import *
 from XAReals import *
@@ -189,10 +191,10 @@ class MainWorker(mp.Process):
         self.dataQ.put(result, False)
         #print('*********************************************************************************************************************************')
 
-    # 실시간데이타 수신 콜백함수
+    # 실시간데이타 수신 콜백함수    
     def OnReceiveRealData(self, result):
 
-        self.dataQ.put(result, False)            
+        self.dataQ.put(result, False)              
     
     def Login(self, url, id, pwd, cert):
 
@@ -467,11 +469,16 @@ class MainWorker(mp.Process):
 
     def run(self):
 
-        print('Main MultiProcess RealTimeWorker Start...')         
+        print('Main MultiProcess RealTimeWorker Start...')
+        #proc = mp.current_process()         
         
-        while not self.exit.is_set():            
+        while not self.exit.is_set():
             pass
-
+            '''
+            print('Sub Process Name =', proc.name)
+            print('Sub Process ID =', proc.pid)
+            QTest.qWait(500)
+            '''
         print("Main MultiProcess RealTimeWorker Terminated !!!")
 
     def disconnect(self):

@@ -40387,19 +40387,24 @@ if __name__ == "__main__":
     if ipaddress == '127.0.0.1':
         flag_internet = False
     else:
-        flag_internet = True
+        flag_internet = True        
     
     # 멀티프로세스
-    if MULTIPROCESS and flag_internet:
-
+    if MULTIPROCESS and flag_internet:        
+        
         import multiprocessing as mp
         from multiprocessing import Process, Queue, Pipe
         from MainWorker import MainWorker
         from SecondWorker import SecondWorker
-        from ThirdWorker import ThirdWorker   
+        from ThirdWorker import ThirdWorker        
         
         # pyinstaller로 실행파일 만들때 필요함
         mp.freeze_support()
+
+        proc = mp.current_process()
+
+        print('Main Process Name =', proc.name)
+        print('Main Process ID =', proc.pid)
 
         if MP_NUMBER == 1:
 
