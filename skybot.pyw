@@ -5589,7 +5589,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print(txt)
 
                 if (t8416_loop_finish_time + 10 * 60) - system_time < 1:
-                    self.parent.speaker.setText('나머지 데이타를 수신합니다.')
+                    if TTS:
+                        self.parent.speaker.setText('나머지 데이타를 수신합니다.')
+                    else:
+                        pass
                     self.t8416_additive_request()
                 else:
                     pass
@@ -6267,7 +6270,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 print(txt)
 
-                self.parent.speaker.setText('본월물 하향 변동성 출현')                
+                if TTS:
+                    self.parent.speaker.setText('본월물 하향 변동성 출현')
+                else:
+                    pass                
                 
             elif 선물_현재가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
 
@@ -6275,7 +6281,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 print(txt)
 
-                self.parent.speaker.setText('본월물 상향 변동성 출현')                                
+                if TTS:
+                    self.parent.speaker.setText('본월물 상향 변동성 출현')
+                else:
+                    pass                                
             else:
                 pass
             
@@ -6296,7 +6305,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 print(txt)
 
-                self.parent.speaker.setText('차월물 하향 변동성 출현')                
+                if TTS:
+                    self.parent.speaker.setText('차월물 하향 변동성 출현')
+                else:
+                    pass                
                 
             elif 선물_현재가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
 
@@ -6304,7 +6316,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
                 print(txt)
 
-                self.parent.speaker.setText('차월물 상향 변동성 출현')                
+                if TTS:
+                    self.parent.speaker.setText('차월물 상향 변동성 출현')
+                else:
+                    pass                
             else:
                 pass
 
@@ -19211,14 +19226,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.textBrowser.append(txt)
                     print(txt)
 
-                    if new_actval_up_count > 0:
+                    if new_actval_up_count > 0 and TTS:
                         txt = '새로운 상방 행사가가 {0}개 추가되었습니다.'.format(new_actval_up_count)
                         self.parent.speaker.setText(txt)
                         QTest.qWait(1500)
                     else:
                         pass
 
-                    if new_actval_down_count > 0:
+                    if new_actval_down_count > 0 and TTS:
                         txt = '새로운 하방 행사가가 {0}개 추가되었습니다.'.format(new_actval_down_count)
                         self.parent.speaker.setText(txt)
                         QTest.qWait(1500)
@@ -19241,9 +19256,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.parent.textBrowser.append(txt)
                         print(txt)
 
-                        speak_txt = '나머지 데이타를 10분후에 재요청 합니다'
-                        self.parent.speaker.setText(speak_txt)
-                        QTest.qWait(1500)
+                        if TTS:
+                            speak_txt = '나머지 데이타를 10분후에 재요청 합니다'
+                            self.parent.speaker.setText(speak_txt)
+                            QTest.qWait(1500)
+                        else:
+                            pass
                     else:
                         pass
 
@@ -19857,8 +19875,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             print(txt)
 
-            txt = '본월물 옵션갯수는 콜 {0}개, 풋 {1}개, 차월물 옵션갯수는 콜 {2}개, 풋 {3}개 입니다.'.format(CM_OPT_LENGTH, CM_OPT_LENGTH, NM_OPT_LENGTH, NM_OPT_LENGTH)
-            self.parent.speaker.setText(txt)
+            if TTS:
+                txt = '본월물 옵션갯수는 콜 {0}개, 풋 {1}개, 차월물 옵션갯수는 콜 {2}개, 풋 {3}개 입니다.'.format(CM_OPT_LENGTH, CM_OPT_LENGTH, NM_OPT_LENGTH, NM_OPT_LENGTH)
+                self.parent.speaker.setText(txt)
+            else:
+                pass
 
             # 그래프를 위한 데이타프레임 생성
             if NightTime:
@@ -20794,8 +20815,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
         
-        txt = '총 {0}개 항목이 실시간 요청되었습니다.'.format(self.realdata_request_number)
-        self.parent.speaker.setText(txt)
+        if TTS:
+            txt = '총 {0}개 항목이 실시간 요청되었습니다.'.format(self.realdata_request_number)
+            self.parent.speaker.setText(txt)
+        else:
+            pass
 
         item_txt = '{0}'.format(self.realdata_request_number)
         item = QTableWidgetItem(item_txt)
@@ -39226,10 +39250,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.statusbar.showMessage(trdata[1])
             #playsound( "Resources/ring.wav" )
-            if TARGET_MONTH == 'CM':
-                Speak('본월물 메인 프로세스를 생성합니다.')
-            elif TARGET_MONTH == 'NM':
-                Speak('차월물 메인 프로세스를 생성합니다.')
+            if TTS:
+                if TARGET_MONTH == 'CM':
+                    Speak('본월물 메인 프로세스를 생성합니다.')
+                elif TARGET_MONTH == 'NM':
+                    Speak('차월물 메인 프로세스를 생성합니다.')
+            else:
+                pass
 
             #self.speaker.setText('선물 프로세스 로그인 성공')
 
@@ -39466,8 +39493,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
 
             self.statusbar.showMessage(trdata[1])
-            Speak('Second 프로세스를 생성합니다.')
-            #self.speaker.setText('세컨드 프로세스 로그인 성공')
+
+            if TTS:
+                Speak('Second 프로세스를 생성합니다.')
+                #self.speaker.setText('세컨드 프로세스 로그인 성공')
+            else:
+                pass
 
             if AUTO_START and MP_NUMBER == 2 and self.main_login and self.second_login:
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
@@ -39569,8 +39600,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
 
             self.statusbar.showMessage(trdata[1])
-            Speak('써드 프로세스를 생성합니다.')
-            #self.speaker.setText('써드 프로세스 로그인 성공')
+
+            if TTS:
+                Speak('써드 프로세스를 생성합니다.')
+                #self.speaker.setText('써드 프로세스 로그인 성공')
+            else:
+                pass
 
             if AUTO_START and MP_NUMBER == 3 and self.main_login and self.second_login and self.third_login:
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
@@ -39770,7 +39805,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
             self.statusbar.showMessage("로그인 성공 !!!")
             #playsound( "Resources/ring.wav" )
-            self.speaker.setText('로그인 성공')
+
+            if TTS:
+                self.speaker.setText('로그인 성공')
+            else:
+                pass
 
             # 옵션전광판 자동시작
 
