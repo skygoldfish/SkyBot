@@ -105,8 +105,6 @@ class FirstWorker(mp.Process):
 
         if code == '0000':
 
-            # COM 객체는 초기화시 객체생성하면 pickling error 발생 --> 로그인시 객체생성하면 해결됨(이유?)
-
             # 조회요청 TR 객체생성
             self.XQ_t0167 = t0167(parent=self) # 시간 조회
             self.XQ_t1514 = t1514(parent=self) # 코스피/코스닥 지수 조회
@@ -199,7 +197,8 @@ class FirstWorker(mp.Process):
         proc = mp.current_process()
         print('This Process Name in FirstWorker Login =', proc.name)
         print('This Process ID in FirstWorker Login =', proc.pid)
-
+        
+        # COM 객체는 초기화시 객체생성하면 pickling error 발생 --> 로그인시 객체생성하면 해결됨(이유?)
         if self.connection is None:
             self.connection = XASession(parent=self)
         
@@ -208,7 +207,8 @@ class FirstWorker(mp.Process):
         self.pwd = pwd
         self.cert = cert
 
-        self.connection.login(url=self.url, id=self.id, pwd=self.pwd, cert=self.cert)
+        ret = self.connection.login(url=self.url, id=self.id, pwd=self.pwd, cert=self.cert)
+        print(ret)
 
     def RequestTRData(self, type, code='0'):
 
@@ -475,8 +475,34 @@ class FirstWorker(mp.Process):
 
         proc = mp.current_process()
         print('This Process Name in FirstWorker run =', proc.name)
-        print('This Process ID in FirstWorker run =', proc.pid)         
+        print('This Process ID in FirstWorker run =', proc.pid)
+        '''
+        계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})
+
+        if REAL_SERVER:
+            주식계좌정보 = 계좌정보.query("구분 == '거래'")
+            print('실서버에 접속합니다.')
+        else:
+            주식계좌정보 = 계좌정보.query("구분 == '모의'")
+            print('모의서버에 접속합니다.')        
+
+        if len(주식계좌정보) > 0:
+            
+            self.url = 주식계좌정보['url'].values[0].strip()
+            self.id = 주식계좌정보['사용자ID'].values[0].strip()            
+            self.pwd = 주식계좌정보['비밀번호'].values[0].strip()
+            self.cert = 주식계좌정보['공인인증비밀번호'].values[0].strip()            
+            self.계좌번호 = 주식계좌정보['계좌번호'].values[0].strip()
+            self.거래비밀번호 = 주식계좌정보['거래비밀번호'].values[0].strip()
+        else:
+            print("secret디렉토리의 passwords.csv 파일에서 거래 계좌를 지정해 주세요")
         
+        if self.connection is None:
+            self.connection = XASession(parent=self)
+        
+        ret = self.connection.login(url=self.url, id=self.id, pwd=self.pwd, cert=self.cert)
+        print('ret =', ret)
+        '''
         # run함수내에서 콜백함수로 데이타를 받아야 진정한 멀티프로세싱임 !!!
         while not self.exit.is_set():
             pass           

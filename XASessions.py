@@ -14,6 +14,7 @@ class XASessionEvents(object):
         self.parent = parent
 
     def OnLogin(self, code, msg):
+        print('OnLogin...')
         if self.parent != None:
             self.parent.OnLogin(code, msg)
 
