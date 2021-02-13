@@ -19680,7 +19680,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 GMSHCODE = 근월물선물코드
                 CMSHCODE = 차월물선물코드
                 CCMSHCODE = 차차월물선물코드
-
+            '''
             txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 본월물코드 = {3}\r'.format(dt.hour, dt.minute, dt.second, GMSHCODE)
             self.textBrowser.append(txt)
             self.parent.textBrowser.append(txt)
@@ -19690,7 +19690,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             self.parent.textBrowser.append(txt)
             print(txt)
-
+            '''
             if TARGET_MONTH == 'CM':
 
                 FUT_CODE = GMSHCODE
