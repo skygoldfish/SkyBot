@@ -99,17 +99,13 @@ class FirstWorker(mp.Process):
         
         self.exit = mp.Event()
 
-        proc = mp.current_process()
-        print('This Process Name in FirstWorker =', proc.name)
-        print('This Process ID in FirstWorker =', proc.pid)
-
     def OnLogin(self, code, msg):
 
         self.data = []
 
         if code == '0000':
 
-            # COM 객체는 초기화시 객체생성하면 pickling error 발생 --> 로그인후 객체생성하면 해결됨(이유?)
+            # COM 객체는 초기화시 객체생성하면 pickling error 발생 --> 로그인시 객체생성하면 해결됨(이유?)
 
             # 조회요청 TR 객체생성
             self.XQ_t0167 = t0167(parent=self) # 시간 조회
@@ -199,6 +195,10 @@ class FirstWorker(mp.Process):
         self.dataQ.put(result, False)              
     
     def Login(self, url, id, pwd, cert):
+        
+        proc = mp.current_process()
+        print('This Process Name in FirstWorker Login =', proc.name)
+        print('This Process ID in FirstWorker Login =', proc.pid)
 
         if self.connection is None:
             self.connection = XASession(parent=self)
@@ -474,8 +474,8 @@ class FirstWorker(mp.Process):
         print('Main MultiProcess RealTimeWorker Start...')
 
         proc = mp.current_process()
-        print('This Process Name in FirstWorker =', proc.name)
-        print('This Process ID in FirstWorker =', proc.pid)         
+        print('This Process Name in FirstWorker run =', proc.name)
+        print('This Process ID in FirstWorker run =', proc.pid)         
         
         # run함수내에서 콜백함수로 데이타를 받아야 진정한 멀티프로세싱임 !!!
         while not self.exit.is_set():
