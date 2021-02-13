@@ -52,8 +52,6 @@ class ThirdWorker(mp.Process):
     def __init__(self, dataQ):
         super(ThirdWorker, self).__init__()
 
-        self.daemon = True
-
         self.dataQ = dataQ
         self.data = []
 

@@ -40420,9 +40420,11 @@ if __name__ == "__main__":
             second_dataQ = mp.Queue()
 
             FirstProcess = FirstWorker(main_dataQ)
+            FirstProcess.daemon = True
             FirstProcess.start()
 
             SecondProcess = SecondWorker(second_dataQ)
+            SecondProcess.daemon = True
             SecondProcess.start()
 
         elif MP_NUMBER == 3:
@@ -40432,12 +40434,15 @@ if __name__ == "__main__":
             third_dataQ = mp.Queue()
 
             FirstProcess = FirstWorker(main_dataQ)
+            FirstProcess.daemon = True
             FirstProcess.start()
 
             SecondProcess = SecondWorker(second_dataQ)
+            SecondProcess.daemon = True
             SecondProcess.start()
 
             ThirdProcess = ThirdWorker(third_dataQ)
+            ThirdProcess.daemon = True
             ThirdProcess.start()
         else:
             pass        

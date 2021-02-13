@@ -53,8 +53,6 @@ class FirstWorker(mp.Process):
     def __init__(self, dataQ):
         super(FirstWorker, self).__init__()
 
-        self.daemon = True
-
         self.dataQ = dataQ
         self.data = []
 
