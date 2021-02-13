@@ -40402,9 +40402,8 @@ if __name__ == "__main__":
         mp.freeze_support()
 
         proc = mp.current_process()
-
-        print('Main Process Name =', proc.name)
-        print('Main Process ID =', proc.pid)
+        print('This Process Name =', proc.name)
+        print('This Process ID =', proc.pid)
 
         if MP_NUMBER == 1:
 

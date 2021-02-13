@@ -99,6 +99,10 @@ class FirstWorker(mp.Process):
         
         self.exit = mp.Event()
 
+        proc = mp.current_process()
+        print('This Process Name in FirstWorker =', proc.name)
+        print('This Process ID in FirstWorker =', proc.pid)
+
     def OnLogin(self, code, msg):
 
         self.data = []
@@ -468,15 +472,16 @@ class FirstWorker(mp.Process):
     def run(self):
 
         print('Main MultiProcess RealTimeWorker Start...')
-        #proc = mp.current_process()         
+
+        proc = mp.current_process()
+        print('This Process Name in FirstWorker =', proc.name)
+        print('This Process ID in FirstWorker =', proc.pid)         
         
+        # run함수내에서 콜백함수로 데이타를 받아야 진정한 멀티프로세싱임 !!!
         while not self.exit.is_set():
-            pass
-            '''
-            print('Sub Process Name =', proc.name)
-            print('Sub Process ID =', proc.pid)
-            QTest.qWait(500)
-            '''
+            pass           
+            #QTest.qWait(500)
+            
         print("Main MultiProcess RealTimeWorker Terminated !!!")
 
     def disconnect(self):
