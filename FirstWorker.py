@@ -506,7 +506,12 @@ class FirstWorker(mp.Process):
         print('ret =', ret)
         '''
         # run함수내에서 콜백함수로 데이타를 받아야 진정한 멀티프로세싱임 !!!
-        while not self.exit.is_set():               
+        while not self.exit.is_set():
+
+            #dt = datetime.datetime.now()
+            #txt = '[{0:02d}:{1:02d}:{2:02d}] First Worker...'.format(dt.hour, dt.minute, dt.second)
+            #print(txt)
+                           
             QTest.qWait(500)
             
         print("Main MultiProcess RealTimeWorker Terminated !!!")
