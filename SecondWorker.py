@@ -53,6 +53,8 @@ class SecondWorker(mp.Process):
         super(SecondWorker, self).__init__()
 
         self.dataQ = dataQ
+        self.daemon = True
+        
         self.data = []
 
         self.connection = None

@@ -54,6 +54,8 @@ class FirstWorker(mp.Process):
         super(FirstWorker, self).__init__()
 
         self.dataQ = dataQ
+        self.daemon = True
+
         self.data = []
 
         self.connection = None
@@ -504,9 +506,8 @@ class FirstWorker(mp.Process):
         print('ret =', ret)
         '''
         # run함수내에서 콜백함수로 데이타를 받아야 진정한 멀티프로세싱임 !!!
-        while not self.exit.is_set():
-            pass           
-            #QTest.qWait(500)
+        while not self.exit.is_set():               
+            QTest.qWait(500)
             
         print("Main MultiProcess RealTimeWorker Terminated !!!")
 

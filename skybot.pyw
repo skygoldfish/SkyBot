@@ -39073,14 +39073,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.mp_mode = False
         elif len(args) == 1:
             self.mp_mode = True
-            self.main_dataQ = args[0]
+            self.first_dataQ = args[0]
         elif len(args) == 2:
             self.mp_mode = True
-            self.main_dataQ = args[0]
+            self.first_dataQ = args[0]
             self.second_dataQ = args[1]
         elif len(args) == 3:
             self.mp_mode = True
-            self.main_dataQ = args[0]
+            self.first_dataQ = args[0]
             self.second_dataQ = args[1]
             self.third_dataQ = args[2]
         else:
@@ -39155,13 +39155,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # Thread for Multiprocess Real Data Consumer
             # 장의 변동성이 클때는 하나의 프로세스로 200종목 이상의 데이타를 실시간 처리못함 --> 3개의 프로세스 생성하여 로드분산 !!!
             if MP_NUMBER == 1:
-                self.realtime_main_dataworker = RealTime_Main_MP_Thread_DataWorker(self.main_dataQ)
+                self.realtime_main_dataworker = RealTime_Main_MP_Thread_DataWorker(self.first_dataQ)
                 self.realtime_main_dataworker.trigger_list.connect(self.transfer_mp_main_trdata)
                 self.realtime_main_dataworker.trigger_dict.connect(self.transfer_mp_main_realdata)
                 self.realtime_main_dataworker.trigger_exception.connect(self.transfer_mp_main_exception)            
                 self.realtime_main_dataworker.start()
             elif MP_NUMBER == 2:
-                self.realtime_main_dataworker = RealTime_Main_MP_Thread_DataWorker(self.main_dataQ)
+                self.realtime_main_dataworker = RealTime_Main_MP_Thread_DataWorker(self.first_dataQ)
                 self.realtime_main_dataworker.trigger_list.connect(self.transfer_mp_main_trdata)
                 self.realtime_main_dataworker.trigger_dict.connect(self.transfer_mp_main_realdata)            
                 self.realtime_main_dataworker.start()
@@ -39171,7 +39171,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.realtime_2nd_dataworker.trigger_dict.connect(self.transfer_mp_2nd_realdata)            
                 self.realtime_2nd_dataworker.start()
             elif MP_NUMBER == 3:
-                self.realtime_main_dataworker = RealTime_Main_MP_Thread_DataWorker(self.main_dataQ)
+                self.realtime_main_dataworker = RealTime_Main_MP_Thread_DataWorker(self.first_dataQ)
                 self.realtime_main_dataworker.trigger_list.connect(self.transfer_mp_main_trdata)
                 self.realtime_main_dataworker.trigger_dict.connect(self.transfer_mp_main_realdata)            
                 self.realtime_main_dataworker.start()
@@ -40407,41 +40407,35 @@ if __name__ == "__main__":
 
         if MP_NUMBER == 1:
 
-            main_dataQ = mp.Queue()
+            first_dataQ = mp.Queue()
 
-            FirstProcess = FirstWorker(main_dataQ)
-            FirstProcess.daemon = True
+            FirstProcess = FirstWorker(first_dataQ)
             FirstProcess.start()
 
         elif MP_NUMBER == 2:
 
-            main_dataQ = mp.Queue()
+            first_dataQ = mp.Queue()
             second_dataQ = mp.Queue()
 
-            FirstProcess = FirstWorker(main_dataQ)
-            FirstProcess.daemon = True
+            FirstProcess = FirstWorker(first_dataQ)
             FirstProcess.start()
 
             SecondProcess = SecondWorker(second_dataQ)
-            SecondProcess.daemon = True
             SecondProcess.start()
 
         elif MP_NUMBER == 3:
 
-            main_dataQ = mp.Queue()
+            first_dataQ = mp.Queue()
             second_dataQ = mp.Queue()
             third_dataQ = mp.Queue()
 
-            FirstProcess = FirstWorker(main_dataQ)
-            FirstProcess.daemon = True
+            FirstProcess = FirstWorker(first_dataQ)
             FirstProcess.start()
 
             SecondProcess = SecondWorker(second_dataQ)
-            SecondProcess.daemon = True
             SecondProcess.start()
 
             ThirdProcess = ThirdWorker(third_dataQ)
-            ThirdProcess.daemon = True
             ThirdProcess.start()
         else:
             pass        
@@ -40504,11 +40498,11 @@ if __name__ == "__main__":
     if MULTIPROCESS and flag_internet:
 
         if MP_NUMBER == 1:
-            window = MainWindow(main_dataQ)
+            window = MainWindow(first_dataQ)
         elif MP_NUMBER == 2:
-            window = MainWindow(main_dataQ, second_dataQ)
+            window = MainWindow(first_dataQ, second_dataQ)
         elif MP_NUMBER == 3:
-            window = MainWindow(main_dataQ, second_dataQ, third_dataQ)
+            window = MainWindow(first_dataQ, second_dataQ, third_dataQ)
         else:
             pass      
     else:
