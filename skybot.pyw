@@ -2921,6 +2921,10 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'PM_':
 
+                                self.trigger_dict.emit(self.realdata)
+
+                            elif szTrCode == 'NWS':
+
                                 self.trigger_dict.emit(self.realdata) 
 
                             elif szTrCode == 'YJ_':
@@ -22104,7 +22108,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if szTrCode == 'NWS':
                 
-                txt = '[{0}] {1}\r'.format(result['시간'], result['제목'])
+                txt = '[{0:02d}:{1:02d}:{2:02d}] NEWS : {3}\r'.format(int(result['수신시간'][0:2]), int(result['수신시간'][2:4]), int(result['수신시간'][4:6]), result['제목'])
                 self.parent.textBrowser.append(txt)
 
             elif szTrCode == 'JIF':
@@ -39353,7 +39357,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 수신된 실시간데이타 정보표시(누락된 패킷수, 큐의 크기, 수신된 총 패킷수, 수신된 총 패킷크기)            
         szTrCode = realdata['szTrCode']
 
-        if szTrCode == 'JIF' or szTrCode == 'BM_' or szTrCode == 'PM_':
+        if szTrCode == 'JIF' or szTrCode == 'BM_' or szTrCode == 'PM_' or szTrCode == 'NWS':
             pass
         else:
             if szTrCode == 'EH0' and int(realdata['수신시간'][0:2]) >= 24:
