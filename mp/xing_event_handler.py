@@ -142,6 +142,26 @@ class XARealEventHandler:
 
         return values
 
+    def handle_yj_tick(self) -> list:
+        """
+        YJ_
+        """
+        values = []
+        for field in YJ_FIELDS:
+            values.append(self.GetFieldData("OutBlock", field))
+
+        return values
+
+    def handle_yfc_tick(self) -> list:
+        """
+        YFC
+        """
+        values = []
+        for field in YFC_FIELDS:
+            values.append(self.GetFieldData("OutBlock", field))
+
+        return values
+
     def handle_jif(self, tr_code) -> tuple:
         """
         JIF : 장운영정보
@@ -150,7 +170,7 @@ class XARealEventHandler:
         values.insert(0, datetime.now().strftime('%H:%M:%S'))
         values.insert(1, tr_code)
 
-        result = dict(zip(JIF_COLUMNS, values))
+        result = dict(zip(JIF_COLUMNS_HEADER, values))
 
         return DataType.JIF_TICK, result
 
@@ -162,7 +182,7 @@ class XARealEventHandler:
         values.insert(0, datetime.now().strftime('%H:%M:%S'))
         values.insert(1, tr_code)
 
-        result = dict(zip(IJ_COLUMNS, values))
+        result = dict(zip(IJ_COLUMNS_HEADER, values))
 
         return DataType.IJ_TICK, result
 
@@ -174,7 +194,7 @@ class XARealEventHandler:
         values.insert(0, datetime.now().strftime('%H:%M:%S'))
         values.insert(1, tr_code)
 
-        result = dict(zip(QUOTE_COLUMNS, values))
+        result = dict(zip(QUOTE_COLUMNS_HEADER, values))
 
         return DataType.KOSPI_QUOTE, result
 
@@ -186,7 +206,7 @@ class XARealEventHandler:
         values.insert(0, datetime.now().strftime('%H:%M:%S'))
         values.insert(1, tr_code)
 
-        result = dict(zip(TICK_COLUMNS, values))
+        result = dict(zip(TICK_COLUMNS_HEADER, values))
 
         return DataType.KOSPI_TICK, result
 
@@ -198,7 +218,7 @@ class XARealEventHandler:
         values.insert(0, datetime.now().strftime('%H:%M:%S'))
         values.insert(1, tr_code)
 
-        result = dict(zip(QUOTE_COLUMNS, values))
+        result = dict(zip(QUOTE_COLUMNS_HEADER, values))
 
         return DataType.KOSDAQ_QUOTE, result
 
@@ -210,7 +230,7 @@ class XARealEventHandler:
         values.insert(0, datetime.now().strftime('%H:%M:%S'))
         values.insert(1, tr_code)
 
-        result = dict(zip(TICK_COLUMNS, values))
+        result = dict(zip(TICK_COLUMNS_HEADER, values))
 
         return DataType.KOSDAQ_TICK, result
 
@@ -222,7 +242,7 @@ class XARealEventHandler:
         values.insert(0, datetime.now().strftime('%H:%M:%S'))
         values.insert(1, tr_code)
 
-        result = dict(zip(INDEX_FUTURES_QUOTE_COLUMNS, values))
+        result = dict(zip(INDEX_FUTURES_QUOTE_COLUMNS_HEADER, values))
 
         return DataType.INDEX_FUTURES_QUOTE, result
 
@@ -234,7 +254,7 @@ class XARealEventHandler:
         values.insert(0, datetime.now().strftime('%H:%M:%S'))
         values.insert(1, tr_code)
 
-        result = dict(zip(INDEX_FUTURES_TICK_COLUMNS, values))
+        result = dict(zip(INDEX_FUTURES_TICK_COLUMNS_HEADER, values))
 
         return DataType.INDEX_FUTURES_TICK, result
 
@@ -246,7 +266,7 @@ class XARealEventHandler:
         values.insert(0, datetime.now().strftime('%H:%M:%S'))
         values.insert(1, tr_code)
 
-        result = dict(zip(INDEX_OPTION_QUOTE_COLUMNS, values))
+        result = dict(zip(INDEX_OPTION_QUOTE_COLUMNS_HEADER, values))
 
         return DataType.INDEX_OPTION_QUOTE, result
 
@@ -258,7 +278,7 @@ class XARealEventHandler:
         values.insert(0, datetime.now().strftime('%H:%M:%S'))
         values.insert(1, tr_code)
 
-        result = dict(zip(INDEX_OPTION_TICK_COLUMNS, values))
+        result = dict(zip(INDEX_OPTION_TICK_COLUMNS_HEADER, values))
 
         return DataType.INDEX_OPTION_TICK, result
     
@@ -270,7 +290,7 @@ class XARealEventHandler:
         values.insert(0, datetime.now().strftime('%H:%M:%S'))
         values.insert(1, tr_code)
 
-        result = dict(zip(OVC_COLUMNS, values))
+        result = dict(zip(OVC_COLUMNS_HEADER, values))
 
         return DataType.OVC_TICK, result
 
@@ -282,7 +302,7 @@ class XARealEventHandler:
         values.insert(0, datetime.now().strftime('%H:%M:%S'))
         values.insert(1, tr_code)
 
-        result = dict(zip(BM_COLUMNS, values))
+        result = dict(zip(BM_COLUMNS_HEADER, values))
 
         return DataType.BM_TICK, result
 
@@ -294,7 +314,7 @@ class XARealEventHandler:
         values.insert(0, datetime.now().strftime('%H:%M:%S'))
         values.insert(1, tr_code)
 
-        result = dict(zip(PM_COLUMNS, values))
+        result = dict(zip(PM_COLUMNS_HEADER, values))
 
         return DataType.PM_TICK, result
 
@@ -306,15 +326,45 @@ class XARealEventHandler:
         values.insert(0, datetime.now().strftime('%H:%M:%S'))
         values.insert(1, tr_code)
 
-        result = dict(zip(NWS_COLUMNS, values))
+        result = dict(zip(NWS_COLUMNS_HEADER, values))
 
         return DataType.NWS_TICK, result
+
+    def handle_yj(self, tr_code) -> tuple:
+        """
+        YJ_ : 예상지수
+        """
+        values = self.handle_yj_tick()
+        values.insert(0, datetime.now().strftime('%H:%M:%S'))
+        values.insert(1, tr_code)
+
+        result = dict(zip(YJ_COLUMNS_HEADER, values))
+
+        return DataType.YJ_TICK, result
+
+    def handle_yfc(self, tr_code) -> tuple:
+        """
+        YFC : 지수선물 예상체결
+        """
+        values = self.handle_yfc_tick()
+        values.insert(0, datetime.now().strftime('%H:%M:%S'))
+        values.insert(1, tr_code)
+
+        result = dict(zip(YFC_COLUMNS_HEADER, values))
+
+        return DataType.YFC_TICK, result
 
     def OnReceiveRealData(self, tr_code):
 
         if tr_code == "JIF":
             # 장운영정보
             self.queue.put(self.handle_jif(tr_code))
+        elif tr_code == "YJ_":
+            # 예상지수
+            self.queue.put(self.handle_yj(tr_code))
+        elif tr_code == "YFC":
+            # 지수선물 예상체결
+            self.queue.put(self.handle_yfc(tr_code))
         elif tr_code == "IJ_":
             # 지수
             self.queue.put(self.handle_ij(tr_code))

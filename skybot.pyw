@@ -1856,7 +1856,7 @@ flag_fut_vs_dow_drate_direction = False
 fut_quote_energy_direction = ''
 fut_volume_power_energy_direction = ''
 
-flag_main_process_queue_empty = True
+flag_1st_process_queue_empty = True
 flag_2nd_process_queue_empty = True
 flag_3rd_process_queue_empty = True
 
@@ -2567,14 +2567,14 @@ class RealTime_Thread_DataWorker(QThread):
 
     def run(self):
 
-        global flag_main_process_queue_empty, flag_drop_reset
+        global flag_1st_process_queue_empty, flag_drop_reset
 
         while True:
 
             try:
                 if not self.dataQ.empty():
                 
-                    flag_main_process_queue_empty = False
+                    flag_1st_process_queue_empty = False
 
                     dt = datetime.now()
                     systime = dt.hour * 3600 + dt.minute * 60 + dt.second 
@@ -2813,7 +2813,7 @@ class RealTime_Thread_DataWorker(QThread):
                     else:
                         self.sys_drop_count += 1                
                 else:
-                    flag_main_process_queue_empty = True
+                    flag_1st_process_queue_empty = True
 
             except Exception as e:
                 
@@ -2871,14 +2871,14 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
     def run(self):
 
-        global flag_main_process_queue_empty, flag_drop_reset                  
+        global flag_1st_process_queue_empty, flag_drop_reset                  
 
         while True:
 
             try:
                 if not self.dataQ.empty():
 
-                    flag_main_process_queue_empty = False
+                    flag_1st_process_queue_empty = False
 
                     dt = datetime.now()
                     systime = dt.hour * 3600 + dt.minute * 60 + dt.second
@@ -2930,9 +2930,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'YJ_':
 
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+                                realtime_hour = int(self.realdata[1]['time'][0:2])
+                                realtime_min = int(self.realdata[1]['time'][2:4])
+                                realtime_sec = int(self.realdata[1]['time'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -2943,9 +2943,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'YFC':
 
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+                                realtime_hour = int(self.realdata[1]['ychetime'][0:2])
+                                realtime_min = int(self.realdata[1]['ychetime'][2:4])
+                                realtime_sec = int(self.realdata[1]['ychetime'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -2956,9 +2956,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'YOC':
 
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+                                realtime_hour = int(self.realdata[1]['ychetime'][0:2])
+                                realtime_min = int(self.realdata[1]['ychetime'][2:4])
+                                realtime_sec = int(self.realdata[1]['ychetime'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -2969,9 +2969,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'YS3':
 
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+                                realtime_hour = int(self.realdata[1]['hotime'][0:2])
+                                realtime_min = int(self.realdata[1]['hotime'][2:4])
+                                realtime_sec = int(self.realdata[1]['hotime'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -2982,9 +2982,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'OVC':
 
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+                                realtime_hour = int(self.realdata[1]['kortm'][0:2])
+                                realtime_min = int(self.realdata[1]['kortm'][2:4])
+                                realtime_sec = int(self.realdata[1]['kortm'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -2999,9 +2999,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 self.fh0_total_count += 1
 
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+                                realtime_hour = int(self.realdata[1]['hotime'][0:2])
+                                realtime_min = int(self.realdata[1]['hotime'][2:4])
+                                realtime_sec = int(self.realdata[1]['hotime'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3013,9 +3013,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'NH0':
 
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+                                realtime_hour = int(self.realdata[1]['hotime'][0:2])
+                                realtime_min = int(self.realdata[1]['hotime'][2:4])
+                                realtime_sec = int(self.realdata[1]['hotime'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3026,9 +3026,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'FC0':
 
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+                                realtime_hour = int(self.realdata[1]['chetime'][0:2])
+                                realtime_min = int(self.realdata[1]['chetime'][2:4])
+                                realtime_sec = int(self.realdata[1]['chetime'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3039,9 +3039,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'NC0':
 
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+                                realtime_hour = int(self.realdata[1]['chetime'][0:2])
+                                realtime_min = int(self.realdata[1]['chetime'][2:4])
+                                realtime_sec = int(self.realdata[1]['chetime'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3052,9 +3052,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'IJ_':
 
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+                                realtime_hour = int(self.realdata[1]['time'][0:2])
+                                realtime_min = int(self.realdata[1]['time'][2:4])
+                                realtime_sec = int(self.realdata[1]['time'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3065,9 +3065,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'OC0':
 
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+                                realtime_hour = int(self.realdata[1]['chetime'][0:2])
+                                realtime_min = int(self.realdata[1]['chetime'][2:4])
+                                realtime_sec = int(self.realdata[1]['chetime'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3080,9 +3080,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'OH0':
 
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+                                realtime_hour = int(self.realdata[1]['hotime'][0:2])
+                                realtime_min = int(self.realdata[1]['hotime'][2:4])
+                                realtime_sec = int(self.realdata[1]['hotime'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3095,9 +3095,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'EC0':
 
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+                                realtime_hour = int(self.realdata[1]['chetime'][0:2])
+                                realtime_min = int(self.realdata[1]['chetime'][2:4])
+                                realtime_sec = int(self.realdata[1]['chetime'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3110,13 +3110,13 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'EH0':
 
-                                if int(self.realdata[1]['수신시간'][0:2]) >= 24:
-                                    realtime_hour = int(self.realdata[1]['수신시간'][0:2]) - 24
+                                if int(self.realdata[1]['hotime1'][0:2]) >= 24:
+                                    realtime_hour = int(self.realdata[1]['hotime1'][0:2]) - 24
                                 else:                            
-                                    realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                    realtime_hour = int(self.realdata[1]['hotime1'][0:2])
 
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+                                realtime_min = int(self.realdata[1]['hotime1'][2:4])
+                                realtime_sec = int(self.realdata[1]['hotime1'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3129,9 +3129,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'S3_':
 
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+                                realtime_hour = int(self.realdata[1]['chetime'][0:2])
+                                realtime_min = int(self.realdata[1]['chetime'][2:4])
+                                realtime_sec = int(self.realdata[1]['chetime'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3146,7 +3146,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                     else:
                         pass                    
                 else:
-                    flag_main_process_queue_empty = True
+                    flag_1st_process_queue_empty = True
 
             except Exception as e:
                 
@@ -3234,9 +3234,9 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
                             self.total_option_packet_size += sys.getsizeof(self.realdata[1])
 
-                            realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                            realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                            realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+                            realtime_hour = int(self.realdata[1]['chetime'][0:2])
+                            realtime_min = int(self.realdata[1]['chetime'][2:4])
+                            realtime_sec = int(self.realdata[1]['chetime'][4:6])
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3247,9 +3247,9 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
                         elif szTrCode == 'EC0':
 
-                            realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                            realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                            realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+                            realtime_hour = int(self.realdata[1]['chetime'][0:2])
+                            realtime_min = int(self.realdata[1]['chetime'][2:4])
+                            realtime_sec = int(self.realdata[1]['chetime'][4:6])
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3260,11 +3260,11 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
                         elif szTrCode == 'OH0':
 
-                            self.total_option_packet_size += sys.getsizeof(data)
+                            self.total_option_packet_size += sys.getsizeof(self.realdata[1])
 
-                            realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                            realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                            realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+                            realtime_hour = int(self.realdata[1]['hotime'][0:2])
+                            realtime_min = int(self.realdata[1]['hotime'][2:4])
+                            realtime_sec = int(self.realdata[1]['hotime'][4:6])
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3275,13 +3275,13 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
                         elif szTrCode == 'EH0':
 
-                            if int(self.realdata[1]['수신시간'][0:2]) >= 24:
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2]) - 24
+                            if int(self.realdata[1]['hotime1'][0:2]) >= 24:
+                                realtime_hour = int(self.realdata[1]['hotime1'][0:2]) - 24
                             else:                            
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_hour = int(self.realdata[1]['hotime1'][0:2])
 
-                            realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                            realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+                            realtime_min = int(self.realdata[1]['hotime1'][2:4])
+                            realtime_sec = int(self.realdata[1]['hotime1'][4:6])
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -4849,7 +4849,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def t8416_fut_request(self, code):
 
         # 휴일 포함 30일치 과거데이타를 요청한다.
-        temp = today - datetime.timedelta(30)
+        temp = today - timedelta(30)
         startday_txt = temp.strftime('%Y%m%d')
 
         self.XQ_t8416.Query(단축코드=code, 시작일자=startday_txt, 종료일자=today_txt)
@@ -5360,10 +5360,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.alternate_flag = not self.alternate_flag
             
             # 온라인 여부확인
-            if MULTIPROCESS:
-                online_state = FirstProcess.Check_Online()
-            else:
-                online_state = self.parent.main_connection.IsConnected()
+            online_state = self.parent.xing.main_connection.IsConnected()                
 
             # 인터넷 연결확인
             ipaddress = socket.gethostbyname(socket.gethostname())
@@ -5886,7 +5883,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 self.KillScoreBoardAllThread()
 
                                 if MULTIPROCESS:
-
+                                    '''
                                     txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 실시간요청을 모두 취소합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                                     self.textBrowser.append(txt)
                                     print(txt)
@@ -5918,7 +5915,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                         pass
 
                                     QTest.qWait(10)
-
+                                    '''
                                     txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 쓰레드를 종료합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                                     self.textBrowser.append(txt)
                                     print(txt)
@@ -5940,7 +5937,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.textBrowser.append(txt)
                                     print(txt)
                                 else:
-                                    self.parent.main_connection.disconnect()
+                                    self.parent.xing.main_connection.disconnect()
                             else:
                                 pass
 
@@ -5965,7 +5962,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 pass
                         else:
                             self.parent.statusbar.showMessage("오프라인")
-
+                            '''
                             if MULTIPROCESS:
                                 FirstProcess.shutdown()
 
@@ -5978,6 +5975,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     pass
                             else:
                                 pass
+                            '''
                     else:
                         pass
                 else:
@@ -5997,7 +5995,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 self.KillScoreBoardAllThread()
 
                                 if MULTIPROCESS:
-
+                                    '''
                                     txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 실시간요청을 모두 취소합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                                     self.textBrowser.append(txt)
                                     print(txt)
@@ -6013,7 +6011,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                         pass
 
                                     QTest.qWait(10)
-
+                                    '''
                                     txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 쓰레드를 종료합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                                     self.textBrowser.append(txt)
                                     print(txt)
@@ -6030,7 +6028,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                         self.parent.realtime_3rd_dataworker.terminate()
                                     else:
                                         pass
-                                    
+                                    '''
                                     QTest.qWait(10)
 
                                     txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 서버연결을 해지합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
@@ -6050,8 +6048,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 로그인을 종료합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                                     self.textBrowser.append(txt)
                                     print(txt)
+                                    '''
                                 else:
-                                    self.parent.main_connection.disconnect()                                    
+                                    self.parent.xing.main_connection.disconnect()                                    
                             else:
                                 pass
 
@@ -6076,7 +6075,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 pass
                         else:
                             self.parent.statusbar.showMessage("오프라인")
-
+                            '''
                             if MULTIPROCESS:
                                 FirstProcess.shutdown()
 
@@ -6089,6 +6088,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     pass
                             else:
                                 pass
+                            '''
                     else:
                         pass
             else:
@@ -19516,7 +19516,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.pushButton_start.setText(' Refresh ')
                                         
                     # 실시간데이타 요청
-                    self.request_realdata()                              
+                    #self.request_realdata()                              
                 else:
                     pass
             else:
@@ -21963,7 +21963,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         try:               
             flag_main_realdata_update_is_running = True
 
-            szTrCode = result['szTrCode']
+            szTrCode = result['tr_code']
 
             if szTrCode == 'NWS':
                 
@@ -24579,7 +24579,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.now()
 
-        szTrCode = result['szTrCode']
+        szTrCode = result['tr_code']
 
         try:
             flag_2nd_realdata_update_is_running = True
@@ -24877,7 +24877,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         finally:
             flag_2nd_realdata_update_is_running = False
-
+    '''
     @logging_time_with_args
     def UpdateThirdRealdata(self, result):
 
@@ -24887,7 +24887,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         dt = datetime.now()
 
-        szTrCode = result['szTrCode']
+        szTrCode = result['tr_code']
 
         try:   
             flag_3rd_realdata_update_is_running = True            
@@ -25031,7 +25031,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         finally:
             flag_3rd_realdata_update_is_running = False
- 
+    '''
     #####################################################################################################################################################################
     def KillScoreBoardAllThread(self):
 
@@ -39167,6 +39167,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.setupUi(self)
 
+        self.id = None
         self.xing = Xing(self)          # Xing객체와 윈도우간 정보교환
 
         self.setWindowTitle("SkyBot ver1.0")
@@ -39333,20 +39334,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             # 버티칼 스크롤바를 항상 bottom으로...
             self.textBrowser.verticalScrollBar().setValue(self.textBrowser.verticalScrollBar().maximum())
-            '''
-            if AUTO_START and MP_NUMBER == 1:
+            
+            if AUTO_START:
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
 
                 self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
                 self.dialog['선물옵션전광판'].show()
 
-                #QTest.qWait(3000)
-
                 self.dialog['선물옵션전광판'].RunCode()
             else:
                 pass
-            '''
+            
         elif trdata[0] == 't0167':
 
             global 서버시간, system_server_time_gap, flag_heartbeat
@@ -39493,7 +39492,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
             if szTrCode == 'OC0' or szTrCode == 'EC0' or szTrCode == 'OH0' or szTrCode == 'EH0':
 
-                if flag_main_process_queue_empty:
+                if flag_1st_process_queue_empty:
                     self.label_1st.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal")
                 else:
                     self.label_1st.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal")
@@ -39519,7 +39518,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 self.label_1st.setText(txt)
             else:
-                if flag_main_process_queue_empty:
+                if flag_1st_process_queue_empty:
                     self.label_1st.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal")
                 else:
                     self.label_1st.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal")
@@ -39666,7 +39665,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 수신된 실시간데이타 정보표시(누락된 패킷수, 큐의 크기, 수신된 총 패킷수, 수신된 총 패킷크기)            
         szTrCode = realdata['szTrCode']
 
-        if flag_main_process_queue_empty:
+        if flag_1st_process_queue_empty:
             self.label_1st.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal")
         else:
             self.label_1st.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal")
@@ -40035,13 +40034,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
 
             if TARGET_MONTH == 'CM':
-                pass
-                '''
+                
                 if window.id == 'soojin65':
                     txt = '[{0:02d}:{1:02d}:{2:02d}] ***님이 로그아웃 했습니다.'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 로그아웃 했습니다.'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, window.id)
-                '''
+                
                 #ToMyTelegram(txt)
             else:
                 pass

@@ -84,6 +84,13 @@ def index_futures_crawler(queue: Queue, index_futures_quote=True, index_futures_
         real_time_jif_tick.set_jif_code('0')
         # ############################################################################################################
 
+        # #################################### YJ ####################################################################
+        real_time_yj_tick = RealTimeYJTick(queue=queue)
+        real_time_yj_tick.set_yj_code(KOSPI200)
+        real_time_yj_tick.set_yj_code(KOSPI)
+        real_time_yj_tick.set_yj_code(FUTURES)
+        # ############################################################################################################
+
         # #################################### IJ ####################################################################
         real_time_ij_tick = RealTimeIJTick(queue=queue)
         real_time_ij_tick.set_ij_code(KOSPI200)
@@ -127,6 +134,11 @@ def index_futures_crawler(queue: Queue, index_futures_quote=True, index_futures_
         # ################################# 지수선물 ##################################################################
         listed_code_df = XingAPI.get_index_futures_listed_code_list()
         listed_code_df.to_csv(f"{TODAY_PATH}/index_futures_listed_code.csv", encoding='utf-8-sig')
+        
+        # #################################### YFC ###################################################################
+        real_time_yfc_tick = RealTimeYFCTick(queue=queue)
+        real_time_yfc_tick.set_yfc_code(listed_code_df['단축코드'][0])
+        # ############################################################################################################
 
         code_list = listed_code_df['단축코드'].tolist()
 

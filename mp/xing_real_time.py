@@ -29,6 +29,16 @@ class RealTimeAbs:
         self.xa_real.SetFieldData("InBlock", field, code)
         self.xa_real.AdviseRealData()
 
+    def set_yj_code(self, code, field="upcode"):
+
+        self.xa_real.SetFieldData("InBlock", field, code)
+        self.xa_real.AdviseRealData()
+
+    def set_yfc_code(self, code, field="futcode"):
+
+        self.xa_real.SetFieldData("InBlock", field, code)
+        self.xa_real.AdviseRealData()
+
     def set_s3_code(self, code, field="shcode"):
 
         self.xa_real.SetFieldData("InBlock", field, code)
@@ -74,6 +84,20 @@ class RealTimeIJTick(RealTimeAbs):
     """
     def __init__(self, queue: Queue):
         super().__init__(queue, "IJ_")
+
+class RealTimeYJTick(RealTimeAbs):
+    """
+    [YJ_] 예상지수
+    """
+    def __init__(self, queue: Queue):
+        super().__init__(queue, "YJ_")
+
+class RealTimeYFCTick(RealTimeAbs):
+    """
+    [YFC] 지수선물 예상체결
+    """
+    def __init__(self, queue: Queue):
+        super().__init__(queue, "YFC")
 
 class RealTimeS3Tick(RealTimeAbs):
     """

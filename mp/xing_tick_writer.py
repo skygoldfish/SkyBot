@@ -71,29 +71,33 @@ def bundle_writer(tick_type: DataType) -> Tuple[io.TextIOWrapper, csv.writer]:
 def write_header(tick_type: DataType, writer: csv.writer) -> None:
 
     if tick_type == DataType.JIF_TICK:
-        writer.writerow(JIF_COLUMNS)
+        writer.writerow(JIF_COLUMNS_HEADER)
     elif tick_type == DataType.NWS_TICK:
-        writer.writerow(NWS_COLUMNS)
+        writer.writerow(NWS_COLUMNS_HEADER)
+    elif tick_type == DataType.YJ_TICK:
+        writer.writerow(YJ_COLUMNS_HEADER)
+    elif tick_type == DataType.YFC_TICK:
+        writer.writerow(YFC_COLUMNS_HEADER)
     elif tick_type == DataType.IJ_TICK:
-        writer.writerow(IJ_COLUMNS)
+        writer.writerow(IJ_COLUMNS_HEADER)
     elif tick_type == DataType.BM_TICK:
-        writer.writerow(BM_COLUMNS)
+        writer.writerow(BM_COLUMNS_HEADER)
     elif tick_type == DataType.PM_TICK:
-        writer.writerow(PM_COLUMNS)
+        writer.writerow(PM_COLUMNS_HEADER)
     elif tick_type == DataType.OVC_TICK:
-        writer.writerow(OVC_COLUMNS)
+        writer.writerow(OVC_COLUMNS_HEADER)
     elif tick_type in [DataType.KOSPI_QUOTE, DataType.KOSDAQ_QUOTE]:
-        writer.writerow(QUOTE_COLUMNS)
+        writer.writerow(QUOTE_COLUMNS_HEADER)
     elif tick_type in [DataType.KOSPI_TICK, DataType.KOSDAQ_TICK]:
-        writer.writerow(TICK_COLUMNS)    
+        writer.writerow(TICK_COLUMNS_HEADER)    
     elif tick_type == DataType.INDEX_FUTURES_QUOTE:
-        writer.writerow(INDEX_FUTURES_QUOTE_COLUMNS)
+        writer.writerow(INDEX_FUTURES_QUOTE_COLUMNS_HEADER)
     elif tick_type == DataType.INDEX_FUTURES_TICK:
-        writer.writerow(INDEX_FUTURES_TICK_COLUMNS)
+        writer.writerow(INDEX_FUTURES_TICK_COLUMNS_HEADER)
     elif tick_type == DataType.INDEX_OPTION_QUOTE:
-        writer.writerow(INDEX_OPTION_QUOTE_COLUMNS)
+        writer.writerow(INDEX_OPTION_QUOTE_COLUMNS_HEADER)
     elif tick_type == DataType.INDEX_OPTION_TICK:
-        writer.writerow(INDEX_OPTION_TICK_COLUMNS)
+        writer.writerow(INDEX_OPTION_TICK_COLUMNS_HEADER)
     else:
         pass
 
