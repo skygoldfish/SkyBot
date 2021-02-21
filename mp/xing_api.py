@@ -28,10 +28,11 @@ class XingAPI:
         while not XASessionEventHandler.login_state:
             pythoncom.PumpWaitingMessages()
 
-        if XASessionEventHandler.login_code == '0000':
-            return True, XASessionEventHandler.login_msg
-        else:
-            return False, XASessionEventHandler.login_msg
+        result = []
+        result.append(XASessionEventHandler.login_code)
+        result.append(XASessionEventHandler.login_msg)
+
+        return result
 
     @classmethod
     def request_api(cls, req_func, req_type):

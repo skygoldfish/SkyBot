@@ -11,7 +11,8 @@
 # 기본 모듈
 import sys, os
 import atexit
-import datetime, time
+from datetime import *
+import time
 import ntplib
 import timeit
 import win32com.client
@@ -77,7 +78,9 @@ from XASessions import *
 from XAQueries import *
 from XAReals import *
 from Utils import *
-#from FileWatcher import *             
+#from FileWatcher import *
+
+from mp.xing_tick_writer import *             
 
 # 4k 해상도 대응
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
@@ -413,16 +416,16 @@ else:
     NEXT_MONTH = repr(int(CURRENT_MONTH) + 1)
     MONTH_AFTER_NEXT = repr(int(CURRENT_MONTH) + 2)
 
-dt = datetime.datetime.now()        
+dt = datetime.now()        
 nowDate = dt.strftime('%Y-%m-%d')
 current_txt = dt.strftime('%H:%M:%S')
 
-today = datetime.date.today()
+today = date.today()
 now_Month = today.strftime('%Y%m')
 today_txt = today.strftime('%Y%m%d')
 today_title = today.strftime('%Y-%m-%d')
 
-yesterday = today - datetime.timedelta(1)
+yesterday = today - timedelta(1)
 yesterday_txt = yesterday.strftime('%Y%m%d')
 
 current_month = int(CURRENT_MONTH[4:6])
@@ -1967,7 +1970,7 @@ def logging_time_main_loop(original_fn):
 
         global main_loop_processing_time
         
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         start_time = timeit.default_timer()
         result = original_fn(*args, **kwargs)
@@ -1986,7 +1989,7 @@ def logging_time_with_args(original_fn):
 
         global args_processing_time
         
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         start_time = timeit.default_timer()
         result = original_fn(*args, **kwargs)
@@ -2009,7 +2012,7 @@ def logging_time_plot1(original_fn):
 
         global plot1_processing_time
         
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         start_time = timeit.default_timer()
         result = original_fn(*args, **kwargs)
@@ -2027,7 +2030,7 @@ def logging_time_plot2(original_fn):
 
         global plot2_processing_time
         
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         start_time = timeit.default_timer()
         result = original_fn(*args, **kwargs)
@@ -2045,7 +2048,7 @@ def logging_time_plot3(original_fn):
 
         global plot3_processing_time
         
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         start_time = timeit.default_timer()
         result = original_fn(*args, **kwargs)
@@ -2063,7 +2066,7 @@ def logging_time_plot4(original_fn):
 
         global plot4_processing_time
         
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         start_time = timeit.default_timer()
         result = original_fn(*args, **kwargs)
@@ -2081,7 +2084,7 @@ def logging_time_plot5(original_fn):
 
         global plot5_processing_time
         
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         start_time = timeit.default_timer()
         result = original_fn(*args, **kwargs)
@@ -2099,7 +2102,7 @@ def logging_time_plot6(original_fn):
 
         global plot6_processing_time
         
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         start_time = timeit.default_timer()
         result = original_fn(*args, **kwargs)
@@ -2216,267 +2219,6 @@ class 화면_버전(QDialog, Ui_버전):
         for i in range(len(df.columns)):
             self.tableView.resizeColumnToContents(i)            
 
-#####################################################################################################################################################################
-# Xing API Class
-#####################################################################################################################################################################
-class Xing(object):
-
-    def __init__(self, caller):
-
-        self.caller = caller    # 윈도우객체와 정보교환
-        self.main_connection = None
-
-        # 조회요청 TR 객체생성
-        self.XQ_t0167 = t0167(parent=self) # 시간 조회
-        self.XQ_t1514 = t1514(parent=self) # 코스피/코스닥 지수 조회
-        self.XQ_t8432 = t8432(parent=self) # 지수선물 마스터조회 API용
-        self.XQ_t8433 = t8433(parent=self) # 지수옵션 마스터조회 API용
-        self.XQ_t2301 = t2301(parent=self) # 주간 옵션전광판 조회
-        self.XQ_t2101 = t2101(parent=self) # 주간 선물전광판 조회
-        self.XQ_t2801 = t2801(parent=self) # 야간 선물전광판 조회
-        self.XQ_t2835 = t2835(parent=self) # 야간 옵션전광판 조회
-        self.XQ_t8415 = t8415(parent=self) # 선물/옵션 차트(N분) 조회
-        self.XQ_t8416 = t8416(parent=self) # 선물/옵션 차트(일,주,월) 조회
-        
-        self.clock = QtCore.QTimer()
-        self.clock.timeout.connect(self.OnClockTick)
-        self.clock.start(1000)         
-
-        계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})
-
-        if REAL_SERVER:
-            주식계좌정보 = 계좌정보.query("구분 == '거래'")
-            print('실서버에 접속합니다.')
-        else:
-            주식계좌정보 = 계좌정보.query("구분 == '모의'")
-            print('모의서버에 접속합니다.')        
-
-        if len(주식계좌정보) > 0:
-            
-            self.url = 주식계좌정보['url'].values[0].strip()
-            self.id = 주식계좌정보['사용자ID'].values[0].strip()            
-            self.pwd = 주식계좌정보['비밀번호'].values[0].strip()
-            self.cert = 주식계좌정보['공인인증비밀번호'].values[0].strip()            
-            self.계좌번호 = 주식계좌정보['계좌번호'].values[0].strip()
-            self.거래비밀번호 = 주식계좌정보['거래비밀번호'].values[0].strip()
-        else:
-            print("secret디렉토리의 passwords.csv 파일에서 거래 계좌를 지정해 주세요")        
-
-        self.main_login(self.url, self.id, self.pwd, self.cert)              
-
-        '''
-        # xing_api 선옵,업종,주식의 조회 객체는 대부분 1초당 1건, 10분당 200건의 제한이 있음, 각 객체의 요청(시간/횟수)제한을 관리        
-        self.objs = ['t8414', 't8415', 't8416', 't8417', 't8418', 't8419', 't8411', 't8412', 't8413', 't2301', 't2835', 't0434', 't0441']
-        self.master = {}
-
-        for x in self.objs:
-
-            d = {}
-
-            if x == 't2301':
-                d['time0'] = time.time()
-                d['time_last'] = d['time0']
-                d['limit'] = 0.6
-                d['limit2'] = 600.0
-                d['limit2_cnt'] = 200
-            else:
-                d['time0'] = time.time()
-                d['time_last'] = d['time0']
-                d['limit'] = 1.2
-                d['limit2'] = 600.0
-                d['limit2_cnt'] = 200
-
-            self.master[x] = d
-        '''
-
-    def OnClockTick(self):
-
-        dt = datetime.now()
-
-        if dt.second == 30: # 매 30초 마다(1분 주기)
-
-            try:
-                if self.main_connection is not None:
-
-                    if self.main_connection.IsConnected():
-
-                        msg = "온라인"
-                        # 서버시간 조회
-                        self.XQ_t0167.Query() 
-                    else:
-                        msg = "오프라인"
-
-                self.caller.statusbar.showMessage(msg)
-
-            except Exception as e:
-                pass
-
-    def main_login(self, url, id, pwd, cert):
-
-        if REAL_SERVER:
-            txt = '실서버에 접속합니다.\r'
-        else:
-            txt = '모의서버에 접속합니다.\r'
-
-        self.caller.textBrowser.append(txt)
-        
-        if self.main_connection is None:
-            self.main_connection = XASession(parent=self)
-
-        self.main_connection.login(url=self.url, id=self.id, pwd=self.pwd, cert=self.cert)
-    
-    def OnLogin(self, code, msg):        
-
-        dt = datetime.now()
-
-        if code == '0000':
-
-            token = ''
-            chat_id = 0
-
-            if os.path.exists('secret/telegram_token.txt'):
-
-                with open('secret/telegram_token.txt', mode='r') as tokenfile:
-                    try:
-                        token = tokenfile.readline().strip()
-
-                    except Exception as e:
-                        pass            
-
-            if os.path.exists('secret/chatid.txt'):
-
-                with open('secret/chatid.txt', mode='r') as chatfile:
-                    try:
-                        chat_id = int(chatfile.readline().strip())
-
-                    except Exception as e:
-                        pass
-
-            if TARGET_MONTH == 'CM':
-
-                if token != '' and chat_id != 0:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 ({4}/{5}) 로그인 했습니다.'.format(dt.hour, dt.minute, dt.second, self.id, token, chat_id) 
-                else:
-                    if window.id == 'soojin65':
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] ***님이 로그인 했습니다.'.format(dt.hour, dt.minute, dt.second)
-                    else:
-                        pass
-                    
-                #ToMyTelegram(txt)
-            else:
-                pass            
-            
-            self.caller.statusbar.showMessage("메인 로그인 성공 !!!")
-            #playsound( "Resources/ring.wav" )
-
-            if TTS:
-                self.caller.speaker.setText('로그인 성공')
-            else:
-                pass            
-
-            # 옵션전광판 자동시작
-            '''
-            if AUTO_START:
-                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
-                self.caller.textBrowser.append(txt)
-
-                self.caller.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
-                self.caller.dialog['선물옵션전광판'].show()
-
-                self.caller.dialog['선물옵션전광판'].RunCode()
-            else:
-                pass
-            '''
-        else:
-            self.caller.statusbar.showMessage("%s %s" % (code, msg))
-
-    def OnLogout(self):
-        self.caller.statusbar.showMessage("로그아웃 되었습니다.")
-
-    def OnDisconnect(self):
-
-        self.caller.statusbar.showMessage("연결이 끊겼습니다.")
-
-    def OnReceiveMessage(self, ClassName, systemError, messageCode, message):
-
-        txt = 'ClassName = {0} : systemError = {1}, messageCode = {2}, message = {3}'.format(ClassName, systemError, messageCode, message)
-        print(txt)
-
-        # 조회성 TR데이타 수신 콜백함수
-    
-    def OnReceiveData(self, result):
-
-        global 서버시간, system_server_time_gap, flag_heartbeat
-        global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, ovc_x_idx, 시스템시간_분, 서버시간_분
-
-        dt = datetime.now()
-
-        flag_heartbeat = True 
-
-        szTrCode = result[0]
-
-        if szTrCode == 't0167':
-
-            szTrCode, server_date, server_time = result
-
-            systemtime = dt.hour * 3600 + dt.minute * 60 + dt.second
-
-            시스템시간_분 = dt.hour * 3600 + dt.minute * 60
-
-            SERVER_HOUR = int(server_time[0:2])
-            SERVER_MIN = int(server_time[2:4])
-            SERVER_SEC = int(server_time[4:6])
-
-            서버시간 = SERVER_HOUR * 3600 + SERVER_MIN * 60 + SERVER_SEC
-            서버시간_분 = SERVER_HOUR * 3600 + SERVER_MIN * 60
-
-            system_server_time_gap = systemtime - 서버시간
-
-            # X축 시간좌표 계산
-            if NightTime:
-
-                night_time = SERVER_HOUR
-
-                if 0 <= night_time <= 6:
-                    night_time = night_time + 24
-                else:
-                    pass
-
-                server_x_idx = (night_time - NightTime_PreStart_Hour) * 60 + SERVER_MIN + 1         
-            else:                    
-                # 해외선물 개장시간은 국내시장의 2시간 전
-                server_x_idx = (SERVER_HOUR - DayTime_PreStart_Hour) * 60 + SERVER_MIN + 1
-
-            ovc_x_idx = server_x_idx
-            
-            txt = '[{0:02d}:{1:02d}:{2:02d}] HeartBeat 수신...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
-            #self.textBrowser.append(txt)
-            print(txt)                       
-        else:
-            pass
-
-    def OnReceiveRealData(self, result):
-
-        pass        
-
-    '''
-    # 마지막 사용시 정보 업데이트
-    def update(self, obj):
-
-        if self.obj in self.master.keys():
-            self.master[obj]['time_last'] = time.time() # 최종 요청시간(현재시각) 업데이트
-
-    # 해당 객체를 사용하기 위해 남은 시간은 얼마인가? 초(float) 리턴
-    def remain(self, obj):
-
-        if obj in self.master.keys():
-            t = time.time()
-            delta = (self.master[obj]['time_last'] + self.master[obj]['limit']) - t
-            return delta
-        else:
-            return -1
-    '''
-
 # SKY WORK !!!
 #####################################################################################################################################################################
 # 스크린 갱신 쓰레드
@@ -2516,7 +2258,7 @@ class ScreenUpdateWorker(QThread):
                     self.trigger.emit(self.server_hour, self.server_minute, self.server_second, timegap)
                 except Exception as e:
                     print('NTP Server Time Get Error...', str(e))
-                    #dt = datetime.datetime.now()
+                    #dt = datetime.now()
                     #self.trigger.emit(dt.hour, dt.minute, dt.second, system_server_time_gap)
 
                 QTest.qWait(scoreboard_update_interval)    
@@ -2834,7 +2576,7 @@ class RealTime_Thread_DataWorker(QThread):
                 
                     flag_main_process_queue_empty = False
 
-                    dt = datetime.datetime.now()
+                    dt = datetime.now()
                     systime = dt.hour * 3600 + dt.minute * 60 + dt.second 
 
                     data = self.dataQ.get(False)
@@ -3086,7 +2828,7 @@ class RealTime_Thread_DataWorker(QThread):
 #####################################################################################################################################################################
 class RealTime_Main_MP_Thread_DataWorker(QThread):
 
-    # 수신데이타 타입이 list이면 TR데이타, dict이면 실시간데이타.        
+    # 수신데이타 타입이 list이면 TR데이타, tuple이면 실시간데이타. 
     trigger_list = pyqtSignal(list)
     trigger_dict = pyqtSignal(dict)
     trigger_exception = pyqtSignal(str, str)
@@ -3141,8 +2883,6 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                     dt = datetime.now()
                     systime = dt.hour * 3600 + dt.minute * 60 + dt.second
 
-                    #servertime = ntp_server_hour * 3600 + ntp_server_minute * 60 + ntp_server_second
-
                     self.realdata = self.dataQ.get(False)                    
 
                     if flag_drop_reset:
@@ -3157,102 +2897,99 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                         self.trigger_list.emit(self.realdata)
 
-                    elif type(self.realdata) == dict:
-                        
-                        self.total_count += 1
-                        self.total_packet_size += sys.getsizeof(self.realdata)
-                        
-                        szTrCode = self.realdata['szTrCode']
+                    elif type(self.realdata) == tuple:
 
-                        # 옵션가격 및 호가를 표시
-                        '''
-                        if szTrCode == 'OC0' or szTrCode == 'OH0':
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] {3}수신 {4}\r'.format(dt.hour, dt.minute, dt.second, szTrCode, self.realdata)
-                            print(txt)
-                        else:
-                            pass
-                        '''
+                        self.total_count += 1
+                        self.total_packet_size += sys.getsizeof(self.realdata[1])                        
+
+                        waiting_tasks = self.dataQ.qsize()
+                        tick_type, tick_data = self.realdata
+                        print(f"\r[{datetime.now()}] 선물 TR Type : {tick_data['tr_code']}  waiting tasks : {waiting_tasks}", end='') 
+                        tick_data_lst = list(tick_data.values())
+                        handle_tick_data(tick_data_lst, tick_type)
+                        
+                        szTrCode = self.realdata[1]['tr_code']
 
                         if not flag_main_realdata_update_is_running:
                             
                             if szTrCode == 'JIF':
 
-                                self.trigger_dict.emit(self.realdata)
+                                self.trigger_dict.emit(self.realdata[1])
 
                             elif szTrCode == 'BM_':
 
-                                self.trigger_dict.emit(self.realdata)
+                                self.trigger_dict.emit(self.realdata[1])
 
                             elif szTrCode == 'PM_':
 
-                                self.trigger_dict.emit(self.realdata)
+                                self.trigger_dict.emit(self.realdata[1])
 
                             elif szTrCode == 'NWS':
 
-                                self.trigger_dict.emit(self.realdata) 
+                                self.trigger_dict.emit(self.realdata[1]) 
 
                             elif szTrCode == 'YJ_':
 
-                                realtime_hour = int(self.realdata['수신시간'][0:2])
-                                realtime_min = int(self.realdata['수신시간'][2:4])
-                                realtime_sec = int(self.realdata['수신시간'][4:6])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                                 if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata)
+                                    self.trigger_dict.emit(self.realdata[1])
                                 else:
                                     self.drop_count += 1
 
                             elif szTrCode == 'YFC':
 
-                                realtime_hour = int(self.realdata['수신시간'][0:2])
-                                realtime_min = int(self.realdata['수신시간'][2:4])
-                                realtime_sec = int(self.realdata['수신시간'][4:6])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                                 if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata)
+                                    self.trigger_dict.emit(self.realdata[1])
                                 else:
                                     self.drop_count += 1       
 
                             elif szTrCode == 'YOC':
 
-                                realtime_hour = int(self.realdata['수신시간'][0:2])
-                                realtime_min = int(self.realdata['수신시간'][2:4])
-                                realtime_sec = int(self.realdata['수신시간'][4:6])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                                 if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata)
+                                    self.trigger_dict.emit(self.realdata[1])
                                 else:
                                     self.drop_count += 1
 
                             elif szTrCode == 'YS3':
 
-                                realtime_hour = int(self.realdata['수신시간'][0:2])
-                                realtime_min = int(self.realdata['수신시간'][2:4])
-                                realtime_sec = int(self.realdata['수신시간'][4:6])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                                 if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata)
+                                    self.trigger_dict.emit(self.realdata[1])
                                 else:
                                     self.drop_count += 1
 
                             elif szTrCode == 'OVC':
 
-                                realtime_hour = int(self.realdata['수신시간'][0:2])
-                                realtime_min = int(self.realdata['수신시간'][2:4])
-                                realtime_sec = int(self.realdata['수신시간'][4:6])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                                 if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata)
+                                    self.trigger_dict.emit(self.realdata[1])
                                 else:
                                     self.drop_count += 1
                                     #txt = 'drop OVC, {0}'.format((systime - system_server_time_gap) - realtime)
@@ -3262,110 +2999,110 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 self.fh0_total_count += 1
 
-                                realtime_hour = int(self.realdata['수신시간'][0:2])
-                                realtime_min = int(self.realdata['수신시간'][2:4])
-                                realtime_sec = int(self.realdata['수신시간'][4:6])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                                 if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata)
+                                    self.trigger_dict.emit(self.realdata[1])
                                 else:
                                     self.drop_count += 1
                                     self.fh0_drop_count += 1
 
                             elif szTrCode == 'NH0':
 
-                                realtime_hour = int(self.realdata['수신시간'][0:2])
-                                realtime_min = int(self.realdata['수신시간'][2:4])
-                                realtime_sec = int(self.realdata['수신시간'][4:6])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                                 if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata)
+                                    self.trigger_dict.emit(self.realdata[1])
                                 else:
                                     self.drop_count += 1
 
                             elif szTrCode == 'FC0':
 
-                                realtime_hour = int(self.realdata['수신시간'][0:2])
-                                realtime_min = int(self.realdata['수신시간'][2:4])
-                                realtime_sec = int(self.realdata['수신시간'][4:6])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                                 if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata)
+                                    self.trigger_dict.emit(self.realdata[1])
                                 else:
                                     self.drop_count += 1
 
                             elif szTrCode == 'NC0':
 
-                                realtime_hour = int(self.realdata['수신시간'][0:2])
-                                realtime_min = int(self.realdata['수신시간'][2:4])
-                                realtime_sec = int(self.realdata['수신시간'][4:6])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                                 if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata)
+                                    self.trigger_dict.emit(self.realdata[1])
                                 else:
                                     self.drop_count += 1
 
                             elif szTrCode == 'IJ_':
 
-                                realtime_hour = int(self.realdata['수신시간'][0:2])
-                                realtime_min = int(self.realdata['수신시간'][2:4])
-                                realtime_sec = int(self.realdata['수신시간'][4:6])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                                 if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata)
+                                    self.trigger_dict.emit(self.realdata[1])
                                 else:
                                     self.drop_count += 1
 
                             elif szTrCode == 'OC0':
 
-                                realtime_hour = int(self.realdata['수신시간'][0:2])
-                                realtime_min = int(self.realdata['수신시간'][2:4])
-                                realtime_sec = int(self.realdata['수신시간'][4:6])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                self.total_option_packet_size += sys.getsizeof(self.realdata)
+                                self.total_option_packet_size += sys.getsizeof(self.realdata[1])
 
                                 if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata)
+                                    self.trigger_dict.emit(self.realdata[1])
                                 else:
                                     self.drop_count += 1
 
                             elif szTrCode == 'OH0':
 
-                                realtime_hour = int(self.realdata['수신시간'][0:2])
-                                realtime_min = int(self.realdata['수신시간'][2:4])
-                                realtime_sec = int(self.realdata['수신시간'][4:6])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                                self.total_option_packet_size += sys.getsizeof(self.realdata)
+                                self.total_option_packet_size += sys.getsizeof(self.realdata[1])
 
                                 if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata)
+                                    self.trigger_dict.emit(self.realdata[1])
                                 else:
                                     self.drop_count += 1
 
                             elif szTrCode == 'EC0':
 
-                                realtime_hour = int(self.realdata['수신시간'][0:2])
-                                realtime_min = int(self.realdata['수신시간'][2:4])
-                                realtime_sec = int(self.realdata['수신시간'][4:6])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                                 if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata)
+                                    self.trigger_dict.emit(self.realdata[1])
                                 else:
                                     self.drop_count += 1
                                     #txt = 'drop EC0, {0}'.format((systime - system_server_time_gap) - realtime)
@@ -3373,18 +3110,18 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'EH0':
 
-                                if int(self.realdata['수신시간'][0:2]) >= 24:
-                                    realtime_hour = int(self.realdata['수신시간'][0:2]) - 24
+                                if int(self.realdata[1]['수신시간'][0:2]) >= 24:
+                                    realtime_hour = int(self.realdata[1]['수신시간'][0:2]) - 24
                                 else:                            
-                                    realtime_hour = int(self.realdata['수신시간'][0:2])
+                                    realtime_hour = int(self.realdata[1]['수신시간'][0:2])
 
-                                realtime_min = int(self.realdata['수신시간'][2:4])
-                                realtime_sec = int(self.realdata['수신시간'][4:6])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                                 if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata)
+                                    self.trigger_dict.emit(self.realdata[1])
                                 else:
                                     self.drop_count += 1
                                     #txt = 'drop EH0, {0}'.format((systime - system_server_time_gap) - realtime)
@@ -3392,38 +3129,38 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'S3_':
 
-                                realtime_hour = int(self.realdata['수신시간'][0:2])
-                                realtime_min = int(self.realdata['수신시간'][2:4])
-                                realtime_sec = int(self.realdata['수신시간'][4:6])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                                 if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata)
+                                    self.trigger_dict.emit(self.realdata[1])
                                 else:
                                     self.drop_count += 1                            
                             else:
                                 pass
                         else:
-                            self.sys_drop_count += 1
+                            self.sys_drop_count += 1                    
                     else:
-                        pass
+                        pass                    
                 else:
                     flag_main_process_queue_empty = True
 
             except Exception as e:
                 
-                txt = '{0} 멀티프로세스 큐 쓰레드에서 {1}타입의 {2}예외가 발생했습니다.'.format(self.realdata['szTrCode'], type(e).__name__, str(e))
+                txt = '{0} 멀티프로세스 큐 쓰레드에서 {1}타입의 {2}예외가 발생했습니다.'.format(self.realdata[1]['tr_code'], type(e).__name__, str(e))
                 print(txt)
 
-                self.trigger_exception.emit(self.realdata['szTrCode'], str(e))
+                self.trigger_exception.emit(self.realdata[1]['tr_code'], str(e))
 
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 멀티프로세스 2nd 쓰레드 클래스(옵션 가격만 처리)
 #####################################################################################################################################################################
 class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
-    # 수신데이타 타입이 list이면 TR데이타, dict이면 실시간데이타.        
+    # 수신데이타 타입이 list이면 TR데이타, tuple이면 실시간데이타.        
     trigger_list = pyqtSignal(list)
     trigger_dict = pyqtSignal(dict)
 
@@ -3432,6 +3169,7 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
         self.daemon = True
         self.dataQ = dataQ
+        self.realdata = None
 
         # 큐로 들어온 총 패킷수
         self.total_count = 0
@@ -3463,10 +3201,10 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
                 dt = datetime.now()
                 systime = dt.hour * 3600 + dt.minute * 60 + dt.second
 
-                data = self.dataQ.get(False)
+                self.realdata = self.dataQ.get(False)
                 
                 self.total_count += 1                    
-                self.total_packet_size += sys.getsizeof(data)
+                self.total_packet_size += sys.getsizeof(self.realdata[1])
 
                 if flag_drop_reset:
                     self.drop_count = 0
@@ -3476,187 +3214,89 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
                 else:
                     pass
 
-                if type(data) == list:
+                if type(self.realdata) == list:
 
-                    self.trigger_list.emit(data)
+                    self.trigger_list.emit(self.realdata)
 
-                elif type(data) == dict:
+                elif type(self.realdata) == tuple:
+
+                    waiting_tasks = self.dataQ.qsize()
+                    tick_type, tick_data = self.realdata
+                    print(f"\r[{datetime.now()}] 옵션 TR Type : {tick_data['tr_code']}  waiting tasks : {waiting_tasks}") 
+                    tick_data_lst = list(tick_data.values())
+                    handle_tick_data(tick_data_lst, tick_type)
+
+                    szTrCode = self.realdata[1]['tr_code']
 
                     if not flag_2nd_realdata_update_is_running:
 
-                        if data['szTrCode'] == 'OC0':
+                        if szTrCode == 'OC0':
+
+                            self.total_option_packet_size += sys.getsizeof(self.realdata[1])
+
+                            realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                            realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                            realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
+                                self.trigger_dict.emit(self.realdata[1])
+                            else:
+                                self.drop_count += 1
+
+                        elif szTrCode == 'EC0':
+
+                            realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                            realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                            realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
+                                self.trigger_dict.emit(self.realdata[1])
+                            else:
+                                self.drop_count += 1
+
+                        elif szTrCode == 'OH0':
 
                             self.total_option_packet_size += sys.getsizeof(data)
 
-                            realtime_hour = int(data['수신시간'][0:2])
-                            realtime_min = int(data['수신시간'][2:4])
-                            realtime_sec = int(data['수신시간'][4:6])
+                            realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                            realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                            realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                             if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                self.trigger_dict.emit(data)
+                                self.trigger_dict.emit(self.realdata[1])
                             else:
                                 self.drop_count += 1
 
-                        elif data['szTrCode'] == 'EC0':
+                        elif szTrCode == 'EH0':
 
-                            realtime_hour = int(data['수신시간'][0:2])
-                            realtime_min = int(data['수신시간'][2:4])
-                            realtime_sec = int(data['수신시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                self.trigger_dict.emit(data)
-                            else:
-                                self.drop_count += 1
-
-                        elif data['szTrCode'] == 'OH0':
-
-                            self.total_option_packet_size += sys.getsizeof(data)
-
-                            realtime_hour = int(data['수신시간'][0:2])
-                            realtime_min = int(data['수신시간'][2:4])
-                            realtime_sec = int(data['수신시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                self.trigger_dict.emit(data)
-                            else:
-                                self.drop_count += 1
-
-                        elif data['szTrCode'] == 'EH0':
-
-                            if int(data['수신시간'][0:2]) >= 24:
-                                realtime_hour = int(data['수신시간'][0:2]) - 24
+                            if int(self.realdata[1]['수신시간'][0:2]) >= 24:
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2]) - 24
                             else:                            
-                                realtime_hour = int(data['수신시간'][0:2])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
 
-                            realtime_min = int(data['수신시간'][2:4])
-                            realtime_sec = int(data['수신시간'][4:6])
+                            realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                            realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                             if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                self.trigger_dict.emit(data)
+                                self.trigger_dict.emit(self.realdata[1])
                             else:
                                 self.drop_count += 1
                         else:
                             pass
                     else:
-                        self.sys_drop_count += 1
+                        self.sys_drop_count += 1                
                 else:
                     pass
             else:
                 flag_2nd_process_queue_empty = True
-
-#####################################################################################################################################################################
-# 실시간 데이타수신을 위한 멀티프로세스 3rd 쓰레드 클래스(옵션 호가만 처리)
-#####################################################################################################################################################################                    
-class RealTime_3RD_MP_Thread_DataWorker(QThread):
-
-    # 수신데이타 타입이 list이면 TR데이타, dict이면 실시간데이타.        
-    trigger_list = pyqtSignal(list)
-    trigger_dict = pyqtSignal(dict)
-
-    def __init__(self, dataQ):
-        super().__init__()
-
-        self.daemon = True
-        self.dataQ = dataQ
-
-        # 큐로 들어온 총 패킷수
-        self.total_count = 0
-        # 누락된 패킷수
-        self.drop_count = 0
-        # 누락된 코드
-        self.drop_code = ''
-        # 수신된 총 패킷크기
-        self.total_packet_size = 0
-        # 수신된 총 옵션 패킷크기
-        self.total_option_packet_size = 0
-
-        self.sys_drop_count = 0
-
-    def get_packet_info(self):
-
-        return self.drop_count, self.sys_drop_count, self.dataQ.qsize(), self.total_count, self.total_packet_size, self.total_option_packet_size
-
-    def run(self):
-
-        global flag_3rd_process_queue_empty, flag_drop_reset
-
-        while True:
-
-            if not self.dataQ.empty():
-
-                flag_3rd_process_queue_empty = False
-
-                dt = datetime.datetime.now()
-                systime = dt.hour * 3600 + dt.minute * 60 + dt.second
-
-                data = self.dataQ.get(False)
-
-                self.total_count += 1                                        
-                self.total_packet_size += sys.getsizeof(data)
-
-                if flag_drop_reset:
-                    self.drop_count = 0
-                    self.sys_drop_count = 0
-                    self.total_count = 0
-                    flag_drop_reset = False
-                else:
-                    pass
-
-                if type(data) == list:
-
-                    self.trigger_list.emit(data)
-
-                elif type(data) == dict:
-
-                    if not flag_3rd_realdata_update_is_running:
-
-                        if data['szTrCode'] == 'OH0':
-
-                            self.total_option_packet_size += sys.getsizeof(data)
-
-                            realtime_hour = int(data['수신시간'][0:2])
-                            realtime_min = int(data['수신시간'][2:4])
-                            realtime_sec = int(data['수신시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                self.trigger_dict.emit(data)
-                            else:
-                                self.drop_count += 1
-
-                        elif data['szTrCode'] == 'EH0':
-
-                            if int(data['수신시간'][0:2]) >= 24:
-                                realtime_hour = int(data['수신시간'][0:2]) - 24
-                            else:                            
-                                realtime_hour = int(data['수신시간'][0:2])
-
-                            realtime_min = int(data['수신시간'][2:4])
-                            realtime_sec = int(data['수신시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                self.trigger_dict.emit(data)
-                            else:
-                                self.drop_count += 1
-                        else:
-                            pass  
-                    else:
-                         self.sys_drop_count += 1       
-                else:
-                    pass                
-            else:
-                flag_3rd_process_queue_empty = True
 
 #####################################################################################################################################################################
 # Speaker Thread Class
@@ -3896,7 +3536,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         quote_header_stylesheet = '::section{Background-color: black; color: lightgreen; font-family: Consolas; font-size: 9pt; font: Normal; border-style: solid; border-width: 1px; border-color: gray}'
         supply_header_stylesheet = '::section{Background-color: black; color: lightgreen; font-family: Consolas; font-size: 9pt; font: Normal; border-style: solid; border-width: 1px; border-color: gray}'
         
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         txt = '[{0:02d}:{1:02d}:{2:02d}] GUI 초기화중...\r'.format(dt.hour, dt.minute, dt.second)
         self.parent.textBrowser.append(txt)
@@ -4463,7 +4103,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def XingAdminCheck(self):
 
         # 프로세스가 관리자 권한으로 실행 여부
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         if ctypes.windll.shell32.IsUserAnAdmin():
             print('관리자권한으로 실행된 프로세스입니다.')
@@ -4535,7 +4175,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global flag_checkBox_NM 
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
         
         if self.checkBox_NM.isChecked() == True:
 
@@ -4914,7 +4554,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     @pyqtSlot(int, int)
     def futtable_cell_clicked(self, row, col):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
         
         cell = self.tableWidget_fut.item(row, col)
 
@@ -5228,7 +4868,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global FLAG_GUEST_CONTROL
 
         try:
-            dt = datetime.datetime.now()
+            dt = datetime.now()
 
             # 텔레그램 Webhook 등록여부를 체크한다.c8
             chk_webhook = Check_Webhook()
@@ -5467,7 +5107,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global telegram_command
 
         try:
-            dt = datetime.datetime.now()            
+            dt = datetime.now()            
 
             if market_service:
 
@@ -5513,7 +5153,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global gold_tick_list, gold_value_list, df_gold_ohlc, df_gold_ohlc_1min, df_gold_ohlc_5min, df_gold_ohlc_15min
 
         start_time = timeit.default_timer()            
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         # 선물 OHLC 데이타프레임 생성
         if market_service and DayTime:
@@ -5704,7 +5344,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global ntp_server_hour, ntp_server_minute, ntp_server_second, system_server_time_gap
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         try:
             flag_screen_update_is_running = True
@@ -6481,7 +6121,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global flag_heartbeat, vb_txt
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         flag_heartbeat = False
 
@@ -6587,7 +6227,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_저가, call_고가, put_저가, put_고가 
         global call_low_list, call_high_list, put_low_list, put_high_list, high_low_list, moving_list
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
         
         call_low_list = []
         call_high_list = []
@@ -6659,7 +6299,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 동적맥점_리스트, 동적맥점_빈도수_리스트 
         global flag_first_search 
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         txt = '[{0:02d}:{1:02d}:{2:02d}] 동적 맥점 탐색을 시작합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
         self.textBrowser.append(txt)
@@ -6824,7 +6464,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global 시스템시간, SERVER_HOUR, SERVER_MIN, SERVER_SEC 
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         # 해외선물 한국시간 표시
         if OVC_체결시간 == '000000':
@@ -6927,7 +6567,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global node_coloring
         global call_scroll
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
         start_time = timeit.default_timer()
         
         node_coloring = True
@@ -6957,7 +6597,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def call_low_node_coloring(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
         start_time = timeit.default_timer()
         
         self.call_node_color_clear()
@@ -6973,7 +6613,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def call_high_node_coloring(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
         start_time = timeit.default_timer()
                
         self.call_node_color_clear() 
@@ -6993,7 +6633,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global node_coloring
         global put_scroll
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
         start_time = timeit.default_timer()
         
         node_coloring = True
@@ -7024,7 +6664,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def put_low_node_coloring(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
         start_time = timeit.default_timer()
              
         self.put_node_color_clear()        
@@ -7040,7 +6680,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def put_high_node_coloring(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
         start_time = timeit.default_timer()
             
         self.put_node_color_clear()        
@@ -7061,7 +6701,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global node_coloring
         global refresh_coloring
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
         start_time = timeit.default_timer()
 
         node_coloring = True
@@ -7102,7 +6742,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         global CENTER_VAL, df_call_information_graph 
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
         
         # 등가 check & coloring        
         old_atm_index = ATM_INDEX
@@ -7518,7 +7158,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_ms_asymmetric, put_ms_asymmetric, call_md_asymmetric, put_md_asymmetric
         global call_ms_all_up, put_ms_all_up
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         if 콜대비_퍼센트평균 > 0 and 풋대비_퍼센트평균 < 0:
 
@@ -7954,7 +7594,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def label_clear(self, toggle):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         if kospi_text_color != '':
 
@@ -8361,7 +8001,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_low_node_count, call_low_node_list, call_low_node_txt
         global telegram_send_txt_call_low
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
         
         if self.call_open_list:
 
@@ -8493,7 +8133,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_high_node_count, call_high_node_list, call_high_node_txt
         global telegram_send_txt_call_high 
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
         
         if self.call_open_list:
 
@@ -8626,7 +8266,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_low_node_count, call_high_node_count
         global telegram_send_txt_call_low, telegram_send_txt_call_high
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
         
         flag_call_low_coreval = False
         flag_call_high_coreval = False
@@ -8779,7 +8419,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global flag_call_low_coreval
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         flag_call_low_coreval = False 
 
@@ -8832,7 +8472,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global flag_call_high_coreval
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         flag_call_high_coreval = False
 
@@ -10882,7 +10522,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global put_low_node_count, put_low_node_list, put_low_node_txt
         global telegram_send_txt_put_low
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
         
         if self.put_open_list:
 
@@ -11014,7 +10654,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global put_high_node_count, put_high_node_list, put_high_node_txt
         global telegram_send_txt_put_high
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         if self.put_open_list:
 
@@ -11147,7 +10787,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global put_low_node_count, put_high_node_count
         global telegram_send_txt_put_low, telegram_send_txt_put_high
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
         
         flag_put_low_coreval = False
         flag_put_high_coreval = False
@@ -11300,7 +10940,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global flag_put_low_coreval
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         flag_put_low_coreval = False
 
@@ -11353,7 +10993,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global flag_put_high_coreval
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         flag_put_high_coreval = False
 
@@ -11473,7 +11113,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def kp200_low_node_coloring(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         global flag_kp200_low_node, kp200_low_node_time, kp200_low_node_txt  
 
@@ -11494,7 +11134,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def kp200_high_node_coloring(self):  
 
-        dt = datetime.datetime.now() 
+        dt = datetime.now() 
 
         global flag_kp200_high_node, kp200_high_node_time, kp200_high_node_txt 
 
@@ -11517,7 +11157,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global flag_fut_ol, flag_fut_oh, fut_oloh_txt, flag_fut_oloh
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         # FUT OL/OH
         if self.is_within_n_tick(선물_시가, 선물_저가, 10) and not self.is_within_n_tick(선물_시가, 선물_고가, 10):
@@ -11627,7 +11267,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     
     def kp200_node_coloring(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
                 
         # 전저, 전고, 종가, 피봇 컬러링
         if self.is_within_n_tick(KP200_전저, self.kp200_realdata['저가'], 10):
@@ -11716,7 +11356,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def fut_node_coloring(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
         
         # 전저, 전고, 종가, 피봇 컬러링
         if self.is_within_n_tick(선물_전저, 선물_저가, 10):
@@ -11870,7 +11510,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global volatility_breakout_downward_point, volatility_breakout_upward_point
         global df_futures_graph, flag_futures_ohlc_open, 선물_현재가_버퍼
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         선물_체결시간 = result['수신시간']
 
@@ -12631,7 +12271,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 콜_등가_등락율       
 
         start_time = timeit.default_timer()
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         index = call_행사가.index(result['단축코드'][5:8])
         
@@ -13288,7 +12928,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_otm_db, call_otm_db_percent
         global nm_call_oloh_txt 
         
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         if not market_service or call_scroll or refresh_coloring:
             
@@ -13646,7 +13286,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 풋_등가_등락율
 
         start_time = timeit.default_timer()
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         index = put_행사가.index(result['단축코드'][5:8])
         
@@ -14306,7 +13946,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global put_otm_db, put_otm_db_percent
         global nm_put_oloh_txt
         
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         if not market_service or put_scroll or refresh_coloring:
             
@@ -14718,7 +14358,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global t2301_month_info
         global 진성맥점, TTS, SEARCH_MOVING_NODE
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         # 백그라운드로 로그인해도 포어그라운드에서 TR조회 가능함(이유?)        
         self.XQ_t1514.Query(KOSPI) # 코스피지수 조회
@@ -14865,7 +14505,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #global flag_offline
         global flag_logfile
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
         now = time.localtime()
 
         times = "%04d-%02d-%02d-%02d-%02d-%02d" % \
@@ -14936,7 +14576,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_telegram_listen_worker, flag_telegram_send_worker
         global telegram_command
 
-        dt = datetime.datetime.now()        
+        dt = datetime.now()        
 
         flag_telegram_on = not flag_telegram_on
         
@@ -15117,7 +14757,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         txt = '클래스이름 = {0} : systemError = {1}, messageCode = {2}, message = {3}'.format(ClassName, systemError, messageCode, message)
         print(txt)
 
-        #dt = datetime.datetime.now()
+        #dt = datetime.now()
         '''
         if ClassName == 't2835':
 
@@ -15265,7 +14905,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global CM_CALL_CODE, CM_PUT_CODE, NM_CALL_CODE, NM_PUT_CODE, CM_OPT_LENGTH, NM_OPT_LENGTH
         global t8416_option_pairs_count, t8416_loop_finish_time
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         szTrCode = result[0]
 
@@ -20161,7 +19801,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_t8416_re_request_start, flag_t8416_call_done, flag_t8416_put_done
         global t8416_call_count, t8416_put_count, flag_t8416_rerequest
 
-        dt = datetime.datetime.now() 
+        dt = datetime.now() 
 
         flag_t8416_re_request_start = True
         flag_t8416_call_done = False
@@ -21087,7 +20727,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_dow_ohlc_open, flag_sp500_ohlc_open, flag_nasdaq_ohlc_open, flag_wti_ohlc_open
         global flag_eurofx_ohlc_open, flag_hangseng_ohlc_open, flag_gold_ohlc_open
 
-        dt = datetime.datetime.now()      
+        dt = datetime.now()      
 
         try:               
             if not receive_real_ovc:
@@ -22318,7 +21958,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global plot_drate_scale_factor
         global flag_main_realdata_update_is_running
         
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         try:               
             flag_main_realdata_update_is_running = True
@@ -24937,7 +24577,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global df_put, put_result, df_put_graph, df_put_information_graph, df_put_volume, put_volume_power, 풋_등가_등락율
         global 콜_수정미결합, 풋_수정미결합, 콜_수정미결퍼센트, 풋_수정미결퍼센트, 콜잔량비, 풋잔량비        
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         szTrCode = result['szTrCode']
 
@@ -25245,7 +24885,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global df_call_quote, call_remainder_ratio, 콜잔량비, df_call_information_graph
         global df_put_quote, put_remainder_ratio, 풋잔량비, df_put_information_graph
         
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         szTrCode = result['szTrCode']
 
@@ -25395,7 +25035,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     #####################################################################################################################################################################
     def KillScoreBoardAllThread(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board의 모든 쓰레드를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.textBrowser.append(txt)
@@ -25421,7 +25061,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def closeEvent(self,event):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         self.flag_score_board_open = False
 
@@ -25600,7 +25240,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         global call_itm_number, flag_call_itm_number_changed
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         call_itm_number = self.spinBox_call_itm.value()
 
@@ -25637,7 +25277,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         global call_otm_number, flag_call_otm_number_changed
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         call_otm_number = self.spinBox_call_otm.value()
 
@@ -25674,7 +25314,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         global put_itm_number, flag_put_itm_number_changed
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         put_itm_number = self.spinBox_put_itm.value()
 
@@ -25711,7 +25351,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         global put_otm_number, flag_put_otm_number_changed
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         put_otm_number = self.spinBox_put_otm.value()
 
@@ -25748,7 +25388,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         global scoreboard_update_interval
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         txt = self.lineEdit_mp.text()
         scoreboard_update_interval = int(txt)
@@ -25760,7 +25400,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         global view_time_tolerance
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         txt = self.lineEdit_tolerance.text()
         view_time_tolerance = int(txt)
@@ -25772,7 +25412,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         global plot_update_interval, flag_plot_update_interval_changed
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         txt = self.lineEdit_plot.text()
         plot_update_interval = int(txt)
@@ -25784,7 +25424,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
     def checkBox_cm_fut_price_checkState(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         global CM_FUT_PRICE
 
@@ -25820,7 +25460,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
     def checkBox_cm_fut_quote_checkState(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         global CM_FUT_QUOTE
 
@@ -25856,7 +25496,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
     def checkBox_cm_opt_price_checkState(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         global CM_OPT_PRICE
 
@@ -25914,7 +25554,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
     def checkBox_cm_opt_price_1_checkState(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         global CM_OPT_PRICE1
 
@@ -26014,7 +25654,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
     def checkBox_cm_opt_quote_checkState(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         global CM_OPT_QUOTE
 
@@ -26064,7 +25704,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
     def checkBox_cm_opt_quote_1_checkState(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         global CM_OPT_QUOTE1
 
@@ -26163,7 +25803,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
     def checkBox_nm_fut_price_checkState(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         global NM_FUT_PRICE
 
@@ -26199,7 +25839,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
     def checkBox_nm_fut_quote_checkState(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         global NM_FUT_QUOTE
 
@@ -26235,7 +25875,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
     def checkBox_nm_opt_price_checkState(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         global NM_OPT_PRICE
 
@@ -26293,7 +25933,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
     def checkBox_nm_opt_price_1_checkState(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         global NM_OPT_PRICE1
 
@@ -26393,7 +26033,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
     def checkBox_nm_opt_quote_checkState(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         global NM_OPT_QUOTE
 
@@ -26450,7 +26090,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
     def checkBox_nm_opt_quote_1_checkState(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         global NM_OPT_QUOTE1
 
@@ -26549,7 +26189,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
     def checkBox_kospi_kosdaq_checkState(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         global KOSPI_KOSDAQ
 
@@ -26593,7 +26233,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
     def checkBox_supply_demand_checkState(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         global SUPPLY_DEMAND
 
@@ -26635,7 +26275,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
     def checkBox_dow_checkState(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         global DOW_CHK
 
@@ -26673,7 +26313,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
     def checkBox_sp500_checkState(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         global SP500_CHK
 
@@ -26711,7 +26351,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
     def checkBox_nasdaq_checkState(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         global NASDAQ_CHK
 
@@ -26749,7 +26389,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
     def checkBox_oil_checkState(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         global WTI_CHK
 
@@ -26787,7 +26427,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
     def checkBox_eurofx_checkState(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         global EUROFX_CHK
 
@@ -26825,7 +26465,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
     def checkBox_hangseng_checkState(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         global HANGSENG_CHK
 
@@ -26863,7 +26503,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
     def checkBox_gold_checkState(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         global GOLD_CHK
 
@@ -26901,7 +26541,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
     def checkBox_news_checkState(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         global NEWS_CHK
 
@@ -26937,7 +26577,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
     def checkBox_periodic_plot_state_change(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         global flag_periodic_plot_mode
 
@@ -26958,7 +26598,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
     def checkBox_plot_first_state_change(self):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         global flag_plot_first_mode
 
@@ -27146,7 +26786,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.setupUi(self)
         self.parent = parent
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
         start_time = timeit.default_timer()
         
         self.flag_big_chart_open = True
@@ -33844,7 +33484,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global flag_plot_update_is_running        
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
         
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         # 해외선물 한국시간 표시
         if OVC_체결시간 == '000000':
@@ -34727,7 +34367,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global flag_plot_update_is_running        
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
         
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         if OVC_체결시간 == '000000':
 
@@ -35628,7 +35268,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global flag_plot_update_is_running        
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
         
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         if OVC_체결시간 == '000000':
 
@@ -36523,7 +36163,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global flag_plot_update_is_running        
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
         
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         if OVC_체결시간 == '000000':
 
@@ -37402,7 +37042,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global flag_plot_update_is_running        
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
         
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         if OVC_체결시간 == '000000':
 
@@ -38296,7 +37936,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global flag_plot_update_is_running        
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
         
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         if OVC_체결시간 == '000000':
 
@@ -39241,6 +38881,267 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         print('Big Chart Diaglog객체가 소멸됩니다.')         
 
 #####################################################################################################################################################################
+# Xing API Class
+#####################################################################################################################################################################
+class Xing(object):
+
+    def __init__(self, caller):
+
+        self.caller = caller    # 윈도우객체와 정보교환
+        self.main_connection = None
+
+        # 조회요청 TR 객체생성
+        self.XQ_t0167 = t0167(parent=self) # 시간 조회
+        self.XQ_t1514 = t1514(parent=self) # 코스피/코스닥 지수 조회
+        self.XQ_t8432 = t8432(parent=self) # 지수선물 마스터조회 API용
+        self.XQ_t8433 = t8433(parent=self) # 지수옵션 마스터조회 API용
+        self.XQ_t2301 = t2301(parent=self) # 주간 옵션전광판 조회
+        self.XQ_t2101 = t2101(parent=self) # 주간 선물전광판 조회
+        self.XQ_t2801 = t2801(parent=self) # 야간 선물전광판 조회
+        self.XQ_t2835 = t2835(parent=self) # 야간 옵션전광판 조회
+        self.XQ_t8415 = t8415(parent=self) # 선물/옵션 차트(N분) 조회
+        self.XQ_t8416 = t8416(parent=self) # 선물/옵션 차트(일,주,월) 조회
+        
+        self.clock = QtCore.QTimer()
+        self.clock.timeout.connect(self.OnClockTick)
+        self.clock.start(1000)         
+
+        계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})
+
+        if REAL_SERVER:
+            주식계좌정보 = 계좌정보.query("구분 == '거래'")
+            print('실서버에 접속합니다.')
+        else:
+            주식계좌정보 = 계좌정보.query("구분 == '모의'")
+            print('모의서버에 접속합니다.')        
+
+        if len(주식계좌정보) > 0:
+            
+            self.url = 주식계좌정보['url'].values[0].strip()
+            self.id = 주식계좌정보['사용자ID'].values[0].strip()            
+            self.pwd = 주식계좌정보['비밀번호'].values[0].strip()
+            self.cert = 주식계좌정보['공인인증비밀번호'].values[0].strip()            
+            self.계좌번호 = 주식계좌정보['계좌번호'].values[0].strip()
+            self.거래비밀번호 = 주식계좌정보['거래비밀번호'].values[0].strip()
+        else:
+            print("secret디렉토리의 passwords.csv 파일에서 거래 계좌를 지정해 주세요")        
+
+        self.main_login(self.url, self.id, self.pwd, self.cert)              
+
+        '''
+        # xing_api 선옵,업종,주식의 조회 객체는 대부분 1초당 1건, 10분당 200건의 제한이 있음, 각 객체의 요청(시간/횟수)제한을 관리        
+        self.objs = ['t8414', 't8415', 't8416', 't8417', 't8418', 't8419', 't8411', 't8412', 't8413', 't2301', 't2835', 't0434', 't0441']
+        self.master = {}
+
+        for x in self.objs:
+
+            d = {}
+
+            if x == 't2301':
+                d['time0'] = time.time()
+                d['time_last'] = d['time0']
+                d['limit'] = 0.6
+                d['limit2'] = 600.0
+                d['limit2_cnt'] = 200
+            else:
+                d['time0'] = time.time()
+                d['time_last'] = d['time0']
+                d['limit'] = 1.2
+                d['limit2'] = 600.0
+                d['limit2_cnt'] = 200
+
+            self.master[x] = d
+        '''
+
+    def OnClockTick(self):
+
+        dt = datetime.now()
+
+        if dt.second == 30: # 매 30초 마다(1분 주기)
+
+            try:
+                if self.main_connection is not None:
+
+                    if self.main_connection.IsConnected():
+
+                        msg = "온라인"
+                        # 서버시간 조회
+                        self.XQ_t0167.Query() 
+                    else:
+                        msg = "오프라인"
+
+                self.caller.statusbar.showMessage(msg)
+
+            except Exception as e:
+                pass
+
+    def main_login(self, url, id, pwd, cert):
+
+        if REAL_SERVER:
+            txt = '실서버에 접속합니다.\r'
+        else:
+            txt = '모의서버에 접속합니다.\r'
+
+        self.caller.textBrowser.append(txt)
+        
+        if self.main_connection is None:
+            self.main_connection = XASession(parent=self)
+
+        self.main_connection.login(url=self.url, id=self.id, pwd=self.pwd, cert=self.cert)
+    
+    def OnLogin(self, code, msg):        
+
+        dt = datetime.now()
+
+        if code == '0000':
+
+            token = ''
+            chat_id = 0
+
+            if os.path.exists('secret/telegram_token.txt'):
+
+                with open('secret/telegram_token.txt', mode='r') as tokenfile:
+                    try:
+                        token = tokenfile.readline().strip()
+
+                    except Exception as e:
+                        pass            
+
+            if os.path.exists('secret/chatid.txt'):
+
+                with open('secret/chatid.txt', mode='r') as chatfile:
+                    try:
+                        chat_id = int(chatfile.readline().strip())
+
+                    except Exception as e:
+                        pass
+
+            if TARGET_MONTH == 'CM':
+
+                if token != '' and chat_id != 0:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 ({4}/{5}) 로그인 했습니다.'.format(dt.hour, dt.minute, dt.second, self.id, token, chat_id) 
+                else:
+                    if window.id == 'soojin65':
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] ***님이 로그인 했습니다.'.format(dt.hour, dt.minute, dt.second)
+                    else:
+                        pass
+                    
+                #ToMyTelegram(txt)
+            else:
+                pass            
+            
+            self.caller.statusbar.showMessage("메인 로그인 성공 !!!")
+            #playsound( "Resources/ring.wav" )
+
+            if TTS:
+                self.caller.speaker.setText('로그인 성공')
+            else:
+                pass            
+
+            # 옵션전광판 자동시작
+            '''
+            if AUTO_START:
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                self.caller.textBrowser.append(txt)
+
+                self.caller.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
+                self.caller.dialog['선물옵션전광판'].show()
+
+                self.caller.dialog['선물옵션전광판'].RunCode()
+            else:
+                pass
+            '''
+        else:
+            self.caller.statusbar.showMessage("%s %s" % (code, msg))
+
+    def OnLogout(self):
+        self.caller.statusbar.showMessage("로그아웃 되었습니다.")
+
+    def OnDisconnect(self):
+
+        self.caller.statusbar.showMessage("연결이 끊겼습니다.")
+
+    def OnReceiveMessage(self, ClassName, systemError, messageCode, message):
+
+        txt = 'ClassName = {0} : systemError = {1}, messageCode = {2}, message = {3}'.format(ClassName, systemError, messageCode, message)
+        print(txt)
+
+        # 조회성 TR데이타 수신 콜백함수
+    
+    def OnReceiveData(self, result):
+
+        global 서버시간, system_server_time_gap, flag_heartbeat
+        global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, ovc_x_idx, 시스템시간_분, 서버시간_분
+
+        dt = datetime.now()
+
+        flag_heartbeat = True 
+
+        szTrCode = result[0]
+
+        if szTrCode == 't0167':
+
+            szTrCode, server_date, server_time = result
+
+            systemtime = dt.hour * 3600 + dt.minute * 60 + dt.second
+
+            시스템시간_분 = dt.hour * 3600 + dt.minute * 60
+
+            SERVER_HOUR = int(server_time[0:2])
+            SERVER_MIN = int(server_time[2:4])
+            SERVER_SEC = int(server_time[4:6])
+
+            서버시간 = SERVER_HOUR * 3600 + SERVER_MIN * 60 + SERVER_SEC
+            서버시간_분 = SERVER_HOUR * 3600 + SERVER_MIN * 60
+
+            system_server_time_gap = systemtime - 서버시간
+
+            # X축 시간좌표 계산
+            if NightTime:
+
+                night_time = SERVER_HOUR
+
+                if 0 <= night_time <= 6:
+                    night_time = night_time + 24
+                else:
+                    pass
+
+                server_x_idx = (night_time - NightTime_PreStart_Hour) * 60 + SERVER_MIN + 1         
+            else:                    
+                # 해외선물 개장시간은 국내시장의 2시간 전
+                server_x_idx = (SERVER_HOUR - DayTime_PreStart_Hour) * 60 + SERVER_MIN + 1
+
+            ovc_x_idx = server_x_idx
+            
+            txt = '[{0:02d}:{1:02d}:{2:02d}] HeartBeat 수신...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+            #self.textBrowser.append(txt)
+            print(txt)                       
+        else:
+            pass
+
+    def OnReceiveRealData(self, result):
+
+        pass        
+
+    '''
+    # 마지막 사용시 정보 업데이트
+    def update(self, obj):
+
+        if self.obj in self.master.keys():
+            self.master[obj]['time_last'] = time.time() # 최종 요청시간(현재시각) 업데이트
+
+    # 해당 객체를 사용하기 위해 남은 시간은 얼마인가? 초(float) 리턴
+    def remain(self, obj):
+
+        if obj in self.master.keys():
+            t = time.time()
+            delta = (self.master[obj]['time_last'] + self.master[obj]['limit']) - t
+            return delta
+        else:
+            return -1
+    '''
+
+#####################################################################################################################################################################
 # MainWindow UI Class
 # ui파일을 pyuic5 *.ui -o *.py를 통해 py파일로 변환하는 방법으로 ui파일을 숨길 수 있다.
 # 주의할 점은 아이콘 파일의 위치를 잘 설정(실행위치 기준 상대경로 설정필요)해야만 아이콘이 보인다.
@@ -39389,7 +39290,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @pyqtSlot(str, str)
     def transfer_mp_main_exception(self, str, error):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         txt = '[{0:02d}:{1:02d}:{2:02d}] {3} 멀티프로세스 큐 쓰레드에서 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, str, error)
         self.textBrowser.append(txt)
@@ -39399,10 +39300,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @pyqtSlot(list)
     def transfer_mp_main_trdata(self, trdata):
 
-        dt = datetime.datetime.now()
-
+        dt = datetime.now()
+        
         if trdata[0] == '0000':
 
+            txt = '1st 백그라운드 프로세스 로그인 성공 !!!\r'
+            self.textBrowser.append(txt)
+            '''
             self.main_connection = FirstProcess.connection
 
             if self.main_connection.IsConnected():
@@ -39414,9 +39318,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.main_event_loop.exit()
             else:
                 pass
+            '''
+            self.statusbar.showMessage(trdata[2] + ' ' + trdata[1])
 
-            self.statusbar.showMessage(trdata[1])
-            #playsound( "Resources/ring.wav" )
             if TTS:
                 if TARGET_MONTH == 'CM':
                     Speak('본월물 메인 프로세스를 생성합니다.')
@@ -39429,7 +39333,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             # 버티칼 스크롤바를 항상 bottom으로...
             self.textBrowser.verticalScrollBar().setValue(self.textBrowser.verticalScrollBar().maximum())
-
+            '''
             if AUTO_START and MP_NUMBER == 1:
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
@@ -39442,7 +39346,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].RunCode()
             else:
                 pass
-            
+            '''
         elif trdata[0] == 't0167':
 
             global 서버시간, system_server_time_gap, flag_heartbeat
@@ -39497,28 +39401,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
         else:
             txt = '로그인 실패({0})!  로그인을 다시 시도합니다...'.format(trdata[0])
-            self.statusbar.showMessage(txt)
-
-            QTest.qWait(1000)
-            FirstProcess.login()
-
-        # 데이타를 전광판 다이얼로그로 전달(조회성 TR은 포어그라운드에서 처리가능, 이유?)
-        '''
-        if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
-            self.dialog['선물옵션전광판'].OnReceiveData(trdata)
-        else:
-            pass
-        '''
+            self.statusbar.showMessage(txt)        
 
     @pyqtSlot(dict)
     def transfer_mp_main_realdata(self, realdata):
 
         global drop_txt, drop_percent, time_gap, main_opt_totalsize, main_totalsize, fh0_drop_percent
         
-        dt = datetime.datetime.now()       
+        dt = datetime.now()       
 
         # 수신된 실시간데이타 정보표시(누락된 패킷수, 큐의 크기, 수신된 총 패킷수, 수신된 총 패킷크기)            
-        szTrCode = realdata['szTrCode']
+        szTrCode = realdata['tr_code']
 
         if szTrCode == 'JIF' or szTrCode == 'BM_' or szTrCode == 'PM_' or szTrCode == 'NWS':
             pass
@@ -39643,10 +39536,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @pyqtSlot(list)
     def transfer_mp_2nd_trdata(self, trdata):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         if trdata[0] == '0000':
 
+            txt = '2nd 백그라운드 프로세스 로그인 성공 !!!\r'
+            self.textBrowser.append(txt)
+
+            '''
             self.second_connection = SecondProcess.connection
 
             if self.second_connection.IsConnected():
@@ -39658,15 +39555,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.second_event_loop.exit()
             else:
                 pass
+            '''
 
-            self.statusbar.showMessage(trdata[1])
+            self.statusbar.showMessage(trdata[2] + ' ' + trdata[1])
 
             if TTS:
                 Speak('Second 프로세스를 생성합니다.')
                 #self.speaker.setText('세컨드 프로세스 로그인 성공')
             else:
                 pass
-
+            '''
             if AUTO_START and MP_NUMBER == 2 and self.main_login and self.second_login:
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
@@ -39679,19 +39577,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].RunCode()
             else:
                 pass
+            '''
         else:
             txt = '2nd 로그인 실패({0})!  로그인을 다시 시도합니다...'.format(trdata[0])
             self.statusbar.showMessage(txt)
 
-            QTest.qWait(1000)
-            SecondProcess.login()
-
     @pyqtSlot(dict)
     def transfer_mp_2nd_realdata(self, realdata):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
-        szTrCode = realdata['szTrCode']
+        szTrCode = realdata['tr_code']
         
         if szTrCode == 'EH0' and int(realdata['수신시간'][0:2]) >= 24:
                 time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - ((int(realdata['수신시간'][0:2]) - 24) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
@@ -39753,7 +39649,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @pyqtSlot(str, str)
     def transfer_thread_exception(self, str, error):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         txt = '[{0:02d}:{1:02d}:{2:02d}] {3} 큐 쓰레드에서 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, str, error)
         self.textBrowser.append(txt)
@@ -39765,7 +39661,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         global drop_txt, drop_percent, time_gap, main_opt_totalsize, main_totalsize
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         # 수신된 실시간데이타 정보표시(누락된 패킷수, 큐의 크기, 수신된 총 패킷수, 수신된 총 패킷크기)            
         szTrCode = realdata['szTrCode']
@@ -39819,11 +39715,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
 
     #####################################################################################################################################################################
-    # 공통 함수들
+    # 메뉴
     #####################################################################################################################################################################    
     def MENU_Action(self, qaction):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         logger.debug("Action Slot %s %s " % (qaction.objectName(), qaction.text()))
         _action = qaction.objectName()
@@ -39938,9 +39834,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['Version'] = 화면_버전(parent=self)
                 self.dialog['Version'].show()
     
+    #####################################################################################################################################################################
+    # 툴바
+    #####################################################################################################################################################################
     def TOOLBAR_Action(self, qaction):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         logger.debug("ToolBar Action Slot %s %s " % (qaction.objectName(), qaction.text()))
         _action = qaction.objectName()
@@ -40009,7 +39908,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def OnChildDialogCloseEvent(self, dialog_type):
 
-        dt = datetime.datetime.now()
+        dt = datetime.now()
 
         txt = '[{0:02d}:{1:02d}:{2:02d}] {3} 객체바인딩을 해제합니다.\r'.format(dt.hour, dt.minute, dt.second, dialog_type)
         self.textBrowser.append(txt)
@@ -40076,6 +39975,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if MULTIPROCESS and flag_internet:
 
+                index_futures_process.terminate()
+                index_option_process.terminate()
+
+                '''
                 print('모든 멀티프로세스 실시간요청 취소...')
                 FirstProcess.CancelAllRealData()
 
@@ -40099,7 +40002,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     ThirdProcess.connection.disconnect()
                 else:
                     pass
-
+                '''
                 QTest.qWait(10)
 
                 print('모든 멀티프로세스 쓰레드 종료...')
@@ -40116,7 +40019,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.realtime_3rd_dataworker.terminate()
                 else:
                     pass
-
+                '''
                 print('모든 멀티프로세스 Shutdown...')
                 FirstProcess.shutdown()
 
@@ -40127,16 +40030,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     ThirdProcess.shutdown()
                 else:
                     pass
+                '''
             else:
                 pass
 
             if TARGET_MONTH == 'CM':
-
+                pass
+                '''
                 if window.id == 'soojin65':
                     txt = '[{0:02d}:{1:02d}:{2:02d}] ***님이 로그아웃 했습니다.'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 else:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 로그아웃 했습니다.'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, window.id)
-
+                '''
                 #ToMyTelegram(txt)
             else:
                 pass
@@ -40186,7 +40091,6 @@ if __name__ == "__main__":
         from multiprocessing import *
 
         from mp.xing_crawler import *
-        from mp.xing_tick_writer import *
 
         KOSPI_QUOTE = False               # 코스피 전종목 호가
         KOSPI_TICK = True                 # 코스피 전종목 체결

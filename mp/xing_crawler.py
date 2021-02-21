@@ -20,10 +20,12 @@ else:
 
 def stock_crawler(queue: Queue, kospi_quote=True, kospi_tick=True, kosdaq_quote=True, kosdaq_tick=True):
 
-    ret, msg = XingAPI.login(config["id"], config["password"], config["cert_password"], is_real_server)
+    result = XingAPI.login(config["id"], config["password"], config["cert_password"], is_real_server)
+    result.append('주식')
 
-    if ret:
-        queue.put(f"주식 Process {msg}")
+    queue.put(result)
+
+    if result[0] == '0000':
 
         # ################################# 코스피 ###################################################################
         listed_code_df = XingAPI.get_listed_code_list(market_type=1)
@@ -62,7 +64,7 @@ def stock_crawler(queue: Queue, kospi_quote=True, kospi_tick=True, kosdaq_quote=
         while True:
             pythoncom.PumpWaitingMessages()
     else:
-        queue.put(f"{msg}")
+        pass
 
 # 여기에서 JIF, IJ, OVC, BM, PM등을 함께 요청
 def index_futures_crawler(queue: Queue, index_futures_quote=True, index_futures_tick=True):
@@ -70,10 +72,12 @@ def index_futures_crawler(queue: Queue, index_futures_quote=True, index_futures_
     proc = mp.current_process()
     print(f'\r지수선물 Process Name = {proc.name}, Process ID = {proc.pid}')
 
-    ret, msg = XingAPI.login(config["id"], config["password"], config["cert_password"], is_real_server)
+    result = XingAPI.login(config["id"], config["password"], config["cert_password"], is_real_server)
+    result.append('지수선물')
 
-    if ret:
-        queue.put(f"지수선물 Process {msg}")
+    queue.put(result)
+
+    if result[0] == '0000':
 
         # ################################### JIF ####################################################################
         real_time_jif_tick = RealTimeJIFTick(queue=queue)
@@ -140,17 +144,19 @@ def index_futures_crawler(queue: Queue, index_futures_quote=True, index_futures_
         while True:
             pythoncom.PumpWaitingMessages()
     else:
-        queue.put(f"{msg}")
+        pass
 
 def index_option_crawler(queue: Queue, index_option_quote=True, index_option_tick=True):
 
     proc = mp.current_process()
     print(f'\r지수옵션 Process Name = {proc.name}, Process ID = {proc.pid}')
                           
-    ret, msg = XingAPI.login(config["id"], config["password"], config["cert_password"], is_real_server)
+    result = XingAPI.login(config["id"], config["password"], config["cert_password"], is_real_server)
+    result.append('지수옵션')
 
-    if ret:
-        queue.put(f"지수옵션 Process {msg}")
+    queue.put(result)
+
+    if result[0] == '0000':        
 
         # ################################# 지수옵션 ##################################################################
         listed_code_df = XingAPI.get_index_option_listed_code_list()
@@ -172,4 +178,4 @@ def index_option_crawler(queue: Queue, index_option_quote=True, index_option_tic
         while True:
             pythoncom.PumpWaitingMessages()
     else:
-        queue.put(f"{msg}")
+        pass
