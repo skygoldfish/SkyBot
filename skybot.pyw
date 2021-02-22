@@ -40026,7 +40026,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.시가.value, item)
 
-            atm_txt = self.dialog['선물옵션전광판'].get_atm_txt(result['예상지수'])
+            atm_txt = self.dialog['선물옵션전광판'].get_atm_txt(float(result['예상지수']))
 
             if atm_txt[-1] == '2' or atm_txt[-1] == '7':
 
