@@ -12032,25 +12032,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
         
         # 미결 갱신
-        df_fut.at[1, '미결'] = result['미결제약정수량'] 
-        self.fut_realdata['미결'] = result['미결제약정수량']
+        df_fut.at[1, '미결'] = int(result['미결제약정수량']) 
+        self.fut_realdata['미결'] = int(result['미결제약정수량'])
 
-        temp = format(result['미결제약정수량'], ',')                
+        temp = format(int(result['미결제약정수량']), ',')                
 
         item = QTableWidgetItem(temp)
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(1, Futures_column.OI.value, item) 
 
         # 미결증감 갱신
-        df_fut.at[1, '미결증감'] = result['미결제약정증감']  
-        self.fut_realdata['미결증감'] = result['미결제약정증감']
+        df_fut.at[1, '미결증감'] = int(result['미결제약정증감'])  
+        self.fut_realdata['미결증감'] = int(result['미결제약정증감'])
 
-        temp = format(result['미결제약정증감'], ',')  
+        temp = format(int(result['미결제약정증감']), ',')  
 
         item = QTableWidgetItem(temp)
         item.setTextAlignment(Qt.AlignCenter)
 
-        if result['미결제약정증감'] < 0:
+        if int(result['미결제약정증감']) < 0:
             item.setBackground(QBrush(라임))
         else:
             item.setBackground(QBrush(흰색))
@@ -27727,12 +27727,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             if i % 10 == 0:
                 QApplication.processEvents()
-                txt = '옵션 Plot 초기화중({0:.0f}%)...\r'.format((i / option_pairs_count) * 100)
+                txt = ' Plot윈도우 초기화중({0:.0f}%)...\r'.format((i / option_pairs_count) * 100)
                 self.parent.statusbar.showMessage(txt)
             else:
                 pass
 
-        txt = '옵션 Plot 초기화 완료\r'
+        txt = ' Plot윈도우 초기화 완료\r'
         self.parent.statusbar.showMessage(txt)
 
         if NightTime:
@@ -41129,7 +41129,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         NASDAQ_종가 = NASDAQ_현재가 - float(result['전일대비'])
 
                     df_nasdaq_graph.at[0, 'price'] = NASDAQ_종가
-                    df_nasdaq_graph.at[1, 'price'] = result['시가']
+                    df_nasdaq_graph.at[1, 'price'] = float(result['시가'])
 
                     NASDAQ_시가 = float(result['시가'])
                 else:
