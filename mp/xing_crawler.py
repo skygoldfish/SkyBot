@@ -2,6 +2,7 @@ from datetime import datetime
 import pythoncom
 import multiprocessing as mp
 from multiprocessing import Queue
+from configparser import ConfigParser
 
 from mp.xing_config import *
 from mp.xing_api import *
@@ -13,10 +14,33 @@ TODAY = datetime.today().strftime("%Y-%m-%d")
 TODAY_PATH = f"{TICKER_DATA_FOLDER_PATH}/{TODAY}"
 make_dir(TODAY_PATH)
 
+# Configuration Parser
+parser = ConfigParser()
+parser.read('.\skybot.ini')
+
+REAL_SERVER = parser.getboolean('Server Type', 'Real Server')
+SP500 = parser.get('Code of the Foreign Futures', 'S&P 500')
+DOW = parser.get('Code of the Foreign Futures', 'DOW')
+NASDAQ = parser.get('Code of the Foreign Futures', 'NASDAQ')
+WTI = parser.get('Code of the Foreign Futures', 'WTI')
+EUROFX = parser.get('Code of the Foreign Futures', 'EUROFX')
+HANGSENG = parser.get('Code of the Foreign Futures', 'HANGSENG')
+GOLD = parser.get('Code of the Foreign Futures', 'GOLD')
+
+KOSPI = '001'
+KOSPI200 = '101'
+KOSDAQ = '301'
+FUTURES = '900'
+
+SAMSUNG = '005930'
+HYUNDAI = '005380'
+
 if REAL_SERVER:
     is_real_server = True
+    config = {"id": "goldrune", "password": "sky1037045", "cert_password": "sky@1037045"}
 else:
     is_real_server = False
+    config = {"id": "goldrune", "password": "sky0000", "cert_password": "0"}
 
 def stock_crawler(queue: Queue, kospi_quote=True, kospi_tick=True, kosdaq_quote=True, kosdaq_tick=True):
 
