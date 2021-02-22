@@ -72,6 +72,16 @@ class XARealEventHandler:
 
         return values
 
+    def handle_index_futures_quote(self) -> list:
+        """
+        지수선물 호가 데이터
+        """
+        values = []
+        for field in INDEX_FUTURES_QUOTE_FIELDS:
+            values.append(self.GetFieldData("OutBlock", field))
+
+        return values
+
     def handle_index_futures_tick(self) -> list:
         """
         지수선물 체결 데이터

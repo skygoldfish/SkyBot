@@ -1,3 +1,5 @@
+from datetime import datetime
+
 REAL_SERVER = False
 
 if REAL_SERVER:
@@ -8,7 +10,18 @@ else:
 RES_FOLDER_PATH = "C:/eBEST/xingAPI/Res"  # xing_tick_crawler Res 파일 폴더 위치
 TICKER_DATA_FOLDER_PATH = "."  # tick 데이터 저장할 위치
 
-NightTime = True
+dt = datetime.now()
+
+# 오전 6시 ~ 7시는 Break Time
+if 7 <= dt.hour < 16:
+    # 오전 7시 ~ 오후 3시 59분
+    DayTime = True
+    NightTime = False
+else:
+    # 오후 4시 ~ 익일 오전 5시 59분
+    DayTime = False
+    NightTime = True
+
 BUNDLE_BY_MARKET = True
 """
 bundle_by_market: True, 시장별 파일

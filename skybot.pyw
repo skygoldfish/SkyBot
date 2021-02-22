@@ -2930,9 +2930,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'YJ_':
 
-                                realtime_hour = int(self.realdata[1]['time'][0:2])
-                                realtime_min = int(self.realdata[1]['time'][2:4])
-                                realtime_sec = int(self.realdata[1]['time'][4:6])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -2943,9 +2943,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'YFC':
 
-                                realtime_hour = int(self.realdata[1]['ychetime'][0:2])
-                                realtime_min = int(self.realdata[1]['ychetime'][2:4])
-                                realtime_sec = int(self.realdata[1]['ychetime'][4:6])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -2956,9 +2956,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'YOC':
 
-                                realtime_hour = int(self.realdata[1]['ychetime'][0:2])
-                                realtime_min = int(self.realdata[1]['ychetime'][2:4])
-                                realtime_sec = int(self.realdata[1]['ychetime'][4:6])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -2969,9 +2969,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'YS3':
 
-                                realtime_hour = int(self.realdata[1]['hotime'][0:2])
-                                realtime_min = int(self.realdata[1]['hotime'][2:4])
-                                realtime_sec = int(self.realdata[1]['hotime'][4:6])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -2982,9 +2982,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'OVC':
 
-                                realtime_hour = int(self.realdata[1]['kortm'][0:2])
-                                realtime_min = int(self.realdata[1]['kortm'][2:4])
-                                realtime_sec = int(self.realdata[1]['kortm'][4:6])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -2999,9 +2999,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                                 self.fh0_total_count += 1
 
-                                realtime_hour = int(self.realdata[1]['hotime'][0:2])
-                                realtime_min = int(self.realdata[1]['hotime'][2:4])
-                                realtime_sec = int(self.realdata[1]['hotime'][4:6])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3013,9 +3013,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'NH0':
 
-                                realtime_hour = int(self.realdata[1]['hotime'][0:2])
-                                realtime_min = int(self.realdata[1]['hotime'][2:4])
-                                realtime_sec = int(self.realdata[1]['hotime'][4:6])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3026,9 +3026,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'FC0':
 
-                                realtime_hour = int(self.realdata[1]['chetime'][0:2])
-                                realtime_min = int(self.realdata[1]['chetime'][2:4])
-                                realtime_sec = int(self.realdata[1]['chetime'][4:6])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3039,9 +3039,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'NC0':
 
-                                realtime_hour = int(self.realdata[1]['chetime'][0:2])
-                                realtime_min = int(self.realdata[1]['chetime'][2:4])
-                                realtime_sec = int(self.realdata[1]['chetime'][4:6])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3052,9 +3052,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'IJ_':
 
-                                realtime_hour = int(self.realdata[1]['time'][0:2])
-                                realtime_min = int(self.realdata[1]['time'][2:4])
-                                realtime_sec = int(self.realdata[1]['time'][4:6])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3065,9 +3065,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'OC0':
 
-                                realtime_hour = int(self.realdata[1]['chetime'][0:2])
-                                realtime_min = int(self.realdata[1]['chetime'][2:4])
-                                realtime_sec = int(self.realdata[1]['chetime'][4:6])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3080,9 +3080,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'OH0':
 
-                                realtime_hour = int(self.realdata[1]['hotime'][0:2])
-                                realtime_min = int(self.realdata[1]['hotime'][2:4])
-                                realtime_sec = int(self.realdata[1]['hotime'][4:6])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3095,9 +3095,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'EC0':
 
-                                realtime_hour = int(self.realdata[1]['chetime'][0:2])
-                                realtime_min = int(self.realdata[1]['chetime'][2:4])
-                                realtime_sec = int(self.realdata[1]['chetime'][4:6])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3110,13 +3110,13 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'EH0':
 
-                                if int(self.realdata[1]['hotime1'][0:2]) >= 24:
-                                    realtime_hour = int(self.realdata[1]['hotime1'][0:2]) - 24
+                                if int(self.realdata[1]['수신시간'][0:2]) >= 24:
+                                    realtime_hour = int(self.realdata[1]['수신시간'][0:2]) - 24
                                 else:                            
-                                    realtime_hour = int(self.realdata[1]['hotime1'][0:2])
+                                    realtime_hour = int(self.realdata[1]['수신시간'][0:2])
 
-                                realtime_min = int(self.realdata[1]['hotime1'][2:4])
-                                realtime_sec = int(self.realdata[1]['hotime1'][4:6])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3129,9 +3129,9 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
                             elif szTrCode == 'S3_':
 
-                                realtime_hour = int(self.realdata[1]['chetime'][0:2])
-                                realtime_min = int(self.realdata[1]['chetime'][2:4])
-                                realtime_sec = int(self.realdata[1]['chetime'][4:6])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                                 realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3222,7 +3222,7 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
                     waiting_tasks = self.dataQ.qsize()
                     tick_type, tick_data = self.realdata
-                    print(f"\r[{datetime.now()}] 옵션 TR Type : {tick_data['tr_code']}  waiting tasks : {waiting_tasks}") 
+                    print(f"\r[{datetime.now()}] 옵션 TR Type : {tick_data['tr_code']}  waiting tasks : {waiting_tasks}", end='') 
                     tick_data_lst = list(tick_data.values())
                     handle_tick_data(tick_data_lst, tick_type)
 
@@ -3234,9 +3234,9 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
                             self.total_option_packet_size += sys.getsizeof(self.realdata[1])
 
-                            realtime_hour = int(self.realdata[1]['chetime'][0:2])
-                            realtime_min = int(self.realdata[1]['chetime'][2:4])
-                            realtime_sec = int(self.realdata[1]['chetime'][4:6])
+                            realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                            realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                            realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3247,9 +3247,9 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
                         elif szTrCode == 'EC0':
 
-                            realtime_hour = int(self.realdata[1]['chetime'][0:2])
-                            realtime_min = int(self.realdata[1]['chetime'][2:4])
-                            realtime_sec = int(self.realdata[1]['chetime'][4:6])
+                            realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                            realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                            realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3262,9 +3262,9 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
                             self.total_option_packet_size += sys.getsizeof(self.realdata[1])
 
-                            realtime_hour = int(self.realdata[1]['hotime'][0:2])
-                            realtime_min = int(self.realdata[1]['hotime'][2:4])
-                            realtime_sec = int(self.realdata[1]['hotime'][4:6])
+                            realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                            realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                            realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3275,13 +3275,13 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
                         elif szTrCode == 'EH0':
 
-                            if int(self.realdata[1]['hotime1'][0:2]) >= 24:
-                                realtime_hour = int(self.realdata[1]['hotime1'][0:2]) - 24
+                            if int(self.realdata[1]['수신시간'][0:2]) >= 24:
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2]) - 24
                             else:                            
-                                realtime_hour = int(self.realdata[1]['hotime1'][0:2])
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
 
-                            realtime_min = int(self.realdata[1]['hotime1'][2:4])
-                            realtime_sec = int(self.realdata[1]['hotime1'][4:6])
+                            realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                            realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -39420,6 +39420,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:                    
                 time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
 
+            main_dropcount, main_sys_dropcount, main_qsize, main_totalcount, main_totalsize, main_opt_totalsize = self.realtime_main_dataworker.get_packet_info()
+            second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
+
+            total_dropcount = main_dropcount + second_dropcount
+            total_sys_dropcount = main_sys_dropcount + second_sys_dropcount
+            totalcount = main_totalcount + second_totalcount
+            totalsize = main_totalsize + second_totalsize
+
+            if totalcount > 0:
+                drop_percent = (total_dropcount / totalcount) * 100
+            else:
+                pass
+
+            drop_txt = '{0}({1})/{2}({3}k), [{4:.1f}%]'.format(format(total_dropcount, ','), format(total_sys_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','), drop_percent)
+            '''
             if MP_NUMBER == 1:
 
                 main_dropcount, main_sys_dropcount, main_qsize, main_totalcount, main_totalsize, main_opt_totalsize = self.realtime_main_dataworker.get_packet_info()
@@ -39476,7 +39491,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 drop_txt = '{0}({1})/{2}({3}k), [{4:.1f}%]'.format(format(total_dropcount, ','), format(total_sys_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','), drop_percent)
             else:
                 pass
-
+            '''
             txt = ' [{0}]수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
                 dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
 
@@ -39528,7 +39543,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # 데이타를 전광판 다이얼로그로 전달
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
-            self.dialog['선물옵션전광판'].UpdateRealdata(realdata)
+            #self.dialog['선물옵션전광판'].UpdateRealdata(realdata)
+            pass
         else:
             pass
 
@@ -39638,7 +39654,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # 데이타를 전광판 다이얼로그로 전달
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:            
-            self.dialog['선물옵션전광판'].UpdateSecondRealdata(realdata)
+            #self.dialog['선물옵션전광판'].UpdateSecondRealdata(realdata)
+            pass
         else:
             pass
 
