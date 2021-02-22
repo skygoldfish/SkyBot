@@ -40156,7 +40156,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             선물_피봇 = calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
 
-            item = QTableWidgetItem("{0:.2f}".format(선물_피봇)
+            item = QTableWidgetItem("{0:.2f}".format(선물_피봇))
             item.setTextAlignment(Qt.AlignCenter)
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
 
