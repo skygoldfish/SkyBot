@@ -40129,9 +40129,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             item = QTableWidgetItem(예상체결가격)
             item.setTextAlignment(Qt.AlignCenter)
 
-            if 선물_시가 > self.fut_realdata['종가']:
+            if 선물_시가 > self.dialog['선물옵션전광판'].fut_realdata['종가']:
                 item.setForeground(QBrush(적색))
-            elif 선물_시가 < self.fut_realdata['종가']:
+            elif 선물_시가 < self.dialog['선물옵션전광판'].fut_realdata['종가']:
                 item.setForeground(QBrush(청색))
             else:
                 item.setForeground(QBrush(검정색))
@@ -40156,7 +40156,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             선물_피봇 = calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
 
-            item = QTableWidgetItem("{0:.2f}".format(self.fut_realdata['피봇']))
+            item = QTableWidgetItem("{0:.2f}".format(선물_피봇)
             item.setTextAlignment(Qt.AlignCenter)
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
 
