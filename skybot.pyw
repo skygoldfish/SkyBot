@@ -39434,64 +39434,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
 
             drop_txt = '{0}({1})/{2}({3}k), [{4:.1f}%]'.format(format(total_dropcount, ','), format(total_sys_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','), drop_percent)
-            '''
-            if MP_NUMBER == 1:
-
-                main_dropcount, main_sys_dropcount, main_qsize, main_totalcount, main_totalsize, main_opt_totalsize = self.realtime_main_dataworker.get_packet_info()
-                fh0_dropcount, fh0_totalcount = self.realtime_main_dataworker.get_fh0_packet_info()
-
-                if main_totalcount > 0:
-                    drop_percent = ((main_dropcount + main_sys_dropcount) / main_totalcount) * 100
-                else:
-                    pass
-
-                if fh0_totalcount > 0:
-                    fh0_drop_percent = (fh0_dropcount / fh0_totalcount) * 100
-                else:
-                    pass
-
-                if OPTION_SIZE:
-                    drop_txt = '{0}({1})/{2}({3}k), [{4:.1f}%]'.format(format(main_dropcount, ','), format(main_sys_dropcount, ','), format(main_totalcount, ','), format(int(main_opt_totalsize/1000), ','), drop_percent)
-                else:
-                    drop_txt = '{0}({1})/{2}({3}k), [{4:.1f}%]'.format(format(main_dropcount, ','), format(main_sys_dropcount, ','), format(main_totalcount, ','), format(int(main_totalsize/1000), ','), drop_percent)
-
-            elif MP_NUMBER == 2:
-
-                main_dropcount, main_sys_dropcount, main_qsize, main_totalcount, main_totalsize, main_opt_totalsize = self.realtime_main_dataworker.get_packet_info()
-                second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
-
-                total_dropcount = main_dropcount + second_dropcount
-                total_sys_dropcount = main_sys_dropcount + second_sys_dropcount
-                totalcount = main_totalcount + second_totalcount
-                totalsize = main_totalsize + second_totalsize
-
-                if totalcount > 0:
-                    drop_percent = (total_dropcount / totalcount) * 100
-                else:
-                    pass
-
-                drop_txt = '{0}({1})/{2}({3}k), [{4:.1f}%]'.format(format(total_dropcount, ','), format(total_sys_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','), drop_percent)
-                    
-            elif MP_NUMBER == 3:
-
-                main_dropcount, main_sys_dropcount, main_qsize, main_totalcount, main_totalsize, main_opt_totalsize = self.realtime_main_dataworker.get_packet_info()
-                second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
-                third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_3rd_dataworker.get_packet_info()
-
-                total_dropcount = main_dropcount + second_dropcount + third_dropcount
-                total_sys_dropcount = main_sys_dropcount + second_sys_dropcount + third_sys_dropcount
-                totalcount = main_totalcount + second_totalcount + third_totalcount
-                totalsize = main_totalsize + second_totalsize + third_totalsize
-
-                if totalcount > 0:
-                    drop_percent = (total_dropcount / totalcount) * 100
-                else:
-                    pass
-
-                drop_txt = '{0}({1})/{2}({3}k), [{4:.1f}%]'.format(format(total_dropcount, ','), format(total_sys_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','), drop_percent)
-            else:
-                pass
-            '''
+            
             txt = ' [{0}]수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
                 dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
 
@@ -39504,50 +39447,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.statusbar.setStyleSheet("color : darkgreen")
 
             self.statusbar.showMessage(txt)
-        
-            if szTrCode == 'OC0' or szTrCode == 'EC0' or szTrCode == 'OH0' or szTrCode == 'EH0':
 
-                if flag_1st_process_queue_empty:
-                    self.label_1st.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal")
-                else:
-                    self.label_1st.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal")
-
-                if szTrCode == 'OC0' and realdata['단축코드'][0:3] == '201':
-                    txt = "{0}\n({1:.2f})".format('COC0', args_processing_time)
-                elif (szTrCode == 'EC0' and realdata['단축코드'][0:3] == '201'):
-                     txt = "{0}\n({1:.2f})".format('CEC0', args_processing_time)
-                elif szTrCode == 'OC0' and realdata['단축코드'][0:3] == '301':
-                    txt = "{0}\n({1:.2f})".format('POC0', args_processing_time)
-                elif szTrCode == 'EC0' and realdata['단축코드'][0:3] == '301':
-                    txt = "{0}\n({1:.2f})".format('PEC0', args_processing_time)
-                elif szTrCode == 'OH0' and realdata['단축코드'][0:3] == '201':
-                    txt = "{0}\n({1:.2f})".format('COH0', args_processing_time)
-                elif (szTrCode == 'EH0' and realdata['단축코드'][0:3] == '201'):
-                     txt = "{0}\n({1:.2f})".format('CEH0', args_processing_time)
-                elif szTrCode == 'OH0' and realdata['단축코드'][0:3] == '301':
-                    txt = "{0}\n({1:.2f})".format('POH0', args_processing_time)
-                elif szTrCode == 'EH0' and realdata['단축코드'][0:3] == '301':
-                    txt = "{0}\n({1:.2f})".format('PEH0', args_processing_time)
-                else:
-                    pass
-                
-                self.label_1st.setText(txt)
+            if flag_1st_process_queue_empty:
+                self.label_1st.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal")
             else:
-                if flag_1st_process_queue_empty:
-                    self.label_1st.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal")
-                else:
-                    self.label_1st.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal")
+                self.label_1st.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal")
 
-                txt = "{0}\n({1:.2f})".format(szTrCode, args_processing_time)
-                self.label_1st.setText(txt)
+            txt = "{0}\n({1:.2f})".format(szTrCode, args_processing_time)
+            self.label_1st.setText(txt)                
 
-        # 데이타를 전광판 다이얼로그로 전달
-        if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
-            #self.dialog['선물옵션전광판'].UpdateRealdata(realdata)
-            pass
-        else:
-            pass
-
+        # 1st 프로세스 실시간데이타 갱신
+        self.update_1st_process(realdata)
+        
     @pyqtSlot(list)
     def transfer_mp_2nd_trdata(self, trdata):
 
@@ -39652,13 +39563,218 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        # 데이타를 전광판 다이얼로그로 전달
-        if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:            
-            #self.dialog['선물옵션전광판'].UpdateSecondRealdata(realdata)
-            pass
-        else:
-            pass
+        # 1st 프로세스 실시간데이타 갱신
+        self.update_2nd_process(realdata)
+    
+    @logging_time_with_args
+    def update_1st_process(self, data):
 
+        global pre_start
+        global atm_txt, atm_val, ATM_INDEX
+        global yj_atm_index
+
+        global df_call, df_put
+        global df_call_quote, df_put_quote
+
+        global df_call_price_graph, df_put_price_graph
+
+        global opt_callreal_update_counter, opt_putreal_update_counter
+        global opt_call_ho_update_counter, opt_put_ho_update_counter
+        global call_atm_value, put_atm_value
+        global receive_quote
+
+        global FUT_FOREIGNER_거래대금순매수, FUT_RETAIL_거래대금순매수, FUT_INSTITUTIONAL_거래대금순매수, FUT_STOCK_거래대금순매수, \
+            FUT_BOHEOM_거래대금순매수, FUT_TOOSIN_거래대금순매수, FUT_BANK_거래대금순매수, FUT_JONGGEUM_거래대금순매수, \
+            FUT_GIGEUM_거래대금순매수, FUT_GITA_거래대금순매수
+
+        global FUT_FOREIGNER_거래대금순매수_직전대비, FUT_RETAIL_거래대금순매수_직전대비, FUT_INSTITUTIONAL_거래대금순매수_직전대비, \
+            FUT_STOCK_거래대금순매수_직전대비, FUT_BOHEOM_거래대금순매수_직전대비, FUT_TOOSIN_거래대금순매수_직전대비, \
+            FUT_BANK_거래대금순매수_직전대비, FUT_JONGGEUM_거래대금순매수_직전대비, FUT_GIGEUM_거래대금순매수_직전대비, \
+            FUT_GITA_거래대금순매수_직전대비
+
+        global KOSPI_FOREIGNER_거래대금순매수, KOSPI_RETAIL_거래대금순매수, KOSPI_INSTITUTIONAL_거래대금순매수, KOSPI_STOCK_거래대금순매수, \
+            KOSPI_BOHEOM_거래대금순매수, KOSPI_TOOSIN_거래대금순매수, KOSPI_BANK_거래대금순매수, KOSPI_JONGGEUM_거래대금순매수, \
+            KOSPI_GIGEUM_거래대금순매수, KOSPI_GITA_거래대금순매수
+
+        global KOSPI_FOREIGNER_거래대금순매수_직전대비, KOSPI_RETAIL_거래대금순매수_직전대비, KOSPI_INSTITUTIONAL_거래대금순매수_직전대비, \
+            KOSPI_STOCK_거래대금순매수_직전대비, KOSPI_BOHEOM_거래대금순매수_직전대비, KOSPI_TOOSIN_거래대금순매수_직전대비, \
+            KOSPI_BANK_거래대금순매수_직전대비, KOSPI_JONGGEUM_거래대금순매수_직전대비, KOSPI_GIGEUM_거래대금순매수_직전대비, \
+            KOSPI_GITA_거래대금순매수_직전대비
+
+        global FUT_FOREIGNER_직전대비, FUT_RETAIL_직전대비, FUT_INSTITUTIONAL_직전대비, \
+            KOSPI_FOREIGNER_직전대비, PROGRAM_직전대비
+
+        global 프로그램_전체순매수금액, 프로그램_전체순매수금액직전대비
+        global 선물_거래대금순매수, 현물_거래대금순매수
+
+        global fut_result, call_result, put_result
+        global yoc_call_gap_percent, yoc_put_gap_percent
+
+        global opt_callreal_update_counter
+        global call_atm_value, call_db_percent, atm_zero_cha
+        global call_피봇, call_피봇_node_list, call_시가, call_시가_node_list
+        global call_저가, call_저가_node_list, call_고가, call_고가_node_list
+
+        global opt_putreal_update_counter
+        global put_atm_value, put_db_percent
+        global put_피봇, put_피봇_node_list, put_시가, put_시가_node_list
+        global put_저가, put_저가_node_list, put_고가, put_고가_node_list
+        global market_service, service_terminate, jugan_service_terminate, yagan_service_terminate
+
+        global OVC_체결시간, OVC_SEC, SERVER_HOUR, SERVER_MIN, SERVER_SEC
+
+        global df_call_graph, df_put_graph, df_call_information_graph, df_put_information_graph
+        global df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
+        
+        global 콜_등가_등락율, 풋_등가_등락율, 콜잔량비, 풋잔량비, 콜_수정미결합, 풋_수정미결합, 콜_수정미결퍼센트, 풋_수정미결퍼센트
+        global call_volume_power, put_volume_power
+        global 선물_등락율, flag_fut_vs_dow_drate_direction, plot_drate_scale_factor
+
+        global sp500_delta, old_sp500_delta, sp500_직전대비, sp500_text_color
+        global dow_delta, old_dow_delta, dow_직전대비, dow_text_color
+        global nasdaq_delta, old_nasdaq_delta, nasdaq_직전대비, nasdaq_text_color
+        global wti_delta, old_wti_delta, wti_직전대비, wti_text_color
+        global eurofx_delta, old_eurofx_delta, eurofx_직전대비, eurofx_text_color
+        global hangseng_delta, old_hangseng_delta, hangseng_직전대비, hangseng_text_color
+        global gold_delta, old_gold_delta, gold_직전대비, gold_text_color
+        
+        global FC0_선물현재가, OC0_콜현재가, OC0_풋현재가
+        global flag_telegram_send_worker
+        global dongsi_quote
+
+        global SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_현재가, SP500_전일대비, SP500_등락율, SP500_진폭, SP500_고가
+        global DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_현재가, DOW_전일대비, DOW_등락율, DOW_진폭, DOW_고가
+        global NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_현재가, NASDAQ_전일대비, NASDAQ_등락율, NASDAQ_진폭, NASDAQ_고가
+        global WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭, WTI_고가
+        global EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭, EUROFX_고가
+        global HANGSENG_종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭, HANGSENG_고가
+        global GOLD_종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭, GOLD_고가
+
+        global SP500_과거가, DOW_과거가, NASDAQ_과거가, WTI_과거가, EUROFX_과거가, HANGSENG_과거가, GOLD_과거가
+
+        global NASDAQ_순매수, NASDAQ_잔량비
+        global SP500_순매수, SP500_잔량비
+        global DOW_순매수, DOW_잔량비, DOW_진폭비
+        global WTI_순매수, WTI_잔량비
+        global EUROFX_순매수, EUROFX_잔량비
+        global HANGSENG_순매수, HANGSENG_잔량비
+        global GOLD_순매수, GOLD_잔량비
+
+        global CME_당일종가, DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가, GOLD_당일종가
+        global 시스템시간, 서버시간, system_server_time_gap
+        global kp200_시가, kp200_피봇, kp200_저가, kp200_현재가, kp200_고가, kp200_진폭 
+        global DOW_주간_시작가, WTI_주간_시작가
+        global DOW_야간_시작가, WTI_야간_시작가
+        global 장시작_양합
+
+        global df_kp200_graph, df_futures_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
+        global flag_futures_ohlc_open, flag_dow_ohlc_open, flag_sp500_ohlc_open, flag_nasdaq_ohlc_open, flag_wti_ohlc_open, flag_eurofx_ohlc_open, flag_hangseng_ohlc_open, flag_gold_ohlc_open
+        global flag_fut_vs_dow_drate_direction
+
+        global 선물_현재가_버퍼
+        global DOW_현재가_버퍼
+        global SP500_현재가_버퍼
+        global NASDAQ_현재가_버퍼
+        global WTI_현재가_버퍼
+        global 선물_시가, 선물_피봇, 선물_현재가, 선물_진폭비, 선물_DOW_진폭비율, 선물_예상시가
+        global call_remainder_ratio, put_remainder_ratio
+        
+        global kospi_price, kospi_text_color   
+        global kosdaq_price, kosdaq_text_color 
+        global flag_kp200_low, flag_kp200_high
+        global flag_kp200_start_set
+        global 장시작_중심가
+
+        global 선물_호가순매수, fut_quote_count_ratio, fut_quote_remainder_ratio, fut_cms_quote_count_ratio, fut_cms_quote_remainder_ratio, fut_ccms_quote_count_ratio, fut_ccms_quote_remainder_ratio
+        global cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max, nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max
+        
+        global NASDAQ_호가순매수, SP500_호가순매수, DOW_호가순매수, WTI_호가순매수, EUROFX_호가순매수, HANGSENG_호가순매수, GOLD_호가순매수
+        
+        global receive_real_ovc, ovc_x_idx, old_ovc_x_idx
+        global flag_option_start
+        global fut_quote_energy_direction            
+        global fut_nm_volume_power, fut_volume_power_energy_direction
+        global plot_drate_scale_factor
+        global flag_main_realdata_update_is_running
+        
+        dt = datetime.now()
+
+        try:               
+            flag_main_realdata_update_is_running = True
+
+            szTrCode = data['tr_code']
+            '''
+            if szTrCode == 'NWS':
+
+            elif szTrCode == 'JIF':
+
+            elif szTrCode == 'YJ_':
+
+            elif szTrCode == 'YFC':
+
+            elif szTrCode == 'YS3':
+
+            elif szTrCode == 'YOC':
+
+            elif szTrCode == 'S3_':
+
+            elif szTrCode == 'IJ_':
+
+            elif szTrCode == 'BM_':
+
+            elif szTrCode == 'PM_':
+
+            elif szTrCode == 'FC0' or szTrCode == 'NC0':
+
+            elif szTrCode == 'FH0' or szTrCode == 'NH0':
+
+            elif szTrCode == 'OC0' or szTrCode == 'EC0':
+                pass
+            elif szTrCode == 'OH0' or szTrCode == 'EH0':
+                pass
+            elif szTrCode == 'OVC':
+
+            else:
+                pass
+            '''
+        except Exception as e:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] update_1st_process {3}에서 {4}타입의 {5}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, szTrCode, type(e).__name__, str(e))
+            self.textBrowser.append(txt)
+
+        finally:
+            flag_main_realdata_update_is_running = False
+
+    @logging_time_with_args
+    def update_2nd_process(self, data):
+        
+        global flag_option_start, pre_start, receive_quote, market_service
+        global df_call, call_result, df_call_graph, df_call_information_graph, df_call_volume, call_volume_power, 콜_등가_등락율
+        global df_put, put_result, df_put_graph, df_put_information_graph, df_put_volume, put_volume_power, 풋_등가_등락율
+        global 콜_수정미결합, 풋_수정미결합, 콜_수정미결퍼센트, 풋_수정미결퍼센트, 콜잔량비, 풋잔량비
+        global flag_2nd_realdata_update_is_running
+        
+        dt = datetime.now()
+
+        try:               
+            flag_2nd_realdata_update_is_running = True
+
+            szTrCode = data['tr_code']
+            '''
+            if szTrCode == 'OC0' or szTrCode == 'EC0':
+
+            elif szTrCode == 'OH0' or szTrCode == 'EH0':
+
+            else:
+                pass
+            '''
+        except Exception as e:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] update_2nd_process {3}에서 {4}타입의 {5}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, szTrCode, type(e).__name__, str(e))
+            self.textBrowser.append(txt)
+
+        finally:
+            flag_2nd_realdata_update_is_running = False
     #####################################################################################################################################################################
     # 쓰레드방식 처리관련 함수들
     #####################################################################################################################################################################
