@@ -39997,14 +39997,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         if result['업종코드'] == KOSPI200:
 
-            예상지수 = result['예상지수']
+            예상지수 = float(result['예상지수'])
 
-            kp200_시가 = float(result['예상지수'])
-            self.dialog['선물옵션전광판'].kp200_realdata['시가'] = float(result['예상지수'])
-            self.dialog['선물옵션전광판'].fut_realdata['KP200'] = float(result['예상지수'])
+            kp200_시가 = 예상지수
+            self.dialog['선물옵션전광판'].kp200_realdata['시가'] = 예상지수
+            self.dialog['선물옵션전광판'].fut_realdata['KP200'] = 예상지수
 
-            df_futures_graph.at[ovc_x_idx, 'kp200'] = float(result['예상지수'])
-            df_kp200_graph.at[ovc_x_idx, 'price'] = float(result['예상지수'])
+            df_futures_graph.at[ovc_x_idx, 'kp200'] = 예상지수
+            df_kp200_graph.at[ovc_x_idx, 'price'] = 예상지수
 
             item = QTableWidgetItem(예상지수)
             item.setTextAlignment(Qt.AlignCenter)
@@ -40018,7 +40018,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.시가.value, item)
 
-            atm_txt = self.dialog['선물옵션전광판'].get_atm_txt(float(result['예상지수']))
+            atm_txt = self.dialog['선물옵션전광판'].get_atm_txt(예상지수)
 
             if atm_txt[-1] == '2' or atm_txt[-1] == '7':
 
