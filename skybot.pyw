@@ -3714,12 +3714,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 긴 loop를 도는 동안 GUI 응답없음을 방지하기 위함
             if i % 10 == 0:
                 QApplication.processEvents()
-                txt = '옵션테이블 초기화중({0:.0f}%)...\r'.format((i / ActvalCount) * 100)
+                txt = ' 옵션테이블 초기화중({0:.0f}%)...\r'.format((i / ActvalCount) * 100)
                 self.parent.statusbar.showMessage(txt)
             else:
                 pass
 
-        txt = '옵션테이블 초기화 완료\r'
+        txt = ' 옵션테이블 초기화 완료\r'
         self.parent.statusbar.showMessage(txt)
 
         # 선물관련 변수 초기화
@@ -19080,7 +19080,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         print(txt)
 
                         if TTS:
-                            speak_txt = '나머지 데이타를 10분후에 재요청 합니다'
+                            speak_txt = '나머지 데이타를 10분후에 요청합니다'
                             self.parent.speaker.setText(speak_txt)
                             QTest.qWait(1500)
                         else:
@@ -38994,27 +38994,14 @@ class Xing(object):
             #playsound( "Resources/ring.wav" )
 
             if TTS:
-                self.caller.speaker.setText('로그인 성공')
+                self.caller.speaker.setText('메인 로그인 성공')
             else:
                 pass            
-
-            # 옵션전광판 자동시작
-            '''
-            if AUTO_START:
-                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
-                self.caller.textBrowser.append(txt)
-
-                self.caller.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
-                self.caller.dialog['선물옵션전광판'].show()
-
-                self.caller.dialog['선물옵션전광판'].RunCode()
-            else:
-                pass
-            '''
         else:
             self.caller.statusbar.showMessage("%s %s" % (code, msg))
 
     def OnLogout(self):
+
         self.caller.statusbar.showMessage("로그아웃 되었습니다.")
 
     def OnDisconnect(self):
@@ -39025,8 +39012,6 @@ class Xing(object):
 
         txt = 'ClassName = {0} : systemError = {1}, messageCode = {2}, message = {3}'.format(ClassName, systemError, messageCode, message)
         print(txt)
-
-        # 조회성 TR데이타 수신 콜백함수
     
     def OnReceiveData(self, result):
 
@@ -39080,7 +39065,6 @@ class Xing(object):
             pass
 
     def OnReceiveRealData(self, result):
-
         pass        
 
     '''
@@ -39211,8 +39195,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.mp_mode:
 
             self.realtime_1st_dataworker = RealTime_Main_MP_Thread_DataWorker(self.first_dataQ)
-            self.realtime_1st_dataworker.trigger_list.connect(self.transfer_mp_main_trdata)
-            self.realtime_1st_dataworker.trigger_dict.connect(self.transfer_mp_main_realdata)            
+            self.realtime_1st_dataworker.trigger_list.connect(self.transfer_mp_1st_trdata)
+            self.realtime_1st_dataworker.trigger_dict.connect(self.transfer_mp_1st_realdata)            
             self.realtime_1st_dataworker.start()
 
             self.realtime_2nd_dataworker = RealTime_2ND_MP_Thread_DataWorker(self.second_dataQ)
@@ -39260,7 +39244,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         playsound('Resources/notify.wav')
 
     @pyqtSlot(list)
-    def transfer_mp_main_trdata(self, trdata):
+    def transfer_mp_1st_trdata(self, trdata):
 
         dt = datetime.now()
         
@@ -39273,10 +39257,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if TTS:
                 Speak('First 프로세스 로그인 성공')
+                #self.speaker.setText('선물 프로세스 로그인 성공')
             else:
-                pass
-
-            #self.speaker.setText('선물 프로세스 로그인 성공')
+                pass            
 
             # 버티칼 스크롤바를 항상 bottom으로...
             self.textBrowser.verticalScrollBar().setValue(self.textBrowser.verticalScrollBar().maximum())
@@ -39349,7 +39332,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.statusbar.showMessage(txt)        
 
     @pyqtSlot(dict)
-    def transfer_mp_main_realdata(self, realdata):
+    def transfer_mp_1st_realdata(self, realdata):
 
         global drop_txt, drop_percent, time_gap, main_opt_totalsize, main_totalsize, fh0_drop_percent
         
@@ -40295,7 +40278,73 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         pass
 
     def s3_update(self, data):
-        pass
+
+        global samsung_price, samsung_text_color
+
+        result = data
+        
+        # S3 데이타표시
+        if result['단축코드'] == SAMSUNG:
+
+            현재가 = float(result['현재가'])
+
+            if 현재가 != samsung_price:
+
+                if 현재가 > samsung_price:
+
+                    temp_txt = format(현재가, ',')
+
+                    if result['전일대비구분'] == '5':
+
+                        jisu_txt = "SS: {0} ▲ (-{1}, {2:0.1f}%)".format(temp_txt, format(int(result['전일대비']), ','), float(result['등락율']))
+
+                        self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                        self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+
+                        samsung_text_color = 'blue'
+
+                    elif result['전일대비구분'] == '2':
+
+                        jisu_txt = "SS: {0} ▲ ({1}, {2:0.1f}%)".format(temp_txt, format(int(result['전일대비']), ','), float(result['등락율']))
+
+                        self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                        self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+
+                        samsung_text_color = 'red'
+                    else:
+                        pass
+
+                elif 현재가 < samsung_price:
+
+                    temp_txt = format(현재가, ',')
+
+                    if result['전일대비구분'] == '5':
+
+                        jisu_txt = "SS: {0} ▼ (-{1}, {2:0.1f}%)".format(temp_txt, format(int(result['전일대비']), ','), float(result['등락율']))
+
+                        self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                        self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+
+                        samsung_text_color = 'blue'
+
+                    elif result['전일대비구분'] == '2':
+
+                        jisu_txt = "SS: {0} ▼ ({1}, {2:0.1f}%)".format(temp_txt, format(int(result['전일대비']), ','), float(result['등락율']))
+
+                        self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                        self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+
+                        samsung_text_color = 'red'
+                    else:
+                        pass
+                else:
+                    pass
+
+                samsung_price = 현재가
+            else:
+                pass                    
+        else:
+            pass 
 
     def ij_update(self, data):
 
