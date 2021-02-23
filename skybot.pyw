@@ -3550,7 +3550,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         for i in range(3):
             for j in range(Futures_column.OID.value + 1):
-                item = QTableWidgetItem("{0}".format('-'))
+                item = QTableWidgetItem("{0}".format('0'))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(검정색))
                 item.setForeground(QBrush(흰색))
@@ -39550,9 +39550,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             szTrCode = data['tr_code']
             
             if szTrCode == 'OC0' or szTrCode == 'EC0':
-                self.oc0_update(data)
+
+                if data['단축코드'][5:8] in call_행사가 or data['단축코드'][5:8] in put_행사가:
+                    self.oc0_update(data)
+                else:
+                    pass
+
             elif szTrCode == 'OH0' or szTrCode == 'EH0':
-                self.oh0_update(data)
+
+                if data['단축코드'][5:8] in call_행사가 or data['단축코드'][5:8] in put_행사가:
+                    self.oh0_update(data)
+                else:
+                    pass
             else:
                 pass
             
@@ -40057,7 +40066,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def yfc_update(self, data):
 
-        global market_service, df_futures_graph, flag_futures_ohlc_open
+        global market_service, df_futures_graph, flag_futures_ohlc_open, 선물_등락율
         global flag_fut_vs_dow_drate_direction, plot_drate_scale_factor, 선물_현재가_버퍼
 
         result = data
@@ -40290,10 +40299,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def ij_update(self, data):
 
-        global df_futures_graph, df_kp200_graph, kp200_시가
+        global df_fut, df_futures_graph, df_kp200_graph
         global ATM_INDEX, call_atm_value, put_atm_value, KP200_COREVAL, 장시작_양합, 장시작_중심가
         global flag_kp200_start_set, flag_kp200_low, flag_kp200_high, kospi_text_color, kosdaq_text_color
-        global kospi_price, kosdaq_price, kp200_고가, kp200_진폭
+        global kospi_price, kosdaq_price, kp200_시가, kp200_저가, kp200_고가, kp200_진폭
 
         result = data
         
@@ -40315,11 +40324,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].fut_realdata['KP200'] = 실수_지수
                 self.dialog['선물옵션전광판'].kp200_realdata['현재가'] = 실수_지수
                 df_fut.at[2, '현재가'] = 실수_지수
+                
+                temp = self.dialog['선물옵션전광판'].tableWidget_fut.item(2, Futures_column.현재가.value).text().split('\n')[0]
 
-                if 실수_지수 < float(self.dialog['선물옵션전광판'].tableWidget_fut.item(2, Futures_column.현재가.value).text().split('\n')[0]):
+                if 실수_지수 < float(temp):
                     item = QTableWidgetItem(지수 + '\n' + '▼')
                     item.setBackground(QBrush(lightskyblue))
-                elif 실수_지수 > float(self.dialog['선물옵션전광판'].tableWidget_fut.item(2, Futures_column.현재가.value).text().split('\n')[0]):
+                elif 실수_지수 > float(temp):
                     item = QTableWidgetItem(지수 + '\n' + '▲')
                     item.setBackground(QBrush(pink))
                 else:    
@@ -40345,9 +40356,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 flag_kp200_start_set = True
 
                 kp200_시가 = float(result['시가지수'])
-                self.dialog['선물옵션전광판'].kp200_realdata['시가'] = float(result['시가지수'])
-                df_futures_graph.at[ovc_x_idx, 'kp200'] = float(result['시가지수'])
-                df_kp200_graph.at[ovc_x_idx, 'price'] = float(result['시가지수'])
+
+                self.dialog['선물옵션전광판'].kp200_realdata['시가'] = kp200_시가
+                df_futures_graph.at[ovc_x_idx, 'kp200'] = kp200_시가
+                df_kp200_graph.at[ovc_x_idx, 'price'] = kp200_시가
 
                 item = QTableWidgetItem(시가지수)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -40455,8 +40467,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 flag_kp200_low = True
 
-                self.dialog['선물옵션전광판'].kp200_realdata['저가'] = float(result['저가지수'])
                 kp200_저가 = float(result['저가지수'])
+                self.dialog['선물옵션전광판'].kp200_realdata['저가'] = kp200_저가               
 
                 item = QTableWidgetItem(저가지수)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -40482,8 +40494,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 flag_kp200_high = True
 
-                self.dialog['선물옵션전광판'].kp200_realdata['고가'] = float(result['고가지수'])
                 kp200_고가 = float(result['고가지수'])
+                self.dialog['선물옵션전광판'].kp200_realdata['고가'] = kp200_고가            
 
                 item = QTableWidgetItem(고가지수)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -40505,13 +40517,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-        elif result['업종코드'] == KOSPI:                                
+        elif result['업종코드'] == KOSPI:
 
-            if float(result['지수']) != kospi_price:
+            실수_지수 = float(result['지수'])                                
 
-                kospi_txt = format(float(result['지수']), ',')
+            if 실수_지수 != kospi_price:
 
-                if float(result['지수']) > kospi_price:
+                kospi_txt = format(실수_지수, ',')
+
+                if 실수_지수 > kospi_price:
 
                     if result['전일대비구분'] == '5':
 
@@ -40533,7 +40547,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         pass
 
-                elif float(result['지수']) < kospi_price:
+                elif 실수_지수 < kospi_price:
 
                     if result['전일대비구분'] == '5':
 
@@ -40557,17 +40571,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                kospi_price = float(result['지수'])
+                kospi_price = 실수_지수
             else:
                 pass                    
 
-        elif result['업종코드'] == KOSDAQ:                                
+        elif result['업종코드'] == KOSDAQ:
 
-            if float(result['지수']) != kosdaq_price:    
+            실수_지수 = float(result['지수'])                                
+
+            if 실수_지수 != kosdaq_price:    
             
-                kosdaq_txt = format(float(result['지수']), ',')                    
+                kosdaq_txt = format(실수_지수, ',')                    
 
-                if float(result['지수']) > kosdaq_price:
+                if 실수_지수 > kosdaq_price:
 
                     if result['전일대비구분'] == '5':
 
@@ -40589,7 +40605,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         pass
 
-                elif float(result['지수']) < kosdaq_price:
+                elif 실수_지수 < kosdaq_price:
 
                     if result['전일대비구분'] == '5':
 
@@ -40613,7 +40629,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                kosdaq_price = float(result['지수'])
+                kosdaq_price = 실수_지수
             else:
                 pass
 
@@ -40646,6 +40662,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             # 그래프관련 처리 먼저...                    
             선물_등락율 = float(result['등락율'])
+            선물_현재가 = float(result['현재가'])
 
             if 선물_등락율 != 0:
 
@@ -40666,7 +40683,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             # 1T OHLC 생성
             df_futures_graph.at[ovc_x_idx, 'ctime'] = result['수신시간']
-            df_futures_graph.at[ovc_x_idx, 'price'] = float(result['현재가'])
+            df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
 
             if ovc_x_idx != old_ovc_x_idx:
                 
@@ -40682,18 +40699,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if not flag_futures_ohlc_open:
 
-                    df_futures_graph.at[ovc_x_idx, 'open'] = float(result['현재가'])
-                    df_futures_graph.at[ovc_x_idx, 'high'] = float(result['현재가'])
-                    df_futures_graph.at[ovc_x_idx, 'low'] = float(result['현재가'])
-                    df_futures_graph.at[ovc_x_idx, 'middle'] = float(result['현재가'])
-                    df_futures_graph.at[ovc_x_idx, 'close'] = float(result['현재가'])
-                    df_futures_graph.at[ovc_x_idx, 'price'] = float(result['현재가'])
+                    df_futures_graph.at[ovc_x_idx, 'open'] = 선물_현재가
+                    df_futures_graph.at[ovc_x_idx, 'high'] = 선물_현재가
+                    df_futures_graph.at[ovc_x_idx, 'low'] = 선물_현재가
+                    df_futures_graph.at[ovc_x_idx, 'middle'] = 선물_현재가
+                    df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
+                    df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
 
                     del 선물_현재가_버퍼[:]
 
                     flag_futures_ohlc_open = True
                 else:
-                    선물_현재가_버퍼.append(float(result['현재가']))              
+                    선물_현재가_버퍼.append(선물_현재가)              
             else:
                 if df_futures_graph.at[ovc_x_idx, 'open'] != df_futures_graph.at[ovc_x_idx, 'open']:
                     df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
@@ -40701,7 +40718,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                선물_현재가_버퍼.append(float(result['현재가']))
+                선물_현재가_버퍼.append(선물_현재가)
 
                 if max(선물_현재가_버퍼) > 0:
                     df_futures_graph.at[ovc_x_idx, 'high'] = max(선물_현재가_버퍼)
@@ -40717,7 +40734,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     df_futures_graph.at[ovc_x_idx, 'low'] = min(선물_현재가_버퍼)
 
-                df_futures_graph.at[ovc_x_idx, 'close'] = float(result['현재가'])
+                df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
 
                 flag_futures_ohlc_open = False
 
@@ -41243,22 +41260,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
 
         # 미결 그래프 갱신
-        if DayTime:
+        if True:
 
-            콜_수정미결합 = df_call['수정미결'].sum()
-            풋_수정미결합 = df_put['수정미결'].sum()
-            수정미결합 = 콜_수정미결합 + 풋_수정미결합
+            if DayTime:
 
-            if 수정미결합 > 0:
+                콜_수정미결합 = df_call['수정미결'].sum()
+                풋_수정미결합 = df_put['수정미결'].sum()
+                수정미결합 = 콜_수정미결합 + 풋_수정미결합
 
-                콜_수정미결퍼센트 = (콜_수정미결합 / 수정미결합) * 100
-                풋_수정미결퍼센트 = 100 - 콜_수정미결퍼센트
+                if 수정미결합 > 0:
+
+                    콜_수정미결퍼센트 = (콜_수정미결합 / 수정미결합) * 100
+                    풋_수정미결퍼센트 = 100 - 콜_수정미결퍼센트
+                else:
+                    콜_수정미결퍼센트 = 0
+                    풋_수정미결퍼센트 = 0
+
+                df_call_information_graph.at[ovc_x_idx, 'open_interest'] = 콜_수정미결퍼센트
+                df_put_information_graph.at[ovc_x_idx, 'open_interest'] = 풋_수정미결퍼센트
             else:
-                콜_수정미결퍼센트 = 0
-                풋_수정미결퍼센트 = 0
-
-            df_call_information_graph.at[ovc_x_idx, 'open_interest'] = 콜_수정미결퍼센트
-            df_put_information_graph.at[ovc_x_idx, 'open_interest'] = 풋_수정미결퍼센트
+                pass
         else:
             pass
 
@@ -41318,19 +41339,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if NightTime:
-            df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
-            df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비
-        else:
-            if 콜잔량비 > 5.0:
-                df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
-            else:
-                df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
+        if True:
 
-            if 풋잔량비 > 5.0:
-                df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
+            if NightTime:
+                df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
+                df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비
             else:
-                df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비               
+                if 콜잔량비 > 5.0:
+                    df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
+                else:
+                    df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
+
+                if 풋잔량비 > 5.0:
+                    df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
+                else:
+                    df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비
+        else:
+            pass               
 
         # 야간선물이 없어짐에 따른 텔레그램 기동 대응
         '''
