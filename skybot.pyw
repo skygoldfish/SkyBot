@@ -40290,9 +40290,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def ij_update(self, data):
 
-        global df_futures_graph, df_kp200_graph 
+        global df_futures_graph, df_kp200_graph, kp200_시가
         global ATM_INDEX, call_atm_value, put_atm_value, KP200_COREVAL, 장시작_양합, 장시작_중심가
-        global flag_kp200_start_set, flag_kp200_low, flag_kp200_high, kospi_text_color, kosdaq_text_color 
+        global flag_kp200_start_set, flag_kp200_low, flag_kp200_high, kospi_text_color, kosdaq_text_color
+        global kospi_price, kosdaq_price, kp200_고가, kp200_진폭
 
         result = data
         
@@ -40495,9 +40496,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.진폭.value, item)
 
-                self.kp200_node_color_clear()
-                self.kp200_node_coloring()
-                self.kp200_high_node_coloring()
+                self.dialog['선물옵션전광판'].kp200_node_color_clear()
+                self.dialog['선물옵션전광판'].kp200_node_coloring()
+                self.dialog['선물옵션전광판'].kp200_high_node_coloring()
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] kp200 고가 {3} Update...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, kp200_고가)
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
