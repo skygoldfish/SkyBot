@@ -40272,7 +40272,56 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
 
     def ys3_update(self, data):
-        pass
+
+        result = data
+
+        현재가 = format(int(result['예상체결가격']), ',')
+
+        if result['단축코드'] == SAMSUNG:
+
+            if result['예상체결가전일종가대비구분'] == '5':
+
+                jisu_txt = "SAMSUNG: {0}({1}, {2:0.1f}%)".format(현재가, format(-int(result['예상체결가전일종가대비']), ','), float(result['예상체결가전일종가등락율']))
+
+                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
+                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+
+            elif result['예상체결가전일종가대비구분'] == '2':
+
+                jisu_txt = "SAMSUNG: {0}({1}, {2:0.1f}%)".format(현재가, format(int(result['예상체결가전일종가대비']), ','), float(result['예상체결가전일종가등락율']))
+
+                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
+                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+
+            else:
+                jisu_txt = "SAMSUNG: {0}({1})".format(현재가, format(int(result['예상체결가전일종가대비']), ','))
+
+                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+
+        elif result['단축코드'] == HYUNDAI:
+
+            if result['예상체결가전일종가대비구분'] == '5':
+
+                jisu_txt = "HYUNDAI: {0}({1}, {2:0.1f}%)".format(현재가, format(-int(result['예상체결가전일종가대비']), ','), float(result['예상체결가전일종가등락율']))
+
+                self.dialog['선물옵션전광판'].label_kosdaq.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
+                self.dialog['선물옵션전광판'].label_kosdaq.setText(jisu_txt)
+
+            elif result['예상체결가전일종가대비구분'] == '2':
+
+                jisu_txt = "HYUNDAI: {0}({1}, {2:0.1f}%)".format(현재가, format(int(result['예상체결가전일종가대비']), ','), float(result['예상체결가전일종가등락율']))
+
+                self.dialog['선물옵션전광판'].label_kosdaq.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
+                self.dialog['선물옵션전광판'].label_kosdaq.setText(jisu_txt)
+
+            else:
+                jisu_txt = "HYUNDAI: {0}({1})".format(현재가, format(int(result['예상체결가전일종가대비']), ','))
+
+                self.dialog['선물옵션전광판'].label_kosdaq.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+                self.dialog['선물옵션전광판'].label_kosdaq.setText(jisu_txt)
+        else:
+            pass
 
     def yoc_update(self, data):
         pass
