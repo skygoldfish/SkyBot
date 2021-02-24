@@ -39496,7 +39496,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif szTrCode == 'IJ_':
                 self.ij_update(data)
             elif szTrCode == 'BM_':
-                self.bm_update(data)
+
+                if data['거래대금순매수'] != '-' and data['거래대금순매수직전대비'] != '-':
+                    self.bm_update(data)
+                else:
+                    pass
+
             elif szTrCode == 'PM_':
                 self.pm_update(data)
             elif szTrCode == 'FC0' or szTrCode == 'NC0':
