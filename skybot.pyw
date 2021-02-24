@@ -43404,7 +43404,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-            self.clock.stop()
+            self.xing.clock.stop()
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] Main Window를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
