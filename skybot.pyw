@@ -1838,7 +1838,7 @@ flag_logfile = False
 flag_t8416_call_done = False
 flag_t8416_put_done = False
 
-flag_main_realdata_update_is_running = False
+flag_1st_realdata_update_is_running = False
 flag_2nd_realdata_update_is_running = False
 flag_3rd_realdata_update_is_running = False
 
@@ -2250,7 +2250,7 @@ class ScreenUpdateWorker(QThread):
 
         while True:
 
-            if not flag_main_realdata_update_is_running:
+            if not flag_1st_realdata_update_is_running:
 
                 try:
                     response = self.ntpclient.request(TimeServer, version=3)
@@ -2290,7 +2290,7 @@ class TelegramSendWorker(QThread):
 
         while True:  
 
-            if not flag_main_realdata_update_is_running:
+            if not flag_1st_realdata_update_is_running:
                 self.trigger.emit()
             else:
                 pass
@@ -2312,7 +2312,7 @@ class TelegramListenWorker(QThread):
 
         while True:      
 
-            if not flag_main_realdata_update_is_running:
+            if not flag_1st_realdata_update_is_running:
                 self.trigger.emit()
             else:
                 pass
@@ -2599,7 +2599,7 @@ class RealTime_Thread_DataWorker(QThread):
                     else:
                         pass
                     
-                    if not flag_main_realdata_update_is_running:                          
+                    if not flag_1st_realdata_update_is_running:                          
 
                         if data['szTrCode'] == 'JIF':
 
@@ -2833,7 +2833,7 @@ class RealTime_Thread_DataWorker(QThread):
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 멀티프로세스 쓰레드 클래스
 #####################################################################################################################################################################
-class RealTime_Main_MP_Thread_DataWorker(QThread):
+class RealTime_1st_MP_Thread_DataWorker(QThread):
 
     # 수신데이타 타입이 list이면 TR데이타, tuple이면 실시간데이타. 
     trigger_list = pyqtSignal(list)
@@ -2915,7 +2915,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
                         
                         szTrCode = self.realdata[1]['tr_code']
 
-                        if not flag_main_realdata_update_is_running:
+                        if not flag_1st_realdata_update_is_running:
                             
                             if szTrCode == 'JIF':
 
@@ -3157,7 +3157,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 멀티프로세스 2nd 쓰레드 클래스(옵션 가격만 처리)
 #####################################################################################################################################################################
-class RealTime_2ND_MP_Thread_DataWorker(QThread):
+class RealTime_2nd_MP_Thread_DataWorker(QThread):
 
     # 수신데이타 타입이 list이면 TR데이타, tuple이면 실시간데이타.        
     trigger_list = pyqtSignal(list)
@@ -21916,12 +21916,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global fut_quote_energy_direction            
         global fut_nm_volume_power, fut_volume_power_energy_direction
         global plot_drate_scale_factor
-        global flag_main_realdata_update_is_running
+        global flag_1st_realdata_update_is_running
         
         dt = datetime.now()
 
         try:               
-            flag_main_realdata_update_is_running = True
+            flag_1st_realdata_update_is_running = True
 
             szTrCode = result['tr_code']
 
@@ -24527,7 +24527,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.parent.textBrowser.append(txt)
 
         finally:
-            flag_main_realdata_update_is_running = False
+            flag_1st_realdata_update_is_running = False
 
     @logging_time_with_args
     def UpdateSecondRealdata(self, result):
@@ -26624,7 +26624,7 @@ class PlotUpdateWorker1(QThread):
 
         while True:
 
-            if not flag_main_realdata_update_is_running:
+            if not flag_1st_realdata_update_is_running:
                 self.trigger.emit()
 
             if flag_plot_update_interval_changed:
@@ -26648,7 +26648,7 @@ class PlotUpdateWorker2(QThread):
 
         while True:
 
-            if not flag_main_realdata_update_is_running:
+            if not flag_1st_realdata_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -26666,7 +26666,7 @@ class PlotUpdateWorker3(QThread):
 
         while True:
 
-            if not flag_main_realdata_update_is_running:
+            if not flag_1st_realdata_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -26684,7 +26684,7 @@ class PlotUpdateWorker4(QThread):
 
         while True:
 
-            if not flag_main_realdata_update_is_running:
+            if not flag_1st_realdata_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -26702,7 +26702,7 @@ class PlotUpdateWorker5(QThread):
 
         while True:
 
-            if not flag_main_realdata_update_is_running:
+            if not flag_1st_realdata_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -26720,7 +26720,7 @@ class PlotUpdateWorker6(QThread):
 
         while True:
 
-            if not flag_main_realdata_update_is_running:
+            if not flag_1st_realdata_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -39194,12 +39194,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # AxtiveX 설정
         if self.mp_mode:
 
-            self.realtime_1st_dataworker = RealTime_Main_MP_Thread_DataWorker(self.first_dataQ)
+            self.realtime_1st_dataworker = RealTime_1st_MP_Thread_DataWorker(self.first_dataQ)
             self.realtime_1st_dataworker.trigger_list.connect(self.transfer_mp_1st_trdata)
             self.realtime_1st_dataworker.trigger_dict.connect(self.transfer_mp_1st_realdata)            
             self.realtime_1st_dataworker.start()
 
-            self.realtime_2nd_dataworker = RealTime_2ND_MP_Thread_DataWorker(self.second_dataQ)
+            self.realtime_2nd_dataworker = RealTime_2nd_MP_Thread_DataWorker(self.second_dataQ)
             self.realtime_2nd_dataworker.trigger_list.connect(self.transfer_mp_2nd_trdata)
             self.realtime_2nd_dataworker.trigger_dict.connect(self.transfer_mp_2nd_realdata)            
             self.realtime_2nd_dataworker.start()
@@ -39470,12 +39470,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @logging_time_with_args
     def update_1st_process(self, data):
         
-        global flag_main_realdata_update_is_running
+        global flag_1st_realdata_update_is_running
         
         dt = datetime.now()
 
         try:               
-            flag_main_realdata_update_is_running = True
+            flag_1st_realdata_update_is_running = True
 
             szTrCode = data['tr_code']
             
@@ -39523,7 +39523,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.textBrowser.append(txt)
 
         finally:
-            flag_main_realdata_update_is_running = False
+            flag_1st_realdata_update_is_running = False
 
     @logging_time_with_args
     def update_2nd_process(self, data):
