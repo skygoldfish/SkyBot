@@ -2863,7 +2863,7 @@ class RealTime_Main_MP_Thread_DataWorker(QThread):
 
     def get_packet_info(self):
 
-        return self.drop_count, self.sys_drop_count, self.dataQ.qsize(), self.total_count, self.total_packet_size, self.total_option_packet_size
+        return (self.drop_count + self.sys_drop_count), self.sys_drop_count, self.dataQ.qsize(), self.total_count, self.total_packet_size, self.total_option_packet_size
 
     def get_fh0_packet_info(self):
 
@@ -3183,7 +3183,7 @@ class RealTime_2ND_MP_Thread_DataWorker(QThread):
 
     def get_packet_info(self):
 
-        return self.drop_count, self.sys_drop_count, self.dataQ.qsize(), self.total_count, self.total_packet_size, self.total_option_packet_size
+        return (self.drop_count + self.sys_drop_count), self.sys_drop_count, self.dataQ.qsize(), self.total_count, self.total_packet_size, self.total_option_packet_size
 
     def run(self):
 
