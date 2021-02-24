@@ -2860,10 +2860,11 @@ class RealTime_1st_MP_Thread_DataWorker(QThread):
         self.fh0_drop_count = 0
 
         self.sys_drop_count = 0
+        self.waiting_tasks = 0
 
     def get_packet_info(self):
 
-        return (self.drop_count + self.sys_drop_count), self.sys_drop_count, self.dataQ.qsize(), self.total_count, self.total_packet_size, self.total_option_packet_size
+        return (self.drop_count + self.sys_drop_count), self.sys_drop_count, self.waiting_tasks, self.total_count, self.total_packet_size, self.total_option_packet_size
 
     def get_fh0_packet_info(self):
 
@@ -2907,11 +2908,16 @@ class RealTime_1st_MP_Thread_DataWorker(QThread):
 
                     elif type(self.realdata) == tuple:                       
 
-                        waiting_tasks = self.dataQ.qsize()
+                        self.waiting_tasks = self.dataQ.qsize()
+
                         tick_type, tick_data = self.realdata
-                        print(f"\r[{datetime.now()}] 선물 TR Type : {tick_data['tr_code']}  waiting tasks : {waiting_tasks}", end='') 
-                        tick_data_lst = list(tick_data.values())
-                        handle_tick_data(tick_data_lst, tick_type)
+                        print(f"\r[{datetime.now()}] 선물 TR Type : {tick_data['tr_code']}  waiting tasks : {self.waiting_tasks}", end='')
+
+                        if CSV_FILE:
+                            tick_data_lst = list(tick_data.values())
+                            handle_tick_data(tick_data_lst, tick_type)
+                        else:
+                            pass
                         
                         szTrCode = self.realdata[1]['tr_code']
 
@@ -3177,13 +3183,14 @@ class RealTime_2nd_MP_Thread_DataWorker(QThread):
         # 수신된 총 패킷크기
         self.total_packet_size = 0
         # 수신된 총 옵션 패킷크기
-        self.total_option_packet_size = 0
+        self.total_option_packet_size = 0        
 
         self.sys_drop_count = 0
+        self.waiting_tasks = 0
 
     def get_packet_info(self):
 
-        return (self.drop_count + self.sys_drop_count), self.sys_drop_count, self.dataQ.qsize(), self.total_count, self.total_packet_size, self.total_option_packet_size
+        return (self.drop_count + self.sys_drop_count), self.sys_drop_count, self.waiting_tasks, self.total_count, self.total_packet_size, self.total_option_packet_size
 
     def run(self):
 
@@ -3217,11 +3224,16 @@ class RealTime_2nd_MP_Thread_DataWorker(QThread):
 
                 elif type(self.realdata) == tuple:
 
-                    waiting_tasks = self.dataQ.qsize()
+                    self.waiting_tasks = self.dataQ.qsize()
+
                     tick_type, tick_data = self.realdata
-                    print(f"\r[{datetime.now()}] 옵션 TR Type : {tick_data['tr_code']}  waiting tasks : {waiting_tasks}", end='') 
-                    tick_data_lst = list(tick_data.values())
-                    handle_tick_data(tick_data_lst, tick_type)
+                    print(f"\r[{datetime.now()}] 옵션 TR Type : {tick_data['tr_code']}  waiting tasks : {self.waiting_tasks}", end='')
+
+                    if CSV_FILE:
+                        tick_data_lst = list(tick_data.values())
+                        handle_tick_data(tick_data_lst, tick_type)
+                    else:
+                        pass
 
                     szTrCode = self.realdata[1]['tr_code']
 
@@ -14478,7 +14490,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         txt = '[{0:02d}:{1:02d}:{2:02d}] High-Low 리스트파일을 갱신했습니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
         self.textBrowser.append(txt)
-
+        '''
         if CSV_FILE:
 
             if DayTime:
@@ -14507,7 +14519,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
         else:
             pass
-        
+        '''
         if not flag_logfile:
 
             realdata_info_txt = '수신된 실시간데이타 통계 : ' + drop_txt + '\r'
@@ -39354,6 +39366,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             total_dropcount = main_dropcount + second_dropcount
             total_sys_dropcount = main_sys_dropcount + second_sys_dropcount
+            total_waiting_count = main_qsize + second_qsize
             totalcount = main_totalcount + second_totalcount
             totalsize = main_totalsize + second_totalsize
 
@@ -39362,7 +39375,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-            drop_txt = '{0}({1})/{2}({3}k), [{4:.1f}%]'.format(format(total_dropcount, ','), format(total_sys_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','), drop_percent)
+            drop_txt = '{0}({1})/{2}({3}k), {4}, [{5:.1f}%]'.format(format(total_dropcount, ','), format(total_sys_dropcount, ','), \
+                format(totalcount, ','), format(int(totalsize/1000), ','), format(total_waiting_count, ','), drop_percent)
             
             txt = ' [{0}]수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
                 dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
@@ -43315,6 +43329,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if MULTIPROCESS and flag_internet:
 
+                if CSV_FILE:
+                    close_all_writer()
+                else:
+                    pass
+
                 index_futures_process.terminate()
                 index_option_process.terminate()
 
@@ -43385,10 +43404,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-            if not MULTIPROCESS:
-                self.clock.stop()
-            else:
-                pass
+            self.clock.stop()
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] Main Window를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
