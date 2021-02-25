@@ -1938,6 +1938,8 @@ ntp_server_hour = 0
 ntp_server_minute = 0
 ntp_server_second = 0
 
+flag_data_receive_done = False
+
 #####################################################################################################################################################################
 # UI 파일정의
 #####################################################################################################################################################################
@@ -19063,6 +19065,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     txt = '[{0:02d}:{1:02d}:{2:02d}] Put 전체 행사가 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
                     print(txt)
+
+                    global flag_data_receive_done
+
+                    flag_data_receive_done = True
 
                     if new_actval_up_count > 0 and TTS:
                         txt = '새로운 상방 행사가가 {0}개 추가되었습니다.'.format(new_actval_up_count)
@@ -39558,38 +39564,42 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             flag_2nd_realdata_update_is_running = True
 
             szTrCode = data['tr_code']
+
+            if flag_data_receive_done:
             
-            if szTrCode == 'OC0' or szTrCode == 'EC0':
+                if szTrCode == 'OC0' or szTrCode == 'EC0':
 
-                if TARGET_MONTH == 'CM':
+                    if TARGET_MONTH == 'CM':
 
-                    if data['단축코드'] in CM_CALL_CODE or data['단축코드'] in CM_PUT_CODE:
-                        self.oc0_update(data)
+                        if data['단축코드'] in CM_CALL_CODE or data['단축코드'] in CM_PUT_CODE:
+                            self.oc0_update(data)
+                        else:
+                            pass
+
+                    elif TARGET_MONTH == 'NM':
+
+                        if data['단축코드'] in NM_CALL_CODE or data['단축코드'] in NM_PUT_CODE:
+                            self.oc0_update(data)
+                        else:
+                            pass
                     else:
-                        pass
+                        pass                
 
-                elif TARGET_MONTH == 'NM':
+                elif szTrCode == 'OH0' or szTrCode == 'EH0':
 
-                    if data['단축코드'] in NM_CALL_CODE or data['단축코드'] in NM_PUT_CODE:
-                        self.oc0_update(data)
-                    else:
-                        pass
-                else:
-                    pass                
+                    if TARGET_MONTH == 'CM':
 
-            elif szTrCode == 'OH0' or szTrCode == 'EH0':
+                        if data['단축코드'] in CM_CALL_CODE or data['단축코드'] in CM_PUT_CODE:
+                            self.oh0_update(data)
+                        else:
+                            pass
 
-                if TARGET_MONTH == 'CM':
+                    elif TARGET_MONTH == 'NM':
 
-                    if data['단축코드'] in CM_CALL_CODE or data['단축코드'] in CM_PUT_CODE:
-                        self.oh0_update(data)
-                    else:
-                        pass
-
-                elif TARGET_MONTH == 'NM':
-
-                    if data['단축코드'] in NM_CALL_CODE or data['단축코드'] in NM_PUT_CODE:
-                        self.oh0_update(data)
+                        if data['단축코드'] in NM_CALL_CODE or data['단축코드'] in NM_PUT_CODE:
+                            self.oh0_update(data)
+                        else:
+                            pass
                     else:
                         pass
                 else:
