@@ -1283,6 +1283,9 @@ start_time1 = 0
 COREVAL = []
 KP200_COREVAL = []
 
+CM_행사가 = []
+NM_행사가 = []
+
 call_행사가 = []
 call_기준가 = []
 call_월저 = []
@@ -39558,15 +39561,37 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
             if szTrCode == 'OC0' or szTrCode == 'EC0':
 
-                if data['단축코드'][5:8] in call_행사가 or data['단축코드'][5:8] in put_행사가:
-                    self.oc0_update(data)
+                if TARGET_MONTH == 'CM':
+
+                    if data['단축코드'] in CM_CALL_CODE or data['단축코드'] in CM_PUT_CODE:
+                        self.oc0_update(data)
+                    else:
+                        pass
+
+                elif TARGET_MONTH == 'NM':
+
+                    if data['단축코드'] in NM_CALL_CODE or data['단축코드'] in NM_PUT_CODE:
+                        self.oc0_update(data)
+                    else:
+                        pass
                 else:
-                    pass
+                    pass                
 
             elif szTrCode == 'OH0' or szTrCode == 'EH0':
 
-                if data['단축코드'][5:8] in call_행사가 or data['단축코드'][5:8] in put_행사가:
-                    self.oh0_update(data)
+                if TARGET_MONTH == 'CM':
+
+                    if data['단축코드'] in CM_CALL_CODE or data['단축코드'] in CM_PUT_CODE:
+                        self.oh0_update(data)
+                    else:
+                        pass
+
+                elif TARGET_MONTH == 'NM':
+
+                    if data['단축코드'] in NM_CALL_CODE or data['단축코드'] in NM_PUT_CODE:
+                        self.oh0_update(data)
+                    else:
+                        pass
                 else:
                     pass
             else:
@@ -41652,7 +41677,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def oc0_update(self, data):
         
-        global flag_2nd_realdata_update_is_running, flag_option_start, pre_start, receive_quote, market_service
+        global flag_option_start, pre_start, receive_quote, market_service
         global df_call, call_result, df_call_graph, df_call_information_graph, df_call_volume, call_volume_power, 콜_등가_등락율
         global df_put, put_result, df_put_graph, df_put_information_graph, df_put_volume, put_volume_power, 풋_등가_등락율
         global 콜_수정미결합, 풋_수정미결합, 콜_수정미결퍼센트, 풋_수정미결퍼센트, 콜잔량비, 풋잔량비
