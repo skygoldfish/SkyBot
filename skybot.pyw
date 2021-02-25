@@ -39517,7 +39517,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
             elif szTrCode == 'PM_':
-                self.pm_update(data)
+
+                if data['전체순매수금액합계'] != '-' and data['전체순매수금액직전대비'] != '-':
+                    self.pm_update(data)
+                else:
+                    pass
+
             elif szTrCode == 'FC0' or szTrCode == 'NC0':
                 self.fc0_update(data)
             elif szTrCode == 'FH0' or szTrCode == 'NH0':
