@@ -40065,7 +40065,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             df_futures_graph.at[ovc_x_idx, 'kp200'] = 예상지수
             df_kp200_graph.at[ovc_x_idx, 'price'] = 예상지수
 
-            item = QTableWidgetItem(예상지수)
+            item = QTableWidgetItem(result['예상지수'])
             item.setTextAlignment(Qt.AlignCenter)
 
             if kp200_시가 > KP200_전일종가:
@@ -40177,7 +40177,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             선물_시가 = 선물_예상시가                    
             self.dialog['선물옵션전광판'].fut_realdata['시가'] = 선물_예상시가
 
-            item = QTableWidgetItem(예상체결가격)
+            item = QTableWidgetItem(result['예상체결가격'])
             item.setTextAlignment(Qt.AlignCenter)
 
             if 선물_시가 > self.dialog['선물옵션전광판'].fut_realdata['종가']:
@@ -43377,31 +43377,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 index_futures_process.terminate()
                 index_option_process.terminate()
 
-                '''
-                print('모든 멀티프로세스 실시간요청 취소...')
-                FirstProcess.CancelAllRealData()
-
-                if MP_NUMBER == 2:
-                    SecondProcess.CancelAllRealData()
-                elif MP_NUMBER == 3:
-                    SecondProcess.CancelAllRealData()
-                    ThirdProcess.CancelAllRealData()
-                else:
-                    pass
-
-                QTest.qWait(10)
-
-                print('모든 멀티프로세스 서버연결 해지...')
-                FirstProcess.connection.disconnect()
-
-                if MP_NUMBER == 2:
-                    SecondProcess.connection.disconnect()
-                elif MP_NUMBER == 3:
-                    SecondProcess.connection.disconnect()
-                    ThirdProcess.connection.disconnect()
-                else:
-                    pass
-                '''
                 QTest.qWait(10)
 
                 print('모든 멀티프로세스 쓰레드 종료...')
@@ -43417,19 +43392,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.realtime_2nd_dataworker.terminate()
                     self.realtime_3rd_dataworker.terminate()
                 else:
-                    pass
-                '''
-                print('모든 멀티프로세스 Shutdown...')
-                FirstProcess.shutdown()
-
-                if MP_NUMBER == 2:
-                    SecondProcess.shutdown()
-                elif MP_NUMBER == 3:
-                    SecondProcess.shutdown()
-                    ThirdProcess.shutdown()
-                else:
-                    pass
-                '''
+                    pass                
             else:
                 pass
 
