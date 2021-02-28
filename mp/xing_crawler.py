@@ -182,7 +182,7 @@ def index_futures_crawler(queue: Queue, index_futures_quote=True, index_futures_
     else:
         pass
 
-def index_option_crawler(queue: Queue, index_option_quote=True, index_option_tick=True):
+def index_option_crawler(queue: Queue, index_option_cm_quote=False, index_option_nm_quote=False, index_option_cm_tick=False, index_option_nm_tick=False):
 
     proc = mp.current_process()
     print(f'\r지수옵션 Process Name = {proc.name}, Process ID = {proc.pid}')
@@ -195,20 +195,32 @@ def index_option_crawler(queue: Queue, index_option_quote=True, index_option_tic
     if result[0] == '0000':        
 
         # ################################# 지수옵션 ##################################################################
-        listed_code_df = XingAPI.get_index_option_listed_code_list()
+        listed_code_df, cm_code_list, nm_code_list = XingAPI.get_index_option_listed_code_list()
         listed_code_df.to_csv(f"{TODAY_PATH}/index_option_listed_code.csv", encoding='utf-8-sig')
 
-        code_list = listed_code_df['단축코드'].tolist()
+        option_code_list = listed_code_df['단축코드'].tolist()
 
         # 호가
-        if index_option_quote:
+        if index_option_cm_quote:
+            print('본월물 실시간 호가요청...')
             real_time_index_option_quote = RealTimeIndexOptionQuote(queue=queue)
-            real_time_index_option_quote.set_code_list(code_list, field="optcode")
+            real_time_index_option_quote.set_code_list(cm_code_list, field="optcode")
+
+        if index_option_nm_quote:
+            print('차월물 실시간 호가요청...')
+            real_time_index_option_quote = RealTimeIndexOptionQuote(queue=queue)
+            real_time_index_option_quote.set_code_list(nm_code_list, field="optcode")
 
         # 체결
-        if index_option_tick:
+        if index_option_cm_tick:
+            print('본월물 실시간 체결요청...')
             real_time_index_option_tick = RealTimeIndexOptionTick(queue=queue)
-            real_time_index_option_tick.set_code_list(code_list, field="optcode")
+            real_time_index_option_tick.set_code_list(cm_code_list, field="optcode")
+
+        if index_option_nm_tick:
+            print('차월물 실시간 체결요청...')
+            real_time_index_option_tick = RealTimeIndexOptionTick(queue=queue)
+            real_time_index_option_tick.set_code_list(nm_code_list, field="optcode")
         # ############################################################################################################
 
         while True:

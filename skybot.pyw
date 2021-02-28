@@ -1940,6 +1940,10 @@ ntp_server_second = 0
 
 flag_data_receive_done = False
 
+flag_score_board_start = False
+flag_telegram_send_start = False
+flag_telegram_listen_start = False
+
 #####################################################################################################################################################################
 # UI 파일정의
 #####################################################################################################################################################################
@@ -3413,7 +3417,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # t2301, t2835 이벤트루프(1초당 2건) --> 옵션 실시간수신 문제 보완목적
         self.t2301_event_loop = QEventLoop()
         #self.t2835_event_loop = QEventLoop()
-                
+        '''        
         self.screen_update_worker = ScreenUpdateWorker()
         self.screen_update_worker.trigger.connect(self.update_screen)
         
@@ -3422,7 +3426,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.telegram_listen_worker = TelegramListenWorker()
         self.telegram_listen_worker.trigger.connect(self.listen_telegram_message)
-        
+        '''
         self.상태그림 = ['▼', '▬', '▲']
         self.상태문자 = ['매도', '대기', '매수']
         self.특수문자 = \
@@ -5339,7 +5343,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         print(txt)    
     
     @logging_time_main_loop
-    @pyqtSlot(int, int, int, int)
+    #@pyqtSlot(int, int, int, int)
     def update_screen(self, hour, minute, second, timegap):
 
         global flag_internet_connection_broken, flag_service_provider_broken
@@ -11512,6 +11516,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_fut_vs_dow_drate_direction
         global volatility_breakout_downward_point, volatility_breakout_upward_point
         global df_futures_graph, flag_futures_ohlc_open, 선물_현재가_버퍼
+        global flag_telegram_send_start, flag_telegram_listen_start
 
         dt = datetime.now()
 
@@ -11544,7 +11549,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if TELEGRAM_SERVICE and not flag_telegram_send_worker and DayTime:
             
-            self.telegram_send_worker.start()
+            #self.telegram_send_worker.start()
+            flag_telegram_send_start = True
 
             telegram_send_worker_on_time = fut_first_arrive_time 
 
@@ -11573,7 +11579,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if TELEGRAM_SERVICE:
                 
-                self.telegram_listen_worker.start()
+                #self.telegram_listen_worker.start()
+                flag_telegram_listen_start = True
 
                 if TARGET_MONTH == 'CM':
 
@@ -14552,6 +14559,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_telegram_on
         global flag_telegram_listen_worker, flag_telegram_send_worker
         global telegram_command
+        global flag_telegram_send_start, flag_telegram_listen_start
 
         dt = datetime.now()        
 
@@ -14577,7 +14585,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             # 가끔 send worker가 오동작함(쓰레드 재시작...)
             
-            self.telegram_send_worker.start()
+            #self.telegram_send_worker.start()
+            flag_telegram_send_start = True
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Send Worker를 재시작합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
             self.textBrowser.append(txt)
@@ -14590,7 +14599,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             flag_telegram_on = True
             
-            self.telegram_listen_worker.start()
+            #self.telegram_listen_worker.start()
+            flag_telegram_listen_start = True
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Polling이 시작됩니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
             self.textBrowser.append(txt)
@@ -14881,6 +14891,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global CM_CALL_CODE, CM_PUT_CODE, NM_CALL_CODE, NM_PUT_CODE, CM_OPT_LENGTH, NM_OPT_LENGTH
         global t8416_option_pairs_count, t8416_loop_finish_time
+        
+        global flag_score_board_start, flag_telegram_send_start, flag_telegram_listen_start
 
         dt = datetime.now()
 
@@ -17992,17 +18004,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.item(min_index, Option_column.기준가.value).setBackground(QBrush(검정색))
                     self.tableWidget_put.item(min_index, Option_column.기준가.value).setForeground(QBrush(노란색))
                 else:
-                    pass                
+                    pass
+
+                flag_score_board_start = True               
                 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
                 print(txt)
-                
+
+                '''
                 if not flag_plot_first_mode:
                     self.screen_update_worker.start()
                 else:
                     pass
-
+                '''
                 ui_start_time = dt.hour * 3600 + dt.minute * 60 + dt.second
                 print('야간 ui_start_time =', ui_start_time)
 
@@ -19471,17 +19486,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
                         self.tableWidget_fut.resizeColumnsToContents()
                         
+                        flag_score_board_start = True
+
                         txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
-                        print(txt)
-                        
+
+                        '''
                         if not flag_plot_first_mode:
                             self.screen_update_worker.start()
                         else:
                             pass
-                        
+                        '''
                         ui_start_time = dt.hour * 3600 + dt.minute * 60 + dt.second
-                        print('주간 ui_start_time =', ui_start_time)
 
                         self.flag_refresh = True
 
@@ -21938,6 +21954,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global fut_nm_volume_power, fut_volume_power_energy_direction
         global plot_drate_scale_factor
         global flag_1st_realdata_update_is_running
+
+        global flag_telegram_send_start, flag_telegram_listen_start
         
         dt = datetime.now()
 
@@ -22100,6 +22118,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
 
+                    flag_telegram_send_start = False
+                    flag_telegram_listen_start = False
+
+                    '''
                     if self.telegram_send_worker.isRunning():
                         self.telegram_send_worker.terminate()
                     else:
@@ -22109,6 +22131,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.telegram_listen_worker.terminate()
                     else:
                         pass
+                    '''
 
                 # 주간 선물/옵션장 종료
                 elif result['장구분'] == '5' and result['장상태'] == '41':
@@ -22253,6 +22276,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
 
+                        flag_telegram_send_start = False
+                        flag_telegram_listen_start = False
+
+                        '''
                         if self.telegram_send_worker.isRunning():
                             self.telegram_send_worker.terminate()
                         else:
@@ -22262,7 +22289,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.telegram_listen_worker.terminate()
                         else:
                             pass
-
+                        '''
                         self.SaveResult()
                     else:
                         pass                    
@@ -22296,6 +22323,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
 
+                        flag_telegram_send_start = False
+                        flag_telegram_listen_start = False
+
+                        '''
                         if self.telegram_send_worker.isRunning():
                             self.telegram_send_worker.terminate()
                         else:
@@ -22305,7 +22336,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.telegram_listen_worker.terminate()
                         else:
                             pass
-
+                        '''
                         self.SaveResult()
                     else:
                         pass
@@ -24325,7 +24356,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if TELEGRAM_SERVICE and not flag_telegram_send_worker:
 
-                        self.telegram_send_worker.start()
+                        #self.telegram_send_worker.start()
+                        flag_telegram_send_start = True
 
                         telegram_send_worker_on_time = opt_time 
 
@@ -24354,7 +24386,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if TELEGRAM_SERVICE:
 
-                            self.telegram_listen_worker.start()
+                            #self.telegram_listen_worker.start()
+                            flag_telegram_listen_start = True
 
                             if TARGET_MONTH == 'CM':                        
 
@@ -24792,7 +24825,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if TELEGRAM_SERVICE and not flag_telegram_send_worker:
 
-                        self.telegram_send_worker.start()
+                        #self.telegram_send_worker.start()
+                        flag_telegram_send_start = True
 
                         telegram_send_worker_on_time = opt_time 
 
@@ -24821,7 +24855,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if TELEGRAM_SERVICE:
 
-                            self.telegram_listen_worker.start()
+                            #self.telegram_listen_worker.start()
+                            flag_telegram_listen_start = True
 
                             if TARGET_MONTH == 'CM':                        
 
@@ -24858,163 +24893,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         finally:
             flag_2nd_realdata_update_is_running = False
-    '''
-    @logging_time_with_args
-    def UpdateThirdRealdata(self, result):
-
-        global flag_3rd_realdata_update_is_running, pre_start, market_service, receive_quote
-        global df_call_quote, call_remainder_ratio, 콜잔량비, df_call_information_graph
-        global df_put_quote, put_remainder_ratio, 풋잔량비, df_put_information_graph
-        
-        dt = datetime.now()
-
-        szTrCode = result['tr_code']
-
-        try:   
-            flag_3rd_realdata_update_is_running = True            
-
-            if szTrCode == 'OH0' or szTrCode == 'EH0':
-
-                if not receive_quote:
-                    receive_quote = True
-                else:
-                    pass
-
-                if not market_service:
-                    market_service = True
-                else:
-                    pass
-
-                if result['단축코드'][0:3] == '201':
-
-                    index = call_행사가.index(result['단축코드'][5:8])
-
-                    df_call_quote.at[index, '매수건수'] = result['매수호가총건수']
-                    df_call_quote.at[index, '매도건수'] = result['매도호가총건수']
-                    df_call_quote.at[index, '매수잔량'] = result['매수호가총수량']
-                    df_call_quote.at[index, '매도잔량'] = result['매도호가총수량']
-
-                    call_quote = df_call_quote.sum()
-
-                    if call_quote['매도잔량'] > 0:
-                        call_remainder_ratio = round((call_quote['매수잔량'] / call_quote['매도잔량']), 2)
-                    else:
-                        call_remainder_ratio = 0
-
-                    콜잔량비 = call_remainder_ratio
-
-                elif result['단축코드'][0:3] == '301':
-
-                    index = put_행사가.index(result['단축코드'][5:8])
-
-                    df_put_quote.at[index, '매수건수'] = result['매수호가총건수']
-                    df_put_quote.at[index, '매도건수'] = result['매도호가총건수']
-                    df_put_quote.at[index, '매수잔량'] = result['매수호가총수량']
-                    df_put_quote.at[index, '매도잔량'] = result['매도호가총수량']
-
-                    put_quote = df_put_quote.sum()
-
-                    if put_quote['매도잔량'] > 0:
-                        put_remainder_ratio = round((put_quote['매수잔량'] / put_quote['매도잔량']), 2)
-                    else:
-                        put_remainder_ratio = 0
-
-                    풋잔량비 = put_remainder_ratio
-                else:
-                    pass
-
-                if NightTime:
-                    df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
-                    df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비
-                else:
-                    if 콜잔량비 > 5.0:
-                        df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
-                    else:
-                        df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
-
-                    if 풋잔량비 > 5.0:
-                        df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
-                    else:
-                        df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비               
-
-                # 야간선물이 없어짐에 따른 텔레그램 기동 대응
-                if NightTime:
-
-                    global telegram_send_worker_on_time, flag_telegram_send_worker, flag_telegram_listen_worker
-
-                    opt_time = dt.hour * 3600 + dt.minute * 60 + dt.second
-
-                    if TELEGRAM_SERVICE and not flag_telegram_send_worker:
-
-                        self.telegram_send_worker.start()
-
-                        telegram_send_worker_on_time = opt_time 
-
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] telegram send worker({3})가 시작됩니다...\r'.format(dt.hour, dt.minute, dt.second, telegram_send_worker_on_time)
-                        self.textBrowser.append(txt)
-                        print(txt) 
-
-                        if TARGET_MONTH == 'CM':
-
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] CM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                            ToYourTelegram(txt)
-
-                        elif TARGET_MONTH == 'NM':
-
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] NM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                            ToYourTelegram(txt)
-                        else:
-                            pass         
-
-                        flag_telegram_send_worker = True             
-                    else:
-                        pass
-
-                    # Telegram Send Worker 시작 후 TELEGRAM_START_TIME분에 Telegram Listen을 위한 Polling Thread 시작 !!!
-                    if not flag_telegram_listen_worker and opt_time > telegram_send_worker_on_time + 60 * TELEGRAM_START_TIME:
-
-                        if TELEGRAM_SERVICE:
-
-                            self.telegram_listen_worker.start()
-
-                            if TARGET_MONTH == 'CM':                        
-
-                                if window.id == 'soojin65':
-                                    txt = '[{0:02d}:{1:02d}:{2:02d}] ***님 텔레그램 Polling이 시작됩니다.'.format(dt.hour, dt.minute, dt.second)
-                                    #ToMyTelegram(txt)
-                                else:
-                                    ToYourTelegram("CM 텔레그램 Polling이 시작됩니다.")
-
-                            elif TARGET_MONTH == 'NM':
-
-                                ToYourTelegram("NM 텔레그램 Polling이 시작됩니다.")
-                            else:
-                                pass
-
-                            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
-                                                                    QPushButton:hover {background-color: black; color: white} \
-                                                                    QPushButton:pressed {background-color: gold}')
-                            flag_telegram_listen_worker = True
-                        else:
-                            pass            
-                    else:
-                        pass
-                else:
-                    pass
-            else:
-                pass
-
-        except Exception as e:
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] UpdateThirdRealdata {3}에서 {4}타입의 {5}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, szTrCode, type(e).__name__, str(e))
-            self.textBrowser.append(txt)
-            self.parent.textBrowser.append(txt)
-
-        finally:
-            flag_3rd_realdata_update_is_running = False
-    '''
+    
     #####################################################################################################################################################################
     def KillScoreBoardAllThread(self):
+
+        global flag_score_board_start, flag_telegram_send_start, flag_telegram_listen_start
 
         dt = datetime.now()
 
@@ -25022,6 +24905,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.textBrowser.append(txt)
         self.parent.textBrowser.append(txt)
 
+        flag_score_board_start = False
+        flag_telegram_send_start = False
+        flag_telegram_listen_start = False
+
+        '''
         if self.screen_update_worker.isRunning():
             self.screen_update_worker.terminate()
             print('screen_update_worker is terminated at KillScoreBoardAllThread...')
@@ -25038,7 +24926,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.telegram_listen_worker.terminate()
             print('telegram_listen_worker is terminated at KillScoreBoardAllThread...')
         else:
-            pass    
+            pass
+        '''    
 
     def closeEvent(self,event):
 
@@ -25065,7 +24954,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         print(txt)   
 
         self.close()
-        #self.parent.OnChildDialogCloseEvent('Score Board')
 #####################################################################################################################################################################
 # RealTime Item UI Class
 #####################################################################################################################################################################
@@ -26582,11 +26470,17 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         dt = datetime.now()
 
         global flag_plot_first_mode
+        global flag_score_board_start, flag_telegram_send_start, flag_telegram_listen_start
 
         if self.checkBox_plot_first.isChecked() == True:
 
             flag_plot_first_mode = True
 
+            flag_score_board_start = False
+            flag_telegram_send_start = False
+            flag_telegram_listen_start = False
+
+            '''
             if self.parent.dialog['선물옵션전광판'].screen_update_worker.isRunning():
                 self.parent.dialog['선물옵션전광판'].screen_update_worker.terminate()
             else:
@@ -26601,6 +26495,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 self.parent.dialog['선물옵션전광판'].telegram_listen_worker.terminate()
             else:
                 pass
+            '''
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] Plot 우선모드로 설정합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.parent.textBrowser.append(txt)
@@ -26608,9 +26503,15 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         else:
             flag_plot_first_mode = False
 
+            flag_score_board_start = True
+            flag_telegram_send_start = True
+            flag_telegram_listen_start = True
+
+            '''
             self.parent.dialog['선물옵션전광판'].screen_update_worker.start()
             self.parent.dialog['선물옵션전광판'].telegram_send_worker.start()
             self.parent.dialog['선물옵션전광판'].telegram_listen_worker.start()
+            '''
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] Plot 우선모드를 해지합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.parent.textBrowser.append(txt)
@@ -38871,6 +38772,13 @@ class Xing(object):
         self.caller = caller    # 윈도우객체와 정보교환
         self.main_connection = None
 
+        self.ntpclient = ntplib.NTPClient()
+
+        self.server_hour = 0
+        self.server_minute = 0
+        self.server_second = 0
+        self.timegap = 0
+
         # 조회요청 TR 객체생성
         self.XQ_t0167 = t0167(parent=self) # 시간 조회
         self.XQ_t1514 = t1514(parent=self) # 코스피/코스닥 지수 조회
@@ -38885,7 +38793,9 @@ class Xing(object):
         
         self.clock = QtCore.QTimer()
         self.clock.timeout.connect(self.OnClockTick)
-        self.clock.start(1000)         
+        self.clock.start(scoreboard_update_interval)
+
+        self.clocktick = False         
 
         계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})
 
@@ -38938,23 +38848,70 @@ class Xing(object):
 
         dt = datetime.now()
 
-        if dt.second == 30: # 매 30초 마다(1분 주기)
+        self.clocktick = not self.clocktick        
+
+        if self.clocktick and dt.second == 30: # 매 30초 마다(1분 주기)
+
+            if self.main_connection is not None:
+
+                if self.main_connection.IsConnected():
+
+                    msg = "온라인"
+                    # 서버시간 조회, 초당 5건
+                    self.XQ_t0167.Query() 
+                else:
+                    msg = "오프라인"
+
+            self.caller.statusbar.showMessage(msg)
+        else:
+            pass
+
+        # 여기에서 주기적인 갱신을 진행
+        if self.caller.dialog['선물옵션전광판'] is not None:
 
             try:
-                if self.main_connection is not None:
+                if self.clocktick:
+                    response = self.ntpclient.request(TimeServer, version=3)
 
-                    if self.main_connection.IsConnected():
+                    time_str = time.ctime(response.tx_time).split(' ')
+                    srever_time = time_str[3]
 
-                        msg = "온라인"
-                        # 서버시간 조회
-                        self.XQ_t0167.Query() 
+                    self.server_hour = int(srever_time[0:2])
+                    self.server_minute = int(srever_time[3:5])
+                    self.server_second = int(srever_time[6:8])
+
+                    self.timegap = round(-response.offset)
+                else:
+                    pass
+
+                if flag_score_board_start:
+                    self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
+                else:
+                    pass
+
+                if flag_telegram_send_start:
+
+                    if self.clocktick and dt.second % TELEGRAM_SEND_INTERVAL == 0:
+                        self.caller.dialog['선물옵션전광판'].send_telegram_message()
                     else:
-                        msg = "오프라인"
+                        pass
+                else:
+                    pass
 
-                self.caller.statusbar.showMessage(msg)
+                if flag_telegram_listen_start:
+
+                    if not self.clocktick and dt.second % TELEGRAM_POLLING_INTERVAL == 0:
+                        self.caller.dialog['선물옵션전광판'].listen_telegram_message()
+                    else:
+                        pass
+                else:
+                    pass
 
             except Exception as e:
-                pass
+                txt = '[{0:02d}:{1:02d}:{2:02d}] NTP Server Time Get Error({3})...\r'.format(dt.hour, dt.minute, dt.second, str(e))
+                self.caller.textBrowser.append(txt)            
+        else:
+            pass
 
     def main_login(self, url, id, pwd, cert):
 
@@ -39131,6 +39088,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.setupUi(self)
+        
+        # 복수개의 Dialog 객체 처리용 변수선언
+        self.dialog = dict()
+
+        self.dialog['선물옵션전광판'] = None
+        self.dialog['BigChart'] = None
+        self.dialog['RealTimeItem'] = None
+        self.dialog['Version'] = None
 
         self.id = None
         self.xing = Xing(self)          # Xing객체와 윈도우간 정보교환
@@ -39176,15 +39141,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.second_event_loop = QEventLoop()
         else:
             print('지원하지 않는 인자갯수 입니다...')
-        
-        # 복수개의 Dialog 객체 처리용 변수선언
-        self.dialog = dict()
-
-        self.dialog['선물옵션전광판'] = None
-        self.dialog['BigChart'] = None
-        self.dialog['RealTimeItem'] = None
-        self.dialog['Version'] = None
-        
+                
         self.start_time = datetime.now()
 
         txt = '시작시간 = {0}\r'.format(self.start_time)        
@@ -39212,7 +39169,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         txt = '현재스크린 = {0}번, 화면해상도 = {1}x{2}, 중심좌표 X = {3}, Y = {4}\r'.format(스크린번호, screen_info.width(), screen_info.height(), self.centerPoint.x(), self.centerPoint.y())
         self.textBrowser.append(txt)
          
-        # AxtiveX 설정
+        # 쓰레드 or 멀티프로세스
         if self.mp_mode:
 
             self.realtime_1st_dataworker = RealTime_1st_MP_Thread_DataWorker(self.first_dataQ)
@@ -39569,39 +39526,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
                 if szTrCode == 'OC0' or szTrCode == 'EC0':
 
-                    if TARGET_MONTH == 'CM':
-
-                        if data['단축코드'] in CM_CALL_CODE or data['단축코드'] in CM_PUT_CODE:
-                            self.oc0_update(data)
-                        else:
-                            pass
-
-                    elif TARGET_MONTH == 'NM':
-
-                        if data['단축코드'] in NM_CALL_CODE or data['단축코드'] in NM_PUT_CODE:
-                            self.oc0_update(data)
-                        else:
-                            pass
-                    else:
-                        pass                
+                    self.oc0_update(data)              
 
                 elif szTrCode == 'OH0' or szTrCode == 'EH0':
 
-                    if TARGET_MONTH == 'CM':
-
-                        if data['단축코드'] in CM_CALL_CODE or data['단축코드'] in CM_PUT_CODE:
-                            self.oh0_update(data)
-                        else:
-                            pass
-
-                    elif TARGET_MONTH == 'NM':
-
-                        if data['단축코드'] in NM_CALL_CODE or data['단축코드'] in NM_PUT_CODE:
-                            self.oh0_update(data)
-                        else:
-                            pass
-                    else:
-                        pass
+                    self.oh0_update(data)
                 else:
                     pass
             else:
@@ -39695,6 +39624,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         global market_service, DOW_주간_시작가, WTI_주간_시작가, DOW_야간_시작가, WTI_야간_시작가, dongsi_quote
         global service_terminate, jugan_service_terminate, flag_option_start, receive_quote
+        global flag_score_board_start, flag_telegram_send_start, flag_telegram_listen_start
 
         result = data
 
@@ -39836,6 +39766,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
 
+            flag_telegram_send_start = False
+            flag_telegram_listen_start = False
+
+            '''
             if self.dialog['선물옵션전광판'].telegram_send_worker.isRunning():
                 self.dialog['선물옵션전광판'].telegram_send_worker.terminate()
             else:
@@ -39845,6 +39779,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].telegram_listen_worker.terminate()
             else:
                 pass
+            '''
 
         # 주간 선물/옵션장 종료
         elif result['장구분'] == '5' and result['장상태'] == '41':
@@ -39983,6 +39918,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
 
+                flag_telegram_send_start = False
+                flag_telegram_listen_start = False
+
+                '''
                 if self.dialog['선물옵션전광판'].telegram_send_worker.isRunning():
                     self.dialog['선물옵션전광판'].telegram_send_worker.terminate()
                 else:
@@ -39992,6 +39931,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.dialog['선물옵션전광판'].telegram_listen_worker.terminate()
                 else:
                     pass
+                '''
 
                 self.dialog['선물옵션전광판'].SaveResult()
             else:
@@ -40024,6 +39964,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
 
+                flag_telegram_send_start = False
+                flag_telegram_listen_start = False
+
+                '''
                 if self.dialog['선물옵션전광판'].telegram_send_worker.isRunning():
                     self.dialog['선물옵션전광판'].telegram_send_worker.terminate()
                 else:
@@ -40033,6 +39977,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.dialog['선물옵션전광판'].telegram_listen_worker.terminate()
                 else:
                     pass
+                '''
 
                 self.dialog['선물옵션전광판'].SaveResult()
             else:
@@ -41857,6 +41802,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global receive_quote, market_service
         global df_call_quote, df_put_quote, 콜잔량비, 풋잔량비, call_remainder_ratio, put_remainder_ratio
         global df_call_information_graph, df_put_information_graph
+        global flag_telegram_send_start, flag_telegram_listen_start
 
         result = data
 
@@ -41938,7 +41884,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if TELEGRAM_SERVICE and not flag_telegram_send_worker:
 
-                self.telegram_send_worker.start()
+                #self.telegram_send_worker.start()
+                flag_telegram_send_start = True
 
                 telegram_send_worker_on_time = opt_time 
 
@@ -41967,7 +41914,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if TELEGRAM_SERVICE:
 
-                    self.telegram_listen_worker.start()
+                    #self.telegram_listen_worker.start()
+                    flag_telegram_listen_start = True
 
                     if TARGET_MONTH == 'CM':                        
 
@@ -43300,21 +43248,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간요청 설정 Dialog를 생성합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
     
-    def OnChildDialogCloseEvent(self, dialog_type):
-
-        dt = datetime.now()
-
-        txt = '[{0:02d}:{1:02d}:{2:02d}] {3} 객체바인딩을 해제합니다.\r'.format(dt.hour, dt.minute, dt.second, dialog_type)
-        self.textBrowser.append(txt)
-
-        if dialog_type == 'Score Board':            
-
-            self.dialog['선물옵션전광판'] = None
-
-        if dialog_type == 'Big Chart':
-
-            self.dialog['BigChart'] = None
-
     def closeEvent(self,event):
 
         dt = datetime.now()
@@ -43440,7 +43373,7 @@ if __name__ == "__main__":
     if ipaddress == '127.0.0.1':
         flag_internet = False
     else:
-        flag_internet = True        
+        flag_internet = True     
     
     # 멀티프로세스
     if MULTIPROCESS and flag_internet:
@@ -43457,8 +43390,22 @@ if __name__ == "__main__":
         
         INDEX_FUTURES_QUOTE = True        # 지수선물 전종목 호가
         INDEX_FUTURES_TICK = True         # 지수선물 전종목 체결
-        INDEX_OPTION_QUOTE = True         # 지수옵션 전종목 호가
-        INDEX_OPTION_TICK = True          # 지수옵션 전종목 체결
+
+        if TARGET_MONTH == 'CM':
+            INDEX_OPTION_CM_TICK = True       # 지수옵션 본월물 전종목 체결
+            INDEX_OPTION_NM_TICK = False      # 지수옵션 차월물 전종목 체결
+            INDEX_OPTION_CM_QUOTE = True      # 지수옵션 본월물 전종목 호가
+            INDEX_OPTION_NM_QUOTE = False     # 지수옵션 차월물 전종목 호가
+        elif TARGET_MONTH == 'NM':
+            INDEX_OPTION_CM_TICK = False
+            INDEX_OPTION_NM_TICK = True
+            INDEX_OPTION_CM_QUOTE = False      
+            INDEX_OPTION_NM_QUOTE = True      
+        else:
+            INDEX_OPTION_CM_TICK = False
+            INDEX_OPTION_NM_TICK = False
+            INDEX_OPTION_CM_QUOTE = False      
+            INDEX_OPTION_NM_QUOTE = False
 
         # pyinstaller로 실행파일 만들때 필요함
         mp.freeze_support()
@@ -43476,7 +43423,7 @@ if __name__ == "__main__":
         optionQ = mp.Queue()
         
         index_futures_process = Process(target=index_futures_crawler, args=(futuresQ, INDEX_FUTURES_QUOTE, INDEX_FUTURES_TICK), daemon=True)
-        index_option_process = Process(target=index_option_crawler, args=(optionQ, INDEX_OPTION_QUOTE, INDEX_OPTION_TICK), daemon=True)
+        index_option_process = Process(target=index_option_crawler, args=(optionQ, INDEX_OPTION_CM_QUOTE, INDEX_OPTION_NM_QUOTE, INDEX_OPTION_CM_TICK, INDEX_OPTION_NM_TICK), daemon=True)
 
         index_futures_process.start()
         index_option_process.start()

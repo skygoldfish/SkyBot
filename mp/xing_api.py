@@ -2,8 +2,25 @@ import time
 import win32com.client
 import pythoncom
 import pandas as pd
+from configparser import ConfigParser
 
 from mp.xing_event_handler import *
+
+# Configuration Parser
+parser = ConfigParser()
+parser.read('.\skybot.ini')
+
+CURRENT_MONTH = parser.get('Month Info', 'Current Month')
+
+if int(CURRENT_MONTH[4:6]) == 11:
+    NEXT_MONTH = CURRENT_MONTH[0:4] + '12'
+    MONTH_AFTER_NEXT = repr(int(CURRENT_MONTH[0:4]) + 1) + '01'
+elif int(CURRENT_MONTH[4:6]) == 12:
+    NEXT_MONTH = repr(int(CURRENT_MONTH[0:4]) + 1) + '01'
+    MONTH_AFTER_NEXT = repr(int(CURRENT_MONTH[0:4]) + 1) + '02'
+else:
+    NEXT_MONTH = repr(int(CURRENT_MONTH) + 1)
+    MONTH_AFTER_NEXT = repr(int(CURRENT_MONTH) + 2)
 
 class XingAPI:
     
@@ -329,7 +346,42 @@ class XingAPI:
             "기준가": float,
         })
 
-        return df
+        # 본월물, 차월물 단축코드를 구한다.
+        CM_CALL_CODE = []
+        CM_PUT_CODE = []
+        NM_CALL_CODE = []
+        NM_PUT_CODE = []
+
+        for i in range(len(df)):
+
+            if df['종목명'][i][2:6] == CURRENT_MONTH[2:6] and df['종목명'][i][0] == 'C':                
+
+                CM_CALL_CODE.append(df['단축코드'][i])                   
+
+            elif df['종목명'][i][2:6] == CURRENT_MONTH[2:6] and df['종목명'][i][0] == 'P': 
+
+                CM_PUT_CODE.append(df['단축코드'][i])
+
+            elif df['종목명'][i][2:6] == NEXT_MONTH[2:6] and df['종목명'][i][0] == 'C':                
+
+                NM_CALL_CODE.append(df['단축코드'][i])
+
+            elif df['종목명'][i][2:6] == NEXT_MONTH[2:6] and df['종목명'][i][0] == 'P': 
+
+                NM_PUT_CODE.append(df['단축코드'][i])
+
+            else:
+                pass
+        '''
+        CM_CALL_CODE.reverse()
+        CM_PUT_CODE.reverse()
+        NM_CALL_CODE.reverse()
+        NM_PUT_CODE.reverse()
+        '''
+        cm_code_list = CM_CALL_CODE + CM_PUT_CODE
+        nm_code_list = NM_CALL_CODE + NM_PUT_CODE
+
+        return df, cm_code_list, nm_code_list
 
     @classmethod
     def wait_query(cls, target_class):
