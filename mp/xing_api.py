@@ -295,7 +295,7 @@ class XingAPI:
         return df
 
     @classmethod
-    def get_index_option_listed_code_list(cls) -> pd.DataFrame:
+    def get_index_option_listed_code_list(cls):
         """
         [t8433] 지수옵션 마스터조회
         """
