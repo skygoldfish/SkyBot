@@ -295,6 +295,176 @@ class XingAPI:
         return df
 
     @classmethod
+    def t2801(cls, code):
+
+        t2801 = win32com.client.DispatchWithEvents("XA_DataSet.XAQuery", XAQueryEventHandler)
+        t2801.ResFileName = f"{RES_FOLDER_PATH}/t2801.res"
+
+        args = {
+            "focode": code,  # focode
+        }
+
+        for key, value in args.items():
+            t2801.SetFieldData('t2801InBlock', key, 0, value)
+
+        cls.request_api(t2801, 0)
+        cls.wait_query(XAQueryEventHandler)
+
+        count = t2801.GetBlockCount("t2801OutBlock")
+
+        col_list = [
+            "hname",
+            "price",
+            "sign",
+            "change",
+            "jnilclose",
+            "diff",
+            "volume",
+            "value",
+            "mgjv",
+            "mgjvdiff",
+            "open",
+            "high",
+            "low",
+            "uplmtprice",
+            "dnlmtprice",
+            "high52w",
+            "low52w",
+            "basis",
+            "recprice",
+            "theoryprice",
+            "cbhprice",
+            "cblprice",
+            "lastmonth",
+            "jandatecnt",
+            "pricejisu",
+            "jisusign",
+            "jisuchange",
+            "jisudiff",
+            "kospijisu",
+            "kospisign",
+            "kospichange",
+            "kospidiff",
+            "listhprice",
+            "listlprice",
+            "sbasis",
+            "ibasis",
+            "jnilvolume",
+            "jnilvalue"
+        ]
+
+        data_list = []
+        for i in range(count):
+            values = []
+            for col in col_list:
+                value = t2801.GetFieldData("t2801OutBlock", col, i)
+                values.append(value)
+            data_list.append(values)
+
+        df = pd.DataFrame(data_list, columns={
+            "한글명": str,
+            "현재가": float,
+            "전일대비구분": str,
+            "전일대비": float,
+            "전일종가": float,
+            "등락율": float,
+            "거래량": int,
+            "거래대금": int,
+            "미결제량": int,
+            "미결제증감": int,
+            "시가": float,
+            "고가": float,
+            "저가": float,
+            "상한가": float,
+            "하한가": float,
+            "52최고가": float,
+            "52최저가": float,
+            "베이시스": float,
+            "기준가": float,
+            "이론가": float,
+            "CB상한가": float,
+            "CB하한가": float,
+            "만기일": str,
+            "잔여일": int,
+            "종합지수": float,
+            "종합지수전일대비구분": str,
+            "종합지수전일대비": float,
+            "종합지수등락율": float,
+            "KOSPI200지수": float,
+            "KOSPI200전일대비구분": str,
+            "KOSPI200전일대비": float,
+            "KOSPI200등락율": float,
+            "상장최고가": float,
+            "상장최저가": float,
+            "시장BASIS": float,
+            "이론BASIS": float,
+            "전일거래량": int,
+            "전일거래대금": int
+        })
+
+        return df
+
+    @classmethod
+    def get_index_futures_gm_cm_code(cls):
+        """
+        [t8432] 지수선물 마스터조회
+        """
+        t8432 = win32com.client.DispatchWithEvents("XA_DataSet.XAQuery", XAQueryEventHandler)
+        t8432.ResFileName = f"{RES_FOLDER_PATH}/t8432.res"
+
+        args = {
+            "gubun": "F",  # gubun
+        }
+
+        for key, value in args.items():
+            t8432.SetFieldData('t8432InBlock', key, 0, value)
+
+        cls.request_api(t8432, 0)
+        cls.wait_query(XAQueryEventHandler)
+
+        count = t8432.GetBlockCount("t8432OutBlock")
+
+        col_list = [
+            "hname",
+            "shcode",
+            "expcode",
+            "uplmtprice",
+            "dnlmtprice",
+            "jnilclose",
+            "jnilhigh",
+            "jnillow",
+            "recprice",
+        ]
+
+        data_list = []
+        for i in range(count):
+            values = []
+            for col in col_list:
+                value = t8432.GetFieldData("t8432OutBlock", col, i)
+                values.append(value)
+            data_list.append(values)
+
+        df = pd.DataFrame(data_list, columns={
+            "종목명": str,
+            "단축코드": str,
+            "확장코드": str,
+            "상한가": float,
+            "하한가": float,
+            "전일종가": float,
+            "전일고가": float,
+            "전일저가": float,
+            "기준가": float,
+        })
+
+        gmshcode = df.at[0, '단축코드']
+        cmshcode = df.at[1, '단축코드']
+
+        print('근월물선물코드 =', gmshcode)
+        print('차월물선물코드 =', cmshcode)
+
+        return gmshcode, cmshcode 
+
+    @classmethod
     def get_index_option_listed_code_list(cls):
         """
         [t8433] 지수옵션 마스터조회

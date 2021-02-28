@@ -1,5 +1,6 @@
 from datetime import datetime
 import pythoncom
+import math
 import multiprocessing as mp
 from multiprocessing import Queue
 from configparser import ConfigParser
@@ -154,10 +155,11 @@ def index_futures_crawler(queue: Queue, index_futures_quote=True, index_futures_
         real_time_nws_tick = RealTimeNWSTick(queue=queue)
         real_time_nws_tick.set_nws_code('NWS001')
         # ############################################################################################################
-
+                
         # ################################# 지수선물 ##################################################################
         listed_code_df = XingAPI.get_index_futures_listed_code_list()
         listed_code_df.to_csv(f"{TODAY_PATH}/index_futures_listed_code.csv", encoding='utf-8-sig')
+        # ############################################################################################################
         
         # #################################### YFC ###################################################################
         real_time_yfc_tick = RealTimeYFCTick(queue=queue)
@@ -192,16 +194,40 @@ def index_option_crawler(queue: Queue, index_option_cm_quote=False, index_option
 
     queue.put(result)
 
-    if result[0] == '0000':        
+    if result[0] == '0000':
+
+        # ################################# 지수선물 근월물, 차월물 선물코드 ############################################
+        gmshcode, cmshcode = XingAPI.get_index_futures_gm_cm_code()
+        print('근월물 코드 =', gmshcode)
+        # ############################################################################################################
+        
+        # ################################# t2801 요청 ################################################################
+        t2801_df = XingAPI.t2801(gmshcode)
+        kp200 = float(t2801_df.at[0, 'KOSPI200지수'])
+
+        temp = math.floor(round(kp200 / 2.5, 0) * 2.5)
+        atm_txt = '{0:.0f}'.format(temp)
+
+        #print('kp200 지수 =', kp200, atm_txt)
+        # ############################################################################################################        
 
         # ################################# 지수옵션 ##################################################################
         listed_code_df, cm_code_list, nm_code_list = XingAPI.get_index_option_listed_code_list()
         listed_code_df.to_csv(f"{TODAY_PATH}/index_option_listed_code.csv", encoding='utf-8-sig')
 
-        option_code_list = listed_code_df['단축코드'].tolist()
+        #option_code_list = listed_code_df['단축코드'].tolist()
 
-        print('cm_code_list =', cm_code_list)
-        print('nm_code_list =', nm_code_list)
+        #print('cm_code_list =', cm_code_list)
+        #print('nm_code_list =', nm_code_list)
+
+        cm_call_atm_str = cm_code_list[0][0:5] + atm_txt
+        cm_put_atm_str =  '3' + cm_code_list[0][1:5] + atm_txt
+
+        nm_call_atm_str = nm_code_list[0][0:5] + atm_txt
+        nm_put_atm_str =  '3' + nm_code_list[0][1:5] + atm_txt
+
+        print('cm atm_str =', cm_call_atm_str, cm_put_atm_str)
+        print('nm atm_str =', nm_call_atm_str, nm_put_atm_str)
 
         # 호가
         if index_option_cm_quote:
