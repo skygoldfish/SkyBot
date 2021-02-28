@@ -150,6 +150,7 @@ class XingAPI:
         # 연속조회 여부
         next_data = False
         data = []
+        is_last = False
 
         while True:
             t1702.SetFieldData('t1702InBlock', 'shcode', 0, stock_code)
@@ -175,7 +176,7 @@ class XingAPI:
             next_data = True
 
             if cts_date < start_date:
-                break
+                is_last = True
 
             count = t1702.GetBlockCount("t1702OutBlock1")
             if count == 0:
@@ -216,7 +217,8 @@ class XingAPI:
                     amt0088,
                     amt0099,
                 ])
-                print(date)
+            if is_last:
+                break
 
         df = pd.DataFrame(data, columns={
             "date": str,
@@ -238,6 +240,7 @@ class XingAPI:
         })
 
         df = df.sort_values('date', ascending=True)
+
         return df
 
     @classmethod
@@ -459,8 +462,8 @@ class XingAPI:
         gmshcode = df.at[0, '단축코드']
         cmshcode = df.at[1, '단축코드']
 
-        print('근월물선물코드 =', gmshcode)
-        print('차월물선물코드 =', cmshcode)
+        #print('근월물선물코드 =', gmshcode)
+        #print('차월물선물코드 =', cmshcode)
 
         return gmshcode, cmshcode 
 
