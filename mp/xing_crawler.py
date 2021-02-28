@@ -200,6 +200,9 @@ def index_option_crawler(queue: Queue, index_option_cm_quote=False, index_option
 
         option_code_list = listed_code_df['단축코드'].tolist()
 
+        print('cm_code_list =', cm_code_list)
+        print('nm_code_list =', nm_code_list)
+
         # 호가
         if index_option_cm_quote:
             print('본월물 실시간 호가요청...')
