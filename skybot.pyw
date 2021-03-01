@@ -35756,8 +35756,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 drop_txt = '{0}({1})/{2}({3}k), [{4:.1f}%]'.format(format(dropcount, ','), format(sys_dropcount, ','), format(totalcount, ','), format(int(main_totalsize/1000), ','), drop_percent)
 
-            txt = ' 시스템 시간/[{0}]수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
-                dt.hour, dt.minute, dt.second, int(data['수신시간'][0:2]), int(data['수신시간'][2:4]), int(data['수신시간'][4:6]), time_gap, drop_txt)
+            txt = ' [{0}]수신시간 = [{1:02d}:{2:02d}:{3:02d}]({4}), {5}\r'.format(szTrCode, int(data['수신시간'][0:2]), int(data['수신시간'][2:4]), int(data['수신시간'][4:6]), time_gap, drop_txt)
 
             if abs(time_gap) >= view_time_tolerance:
                 self.statusbar.setStyleSheet("color : red")
