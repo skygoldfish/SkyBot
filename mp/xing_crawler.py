@@ -184,7 +184,7 @@ def index_futures_crawler(queue: Queue, index_futures_quote=True, index_futures_
     else:
         pass
 
-def index_option_crawler(queue: Queue, index_option_cm_quote=False, index_option_nm_quote=False, index_option_cm_tick=False, index_option_nm_tick=False):
+def index_option_crawler(queue: Queue, quote_request_number=5, index_option_cm_quote=False, index_option_nm_quote=False, index_option_cm_tick=False, index_option_nm_tick=False):
 
     proc = mp.current_process()
     print(f'\r지수옵션 Process Name = {proc.name}, Process ID = {proc.pid}')
@@ -198,7 +198,7 @@ def index_option_crawler(queue: Queue, index_option_cm_quote=False, index_option
 
         # ################################# 지수선물 근월물, 차월물 선물코드 ############################################
         gmshcode, cmshcode = XingAPI.get_index_futures_gm_cm_code()
-        print('근월물 선물코드 =', gmshcode)
+        #print('근월물 선물코드 =', gmshcode)
         # ############################################################################################################
         
         # ################################# t2801 요청 ################################################################
@@ -212,33 +212,79 @@ def index_option_crawler(queue: Queue, index_option_cm_quote=False, index_option
         # ############################################################################################################        
 
         # ################################# 지수옵션 ##################################################################
-        listed_code_df, cm_code_list, nm_code_list = XingAPI.get_index_option_listed_code_list()
+        listed_code_df, cm_call_code_list, cm_put_code_list, nm_call_code_list, nm_put_code_list = XingAPI.get_index_option_listed_code_list()
         listed_code_df.to_csv(f"{TODAY_PATH}/index_option_listed_code.csv", encoding='utf-8-sig')
 
         #option_code_list = listed_code_df['단축코드'].tolist()
 
+        cm_code_list = cm_call_code_list + cm_put_code_list
+        nm_code_list = nm_call_code_list + nm_put_code_list
+
         #print('cm_code_list =', cm_code_list)
         #print('nm_code_list =', nm_code_list)
 
-        cm_call_atm_str = cm_code_list[0][0:5] + atm_txt
-        cm_put_atm_str =  '3' + cm_code_list[0][1:5] + atm_txt
+        cm_call_atm_str = cm_call_code_list[0][0:5] + atm_txt
+        cm_put_atm_str =  cm_put_code_list[0][0:5] + atm_txt
 
-        nm_call_atm_str = nm_code_list[0][0:5] + atm_txt
-        nm_put_atm_str =  '3' + nm_code_list[0][1:5] + atm_txt
+        nm_call_atm_str = nm_call_code_list[0][0:5] + atm_txt
+        nm_put_atm_str =  nm_put_code_list[0][0:5] + atm_txt
 
-        print('cm atm_str =', cm_call_atm_str, cm_put_atm_str)
-        print('nm atm_str =', nm_call_atm_str, nm_put_atm_str)
+        cm_call_atm_index = cm_call_code_list.index(cm_call_atm_str)
+        cm_put_atm_index = cm_put_code_list.index(cm_put_atm_str)
+        nm_call_atm_index = nm_call_code_list.index(nm_call_atm_str)
+        nm_put_atm_index = nm_put_code_list.index(nm_put_atm_str)
+
+        #print(f'{cm_call_atm_str}({cm_call_atm_index}), {cm_put_atm_str}({cm_put_atm_index})')
+        #print(f'{nm_call_atm_str}({nm_call_atm_index}), {nm_put_atm_str}({nm_put_atm_index})')
+        #print(cm_call_code_list[cm_call_atm_index])
+
+        cm_call_atm_list = []
+        nm_call_atm_list = []
+
+        for i in range(quote_request_number+1):
+            cm_call_atm_list.append(cm_call_code_list[cm_call_atm_index-i])
+            nm_call_atm_list.append(nm_call_code_list[nm_call_atm_index-i])
+
+        cm_call_atm_list.reverse()
+        nm_call_atm_list.reverse()
+
+        for i in range(quote_request_number):
+            cm_call_atm_list.append(cm_call_code_list[cm_call_atm_index+i+1])
+            nm_call_atm_list.append(nm_call_code_list[nm_call_atm_index+i+1])
+
+        #print(cm_call_atm_list)
+        #print(nm_call_atm_list)
+
+        cm_put_atm_list = []
+        nm_put_atm_list = []
+
+        for i in range(quote_request_number+1):
+            cm_put_atm_list.append(cm_put_code_list[cm_put_atm_index-i])
+            nm_put_atm_list.append(nm_put_code_list[nm_put_atm_index-i])
+
+        cm_put_atm_list.reverse()
+        nm_put_atm_list.reverse()
+
+        for i in range(quote_request_number):
+            cm_put_atm_list.append(cm_put_code_list[cm_put_atm_index+i+1])
+            nm_put_atm_list.append(nm_put_code_list[nm_put_atm_index+i+1])
+
+        #print(cm_put_atm_list)
+        #print(nm_put_atm_list)
+
+        cm_opt_quote_list = cm_call_atm_list + cm_put_atm_list
+        nm_opt_quote_list = nm_call_atm_list + nm_put_atm_list
 
         # 호가
         if index_option_cm_quote:
             print('본월물 실시간 호가요청...')
             real_time_index_option_quote = RealTimeIndexOptionQuote(queue=queue)
-            real_time_index_option_quote.set_code_list(cm_code_list, field="optcode")
+            real_time_index_option_quote.set_code_list(cm_opt_quote_list, field="optcode")
 
         if index_option_nm_quote:
             print('차월물 실시간 호가요청...')
             real_time_index_option_quote = RealTimeIndexOptionQuote(queue=queue)
-            real_time_index_option_quote.set_code_list(nm_code_list, field="optcode")
+            real_time_index_option_quote.set_code_list(nm_opt_quote_list, field="optcode")
 
         # 체결
         if index_option_cm_tick:

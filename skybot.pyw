@@ -370,6 +370,7 @@ TIME_TOLERANCE = parser.getint('Initial Value', 'RealTime Tolerance(sec)')
 DOW_START = parser.get('Initial Value', 'Dow Start Time')
 MP_NUMBER = parser.getint('Initial Value', 'Number of Multiprocess')
 MP_SEND_INTERVAL = parser.getint('Initial Value', 'MP Send Interval')
+QUOTE_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Quote Request')
 CALL_ITM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Call ITM Request')
 CALL_OTM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Call OTM Request')
 PUT_ITM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Put ITM Request')
@@ -43424,7 +43425,7 @@ if __name__ == "__main__":
         optionQ = mp.Queue()
         
         index_futures_process = Process(target=index_futures_crawler, args=(futuresQ, INDEX_FUTURES_QUOTE, INDEX_FUTURES_TICK), daemon=True)
-        index_option_process = Process(target=index_option_crawler, args=(optionQ, INDEX_OPTION_CM_QUOTE, INDEX_OPTION_NM_QUOTE, INDEX_OPTION_CM_TICK, INDEX_OPTION_NM_TICK), daemon=True)
+        index_option_process = Process(target=index_option_crawler, args=(optionQ, QUOTE_REQUEST_NUMBER, INDEX_OPTION_CM_QUOTE, INDEX_OPTION_NM_QUOTE, INDEX_OPTION_CM_TICK, INDEX_OPTION_NM_TICK), daemon=True)
 
         index_futures_process.start()
         index_option_process.start()

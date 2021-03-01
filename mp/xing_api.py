@@ -545,16 +545,11 @@ class XingAPI:
 
             else:
                 pass
-        '''
-        CM_CALL_CODE.reverse()
-        CM_PUT_CODE.reverse()
-        NM_CALL_CODE.reverse()
-        NM_PUT_CODE.reverse()
-        '''
-        cm_code_list = CM_CALL_CODE + CM_PUT_CODE
-        nm_code_list = NM_CALL_CODE + NM_PUT_CODE
+        
+        #cm_code_list = CM_CALL_CODE + CM_PUT_CODE
+        #nm_code_list = NM_CALL_CODE + NM_PUT_CODE
 
-        return df, cm_code_list, nm_code_list
+        return df, CM_CALL_CODE, CM_PUT_CODE, NM_CALL_CODE, NM_PUT_CODE
 
     @classmethod
     def wait_query(cls, target_class):
