@@ -35045,8 +35045,18 @@ class Xing(object):
                     pass
 
             except Exception as e:
-                txt = '[{0:02d}:{1:02d}:{2:02d}] NTP Server Time Get Error({3})...\r'.format(dt.hour, dt.minute, dt.second, str(e))
-                self.caller.textBrowser.append(txt)            
+
+                ipaddress = socket.gethostbyname(socket.gethostname())
+
+                if ipaddress == '127.0.0.1':
+                    
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] NTP Server Time Get Error({3})...\r'.format(dt.hour, dt.minute, dt.second, str(e))
+                    self.caller.textBrowser.append(txt)
+                    
+                    msg = ' 인터넷 연결이 끊겼습니다.'
+                    self.caller.statusbar.showMessage(msg)
+                else:
+                    pass
         else:
             pass
 
