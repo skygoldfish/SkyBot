@@ -281,18 +281,17 @@ def index_option_crawler(queue: Queue, quote_request_number=5, index_option_cm_q
 
         nm_opt_quote_cmd = []
         nm_opt_quote_cmd.append('quote')
-        nm_opt_quote = nm_opt_quote_cmd + nm_opt_quote_list
-
-        queue.put(cm_opt_quote)
-        queue.put(nm_opt_quote)
+        nm_opt_quote = nm_opt_quote_cmd + nm_opt_quote_list        
 
         # 호가
         if index_option_cm_quote:
+            queue.put(cm_opt_quote)
             print('본월물 실시간 호가요청...')
             real_time_index_option_quote = RealTimeIndexOptionQuote(queue=queue)
             real_time_index_option_quote.set_code_list(cm_opt_quote_list, field="optcode")
 
         if index_option_nm_quote:
+            queue.put(nm_opt_quote)
             print('차월물 실시간 호가요청...')
             real_time_index_option_quote = RealTimeIndexOptionQuote(queue=queue)
             real_time_index_option_quote.set_code_list(nm_opt_quote_list, field="optcode")
