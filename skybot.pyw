@@ -42296,8 +42296,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # 로그아웃
         if _action == "actionLogout":
-            #self.main_connection.logout()
-            self.main_connection.disconnect()
+            self.xing.main_connection.disconnect()
             self.statusbar.showMessage("접속종료 되었습니다.")             
 
         # 계좌정보 조회
@@ -42314,7 +42313,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         # 종료
         if _action == "actionExit":
-            self.main_connection.disconnect()
+            self.xing.main_connection.disconnect()
             self.close() 
         
         # 옵션전광판
@@ -42496,7 +42495,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     QTest.qWait(100)
                     
                     print('서버연결 해지...')
-                    self.main_connection.disconnect()
+                    self.xing.main_connection.disconnect()
                     
                     print('쓰레드 종료...')
                     self.realtime_thread_dataworker.terminate()
