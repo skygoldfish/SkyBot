@@ -50,7 +50,7 @@ def stock_crawler(queue: Queue, kospi_quote=True, kospi_tick=True, kosdaq_quote=
 
     queue.put(result)
 
-    if result[0] == '0000':
+    if result[0] == 'login' and result[1] == '0000':
 
         # ################################# 코스피 ###################################################################
         listed_code_df = XingAPI.get_listed_code_list(market_type=1)
@@ -102,7 +102,7 @@ def index_futures_crawler(queue: Queue, index_futures_quote=True, index_futures_
 
     queue.put(result)
 
-    if result[0] == '0000':
+    if result[0] == 'login' and result[1] == '0000':
 
         # ################################### JIF ####################################################################
         real_time_jif_tick = RealTimeJIFTick(queue=queue)
@@ -194,7 +194,7 @@ def index_option_crawler(queue: Queue, quote_request_number=5, index_option_cm_q
 
     queue.put(result)
 
-    if result[0] == '0000':
+    if result[0] == 'login' and result[1] == '0000':
 
         # ################################# 지수선물 근월물, 차월물 선물코드 ############################################
         gmshcode, cmshcode = XingAPI.get_index_futures_gm_cm_code()
@@ -274,6 +274,17 @@ def index_option_crawler(queue: Queue, quote_request_number=5, index_option_cm_q
 
         cm_opt_quote_list = cm_call_atm_list + cm_put_atm_list
         nm_opt_quote_list = nm_call_atm_list + nm_put_atm_list
+
+        cm_opt_quote_cmd = []
+        cm_opt_quote_cmd.append('quote')
+        cm_opt_quote = cm_opt_quote_cmd + cm_opt_quote_list
+
+        nm_opt_quote_cmd = []
+        nm_opt_quote_cmd.append('quote')
+        nm_opt_quote = nm_opt_quote_cmd + nm_opt_quote_list
+
+        queue.put(cm_opt_quote)
+        queue.put(nm_opt_quote)
 
         # 호가
         if index_option_cm_quote:

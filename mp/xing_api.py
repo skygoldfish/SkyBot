@@ -46,6 +46,7 @@ class XingAPI:
             pythoncom.PumpWaitingMessages()
 
         result = []
+        result.append('login')
         result.append(XASessionEventHandler.login_code)
         result.append(XASessionEventHandler.login_msg)
 

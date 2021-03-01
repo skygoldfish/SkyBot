@@ -39228,12 +39228,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         dt = datetime.now()
         
-        if trdata[0] == '0000':
+        if trdata[0] == 'login' and trdata[1] == '0000':
 
             txt = '1st 백그라운드 프로세스 로그인 성공 !!!\r'
             self.textBrowser.append(txt)
             
-            self.statusbar.showMessage(trdata[2] + ' ' + trdata[1])
+            self.statusbar.showMessage(trdata[3] + ' ' + trdata[2])
 
             if TTS:
                 Speak('First 프로세스 로그인 성공')
@@ -39254,6 +39254,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].RunCode()
             else:
                 pass
+
+        elif trdata[0] == 'login' and trdata[1] != '0000':
+
+            txt = '로그인 실패({0})!  다시 로그인하세요...'.format(trdata[0])
+            self.statusbar.showMessage(txt) 
             
         elif trdata[0] == 't0167':
 
@@ -39308,8 +39313,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
         else:
-            txt = '로그인 실패({0})!  다시 로그인하세요...'.format(trdata[0])
-            self.statusbar.showMessage(txt)        
+            pass       
 
     @pyqtSlot(dict)
     def transfer_mp_1st_realdata(self, realdata):
@@ -39375,21 +39379,29 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         dt = datetime.now()
 
-        if trdata[0] == '0000':
+        if trdata[0] == 'login' and trdata[1] == '0000':
 
             txt = '2nd 백그라운드 프로세스 로그인 성공 !!!\r'
             self.textBrowser.append(txt)
 
-            self.statusbar.showMessage(trdata[2] + ' ' + trdata[1])
+            self.statusbar.showMessage(trdata[3] + ' ' + trdata[2])
 
             if TTS:
                 Speak('Second 프로세스 로그인 성공')
                 #self.speaker.setText('세컨드 프로세스 로그인 성공')
             else:
-                pass            
-        else:
+                pass
+        elif trdata[0] == 'login' and trdata[1] != '0000':
+
             txt = '2nd 로그인 실패({0})!  다시 로그인하세요...'.format(trdata[0])
             self.statusbar.showMessage(txt)
+
+        elif trdata[0] == 'quote':
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션호가 요청리스트 = {3}\r'.format(dt.hour, dt.minute, dt.second, trdata)
+            self.textBrowser.append(txt)
+        else:
+            pass
 
     @pyqtSlot(dict)
     def transfer_mp_2nd_realdata(self, realdata):
