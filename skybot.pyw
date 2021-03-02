@@ -35529,7 +35529,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.label_1st.setText(txt)                
 
         # 1st 프로세스 실시간데이타 갱신
-        self.update_1st_process(realdata)
+        if self.dialog['선물옵션전광판'] is not None:
+            self.update_1st_process(realdata)
+        else:
+            pass
         
     @pyqtSlot(list)
     def transfer_mp_2nd_trdata(self, trdata):
@@ -35616,7 +35619,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
 
         # 1st 프로세스 실시간데이타 갱신
-        self.update_2nd_process(realdata)
+        if self.dialog['선물옵션전광판'] is not None:
+            self.update_2nd_process(realdata)
+        else:
+            pass
     
     @logging_time_with_args
     def update_1st_process(self, data):
