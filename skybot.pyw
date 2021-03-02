@@ -22682,7 +22682,7 @@ class PlotUpdateWorker1(QThread):
 
         while True:
 
-            if not flag_1st_realdata_update_is_running:
+            if not flag_1st_realdata_update_is_running and not flag_2nd_realdata_update_is_running:
                 self.trigger.emit()
 
             if flag_plot_update_interval_changed:
@@ -22706,7 +22706,7 @@ class PlotUpdateWorker2(QThread):
 
         while True:
 
-            if not flag_1st_realdata_update_is_running:
+            if not flag_1st_realdata_update_is_running and not flag_2nd_realdata_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -22724,7 +22724,7 @@ class PlotUpdateWorker3(QThread):
 
         while True:
 
-            if not flag_1st_realdata_update_is_running:
+            if not flag_1st_realdata_update_is_running and not flag_2nd_realdata_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -22742,7 +22742,7 @@ class PlotUpdateWorker4(QThread):
 
         while True:
 
-            if not flag_1st_realdata_update_is_running:
+            if not flag_1st_realdata_update_is_running and not flag_2nd_realdata_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -22760,7 +22760,7 @@ class PlotUpdateWorker5(QThread):
 
         while True:
 
-            if not flag_1st_realdata_update_is_running:
+            if not flag_1st_realdata_update_is_running and not flag_2nd_realdata_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -22778,7 +22778,7 @@ class PlotUpdateWorker6(QThread):
 
         while True:
 
-            if not flag_1st_realdata_update_is_running:
+            if not flag_1st_realdata_update_is_running and not flag_2nd_realdata_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
