@@ -36273,7 +36273,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def yfc_update(self, data):
 
-        global market_service, df_futures_graph, flag_futures_ohlc_open, 선물_등락율
+        global market_service, df_futures_graph, flag_futures_ohlc_open, 선물_등락율, 선물_진폭비
         global flag_fut_vs_dow_drate_direction, plot_drate_scale_factor, 선물_현재가_버퍼
 
         result = data
