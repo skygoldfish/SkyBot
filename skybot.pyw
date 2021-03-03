@@ -5906,6 +5906,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 self.KillScoreBoardAllThread()
 
+                                if CSV_FILE:
+                                    close_all_writer()
+                                else:
+                                    pass
+
                                 if MULTIPROCESS:
                                     
                                     txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 쓰레드를 종료합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
@@ -5971,6 +5976,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 flag_offline = True
 
                                 self.KillScoreBoardAllThread()
+
+                                if CSV_FILE:
+                                    close_all_writer()
+                                else:
+                                    pass
 
                                 if MULTIPROCESS:
                                     
@@ -38392,12 +38402,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             logger.info("*************************************************************************************************************************")
             logger.info("LOG STOP")
 
-            if MULTIPROCESS and flag_internet:
-
-                if CSV_FILE:
-                    close_all_writer()
-                else:
-                    pass
+            if MULTIPROCESS and flag_internet:                
 
                 index_futures_process.terminate()
                 index_option_process.terminate()
