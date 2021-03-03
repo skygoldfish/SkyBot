@@ -5934,7 +5934,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.textBrowser.append(txt)
                                     print(txt)
                                 else:
-                                    self.parent.xing.main_connection.disconnect()
+                                    pass
+
+                                self.parent.xing.main_connection.disconnect()
                             else:
                                 pass
 
@@ -6001,7 +6003,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     else:
                                         pass                                    
                                 else:
-                                    self.parent.xing.main_connection.disconnect()                                    
+                                    pass
+
+                                self.parent.xing.main_connection.disconnect()                                    
                             else:
                                 pass
 
