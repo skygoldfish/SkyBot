@@ -1845,9 +1845,8 @@ flag_logfile = False
 flag_t8416_call_done = False
 flag_t8416_put_done = False
 
-flag_1st_realdata_update_is_running = False
-flag_2nd_realdata_update_is_running = False
-flag_3rd_realdata_update_is_running = False
+flag_futures_update_is_running = False
+flag_option_update_is_running = False
 
 flag_screen_update_is_running = False
 flag_plot_update_is_running = False
@@ -2263,7 +2262,7 @@ class ScreenUpdateWorker(QThread):
 
         while True:
 
-            if not flag_1st_realdata_update_is_running:
+            if not flag_futures_update_is_running:
 
                 try:
                     response = self.ntpclient.request(TimeServer, version=3)
@@ -2303,7 +2302,7 @@ class TelegramSendWorker(QThread):
 
         while True:  
 
-            if not flag_1st_realdata_update_is_running:
+            if not flag_futures_update_is_running:
                 self.trigger.emit()
             else:
                 pass
@@ -2325,7 +2324,7 @@ class TelegramListenWorker(QThread):
 
         while True:      
 
-            if not flag_1st_realdata_update_is_running:
+            if not flag_futures_update_is_running:
                 self.trigger.emit()
             else:
                 pass
@@ -2612,7 +2611,7 @@ class RealTime_Thread_DataWorker(QThread):
                     else:
                         pass
                     
-                    if not flag_1st_realdata_update_is_running:
+                    if not flag_futures_update_is_running:
 
                         szTrCode = data['tr_code']                          
 
@@ -2936,7 +2935,8 @@ class RealTime_1st_MP_Thread_DataWorker(QThread):
                         
                         szTrCode = self.realdata[1]['tr_code']
 
-                        if not flag_1st_realdata_update_is_running:
+                        # 옵션은 초당 50회 이상 입력됨
+                        if not flag_option_update_is_running:
                             
                             if szTrCode == 'JIF':
 
@@ -3252,7 +3252,7 @@ class RealTime_2nd_MP_Thread_DataWorker(QThread):
 
                     szTrCode = self.realdata[1]['tr_code']
 
-                    if not flag_2nd_realdata_update_is_running:
+                    if not flag_option_update_is_running:
 
                         if szTrCode == 'OC0':
 
@@ -21570,7 +21570,7 @@ class PlotUpdateWorker1(QThread):
 
         while True:
 
-            if not flag_1st_realdata_update_is_running and not flag_2nd_realdata_update_is_running:
+            if not flag_option_update_is_running:
                 self.trigger.emit()
 
             if flag_plot_update_interval_changed:
@@ -21594,7 +21594,7 @@ class PlotUpdateWorker2(QThread):
 
         while True:
 
-            if not flag_1st_realdata_update_is_running and not flag_2nd_realdata_update_is_running:
+            if not flag_option_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -21612,7 +21612,7 @@ class PlotUpdateWorker3(QThread):
 
         while True:
 
-            if not flag_1st_realdata_update_is_running and not flag_2nd_realdata_update_is_running:
+            if not flag_option_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -21630,7 +21630,7 @@ class PlotUpdateWorker4(QThread):
 
         while True:
 
-            if not flag_1st_realdata_update_is_running and not flag_2nd_realdata_update_is_running:
+            if not flag_option_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -21648,7 +21648,7 @@ class PlotUpdateWorker5(QThread):
 
         while True:
 
-            if not flag_1st_realdata_update_is_running and not flag_2nd_realdata_update_is_running:
+            if not flag_option_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -21666,7 +21666,7 @@ class PlotUpdateWorker6(QThread):
 
         while True:
 
-            if not flag_1st_realdata_update_is_running and not flag_2nd_realdata_update_is_running:
+            if not flag_option_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -34515,12 +34515,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @logging_time_with_args
     def update_1st_process(self, data):
         
-        global flag_1st_realdata_update_is_running
+        global flag_futures_update_is_running
         
         dt = datetime.now()
 
         try:               
-            flag_1st_realdata_update_is_running = True
+            flag_futures_update_is_running = True
 
             szTrCode = data['tr_code']
             
@@ -34573,17 +34573,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.textBrowser.append(txt)
 
         finally:
-            flag_1st_realdata_update_is_running = False
+            flag_futures_update_is_running = False
 
     @logging_time_with_args
     def update_2nd_process(self, data):
         
-        global flag_2nd_realdata_update_is_running
+        global flag_option_update_is_running
         
         dt = datetime.now()
 
         try:               
-            flag_2nd_realdata_update_is_running = True
+            flag_option_update_is_running = True
 
             szTrCode = data['tr_code']
 
@@ -34607,7 +34607,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.textBrowser.append(txt)
 
         finally:
-            flag_2nd_realdata_update_is_running = False
+            flag_option_update_is_running = False
     #####################################################################################################################################################################
     # 쓰레드방식 처리관련 함수들
     #####################################################################################################################################################################
