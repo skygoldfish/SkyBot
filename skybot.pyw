@@ -1941,7 +1941,7 @@ ntp_server_hour = 0
 ntp_server_minute = 0
 ntp_server_second = 0
 
-flag_data_receive_done = False
+flag_t8416_data_receive_done = False
 
 flag_score_board_start = False
 flag_telegram_send_start = False
@@ -2936,7 +2936,7 @@ class RealTime_1st_MP_Thread_DataWorker(QThread):
                         szTrCode = self.realdata[1]['tr_code']
 
                         # 옵션은 초당 50회 이상 입력됨
-                        if not flag_option_update_is_running:
+                        if not flag_futures_update_is_running:
                             
                             if szTrCode == 'JIF':
 
@@ -5508,7 +5508,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
                 else:
                     pass
-
+                
                 if market_service and flag_option_start:   
                     
                     if flag_periodic_plot_mode:
@@ -5775,12 +5775,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.asym_detect(self.alternate_flag)
                     else:
-                        pass                                              
+                        pass
+                                                                  
                 else:
-                    pass          
+                    pass
+                          
             else:
                 pass
-
+            
             # 증권사 서버초기화(오전 7시 10분경)전에 프로그램을 미리 오프라인으로 전환하여야 Crash 발생안함
             if (not flag_internet_connection_broken and not flag_service_provider_broken):
                 
@@ -19004,9 +19006,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.textBrowser.append(txt)
                     print(txt)
 
-                    global flag_data_receive_done
+                    global flag_t8416_data_receive_done
 
-                    flag_data_receive_done = True
+                    flag_t8416_data_receive_done = True
 
                     if new_actval_up_count > 0 and TTS:
                         txt = '새로운 상방 행사가가 {0}개 추가되었습니다.'.format(new_actval_up_count)
@@ -19466,17 +19468,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 GMSHCODE = 근월물선물코드
                 CMSHCODE = 차월물선물코드
                 CCMSHCODE = 차차월물선물코드
-            '''
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 본월물코드 = {3}\r'.format(dt.hour, dt.minute, dt.second, GMSHCODE)
-            self.textBrowser.append(txt)
-            self.parent.textBrowser.append(txt)
-            print(txt)
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 차월물코드 = {3}\r'.format(dt.hour, dt.minute, dt.second, CMSHCODE)
-            self.textBrowser.append(txt)
-            self.parent.textBrowser.append(txt)
-            print(txt)
-            '''
+            
             if TARGET_MONTH == 'CM':
 
                 FUT_CODE = GMSHCODE
@@ -21570,7 +21562,7 @@ class PlotUpdateWorker1(QThread):
 
         while True:
 
-            if not flag_option_update_is_running:
+            if not flag_futures_update_is_running:
                 self.trigger.emit()
 
             if flag_plot_update_interval_changed:
@@ -21594,7 +21586,7 @@ class PlotUpdateWorker2(QThread):
 
         while True:
 
-            if not flag_option_update_is_running:
+            if not flag_futures_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -21612,7 +21604,7 @@ class PlotUpdateWorker3(QThread):
 
         while True:
 
-            if not flag_option_update_is_running:
+            if not flag_futures_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -21630,7 +21622,7 @@ class PlotUpdateWorker4(QThread):
 
         while True:
 
-            if not flag_option_update_is_running:
+            if not flag_futures_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -21648,7 +21640,7 @@ class PlotUpdateWorker5(QThread):
 
         while True:
 
-            if not flag_option_update_is_running:
+            if not flag_futures_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -21666,7 +21658,7 @@ class PlotUpdateWorker6(QThread):
 
         while True:
 
-            if not flag_option_update_is_running:
+            if not flag_futures_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -34006,6 +33998,9 @@ class Xing(object):
             self.caller.statusbar.showMessage("메인 로그인 성공 !!!")
             #playsound( "Resources/ring.wav" )
 
+            # 지수선물 마스터조회 API용
+            #self.XQ_t8432.Query()
+
             if TTS:
                 self.caller.speaker.setText('메인 로그인 성공')
             else:
@@ -34085,7 +34080,10 @@ class Xing(object):
             
             txt = '[{0:02d}:{1:02d}:{2:02d}] HeartBeat 수신...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
             #self.textBrowser.append(txt)
-            print(txt)                       
+            print(txt)
+
+        elif szTrCode == 't8432':
+            pass                            
         else:
             pass
 
@@ -34138,6 +34136,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         if len(args) == 0:
             self.mp_mode = False
+        elif len(args) == 1:
+            self.mp_mode = True
+
+            self.first_dataQ = args[0]
+
+            self.main_login = False
+            self.second_login = False
+
+            self.main_event_loop = QEventLoop()
+            self.second_event_loop = QEventLoop()
         elif len(args) == 2:
             self.mp_mode = True
 
@@ -34219,15 +34227,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 쓰레드 or 멀티프로세스
         if self.mp_mode:
 
-            self.realtime_1st_dataworker = RealTime_1st_MP_Thread_DataWorker(self.first_dataQ)
-            self.realtime_1st_dataworker.trigger_list.connect(self.transfer_mp_1st_trdata)
-            self.realtime_1st_dataworker.trigger_dict.connect(self.transfer_mp_1st_realdata)            
-            self.realtime_1st_dataworker.start()
+            if len(args) == 1:
+                self.realtime_1st_dataworker = RealTime_1st_MP_Thread_DataWorker(self.first_dataQ)
+                self.realtime_1st_dataworker.trigger_list.connect(self.transfer_mp_1st_trdata)
+                self.realtime_1st_dataworker.trigger_dict.connect(self.transfer_mp_1st_realdata)            
+                self.realtime_1st_dataworker.start()
+            elif len(args) == 2:
+                self.realtime_1st_dataworker = RealTime_1st_MP_Thread_DataWorker(self.first_dataQ)
+                self.realtime_1st_dataworker.trigger_list.connect(self.transfer_mp_1st_trdata)
+                self.realtime_1st_dataworker.trigger_dict.connect(self.transfer_mp_1st_realdata)            
+                self.realtime_1st_dataworker.start()
 
-            self.realtime_2nd_dataworker = RealTime_2nd_MP_Thread_DataWorker(self.second_dataQ)
-            self.realtime_2nd_dataworker.trigger_list.connect(self.transfer_mp_2nd_trdata)
-            self.realtime_2nd_dataworker.trigger_dict.connect(self.transfer_mp_2nd_realdata)            
-            self.realtime_2nd_dataworker.start()
+                self.realtime_2nd_dataworker = RealTime_2nd_MP_Thread_DataWorker(self.second_dataQ)
+                self.realtime_2nd_dataworker.trigger_list.connect(self.transfer_mp_2nd_trdata)
+                self.realtime_2nd_dataworker.trigger_dict.connect(self.transfer_mp_2nd_realdata)            
+                self.realtime_2nd_dataworker.start()
+            else:
+                pass
         else:
             from multiprocessing import Queue
             #from queue import Queue #--> 멀티프로세스 큐만 정상 동작함 ???
@@ -34303,7 +34319,67 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         elif trdata[0] == 'login' and trdata[1] != '0000':
 
             txt = '로그인 실패({0})!  다시 로그인하세요...'.format(trdata[0])
-            self.statusbar.showMessage(txt) 
+            self.statusbar.showMessage(txt)
+
+        elif trdata[0] == 't8432':
+            
+            global FUT_CODE, GMSHCODE, CMSHCODE, CCMSHCODE
+            global 선물_전저, 선물_전고, 선물_종가 
+
+            df = trdata[1]
+
+            근월물선물코드 = df.at[0, '단축코드']
+            차월물선물코드 = df.at[1, '단축코드']
+            차차월물선물코드 = df.at[2, '단축코드']
+
+            print('근월물선물코드 =', 근월물선물코드)
+            print('차월물선물코드 =', 차월물선물코드)
+            print('차차월물선물코드 =', 차차월물선물코드)
+
+            if MANGI_YAGAN:
+
+                if current_month == 3 or current_month == 6 or current_month == 9 or current_month == 12:
+                    GMSHCODE = 차월물선물코드
+                    CMSHCODE = 차차월물선물코드
+                else:
+                    GMSHCODE = 근월물선물코드
+                    CMSHCODE = 차월물선물코드
+                    CCMSHCODE = 차차월물선물코드
+            else:
+                GMSHCODE = 근월물선물코드
+                CMSHCODE = 차월물선물코드
+                CCMSHCODE = 차차월물선물코드
+            
+            if TARGET_MONTH == 'CM':
+
+                FUT_CODE = GMSHCODE
+                
+                선물_전저 = float(df.at[0, '전일저가'])
+                선물_전고 = float(df.at[0, '전일고가'])
+                선물_종가 = float(df.at[0, '전일종가'])
+
+                print('선물_전저 =', 선물_전저)
+                print('선물_전고 =', 선물_전고)
+                print('선물_종가 =', 선물_종가)
+
+            elif TARGET_MONTH == 'NM':
+
+                FUT_CODE = CMSHCODE
+
+                선물_전저 = float(df.at[0, '전일저가'])
+                선물_전고 = float(df.at[0, '전일고가'])
+                선물_종가 = float(df.at[1, '전일종가'])
+
+                print('선물_전저 =', 선물_전저)
+                print('선물_전고 =', 선물_전고)
+                print('선물_종가 =', 선물_종가)
+            else:
+                pass
+
+        elif trdata[0] == 'quote':
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션호가 요청리스트 = {3}\r'.format(dt.hour, dt.minute, dt.second, trdata)
+            self.textBrowser.append(txt)            
             
         elif trdata[0] == 't0167':
 
@@ -34379,13 +34455,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
 
             main_dropcount, main_sys_dropcount, main_qsize, main_totalcount, main_totalsize, main_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
-            second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
+            #second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
 
-            total_dropcount = main_dropcount + second_dropcount
-            total_sys_dropcount = main_sys_dropcount + second_sys_dropcount
-            total_waiting_count = main_qsize + second_qsize
-            totalcount = main_totalcount + second_totalcount
-            totalsize = main_totalsize + second_totalsize
+            total_dropcount = main_dropcount + 0
+            total_sys_dropcount = main_sys_dropcount + 0
+            total_waiting_count = main_qsize + 0
+            totalcount = main_totalcount + 0
+            totalsize = main_totalsize + 0
 
             if totalcount > 0:
                 drop_percent = (total_dropcount / totalcount) * 100
@@ -34558,10 +34634,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.fc0_update(data)
             elif szTrCode == 'FH0' or szTrCode == 'NH0':
                 self.fh0_update(data)
+
             elif szTrCode == 'OC0' or szTrCode == 'EC0':
-                pass
+
+                if flag_t8416_data_receive_done:
+                    self.oc0_update(data)
+                else:
+                    pass
+
             elif szTrCode == 'OH0' or szTrCode == 'EH0':
-                pass
+
+                if flag_t8416_data_receive_done:
+                    self.oh0_update(data)
+                else:
+                    pass
+
             elif szTrCode == 'OVC':
                 self.ovc_update(data)
             else:
@@ -34587,7 +34674,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             szTrCode = data['tr_code']
 
-            if flag_data_receive_done:
+            if flag_t8416_data_receive_done:
             
                 if szTrCode == 'OC0' or szTrCode == 'EC0':
 
@@ -36279,12 +36366,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pre_start = False
         else:
             pass
-        
-        if result['단축코드'] == FUT_CODE:
 
-            # 그래프관련 처리 먼저...                    
+        # 등락율은 본월물 기준으로 계산
+        if result['단축코드'] == GMSHCODE:
+
+           # 그래프관련 처리 먼저...                    
             선물_등락율 = float(result['등락율'])
-            선물_현재가 = float(result['현재가'])
 
             if 선물_등락율 != 0:
 
@@ -36301,7 +36388,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 df_futures_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 선물_등락율
             else:
-                pass
+                pass 
+        
+        if result['단축코드'] == FUT_CODE:
+
+            # 그래프관련 처리 먼저... 
+            선물_현재가 = float(result['현재가'])
 
             # 1T OHLC 생성
             df_futures_graph.at[ovc_x_idx, 'ctime'] = result['수신시간']
@@ -36765,8 +36857,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             콜_현재가 = float(result['현재가'])
             df_call_graph[index].at[ovc_x_idx, 'price'] = 콜_현재가
 
-            # 등락율 갱신
-            if DayTime and index == ATM_INDEX:
+            # 등락율 갱신, 본월물 기준으로 계산
+            if DayTime and index == ATM_INDEX and CURRENT_MONTH[-1] == result['단축코드'][4]:
                 콜_등가_등락율 = float(result['등락율'])
                 df_call_information_graph.at[ovc_x_idx, 'drate'] = 콜_등가_등락율
             else:
@@ -36828,8 +36920,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             풋_현재가 = float(result['현재가'])
             df_put_graph[index].at[ovc_x_idx, 'price'] = 풋_현재가
 
-            # 등락율 갱신
-            if DayTime and index == ATM_INDEX:
+            # 등락율 갱신, 본월물 기준으로 계산
+            if DayTime and index == ATM_INDEX and CURRENT_MONTH[-1] == result['단축코드'][4]:
                 풋_등가_등락율 = float(result['등락율'])
                 df_put_information_graph.at[ovc_x_idx, 'drate'] = 풋_등가_등락율
             else:
@@ -38522,6 +38614,7 @@ if __name__ == "__main__":
 
         futuresQ = mp.Queue()
         optionQ = mp.Queue()
+        #dataQ = mp.Queue()
         
         index_futures_process = Process(target=index_futures_crawler, args=(futuresQ, INDEX_FUTURES_QUOTE, INDEX_FUTURES_TICK), daemon=True)
         index_option_process = Process(target=index_option_crawler, args=(optionQ, QUOTE_REQUEST_NUMBER, INDEX_OPTION_CM_QUOTE, INDEX_OPTION_NM_QUOTE, INDEX_OPTION_CM_TICK, INDEX_OPTION_NM_TICK), daemon=True)

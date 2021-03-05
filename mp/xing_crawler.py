@@ -158,6 +158,12 @@ def index_futures_crawler(queue: Queue, index_futures_quote=True, index_futures_
                 
         # ################################# 지수선물 ##################################################################
         listed_code_df = XingAPI.get_index_futures_listed_code_list()
+
+        fut_code_list = []
+        fut_code_list.append('t8432')
+        fut_code_list.append(listed_code_df)
+        queue.put(fut_code_list)
+
         listed_code_df.to_csv(f"{TODAY_PATH}/index_futures_listed_code.csv", encoding='utf-8-sig')
         # ############################################################################################################
         
@@ -198,7 +204,6 @@ def index_option_crawler(queue: Queue, quote_request_number=5, index_option_cm_q
 
         # ################################# 지수선물 근월물, 차월물 선물코드 ############################################
         gmshcode, cmshcode = XingAPI.get_index_futures_gm_cm_code()
-        #print('근월물 선물코드 =', gmshcode)
         # ############################################################################################################
         
         # ################################# t2801 요청 ################################################################
