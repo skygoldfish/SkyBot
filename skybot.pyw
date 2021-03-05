@@ -14296,13 +14296,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.pushButton_start.setText(' Starting... ')
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] t8432 지수선물 마스터 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(txt)
+                self.parent.textBrowser.append(txt)
                 
                 # 지수선물 마스터조회 API용
                 self.XQ_t8432.Query()
                 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] t8433 지수옵션 마스터 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(txt)
+                self.parent.textBrowser.append(txt)
                 
                 # 지수옵션 마스터조회 API용
                 self.XQ_t8433.Query()
@@ -34549,10 +34549,36 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - ((int(realdata['수신시간'][0:2]) - 24) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
         else:                    
             time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
-        '''
+
+        main_dropcount, main_sys_dropcount, main_qsize, main_totalcount, main_totalsize, main_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
+
+        if self.mp_number == 2:
+            second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
+        else:
+            second_dropcount = 0
+            second_sys_dropcount = 0
+            second_qsize = 0
+            second_totalcount = 0
+            second_totalsize = 0
+            second_opt_totalsize = 0
+
+        total_dropcount = main_dropcount + second_dropcount
+        total_sys_dropcount = main_sys_dropcount + second_sys_dropcount
+        total_waiting_count = main_qsize + second_qsize
+        totalcount = main_totalcount + second_totalcount
+        totalsize = main_totalsize + second_totalsize
+
+        if totalcount > 0:
+            drop_percent = (total_dropcount / totalcount) * 100
+        else:
+            pass
+
+        drop_txt = '{0}({1}), {2}({3})/{4}({5}k), {6}, [{7:.1f}%]'.format(format(main_dropcount, ','), format(main_sys_dropcount, ','), format(second_dropcount, ','), format(second_sys_dropcount, ','), \
+            format(totalcount, ','), format(int(totalsize/1000), ','), format(total_waiting_count, ','), drop_percent)
+        
         txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
             dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
-
+        
         if abs(time_gap) >= view_time_tolerance:
             self.statusbar.setStyleSheet("color : red")
         else:
@@ -34562,7 +34588,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.statusbar.setStyleSheet("color : darkgreen")
 
         self.statusbar.showMessage(txt)
-        '''
+        
         if szTrCode == 'OC0' or szTrCode == 'EC0' or szTrCode == 'OH0' or szTrCode == 'EH0':
 
             if flag_2nd_process_queue_empty:
