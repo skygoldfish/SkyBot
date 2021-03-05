@@ -34133,10 +34133,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.setupUi(self)
+
+        self.mp_number = len(args)
         
-        if len(args) == 0:
+        if self.mp_number == 0:
             self.mp_mode = False
-        elif len(args) == 1:
+        elif self.mp_number == 1:
             self.mp_mode = True
 
             self.first_dataQ = args[0]
@@ -34146,7 +34148,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.main_event_loop = QEventLoop()
             self.second_event_loop = QEventLoop()
-        elif len(args) == 2:
+        elif self.mp_number == 2:
             self.mp_mode = True
 
             self.first_dataQ = args[0]
@@ -34227,12 +34229,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 쓰레드 or 멀티프로세스
         if self.mp_mode:
 
-            if len(args) == 1:
+            if self.mp_number == 1:
                 self.realtime_1st_dataworker = RealTime_1st_MP_Thread_DataWorker(self.first_dataQ)
                 self.realtime_1st_dataworker.trigger_list.connect(self.transfer_mp_1st_trdata)
                 self.realtime_1st_dataworker.trigger_dict.connect(self.transfer_mp_1st_realdata)            
                 self.realtime_1st_dataworker.start()
-            elif len(args) == 2:
+            elif self.mp_number == 2:
                 self.realtime_1st_dataworker = RealTime_1st_MP_Thread_DataWorker(self.first_dataQ)
                 self.realtime_1st_dataworker.trigger_list.connect(self.transfer_mp_1st_trdata)
                 self.realtime_1st_dataworker.trigger_dict.connect(self.transfer_mp_1st_realdata)            
@@ -34455,23 +34457,32 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
 
             main_dropcount, main_sys_dropcount, main_qsize, main_totalcount, main_totalsize, main_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
-            #second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
 
-            total_dropcount = main_dropcount + 0
-            total_sys_dropcount = main_sys_dropcount + 0
-            total_waiting_count = main_qsize + 0
-            totalcount = main_totalcount + 0
-            totalsize = main_totalsize + 0
+            if self.mp_number == 2:
+                second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
+            else:
+                second_dropcount = 0
+                second_sys_dropcount = 0
+                second_qsize = 0
+                second_totalcount = 0
+                second_totalsize = 0
+                second_opt_totalsize = 0
+
+            total_dropcount = main_dropcount + second_dropcount
+            total_sys_dropcount = main_sys_dropcount + second_sys_dropcount
+            total_waiting_count = main_qsize + second_qsize
+            totalcount = main_totalcount + second_totalcount
+            totalsize = main_totalsize + second_totalsize
 
             if totalcount > 0:
                 drop_percent = (total_dropcount / totalcount) * 100
             else:
                 pass
 
-            drop_txt = '{0}({1})/{2}({3}k), {4}, [{5:.1f}%]'.format(format(total_dropcount, ','), format(total_sys_dropcount, ','), \
+            drop_txt = '{0}({1}), {2}({3})/{4}({5}k), {6}, [{7:.1f}%]'.format(format(main_dropcount, ','), format(main_sys_dropcount, ','), format(second_dropcount, ','), format(second_sys_dropcount, ','), \
                 format(totalcount, ','), format(int(totalsize/1000), ','), format(total_waiting_count, ','), drop_percent)
             
-            txt = ' [{0}]수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
+            txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
                 dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
 
             if abs(time_gap) >= view_time_tolerance:
@@ -34538,8 +34549,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - ((int(realdata['수신시간'][0:2]) - 24) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
         else:                    
             time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
-
-        txt = ' [{0}]수신시간 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
+        '''
+        txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
             dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
 
         if abs(time_gap) >= view_time_tolerance:
@@ -34551,7 +34562,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.statusbar.setStyleSheet("color : darkgreen")
 
         self.statusbar.showMessage(txt)
-        
+        '''
         if szTrCode == 'OC0' or szTrCode == 'EC0' or szTrCode == 'OH0' or szTrCode == 'EH0':
 
             if flag_2nd_process_queue_empty:
