@@ -21562,7 +21562,7 @@ class PlotUpdateWorker1(QThread):
 
         while True:
 
-            if not flag_futures_update_is_running:
+            if not flag_option_update_is_running:
                 self.trigger.emit()
 
             if flag_plot_update_interval_changed:
@@ -21586,7 +21586,7 @@ class PlotUpdateWorker2(QThread):
 
         while True:
 
-            if not flag_futures_update_is_running:
+            if not flag_option_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -21604,7 +21604,7 @@ class PlotUpdateWorker3(QThread):
 
         while True:
 
-            if not flag_futures_update_is_running:
+            if not flag_option_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -21622,7 +21622,7 @@ class PlotUpdateWorker4(QThread):
 
         while True:
 
-            if not flag_futures_update_is_running:
+            if not flag_option_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -21640,7 +21640,7 @@ class PlotUpdateWorker5(QThread):
 
         while True:
 
-            if not flag_futures_update_is_running:
+            if not flag_option_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -21658,7 +21658,7 @@ class PlotUpdateWorker6(QThread):
 
         while True:
 
-            if not flag_futures_update_is_running:
+            if not flag_option_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -34551,16 +34551,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
 
         main_dropcount, main_sys_dropcount, main_qsize, main_totalcount, main_totalsize, main_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
-
-        if self.mp_number == 2:
-            second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
-        else:
-            second_dropcount = 0
-            second_sys_dropcount = 0
-            second_qsize = 0
-            second_totalcount = 0
-            second_totalsize = 0
-            second_opt_totalsize = 0
+        second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
 
         total_dropcount = main_dropcount + second_dropcount
         total_sys_dropcount = main_sys_dropcount + second_sys_dropcount
@@ -34717,7 +34708,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     self.oc0_update(data)              
 
-                elif szTrCode == 'OH0' or szTrCode == 'EH0':
+                elif szTrCode == 'OH0' or szTrCode == 'EH0':                    
 
                     self.oh0_update(data)
                 else:
