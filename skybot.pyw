@@ -36886,7 +36886,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             df_call_graph[index].at[ovc_x_idx, 'price'] = 콜_현재가
 
             # 등락율 갱신, 본월물 기준으로 계산
-            if DayTime and index == ATM_INDEX and CURRENT_MONTH[-1] == result['단축코드'][4]:
+            if DayTime and index == ATM_INDEX:
                 콜_등가_등락율 = float(result['등락율'])
                 df_call_information_graph.at[ovc_x_idx, 'drate'] = 콜_등가_등락율
             else:
@@ -36949,7 +36949,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             df_put_graph[index].at[ovc_x_idx, 'price'] = 풋_현재가
 
             # 등락율 갱신, 본월물 기준으로 계산
-            if DayTime and index == ATM_INDEX and CURRENT_MONTH[-1] == result['단축코드'][4]:
+            if DayTime and index == ATM_INDEX:
                 풋_등가_등락율 = float(result['등락율'])
                 df_put_information_graph.at[ovc_x_idx, 'drate'] = 풋_등가_등락율
             else:
