@@ -28407,6 +28407,36 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # 옵션가격
             if comboindex1 == 6 and market_service:
 
+                if DayTime:
+
+                    # 등가표시
+                    txt = ' 등가: {0} '.format(atm_txt)
+                    self.label_11.setText(txt)
+                    
+                    txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
+                    self.label_12.setText(txt)
+
+                    if CENTER_VAL < 1.0:
+                        txt = ' 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                    else:
+                        txt = ' 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+
+                    self.label_13.setText(txt)
+
+                    txt = ' 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
+                    self.label_14.setText(txt)
+
+                    txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[ATM_INDEX, '대비'], (put_atm_value / df_put.at[ATM_INDEX, '시가'] - 1) * 100)
+                    self.label_16.setText(txt)
+
+                    txt = ' 중심가: {0:.2f} '.format(CENTER_VAL)
+                    self.label_17.setText(txt)
+
+                    txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[ATM_INDEX, '대비'], (call_atm_value / df_call.at[ATM_INDEX, '시가'] - 1) * 100)
+                    self.label_18.setText(txt)
+                else:
+                    pass
+
                 self.plot1_time_line.setValue(ovc_x_idx)
 
                 if flag_calltable_checkstate_changed:
@@ -28446,38 +28476,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     #nan_lst = np.isnan(df_call_information_graph['centerval'].values)
                     #print(np.all(nan_lst))                
                     self.plot1_center_val_curve.setData(df_call_information_graph['centerval'].to_numpy())
-
-                    # 등가표시
-                    txt = ' 등가: {0} '.format(atm_txt)
-                    self.label_11.setText(txt)
-                    
-                    txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
-                    self.label_12.setText(txt)
-
-                    if CENTER_VAL < 1.0:
-                        txt = ' 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
-                    else:
-                        txt = ' 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
-
-                    self.label_13.setText(txt)
-
-                    txt = ' 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
-                    self.label_14.setText(txt)
-
-                    txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[ATM_INDEX, '대비'], (put_atm_value / df_put.at[ATM_INDEX, '시가'] - 1) * 100)
-                    self.label_16.setText(txt)
-
-                    txt = ' 중심가: {0:.2f} '.format(CENTER_VAL)
-                    self.label_17.setText(txt)
-
-                    txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[ATM_INDEX, '대비'], (call_atm_value / df_call.at[ATM_INDEX, '시가'] - 1) * 100)
-                    self.label_18.setText(txt)
                 else:
                     pass
 
-            elif comboindex1 == 3 and market_service:
-
-                self.plot1_time_line.setValue(ovc_x_idx)
+            elif comboindex1 == 3 and market_service:                
 
                 txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
                 self.label_16.setText(txt)
@@ -28499,12 +28501,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
                 self.label_18.setText(txt)
 
+                self.plot1_time_line.setValue(ovc_x_idx)
+
                 self.plot1_fut_cm_quote_remainder_ratio_curve.setData(df_futures_graph['c_quote_remainder_ratio'].to_numpy())
                 self.plot1_fut_nm_quote_remainder_ratio_curve.setData(df_futures_graph['n_quote_remainder_ratio'].to_numpy())
 
             elif comboindex1 == 4 and market_service:
-
-                self.plot1_time_line.setValue(ovc_x_idx)
 
                 txt = " {0:.0f} ".format(df_put_information_graph.at[ovc_x_idx, 'volume'])
                 self.label_16.setText(txt)
@@ -28520,27 +28522,27 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 txt = " {0:.0f} ".format(df_call_information_graph.at[ovc_x_idx, 'volume'])
                 self.label_18.setText(txt)
+                
+                self.plot1_time_line.setValue(ovc_x_idx)
 
                 self.plot1_put_volume_curve.setData(df_put_information_graph['volume'].to_numpy())
                 self.plot1_fut_volume_curve.setData(df_futures_graph['volume'].to_numpy())
                 self.plot1_call_volume_curve.setData(df_call_information_graph['volume'].to_numpy())
 
             elif comboindex1 == 7 and market_service:
-
-                self.plot1_time_line.setValue(ovc_x_idx)
                 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
                 self.label_16.setText(txt)
                 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
                 self.label_18.setText(txt)
+                
+                self.plot1_time_line.setValue(ovc_x_idx)
 
                 self.plot1_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
                 self.plot1_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
 
             elif comboindex1 == 10 and market_service:
-
-                self.plot1_time_line.setValue(ovc_x_idx)
 
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_15.setText(txt)
@@ -28550,6 +28552,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 txt = " {0:.2f}({1}) ".format(콜_등가_등락율, call_atm_value)
                 self.label_18.setText(txt)
+                
+                self.plot1_time_line.setValue(ovc_x_idx)
                 
                 self.plot1_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
                 self.plot1_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy())                
@@ -28566,20 +28570,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex1 == 8 and market_service:
 
-                self.plot1_time_line.setValue(ovc_x_idx)
-
                 txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_16.setText(txt)
                 
                 txt = " {0:.2f}({1:.2f}) ".format(df_call_information_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
                 self.label_18.setText(txt)
+                
+                self.plot1_time_line.setValue(ovc_x_idx)
 
                 self.plot1_call_oi_curve.setData(df_call_information_graph['open_interest'].to_numpy())
                 self.plot1_put_oi_curve.setData(df_put_information_graph['open_interest'].to_numpy())
 
             elif comboindex1 == 2 and market_service:
-
-                self.plot1_time_line.setValue(ovc_x_idx)
 
                 if df_futures_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -28630,38 +28632,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                self.plot1_kp200_line[3].setValue(KP200_COREVAL[3])
-                self.plot1_kp200_line[4].setValue(KP200_COREVAL[4])
-                self.plot1_kp200_line[5].setValue(KP200_COREVAL[5])
-                self.plot1_kp200_line[6].setValue(KP200_COREVAL[6])
-                
-                if kp200_저가 < KP200_COREVAL[3]:
-                    self.plot1_kp200_line[2].setValue(KP200_COREVAL[2])
-                else:
-                    pass
-                
-                if kp200_고가 > KP200_COREVAL[6]:
-                    self.plot1_kp200_line[7].setValue(KP200_COREVAL[7])
-                else:
-                    pass
-                
-                self.plot1_fut_jl_line.setValue(선물_전저)
-                self.plot1_fut_jh_line.setValue(선물_전고)
-                self.plot1_fut_close_line.setValue(선물_종가)
-                self.plot1_fut_pivot_line.setValue(선물_피봇)
-                self.plot1_fut_open_line.setValue(선물_시가)
-                self.plot1_fut_low_line.setValue(선물_저가)
-
-                # 종가선 컬러를 살리기위한 임시방편
-                self.plot1_ovc_open_line.setValue(선물_고가)
-                self.plot1_ovc_jl_line.setValue(선물_고가)
-                self.plot1_ovc_jh_line.setValue(선물_고가)
-                self.plot1_ovc_pivot_line.setValue(선물_고가)
-                self.plot1_ovc_low_line.setValue(선물_고가)
-                self.plot1_ovc_high_line.setValue(선물_고가)
-                self.plot1_ovc_close_line.setValue(선물_고가)
-                self.plot1_fut_high_line.setValue(선물_고가)
-
                 txt = ' {0} '.format(선물_저가)
                 self.label_16.setText(txt)       
 
@@ -28696,7 +28666,41 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
 
                 txt = ' {0} '.format(선물_고가)
-                self.label_18.setText(txt)   
+                self.label_18.setText(txt)
+                
+                self.plot1_time_line.setValue(ovc_x_idx)
+                
+                self.plot1_kp200_line[3].setValue(KP200_COREVAL[3])
+                self.plot1_kp200_line[4].setValue(KP200_COREVAL[4])
+                self.plot1_kp200_line[5].setValue(KP200_COREVAL[5])
+                self.plot1_kp200_line[6].setValue(KP200_COREVAL[6])
+                
+                if kp200_저가 < KP200_COREVAL[3]:
+                    self.plot1_kp200_line[2].setValue(KP200_COREVAL[2])
+                else:
+                    pass
+                
+                if kp200_고가 > KP200_COREVAL[6]:
+                    self.plot1_kp200_line[7].setValue(KP200_COREVAL[7])
+                else:
+                    pass
+                
+                self.plot1_fut_jl_line.setValue(선물_전저)
+                self.plot1_fut_jh_line.setValue(선물_전고)
+                self.plot1_fut_close_line.setValue(선물_종가)
+                self.plot1_fut_pivot_line.setValue(선물_피봇)
+                self.plot1_fut_open_line.setValue(선물_시가)
+                self.plot1_fut_low_line.setValue(선물_저가)
+
+                # 종가선 컬러를 살리기위한 임시방편
+                self.plot1_ovc_open_line.setValue(선물_고가)
+                self.plot1_ovc_jl_line.setValue(선물_고가)
+                self.plot1_ovc_jh_line.setValue(선물_고가)
+                self.plot1_ovc_pivot_line.setValue(선물_고가)
+                self.plot1_ovc_low_line.setValue(선물_고가)
+                self.plot1_ovc_high_line.setValue(선물_고가)
+                self.plot1_ovc_close_line.setValue(선물_고가)
+                self.plot1_fut_high_line.setValue(선물_고가)   
 
                 self.plot1_kp200_curve.setData(df_kp200_graph['price'].to_numpy())
                 self.plot1_fut_price_curve.setData(df_futures_graph['price'].to_numpy())
@@ -28734,8 +28738,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             elif comboindex1 == 15:
-
-                self.plot1_time_line.setValue(ovc_x_idx)
 
                 if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] == df_sp500_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -28786,14 +28788,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                self.plot1_ovc_jl_line.setValue(SP500_전저)
-                self.plot1_ovc_jh_line.setValue(SP500_전고)
-                self.plot1_ovc_close_line.setValue(SP500_종가)
-                self.plot1_ovc_open_line.setValue(SP500_시가)
-                self.plot1_ovc_pivot_line.setValue(SP500_피봇)
-                self.plot1_ovc_low_line.setValue(SP500_저가)
-                self.plot1_ovc_high_line.setValue(SP500_고가)
-
                 txt = ' {0} '.format(format(SP500_저가, ','))
                 self.label_16.setText(txt)
 
@@ -28831,7 +28825,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
 
                 txt = ' {0} '.format(format(SP500_고가, ','))
-                self.label_18.setText(txt)   
+                self.label_18.setText(txt) 
+                
+                self.plot1_time_line.setValue(ovc_x_idx)
+
+                self.plot1_ovc_jl_line.setValue(SP500_전저)
+                self.plot1_ovc_jh_line.setValue(SP500_전고)
+                self.plot1_ovc_close_line.setValue(SP500_종가)
+                self.plot1_ovc_open_line.setValue(SP500_시가)
+                self.plot1_ovc_pivot_line.setValue(SP500_피봇)
+                self.plot1_ovc_low_line.setValue(SP500_저가)
+                self.plot1_ovc_high_line.setValue(SP500_고가)                  
 
                 self.plot1_sp500_curve.setData(df_sp500_graph['price'].to_numpy())
 
@@ -28864,8 +28868,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
 
             elif comboindex1 == 12:
-
-                self.plot1_time_line.setValue(ovc_x_idx)
 
                 if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] == df_dow_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -28916,14 +28918,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                self.plot1_ovc_jl_line.setValue(DOW_전저)
-                self.plot1_ovc_jh_line.setValue(DOW_전고)
-                self.plot1_ovc_close_line.setValue(DOW_종가)
-                self.plot1_ovc_open_line.setValue(DOW_시가)
-                self.plot1_ovc_pivot_line.setValue(DOW_피봇)
-                self.plot1_ovc_low_line.setValue(DOW_저가)
-                self.plot1_ovc_high_line.setValue(DOW_고가)
-
                 txt = ' {0} '.format(format(DOW_저가, ','))
                 self.label_16.setText(txt)
 
@@ -28961,7 +28955,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
                 
                 txt = ' {0} '.format(format(DOW_고가, ','))
-                self.label_18.setText(txt)                      
+                self.label_18.setText(txt)
+                
+                self.plot1_time_line.setValue(ovc_x_idx)
+
+                self.plot1_ovc_jl_line.setValue(DOW_전저)
+                self.plot1_ovc_jh_line.setValue(DOW_전고)
+                self.plot1_ovc_close_line.setValue(DOW_종가)
+                self.plot1_ovc_open_line.setValue(DOW_시가)
+                self.plot1_ovc_pivot_line.setValue(DOW_피봇)
+                self.plot1_ovc_low_line.setValue(DOW_저가)
+                self.plot1_ovc_high_line.setValue(DOW_고가)                                      
 
                 self.plot1_dow_curve.setData(df_dow_graph['price'].to_numpy())
 
@@ -28994,8 +28998,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
 
             elif comboindex1 == 13:
-
-                self.plot1_time_line.setValue(ovc_x_idx)
 
                 if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] == df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -29046,14 +29048,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                self.plot1_ovc_jl_line.setValue(NASDAQ_전저)
-                self.plot1_ovc_jh_line.setValue(NASDAQ_전고)
-                self.plot1_ovc_close_line.setValue(NASDAQ_종가)
-                self.plot1_ovc_open_line.setValue(NASDAQ_시가)
-                self.plot1_ovc_pivot_line.setValue(NASDAQ_피봇)
-                self.plot1_ovc_low_line.setValue(NASDAQ_저가)
-                self.plot1_ovc_high_line.setValue(NASDAQ_고가)
-
                 txt = ' {0} '.format(format(NASDAQ_저가, ','))
                 self.label_16.setText(txt)
 
@@ -29091,7 +29085,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
 
                 txt = ' {0} '.format(format(NASDAQ_고가, ','))
-                self.label_18.setText(txt) 
+                self.label_18.setText(txt)
+                
+                self.plot1_time_line.setValue(ovc_x_idx)
+
+                self.plot1_ovc_jl_line.setValue(NASDAQ_전저)
+                self.plot1_ovc_jh_line.setValue(NASDAQ_전고)
+                self.plot1_ovc_close_line.setValue(NASDAQ_종가)
+                self.plot1_ovc_open_line.setValue(NASDAQ_시가)
+                self.plot1_ovc_pivot_line.setValue(NASDAQ_피봇)
+                self.plot1_ovc_low_line.setValue(NASDAQ_저가)
+                self.plot1_ovc_high_line.setValue(NASDAQ_고가)                 
 
                 self.plot1_nasdaq_curve.setData(df_nasdaq_graph['price'].to_numpy())
 
@@ -29124,8 +29128,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
 
             elif comboindex1 == 14:
-
-                self.plot1_time_line.setValue(ovc_x_idx)
 
                 if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] == df_wti_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -29176,14 +29178,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                self.plot1_ovc_jl_line.setValue(WTI_전저)
-                self.plot1_ovc_jh_line.setValue(WTI_전고)
-                self.plot1_ovc_close_line.setValue(WTI_종가)
-                self.plot1_ovc_open_line.setValue(WTI_시가)
-                self.plot1_ovc_pivot_line.setValue(WTI_피봇)
-                self.plot1_ovc_low_line.setValue(WTI_저가)
-                self.plot1_ovc_high_line.setValue(WTI_고가)
-
                 txt = ' {0} '.format(format(WTI_저가, ','))
                 self.label_16.setText(txt)
 
@@ -29220,7 +29214,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
 
                 txt = ' {0} '.format(format(WTI_고가, ','))
-                self.label_18.setText(txt) 
+                self.label_18.setText(txt)
+                
+                self.plot1_time_line.setValue(ovc_x_idx)
+
+                self.plot1_ovc_jl_line.setValue(WTI_전저)
+                self.plot1_ovc_jh_line.setValue(WTI_전고)
+                self.plot1_ovc_close_line.setValue(WTI_종가)
+                self.plot1_ovc_open_line.setValue(WTI_시가)
+                self.plot1_ovc_pivot_line.setValue(WTI_피봇)
+                self.plot1_ovc_low_line.setValue(WTI_저가)
+                self.plot1_ovc_high_line.setValue(WTI_고가)                 
 
                 self.plot1_wti_curve.setData(df_wti_graph['price'].to_numpy())
 
