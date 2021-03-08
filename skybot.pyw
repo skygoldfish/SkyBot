@@ -29252,9 +29252,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
             else:
-                pass   
+                pass
+
+            QApplication.processEvents()   
             
-            flag_plot_update_is_running = False
+            flag_plot_update_is_running = False        
         else:
             pass        
         
@@ -30155,6 +30157,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
 
+            QApplication.processEvents()
+
             flag_plot_update_is_running = False
         else:
             pass
@@ -31050,6 +31054,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
 
+            QApplication.processEvents()
+
             flag_plot_update_is_running = False
         else:
             pass
@@ -31928,6 +31934,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
             else:
                 pass
+
+            QApplication.processEvents()
 
             flag_plot_update_is_running = False
         else:
@@ -32823,6 +32831,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
 
+            QApplication.processEvents()
+
             flag_plot_update_is_running = False
         else:
             pass
@@ -33716,6 +33726,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass  
             else:
                 pass
+
+            QApplication.processEvents()
 
             flag_plot_update_is_running = False
         else:
