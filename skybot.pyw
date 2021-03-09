@@ -28479,7 +28479,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                QApplication.processEvents()
+                #QApplication.processEvents()
 
             elif comboindex1 == 3 and market_service:                
 
@@ -28570,7 +28570,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                QApplication.processEvents()                
+                #QApplication.processEvents()                
 
             elif comboindex1 == 8 and market_service:
 
@@ -29535,7 +29535,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                QApplication.processEvents() 
+                #QApplication.processEvents() 
 
             elif comboindex2 == 8 and market_service:
 
@@ -29625,7 +29625,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                QApplication.processEvents()                
+                #QApplication.processEvents()                
 
             elif comboindex2 == 9:
 
@@ -30446,7 +30446,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                QApplication.processEvents()
+                #QApplication.processEvents()
 
             elif comboindex3 == 8 and market_service:
 
@@ -30534,7 +30534,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                QApplication.processEvents()               
+                #QApplication.processEvents()               
 
             elif comboindex3 == 9:
 
@@ -31184,7 +31184,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                QApplication.processEvents()
+                #QApplication.processEvents()
 
             elif comboindex4 == 3 and market_service:
 
@@ -31275,7 +31275,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                QApplication.processEvents() 
+                #QApplication.processEvents() 
 
             elif comboindex4 == 8 and market_service:
 
@@ -32240,7 +32240,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                QApplication.processEvents()
+                #QApplication.processEvents()
 
             elif comboindex5 == 8 and market_service:
 
@@ -32327,7 +32327,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                QApplication.processEvents()
+                #QApplication.processEvents()
 
             elif comboindex5 == 9:
 
@@ -33144,7 +33144,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                QApplication.processEvents() 
+                #QApplication.processEvents() 
 
             elif comboindex6 == 8 and market_service:
 
@@ -33231,7 +33231,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                QApplication.processEvents()               
+                #QApplication.processEvents()               
 
             elif comboindex6 == 9:
 
@@ -33962,6 +33962,7 @@ class Xing(object):
                     pass
 
                 if flag_score_board_start:
+                    QApplication.processEvents()
                     self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
                 else:
                     pass
