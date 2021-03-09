@@ -28479,6 +28479,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
+                QApplication.processEvents()
+
             elif comboindex1 == 3 and market_service:                
 
                 txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
@@ -28566,7 +28568,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.plot1_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
                 else:
-                    pass                
+                    pass
+
+                QApplication.processEvents()                
 
             elif comboindex1 == 8 and market_service:
 
@@ -29258,7 +29262,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
 
-            QApplication.processEvents()   
+            #QApplication.processEvents()   
             
             flag_plot_update_is_running = False        
         else:
@@ -29529,7 +29533,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     
                     self.plot2_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
                 else:
-                    pass 
+                    pass
+
+                QApplication.processEvents() 
 
             elif comboindex2 == 8 and market_service:
 
@@ -29617,7 +29623,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     #print(np.all(nan_lst))                
                     self.plot2_center_val_curve.setData(df_call_information_graph['centerval'].to_numpy())
                 else:
-                    pass                
+                    pass
+
+                QApplication.processEvents()                
 
             elif comboindex2 == 9:
 
@@ -30165,7 +30173,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
 
-            QApplication.processEvents()
+            #QApplication.processEvents()
 
             flag_plot_update_is_running = False
         else:
@@ -30436,7 +30444,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     
                     self.plot3_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
                 else:
-                    pass 
+                    pass
+
+                QApplication.processEvents()
 
             elif comboindex3 == 8 and market_service:
 
@@ -30522,7 +30532,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     # 중심가 그리기
                     self.plot3_center_val_curve.setData(df_call_information_graph['centerval'].to_numpy())
                 else:
-                    pass                
+                    pass
+
+                QApplication.processEvents()               
 
             elif comboindex3 == 9:
 
@@ -31066,7 +31078,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
 
-            QApplication.processEvents()
+            #QApplication.processEvents()
 
             flag_plot_update_is_running = False
         else:
@@ -31172,6 +31184,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
+                QApplication.processEvents()
+
             elif comboindex4 == 3 and market_service:
 
                 txt = ' min: {0:.2f}, meam: {1:.2f}, max: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
@@ -31259,7 +31273,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     
                     self.plot4_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
                 else:
-                    pass 
+                    pass
+
+                QApplication.processEvents() 
 
             elif comboindex4 == 8 and market_service:
 
@@ -31951,7 +31967,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
 
-            QApplication.processEvents()
+            #QApplication.processEvents()
 
             flag_plot_update_is_running = False
         else:
@@ -32222,7 +32238,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     
                     self.plot5_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
                 else:
-                    pass 
+                    pass
+
+                QApplication.processEvents()
 
             elif comboindex5 == 8 and market_service:
 
@@ -32308,6 +32326,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.plot5_center_val_curve.setData(df_call_information_graph['centerval'].to_numpy())
                 else:
                     pass
+
+                QApplication.processEvents()
 
             elif comboindex5 == 9:
 
@@ -32851,7 +32871,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
 
-            QApplication.processEvents()
+            #QApplication.processEvents()
 
             flag_plot_update_is_running = False
         else:
@@ -33122,7 +33142,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     
                     self.plot6_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
                 else:
-                    pass 
+                    pass
+
+                QApplication.processEvents() 
 
             elif comboindex6 == 8 and market_service:
 
@@ -33207,7 +33229,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     # 중심가 그리기
                     self.plot6_center_val_curve.setData(df_call_information_graph['centerval'].to_numpy())
                 else:
-                    pass                
+                    pass
+
+                QApplication.processEvents()               
 
             elif comboindex6 == 9:
 
@@ -33751,7 +33775,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
 
-            QApplication.processEvents()
+            #QApplication.processEvents()
 
             flag_plot_update_is_running = False
         else:
