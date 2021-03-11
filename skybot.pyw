@@ -38681,9 +38681,9 @@ if __name__ == "__main__":
 
         if TARGET_MONTH == 'CM':
             INDEX_OPTION_CM_TICK = True       # 지수옵션 본월물 전종목 체결
-            INDEX_OPTION_NM_TICK = True      # 지수옵션 차월물 전종목 체결
+            INDEX_OPTION_NM_TICK = False      # 지수옵션 차월물 전종목 체결
             INDEX_OPTION_CM_QUOTE = True      # 지수옵션 본월물 전종목 호가
-            INDEX_OPTION_NM_QUOTE = True     # 지수옵션 차월물 전종목 호가
+            INDEX_OPTION_NM_QUOTE = False     # 지수옵션 차월물 전종목 호가
         elif TARGET_MONTH == 'NM':
             INDEX_OPTION_CM_TICK = False
             INDEX_OPTION_NM_TICK = True
