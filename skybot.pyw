@@ -5635,6 +5635,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                     if DayTime:
+                        # 화면 응답없음 대응책
                         QApplication.processEvents()
                     else:
                         pass
