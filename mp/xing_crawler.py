@@ -206,14 +206,14 @@ def index_option_crawler(queue: Queue, quote_request_number=5, index_option_cm_q
         gmshcode, cmshcode = XingAPI.get_index_futures_gm_cm_code()
         # ############################################################################################################
         
-        # ################################# t2801 요청 ################################################################
-        t2801_df = XingAPI.t2801(gmshcode)
-        kp200 = float(t2801_df.at[0, 'KOSPI200지수'])
+        # ################################# t2101 요청 ################################################################
+        t2101_df = XingAPI.t2101(gmshcode)
+        kp200 = float(t2101_df.at[0, 'KOSPI200지수'])
 
         temp = math.floor(round(kp200 / 2.5, 0) * 2.5)
-        atm_txt = '{0:.0f}'.format(temp)
+        atm_txt = '{0:.0f}'.format(temp)        
 
-        #print('kp200 지수 =', kp200, atm_txt)
+        print('kp200 지수 =', kp200, atm_txt)
         # ############################################################################################################        
 
         # ################################# 지수옵션 ##################################################################
@@ -238,7 +238,7 @@ def index_option_crawler(queue: Queue, quote_request_number=5, index_option_cm_q
         cm_put_atm_index = cm_put_code_list.index(cm_put_atm_str)
         nm_call_atm_index = nm_call_code_list.index(nm_call_atm_str)
         nm_put_atm_index = nm_put_code_list.index(nm_put_atm_str)
-
+        
         #print(f'{cm_call_atm_str}({cm_call_atm_index}), {cm_put_atm_str}({cm_put_atm_index})')
         #print(f'{nm_call_atm_str}({nm_call_atm_index}), {nm_put_atm_str}({nm_put_atm_index})')
         #print(cm_call_code_list[cm_call_atm_index])
@@ -286,7 +286,7 @@ def index_option_crawler(queue: Queue, quote_request_number=5, index_option_cm_q
 
         nm_opt_quote_cmd = []
         nm_opt_quote_cmd.append('quote')
-        nm_opt_quote = nm_opt_quote_cmd + nm_opt_quote_list        
+        nm_opt_quote = nm_opt_quote_cmd + nm_opt_quote_list 
 
         # 호가
         if index_option_cm_quote:

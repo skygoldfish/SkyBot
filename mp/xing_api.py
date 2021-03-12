@@ -299,22 +299,22 @@ class XingAPI:
         return df
 
     @classmethod
-    def t2801(cls, code):
+    def t2101(cls, code):
 
-        t2801 = win32com.client.DispatchWithEvents("XA_DataSet.XAQuery", XAQueryEventHandler)
-        t2801.ResFileName = f"{RES_FOLDER_PATH}/t2801.res"
+        t2101 = win32com.client.DispatchWithEvents("XA_DataSet.XAQuery", XAQueryEventHandler)
+        t2101.ResFileName = f"{RES_FOLDER_PATH}/t2101.res"
 
         args = {
             "focode": code,  # focode
         }
 
         for key, value in args.items():
-            t2801.SetFieldData('t2801InBlock', key, 0, value)
+            t2101.SetFieldData('t2101InBlock', key, 0, value)
 
-        cls.request_api(t2801, 0)
+        cls.request_api(t2101, 0)
         cls.wait_query(XAQueryEventHandler)
 
-        count = t2801.GetBlockCount("t2801OutBlock")
+        count = t2101.GetBlockCount("t2101OutBlock")
 
         col_list = [
             "hname",
@@ -337,6 +337,7 @@ class XingAPI:
             "basis",
             "recprice",
             "theoryprice",
+            "glyl",
             "cbhprice",
             "cblprice",
             "lastmonth",
@@ -351,17 +352,13 @@ class XingAPI:
             "kospidiff",
             "listhprice",
             "listlprice",
-            "sbasis",
-            "ibasis",
-            "jnilvolume",
-            "jnilvalue"
         ]
 
         data_list = []
         for i in range(count):
             values = []
             for col in col_list:
-                value = t2801.GetFieldData("t2801OutBlock", col, i)
+                value = t2101.GetFieldData("t2101OutBlock", col, i)
                 values.append(value)
             data_list.append(values)
 
@@ -386,6 +383,7 @@ class XingAPI:
             "베이시스": float,
             "기준가": float,
             "이론가": float,
+            "괴리율": float,
             "CB상한가": float,
             "CB하한가": float,
             "만기일": str,
@@ -397,13 +395,9 @@ class XingAPI:
             "KOSPI200지수": float,
             "KOSPI200전일대비구분": str,
             "KOSPI200전일대비": float,
-            "KOSPI200등락율": float,
+            "KOSPI200등락율": float,            
             "상장최고가": float,
             "상장최저가": float,
-            "시장BASIS": float,
-            "이론BASIS": float,
-            "전일거래량": int,
-            "전일거래대금": int
         })
 
         return df

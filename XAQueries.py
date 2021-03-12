@@ -2438,6 +2438,7 @@ class t2101(XAQuery):
         result['베이시스'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "basis", 0))
         result['기준가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "recprice", 0))
         result['이론가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "theoryprice", 0))
+        result['괴리율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "glyl", 0))
         result['CB상한가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "cbhprice", 0))
         result['CB하한가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "cblprice", 0))
         result['만기일'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "lastmonth", 0)
@@ -2452,6 +2453,7 @@ class t2101(XAQuery):
         result['KOSPI200등락율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "kospidiff", 0))
         result['상장최고가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "listhprice", 0))
         result['상장최저가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "listlprice", 0))
+        '''
         result['델타'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "delt", 0))
         result['감마'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "gama", 0))
         result['세타'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "ceta", 0))
@@ -2476,6 +2478,7 @@ class t2101(XAQuery):
         result['예상체결가전일종가대비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "jnilychange", 0))
         result['예상체결가전일종가등락율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "jnilydrate", 0))
         result['배분구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "alloc_gubun", 0)
+        '''
 
         #print(result)
 
