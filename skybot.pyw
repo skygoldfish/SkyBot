@@ -3394,7 +3394,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.XQ_t8433 = t8433(parent=self) # 지수옵션 마스터조회 API용
         self.XQ_t2301 = t2301(parent=self) # 주간 옵션전광판 조회
         self.XQ_t2101 = t2101(parent=self) # 주간 선물전광판 조회
-        self.XQ_t2801 = t2801(parent=self) # 야간 선물전광판 조회
+        #self.XQ_t2801 = t2801(parent=self) # 야간 선물전광판 조회
         self.XQ_t2835 = t2835(parent=self) # 야간 옵션전광판 조회
         self.XQ_t8415 = t8415(parent=self) # 선물/옵션 차트(N분) 조회
         self.XQ_t8416 = t8416(parent=self) # 선물/옵션 차트(일,주,월) 조회
@@ -14963,8 +14963,82 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 print("atm값({0})이 리스트에 없습니다.".format(atm_txt))
 
-            #txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 등가지수는 {3}({4})입니다.\r'.format(dt.hour, dt.minute, dt.second, atm_txt, ATM_INDEX)
-            #self.parent.textBrowser.append(txt)           
+            txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 옵션 등가지수는 {3}({4})입니다.\r'.format(dt.hour, dt.minute, dt.second, atm_txt, ATM_INDEX)
+            self.parent.textBrowser.append(txt)
+
+            if self.call_open_list:
+
+                for index in self.call_open_list:
+
+                    if index > ATM_INDEX:
+                        call_itm_count += 1
+                    else:
+                        pass
+                    
+                    if index == option_pairs_count - 1:
+                        call_max_actval = True
+                    else:
+                        pass
+            else:
+                pass                
+
+            if self.put_open_list:
+
+                for index in self.put_open_list:
+
+                    if index > ATM_INDEX:
+                        put_itm_count += 1
+                    else:
+                        pass
+                    
+                    if index == option_pairs_count - 1:
+                        put_max_actval = True
+                    else:
+                        pass
+            else:
+                pass                    
+
+            # kp200 맥점 10개를 리스트로 만듬
+            global KP200_COREVAL
+
+            # KP200_COREVAL 리스트 기존데이타 삭제(초기화)
+            del KP200_COREVAL[:]
+
+            for i in range(6):
+
+                KP200_COREVAL.append(atm_val - 2.5 * i + 1.25) 
+
+            for i in range(1, 5):
+
+                KP200_COREVAL.append(atm_val + 2.5 * i + 1.25)
+
+            KP200_COREVAL.sort()
+            print('t2101 KP200_COREVAL =', KP200_COREVAL)  
+            
+            self.tableWidget_call.item(ATM_INDEX, Option_column.행사가.value).setBackground(QBrush(노란색))
+            self.tableWidget_call.item(ATM_INDEX, Option_column.행사가.value).setForeground(QBrush(검정색))
+            self.tableWidget_put.item(ATM_INDEX, Option_column.행사가.value).setBackground(QBrush(노란색))
+            self.tableWidget_put.item(ATM_INDEX, Option_column.행사가.value).setForeground(QBrush(검정색))            
+            
+            if not self.flag_refresh:
+
+                self.tableWidget_call.cellWidget(ATM_INDEX, 0).findChild(type(QCheckBox())).setChecked(Qt.Checked)
+                self.tableWidget_put.cellWidget(ATM_INDEX, 0).findChild(type(QCheckBox())).setChecked(Qt.Checked)
+                selected_call = [ATM_INDEX]
+                selected_put = [ATM_INDEX]
+            else:
+                pass
+
+            view_actval = opt_actval[ATM_INDEX-5:ATM_INDEX+6]
+
+            call_atm_value = df_call.at[ATM_INDEX, '현재가']
+            put_atm_value = df_put.at[ATM_INDEX, '현재가']
+
+            txt = '{0:.2f}({1:.2f}:{2:.2f})'.format(
+                self.fut_realdata['현재가'] - self.fut_realdata['KP200'],
+                call_atm_value + put_atm_value,
+                abs(call_atm_value - put_atm_value))
+            self.label_atm.setText(txt)           
 
             self.fut_realdata['종가'] = df['전일종가']
             선물_전일종가 = df['전일종가']
@@ -15037,9 +15111,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
             else:
-                pass
+                pass            
 
-            # kp200 종가는 t2801에서 읽어들여 표시함            
             self.fut_realdata['현재가'] = df['현재가']
 
             item = QTableWidgetItem("{0:.2f}".format(self.fut_realdata['현재가']))
@@ -16031,11 +16104,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.textBrowser.append(txt)
 
+                '''
                 #time.sleep(0.1)
                 QTest.qWait(100)
 
                 # 야간 선물전광판 데이타요청
-                self.XQ_t2801.Query(FUT_CODE)
+                #self.XQ_t2801.Query(FUT_CODE)
                 
                 if FUT_CODE == GMSHCODE:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] t2801 본월물 야간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
@@ -16047,7 +16121,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 잘못된 선물코드({3})입니다.\r'.format(dt.hour, dt.minute, dt.second, FUT_CODE)
 
                 self.textBrowser.append(txt)
-           
+                '''
+
                 # t8416 요청                
                 print('t8416 call 요청시작...')
                 QTest.qWait(100)
@@ -16492,13 +16567,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.textBrowser.append(txt)
 
                         QTest.qWait(100)
-
+                        '''
                         self.XQ_t2801.Query(종목코드=FUT_CODE)
                         
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
 
-                        QTest.qWait(100)                        
+                        QTest.qWait(100)  
+                        '''                      
                     else:
                         pass
                                        
@@ -16629,7 +16705,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass                    
 
             # kp200 맥점 10개를 리스트로 만듬
-            global KP200_COREVAL
+            #global KP200_COREVAL
 
             # KP200_COREVAL 리스트 기존데이타 삭제(초기화)
             del KP200_COREVAL[:]
@@ -18334,10 +18410,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             QTest.qWait(100)
 
-            print('t2801 요청')
-            self.XQ_t2801.Query(종목코드=FUT_CODE)
+            #print('t2801 요청')
+            #self.XQ_t2801.Query(종목코드=FUT_CODE)
             
-            QTest.qWait(100)
+            #QTest.qWait(100)
 
         elif szTrCode == 't8408':
 
@@ -33868,7 +33944,7 @@ class Xing(object):
         self.XQ_t8433 = t8433(parent=self) # 지수옵션 마스터조회 API용
         self.XQ_t2301 = t2301(parent=self) # 주간 옵션전광판 조회
         self.XQ_t2101 = t2101(parent=self) # 주간 선물전광판 조회
-        self.XQ_t2801 = t2801(parent=self) # 야간 선물전광판 조회
+        #self.XQ_t2801 = t2801(parent=self) # 야간 선물전광판 조회
         self.XQ_t2835 = t2835(parent=self) # 야간 옵션전광판 조회
         self.XQ_t8415 = t8415(parent=self) # 선물/옵션 차트(N분) 조회
         self.XQ_t8416 = t8416(parent=self) # 선물/옵션 차트(일,주,월) 조회
