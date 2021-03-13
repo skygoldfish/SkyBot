@@ -5490,13 +5490,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
             
             # 실시간 서비스
-            #if (not flag_internet_connection_broken and not flag_service_provider_broken) and FLAG_GUEST_CONTROL and receive_real_ovc:
-            if (not flag_internet_connection_broken and not flag_service_provider_broken) and FLAG_GUEST_CONTROL:
-
-                QApplication.processEvents()
-                print('processEvents 1...')
+            if (not flag_internet_connection_broken and not flag_service_provider_broken) and FLAG_GUEST_CONTROL and receive_real_ovc:
                 
                 self.display_atm(self.alternate_flag)
+                
+                QApplication.processEvents()
+                print('processEvents 1...')
 
                 if market_service:
                     self.option_quote_update()
@@ -5513,8 +5512,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
                 
-                #if market_service and flag_option_start:
-                if True: 
+                if market_service and flag_option_start:
                     
                     if flag_periodic_plot_mode:
 
@@ -5641,12 +5639,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     QApplication.processEvents()
                     print('processEvents 2...')
-
-                    if DayTime:
-                        # 화면 응답없음 대응책
-                        QApplication.processEvents()
-                    else:
-                        pass
                     
                     if self.alternate_flag:                    
 
