@@ -5493,7 +5493,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 if self.parent.dialog['BigChart'] is not None and self.parent.dialog['BigChart'].flag_big_chart_open:
                     QApplication.processEvents()
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] processEvents 1...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] processEvents 1...\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
                     self.textBrowser.append(txt)
                     print(txt)
                 else:
@@ -5575,7 +5575,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             flag_call_cross_coloring = True
 
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] Call 교차컬러링을 수행합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] Call 교차컬러링을 수행합니다.\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
                             self.textBrowser.append(txt)
                             print(txt)
 
@@ -5603,7 +5603,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             flag_put_cross_coloring = True
 
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] Put 교차컬러링을 수행합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] Put 교차컬러링을 수행합니다.\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
                             self.textBrowser.append(txt)
                             print(txt)                                        
                             
@@ -5641,7 +5641,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if self.parent.dialog['BigChart'] is not None and self.parent.dialog['BigChart'].flag_big_chart_open:
                         QApplication.processEvents()
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] processEvents 2...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] processEvents 2...\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
                         self.textBrowser.append(txt)
                         print(txt)
                     else:
@@ -5729,7 +5729,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if self.parent.dialog['BigChart'] is not None and self.parent.dialog['BigChart'].flag_big_chart_open:
                         QApplication.processEvents()
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] processEvents 3...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] processEvents 3...\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
                         self.textBrowser.append(txt)
                         print(txt)
                     else:
@@ -5825,35 +5825,35 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             CME_당일종가 = self.fut_realdata['현재가']
 
                             # 다음날 해외선물 피봇계산을 위해 종료시(오전 6시) 마지막 값 저장
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] CME 종가 = {3:.2f}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, CME_당일종가)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] CME 종가 = {3:.2f}\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second, CME_당일종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] SP500 Low = {3:.2f}, SP500 High = {4:.2f}, SP500 Close = {5:.2f}\r'.format \
-                                (SERVER_HOUR, SERVER_MIN, SERVER_SEC,
+                                (ntp_server_hour, ntp_server_minute, ntp_server_second,
                                 SP500_저가, SP500_고가, SP500_당일종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] DOW Low = {3:0.1f}, DOW High = {4:0.1f}, DOW Close = {5:0.1f}\r'.format \
-                                (SERVER_HOUR, SERVER_MIN, SERVER_SEC,
+                                (ntp_server_hour, ntp_server_minute, ntp_server_second,
                                 DOW_저가, DOW_고가, DOW_당일종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ Low = {3:.2f}, NASDAQ High = {4:.2f}, NASDAQ Close = {5:.2f}\r'.format \
-                                (SERVER_HOUR, SERVER_MIN, SERVER_SEC,
+                                (ntp_server_hour, ntp_server_minute, ntp_server_second,
                                 NASDAQ_저가, NASDAQ_고가, NASDAQ_당일종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] WTI Low = {3:.2f}, WTI High = {4:.2f}, WTI Close = {5:.2f}\r'.format \
-                                (SERVER_HOUR, SERVER_MIN, SERVER_SEC,
+                                (ntp_server_hour, ntp_server_minute, ntp_server_second,
                                 WTI_저가, WTI_고가, WTI_당일종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] 야간장 주요정보를 저징합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 야간장 주요정보를 저징합니다...\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
                             self.textBrowser.append(txt)
                             print(txt)
 
@@ -5919,7 +5919,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 nighttime_file.write(file_txt)
                                 nighttime_file.close()
 
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
                             self.textBrowser.append(txt)
                             print(txt)
 
@@ -5936,7 +5936,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 if MULTIPROCESS:
                                     
-                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 쓰레드를 종료합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 쓰레드를 종료합니다...\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
                                     self.textBrowser.append(txt)
                                     print(txt)
 
@@ -5953,7 +5953,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     else:
                                         pass
 
-                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 로그인을 종료합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 로그인을 종료합니다...\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
                                     self.textBrowser.append(txt)
                                     print(txt)
                                 else:
@@ -5965,13 +5965,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if not flag_logfile:
 
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] 수신된 옵션 데이타 크기 : {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, main_opt_totalsize)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] 수신된 옵션 데이타 크기 : {3}\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second, main_opt_totalsize)
                                 self.textBrowser.append(txt)
 
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간데이타 통계 : {3}, 패킷 손실율 : {4}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, drop_txt, drop_percent)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간데이타 통계 : {3}, 패킷 손실율 : {4}\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second, drop_txt, drop_percent)
                                 self.textBrowser.append(txt)
 
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
                                 self.textBrowser.append(txt)
 
                                 file = open('lastnight.log', 'w')
@@ -5992,7 +5992,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if online_state:
 
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
                             self.textBrowser.append(txt)
                             print(txt)
 
@@ -6009,7 +6009,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 if MULTIPROCESS:
                                     
-                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 쓰레드를 종료합니다...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 쓰레드를 종료합니다...\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
                                     self.textBrowser.append(txt)
                                     print(txt)
 
@@ -6034,13 +6034,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if not flag_logfile:
 
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] 수신된 옵션 데이타 크기 : {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, main_opt_totalsize)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] 수신된 옵션 데이타 크기 : {3}\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second, main_opt_totalsize)
                                 self.textBrowser.append(txt)
                                 
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간데이타 통계 : {3}, 패킷 손실율 : {4}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, drop_txt, drop_percent)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간데이타 통계 : {3}, 패킷 손실율 : {4}\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second, drop_txt, drop_percent)
                                 self.textBrowser.append(txt)
 
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
                                 self.textBrowser.append(txt)
 
                                 file = open('today.log', 'w')
