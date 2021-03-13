@@ -5378,9 +5378,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             ntp_server_second = second
             system_server_time_gap = timegap
 
-            #txt = 'NTP Server Time = {0:02d}:{1:02d}:{2:02d}[{3}]\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second, system_server_time_gap)
-            #print(txt)
-
             self.alternate_flag = not self.alternate_flag
             
             # 온라인 여부확인
@@ -5490,12 +5487,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
             
             # 실시간 서비스
-            if (not flag_internet_connection_broken and not flag_service_provider_broken) and FLAG_GUEST_CONTROL and receive_real_ovc:
+            if (not flag_internet_connection_broken and not flag_service_provider_broken) and FLAG_GUEST_CONTROL:
                 
                 self.display_atm(self.alternate_flag)
                 
-                QApplication.processEvents()
-                print('processEvents 1...')
+                if self.parent.dialog['BigChart'] is not None and self.parent.dialog['BigChart'].flag_big_chart_open:
+                    QApplication.processEvents()
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] processEvents 1...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    self.textBrowser.append(txt)
+                    print(txt)
+                else:
+                    pass
 
                 if market_service:
                     self.option_quote_update()
@@ -5637,8 +5639,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    QApplication.processEvents()
-                    print('processEvents 2...')
+                    if self.parent.dialog['BigChart'] is not None and self.parent.dialog['BigChart'].flag_big_chart_open:
+                        QApplication.processEvents()
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] processEvents 2...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                        self.textBrowser.append(txt)
+                        print(txt)
+                    else:
+                        pass
                     
                     if self.alternate_flag:                    
 
@@ -5720,8 +5727,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass 
 
-                    QApplication.processEvents()
-                    print('processEvents 3...')                                                
+                    if self.parent.dialog['BigChart'] is not None and self.parent.dialog['BigChart'].flag_big_chart_open:
+                        QApplication.processEvents()
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] processEvents 3...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                        self.textBrowser.append(txt)
+                        print(txt)
+                    else:
+                        pass                                               
 
                     if not dongsi_quote:
                     
