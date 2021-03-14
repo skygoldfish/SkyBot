@@ -5493,9 +5493,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 if self.parent.dialog['BigChart'] is not None and self.parent.dialog['BigChart'].flag_big_chart_open:
                     QApplication.processEvents()
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] processEvents 1...\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
-                    self.textBrowser.append(txt)
-                    print(txt)
+                    #txt = '[{0:02d}:{1:02d}:{2:02d}] processEvents 1...\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
+                    #self.textBrowser.append(txt)
+                    #print(txt)
+
+                    item_txt = 'P1'
+                    item = QTableWidgetItem(item_txt)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_fut.setHorizontalHeaderItem(1, item)
                 else:
                     pass
 
@@ -5641,9 +5646,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if self.parent.dialog['BigChart'] is not None and self.parent.dialog['BigChart'].flag_big_chart_open:
                         QApplication.processEvents()
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] processEvents 2...\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
-                        self.textBrowser.append(txt)
-                        print(txt)
+                        #txt = '[{0:02d}:{1:02d}:{2:02d}] processEvents 2...\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
+                        #self.textBrowser.append(txt)
+                        #print(txt)
+
+                        item_txt = 'P2'
+                        item = QTableWidgetItem(item_txt)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_fut.setHorizontalHeaderItem(1, item)
                     else:
                         pass
                     
@@ -5729,9 +5739,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if self.parent.dialog['BigChart'] is not None and self.parent.dialog['BigChart'].flag_big_chart_open:
                         QApplication.processEvents()
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] processEvents 3...\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
-                        self.textBrowser.append(txt)
-                        print(txt)
+                        #txt = '[{0:02d}:{1:02d}:{2:02d}] processEvents 3...\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
+                        #self.textBrowser.append(txt)
+                        #print(txt)
+
+                        item_txt = 'P3'
+                        item = QTableWidgetItem(item_txt)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_fut.setHorizontalHeaderItem(1, item)
                     else:
                         pass                                               
 
