@@ -5490,7 +5490,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if (not flag_internet_connection_broken and not flag_service_provider_broken) and FLAG_GUEST_CONTROL:
                 
                 self.display_atm(self.alternate_flag)
-                
+                '''
                 if self.parent.dialog['BigChart'] is not None and self.parent.dialog['BigChart'].flag_big_chart_open:
                     QApplication.processEvents()
                     #txt = '[{0:02d}:{1:02d}:{2:02d}] processEvents 1...\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
@@ -5503,7 +5503,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_fut.setHorizontalHeaderItem(1, item)
                 else:
                     pass
-
+                '''
                 if market_service:
                     self.option_quote_update()
 
@@ -5643,7 +5643,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         flag_clear = False
                     else:
                         pass
-
+                    '''
                     if self.parent.dialog['BigChart'] is not None and self.parent.dialog['BigChart'].flag_big_chart_open:
                         QApplication.processEvents()
                         #txt = '[{0:02d}:{1:02d}:{2:02d}] processEvents 2...\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
@@ -5656,7 +5656,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_fut.setHorizontalHeaderItem(1, item)
                     else:
                         pass
-                    
+                    '''
                     if self.alternate_flag:                    
 
                         # 콜 저가, 고가 맥점 컬러갱신
@@ -5736,7 +5736,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             flag_put_high_update = False
                         else:
                             pass 
-
+                    '''
                     if self.parent.dialog['BigChart'] is not None and self.parent.dialog['BigChart'].flag_big_chart_open:
                         QApplication.processEvents()
                         #txt = '[{0:02d}:{1:02d}:{2:02d}] processEvents 3...\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
@@ -5749,7 +5749,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_fut.setHorizontalHeaderItem(1, item)
                     else:
                         pass                                               
-
+                    '''
                     if not dongsi_quote:
                     
                         # 진성 의미가인 경우 blinking(매우 중요 !!!)
@@ -34074,8 +34074,13 @@ class Xing(object):
                     pass
 
                 if flag_score_board_start:
-                    #QApplication.processEvents()
+
                     self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
+
+                    if self.caller.dialog['BigChart'] is not None and self.caller.dialog['BigChart'].flag_big_chart_open:
+                        QApplication.processEvents()
+                    else:
+                        pass
                 else:
                     pass
 
