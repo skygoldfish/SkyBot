@@ -15258,12 +15258,36 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 선물_고가 = df['고가']
             else:
                 pass
-            
-            if ResizeRowsToContents:
-                self.tableWidget_fut.resizeRowsToContents()
+
+            # 선물 맥점 컬러 체크(실시간에서만 표시됨)
+            if market_service:
+                self.fut_node_color_clear()
+                self.fut_oloh_check()
+                self.fut_node_coloring()
+
+                self.kp200_node_color_clear()
+                self.kp200_node_coloring()
+
+                self.kp200_low_node_coloring()
+                self.kp200_high_node_coloring()
             else:
                 pass
-            self.tableWidget_fut.resizeColumnsToContents()
+            
+            if ResizeRowsToContents:  
+                self.tableWidget_fut.resizeRowsToContents()
+            else:
+                pass                        
+            self.tableWidget_fut.resizeColumnsToContents()             
+            
+            if self.flag_refresh:
+            
+                # 옵션 맥점 컬러링                
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션맥점 Refresh 컬러링을 시작합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                self.textBrowser.append(txt)
+
+                self.opt_all_node_coloring()
+            else:
+                pass
 
         elif szTrCode == 't2301':
 
