@@ -14305,6 +14305,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.now()
 
+        QApplication.processEvents()
+
         # 백그라운드로 로그인해도 포어그라운드에서 TR조회 가능함(이유?)        
         self.XQ_t1514.Query(KOSPI) # 코스피지수 조회
         
