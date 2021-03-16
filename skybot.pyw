@@ -5602,7 +5602,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.call_node_color_update()
                             self.call_coreval_color_update()
 
-                            self.tableWidget_call.resizeColumnsToContents()                                
+                            #self.tableWidget_call.resizeColumnsToContents()                                
 
                         elif flag_call_cross_coloring or (not self.alternate_flag and dt.minute % CROSS_COLOR_INTERVAL == 0 and dt.second == 0):
 
@@ -5630,7 +5630,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.put_node_color_update()
                             self.put_coreval_color_update()
 
-                            self.tableWidget_put.resizeColumnsToContents()
+                            #self.tableWidget_put.resizeColumnsToContents()
                         else:
                             pass
                     else:
@@ -12894,9 +12894,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if self.call_open_list:
                     loop_list = self.call_open_list
                 else:
-                    loop_list = self.opt_total_actval_list            
+                    loop_list = self.opt_total_actval_list
+
+            index_count = 0           
 
             for index in loop_list:
+
+                index_count += 1
+
+                if index_count % 10 == 0:
+                    QApplication.processEvents()
+                else:
+                    pass
 
                 종가 = df_call.at[index, '종가']
                 시가 = df_call.at[index, '시가']
@@ -13916,8 +13925,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     loop_list = self.put_open_list
                 else:
                     loop_list = self.opt_total_actval_list
+
+            index_count = 0
             
             for index in loop_list:
+
+                index_count += 1
+
+                if index_count % 10 == 0:
+                    QApplication.processEvents()
+                else:
+                    pass
 
                 종가 = df_put.at[index, '종가']
                 시가 = df_put.at[index, '시가']
@@ -14304,8 +14322,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 진성맥점, TTS, SEARCH_MOVING_NODE
 
         dt = datetime.now()
-
-        QApplication.processEvents()
 
         # 백그라운드로 로그인해도 포어그라운드에서 TR조회 가능함(이유?)        
         self.XQ_t1514.Query(KOSPI) # 코스피지수 조회
