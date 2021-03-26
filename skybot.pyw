@@ -7981,9 +7981,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         count = 0
         call_low_node_list = [] 
 
-        call_low_node_old_count = call_low_node_count           
+        call_low_node_old_count = call_low_node_count
+
+        i_count = 0           
 
         for i in loop_list:
+
+            i_count += 1
+
+            if i_count % 10 == 0:
+                QApplication.processEvents()
+            else:
+                pass
 
             저가 = df_call.at[i, '저가']
 
@@ -8113,9 +8122,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         count = 0
         call_high_node_list = [] 
 
-        call_high_node_old_count = call_high_node_count           
+        call_high_node_old_count = call_high_node_count
+
+        i_count = 0           
 
         for i in loop_list:
+
+            i_count += 1
+
+            if i_count % 10 == 0:
+                QApplication.processEvents()
+            else:
+                pass
 
             고가 = df_call.at[i, '고가']
 
@@ -8255,7 +8273,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         count_low = 0
         count_high = 0
 
+        i_count = 0
+
         for i in loop_list:
+
+            i_count += 1
+
+            if i_count % 10 == 0:
+                QApplication.processEvents()
+            else:
+                pass
 
             시가 = df_call.at[i, '시가']
             저가 = df_call.at[i, '저가']
@@ -8398,7 +8425,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             loop_list = self.opt_total_actval_list
 
+        i_count = 0
+
         for i in loop_list:
+
+            i_count += 1
+
+            if i_count % 10 == 0:
+                QApplication.processEvents()
+            else:
+                pass
 
             시가 = df_call.at[i, '시가']
             저가 = df_call.at[i, '저가']
@@ -8451,7 +8487,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             loop_list = self.opt_total_actval_list
 
+        i_count = 0
+
         for i in loop_list:
+
+            i_count += 1
+
+            if i_count % 10 == 0:
+                QApplication.processEvents()
+            else:
+                pass
 
             시가 = df_call.at[i, '시가']
             고가 = df_call.at[i, '고가']
@@ -10502,9 +10547,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         count = 0
         put_low_node_list = [] 
 
-        put_low_node_old_count = put_low_node_count      
+        put_low_node_old_count = put_low_node_count
+
+        i_count = 0      
 
         for i in loop_list:
+
+            i_count += 1
+
+            if i_count % 10 == 0:
+                QApplication.processEvents()
+            else:
+                pass
 
             저가 = df_put.at[i, '저가']
 
@@ -10634,9 +10688,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         count = 0
         put_high_node_list = []
 
-        put_high_node_old_count = put_high_node_count             
+        put_high_node_old_count = put_high_node_count
+
+        i_count = 0             
 
         for i in loop_list:
+
+            i_count += 1
+
+            if i_count % 10 == 0:
+                QApplication.processEvents()
+            else:
+                pass
 
             고가 = df_put.at[i, '고가']
 
@@ -10776,7 +10839,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         count_low = 0
         count_high = 0
 
+        i_count = 0
+
         for i in loop_list:
+
+            i_count += 1
+
+            if i_count % 10 == 0:
+                QApplication.processEvents()
+            else:
+                pass
 
             시가 = df_put.at[i, '시가']
             저가 = df_put.at[i, '저가']
@@ -10919,7 +10991,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             loop_list = self.opt_total_actval_list
 
+        i_count = 0
+
         for i in loop_list:
+
+            i_count += 1
+
+            if i_count % 10 == 0:
+                QApplication.processEvents()
+            else:
+                pass
 
             시가 = df_put.at[i, '시가']
             저가 = df_put.at[i, '저가']
@@ -10972,7 +11053,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             loop_list = self.opt_total_actval_list
 
+        i_count = 0
+
         for i in loop_list:
+
+            i_count += 1
+
+            if i_count % 10 == 0:
+                QApplication.processEvents()
+            else:
+                pass
 
             시가 = df_put.at[i, '시가']
             고가 = df_put.at[i, '고가']
@@ -34120,7 +34210,8 @@ class Xing(object):
                     self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
 
                     if self.caller.dialog['BigChart'] is not None and self.caller.dialog['BigChart'].flag_big_chart_open:
-                        QApplication.processEvents()
+                        #QApplication.processEvents()
+                        pass
                     else:
                         pass
                 else:
