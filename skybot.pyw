@@ -34330,6 +34330,8 @@ class Xing(object):
                 pass                        
         else:
             self.caller.statusbar.showMessage("%s %s" % (code, msg))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] {3}-{4}\r'.format(dt.hour, dt.minute, dt.second, code, msg)
+            self.caller.textBrowser.append(txt)
 
     def OnLogout(self):
 
