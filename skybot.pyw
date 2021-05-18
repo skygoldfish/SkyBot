@@ -38964,9 +38964,14 @@ if __name__ == "__main__":
         futuresQ = mp.Queue()
         optionQ = mp.Queue()
         #dataQ = mp.Queue()
+
+        if NightTime:
+            quote_number = QUOTE_REQUEST_NUMBER * 2
+        else:
+            quote_number = QUOTE_REQUEST_NUMBER
         
         index_futures_process = Process(target=index_futures_crawler, args=(futuresQ, INDEX_FUTURES_QUOTE, INDEX_FUTURES_TICK), daemon=True)
-        index_option_process = Process(target=index_option_crawler, args=(optionQ, QUOTE_REQUEST_NUMBER, INDEX_OPTION_CM_QUOTE, INDEX_OPTION_NM_QUOTE, INDEX_OPTION_CM_TICK, INDEX_OPTION_NM_TICK), daemon=True)
+        index_option_process = Process(target=index_option_crawler, args=(optionQ, quote_number, INDEX_OPTION_CM_QUOTE, INDEX_OPTION_NM_QUOTE, INDEX_OPTION_CM_TICK, INDEX_OPTION_NM_TICK), daemon=True)
 
         index_futures_process.start()
         index_option_process.start()
