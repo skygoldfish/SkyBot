@@ -12750,8 +12750,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_call.resizeRowsToContents()
         else:
             pass
-
-        self.tableWidget_call.resizeColumnToContents(Option_column.시가갭.value)
+        
         self.tableWidget_call.resizeColumnToContents(Option_column.대비.value)            
         
     def call_oi_update(self):
@@ -13211,7 +13210,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
 
-            self.call_db_update()
+            #self.call_db_update()
         else:
             pass
 
@@ -13776,8 +13775,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_put.resizeRowsToContents()
         else:
             pass
-
-        self.tableWidget_put.resizeColumnToContents(Option_column.시가갭.value)
+        
         self.tableWidget_put.resizeColumnToContents(Option_column.대비.value)          
         
     def put_oi_update(self):
@@ -14259,7 +14257,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
 
-            self.put_db_update()
+            #self.put_db_update()
         else:
             pass
 
