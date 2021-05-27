@@ -4226,6 +4226,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global call_node_state
 
+        col_text = self.tableWidget_call.horizontalHeaderItem(idx).text()
+
+        title = 'Call Header Information'
+        txt = "({0}) = {1}".format(idx, col_text)
+        self.showCustomMsgBox(title, txt)
+
         if idx == Option_column.OLOH.value or idx == Option_column.기준가.value or idx == Option_column.월저.value or idx == Option_column.월고.value or \
             idx == Option_column.전저.value or idx == Option_column.전고.value or idx == Option_column.종가.value or \
                 idx == Option_column.피봇.value or idx == Option_column.시가.value:
@@ -4362,6 +4368,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def put_horizontal_header_clicked(self, idx):
 
         global put_node_state
+
+        col_text = self.tableWidget_put.horizontalHeaderItem(idx).text()
+
+        title = 'Put Header Information'
+        txt = "({0}) = {1}".format(idx, col_text)
+        self.showCustomMsgBox(title, txt)
 
         if idx == Option_column.OLOH.value or idx == Option_column.기준가.value or idx == Option_column.월저.value or idx == Option_column.월고.value or \
             idx == Option_column.전저.value or idx == Option_column.전고.value or idx == Option_column.종가.value or \
