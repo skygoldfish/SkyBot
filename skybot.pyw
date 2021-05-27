@@ -4206,6 +4206,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             flag_checkBox_NM = True
         else:
             flag_checkBox_NM = False
+    
+    def showCustomMsgBox(self, title, txt):
+
+        msgBox = QMessageBox()
+        msgBox.setFont(QFont("Consolas", 15, QFont.Bold))
+        msgBox.setIcon(QMessageBox.Information)
+        msgBox.setText(txt)
+        msgBox.setWindowTitle(title)
+        msgBox.show()
+
+        returnValue = msgBox.exec_()
+        
+        if returnValue == QMessageBox.Ok:
+            print("OK Clicked...")
 
     @pyqtSlot(int)
     def call_horizontal_header_clicked(self, idx):
@@ -4515,8 +4529,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if cell is not None:
 
-            txt = "Call ({0}, {1})".format(row, col)
-            QMessageBox.information(self, txt + ' information', cell.text())
+            title = 'Call Cell Information'
+            txt = "({0}, {1}) = {2}".format(row, col, cell.text())
+            self.showCustomMsgBox(title, txt)
 
             if atm_txt != '':
 
@@ -4549,8 +4564,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if cell is not None:
 
-            txt = "Put ({0}, {1})".format(row, col)
-            QMessageBox.information(self, txt + ' information', cell.text())
+            title = 'Put Cell Information'
+            txt = "({0}, {1}) = {2}".format(row, col, cell.text())
+            self.showCustomMsgBox(title, txt)
 
             if atm_txt != '':
 
@@ -4581,9 +4597,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.now()
         
         cell = self.tableWidget_fut.item(row, col)
-
-        txt = "Futures ({0}, {1})".format(row, col)
-        QMessageBox.information(self, txt + ' information', cell.text())
         
         if cell is not None:
 
@@ -4591,6 +4604,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global drate_scale_factor
             
             fut_txt = cell.text()
+            
+            title = 'Futures Cell Information'
+            txt = "({0}, {1}) = {2}".format(row, col, fut_txt)
+            self.showCustomMsgBox(title, txt)
 
             if row == 2 and col == Futures_column.OLOH.value:
 
