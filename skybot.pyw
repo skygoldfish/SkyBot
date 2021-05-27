@@ -4515,8 +4515,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if cell is not None:
 
-            txt = "call table cell({0},{1}) clicked = {2}".format(row, col, cell.text())
-            print(txt)
+            txt = "Call ({0}, {1})".format(row, col)
+            QMessageBox.information(self, txt + ' information', cell.text())
 
             if atm_txt != '':
 
@@ -4549,8 +4549,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if cell is not None:
 
-            txt = "put table cell({0},{1}) clicked = {2}".format(row, col, cell.text())
-            print(txt)
+            txt = "Put ({0}, {1})".format(row, col)
+            QMessageBox.information(self, txt + ' information', cell.text())
 
             if atm_txt != '':
 
@@ -4582,8 +4582,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         cell = self.tableWidget_fut.item(row, col)
 
-        txt = "fut table cell({0},{1}) clicked = {2}".format(row, col, cell.text())
-        print(txt)
+        txt = "Futures ({0}, {1})".format(row, col)
+        QMessageBox.information(self, txt + ' information', cell.text())
         
         if cell is not None:
 
