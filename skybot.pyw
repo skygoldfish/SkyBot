@@ -12320,6 +12320,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         콜저가 = float(result['저가'])
         콜고가 = float(result['고가'])
 
+        # 콜 외가(등가포함) 대비 저장
+        if index >= ATM_INDEX and 콜시가 > 0.1 and 콜저가 < 콜고가:
+            call_otm_db[index] = 콜현재가 - 콜시가
+            call_otm_db_percent[index] = (콜현재가 / 콜시가 - 1) * 100
+        else:
+            pass
+
         if 저가 != 고가 and not call_open[index]:
 
             # 등가 check & coloring
@@ -12732,14 +12739,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         call_otm_db_local = copy.deepcopy(call_otm_db)
         call_otm_db_local.remove(0)
 
-        call_db_percent_local = copy.deepcopy(call_otm_db_percent)
-        call_db_percent_local.remove(0)
+        call_otm_db_percent_local = copy.deepcopy(call_otm_db_percent)
+        call_otm_db_percent_local.remove(0)
 
         np_call_otm_db_local = np.array(call_otm_db_local)
-        np_call_db_percent_local = np.array(call_db_percent_local)
+        np_call_otm_db_percent_local = np.array(call_otm_db_percent_local)
 
         콜대비합_단위평균 = round(np.mean(np_call_otm_db_local), 2)            
-        콜대비_퍼센트평균 = round(np.mean(np_call_db_percent_local), 1)
+        콜대비_퍼센트평균 = round(np.mean(np_call_otm_db_percent_local), 1)
 
         call_txt = repr(콜대비합_단위평균) + '\n(' + repr(콜대비_퍼센트평균) + '%' + ')'
 
@@ -13343,6 +13350,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         풋현재가 = float(result['현재가'])
         풋저가 = float(result['저가'])
         풋고가 = float(result['고가'])
+
+        # 풋 외가(등가포함) 대비 저장
+        if index >= ATM_INDEX and 풋시가 > 0.1 and 풋저가 < 풋고가:
+            put_otm_db[index] = 풋현재가 - 풋시가
+            put_otm_db_percent[index] = (풋현재가 / 풋시가 - 1) * 100
+        else:
+            pass
         
         if 저가 != 고가 and not put_open[index]:
 
@@ -13756,14 +13770,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         put_otm_db_local = copy.deepcopy(put_otm_db)
         put_otm_db_local.remove(0)
 
-        put_db_percent_local = copy.deepcopy(put_otm_db_percent)
-        put_db_percent_local.remove(0)
+        put_otm_db_percent_local = copy.deepcopy(put_otm_db_percent)
+        put_otm_db_percent_local.remove(0)
 
         np_put_otm_db_local = np.array(put_otm_db_local)
-        np_put_db_percent_local = np.array(put_db_percent_local)
+        np_put_otm_db_percent_local = np.array(put_otm_db_percent_local)
 
         풋대비합_단위평균 = round(np.mean(np_put_otm_db_local), 2)      
-        풋대비_퍼센트평균 = round(np.mean(np_put_db_percent_local), 1)
+        풋대비_퍼센트평균 = round(np.mean(np_put_otm_db_percent_local), 1)
 
         put_txt = repr(풋대비합_단위평균) + '\n(' + repr(풋대비_퍼센트평균) + '%' + ')'
 
