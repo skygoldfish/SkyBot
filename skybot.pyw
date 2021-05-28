@@ -12333,7 +12333,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_max_actval, call_open, call_ol, call_oh
         global 콜_인덱스, 콜_시가, 콜_현재가, 콜_저가, 콜_고가
         global flag_call_low_update, flag_call_high_update
-        global call_gap_percent, call_db_percent, call_otm_db, call_otm_db_percent 
+        global call_gap_percent, call_db_percent, call_otm_db, call_otm_db_percent
         global 콜대비_퍼센트평균
         global 콜_등가_등락율       
 
@@ -12428,7 +12428,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             시가갭 = 콜시가 - 콜종가
             df_call.at[index, '시가갭'] = 시가갭
 
-            if 콜시가 > 0.3:
+            #if 콜시가 > 0.3:
+            if True:
                 call_gap_percent[index] = (콜시가 / 콜종가 - 1) * 100
 
                 gap_txt = "{0:.2f}\n({1:.0f}%)".format(시가갭, call_gap_percent[index])
@@ -12456,7 +12457,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 np_call_gap_percent_local = np.array(result1)
 
-                콜시가갭합_단위평균 = round(df_call['시가갭'].sum()/len(call_gap_percent_local), 2)        
+                콜시가갭합_단위평균 = round(df_call['시가갭'].sum()/len(call_gap_percent), 2)        
                 콜시가갭합_퍼센트평균 = round(np.mean(np_call_gap_percent_local), 1)
 
                 call_txt = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트평균) + '%' + ')'
@@ -13063,7 +13064,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         시가갭 = 시가 - 종가
                         df_call.at[index, '시가갭'] = 시가갭
 
-                        if 시가 > 0.3:
+                        #if 시가 > 0.3:
+                        if True:
                             call_gap_percent[index] = (시가 / 종가 - 1) * 100
                         else:
                             pass
@@ -13248,7 +13250,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             print('np_call_gap_percent_local =', np_call_gap_percent_local)
 
-            콜시가갭합_단위평균 = round(df_call['시가갭'].sum()/len(call_gap_percent_local), 2)        
+            콜시가갭합_단위평균 = round(df_call['시가갭'].sum()/len(call_gap_percent), 2)        
             콜시가갭합_퍼센트평균 = round(np.mean(np_call_gap_percent_local), 1)
 
             call_txt = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트평균) + '%' + ')'
@@ -13467,7 +13469,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             시가갭 = 풋시가 - 풋종가
             df_put.at[index, '시가갭'] = 시가갭
 
-            if 풋시가 > 0.3:
+            #if 풋시가 > 0.3:
+            if True:
                 put_gap_percent[index] = (풋시가 / 풋종가 - 1) * 100
 
                 gap_txt = "{0:.2f}\n({1:.0f}%)".format(시가갭, put_gap_percent[index])
@@ -13495,7 +13498,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 np_put_gap_percent_local = np.array(result1)
 
-                풋시가갭합_단위평균 = round(df_put['시가갭'].sum()/len(put_gap_percent_local), 2)        
+                풋시가갭합_단위평균 = round(df_put['시가갭'].sum()/len(put_gap_percent), 2)        
                 풋시가갭합_퍼센트평균 = round(np.mean(np_put_gap_percent_local), 1)
 
                 put_txt = repr(풋시가갭합_단위평균) + '\n(' + repr(풋시가갭합_퍼센트평균) + '%' + ')'
@@ -14109,7 +14112,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         df_put.at[index, '시가갭'] = 시가갭
 
-                        if 시가 > 0.3:
+                        #if 시가 > 0.3:
+                        if True:
                             put_gap_percent[index] = (시가 / 종가 - 1) * 100
                         else:
                             pass
@@ -14310,7 +14314,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             print('np_put_gap_percent_local =', np_put_gap_percent_local)
 
-            풋시가갭합_단위평균 = round(df_put['시가갭'].sum()/len(put_gap_percent_local), 2)        
+            풋시가갭합_단위평균 = round(df_put['시가갭'].sum()/len(put_gap_percent), 2)        
             풋시가갭합_퍼센트평균 = round(np.mean(np_put_gap_percent_local), 1)
 
             put_txt = repr(풋시가갭합_단위평균) + '\n(' + repr(풋시가갭합_퍼센트평균) + '%' + ')'
