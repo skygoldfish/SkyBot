@@ -3669,7 +3669,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_call.horizontalHeader().setStyleSheet(call_header_stylesheet)
 
         self.tableWidget_call.setHorizontalHeaderLabels(['콜', '행사가', '▲:▼\n✓', '기준가', '월저', '월고', '전저', '전고', 
-        '종가\n✓', '피봇\n✓', '시가\n✓', '저가', '현재가', '고가', '시가갭\n(%)', '대비\n(%)', '진폭', '체결', '∑OI', 'OI↕'])
+        '종가\n✓', '피봇\n✓', '시가\n✓', '저가', '현재가', '고가', '시가갭\n%', '시가대비\n%', '진폭', '체결', '∑OI', 'OI↕'])
         self.tableWidget_call.verticalHeader().setVisible(False)
         self.tableWidget_call.setAlternatingRowColors(True)
 
@@ -3680,7 +3680,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_put.horizontalHeader().setStyleSheet(put_header_stylesheet)
 
         self.tableWidget_put.setHorizontalHeaderLabels(['풋', '행사가', '▲:▼\n✓', '기준가', '월저', '월고', '전저', '전고', 
-        '종가\n✓', '피봇\n✓', '시가\n✓', '저가', '현재가', '고가', '시가갭\n(%)', '대비\n(%)', '진폭', '체결', '∑OI', 'OI↕'])
+        '종가\n✓', '피봇\n✓', '시가\n✓', '저가', '현재가', '고가', '시가갭\n%', '시가대비\n%', '진폭', '체결', '∑OI', 'OI↕'])
         self.tableWidget_put.verticalHeader().setVisible(False)
         self.tableWidget_put.setAlternatingRowColors(True)
         
@@ -12460,7 +12460,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 콜시가갭합_단위평균 = round(df_call['시가갭'].sum()/len(call_gap_percent), 2)        
                 콜시가갭합_퍼센트평균 = round(np.mean(np_call_gap_percent_local), 1)
 
-                call_txt = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트평균) + '%' + ')'
+                call_txt = repr(콜시가갭합_단위평균) + '\n' + repr(콜시가갭합_퍼센트평균) + '%'
 
                 item = QTableWidgetItem(call_txt)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -12783,7 +12783,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         콜대비합_단위평균 = round(np.mean(np_call_otm_db_local), 2)            
         콜대비_퍼센트평균 = round(np.mean(np_call_otm_db_percent_local), 1)
 
-        call_txt = repr(콜대비합_단위평균) + '\n(' + repr(콜대비_퍼센트평균) + '%' + ')'
+        call_txt = repr(콜대비합_단위평균) + '\n' + repr(콜대비_퍼센트평균) + '%'
 
         item = QTableWidgetItem(call_txt)
         self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
@@ -13253,7 +13253,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             콜시가갭합_단위평균 = round(df_call['시가갭'].sum()/len(call_gap_percent), 2)        
             콜시가갭합_퍼센트평균 = round(np.mean(np_call_gap_percent_local), 1)
 
-            call_txt = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트평균) + '%' + ')'
+            call_txt = repr(콜시가갭합_단위평균) + '\n' + repr(콜시가갭합_퍼센트평균) + '%'
 
             item = QTableWidgetItem(call_txt)
             item.setTextAlignment(Qt.AlignCenter)
@@ -13501,7 +13501,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 풋시가갭합_단위평균 = round(df_put['시가갭'].sum()/len(put_gap_percent), 2)        
                 풋시가갭합_퍼센트평균 = round(np.mean(np_put_gap_percent_local), 1)
 
-                put_txt = repr(풋시가갭합_단위평균) + '\n(' + repr(풋시가갭합_퍼센트평균) + '%' + ')'
+                put_txt = repr(풋시가갭합_단위평균) + '\n' + repr(풋시가갭합_퍼센트평균) + '%'
 
                 item = QTableWidgetItem(put_txt)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -13824,7 +13824,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         풋대비합_단위평균 = round(np.mean(np_put_otm_db_local), 2)      
         풋대비_퍼센트평균 = round(np.mean(np_put_otm_db_percent_local), 1)
 
-        put_txt = repr(풋대비합_단위평균) + '\n(' + repr(풋대비_퍼센트평균) + '%' + ')'
+        put_txt = repr(풋대비합_단위평균) + '\n' + repr(풋대비_퍼센트평균) + '%'
 
         item = QTableWidgetItem(put_txt)
         item.setTextAlignment(Qt.AlignCenter)
@@ -14317,7 +14317,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             풋시가갭합_단위평균 = round(df_put['시가갭'].sum()/len(put_gap_percent), 2)        
             풋시가갭합_퍼센트평균 = round(np.mean(np_put_gap_percent_local), 1)
 
-            put_txt = repr(풋시가갭합_단위평균) + '\n(' + repr(풋시가갭합_퍼센트평균) + '%' + ')'
+            put_txt = repr(풋시가갭합_단위평균) + '\n' + repr(풋시가갭합_퍼센트평균) + '%'
 
             item = QTableWidgetItem(put_txt)
             item.setTextAlignment(Qt.AlignCenter)
@@ -17308,10 +17308,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem('▲:▼\n✓')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.OLOH.value, item)
 
-                item = QTableWidgetItem('시가갭\n(%)')
+                item = QTableWidgetItem('시가갭\n%')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
 
-                item = QTableWidgetItem('대비\n(%)')
+                item = QTableWidgetItem('시가대비\n%')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
 
                 item = QTableWidgetItem('체결')
@@ -17326,10 +17326,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem('▲:▼\n✓')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.OLOH.value, item)
 
-                item = QTableWidgetItem('시가갭\n(%)')
+                item = QTableWidgetItem('시가갭\n%')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
 
-                item = QTableWidgetItem('대비\n(%)')
+                item = QTableWidgetItem('시가대비\n%')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
 
                 item = QTableWidgetItem('체결')
