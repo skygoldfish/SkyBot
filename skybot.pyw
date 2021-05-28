@@ -4769,8 +4769,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         cell = self.tableWidget_quote.item(row, col)
 
-        txt = "quote table cell({0},{1}) clicked = {2}".format(row, col, cell.text())
-        print(txt)
+        title = 'Quote Information'
+        txt = "({0}, {1}) = {2}".format(row, col, cell.text())
+        self.showCustomMsgBox(title, txt)
 
         if cell is not None:
 
