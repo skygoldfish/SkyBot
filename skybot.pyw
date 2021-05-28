@@ -4219,7 +4219,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         returnValue = msgBox.exec_()
         
         if returnValue == QMessageBox.Ok:
-            print("OK Clicked...")
+            print("showCustomMsgBox OK Clicked...")
 
     @pyqtSlot(int)
     def call_horizontal_header_clicked(self, idx):
@@ -4769,7 +4769,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         cell = self.tableWidget_quote.item(row, col)
 
-        title = 'Quote Information'
+        title = 'Quote Cell Information'
         txt = "({0}, {1}) = {2}".format(row, col, cell.text())
         self.showCustomMsgBox(title, txt)
 
