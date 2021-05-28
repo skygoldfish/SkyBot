@@ -28837,9 +28837,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 self.plot1_time_line.setValue(ovc_x_idx)
 
-                self.plot1_put_volume_curve.setData(df_put_information_graph['volume'].to_numpy())
-                self.plot1_fut_volume_curve.setData(df_futures_graph['volume'].to_numpy())
+                if DayTime:
+                    self.plot1_fut_volume_curve.setData(df_futures_graph['volume'].to_numpy())
+                else:
+                    pass
+                                
                 self.plot1_call_volume_curve.setData(df_call_information_graph['volume'].to_numpy())
+                self.plot1_put_volume_curve.setData(df_put_information_graph['volume'].to_numpy())
 
             elif comboindex1 == 7 and market_service:
                 
@@ -29775,9 +29779,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.0f} ".format(df_call_information_graph.at[ovc_x_idx, 'volume'])
                 self.label_28.setText(txt)
 
-                self.plot2_put_volume_curve.setData(df_put_information_graph['volume'].to_numpy())
-                self.plot2_fut_volume_curve.setData(df_futures_graph['volume'].to_numpy())
+                if DayTime:
+                    self.plot2_fut_volume_curve.setData(df_futures_graph['volume'].to_numpy())
+                else:
+                    pass
+                                
                 self.plot2_call_volume_curve.setData(df_call_information_graph['volume'].to_numpy())
+                self.plot2_put_volume_curve.setData(df_put_information_graph['volume'].to_numpy())
 
             elif comboindex2 == 7 and market_service:
 
@@ -30686,9 +30694,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 self.plot3_time_line.setValue(ovc_x_idx)
 
-                self.plot3_put_volume_curve.setData(df_put_information_graph['volume'].to_numpy())
-                self.plot3_fut_volume_curve.setData(df_futures_graph['volume'].to_numpy())
+                if DayTime:
+                    self.plot3_fut_volume_curve.setData(df_futures_graph['volume'].to_numpy())
+                else:
+                    pass
+                                
                 self.plot3_call_volume_curve.setData(df_call_information_graph['volume'].to_numpy())
+                self.plot3_put_volume_curve.setData(df_put_information_graph['volume'].to_numpy())
 
             elif comboindex3 == 7 and market_service:
 
@@ -31542,9 +31554,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 self.plot4_time_line.setValue(ovc_x_idx)                      
 
-                self.plot4_put_volume_curve.setData(df_put_information_graph['volume'].to_numpy())
-                self.plot4_fut_volume_curve.setData(df_futures_graph['volume'].to_numpy())
+                if DayTime:
+                    self.plot4_fut_volume_curve.setData(df_futures_graph['volume'].to_numpy())
+                else:
+                    pass
+                                
                 self.plot4_call_volume_curve.setData(df_call_information_graph['volume'].to_numpy())
+                self.plot4_put_volume_curve.setData(df_put_information_graph['volume'].to_numpy())
 
             elif comboindex4 == 7 and market_service:
 
@@ -32480,9 +32496,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 self.plot5_time_line.setValue(ovc_x_idx)
 
-                self.plot5_put_volume_curve.setData(df_put_information_graph['volume'].to_numpy())
-                self.plot5_fut_volume_curve.setData(df_futures_graph['volume'].to_numpy())
+                if DayTime:
+                    self.plot5_fut_volume_curve.setData(df_futures_graph['volume'].to_numpy())
+                else:
+                    pass
+                                
                 self.plot5_call_volume_curve.setData(df_call_information_graph['volume'].to_numpy())
+                self.plot5_put_volume_curve.setData(df_put_information_graph['volume'].to_numpy())
 
             elif comboindex5 == 7 and market_service:
 
@@ -33384,9 +33404,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 self.plot6_time_line.setValue(ovc_x_idx)
 
-                self.plot6_put_volume_curve.setData(df_put_information_graph['volume'].to_numpy())
-                self.plot6_fut_volume_curve.setData(df_futures_graph['volume'].to_numpy())
+                if DayTime:
+                    self.plot6_fut_volume_curve.setData(df_futures_graph['volume'].to_numpy())
+                else:
+                    pass
+                                
                 self.plot6_call_volume_curve.setData(df_call_information_graph['volume'].to_numpy())
+                self.plot6_put_volume_curve.setData(df_put_information_graph['volume'].to_numpy())
 
             elif comboindex6 == 7 and market_service:
 
