@@ -7044,9 +7044,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         list_zero = []
         list_high = []
 
-        # 추후 검토필요
-        #remove_set = {0}
+        # 리스트에서 특정요소를 제거
+        remove_set = {0, 0.01}
 
+        temp_lst = [i for i in input_list if i not in remove_set]
+
+        '''
         if 0 in input_list:
             input_list.remove(0)
         else:
@@ -7057,14 +7060,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        temp = list(set(input_list))
-        temp.sort()
+        '''
+
+        # 리스트의 중복요소 제거
+        result_lst = list(set(temp_lst))
+        result_lst.sort()
 
         # 컬러링 탐색구간 설정(0.1 ~ 20)
-        index1 = bisect(temp, nodelist_low_cutoff)
-        index2 = bisect(temp, nodelist_high_cutoff)
+        index1 = bisect(result_lst, nodelist_low_cutoff)
+        index2 = bisect(result_lst, nodelist_high_cutoff)
 
-        list_singleval = temp[index1:index2]
+        list_singleval = result_lst[index1:index2]
 
         for i in range(len(list_singleval)):
             list_low.append(round(list_singleval[i] - 0.01, 2))
