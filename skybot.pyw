@@ -1867,7 +1867,9 @@ flag_2nd_process_queue_empty = True
 flag_3rd_process_queue_empty = True
 
 flag_call_strong = False
+flag_call_weak = False
 flag_put_strong = False
+flag_put_weak = False
 
 flag_calltable_checkstate_changed = False
 flag_puttable_checkstate_changed = False
@@ -5051,6 +5053,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if telegram_toggle:
 
+                        pass
+
+                        '''
+                        if flag_call_strong:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call Strong({3:.1f}/{4:.1f}) !!!".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
+                            ToYourTelegram(send_txt)
+                        elif flag_call_weak:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Call Weak({3:.1f}/{4:.1f}) !!!".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
+                            ToYourTelegram(send_txt)
+                        elif flag_put_strong:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Put Strong({3:.1f}/{4:.1f}) !!!".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
+                            ToYourTelegram(send_txt)
+                        elif flag_put_weak:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Put Weak({3:.1f}/{4:.1f}) !!!".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
+                            ToYourTelegram(send_txt)
+                        else:
+                            pass
+                        
                         # 선물 OL/OH 알람
                         if fut_oloh_txt != '' and FLAG_OLOH:
                             send_txt = fut_oloh_txt
@@ -5059,10 +5079,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
 
                         # Strong 에너지 알람
-                        if flag_call_strong:
+                        if flag_call_dominant:
                             send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ Call Strong({3:.2f}/{4:.2f}) !!!".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
                             ToYourTelegram(send_txt)
-                        elif flag_put_strong:
+                        elif flag_put_dominant:
                             send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ Put Strong({3:.2f}/{4:.2f}) !!!".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
                             ToYourTelegram(send_txt)
                         else:
@@ -5104,20 +5124,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         elif TARGET_MONTH == 'NM':
                             
-                            # 차월물 옵션 OLOH 보고
-                            '''
-                            if nm_call_oloh_txt != '' and nm_put_oloh_txt == '':
-                                send_txt = nm_call_oloh_txt
-                                ToYourTelegram(send_txt)
-                            elif nm_call_oloh_txt == '' and nm_put_oloh_txt != '':
-                                send_txt = nm_put_oloh_txt
-                                ToYourTelegram(send_txt)
-                            elif nm_call_oloh_txt != '' and nm_put_oloh_txt != '':
-                                send_txt = nm_call_oloh_txt + ', ' + nm_put_oloh_txt
-                                ToYourTelegram(send_txt)
-                            else:
-                                pass
-                            '''
                             if call_ol_count > call_oh_count and put_ol_count < put_oh_count:
                                 nm_txt = "[{0:02d}:{1:02d}:{2:02d}] NM Call 우세 ".format(dt.hour, dt.minute, dt.second)
                                 send_txt = nm_txt + nm_call_oloh_txt + ', ' + nm_put_oloh_txt
@@ -5139,19 +5145,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 pass
                         else:
                             pass
+                        '''
                     else:
                         pass               
                 else:
                     pass  
             else:
                 pass   
-
+            '''
             if market_service:
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Send Message = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, send_txt)
                 self.textBrowser.append(txt)
                 print(txt)
             else:
                 pass
+            '''
         except:
             pass
 
@@ -5520,20 +5528,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if (not flag_internet_connection_broken and not flag_service_provider_broken) and FLAG_GUEST_CONTROL:
                 
                 self.display_atm(self.alternate_flag)
-                '''
-                if self.parent.dialog['BigChart'] is not None and self.parent.dialog['BigChart'].flag_big_chart_open:
-                    QApplication.processEvents()
-                    #txt = '[{0:02d}:{1:02d}:{2:02d}] processEvents 1...\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
-                    #self.textBrowser.append(txt)
-                    #print(txt)
-
-                    item_txt = 'P1'
-                    item = QTableWidgetItem(item_txt)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_fut.setHorizontalHeaderItem(1, item)
-                else:
-                    pass
-                '''
+                
                 if market_service:
                     self.option_quote_update()
 
@@ -5630,9 +5625,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.call_open_check()   
                             self.call_cross_color_update()        
                             self.call_node_color_update()
-                            self.call_coreval_color_update()
-
-                            #self.tableWidget_call.resizeColumnsToContents()                                
+                            self.call_coreval_color_update()                              
 
                         elif flag_call_cross_coloring or (not self.alternate_flag and dt.minute % CROSS_COLOR_INTERVAL == 0 and dt.second == 0):
 
@@ -5660,7 +5653,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.put_node_color_update()
                             self.put_coreval_color_update()
 
-                            #self.tableWidget_put.resizeColumnsToContents()
+                            if flag_call_strong:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call Strong({3:.1f}/{4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
+                                ToYourTelegram(send_txt)
+                            elif flag_call_weak:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Call Weak({3:.1f}/{4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
+                                ToYourTelegram(send_txt)
+                            elif flag_put_strong:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Put Strong({3:.1f}/{4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
+                                ToYourTelegram(send_txt)
+                            elif flag_put_weak:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Put Weak({3:.1f}/{4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
+                                ToYourTelegram(send_txt)
+                            else:
+                                pass
                         else:
                             pass
                     else:
@@ -6160,10 +6166,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
             
-            if flag_call_strong:
+            if flag_call_dominant:
                 txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call Strong({3:.2f}/{4:.2f}) ▲\r".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 선물_등락율, DOW_등락율)
                 self.parent.textBrowser.append(txt)
-            elif flag_put_strong:
+            elif flag_put_dominant:
                 txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Put Strong({3:.2f}/{4:.2f}) ▼\r".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 선물_등락율, DOW_등락율)
                 self.parent.textBrowser.append(txt)
             else:
@@ -6544,7 +6550,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                                     color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
             '''
             # 콜 Strong 매수장
-            if flag_call_strong:
+            if flag_call_dominant:
 
                 if blink:
                     #self.label_main_time.setStyleSheet('background-color: red; color: white')
@@ -6554,7 +6560,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.label_main_time.setStyleSheet('background-color: white; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
 
             # 풋 Strong 매수장
-            elif flag_put_strong:
+            elif flag_put_dominant:
 
                 if blink:
                     #self.label_main_time.setStyleSheet('background-color: blue; color: white')
@@ -7186,28 +7192,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     put_md_all_down = False
                     put_ms_all_up = False
 
-                    '''
-                    if TARGET_MONTH == 'CM' and not call_ms_oneway:
-
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
-
-                    elif TARGET_MONTH == 'NM' and not call_ms_oneway:
-
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
-                    else:
-                        pass                    
-
-                    if dt.second % 10 == 0 and not blink:
-
-                        self.textBrowser.append(비대칭장)
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 시가갭 = {3:.2f}:{4:.2f}\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜시가갭합, 풋시가갭합)
-                        self.textBrowser.append(txt)
-                    else:
-                        pass
-                    '''
                 else:
                     # 콜매수 비대칭
                     call_ms_oneway = False
@@ -7220,29 +7204,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     put_md_asymmetric = False
                     put_md_all_down = False
                     put_ms_all_up = False
-                    '''
-                    if TARGET_MONTH == 'CM':
-
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
-
-                    elif TARGET_MONTH == 'NM':
-
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
-                    else:
-                        pass 
                     
-                    if dt.second % 10 == 0 and not blink:
-
-                        self.textBrowser.append(비대칭장)
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 시가갭 = {3:.2f}:{4:.2f}\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜시가갭합, 풋시가갭합)
-                        self.textBrowser.append(txt)
-                    else:
-                        pass
-                    '''
-
             elif abs(풋대비_퍼센트평균/콜대비_퍼센트평균) >= ASYM_RATIO:
 
                 # 풋매도 비대칭
@@ -7256,24 +7218,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_md_asymmetric = True
                 put_md_all_down = False
                 put_ms_all_up = False
-                '''
-                if TARGET_MONTH == 'CM':
-
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매도({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
-                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
-
-                elif TARGET_MONTH == 'NM':
-
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매도({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
-                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
-                else:
-                    pass
                 
-                if dt.second % 10 == 0 and not blink:
-                    self.textBrowser.append(비대칭장)
-                else:
-                    pass
-                '''
             else:
                 # 대칭장
                 비대칭장 = ''
@@ -7304,25 +7249,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_md_asymmetric = False
                 put_md_all_down = False
                 put_ms_all_up = False
-                '''
-                if TARGET_MONTH == 'CM':
-
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매도({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
-                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)                    
-
-                elif TARGET_MONTH == 'NM':
-
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매도({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
-                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
-                else:
-                    pass
                 
-                if dt.second % 10 == 0 and not blink:
-                    self.textBrowser.append(비대칭장)
-                else:
-                    pass
-                '''
-
             elif abs(풋대비_퍼센트평균/콜대비_퍼센트평균) >= ASYM_RATIO:
 
                 if abs(풋대비_퍼센트평균/콜대비_퍼센트평균) >= ONEWAY_RATIO and flag_fut_vs_dow_drate_direction:
@@ -7338,29 +7265,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     put_md_asymmetric = False
                     put_md_all_down = False
                     put_ms_all_up = False
-
-                    '''
-                    if TARGET_MONTH == 'CM' and not put_ms_oneway:
-
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
-
-                    elif TARGET_MONTH == 'NM' and not put_ms_oneway:
-
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
-                    else:
-                        pass                    
-
-                    if dt.second % 10 == 0 and not blink:
-
-                        self.textBrowser.append(비대칭장)
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 시가갭 = {3:.2f}:{4:.2f}\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜시가갭합, 풋시가갭합)
-                        self.textBrowser.append(txt)
-                    else:
-                        pass
-                    '''
+                    
                 else:
                     # 풋매수
                     call_ms_oneway = False
@@ -7372,29 +7277,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     put_ms_asymmetric = True
                     put_md_asymmetric = False
                     put_md_all_down = False
-                    put_ms_all_up = False
-                    '''
-                    if TARGET_MONTH == 'CM':
-
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
-
-                    elif TARGET_MONTH == 'NM':
-
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.1f}:{4:0.1f}) 비대칭장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
-                    else:
-                        pass
-                    
-                    if dt.second % 10 == 0 and not blink:
-
-                        self.textBrowser.append(비대칭장)
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 시가갭 = {3:.2f}:{4:.2f}\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜시가갭합, 풋시가갭합)
-                        self.textBrowser.append(txt)
-                    else:
-                        pass
-                    '''
+                    put_ms_all_up = False                    
             else:
                 # 대칭장
                 비대칭장 = ''
@@ -7425,25 +7308,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_md_asymmetric = False
                 put_md_all_down = False
                 put_ms_all_up = False
-                '''
-                if TARGET_MONTH == 'CM':
-
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매도({3:0.1f}:{4:0.1f}) 양꽝장\r'.format \
-                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
-
-                elif TARGET_MONTH == 'NM':
-
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매도({3:0.1f}:{4:0.1f}) 양꽝장\r'.format \
-                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
-                else:
-                    pass
                 
-                if dt.second % 10 == 0 and not blink:
-                    self.textBrowser.append(비대칭장)
-                else:
-                    pass
-                '''
-
             elif 콜대비_퍼센트평균 > 풋대비_퍼센트평균:
 
                 # 풋매도 양꽝장
@@ -7456,25 +7321,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_ms_asymmetric = False
                 put_md_asymmetric = False
                 put_md_all_down = True
-                put_ms_all_up = False
-                '''
-                if TARGET_MONTH == 'CM':
-
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매도({3:0.1f}:{4:0.1f}) 양꽝장\r'.format \
-                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
-
-                elif TARGET_MONTH == 'NM':
-
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매도({3:0.1f}:{4:0.1f}) 양꽝장\r'.format \
-                        (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
-                else:
-                    pass
-                
-                if dt.second % 10 == 0 and not blink:
-                    self.textBrowser.append(비대칭장)
-                else:
-                    pass
-                '''
+                put_ms_all_up = False                
             else:
                 # 대칭장
                 비대칭장 = ''
@@ -7505,39 +7352,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_md_asymmetric = False
                 put_md_all_down = False
                 put_ms_all_up = False
-                '''
-                if 선물_대비 > 0:
-
-                    if TARGET_MONTH == 'CM':
-
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
-
-                    elif TARGET_MONTH == 'NM':
-
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
-                    else:
-                        pass
-                else:
-                    if TARGET_MONTH == 'CM':
-
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
-
-                    elif TARGET_MONTH == 'NM':
-
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
-                    else:
-                        pass                
-
-                if dt.second % 10 == 0 and not blink:
-                    self.textBrowser.append(비대칭장)
-                else:
-                    pass
-                '''
-
+                
             elif 콜대비_퍼센트평균 < 풋대비_퍼센트평균:
 
                 # 풋매수 양빵장
@@ -7551,38 +7366,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_md_asymmetric = False
                 put_md_all_down = False
                 put_ms_all_up = True
-                '''
-                if 선물_대비 > 0:
-
-                    if TARGET_MONTH == 'CM':
-
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
-
-                    elif TARGET_MONTH == 'NM':
-
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
-                    else:
-                        pass
-                else:
-                    if TARGET_MONTH == 'CM':
-
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
-
-                    elif TARGET_MONTH == 'NM':
-
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.1f}:{4:0.1f}) 양빵장\r'.format \
-                            (SERVER_HOUR, SERVER_MIN, SERVER_SEC, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
-                    else:
-                        pass                
-
-                if dt.second % 10 == 0 and not blink:
-                    self.textBrowser.append(비대칭장)
-                else:
-                    pass
-                '''
+                
             else:
                 # 대칭장
                 비대칭장 = ''
@@ -11601,7 +11385,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 선물_현재가_버퍼
         global flag_futures_ohlc_open
         global df_futures_graph
-        global flag_call_strong, flag_put_strong
+        global flag_call_dominant, flag_put_dominant
         global plot_drate_scale_factor
         global flag_fut_vs_dow_drate_direction
         global volatility_breakout_downward_point, volatility_breakout_upward_point
@@ -12066,7 +11850,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def fut_etc_update(self, result):
 
-        global df_fut, 선물_진폭비, flag_call_strong, flag_put_strong
+        global df_fut, 선물_진폭비, flag_call_dominant, flag_put_dominant
 
         item = QTableWidgetItem("DOW\n({0:.2f}%)".format(DOW_등락율))
         item.setTextAlignment(Qt.AlignCenter)
@@ -12126,20 +11910,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem("CS")
                 item.setBackground(QBrush(red))
                 item.setForeground(QBrush(흰색))
-                flag_call_strong = True
+                flag_call_dominant = True
 
             elif flag_fut_vs_dow_drate_direction and fut_quote_energy_direction == 'put' and fut_volume_power_energy_direction == 'put':
 
                 item = QTableWidgetItem("PS")
                 item.setBackground(QBrush(blue))
                 item.setForeground(QBrush(흰색))
-                flag_put_strong = True
+                flag_put_dominant = True
             else:
                 item = QTableWidgetItem("-")               
                 item.setBackground(QBrush(흰색))
                 item.setForeground(QBrush(검정색))
-                flag_call_strong = False
-                flag_put_strong = False
+                flag_call_dominant = False
+                flag_put_dominant = False
 
             self.tableWidget_fut.setItem(0, Futures_column.거래량.value, item)
         else:
@@ -34303,14 +34087,7 @@ class Xing(object):
                     pass
 
                 if flag_score_board_start:
-
                     self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
-
-                    if self.caller.dialog['BigChart'] is not None and self.caller.dialog['BigChart'].flag_big_chart_open:
-                        #QApplication.processEvents()
-                        pass
-                    else:
-                        pass
                 else:
                     pass
 
@@ -34597,7 +34374,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.label_3rd.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
                                     color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
-        self.label_3rd.setText('3rd\nQueue')
+        #self.label_3rd.setText('3rd\nQueue')
+        self.label_3rd.setText('SDB\nIndex')
 
         self.pushButton_reset.setStyleSheet('QPushButton \
                                             {background-color: \
@@ -35020,30 +34798,48 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        # 1st 프로세스 실시간데이타 갱신
+        # 2nd 프로세스 실시간데이타 갱신
         if self.dialog['선물옵션전광판'] is not None:
 
             self.update_2nd_process(realdata)
+
+            global flag_call_strong, flag_call_weak, flag_put_strong, flag_put_weak 
 
             if 콜대비_퍼센트평균 > 풋대비_퍼센트평균 and abs(콜대비_퍼센트평균) > abs(풋대비_퍼센트평균):
 
                 # 콜매수
                 self.label_3rd.setStyleSheet("background-color: red; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                flag_call_strong = True
+                flag_call_weak = False
+                flag_put_strong = False
+                flag_put_weak = False
 
             elif 콜대비_퍼센트평균 > 풋대비_퍼센트평균 and abs(콜대비_퍼센트평균) < abs(풋대비_퍼센트평균):
 
                 # 풋매도
                 self.label_3rd.setStyleSheet("background-color: steelblue; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                flag_call_strong = False
+                flag_call_weak = False
+                flag_put_strong = False
+                flag_put_weak = True
 
             elif 풋대비_퍼센트평균 > 콜대비_퍼센트평균 and abs(풋대비_퍼센트평균) > abs(콜대비_퍼센트평균):
 
                 # 풋매수
                 self.label_3rd.setStyleSheet("background-color: blue; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                flag_call_strong = False
+                flag_call_weak = False
+                flag_put_strong = True
+                flag_put_weak = False
 
             elif 풋대비_퍼센트평균 > 콜대비_퍼센트평균 and abs(풋대비_퍼센트평균) < abs(콜대비_퍼센트평균):
 
                 # 콜매도
                 self.label_3rd.setStyleSheet("background-color: indianred; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                flag_call_strong = False
+                flag_call_weak = True
+                flag_put_strong = False
+                flag_put_weak = False
 
             else:
                 self.label_3rd.setStyleSheet("background-color: white; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
