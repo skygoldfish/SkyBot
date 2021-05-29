@@ -12223,7 +12223,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if True:
                 call_gap_percent[index] = (콜시가 / 콜종가 - 1) * 100
 
-                gap_txt = "{0:.2f}\n({1:.0f}%)".format(시가갭, call_gap_percent[index])
+                gap_txt = "{0:.2f}\n{1:.1f}%".format(시가갭, call_gap_percent[index])
 
                 item = QTableWidgetItem(gap_txt)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -12337,14 +12337,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if 콜시가 > 0.1:
                     call_db_percent[index] = (콜현재가 / 콜시가 - 1) * 100
 
-                    if DayTime:
-
-                        if index == ATM_INDEX:
-                            gap_txt = "{0:.2f}\n({1:.2f}%)".format(콜대비, 콜_등가_등락율)
-                        else:
-                            gap_txt = "{0:.2f}\n({1:.0f}%)".format(콜대비, call_db_percent[index])
-                    else:
-                        gap_txt = "{0:.2f}\n({1:.0f}%)".format(콜대비, call_db_percent[index])                    
+                    gap_txt = "{0:.2f}\n{1:.1f}%".format(콜대비, call_db_percent[index])                                            
 
                     item = QTableWidgetItem(gap_txt)
                     item.setTextAlignment(Qt.AlignCenter)
@@ -12569,7 +12562,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         np_call_otm_db_local = np.array(result1)
         np_call_otm_db_percent_local = np.array(result2)
 
-        #print('np_call_otm_db_percent_local =', np_call_otm_db_percent_local)
+        print('np_call_otm_db_percent_local =', len(np_call_otm_db_percent_local), np_call_otm_db_percent_local)
 
         콜대비합_단위평균 = round(np.mean(np_call_otm_db_local), 2)            
         콜대비_퍼센트평균 = round(np.mean(np_call_otm_db_percent_local), 1)
@@ -12861,7 +12854,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        gap_txt = "{0:.2f}\n({1:.0f}%)".format(시가갭, call_gap_percent[index])
+                        gap_txt = "{0:.2f}\n{1:.1f}%".format(시가갭, call_gap_percent[index])
 
                         item = QTableWidgetItem(gap_txt)
                         item.setTextAlignment(Qt.AlignCenter)
@@ -12971,7 +12964,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_call.at[index, '대비'] = 대비
                         call_db_percent[index] = (현재가 / 시가 - 1) * 100
 
-                        gap_txt = "{0:.2f}\n({1:.0f}%)".format(대비, call_db_percent[index])
+                        gap_txt = "{0:.2f}\n{1:.1f}%".format(대비, call_db_percent[index])
 
                         if gap_txt != self.tableWidget_call.item(index, Option_column.대비.value).text():
 
@@ -13039,7 +13032,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             np_call_gap_percent_local = np.array(result1)
 
-            print('np_call_gap_percent_local =', np_call_gap_percent_local)
+            #print('np_call_gap_percent_local =', np_call_gap_percent_local)
 
             콜시가갭합_단위평균 = round(df_call['시가갭'].sum()/len(call_gap_percent), 2)        
             콜시가갭합_퍼센트평균 = round(np.mean(np_call_gap_percent_local), 1)
@@ -13050,7 +13043,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
 
-            #self.call_db_update()
+            self.call_db_update()
         else:
             pass
 
@@ -13264,7 +13257,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if True:
                 put_gap_percent[index] = (풋시가 / 풋종가 - 1) * 100
 
-                gap_txt = "{0:.2f}\n({1:.0f}%)".format(시가갭, put_gap_percent[index])
+                gap_txt = "{0:.2f}\n{1:.1f}%".format(시가갭, put_gap_percent[index])
 
                 item = QTableWidgetItem(gap_txt)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -13378,14 +13371,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if 풋시가 > 0.1:
                     put_db_percent[index] = (풋현재가 / 풋시가 - 1) * 100
 
-                    if DayTime:
-
-                        if index == ATM_INDEX:
-                            gap_txt = "{0:.2f}\n({1:.2f}%)".format(풋대비, 풋_등가_등락율)
-                        else:
-                            gap_txt = "{0:.2f}\n({1:.0f}%)".format(풋대비, put_db_percent[index])
-                    else:
-                        gap_txt = "{0:.2f}\n({1:.0f}%)".format(풋대비, put_db_percent[index])  
+                    gap_txt = "{0:.2f}\n{1:.1f}%".format(풋대비, put_db_percent[index])                         
 
                     item = QTableWidgetItem(gap_txt)
                     item.setTextAlignment(Qt.AlignCenter)
@@ -13610,7 +13596,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         np_put_otm_db_local = np.array(result1)
         np_put_otm_db_percent_local = np.array(result2)
 
-        #print('np_put_otm_db_percent_local =', np_put_otm_db_percent_local)
+        print('np_put_otm_db_percent_local =', len(np_put_otm_db_percent_local), np_put_otm_db_percent_local)
 
         풋대비합_단위평균 = round(np.mean(np_put_otm_db_local), 2)      
         풋대비_퍼센트평균 = round(np.mean(np_put_otm_db_percent_local), 1)
@@ -13909,7 +13895,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        gap_txt = "{0:.2f}\n({1:.0f}%)".format(시가갭, put_gap_percent[index])
+                        gap_txt = "{0:.2f}\n{1:.1f}%".format(시가갭, put_gap_percent[index])
 
                         item = QTableWidgetItem(gap_txt)
                         item.setTextAlignment(Qt.AlignCenter)
@@ -14035,7 +14021,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_put.at[index, '대비'] = 대비                 
                         put_db_percent[index] = (현재가 / 시가 - 1) * 100
 
-                        gap_txt = "{0:.2f}\n({1:.0f}%)".format(대비, put_db_percent[index])
+                        gap_txt = "{0:.2f}\n{1:.1f}%".format(대비, put_db_percent[index])
 
                         if gap_txt != self.tableWidget_put.item(index, Option_column.대비.value).text():
 
@@ -14103,7 +14089,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             np_put_gap_percent_local = np.array(result1)
 
-            print('np_put_gap_percent_local =', np_put_gap_percent_local)
+            #print('np_put_gap_percent_local =', np_put_gap_percent_local)
 
             풋시가갭합_단위평균 = round(df_put['시가갭'].sum()/len(put_gap_percent), 2)        
             풋시가갭합_퍼센트평균 = round(np.mean(np_put_gap_percent_local), 1)
@@ -14114,7 +14100,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
 
-            #self.put_db_update()
+            self.put_db_update()
         else:
             pass
 
