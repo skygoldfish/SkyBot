@@ -4623,9 +4623,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             fut_txt = cell.text()
             
-            title = 'Futures Cell Information'
-            txt = "({0}, {1}) = {2}".format(row, col, fut_txt)
-            self.showCustomMsgBox(title, txt)
+            if row == 2 and col == Futures_column.OI.value:
+                pass
+            else:
+                title = 'Futures Cell Information'
+                txt = "({0}, {1}) = {2}".format(row, col, fut_txt)
+                self.showCustomMsgBox(title, txt)
 
             if row == 2 and col == Futures_column.OLOH.value:
 
@@ -4732,15 +4735,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 전송예약이 취소되었습니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                     self.textBrowser.append(txt)
             elif row == 2 and col == Futures_column.OI.value:
-                pass
-                '''
+                
                 if int(fut_txt) != drate_scale_factor:
                     drate_scale_factor = int(fut_txt)
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 등락율 scale factor = {3:.1f} 으로 수정되었습니다.\r'.format(dt.hour, dt.minute, dt.second, drate_scale_factor)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] Scale Factor = {3:.1f} 로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, drate_scale_factor)
                     self.textBrowser.append(txt)
                 else:
                     pass
-                '''
             else:
                 pass
 
