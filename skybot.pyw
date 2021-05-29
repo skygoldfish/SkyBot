@@ -6555,30 +6555,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 # 대칭장
                 self.label_main_time.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
-                                                    color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
-            '''
-            # 콜 Strong 매수장
-            if flag_call_dominant:
-
-                if blink:
-                    #self.label_main_time.setStyleSheet('background-color: red; color: white')
-                    self.label_main_time.setStyleSheet('background-color: red; color: white; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
-                else:
-                    #self.label_main_time.setStyleSheet('background-color: white; color: red')
-                    self.label_main_time.setStyleSheet('background-color: white; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-
-            # 풋 Strong 매수장
-            elif flag_put_dominant:
-
-                if blink:
-                    #self.label_main_time.setStyleSheet('background-color: blue; color: white')
-                    self.label_main_time.setStyleSheet('background-color: blue; color: white; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
-                else:
-                    #self.label_main_time.setStyleSheet('background-color: white; color: blue')
-                    self.label_main_time.setStyleSheet('background-color: white; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-            else:
-                pass
-            '''
+                                                    color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')           
         else:
             self.label_main_time.setStyleSheet('background-color: black; color: lawngreen; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: lawngreen; border-radius: 5px')            
         
