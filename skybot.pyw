@@ -1866,6 +1866,9 @@ flag_1st_process_queue_empty = True
 flag_2nd_process_queue_empty = True
 flag_3rd_process_queue_empty = True
 
+flag_call_dominant = False
+flag_put_dominant = False
+
 flag_call_strong = False
 flag_call_weak = False
 flag_put_strong = False
@@ -4753,8 +4756,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         cell = self.tableWidget_supply.item(row, col)
 
-        txt = "supply table cell({0},{1}) clicked = {2}".format(row, col, cell.text())
-        print(txt)
+        title = 'Supply & Demand Cell Information'
+        txt = "({0}, {1}) = {2}".format(row, col, cell.text())
+        self.showCustomMsgBox(title, txt)
 
         if cell is not None:
 
@@ -6165,13 +6169,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass                                
             else:
                 pass
+
+            if DayTime:
             
-            if flag_call_dominant:
-                txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call Strong({3:.2f}/{4:.2f}) ▲\r".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 선물_등락율, DOW_등락율)
-                self.parent.textBrowser.append(txt)
-            elif flag_put_dominant:
-                txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Put Strong({3:.2f}/{4:.2f}) ▼\r".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 선물_등락율, DOW_등락율)
-                self.parent.textBrowser.append(txt)
+                if flag_call_dominant:
+                    txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call Strong({3:.2f}/{4:.2f}) ▲\r".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 선물_등락율, DOW_등락율)
+                    self.parent.textBrowser.append(txt)
+                elif flag_put_dominant:
+                    txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Put Strong({3:.2f}/{4:.2f}) ▼\r".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 선물_등락율, DOW_등락율)
+                    self.parent.textBrowser.append(txt)
+                else:
+                    pass
             else:
                 pass
 
@@ -15415,7 +15423,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             call_gap_percent[i] = (시가 / 종가 - 1) * 100
 
-                            gap_txt = "{0:.2f}\n({1:.0f}%)".format(시가갭, call_gap_percent[i])
+                            gap_txt = "{0:.2f}\n{1:.1f}%".format(시가갭, call_gap_percent[i])
 
                             item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
@@ -15425,7 +15433,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             call_db_percent[i] = (현재가 / 시가 - 1) * 100
 
-                            gap_txt = "{0:.2f}\n({1:.0f}%)".format(대비, call_db_percent[i])
+                            gap_txt = "{0:.2f}\n{1:.1f}%".format(대비, call_db_percent[i])
 
                             item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
@@ -15752,7 +15760,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             put_gap_percent[i] = (시가 / 종가 - 1) * 100
 
-                            gap_txt = "{0:.2f}\n({1:.0f}%)".format(시가갭, put_gap_percent[i])
+                            gap_txt = "{0:.2f}\n{1:.1f}%".format(시가갭, put_gap_percent[i])
 
                             item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
@@ -15762,7 +15770,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             put_db_percent[i] = (현재가 / 시가 - 1) * 100
 
-                            gap_txt = "{0:.2f}\n({1:.0f}%)".format(대비, put_db_percent[i])
+                            gap_txt = "{0:.2f}\n{1:.1f}%".format(대비, put_db_percent[i])
 
                             item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
@@ -17306,7 +17314,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             call_gap_percent[i] = (시가 / 종가 - 1) * 100
 
-                            gap_txt = "{0:.2f}\n({1:.0f}%)".format(시가갭, call_gap_percent[i])
+                            gap_txt = "{0:.2f}\n{1:.1f}%".format(시가갭, call_gap_percent[i])
 
                             item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
@@ -17316,7 +17324,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             call_db_percent[i] = (현재가 / 시가 - 1) * 100
 
-                            gap_txt = "{0:.2f}\n({1:.0f}%)".format(대비, call_db_percent[i])
+                            gap_txt = "{0:.2f}\n{1:.1f}%".format(대비, call_db_percent[i])
 
                             item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
@@ -17611,7 +17619,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             put_gap_percent[i] = (시가 / 종가 - 1) * 100
 
-                            gap_txt = "{0:.2f}\n({1:.0f}%)".format(시가갭, put_gap_percent[i])
+                            gap_txt = "{0:.2f}\n{1:.1f}%".format(시가갭, put_gap_percent[i])
 
                             item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
@@ -17621,7 +17629,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             put_db_percent[i] = (현재가 / 시가 - 1) * 100
 
-                            gap_txt = "{0:.2f}\n({1:.0f}%)".format(대비, put_db_percent[i])
+                            gap_txt = "{0:.2f}\n{1:.1f}%".format(대비, put_db_percent[i])
 
                             item = QTableWidgetItem(gap_txt)
                             item.setTextAlignment(Qt.AlignCenter)
