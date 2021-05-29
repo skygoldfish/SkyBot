@@ -45,6 +45,7 @@ import socket
 import talib
 from talib import MA_Type
 import ta
+import functools
 
 #import pyttsx3
 #from gtts import gTTS
@@ -34348,6 +34349,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #self.label_3rd.setText('3rd\nQueue')
         self.label_3rd.setText('SDB\nIndex')
 
+        self.label_3rd.mousePressEvent = functools.partial(self.showSDBMsgBox, source_object=self.label_3rd)
+
         self.pushButton_reset.setStyleSheet('QPushButton \
                                             {background-color: \
                                             qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
@@ -34421,6 +34424,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
         atexit.register(self.__del__)
+
+    def showSDBMsgBox(self, event, source_object):
+
+        msgBox = QMessageBox()
+        msgBox.setFont(QFont("Consolas", 15, QFont.Bold))
+        msgBox.setIcon(QMessageBox.Information)
+        msgBox.setText(source_object.text())
+        msgBox.setWindowTitle('SDB Index')
+        msgBox.show()
+
+        returnValue = msgBox.exec_()
+        
+        if returnValue == QMessageBox.Ok:
+            print("showSDBMsgBox OK Clicked...")
 
     @pyqtSlot()
     def reset_button_clicked(self):
