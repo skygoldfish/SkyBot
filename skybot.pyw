@@ -5630,7 +5630,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.call_open_check()   
                             self.call_cross_color_update()        
                             self.call_node_color_update()
-                            self.call_coreval_color_update()                              
+                            self.call_coreval_color_update()
+
+                            if TARGET_MONTH == 'CM':
+                                if flag_call_strong:
+                                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ CM Call Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
+                                    ToYourTelegram(send_txt)
+                                elif flag_call_weak:
+                                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ CM Call Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
+                                    ToYourTelegram(send_txt)
+                                elif flag_put_strong:
+                                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ CM Put Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
+                                    ToYourTelegram(send_txt)
+                                elif flag_put_weak:
+                                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ CM Put Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
+                                    ToYourTelegram(send_txt)
+                                else:
+                                    pass
+                            elif TARGET_MONTH == 'NM':
+                                pass
+                            else:
+                                pass                              
 
                         elif flag_call_cross_coloring or (not self.alternate_flag and dt.minute % CROSS_COLOR_INTERVAL == 0 and dt.second == 0):
 
@@ -5658,18 +5678,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.put_node_color_update()
                             self.put_coreval_color_update()
 
-                            if flag_call_strong:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call Strong({3:.1f}/{4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
-                                ToYourTelegram(send_txt)
-                            elif flag_call_weak:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Call Weak({3:.1f}/{4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
-                                ToYourTelegram(send_txt)
-                            elif flag_put_strong:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Put Strong({3:.1f}/{4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
-                                ToYourTelegram(send_txt)
-                            elif flag_put_weak:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Put Weak({3:.1f}/{4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
-                                ToYourTelegram(send_txt)
+                            if TARGET_MONTH == 'CM':
+                                pass
+                            elif TARGET_MONTH == 'NM':
+                                if flag_call_strong:
+                                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ NM Call Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
+                                    ToYourTelegram(send_txt)
+                                elif flag_call_weak:
+                                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ NM Call Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
+                                    ToYourTelegram(send_txt)
+                                elif flag_put_strong:
+                                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ NM Put Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
+                                    ToYourTelegram(send_txt)
+                                elif flag_put_weak:
+                                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ NM Put Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
+                                    ToYourTelegram(send_txt)
+                                else:
+                                    pass
                             else:
                                 pass
                         else:
