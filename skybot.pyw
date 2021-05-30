@@ -12579,6 +12579,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         콜대비합_단위평균 = round(np.mean(np_call_otm_db_local), 2)            
         콜대비_퍼센트평균 = round(np.mean(np_call_otm_db_percent_local), 1)
 
+        df_call_information_graph.at[ovc_x_idx, 'drate'] = 콜대비_퍼센트평균
+
         call_txt = repr(콜대비합_단위평균) + '\n' + repr(콜대비_퍼센트평균) + '%'
 
         item = QTableWidgetItem(call_txt)
@@ -13612,6 +13614,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         풋대비합_단위평균 = round(np.mean(np_put_otm_db_local), 2)      
         풋대비_퍼센트평균 = round(np.mean(np_put_otm_db_percent_local), 1)
+
+        df_put_information_graph.at[ovc_x_idx, 'drate'] = 풋대비_퍼센트평균
 
         put_txt = repr(풋대비합_단위평균) + '\n' + repr(풋대비_퍼센트평균) + '%'
 
@@ -37135,7 +37139,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # 등락율 갱신, 본월물 기준으로 계산
             if DayTime and index == ATM_INDEX:
                 콜_등가_등락율 = float(result['등락율'])
-                df_call_information_graph.at[ovc_x_idx, 'drate'] = 콜_등가_등락율
+                #df_call_information_graph.at[ovc_x_idx, 'drate'] = 콜_등가_등락율
             else:
                 pass
 
@@ -37198,7 +37202,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # 등락율 갱신, 본월물 기준으로 계산
             if DayTime and index == ATM_INDEX:
                 풋_등가_등락율 = float(result['등락율'])
-                df_put_information_graph.at[ovc_x_idx, 'drate'] = 풋_등가_등락율
+                #df_put_information_graph.at[ovc_x_idx, 'drate'] = 풋_등가_등락율
             else:
                 pass
 
