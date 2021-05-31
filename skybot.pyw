@@ -12550,7 +12550,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     
     def call_db_update(self):
 
-        global call_진폭, 콜대비합, 콜대비합_단위평균, 콜대비_퍼센트평균
+        global call_진폭, 콜대비합, 콜대비합_단위평균, 콜대비_퍼센트평균, df_call_information_graph
         
         진폭최대값 = df_call['진폭'].max()
 
@@ -13586,7 +13586,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     
     def put_db_update(self):
 
-        global put_진폭, 풋대비합, 풋대비합_단위평균, 풋대비_퍼센트평균 
+        global put_진폭, 풋대비합, 풋대비합_단위평균, 풋대비_퍼센트평균, df_put_information_graph 
         
         진폭최대값 = df_put['진폭'].max()
 
