@@ -28656,10 +28656,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_15.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(풋_등가_등락율, put_atm_value)
+                txt = " {0:.2f}({1}) ".format(풋대비_퍼센트평균, put_atm_value)
                 self.label_16.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(콜_등가_등락율, call_atm_value)
+                txt = " {0:.2f}({1}) ".format(콜대비_퍼센트평균, call_atm_value)
                 self.label_18.setText(txt)
                 
                 self.plot1_time_line.setValue(ovc_x_idx)                
@@ -29629,10 +29629,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_25.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(풋_등가_등락율, put_atm_value)
+                txt = " {0:.2f}({1}) ".format(풋대비_퍼센트평균, put_atm_value)
                 self.label_26.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(콜_등가_등락율, call_atm_value)
+                txt = " {0:.2f}({1}) ".format(콜대비_퍼센트평균, call_atm_value)
                 self.label_28.setText(txt)
                 
                 self.plot2_time_line.setValue(ovc_x_idx)
@@ -30548,10 +30548,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_35.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(풋_등가_등락율, put_atm_value)
+                txt = " {0:.2f}({1}) ".format(풋대비_퍼센트평균, put_atm_value)
                 self.label_36.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(콜_등가_등락율, call_atm_value)
+                txt = " {0:.2f}({1}) ".format(콜대비_퍼센트평균, call_atm_value)
                 self.label_38.setText(txt)
                 
                 self.plot3_time_line.setValue(ovc_x_idx)
@@ -31385,10 +31385,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_45.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(풋_등가_등락율, put_atm_value)
+                txt = " {0:.2f}({1}) ".format(풋대비_퍼센트평균, put_atm_value)
                 self.label_46.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(콜_등가_등락율, call_atm_value)
+                txt = " {0:.2f}({1}) ".format(콜대비_퍼센트평균, call_atm_value)
                 self.label_48.setText(txt)
                 
                 self.plot4_time_line.setValue(ovc_x_idx)
@@ -32358,10 +32358,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_55.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(풋_등가_등락율, put_atm_value)
+                txt = " {0:.2f}({1}) ".format(풋대비_퍼센트평균, put_atm_value)
                 self.label_56.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(콜_등가_등락율, call_atm_value)
+                txt = " {0:.2f}({1}) ".format(콜대비_퍼센트평균, call_atm_value)
                 self.label_58.setText(txt)
                 
                 self.plot5_time_line.setValue(ovc_x_idx)
@@ -33270,10 +33270,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_65.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(풋_등가_등락율, put_atm_value)
+                txt = " {0:.2f}({1}) ".format(풋대비_퍼센트평균, put_atm_value)
                 self.label_66.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(콜_등가_등락율, call_atm_value)
+                txt = " {0:.2f}({1}) ".format(콜대비_퍼센트평균, call_atm_value)
                 self.label_68.setText(txt)
                 
                 self.plot6_time_line.setValue(ovc_x_idx)
