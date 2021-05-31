@@ -17,7 +17,7 @@ import ntplib
 import timeit
 import win32com.client
 import pythoncom
-from numpy import NaN
+from numpy import nan, NaN
 from pandas import DataFrame, Series
 
 import ctypes
@@ -7064,7 +7064,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         list_high = []
 
         # 리스트에서 특정요소를 제거
-        remove_set = {0, 0.01}
+        remove_set = {0, 0.01, nan, NaN}
 
         temp_lst = [i for i in input_list if i not in remove_set]
 
@@ -12252,7 +12252,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
 
-                remove_set = {0}
+                remove_set = {0, nan, NaN}
 
                 # 시가갭 갱신
                 call_gap_percent_local = copy.deepcopy(call_gap_percent)
@@ -12562,7 +12562,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        remove_set = {0}
+        remove_set = {0, nan, NaN}
         
         # 처리시간 줄여야함
         call_otm_db_local = copy.deepcopy(call_otm_db)
@@ -13038,7 +13038,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_call.setHorizontalHeaderItem(2, item)
 
-            remove_set = {0}
+            remove_set = {0, nan, NaN}
 
             # 시가갭 갱신
             call_gap_percent_local = copy.deepcopy(call_gap_percent)
@@ -13288,7 +13288,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
 
-                remove_set = {0} 
+                remove_set = {0, nan, NaN} 
 
                 # 시가갭 갱신
                 put_gap_percent_local = copy.deepcopy(put_gap_percent)
@@ -13598,7 +13598,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        remove_set = {0}        
+        remove_set = {0, nan, NaN}        
         
         # 처리시간 줄여야함
         put_otm_db_local = copy.deepcopy(put_otm_db)
@@ -14097,7 +14097,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setHorizontalHeaderItem(2, item)
 
-            remove_set = {0}
+            remove_set = {0, nan, NaN}
 
             # 시가갭 갱신
             put_gap_percent_local = copy.deepcopy(put_gap_percent)
