@@ -12129,7 +12129,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         콜고가 = float(result['고가'])
 
         # 콜 외가(등가포함) 대비 저장
-        if index >= ATM_INDEX and 콜시가 > 0.3 and 콜저가 < 콜고가:
+        if index <= ATM_INDEX and 콜시가 > 0.3 and 콜저가 < 콜고가:
             call_otm_db[index] = 콜현재가 - 콜시가
             call_otm_db_percent[index] = (콜현재가 / 콜시가 - 1) * 100
         else:
