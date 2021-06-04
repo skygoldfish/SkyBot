@@ -12548,7 +12548,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         np_call_otm_db_local = np.array(result1)
         np_call_otm_db_percent_local = np.array(result2)
 
-        print('np_call_otm_db_percent_local =', len(np_call_otm_db_percent_local), np_call_otm_db_percent_local)
+        #print('np_call_otm_db_percent_local =', len(np_call_otm_db_percent_local), np_call_otm_db_percent_local)
 
         콜대비합_단위평균 = round(np.mean(np_call_otm_db_local), 2)            
         콜대비_퍼센트평균 = round(np.mean(np_call_otm_db_percent_local), 1)
@@ -13584,7 +13584,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         np_put_otm_db_local = np.array(result1)
         np_put_otm_db_percent_local = np.array(result2)
 
-        print('np_put_otm_db_percent_local =', len(np_put_otm_db_percent_local), np_put_otm_db_percent_local)
+        #print('np_put_otm_db_percent_local =', len(np_put_otm_db_percent_local), np_put_otm_db_percent_local)
 
         풋대비합_단위평균 = round(np.mean(np_put_otm_db_local), 2)      
         풋대비_퍼센트평균 = round(np.mean(np_put_otm_db_percent_local), 1)
