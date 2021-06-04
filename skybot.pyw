@@ -379,6 +379,7 @@ PUT_OTM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Put OTM Reque
 HL_Depth = parser.getint('Initial Value', 'HL List Depth')
 NightTime_PreStart_Hour = parser.getint('Initial Value', 'NightTime Pre-Start Hour')
 ActvalCount = parser.getint('Initial Value', 'Actval Count of the Option Pairs')
+OTM_SEARCH_START_VAL = parser.getfloat('Initial Value', 'OTM Search Start Value')
 MY_COREVAL = parser.getfloat('Initial Value', 'My Coreval')
 ASYM_RATIO = parser.getfloat('Initial Value', 'Asymmetric Market Ratio')
 ONEWAY_RATIO = parser.getfloat('Initial Value', 'OneWay Market Ratio')
@@ -1087,7 +1088,7 @@ oloh_cutoff = 0.10
 nodelist_low_cutoff = 0.09
 nodelist_high_cutoff = 10.0
 
-update_start = 0.3
+update_start = OTM_SEARCH_START_VAL
 update_end = 10.0
 
 콜매수 = ''
@@ -8347,7 +8348,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 콜 저가, 고가가 풋시가에 있는지 검사
     def check_call_low_isin_put_open_list(self, x):
 
-        if x > 0.3 and x in put_시가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in put_시가_node_list:
 
             i = call_저가.index(x) + 1
 
@@ -8358,7 +8359,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     
     def check_call_high_isin_put_open_list(self, x):
 
-        if x > 0.3 and x in put_시가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in put_시가_node_list:
 
             i = call_고가.index(x) + 1
 
@@ -8370,7 +8371,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 콜 저가, 고가가 풋종가에 있는지 검사
     def check_call_low_isin_put_close_list(self, x):
 
-        if x > 0.3 and x in put_종가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in put_종가_node_list:
 
             i = call_저가.index(x) + 1
 
@@ -8381,7 +8382,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_call_high_isin_put_close_list(self, x):
 
-        if x > 0.3 and x in put_종가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in put_종가_node_list:
 
             i = call_고가.index(x) + 1
 
@@ -8393,7 +8394,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 콜 저가, 고가가 풋피봇에 있는지 검사
     def check_call_low_isin_put_pivot_list(self, x):
 
-        if x > 0.3 and x in put_피봇_node_list:
+        if x > OTM_SEARCH_START_VAL and x in put_피봇_node_list:
 
             i = call_저가.index(x) + 1
 
@@ -8404,7 +8405,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_call_high_isin_put_pivot_list(self, x):
 
-        if x > 0.3 and x in put_피봇_node_list:
+        if x > OTM_SEARCH_START_VAL and x in put_피봇_node_list:
 
             i = call_고가.index(x) + 1
 
@@ -8416,7 +8417,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 콜 저가, 고가가 콜시가에 있는지 검사
     def check_call_low_isin_call_open_list(self, x):
 
-        if x > 0.3 and x in call_시가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in call_시가_node_list:
 
             i = call_저가.index(x) + 1
 
@@ -8427,7 +8428,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_call_high_isin_call_open_list(self, x):
 
-        if x > 0.3 and x in call_시가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in call_시가_node_list:
 
             i = call_고가.index(x) + 1
 
@@ -8439,7 +8440,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 콜 저가, 고가가 콜종가에 있는지 검사
     def check_call_low_isin_call_close_list(self, x):
 
-        if x > 0.3 and x in call_종가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in call_종가_node_list:
 
             i = call_저가.index(x) + 1
 
@@ -8450,7 +8451,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_call_high_isin_call_close_list(self, x):
 
-        if x > 0.3 and x in call_종가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in call_종가_node_list:
 
             i = call_고가.index(x) + 1
 
@@ -8462,7 +8463,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 콜 저가, 고가가 콜피봇에 있는지 검사
     def check_call_low_isin_call_pivot_list(self, x):
 
-        if x > 0.3 and x in call_피봇_node_list:
+        if x > OTM_SEARCH_START_VAL and x in call_피봇_node_list:
 
             i = call_저가.index(x) + 1
 
@@ -8473,7 +8474,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_call_high_isin_call_pivot_list(self, x):
 
-        if x > 0.3 and x in call_피봇_node_list:
+        if x > OTM_SEARCH_START_VAL and x in call_피봇_node_list:
 
             i = call_고가.index(x) + 1
 
@@ -8485,7 +8486,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 콜종가가 풋, 콜의 저가, 고가에 있는지 검사
     def check_call_close_isin_put_low_list(self, x):
 
-        if x > 0.3 and x in put_저가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in put_저가_node_list:
 
             i = call_종가.index(x) + 1
 
@@ -8496,7 +8497,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_call_close_isin_put_high_list(self, x):
 
-        if x > 0.3 and x in put_고가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in put_고가_node_list:
 
             i = call_종가.index(x) + 1
 
@@ -8507,7 +8508,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_call_close_isin_call_low_list(self, x):
 
-        if x > 0.3 and x in call_저가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in call_저가_node_list:
 
             i = call_종가.index(x) + 1
 
@@ -8518,7 +8519,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_call_close_isin_call_high_list(self, x):
 
-        if x > 0.3 and x in call_고가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in call_고가_node_list:
 
             i = call_종가.index(x) + 1
 
@@ -8530,7 +8531,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 콜피봇이 풋, 콜의 저가, 고가에 있는지 검사
     def check_call_pivot_isin_put_low_list(self, x):
 
-        if x > 0.3 and x in put_저가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in put_저가_node_list:
 
             i = call_피봇.index(x) + 1
 
@@ -8541,7 +8542,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_call_pivot_isin_put_high_list(self, x):
 
-        if x > 0.3 and x in put_고가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in put_고가_node_list:
 
             i = call_피봇.index(x) + 1
 
@@ -8552,7 +8553,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_call_pivot_isin_call_low_list(self, x):
 
-        if x > 0.3 and x in call_저가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in call_저가_node_list:
 
             i = call_피봇.index(x) + 1
 
@@ -8563,7 +8564,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_call_pivot_isin_call_high_list(self, x):
 
-        if x > 0.3 and x in call_고가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in call_고가_node_list:
 
             i = call_피봇.index(x) + 1
 
@@ -8575,7 +8576,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 콜시가가 풋, 콜의 저가, 고가에 있는지 검사
     def check_call_open_isin_put_low_list(self, x):
 
-        if x > 0.3 and x in put_저가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in put_저가_node_list:
 
             i = call_시가.index(x) + 1
 
@@ -8586,7 +8587,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_call_open_isin_put_high_list(self, x):
 
-        if x > 0.3 and x in put_고가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in put_고가_node_list:
 
             i = call_시가.index(x) + 1
 
@@ -8597,7 +8598,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_call_open_isin_call_low_list(self, x):
 
-        if x > 0.3 and x in call_저가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in call_저가_node_list:
 
             i = call_시가.index(x) + 1
 
@@ -8608,7 +8609,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_call_open_isin_call_high_list(self, x):
 
-        if x > 0.3 and x in call_고가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in call_고가_node_list:
 
             i = call_시가.index(x) + 1
 
@@ -8620,7 +8621,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 콜시가가 맥점에 있는지 검사
     def check_call_open_isin_coreval_list(self, x):
 
-        if x > 0.3 and x in COREVAL:
+        if x > OTM_SEARCH_START_VAL and x in COREVAL:
 
             i = call_시가.index(x) + 1
 
@@ -9297,7 +9298,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 풋 저가, 고가가 콜시가에 있는지 검사
     def check_put_low_isin_call_open_list(self, x):
 
-        if x > 0.3 and x in call_시가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in call_시가_node_list:
 
             i = put_저가.index(x) + 1
 
@@ -9308,7 +9309,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_put_high_isin_call_open_list(self, x): 
 
-        if x > 0.3 and x in call_시가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in call_시가_node_list:
 
             i = put_고가.index(x) + 1
 
@@ -9320,7 +9321,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 풋 저가, 고가가 콜종가에 있는지 검사
     def check_put_low_isin_call_close_list(self, x):
 
-        if x > 0.3 and x in call_종가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in call_종가_node_list:
 
             i = put_저가.index(x) + 1
 
@@ -9331,7 +9332,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_put_high_isin_call_close_list(self, x):
 
-        if x > 0.3 and x in call_종가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in call_종가_node_list:
 
             i = put_고가.index(x) + 1
 
@@ -9343,7 +9344,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 풋 저가, 고가가 콜피봇에 있는지 검사
     def check_put_low_isin_call_pivot_list(self, x):
 
-        if x > 0.3 and x in call_피봇_node_list:
+        if x > OTM_SEARCH_START_VAL and x in call_피봇_node_list:
 
             i = put_저가.index(x) + 1
 
@@ -9354,7 +9355,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_put_high_isin_call_pivot_list(self, x):
 
-        if x > 0.3 and x in call_피봇_node_list:
+        if x > OTM_SEARCH_START_VAL and x in call_피봇_node_list:
 
             i = put_고가.index(x) + 1
 
@@ -9366,7 +9367,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 풋 저가, 고가가 풋시가에 있는지 검사
     def check_put_low_isin_put_open_list(self, x):
 
-        if x > 0.3 and x in put_시가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in put_시가_node_list:
 
             i = put_저가.index(x) + 1
 
@@ -9377,7 +9378,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_put_high_isin_put_open_list(self, x):
 
-        if x > 0.3 and x in put_시가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in put_시가_node_list:
 
             i = put_고가.index(x) + 1
 
@@ -9389,7 +9390,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 풋 저가, 고가가 풋종가에 있는지 검사
     def check_put_low_isin_put_close_list(self, x):
 
-        if x > 0.3 and x in put_종가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in put_종가_node_list:
 
             i = put_저가.index(x) + 1
 
@@ -9400,7 +9401,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_put_high_isin_put_close_list(self, x):
 
-        if x > 0.3 and x in put_종가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in put_종가_node_list:
 
             i = put_고가.index(x) + 1
 
@@ -9412,7 +9413,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 풋 저가, 고가가 풋피봇에 있는지 검사
     def check_put_low_isin_put_pivot_list(self, x):
 
-        if x > 0.3 and x in put_피봇_node_list:
+        if x > OTM_SEARCH_START_VAL and x in put_피봇_node_list:
 
             i = put_저가.index(x) + 1
 
@@ -9423,7 +9424,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_put_high_isin_put_pivot_list(self, x):
 
-        if x > 0.3 and x in put_피봇_node_list:
+        if x > OTM_SEARCH_START_VAL and x in put_피봇_node_list:
 
             i = put_고가.index(x) + 1
 
@@ -9435,7 +9436,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 풋종가가 콜, 풋의 저가, 고가에 있는지 검사
     def check_put_close_isin_call_low_list(self, x):
 
-        if x > 0.3 and x in call_저가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in call_저가_node_list:
 
             i = put_종가.index(x) + 1
 
@@ -9446,7 +9447,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_put_close_isin_call_high_list(self, x):
 
-        if x > 0.3 and x in call_고가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in call_고가_node_list:
 
             i = put_종가.index(x) + 1
 
@@ -9457,7 +9458,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_put_close_isin_put_low_list(self, x):
 
-        if x > 0.3 and x in put_저가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in put_저가_node_list:
 
             i = put_종가.index(x) + 1
 
@@ -9468,7 +9469,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_put_close_isin_put_high_list(self, x):
 
-        if x > 0.3 and x in put_고가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in put_고가_node_list:
 
             i = put_종가.index(x) + 1
 
@@ -9480,7 +9481,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 풋피봇이 콜, 풋의 저가, 고가에 있는지 검사
     def check_put_pivot_isin_call_low_list(self, x):
 
-        if x > 0.3 and x in call_저가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in call_저가_node_list:
 
             i = put_피봇.index(x) + 1
 
@@ -9491,7 +9492,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_put_pivot_isin_call_high_list(self, x):
 
-        if x > 0.3 and x in call_고가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in call_고가_node_list:
 
             i = put_피봇.index(x) + 1
 
@@ -9502,7 +9503,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_put_pivot_isin_put_low_list(self, x):
 
-        if x > 0.3 and x in put_저가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in put_저가_node_list:
 
             i = put_피봇.index(x) + 1
 
@@ -9513,7 +9514,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_put_pivot_isin_put_high_list(self, x):
 
-        if x > 0.3 and x in put_고가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in put_고가_node_list:
 
             i = put_피봇.index(x) + 1
 
@@ -9525,7 +9526,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 풋시가가 콜, 풋의 저가, 고가에 있는지 검사
     def check_put_open_isin_call_low_list(self, x):
 
-        if x > 0.3 and x in call_저가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in call_저가_node_list:
 
             i = put_시가.index(x) + 1
 
@@ -9536,7 +9537,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_put_open_isin_call_high_list(self, x):
 
-        if x > 0.3 and x in call_고가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in call_고가_node_list:
 
             i = put_시가.index(x) + 1
 
@@ -9547,7 +9548,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_put_open_isin_put_low_list(self, x):
 
-        if x > 0.3 and x in put_저가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in put_저가_node_list:
 
             i = put_시가.index(x) + 1
 
@@ -9558,7 +9559,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_put_open_isin_put_high_list(self, x):
 
-        if x > 0.3 and x in put_고가_node_list:
+        if x > OTM_SEARCH_START_VAL and x in put_고가_node_list:
 
             i = put_시가.index(x) + 1
 
@@ -9570,7 +9571,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 풋시가가 맥점에 있는지 검사
     def check_put_open_isin_coreval_list(self, x):
 
-        if x > 0.3 and x in COREVAL:
+        if x > OTM_SEARCH_START_VAL and x in COREVAL:
 
             i = put_시가.index(x) + 1
 
@@ -12129,7 +12130,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         콜고가 = float(result['고가'])
 
         # 콜 외가(등가포함) 대비 저장
-        if index <= ATM_INDEX and 콜시가 > 0.3 and 콜저가 < 콜고가:
+        if index <= ATM_INDEX and 콜시가 > OTM_SEARCH_START_VAL and 콜저가 < 콜고가:
             call_otm_db[index] = 콜현재가 - 콜시가
             call_otm_db_percent[index] = (콜현재가 / 콜시가 - 1) * 100
         else:
@@ -12204,7 +12205,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             시가갭 = 콜시가 - 콜종가
             df_call.at[index, '시가갭'] = 시가갭
 
-            #if 콜시가 > 0.3:
+            #if 콜시가 > OTM_SEARCH_START_VAL:
             if True:
                 call_gap_percent[index] = (콜시가 / 콜종가 - 1) * 100
 
@@ -12835,7 +12836,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         시가갭 = 시가 - 종가
                         df_call.at[index, '시가갭'] = 시가갭
 
-                        #if 시가 > 0.3:
+                        #if 시가 > OTM_SEARCH_START_VAL:
                         if True:
                             call_gap_percent[index] = (시가 / 종가 - 1) * 100
                         else:
@@ -12966,7 +12967,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # 콜 외가(등가포함) 대비 저장
-                if index <= ATM_INDEX and 시가 > 0.3 and 저가 < 고가:
+                if index <= ATM_INDEX and 시가 > OTM_SEARCH_START_VAL and 저가 < 고가:
                     call_otm_db[index] = 현재가 - 시가
                     call_otm_db_percent[index] = (현재가 / 시가 - 1) * 100
                 else:
@@ -13165,7 +13166,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         풋고가 = float(result['고가'])
 
         # 풋 외가(등가포함) 대비 저장
-        if index >= ATM_INDEX and 풋시가 > 0.3 and 풋저가 < 풋고가:
+        if index >= ATM_INDEX and 풋시가 > OTM_SEARCH_START_VAL and 풋저가 < 풋고가:
             put_otm_db[index] = 풋현재가 - 풋시가
             put_otm_db_percent[index] = (풋현재가 / 풋시가 - 1) * 100
         else:
@@ -13240,7 +13241,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             시가갭 = 풋시가 - 풋종가
             df_put.at[index, '시가갭'] = 시가갭
 
-            #if 풋시가 > 0.3:
+            #if 풋시가 > OTM_SEARCH_START_VAL:
             if True:
                 put_gap_percent[index] = (풋시가 / 풋종가 - 1) * 100
 
@@ -13878,7 +13879,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         df_put.at[index, '시가갭'] = 시가갭
 
-                        #if 시가 > 0.3:
+                        #if 시가 > OTM_SEARCH_START_VAL:
                         if True:
                             put_gap_percent[index] = (시가 / 종가 - 1) * 100
                         else:
@@ -14025,7 +14026,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # 풋 외가(등가포함) 대비 저장
-                if index >= ATM_INDEX and 시가 > 0.3 and 저가 < 고가:
+                if index >= ATM_INDEX and 시가 > OTM_SEARCH_START_VAL and 저가 < 고가:
                     put_otm_db[index] = 현재가 - 시가
                     put_otm_db_percent[index] = (현재가 / 시가 - 1) * 100
                 else:
