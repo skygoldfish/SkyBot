@@ -969,8 +969,8 @@ oneway_txt = ''
 콜대비합_퍼센트 = 0
 풋대비합_퍼센트 = 0
 
-콜대비합_단위평균 = 0
-풋대비합_단위평균 = 0
+call_otm_db_mean = 0
+put_otm_db_mean = 0
 
 비대칭장 = ''
 
@@ -1385,8 +1385,8 @@ nm_put_oh = [False] * ActvalCount
 put_otm_db = [0] * ActvalCount
 put_otm_db_percent = [0] * ActvalCount
 
-콜대비_퍼센트평균 = 0
-풋대비_퍼센트평균 = 0
+call_otm_db_percent_mean = 0
+put_otm_db_percent_mean = 0
 
 opt_callreal_update_counter = 0
 opt_putreal_update_counter = 0
@@ -5064,16 +5064,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         '''
                         if flag_call_strong:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call Strong({3:.1f}/{4:.1f}) !!!".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call Strong({3:.1f}/{4:.1f}) !!!".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
                             ToYourTelegram(send_txt)
                         elif flag_call_weak:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Call Weak({3:.1f}/{4:.1f}) !!!".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Call Weak({3:.1f}/{4:.1f}) !!!".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
                             ToYourTelegram(send_txt)
                         elif flag_put_strong:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Put Strong({3:.1f}/{4:.1f}) !!!".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Put Strong({3:.1f}/{4:.1f}) !!!".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
                             ToYourTelegram(send_txt)
                         elif flag_put_weak:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Put Weak({3:.1f}/{4:.1f}) !!!".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Put Weak({3:.1f}/{4:.1f}) !!!".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
                             ToYourTelegram(send_txt)
                         else:
                             pass
@@ -5812,16 +5812,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if TARGET_MONTH == 'CM' and self.alternate_flag and dt.minute % CROSS_COLOR_INTERVAL == 0 and dt.second == 1:
 
                         if flag_call_strong:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ CM Call Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ CM Call Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
                             ToYourTelegram(send_txt)
                         elif flag_call_weak:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ CM Call Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ CM Call Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
                             ToYourTelegram(send_txt)
                         elif flag_put_strong:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ CM Put Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ CM Put Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
                             ToYourTelegram(send_txt)
                         elif flag_put_weak:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ CM Put Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ CM Put Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
                             ToYourTelegram(send_txt)
                         else:
                             pass
@@ -5831,16 +5831,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if TARGET_MONTH == 'NM' and self.alternate_flag and dt.minute % CROSS_COLOR_INTERVAL == 0 and dt.second == 2:
 
                         if flag_call_strong:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ NM Call Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ NM Call Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
                             ToYourTelegram(send_txt)
                         elif flag_call_weak:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ NM Call Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ NM Call Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
                             ToYourTelegram(send_txt)
                         elif flag_put_strong:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ NM Put Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ NM Put Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
                             ToYourTelegram(send_txt)
                         elif flag_put_weak:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ NM Put Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, 콜대비_퍼센트평균, 풋대비_퍼센트평균)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ NM Put Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
                             ToYourTelegram(send_txt)
                         else:
                             pass
@@ -5848,7 +5848,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass                  
 
                     # 비대칭장 탐색
-                    if not dongsi_quote and abs(콜대비_퍼센트평균) > 0 and abs(풋대비_퍼센트평균) > 0:
+                    if not dongsi_quote and abs(call_otm_db_percent_mean) > 0 and abs(put_otm_db_percent_mean) > 0:
 
                         self.asym_detect(self.alternate_flag)
                     else:
@@ -7160,11 +7160,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.now()
 
-        if 콜대비_퍼센트평균 > 0 and 풋대비_퍼센트평균 < 0:
+        if call_otm_db_percent_mean > 0 and put_otm_db_percent_mean < 0:
 
-            if abs(콜대비_퍼센트평균/풋대비_퍼센트평균) >= ASYM_RATIO:
+            if abs(call_otm_db_percent_mean/put_otm_db_percent_mean) >= ASYM_RATIO:
                 
-                if abs(콜대비_퍼센트평균/풋대비_퍼센트평균) >= ONEWAY_RATIO and flag_fut_vs_dow_drate_direction:
+                if abs(call_otm_db_percent_mean/put_otm_db_percent_mean) >= ONEWAY_RATIO and flag_fut_vs_dow_drate_direction:
 
                     # 콜 원웨이(원웨이장은 플래그 세팅을 나중에 해줌 --> 발생시각 표시를 위해)
                     call_ms_oneway = True
@@ -7191,7 +7191,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     put_md_all_down = False
                     put_ms_all_up = False
                     
-            elif abs(풋대비_퍼센트평균/콜대비_퍼센트평균) >= ASYM_RATIO:
+            elif abs(put_otm_db_percent_mean/call_otm_db_percent_mean) >= ASYM_RATIO:
 
                 # 풋매도 비대칭
                 call_ms_oneway = False
@@ -7220,9 +7220,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_md_all_down = False
                 put_ms_all_up = False
 
-        elif 콜대비_퍼센트평균 < 0 and 풋대비_퍼센트평균 > 0:
+        elif call_otm_db_percent_mean < 0 and put_otm_db_percent_mean > 0:
 
-            if abs(콜대비_퍼센트평균/풋대비_퍼센트평균) >= ASYM_RATIO:
+            if abs(call_otm_db_percent_mean/put_otm_db_percent_mean) >= ASYM_RATIO:
 
                 # 콜매도 비대칭
                 call_ms_oneway = False
@@ -7236,9 +7236,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_md_all_down = False
                 put_ms_all_up = False
                 
-            elif abs(풋대비_퍼센트평균/콜대비_퍼센트평균) >= ASYM_RATIO:
+            elif abs(put_otm_db_percent_mean/call_otm_db_percent_mean) >= ASYM_RATIO:
 
-                if abs(풋대비_퍼센트평균/콜대비_퍼센트평균) >= ONEWAY_RATIO and flag_fut_vs_dow_drate_direction:
+                if abs(put_otm_db_percent_mean/call_otm_db_percent_mean) >= ONEWAY_RATIO and flag_fut_vs_dow_drate_direction:
 
                     # 풋 원웨이(원웨이장은 플래그 세팅을 나중에 해줌 --> 발생시각 표시를 위해)
                     call_ms_oneway = False
@@ -7279,9 +7279,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_md_all_down = False
                 put_ms_all_up = False
 
-        elif 콜대비_퍼센트평균 < 0 and 풋대비_퍼센트평균 < 0:
+        elif call_otm_db_percent_mean < 0 and put_otm_db_percent_mean < 0:
 
-            if 콜대비_퍼센트평균 < 풋대비_퍼센트평균:
+            if call_otm_db_percent_mean < put_otm_db_percent_mean:
 
                 # 콜매도 양꽝장
                 call_ms_oneway = False
@@ -7295,7 +7295,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_md_all_down = False
                 put_ms_all_up = False
                 
-            elif 콜대비_퍼센트평균 > 풋대비_퍼센트평균:
+            elif call_otm_db_percent_mean > put_otm_db_percent_mean:
 
                 # 풋매도 양꽝장
                 call_ms_oneway = False
@@ -7323,9 +7323,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_md_all_down = False
                 put_ms_all_up = False
 
-        elif 콜대비_퍼센트평균 > 0 and 풋대비_퍼센트평균 > 0:
+        elif call_otm_db_percent_mean > 0 and put_otm_db_percent_mean > 0:
 
-            if 콜대비_퍼센트평균 > 풋대비_퍼센트평균:
+            if call_otm_db_percent_mean > put_otm_db_percent_mean:
 
                 # 콜매수 양빵장
                 call_ms_oneway = False
@@ -7339,7 +7339,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_md_all_down = False
                 put_ms_all_up = False
                 
-            elif 콜대비_퍼센트평균 < 풋대비_퍼센트평균:
+            elif call_otm_db_percent_mean < put_otm_db_percent_mean:
 
                 # 풋매수 양빵장
                 call_ms_oneway = False
@@ -12111,7 +12111,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 콜_인덱스, 콜_시가, 콜_현재가, 콜_저가, 콜_고가
         global flag_call_low_update, flag_call_high_update
         global call_gap_percent, call_db_percent, call_otm_db, call_otm_db_percent
-        global 콜대비_퍼센트평균
+        global call_otm_db_percent_mean
         global 콜_등가_등락율       
 
         start_time = timeit.default_timer()
@@ -12524,7 +12524,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     
     def call_db_update(self):
 
-        global call_진폭, 콜대비합, 콜대비합_단위평균, 콜대비_퍼센트평균, df_call_information_graph
+        global call_진폭, 콜대비합, call_otm_db_mean, call_otm_db_percent_mean, df_call_information_graph
         
         진폭최대값 = df_call['진폭'].max()
 
@@ -12550,12 +12550,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         #print('np_call_otm_db_percent_local =', len(np_call_otm_db_percent_local), np_call_otm_db_percent_local)
 
-        콜대비합_단위평균 = round(np.mean(np_call_otm_db_local), 2)            
-        콜대비_퍼센트평균 = round(np.mean(np_call_otm_db_percent_local), 1)
+        call_otm_db_mean = round(np.mean(np_call_otm_db_local), 2)            
+        call_otm_db_percent_mean = round(np.mean(np_call_otm_db_percent_local), 1)
 
-        df_call_information_graph.at[ovc_x_idx, 'drate'] = 콜대비_퍼센트평균
+        df_call_information_graph.at[ovc_x_idx, 'drate'] = call_otm_db_percent_mean
 
-        call_txt = repr(콜대비합_단위평균) + '\n' + repr(콜대비_퍼센트평균) + '%'
+        call_txt = repr(call_otm_db_mean) + '\n' + repr(call_otm_db_percent_mean) + '%'
 
         item = QTableWidgetItem(call_txt)
         self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
@@ -12770,9 +12770,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_open, call_ol, call_oh
         global call_gap_percent, call_db_percent
         global call_ol_count, call_oh_count
-        global 콜대비합, 콜대비합_단위평균
+        global 콜대비합, call_otm_db_mean
         global call_open_count        
-        global 콜시가갭합, 콜시가갭합_퍼센트평균, 콜시가갭합_단위평균, 콜대비_퍼센트평균
+        global 콜시가갭합, 콜시가갭합_퍼센트평균, 콜시가갭합_단위평균, call_otm_db_percent_mean
         global call_otm_db, call_otm_db_percent
         global nm_call_oloh_txt 
         
@@ -13147,7 +13147,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 풋_인덱스, 풋_시가, 풋_현재가, 풋_저가, 풋_고가
         global flag_put_low_update, flag_put_high_update
         global put_gap_percent, put_db_percent, put_otm_db, put_otm_db_percent
-        global 풋대비_퍼센트평균
+        global put_otm_db_percent_mean
         global 풋_등가_등락율
 
         start_time = timeit.default_timer()
@@ -13560,7 +13560,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     
     def put_db_update(self):
 
-        global put_진폭, 풋대비합, 풋대비합_단위평균, 풋대비_퍼센트평균, df_put_information_graph 
+        global put_진폭, 풋대비합, put_otm_db_mean, put_otm_db_percent_mean, df_put_information_graph 
         
         진폭최대값 = df_put['진폭'].max()
 
@@ -13586,12 +13586,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         #print('np_put_otm_db_percent_local =', len(np_put_otm_db_percent_local), np_put_otm_db_percent_local)
 
-        풋대비합_단위평균 = round(np.mean(np_put_otm_db_local), 2)      
-        풋대비_퍼센트평균 = round(np.mean(np_put_otm_db_percent_local), 1)
+        put_otm_db_mean = round(np.mean(np_put_otm_db_local), 2)      
+        put_otm_db_percent_mean = round(np.mean(np_put_otm_db_percent_local), 1)
 
-        df_put_information_graph.at[ovc_x_idx, 'drate'] = 풋대비_퍼센트평균
+        df_put_information_graph.at[ovc_x_idx, 'drate'] = put_otm_db_percent_mean
 
-        put_txt = repr(풋대비합_단위평균) + '\n' + repr(풋대비_퍼센트평균) + '%'
+        put_txt = repr(put_otm_db_mean) + '\n' + repr(put_otm_db_percent_mean) + '%'
 
         item = QTableWidgetItem(put_txt)
         item.setTextAlignment(Qt.AlignCenter)
@@ -13809,9 +13809,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global put_open, put_ol, put_oh, nm_put_ol, nm_put_oh
         global put_gap_percent, put_db_percent
         global put_ol_count, put_oh_count
-        global 풋대비합, 풋대비합_단위평균 
+        global 풋대비합, put_otm_db_mean 
         global put_open_count
-        global 풋시가갭합, 풋시가갭합_퍼센트평균, 풋시가갭합_단위평균, 풋대비_퍼센트평균
+        global 풋시가갭합, 풋시가갭합_퍼센트평균, 풋시가갭합_단위평균, put_otm_db_percent_mean
         global put_otm_db, put_otm_db_percent
         global nm_put_oloh_txt
         
@@ -14780,7 +14780,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global t2835_month_info
         global server_date, server_time, system_server_timegap, server_x_idx
         global CM_OPTCODE, NM_OPTCODE
-        global 콜대비_퍼센트평균, 풋대비_퍼센트평균
+        global call_otm_db_percent_mean, put_otm_db_percent_mean
         global atm_zero_sum, atm_zero_cha
         global 선물_전일종가
         global CENTER_VAL, CENTER_VAL_PLUS5, CENTER_VAL_PLUS4, CENTER_VAL_PLUS3, CENTER_VAL_PLUS2, CENTER_VAL_PLUS1, CENTER_VAL_MINUS1, CENTER_VAL_MINUS2, CENTER_VAL_MINUS3, CENTER_VAL_MINUS4, CENTER_VAL_MINUS5
@@ -17066,8 +17066,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 call_db_percent = [0] * option_pairs_count
                 put_db_percent = [0] * option_pairs_count
 
-                콜대비_퍼센트평균 = 0
-                풋대비_퍼센트평균 = 0
+                call_otm_db_percent_mean = 0
+                put_otm_db_percent_mean = 0
 
                 item = QTableWidgetItem('행사가')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.행사가.value, item)
@@ -28630,10 +28630,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_15.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(풋대비_퍼센트평균, put_atm_value)
+                txt = " {0:.2f}({1}) ".format(put_otm_db_percent_mean, put_atm_value)
                 self.label_16.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(콜대비_퍼센트평균, call_atm_value)
+                txt = " {0:.2f}({1}) ".format(call_otm_db_percent_mean, call_atm_value)
                 self.label_18.setText(txt)
                 
                 self.plot1_time_line.setValue(ovc_x_idx)                
@@ -29603,10 +29603,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_25.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(풋대비_퍼센트평균, put_atm_value)
+                txt = " {0:.2f}({1}) ".format(put_otm_db_percent_mean, put_atm_value)
                 self.label_26.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(콜대비_퍼센트평균, call_atm_value)
+                txt = " {0:.2f}({1}) ".format(call_otm_db_percent_mean, call_atm_value)
                 self.label_28.setText(txt)
                 
                 self.plot2_time_line.setValue(ovc_x_idx)
@@ -30522,10 +30522,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_35.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(풋대비_퍼센트평균, put_atm_value)
+                txt = " {0:.2f}({1}) ".format(put_otm_db_percent_mean, put_atm_value)
                 self.label_36.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(콜대비_퍼센트평균, call_atm_value)
+                txt = " {0:.2f}({1}) ".format(call_otm_db_percent_mean, call_atm_value)
                 self.label_38.setText(txt)
                 
                 self.plot3_time_line.setValue(ovc_x_idx)
@@ -31359,10 +31359,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_45.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(풋대비_퍼센트평균, put_atm_value)
+                txt = " {0:.2f}({1}) ".format(put_otm_db_percent_mean, put_atm_value)
                 self.label_46.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(콜대비_퍼센트평균, call_atm_value)
+                txt = " {0:.2f}({1}) ".format(call_otm_db_percent_mean, call_atm_value)
                 self.label_48.setText(txt)
                 
                 self.plot4_time_line.setValue(ovc_x_idx)
@@ -32332,10 +32332,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_55.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(풋대비_퍼센트평균, put_atm_value)
+                txt = " {0:.2f}({1}) ".format(put_otm_db_percent_mean, put_atm_value)
                 self.label_56.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(콜대비_퍼센트평균, call_atm_value)
+                txt = " {0:.2f}({1}) ".format(call_otm_db_percent_mean, call_atm_value)
                 self.label_58.setText(txt)
                 
                 self.plot5_time_line.setValue(ovc_x_idx)
@@ -33244,10 +33244,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_65.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(풋대비_퍼센트평균, put_atm_value)
+                txt = " {0:.2f}({1}) ".format(put_otm_db_percent_mean, put_atm_value)
                 self.label_66.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(콜대비_퍼센트평균, call_atm_value)
+                txt = " {0:.2f}({1}) ".format(call_otm_db_percent_mean, call_atm_value)
                 self.label_68.setText(txt)
                 
                 self.plot6_time_line.setValue(ovc_x_idx)
@@ -34821,7 +34821,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             global flag_call_strong, flag_call_weak, flag_put_strong, flag_put_weak 
 
-            if 콜대비_퍼센트평균 > 풋대비_퍼센트평균 and abs(콜대비_퍼센트평균) > abs(풋대비_퍼센트평균):
+            if call_otm_db_percent_mean > put_otm_db_percent_mean and abs(call_otm_db_percent_mean) > abs(put_otm_db_percent_mean):
 
                 # 콜매수
                 self.label_3rd.setStyleSheet("background-color: red; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
@@ -34830,7 +34830,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 flag_put_strong = False
                 flag_put_weak = False
 
-            elif 콜대비_퍼센트평균 > 풋대비_퍼센트평균 and abs(콜대비_퍼센트평균) < abs(풋대비_퍼센트평균):
+            elif call_otm_db_percent_mean > put_otm_db_percent_mean and abs(call_otm_db_percent_mean) < abs(put_otm_db_percent_mean):
 
                 # 풋매도
                 self.label_3rd.setStyleSheet("background-color: steelblue; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
@@ -34839,7 +34839,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 flag_put_strong = False
                 flag_put_weak = True
 
-            elif 풋대비_퍼센트평균 > 콜대비_퍼센트평균 and abs(풋대비_퍼센트평균) > abs(콜대비_퍼센트평균):
+            elif put_otm_db_percent_mean > call_otm_db_percent_mean and abs(put_otm_db_percent_mean) > abs(call_otm_db_percent_mean):
 
                 # 풋매수
                 self.label_3rd.setStyleSheet("background-color: blue; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
@@ -34848,7 +34848,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 flag_put_strong = True
                 flag_put_weak = False
 
-            elif 풋대비_퍼센트평균 > 콜대비_퍼센트평균 and abs(풋대비_퍼센트평균) < abs(콜대비_퍼센트평균):
+            elif put_otm_db_percent_mean > call_otm_db_percent_mean and abs(put_otm_db_percent_mean) < abs(call_otm_db_percent_mean):
 
                 # 콜매도
                 self.label_3rd.setStyleSheet("background-color: indianred; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
@@ -34860,7 +34860,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.label_3rd.setStyleSheet("background-color: white; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
             
-            txt = '{0} %\n{1} %'.format(콜대비_퍼센트평균, 풋대비_퍼센트평균)
+            txt = '{0} %\n{1} %'.format(call_otm_db_percent_mean, put_otm_db_percent_mean)
             self.label_3rd.setText(txt)
         else:
             pass
