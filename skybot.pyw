@@ -34053,7 +34053,12 @@ class Xing(object):
                 else:
                     pass
 
-                if TARGET_MONTH == 'CM' and self.clocktick and dt.minute % CROSS_COLOR_INTERVAL == 0 and dt.second == 1:
+                if dt.hour == KSE_START_HOUR:
+                    report_interval = 5
+                else:
+                    report_interval = 10
+
+                if TARGET_MONTH == 'CM' and self.clocktick and dt.minute % report_interval == 0 and dt.second == 1:
 
                     if flag_call_strong:
                         send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ CM Call Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)                        
@@ -34070,7 +34075,7 @@ class Xing(object):
                 else:
                     pass
 
-                if TARGET_MONTH == 'NM' and self.clocktick and dt.minute % CROSS_COLOR_INTERVAL == 0 and dt.second == 2:
+                if TARGET_MONTH == 'NM' and self.clocktick and dt.minute % report_interval == 0 and dt.second == 2:
 
                     if flag_call_strong:
                         send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ NM Call Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
