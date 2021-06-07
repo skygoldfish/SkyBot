@@ -5605,44 +5605,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     #self.cv_color_clear()
                     #self.price_color_clear()
 
-                    if TARGET_MONTH == 'CM' and self.alternate_flag and dt.minute % CROSS_COLOR_INTERVAL == 0 and dt.second == 2:
-
-                        if flag_call_strong:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ CM Call Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
-                            ToYourTelegram(send_txt)
-                        elif flag_call_weak:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ CM Call Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
-                            ToYourTelegram(send_txt)
-                        elif flag_put_strong:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ CM Put Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
-                            ToYourTelegram(send_txt)
-                        elif flag_put_weak:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ CM Put Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
-                            ToYourTelegram(send_txt)
-                        else:
-                            pass
-                    else:
-                        pass
-
-                    if TARGET_MONTH == 'NM' and self.alternate_flag and dt.minute % CROSS_COLOR_INTERVAL == 0 and dt.second == 3:
-
-                        if flag_call_strong:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ NM Call Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
-                            ToYourTelegram(send_txt)
-                        elif flag_call_weak:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ NM Call Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
-                            ToYourTelegram(send_txt)
-                        elif flag_put_strong:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ NM Put Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
-                            ToYourTelegram(send_txt)
-                        elif flag_put_weak:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ NM Put Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
-                            ToYourTelegram(send_txt)
-                        else:
-                            pass
-                    else:
-                        pass
-
                     # 매 10분마다 교차컬러링 수행
                     if not flag_call_low_update and not flag_call_high_update and not flag_put_low_update and not flag_put_high_update:
 
@@ -34095,6 +34057,44 @@ class Xing(object):
 
                     if self.clocktick and dt.second % TELEGRAM_SEND_INTERVAL == 0:
                         self.caller.dialog['선물옵션전광판'].send_telegram_message()
+                    else:
+                        pass
+
+                    if TARGET_MONTH == 'CM' and self.clocktick and dt.minute % CROSS_COLOR_INTERVAL == 0 and dt.second == 1:
+
+                        if flag_call_strong:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ CM Call Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
+                            ToYourTelegram(send_txt)
+                        elif flag_call_weak:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ CM Call Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
+                            ToYourTelegram(send_txt)
+                        elif flag_put_strong:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ CM Put Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
+                            ToYourTelegram(send_txt)
+                        elif flag_put_weak:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ CM Put Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
+                            ToYourTelegram(send_txt)
+                        else:
+                            pass
+                    else:
+                        pass
+
+                    if TARGET_MONTH == 'NM' and self.clocktick and dt.minute % CROSS_COLOR_INTERVAL == 0 and dt.second == 2:
+
+                        if flag_call_strong:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ NM Call Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
+                            ToYourTelegram(send_txt)
+                        elif flag_call_weak:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ NM Call Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
+                            ToYourTelegram(send_txt)
+                        elif flag_put_strong:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ NM Put Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
+                            ToYourTelegram(send_txt)
+                        elif flag_put_weak:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ NM Put Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
+                            ToYourTelegram(send_txt)
+                        else:
+                            pass
                     else:
                         pass
                 else:
