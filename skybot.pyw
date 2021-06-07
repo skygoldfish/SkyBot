@@ -34056,19 +34056,17 @@ class Xing(object):
                 if TARGET_MONTH == 'CM' and self.clocktick and dt.minute % CROSS_COLOR_INTERVAL == 0 and dt.second == 1:
 
                     if flag_call_strong:
-                        send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ CM Call Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
-                        ToYourTelegram(send_txt)
+                        send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ CM Call Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)                        
                     elif flag_call_weak:
                         send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ CM Call Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
-                        ToYourTelegram(send_txt)
                     elif flag_put_strong:
                         send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ CM Put Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
-                        ToYourTelegram(send_txt)
                     elif flag_put_weak:
                         send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ CM Put Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
-                        ToYourTelegram(send_txt)
                     else:
-                        pass
+                        send_txt = ''
+
+                    ToYourTelegram(send_txt)
                 else:
                     pass
 
@@ -34076,18 +34074,16 @@ class Xing(object):
 
                     if flag_call_strong:
                         send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ NM Call Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
-                        ToYourTelegram(send_txt)
                     elif flag_call_weak:
                         send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ NM Call Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
-                        ToYourTelegram(send_txt)
                     elif flag_put_strong:
                         send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ NM Put Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
-                        ToYourTelegram(send_txt)
                     elif flag_put_weak:
                         send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ NM Put Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
-                        ToYourTelegram(send_txt)
                     else:
-                        pass
+                        send_txt = ''
+
+                    ToYourTelegram(send_txt)
                 else:
                     pass
 
