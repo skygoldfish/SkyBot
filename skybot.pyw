@@ -34051,46 +34051,7 @@ class Xing(object):
                 if flag_score_board_start:
                     self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
                 else:
-                    pass
-
-                if dt.hour == KSE_START_HOUR:
-                    report_interval = 5
-                else:
-                    report_interval = 10
-
-                if TARGET_MONTH == 'CM' and self.clocktick and dt.minute % report_interval == 0 and dt.second == 1:
-
-                    if flag_call_strong:
-                        send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ CM Call Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)                        
-                    elif flag_call_weak:
-                        send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ CM Call Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
-                    elif flag_put_strong:
-                        send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ CM Put Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
-                    elif flag_put_weak:
-                        send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ CM Put Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
-                    else:
-                        send_txt = ''
-
-                    ToYourTelegram(send_txt)
-                else:
-                    pass
-
-                if TARGET_MONTH == 'NM' and self.clocktick and dt.minute % report_interval == 0 and dt.second == 2:
-
-                    if flag_call_strong:
-                        send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ NM Call Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
-                    elif flag_call_weak:
-                        send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ NM Call Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
-                    elif flag_put_strong:
-                        send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ NM Put Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
-                    elif flag_put_weak:
-                        send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ NM Put Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
-                    else:
-                        send_txt = ''
-
-                    ToYourTelegram(send_txt)
-                else:
-                    pass
+                    pass                
 
                 if flag_telegram_send_start:
 
@@ -34863,6 +34824,45 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
             txt = '{0} %\n{1} %'.format(call_otm_db_percent_mean, put_otm_db_percent_mean)
             self.label_3rd.setText(txt)
+
+            if dt.hour == KSE_START_HOUR:
+                report_interval = 5
+            else:
+                report_interval = 10
+
+            if TARGET_MONTH == 'CM' and dt.minute % report_interval == 0 and dt.second == 1:
+
+                if flag_call_strong:
+                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ CM Call Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)                        
+                elif flag_call_weak:
+                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ CM Call Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
+                elif flag_put_strong:
+                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ CM Put Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
+                elif flag_put_weak:
+                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ CM Put Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
+                else:
+                    send_txt = ''
+
+                ToYourTelegram(send_txt)
+            else:
+                pass
+
+            if TARGET_MONTH == 'NM' and dt.minute % report_interval == 0 and dt.second == 2:
+
+                if flag_call_strong:
+                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ NM Call Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
+                elif flag_call_weak:
+                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ NM Call Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
+                elif flag_put_strong:
+                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ NM Put Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
+                elif flag_put_weak:
+                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ NM Put Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
+                else:
+                    send_txt = ''
+
+                ToYourTelegram(send_txt)
+            else:
+                pass
         else:
             pass
     
