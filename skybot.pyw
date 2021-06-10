@@ -28601,19 +28601,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.plot1_time_line.setValue(ovc_x_idx)                
                                
                 self.plot1_call_drate_curve.setData(df_call_information_graph['drate'].to_numpy())
-                self.plot1_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy()) 
+                self.plot1_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy())
+                
+                if DayTime:
+
+                    txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
+                    self.label_17.setText(txt)
+
+                    self.plot1_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
+                else:
+                    pass
 
                 if TARGET_MONTH == 'NM':
                     self.plot1_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
-
-                    if DayTime:
-
-                        txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
-                        self.label_17.setText(txt)
-
-                        self.plot1_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
-                    else:
-                        pass
                 else:
                     pass
 
@@ -29574,19 +29574,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.plot2_time_line.setValue(ovc_x_idx)
                 
                 self.plot2_call_drate_curve.setData(df_call_information_graph['drate'].to_numpy())
-                self.plot2_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy()) 
+                self.plot2_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy())
+                
+                if DayTime:
+
+                    txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
+                    self.label_27.setText(txt)
+
+                    self.plot2_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
+                else:
+                    pass
 
                 if TARGET_MONTH == 'NM':
                     self.plot2_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
-
-                    if DayTime:
-
-                        txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
-                        self.label_27.setText(txt)
-
-                        self.plot2_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
-                    else:
-                        pass
                 else:
                     pass
 
@@ -30493,19 +30493,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.plot3_time_line.setValue(ovc_x_idx)
                 
                 self.plot3_call_drate_curve.setData(df_call_information_graph['drate'].to_numpy())
-                self.plot3_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy()) 
+                self.plot3_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy())
+                
+                if DayTime:
+
+                    txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
+                    self.label_37.setText(txt)
+
+                    self.plot3_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
+                else:
+                    pass
 
                 if TARGET_MONTH == 'NM':
                     self.plot3_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
-
-                    if DayTime:
-
-                        txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
-                        self.label_37.setText(txt)
-
-                        self.plot3_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
-                    else:
-                        pass
                 else:
                     pass
 
@@ -31330,19 +31330,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.plot4_time_line.setValue(ovc_x_idx)
                 
                 self.plot4_call_drate_curve.setData(df_call_information_graph['drate'].to_numpy())
-                self.plot4_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy()) 
+                self.plot4_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy())
+                
+                if DayTime:
+
+                    txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
+                    self.label_47.setText(txt)
+
+                    self.plot4_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
+                else:
+                    pass 
 
                 if TARGET_MONTH == 'NM':
                     self.plot4_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
-
-                    if DayTime:
-
-                        txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
-                        self.label_47.setText(txt)
-
-                        self.plot4_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
-                    else:
-                        pass
                 else:
                     pass
 
@@ -32303,19 +32303,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.plot5_time_line.setValue(ovc_x_idx)
                 
                 self.plot5_call_drate_curve.setData(df_call_information_graph['drate'].to_numpy())
-                self.plot5_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy()) 
+                self.plot5_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy())
+                
+                if DayTime:
+
+                    txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
+                    self.label_57.setText(txt)
+
+                    self.plot5_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
+                else:
+                    pass
 
                 if TARGET_MONTH == 'NM':
                     self.plot5_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
-
-                    if DayTime:
-
-                        txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
-                        self.label_57.setText(txt)
-
-                        self.plot5_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
-                    else:
-                        pass
                 else:
                     pass
 
@@ -33215,19 +33215,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.plot6_time_line.setValue(ovc_x_idx)
                 
                 self.plot6_call_drate_curve.setData(df_call_information_graph['drate'].to_numpy())
-                self.plot6_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy()) 
+                self.plot6_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy())
+                
+                if DayTime:
+
+                    txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
+                    self.label_67.setText(txt)
+
+                    self.plot6_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
+                else:
+                    pass 
 
                 if TARGET_MONTH == 'NM':
                     self.plot6_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
-
-                    if DayTime:
-
-                        txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
-                        self.label_67.setText(txt)
-
-                        self.plot6_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
-                    else:
-                        pass
                 else:
                     pass
 
