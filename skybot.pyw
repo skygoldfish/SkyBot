@@ -142,6 +142,8 @@ screen_info = None
 
 콜_등가_등락율 = 0
 풋_등가_등락율 = 0
+콜_등가_시가등락율 = 0
+풋_등가_시가등락율 = 0
 
 drate_scale_factor = 1
 plot_drate_scale_factor = 1
@@ -165,6 +167,7 @@ put_scroll_depth = 30
 선물_시가대비 = 0
 선물_종가대비 = 0
 선물_등락율 = 0
+선물_시가등락율 = 0
 선물_시가대비_등락율 = 0
 
 선물_고가 = 0
@@ -11338,7 +11341,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global fut_cm_volume_power
         global flag_first_arrive, fut_first_arrive_time
         global telegram_send_worker_on_time, flag_telegram_send_worker, flag_telegram_listen_worker
-        global 선물_저가, 선물_현재가, 선물_시가대비, 선물_종가대비, 선물_등락율, 선물_고가, 선물_진폭
+        global 선물_저가, 선물_현재가, 선물_시가대비, 선물_종가대비, 선물_등락율, 선물_고가, 선물_진폭, 선물_시가등락율
         global 선물_진폭비, 선물_체결시간
         global fut_tick_list, fut_value_list, df_fut_ohlc
         global 선물_현재가_버퍼
@@ -11477,6 +11480,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             선물_피봇 = calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
 
             시가갭 = 선물_시가 - 선물_종가
+
+            선물_시가등락율 = ((선물_시가 - 선물_종가) / 선물_종가) * 100
 
             item = QTableWidgetItem(시가)
             item.setTextAlignment(Qt.AlignCenter)
@@ -12085,7 +12090,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_call_low_update, flag_call_high_update
         global call_gap_percent, call_db_percent, call_otm_cdb, call_otm_cdb_percent, call_otm_jdb, call_otm_jdb_percent
         global call_otm_cdb_percent_mean
-        global 콜_등가_등락율       
+        global 콜_등가_등락율, 콜_등가_시가등락율       
 
         start_time = timeit.default_timer()
         dt = datetime.now()
@@ -12186,6 +12191,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             #if 콜시가 > OTM_SEARCH_START_VAL:
             if True:
                 call_gap_percent[index] = (콜시가 / 콜종가 - 1) * 100
+
+                if index == ATM_INDEX:
+                    콜_등가_시가등락율 = call_gap_percent[index]
+                else:
+                    pass
 
                 gap_txt = "{0:.2f}\n{1:.1f}%".format(시가갭, call_gap_percent[index])
 
@@ -12763,7 +12773,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_open_count        
         global 콜시가갭합, 콜시가갭합_퍼센트평균, 콜시가갭합_단위평균, call_otm_cdb_percent_mean
         global call_otm_cdb, call_otm_cdb_percent
-        global nm_call_oloh_txt 
+        global nm_call_oloh_txt, 콜_등가_시가등락율
         
         dt = datetime.now()
 
@@ -12828,6 +12838,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         #if 시가 > OTM_SEARCH_START_VAL:
                         if True:
                             call_gap_percent[index] = (시가 / 종가 - 1) * 100
+
+                            if index == ATM_INDEX:
+                                콜_등가_시가등락율 = call_gap_percent[index]
+                            else:
+                                pass
                         else:
                             pass
 
@@ -36680,7 +36695,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         global pre_start, flag_fut_vs_dow_drate_direction, plot_drate_scale_factor, fut_volume_power_energy_direction
         global df_futures_graph, flag_futures_ohlc_open, 선물_현재가_버퍼, fut_result, fut_cm_volume_power, fut_nm_volume_power
-        global 선물_등락율, 선물_시가대비_등락율
+        global 선물_등락율, 선물_시가등락율, 선물_시가대비_등락율
 
         result = data
         
@@ -36693,17 +36708,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if result['단축코드'] == GMSHCODE:
 
            # 그래프관련 처리 먼저...                    
-            선물_등락율 = float(result['등락율'])
+            선물_등락율 = float(result['등락율'])            
             선물_시가대비_등락율 = ((float(result['현재가']) - float(result['시가'])) / float(result['시가'])) * 100
 
-            if 선물_등락율 != 0:
+            if 선물_시가등락율 == 0:
+                선물_시가등락율 = ((선물_시가 - 선물_종가) / 선물_종가) * 100
+            else:
+                pass
+
+            if 선물_시가등락율 != 0:
 
                 if abs(선물_등락율) > abs(DOW_등락율):
                     flag_fut_vs_dow_drate_direction = True
                 else:
                     flag_fut_vs_dow_drate_direction = False
 
-                plot_drate_scale_factor = int(abs(콜_등가_등락율 / 선물_등락율))
+                #plot_drate_scale_factor = int(abs(콜_등가_등락율 / 선물_등락율))
+                plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / 선물_시가등락율))
 
                 item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
                 item.setTextAlignment(Qt.AlignCenter)
