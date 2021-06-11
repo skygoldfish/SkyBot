@@ -12091,7 +12091,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         고가 = result['고가']
         등락율 = result['등락율']
 
-
         콜종가 = df_call.at[index, '종가']
         콜시가 = float(result['시가'])
         콜현재가 = float(result['현재가'])
@@ -13131,8 +13130,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         현재가 = result['현재가']
         저가 = result['저가']
         고가 = result['고가']
-        등락율 = result['등락율']
-        
+        등락율 = result['등락율']        
 
         풋종가 = df_put.at[index, '종가']
         풋시가 = float(result['시가'])
