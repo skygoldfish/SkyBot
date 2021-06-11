@@ -1370,8 +1370,10 @@ call_oh = [False] * ActvalCount
 call_gap_percent = [0] * ActvalCount
 call_db_percent = [0] * ActvalCount
 
-call_otm_db = [0] * ActvalCount
-call_otm_db_percent = [0] * ActvalCount
+call_otm_jdb = [0] * ActvalCount
+call_otm_jdb_percent = [0] * ActvalCount
+call_otm_cdb = [0] * ActvalCount
+call_otm_cdb_percent = [0] * ActvalCount
 
 put_open = [False] * ActvalCount
 put_ol = [False] * ActvalCount
@@ -1382,8 +1384,10 @@ put_db_percent = [0] * ActvalCount
 nm_put_ol = [False] * ActvalCount
 nm_put_oh = [False] * ActvalCount
 
-put_otm_db = [0] * ActvalCount
-put_otm_db_percent = [0] * ActvalCount
+put_otm_jdb = [0] * ActvalCount
+put_otm_jdb_percent = [0] * ActvalCount
+put_otm_cdb = [0] * ActvalCount
+put_otm_cdb_percent = [0] * ActvalCount
 
 call_otm_db_percent_mean = 0
 put_otm_db_percent_mean = 0
@@ -12072,7 +12076,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_max_actval, call_open, call_ol, call_oh
         global 콜_인덱스, 콜_시가, 콜_현재가, 콜_저가, 콜_고가
         global flag_call_low_update, flag_call_high_update
-        global call_gap_percent, call_db_percent, call_otm_db, call_otm_db_percent
+        global call_gap_percent, call_db_percent, call_otm_cdb, call_otm_cdb_percent, call_otm_jdb, call_otm_jdb_percent
         global call_otm_db_percent_mean
         global 콜_등가_등락율       
 
@@ -12085,16 +12089,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         현재가 = result['현재가']
         저가 = result['저가']
         고가 = result['고가']
+        등락율 = result['등락율']
 
+        콜종가 = df_call.at[index, '종가']
         콜시가 = float(result['시가'])
         콜현재가 = float(result['현재가'])
         콜저가 = float(result['저가'])
         콜고가 = float(result['고가'])
+        콜등락율 = float(result['등락율'])
 
         # 콜 외가(등가포함) 대비 저장
         if index <= ATM_INDEX and 콜시가 > OTM_SEARCH_START_VAL and 콜저가 < 콜고가:
-            call_otm_db[index] = 콜현재가 - 콜시가
-            call_otm_db_percent[index] = (콜현재가 / 콜시가 - 1) * 100
+            call_otm_cdb[index] = 콜현재가 - 콜시가
+            call_otm_cdb_percent[index] = (콜현재가 / 콜시가 - 1) * 100
+            call_otm_jdb[index] = 콜현재가 - 콜종가
+            call_otm_jdb_percent[index] = 콜등락율
         else:
             pass
 
@@ -12501,10 +12510,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         remove_set = {0, nan, NaN}
         
         # 처리시간 줄여야함
-        call_otm_db_local = copy.deepcopy(call_otm_db)
+        call_otm_db_local = copy.deepcopy(call_otm_cdb)
         result1 = [i for i in call_otm_db_local if i not in remove_set]
 
-        call_otm_db_percent_local = copy.deepcopy(call_otm_db_percent)
+        call_otm_db_percent_local = copy.deepcopy(call_otm_cdb_percent)
         result2 = [i for i in call_otm_db_percent_local if i not in remove_set]
 
         np_call_otm_db_local = np.array(result1)
@@ -12735,7 +12744,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 콜대비합, call_otm_db_mean
         global call_open_count        
         global 콜시가갭합, 콜시가갭합_퍼센트평균, 콜시가갭합_단위평균, call_otm_db_percent_mean
-        global call_otm_db, call_otm_db_percent
+        global call_otm_cdb, call_otm_cdb_percent
         global nm_call_oloh_txt 
         
         dt = datetime.now()
@@ -12747,8 +12756,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             call_gap_percent = [0] * option_pairs_count
             call_db_percent = [0] * option_pairs_count
             call_itm_count = 0
-            call_otm_db = [0] * option_pairs_count
-            call_otm_db_percent = [0] * option_pairs_count
+            call_otm_cdb = [0] * option_pairs_count
+            call_otm_cdb_percent = [0] * option_pairs_count
             call_open = [False] * option_pairs_count
             call_ol_count = 0
             call_oh_count = 0            
@@ -12930,8 +12939,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # 콜 외가(등가포함) 대비 저장
                 if index <= ATM_INDEX and 시가 > OTM_SEARCH_START_VAL and 저가 < 고가:
-                    call_otm_db[index] = 현재가 - 시가
-                    call_otm_db_percent[index] = (현재가 / 시가 - 1) * 100
+                    call_otm_cdb[index] = 현재가 - 시가
+                    call_otm_cdb_percent[index] = (현재가 / 시가 - 1) * 100
                 else:
                     pass
 
@@ -13108,7 +13117,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global put_max_actval, put_open, put_ol, put_oh
         global 풋_인덱스, 풋_시가, 풋_현재가, 풋_저가, 풋_고가
         global flag_put_low_update, flag_put_high_update
-        global put_gap_percent, put_db_percent, put_otm_db, put_otm_db_percent
+        global put_gap_percent, put_db_percent, put_otm_cdb, put_otm_cdb_percent, put_otm_jdb, put_otm_jdb_percent
         global put_otm_db_percent_mean
         global 풋_등가_등락율
 
@@ -13121,16 +13130,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         현재가 = result['현재가']
         저가 = result['저가']
         고가 = result['고가']
+        등락율 = result['등락율']
 
+        풋종가 = df_put.at[index, '종가']
         풋시가 = float(result['시가'])
         풋현재가 = float(result['현재가'])
         풋저가 = float(result['저가'])
         풋고가 = float(result['고가'])
+        풋등락율 = float(result['등락율'])
 
         # 풋 외가(등가포함) 대비 저장
         if index >= ATM_INDEX and 풋시가 > OTM_SEARCH_START_VAL and 풋저가 < 풋고가:
-            put_otm_db[index] = 풋현재가 - 풋시가
-            put_otm_db_percent[index] = (풋현재가 / 풋시가 - 1) * 100
+            put_otm_cdb[index] = 풋현재가 - 풋시가
+            put_otm_cdb_percent[index] = (풋현재가 / 풋시가 - 1) * 100
+            put_otm_jdb[index] = 풋현재가 - 풋종가
+            put_otm_jdb_percent[index] = 풋등락율
         else:
             pass
         
@@ -13537,10 +13551,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         remove_set = {0, nan, NaN}        
         
         # 처리시간 줄여야함
-        put_otm_db_local = copy.deepcopy(put_otm_db)
+        put_otm_db_local = copy.deepcopy(put_otm_cdb)
         result1 = [i for i in put_otm_db_local if i not in remove_set]
 
-        put_otm_db_percent_local = copy.deepcopy(put_otm_db_percent)
+        put_otm_db_percent_local = copy.deepcopy(put_otm_cdb_percent)
         result2 = [i for i in put_otm_db_percent_local if i not in remove_set]
 
         np_put_otm_db_local = np.array(result1)
@@ -13774,7 +13788,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 풋대비합, put_otm_db_mean 
         global put_open_count
         global 풋시가갭합, 풋시가갭합_퍼센트평균, 풋시가갭합_단위평균, put_otm_db_percent_mean
-        global put_otm_db, put_otm_db_percent
+        global put_otm_cdb, put_otm_cdb_percent
         global nm_put_oloh_txt
         
         dt = datetime.now()
@@ -13786,8 +13800,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             put_gap_percent = [0] * option_pairs_count
             put_db_percent = [0] * option_pairs_count
             put_itm_count = 0
-            put_otm_db = [0] * option_pairs_count
-            put_otm_db_percent = [0] * option_pairs_count
+            put_otm_cdb = [0] * option_pairs_count
+            put_otm_cdb_percent = [0] * option_pairs_count
             put_open = [False] * option_pairs_count
             put_ol_count = 0
             put_oh_count = 0
@@ -13989,8 +14003,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # 풋 외가(등가포함) 대비 저장
                 if index >= ATM_INDEX and 시가 > OTM_SEARCH_START_VAL and 저가 < 고가:
-                    put_otm_db[index] = 현재가 - 시가
-                    put_otm_db_percent[index] = (현재가 / 시가 - 1) * 100
+                    put_otm_cdb[index] = 현재가 - 시가
+                    put_otm_cdb_percent[index] = (현재가 / 시가 - 1) * 100
                 else:
                     pass
 
@@ -14717,7 +14731,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global call_oi_init_percent, put_oi_init_percent
         global call_gap_percent, call_db_percent, put_gap_percent, put_db_percent
-        global call_otm_db_percent, put_otm_db_percent
+        global call_otm_cdb_percent, put_otm_cdb_percent
 
         global call_open
         global call_ol
