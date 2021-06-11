@@ -12192,7 +12192,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if True:
                 call_gap_percent[index] = (콜시가 / 콜종가 - 1) * 100
 
-                if index == ATM_INDEX:
+                if index == ATM_INDEX and 콜_등가_시가등락율 == 0:
                     콜_등가_시가등락율 = call_gap_percent[index]
                 else:
                     pass
@@ -12839,7 +12839,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if True:
                             call_gap_percent[index] = (시가 / 종가 - 1) * 100
 
-                            if index == ATM_INDEX:
+                            if index == ATM_INDEX and 콜_등가_시가등락율 == 0:
                                 콜_등가_시가등락율 = call_gap_percent[index]
                             else:
                                 pass
@@ -36716,12 +36716,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-            if 선물_시가등락율 != 0:
+            if abs(선물_등락율) > abs(DOW_등락율):
+                flag_fut_vs_dow_drate_direction = True
+            else:
+                flag_fut_vs_dow_drate_direction = False
 
-                if abs(선물_등락율) > abs(DOW_등락율):
-                    flag_fut_vs_dow_drate_direction = True
-                else:
-                    flag_fut_vs_dow_drate_direction = False
+            if 선물_시가등락율 != 0:                
 
                 #plot_drate_scale_factor = int(abs(콜_등가_등락율 / 선물_등락율))
                 plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / 선물_시가등락율))
