@@ -162,9 +162,10 @@ put_scroll_depth = 30
 
 선물_현재가 = 0
 선물_과거가 = 0
-선물_대비 = 0
-선물_전일대비 = 0
+선물_시가대비 = 0
+선물_종가대비 = 0
 선물_등락율 = 0
+선물_시가대비_등락율 = 0
 
 선물_고가 = 0
 선물_진폭 = 0
@@ -969,9 +970,6 @@ oneway_txt = ''
 콜대비합_퍼센트 = 0
 풋대비합_퍼센트 = 0
 
-call_otm_db_mean = 0
-put_otm_db_mean = 0
-
 비대칭장 = ''
 
 call_open_count = 0
@@ -1389,8 +1387,15 @@ put_otm_jdb_percent = [0] * ActvalCount
 put_otm_cdb = [0] * ActvalCount
 put_otm_cdb_percent = [0] * ActvalCount
 
-call_otm_db_percent_mean = 0
-put_otm_db_percent_mean = 0
+call_otm_cdb_mean = 0
+call_otm_jdb_mean = 0
+call_otm_cdb_percent_mean = 0
+call_otm_jdb_percent_mean = 0
+
+put_otm_cdb_mean = 0
+put_otm_jdb_mean = 0
+put_otm_cdb_percent_mean = 0
+put_otm_jdb_percent_mean = 0
 
 opt_callreal_update_counter = 0
 opt_putreal_update_counter = 0
@@ -1957,6 +1962,8 @@ flag_t8416_data_receive_done = False
 flag_score_board_start = False
 flag_telegram_send_start = False
 flag_telegram_listen_start = False
+
+remove_set = {0, nan, NaN}
 
 #####################################################################################################################################################################
 # UI 파일정의
@@ -5068,16 +5075,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         '''
                         if flag_call_strong:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call Strong({3:.1f}/{4:.1f}) !!!".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call Strong({3:.1f}/{4:.1f}) !!!".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                             ToYourTelegram(send_txt)
                         elif flag_call_weak:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Call Weak({3:.1f}/{4:.1f}) !!!".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Call Weak({3:.1f}/{4:.1f}) !!!".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                             ToYourTelegram(send_txt)
                         elif flag_put_strong:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Put Strong({3:.1f}/{4:.1f}) !!!".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Put Strong({3:.1f}/{4:.1f}) !!!".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                             ToYourTelegram(send_txt)
                         elif flag_put_weak:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Put Weak({3:.1f}/{4:.1f}) !!!".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Put Weak({3:.1f}/{4:.1f}) !!!".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                             ToYourTelegram(send_txt)
                         else:
                             pass
@@ -5814,7 +5821,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass                                      
 
                     # 비대칭장 탐색
-                    if not dongsi_quote and abs(call_otm_db_percent_mean) > 0 and abs(put_otm_db_percent_mean) > 0:
+                    if not dongsi_quote and abs(call_otm_cdb_percent_mean) > 0 and abs(put_otm_cdb_percent_mean) > 0:
 
                         self.asym_detect(self.alternate_flag)
                     else:
@@ -7126,11 +7133,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.now()
 
-        if call_otm_db_percent_mean > 0 and put_otm_db_percent_mean < 0:
+        if call_otm_cdb_percent_mean > 0 and put_otm_cdb_percent_mean < 0:
 
-            if abs(call_otm_db_percent_mean/put_otm_db_percent_mean) >= ASYM_RATIO:
+            if abs(call_otm_cdb_percent_mean/put_otm_cdb_percent_mean) >= ASYM_RATIO:
                 
-                if abs(call_otm_db_percent_mean/put_otm_db_percent_mean) >= ONEWAY_RATIO and flag_fut_vs_dow_drate_direction:
+                if abs(call_otm_cdb_percent_mean/put_otm_cdb_percent_mean) >= ONEWAY_RATIO and flag_fut_vs_dow_drate_direction:
 
                     # 콜 원웨이(원웨이장은 플래그 세팅을 나중에 해줌 --> 발생시각 표시를 위해)
                     call_ms_oneway = True
@@ -7157,7 +7164,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     put_md_all_down = False
                     put_ms_all_up = False
                     
-            elif abs(put_otm_db_percent_mean/call_otm_db_percent_mean) >= ASYM_RATIO:
+            elif abs(put_otm_cdb_percent_mean/call_otm_cdb_percent_mean) >= ASYM_RATIO:
 
                 # 풋매도 비대칭
                 call_ms_oneway = False
@@ -7186,9 +7193,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_md_all_down = False
                 put_ms_all_up = False
 
-        elif call_otm_db_percent_mean < 0 and put_otm_db_percent_mean > 0:
+        elif call_otm_cdb_percent_mean < 0 and put_otm_cdb_percent_mean > 0:
 
-            if abs(call_otm_db_percent_mean/put_otm_db_percent_mean) >= ASYM_RATIO:
+            if abs(call_otm_cdb_percent_mean/put_otm_cdb_percent_mean) >= ASYM_RATIO:
 
                 # 콜매도 비대칭
                 call_ms_oneway = False
@@ -7202,9 +7209,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_md_all_down = False
                 put_ms_all_up = False
                 
-            elif abs(put_otm_db_percent_mean/call_otm_db_percent_mean) >= ASYM_RATIO:
+            elif abs(put_otm_cdb_percent_mean/call_otm_cdb_percent_mean) >= ASYM_RATIO:
 
-                if abs(put_otm_db_percent_mean/call_otm_db_percent_mean) >= ONEWAY_RATIO and flag_fut_vs_dow_drate_direction:
+                if abs(put_otm_cdb_percent_mean/call_otm_cdb_percent_mean) >= ONEWAY_RATIO and flag_fut_vs_dow_drate_direction:
 
                     # 풋 원웨이(원웨이장은 플래그 세팅을 나중에 해줌 --> 발생시각 표시를 위해)
                     call_ms_oneway = False
@@ -7245,9 +7252,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_md_all_down = False
                 put_ms_all_up = False
 
-        elif call_otm_db_percent_mean < 0 and put_otm_db_percent_mean < 0:
+        elif call_otm_cdb_percent_mean < 0 and put_otm_cdb_percent_mean < 0:
 
-            if call_otm_db_percent_mean < put_otm_db_percent_mean:
+            if call_otm_cdb_percent_mean < put_otm_cdb_percent_mean:
 
                 # 콜매도 양꽝장
                 call_ms_oneway = False
@@ -7261,7 +7268,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_md_all_down = False
                 put_ms_all_up = False
                 
-            elif call_otm_db_percent_mean > put_otm_db_percent_mean:
+            elif call_otm_cdb_percent_mean > put_otm_cdb_percent_mean:
 
                 # 풋매도 양꽝장
                 call_ms_oneway = False
@@ -7289,9 +7296,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_md_all_down = False
                 put_ms_all_up = False
 
-        elif call_otm_db_percent_mean > 0 and put_otm_db_percent_mean > 0:
+        elif call_otm_cdb_percent_mean > 0 and put_otm_cdb_percent_mean > 0:
 
-            if call_otm_db_percent_mean > put_otm_db_percent_mean:
+            if call_otm_cdb_percent_mean > put_otm_cdb_percent_mean:
 
                 # 콜매수 양빵장
                 call_ms_oneway = False
@@ -7305,7 +7312,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_md_all_down = False
                 put_ms_all_up = False
                 
-            elif call_otm_db_percent_mean < put_otm_db_percent_mean:
+            elif call_otm_cdb_percent_mean < put_otm_cdb_percent_mean:
 
                 # 풋매수 양빵장
                 call_ms_oneway = False
@@ -11331,7 +11338,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global fut_cm_volume_power
         global flag_first_arrive, fut_first_arrive_time
         global telegram_send_worker_on_time, flag_telegram_send_worker, flag_telegram_listen_worker
-        global 선물_저가, 선물_현재가, 선물_대비, 선물_전일대비, 선물_등락율, 선물_고가, 선물_진폭
+        global 선물_저가, 선물_현재가, 선물_시가대비, 선물_종가대비, 선물_등락율, 선물_고가, 선물_진폭
         global 선물_진폭비, 선물_체결시간
         global fut_tick_list, fut_value_list, df_fut_ohlc
         global 선물_현재가_버퍼
@@ -11358,8 +11365,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         선물_저가 = float(result['저가'])
         선물_고가 = float(result['고가'])
         
-        선물_대비 = 선물_현재가 - 선물_시가
-        선물_전일대비 = 선물_현재가 - 선물_종가        
+        선물_시가대비 = 선물_현재가 - 선물_시가
+        선물_종가대비 = 선물_현재가 - 선물_종가        
         선물_진폭 = 선물_고가 - 선물_저가
         
         volatility_breakout_downward_point = 선물_시가 - k_value
@@ -11810,7 +11817,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setForeground(QBrush(검정색))
         self.tableWidget_fut.setItem(2, Futures_column.대비.value, item)
 
-        item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(선물_대비, 선물_등락율))
+        item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(선물_시가대비, 선물_등락율))
         item.setTextAlignment(Qt.AlignCenter)
 
         if 선물_등락율 > 0 and DOW_등락율 > 0 and flag_fut_vs_dow_drate_direction:
@@ -12077,7 +12084,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 콜_인덱스, 콜_시가, 콜_현재가, 콜_저가, 콜_고가
         global flag_call_low_update, flag_call_high_update
         global call_gap_percent, call_db_percent, call_otm_cdb, call_otm_cdb_percent, call_otm_jdb, call_otm_jdb_percent
-        global call_otm_db_percent_mean
+        global call_otm_cdb_percent_mean
         global 콜_등가_등락율       
 
         start_time = timeit.default_timer()
@@ -12197,7 +12204,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
 
-                remove_set = {0, nan, NaN}
+                #remove_set = {0, nan, NaN}
 
                 # 시가갭 갱신
                 call_gap_percent_local = copy.deepcopy(call_gap_percent)
@@ -12495,7 +12502,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     
     def call_db_update(self):
 
-        global call_진폭, 콜대비합, call_otm_db_mean, call_otm_db_percent_mean, df_call_information_graph
+        global call_진폭, 콜대비합, df_call_information_graph
+        global call_otm_cdb_mean, call_otm_cdb_percent_mean, call_otm_jdb_mean, call_otm_jdb_percent_mean
         
         진폭최대값 = df_call['진폭'].max()
 
@@ -12507,26 +12515,36 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        remove_set = {0, nan, NaN}
+        #remove_set = {0, nan, NaN}
         
         # 처리시간 줄여야함
-        call_otm_db_local = copy.deepcopy(call_otm_cdb)
-        result1 = [i for i in call_otm_db_local if i not in remove_set]
+        call_otm_cdb_local = copy.deepcopy(call_otm_cdb)
+        call_otm_cdb_local_remove_set = [i for i in call_otm_cdb_local if i not in remove_set]
 
-        call_otm_db_percent_local = copy.deepcopy(call_otm_cdb_percent)
-        result2 = [i for i in call_otm_db_percent_local if i not in remove_set]
+        call_otm_jdb_local = copy.deepcopy(call_otm_jdb)
+        call_otm_jdb_local_remove_set = [i for i in call_otm_jdb_local if i not in remove_set]
 
-        np_call_otm_db_local = np.array(result1)
-        np_call_otm_db_percent_local = np.array(result2)
+        call_otm_cdb_percent_local = copy.deepcopy(call_otm_cdb_percent)
+        call_otm_cdb_percent_local_remove_set = [i for i in call_otm_cdb_percent_local if i not in remove_set]
 
-        #print('np_call_otm_db_percent_local =', len(np_call_otm_db_percent_local), np_call_otm_db_percent_local)
+        call_otm_jdb_percent_local = copy.deepcopy(call_otm_jdb_percent)
+        call_otm_jdb_percent_local_remove_set = [i for i in call_otm_jdb_percent_local if i not in remove_set]
 
-        call_otm_db_mean = round(np.mean(np_call_otm_db_local), 2)            
-        call_otm_db_percent_mean = round(np.mean(np_call_otm_db_percent_local), 1)
+        np_call_otm_cdb_local = np.array(call_otm_cdb_local_remove_set)
+        np_call_otm_cdb_percent_local = np.array(call_otm_cdb_percent_local_remove_set)
 
-        df_call_information_graph.at[ovc_x_idx, 'drate'] = call_otm_db_percent_mean
+        np_call_otm_jdb_local = np.array(call_otm_jdb_local_remove_set)
+        np_call_otm_jdb_percent_local = np.array(call_otm_jdb_percent_local_remove_set)
 
-        call_txt = repr(call_otm_db_mean) + '\n' + repr(call_otm_db_percent_mean) + '%'
+        call_otm_cdb_mean = round(np.mean(np_call_otm_cdb_local), 2)            
+        call_otm_cdb_percent_mean = round(np.mean(np_call_otm_cdb_percent_local), 1)
+
+        call_otm_jdb_mean = round(np.mean(np_call_otm_jdb_local), 2)            
+        call_otm_jdb_percent_mean = round(np.mean(np_call_otm_jdb_percent_local), 1)
+
+        df_call_information_graph.at[ovc_x_idx, 'drate'] = call_otm_cdb_percent_mean
+
+        call_txt = repr(call_otm_cdb_mean) + '\n' + repr(call_otm_cdb_percent_mean) + '%'
 
         item = QTableWidgetItem(call_txt)
         self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
@@ -12741,9 +12759,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_open, call_ol, call_oh
         global call_gap_percent, call_db_percent
         global call_ol_count, call_oh_count
-        global 콜대비합, call_otm_db_mean
+        global 콜대비합, call_otm_cdb_mean
         global call_open_count        
-        global 콜시가갭합, 콜시가갭합_퍼센트평균, 콜시가갭합_단위평균, call_otm_db_percent_mean
+        global 콜시가갭합, 콜시가갭합_퍼센트평균, 콜시가갭합_단위평균, call_otm_cdb_percent_mean
         global call_otm_cdb, call_otm_cdb_percent
         global nm_call_oloh_txt 
         
@@ -12983,7 +13001,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_call.setHorizontalHeaderItem(2, item)
 
-            remove_set = {0, nan, NaN}
+            #remove_set = {0, nan, NaN}
 
             # 시가갭 갱신
             call_gap_percent_local = copy.deepcopy(call_gap_percent)
@@ -13118,7 +13136,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 풋_인덱스, 풋_시가, 풋_현재가, 풋_저가, 풋_고가
         global flag_put_low_update, flag_put_high_update
         global put_gap_percent, put_db_percent, put_otm_cdb, put_otm_cdb_percent, put_otm_jdb, put_otm_jdb_percent
-        global put_otm_db_percent_mean
+        global put_otm_cdb_percent_mean
         global 풋_등가_등락율
 
         start_time = timeit.default_timer()
@@ -13238,7 +13256,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
 
-                remove_set = {0, nan, NaN} 
+                #remove_set = {0, nan, NaN} 
 
                 # 시가갭 갱신
                 put_gap_percent_local = copy.deepcopy(put_gap_percent)
@@ -13536,7 +13554,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     
     def put_db_update(self):
 
-        global put_진폭, 풋대비합, put_otm_db_mean, put_otm_db_percent_mean, df_put_information_graph 
+        global put_진폭, 풋대비합, df_put_information_graph
+        global put_otm_cdb_mean, put_otm_cdb_percent_mean, put_otm_jdb_mean, put_otm_jdb_percent_mean
         
         진폭최대값 = df_put['진폭'].max()
 
@@ -13548,26 +13567,36 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        remove_set = {0, nan, NaN}        
+        #remove_set = {0, nan, NaN}        
         
         # 처리시간 줄여야함
-        put_otm_db_local = copy.deepcopy(put_otm_cdb)
-        result1 = [i for i in put_otm_db_local if i not in remove_set]
+        put_otm_cdb_local = copy.deepcopy(put_otm_cdb)
+        put_otm_cdb_local_remove_set = [i for i in put_otm_cdb_local if i not in remove_set]
 
-        put_otm_db_percent_local = copy.deepcopy(put_otm_cdb_percent)
-        result2 = [i for i in put_otm_db_percent_local if i not in remove_set]
+        put_otm_jdb_local = copy.deepcopy(put_otm_jdb)
+        put_otm_jdb_local_remove_set = [i for i in put_otm_jdb_local if i not in remove_set]
 
-        np_put_otm_db_local = np.array(result1)
-        np_put_otm_db_percent_local = np.array(result2)
+        put_otm_cdb_percent_local = copy.deepcopy(put_otm_cdb_percent)
+        put_otm_cdb_percent_local_remove_set = [i for i in put_otm_cdb_percent_local if i not in remove_set]
 
-        #print('np_put_otm_db_percent_local =', len(np_put_otm_db_percent_local), np_put_otm_db_percent_local)
+        put_otm_jdb_percent_local = copy.deepcopy(put_otm_jdb_percent)
+        put_otm_jdb_percent_local_remove_set = [i for i in put_otm_jdb_percent_local if i not in remove_set]
 
-        put_otm_db_mean = round(np.mean(np_put_otm_db_local), 2)      
-        put_otm_db_percent_mean = round(np.mean(np_put_otm_db_percent_local), 1)
+        np_put_otm_cdb_local = np.array(put_otm_cdb_local_remove_set)
+        np_put_otm_cdb_percent_local = np.array(put_otm_cdb_percent_local_remove_set)
 
-        df_put_information_graph.at[ovc_x_idx, 'drate'] = put_otm_db_percent_mean
+        np_put_otm_jdb_local = np.array(put_otm_jdb_local_remove_set)
+        np_put_otm_jdb_percent_local = np.array(put_otm_jdb_percent_local_remove_set)
 
-        put_txt = repr(put_otm_db_mean) + '\n' + repr(put_otm_db_percent_mean) + '%'
+        put_otm_cdb_mean = round(np.mean(np_put_otm_cdb_local), 2)      
+        put_otm_cdb_percent_mean = round(np.mean(np_put_otm_cdb_percent_local), 1)
+
+        put_otm_jdb_mean = round(np.mean(np_put_otm_jdb_local), 2)      
+        put_otm_jdb_percent_mean = round(np.mean(np_put_otm_jdb_percent_local), 1)
+
+        df_put_information_graph.at[ovc_x_idx, 'drate'] = put_otm_cdb_percent_mean
+
+        put_txt = repr(put_otm_cdb_mean) + '\n' + repr(put_otm_cdb_percent_mean) + '%'
 
         item = QTableWidgetItem(put_txt)
         item.setTextAlignment(Qt.AlignCenter)
@@ -13785,9 +13814,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global put_open, put_ol, put_oh, nm_put_ol, nm_put_oh
         global put_gap_percent, put_db_percent
         global put_ol_count, put_oh_count
-        global 풋대비합, put_otm_db_mean 
+        global 풋대비합, put_otm_cdb_mean 
         global put_open_count
-        global 풋시가갭합, 풋시가갭합_퍼센트평균, 풋시가갭합_단위평균, put_otm_db_percent_mean
+        global 풋시가갭합, 풋시가갭합_퍼센트평균, 풋시가갭합_단위평균, put_otm_cdb_percent_mean
         global put_otm_cdb, put_otm_cdb_percent
         global nm_put_oloh_txt
         
@@ -14047,7 +14076,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setHorizontalHeaderItem(2, item)
 
-            remove_set = {0, nan, NaN}
+            #remove_set = {0, nan, NaN}
 
             # 시가갭 갱신
             put_gap_percent_local = copy.deepcopy(put_gap_percent)
@@ -14756,7 +14785,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global t2835_month_info
         global server_date, server_time, system_server_timegap, server_x_idx
         global CM_OPTCODE, NM_OPTCODE
-        global call_otm_db_percent_mean, put_otm_db_percent_mean
+        global call_otm_cdb_percent_mean, put_otm_cdb_percent_mean
         global atm_zero_sum, atm_zero_cha
         global 선물_전일종가
         global CENTER_VAL, CENTER_VAL_PLUS5, CENTER_VAL_PLUS4, CENTER_VAL_PLUS3, CENTER_VAL_PLUS2, CENTER_VAL_PLUS1, CENTER_VAL_MINUS1, CENTER_VAL_MINUS2, CENTER_VAL_MINUS3, CENTER_VAL_MINUS4, CENTER_VAL_MINUS5
@@ -17042,8 +17071,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 call_db_percent = [0] * option_pairs_count
                 put_db_percent = [0] * option_pairs_count
 
-                call_otm_db_percent_mean = 0
-                put_otm_db_percent_mean = 0
+                call_otm_cdb_percent_mean = 0
+                put_otm_cdb_percent_mean = 0
 
                 item = QTableWidgetItem('행사가')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.행사가.value, item)
@@ -28606,10 +28635,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_15.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(put_otm_db_percent_mean, put_atm_value)
+                txt = " {0:.2f}({1}) ".format(put_otm_cdb_percent_mean, put_atm_value)
                 self.label_16.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(call_otm_db_percent_mean, call_atm_value)
+                txt = " {0:.2f}({1}) ".format(call_otm_cdb_percent_mean, call_atm_value)
                 self.label_18.setText(txt)
                 
                 self.plot1_time_line.setValue(ovc_x_idx)                
@@ -28704,11 +28733,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if 선물_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
+                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_등락율, 선물_진폭)
 
-                    if 선물_전일대비 > 0:
+                    if 선물_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif 선물_전일대비 < 0:
+                    elif 선물_종가대비 < 0:
                         self.label_17.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_17.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -28717,11 +28746,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif 선물_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
+                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_등락율, 선물_진폭)
 
-                    if 선물_전일대비 > 0:
+                    if 선물_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    if 선물_전일대비 < 0:
+                    if 선물_종가대비 < 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_17.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -29413,11 +29442,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if 선물_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
+                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_등락율, 선물_진폭)
 
-                    if 선물_전일대비 > 0:
+                    if 선물_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif 선물_전일대비 < 0:
+                    elif 선물_종가대비 < 0:
                         self.label_27.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_27.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -29426,11 +29455,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif 선물_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
+                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_등락율, 선물_진폭)
 
-                    if 선물_전일대비 > 0:
+                    if 선물_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    if 선물_전일대비 < 0:
+                    if 선물_종가대비 < 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_27.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -29579,10 +29608,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_25.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(put_otm_db_percent_mean, put_atm_value)
+                txt = " {0:.2f}({1}) ".format(put_otm_cdb_percent_mean, put_atm_value)
                 self.label_26.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(call_otm_db_percent_mean, call_atm_value)
+                txt = " {0:.2f}({1}) ".format(call_otm_cdb_percent_mean, call_atm_value)
                 self.label_28.setText(txt)
                 
                 self.plot2_time_line.setValue(ovc_x_idx)
@@ -30332,11 +30361,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if 선물_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
+                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_등락율, 선물_진폭)
 
-                    if 선물_전일대비 > 0:
+                    if 선물_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif 선물_전일대비 < 0:
+                    elif 선물_종가대비 < 0:
                         self.label_37.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_37.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -30345,11 +30374,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif 선물_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
+                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_등락율, 선물_진폭)
 
-                    if 선물_전일대비 > 0:
+                    if 선물_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    if 선물_전일대비 < 0:
+                    if 선물_종가대비 < 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_37.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -30498,10 +30527,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_35.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(put_otm_db_percent_mean, put_atm_value)
+                txt = " {0:.2f}({1}) ".format(put_otm_cdb_percent_mean, put_atm_value)
                 self.label_36.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(call_otm_db_percent_mean, call_atm_value)
+                txt = " {0:.2f}({1}) ".format(call_otm_cdb_percent_mean, call_atm_value)
                 self.label_38.setText(txt)
                 
                 self.plot3_time_line.setValue(ovc_x_idx)
@@ -31335,10 +31364,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_45.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(put_otm_db_percent_mean, put_atm_value)
+                txt = " {0:.2f}({1}) ".format(put_otm_cdb_percent_mean, put_atm_value)
                 self.label_46.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(call_otm_db_percent_mean, call_atm_value)
+                txt = " {0:.2f}({1}) ".format(call_otm_cdb_percent_mean, call_atm_value)
                 self.label_48.setText(txt)
                 
                 self.plot4_time_line.setValue(ovc_x_idx)
@@ -31433,11 +31462,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if 선물_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
+                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_등락율, 선물_진폭)
 
-                    if 선물_전일대비 > 0:
+                    if 선물_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif 선물_전일대비 < 0:
+                    elif 선물_종가대비 < 0:
                         self.label_47.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_47.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -31446,11 +31475,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif 선물_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
+                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_등락율, 선물_진폭)
 
-                    if 선물_전일대비 > 0:
+                    if 선물_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    if 선물_전일대비 < 0:
+                    if 선물_종가대비 < 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_47.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -32142,11 +32171,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if 선물_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
+                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_등락율, 선물_진폭)
 
-                    if 선물_전일대비 > 0:
+                    if 선물_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif 선물_전일대비 < 0:
+                    elif 선물_종가대비 < 0:
                         self.label_57.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_57.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -32155,11 +32184,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif 선물_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
+                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_등락율, 선물_진폭)
 
-                    if 선물_전일대비 > 0:
+                    if 선물_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    if 선물_전일대비 < 0:
+                    if 선물_종가대비 < 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_57.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -32308,10 +32337,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_55.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(put_otm_db_percent_mean, put_atm_value)
+                txt = " {0:.2f}({1}) ".format(put_otm_cdb_percent_mean, put_atm_value)
                 self.label_56.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(call_otm_db_percent_mean, call_atm_value)
+                txt = " {0:.2f}({1}) ".format(call_otm_cdb_percent_mean, call_atm_value)
                 self.label_58.setText(txt)
                 
                 self.plot5_time_line.setValue(ovc_x_idx)
@@ -33054,11 +33083,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if 선물_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
+                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_등락율, 선물_진폭)
 
-                    if 선물_전일대비 > 0:
+                    if 선물_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif 선물_전일대비 < 0:
+                    elif 선물_종가대비 < 0:
                         self.label_67.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_67.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33067,11 +33096,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif 선물_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
+                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_등락율, 선물_진폭)
 
-                    if 선물_전일대비 > 0:
+                    if 선물_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    if 선물_전일대비 < 0:
+                    if 선물_종가대비 < 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_67.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33220,10 +33249,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_65.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(put_otm_db_percent_mean, put_atm_value)
+                txt = " {0:.2f}({1}) ".format(put_otm_cdb_percent_mean, put_atm_value)
                 self.label_66.setText(txt)
 
-                txt = " {0:.2f}({1}) ".format(call_otm_db_percent_mean, call_atm_value)
+                txt = " {0:.2f}({1}) ".format(call_otm_cdb_percent_mean, call_atm_value)
                 self.label_68.setText(txt)
                 
                 self.plot6_time_line.setValue(ovc_x_idx)
@@ -34797,7 +34826,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             global flag_call_strong, flag_call_weak, flag_put_strong, flag_put_weak 
 
-            if call_otm_db_percent_mean > put_otm_db_percent_mean and abs(call_otm_db_percent_mean) > abs(put_otm_db_percent_mean):
+            if call_otm_cdb_percent_mean > put_otm_cdb_percent_mean and abs(call_otm_cdb_percent_mean) > abs(put_otm_cdb_percent_mean):
 
                 # 콜매수
                 self.label_3rd.setStyleSheet("background-color: red; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
@@ -34806,7 +34835,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 flag_put_strong = False
                 flag_put_weak = False
 
-            elif call_otm_db_percent_mean > put_otm_db_percent_mean and abs(call_otm_db_percent_mean) < abs(put_otm_db_percent_mean):
+            elif call_otm_cdb_percent_mean > put_otm_cdb_percent_mean and abs(call_otm_cdb_percent_mean) < abs(put_otm_cdb_percent_mean):
 
                 # 풋매도
                 self.label_3rd.setStyleSheet("background-color: steelblue; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
@@ -34815,7 +34844,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 flag_put_strong = False
                 flag_put_weak = True
 
-            elif put_otm_db_percent_mean > call_otm_db_percent_mean and abs(put_otm_db_percent_mean) > abs(call_otm_db_percent_mean):
+            elif put_otm_cdb_percent_mean > call_otm_cdb_percent_mean and abs(put_otm_cdb_percent_mean) > abs(call_otm_cdb_percent_mean):
 
                 # 풋매수
                 self.label_3rd.setStyleSheet("background-color: blue; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
@@ -34824,7 +34853,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 flag_put_strong = True
                 flag_put_weak = False
 
-            elif put_otm_db_percent_mean > call_otm_db_percent_mean and abs(put_otm_db_percent_mean) < abs(call_otm_db_percent_mean):
+            elif put_otm_cdb_percent_mean > call_otm_cdb_percent_mean and abs(put_otm_cdb_percent_mean) < abs(call_otm_cdb_percent_mean):
 
                 # 콜매도
                 self.label_3rd.setStyleSheet("background-color: indianred; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
@@ -34836,7 +34865,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.label_3rd.setStyleSheet("background-color: white; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
             
-            txt = '{0} %\n{1} %'.format(call_otm_db_percent_mean, put_otm_db_percent_mean)
+            txt = '{0} %\n{1} %'.format(call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
             self.label_3rd.setText(txt)
 
             if dt.hour == KSE_START_HOUR:
@@ -34847,13 +34876,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if TARGET_MONTH == 'CM' and dt.minute % report_interval == 0 and dt.second == 1:
 
                 if flag_call_strong:
-                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ CM Call Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)                        
+                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ CM Call Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)                        
                 elif flag_call_weak:
-                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ CM Call Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
+                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ CM Call Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                 elif flag_put_strong:
-                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ CM Put Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
+                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ CM Put Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                 elif flag_put_weak:
-                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ CM Put Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
+                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ CM Put Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                 else:
                     send_txt = ''
 
@@ -34864,13 +34893,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if TARGET_MONTH == 'NM' and dt.minute % report_interval == 0 and dt.second == 2:
 
                 if flag_call_strong:
-                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ NM Call Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
+                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ NM Call Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                 elif flag_call_weak:
-                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ NM Call Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
+                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ NM Call Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                 elif flag_put_strong:
-                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ NM Put Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
+                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ NM Put Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                 elif flag_put_weak:
-                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ NM Put Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_db_percent_mean, put_otm_db_percent_mean)
+                    send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ NM Put Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                 else:
                     send_txt = ''
 
@@ -35715,7 +35744,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             item.setForeground(QBrush(검정색))
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.대비.value, item)
 
-            item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(선물_대비, 선물_등락율))
+            item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(선물_시가대비, 선물_등락율))
             item.setTextAlignment(Qt.AlignCenter)
 
             if 선물_등락율 > 0 and DOW_등락율 > 0 and flag_fut_vs_dow_drate_direction:
@@ -36651,6 +36680,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         global pre_start, flag_fut_vs_dow_drate_direction, plot_drate_scale_factor, fut_volume_power_energy_direction
         global df_futures_graph, flag_futures_ohlc_open, 선물_현재가_버퍼, fut_result, fut_cm_volume_power, fut_nm_volume_power
+        global 선물_등락율, 선물_시가대비_등락율
 
         result = data
         
@@ -36664,6 +36694,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
            # 그래프관련 처리 먼저...                    
             선물_등락율 = float(result['등락율'])
+            선물_시가대비_등락율 = ((float(result['현재가']) - float(result['시가'])) / float(result['시가'])) * 100
 
             if 선물_등락율 != 0:
 
