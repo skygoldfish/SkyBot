@@ -166,7 +166,7 @@ put_scroll_depth = 30
 선물_과거가 = 0
 선물_시가대비 = 0
 선물_종가대비 = 0
-선물_등락율 = 0
+선물_종가대비_등락율 = 0
 선물_시가등락율 = 0
 선물_시가대비_등락율 = 0
 
@@ -5101,10 +5101,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         # Strong 에너지 알람
                         if flag_call_dominant:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ Call Strong({3:.2f}/{4:.2f}) !!!".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ Call Strong({3:.2f}/{4:.2f}) !!!".format(dt.hour, dt.minute, dt.second, 선물_종가대비_등락율, DOW_등락율)
                             ToYourTelegram(send_txt)
                         elif flag_put_dominant:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ Put Strong({3:.2f}/{4:.2f}) !!!".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ Put Strong({3:.2f}/{4:.2f}) !!!".format(dt.hour, dt.minute, dt.second, 선물_종가대비_등락율, DOW_등락율)
                             ToYourTelegram(send_txt)
                         else:
                             pass
@@ -6150,10 +6150,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if DayTime:
             
                 if flag_call_dominant:
-                    txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call Strong({3:.2f}/{4:.2f}) ▲\r".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 선물_등락율, DOW_등락율)
+                    txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call Strong({3:.2f}/{4:.2f}) ▲\r".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 선물_종가대비_등락율, DOW_등락율)
                     self.parent.textBrowser.append(txt)
                 elif flag_put_dominant:
-                    txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Put Strong({3:.2f}/{4:.2f}) ▼\r".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 선물_등락율, DOW_등락율)
+                    txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Put Strong({3:.2f}/{4:.2f}) ▼\r".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 선물_종가대비_등락율, DOW_등락율)
                     self.parent.textBrowser.append(txt)
                 else:
                     pass
@@ -11341,7 +11341,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global fut_cm_volume_power
         global flag_first_arrive, fut_first_arrive_time
         global telegram_send_worker_on_time, flag_telegram_send_worker, flag_telegram_listen_worker
-        global 선물_저가, 선물_현재가, 선물_시가대비, 선물_종가대비, 선물_등락율, 선물_고가, 선물_진폭, 선물_시가등락율
+        global 선물_저가, 선물_현재가, 선물_시가대비, 선물_종가대비, 선물_종가대비_등락율, 선물_고가, 선물_진폭, 선물_시가등락율
         global 선물_진폭비, 선물_체결시간
         global fut_tick_list, fut_value_list, df_fut_ohlc
         global 선물_현재가_버퍼
@@ -11822,15 +11822,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setForeground(QBrush(검정색))
         self.tableWidget_fut.setItem(2, Futures_column.대비.value, item)
 
-        item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(선물_시가대비, 선물_등락율))
+        item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(선물_시가대비, 선물_종가대비_등락율))
         item.setTextAlignment(Qt.AlignCenter)
 
-        if 선물_등락율 > 0 and DOW_등락율 > 0 and flag_fut_vs_dow_drate_direction:
+        if 선물_종가대비_등락율 > 0 and DOW_등락율 > 0 and flag_fut_vs_dow_drate_direction:
 
             item.setBackground(QBrush(pink))
             item.setForeground(QBrush(검정색))
 
-        elif 선물_등락율 < 0 and DOW_등락율 < 0 and flag_fut_vs_dow_drate_direction:
+        elif 선물_종가대비_등락율 < 0 and DOW_등락율 < 0 and flag_fut_vs_dow_drate_direction:
 
             item.setBackground(QBrush(lightskyblue))
             item.setForeground(QBrush(검정색))
@@ -28685,7 +28685,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 if DayTime:
 
-                    txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
+                    txt = " {0:.2f}({1}) ".format(선물_시가대비_등락율, 선물_현재가)
                     self.label_17.setText(txt)
 
                     self.plot1_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
@@ -28770,7 +28770,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if 선물_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_등락율, 선물_진폭)
+                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_종가대비_등락율, 선물_진폭)
 
                     if 선물_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -28783,7 +28783,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif 선물_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_등락율, 선물_진폭)
+                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_종가대비_등락율, 선물_진폭)
 
                     if 선물_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -29479,7 +29479,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if 선물_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_등락율, 선물_진폭)
+                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_종가대비_등락율, 선물_진폭)
 
                     if 선물_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -29492,7 +29492,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif 선물_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_등락율, 선물_진폭)
+                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_종가대비_등락율, 선물_진폭)
 
                     if 선물_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -29658,7 +29658,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 if DayTime:
 
-                    txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
+                    txt = " {0:.2f}({1}) ".format(선물_시가대비_등락율, 선물_현재가)
                     self.label_27.setText(txt)
 
                     self.plot2_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
@@ -30398,7 +30398,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if 선물_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_등락율, 선물_진폭)
+                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_종가대비_등락율, 선물_진폭)
 
                     if 선물_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -30411,7 +30411,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif 선물_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_등락율, 선물_진폭)
+                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_종가대비_등락율, 선물_진폭)
 
                     if 선물_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -30577,7 +30577,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 if DayTime:
 
-                    txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
+                    txt = " {0:.2f}({1}) ".format(선물_시가대비_등락율, 선물_현재가)
                     self.label_37.setText(txt)
 
                     self.plot3_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
@@ -31414,7 +31414,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 if DayTime:
 
-                    txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
+                    txt = " {0:.2f}({1}) ".format(선물_시가대비_등락율, 선물_현재가)
                     self.label_47.setText(txt)
 
                     self.plot4_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
@@ -31499,7 +31499,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if 선물_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_등락율, 선물_진폭)
+                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_종가대비_등락율, 선물_진폭)
 
                     if 선물_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -31512,7 +31512,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif 선물_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_등락율, 선물_진폭)
+                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_종가대비_등락율, 선물_진폭)
 
                     if 선물_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -32208,7 +32208,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if 선물_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_등락율, 선물_진폭)
+                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_종가대비_등락율, 선물_진폭)
 
                     if 선물_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -32221,7 +32221,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif 선물_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_등락율, 선물_진폭)
+                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_종가대비_등락율, 선물_진폭)
 
                     if 선물_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -32387,7 +32387,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 if DayTime:
 
-                    txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
+                    txt = " {0:.2f}({1}) ".format(선물_시가대비_등락율, 선물_현재가)
                     self.label_57.setText(txt)
 
                     self.plot5_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
@@ -33120,7 +33120,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if 선물_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_등락율, 선물_진폭)
+                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_종가대비_등락율, 선물_진폭)
 
                     if 선물_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33133,7 +33133,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif 선물_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_등락율, 선물_진폭)
+                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_종가대비_등락율, 선물_진폭)
 
                     if 선물_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33299,7 +33299,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 if DayTime:
 
-                    txt = " {0:.2f}({1}) ".format(선물_등락율, 선물_현재가)
+                    txt = " {0:.2f}({1}) ".format(선물_시가대비_등락율, 선물_현재가)
                     self.label_67.setText(txt)
 
                     self.plot6_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
@@ -35606,7 +35606,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def yfc_update(self, data):
 
-        global market_service, df_futures_graph, flag_futures_ohlc_open, 선물_등락율, 선물_진폭비
+        global market_service, df_futures_graph, flag_futures_ohlc_open, 선물_종가대비_등락율, 선물_진폭비
         global flag_fut_vs_dow_drate_direction, plot_drate_scale_factor, 선물_현재가_버퍼
 
         result = data
@@ -35723,24 +35723,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, Futures_column.시가.value, item)
 
             if 선물_전일종가 > 0:
-                선물_등락율 = ((선물_예상시가 - 선물_전일종가) / 선물_전일종가) * 100
+                선물_종가대비_등락율 = ((선물_예상시가 - 선물_전일종가) / 선물_전일종가) * 100
             else:
                 pass
 
-            item = QTableWidgetItem("선물\n({0:.2f}%)".format(선물_등락율))
+            item = QTableWidgetItem("선물\n({0:.2f}%)".format(선물_종가대비_등락율))
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(흰색))
             item.setForeground(QBrush(검정색))
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.대비.value, item)
 
-            if 선물_등락율 != 0:
+            if 선물_종가대비_등락율 != 0:
 
-                if abs(선물_등락율) > abs(DOW_등락율):
+                if abs(선물_종가대비_등락율) > abs(DOW_등락율):
                     flag_fut_vs_dow_drate_direction = True
                 else:
                     flag_fut_vs_dow_drate_direction = False
 
-                plot_drate_scale_factor = int(abs(콜_등가_등락율 / 선물_등락율))
+                plot_drate_scale_factor = int(abs(콜_등가_등락율 / 선물_종가대비_등락율))
 
                 item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
                 item.setTextAlignment(Qt.AlignCenter)
@@ -35748,7 +35748,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
             
-            df_futures_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 선물_등락율
+            df_futures_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 선물_종가대비_등락율
 
             if fut_quote_energy_direction == 'call':
 
@@ -35781,15 +35781,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             item.setForeground(QBrush(검정색))
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.대비.value, item)
 
-            item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(선물_시가대비, 선물_등락율))
+            item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(선물_시가대비, 선물_종가대비_등락율))
             item.setTextAlignment(Qt.AlignCenter)
 
-            if 선물_등락율 > 0 and DOW_등락율 > 0 and flag_fut_vs_dow_drate_direction:
+            if 선물_종가대비_등락율 > 0 and DOW_등락율 > 0 and flag_fut_vs_dow_drate_direction:
 
                 item.setBackground(QBrush(pink))
                 item.setForeground(QBrush(검정색))
 
-            elif 선물_등락율 < 0 and DOW_등락율 < 0 and flag_fut_vs_dow_drate_direction:
+            elif 선물_종가대비_등락율 < 0 and DOW_등락율 < 0 and flag_fut_vs_dow_drate_direction:
 
                 item.setBackground(QBrush(lightskyblue))
                 item.setForeground(QBrush(검정색))
@@ -36717,7 +36717,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         global pre_start, flag_fut_vs_dow_drate_direction, plot_drate_scale_factor, fut_volume_power_energy_direction
         global df_futures_graph, flag_futures_ohlc_open, 선물_현재가_버퍼, fut_result, fut_cm_volume_power, fut_nm_volume_power
-        global 선물_등락율, 선물_시가등락율, 선물_시가대비_등락율
+        global 선물_종가대비_등락율, 선물_시가등락율, 선물_시가대비_등락율
 
         result = data
         
@@ -36730,13 +36730,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if result['단축코드'] == GMSHCODE:
 
            # 그래프관련 처리 먼저...                    
-            선물_등락율 = float(result['등락율'])            
+            선물_종가대비_등락율 = float(result['등락율'])            
             선물_시가대비_등락율 = ((float(result['현재가']) - float(result['시가'])) / float(result['시가'])) * 100
 
             if 선물_시가등락율 == 0:
                 선물_시가등락율 = ((선물_시가 - 선물_종가) / 선물_종가) * 100
 
-                #plot_drate_scale_factor = int(abs(콜_등가_등락율 / 선물_등락율))
+                #plot_drate_scale_factor = int(abs(콜_등가_등락율 / 선물_종가대비_등락율))
                 plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / 선물_시가등락율))
 
                 item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
@@ -36745,15 +36745,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-            if abs(선물_등락율) > abs(DOW_등락율):
+            if abs(선물_종가대비_등락율) > abs(DOW_등락율):
                 flag_fut_vs_dow_drate_direction = True
             else:
                 flag_fut_vs_dow_drate_direction = False
 
-            if plot_drate_scale_factor != 1:
-                df_futures_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 선물_등락율
-            else:
-                pass
+            #df_futures_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 선물_종가대비_등락율
+            df_futures_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 선물_시가대비_등락율
         
         if result['단축코드'] == FUT_CODE:
 
