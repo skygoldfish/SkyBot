@@ -12193,18 +12193,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 call_gap_percent[index] = (콜시가 / 콜종가 - 1) * 100
 
                 if index == ATM_INDEX:
-
-                    콜_등가_시가등락율 = call_gap_percent[index]
-
-                    if 선물_시가등락율 != 0:
-
-                        plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / 선물_시가등락율))
-
-                        item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        self.tableWidget_fut.setItem(2, Futures_column.OI.value, item)
-                    else:
-                        pass
+                    콜_등가_시가등락율 = call_gap_percent[index]                    
                 else:
                     pass
 
@@ -12851,18 +12840,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             call_gap_percent[index] = (시가 / 종가 - 1) * 100
 
                             if index == ATM_INDEX:
-
                                 콜_등가_시가등락율 = call_gap_percent[index]
-
-                                if 선물_시가등락율 != 0:
-
-                                    plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / 선물_시가등락율))
-
-                                    item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
-                                    item.setTextAlignment(Qt.AlignCenter)
-                                    self.tableWidget_fut.setItem(2, Futures_column.OI.value, item)
-                                else:
-                                    pass
                             else:
                                 pass
                         else:
@@ -36720,9 +36698,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             #print('plot_drate_scale_factor, 선물_시가대비_등락율 =', plot_drate_scale_factor, 선물_시가대비_등락율)
 
-            if 선물_시가등락율 == 0 and 선물_종가 > 0:
-                선물_시가등락율 = ((선물_시가 - 선물_종가) / 선물_종가) * 100
+            if 선물_시가등락율 == 0:
+                선물_시가등락율 = 1
+            else:
+                pass
+
+            if plot_drate_scale_factor == 1:
                 plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / 선물_시가등락율))
+
+                item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.OI.value, item)
             else:
                 pass
 
