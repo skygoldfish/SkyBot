@@ -146,7 +146,7 @@ screen_info = None
 풋_등가_시가등락율 = 0
 
 drate_scale_factor = 1
-plot_drate_scale_factor = 1
+plot_drate_scale_factor = 10
 
 call_scroll_depth = 19
 put_scroll_depth = 30
@@ -36703,14 +36703,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-            if plot_drate_scale_factor == 1:
-                plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / 선물_시가등락율))
+            plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / 선물_시가등락율))
 
-                item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.OI.value, item)
+            if plot_drate_scale_factor < 10:
+                plot_drate_scale_factor = 10                
             else:
                 pass
+
+            item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.OI.value, item)
 
             if abs(선물_종가대비_등락율) > abs(DOW_등락율):
                 flag_fut_vs_dow_drate_direction = True
