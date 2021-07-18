@@ -36696,10 +36696,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             선물_종가대비_등락율 = float(result['등락율'])            
             선물_시가대비_등락율 = ((float(result['현재가']) - float(result['시가'])) / float(result['시가'])) * 100
 
-            #print('plot_drate_scale_factor, 선물_시가대비_등락율 =', plot_drate_scale_factor, 선물_시가대비_등락율)
-
             if 선물_시가등락율 == 0:
-                선물_시가등락율 = 1
+                #선물_시가등락율 = 1
+                선물_시가등락율 = ((선물_시가 - 선물_종가) / 선물_종가) * 100
             else:
                 pass
 
