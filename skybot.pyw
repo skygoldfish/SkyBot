@@ -36682,6 +36682,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global df_futures_graph, flag_futures_ohlc_open, 선물_현재가_버퍼, fut_result, fut_cm_volume_power, fut_nm_volume_power
         global 선물_종가대비_등락율, 선물_시가등락율, 선물_시가대비_등락율
 
+        dt = datetime.now()
+
         result = data
         
         if pre_start:
@@ -36726,6 +36728,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # 그래프관련 처리 먼저...
             if float(result['현재가']) == float('inf') or float(result['현재가']) == float('-inf'):
                 선물_현재가 = float('nan')
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 현재가 무한대...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
             else:
                 선물_현재가 = float(result['현재가'])
 
