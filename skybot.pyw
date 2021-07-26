@@ -36723,8 +36723,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         if result['단축코드'] == FUT_CODE:
 
-            # 그래프관련 처리 먼저... 
-            선물_현재가 = float(result['현재가'])
+            # 그래프관련 처리 먼저...
+            if float(result['현재가']) == float('inf') or float(result['현재가']) == float('-inf'):
+                선물_현재가 = float('nan')
+            else:
+                선물_현재가 = float(result['현재가'])
 
             # 1T OHLC 생성
             df_futures_graph.at[ovc_x_idx, 'ctime'] = result['수신시간']
