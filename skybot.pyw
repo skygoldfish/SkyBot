@@ -12192,10 +12192,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if True:
                 call_gap_percent[index] = (콜시가 / 콜종가 - 1) * 100
 
-                if index == ATM_INDEX:
-                    콜_등가_시가등락율 = call_gap_percent[index]                    
-                else:
-                    pass
+                콜_등가_시가등락율 = call_gap_percent[ATM_INDEX]
 
                 gap_txt = "{0:.2f}\n{1:.1f}%".format(시가갭, call_gap_percent[index])
 
@@ -12839,10 +12836,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if True:
                             call_gap_percent[index] = (시가 / 종가 - 1) * 100
 
-                            if index == ATM_INDEX:
-                                콜_등가_시가등락율 = call_gap_percent[index]
-                            else:
-                                pass
+                            콜_등가_시가등락율 = call_gap_percent[ATM_INDEX]
                         else:
                             pass
 
@@ -36699,7 +36693,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             선물_시가대비_등락율 = ((float(result['현재가']) - float(result['시가'])) / float(result['시가'])) * 100
 
             if 선물_시가등락율 == 0:
-                #선물_시가등락율 = 1
                 선물_시가등락율 = ((선물_시가 - 선물_종가) / 선물_종가) * 100
             else:
                 pass
@@ -36728,7 +36721,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # 그래프관련 처리 먼저...
             if float(result['현재가']) == float('inf') or float(result['현재가']) == float('-inf'):
                 선물_현재가 = float('nan')
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 현재가 무한대...\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 현재가 무한대 오류발생...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
             else:
                 선물_현재가 = float(result['현재가'])
