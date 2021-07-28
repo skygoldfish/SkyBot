@@ -170,6 +170,8 @@ put_scroll_depth = 30
 선물_시가등락율 = 0
 선물_시가대비_등락율 = 0
 
+kp200_시가등락율 = 0
+
 선물_고가 = 0
 선물_진폭 = 0
 
@@ -11481,7 +11483,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             시가갭 = 선물_시가 - 선물_종가
 
-            선물_시가등락율 = ((선물_시가 - 선물_종가) / 선물_종가) * 100
+            #선물_시가등락율 = ((선물_시가 - 선물_종가) / 선물_종가) * 100
 
             item = QTableWidgetItem(시가)
             item.setTextAlignment(Qt.AlignCenter)
@@ -36677,7 +36679,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         global pre_start, flag_fut_vs_dow_drate_direction, plot_drate_scale_factor, fut_volume_power_energy_direction
         global df_futures_graph, flag_futures_ohlc_open, 선물_현재가_버퍼, fut_result, fut_cm_volume_power, fut_nm_volume_power
-        global 선물_종가대비_등락율, 선물_시가등락율, 선물_시가대비_등락율
+        global 선물_종가대비_등락율, 선물_시가등락율, 선물_시가대비_등락율, kp200_시가등락율
 
         dt = datetime.now()
 
@@ -36694,15 +36696,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
            # 그래프관련 처리 먼저...                    
             선물_종가대비_등락율 = float(result['등락율'])            
             선물_시가대비_등락율 = ((float(result['현재가']) - float(result['시가'])) / float(result['시가'])) * 100
-
+            '''
             if 선물_시가등락율 == 0:
                 선물_시가등락율 = ((선물_시가 - 선물_종가) / 선물_종가) * 100
             else:
                 pass
+            '''
+            if kp200_시가등락율 == 0:
+                kp200_시가등락율 = ((kp200_시가 - KP200_전일종가) / KP200_전일종가) * 100
+            else:
+                pass
 
-            plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / 선물_시가등락율))
+            plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / kp200_시가등락율))
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 콜등락율 = {3:.1f}, 선물등락율 = {4:.1f}, scale_factor = {5}\r'.format(dt.hour, dt.minute, dt.second, 콜_등가_시가등락율, 선물_시가등락율, plot_drate_scale_factor)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 콜등락율 = {3:.1f}, kp200_시가등락율 = {4:.1f}, scale_factor = {5}\r'.format(dt.hour, dt.minute, dt.second, 콜_등가_시가등락율, kp200_시가등락율, plot_drate_scale_factor)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
 
             if plot_drate_scale_factor < 10:
