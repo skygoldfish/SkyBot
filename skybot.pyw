@@ -34201,7 +34201,8 @@ class Xing(object):
             #self.XQ_t8432.Query()
 
             if TTS:
-                self.caller.speaker.setText('메인 로그인 성공')
+                #self.caller.speaker.setText('메인 로그인 성공')
+                pass
             else:
                 pass
             
@@ -34517,8 +34518,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.statusbar.showMessage(trdata[3] + ' ' + trdata[2])
 
             if TTS:
-                Speak('First 프로세스 로그인 성공')
+                #Speak('First 프로세스 로그인 성공')
                 #self.speaker.setText('선물 프로세스 로그인 성공')
+                pass
             else:
                 pass            
 
@@ -34740,8 +34742,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.statusbar.showMessage(trdata[3] + ' ' + trdata[2])
 
             if TTS:
-                Speak('Second 프로세스 로그인 성공')
+                #Speak('Second 프로세스 로그인 성공')
                 #self.speaker.setText('세컨드 프로세스 로그인 성공')
+                pass
             else:
                 pass
         elif trdata[0] == 'login' and trdata[1] != '0000':
@@ -36698,6 +36701,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
 
             plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / 선물_시가등락율))
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 콜등락율 = {3:.1f}, 선물등락율 = {4:.1f}, scale_factor = {5}\r'.format(dt.hour, dt.minute, dt.second, 콜_등가_시가등락율, 선물_시가등락율, plot_drate_scale_factor)
+            self.dialog['선물옵션전광판'].textBrowser.append(txt)
 
             if plot_drate_scale_factor < 10:
                 plot_drate_scale_factor = 10                
