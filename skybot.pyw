@@ -36709,7 +36709,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / kp200_시가등락율))
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 콜등락율 = {3:.1f}, kp200_시가등락율 = {4:.1f}, scale_factor = {5}\r'.format(dt.hour, dt.minute, dt.second, 콜_등가_시가등락율, kp200_시가등락율, plot_drate_scale_factor)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 콜등락율 = {3:.1f}, kp200등락율 = {4:.1f}, scale_factor = {5}\r'.format(dt.hour, dt.minute, dt.second, 콜_등가_시가등락율, kp200_시가등락율, plot_drate_scale_factor)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
 
             if plot_drate_scale_factor < 10:
