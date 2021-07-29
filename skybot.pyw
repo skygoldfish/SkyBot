@@ -14949,6 +14949,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_quote.setItem(0, Quote_column.미결종합.value - 1, item)
             else:
                 print("atm값({0})이 리스트에 없습니다.".format(atm_txt))
+            
+            item = QTableWidgetItem("{0:.2f}".format(KP200_전일종가))
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(흰색))
+            item.setForeground(QBrush(검정색))
+            self.tableWidget_fut.setItem(2, Futures_column.종가.value, item)
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 옵션 등가지수는 {3}({4})입니다.\r'.format(dt.hour, dt.minute, dt.second, atm_txt, ATM_INDEX)
             self.parent.textBrowser.append(txt)
@@ -36708,6 +36714,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
 
             plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / kp200_시가등락율))
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] KP200_전일종가 = {3:.1f}, kp200_시가 = {4:.1f}\r'.format(dt.hour, dt.minute, dt.second, KP200_전일종가, kp200_시가)
+            self.dialog['선물옵션전광판'].textBrowser.append(txt)
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 콜등락율 = {3:.1f}, kp200등락율 = {4:.1f}, scale_factor = {5}\r'.format(dt.hour, dt.minute, dt.second, 콜_등가_시가등락율, kp200_시가등락율, plot_drate_scale_factor)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
