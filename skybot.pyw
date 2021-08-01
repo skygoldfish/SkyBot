@@ -2620,6 +2620,8 @@ class RealTime_Thread_DataWorker(QThread):
 
         while True:
 
+            QApplication.processEvents()
+
             try:
                 if not self.dataQ.empty():
                 
