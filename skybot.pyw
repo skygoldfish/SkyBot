@@ -471,6 +471,7 @@ if os.path.exists('HL-List.txt'):
         # 한줄씩 읽어서 리스트에 저장
         file_list = []
         hlfile_line_number = 0
+
         while True:
 
             line = hlfile.readline().strip()
@@ -2285,6 +2286,8 @@ class ScreenUpdateWorker(QThread):
 
         while True:
 
+            QApplication.processEvents()
+
             if not flag_futures_update_is_running:
 
                 try:
@@ -2323,7 +2326,9 @@ class TelegramSendWorker(QThread):
 
     def run(self):
 
-        while True:  
+        while True:
+
+            QApplication.processEvents()
 
             if not flag_futures_update_is_running:
                 self.trigger.emit()
@@ -2345,7 +2350,9 @@ class TelegramListenWorker(QThread):
 
     def run(self):
 
-        while True:      
+        while True:
+
+            QApplication.processEvents()
 
             if not flag_futures_update_is_running:
                 self.trigger.emit()
@@ -2918,6 +2925,8 @@ class RealTime_1st_MP_Thread_DataWorker(QThread):
 
         while True:
 
+            QApplication.processEvents()
+
             try:
                 if not self.dataQ.empty():
 
@@ -3236,6 +3245,8 @@ class RealTime_2nd_MP_Thread_DataWorker(QThread):
 
         while True:
 
+            QApplication.processEvents()
+
             if not self.dataQ.empty():
 
                 flag_2nd_process_queue_empty = False
@@ -3369,6 +3380,8 @@ class SpeakerWorker(QThread):
         pythoncom.CoInitialize()
 
         while True:
+
+            QApplication.processEvents()
 
             if self.flag_speak:
                 print('TTS Text =', self.txt)
@@ -21661,6 +21674,8 @@ class PlotUpdateWorker1(QThread):
 
         while True:
 
+            QApplication.processEvents()
+
             if not flag_option_update_is_running:
                 self.trigger.emit()
 
@@ -21685,6 +21700,8 @@ class PlotUpdateWorker2(QThread):
 
         while True:
 
+            QApplication.processEvents()
+
             if not flag_option_update_is_running:
                 self.trigger.emit()
 
@@ -21702,6 +21719,8 @@ class PlotUpdateWorker3(QThread):
     def run(self):
 
         while True:
+
+            QApplication.processEvents()
 
             if not flag_option_update_is_running:
                 self.trigger.emit()
@@ -21721,6 +21740,8 @@ class PlotUpdateWorker4(QThread):
 
         while True:
 
+            QApplication.processEvents()
+
             if not flag_option_update_is_running:
                 self.trigger.emit()
 
@@ -21739,6 +21760,8 @@ class PlotUpdateWorker5(QThread):
 
         while True:
 
+            QApplication.processEvents()
+
             if not flag_option_update_is_running:
                 self.trigger.emit()
 
@@ -21756,6 +21779,8 @@ class PlotUpdateWorker6(QThread):
     def run(self):
 
         while True:
+
+            QApplication.processEvents()
 
             if not flag_option_update_is_running:
                 self.trigger.emit()
