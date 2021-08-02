@@ -46,6 +46,7 @@ import talib
 from talib import MA_Type
 import ta
 import functools
+import shutil
 
 #import pyttsx3
 #from gtts import gTTS
@@ -5967,6 +5968,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 file_txt = 'GOLD Last Close = {0}\n'.format(GOLD_당일종가)
                                 nighttime_file.write(file_txt)
                                 nighttime_file.close()
+
+                                if os.path.isdir("d:/SkyBot_NM"):
+                                    shutil.copyfile("./nighttime.txt", "d:/SkyBot_NM/nighttime.txt")
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
                             self.textBrowser.append(txt)
