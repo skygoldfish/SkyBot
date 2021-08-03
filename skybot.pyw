@@ -36741,7 +36741,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             '''
 
             kp200_시가등락율 = ((kp200_시가 - KP200_전일종가) / KP200_전일종가) * 100
-            plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / kp200_시가등락율))
+
+            if kp200_시가등락율 == 0:
+                plot_drate_scale_factor = 10
+            else:
+                plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / kp200_시가등락율))
 
             #txt = '[{0:02d}:{1:02d}:{2:02d}] KP200_전일종가 = {3}, kp200_시가 = {4}, kp200_시가등락율 = {5}\r'.format(dt.hour, dt.minute, dt.second, KP200_전일종가, kp200_시가, kp200_시가등락율)
             #self.dialog['선물옵션전광판'].textBrowser.append(txt)            
