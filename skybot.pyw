@@ -345,6 +345,7 @@ TTS = parser.getboolean('User Switch', 'Text To Speach')
 SEARCH_MOVING_NODE = parser.getboolean('User Switch', 'Search Moving Node')
 UI_HIDE = parser.getboolean('User Switch', 'UI Hide')
 OPTION_SIZE = parser.getboolean('User Switch', 'Option Total Size')
+SLEEP_SWITCH_MODE = parser.getboolean('User Switch', 'Sleep Switching Mode')
 
 # [6]. << Real Time Request Item Switch = 'ON or OFF' >>
 CM_FUT_PRICE = parser.getboolean('RealTime Request Item Switch', 'Current Month Futures Price')
@@ -2866,7 +2867,9 @@ class RealTime_Thread_DataWorker(QThread):
                         self.sys_drop_count += 1                
                 else:
                     flag_1st_process_queue_empty = True
-                    time.sleep(0.000001)
+
+                    if SLEEP_SWITCH_MODE:
+                        time.sleep(0.000001)
 
             except Exception as e:
                 
@@ -3201,7 +3204,9 @@ class RealTime_1st_MP_Thread_DataWorker(QThread):
                         pass                    
                 else:
                     flag_1st_process_queue_empty = True
-                    time.sleep(0.000001)
+
+                    if SLEEP_SWITCH_MODE:
+                        time.sleep(0.000001)
 
             except Exception as e:
                 
@@ -3358,7 +3363,9 @@ class RealTime_2nd_MP_Thread_DataWorker(QThread):
                     pass
             else:
                 flag_2nd_process_queue_empty = True
-                time.sleep(0.000001)
+
+                if SLEEP_SWITCH_MODE:
+                    time.sleep(0.000001)
 
 #####################################################################################################################################################################
 # Speaker Thread Class
