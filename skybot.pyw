@@ -1805,8 +1805,6 @@ flag_eurofx_ohlc_open = False
 flag_hangseng_ohlc_open = False
 flag_gold_ohlc_open = False
 
-flag_checkBox_NM = False
-
 flag_checkBox_plot1_bband = False
 flag_checkBox_plot2_bband = False
 flag_checkBox_plot3_bband = False
@@ -3548,6 +3546,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.pushButton_start.clicked.connect(self.start_button_clicked)
         self.pushButton_telegram.clicked.connect(self.telegram_button_clicked)
+
+        self.checkBox_NM.setText('PF')
         
         # label_main_time, label_atm 관련 setFont 추후 검토필요!!!
         self.label_main_time.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
@@ -4236,15 +4236,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def checkBox_NM_checkState(self):
 
-        global flag_checkBox_NM 
+        global flag_periodic_plot_mode
 
         dt = datetime.now()
         
         if self.checkBox_NM.isChecked() == True:
 
-            flag_checkBox_NM = True
+            flag_periodic_plot_mode = True
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Plot 우선모드로 설정합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
         else:
-            flag_checkBox_NM = False
+            flag_periodic_plot_mode = False
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Plot 우선모드를 해지합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
     
     def showCustomMsgBox(self, title, txt):
 
@@ -5570,11 +5576,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 if market_service:
                     self.option_quote_update()
-
-                    if DayTime and flag_periodic_plot_mode and fut_result: 
-                        self.fut_update(fut_result)
-                    else:
-                        pass
                     
                     if DayTime and fut_result:                    
                         self.fut_etc_update(fut_result)
@@ -28773,6 +28774,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p1_4.setText(txt)
                 else:
                     pass
+
+                txt = ' {0} '.format(선물_피봇)
+                self.label_14.setText(txt)
+
+                txt = ' {0} '.format(선물_시가)
+                self.label_15.setText(txt)
                 
                 txt = ' {0} '.format(선물_저가)
                 self.label_16.setText(txt)
@@ -29482,6 +29489,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p2_4.setText(txt)
                 else:
                     pass
+
+                txt = ' {0} '.format(선물_피봇)
+                self.label_24.setText(txt)
+
+                txt = ' {0} '.format(선물_시가)
+                self.label_25.setText(txt)
 
                 txt = ' {0} '.format(선물_저가)
                 self.label_26.setText(txt)       
@@ -30401,6 +30414,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p3_4.setText(txt)
                 else:
                     pass
+
+                txt = ' {0} '.format(선물_피봇)
+                self.label_34.setText(txt)
+
+                txt = ' {0} '.format(선물_시가)
+                self.label_35.setText(txt)
                 
                 txt = ' {0} '.format(선물_저가)
                 self.label_36.setText(txt)       
@@ -31502,6 +31521,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p4_4.setText(txt)
                 else:
                     pass
+
+                txt = ' {0} '.format(선물_피봇)
+                self.label_44.setText(txt)
+
+                txt = ' {0} '.format(선물_시가)
+                self.label_45.setText(txt)
                 
                 txt = ' {0} '.format(선물_저가)
                 self.label_46.setText(txt)    
@@ -32211,6 +32236,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p5_4.setText(txt)
                 else:
                     pass
+
+                txt = ' {0} '.format(선물_피봇)
+                self.label_54.setText(txt)
+
+                txt = ' {0} '.format(선물_시가)
+                self.label_55.setText(txt)
                 
                 txt = ' {0} '.format(선물_저가)
                 self.label_56.setText(txt)       
@@ -33123,6 +33154,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p6_4.setText(txt)
                 else:
                     pass
+
+                txt = ' {0} '.format(선물_피봇)
+                self.label_64.setText(txt)
+
+                txt = ' {0} '.format(선물_시가)
+                self.label_65.setText(txt)
                 
                 txt = ' {0} '.format(선물_저가)
                 self.label_66.setText(txt)       
@@ -36869,10 +36906,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             fut_result = copy.deepcopy(result)
 
-            if not flag_periodic_plot_mode:
-                self.dialog['선물옵션전광판'].fut_update(result)
-            else:
-                pass
+            self.dialog['선물옵션전광판'].fut_update(fut_result)
 
         elif TARGET_MONTH == 'CM' and result['단축코드'] == CMSHCODE:
 
@@ -37290,7 +37324,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 call_result = copy.deepcopy(result)
 
                 if not flag_periodic_plot_mode:
-                    self.dialog['선물옵션전광판'].call_update(result)                       
+                    self.dialog['선물옵션전광판'].call_update(call_result)                       
                     self.dialog['선물옵션전광판'].call_db_update()
                     self.dialog['선물옵션전광판'].call_volume_power_update()
                     self.dialog['선물옵션전광판'].call_oi_update()
@@ -37351,7 +37385,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             put_result = copy.deepcopy(result)                                                           
 
             if not flag_periodic_plot_mode:
-                self.dialog['선물옵션전광판'].put_update(result)                    
+                self.dialog['선물옵션전광판'].put_update(put_result)                    
                 self.dialog['선물옵션전광판'].put_db_update()
                 self.dialog['선물옵션전광판'].put_volume_power_update()
                 self.dialog['선물옵션전광판'].put_oi_update()
