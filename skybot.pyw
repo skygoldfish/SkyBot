@@ -2866,6 +2866,7 @@ class RealTime_Thread_DataWorker(QThread):
                         self.sys_drop_count += 1                
                 else:
                     flag_1st_process_queue_empty = True
+                    time.sleep(0.000001)
 
             except Exception as e:
                 
@@ -3200,6 +3201,7 @@ class RealTime_1st_MP_Thread_DataWorker(QThread):
                         pass                    
                 else:
                     flag_1st_process_queue_empty = True
+                    time.sleep(0.000001)
 
             except Exception as e:
                 
@@ -3356,6 +3358,7 @@ class RealTime_2nd_MP_Thread_DataWorker(QThread):
                     pass
             else:
                 flag_2nd_process_queue_empty = True
+                time.sleep(0.000001)
 
 #####################################################################################################################################################################
 # Speaker Thread Class
