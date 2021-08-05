@@ -1,6 +1,7 @@
 from datetime import datetime
 import pythoncom
 import math
+import time
 import multiprocessing as mp
 from multiprocessing import Queue
 from configparser import ConfigParser
@@ -88,6 +89,7 @@ def stock_crawler(queue: Queue, kospi_quote=True, kospi_tick=True, kosdaq_quote=
 
         while True:
             pythoncom.PumpWaitingMessages()
+            time.sleep(0.000001)
     else:
         pass
 
@@ -187,6 +189,7 @@ def index_futures_crawler(queue: Queue, index_futures_quote=True, index_futures_
 
         while True:
             pythoncom.PumpWaitingMessages()
+            time.sleep(0.000001)
     else:
         pass
 
@@ -315,5 +318,6 @@ def index_option_crawler(queue: Queue, quote_request_number=5, index_option_cm_q
 
         while True:
             pythoncom.PumpWaitingMessages()
+            time.sleep(0.000001)
     else:
         pass

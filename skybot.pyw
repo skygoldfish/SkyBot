@@ -81,8 +81,8 @@ from XAQueries import *
 from XAReals import *
 from Utils import *
 #from FileWatcher import *
-
-from mp.xing_tick_writer import *             
+       
+from mp.xing_tick_writer import * 
 
 # 4k 해상도 대응
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
@@ -38969,8 +38969,6 @@ if __name__ == "__main__":
 
         import multiprocessing as mp
         from multiprocessing import *
-
-        from mp.xing_crawler import *
 
         KOSPI_QUOTE = False               # 코스피 전종목 호가
         KOSPI_TICK = True                 # 코스피 전종목 체결
