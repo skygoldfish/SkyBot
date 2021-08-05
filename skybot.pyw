@@ -2878,7 +2878,7 @@ class RealTime_Thread_DataWorker(QThread):
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 멀티프로세스 쓰레드 클래스
 #####################################################################################################################################################################
-class RealTime_1st_MP_Thread_DataWorker(QThread):
+class RealTime_1st_MP_DataWorker(QThread):
 
     # 수신데이타 타입이 list이면 TR데이타, tuple이면 실시간데이타. 
     trigger_list = pyqtSignal(list)
@@ -3213,7 +3213,7 @@ class RealTime_1st_MP_Thread_DataWorker(QThread):
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 멀티프로세스 2nd 쓰레드 클래스(옵션 가격만 처리)
 #####################################################################################################################################################################
-class RealTime_2nd_MP_Thread_DataWorker(QThread):
+class RealTime_2nd_MP_DataWorker(QThread):
 
     # 수신데이타 타입이 list이면 TR데이타, tuple이면 실시간데이타.        
     trigger_list = pyqtSignal(list)
@@ -34492,17 +34492,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.mp_mode:
 
             if self.mp_number == 1:
-                self.realtime_1st_dataworker = RealTime_1st_MP_Thread_DataWorker(self.first_dataQ)
+                self.realtime_1st_dataworker = RealTime_1st_MP_DataWorker(self.first_dataQ)
                 self.realtime_1st_dataworker.trigger_list.connect(self.transfer_mp_1st_trdata)
                 self.realtime_1st_dataworker.trigger_dict.connect(self.transfer_mp_1st_realdata)            
                 self.realtime_1st_dataworker.start()
             elif self.mp_number == 2:
-                self.realtime_1st_dataworker = RealTime_1st_MP_Thread_DataWorker(self.first_dataQ)
+                self.realtime_1st_dataworker = RealTime_1st_MP_DataWorker(self.first_dataQ)
                 self.realtime_1st_dataworker.trigger_list.connect(self.transfer_mp_1st_trdata)
                 self.realtime_1st_dataworker.trigger_dict.connect(self.transfer_mp_1st_realdata)            
                 self.realtime_1st_dataworker.start()
 
-                self.realtime_2nd_dataworker = RealTime_2nd_MP_Thread_DataWorker(self.second_dataQ)
+                self.realtime_2nd_dataworker = RealTime_2nd_MP_DataWorker(self.second_dataQ)
                 self.realtime_2nd_dataworker.trigger_list.connect(self.transfer_mp_2nd_trdata)
                 self.realtime_2nd_dataworker.trigger_dict.connect(self.transfer_mp_2nd_realdata)            
                 self.realtime_2nd_dataworker.start()
