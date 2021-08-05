@@ -2284,9 +2284,7 @@ class ScreenUpdateWorker(QThread):
 
     def run(self):
 
-        while True:
-
-            QApplication.processEvents()
+        while True:            
 
             if not flag_futures_update_is_running:
 
@@ -2306,11 +2304,12 @@ class ScreenUpdateWorker(QThread):
                 except Exception as e:
                     print('NTP Server Time Get Error...', str(e))
                     #dt = datetime.now()
-                    #self.trigger.emit(dt.hour, dt.minute, dt.second, system_server_time_gap)
-
-                QTest.qWait(scoreboard_update_interval)    
+                    #self.trigger.emit(dt.hour, dt.minute, dt.second, system_server_time_gap)                   
             else:
                 pass 
+
+            QApplication.processEvents()
+            QTest.qWait(scoreboard_update_interval) 
 #####################################################################################################################################################################
 # 텔레그램 송신 쓰레드
 #####################################################################################################################################################################
@@ -2326,15 +2325,14 @@ class TelegramSendWorker(QThread):
 
     def run(self):
 
-        while True:
-
-            QApplication.processEvents()
+        while True:            
 
             if not flag_futures_update_is_running:
                 self.trigger.emit()
             else:
                 pass
 
+            QApplication.processEvents()
             QTest.qWait(1000 * TELEGRAM_SEND_INTERVAL)
 #####################################################################################################################################################################
 # 텔레그램 수신 쓰레드
@@ -2352,13 +2350,12 @@ class TelegramListenWorker(QThread):
 
         while True:
 
-            QApplication.processEvents()
-
             if not flag_futures_update_is_running:
                 self.trigger.emit()
             else:
                 pass
 
+            QApplication.processEvents()
             QTest.qWait(1000 * TELEGRAM_POLLING_INTERVAL)
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 쓰레드 클래스
@@ -2620,8 +2617,6 @@ class RealTime_Thread_DataWorker(QThread):
 
         while True:
 
-            QApplication.processEvents()
-
             try:
                 if not self.dataQ.empty():
                 
@@ -2869,6 +2864,7 @@ class RealTime_Thread_DataWorker(QThread):
                     flag_1st_process_queue_empty = True
 
                     if SLEEP_SWITCH_MODE:
+                        QApplication.processEvents()
                         time.sleep(0.000001)
 
             except Exception as e:
@@ -2929,8 +2925,6 @@ class RealTime_1st_MP_Thread_DataWorker(QThread):
         global flag_1st_process_queue_empty, flag_drop_reset1                  
 
         while True:
-
-            QApplication.processEvents()
 
             try:
                 if not self.dataQ.empty():
@@ -3206,6 +3200,7 @@ class RealTime_1st_MP_Thread_DataWorker(QThread):
                     flag_1st_process_queue_empty = True
 
                     if SLEEP_SWITCH_MODE:
+                        QApplication.processEvents()
                         time.sleep(0.000001)
 
             except Exception as e:
@@ -3252,8 +3247,6 @@ class RealTime_2nd_MP_Thread_DataWorker(QThread):
         global flag_2nd_process_queue_empty, flag_drop_reset2
 
         while True:
-
-            QApplication.processEvents()
 
             if not self.dataQ.empty():
 
@@ -3365,6 +3358,7 @@ class RealTime_2nd_MP_Thread_DataWorker(QThread):
                 flag_2nd_process_queue_empty = True
 
                 if SLEEP_SWITCH_MODE:
+                    QApplication.processEvents()
                     time.sleep(0.000001)
 
 #####################################################################################################################################################################
@@ -3390,9 +3384,7 @@ class SpeakerWorker(QThread):
         # 서브 스레드에서 COM 객체를 사용하려면 COM 라이브러리를 초기화 해야함
         pythoncom.CoInitialize()
 
-        while True:
-
-            QApplication.processEvents()
+        while True:            
 
             if self.flag_speak:
                 print('TTS Text =', self.txt)
@@ -3401,6 +3393,7 @@ class SpeakerWorker(QThread):
             else:
                 pass
 
+            QApplication.processEvents()
             QTest.qWait(1)
 
         # 사용 후 uninitialize
@@ -3790,6 +3783,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 긴 loop를 도는 동안 GUI 응답없음을 방지하기 위함
             if i % 10 == 0:
                 QApplication.processEvents()
+                time.sleep(0.000001)
                 txt = ' 옵션테이블 초기화중({0:.0f}%)...\r'.format((i / ActvalCount) * 100)
                 self.parent.statusbar.showMessage(txt)
             else:
@@ -7808,6 +7802,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
+                time.sleep(0.000001)
             else:
                 pass
 
@@ -7949,6 +7944,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
+                time.sleep(0.000001)
             else:
                 pass
 
@@ -8098,6 +8094,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
+                time.sleep(0.000001)
             else:
                 pass
 
@@ -8250,6 +8247,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
+                time.sleep(0.000001)
             else:
                 pass
 
@@ -8312,6 +8310,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
+                time.sleep(0.000001)
             else:
                 pass
 
@@ -10374,6 +10373,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
+                time.sleep(0.000001)
             else:
                 pass
 
@@ -10515,6 +10515,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
+                time.sleep(0.000001)
             else:
                 pass
 
@@ -10664,6 +10665,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
+                time.sleep(0.000001)
             else:
                 pass
 
@@ -10816,6 +10818,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
+                time.sleep(0.000001)
             else:
                 pass
 
@@ -10878,6 +10881,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
+                time.sleep(0.000001)
             else:
                 pass
 
@@ -12835,6 +12839,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if index_count % 10 == 0:
                     QApplication.processEvents()
+                    time.sleep(0.000001)
                 else:
                     pass
 
@@ -13895,6 +13900,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if index_count % 10 == 0:
                     QApplication.processEvents()
+                    time.sleep(0.000001)
                 else:
                     pass
 
@@ -21691,8 +21697,6 @@ class PlotUpdateWorker1(QThread):
 
         while True:
 
-            QApplication.processEvents()
-
             if not flag_option_update_is_running:
                 self.trigger.emit()
 
@@ -21702,6 +21706,7 @@ class PlotUpdateWorker1(QThread):
             else:
                 pass
 
+            QApplication.processEvents()
             QTest.qWait(plot_update_interval)
 
 class PlotUpdateWorker2(QThread):
@@ -21717,11 +21722,10 @@ class PlotUpdateWorker2(QThread):
 
         while True:
 
-            QApplication.processEvents()
-
             if not flag_option_update_is_running:
                 self.trigger.emit()
 
+            QApplication.processEvents()
             QTest.qWait(plot_update_interval)
 
 class PlotUpdateWorker3(QThread):
@@ -21737,11 +21741,10 @@ class PlotUpdateWorker3(QThread):
 
         while True:
 
-            QApplication.processEvents()
-
             if not flag_option_update_is_running:
                 self.trigger.emit()
 
+            QApplication.processEvents()
             QTest.qWait(plot_update_interval)
 
 class PlotUpdateWorker4(QThread):
@@ -21757,11 +21760,10 @@ class PlotUpdateWorker4(QThread):
 
         while True:
 
-            QApplication.processEvents()
-
             if not flag_option_update_is_running:
                 self.trigger.emit()
 
+            QApplication.processEvents()
             QTest.qWait(plot_update_interval)
 
 class PlotUpdateWorker5(QThread):
@@ -21777,11 +21779,10 @@ class PlotUpdateWorker5(QThread):
 
         while True:
 
-            QApplication.processEvents()
-
             if not flag_option_update_is_running:
                 self.trigger.emit()
 
+            QApplication.processEvents()
             QTest.qWait(plot_update_interval)
 
 class PlotUpdateWorker6(QThread):
@@ -21797,11 +21798,10 @@ class PlotUpdateWorker6(QThread):
 
         while True:
 
-            QApplication.processEvents()
-
             if not flag_option_update_is_running:
                 self.trigger.emit()
 
+            QApplication.processEvents()
             QTest.qWait(plot_update_interval)
 #####################################################################################################################################################################
 # Big Chart UI Class
@@ -22806,6 +22806,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             if i % 10 == 0:
                 QApplication.processEvents()
+                time.sleep(0.000001)
                 txt = ' Plot윈도우 초기화중({0:.0f}%)...\r'.format((i / option_pairs_count) * 100)
                 self.parent.statusbar.showMessage(txt)
             else:
@@ -28620,8 +28621,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                #QApplication.processEvents()
-
             elif comboindex1 == 3 and market_service:                
 
                 txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
@@ -28717,9 +28716,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if TARGET_MONTH == 'NM':
                     self.plot1_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
                 else:
-                    pass
-
-                #QApplication.processEvents()                
+                    pass              
 
             elif comboindex1 == 8 and market_service:
 
@@ -29415,9 +29412,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
             else:
-                pass
-
-            #QApplication.processEvents()   
+                pass  
             
             flag_plot_update_is_running = False        
         else:
@@ -29704,8 +29699,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                #QApplication.processEvents() 
-
             elif comboindex2 == 8 and market_service:
 
                 txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
@@ -29792,9 +29785,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     #print(np.all(nan_lst))                
                     self.plot2_center_val_curve.setData(df_call_information_graph['centerval'].to_numpy())
                 else:
-                    pass
-
-                #QApplication.processEvents()                
+                    pass                
 
             elif comboindex2 == 9:
 
@@ -30342,8 +30333,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
 
-            #QApplication.processEvents()
-
             flag_plot_update_is_running = False
         else:
             pass
@@ -30629,8 +30618,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                #QApplication.processEvents()
-
             elif comboindex3 == 8 and market_service:
 
                 txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
@@ -30715,9 +30702,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     # 중심가 그리기
                     self.plot3_center_val_curve.setData(df_call_information_graph['centerval'].to_numpy())
                 else:
-                    pass
-
-                #QApplication.processEvents()               
+                    pass              
 
             elif comboindex3 == 9:
 
@@ -31261,8 +31246,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
 
-            #QApplication.processEvents()
-
             flag_plot_update_is_running = False
         else:
             pass
@@ -31367,8 +31350,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                #QApplication.processEvents()
-
             elif comboindex4 == 3 and market_service:
 
                 txt = ' min: {0:.2f}, meam: {1:.2f}, max: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
@@ -31465,8 +31446,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.plot4_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
                 else:
                     pass
-
-                #QApplication.processEvents() 
 
             elif comboindex4 == 8 and market_service:
 
@@ -32164,8 +32143,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
 
-            #QApplication.processEvents()
-
             flag_plot_update_is_running = False
         else:
             pass   
@@ -32451,8 +32428,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                #QApplication.processEvents()
-
             elif comboindex5 == 8 and market_service:
 
                 txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
@@ -32537,8 +32512,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.plot5_center_val_curve.setData(df_call_information_graph['centerval'].to_numpy())
                 else:
                     pass
-
-                #QApplication.processEvents()
 
             elif comboindex5 == 9:
 
@@ -33082,8 +33055,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
 
-            #QApplication.processEvents()
-
             flag_plot_update_is_running = False
         else:
             pass
@@ -33369,8 +33340,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                #QApplication.processEvents() 
-
             elif comboindex6 == 8 and market_service:
 
                 txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
@@ -33454,9 +33423,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     # 중심가 그리기
                     self.plot6_center_val_curve.setData(df_call_information_graph['centerval'].to_numpy())
                 else:
-                    pass
-
-                #QApplication.processEvents()               
+                    pass             
 
             elif comboindex6 == 9:
 
@@ -33999,8 +33966,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass  
             else:
                 pass
-
-            #QApplication.processEvents()
 
             flag_plot_update_is_running = False
         else:
