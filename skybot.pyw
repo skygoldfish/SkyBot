@@ -21707,6 +21707,7 @@ class PlotUpdateWorker1(QThread):
                 pass
 
             QApplication.processEvents()
+            time.sleep(0.000001)
             QTest.qWait(plot_update_interval)
 
 class PlotUpdateWorker2(QThread):
@@ -21726,6 +21727,7 @@ class PlotUpdateWorker2(QThread):
                 self.trigger.emit()
 
             QApplication.processEvents()
+            time.sleep(0.000001)
             QTest.qWait(plot_update_interval)
 
 class PlotUpdateWorker3(QThread):
@@ -21745,6 +21747,7 @@ class PlotUpdateWorker3(QThread):
                 self.trigger.emit()
 
             QApplication.processEvents()
+            time.sleep(0.000001)
             QTest.qWait(plot_update_interval)
 
 class PlotUpdateWorker4(QThread):
@@ -21764,6 +21767,7 @@ class PlotUpdateWorker4(QThread):
                 self.trigger.emit()
 
             QApplication.processEvents()
+            time.sleep(0.000001)
             QTest.qWait(plot_update_interval)
 
 class PlotUpdateWorker5(QThread):
@@ -21783,6 +21787,7 @@ class PlotUpdateWorker5(QThread):
                 self.trigger.emit()
 
             QApplication.processEvents()
+            time.sleep(0.000001)
             QTest.qWait(plot_update_interval)
 
 class PlotUpdateWorker6(QThread):
@@ -21802,6 +21807,7 @@ class PlotUpdateWorker6(QThread):
                 self.trigger.emit()
 
             QApplication.processEvents()
+            time.sleep(0.000001)
             QTest.qWait(plot_update_interval)
 #####################################################################################################################################################################
 # Big Chart UI Class
