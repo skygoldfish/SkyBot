@@ -21706,9 +21706,9 @@ class PlotUpdateWorker1(QThread):
             else:
                 pass
 
+            QTest.qWait(plot_update_interval)
             QApplication.processEvents()
             time.sleep(0.000001)
-            QTest.qWait(plot_update_interval)
 
 class PlotUpdateWorker2(QThread):
 
@@ -21726,9 +21726,9 @@ class PlotUpdateWorker2(QThread):
             if not flag_option_update_is_running:
                 self.trigger.emit()
 
+            QTest.qWait(plot_update_interval)
             QApplication.processEvents()
             time.sleep(0.000001)
-            QTest.qWait(plot_update_interval)
 
 class PlotUpdateWorker3(QThread):
 
@@ -21746,9 +21746,9 @@ class PlotUpdateWorker3(QThread):
             if not flag_option_update_is_running:
                 self.trigger.emit()
 
+            QTest.qWait(plot_update_interval)
             QApplication.processEvents()
             time.sleep(0.000001)
-            QTest.qWait(plot_update_interval)
 
 class PlotUpdateWorker4(QThread):
 
@@ -21766,9 +21766,9 @@ class PlotUpdateWorker4(QThread):
             if not flag_option_update_is_running:
                 self.trigger.emit()
 
+            QTest.qWait(plot_update_interval)
             QApplication.processEvents()
             time.sleep(0.000001)
-            QTest.qWait(plot_update_interval)
 
 class PlotUpdateWorker5(QThread):
 
@@ -21786,9 +21786,9 @@ class PlotUpdateWorker5(QThread):
             if not flag_option_update_is_running:
                 self.trigger.emit()
 
+            QTest.qWait(plot_update_interval)
             QApplication.processEvents()
             time.sleep(0.000001)
-            QTest.qWait(plot_update_interval)
 
 class PlotUpdateWorker6(QThread):
 
@@ -21805,10 +21805,10 @@ class PlotUpdateWorker6(QThread):
 
             if not flag_option_update_is_running:
                 self.trigger.emit()
-
+                        
+            QTest.qWait(plot_update_interval)
             QApplication.processEvents()
             time.sleep(0.000001)
-            QTest.qWait(plot_update_interval)
 #####################################################################################################################################################################
 # Big Chart UI Class
 #####################################################################################################################################################################
@@ -22874,27 +22874,27 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         # 그리기 쓰레드
         self.plot_update_worker1 = PlotUpdateWorker1()
         self.plot_update_worker1.trigger.connect(self.update_plot1)
-        self.plot_update_worker1.start()
+        #self.plot_update_worker1.start()
 
         self.plot_update_worker2 = PlotUpdateWorker2()
         self.plot_update_worker2.trigger.connect(self.update_plot2)
-        self.plot_update_worker2.start()
+        #self.plot_update_worker2.start()
 
         self.plot_update_worker3 = PlotUpdateWorker3()
         self.plot_update_worker3.trigger.connect(self.update_plot3)
-        self.plot_update_worker3.start()
+        #self.plot_update_worker3.start()
 
         self.plot_update_worker4 = PlotUpdateWorker4()
         self.plot_update_worker4.trigger.connect(self.update_plot4)
-        self.plot_update_worker4.start()
+        #self.plot_update_worker4.start()
 
         self.plot_update_worker5 = PlotUpdateWorker5()
         self.plot_update_worker5.trigger.connect(self.update_plot5)
-        self.plot_update_worker5.start()
+        #self.plot_update_worker5.start()
 
         self.plot_update_worker6 = PlotUpdateWorker6()
         self.plot_update_worker6.trigger.connect(self.update_plot6)
-        self.plot_update_worker6.start()
+        #self.plot_update_worker6.start()
 
         end_time = timeit.default_timer()
         processing_time = (end_time - start_time) * 1000
@@ -23798,6 +23798,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot1_oe_conv_curve.clear()
         self.plot1_oe_base_curve.clear()
 
+        if comboindex1 == 0:
+            self.plot_update_worker1.terminate()
+        else:
+            self.plot_update_worker1.start()
+
         # All Plot Clear
         if comboindex1 == 0:
 
@@ -24553,6 +24558,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         self.plot2_oe_conv_curve.clear()
         self.plot2_oe_base_curve.clear()
+
+        if comboindex2 == 0:
+            self.plot_update_worker2.terminate()
+        else:
+            self.plot_update_worker2.start()
 
         # All Plot Clear
         if comboindex2 == 0:
@@ -25325,6 +25335,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         self.plot3_oe_conv_curve.clear()
         self.plot3_oe_base_curve.clear()
+
+        if comboindex3 == 0:
+            self.plot_update_worker3.terminate()
+        else:
+            self.plot_update_worker3.start()
 
         # All Plot Clear
         if comboindex3 == 0:
@@ -26099,6 +26114,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot4_oe_conv_curve.clear()
         self.plot4_oe_base_curve.clear()
 
+        if comboindex4 == 0:
+            self.plot_update_worker4.terminate()
+        else:
+            self.plot_update_worker4.start()
+
         # All Plot Clear
         if comboindex4 == 0:
 
@@ -26854,6 +26874,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         self.plot5_oe_conv_curve.clear()
         self.plot5_oe_base_curve.clear()
+
+        if comboindex5 == 0:
+            self.plot_update_worker5.terminate()
+        else:
+            self.plot_update_worker5.start()
 
         # All Plot Clear
         if comboindex5 == 0:
@@ -27626,6 +27651,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         self.plot6_oe_conv_curve.clear()
         self.plot6_oe_base_curve.clear()
+
+        if comboindex6 == 0:
+            self.plot_update_worker6.terminate()
+        else:
+            self.plot_update_worker6.start()
 
         # All Plot Clear
         if comboindex6 == 0:
