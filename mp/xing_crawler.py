@@ -21,6 +21,9 @@ parser = ConfigParser()
 parser.read('.\skybot.ini')
 
 REAL_SERVER = parser.getboolean('Server Type', 'Real Server')
+SLEEP_SWITCH_MODE = parser.getboolean('User Switch', 'MP Sleep Switching Mode')
+SLEEP_SWITCHING_DELAY = parser.getfloat('Initial Value', 'MP Sleep Switching Delay')
+
 SP500 = parser.get('Code of the Foreign Futures', 'S&P 500')
 DOW = parser.get('Code of the Foreign Futures', 'DOW')
 NASDAQ = parser.get('Code of the Foreign Futures', 'NASDAQ')
@@ -89,7 +92,9 @@ def stock_crawler(queue: Queue, kospi_quote=True, kospi_tick=True, kosdaq_quote=
 
         while True:
             pythoncom.PumpWaitingMessages()
-            time.sleep(0.000001)
+
+            if SLEEP_SWITCH_MODE:
+                time.sleep(SLEEP_SWITCHING_DELAY)
     else:
         pass
 
@@ -189,7 +194,9 @@ def index_futures_crawler(queue: Queue, index_futures_quote=True, index_futures_
 
         while True:
             pythoncom.PumpWaitingMessages()
-            time.sleep(0.000001)
+
+            if SLEEP_SWITCH_MODE:
+                time.sleep(SLEEP_SWITCHING_DELAY)
     else:
         pass
 
@@ -318,6 +325,8 @@ def index_option_crawler(queue: Queue, quote_request_number=5, index_option_cm_q
 
         while True:
             pythoncom.PumpWaitingMessages()
-            time.sleep(0.000001)
+
+            if SLEEP_SWITCH_MODE:
+                time.sleep(SLEEP_SWITCHING_DELAY)
     else:
         pass
