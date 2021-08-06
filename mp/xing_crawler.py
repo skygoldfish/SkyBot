@@ -326,7 +326,7 @@ def index_option_crawler(queue: Queue, quote_request_number=5, index_option_cm_q
         while True:
             pythoncom.PumpWaitingMessages()
 
-            if SLEEP_SWITCH_MODE:
-                time.sleep(SLEEP_SWITCHING_DELAY)
+            #if SLEEP_SWITCH_MODE:
+                #time.sleep(SLEEP_SWITCHING_DELAY)
     else:
         pass
