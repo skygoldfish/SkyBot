@@ -34878,28 +34878,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if szTrCode == 'JIF' or szTrCode == 'BM_' or szTrCode == 'PM_' or szTrCode == 'NWS':
             pass
         else:
-            if szTrCode == 'EH0' and int(realdata['수신시간'][0:2]) >= 24:
-                    time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - ((int(realdata['수신시간'][0:2]) - 24) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
-            else:                    
-                time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
-
+            time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
+            
             main_dropcount, main_sys_dropcount, main_qsize, main_totalcount, main_totalsize, main_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
+            second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
+            third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_3rd_dataworker.get_packet_info()
 
-            if self.mp_number == 2:
-                second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
-            else:
-                second_dropcount = 0
-                second_sys_dropcount = 0
-                second_qsize = 0
-                second_totalcount = 0
-                second_totalsize = 0
-                second_opt_totalsize = 0
-
-            total_dropcount = main_dropcount + second_dropcount
-            total_sys_dropcount = main_sys_dropcount + second_sys_dropcount
-            total_waiting_count = main_qsize + second_qsize
-            totalcount = main_totalcount + second_totalcount
-            totalsize = main_totalsize + second_totalsize
+            total_dropcount = main_dropcount + second_dropcount + third_dropcount
+            total_sys_dropcount = main_sys_dropcount + second_sys_dropcount + third_sys_dropcount
+            total_waiting_count = main_qsize + second_qsize + third_qsize
+            totalcount = main_totalcount + second_totalcount + third_totalcount
+            totalsize = main_totalsize + second_totalsize + third_totalsize
 
             if totalcount > 0:
                 drop_percent = (total_dropcount / totalcount) * 100
@@ -34921,7 +34910,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.statusbar.setStyleSheet("color : darkgreen")
 
             self.statusbar.showMessage(txt)
-
+            
             if flag_1st_process_queue_empty:
                 self.label_1st.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
             else:
@@ -34967,15 +34956,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         szTrCode = realdata['tr_code']
         
         time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
-
+        
         main_dropcount, main_sys_dropcount, main_qsize, main_totalcount, main_totalsize, main_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
         second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
+        third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_3rd_dataworker.get_packet_info()
 
-        total_dropcount = main_dropcount + second_dropcount
-        total_sys_dropcount = main_sys_dropcount + second_sys_dropcount
-        total_waiting_count = main_qsize + second_qsize
-        totalcount = main_totalcount + second_totalcount
-        totalsize = main_totalsize + second_totalsize
+        total_dropcount = main_dropcount + second_dropcount + third_dropcount
+        total_sys_dropcount = main_sys_dropcount + second_sys_dropcount + third_sys_dropcount
+        total_waiting_count = main_qsize + second_qsize + third_qsize
+        totalcount = main_totalcount + second_totalcount + third_totalcount
+        totalsize = main_totalsize + second_totalsize + third_totalsize
 
         if totalcount > 0:
             drop_percent = (total_dropcount / totalcount) * 100
@@ -34987,7 +34977,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
             dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
-        
+
         if abs(time_gap) >= view_time_tolerance:
             self.statusbar.setStyleSheet("color : red")
         else:
@@ -34996,29 +34986,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.statusbar.setStyleSheet("color : darkgreen")
 
-        self.statusbar.showMessage(txt)
-        
-        if szTrCode == 'OC0' or szTrCode == 'EC0':
+        self.statusbar.showMessage(txt)        
 
-            if flag_2nd_process_queue_empty:
-                self.label_2nd.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
-            else:
-                self.label_2nd.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+        if flag_2nd_process_queue_empty:
+            self.label_2nd.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+        else:
+            self.label_2nd.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
 
-            if szTrCode == 'OC0' and realdata['단축코드'][0:3] == '201':
-                txt = "{0}\n({1:.2f})".format('COC0', args_processing_time)
-            elif (szTrCode == 'EC0' and realdata['단축코드'][0:3] == '201'):
-                 txt = "{0}\n({1:.2f})".format('CEC0', args_processing_time)
-            elif szTrCode == 'OC0' and realdata['단축코드'][0:3] == '301':
-                txt = "{0}\n({1:.2f})".format('POC0', args_processing_time)
-            elif szTrCode == 'EC0' and realdata['단축코드'][0:3] == '301':
-                txt = "{0}\n({1:.2f})".format('PEC0', args_processing_time)            
-            else:
-                pass
-            
-            self.label_2nd.setText(txt)
+        if szTrCode == 'OC0' and realdata['단축코드'][0:3] == '201':
+            txt = "{0}\n({1:.2f})".format('COC0', args_processing_time)
+        elif (szTrCode == 'EC0' and realdata['단축코드'][0:3] == '201'):
+             txt = "{0}\n({1:.2f})".format('CEC0', args_processing_time)
+        elif szTrCode == 'OC0' and realdata['단축코드'][0:3] == '301':
+            txt = "{0}\n({1:.2f})".format('POC0', args_processing_time)
+        elif szTrCode == 'EC0' and realdata['단축코드'][0:3] == '301':
+            txt = "{0}\n({1:.2f})".format('PEC0', args_processing_time)            
         else:
             pass
+        
+        self.label_2nd.setText(txt)
 
         # 2nd 프로세스 실시간데이타 갱신
         if self.dialog['선물옵션전광판'] is not None:
@@ -35145,13 +35131,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         dt = datetime.now()
 
-        szTrCode = realdata['tr_code']
+        szTrCode = realdata['tr_code']        
         
         if szTrCode == 'EH0' and int(realdata['수신시간'][0:2]) >= 24:
                 time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - ((int(realdata['수신시간'][0:2]) - 24) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
         else:                    
             time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
-
+        
         main_dropcount, main_sys_dropcount, main_qsize, main_totalcount, main_totalsize, main_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
         second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
         third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_3rd_dataworker.get_packet_info()
@@ -35167,12 +35153,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        drop_txt = '{0}({1}), {2}({3})/{4}({5}k), {6}, [{7:.1f}%]'.format(format(main_dropcount, ','), format(main_sys_dropcount, ','), format(third_dropcount, ','), format(third_sys_dropcount, ','), \
+        drop_txt = '{0}({1}), {2}({3})/{4}({5}k), {6}, [{7:.1f}%]'.format(format(main_dropcount, ','), format(main_sys_dropcount, ','), format(second_dropcount, ','), format(second_sys_dropcount, ','), \
             format(totalcount, ','), format(int(totalsize/1000), ','), format(total_waiting_count, ','), drop_percent)
         
         txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
             dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
-        
+
         if abs(time_gap) >= view_time_tolerance:
             self.statusbar.setStyleSheet("color : red")
         else:
@@ -35181,29 +35167,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.statusbar.setStyleSheet("color : darkgreen")
 
-        self.statusbar.showMessage(txt)
+        self.statusbar.showMessage(txt)        
         
-        if szTrCode == 'OH0' or szTrCode == 'EH0':
+        if flag_3rd_process_queue_empty:
+            self.label_2nd.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+        else:
+            self.label_2nd.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
 
-            if flag_3rd_process_queue_empty:
-                self.label_2nd.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
-            else:
-                self.label_2nd.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
-
-            if szTrCode == 'OH0' and realdata['단축코드'][0:3] == '201':
-                txt = "{0}\n({1:.2f})".format('COH0', args_processing_time)
-            elif (szTrCode == 'EH0' and realdata['단축코드'][0:3] == '201'):
-                 txt = "{0}\n({1:.2f})".format('CEH0', args_processing_time)
-            elif szTrCode == 'OH0' and realdata['단축코드'][0:3] == '301':
-                txt = "{0}\n({1:.2f})".format('POH0', args_processing_time)
-            elif szTrCode == 'EH0' and realdata['단축코드'][0:3] == '301':
-                txt = "{0}\n({1:.2f})".format('PEH0', args_processing_time)
-            else:
-                pass
-            
-            self.label_2nd.setText(txt)
+        if szTrCode == 'OH0' and realdata['단축코드'][0:3] == '201':
+            txt = "{0}\n({1:.2f})".format('COH0', args_processing_time)
+        elif (szTrCode == 'EH0' and realdata['단축코드'][0:3] == '201'):
+             txt = "{0}\n({1:.2f})".format('CEH0', args_processing_time)
+        elif szTrCode == 'OH0' and realdata['단축코드'][0:3] == '301':
+            txt = "{0}\n({1:.2f})".format('POH0', args_processing_time)
+        elif szTrCode == 'EH0' and realdata['단축코드'][0:3] == '301':
+            txt = "{0}\n({1:.2f})".format('PEH0', args_processing_time)
         else:
             pass
+        
+        self.label_2nd.setText(txt)
 
         # 3rd 프로세스 실시간데이타 갱신
         if self.dialog['선물옵션전광판'] is not None:
