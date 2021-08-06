@@ -3317,8 +3317,97 @@ class RealTime_2nd_MP_DataWorker(QThread):
                                 self.trigger_dict.emit(self.realdata[1])
                             else:
                                 self.drop_count += 1
+                    else:
+                        self.sys_drop_count += 1                
+                else:
+                    pass
+            else:
+                flag_2nd_process_queue_empty = True
 
-                        elif szTrCode == 'OH0':
+                if SLEEP_SWITCH_MODE:
+                    QApplication.processEvents()
+                    time.sleep(SLEEP_SWITCHING_DELAY)
+
+#####################################################################################################################################################################
+# 실시간 데이타수신을 위한 멀티프로세스 3rd 쓰레드 클래스(옵션 호가만 처리)
+#####################################################################################################################################################################
+class RealTime_3rd_MP_DataWorker(QThread):
+
+    # 수신데이타 타입이 list이면 TR데이타, tuple이면 실시간데이타.        
+    trigger_list = pyqtSignal(list)
+    trigger_dict = pyqtSignal(dict)
+
+    def __init__(self, dataQ):
+        super().__init__()
+
+        self.daemon = True
+        self.dataQ = dataQ
+        self.realdata = None
+
+        # 큐로 들어온 총 패킷수
+        self.total_count = 0
+        # 누락된 패킷수
+        self.drop_count = 0
+        # 수신된 총 패킷크기
+        self.total_packet_size = 0
+        # 수신된 총 옵션 패킷크기
+        self.total_option_packet_size = 0        
+
+        self.sys_drop_count = 0
+        self.waiting_tasks = 0
+
+    def get_packet_info(self):
+
+        return (self.drop_count + self.sys_drop_count), self.sys_drop_count, self.waiting_tasks, self.total_count, self.total_packet_size, self.total_option_packet_size
+
+    def run(self):
+
+        global flag_3rd_process_queue_empty, flag_drop_reset2
+
+        while True:
+
+            if not self.dataQ.empty():
+
+                flag_3rd_process_queue_empty = False
+
+                dt = datetime.now()
+                systime = dt.hour * 3600 + dt.minute * 60 + dt.second
+
+                self.realdata = self.dataQ.get(False)
+                
+                self.total_count += 1                    
+                self.total_packet_size += sys.getsizeof(self.realdata)
+
+                if flag_drop_reset2:
+                    self.drop_count = 0
+                    self.sys_drop_count = 0
+                    self.total_count = 0
+                    flag_drop_reset2 = False
+                else:
+                    pass
+
+                if type(self.realdata) == list:
+
+                    self.trigger_list.emit(self.realdata)
+
+                elif type(self.realdata) == tuple:
+
+                    self.waiting_tasks = self.dataQ.qsize()
+
+                    tick_type, tick_data = self.realdata
+                    print(f"\r[{datetime.now()}] 옵션 TR Type : {tick_data['tr_code']}  waiting tasks : {self.waiting_tasks}", end='')
+
+                    if CSV_FILE:
+                        tick_data_lst = list(tick_data.values())
+                        handle_tick_data(tick_data_lst, tick_type)
+                    else:
+                        pass
+
+                    szTrCode = self.realdata[1]['tr_code']
+
+                    if not flag_option_update_is_running:
+
+                        if szTrCode == 'OH0':
 
                             self.total_option_packet_size += sys.getsizeof(self.realdata[1])
 
@@ -3356,7 +3445,7 @@ class RealTime_2nd_MP_DataWorker(QThread):
                 else:
                     pass
             else:
-                flag_2nd_process_queue_empty = True
+                flag_3rd_process_queue_empty = True
 
                 if SLEEP_SWITCH_MODE:
                     QApplication.processEvents()
@@ -34449,6 +34538,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.main_event_loop = QEventLoop()
             self.second_event_loop = QEventLoop()
+        elif self.mp_number == 3:
+            self.mp_mode = True
+
+            self.first_dataQ = args[0]
+            self.second_dataQ = args[1]
+            self.third_dataQ = args[2]
+
+            self.main_login = False
+            self.second_login = False
+            self.third_login = False
+
+            self.main_event_loop = QEventLoop()
+            self.second_event_loop = QEventLoop()
+            self.third_event_loop = QEventLoop()
         else:
             print('지원하지 않는 인자갯수 입니다...')
         
@@ -34537,6 +34640,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.realtime_2nd_dataworker.trigger_list.connect(self.transfer_mp_2nd_trdata)
                 self.realtime_2nd_dataworker.trigger_dict.connect(self.transfer_mp_2nd_realdata)            
                 self.realtime_2nd_dataworker.start()
+            elif self.mp_number == 3:
+                self.realtime_1st_dataworker = RealTime_1st_MP_DataWorker(self.first_dataQ)
+                self.realtime_1st_dataworker.trigger_list.connect(self.transfer_mp_1st_trdata)
+                self.realtime_1st_dataworker.trigger_dict.connect(self.transfer_mp_1st_realdata)            
+                self.realtime_1st_dataworker.start()
+
+                self.realtime_2nd_dataworker = RealTime_2nd_MP_DataWorker(self.second_dataQ)
+                self.realtime_2nd_dataworker.trigger_list.connect(self.transfer_mp_2nd_trdata)
+                self.realtime_2nd_dataworker.trigger_dict.connect(self.transfer_mp_2nd_realdata)            
+                self.realtime_2nd_dataworker.start()
+
+                self.realtime_3rd_dataworker = RealTime_3rd_MP_DataWorker(self.third_dataQ)
+                self.realtime_3rd_dataworker.trigger_list.connect(self.transfer_mp_3rd_trdata)
+                self.realtime_3rd_dataworker.trigger_dict.connect(self.transfer_mp_3rd_realdata)            
+                self.realtime_3rd_dataworker.start()
             else:
                 pass
         else:
@@ -34840,13 +34958,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             txt = '2nd 로그인 실패({0})!  다시 로그인하세요...'.format(trdata[0])
             self.statusbar.showMessage(txt)
 
-        elif trdata[0] == 'quote':
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션호가 요청리스트 = {3}\r'.format(dt.hour, dt.minute, dt.second, trdata)
-            self.textBrowser.append(txt)
-        else:
-            pass
-
     @pyqtSlot(dict)
     def transfer_mp_2nd_realdata(self, realdata):
 
@@ -34854,10 +34965,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         szTrCode = realdata['tr_code']
         
-        if szTrCode == 'EH0' and int(realdata['수신시간'][0:2]) >= 24:
-                time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - ((int(realdata['수신시간'][0:2]) - 24) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
-        else:                    
-            time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
+        time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
 
         main_dropcount, main_sys_dropcount, main_qsize, main_totalcount, main_totalsize, main_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
         second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
@@ -34889,7 +34997,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.statusbar.showMessage(txt)
         
-        if szTrCode == 'OC0' or szTrCode == 'EC0' or szTrCode == 'OH0' or szTrCode == 'EH0':
+        if szTrCode == 'OC0' or szTrCode == 'EC0':
 
             if flag_2nd_process_queue_empty:
                 self.label_2nd.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
@@ -34903,15 +35011,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif szTrCode == 'OC0' and realdata['단축코드'][0:3] == '301':
                 txt = "{0}\n({1:.2f})".format('POC0', args_processing_time)
             elif szTrCode == 'EC0' and realdata['단축코드'][0:3] == '301':
-                txt = "{0}\n({1:.2f})".format('PEC0', args_processing_time)
-            elif szTrCode == 'OH0' and realdata['단축코드'][0:3] == '201':
-                txt = "{0}\n({1:.2f})".format('COH0', args_processing_time)
-            elif (szTrCode == 'EH0' and realdata['단축코드'][0:3] == '201'):
-                 txt = "{0}\n({1:.2f})".format('CEH0', args_processing_time)
-            elif szTrCode == 'OH0' and realdata['단축코드'][0:3] == '301':
-                txt = "{0}\n({1:.2f})".format('POH0', args_processing_time)
-            elif szTrCode == 'EH0' and realdata['단축코드'][0:3] == '301':
-                txt = "{0}\n({1:.2f})".format('PEH0', args_processing_time)
+                txt = "{0}\n({1:.2f})".format('PEC0', args_processing_time)            
             else:
                 pass
             
@@ -35008,7 +35108,108 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
         else:
             pass
+
+    @pyqtSlot(list)
+    def transfer_mp_3rd_trdata(self, trdata):
+
+        dt = datetime.now()
+
+        if trdata[0] == 'login' and trdata[1] == '0000':
+
+            txt = '3rd 백그라운드 프로세스 로그인 성공 !!!\r'
+            self.textBrowser.append(txt)
+
+            self.statusbar.showMessage(trdata[3] + ' ' + trdata[2])
+
+            if TTS:
+                #Speak('Third 프로세스 로그인 성공')
+                #self.speaker.setText('써드 프로세스 로그인 성공')
+                pass
+            else:
+                pass
+        elif trdata[0] == 'login' and trdata[1] != '0000':
+
+            txt = '3rd 로그인 실패({0})!  다시 로그인하세요...'.format(trdata[0])
+            self.statusbar.showMessage(txt)
+
+        elif trdata[0] == 'quote':
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션호가 요청리스트 = {3}\r'.format(dt.hour, dt.minute, dt.second, trdata)
+            self.textBrowser.append(txt)
+        else:
+            pass
     
+    @pyqtSlot(dict)
+    def transfer_mp_3rd_realdata(self, realdata):
+
+        dt = datetime.now()
+
+        szTrCode = realdata['tr_code']
+        
+        if szTrCode == 'EH0' and int(realdata['수신시간'][0:2]) >= 24:
+                time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - ((int(realdata['수신시간'][0:2]) - 24) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
+        else:                    
+            time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
+
+        main_dropcount, main_sys_dropcount, main_qsize, main_totalcount, main_totalsize, main_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
+        second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
+        third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_3rd_dataworker.get_packet_info()
+
+        total_dropcount = main_dropcount + second_dropcount + third_dropcount
+        total_sys_dropcount = main_sys_dropcount + second_sys_dropcount + third_sys_dropcount
+        total_waiting_count = main_qsize + second_qsize + third_qsize
+        totalcount = main_totalcount + second_totalcount + third_totalcount
+        totalsize = main_totalsize + second_totalsize + third_totalsize
+
+        if totalcount > 0:
+            drop_percent = (total_dropcount / totalcount) * 100
+        else:
+            pass
+
+        drop_txt = '{0}({1}), {2}({3})/{4}({5}k), {6}, [{7:.1f}%]'.format(format(main_dropcount, ','), format(main_sys_dropcount, ','), format(third_dropcount, ','), format(third_sys_dropcount, ','), \
+            format(totalcount, ','), format(int(totalsize/1000), ','), format(total_waiting_count, ','), drop_percent)
+        
+        txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
+            dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
+        
+        if abs(time_gap) >= view_time_tolerance:
+            self.statusbar.setStyleSheet("color : red")
+        else:
+            if DARK_STYLESHEET:
+                self.statusbar.setStyleSheet("color : lawngreen")
+            else:
+                self.statusbar.setStyleSheet("color : darkgreen")
+
+        self.statusbar.showMessage(txt)
+        
+        if szTrCode == 'OH0' or szTrCode == 'EH0':
+
+            if flag_3rd_process_queue_empty:
+                self.label_3rd.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+            else:
+                self.label_3rd.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+
+            if szTrCode == 'OH0' and realdata['단축코드'][0:3] == '201':
+                txt = "{0}\n({1:.2f})".format('COH0', args_processing_time)
+            elif (szTrCode == 'EH0' and realdata['단축코드'][0:3] == '201'):
+                 txt = "{0}\n({1:.2f})".format('CEH0', args_processing_time)
+            elif szTrCode == 'OH0' and realdata['단축코드'][0:3] == '301':
+                txt = "{0}\n({1:.2f})".format('POH0', args_processing_time)
+            elif szTrCode == 'EH0' and realdata['단축코드'][0:3] == '301':
+                txt = "{0}\n({1:.2f})".format('PEH0', args_processing_time)
+            else:
+                pass
+            
+            self.label_3rd.setText(txt)
+        else:
+            pass
+
+        # 3rd 프로세스 실시간데이타 갱신
+        if self.dialog['선물옵션전광판'] is not None:
+            self.update_3rd_process(realdata)            
+        else:
+            pass
+
     @logging_time_with_args
     def update_1st_process(self, data):
         
@@ -35099,11 +35300,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
                 if szTrCode == 'OC0' or szTrCode == 'EC0':
 
-                    self.oc0_update(data)              
-
-                elif szTrCode == 'OH0' or szTrCode == 'EH0':                    
-
-                    self.oh0_update(data)
+                    self.oc0_update(data)
                 else:
                     pass
             else:
@@ -35112,6 +35309,35 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         except Exception as e:
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] update_2nd_process {3}에서 {4}타입의 {5}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, szTrCode, type(e).__name__, str(e))
+            self.textBrowser.append(txt)
+
+        finally:
+            flag_option_update_is_running = False
+
+    @logging_time_with_args
+    def update_3rd_process(self, data):
+        
+        global flag_option_update_is_running
+        
+        dt = datetime.now()
+
+        try:               
+            flag_option_update_is_running = True
+
+            szTrCode = data['tr_code']
+
+            if flag_t8416_data_receive_done:
+
+                if szTrCode == 'OH0' or szTrCode == 'EH0':
+                    self.oh0_update(data)
+                else:
+                    pass
+            else:
+                pass
+            
+        except Exception as e:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] update_3rd_process {3}에서 {4}타입의 {5}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, szTrCode, type(e).__name__, str(e))
             self.textBrowser.append(txt)
 
         finally:
@@ -38934,7 +39160,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if MULTIPROCESS and flag_internet:                
 
                 index_futures_process.terminate()
-                index_option_process.terminate()
+                index_option_tick_process.terminate()
+                index_option_quote_process.terminate()
 
                 QTest.qWait(10)
 
@@ -39052,8 +39279,8 @@ if __name__ == "__main__":
         '''
 
         futuresQ = mp.Queue()
-        optionQ = mp.Queue()
-        #dataQ = mp.Queue()
+        option_tickQ = mp.Queue()
+        option_quoteQ = mp.Queue()
 
         if NightTime:
             quote_number = QUOTE_REQUEST_NUMBER * 2
@@ -39061,10 +39288,12 @@ if __name__ == "__main__":
             quote_number = QUOTE_REQUEST_NUMBER
         
         index_futures_process = Process(target=index_futures_crawler, args=(futuresQ, INDEX_FUTURES_QUOTE, INDEX_FUTURES_TICK), daemon=True)
-        index_option_process = Process(target=index_option_crawler, args=(optionQ, quote_number, INDEX_OPTION_CM_QUOTE, INDEX_OPTION_NM_QUOTE, INDEX_OPTION_CM_TICK, INDEX_OPTION_NM_TICK), daemon=True)
+        index_option_tick_process = Process(target=index_option_tick_crawler, args=(option_tickQ, INDEX_OPTION_CM_TICK, INDEX_OPTION_NM_TICK), daemon=True)
+        index_option_quote_process = Process(target=index_option_quote_crawler, args=(option_quoteQ, quote_number, INDEX_OPTION_CM_QUOTE, INDEX_OPTION_NM_QUOTE), daemon=True)
 
         index_futures_process.start()
-        index_option_process.start()
+        index_option_tick_process.start()
+        index_option_quote_process.start()
     else:
         pass
     
@@ -39123,7 +39352,7 @@ if __name__ == "__main__":
     
     if MULTIPROCESS and flag_internet:
 
-        window = MainWindow(futuresQ, optionQ)
+        window = MainWindow(futuresQ, option_tickQ, option_quoteQ)
     else:
         window = MainWindow()
 
