@@ -2969,7 +2969,8 @@ class RealTime_1st_MP_DataWorker(QThread):
                         szTrCode = self.realdata[1]['tr_code']
 
                         # 옵션은 초당 50회 이상 입력됨
-                        if not flag_futures_update_is_running:
+                        #if not flag_futures_update_is_running:
+                        if True:
                             
                             if szTrCode == 'JIF':
 
@@ -3051,6 +3052,7 @@ class RealTime_1st_MP_DataWorker(QThread):
                                     self.trigger_dict.emit(self.realdata[1])
                                 else:
                                     self.drop_count += 1
+                                    print('OVC drop count = {0}'.format(self.drop_count))
 
                             elif szTrCode == 'FH0':
 
@@ -3067,6 +3069,7 @@ class RealTime_1st_MP_DataWorker(QThread):
                                 else:
                                     self.drop_count += 1
                                     self.fh0_drop_count += 1
+                                    print('FH0 drop count = {0}'.format(self.fh0_drop_count))
 
                             elif szTrCode == 'NH0':
 
@@ -3093,6 +3096,7 @@ class RealTime_1st_MP_DataWorker(QThread):
                                     self.trigger_dict.emit(self.realdata[1])
                                 else:
                                     self.drop_count += 1
+                                    print('FC0 drop count = {0}'.format(self.drop_count))
 
                             elif szTrCode == 'NC0':
 
@@ -3289,7 +3293,8 @@ class RealTime_2nd_MP_DataWorker(QThread):
 
                     szTrCode = self.realdata[1]['tr_code']
 
-                    if not flag_option_tick_update_is_running:
+                    #if not flag_option_tick_update_is_running:
+                    if True:
 
                         if szTrCode == 'OC0':
 
@@ -3305,6 +3310,7 @@ class RealTime_2nd_MP_DataWorker(QThread):
                                 self.trigger_dict.emit(self.realdata[1])
                             else:
                                 self.drop_count += 1
+                                print('OC0 drop count = {0}'.format(self.drop_count))
 
                         elif szTrCode == 'EC0':
 
@@ -3318,6 +3324,7 @@ class RealTime_2nd_MP_DataWorker(QThread):
                                 self.trigger_dict.emit(self.realdata[1])
                             else:
                                 self.drop_count += 1
+                                print('ECO drop count = {0}'.format(self.drop_count))
                     else:
                         self.sys_drop_count += 1                
                 else:
@@ -3406,7 +3413,8 @@ class RealTime_3rd_MP_DataWorker(QThread):
 
                     szTrCode = self.realdata[1]['tr_code']
 
-                    if not flag_option_quote_update_is_running:
+                    #if not flag_option_quote_update_is_running:
+                    if True:
 
                         if szTrCode == 'OH0':
 
@@ -3422,6 +3430,7 @@ class RealTime_3rd_MP_DataWorker(QThread):
                                 self.trigger_dict.emit(self.realdata[1])
                             else:
                                 self.drop_count += 1
+                                print('OH0 drop count = {0}'.format(self.drop_count))
 
                         elif szTrCode == 'EH0':
 
@@ -3439,6 +3448,7 @@ class RealTime_3rd_MP_DataWorker(QThread):
                                 self.trigger_dict.emit(self.realdata[1])
                             else:
                                 self.drop_count += 1
+                                print('EHO drop count = {0}'.format(self.drop_count))
                         else:
                             pass
                     else:
