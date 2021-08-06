@@ -398,6 +398,7 @@ BIGCHART_UPDATE_INTERVAL = parser.getint('Initial Value', 'Big Chart Update Inte
 SCORE_BOARD_UPDATE_INTERVAL = parser.getint('Initial Value', 'Score Board Update Interval(sec)')
 SECOND_DISPLAY_X_POSITION = parser.getint('Initial Value', 'X Position of the Second Display')
 SECOND_DISPLAY_Y_POSITION = parser.getint('Initial Value', 'Y Position of the Second Display')
+SLEEP_SWITCHING_DELAY = parser.getfloat('Initial Value', 'Sleep Switching Delay')
 
 # [9]. << Code of the Foreign Futures (H/M/U/Z) >>
 SP500 = parser.get('Code of the Foreign Futures', 'S&P 500')
@@ -2865,7 +2866,7 @@ class RealTime_Thread_DataWorker(QThread):
 
                     if SLEEP_SWITCH_MODE:
                         QApplication.processEvents()
-                        time.sleep(0.000001)
+                        time.sleep(SLEEP_SWITCHING_DELAY)
 
             except Exception as e:
                 
@@ -3201,7 +3202,7 @@ class RealTime_1st_MP_DataWorker(QThread):
 
                     if SLEEP_SWITCH_MODE:
                         QApplication.processEvents()
-                        time.sleep(0.000001)
+                        time.sleep(SLEEP_SWITCHING_DELAY)
 
             except Exception as e:
                 
@@ -3359,7 +3360,7 @@ class RealTime_2nd_MP_DataWorker(QThread):
 
                 if SLEEP_SWITCH_MODE:
                     QApplication.processEvents()
-                    time.sleep(0.000001)
+                    time.sleep(SLEEP_SWITCHING_DELAY)
 
 #####################################################################################################################################################################
 # Speaker Thread Class
@@ -3783,7 +3784,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 긴 loop를 도는 동안 GUI 응답없음을 방지하기 위함
             if i % 10 == 0:
                 QApplication.processEvents()
-                time.sleep(0.000001)
+                time.sleep(SLEEP_SWITCHING_DELAY)
                 txt = ' 옵션테이블 초기화중({0:.0f}%)...\r'.format((i / ActvalCount) * 100)
                 self.parent.statusbar.showMessage(txt)
             else:
@@ -7802,7 +7803,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
-                time.sleep(0.000001)
+                time.sleep(SLEEP_SWITCHING_DELAY)
             else:
                 pass
 
@@ -7944,7 +7945,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
-                time.sleep(0.000001)
+                time.sleep(SLEEP_SWITCHING_DELAY)
             else:
                 pass
 
@@ -8094,7 +8095,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
-                time.sleep(0.000001)
+                time.sleep(SLEEP_SWITCHING_DELAY)
             else:
                 pass
 
@@ -8247,7 +8248,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
-                time.sleep(0.000001)
+                time.sleep(SLEEP_SWITCHING_DELAY)
             else:
                 pass
 
@@ -8310,7 +8311,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
-                time.sleep(0.000001)
+                time.sleep(SLEEP_SWITCHING_DELAY)
             else:
                 pass
 
@@ -10373,7 +10374,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
-                time.sleep(0.000001)
+                time.sleep(SLEEP_SWITCHING_DELAY)
             else:
                 pass
 
@@ -10515,7 +10516,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
-                time.sleep(0.000001)
+                time.sleep(SLEEP_SWITCHING_DELAY)
             else:
                 pass
 
@@ -10665,7 +10666,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
-                time.sleep(0.000001)
+                time.sleep(SLEEP_SWITCHING_DELAY)
             else:
                 pass
 
@@ -10818,7 +10819,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
-                time.sleep(0.000001)
+                time.sleep(SLEEP_SWITCHING_DELAY)
             else:
                 pass
 
@@ -10881,7 +10882,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
-                time.sleep(0.000001)
+                time.sleep(SLEEP_SWITCHING_DELAY)
             else:
                 pass
 
@@ -12839,7 +12840,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if index_count % 10 == 0:
                     QApplication.processEvents()
-                    time.sleep(0.000001)
+                    time.sleep(SLEEP_SWITCHING_DELAY)
                 else:
                     pass
 
@@ -13900,7 +13901,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if index_count % 10 == 0:
                     QApplication.processEvents()
-                    time.sleep(0.000001)
+                    time.sleep(SLEEP_SWITCHING_DELAY)
                 else:
                     pass
 
@@ -21708,7 +21709,7 @@ class PlotUpdateWorker1(QThread):
 
             QTest.qWait(plot_update_interval)
             QApplication.processEvents()
-            time.sleep(0.000001)
+            time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker2(QThread):
 
@@ -21728,7 +21729,7 @@ class PlotUpdateWorker2(QThread):
 
             QTest.qWait(plot_update_interval)
             QApplication.processEvents()
-            time.sleep(0.000001)
+            time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker3(QThread):
 
@@ -21748,7 +21749,7 @@ class PlotUpdateWorker3(QThread):
 
             QTest.qWait(plot_update_interval)
             QApplication.processEvents()
-            time.sleep(0.000001)
+            time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker4(QThread):
 
@@ -21768,7 +21769,7 @@ class PlotUpdateWorker4(QThread):
 
             QTest.qWait(plot_update_interval)
             QApplication.processEvents()
-            time.sleep(0.000001)
+            time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker5(QThread):
 
@@ -21788,7 +21789,7 @@ class PlotUpdateWorker5(QThread):
 
             QTest.qWait(plot_update_interval)
             QApplication.processEvents()
-            time.sleep(0.000001)
+            time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker6(QThread):
 
@@ -21808,7 +21809,7 @@ class PlotUpdateWorker6(QThread):
                         
             QTest.qWait(plot_update_interval)
             QApplication.processEvents()
-            time.sleep(0.000001)
+            time.sleep(SLEEP_SWITCHING_DELAY)
 #####################################################################################################################################################################
 # Big Chart UI Class
 #####################################################################################################################################################################
@@ -22812,7 +22813,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             if i % 10 == 0:
                 QApplication.processEvents()
-                time.sleep(0.000001)
+                time.sleep(SLEEP_SWITCHING_DELAY)
                 txt = ' Plot윈도우 초기화중({0:.0f}%)...\r'.format((i / option_pairs_count) * 100)
                 self.parent.statusbar.showMessage(txt)
             else:
