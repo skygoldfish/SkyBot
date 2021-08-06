@@ -35185,9 +35185,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if szTrCode == 'OH0' or szTrCode == 'EH0':
 
             if flag_3rd_process_queue_empty:
-                self.label_3rd.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                self.label_2nd.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
             else:
-                self.label_3rd.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                self.label_2nd.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
 
             if szTrCode == 'OH0' and realdata['단축코드'][0:3] == '201':
                 txt = "{0}\n({1:.2f})".format('COH0', args_processing_time)
@@ -35200,7 +35200,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
             
-            self.label_3rd.setText(txt)
+            self.label_2nd.setText(txt)
         else:
             pass
 
