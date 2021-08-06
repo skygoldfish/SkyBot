@@ -1864,7 +1864,8 @@ flag_t8416_call_done = False
 flag_t8416_put_done = False
 
 flag_futures_update_is_running = False
-flag_option_update_is_running = False
+flag_option_tick_update_is_running = False
+flag_option_quote_update_is_running = False
 
 flag_screen_update_is_running = False
 flag_plot_update_is_running = False
@@ -2957,7 +2958,7 @@ class RealTime_1st_MP_DataWorker(QThread):
                         self.waiting_tasks = self.dataQ.qsize()
 
                         tick_type, tick_data = self.realdata
-                        print(f"\r[{datetime.now()}] 선물 TR Type : {tick_data['tr_code']}  waiting tasks : {self.waiting_tasks}", end='')
+                        print(f"\r[{datetime.now()}] 선물체결 TR Type : {tick_data['tr_code']}  waiting tasks : {self.waiting_tasks}", end='')
 
                         if CSV_FILE:
                             tick_data_lst = list(tick_data.values())
@@ -3278,7 +3279,7 @@ class RealTime_2nd_MP_DataWorker(QThread):
                     self.waiting_tasks = self.dataQ.qsize()
 
                     tick_type, tick_data = self.realdata
-                    print(f"\r[{datetime.now()}] 옵션 TR Type : {tick_data['tr_code']}  waiting tasks : {self.waiting_tasks}", end='')
+                    print(f"\r[{datetime.now()}] 옵션체결 TR Type : {tick_data['tr_code']}  waiting tasks : {self.waiting_tasks}", end='')
 
                     if CSV_FILE:
                         tick_data_lst = list(tick_data.values())
@@ -3288,7 +3289,7 @@ class RealTime_2nd_MP_DataWorker(QThread):
 
                     szTrCode = self.realdata[1]['tr_code']
 
-                    if not flag_option_update_is_running:
+                    if not flag_option_tick_update_is_running:
 
                         if szTrCode == 'OC0':
 
@@ -3395,7 +3396,7 @@ class RealTime_3rd_MP_DataWorker(QThread):
                     self.waiting_tasks = self.dataQ.qsize()
 
                     tick_type, tick_data = self.realdata
-                    print(f"\r[{datetime.now()}] 옵션 TR Type : {tick_data['tr_code']}  waiting tasks : {self.waiting_tasks}", end='')
+                    print(f"\r[{datetime.now()}] 옵션호가 TR Type : {tick_data['tr_code']}  waiting tasks : {self.waiting_tasks}", end='')
 
                     if CSV_FILE:
                         tick_data_lst = list(tick_data.values())
@@ -3405,7 +3406,7 @@ class RealTime_3rd_MP_DataWorker(QThread):
 
                     szTrCode = self.realdata[1]['tr_code']
 
-                    if not flag_option_update_is_running:
+                    if not flag_option_quote_update_is_running:
 
                         if szTrCode == 'OH0':
 
@@ -21787,7 +21788,7 @@ class PlotUpdateWorker1(QThread):
 
         while True:
 
-            if not flag_option_update_is_running:
+            if not flag_option_tick_update_is_running:
                 self.trigger.emit()
 
             if flag_plot_update_interval_changed:
@@ -21813,7 +21814,7 @@ class PlotUpdateWorker2(QThread):
 
         while True:
 
-            if not flag_option_update_is_running:
+            if not flag_option_tick_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -21833,7 +21834,7 @@ class PlotUpdateWorker3(QThread):
 
         while True:
 
-            if not flag_option_update_is_running:
+            if not flag_option_tick_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -21853,7 +21854,7 @@ class PlotUpdateWorker4(QThread):
 
         while True:
 
-            if not flag_option_update_is_running:
+            if not flag_option_tick_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -21873,7 +21874,7 @@ class PlotUpdateWorker5(QThread):
 
         while True:
 
-            if not flag_option_update_is_running:
+            if not flag_option_tick_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -21893,7 +21894,7 @@ class PlotUpdateWorker6(QThread):
 
         while True:
 
-            if not flag_option_update_is_running:
+            if not flag_option_tick_update_is_running:
                 self.trigger.emit()
                         
             QTest.qWait(plot_update_interval)
@@ -34549,9 +34550,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.second_login = False
             self.third_login = False
 
-            self.main_event_loop = QEventLoop()
-            self.second_event_loop = QEventLoop()
-            self.third_event_loop = QEventLoop()
+            #self.main_event_loop = QEventLoop()
+            #self.second_event_loop = QEventLoop()
+            #self.third_event_loop = QEventLoop()
         else:
             print('지원하지 않는 인자갯수 입니다...')
         
@@ -35287,12 +35288,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @logging_time_with_args
     def update_2nd_process(self, data):
         
-        global flag_option_update_is_running
+        global flag_option_tick_update_is_running
         
         dt = datetime.now()
 
         try:               
-            flag_option_update_is_running = True
+            flag_option_tick_update_is_running = True
 
             szTrCode = data['tr_code']
 
@@ -35312,17 +35313,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.textBrowser.append(txt)
 
         finally:
-            flag_option_update_is_running = False
+            flag_option_tick_update_is_running = False
 
     @logging_time_with_args
     def update_3rd_process(self, data):
         
-        global flag_option_update_is_running
+        global flag_option_quote_update_is_running
         
         dt = datetime.now()
 
         try:               
-            flag_option_update_is_running = True
+            flag_option_quote_update_is_running = True
 
             szTrCode = data['tr_code']
 
@@ -35341,7 +35342,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.textBrowser.append(txt)
 
         finally:
-            flag_option_update_is_running = False
+            flag_option_quote_update_is_running = False
     #####################################################################################################################################################################
     # 쓰레드방식 처리관련 함수들
     #####################################################################################################################################################################
