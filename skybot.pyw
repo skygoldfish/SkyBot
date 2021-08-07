@@ -6343,7 +6343,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
         
-        txt = '[{0:02d}:{1:02d}:{2:02d}] Heartbeat({3}), 시스템서버 시간차 = {4}초\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, system_server_time_gap)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Heartbeat({3}), 시스템서버간 시간차 = {4}초\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, system_server_time_gap)
         self.textBrowser.append(txt)       
         
         self.tableWidget_fut.resizeRowsToContents()
