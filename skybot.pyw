@@ -34925,7 +34925,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.label_1st.setText(txt)                
 
         # 1st 프로세스 실시간데이타 갱신
-        if self.dialog['선물옵션전광판'] is not None:
+        if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
             self.update_1st_process(realdata)
         else:
             pass
@@ -35014,7 +35014,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.label_2nd.setText(txt)
 
         # 2nd 프로세스 실시간데이타 갱신
-        if self.dialog['선물옵션전광판'] is not None:
+        if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
 
             self.update_2nd_process(realdata)
 
@@ -35195,7 +35195,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.label_2nd.setText(txt)
 
         # 3rd 프로세스 실시간데이타 갱신
-        if self.dialog['선물옵션전광판'] is not None:
+        if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
             self.update_3rd_process(realdata)            
         else:
             pass
@@ -35246,25 +35246,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.fc0_update(data)
             elif szTrCode == 'FH0' or szTrCode == 'NH0':
                 self.fh0_update(data)
+            elif szTrCode == 'OVC':
+                self.ovc_update(data)
+            else:
+                pass
 
+            '''
             elif szTrCode == 'OC0' or szTrCode == 'EC0':
 
                 if flag_t8416_data_receive_done:
                     self.oc0_update(data)
                 else:
                     pass
-
             elif szTrCode == 'OH0' or szTrCode == 'EH0':
 
                 if flag_t8416_data_receive_done:
                     self.oh0_update(data)
                 else:
                     pass
-
-            elif szTrCode == 'OVC':
-                self.ovc_update(data)
-            else:
-                pass
+            '''
             
         except Exception as e:
 
@@ -35284,15 +35284,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         try:               
             flag_option_tick_update_is_running = True
 
-            szTrCode = data['tr_code']
-
-            if flag_t8416_data_receive_done:
-            
-                if szTrCode == 'OC0' or szTrCode == 'EC0':
-
-                    self.oc0_update(data)
-                else:
-                    pass
+            if flag_t8416_data_receive_done:            
+                self.oc0_update(data)
             else:
                 pass
             
@@ -35314,14 +35307,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         try:               
             flag_option_quote_update_is_running = True
 
-            szTrCode = data['tr_code']
-
             if flag_t8416_data_receive_done:
-
-                if szTrCode == 'OH0' or szTrCode == 'EH0':
-                    self.oh0_update(data)
-                else:
-                    pass
+                self.oh0_update(data)
             else:
                 pass
             
@@ -35434,15 +35421,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif szTrCode == 'FC0' or szTrCode == 'NC0':
                 self.fc0_update(data)
             elif szTrCode == 'FH0' or szTrCode == 'NH0':
-                self.fh0_update(data)
-            elif szTrCode == 'OC0' or szTrCode == 'EC0':
-                self.oc0_update(data)
-            elif szTrCode == 'OH0' or szTrCode == 'EH0':
-                self.oh0_update(data)
+                self.fh0_update(data)            
             elif szTrCode == 'OVC':
                 self.ovc_update(data)
             else:
                 pass
+            '''
+            elif szTrCode == 'OC0' or szTrCode == 'EC0':
+                self.oc0_update(data)
+            elif szTrCode == 'OH0' or szTrCode == 'EH0':
+                self.oh0_update(data)
+            '''
+            
         else:
             pass
 
