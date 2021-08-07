@@ -34383,16 +34383,7 @@ class Xing(object):
                 pass            
             
             self.caller.statusbar.showMessage("메인 로그인 성공 !!!")
-            #playsound( "Resources/ring.wav" )
-
-            # 지수선물 마스터조회 API용
-            #self.XQ_t8432.Query()
-
-            if TTS:
-                #self.caller.speaker.setText('메인 로그인 성공')
-                pass
-            else:
-                pass
+            #playsound( "Resources/ring.wav" )            
             
             if not self.caller.mp_mode and AUTO_START:
 
@@ -34732,14 +34723,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             txt = '1st 백그라운드 프로세스 로그인 성공 !!!\r'
             self.textBrowser.append(txt)
             
-            self.statusbar.showMessage(trdata[3] + ' ' + trdata[2])
-
-            if TTS:
-                #Speak('First 프로세스 로그인 성공')
-                #self.speaker.setText('선물 프로세스 로그인 성공')
-                pass
-            else:
-                pass            
+            self.statusbar.showMessage(trdata[3] + ' ' + trdata[2])          
 
             # 버티칼 스크롤바를 항상 bottom으로...
             self.textBrowser.verticalScrollBar().setValue(self.textBrowser.verticalScrollBar().maximum())
@@ -34942,12 +34926,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.statusbar.showMessage(trdata[3] + ' ' + trdata[2])
 
-            if TTS:
-                #Speak('Second 프로세스 로그인 성공')
-                #self.speaker.setText('세컨드 프로세스 로그인 성공')
-                pass
-            else:
-                pass
         elif trdata[0] == 'login' and trdata[1] != '0000':
 
             txt = '2nd 로그인 실패({0})!  다시 로그인하세요...'.format(trdata[0])
@@ -35114,13 +35092,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.textBrowser.append(txt)
 
             self.statusbar.showMessage(trdata[3] + ' ' + trdata[2])
-
-            if TTS:
-                #Speak('Third 프로세스 로그인 성공')
-                #self.speaker.setText('써드 프로세스 로그인 성공')
-                pass
-            else:
-                pass
+            
         elif trdata[0] == 'login' and trdata[1] != '0000':
 
             txt = '3rd 로그인 실패({0})!  다시 로그인하세요...'.format(trdata[0])
