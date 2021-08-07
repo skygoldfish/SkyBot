@@ -34814,11 +34814,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 print('선물_종가 =', 선물_종가)
             else:
                 pass
-
-        elif trdata[0] == 'quote':
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션호가 요청리스트 = {3}\r'.format(dt.hour, dt.minute, dt.second, trdata)
-            self.textBrowser.append(txt)            
             
         elif trdata[0] == 't0167':
 
@@ -34957,6 +34952,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             txt = '2nd 로그인 실패({0})!  다시 로그인하세요...'.format(trdata[0])
             self.statusbar.showMessage(txt)
+        else:
+            pass
 
     @pyqtSlot(dict)
     def transfer_mp_2nd_realdata(self, realdata):
