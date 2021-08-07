@@ -34905,7 +34905,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-            drop_txt = '{0}({1}), {2}({3})/{4}({5}k), {6}, [{7:.1f}%]'.format(format(main_dropcount, ','), format(main_sys_dropcount, ','), format(second_dropcount, ','), format(second_sys_dropcount, ','), \
+            drop_txt = '{0}({1})/{2}({3}k), {4}, [{5:.1f}%]'.format(format(main_dropcount, ','), format(main_sys_dropcount, ','), \
                 format(totalcount, ','), format(int(totalsize/1000), ','), format(total_waiting_count, ','), drop_percent)
             
             txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
@@ -34982,8 +34982,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        drop_txt = '{0}({1}), {2}({3})/{4}({5}k), {6}, [{7:.1f}%]'.format(format(main_dropcount, ','), format(main_sys_dropcount, ','), format(second_dropcount, ','), format(second_sys_dropcount, ','), \
-            format(totalcount, ','), format(int(totalsize/1000), ','), format(total_waiting_count, ','), drop_percent)
+        drop_txt = '{0}({1})/{2}({3}k), {4}, [{5:.1f}%]'.format(format(second_dropcount, ','), format(second_sys_dropcount, ','), \
+                format(totalcount, ','), format(int(totalsize/1000), ','), format(total_waiting_count, ','), drop_percent)
         
         txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
             dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
@@ -35163,8 +35163,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        drop_txt = '{0}({1}), {2}({3})/{4}({5}k), {6}, [{7:.1f}%]'.format(format(main_dropcount, ','), format(main_sys_dropcount, ','), format(second_dropcount, ','), format(second_sys_dropcount, ','), \
-            format(totalcount, ','), format(int(totalsize/1000), ','), format(total_waiting_count, ','), drop_percent)
+        drop_txt = '{0}({1})/{2}({3}k), {4}, [{5:.1f}%]'.format(format(third_dropcount, ','), format(third_sys_dropcount, ','), \
+                format(totalcount, ','), format(int(totalsize/1000), ','), format(total_waiting_count, ','), drop_percent)
         
         txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
             dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
