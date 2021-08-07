@@ -21808,7 +21808,7 @@ class PlotUpdateWorker1(QThread):
                 pass
 
             QTest.qWait(plot_update_interval)
-            QApplication.processEvents()
+            #QApplication.processEvents()
             time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker2(QThread):
@@ -21828,7 +21828,7 @@ class PlotUpdateWorker2(QThread):
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
-            QApplication.processEvents()
+            #QApplication.processEvents()
             time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker3(QThread):
@@ -21848,7 +21848,7 @@ class PlotUpdateWorker3(QThread):
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
-            QApplication.processEvents()
+            #QApplication.processEvents()
             time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker4(QThread):
@@ -21868,7 +21868,7 @@ class PlotUpdateWorker4(QThread):
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
-            QApplication.processEvents()
+            #QApplication.processEvents()
             time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker5(QThread):
@@ -21888,7 +21888,7 @@ class PlotUpdateWorker5(QThread):
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
-            QApplication.processEvents()
+            #QApplication.processEvents()
             time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker6(QThread):
@@ -21908,7 +21908,7 @@ class PlotUpdateWorker6(QThread):
                 self.trigger.emit()
                         
             QTest.qWait(plot_update_interval)
-            QApplication.processEvents()
+            #QApplication.processEvents()
             time.sleep(SLEEP_SWITCHING_DELAY)
 #####################################################################################################################################################################
 # Big Chart UI Class
@@ -22975,27 +22975,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         # 그리기 쓰레드
         self.plot_update_worker1 = PlotUpdateWorker1()
         self.plot_update_worker1.trigger.connect(self.update_plot1)
-        #self.plot_update_worker1.start()
 
         self.plot_update_worker2 = PlotUpdateWorker2()
         self.plot_update_worker2.trigger.connect(self.update_plot2)
-        #self.plot_update_worker2.start()
 
         self.plot_update_worker3 = PlotUpdateWorker3()
         self.plot_update_worker3.trigger.connect(self.update_plot3)
-        #self.plot_update_worker3.start()
 
         self.plot_update_worker4 = PlotUpdateWorker4()
         self.plot_update_worker4.trigger.connect(self.update_plot4)
-        #self.plot_update_worker4.start()
 
         self.plot_update_worker5 = PlotUpdateWorker5()
         self.plot_update_worker5.trigger.connect(self.update_plot5)
-        #self.plot_update_worker5.start()
 
         self.plot_update_worker6 = PlotUpdateWorker6()
         self.plot_update_worker6.trigger.connect(self.update_plot6)
-        #self.plot_update_worker6.start()
 
         end_time = timeit.default_timer()
         processing_time = (end_time - start_time) * 1000
