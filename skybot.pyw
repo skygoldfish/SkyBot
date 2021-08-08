@@ -40,7 +40,8 @@ from collections import Counter
 from PIL import Image
 from configparser import ConfigParser
 import pyautogui
-from playsound import playsound
+#from playsound import playsound
+import winsound
 import socket
 import talib
 from talib import MA_Type
@@ -4199,13 +4200,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     @pyqtSlot()
     def start_button_clicked(self):
 
-        playsound('Resources/click.wav')
+        #playsound('.\Resources\click.wav')
+        #winsound.PlaySound('.\Resources\click.wav', winsound.SND_FILENAME)
+        winsound.PlaySound('Resources/click.wav', winsound.SND_FILENAME)
         self.RunCode()
 
     @pyqtSlot()
     def telegram_button_clicked(self):
 
-        playsound('Resources/click.wav')
+        #playsound('Resources/click.wav')
+        winsound.PlaySound('Resources/click.wav', winsound.SND_FILENAME)
         self.RunTelegram()
     
     ## list에서 i번째 아이템을 리턴한다.
@@ -18658,7 +18662,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 새로운 상방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_up_count)
                     print(txt)
 
-                    playsound( "Resources/doorbell.wav" )                    
+                    #playsound( "Resources/doorbell.wav" )
+                    winsound.PlaySound('Resources/doorbell.wav', winsound.SND_FILENAME)                    
 
                     # 추가된 행사가 갯수 표시
                     item_txt = '(+' + '{0:d})'.format(new_actval_up_count) + '\n' + '{0:d}'.format(real_option_pairs_count)
@@ -18692,7 +18697,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 새로운 하방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_down_count)
                     print(txt)
 
-                    playsound( "Resources/doorbell.wav" )  
+                    #playsound( "Resources/doorbell.wav" )  
+                    winsound.PlaySound('Resources/doorbell.wav', winsound.SND_FILENAME)
 
                     # 추가된 행사가 갯수 표시
                     item_txt =  '{0:d}'.format(real_option_pairs_count) + '\n' + '(+' + '{0:d})'.format(new_actval_down_count)
@@ -20509,7 +20515,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if TTS and not flag_t8416_rerequest:
             QTest.qWait(1000)
-            playsound( "Resources/doorbell.wav" )
+            #playsound( "Resources/doorbell.wav" )
+            winsound.PlaySound('Resources/doorbell.wav', winsound.SND_FILENAME)
             QTest.qWait(1000)
         else:
             pass
@@ -34695,7 +34702,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         flag_drop_reset1 = True
         flag_drop_reset2 = True
 
-        playsound('Resources/click.wav')
+        #playsound('Resources/click.wav')
+        winsound.PlaySound('Resources/click.wav', winsound.SND_FILENAME)
     
     #####################################################################################################################################################################
     # 멀티프로세스방식 처리관련 함수들
@@ -34708,7 +34716,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         txt = '[{0:02d}:{1:02d}:{2:02d}] {3} 멀티프로세스 큐 쓰레드에서 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, str, error)
         self.textBrowser.append(txt)
 
-        playsound('Resources/notify.wav')
+        #playsound('Resources/notify.wav')
+        winsound.PlaySound('Resources/notify.wav', winsound.SND_FILENAME)
 
     @pyqtSlot(list)
     def transfer_mp_1st_trdata(self, trdata):
@@ -35299,7 +35308,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         txt = '[{0:02d}:{1:02d}:{2:02d}] {3} 큐 쓰레드에서 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, str, error)
         self.textBrowser.append(txt)
 
-        playsound('Resources/notify.wav')
+        #playsound('Resources/notify.wav')
+        winsound.PlaySound('Resources/notify.wav', winsound.SND_FILENAME)
 
     @pyqtSlot(dict)
     def transfer_thread_realdata(self, data):
@@ -35470,7 +35480,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
 
             if TTS and TARGET_MONTH == 'CM':
-                playsound( "Resources/doorbell.wav" )
+                #playsound( "Resources/doorbell.wav" )
+                winsound.PlaySound('Resources/doorbell.wav', winsound.SND_FILENAME)
             else:
                 pass
 
