@@ -1957,6 +1957,7 @@ flag_periodic_plot_mode = False
 
 flag_drop_reset1 = False
 flag_drop_reset2 = False
+flag_drop_reset3 = False
 
 view_time_tolerance = TIME_TOLERANCE
 
@@ -3374,7 +3375,7 @@ class RealTime_3rd_MP_DataWorker(QThread):
 
     def run(self):
 
-        global flag_3rd_process_queue_empty, flag_drop_reset2
+        global flag_3rd_process_queue_empty, flag_drop_reset3
 
         while True:
 
@@ -3390,11 +3391,11 @@ class RealTime_3rd_MP_DataWorker(QThread):
                 self.total_count += 1                    
                 self.total_packet_size += sys.getsizeof(self.realdata)
 
-                if flag_drop_reset2:
+                if flag_drop_reset3:
                     self.drop_count = 0
                     self.sys_drop_count = 0
                     self.total_count = 0
-                    flag_drop_reset2 = False
+                    flag_drop_reset3 = False
                 else:
                     pass
 
@@ -34582,7 +34583,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.label_2nd.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
                                     color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
-        self.label_2nd.setText('2nd\nQueue')
+        self.label_2nd.setText('2nd\n3rd\nQueue')
 
         self.label_3rd.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
                                     color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
@@ -34697,10 +34698,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @pyqtSlot()
     def reset_button_clicked(self):
 
-        global flag_drop_reset1, flag_drop_reset2
+        global flag_drop_reset1, flag_drop_reset2, flag_drop_reset3
 
         flag_drop_reset1 = True
         flag_drop_reset2 = True
+        flag_drop_reset3 = True
 
         #playsound('Resources/click.wav')
         winsound.PlaySound('Resources/click.wav', winsound.SND_FILENAME)
