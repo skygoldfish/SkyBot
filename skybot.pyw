@@ -3107,7 +3107,7 @@ class RealTime_1st_MP_DataWorker(QThread):
 
                                 if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
                                     self.trigger_dict.emit(self.realdata[1])
-                                else:
+                                else: 
                                     self.drop_count += 1
                                     self.fh0_drop_count += 1
                                     print('FH0 drop count = {0}'.format(self.fh0_drop_count))
@@ -3301,35 +3301,25 @@ class RealTime_2nd_MP_DataWorker(QThread):
                     #if not flag_option_tick_update_is_running:
                     if True:
 
-                        if szTrCode == 'OC0':
+                        self.total_option_packet_size += sys.getsizeof(self.realdata[1])
 
-                            self.total_option_packet_size += sys.getsizeof(self.realdata[1])
+                        realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                        realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                        realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
-                            realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                            realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                            realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+                        if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
+                            self.trigger_dict.emit(self.realdata[1])
+                        else:
+                            self.drop_count += 1
 
-                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                self.trigger_dict.emit(self.realdata[1])
-                            else:
-                                self.drop_count += 1
+                            if szTrCode == 'OC0':
                                 print('OC0 drop count = {0}'.format(self.drop_count))
-
-                        elif szTrCode == 'EC0':
-
-                            realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                            realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                            realtime_sec = int(self.realdata[1]['수신시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                self.trigger_dict.emit(self.realdata[1])
-                            else:
-                                self.drop_count += 1
+                            elif szTrCode == 'EC0':                                
                                 print('ECO drop count = {0}'.format(self.drop_count))
+                            else:
+                                pass
                     else:
                         self.sys_drop_count += 1                
                 else:
