@@ -3042,7 +3042,33 @@ class RealTime_1st_MP_DataWorker(QThread):
                                 else:
                                     self.drop_count += 1
 
-                            elif szTrCode == 'OVC':
+                            elif szTrCode == 'IJ_':
+
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+
+                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
+                                    self.trigger_dict.emit(self.realdata[1])
+                                else:
+                                    self.drop_count += 1                            
+
+                            elif szTrCode == 'S3_':
+
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+
+                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
+                                    self.trigger_dict.emit(self.realdata[1])
+                                else:
+                                    self.drop_count += 1                            
+                            
+                            elif szTrCode == 'FC0':
 
                                 realtime_hour = int(self.realdata[1]['수신시간'][0:2])
                                 realtime_min = int(self.realdata[1]['수신시간'][2:4])
@@ -3054,7 +3080,20 @@ class RealTime_1st_MP_DataWorker(QThread):
                                     self.trigger_dict.emit(self.realdata[1])
                                 else:
                                     self.drop_count += 1
-                                    print('OVC drop count = {0}'.format(self.drop_count))
+                                    print('FC0 drop count = {0}'.format(self.drop_count))
+
+                            elif szTrCode == 'NC0':
+
+                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+
+                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
+                                    self.trigger_dict.emit(self.realdata[1])
+                                else:
+                                    self.drop_count += 1
 
                             elif szTrCode == 'FH0':
 
@@ -3086,7 +3125,7 @@ class RealTime_1st_MP_DataWorker(QThread):
                                 else:
                                     self.drop_count += 1
 
-                            elif szTrCode == 'FC0':
+                            elif szTrCode == 'OVC':
 
                                 realtime_hour = int(self.realdata[1]['수신시간'][0:2])
                                 realtime_min = int(self.realdata[1]['수신시간'][2:4])
@@ -3098,46 +3137,7 @@ class RealTime_1st_MP_DataWorker(QThread):
                                     self.trigger_dict.emit(self.realdata[1])
                                 else:
                                     self.drop_count += 1
-                                    print('FC0 drop count = {0}'.format(self.drop_count))
-
-                            elif szTrCode == 'NC0':
-
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata[1])
-                                else:
-                                    self.drop_count += 1
-
-                            elif szTrCode == 'IJ_':
-
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata[1])
-                                else:
-                                    self.drop_count += 1                            
-
-                            elif szTrCode == 'S3_':
-
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata[1])
-                                else:
-                                    self.drop_count += 1
+                                    print('OVC drop count = {0}'.format(self.drop_count))                            
                             else:
                                 pass
 
@@ -3887,11 +3887,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.resizeColumnToContents(j + 1)
 
             # 긴 loop를 도는 동안 GUI 응답없음을 방지하기 위함
-            if i % 10 == 0:
-                QApplication.processEvents()
-                time.sleep(SLEEP_SWITCHING_DELAY)
+            if i % 10 == 0:                
                 txt = ' 옵션테이블 초기화중({0:.0f}%)...\r'.format((i / ActvalCount) * 100)
                 self.parent.statusbar.showMessage(txt)
+                QApplication.processEvents()
+                time.sleep(SLEEP_SWITCHING_DELAY)
             else:
                 pass
 
@@ -5353,8 +5353,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message is {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, telegram_command)
                         self.textBrowser.append(txt)
                 else:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message is None\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
-                    self.textBrowser.append(txt)                
+                    pass
+                    #txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message is None\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    #self.textBrowser.append(txt)                
             else:
                 pass
         except:
@@ -21819,7 +21820,7 @@ class PlotUpdateWorker1(QThread):
                 pass
 
             QTest.qWait(plot_update_interval)
-            #QApplication.processEvents()
+            QApplication.processEvents()
             time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker2(QThread):
@@ -21839,7 +21840,7 @@ class PlotUpdateWorker2(QThread):
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
-            #QApplication.processEvents()
+            QApplication.processEvents()
             time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker3(QThread):
@@ -21859,7 +21860,7 @@ class PlotUpdateWorker3(QThread):
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
-            #QApplication.processEvents()
+            QApplication.processEvents()
             time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker4(QThread):
@@ -21879,7 +21880,7 @@ class PlotUpdateWorker4(QThread):
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
-            #QApplication.processEvents()
+            QApplication.processEvents()
             time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker5(QThread):
@@ -21899,7 +21900,7 @@ class PlotUpdateWorker5(QThread):
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
-            #QApplication.processEvents()
+            QApplication.processEvents()
             time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker6(QThread):
@@ -21919,7 +21920,7 @@ class PlotUpdateWorker6(QThread):
                 self.trigger.emit()
                         
             QTest.qWait(plot_update_interval)
-            #QApplication.processEvents()
+            QApplication.processEvents()
             time.sleep(SLEEP_SWITCHING_DELAY)
 #####################################################################################################################################################################
 # Big Chart UI Class
@@ -22922,11 +22923,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot6_call_curve.append(self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
             self.plot6_put_curve.append(self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
 
-            if i % 10 == 0:
-                QApplication.processEvents()
-                time.sleep(SLEEP_SWITCHING_DELAY)
+            if i % 10 == 0:                
                 txt = ' Plot윈도우 초기화중({0:.0f}%)...\r'.format((i / option_pairs_count) * 100)
                 self.parent.statusbar.showMessage(txt)
+                QApplication.processEvents()
+                time.sleep(SLEEP_SWITCHING_DELAY)
             else:
                 pass
 
