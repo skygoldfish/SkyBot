@@ -21810,7 +21810,7 @@ class PlotUpdateWorker1(QThread):
                 pass
 
             QTest.qWait(plot_update_interval)
-            #QApplication.processEvents()
+            QApplication.processEvents()
             time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker2(QThread):
@@ -21830,7 +21830,7 @@ class PlotUpdateWorker2(QThread):
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
-            #QApplication.processEvents()
+            QApplication.processEvents()
             time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker3(QThread):
@@ -21850,7 +21850,7 @@ class PlotUpdateWorker3(QThread):
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
-            #QApplication.processEvents()
+            QApplication.processEvents()
             time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker4(QThread):
@@ -21870,7 +21870,7 @@ class PlotUpdateWorker4(QThread):
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
-            #QApplication.processEvents()
+            QApplication.processEvents()
             time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker5(QThread):
@@ -21890,7 +21890,7 @@ class PlotUpdateWorker5(QThread):
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
-            #QApplication.processEvents()
+            QApplication.processEvents()
             time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker6(QThread):
@@ -21910,7 +21910,7 @@ class PlotUpdateWorker6(QThread):
                 self.trigger.emit()
                         
             QTest.qWait(plot_update_interval)
-            #QApplication.processEvents()
+            QApplication.processEvents()
             time.sleep(SLEEP_SWITCHING_DELAY)
 #####################################################################################################################################################################
 # Big Chart UI Class
