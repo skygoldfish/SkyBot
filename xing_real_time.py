@@ -1,8 +1,8 @@
 from multiprocessing import Queue
 import win32com.client
 
-from mp.xing_config import *
-from mp.xing_event_handler import *
+from xing_config import *
+from xing_event_handler import *
 
 class RealTimeAbs:
 

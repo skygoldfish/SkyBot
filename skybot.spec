@@ -6,10 +6,10 @@ import sys
 sys.setrecursionlimit(5000)
 
 a = Analysis(['SkyBot.pyw'],
-             pathex=['D:\\SkyBot'],
+             pathex=['_dllFiles', 'D:\\SkyBot'],
              binaries=[],
              datas=[],
-             hiddenimports=[],
+             hiddenimports=['talib.stream'],
              hookspath=[],
              runtime_hooks=[],
              excludes=[],

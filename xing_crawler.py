@@ -6,10 +6,10 @@ import multiprocessing as mp
 from multiprocessing import Queue
 from configparser import ConfigParser
 
-from mp.xing_config import *
-from mp.xing_api import *
-from mp.xing_utils import * 
-from mp.xing_real_time import *
+from xing_config import *
+from xing_api import *
+from xing_utils import * 
+from xing_real_time import *
 
 make_dir(TICKER_DATA_FOLDER_PATH)
 TODAY = datetime.today().strftime("%Y-%m-%d")

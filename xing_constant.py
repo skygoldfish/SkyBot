@@ -1,6 +1,6 @@
 from enum import Enum
 
-from mp.xing_config import *
+from xing_config import *
 
 class DataType(Enum):
 

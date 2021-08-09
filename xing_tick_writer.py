@@ -3,11 +3,10 @@ from typing import Tuple
 import io
 import win32file
 
-from mp.xing_config import *
-from mp.xing_crawler import *
-from mp.xing_utils import * 
-from mp.xing_constant import *
-
+from xing_config import *
+from xing_crawler import *
+from xing_utils import * 
+from xing_constant import *
 
 if not BUNDLE_BY_MARKET:
     win32file._setmaxstdio(1024 * 8)

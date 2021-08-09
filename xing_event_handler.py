@@ -1,7 +1,7 @@
 import time
 from datetime import datetime
 
-from mp.xing_constant import *
+from xing_constant import *
 
 class XASessionEventHandler:
 

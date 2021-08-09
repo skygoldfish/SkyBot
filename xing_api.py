@@ -4,7 +4,7 @@ import pythoncom
 import pandas as pd
 from configparser import ConfigParser
 
-from mp.xing_event_handler import *
+from xing_event_handler import *
 
 # Configuration Parser
 parser = ConfigParser()

@@ -83,7 +83,7 @@ from XAReals import *
 from Utils import *
 #from FileWatcher import *
        
-from mp.xing_tick_writer import * 
+from xing_tick_writer import * 
 
 # 4k 해상도 대응
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
