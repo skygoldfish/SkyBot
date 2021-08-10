@@ -3137,7 +3137,7 @@ class RealTime_1st_MP_DataWorker(QThread):
                                     self.trigger_dict.emit(self.realdata[1])
                                 else:
                                     self.drop_count += 1
-                                    print('OVC drop count = {0}'.format(self.drop_count))                            
+                                    print('Systime = {0}, System_Server_Time_Gap = {1}, OVC realtime = {2}'.format(systime, system_server_time_gap, realtime))                            
                             else:
                                 pass
 
@@ -3315,9 +3315,9 @@ class RealTime_2nd_MP_DataWorker(QThread):
                             self.drop_count += 1
 
                             if szTrCode == 'OC0':
-                                print('OC0 drop count = {0}'.format(self.drop_count))
+                                print('Systime = {0}, System_Server_Time_Gap = {1}, OC0 realtime = {2}'.format(systime, system_server_time_gap, realtime))
                             elif szTrCode == 'EC0':                                
-                                print('ECO drop count = {0}'.format(self.drop_count))
+                                print('Systime = {0}, System_Server_Time_Gap = {1}, EC0 realtime = {2}'.format(systime, system_server_time_gap, realtime))
                             else:
                                 pass
                     else:
@@ -3425,7 +3425,7 @@ class RealTime_3rd_MP_DataWorker(QThread):
                                 self.trigger_dict.emit(self.realdata[1])
                             else:
                                 self.drop_count += 1
-                                print('OH0 drop count = {0}'.format(self.drop_count))
+                                print('Systime = {0}, System_Server_Time_Gap = {1}, OH0 realtime = {2}'.format(systime, system_server_time_gap, realtime))
 
                         elif szTrCode == 'EH0':
 
@@ -3443,7 +3443,7 @@ class RealTime_3rd_MP_DataWorker(QThread):
                                 self.trigger_dict.emit(self.realdata[1])
                             else:
                                 self.drop_count += 1
-                                print('EHO drop count = {0}'.format(self.drop_count))
+                                print('Systime = {0}, System_Server_Time_Gap = {1}, EH0 realtime = {2}'.format(systime, system_server_time_gap, realtime))
                         else:
                             pass
                     else:
