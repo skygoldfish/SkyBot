@@ -39132,9 +39132,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.realtime_2nd_dataworker.terminate()
                     self.realtime_3rd_dataworker.terminate()
                 else:
-                    pass
-
-                self.xing.main_connection.disconnect()                
+                    pass                               
             else:
                 pass
 
@@ -39150,6 +39148,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
 
             self.xing.clock.stop()
+            self.xing.main_connection.disconnect() 
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] Main Window를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
