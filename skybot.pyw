@@ -1953,7 +1953,7 @@ schedule_min = 0
 schedule_sec = 0
 
 flag_plot_first_mode = PLOT_FIRST
-flag_periodic_plot_mode = False
+flag_periodic_plot_mode = PLOT_FIRST
 
 flag_drop_reset1 = False
 flag_drop_reset2 = False
@@ -3647,6 +3647,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.pushButton_telegram.clicked.connect(self.telegram_button_clicked)
 
         self.checkBox_NM.setText('PF')
+        self.checkBox_NM.setChecked(flag_periodic_plot_mode)
         
         # label_main_time, label_atm 관련 setFont 추후 검토필요!!!
         self.label_main_time.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
