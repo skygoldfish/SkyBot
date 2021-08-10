@@ -4,9 +4,13 @@ import io
 import win32file
 
 from xing_config import *
-from xing_crawler import *
 from xing_utils import * 
 from xing_constant import *
+
+#from xing_crawler import *
+from xing_futures_crawler import *
+from xing_option_tick_crawler import *
+from xing_option_quote_crawler import *
 
 if not BUNDLE_BY_MARKET:
     win32file._setmaxstdio(1024 * 8)

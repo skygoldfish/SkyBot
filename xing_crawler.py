@@ -65,6 +65,7 @@ else:
     is_real_server = False
     config = {"id": ID, "password": PWD, "cert_password": "0"}
 
+'''
 def stock_crawler(queue: Queue, kospi_quote=True, kospi_tick=True, kosdaq_quote=True, kosdaq_tick=True):
 
     result = XingAPI.login(config["id"], config["password"], config["cert_password"], is_real_server)
@@ -115,9 +116,10 @@ def stock_crawler(queue: Queue, kospi_quote=True, kospi_tick=True, kosdaq_quote=
                 time.sleep(SLEEP_SWITCHING_DELAY)
     else:
         pass
+'''
 
 # 여기에서 JIF, IJ, OVC, BM, PM등을 함께 요청
-def index_futures_crawler(queue: Queue, index_futures_quote=True, index_futures_tick=True):
+def futures_crawler(queue: Queue, index_futures_quote=True, index_futures_tick=True):
 
     proc = mp.current_process()
     print(f'\r지수선물 Process Name = {proc.name}, Process ID = {proc.pid}')
@@ -218,7 +220,7 @@ def index_futures_crawler(queue: Queue, index_futures_quote=True, index_futures_
     else:
         pass
 
-def index_option_tick_crawler(queue: Queue, index_option_cm_tick=False, index_option_nm_tick=False):
+def option_tick_crawler(queue: Queue, index_option_cm_tick=False, index_option_nm_tick=False):
 
     proc = mp.current_process()
     print(f'\r지수옵션 체결 Process Name = {proc.name}, Process ID = {proc.pid}')
@@ -276,7 +278,7 @@ def index_option_tick_crawler(queue: Queue, index_option_cm_tick=False, index_op
     else:
         pass
 
-def index_option_quote_crawler(queue: Queue, quote_request_number=5, index_option_cm_quote=False, index_option_nm_quote=False):
+def option_quote_crawler(queue: Queue, quote_request_number=5, index_option_cm_quote=False, index_option_nm_quote=False):
 
     proc = mp.current_process()
     print(f'\r지수옵션 호가 Process Name = {proc.name}, Process ID = {proc.pid}')

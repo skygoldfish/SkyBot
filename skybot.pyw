@@ -39240,13 +39240,13 @@ if __name__ == "__main__":
         else:
             quote_number = QUOTE_REQUEST_NUMBER
         
-        index_futures_process = Process(target=index_futures_crawler, args=(futuresQ, INDEX_FUTURES_QUOTE, INDEX_FUTURES_TICK), daemon=True)
-        index_option_tick_process = Process(target=index_option_tick_crawler, args=(option_tickQ, INDEX_OPTION_CM_TICK, INDEX_OPTION_NM_TICK), daemon=True)
-        index_option_quote_process = Process(target=index_option_quote_crawler, args=(option_quoteQ, quote_number, INDEX_OPTION_CM_QUOTE, INDEX_OPTION_NM_QUOTE), daemon=True)
+        futures_process = Process(target=futures_crawler, args=(futuresQ, INDEX_FUTURES_QUOTE, INDEX_FUTURES_TICK), daemon=True)
+        option_tick_process = Process(target=option_tick_crawler, args=(option_tickQ, INDEX_OPTION_CM_TICK, INDEX_OPTION_NM_TICK), daemon=True)
+        option_quote_process = Process(target=option_quote_crawler, args=(option_quoteQ, quote_number, INDEX_OPTION_CM_QUOTE, INDEX_OPTION_NM_QUOTE), daemon=True)
 
-        index_futures_process.start()
-        index_option_tick_process.start()
-        index_option_quote_process.start()
+        futures_process.start()
+        option_tick_process.start()
+        option_quote_process.start()
     else:
         pass
     
