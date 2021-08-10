@@ -39112,9 +39112,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if MULTIPROCESS and flag_internet:                
 
-                index_futures_process.terminate()
-                index_option_tick_process.terminate()
-                index_option_quote_process.terminate()
+                futures_process.terminate()
+                option_tick_process.terminate()
+                option_quote_process.terminate()
 
                 QTest.qWait(10)
 
