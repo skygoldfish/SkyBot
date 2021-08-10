@@ -39148,17 +39148,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
 
             self.xing.clock.stop()
-            self.xing.main_connection.disconnect() 
+            self.xing.main_connection.disconnect()
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Main Window를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(txt)
-            print(txt)
-            
             if self.speaker.isRunning():
                 self.speaker.terminate()
                 print('TTS Speaker is terminated at Main Window...')
             else:
                 pass
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Main Window를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+            print(txt)            
 
             self.close()
         else:
