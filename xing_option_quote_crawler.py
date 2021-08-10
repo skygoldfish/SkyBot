@@ -21,26 +21,8 @@ parser = ConfigParser()
 parser.read('.\skybot.ini')
 
 REAL_SERVER = parser.getboolean('Server Type', 'Real Server')
-SLEEP_SWITCH_MODE = parser.getboolean('User Switch', 'MP Sleep Switching Mode')
-SLEEP_SWITCHING_DELAY = parser.getfloat('Initial Value', 'MP Sleep Switching Delay')
 OPTION_SLEEP_SWITCH_MODE = parser.getboolean('User Switch', 'MP Option Sleep Switching Mode')
 OPTION_SLEEP_SWITCHING_DELAY = parser.getfloat('Initial Value', 'MP Option Sleep Switching Delay')
-
-SP500 = parser.get('Code of the Foreign Futures', 'S&P 500')
-DOW = parser.get('Code of the Foreign Futures', 'DOW')
-NASDAQ = parser.get('Code of the Foreign Futures', 'NASDAQ')
-WTI = parser.get('Code of the Foreign Futures', 'WTI')
-EUROFX = parser.get('Code of the Foreign Futures', 'EUROFX')
-HANGSENG = parser.get('Code of the Foreign Futures', 'HANGSENG')
-GOLD = parser.get('Code of the Foreign Futures', 'GOLD')
-
-KOSPI = '001'
-KOSPI200 = '101'
-KOSDAQ = '301'
-FUTURES = '900'
-
-SAMSUNG = '005930'
-HYUNDAI = '005380'
 
 계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})
 
@@ -93,7 +75,6 @@ def option_quote_crawler(queue: Queue, quote_request_number=5, index_option_cm_q
     
         # ################################# 지수옵션 ##################################################################
         listed_code_df, cm_call_code_list, cm_put_code_list, nm_call_code_list, nm_put_code_list = XingAPI.get_index_option_listed_code_list()
-        #listed_code_df.to_csv(f"{TODAY_PATH}/index_option_listed_code.csv", encoding='utf-8-sig')
     
         cm_call_atm_str = cm_call_code_list[0][0:5] + atm_txt
         cm_put_atm_str =  cm_put_code_list[0][0:5] + atm_txt
@@ -105,11 +86,7 @@ def option_quote_crawler(queue: Queue, quote_request_number=5, index_option_cm_q
         cm_put_atm_index = cm_put_code_list.index(cm_put_atm_str)
         nm_call_atm_index = nm_call_code_list.index(nm_call_atm_str)
         nm_put_atm_index = nm_put_code_list.index(nm_put_atm_str)
-        
-        #print(f'{cm_call_atm_str}({cm_call_atm_index}), {cm_put_atm_str}({cm_put_atm_index})')
-        #print(f'{nm_call_atm_str}({nm_call_atm_index}), {nm_put_atm_str}({nm_put_atm_index})')
-        #print(cm_call_code_list[cm_call_atm_index])
-    
+
         cm_call_atm_list = []
         nm_call_atm_list = []
     
@@ -124,9 +101,6 @@ def option_quote_crawler(queue: Queue, quote_request_number=5, index_option_cm_q
             cm_call_atm_list.append(cm_call_code_list[cm_call_atm_index+i+1])
             nm_call_atm_list.append(nm_call_code_list[nm_call_atm_index+i+1])
     
-        #print(cm_call_atm_list)
-        #print(nm_call_atm_list)
-    
         cm_put_atm_list = []
         nm_put_atm_list = []
     
@@ -140,9 +114,6 @@ def option_quote_crawler(queue: Queue, quote_request_number=5, index_option_cm_q
         for i in range(quote_request_number):
             cm_put_atm_list.append(cm_put_code_list[cm_put_atm_index+i+1])
             nm_put_atm_list.append(nm_put_code_list[nm_put_atm_index+i+1])
-    
-        #print(cm_put_atm_list)
-        #print(nm_put_atm_list)
     
         cm_opt_quote_list = cm_call_atm_list + cm_put_atm_list
         nm_opt_quote_list = nm_call_atm_list + nm_put_atm_list
