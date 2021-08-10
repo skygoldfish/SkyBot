@@ -39111,7 +39111,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             logger.info("*************************************************************************************************************************")
             logger.info("LOG STOP")
 
-            if MULTIPROCESS and flag_internet:                
+            if MULTIPROCESS and flag_internet:                               
 
                 futures_process.terminate()
                 option_tick_process.terminate()
@@ -39132,7 +39132,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.realtime_2nd_dataworker.terminate()
                     self.realtime_3rd_dataworker.terminate()
                 else:
-                    pass                
+                    pass
+
+                self.xing.main_connection.disconnect()                
             else:
                 pass
 
