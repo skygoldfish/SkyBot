@@ -349,6 +349,7 @@ OPTION_SIZE = parser.getboolean('User Switch', 'Option Total Size')
 SLEEP_SWITCH_MODE = parser.getboolean('User Switch', 'Sleep Switching Mode')
 
 # [6]. << Real Time Request Item Switch = 'ON or OFF' >>
+OVC_REQUEST = parser.getboolean('RealTime Request Item Switch', 'Foreign Futures Request')
 CM_FUT_PRICE = parser.getboolean('RealTime Request Item Switch', 'Current Month Futures Price')
 CM_FUT_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Current Month Futures Quote')
 CM_OPT_PRICE = parser.getboolean('RealTime Request Item Switch', 'Current Month Option Price')
@@ -39116,27 +39117,38 @@ if __name__ == "__main__":
 
         if TARGET_MONTH == 'CM':
 
+            if OVC_REQUEST:
+                INDEX_OVC = True
+            else:
+                INDEX_OVC = False
+
             if MANGI_YAGAN:
                 INDEX_OPTION_CM_TICK = False
                 INDEX_OPTION_NM_TICK = True
                 INDEX_OPTION_CM_QUOTE = False
-                INDEX_OPTION_NM_QUOTE = True
+                INDEX_OPTION_NM_QUOTE = True                
             else:                
                 INDEX_OPTION_CM_TICK = True       # 지수옵션 본월물 전종목 체결
                 INDEX_OPTION_NM_TICK = False      # 지수옵션 차월물 전종목 체결
                 INDEX_OPTION_CM_QUOTE = True      # 지수옵션 본월물 전종목 호가
-                INDEX_OPTION_NM_QUOTE = False     # 지수옵션 차월물 전종목 호가
+                INDEX_OPTION_NM_QUOTE = False     # 지수옵션 차월물 전종목 호가                
                 
         elif TARGET_MONTH == 'NM':
+
+            if OVC_REQUEST:
+                INDEX_OVC = True
+            else:
+                INDEX_OVC = False
+
             INDEX_OPTION_CM_TICK = False
             INDEX_OPTION_NM_TICK = True
             INDEX_OPTION_CM_QUOTE = False      
-            INDEX_OPTION_NM_QUOTE = True      
+            INDEX_OPTION_NM_QUOTE = True             
         else:
             INDEX_OPTION_CM_TICK = False
             INDEX_OPTION_NM_TICK = False
             INDEX_OPTION_CM_QUOTE = False      
-            INDEX_OPTION_NM_QUOTE = False
+            INDEX_OPTION_NM_QUOTE = False            
 
         # pyinstaller로 실행파일 만들때 필요함
         mp.freeze_support()
@@ -39159,7 +39171,7 @@ if __name__ == "__main__":
         else:
             quote_number = QUOTE_REQUEST_NUMBER
         
-        futures_process = Process(target=futures_crawler, args=(futuresQ, INDEX_FUTURES_QUOTE, INDEX_FUTURES_TICK), daemon=True)
+        futures_process = Process(target=futures_crawler, args=(futuresQ, INDEX_FUTURES_QUOTE, INDEX_FUTURES_TICK, INDEX_OVC), daemon=True)
         option_tick_process = Process(target=option_tick_crawler, args=(option_tickQ, INDEX_OPTION_CM_TICK, INDEX_OPTION_NM_TICK), daemon=True)
         option_quote_process = Process(target=option_quote_crawler, args=(option_quoteQ, quote_number, INDEX_OPTION_CM_QUOTE, INDEX_OPTION_NM_QUOTE), daemon=True)
 

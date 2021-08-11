@@ -65,7 +65,7 @@ else:
     config = {"id": ID, "password": PWD, "cert_password": "0"}
 
 # 여기에서 JIF, IJ, OVC, BM, PM등을 함께 요청
-def futures_crawler(queue: Queue, index_futures_quote=True, index_futures_tick=True):
+def futures_crawler(queue: Queue, index_futures_quote=True, index_futures_tick=True, index_ovc=True):
 
     proc = mp.current_process()
     print(f'\r지수선물 Process Name = {proc.name}, Process ID = {proc.pid}')
@@ -104,13 +104,18 @@ def futures_crawler(queue: Queue, index_futures_quote=True, index_futures_tick=T
 
         # ################################### OVC ####################################################################        
         real_time_ovc_tick = RealTimeOVCTick(queue=queue)
-        real_time_ovc_tick.set_ovc_code(SP500)    
+            
         real_time_ovc_tick.set_ovc_code(DOW)
-        real_time_ovc_tick.set_ovc_code(NASDAQ)
-        real_time_ovc_tick.set_ovc_code(WTI)
-        real_time_ovc_tick.set_ovc_code(EUROFX)
-        real_time_ovc_tick.set_ovc_code(HANGSENG)
-        real_time_ovc_tick.set_ovc_code(GOLD)        
+
+        if index_ovc:
+            real_time_ovc_tick.set_ovc_code(SP500)
+            real_time_ovc_tick.set_ovc_code(NASDAQ)
+            real_time_ovc_tick.set_ovc_code(WTI)
+            real_time_ovc_tick.set_ovc_code(EUROFX)
+            real_time_ovc_tick.set_ovc_code(HANGSENG)
+            real_time_ovc_tick.set_ovc_code(GOLD)
+        else:
+            pass        
         # ############################################################################################################
 
         # #################################### BM ####################################################################
