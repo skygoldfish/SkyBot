@@ -35024,7 +35024,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         systime = dt.hour * 3600 + dt.minute * 60 + dt.second        
         
         if szTrCode == 'EH0' and int(realdata['수신시간'][0:2]) >= 24:                
-            realtime = int(realdata['수신시간'][0:2] - 24) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6])                
+            realtime = (int(realdata['수신시간'][0:2]) - 24) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6])                
         else:                    
             realtime = int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6])     
         
