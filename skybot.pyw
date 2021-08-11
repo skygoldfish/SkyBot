@@ -2973,6 +2973,12 @@ class RealTime_1st_MP_DataWorker(QThread):
                         # 옵션은 초당 50회 이상 입력됨
                         #if not flag_futures_update_is_running:
                         if True:
+
+                            realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                            realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                            realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
                             
                             if szTrCode == 'JIF':
 
@@ -2990,219 +2996,109 @@ class RealTime_1st_MP_DataWorker(QThread):
 
                                 self.trigger_dict.emit(self.realdata[1]) 
 
-                            elif szTrCode == 'YJ_':
+                            elif szTrCode == 'YJ_':                                
 
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata[1])
-                                else:
+                                if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
                                     self.drop_count += 1
+                                else:
+                                    pass
+
+                                self.trigger_dict.emit(self.realdata[1])
 
                             elif szTrCode == 'YFC':
 
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata[1])
+                                if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
+                                    self.drop_count += 1
                                 else:
-                                    self.drop_count += 1       
+                                    pass
+
+                                self.trigger_dict.emit(self.realdata[1])      
 
                             elif szTrCode == 'YOC':
 
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata[1])
-                                else:
+                                if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
                                     self.drop_count += 1
+                                else:
+                                    pass
+
+                                self.trigger_dict.emit(self.realdata[1])
 
                             elif szTrCode == 'YS3':
 
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata[1])
-                                else:
+                                if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
                                     self.drop_count += 1
+                                else:
+                                    pass
+
+                                self.trigger_dict.emit(self.realdata[1])
 
                             elif szTrCode == 'IJ_':
 
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata[1])
+                                if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
+                                    self.drop_count += 1
                                 else:
-                                    self.drop_count += 1                            
+                                    pass
+
+                                self.trigger_dict.emit(self.realdata[1])                            
 
                             elif szTrCode == 'S3_':
 
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata[1])
+                                if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
+                                    self.drop_count += 1
                                 else:
-                                    self.drop_count += 1                            
+                                    pass
+
+                                self.trigger_dict.emit(self.realdata[1])                           
                             
                             elif szTrCode == 'FC0':
 
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata[1])
-                                else:
+                                if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
                                     self.drop_count += 1
-                                    print('FC0 drop count = {0}'.format(self.drop_count))
+                                else:
+                                    pass
+
+                                self.trigger_dict.emit(self.realdata[1])
 
                             elif szTrCode == 'NC0':
 
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata[1])
-                                else:
+                                if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
                                     self.drop_count += 1
+                                else:
+                                    pass
+
+                                self.trigger_dict.emit(self.realdata[1])
 
                             elif szTrCode == 'FH0':
 
                                 self.fh0_total_count += 1
 
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata[1])
-                                else: 
+                                if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
                                     self.drop_count += 1
                                     self.fh0_drop_count += 1
-                                    print('FH0 drop count = {0}'.format(self.fh0_drop_count))
+                                else:
+                                    pass
+
+                                self.trigger_dict.emit(self.realdata[1])
 
                             elif szTrCode == 'NH0':
 
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata[1])
-                                else:
+                                if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
                                     self.drop_count += 1
+                                else:
+                                    pass
+
+                                self.trigger_dict.emit(self.realdata[1])
 
                             elif szTrCode == 'OVC':
 
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata[1])
-                                else:
+                                if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
                                     self.drop_count += 1
-                                    print('Systime = {0}, System_Server_Time_Gap = {1}, OVC realtime = {2}'.format(systime, system_server_time_gap, realtime))                            
+                                else:
+                                    pass
+
+                                self.trigger_dict.emit(self.realdata[1])                          
                             else:
-                                pass
-
-                            '''
-                            elif szTrCode == 'OC0':
-
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                                self.total_option_packet_size += sys.getsizeof(self.realdata[1])
-
-                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata[1])
-                                else:
-                                    self.drop_count += 1
-
-                            elif szTrCode == 'OH0':
-
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                                self.total_option_packet_size += sys.getsizeof(self.realdata[1])
-
-                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata[1])
-                                else:
-                                    self.drop_count += 1
-
-                            elif szTrCode == 'EC0':
-
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata[1])
-                                else:
-                                    self.drop_count += 1
-
-                            elif szTrCode == 'EH0':
-
-                                if int(self.realdata[1]['수신시간'][0:2]) >= 24:
-                                    realtime_hour = int(self.realdata[1]['수신시간'][0:2]) - 24
-                                else:                            
-                                    realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-
-                                realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                                realtime_sec = int(self.realdata[1]['수신시간'][4:6])
-
-                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                                if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                    self.trigger_dict.emit(self.realdata[1])
-                                else:
-                                    self.drop_count += 1
-                            '''                            
-                            
+                                pass                            
                         else:
                             self.sys_drop_count += 1                    
                     else:
@@ -3309,17 +3205,12 @@ class RealTime_2nd_MP_DataWorker(QThread):
 
                         realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                        if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                            self.trigger_dict.emit(self.realdata[1])
-                        else:
+                        if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
                             self.drop_count += 1
+                        else:
+                            pass
 
-                            if szTrCode == 'OC0':
-                                print('Systime = {0}, System_Server_Time_Gap = {1}, OC0 realtime = {2}'.format(systime, system_server_time_gap, realtime))
-                            elif szTrCode == 'EC0':                                
-                                print('Systime = {0}, System_Server_Time_Gap = {1}, EC0 realtime = {2}'.format(systime, system_server_time_gap, realtime))
-                            else:
-                                pass
+                        self.trigger_dict.emit(self.realdata[1])
                     else:
                         self.sys_drop_count += 1                
                 else:
@@ -3421,11 +3312,12 @@ class RealTime_3rd_MP_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                self.trigger_dict.emit(self.realdata[1])
-                            else:
+                            if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
                                 self.drop_count += 1
-                                print('Systime = {0}, System_Server_Time_Gap = {1}, OH0 realtime = {2}'.format(systime, system_server_time_gap, realtime))
+                            else:
+                                pass
+
+                            self.trigger_dict.emit(self.realdata[1])
 
                         elif szTrCode == 'EH0':
 
@@ -3439,11 +3331,12 @@ class RealTime_3rd_MP_DataWorker(QThread):
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                            if abs((systime - system_server_time_gap) - realtime) < view_time_tolerance:
-                                self.trigger_dict.emit(self.realdata[1])
-                            else:
+                            if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
                                 self.drop_count += 1
-                                print('Systime = {0}, System_Server_Time_Gap = {1}, EH0 realtime = {2}'.format(systime, system_server_time_gap, realtime))
+                            else:
+                                pass
+
+                            self.trigger_dict.emit(self.realdata[1])
                         else:
                             pass
                     else:
@@ -34864,11 +34757,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 수신된 실시간데이타 정보표시(누락된 패킷수, 큐의 크기, 수신된 총 패킷수, 수신된 총 패킷크기)            
         szTrCode = realdata['tr_code']
 
+        systime = dt.hour * 3600 + dt.minute * 60 + dt.second
+        realtime = int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6])
+
+        time_gap = systime - system_server_time_gap - realtime
+        time_gap_abs = abs((systime - system_server_time_gap) - realtime)
+
         if szTrCode == 'JIF' or szTrCode == 'BM_' or szTrCode == 'PM_' or szTrCode == 'NWS':
             pass
         else:
-            time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
-            
             main_dropcount, main_sys_dropcount, main_qsize, main_totalcount, main_totalsize, main_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
             second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
             third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_3rd_dataworker.get_packet_info()
@@ -34890,7 +34787,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
                 dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
 
-            if abs(time_gap) >= view_time_tolerance:
+            if time_gap_abs >= view_time_tolerance:
                 self.statusbar.setStyleSheet("color : red")
             else:
                 if DARK_STYLESHEET:
@@ -34910,7 +34807,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # 1st 프로세스 실시간데이타 갱신
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
-            self.update_1st_process(realdata)
+
+            if time_gap_abs < view_time_tolerance:
+                self.update_1st_process(realdata)
+            else:
+                pass
         else:
             pass
         
@@ -34940,8 +34841,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         szTrCode = realdata['tr_code']
         
-        time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
-        
+        systime = dt.hour * 3600 + dt.minute * 60 + dt.second
+        realtime = int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6])
+
+        time_gap = systime - system_server_time_gap - realtime
+        time_gap_abs = abs((systime - system_server_time_gap) - realtime)
+
         main_dropcount, main_sys_dropcount, main_qsize, main_totalcount, main_totalsize, main_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
         second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
         third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_3rd_dataworker.get_packet_info()
@@ -34963,7 +34868,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
             dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
 
-        if abs(time_gap) >= view_time_tolerance:
+        if time_gap_abs >= view_time_tolerance:
             self.statusbar.setStyleSheet("color : red")
         else:
             if DARK_STYLESHEET:
@@ -34994,7 +34899,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 2nd 프로세스 실시간데이타 갱신
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
 
-            self.update_2nd_process(realdata)
+            if time_gap_abs < view_time_tolerance:
+                self.update_2nd_process(realdata)
+            else:
+                pass
 
             global flag_call_strong, flag_call_weak, flag_put_strong, flag_put_weak 
 
@@ -35110,13 +35018,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         dt = datetime.now()
 
-        szTrCode = realdata['tr_code']        
+        szTrCode = realdata['tr_code']
+
+        systime = dt.hour * 3600 + dt.minute * 60 + dt.second        
         
-        if szTrCode == 'EH0' and int(realdata['수신시간'][0:2]) >= 24:
-                time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - ((int(realdata['수신시간'][0:2]) - 24) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
+        if szTrCode == 'EH0' and int(realdata['수신시간'][0:2]) >= 24:                
+            realtime = int(realdata['수신시간'][0:2] - 24) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6])                
         else:                    
-            time_gap = (dt.hour * 3600 + dt.minute * 60 + dt.second) - system_server_time_gap - (int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6]))
+            realtime = int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6])     
         
+        time_gap = systime - system_server_time_gap - realtime
+        time_gap_abs = abs((systime - system_server_time_gap) - realtime)
+
         main_dropcount, main_sys_dropcount, main_qsize, main_totalcount, main_totalsize, main_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
         second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
         third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_3rd_dataworker.get_packet_info()
@@ -35138,7 +35051,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
             dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
 
-        if abs(time_gap) >= view_time_tolerance:
+        if time_gap_abs >= view_time_tolerance:
             self.statusbar.setStyleSheet("color : red")
         else:
             if DARK_STYLESHEET:
@@ -35168,7 +35081,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # 3rd 프로세스 실시간데이타 갱신
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
-            self.update_3rd_process(realdata)            
+
+            if time_gap_abs < view_time_tolerance:
+                self.update_3rd_process(realdata)
+            else:
+                pass          
         else:
             pass
 
