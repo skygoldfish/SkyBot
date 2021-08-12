@@ -2997,39 +2997,19 @@ class RealTime_1st_MP_DataWorker(QThread):
 
                                 self.trigger_dict.emit(self.realdata[1]) 
 
-                            elif szTrCode == 'YJ_':                                
-
-                                if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
-                                    self.drop_count += 1
-                                else:
-                                    pass
+                            elif szTrCode == 'YJ_': 
 
                                 self.trigger_dict.emit(self.realdata[1])
 
                             elif szTrCode == 'YFC':
 
-                                if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
-                                    self.drop_count += 1
-                                else:
-                                    pass
-
                                 self.trigger_dict.emit(self.realdata[1])      
 
                             elif szTrCode == 'YOC':
 
-                                if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
-                                    self.drop_count += 1
-                                else:
-                                    pass
-
                                 self.trigger_dict.emit(self.realdata[1])
 
                             elif szTrCode == 'YS3':
-
-                                if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
-                                    self.drop_count += 1
-                                else:
-                                    pass
 
                                 self.trigger_dict.emit(self.realdata[1])
 
