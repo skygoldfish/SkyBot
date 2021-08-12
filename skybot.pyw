@@ -34812,7 +34812,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if time_gap_abs < view_time_tolerance:
                 self.update_1st_process(realdata)
             else:
-                pass
+                if flag_periodic_plot_mode:
+                    self.update_1st_process(realdata)
+                else:
+                    pass
         else:
             pass
         
@@ -34903,7 +34906,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if time_gap_abs < view_time_tolerance:
                 self.update_2nd_process(realdata)
             else:
-                pass
+                if flag_periodic_plot_mode:
+                    self.update_2nd_process(realdata)
+                else:
+                    pass
 
             global flag_call_strong, flag_call_weak, flag_put_strong, flag_put_weak 
 
@@ -35086,7 +35092,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if time_gap_abs < view_time_tolerance:
                 self.update_3rd_process(realdata)
             else:
-                pass          
+                if flag_periodic_plot_mode:
+                    self.update_3rd_process(realdata)
+                else:
+                    pass          
         else:
             pass
 
