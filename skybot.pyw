@@ -2934,10 +2934,7 @@ class RealTime_1st_MP_DataWorker(QThread):
             try:
                 if not self.dataQ.empty():
 
-                    flag_1st_process_queue_empty = False
-
-                    dt = datetime.now()
-                    systime = dt.hour * 3600 + dt.minute * 60 + dt.second
+                    flag_1st_process_queue_empty = False                    
 
                     self.realdata = self.dataQ.get(False)
 
@@ -2967,69 +2964,36 @@ class RealTime_1st_MP_DataWorker(QThread):
                             tick_data_lst = list(tick_data.values())
                             handle_tick_data(tick_data_lst, tick_type)
                         else:
-                            pass
-                        
+                            pass                        
+
+                        dt = datetime.now()
+                        systime = dt.hour * 3600 + dt.minute * 60 + dt.second
+
+                        realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                        realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                        realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+
+                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
                         szTrCode = self.realdata[1]['tr_code']
 
                         # 옵션은 초당 50회 이상 입력됨
                         #if not flag_futures_update_is_running:
-                        if True:
-
-                            realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                            realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                            realtime_sec = int(self.realdata[1]['수신시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+                        if True:                            
                             
-                            if szTrCode == 'JIF':
-
-                                self.trigger_dict.emit(self.realdata[1])
-
-                            elif szTrCode == 'BM_':
-
-                                self.trigger_dict.emit(self.realdata[1])
-
-                            elif szTrCode == 'PM_':
-
-                                self.trigger_dict.emit(self.realdata[1])
-
-                            elif szTrCode == 'NWS':
-
-                                self.trigger_dict.emit(self.realdata[1]) 
-
-                            elif szTrCode == 'YJ_': 
-
-                                self.trigger_dict.emit(self.realdata[1])
-
-                            elif szTrCode == 'YFC':
-
-                                self.trigger_dict.emit(self.realdata[1])      
-
-                            elif szTrCode == 'YOC':
-
-                                self.trigger_dict.emit(self.realdata[1])
-
-                            elif szTrCode == 'YS3':
-
-                                self.trigger_dict.emit(self.realdata[1])
-
-                            elif szTrCode == 'IJ_':
+                            if szTrCode == 'IJ_':
 
                                 if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
                                     self.drop_count += 1
                                 else:
-                                    pass
-
-                                self.trigger_dict.emit(self.realdata[1])                            
+                                    pass                           
 
                             elif szTrCode == 'S3_':
 
                                 if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
                                     self.drop_count += 1
                                 else:
-                                    pass
-
-                                self.trigger_dict.emit(self.realdata[1])                           
+                                    pass                        
                             
                             elif szTrCode == 'FC0':
 
@@ -3038,16 +3002,12 @@ class RealTime_1st_MP_DataWorker(QThread):
                                 else:
                                     pass
 
-                                self.trigger_dict.emit(self.realdata[1])
-
                             elif szTrCode == 'NC0':
 
                                 if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
                                     self.drop_count += 1
                                 else:
                                     pass
-
-                                self.trigger_dict.emit(self.realdata[1])
 
                             elif szTrCode == 'FH0':
 
@@ -3059,8 +3019,6 @@ class RealTime_1st_MP_DataWorker(QThread):
                                 else:
                                     pass
 
-                                self.trigger_dict.emit(self.realdata[1])
-
                             elif szTrCode == 'NH0':
 
                                 if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
@@ -3068,18 +3026,16 @@ class RealTime_1st_MP_DataWorker(QThread):
                                 else:
                                     pass
 
-                                self.trigger_dict.emit(self.realdata[1])
-
                             elif szTrCode == 'OVC':
 
                                 if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
                                     self.drop_count += 1
                                 else:
-                                    pass
-
-                                self.trigger_dict.emit(self.realdata[1])                          
+                                    pass                         
                             else:
-                                pass                            
+                                pass
+
+                            self.trigger_dict.emit(self.realdata[1])                           
                         else:
                             self.sys_drop_count += 1                    
                     else:
@@ -3140,9 +3096,6 @@ class RealTime_2nd_MP_DataWorker(QThread):
 
                 flag_2nd_process_queue_empty = False
 
-                dt = datetime.now()
-                systime = dt.hour * 3600 + dt.minute * 60 + dt.second
-
                 self.realdata = self.dataQ.get(False)
                 
                 self.total_count += 1                    
@@ -3172,19 +3125,22 @@ class RealTime_2nd_MP_DataWorker(QThread):
                         handle_tick_data(tick_data_lst, tick_type)
                     else:
                         pass
+                    
+                    dt = datetime.now()
+                    systime = dt.hour * 3600 + dt.minute * 60 + dt.second
 
-                    szTrCode = self.realdata[1]['tr_code']
+                    realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                    realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                    realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+
+                    realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                    #szTrCode = self.realdata[1]['tr_code']
 
                     #if not flag_option_tick_update_is_running:
                     if True:
 
-                        self.total_option_packet_size += sys.getsizeof(self.realdata[1])
-
-                        realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                        realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                        realtime_sec = int(self.realdata[1]['수신시간'][4:6])
-
-                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+                        self.total_option_packet_size += sys.getsizeof(self.realdata[1])                        
 
                         if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
                             self.drop_count += 1
@@ -3245,9 +3201,6 @@ class RealTime_3rd_MP_DataWorker(QThread):
 
                 flag_3rd_process_queue_empty = False
 
-                dt = datetime.now()
-                systime = dt.hour * 3600 + dt.minute * 60 + dt.second
-
                 self.realdata = self.dataQ.get(False)
                 
                 self.total_count += 1                    
@@ -3277,6 +3230,9 @@ class RealTime_3rd_MP_DataWorker(QThread):
                         handle_tick_data(tick_data_lst, tick_type)
                     else:
                         pass
+                    
+                    dt = datetime.now()
+                    systime = dt.hour * 3600 + dt.minute * 60 + dt.second
 
                     szTrCode = self.realdata[1]['tr_code']
 
@@ -3287,18 +3243,7 @@ class RealTime_3rd_MP_DataWorker(QThread):
 
                             self.total_option_packet_size += sys.getsizeof(self.realdata[1])
 
-                            realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                            realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                            realtime_sec = int(self.realdata[1]['수신시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                            if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
-                                self.drop_count += 1
-                            else:
-                                pass
-
-                            self.trigger_dict.emit(self.realdata[1])
+                            realtime_hour = int(self.realdata[1]['수신시간'][0:2])                            
 
                         elif szTrCode == 'EH0':
 
@@ -3306,20 +3251,20 @@ class RealTime_3rd_MP_DataWorker(QThread):
                                 realtime_hour = int(self.realdata[1]['수신시간'][0:2]) - 24
                             else:                            
                                 realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-
-                            realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                            realtime_sec = int(self.realdata[1]['수신시간'][4:6])
-
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                            if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
-                                self.drop_count += 1
-                            else:
-                                pass
-
-                            self.trigger_dict.emit(self.realdata[1])
                         else:
                             pass
+
+                        realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                        realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+
+                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                        if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
+                            self.drop_count += 1
+                        else:
+                            pass
+
+                        self.trigger_dict.emit(self.realdata[1])
                     else:
                         self.sys_drop_count += 1                
                 else:
@@ -6035,12 +5980,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 self.KillScoreBoardAllThread()
 
-                                if CSV_FILE:
-                                    close_all_writer()
-                                else:
-                                    pass
-
                                 if MULTIPROCESS:
+                                    
+                                    if CSV_FILE:
+                                        close_all_writer()
+                                    else:
+                                        pass
                                     
                                     txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 쓰레드를 종료합니다...\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
                                     self.textBrowser.append(txt)
@@ -34253,7 +34198,9 @@ class Xing(object):
             else:
                 pass            
             
-            self.caller.statusbar.showMessage("메인 로그인 성공 !!!")
+            txt = '메인 프로세스 로그인 성공 !!!\r'
+            self.caller.textBrowser.append(txt)
+            self.caller.statusbar.showMessage(txt)
             #playsound( "Resources/ring.wav" )            
             
             if not self.caller.mp_mode and AUTO_START:
@@ -34595,8 +34542,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if trdata[0] == 'login' and trdata[1] == '0000':
 
             txt = '1st 백그라운드 프로세스 로그인 성공 !!!\r'
-            self.textBrowser.append(txt)
-            
+            self.textBrowser.append(txt)            
             self.statusbar.showMessage(trdata[3] + ' ' + trdata[2])          
 
             # 버티칼 스크롤바를 항상 bottom으로...
@@ -34808,7 +34754,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             txt = '2nd 백그라운드 프로세스 로그인 성공 !!!\r'
             self.textBrowser.append(txt)
-
             self.statusbar.showMessage(trdata[3] + ' ' + trdata[2])
 
         elif trdata[0] == 'login' and trdata[1] != '0000':
@@ -34985,7 +34930,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             txt = '3rd 백그라운드 프로세스 로그인 성공 !!!\r'
             self.textBrowser.append(txt)
-
             self.statusbar.showMessage(trdata[3] + ' ' + trdata[2])
             
         elif trdata[0] == 'login' and trdata[1] != '0000':
