@@ -34870,7 +34870,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.statusbar.showMessage(txt)
             
             if time_gap_abs >= view_time_tolerance:
-                self.label_1st.setStyleSheet("background-color: red; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                self.label_1st.setStyleSheet("background-color: indianred; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
             else:
                 if flag_1st_process_queue_empty:
                     self.label_1st.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
@@ -34956,7 +34956,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.statusbar.showMessage(txt)        
 
         if time_gap_abs >= view_time_tolerance:
-            self.label_2nd.setStyleSheet("background-color: red; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+            self.label_2nd.setStyleSheet("background-color: indianred; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
         else:
             if flag_2nd_process_queue_empty:
                 self.label_2nd.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
@@ -35144,7 +35144,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.statusbar.showMessage(txt)        
         
         if time_gap_abs >= view_time_tolerance:
-            self.label_3rd.setStyleSheet("background-color: red; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+            self.label_3rd.setStyleSheet("background-color: indianred; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
         else:
             if flag_3rd_process_queue_empty:
                 self.label_3rd.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
@@ -35243,7 +35243,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.statusbar.showMessage(txt)
         
         if time_gap_abs >= view_time_tolerance:
-            self.label_4th.setStyleSheet("background-color: red; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+            self.label_4th.setStyleSheet("background-color: indianred; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
         else:
             if flag_4th_process_queue_empty:
                 self.label_4th.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
