@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(640, 378)
+        MainWindow.resize(640, 506)
         font = QtGui.QFont()
         font.setFamily("Consolas")
         font.setPointSize(10)
@@ -22,11 +22,11 @@ class Ui_MainWindow(object):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBox.setGeometry(QtCore.QRect(9, 9, 622, 277))
+        self.groupBox.setGeometry(QtCore.QRect(9, 9, 622, 411))
         self.groupBox.setTitle("")
         self.groupBox.setObjectName("groupBox")
         self.widget = QtWidgets.QWidget(self.groupBox)
-        self.widget.setGeometry(QtCore.QRect(12, 20, 601, 251))
+        self.widget.setGeometry(QtCore.QRect(13, 21, 595, 369))
         self.widget.setObjectName("widget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.widget)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
@@ -48,6 +48,14 @@ class Ui_MainWindow(object):
         self.label_3rd.setAlignment(QtCore.Qt.AlignCenter)
         self.label_3rd.setObjectName("label_3rd")
         self.verticalLayout.addWidget(self.label_3rd)
+        self.label_4th = QtWidgets.QLabel(self.widget)
+        self.label_4th.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_4th.setObjectName("label_4th")
+        self.verticalLayout.addWidget(self.label_4th)
+        self.label_5th = QtWidgets.QLabel(self.widget)
+        self.label_5th.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_5th.setObjectName("label_5th")
+        self.verticalLayout.addWidget(self.label_5th)
         self.pushButton_reset = QtWidgets.QPushButton(self.widget)
         self.pushButton_reset.setObjectName("pushButton_reset")
         self.verticalLayout.addWidget(self.pushButton_reset)
@@ -166,6 +174,8 @@ class Ui_MainWindow(object):
         self.label_1st.setText(_translate("MainWindow", "TextLabel"))
         self.label_2nd.setText(_translate("MainWindow", "TextLabel"))
         self.label_3rd.setText(_translate("MainWindow", "TextLabel"))
+        self.label_4th.setText(_translate("MainWindow", "TextLabel"))
+        self.label_5th.setText(_translate("MainWindow", "TextLabel"))
         self.pushButton_reset.setText(_translate("MainWindow", "Reset"))
         self.menu.setTitle(_translate("MainWindow", "세션"))
         self.menu_3.setTitle(_translate("MainWindow", "도움말"))
@@ -185,4 +195,14 @@ class Ui_MainWindow(object):
         self.action_ToolBar_RealTime_Setting.setText(_translate("MainWindow", "실시간요청 설정"))
         self.action_ToolBar_ScoreBoard.setText(_translate("MainWindow", "전광판"))
         self.action_ToolBar_ScoreBoard.setToolTip(_translate("MainWindow", "전광판"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
 
