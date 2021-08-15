@@ -39144,12 +39144,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if self.parent.mp_number == 2:
+                if self.mp_number == 2:
                     self.realtime_2nd_dataworker.terminate()
-                elif self.parent.mp_number == 3:
+                elif self.mp_number == 3:
                     self.realtime_2nd_dataworker.terminate()
                     self.realtime_3rd_dataworker.terminate()
-                elif self.parent.mp_number == 4:
+                elif self.mp_number == 4:
                     self.realtime_2nd_dataworker.terminate()
                     self.realtime_3rd_dataworker.terminate()
                     self.realtime_4th_dataworker.terminate()
