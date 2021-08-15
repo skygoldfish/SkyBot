@@ -34871,13 +34871,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
             if time_gap_abs >= view_time_tolerance:
                 self.label_1st.setStyleSheet("background-color: indianred; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                txt = "{0}\n({1})".format(szTrCode, time_gap_abs)
             else:
                 if flag_1st_process_queue_empty:
                     self.label_1st.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
                 else:
                     self.label_1st.setStyleSheet("background-color: black; color: lime; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
             
-            txt = "{0}\n({1:.2f})".format(szTrCode, args_processing_time)
+                txt = "{0}\n({1:.2f})".format(szTrCode, args_processing_time)
+
             self.label_1st.setText(txt)                
 
         # 1st 프로세스 실시간데이타 갱신
@@ -34957,22 +34959,33 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         if time_gap_abs >= view_time_tolerance:
             self.label_2nd.setStyleSheet("background-color: indianred; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+
+            if szTrCode == 'OC0' and realdata['단축코드'][0:3] == '201':
+                txt = "{0}\n({1})".format('COC0', time_gap_abs)
+            elif (szTrCode == 'EC0' and realdata['단축코드'][0:3] == '201'):
+                 txt = "{0}\n({1})".format('CEC0', time_gap_abs)
+            elif szTrCode == 'OC0' and realdata['단축코드'][0:3] == '301':
+                txt = "{0}\n({1})".format('POC0', time_gap_abs)
+            elif szTrCode == 'EC0' and realdata['단축코드'][0:3] == '301':
+                txt = "{0}\n({1})".format('PEC0', time_gap_abs)            
+            else:
+                pass
         else:
             if flag_2nd_process_queue_empty:
                 self.label_2nd.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
             else:
                 self.label_2nd.setStyleSheet("background-color: black; color: lime; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
 
-        if szTrCode == 'OC0' and realdata['단축코드'][0:3] == '201':
-            txt = "{0}\n({1:.2f})".format('COC0', args_processing_time)
-        elif (szTrCode == 'EC0' and realdata['단축코드'][0:3] == '201'):
-             txt = "{0}\n({1:.2f})".format('CEC0', args_processing_time)
-        elif szTrCode == 'OC0' and realdata['단축코드'][0:3] == '301':
-            txt = "{0}\n({1:.2f})".format('POC0', args_processing_time)
-        elif szTrCode == 'EC0' and realdata['단축코드'][0:3] == '301':
-            txt = "{0}\n({1:.2f})".format('PEC0', args_processing_time)            
-        else:
-            pass
+            if szTrCode == 'OC0' and realdata['단축코드'][0:3] == '201':
+                txt = "{0}\n({1:.2f})".format('COC0', args_processing_time)
+            elif (szTrCode == 'EC0' and realdata['단축코드'][0:3] == '201'):
+                 txt = "{0}\n({1:.2f})".format('CEC0', args_processing_time)
+            elif szTrCode == 'OC0' and realdata['단축코드'][0:3] == '301':
+                txt = "{0}\n({1:.2f})".format('POC0', args_processing_time)
+            elif szTrCode == 'EC0' and realdata['단축코드'][0:3] == '301':
+                txt = "{0}\n({1:.2f})".format('PEC0', args_processing_time)            
+            else:
+                pass
         
         self.label_2nd.setText(txt)
 
@@ -35145,22 +35158,33 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         if time_gap_abs >= view_time_tolerance:
             self.label_3rd.setStyleSheet("background-color: indianred; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+
+            if szTrCode == 'OH0' and realdata['단축코드'][0:3] == '201':
+                txt = "{0}\n({1})".format('COH0', time_gap_abs)
+            elif (szTrCode == 'EH0' and realdata['단축코드'][0:3] == '201'):
+                 txt = "{0}\n({1})".format('CEH0', time_gap_abs)
+            elif szTrCode == 'OH0' and realdata['단축코드'][0:3] == '301':
+                txt = "{0}\n({1})".format('POH0', time_gap_abs)
+            elif szTrCode == 'EH0' and realdata['단축코드'][0:3] == '301':
+                txt = "{0}\n({1})".format('PEH0', time_gap_abs)
+            else:
+                pass
         else:
             if flag_3rd_process_queue_empty:
                 self.label_3rd.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
             else:
                 self.label_3rd.setStyleSheet("background-color: black; color: lime; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
 
-        if szTrCode == 'OH0' and realdata['단축코드'][0:3] == '201':
-            txt = "{0}\n({1:.2f})".format('COH0', args_processing_time)
-        elif (szTrCode == 'EH0' and realdata['단축코드'][0:3] == '201'):
-             txt = "{0}\n({1:.2f})".format('CEH0', args_processing_time)
-        elif szTrCode == 'OH0' and realdata['단축코드'][0:3] == '301':
-            txt = "{0}\n({1:.2f})".format('POH0', args_processing_time)
-        elif szTrCode == 'EH0' and realdata['단축코드'][0:3] == '301':
-            txt = "{0}\n({1:.2f})".format('PEH0', args_processing_time)
-        else:
-            pass
+            if szTrCode == 'OH0' and realdata['단축코드'][0:3] == '201':
+                txt = "{0}\n({1:.2f})".format('COH0', args_processing_time)
+            elif (szTrCode == 'EH0' and realdata['단축코드'][0:3] == '201'):
+                 txt = "{0}\n({1:.2f})".format('CEH0', args_processing_time)
+            elif szTrCode == 'OH0' and realdata['단축코드'][0:3] == '301':
+                txt = "{0}\n({1:.2f})".format('POH0', args_processing_time)
+            elif szTrCode == 'EH0' and realdata['단축코드'][0:3] == '301':
+                txt = "{0}\n({1:.2f})".format('PEH0', args_processing_time)
+            else:
+                pass
         
         self.label_3rd.setText(txt)
 
@@ -35244,13 +35268,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         if time_gap_abs >= view_time_tolerance:
             self.label_4th.setStyleSheet("background-color: indianred; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+
+            txt = "{0}\n({1})".format(szTrCode, time_gap_abs)
         else:
             if flag_4th_process_queue_empty:
                 self.label_4th.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
             else:
                 self.label_4th.setStyleSheet("background-color: black; color: lime; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
         
-        txt = "{0}\n({1:.2f})".format(szTrCode, args_processing_time)
+            txt = "{0}\n({1:.2f})".format(szTrCode, args_processing_time)
+
         self.label_4th.setText(txt)                
 
         # 1st 프로세스 실시간데이타 갱신
