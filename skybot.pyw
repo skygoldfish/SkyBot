@@ -34869,11 +34869,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.statusbar.showMessage(txt)
             
-            if flag_1st_process_queue_empty:
-                self.label_1st.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+            if time_gap_abs >= view_time_tolerance:
+                self.label_1st.setStyleSheet("background-color: red; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
             else:
-                self.label_1st.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
-
+                if flag_1st_process_queue_empty:
+                    self.label_1st.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                else:
+                    self.label_1st.setStyleSheet("background-color: black; color: lime; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+            
             txt = "{0}\n({1:.2f})".format(szTrCode, args_processing_time)
             self.label_1st.setText(txt)                
 
@@ -34952,10 +34955,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.statusbar.showMessage(txt)        
 
-        if flag_2nd_process_queue_empty:
-            self.label_2nd.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+        if time_gap_abs >= view_time_tolerance:
+            self.label_2nd.setStyleSheet("background-color: red; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
         else:
-            self.label_2nd.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+            if flag_2nd_process_queue_empty:
+                self.label_2nd.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+            else:
+                self.label_2nd.setStyleSheet("background-color: black; color: lime; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
 
         if szTrCode == 'OC0' and realdata['단축코드'][0:3] == '201':
             txt = "{0}\n({1:.2f})".format('COC0', args_processing_time)
@@ -35137,10 +35143,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.statusbar.showMessage(txt)        
         
-        if flag_3rd_process_queue_empty:
-            self.label_3rd.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+        if time_gap_abs >= view_time_tolerance:
+            self.label_3rd.setStyleSheet("background-color: red; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
         else:
-            self.label_3rd.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+            if flag_3rd_process_queue_empty:
+                self.label_3rd.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+            else:
+                self.label_3rd.setStyleSheet("background-color: black; color: lime; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
 
         if szTrCode == 'OH0' and realdata['단축코드'][0:3] == '201':
             txt = "{0}\n({1:.2f})".format('COH0', args_processing_time)
@@ -35188,7 +35197,74 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot(dict)
     def transfer_mp_4th_realdata(self, realdata):
-        pass
+
+        global drop_txt, drop_percent, time_gap, main_opt_totalsize, main_totalsize
+        
+        dt = datetime.now()       
+
+        # 수신된 실시간데이타 정보표시(누락된 패킷수, 큐의 크기, 수신된 총 패킷수, 수신된 총 패킷크기)            
+        szTrCode = realdata['tr_code']
+
+        systime = dt.hour * 3600 + dt.minute * 60 + dt.second
+        realtime = int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6])
+
+        time_gap = systime - system_server_time_gap - realtime
+        time_gap_abs = abs((systime - system_server_time_gap) - realtime)
+
+        main_dropcount, main_sys_dropcount, main_qsize, main_totalcount, main_totalsize, main_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
+        second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
+        third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_3rd_dataworker.get_packet_info()
+
+        total_dropcount = main_dropcount + second_dropcount + third_dropcount
+        total_sys_dropcount = main_sys_dropcount + second_sys_dropcount + third_sys_dropcount
+        total_waiting_count = main_qsize + second_qsize + third_qsize
+        totalcount = main_totalcount + second_totalcount + third_totalcount
+        totalsize = main_totalsize + second_totalsize + third_totalsize
+
+        if totalcount > 0:
+            drop_percent = (total_dropcount / totalcount) * 100
+        else:
+            pass
+
+        drop_txt = '{0}({1})/{2}({3}k), {4}, [{5:.1f}%]'.format(format(main_dropcount, ','), format(main_sys_dropcount, ','), \
+            format(totalcount, ','), format(int(totalsize/1000), ','), format(total_waiting_count, ','), drop_percent)
+        
+        txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
+            dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
+
+        if time_gap_abs >= view_time_tolerance:
+            self.statusbar.setStyleSheet("color : red")
+        else:
+            if DARK_STYLESHEET:
+                self.statusbar.setStyleSheet("color : lawngreen")
+            else:
+                self.statusbar.setStyleSheet("color : darkgreen")
+
+        self.statusbar.showMessage(txt)
+        
+        if time_gap_abs >= view_time_tolerance:
+            self.label_4th.setStyleSheet("background-color: red; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+        else:
+            if flag_4th_process_queue_empty:
+                self.label_4th.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+            else:
+                self.label_4th.setStyleSheet("background-color: black; color: lime; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+        
+        txt = "{0}\n({1:.2f})".format(szTrCode, args_processing_time)
+        self.label_4th.setText(txt)                
+
+        # 1st 프로세스 실시간데이타 갱신
+        if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
+
+            if time_gap_abs < view_time_tolerance:
+                self.update_4th_process(realdata)
+            else:
+                if flag_periodic_plot_mode:
+                    self.update_4th_process(realdata)
+                else:
+                    pass
+        else:
+            pass
 
     @logging_time_with_args
     def update_1st_process(self, data):
@@ -35236,25 +35312,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.fc0_update(data)
             elif szTrCode == 'FH0' or szTrCode == 'NH0':
                 self.fh0_update(data)
-            elif szTrCode == 'OVC':
-                self.ovc_update(data)
             else:
                 pass
-
-            '''
-            elif szTrCode == 'OC0' or szTrCode == 'EC0':
-
-                if flag_t8416_data_receive_done:
-                    self.oc0_update(data)
-                else:
-                    pass
-            elif szTrCode == 'OH0' or szTrCode == 'EH0':
-
-                if flag_t8416_data_receive_done:
-                    self.oh0_update(data)
-                else:
-                    pass
-            '''
             
         except Exception as e:
 
@@ -35309,6 +35368,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         finally:
             flag_option_quote_update_is_running = False
+
+    @logging_time_with_args
+    def update_4th_process(self, data):
+        
+        global flag_ovc_update_is_running
+        
+        dt = datetime.now()
+
+        try:               
+            flag_ovc_update_is_running = True
+            
+            self.ovc_update(data)
+            
+        except Exception as e:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] update_4th_process {3}에서 {4}타입의 {5}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, szTrCode, type(e).__name__, str(e))
+            self.textBrowser.append(txt)
+
+        finally:
+            flag_ovc_update_is_running = False
     #####################################################################################################################################################################
     # 쓰레드방식 처리관련 함수들
     #####################################################################################################################################################################
