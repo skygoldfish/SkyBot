@@ -15,6 +15,7 @@ from datetime import *
 import time
 import ntplib
 import timeit
+from pyqtgraph.functions import mkPen
 import win32com.client
 import pythoncom
 from numpy import nan, NaN
@@ -83,7 +84,7 @@ from XAReals import *
 from Utils import *
 #from FileWatcher import *
        
-from xing_tick_writer import * 
+#from xing_tick_writer import * 
 
 # 4k 해상도 대응
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
@@ -379,7 +380,6 @@ MA_TYPE = parser.getint('Moving Average Type', 'MA Type')
 # [8]. << Initial Value >>
 TIME_TOLERANCE = parser.getint('Initial Value', 'RealTime Tolerance(sec)')
 DOW_START = parser.get('Initial Value', 'Dow Start Time')
-MP_NUMBER = parser.getint('Initial Value', 'Number of Multiprocess')
 MP_SEND_INTERVAL = parser.getint('Initial Value', 'MP Send Interval')
 QUOTE_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Quote Request')
 CALL_ITM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Call ITM Request')
@@ -430,11 +430,12 @@ else:
     NEXT_MONTH = repr(int(CURRENT_MONTH) + 1)
     MONTH_AFTER_NEXT = repr(int(CURRENT_MONTH) + 2)
 
-dt = datetime.now()        
+dt = datetime.datetime.now()        
 nowDate = dt.strftime('%Y-%m-%d')
 current_txt = dt.strftime('%H:%M:%S')
 
 today = date.today()
+print('<<today>> =', today)
 now_Month = today.strftime('%Y%m')
 today_txt = today.strftime('%Y%m%d')
 today_title = today.strftime('%Y-%m-%d')
@@ -1868,6 +1869,7 @@ flag_t8416_put_done = False
 flag_futures_update_is_running = False
 flag_option_tick_update_is_running = False
 flag_option_quote_update_is_running = False
+flag_ovc_update_is_running = False
 
 flag_screen_update_is_running = False
 flag_plot_update_is_running = False
@@ -1886,6 +1888,7 @@ fut_volume_power_energy_direction = ''
 flag_1st_process_queue_empty = True
 flag_2nd_process_queue_empty = True
 flag_3rd_process_queue_empty = True
+flag_4th_process_queue_empty = True
 
 flag_call_dominant = False
 flag_put_dominant = False
@@ -1959,6 +1962,7 @@ flag_periodic_plot_mode = PLOT_FIRST
 flag_drop_reset1 = False
 flag_drop_reset2 = False
 flag_drop_reset3 = False
+flag_drop_reset4 = False
 
 view_time_tolerance = TIME_TOLERANCE
 
@@ -3271,6 +3275,107 @@ class RealTime_3rd_MP_DataWorker(QThread):
                     pass
             else:
                 flag_3rd_process_queue_empty = True
+
+                if SLEEP_SWITCH_MODE:
+                    QApplication.processEvents()
+                    time.sleep(SLEEP_SWITCHING_DELAY)
+
+#####################################################################################################################################################################
+# 실시간 데이타수신을 위한 멀티프로세스 4th 쓰레드 클래스(해외선물만 처리)
+#####################################################################################################################################################################
+class RealTime_4th_MP_DataWorker(QThread):
+
+    # 수신데이타 타입이 list이면 TR데이타, tuple이면 실시간데이타.        
+    trigger_list = pyqtSignal(list)
+    trigger_dict = pyqtSignal(dict)
+
+    def __init__(self, dataQ):
+        super().__init__()
+
+        self.daemon = True
+        self.dataQ = dataQ
+        self.realdata = None
+
+        # 큐로 들어온 총 패킷수
+        self.total_count = 0
+        # 누락된 패킷수
+        self.drop_count = 0
+        # 수신된 총 패킷크기
+        self.total_packet_size = 0    
+
+        self.sys_drop_count = 0
+        self.waiting_tasks = 0
+
+    def get_packet_info(self):
+
+        return (self.drop_count + self.sys_drop_count), self.sys_drop_count, self.waiting_tasks, self.total_count, self.total_packet_size
+
+    def run(self):
+
+        global flag_4th_process_queue_empty, flag_drop_reset4
+
+        while True:
+
+            if not self.dataQ.empty():
+
+                flag_4th_process_queue_empty = False
+
+                self.realdata = self.dataQ.get(False)
+                
+                self.total_count += 1                    
+                self.total_packet_size += sys.getsizeof(self.realdata)
+
+                if flag_drop_reset4:
+                    self.drop_count = 0
+                    self.sys_drop_count = 0
+                    self.total_count = 0
+                    flag_drop_reset4 = False
+                else:
+                    pass
+
+                if type(self.realdata) == list:
+
+                    self.trigger_list.emit(self.realdata)
+
+                elif type(self.realdata) == tuple:
+
+                    self.waiting_tasks = self.dataQ.qsize()
+
+                    tick_type, tick_data = self.realdata
+                    print(f"\r[{datetime.now()}] 해외선물 TR Type : {tick_data['tr_code']}  waiting tasks : {self.waiting_tasks}", end='')
+
+                    if CSV_FILE:
+                        tick_data_lst = list(tick_data.values())
+                        handle_tick_data(tick_data_lst, tick_type)
+                    else:
+                        pass
+                    
+                    dt = datetime.now()
+                    systime = dt.hour * 3600 + dt.minute * 60 + dt.second
+
+                    realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                    realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                    realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+
+                    realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                    #szTrCode = self.realdata[1]['tr_code']
+
+                    #if not flag_option_quote_update_is_running:
+                    if True:                        
+
+                        if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
+                            self.drop_count += 1
+                        else:
+                            pass
+
+                        self.trigger_dict.emit(self.realdata[1])
+                    else:
+                        self.sys_drop_count += 1                
+                else:
+                    pass
+            else:
+                flag_4th_process_queue_empty = True
 
                 if SLEEP_SWITCH_MODE:
                     QApplication.processEvents()
@@ -5923,11 +6028,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     else:
                                         pass
 
-                                    if MP_NUMBER == 2:
+                                    if self.parent.mp_number == 2:
                                         self.parent.realtime_2nd_dataworker.terminate()
-                                    elif MP_NUMBER == 3:
+                                    elif self.parent.mp_number == 3:
                                         self.parent.realtime_2nd_dataworker.terminate()
                                         self.parent.realtime_3rd_dataworker.terminate()
+                                    elif self.parent.mp_number == 4:
+                                        self.parent.realtime_2nd_dataworker.terminate()
+                                        self.parent.realtime_3rd_dataworker.terminate()
+                                        self.parent.realtime_4th_dataworker.terminate()
                                     else:
                                         pass
 
@@ -5996,11 +6105,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     else:
                                         pass
 
-                                    if MP_NUMBER == 2:
+                                    if self.parent.mp_number == 2:
                                         self.parent.realtime_2nd_dataworker.terminate()
-                                    elif MP_NUMBER == 3:
+                                    elif self.parent.mp_number == 3:
                                         self.parent.realtime_2nd_dataworker.terminate()
                                         self.parent.realtime_3rd_dataworker.terminate()
+                                    elif self.parent.mp_number == 4:
+                                        self.parent.realtime_2nd_dataworker.terminate()
+                                        self.parent.realtime_3rd_dataworker.terminate()
+                                        self.parent.realtime_4th_dataworker.terminate()
                                     else:
                                         pass                                    
                                 else:
@@ -34313,12 +34426,8 @@ class Xing(object):
 # 주의할 점은 아이콘 파일의 위치를 잘 설정(실행위치 기준 상대경로 설정필요)해야만 아이콘이 보인다.
 #####################################################################################################################################################################
 if UI_HIDE:
-    if TARGET_MONTH == 'CM':
-        import skybot_cm_ui
-        Ui_MainWindow = skybot_cm_ui.Ui_MainWindow
-    elif TARGET_MONTH == 'NM':
-        import skybot_nm_ui
-        Ui_MainWindow = skybot_nm_ui.Ui_MainWindow    
+    import skybot_ui
+    Ui_MainWindow = skybot_ui.Ui_MainWindow   
 else:
     Ui_MainWindow, QtBaseClass_MainWindow = uic.loadUiType(UI_DIR + main_ui_type)
 #####################################################################################################################################################################
@@ -34368,10 +34477,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.main_login = False
             self.second_login = False
             self.third_login = False
+        elif self.mp_number == 4:
+            self.mp_mode = True
 
-            #self.main_event_loop = QEventLoop()
-            #self.second_event_loop = QEventLoop()
-            #self.third_event_loop = QEventLoop()
+            self.first_dataQ = args[0]
+            self.second_dataQ = args[1]
+            self.third_dataQ = args[2]
+            self.fourth_dataQ = args[3]
+
+            self.main_login = False
+            self.second_login = False
+            self.third_login = False
+            self.fourth_login = False
         else:
             print('지원하지 않는 인자갯수 입니다...')
         
@@ -34392,16 +34509,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.label_1st.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
                                     color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
-        self.label_1st.setText('1st\nQueue')
+        self.label_1st.setText('선물\nQueue')
 
         self.label_2nd.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
                                     color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
-        self.label_2nd.setText('2nd\n3rd\nQueue')
+        self.label_2nd.setText('옵션가격\nQueue')
 
         self.label_3rd.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
                                     color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
-        #self.label_3rd.setText('3rd\nQueue')
-        self.label_3rd.setText('SDB\nIndex')
+        self.label_3rd.setText('옵션호가\nQueue')
+
+        self.label_4th.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+        self.label_4th.setText('해외선물\nQueue')
+
+        self.label_5th.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+        self.label_5th.setText('SDB\nIndex')
 
         self.label_3rd.mousePressEvent = functools.partial(self.showSDBMsgBox, source_object=self.label_3rd)
 
@@ -34475,6 +34599,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.realtime_3rd_dataworker.trigger_list.connect(self.transfer_mp_3rd_trdata)
                 self.realtime_3rd_dataworker.trigger_dict.connect(self.transfer_mp_3rd_realdata)            
                 self.realtime_3rd_dataworker.start()
+            elif self.mp_number == 4:
+                self.realtime_1st_dataworker = RealTime_1st_MP_DataWorker(self.first_dataQ)
+                self.realtime_1st_dataworker.trigger_list.connect(self.transfer_mp_1st_trdata)
+                self.realtime_1st_dataworker.trigger_dict.connect(self.transfer_mp_1st_realdata)            
+                self.realtime_1st_dataworker.start()
+
+                self.realtime_2nd_dataworker = RealTime_2nd_MP_DataWorker(self.second_dataQ)
+                self.realtime_2nd_dataworker.trigger_list.connect(self.transfer_mp_2nd_trdata)
+                self.realtime_2nd_dataworker.trigger_dict.connect(self.transfer_mp_2nd_realdata)            
+                self.realtime_2nd_dataworker.start()
+
+                self.realtime_3rd_dataworker = RealTime_3rd_MP_DataWorker(self.third_dataQ)
+                self.realtime_3rd_dataworker.trigger_list.connect(self.transfer_mp_3rd_trdata)
+                self.realtime_3rd_dataworker.trigger_dict.connect(self.transfer_mp_3rd_realdata)            
+                self.realtime_3rd_dataworker.start()
+
+                self.realtime_4th_dataworker = RealTime_4th_MP_DataWorker(self.fourth_dataQ)
+                self.realtime_4th_dataworker.trigger_list.connect(self.transfer_mp_4th_trdata)
+                self.realtime_4th_dataworker.trigger_dict.connect(self.transfer_mp_4th_realdata)            
+                self.realtime_4th_dataworker.start()
             else:
                 pass
         else:
@@ -34511,11 +34655,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @pyqtSlot()
     def reset_button_clicked(self):
 
-        global flag_drop_reset1, flag_drop_reset2, flag_drop_reset3
+        global flag_drop_reset1, flag_drop_reset2, flag_drop_reset3, flag_drop_reset4
 
         flag_drop_reset1 = True
         flag_drop_reset2 = True
         flag_drop_reset3 = True
+        flag_drop_reset4 = True
 
         #playsound('Resources/click.wav')
         winsound.PlaySound('Resources/click.wav', winsound.SND_FILENAME)
@@ -34993,9 +35138,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.statusbar.showMessage(txt)        
         
         if flag_3rd_process_queue_empty:
-            self.label_2nd.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+            self.label_3rd.setStyleSheet("background-color: white; color: blue; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
         else:
-            self.label_2nd.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+            self.label_3rd.setStyleSheet("background-color: black; color: cyan; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
 
         if szTrCode == 'OH0' and realdata['단축코드'][0:3] == '201':
             txt = "{0}\n({1:.2f})".format('COH0', args_processing_time)
@@ -35008,7 +35153,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
         
-        self.label_2nd.setText(txt)
+        self.label_3rd.setText(txt)
 
         # 3rd 프로세스 실시간데이타 갱신
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
@@ -35022,6 +35167,28 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass          
         else:
             pass
+
+    @pyqtSlot(list)
+    def transfer_mp_4th_trdata(self, trdata):
+
+        dt = datetime.now()
+
+        if trdata[0] == 'login' and trdata[1] == '0000':
+
+            txt = '4th 백그라운드 프로세스 로그인 성공 !!!\r'
+            self.textBrowser.append(txt)
+            self.statusbar.showMessage(trdata[3] + ' ' + trdata[2])
+            
+        elif trdata[0] == 'login' and trdata[1] != '0000':
+
+            txt = '4th 로그인 실패({0})!  다시 로그인하세요...'.format(trdata[0])
+            self.statusbar.showMessage(txt)
+        else:
+            pass
+
+    @pyqtSlot(dict)
+    def transfer_mp_4th_realdata(self, realdata):
+        pass
 
     @logging_time_with_args
     def update_1st_process(self, data):
@@ -38977,11 +39144,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if MP_NUMBER == 2:
+                if self.parent.mp_number == 2:
                     self.realtime_2nd_dataworker.terminate()
-                elif MP_NUMBER == 3:
+                elif self.parent.mp_number == 3:
                     self.realtime_2nd_dataworker.terminate()
                     self.realtime_3rd_dataworker.terminate()
+                elif self.parent.mp_number == 4:
+                    self.realtime_2nd_dataworker.terminate()
+                    self.realtime_3rd_dataworker.terminate()
+                    self.realtime_4th_dataworker.terminate()
                 else:
                     pass                               
             else:
@@ -39038,7 +39209,11 @@ if __name__ == "__main__":
     if MULTIPROCESS and flag_internet:
 
         import multiprocessing as mp
-        from multiprocessing import *
+        #from multiprocessing import *
+        from datetime import datetime
+        from multiprocessing import Process, get_context
+        from multiprocessing.queues import Queue
+        from xing_tick_writer import *
 
         KOSPI_QUOTE = False               # 코스피 전종목 호가
         KOSPI_TICK = True                 # 코스피 전종목 체결
@@ -39089,28 +39264,28 @@ if __name__ == "__main__":
         proc = mp.current_process()
         print(f'\r메인 Process Name = {proc.name}, Process ID = {proc.pid}')
         
-        '''
-        stockQ = Queue(ctx=get_context())
-        stock_process = Process(target=stock_crawler, args=(stockQ, KOSPI_QUOTE, KOSPI_TICK, KOSDAQ_QUOTE, KOSDAQ_TICK), daemon=True)
-        stock_process.start()
-        '''
-
+        mp.set_start_method('spawn')
+        #ctx = mp.get_context('spawn')
+        
         futuresQ = mp.Queue()
         option_tickQ = mp.Queue()
         option_quoteQ = mp.Queue()
+        ovcQ = mp.Queue()
 
         if NightTime:
             quote_number = QUOTE_REQUEST_NUMBER * 2
         else:
-            quote_number = QUOTE_REQUEST_NUMBER
+            quote_number = QUOTE_REQUEST_NUMBER        
         
-        futures_process = Process(target=futures_crawler, args=(futuresQ, INDEX_FUTURES_QUOTE, INDEX_FUTURES_TICK, INDEX_OVC), daemon=True)
-        option_tick_process = Process(target=option_tick_crawler, args=(option_tickQ, INDEX_OPTION_CM_TICK, INDEX_OPTION_NM_TICK), daemon=True)
-        option_quote_process = Process(target=option_quote_crawler, args=(option_quoteQ, quote_number, INDEX_OPTION_CM_QUOTE, INDEX_OPTION_NM_QUOTE), daemon=True)
-
+        futures_process = mp.Process(target=futures_crawler, args=(futuresQ, INDEX_FUTURES_QUOTE, INDEX_FUTURES_TICK), daemon=True)
+        option_tick_process = mp.Process(target=option_tick_crawler, args=(option_tickQ, INDEX_OPTION_CM_TICK, INDEX_OPTION_NM_TICK), daemon=True)
+        option_quote_process = mp.Process(target=option_quote_crawler, args=(option_quoteQ, quote_number, INDEX_OPTION_CM_QUOTE, INDEX_OPTION_NM_QUOTE), daemon=True)
+        ovc_process = mp.Process(target=ovc_crawler, args=(ovcQ, INDEX_OVC), daemon=True)
+        
         futures_process.start()
         option_tick_process.start()
         option_quote_process.start()
+        ovc_process.start()
     else:
         pass
     
@@ -39168,8 +39343,7 @@ if __name__ == "__main__":
         pass
     
     if MULTIPROCESS and flag_internet:
-
-        window = MainWindow(futuresQ, option_tickQ, option_quoteQ)
+        window = MainWindow(futuresQ, option_tickQ, option_quoteQ, ovcQ)
     else:
         window = MainWindow()
 

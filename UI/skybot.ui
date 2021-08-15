@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>640</width>
+    <height>506</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Consolas</family>
+    <pointsize>10</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Skybot</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>Resources/skybot_cm.png</normaloff>Resources/skybot_cm.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>9</x>
+      <y>9</y>
+      <width>622</width>
+      <height>411</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string/>
+    </property>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>13</x>
+       <y>21</y>
+       <width>595</width>
+       <height>369</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QTextBrowser" name="textBrowser"/>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QLabel" name="label_1st">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_2nd">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_3rd">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_4th">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_5th">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_reset">
+          <property name="text">
+           <string>Reset</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>640</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>세션</string>
+    </property>
+    <addaction name="actionLogin"/>
+    <addaction name="actionLogout"/>
+    <addaction name="actionAccountDialog"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menu_3">
+    <property name="title">
+     <string>도움말</string>
+    </property>
+    <addaction name="actionVersion"/>
+   </widget>
+   <widget class="QMenu" name="menu_1">
+    <property name="title">
+     <string>선물옵션</string>
+    </property>
+    <addaction name="actionScoreBoard"/>
+    <addaction name="actionBigChart"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>설정</string>
+    </property>
+    <addaction name="actionRealTimeItem"/>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menu_1"/>
+   <addaction name="menu_2"/>
+   <addaction name="menu_3"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="font">
+    <font>
+     <family>Consolas</family>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+  </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="separator"/>
+   <addaction name="action_ToolBar_ScoreBoard"/>
+   <addaction name="action_ToolBar_BigChart"/>
+   <addaction name="action_ToolBar_RealTime_Setting"/>
+  </widget>
+  <action name="actionLogin">
+   <property name="icon">
+    <iconset>
+     <normaloff>Resources/로그인.png</normaloff>Resources/로그인.png</iconset>
+   </property>
+   <property name="text">
+    <string>로그인</string>
+   </property>
+   <property name="statusTip">
+    <string/>
+   </property>
+  </action>
+  <action name="actionLogout">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>Resources/로그아웃.png</normaloff>Resources/로그아웃.png</iconset>
+   </property>
+   <property name="text">
+    <string>로그아웃</string>
+   </property>
+   <property name="statusTip">
+    <string/>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="icon">
+    <iconset>
+     <normaloff>Resources/종료.png</normaloff>Resources/종료.png</iconset>
+   </property>
+   <property name="text">
+    <string>종료</string>
+   </property>
+   <property name="statusTip">
+    <string/>
+   </property>
+  </action>
+  <action name="actionAccountDialog">
+   <property name="icon">
+    <iconset>
+     <normaloff>Resources/계좌조회.png</normaloff>Resources/계좌조회.png</iconset>
+   </property>
+   <property name="text">
+    <string>계좌조회</string>
+   </property>
+  </action>
+  <action name="actionVersion">
+   <property name="icon">
+    <iconset>
+     <normaloff>Resources/version.png</normaloff>Resources/version.png</iconset>
+   </property>
+   <property name="text">
+    <string>버전</string>
+   </property>
+  </action>
+  <action name="actionScoreBoard">
+   <property name="icon">
+    <iconset>
+     <normaloff>Resources/전광판.png</normaloff>Resources/전광판.png</iconset>
+   </property>
+   <property name="text">
+    <string>전광판</string>
+   </property>
+  </action>
+  <action name="actionBigChart">
+   <property name="icon">
+    <iconset>
+     <normaloff>Resources/bigchart.png</normaloff>Resources/bigchart.png</iconset>
+   </property>
+   <property name="text">
+    <string>Big Chart</string>
+   </property>
+  </action>
+  <action name="action_ToolBar_BigChart">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>Resources/bigchart.png</normaloff>Resources/bigchart.png</iconset>
+   </property>
+   <property name="text">
+    <string>Big Chart</string>
+   </property>
+   <property name="toolTip">
+    <string>Big Chart</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Consolas</family>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionRealTimeItem">
+   <property name="icon">
+    <iconset>
+     <normaloff>Resources/설정.png</normaloff>Resources/설정.png</iconset>
+   </property>
+   <property name="text">
+    <string>실시간요청</string>
+   </property>
+  </action>
+  <action name="action_ToolBar_RealTime_Setting">
+   <property name="icon">
+    <iconset>
+     <normaloff>Resources/설정.png</normaloff>Resources/설정.png</iconset>
+   </property>
+   <property name="text">
+    <string>실시간요청 설정</string>
+   </property>
+  </action>
+  <action name="action_ToolBar_ScoreBoard">
+   <property name="icon">
+    <iconset>
+     <normaloff>Resources/전광판.png</normaloff>Resources/전광판.png</iconset>
+   </property>
+   <property name="text">
+    <string>전광판</string>
+   </property>
+   <property name="toolTip">
+    <string>전광판</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>menubar</sender>
+   <signal>triggered(QAction*)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>MENU_Action(QAction*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>703</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>665</x>
+     <y>50</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>toolBar</sender>
+   <signal>actionTriggered(QAction*)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>TOOLBAR_Action(QAction*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>319</x>
+     <y>37</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>154</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>robot_selected(QModelIndex)</slot>
+  <slot>robot_double_clicked(QModelIndex)</slot>
+  <slot>portfolio_selected(QModelIndex)</slot>
+  <slot>portfolio_double_clicked(QModelIndex)</slot>
+ </slots>
+</ui>

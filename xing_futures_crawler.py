@@ -30,14 +30,6 @@ FUTURES = '900'
 SAMSUNG = '005930'
 HYUNDAI = '005380'
 
-SP500 = parser.get('Code of the Foreign Futures', 'S&P 500')
-DOW = parser.get('Code of the Foreign Futures', 'DOW')
-NASDAQ = parser.get('Code of the Foreign Futures', 'NASDAQ')
-WTI = parser.get('Code of the Foreign Futures', 'WTI')
-EUROFX = parser.get('Code of the Foreign Futures', 'EUROFX')
-HANGSENG = parser.get('Code of the Foreign Futures', 'HANGSENG')
-GOLD = parser.get('Code of the Foreign Futures', 'GOLD')
-
 SLEEP_SWITCH_MODE = parser.getboolean('User Switch', 'MP Sleep Switching Mode')
 SLEEP_SWITCHING_DELAY = parser.getfloat('Initial Value', 'MP Sleep Switching Delay')
 
@@ -65,7 +57,7 @@ else:
     config = {"id": ID, "password": PWD, "cert_password": "0"}
 
 # 여기에서 JIF, IJ, OVC, BM, PM등을 함께 요청
-def futures_crawler(queue: Queue, index_futures_quote=True, index_futures_tick=True, index_ovc=True):
+def futures_crawler(queue: Queue, index_futures_quote=True, index_futures_tick=True):
 
     proc = mp.current_process()
     print(f'\r지수선물 Process Name = {proc.name}, Process ID = {proc.pid}')
@@ -101,23 +93,7 @@ def futures_crawler(queue: Queue, index_futures_quote=True, index_futures_tick=T
         real_time_s3_tick.set_s3_code(SAMSUNG)
         real_time_s3_tick.set_s3_code(HYUNDAI)
         # ############################################################################################################
-
-        # ################################### OVC ####################################################################        
-        real_time_ovc_tick = RealTimeOVCTick(queue=queue)
-            
-        real_time_ovc_tick.set_ovc_code(DOW)
-
-        if index_ovc:
-            real_time_ovc_tick.set_ovc_code(SP500)
-            real_time_ovc_tick.set_ovc_code(NASDAQ)
-            real_time_ovc_tick.set_ovc_code(WTI)
-            real_time_ovc_tick.set_ovc_code(EUROFX)
-            real_time_ovc_tick.set_ovc_code(HANGSENG)
-            real_time_ovc_tick.set_ovc_code(GOLD)
-        else:
-            pass        
-        # ############################################################################################################
-
+        
         # #################################### BM ####################################################################
         real_time_bm_tick = RealTimeBMTick(queue=queue)
         real_time_bm_tick.set_bm_code(FUTURES)

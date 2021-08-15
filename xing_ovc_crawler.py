@@ -59,10 +59,10 @@ else:
 def ovc_crawler(queue: Queue, index_ovc=True):
 
     proc = mp.current_process()
-    print(f'\r지수선물 Process Name = {proc.name}, Process ID = {proc.pid}')
+    print(f'해외선물 Process Name = {proc.name}, Process ID = {proc.pid}')
 
     result = XingAPI.login(config["id"], config["password"], config["cert_password"], is_real_server)
-    result.append('지수선물')
+    result.append('해외선물')
 
     queue.put(result)
 

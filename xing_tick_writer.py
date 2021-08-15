@@ -8,6 +8,7 @@ from xing_utils import *
 from xing_constant import *
 
 #from xing_crawler import *
+from xing_ovc_crawler import *
 from xing_futures_crawler import *
 from xing_option_tick_crawler import *
 from xing_option_quote_crawler import *
