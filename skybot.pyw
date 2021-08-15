@@ -34446,6 +34446,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         if self.mp_number == 0:
             self.mp_mode = False
+
         elif self.mp_number == 1:
             self.mp_mode = True
 
@@ -34454,8 +34455,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.main_login = False
             self.second_login = False
 
-            self.main_event_loop = QEventLoop()
-            self.second_event_loop = QEventLoop()
         elif self.mp_number == 2:
             self.mp_mode = True
 
@@ -34465,8 +34464,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.main_login = False
             self.second_login = False
 
-            self.main_event_loop = QEventLoop()
-            self.second_event_loop = QEventLoop()
         elif self.mp_number == 3:
             self.mp_mode = True
 
@@ -34477,6 +34474,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.main_login = False
             self.second_login = False
             self.third_login = False
+
         elif self.mp_number == 4:
             self.mp_mode = True
 
