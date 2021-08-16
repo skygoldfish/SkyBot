@@ -34836,22 +34836,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if szTrCode == 'JIF' or szTrCode == 'BM_' or szTrCode == 'PM_' or szTrCode == 'NWS':
             pass
         else:
-            main_dropcount, main_sys_dropcount, main_qsize, main_totalcount, main_totalsize, main_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
+            first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
             second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
             third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_3rd_dataworker.get_packet_info()
+            fourth_dropcount, fourth_sys_dropcount, fourth_qsize, fourth_totalcount, fourth_totalsize = self.realtime_4th_dataworker.get_packet_info()
 
-            total_dropcount = main_dropcount + second_dropcount + third_dropcount
-            total_sys_dropcount = main_sys_dropcount + second_sys_dropcount + third_sys_dropcount
-            total_waiting_count = main_qsize + second_qsize + third_qsize
-            totalcount = main_totalcount + second_totalcount + third_totalcount
-            totalsize = main_totalsize + second_totalsize + third_totalsize
+            total_dropcount = first_dropcount + second_dropcount + third_dropcount + fourth_dropcount
+            total_sys_dropcount = first_sys_dropcount + second_sys_dropcount + third_sys_dropcount + fourth_sys_dropcount
+            total_waiting_count = first_qsize + second_qsize + third_qsize + fourth_qsize
+            totalcount = first_totalcount + second_totalcount + third_totalcount + fourth_totalcount
+            totalsize = first_totalsize + second_totalsize + third_totalsize + fourth_totalsize
 
             if totalcount > 0:
                 drop_percent = (total_dropcount / totalcount) * 100
             else:
                 pass
 
-            drop_txt = '{0}({1})/{2}({3}k), {4}, [{5:.1f}%]'.format(format(main_dropcount, ','), format(main_sys_dropcount, ','), \
+            drop_txt = '{0}({1})/{2}({3}k), {4}, [{5:.1f}%]'.format(format(first_dropcount, ','), format(first_sys_dropcount, ','), \
                 format(totalcount, ','), format(int(totalsize/1000), ','), format(total_waiting_count, ','), drop_percent)
             
             txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
@@ -34924,15 +34925,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         time_gap = systime - system_server_time_gap - realtime
         time_gap_abs = abs((systime - system_server_time_gap) - realtime)
 
-        main_dropcount, main_sys_dropcount, main_qsize, main_totalcount, main_totalsize, main_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
+        first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
         second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
         third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_3rd_dataworker.get_packet_info()
+        fourth_dropcount, fourth_sys_dropcount, fourth_qsize, fourth_totalcount, fourth_totalsize = self.realtime_4th_dataworker.get_packet_info()
 
-        total_dropcount = main_dropcount + second_dropcount + third_dropcount
-        total_sys_dropcount = main_sys_dropcount + second_sys_dropcount + third_sys_dropcount
-        total_waiting_count = main_qsize + second_qsize + third_qsize
-        totalcount = main_totalcount + second_totalcount + third_totalcount
-        totalsize = main_totalsize + second_totalsize + third_totalsize
+        total_dropcount = first_dropcount + second_dropcount + third_dropcount + fourth_dropcount
+        total_sys_dropcount = first_sys_dropcount + second_sys_dropcount + third_sys_dropcount + fourth_sys_dropcount
+        total_waiting_count = first_qsize + second_qsize + third_qsize + fourth_qsize
+        totalcount = first_totalcount + second_totalcount + third_totalcount + fourth_totalcount
+        totalsize = first_totalsize + second_totalsize + third_totalsize + fourth_totalsize
 
         if totalcount > 0:
             drop_percent = (total_dropcount / totalcount) * 100
@@ -35123,15 +35125,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         time_gap = systime - system_server_time_gap - realtime
         time_gap_abs = abs((systime - system_server_time_gap) - realtime)
 
-        main_dropcount, main_sys_dropcount, main_qsize, main_totalcount, main_totalsize, main_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
+        first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
         second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
         third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_3rd_dataworker.get_packet_info()
+        fourth_dropcount, fourth_sys_dropcount, fourth_qsize, fourth_totalcount, fourth_totalsize = self.realtime_4th_dataworker.get_packet_info()
 
-        total_dropcount = main_dropcount + second_dropcount + third_dropcount
-        total_sys_dropcount = main_sys_dropcount + second_sys_dropcount + third_sys_dropcount
-        total_waiting_count = main_qsize + second_qsize + third_qsize
-        totalcount = main_totalcount + second_totalcount + third_totalcount
-        totalsize = main_totalsize + second_totalsize + third_totalsize
+        total_dropcount = first_dropcount + second_dropcount + third_dropcount + fourth_dropcount
+        total_sys_dropcount = first_sys_dropcount + second_sys_dropcount + third_sys_dropcount + fourth_sys_dropcount
+        total_waiting_count = first_qsize + second_qsize + third_qsize + fourth_qsize
+        totalcount = first_totalcount + second_totalcount + third_totalcount + fourth_totalcount
+        totalsize = first_totalsize + second_totalsize + third_totalsize + fourth_totalsize
 
         if totalcount > 0:
             drop_percent = (total_dropcount / totalcount) * 100
@@ -35233,22 +35236,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         time_gap = systime - system_server_time_gap - realtime
         time_gap_abs = abs((systime - system_server_time_gap) - realtime)
 
-        main_dropcount, main_sys_dropcount, main_qsize, main_totalcount, main_totalsize, main_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
+        first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
         second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
         third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_3rd_dataworker.get_packet_info()
+        fourth_dropcount, fourth_sys_dropcount, fourth_qsize, fourth_totalcount, fourth_totalsize = self.realtime_4th_dataworker.get_packet_info()
 
-        total_dropcount = main_dropcount + second_dropcount + third_dropcount
-        total_sys_dropcount = main_sys_dropcount + second_sys_dropcount + third_sys_dropcount
-        total_waiting_count = main_qsize + second_qsize + third_qsize
-        totalcount = main_totalcount + second_totalcount + third_totalcount
-        totalsize = main_totalsize + second_totalsize + third_totalsize
+        total_dropcount = first_dropcount + second_dropcount + third_dropcount + fourth_dropcount
+        total_sys_dropcount = first_sys_dropcount + second_sys_dropcount + third_sys_dropcount + fourth_sys_dropcount
+        total_waiting_count = first_qsize + second_qsize + third_qsize + fourth_qsize
+        totalcount = first_totalcount + second_totalcount + third_totalcount + fourth_totalcount
+        totalsize = first_totalsize + second_totalsize + third_totalsize + fourth_totalsize
 
         if totalcount > 0:
             drop_percent = (total_dropcount / totalcount) * 100
         else:
             pass
 
-        drop_txt = '{0}({1})/{2}({3}k), {4}, [{5:.1f}%]'.format(format(main_dropcount, ','), format(main_sys_dropcount, ','), \
+        drop_txt = '{0}({1})/{2}({3}k), {4}, [{5:.1f}%]'.format(format(fourth_dropcount, ','), format(fourth_sys_dropcount, ','), \
             format(totalcount, ','), format(int(totalsize/1000), ','), format(total_waiting_count, ','), drop_percent)
         
         txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
@@ -35556,24 +35560,28 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 장시작 10분전입니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            self.textBrowser.append(txt)
 
         # 현물장 시작 10초전
         elif result['장구분'] == '1' and result['장상태'] == '22':
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 현물장 시작 10초전입니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            self.textBrowser.append(txt)
 
         # 선물장 장전 동시호가 개시
         elif result['장구분'] == '5' and result['장상태'] == '11':
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 선물장 장전 동시호가 개시합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            self.textBrowser.append(txt)
 
         # 선물장 시작 10초전
         elif result['장구분'] == '5' and result['장상태'] == '22':
         
             txt = '[{0:02d}:{1:02d}:{2:02d}] 선물장 시작 10초전입니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            self.textBrowser.append(txt)
 
         # 주간 선물/옵션장 시작
         elif result['장구분'] == '5' and result['장상태'] == '21':
@@ -35585,15 +35593,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            self.textBrowser.append(txt)
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] DOW 주간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, DOW_주간_시작가)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            self.textBrowser.append(txt)
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] WTI 주간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, WTI_주간_시작가)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            self.textBrowser.append(txt)
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 예상지수요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            self.textBrowser.append(txt)
 
             if TTS and TARGET_MONTH == 'CM':
                 #playsound( "Resources/doorbell.wav" )
@@ -35608,6 +35620,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            self.textBrowser.append(txt)
 
             DOW_야간_시작가 = DOW_현재가
             WTI_야간_시작가 = WTI_현재가
@@ -35619,6 +35632,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] DOW 야간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, DOW_야간_시작가)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            self.textBrowser.append(txt)
 
             jisu_txt = "WTI 야간시작가: {0}".format(WTI_야간_시작가)
 
@@ -35627,6 +35641,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] WTI 야간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, WTI_야간_시작가)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            self.textBrowser.append(txt)
 
         # 야간 옵션장 시작
         elif result['장구분'] == '8' and result['장상태'] == '21':
@@ -35635,6 +35650,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            self.textBrowser.append(txt)
 
             DOW_야간_시작가 = DOW_현재가
             WTI_야간_시작가 = WTI_현재가
@@ -35646,6 +35662,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] DOW 야간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, DOW_야간_시작가)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            self.textBrowser.append(txt)
 
             jisu_txt = "WTI 야간시작가: {0}".format(WTI_야간_시작가)
 
@@ -35654,50 +35671,44 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] WTI 야간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, WTI_야간_시작가)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            self.textBrowser.append(txt)
 
         # 미국 주식장 시작
         elif result['장구분'] == '9' and result['장상태'] == '21':
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 미국 주식장이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            self.textBrowser.append(txt)
 
         # 현물 장마감 5분전
         elif result['장구분'] == '1' and result['장상태'] == '44':
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 현물 장마감 5분전입니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            self.textBrowser.append(txt)
 
         # 현물 장마감 1분전
         elif result['장구분'] == '1' and result['장상태'] == '43':
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 현물 장마감 1분전입니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            self.textBrowser.append(txt)
 
         # 장후 동시호가 시작
         elif result['장구분'] == '5' and result['장상태'] == '31':
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 장후 동시호가가 시작되었습니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            self.textBrowser.append(txt)
 
             dongsi_quote = True
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            self.textBrowser.append(txt)
 
             flag_telegram_send_start = False
             flag_telegram_listen_start = False
-
-            '''
-            if self.dialog['선물옵션전광판'].telegram_send_worker.isRunning():
-                self.dialog['선물옵션전광판'].telegram_send_worker.terminate()
-            else:
-                pass
-
-            if self.dialog['선물옵션전광판'].telegram_listen_worker.isRunning():
-                self.dialog['선물옵션전광판'].telegram_listen_worker.terminate()
-            else:
-                pass
-            '''
 
         # 주간 선물/옵션장 종료
         elif result['장구분'] == '5' and result['장상태'] == '41':
@@ -35708,15 +35719,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 S&P 500 지수 = {3}\r'.format(dt.hour, dt.minute, dt.second, SP500_현재가)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            self.textBrowser.append(txt)
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 DOW 지수 = {3}\r'.format(dt.hour, dt.minute, dt.second, DOW_현재가)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            self.textBrowser.append(txt)
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 NASDAQ 지수 = {3}\r'.format(dt.hour, dt.minute, dt.second, NASDAQ_현재가)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            self.textBrowser.append(txt)
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 WTI 지수 = {3}\r'.format(dt.hour, dt.minute, dt.second, WTI_현재가)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            self.textBrowser.append(txt)
 
             if market_service:
 
@@ -35839,18 +35854,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 flag_telegram_send_start = False
                 flag_telegram_listen_start = False
 
-                '''
-                if self.dialog['선물옵션전광판'].telegram_send_worker.isRunning():
-                    self.dialog['선물옵션전광판'].telegram_send_worker.terminate()
-                else:
-                    pass
-
-                if self.dialog['선물옵션전광판'].telegram_listen_worker.isRunning():
-                    self.dialog['선물옵션전광판'].telegram_listen_worker.terminate()
-                else:
-                    pass
-                '''
-
                 self.dialog['선물옵션전광판'].SaveResult()
             else:
                 pass                    
@@ -35885,18 +35888,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 flag_telegram_send_start = False
                 flag_telegram_listen_start = False
 
-                '''
-                if self.dialog['선물옵션전광판'].telegram_send_worker.isRunning():
-                    self.dialog['선물옵션전광판'].telegram_send_worker.terminate()
-                else:
-                    pass
-
-                if self.dialog['선물옵션전광판'].telegram_listen_worker.isRunning():
-                    self.dialog['선물옵션전광판'].telegram_listen_worker.terminate()
-                else:
-                    pass
-                '''
-
                 self.dialog['선물옵션전광판'].SaveResult()
             else:
                 pass
@@ -35906,6 +35897,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 미국주식장 마감합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            self.textBrowser.append(txt)
 
             yagan_service_terminate = True
         else:
