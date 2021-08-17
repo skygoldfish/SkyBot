@@ -34932,10 +34932,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         time_gap = systime - system_server_time_gap - realtime
         time_gap_abs = abs((systime - system_server_time_gap) - realtime)
-
-        if szTrCode == 'JIF':
-            self.jif_update(data)
-        elif szTrCode == 'BM_' or szTrCode == 'PM_' or szTrCode == 'NWS':
+        
+        if szTrCode == 'BM_' or szTrCode == 'PM_' or szTrCode == 'NWS':
             pass
         else:
             first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
@@ -34984,15 +34982,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.label_1st.setText(txt)                
 
         # 1st 프로세스 실시간데이타 갱신
-        if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
+        if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:            
 
-            if time_gap_abs < view_time_tolerance:
+            if szTrCode == 'JIF':
                 self.update_1st_process(realdata)
             else:
-                if flag_periodic_plot_mode:
+                if time_gap_abs < view_time_tolerance:
                     self.update_1st_process(realdata)
                 else:
-                    pass
+                    if flag_periodic_plot_mode:
+                        self.update_1st_process(realdata)
+                    else:
+                        pass
         else:
             pass
         
