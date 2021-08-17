@@ -5892,6 +5892,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # 미국 주식장 종료 1분후에 프로그램을 오프라인으로 전환시킴
                     if yagan_service_terminate or 시스템시간_분 == (6 * 3600 + 1 * 60):
 
+                        market_service = False
+                        service_terminate = True
+                        receive_quote = False
+
+                        if SEARCH_MOVING_NODE:
+                            self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                                                                QPushButton:hover {background-color: black; color: white} \
+                                                                QPushButton:pressed {background-color: gold}')
+                        else:
+                            self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                                                                QPushButton:hover {background-color: black; color: white} \
+                                                                QPushButton:pressed {background-color: gold}')
+
+                        self.pushButton_start.setText(' ScrShot ')
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)
+
+                        flag_telegram_send_start = False
+                        flag_telegram_listen_start = False
+
+                        self.SaveResult()
+
                         if online_state:
 
                             SP500_당일종가 = SP500_현재가
@@ -6076,6 +6099,79 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     # 장종료 1분후에 프로그램을 오프라인으로 전환시킴
                     if jugan_service_terminate or 시스템시간_분 == (15 * 3600 + 46 * 60):
+
+                        market_service = False
+                        service_terminate = True
+                        jugan_service_terminate = True
+                        flag_option_start = False
+
+                        call_atm_value = df_call.at[ATM_INDEX, '현재가']
+                        put_atm_value = df_put.at[ATM_INDEX, '현재가']
+
+                        # 저장을 위한 중심가 계산 및 표시
+                        if call_atm_value >= put_atm_value:
+                            atm_zero_cha = round((call_atm_value - put_atm_value) , 2)
+                        else:
+                            atm_zero_cha = round((put_atm_value - call_atm_value) , 2)
+
+                        if call_atm_value > put_atm_value:
+
+                            CENTER_VAL = round((put_atm_value + atm_zero_cha / 2), 2)
+
+                        elif put_atm_value > call_atm_value:
+
+                            CENTER_VAL = round((call_atm_value + atm_zero_cha / 2), 2)
+                        else:
+                            CENTER_VAL = call_atm_value
+
+                        # KP200의 주요정보를 저장
+                        with open('daytime.txt', mode='w') as daytime_file:
+
+                            file_txt = '################# < KP200 Index of the Last Day > ###################\n'                        
+                            daytime_file.write(file_txt)
+                            file_txt = 'Center Value = {0}\n'.format(CENTER_VAL)
+                            daytime_file.write(file_txt)
+                            file_txt = 'KP200 Open = {0}\n'.format(self.kp200_realdata['시가'])
+                            daytime_file.write(file_txt)                            
+                            file_txt = 'KP200 High = {0}\n'.format(self.kp200_realdata['고가'])
+                            daytime_file.write(file_txt)
+                            file_txt = 'KP200 Low = {0}\n'.format(self.kp200_realdata['저가'])
+                            daytime_file.write(file_txt)
+                            file_txt = 'KP200 Close = {0}\n'.format(self.kp200_realdata['현재가'])
+                            daytime_file.write(file_txt)
+                            file_txt = '################### < Foreign Futures Index of the Day > #####################\n'
+                            daytime_file.write(file_txt)
+                            file_txt = 'SP500 Day Close = {0}\n'.format(SP500_현재가)
+                            daytime_file.write(file_txt)
+                            file_txt = 'DOW Day Close = {0}\n'.format(DOW_현재가)
+                            daytime_file.write(file_txt)
+                            file_txt = 'NASDAQ Day Close = {0}\n'.format(NASDAQ_현재가)
+                            daytime_file.write(file_txt)
+                            file_txt = 'WTI Day Close = {0}\n'.format(WTI_현재가)
+                            daytime_file.write(file_txt)
+                            file_txt = 'EUROFX Day Close = {0}\n'.format(EUROFX_현재가)
+                            daytime_file.write(file_txt)
+                            file_txt = 'HANGSENG Day Close = {0}\n'.format(HANGSENG_현재가)
+                            daytime_file.write(file_txt)
+                            file_txt = 'GOLD Day Close = {0}\n'.format(GOLD_현재가)
+                            daytime_file.write(file_txt)
+
+                            daytime_file.close()
+
+                        receive_quote = False
+
+                        if SEARCH_MOVING_NODE:
+                            self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                                                                QPushButton:hover {background-color: black; color: white} \
+                                                                QPushButton:pressed {background-color: gold}') 
+                        else:
+                            self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                                                                QPushButton:hover {background-color: black; color: white} \
+                                                                QPushButton:pressed {background-color: gold}')
+
+                        self.pushButton_start.setText(' ScrShot ')
+
+                        self.SaveResult()                    
 
                         if online_state:
 
