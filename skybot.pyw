@@ -2971,15 +2971,19 @@ class RealTime_1st_MP_DataWorker(QThread):
                             pass                        
 
                         dt = datetime.now()
-                        systime = dt.hour * 3600 + dt.minute * 60 + dt.second
-
-                        realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                        realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                        realtime_sec = int(self.realdata[1]['수신시간'][4:6])
-
-                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+                        systime = dt.hour * 3600 + dt.minute * 60 + dt.second                        
 
                         szTrCode = self.realdata[1]['tr_code']
+
+                        if szTrCode != 'JIF':
+
+                            realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                            realtime_min = int(self.realdata[1]['수신시간'][2:4])
+                            realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+
+                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+                        else:
+                            pass
 
                         # 옵션은 초당 50회 이상 입력됨
                         #if not flag_futures_update_is_running:
@@ -5891,7 +5895,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     # 미국 주식장 종료 1분후에 프로그램을 오프라인으로 전환시킴
                     if yagan_service_terminate or 시스템시간_분 == (6 * 3600 + 1 * 60):
-
+                        '''
                         market_service = False
                         service_terminate = True
                         receive_quote = False
@@ -5914,7 +5918,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         flag_telegram_listen_start = False
 
                         self.SaveResult()
-
+                        '''
                         if online_state:
 
                             SP500_당일종가 = SP500_현재가
@@ -6099,7 +6103,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     # 장종료 1분후에 프로그램을 오프라인으로 전환시킴
                     if jugan_service_terminate or 시스템시간_분 == (15 * 3600 + 46 * 60):
-
+                        '''
                         market_service = False
                         service_terminate = True
                         jugan_service_terminate = True
@@ -6172,7 +6176,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.pushButton_start.setText(' ScrShot ')
 
                         self.SaveResult()                    
-
+                        '''
                         if online_state:
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
