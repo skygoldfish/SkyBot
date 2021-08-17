@@ -34970,7 +34970,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.statusbar.showMessage(txt)
 
                 if time_gap_abs >= view_time_tolerance:
-                    self.label_1st.setStyleSheet("background-color: indianred; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                    self.label_1st.setStyleSheet("background-color: yellow; color: red; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
                     txt = "{0}\n({1})".format(szTrCode, time_gap_abs)
                 else:
                     if flag_1st_process_queue_empty:
@@ -35064,7 +35064,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.statusbar.showMessage(txt)        
 
         if time_gap_abs >= view_time_tolerance:
-            self.label_2nd.setStyleSheet("background-color: indianred; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+            self.label_2nd.setStyleSheet("background-color: yellow; color: red; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
 
             if szTrCode == 'OC0' and realdata['단축코드'][0:3] == '201':
                 txt = "{0}\n({1})".format('COC0', time_gap_abs)
@@ -35138,7 +35138,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif put_otm_cdb_percent_mean > call_otm_cdb_percent_mean and abs(put_otm_cdb_percent_mean) < abs(call_otm_cdb_percent_mean):
 
                 # 콜매도
-                self.label_5th.setStyleSheet("background-color: indianred; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                self.label_5th.setStyleSheet("background-color: yellow; color: red; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
                 flag_call_strong = False
                 flag_call_weak = True
                 flag_put_strong = False
@@ -35264,7 +35264,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.statusbar.showMessage(txt)        
         
         if time_gap_abs >= view_time_tolerance:
-            self.label_3rd.setStyleSheet("background-color: indianred; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+            self.label_3rd.setStyleSheet("background-color: yellow; color: red; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
 
             if szTrCode == 'OH0' and realdata['단축코드'][0:3] == '201':
                 txt = "{0}\n({1})".format('COH0', time_gap_abs)
@@ -35375,7 +35375,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.statusbar.showMessage(txt)
         
         if time_gap_abs >= view_time_tolerance:
-            self.label_4th.setStyleSheet("background-color: indianred; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+            self.label_4th.setStyleSheet("background-color: yellow; color: red; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
 
             txt = "{0}\n({1})".format(szTrCode, time_gap_abs)
         else:
