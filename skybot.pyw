@@ -2964,16 +2964,19 @@ class RealTime_1st_MP_DataWorker(QThread):
                         tick_type, tick_data = self.realdata
                         print(f"\r[{datetime.now()}] 선물체결 TR Type : {tick_data['tr_code']}  waiting tasks : {self.waiting_tasks}", end='')
 
+                        szTrCode = self.realdata[1]['tr_code']
+
                         if CSV_FILE:
-                            tick_data_lst = list(tick_data.values())
-                            handle_tick_data(tick_data_lst, tick_type)
+                            if szTrCode != 'S3_':
+                                tick_data_lst = list(tick_data.values())
+                                handle_tick_data(tick_data_lst, tick_type)
+                            else:
+                                pass
                         else:
                             pass                        
 
                         dt = datetime.now()
                         systime = dt.hour * 3600 + dt.minute * 60 + dt.second                        
-
-                        szTrCode = self.realdata[1]['tr_code']
 
                         if szTrCode != 'JIF':
 

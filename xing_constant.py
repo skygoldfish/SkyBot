@@ -26,6 +26,8 @@ class DataType(Enum):
 
     YJ_TICK = 15
     YFC_TICK = 16
+    YOC_TICK = 17
+    S3_TICK = 18
 
 # 장운영정보
 JIF_FIELDS = ["jangubun", "jstatus"]
