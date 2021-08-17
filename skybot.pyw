@@ -34953,7 +34953,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                drop_txt = '{0}({1})/{2}({3}k), {4}, [{5:.1f}%]'.format(format(first_dropcount, ','), format(first_sys_dropcount, ','), \
+                drop_txt = '{0}({1})/{2}({3}k), {4}, [{5:.1f}%]'.format(format(total_dropcount, ','), format(total_sys_dropcount, ','), \
                     format(totalcount, ','), format(int(totalsize/1000), ','), format(total_waiting_count, ','), drop_percent)
 
                 txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
@@ -35047,7 +35047,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        drop_txt = '{0}({1})/{2}({3}k), {4}, [{5:.1f}%]'.format(format(second_dropcount, ','), format(second_sys_dropcount, ','), \
+        drop_txt = '{0}({1})/{2}({3}k), {4}, [{5:.1f}%]'.format(format(total_dropcount, ','), format(total_sys_dropcount, ','), \
                 format(totalcount, ','), format(int(totalsize/1000), ','), format(total_waiting_count, ','), drop_percent)
         
         txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
@@ -35247,7 +35247,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        drop_txt = '{0}({1})/{2}({3}k), {4}, [{5:.1f}%]'.format(format(third_dropcount, ','), format(third_sys_dropcount, ','), \
+        drop_txt = '{0}({1})/{2}({3}k), {4}, [{5:.1f}%]'.format(format(total_dropcount, ','), format(total_sys_dropcount, ','), \
                 format(totalcount, ','), format(int(totalsize/1000), ','), format(total_waiting_count, ','), drop_percent)
         
         txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
@@ -35358,7 +35358,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        drop_txt = '{0}({1})/{2}({3}k), {4}, [{5:.1f}%]'.format(format(fourth_dropcount, ','), format(fourth_sys_dropcount, ','), \
+        drop_txt = '{0}({1})/{2}({3}k), {4}, [{5:.1f}%]'.format(format(total_dropcount, ','), format(total_sys_dropcount, ','), \
             format(totalcount, ','), format(int(totalsize/1000), ','), format(total_waiting_count, ','), drop_percent)
         
         txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
