@@ -2992,21 +2992,21 @@ class RealTime_1st_MP_DataWorker(QThread):
                         #if not flag_futures_update_is_running:
                         if True:                            
                             
-                            if szTrCode == 'IJ_':
+                            if szTrCode == 'IJ_' and DayTime:
 
                                 if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
                                     self.drop_count += 1
                                 else:
                                     pass                           
 
-                            elif szTrCode == 'S3_':
+                            elif szTrCode == 'S3_' and DayTime:
 
                                 if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
                                     self.drop_count += 1
                                 else:
                                     pass                        
                             
-                            elif szTrCode == 'FC0':
+                            elif szTrCode == 'FC0' and DayTime:
 
                                 if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
                                     self.drop_count += 1
@@ -3020,7 +3020,7 @@ class RealTime_1st_MP_DataWorker(QThread):
                                 else:
                                     pass
 
-                            elif szTrCode == 'FH0':
+                            elif szTrCode == 'FH0' and DayTime:
 
                                 self.fh0_total_count += 1
 
@@ -3038,11 +3038,7 @@ class RealTime_1st_MP_DataWorker(QThread):
                                     pass
 
                             elif szTrCode == 'OVC':
-
-                                if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
-                                    self.drop_count += 1
-                                else:
-                                    pass                         
+                                pass                        
                             else:
                                 pass
 
