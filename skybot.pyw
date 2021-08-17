@@ -34833,7 +34833,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         time_gap = systime - system_server_time_gap - realtime
         time_gap_abs = abs((systime - system_server_time_gap) - realtime)
 
-        if szTrCode == 'JIF' or szTrCode == 'BM_' or szTrCode == 'PM_' or szTrCode == 'NWS':
+        if szTrCode == 'JIF':
+            self.jif_update(data)
+        elif szTrCode == 'BM_' or szTrCode == 'PM_' or szTrCode == 'NWS':
             pass
         else:
             first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
