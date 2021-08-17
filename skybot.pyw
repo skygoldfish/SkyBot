@@ -34928,58 +34928,62 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         szTrCode = realdata['tr_code']
 
         systime = dt.hour * 3600 + dt.minute * 60 + dt.second
-        realtime = int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6])
 
-        time_gap = systime - system_server_time_gap - realtime
-        time_gap_abs = abs((systime - system_server_time_gap) - realtime)
-        
-        if szTrCode == 'BM_' or szTrCode == 'PM_' or szTrCode == 'NWS':
-            pass
-        else:
-            first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
-            second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
-            third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_3rd_dataworker.get_packet_info()
-            fourth_dropcount, fourth_sys_dropcount, fourth_qsize, fourth_totalcount, fourth_totalsize = self.realtime_4th_dataworker.get_packet_info()
+        if szTrCode != 'JIF':
 
-            total_dropcount = first_dropcount + second_dropcount + third_dropcount + fourth_dropcount
-            total_sys_dropcount = first_sys_dropcount + second_sys_dropcount + third_sys_dropcount + fourth_sys_dropcount
-            total_waiting_count = first_qsize + second_qsize + third_qsize + fourth_qsize
-            totalcount = first_totalcount + second_totalcount + third_totalcount + fourth_totalcount
-            totalsize = first_totalsize + second_totalsize + third_totalsize + fourth_totalsize
+            realtime = int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6])
+            time_gap = systime - system_server_time_gap - realtime
+            time_gap_abs = abs((systime - system_server_time_gap) - realtime)
 
-            if totalcount > 0:
-                drop_percent = (total_dropcount / totalcount) * 100
-            else:
+            if szTrCode == 'BM_' or szTrCode == 'PM_' or szTrCode == 'NWS':
                 pass
-
-            drop_txt = '{0}({1})/{2}({3}k), {4}, [{5:.1f}%]'.format(format(first_dropcount, ','), format(first_sys_dropcount, ','), \
-                format(totalcount, ','), format(int(totalsize/1000), ','), format(total_waiting_count, ','), drop_percent)
-            
-            txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
-                dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
-
-            if time_gap_abs >= view_time_tolerance:
-                self.statusbar.setStyleSheet("color : red")
             else:
-                if DARK_STYLESHEET:
-                    self.statusbar.setStyleSheet("color : lawngreen")
-                else:
-                    self.statusbar.setStyleSheet("color : darkgreen")
+                first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
+                second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
+                third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_3rd_dataworker.get_packet_info()
+                fourth_dropcount, fourth_sys_dropcount, fourth_qsize, fourth_totalcount, fourth_totalsize = self.realtime_4th_dataworker.get_packet_info()
 
-            self.statusbar.showMessage(txt)
-            
-            if time_gap_abs >= view_time_tolerance:
-                self.label_1st.setStyleSheet("background-color: indianred; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
-                txt = "{0}\n({1})".format(szTrCode, time_gap_abs)
-            else:
-                if flag_1st_process_queue_empty:
-                    self.label_1st.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
-                else:
-                    self.label_1st.setStyleSheet("background-color: black; color: lime; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
-            
-                txt = "{0}\n({1:.2f})".format(szTrCode, args_processing_time)
+                total_dropcount = first_dropcount + second_dropcount + third_dropcount + fourth_dropcount
+                total_sys_dropcount = first_sys_dropcount + second_sys_dropcount + third_sys_dropcount + fourth_sys_dropcount
+                total_waiting_count = first_qsize + second_qsize + third_qsize + fourth_qsize
+                totalcount = first_totalcount + second_totalcount + third_totalcount + fourth_totalcount
+                totalsize = first_totalsize + second_totalsize + third_totalsize + fourth_totalsize
 
-            self.label_1st.setText(txt)                
+                if totalcount > 0:
+                    drop_percent = (total_dropcount / totalcount) * 100
+                else:
+                    pass
+
+                drop_txt = '{0}({1})/{2}({3}k), {4}, [{5:.1f}%]'.format(format(first_dropcount, ','), format(first_sys_dropcount, ','), \
+                    format(totalcount, ','), format(int(totalsize/1000), ','), format(total_waiting_count, ','), drop_percent)
+
+                txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
+                    dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
+
+                if time_gap_abs >= view_time_tolerance:
+                    self.statusbar.setStyleSheet("color : red")
+                else:
+                    if DARK_STYLESHEET:
+                        self.statusbar.setStyleSheet("color : lawngreen")
+                    else:
+                        self.statusbar.setStyleSheet("color : darkgreen")
+
+                self.statusbar.showMessage(txt)
+
+                if time_gap_abs >= view_time_tolerance:
+                    self.label_1st.setStyleSheet("background-color: indianred; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                    txt = "{0}\n({1})".format(szTrCode, time_gap_abs)
+                else:
+                    if flag_1st_process_queue_empty:
+                        self.label_1st.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                    else:
+                        self.label_1st.setStyleSheet("background-color: black; color: lime; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+
+                    txt = "{0}\n({1:.2f})".format(szTrCode, args_processing_time)
+
+                self.label_1st.setText(txt)                
+        else:
+            pass        
 
         # 1st 프로세스 실시간데이타 갱신
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:            
