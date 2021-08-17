@@ -35005,7 +35005,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if call_otm_cdb_percent_mean > put_otm_cdb_percent_mean and abs(call_otm_cdb_percent_mean) > abs(put_otm_cdb_percent_mean):
 
                 # 콜매수
-                self.label_3rd.setStyleSheet("background-color: red; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                self.label_5th.setStyleSheet("background-color: red; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
                 flag_call_strong = True
                 flag_call_weak = False
                 flag_put_strong = False
@@ -35014,7 +35014,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif call_otm_cdb_percent_mean > put_otm_cdb_percent_mean and abs(call_otm_cdb_percent_mean) < abs(put_otm_cdb_percent_mean):
 
                 # 풋매도
-                self.label_3rd.setStyleSheet("background-color: steelblue; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                self.label_5th.setStyleSheet("background-color: steelblue; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
                 flag_call_strong = False
                 flag_call_weak = False
                 flag_put_strong = False
@@ -35023,7 +35023,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif put_otm_cdb_percent_mean > call_otm_cdb_percent_mean and abs(put_otm_cdb_percent_mean) > abs(call_otm_cdb_percent_mean):
 
                 # 풋매수
-                self.label_3rd.setStyleSheet("background-color: blue; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                self.label_5th.setStyleSheet("background-color: blue; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
                 flag_call_strong = False
                 flag_call_weak = False
                 flag_put_strong = True
@@ -35032,17 +35032,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif put_otm_cdb_percent_mean > call_otm_cdb_percent_mean and abs(put_otm_cdb_percent_mean) < abs(call_otm_cdb_percent_mean):
 
                 # 콜매도
-                self.label_3rd.setStyleSheet("background-color: indianred; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                self.label_5th.setStyleSheet("background-color: indianred; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
                 flag_call_strong = False
                 flag_call_weak = True
                 flag_put_strong = False
                 flag_put_weak = False
 
             else:
-                self.label_3rd.setStyleSheet("background-color: white; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                self.label_5th.setStyleSheet("background-color: white; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
             
             txt = '{0} %\n{1} %'.format(call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
-            self.label_3rd.setText(txt)
+            self.label_5th.setText(txt)
 
             if dt.hour == KSE_START_HOUR:
                 report_interval = 5
