@@ -2940,7 +2940,7 @@ class RealTime_1st_MP_DataWorker(QThread):
 
                     flag_1st_process_queue_empty = False                    
 
-                    self.realdata = self.dataQ.get(False)
+                    self.realdata = self.dataQ.get()
 
                     self.total_count += 1
                     self.total_packet_size += sys.getsizeof(self.realdata)                    
@@ -3103,7 +3103,7 @@ class RealTime_2nd_MP_DataWorker(QThread):
 
                 flag_2nd_process_queue_empty = False
 
-                self.realdata = self.dataQ.get(False)
+                self.realdata = self.dataQ.get()
                 
                 self.total_count += 1                    
                 self.total_packet_size += sys.getsizeof(self.realdata)
@@ -3208,7 +3208,7 @@ class RealTime_3rd_MP_DataWorker(QThread):
 
                 flag_3rd_process_queue_empty = False
 
-                self.realdata = self.dataQ.get(False)
+                self.realdata = self.dataQ.get()
                 
                 self.total_count += 1                    
                 self.total_packet_size += sys.getsizeof(self.realdata)
@@ -3323,7 +3323,7 @@ class RealTime_4th_MP_DataWorker(QThread):
 
                 flag_4th_process_queue_empty = False
 
-                self.realdata = self.dataQ.get(False)
+                self.realdata = self.dataQ.get()
                 
                 self.total_count += 1                    
                 self.total_packet_size += sys.getsizeof(self.realdata)
