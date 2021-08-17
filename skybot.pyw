@@ -35138,7 +35138,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif put_otm_cdb_percent_mean > call_otm_cdb_percent_mean and abs(put_otm_cdb_percent_mean) < abs(call_otm_cdb_percent_mean):
 
                 # 콜매도
-                self.label_5th.setStyleSheet("background-color: yellow; color: red; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                self.label_5th.setStyleSheet("background-color: indianred; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
                 flag_call_strong = False
                 flag_call_weak = True
                 flag_put_strong = False
