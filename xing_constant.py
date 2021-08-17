@@ -584,3 +584,12 @@ YFC_FIELDS = ["ychetime", "yeprice", "jnilysign", "preychange", "jnilydrate", "f
 YFC_COLUMNS = ["system_time", "tr_code", *YFC_FIELDS]
 YFC_COLUMNS_HEADER = ["system_time", "tr_code", "수신시간", "예상체결가격", "예상체결가전일종가대비구분", "예상체결가전일종가대비", "예상체결가전일종가등락율", "단축코드"]
 
+# 지수옵션 예상체결
+
+# KOSPI체결
+S3_FIELDS = ["chetime", "sign", "change", "drate", "price", "opentime", "open", "hightime", "high", "lowtime", "low", "cgubun", "cvolume", "volume", "value", "mdvolume", \
+    "mdchecnt", "msvolume", "mschecnt", "cpower", "w_avrg", "offerho", "bidho", "status", "jnilvolume", "shcode"]
+S3_COLUMNS = ["system_time", "tr_code", *S3_FIELDS]
+S3_COLUMNS_HEADER = ["system_time", "tr_code", "수신시간", "전일대비구분", "전일대비", "등락율", "현재가", "시가시간", "시가", "고가시간", "고가", "저가시간", "저가", "체결구분", \
+    "체결량", "누적거래량", "누적거래대금", "매도누적체결량", "매도누적체결건수", "매수누적체결량", "매수누적체결건수", "체결강도", "가중평균가", "매도호가", "매수호가", "장정보", "전일동시간대거래량", "단축코드"]
+

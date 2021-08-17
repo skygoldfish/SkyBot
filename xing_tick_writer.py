@@ -84,6 +84,8 @@ def write_header(tick_type: DataType, writer: csv.writer) -> None:
         writer.writerow(YFC_COLUMNS_HEADER)
     elif tick_type == DataType.IJ_TICK:
         writer.writerow(IJ_COLUMNS_HEADER)
+    elif tick_type == DataType.S3_TICK:
+        writer.writerow(S3_COLUMNS_HEADER)
     elif tick_type == DataType.BM_TICK:
         writer.writerow(BM_COLUMNS_HEADER)
     elif tick_type == DataType.PM_TICK:
