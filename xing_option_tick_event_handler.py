@@ -172,6 +172,16 @@ class XARealEventHandler:
 
         return values
 
+    def handle_s3_tick(self) -> list:
+        """
+        S3
+        """
+        values = []
+        for field in S3_FIELDS:
+            values.append(self.GetFieldData("OutBlock", field))
+
+        return values
+
     def handle_jif(self, tr_code) -> tuple:
         """
         JIF : 장운영정보
@@ -212,13 +222,13 @@ class XARealEventHandler:
         """
         S3_ : 코스피 체결
         """
-        values = self.handle_tick()
+        values = self.handle_s3_tick()
         values.insert(0, datetime.now().strftime('%H%M%S'))
         values.insert(1, tr_code)
 
-        result = dict(zip(TICK_COLUMNS_HEADER, values))
+        result = dict(zip(S3_COLUMNS_HEADER, values))
 
-        return DataType.KOSPI_TICK, result
+        return DataType.S3_TICK, result
 
     def handle_ha(self, tr_code) -> tuple:
         """
