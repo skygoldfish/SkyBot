@@ -34911,11 +34911,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 수신된 실시간데이타 정보표시(누락된 패킷수, 큐의 크기, 수신된 총 패킷수, 수신된 총 패킷크기)            
         szTrCode = realdata['tr_code']
 
-        systime = dt.hour * 3600 + dt.minute * 60 + dt.second
+        #systime = dt.hour * 3600 + dt.minute * 60 + dt.second
 
         if szTrCode != 'JIF':
 
+            systime = int(realdata['system_time'][0:2]) * 3600 + int(realdata['system_time'][2:4]) * 60 + int(realdata['system_time'][4:6])
             realtime = int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6])
+
             time_gap = systime - system_server_time_gap - realtime
             time_gap_abs = abs((systime - system_server_time_gap) - realtime)
 
@@ -35010,7 +35012,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         szTrCode = realdata['tr_code']
         
-        systime = dt.hour * 3600 + dt.minute * 60 + dt.second
+        #systime = dt.hour * 3600 + dt.minute * 60 + dt.second
+
+        systime = int(realdata['system_time'][0:2]) * 3600 + int(realdata['system_time'][2:4]) * 60 + int(realdata['system_time'][4:6])
         realtime = int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6])
 
         time_gap = systime - system_server_time_gap - realtime
@@ -35206,7 +35210,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         szTrCode = realdata['tr_code']
 
-        systime = dt.hour * 3600 + dt.minute * 60 + dt.second        
+        #systime = dt.hour * 3600 + dt.minute * 60 + dt.second
+        systime = int(realdata['system_time'][0:2]) * 3600 + int(realdata['system_time'][2:4]) * 60 + int(realdata['system_time'][4:6])        
         
         if szTrCode == 'EH0' and int(realdata['수신시간'][0:2]) >= 24:                
             realtime = (int(realdata['수신시간'][0:2]) - 24) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6])                
@@ -35321,7 +35326,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 수신된 실시간데이타 정보표시(누락된 패킷수, 큐의 크기, 수신된 총 패킷수, 수신된 총 패킷크기)            
         szTrCode = realdata['tr_code']
 
-        systime = dt.hour * 3600 + dt.minute * 60 + dt.second
+        #systime = dt.hour * 3600 + dt.minute * 60 + dt.second
+
+        systime = int(realdata['system_time'][0:2]) * 3600 + int(realdata['system_time'][2:4]) * 60 + int(realdata['system_time'][4:6])
         realtime = int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6])
 
         time_gap = systime - system_server_time_gap - realtime
