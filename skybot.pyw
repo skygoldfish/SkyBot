@@ -2962,12 +2962,16 @@ class RealTime_1st_MP_DataWorker(QThread):
                         self.waiting_tasks = self.dataQ.qsize()
 
                         tick_type, tick_data = self.realdata
-                        print(f"\r[{datetime.now()}] 선물체결 TR Type : {tick_data['tr_code']}, System time : {tick_data['system_time']}, 체결시간 : {tick_data['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')
 
                         szTrCode = tick_data['tr_code']
 
+                        if szTrCode == 'JIF' or szTrCode == 'BM_' or szTrCode == 'PM_':
+                            print(f"\r[{datetime.now()}] 선물체결 TR Type : {tick_data['tr_code']}, System time : {tick_data['system_time']}, waiting tasks : {self.waiting_tasks}", end='')                            
+                        else:
+                            print(f"\r[{datetime.now()}] 선물체결 TR Type : {tick_data['tr_code']}, System time : {tick_data['system_time']}, 체결시간 : {tick_data['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')                         
+
                         if CSV_FILE:
-                            if szTrCode != 'S3_':
+                            if True:
                                 tick_data_lst = list(tick_data.values())
                                 handle_tick_data(tick_data_lst, tick_type)
                             else:
@@ -34913,17 +34917,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         #systime = dt.hour * 3600 + dt.minute * 60 + dt.second
 
-        if szTrCode != 'JIF':
-
-            systime = int(realdata['system_time'][0:2]) * 3600 + int(realdata['system_time'][2:4]) * 60 + int(realdata['system_time'][4:6])
-            realtime = int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6])
-
-            time_gap = systime - system_server_time_gap - realtime
-            time_gap_abs = abs((systime - system_server_time_gap) - realtime)
+        if szTrCode != 'JIF':            
 
             if szTrCode == 'BM_' or szTrCode == 'PM_' or szTrCode == 'NWS':
                 pass
             else:
+                systime = int(realdata['system_time'][0:2]) * 3600 + int(realdata['system_time'][2:4]) * 60 + int(realdata['system_time'][4:6])
+                realtime = int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6])
+
+                time_gap = systime - system_server_time_gap - realtime
+                time_gap_abs = abs((systime - system_server_time_gap) - realtime)
+
                 first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
                 second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
                 third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_3rd_dataworker.get_packet_info()
