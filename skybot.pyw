@@ -2967,8 +2967,11 @@ class RealTime_1st_MP_DataWorker(QThread):
                         szTrCode = tick_data['tr_code']
 
                         if CSV_FILE:
-                            tick_data_lst = list(tick_data.values())
-                            handle_tick_data(tick_data_lst, tick_type)
+                            if szTrCode != 'S3_':
+                                tick_data_lst = list(tick_data.values())
+                                handle_tick_data(tick_data_lst, tick_type)
+                            else:
+                                pass
                         else:
                             pass                        
 
