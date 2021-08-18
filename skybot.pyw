@@ -2962,7 +2962,7 @@ class RealTime_1st_MP_DataWorker(QThread):
                         self.waiting_tasks = self.dataQ.qsize()
 
                         tick_type, tick_data = self.realdata
-                        print(f"\r[{datetime.now()}] 선물체결 TR Type : {tick_data['tr_code']}  waiting tasks : {self.waiting_tasks}", end='')
+                        print(f"\r[{datetime.now()}] 선물체결 TR Type : {tick_data['tr_code']}, System time : {tick_data['system_time']}, 체결시간 : {tick_data['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')
 
                         szTrCode = self.realdata[1]['tr_code']
 
@@ -2975,8 +2975,8 @@ class RealTime_1st_MP_DataWorker(QThread):
                         else:
                             pass                        
 
-                        dt = datetime.now()
-                        systime = dt.hour * 3600 + dt.minute * 60 + dt.second                        
+                        #dt = datetime.now()
+                        systime = int(self.realdata[1]['system_time'][0:2]) * 3600 + int(self.realdata[1]['system_time'][2:4]) * 60 + int(self.realdata[1]['system_time'][4:6])                       
 
                         if szTrCode != 'JIF':
 
@@ -3125,7 +3125,7 @@ class RealTime_2nd_MP_DataWorker(QThread):
                     self.waiting_tasks = self.dataQ.qsize()
 
                     tick_type, tick_data = self.realdata
-                    print(f"\r[{datetime.now()}] 옵션체결 TR Type : {tick_data['tr_code']}  waiting tasks : {self.waiting_tasks}", end='')
+                    print(f"\r[{datetime.now()}] 옵션체결 System time : {tick_data['system_time']}, 체결시간 : {tick_data['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')
 
                     if CSV_FILE:
                         tick_data_lst = list(tick_data.values())
@@ -3133,16 +3133,14 @@ class RealTime_2nd_MP_DataWorker(QThread):
                     else:
                         pass
                     
-                    dt = datetime.now()
-                    systime = dt.hour * 3600 + dt.minute * 60 + dt.second
+                    #dt = datetime.now()
+                    systime = int(self.realdata[1]['system_time'][0:2]) * 3600 + int(self.realdata[1]['system_time'][2:4]) * 60 + int(self.realdata[1]['system_time'][4:6])
 
                     realtime_hour = int(self.realdata[1]['수신시간'][0:2])
                     realtime_min = int(self.realdata[1]['수신시간'][2:4])
                     realtime_sec = int(self.realdata[1]['수신시간'][4:6])
 
                     realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                    #szTrCode = self.realdata[1]['tr_code']
 
                     #if not flag_option_tick_update_is_running:
                     if True:
@@ -3230,7 +3228,7 @@ class RealTime_3rd_MP_DataWorker(QThread):
                     self.waiting_tasks = self.dataQ.qsize()
 
                     tick_type, tick_data = self.realdata
-                    print(f"\r[{datetime.now()}] 옵션호가 TR Type : {tick_data['tr_code']}  waiting tasks : {self.waiting_tasks}", end='')
+                    print(f"\r[{datetime.now()}] 옵션호가 System time : {tick_data['system_time']}, 체결시간 : {tick_data['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')
 
                     if CSV_FILE:
                         tick_data_lst = list(tick_data.values())
@@ -3238,8 +3236,8 @@ class RealTime_3rd_MP_DataWorker(QThread):
                     else:
                         pass
                     
-                    dt = datetime.now()
-                    systime = dt.hour * 3600 + dt.minute * 60 + dt.second
+                    #dt = datetime.now()
+                    systime = int(self.realdata[1]['system_time'][0:2]) * 3600 + int(self.realdata[1]['system_time'][2:4]) * 60 + int(self.realdata[1]['system_time'][4:6])
 
                     szTrCode = self.realdata[1]['tr_code']
 
@@ -3345,7 +3343,7 @@ class RealTime_4th_MP_DataWorker(QThread):
                     self.waiting_tasks = self.dataQ.qsize()
 
                     tick_type, tick_data = self.realdata
-                    print(f"\r[{datetime.now()}] 해외선물 TR Type : {tick_data['tr_code']}  waiting tasks : {self.waiting_tasks}", end='')
+                    print(f"\r[{datetime.now()}] 해외선물 System time : {tick_data['system_time']}, 체결시간 : {tick_data['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')
 
                     if CSV_FILE:
                         tick_data_lst = list(tick_data.values())
@@ -3353,8 +3351,8 @@ class RealTime_4th_MP_DataWorker(QThread):
                     else:
                         pass
                     
-                    dt = datetime.now()
-                    systime = dt.hour * 3600 + dt.minute * 60 + dt.second
+                    #dt = datetime.now()
+                    systime = int(self.realdata[1]['system_time'][0:2]) * 3600 + int(self.realdata[1]['system_time'][2:4]) * 60 + int(self.realdata[1]['system_time'][4:6])
 
                     realtime_hour = int(self.realdata[1]['수신시간'][0:2])
                     realtime_min = int(self.realdata[1]['수신시간'][2:4])

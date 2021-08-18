@@ -177,7 +177,7 @@ class XARealEventHandler:
         JIF : 장운영정보
         """
         values = self.handle_jif_tick()
-        values.insert(0, datetime.now().strftime('%H:%M:%S'))
+        values.insert(0, datetime.now().strftime('%H%M%S'))
         values.insert(1, tr_code)
 
         result = dict(zip(JIF_COLUMNS_HEADER, values))
@@ -189,7 +189,7 @@ class XARealEventHandler:
         IJ : 지수
         """
         values = self.handle_ij_tick()
-        values.insert(0, datetime.now().strftime('%H:%M:%S'))
+        values.insert(0, datetime.now().strftime('%H%M%S'))
         values.insert(1, tr_code)
 
         result = dict(zip(IJ_COLUMNS_HEADER, values))
@@ -201,7 +201,7 @@ class XARealEventHandler:
         H1_ : 코스피 호가
         """
         values = self.handle_quote()
-        values.insert(0, datetime.now().strftime('%H:%M:%S'))
+        values.insert(0, datetime.now().strftime('%H%M%S'))
         values.insert(1, tr_code)
 
         result = dict(zip(QUOTE_COLUMNS_HEADER, values))
@@ -213,7 +213,7 @@ class XARealEventHandler:
         S3_ : 코스피 체결
         """
         values = self.handle_tick()
-        values.insert(0, datetime.now().strftime('%H:%M:%S'))
+        values.insert(0, datetime.now().strftime('%H%M%S'))
         values.insert(1, tr_code)
 
         result = dict(zip(TICK_COLUMNS_HEADER, values))
@@ -225,7 +225,7 @@ class XARealEventHandler:
         HA_ : 코스닥 호가
         """
         values = self.handle_quote()
-        values.insert(0, datetime.now().strftime('%H:%M:%S'))
+        values.insert(0, datetime.now().strftime('%H%M%S'))
         values.insert(1, tr_code)
 
         result = dict(zip(QUOTE_COLUMNS_HEADER, values))
@@ -237,7 +237,7 @@ class XARealEventHandler:
         K3 : 코스닥 체결
         """
         values = self.handle_tick()
-        values.insert(0, datetime.now().strftime('%H:%M:%S'))
+        values.insert(0, datetime.now().strftime('%H%M%S'))
         values.insert(1, tr_code)
 
         result = dict(zip(TICK_COLUMNS_HEADER, values))
@@ -249,7 +249,7 @@ class XARealEventHandler:
         FH0 : 지수선물 호가
         """
         values = self.handle_index_futures_quote()
-        values.insert(0, datetime.now().strftime('%H:%M:%S'))
+        values.insert(0, datetime.now().strftime('%H%M%S'))
         values.insert(1, tr_code)
 
         result = dict(zip(INDEX_FUTURES_QUOTE_COLUMNS_HEADER, values))
@@ -261,7 +261,7 @@ class XARealEventHandler:
         FC0 : 지수선물 체결
         """
         values = self.handle_index_futures_tick()
-        values.insert(0, datetime.now().strftime('%H:%M:%S'))
+        values.insert(0, datetime.now().strftime('%H%M%S'))
         values.insert(1, tr_code)
 
         result = dict(zip(INDEX_FUTURES_TICK_COLUMNS_HEADER, values))
@@ -273,7 +273,7 @@ class XARealEventHandler:
         OH0/EH0 : 지수옵션 호가
         """
         values = self.handle_index_option_quote()
-        values.insert(0, datetime.now().strftime('%H:%M:%S'))
+        values.insert(0, datetime.now().strftime('%H%M%S'))
         values.insert(1, tr_code)
 
         result = dict(zip(INDEX_OPTION_QUOTE_COLUMNS_HEADER, values))
@@ -285,7 +285,7 @@ class XARealEventHandler:
         OC0/EC0 : 지수옵션 체결
         """
         values = self.handle_index_option_tick()
-        values.insert(0, datetime.now().strftime('%H:%M:%S'))
+        values.insert(0, datetime.now().strftime('%H%M%S'))
         values.insert(1, tr_code)
 
         result = dict(zip(INDEX_OPTION_TICK_COLUMNS_HEADER, values))
@@ -297,7 +297,7 @@ class XARealEventHandler:
         OVC : 해외선물 체결
         """
         values = self.handle_ovc_tick()
-        values.insert(0, datetime.now().strftime('%H:%M:%S'))
+        values.insert(0, datetime.now().strftime('%H%M%S'))
         values.insert(1, tr_code)
 
         result = dict(zip(OVC_COLUMNS_HEADER, values))
@@ -309,7 +309,7 @@ class XARealEventHandler:
         BM : 업종별투자자별 매매현황
         """
         values = self.handle_bm_tick()
-        values.insert(0, datetime.now().strftime('%H:%M:%S'))
+        values.insert(0, datetime.now().strftime('%H%M%S'))
         values.insert(1, tr_code)
 
         result = dict(zip(BM_COLUMNS_HEADER, values))
@@ -321,7 +321,7 @@ class XARealEventHandler:
         PM : KOSPI 프로그램매매 전체집계
         """
         values = self.handle_pm_tick()
-        values.insert(0, datetime.now().strftime('%H:%M:%S'))
+        values.insert(0, datetime.now().strftime('%H%M%S'))
         values.insert(1, tr_code)
 
         result = dict(zip(PM_COLUMNS_HEADER, values))
@@ -333,7 +333,7 @@ class XARealEventHandler:
         NWS : 뉴스
         """
         values = self.handle_nws_tick()
-        values.insert(0, datetime.now().strftime('%H:%M:%S'))
+        values.insert(0, datetime.now().strftime('%H%M%S'))
         values.insert(1, tr_code)
 
         result = dict(zip(NWS_COLUMNS_HEADER, values))
@@ -345,7 +345,7 @@ class XARealEventHandler:
         YJ_ : 예상지수
         """
         values = self.handle_yj_tick()
-        values.insert(0, datetime.now().strftime('%H:%M:%S'))
+        values.insert(0, datetime.now().strftime('%H%M%S'))
         values.insert(1, tr_code)
 
         result = dict(zip(YJ_COLUMNS_HEADER, values))
@@ -357,7 +357,7 @@ class XARealEventHandler:
         YFC : 지수선물 예상체결
         """
         values = self.handle_yfc_tick()
-        values.insert(0, datetime.now().strftime('%H:%M:%S'))
+        values.insert(0, datetime.now().strftime('%H%M%S'))
         values.insert(1, tr_code)
 
         result = dict(zip(YFC_COLUMNS_HEADER, values))
