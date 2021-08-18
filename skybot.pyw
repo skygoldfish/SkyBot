@@ -19076,7 +19076,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             elif block['단축코드'][0:3] == '301':
 
                 if new_actval_down_count > 0:
-
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 새로운 하방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_down_count)
                     print(txt)
                 else:
