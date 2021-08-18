@@ -18825,7 +18825,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             elif block['단축코드'][0:3] == '201':
 
                 if new_actval_up_count > 0:
-
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 새로운 상방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_up_count)
                     print(txt)
                 else:
@@ -18998,8 +18997,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] Call 행사가 {3}개중 {4}개를 수신했습니다.\r'.\
-                    format(dt.hour, dt.minute, dt.second, option_pairs_count, t8416_call_count + 1)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Call 행사가 {3}개중 {4}개를 수신했습니다.\r'.format(dt.hour, dt.minute, dt.second, option_pairs_count, t8416_call_count + 1)
 
                 self.textBrowser.append(txt)
                 print(txt)
@@ -19042,10 +19040,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     call_저가_node_list = self.make_node_list(call_저가)
                     call_고가_node_list = self.make_node_list(call_고가)
 
+                    print('======================================================================================================================================================================\r')
                     txt = '[{0:02d}:{1:02d}:{2:02d}] Call 전체 행사가 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
                     print(txt)
-
                     print('======================================================================================================================================================================\r')
                         
                     flag_t8416_call_done = True
@@ -19251,8 +19249,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Put 행사가 {3}개중 {4}개를 수신했습니다.\r'.format(dt.hour, dt.minute, dt.second, option_pairs_count, t8416_put_count + 1)
                 self.textBrowser.append(txt)
                 print(txt)
-
-                print('======================================================================================================================================================================\r')
+                print('======================================================================================================================================================================\r')                
 
                 if flag_t8416_rerequest:
                     count = t8416_option_pairs_count 
@@ -19268,9 +19265,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if t8416_put_count == (count - 1) - new_actval_down_count:
                     
+                    print('======================================================================================================================================================================\r')
                     txt = '[{0:02d}:{1:02d}:{2:02d}] Put 전체 행사가 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
                     print(txt)
+                    print('======================================================================================================================================================================\r')
 
                     global flag_t8416_data_receive_done
 
@@ -19360,7 +19359,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.scrollToItem(put_positionCell)
                     
                     if new_actval_up_count > 0:
-
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 새로운 상방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_up_count)
                         self.textBrowser.append(txt)
                         print(txt)
@@ -19368,7 +19366,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                     if new_actval_down_count > 0:
-
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 새로운 하방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_down_count)
                         self.textBrowser.append(txt)
                         print(txt)
@@ -19681,12 +19678,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
 
-                        '''
-                        if not flag_plot_first_mode:
-                            self.screen_update_worker.start()
-                        else:
-                            pass
-                        '''
                         ui_start_time = dt.hour * 3600 + dt.minute * 60 + dt.second
 
                         self.flag_refresh = True
