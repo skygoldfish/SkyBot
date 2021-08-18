@@ -2964,7 +2964,7 @@ class RealTime_1st_MP_DataWorker(QThread):
                         tick_type, tick_data = self.realdata
                         print(f"\r[{datetime.now()}] 선물체결 TR Type : {tick_data['tr_code']}, System time : {tick_data['system_time']}, 체결시간 : {tick_data['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')
 
-                        szTrCode = self.realdata[1]['tr_code']
+                        szTrCode = tick_data['tr_code']
 
                         if CSV_FILE:
                             tick_data_lst = list(tick_data.values())
@@ -2973,13 +2973,13 @@ class RealTime_1st_MP_DataWorker(QThread):
                             pass                        
 
                         #dt = datetime.now()
-                        systime = int(self.realdata[1]['system_time'][0:2]) * 3600 + int(self.realdata[1]['system_time'][2:4]) * 60 + int(self.realdata[1]['system_time'][4:6])                       
+                        systime = int(tick_data['system_time'][0:2]) * 3600 + int(tick_data['system_time'][2:4]) * 60 + int(tick_data['system_time'][4:6])                       
 
                         if szTrCode != 'JIF':
 
-                            realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                            realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                            realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+                            realtime_hour = int(tick_data['수신시간'][0:2])
+                            realtime_min = int(tick_data['수신시간'][2:4])
+                            realtime_sec = int(tick_data['수신시간'][4:6])
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
                         else:
@@ -3039,7 +3039,7 @@ class RealTime_1st_MP_DataWorker(QThread):
                             else:
                                 pass
 
-                            self.trigger_dict.emit(self.realdata[1])                           
+                            self.trigger_dict.emit(tick_data)                           
                         else:
                             self.sys_drop_count += 1                    
                     else:
@@ -3053,10 +3053,10 @@ class RealTime_1st_MP_DataWorker(QThread):
 
             except Exception as e:
                 
-                txt = '{0} 멀티프로세스 큐 쓰레드에서 {1}타입의 {2}예외가 발생했습니다.'.format(self.realdata[1]['tr_code'], type(e).__name__, str(e))
+                txt = '{0} 멀티프로세스 큐 쓰레드에서 {1}타입의 {2}예외가 발생했습니다.'.format(tick_data['tr_code'], type(e).__name__, str(e))
                 print(txt)
 
-                self.trigger_exception.emit(self.realdata[1]['tr_code'], str(e))
+                self.trigger_exception.emit(tick_data['tr_code'], str(e))
 
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 멀티프로세스 2nd 쓰레드 클래스(옵션 가격만 처리)
@@ -3131,25 +3131,25 @@ class RealTime_2nd_MP_DataWorker(QThread):
                         pass
                     
                     #dt = datetime.now()
-                    systime = int(self.realdata[1]['system_time'][0:2]) * 3600 + int(self.realdata[1]['system_time'][2:4]) * 60 + int(self.realdata[1]['system_time'][4:6])
+                    systime = int(tick_data['system_time'][0:2]) * 3600 + int(tick_data['system_time'][2:4]) * 60 + int(tick_data['system_time'][4:6])
 
-                    realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                    realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                    realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+                    realtime_hour = int(tick_data['수신시간'][0:2])
+                    realtime_min = int(tick_data['수신시간'][2:4])
+                    realtime_sec = int(tick_data['수신시간'][4:6])
 
                     realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                     #if not flag_option_tick_update_is_running:
                     if True:
 
-                        self.total_option_packet_size += sys.getsizeof(self.realdata[1])                        
+                        self.total_option_packet_size += sys.getsizeof(tick_data)                        
 
                         if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
                             self.drop_count += 1
                         else:
                             pass
 
-                        self.trigger_dict.emit(self.realdata[1])
+                        self.trigger_dict.emit(tick_data)
                     else:
                         self.sys_drop_count += 1                
                 else:
@@ -3234,30 +3234,30 @@ class RealTime_3rd_MP_DataWorker(QThread):
                         pass
                     
                     #dt = datetime.now()
-                    systime = int(self.realdata[1]['system_time'][0:2]) * 3600 + int(self.realdata[1]['system_time'][2:4]) * 60 + int(self.realdata[1]['system_time'][4:6])
+                    systime = int(tick_data['system_time'][0:2]) * 3600 + int(tick_data['system_time'][2:4]) * 60 + int(tick_data['system_time'][4:6])
 
-                    szTrCode = self.realdata[1]['tr_code']
+                    szTrCode = tick_data['tr_code']
 
                     #if not flag_option_quote_update_is_running:
                     if True:
 
                         if szTrCode == 'OH0':
 
-                            self.total_option_packet_size += sys.getsizeof(self.realdata[1])
+                            self.total_option_packet_size += sys.getsizeof(tick_data)
 
-                            realtime_hour = int(self.realdata[1]['수신시간'][0:2])                            
+                            realtime_hour = int(tick_data['수신시간'][0:2])                            
 
                         elif szTrCode == 'EH0':
 
-                            if int(self.realdata[1]['수신시간'][0:2]) >= 24:
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2]) - 24
+                            if int(tick_data['수신시간'][0:2]) >= 24:
+                                realtime_hour = int(tick_data['수신시간'][0:2]) - 24
                             else:                            
-                                realtime_hour = int(self.realdata[1]['수신시간'][0:2])
+                                realtime_hour = int(tick_data['수신시간'][0:2])
                         else:
                             pass
 
-                        realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                        realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+                        realtime_min = int(tick_data['수신시간'][2:4])
+                        realtime_sec = int(tick_data['수신시간'][4:6])
 
                         realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3266,7 +3266,7 @@ class RealTime_3rd_MP_DataWorker(QThread):
                         else:
                             pass
 
-                        self.trigger_dict.emit(self.realdata[1])
+                        self.trigger_dict.emit(tick_data)
                     else:
                         self.sys_drop_count += 1                
                 else:
@@ -3349,15 +3349,15 @@ class RealTime_4th_MP_DataWorker(QThread):
                         pass
                     
                     #dt = datetime.now()
-                    systime = int(self.realdata[1]['system_time'][0:2]) * 3600 + int(self.realdata[1]['system_time'][2:4]) * 60 + int(self.realdata[1]['system_time'][4:6])
+                    systime = int(tick_data['system_time'][0:2]) * 3600 + int(tick_data['system_time'][2:4]) * 60 + int(tick_data['system_time'][4:6])
 
-                    realtime_hour = int(self.realdata[1]['수신시간'][0:2])
-                    realtime_min = int(self.realdata[1]['수신시간'][2:4])
-                    realtime_sec = int(self.realdata[1]['수신시간'][4:6])
+                    realtime_hour = int(tick_data['수신시간'][0:2])
+                    realtime_min = int(tick_data['수신시간'][2:4])
+                    realtime_sec = int(tick_data['수신시간'][4:6])
 
                     realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                    #szTrCode = self.realdata[1]['tr_code']
+                    #szTrCode = tick_data['tr_code']
 
                     #if not flag_option_quote_update_is_running:
                     if True:                        
@@ -3367,7 +3367,7 @@ class RealTime_4th_MP_DataWorker(QThread):
                         else:
                             pass
 
-                        self.trigger_dict.emit(self.realdata[1])
+                        self.trigger_dict.emit(tick_data)
                     else:
                         self.sys_drop_count += 1                
                 else:
