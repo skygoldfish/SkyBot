@@ -18678,8 +18678,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 actval_increased = True
 
-                #if t8416_call_count == 0:
-                if new_actval_down_count == 0 and not flag_t8416_call_done:
+                if t8416_call_count < int(t8416_option_pairs_count / 2):
 
                     new_actval_up_count += 1
 
@@ -18712,92 +18711,91 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
                     self.tableWidget_put.resizeColumnsToContents()
                 else:
-                    pass
-                                
-                if new_actval_up_count == 0 and t8416_put_count == 0:
 
-                    new_actval_down_count += 1
+                    if not flag_t8416_put_done:
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 새로운 하방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_down_count)
-                    print(txt)
+                        new_actval_down_count = t8416_option_pairs_count - t8416_call_count
 
-                    #playsound( "Resources/doorbell.wav" )  
-                    winsound.PlaySound('Resources/doorbell.wav', winsound.SND_FILENAME)
-
-                    # 추가된 행사가 갯수 표시
-                    item_txt =  '{0:d}'.format(real_option_pairs_count) + '\n' + '(+' + '{0:d})'.format(new_actval_down_count)
-                    item = QTableWidgetItem(item_txt)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setHorizontalHeaderItem(0, item)
-
-                    if ResizeRowsToContents:
-                        self.tableWidget_call.resizeRowsToContents()
-                    else:
-                        pass
-                    self.tableWidget_call.resizeColumnsToContents()
-
-                    item_txt = '{0:d}'.format(real_option_pairs_count) + '\n' + '(+' + '{0:d})'.format(new_actval_down_count)
-                    item = QTableWidgetItem(item_txt)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setHorizontalHeaderItem(0, item) 
-
-                    if ResizeRowsToContents:
-                        self.tableWidget_put.resizeRowsToContents()
-                    else:
-                        pass                   
-                    self.tableWidget_put.resizeColumnsToContents()                 
-
-                    if t8416_call_count == (t8416_option_pairs_count - 1) - new_actval_down_count:
-
-                        call_기준가 = df_call['기준가'].values.tolist()
-                        call_월저 = df_call['월저'].values.tolist()
-                        call_월고 = df_call['월고'].values.tolist()
-                        call_전저 = df_call['전저'].values.tolist()
-                        call_전고 = df_call['전고'].values.tolist()
-                        call_종가 = df_call['종가'].values.tolist()
-                        call_피봇 = df_call['피봇'].values.tolist()
-                        call_시가 = df_call['시가'].values.tolist()
-                        call_저가 = df_call['저가'].values.tolist()
-                        call_고가 = df_call['고가'].values.tolist()
-
-                        call_기준가_node_list = self.make_node_list(call_기준가)
-                        call_월저_node_list = self.make_node_list(call_월저)
-                        call_월고_node_list = self.make_node_list(call_월고)
-                        call_전저_node_list = self.make_node_list(call_전저)
-                        call_전고_node_list = self.make_node_list(call_전고)
-                        call_종가_node_list = self.make_node_list(call_종가)
-                        call_피봇_node_list = self.make_node_list(call_피봇)
-                        call_시가_node_list = self.make_node_list(call_시가)
-                        call_저가_node_list = self.make_node_list(call_저가)
-                        call_고가_node_list = self.make_node_list(call_고가)
-
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] Call 전체 행사가 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(txt)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 새로운 하방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_down_count)
                         print(txt)
 
-                        flag_t8416_call_done = True
-                        print('flag_t8416_call_done =', flag_t8416_call_done)                           
+                        #playsound( "Resources/doorbell.wav" )  
+                        winsound.PlaySound('Resources/doorbell.wav', winsound.SND_FILENAME)
 
-                        call_positionCell = self.tableWidget_call.item(ATM_INDEX + 9, 1)
-                        self.tableWidget_call.scrollToItem(call_positionCell)
+                        # 추가된 행사가 갯수 표시
+                        item_txt =  '{0:d}'.format(real_option_pairs_count) + '\n' + '(+' + '{0:d})'.format(new_actval_down_count)
+                        item = QTableWidgetItem(item_txt)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_call.setHorizontalHeaderItem(0, item)
 
-                        print('t8416 put 요청시작...')
-                        QTest.qWait(1000)
-
-                        # 10분내에 200회 전송제약으로 인해 콜, 풋 각각 99개씩 만 요청함
-                        if option_pairs_count > 99:
-                            t8416_option_pairs_count = 99
+                        if ResizeRowsToContents:
+                            self.tableWidget_call.resizeRowsToContents()
                         else:
-                            t8416_option_pairs_count = option_pairs_count
+                            pass
+                        self.tableWidget_call.resizeColumnsToContents()
 
-                        for i in range(t8416_option_pairs_count):
-                            t8416_put_count = i
-                            self.t8416_opt_request(self.put_code[i])
-                            self.t8416_put_event_loop.exec_()
+                        item_txt = '{0:d}'.format(real_option_pairs_count) + '\n' + '(+' + '{0:d})'.format(new_actval_down_count)
+                        item = QTableWidgetItem(item_txt)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_put.setHorizontalHeaderItem(0, item) 
+
+                        if ResizeRowsToContents:
+                            self.tableWidget_put.resizeRowsToContents()
+                        else:
+                            pass                   
+                        self.tableWidget_put.resizeColumnsToContents()                 
+
+                        if t8416_call_count == t8416_option_pairs_count - new_actval_down_count:
+
+                            call_기준가 = df_call['기준가'].values.tolist()
+                            call_월저 = df_call['월저'].values.tolist()
+                            call_월고 = df_call['월고'].values.tolist()
+                            call_전저 = df_call['전저'].values.tolist()
+                            call_전고 = df_call['전고'].values.tolist()
+                            call_종가 = df_call['종가'].values.tolist()
+                            call_피봇 = df_call['피봇'].values.tolist()
+                            call_시가 = df_call['시가'].values.tolist()
+                            call_저가 = df_call['저가'].values.tolist()
+                            call_고가 = df_call['고가'].values.tolist()
+
+                            call_기준가_node_list = self.make_node_list(call_기준가)
+                            call_월저_node_list = self.make_node_list(call_월저)
+                            call_월고_node_list = self.make_node_list(call_월고)
+                            call_전저_node_list = self.make_node_list(call_전저)
+                            call_전고_node_list = self.make_node_list(call_전고)
+                            call_종가_node_list = self.make_node_list(call_종가)
+                            call_피봇_node_list = self.make_node_list(call_피봇)
+                            call_시가_node_list = self.make_node_list(call_시가)
+                            call_저가_node_list = self.make_node_list(call_저가)
+                            call_고가_node_list = self.make_node_list(call_고가)
+
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] Call 전체 행사가 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
+                            self.textBrowser.append(txt)
+                            print(txt)
+
+                            flag_t8416_call_done = True
+                            print('flag_t8416_call_done =', flag_t8416_call_done)                           
+
+                            call_positionCell = self.tableWidget_call.item(ATM_INDEX + 9, 1)
+                            self.tableWidget_call.scrollToItem(call_positionCell)
+
+                            print('t8416 put 요청시작...')
+                            QTest.qWait(1000)
+
+                            # 10분내에 200회 전송제약으로 인해 콜, 풋 각각 99개씩 만 요청함
+                            if option_pairs_count > 99:
+                                t8416_option_pairs_count = 99
+                            else:
+                                t8416_option_pairs_count = option_pairs_count
+
+                            for i in range(t8416_option_pairs_count):
+                                t8416_put_count = i
+                                self.t8416_opt_request(self.put_code[i])
+                                self.t8416_put_event_loop.exec_()
+                        else:
+                            pass
                     else:
-                        pass                    
-                else:
-                    pass
+                        pass                
             
             elif block['단축코드'][0:3] == '101':
 
@@ -19586,10 +19584,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
                     
-                    if NightTime:                        
+                    if NightTime:                     
 
                         # EUREX 야간옵션 시세전광판
-
                         if TARGET_MONTH == 'CM':
 
                             if MANGI_YAGAN:
@@ -19598,7 +19595,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 t2835_month_info = CURRENT_MONTH
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] EUREX(t2835) 본월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                            self.textBrowser.append(txt) 
+                            self.textBrowser.append(txt)
+                            print(txt)
 
                         elif TARGET_MONTH == 'NM':
 
@@ -19609,11 +19607,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] EUREX(t2835) 차월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(txt)
-
+                            print(txt)
                         else:
                             pass
-
-                        print('t2835 요청')
+                        
                         self.XQ_t2835.Query(월물=t2835_month_info)                        
                     else:
                             
