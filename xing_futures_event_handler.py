@@ -216,9 +216,9 @@ class XARealEventHandler:
         values.insert(0, datetime.now().strftime('%H%M%S'))
         values.insert(1, tr_code)
 
-        result = dict(zip(TICK_COLUMNS_HEADER, values))
+        result = dict(zip(S3_COLUMNS_HEADER, values))
 
-        return DataType.KOSPI_TICK, result
+        return DataType.S3_TICK, result
 
     def handle_ha(self, tr_code) -> tuple:
         """
