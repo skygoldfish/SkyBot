@@ -894,7 +894,7 @@ system_server_time_gap = 0
 
 Option_column = Enum('Option_column', '행사가 OLOH 기준가 월저 월고 전저 전고 종가 피봇 시가 저가 현재가 고가 시가갭 대비 진폭 VP OI OID')
 Futures_column = Enum('Futures_column', 'OLOH 매수건수 매도건수 매수잔량 매도잔량 건수비 잔량비 전저 전고 종가 피봇 시가 저가 현재가 고가 시가갭 대비 거래량 진폭 OI OID')
-Supply_column = Enum('Supply_column', '외인선물 프로그램 외인현물 개인선물 기관선물 종합')
+Supply_column = Enum('Supply_column', '외인선물 외인현물 기관선물 기관현물 개인선물 개인현물 프로그램 종합')
 Quote_column = Enum('Quote_column', 'C-MSCC C-MDCC C-MSCR C-MDCR P-MSCC P-MDCC P-MSCR P-MDCR 콜건수비 콜잔량비 풋건수비 풋잔량비 호가종합 미결종합')
 
 flag_offline = False
@@ -3715,12 +3715,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.tableWidget_supply.horizontalHeader().setStyleSheet(supply_header_stylesheet)
 
-        self.tableWidget_supply.setHorizontalHeaderLabels(['외인선물', '프로그램', '외인현물', '개인선물', '기관선물', '∑선물/∑현물'])
+        self.tableWidget_supply.setHorizontalHeaderLabels(['외인선물', '외인현물', '기관선물', '기관현물', '개인선물', '개인현물', '프로그램', '∑선물/∑현물'])
         self.tableWidget_supply.verticalHeader().setVisible(False)
 
         header = self.tableWidget_supply.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(5, QHeaderView.Stretch)
+        header.setSectionResizeMode(7, QHeaderView.Stretch)
 
         self.tableWidget_supply.verticalHeader().setStretchLastSection(True)
         self.tableWidget_supply.clearContents()
@@ -4839,7 +4839,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if cell is not None:
 
             # cell focus 이동
-            self.tableWidget_supply.setCurrentCell(1, 5)
+            self.tableWidget_supply.setCurrentCell(1, 7)
 
             self.tableWidget_supply.resizeRowsToContents()
             self.tableWidget_supply.resizeColumnsToContents()
@@ -36742,10 +36742,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 item_txt = "{0}\n({1})⬈".format(순매수, 거래대금순매수직전대비)
 
-                if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 3).text():
+                if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 4).text():
                     item = QTableWidgetItem(item_txt)
                     item.setTextAlignment(Qt.AlignCenter)
-                    self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 3, item)
+                    self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 4, item)
                 else:
                     pass
 
@@ -36753,20 +36753,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 item_txt = "{0}\n({1})⬊".format(순매수, 거래대금순매수직전대비)
 
-                if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 3).text():
+                if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 4).text():
                     item = QTableWidgetItem(item_txt)
                     item.setTextAlignment(Qt.AlignCenter)
-                    self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 3, item)
+                    self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 4, item)
                 else:
                     pass
 
             else:
                 item_txt = "{0}\n({1})".format(순매수, 거래대금순매수직전대비)
 
-                if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 3).text():
+                if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 4).text():
                     item = QTableWidgetItem(item_txt)
                     item.setTextAlignment(Qt.AlignCenter)
-                    self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 3, item)
+                    self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 4, item)
                 else:
                     pass
 
@@ -36792,12 +36792,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 item_txt = "{0}\n({1})⬈".format(순매수, 기관_거래대금순매수_직전대비)
 
-                if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 4).text():
+                if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 2).text():
                     item = QTableWidgetItem(item_txt)
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(적색))
                     item.setForeground(QBrush(흰색))
-                    self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 4, item)
+                    self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 2, item)
                 else:
                     pass
 
@@ -36805,24 +36805,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 item_txt = "{0}\n({1})⬊".format(순매수, 기관_거래대금순매수_직전대비)
 
-                if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 4).text():
+                if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 2).text():
                     item = QTableWidgetItem(item_txt)
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(청색))
                     item.setForeground(QBrush(흰색))
-                    self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 4, item)
+                    self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 2, item)
                 else:
                     pass
 
             else:
                 item_txt = "{0}\n({1})".format(순매수, 기관_거래대금순매수_직전대비)
 
-                if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 4).text():
+                if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 2).text():
                     item = QTableWidgetItem(item_txt)
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
-                    self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 4, item)
+                    self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 2, item)
                 else:
                     pass
 
@@ -36874,12 +36874,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 item_txt = "{0}\n({1})⬈".format(순매수, 거래대금순매수직전대비)
 
-                if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 2).text():
+                if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 1).text():
                     item = QTableWidgetItem(item_txt)
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(적색))
                     item.setForeground(QBrush(흰색))
-                    self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 2, item)
+                    self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 1, item)
                 else:
                     pass
 
@@ -36887,24 +36887,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 item_txt = "{0}\n({1})⬊".format(순매수, 거래대금순매수직전대비)
 
-                if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 2).text():
+                if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 1).text():
                     item = QTableWidgetItem(item_txt)
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(청색))
                     item.setForeground(QBrush(흰색))
-                    self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 2, item)
+                    self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 1, item)
                 else:
                     pass
 
             else:
                 item_txt = "{0}\n({1})".format(순매수, 거래대금순매수직전대비)
 
-                if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 2).text():
+                if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 1).text():
                     item = QTableWidgetItem(item_txt)
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
-                    self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 2, item)
+                    self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 1, item)
                 else:
                     pass
 
@@ -36976,10 +36976,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             item_txt = "{0}({1})\n{2}({3})".format(temp1, 선물_거래대금순매수_직전대비, temp2, 현물_거래대금순매수_직전대비)
 
-            if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 5).text():
+            if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 7).text():
                 item = QTableWidgetItem(item_txt)
                 item.setTextAlignment(Qt.AlignCenter)
-                self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 5, item)
+                self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 7, item)
             else:
                 pass
         else:
@@ -37026,12 +37026,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             item_txt = "{0}\n({1})⬈".format(순매수, 프로그램_전체순매수금액직전대비)
 
-            if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 1).text():
+            if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 6).text():
                 item = QTableWidgetItem(item_txt)
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(적색))
                 item.setForeground(QBrush(흰색))
-                self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 1, item)
+                self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 6, item)
             else:
                 pass
 
@@ -37039,24 +37039,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             item_txt = "{0}\n({1})⬊".format(순매수, 프로그램_전체순매수금액직전대비)
 
-            if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 1).text():
+            if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 6).text():
                 item = QTableWidgetItem(item_txt)
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(청색))
                 item.setForeground(QBrush(흰색))
-                self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 1, item)
+                self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 6, item)
             else:
                 pass
 
         else:
             item_txt = "{0}\n({1})".format(순매수, 프로그램_전체순매수금액직전대비)
 
-            if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 1).text():
+            if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 6).text():
                 item = QTableWidgetItem(item_txt)
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(흰색))
                 item.setForeground(QBrush(검정색))
-                self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 1, item)
+                self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 6, item)
             else:
                 pass
         
@@ -37065,10 +37065,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         item_txt = "{0}({1})\n{2}({3})".format(temp1, 선물_거래대금순매수_직전대비, temp2, 현물_거래대금순매수_직전대비)
 
-        if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 5).text():
+        if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 7).text():
             item = QTableWidgetItem(item_txt)
             item.setTextAlignment(Qt.AlignCenter)
-            self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 5, item)
+            self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 7, item)
         else:
             pass
         
