@@ -2315,10 +2315,11 @@ class ScreenUpdateWorker(QThread):
                     #dt = datetime.now()
                     #self.trigger.emit(dt.hour, dt.minute, dt.second, system_server_time_gap)                   
             else:
-                pass 
-
+                pass
+            
+            QTest.qWait(scoreboard_update_interval)
             QApplication.processEvents()
-            QTest.qWait(scoreboard_update_interval) 
+            time.sleep(SLEEP_SWITCHING_DELAY)
 #####################################################################################################################################################################
 # 텔레그램 송신 쓰레드
 #####################################################################################################################################################################
@@ -3488,10 +3489,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # t2301, t2835 이벤트루프(1초당 2건) --> 옵션 실시간수신 문제 보완목적
         self.t2301_event_loop = QEventLoop()
         #self.t2835_event_loop = QEventLoop()
-        '''        
+                
         self.screen_update_worker = ScreenUpdateWorker()
         self.screen_update_worker.trigger.connect(self.update_screen)
-        
+
+        '''
         self.telegram_send_worker = TelegramSendWorker()
         self.telegram_send_worker.trigger.connect(self.send_telegram_message)
 
@@ -18206,6 +18208,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.textBrowser.append(txt)
                 print(txt)
 
+                self.screen_update_worker.start()
+
                 '''
                 if not flag_plot_first_mode:
                     self.screen_update_worker.start()
@@ -19677,8 +19681,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         flag_score_board_start = True
 
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Update 쓰레드가 시작됩니다...\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
+
+                        self.screen_update_worker.start()
 
                         ui_start_time = dt.hour * 3600 + dt.minute * 60 + dt.second
 
@@ -20567,14 +20573,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         flag_score_board_start = False
         flag_telegram_send_start = False
         flag_telegram_listen_start = False
-
-        '''
+        
         if self.screen_update_worker.isRunning():
             self.screen_update_worker.terminate()
             print('screen_update_worker is terminated at KillScoreBoardAllThread...')
         else:
             pass
-
+        '''
         if self.telegram_send_worker.isRunning():
             self.telegram_send_worker.terminate()
             print('telegram_send_worker is terminated at KillScoreBoardAllThread...')
@@ -34306,7 +34311,8 @@ class Xing(object):
                     pass
 
                 if flag_score_board_start:
-                    self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
+                    pass
+                    #self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
                 else:
                     pass                
 
