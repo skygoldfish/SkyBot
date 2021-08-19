@@ -34215,7 +34215,8 @@ class Xing(object):
                     pass
                 
                 if flag_score_board_start:
-                    if not flag_futures_update_is_running:
+                    
+                    if not flag_option_tick_update_is_running:
                         self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
                     else:
                         pass
