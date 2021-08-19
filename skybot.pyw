@@ -3490,8 +3490,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.t2301_event_loop = QEventLoop()
         #self.t2835_event_loop = QEventLoop()
                 
-        self.screen_update_worker = ScreenUpdateWorker()
-        self.screen_update_worker.trigger.connect(self.update_screen)
+        #self.screen_update_worker = ScreenUpdateWorker()
+        #self.screen_update_worker.trigger.connect(self.update_screen)
 
         '''
         self.telegram_send_worker = TelegramSendWorker()
@@ -18208,7 +18208,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.textBrowser.append(txt)
                 print(txt)
 
-                self.screen_update_worker.start()
+                #self.screen_update_worker.start()
 
                 '''
                 if not flag_plot_first_mode:
@@ -19684,7 +19684,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Update 쓰레드가 시작됩니다...\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
 
-                        self.screen_update_worker.start()
+                        #self.screen_update_worker.start()
 
                         ui_start_time = dt.hour * 3600 + dt.minute * 60 + dt.second
 
@@ -34311,8 +34311,7 @@ class Xing(object):
                     pass
 
                 if flag_score_board_start:
-                    pass
-                    #self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
+                    self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
                 else:
                     pass                
 
