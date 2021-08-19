@@ -2317,7 +2317,7 @@ class ScreenUpdateWorker(QThread):
             else:
                 pass
             
-            QTest.qWait(scoreboard_update_interval*2)
+            QTest.qWait(scoreboard_update_interval)
             QApplication.processEvents()
             time.sleep(SLEEP_SWITCHING_DELAY)
 #####################################################################################################################################################################
@@ -34122,7 +34122,7 @@ class Xing(object):
         
         self.clock = QtCore.QTimer()
         self.clock.timeout.connect(self.OnClockTick)
-        self.clock.start(scoreboard_update_interval*2)
+        self.clock.start(scoreboard_update_interval)
 
         self.clocktick = False         
 
@@ -34210,14 +34210,14 @@ class Xing(object):
                     self.server_minute = int(srever_time[3:5])
                     self.server_second = int(srever_time[6:8])
 
-                    self.timegap = round(-response.offset)
+                    self.timegap = round(-response.offset)                    
                 else:
                     pass
-
+                
                 if flag_score_board_start:
                     self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
                 else:
-                    pass                
+                    pass
 
                 if flag_telegram_send_start:
 
@@ -34235,7 +34235,7 @@ class Xing(object):
                     else:
                         pass
                 else:
-                    pass
+                    pass               
 
             except Exception as e:
 
