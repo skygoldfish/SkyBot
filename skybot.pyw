@@ -20574,12 +20574,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         flag_telegram_send_start = False
         flag_telegram_listen_start = False
         
+        '''
         if self.screen_update_worker.isRunning():
             self.screen_update_worker.terminate()
             print('screen_update_worker is terminated at KillScoreBoardAllThread...')
         else:
             pass
-        '''
+        
         if self.telegram_send_worker.isRunning():
             self.telegram_send_worker.terminate()
             print('telegram_send_worker is terminated at KillScoreBoardAllThread...')
@@ -34218,7 +34219,7 @@ class Xing(object):
         
         self.clock = QtCore.QTimer()
         self.clock.timeout.connect(self.OnClockTick)
-        self.clock.start(scoreboard_update_interval)
+        self.clock.start(scoreboard_update_interval*2)
 
         self.clocktick = False         
 
@@ -34272,6 +34273,8 @@ class Xing(object):
     def OnClockTick(self):
 
         dt = datetime.now()
+
+        print('dt sec =', dt.second)
 
         self.clocktick = not self.clocktick        
 
