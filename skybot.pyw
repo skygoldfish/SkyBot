@@ -34906,14 +34906,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass       
 
     @pyqtSlot(dict)
-    def transfer_mp_1st_realdata(self, realdata):
+    def transfer_mp_1st_realdata(self, tickdata):
 
         global drop_txt, drop_percent, time_gap, main_opt_totalsize, main_totalsize, fh0_drop_percent
         
         dt = datetime.now()       
 
         # 수신된 실시간데이타 정보표시(누락된 패킷수, 큐의 크기, 수신된 총 패킷수, 수신된 총 패킷크기)            
-        szTrCode = realdata['tr_code']
+        szTrCode = tickdata['tr_code']
 
         #systime = dt.hour * 3600 + dt.minute * 60 + dt.second
 
@@ -34922,8 +34922,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if szTrCode == 'BM_' or szTrCode == 'PM_' or szTrCode == 'NWS':
                 pass
             else:
-                systime = int(realdata['system_time'][0:2]) * 3600 + int(realdata['system_time'][2:4]) * 60 + int(realdata['system_time'][4:6])
-                realtime = int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6])
+                systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])
+                realtime = int(tickdata['수신시간'][0:2]) * 3600 + int(tickdata['수신시간'][2:4]) * 60 + int(tickdata['수신시간'][4:6])
 
                 time_gap = systime - system_server_time_gap - realtime
                 time_gap_abs = abs((systime - system_server_time_gap) - realtime)
@@ -34948,7 +34948,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     format(totalcount, ','), format(int(totalsize/1000), ','), format(total_waiting_count, ','), drop_percent)
 
                 txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
-                    dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
+                    dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt)
 
                 if time_gap_abs >= view_time_tolerance:
                     self.statusbar.setStyleSheet("color : red")
@@ -34979,13 +34979,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:            
 
             if szTrCode == 'JIF'or szTrCode == 'BM_' or szTrCode == 'PM_' or szTrCode == 'NWS':
-                self.update_1st_process(realdata)
+                self.update_1st_process(tickdata)
             else:
                 if time_gap_abs < view_time_tolerance:
-                    self.update_1st_process(realdata)
+                    self.update_1st_process(tickdata)
                 else:
                     if flag_periodic_plot_mode:
-                        self.update_1st_process(realdata)
+                        self.update_1st_process(tickdata)
                     else:
                         pass
         else:
@@ -35010,16 +35010,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
 
     @pyqtSlot(dict)
-    def transfer_mp_2nd_realdata(self, realdata):
+    def transfer_mp_2nd_realdata(self, tickdata):
 
         dt = datetime.now()
 
-        szTrCode = realdata['tr_code']
+        szTrCode = tickdata['tr_code']
         
         #systime = dt.hour * 3600 + dt.minute * 60 + dt.second
 
-        systime = int(realdata['system_time'][0:2]) * 3600 + int(realdata['system_time'][2:4]) * 60 + int(realdata['system_time'][4:6])
-        realtime = int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6])
+        systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])
+        realtime = int(tickdata['수신시간'][0:2]) * 3600 + int(tickdata['수신시간'][2:4]) * 60 + int(tickdata['수신시간'][4:6])
 
         time_gap = systime - system_server_time_gap - realtime
         time_gap_abs = abs((systime - system_server_time_gap) - realtime)
@@ -35044,7 +35044,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 format(totalcount, ','), format(int(totalsize/1000), ','), format(total_waiting_count, ','), drop_percent)
         
         txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
-            dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
+            dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt)
 
         if time_gap_abs >= view_time_tolerance:
             self.statusbar.setStyleSheet("color : red")
@@ -35059,13 +35059,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if time_gap_abs >= view_time_tolerance:
             self.label_2nd.setStyleSheet("background-color: yellow; color: red; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
 
-            if szTrCode == 'OC0' and realdata['단축코드'][0:3] == '201':
+            if szTrCode == 'OC0' and tickdata['단축코드'][0:3] == '201':
                 txt = "{0}\n({1})".format('COC0', time_gap_abs)
-            elif (szTrCode == 'EC0' and realdata['단축코드'][0:3] == '201'):
+            elif (szTrCode == 'EC0' and tickdata['단축코드'][0:3] == '201'):
                  txt = "{0}\n({1})".format('CEC0', time_gap_abs)
-            elif szTrCode == 'OC0' and realdata['단축코드'][0:3] == '301':
+            elif szTrCode == 'OC0' and tickdata['단축코드'][0:3] == '301':
                 txt = "{0}\n({1})".format('POC0', time_gap_abs)
-            elif szTrCode == 'EC0' and realdata['단축코드'][0:3] == '301':
+            elif szTrCode == 'EC0' and tickdata['단축코드'][0:3] == '301':
                 txt = "{0}\n({1})".format('PEC0', time_gap_abs)            
             else:
                 pass
@@ -35075,13 +35075,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.label_2nd.setStyleSheet("background-color: black; color: lime; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
 
-            if szTrCode == 'OC0' and realdata['단축코드'][0:3] == '201':
+            if szTrCode == 'OC0' and tickdata['단축코드'][0:3] == '201':
                 txt = "{0}\n({1:.2f})".format('COC0', args_processing_time)
-            elif (szTrCode == 'EC0' and realdata['단축코드'][0:3] == '201'):
+            elif (szTrCode == 'EC0' and tickdata['단축코드'][0:3] == '201'):
                  txt = "{0}\n({1:.2f})".format('CEC0', args_processing_time)
-            elif szTrCode == 'OC0' and realdata['단축코드'][0:3] == '301':
+            elif szTrCode == 'OC0' and tickdata['단축코드'][0:3] == '301':
                 txt = "{0}\n({1:.2f})".format('POC0', args_processing_time)
-            elif szTrCode == 'EC0' and realdata['단축코드'][0:3] == '301':
+            elif szTrCode == 'EC0' and tickdata['단축코드'][0:3] == '301':
                 txt = "{0}\n({1:.2f})".format('PEC0', args_processing_time)            
             else:
                 pass
@@ -35092,10 +35092,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
 
             if time_gap_abs < view_time_tolerance:
-                self.update_2nd_process(realdata)
+                self.update_2nd_process(tickdata)
             else:
                 if flag_periodic_plot_mode:
-                    self.update_2nd_process(realdata)
+                    self.update_2nd_process(tickdata)
                 else:
                     pass
 
@@ -35208,19 +35208,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
     
     @pyqtSlot(dict)
-    def transfer_mp_3rd_realdata(self, realdata):
+    def transfer_mp_3rd_realdata(self, tickdata):
 
         dt = datetime.now()
 
-        szTrCode = realdata['tr_code']
+        szTrCode = tickdata['tr_code']
 
         #systime = dt.hour * 3600 + dt.minute * 60 + dt.second
-        systime = int(realdata['system_time'][0:2]) * 3600 + int(realdata['system_time'][2:4]) * 60 + int(realdata['system_time'][4:6])        
+        systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])        
         
-        if szTrCode == 'EH0' and int(realdata['수신시간'][0:2]) >= 24:                
-            realtime = (int(realdata['수신시간'][0:2]) - 24) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6])                
+        if szTrCode == 'EH0' and int(tickdata['수신시간'][0:2]) >= 24:                
+            realtime = (int(tickdata['수신시간'][0:2]) - 24) * 3600 + int(tickdata['수신시간'][2:4]) * 60 + int(tickdata['수신시간'][4:6])                
         else:                    
-            realtime = int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6])     
+            realtime = int(tickdata['수신시간'][0:2]) * 3600 + int(tickdata['수신시간'][2:4]) * 60 + int(tickdata['수신시간'][4:6])     
         
         time_gap = systime - system_server_time_gap - realtime
         time_gap_abs = abs((systime - system_server_time_gap) - realtime)
@@ -35245,7 +35245,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 format(totalcount, ','), format(int(totalsize/1000), ','), format(total_waiting_count, ','), drop_percent)
         
         txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
-            dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
+            dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt)
 
         if time_gap_abs >= view_time_tolerance:
             self.statusbar.setStyleSheet("color : red")
@@ -35260,13 +35260,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if time_gap_abs >= view_time_tolerance:
             self.label_3rd.setStyleSheet("background-color: yellow; color: red; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
 
-            if szTrCode == 'OH0' and realdata['단축코드'][0:3] == '201':
+            if szTrCode == 'OH0' and tickdata['단축코드'][0:3] == '201':
                 txt = "{0}\n({1})".format('COH0', time_gap_abs)
-            elif (szTrCode == 'EH0' and realdata['단축코드'][0:3] == '201'):
+            elif (szTrCode == 'EH0' and tickdata['단축코드'][0:3] == '201'):
                  txt = "{0}\n({1})".format('CEH0', time_gap_abs)
-            elif szTrCode == 'OH0' and realdata['단축코드'][0:3] == '301':
+            elif szTrCode == 'OH0' and tickdata['단축코드'][0:3] == '301':
                 txt = "{0}\n({1})".format('POH0', time_gap_abs)
-            elif szTrCode == 'EH0' and realdata['단축코드'][0:3] == '301':
+            elif szTrCode == 'EH0' and tickdata['단축코드'][0:3] == '301':
                 txt = "{0}\n({1})".format('PEH0', time_gap_abs)
             else:
                 pass
@@ -35276,13 +35276,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.label_3rd.setStyleSheet("background-color: black; color: lime; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
 
-            if szTrCode == 'OH0' and realdata['단축코드'][0:3] == '201':
+            if szTrCode == 'OH0' and tickdata['단축코드'][0:3] == '201':
                 txt = "{0}\n({1:.2f})".format('COH0', args_processing_time)
-            elif (szTrCode == 'EH0' and realdata['단축코드'][0:3] == '201'):
+            elif (szTrCode == 'EH0' and tickdata['단축코드'][0:3] == '201'):
                  txt = "{0}\n({1:.2f})".format('CEH0', args_processing_time)
-            elif szTrCode == 'OH0' and realdata['단축코드'][0:3] == '301':
+            elif szTrCode == 'OH0' and tickdata['단축코드'][0:3] == '301':
                 txt = "{0}\n({1:.2f})".format('POH0', args_processing_time)
-            elif szTrCode == 'EH0' and realdata['단축코드'][0:3] == '301':
+            elif szTrCode == 'EH0' and tickdata['단축코드'][0:3] == '301':
                 txt = "{0}\n({1:.2f})".format('PEH0', args_processing_time)
             else:
                 pass
@@ -35293,10 +35293,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
 
             if time_gap_abs < view_time_tolerance:
-                self.update_3rd_process(realdata)
+                self.update_3rd_process(tickdata)
             else:
                 if flag_periodic_plot_mode:
-                    self.update_3rd_process(realdata)
+                    self.update_3rd_process(tickdata)
                 else:
                     pass          
         else:
@@ -35321,19 +35321,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
 
     @pyqtSlot(dict)
-    def transfer_mp_4th_realdata(self, realdata):
+    def transfer_mp_4th_realdata(self, tickdata):
 
         global drop_txt, drop_percent, time_gap, main_opt_totalsize, main_totalsize
         
         dt = datetime.now()       
 
         # 수신된 실시간데이타 정보표시(누락된 패킷수, 큐의 크기, 수신된 총 패킷수, 수신된 총 패킷크기)            
-        szTrCode = realdata['tr_code']
+        szTrCode = tickdata['tr_code']
 
         #systime = dt.hour * 3600 + dt.minute * 60 + dt.second
 
-        systime = int(realdata['system_time'][0:2]) * 3600 + int(realdata['system_time'][2:4]) * 60 + int(realdata['system_time'][4:6])
-        realtime = int(realdata['수신시간'][0:2]) * 3600 + int(realdata['수신시간'][2:4]) * 60 + int(realdata['수신시간'][4:6])
+        systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])
+        realtime = int(tickdata['수신시간'][0:2]) * 3600 + int(tickdata['수신시간'][2:4]) * 60 + int(tickdata['수신시간'][4:6])
 
         time_gap = systime - system_server_time_gap - realtime
         time_gap_abs = abs((systime - system_server_time_gap) - realtime)
@@ -35358,7 +35358,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             format(totalcount, ','), format(int(totalsize/1000), ','), format(total_waiting_count, ','), drop_percent)
         
         txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
-            dt.hour, dt.minute, dt.second, int(realdata['수신시간'][0:2]), int(realdata['수신시간'][2:4]), int(realdata['수신시간'][4:6]), time_gap, drop_txt)
+            dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt)
 
         if time_gap_abs >= view_time_tolerance:
             self.statusbar.setStyleSheet("color : red")
@@ -35388,10 +35388,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
 
             if time_gap_abs < view_time_tolerance:
-                self.update_4th_process(realdata)
+                self.update_4th_process(tickdata)
             else:
                 if flag_periodic_plot_mode:
-                    self.update_4th_process(realdata)
+                    self.update_4th_process(tickdata)
                 else:
                     pass
         else:
