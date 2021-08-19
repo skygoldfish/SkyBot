@@ -20573,7 +20573,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         flag_score_board_start = False
         flag_telegram_send_start = False
         flag_telegram_listen_start = False
-        
+
         '''
         if self.screen_update_worker.isRunning():
             self.screen_update_worker.terminate()
@@ -34273,8 +34273,6 @@ class Xing(object):
     def OnClockTick(self):
 
         dt = datetime.now()
-
-        print('dt sec =', dt.second)
 
         self.clocktick = not self.clocktick        
 
