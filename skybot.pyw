@@ -5625,12 +5625,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if flag_periodic_plot_mode:
 
                         if call_result:
-                            self.call_update(call_result)
+                            pass
+                            #self.call_update(call_result)
                         else:
                             pass
 
                         if put_result:
-                            self.put_update(put_result)
+                            pass
+                            #self.put_update(put_result)
                         else:
                             pass                
                         
@@ -34215,7 +34217,7 @@ class Xing(object):
                     pass
                 
                 if flag_score_board_start:
-                    
+
                     if not flag_option_tick_update_is_running:
                         self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
                     else:
@@ -37643,9 +37645,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 # 테이블 갱신
                 call_result = copy.deepcopy(result)
+                self.dialog['선물옵션전광판'].call_update(call_result)
 
                 if not flag_periodic_plot_mode:
-                    self.dialog['선물옵션전광판'].call_update(call_result)                       
+                    #self.dialog['선물옵션전광판'].call_update(call_result)                       
                     self.dialog['선물옵션전광판'].call_db_update()
                     self.dialog['선물옵션전광판'].call_volume_power_update()
                     self.dialog['선물옵션전광판'].call_oi_update()
@@ -37703,10 +37706,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass 
 
             # 테이블 갱신
-            put_result = copy.deepcopy(result)                                                           
+            put_result = copy.deepcopy(result)
+            self.dialog['선물옵션전광판'].put_update(put_result)                                                    
 
             if not flag_periodic_plot_mode:
-                self.dialog['선물옵션전광판'].put_update(put_result)                    
+                #self.dialog['선물옵션전광판'].put_update(put_result)                    
                 self.dialog['선물옵션전광판'].put_db_update()
                 self.dialog['선물옵션전광판'].put_volume_power_update()
                 self.dialog['선물옵션전광판'].put_oi_update()
