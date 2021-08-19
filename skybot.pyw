@@ -2317,7 +2317,7 @@ class ScreenUpdateWorker(QThread):
             else:
                 pass
             
-            QTest.qWait(scoreboard_update_interval)
+            QTest.qWait(scoreboard_update_interval*2)
             QApplication.processEvents()
             time.sleep(SLEEP_SWITCHING_DELAY)
 #####################################################################################################################################################################
