@@ -1,11 +1,14 @@
 from datetime import datetime
 from configparser import ConfigParser
+import ntplib
 
 # Configuration Parser
 parser = ConfigParser()
 parser.read('.\skybot.ini')
 
 NightTime_PreStart_Hour = parser.getint('Initial Value', 'NightTime Pre-Start Hour')
+QUEUE_INPUT_PERMIT_TIME = parser.getint('Initial Value', 'Queue Input Permit Time')
+TimeServer = parser.get('Server Type', 'NTP Server')
 
 #RES_FOLDER_PATH = "C:/eBEST/xingAPI/Res"  # xing_tick_crawler Res 파일 폴더 위치
 RES_FOLDER_PATH = "./Res"  # xing_tick_crawler Res 파일 폴더 위치

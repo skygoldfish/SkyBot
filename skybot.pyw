@@ -2972,11 +2972,8 @@ class RealTime_1st_MP_DataWorker(QThread):
                             print(f"\r[{datetime.now()}] 선물체결 TR Type : {tick_data['tr_code']}, System time : {tick_data['system_time']}, 체결시간 : {tick_data['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')                         
 
                         if CSV_FILE:
-                            if True:
-                                tick_data_lst = list(tick_data.values())
-                                handle_tick_data(tick_data_lst, tick_type)
-                            else:
-                                pass
+                            tick_data_lst = list(tick_data.values())
+                            handle_tick_data(tick_data_lst, tick_type)
                         else:
                             pass                        
 
@@ -3715,7 +3712,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.tableWidget_supply.horizontalHeader().setStyleSheet(supply_header_stylesheet)
 
-        self.tableWidget_supply.setHorizontalHeaderLabels(['외인선물', '외인현물', '기관선물', '기관현물', '개인선물', '개인현물', '프로그램', '∑선물/∑현물'])
+        self.tableWidget_supply.setHorizontalHeaderLabels(['외인선물', '외인현물', '기관선물', '기관현물', '개인선물', '개인현물', '프로그램', '종합'])
         self.tableWidget_supply.verticalHeader().setVisible(False)
 
         header = self.tableWidget_supply.horizontalHeader()
@@ -3725,12 +3722,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_supply.verticalHeader().setStretchLastSection(True)
         self.tableWidget_supply.clearContents()
 
-        for i in range(Supply_column.종합.value):
+        for i in range(Supply_column.종합.value - 1):
             item = QTableWidgetItem('-')
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(검정색))
             item.setForeground(QBrush(흰색))
             self.tableWidget_supply.setItem(0, i, item)
+
+        item = QTableWidgetItem('현물합\n선물합')
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(흰색))
+        self.tableWidget_supply.setItem(0, Supply_column.종합.value - 1, item)    
         
         # call tablewidget 초기화
         self.tableWidget_call.setRowCount(ActvalCount)
@@ -21732,7 +21735,7 @@ class PlotUpdateWorker1(QThread):
 
         while True:
 
-            if not flag_option_tick_update_is_running:
+            if not flag_screen_update_is_running:
                 self.trigger.emit()
 
             if flag_plot_update_interval_changed:
@@ -21758,7 +21761,7 @@ class PlotUpdateWorker2(QThread):
 
         while True:
 
-            if not flag_option_tick_update_is_running:
+            if not flag_screen_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -21778,7 +21781,7 @@ class PlotUpdateWorker3(QThread):
 
         while True:
 
-            if not flag_option_tick_update_is_running:
+            if not flag_screen_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -21798,7 +21801,7 @@ class PlotUpdateWorker4(QThread):
 
         while True:
 
-            if not flag_option_tick_update_is_running:
+            if not flag_screen_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -21818,7 +21821,7 @@ class PlotUpdateWorker5(QThread):
 
         while True:
 
-            if not flag_option_tick_update_is_running:
+            if not flag_screen_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -21838,7 +21841,7 @@ class PlotUpdateWorker6(QThread):
 
         while True:
 
-            if not flag_option_tick_update_is_running:
+            if not flag_screen_update_is_running:
                 self.trigger.emit()
                         
             QTest.qWait(plot_update_interval)
@@ -34217,11 +34220,7 @@ class Xing(object):
                     pass
                 
                 if flag_score_board_start:
-
-                    if not flag_option_tick_update_is_running:
-                        self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
-                    else:
-                        pass
+                    self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
                 else:
                     pass
 
@@ -34891,18 +34890,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass        
 
         # 1st 프로세스 실시간데이타 갱신
-        if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:            
-
-            if szTrCode == 'JIF' or szTrCode == 'BM_' or szTrCode == 'PM_' or szTrCode == 'NWS':
-                self.update_1st_process(tickdata)
-            else:
-                if time_gap_abs < view_time_tolerance:
-                    self.update_1st_process(tickdata)
-                else:
-                    if flag_periodic_plot_mode:
-                        self.update_1st_process(tickdata)
-                    else:
-                        pass
+        if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
+            self.update_1st_process(tickdata)
         else:
             pass
         
@@ -35006,13 +34995,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 2nd 프로세스 실시간데이타 갱신
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
 
-            if time_gap_abs < view_time_tolerance:
-                self.update_2nd_process(tickdata)
-            else:
-                if flag_periodic_plot_mode:
-                    self.update_2nd_process(tickdata)
-                else:
-                    pass
+            self.update_2nd_process(tickdata)
 
             global flag_call_strong, flag_call_weak, flag_put_strong, flag_put_weak 
 
@@ -35206,14 +35189,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # 3rd 프로세스 실시간데이타 갱신
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
-
-            if time_gap_abs < view_time_tolerance:
-                self.update_3rd_process(tickdata)
-            else:
-                if flag_periodic_plot_mode:
-                    self.update_3rd_process(tickdata)
-                else:
-                    pass          
+            self.update_3rd_process(tickdata)
         else:
             pass
 
@@ -35301,14 +35277,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # 1st 프로세스 실시간데이타 갱신
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
-
-            if time_gap_abs < view_time_tolerance:
-                self.update_4th_process(tickdata)
-            else:
-                if flag_periodic_plot_mode:
-                    self.update_4th_process(tickdata)
-                else:
-                    pass
+            self.update_4th_process(tickdata)
         else:
             pass
 
@@ -36913,6 +36882,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             KOSPI_RETAIL_거래대금순매수 = 거래대금순매수
             KOSPI_RETAIL_거래대금순매수_직전대비 = 거래대금순매수직전대비
 
+            item_txt = "{0}\n({1})".format(KOSPI_RETAIL_거래대금순매수, KOSPI_RETAIL_거래대금순매수_직전대비)
+
+            if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 1).text():
+                item = QTableWidgetItem(item_txt)
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 5, item)
+            else:
+                pass
+
         elif result['업종코드'] == KOSPI and result['투자자코드'] == INSTITUTIONAL:
 
             KOSPI_INSTITUTIONAL_거래대금순매수 = 거래대금순매수
@@ -36955,7 +36935,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if NightTime:
+        기관현물_순매수 = KOSPI_INSTITUTIONAL_거래대금순매수 + KOSPI_STOCK_거래대금순매수 + KOSPI_BOHEOM_거래대금순매수 + KOSPI_TOOSIN_거래대금순매수 + KOSPI_BANK_거래대금순매수 + KOSPI_JONGGEUM_거래대금순매수 + \
+            KOSPI_GIGEUM_거래대금순매수 + KOSPI_GITA_거래대금순매수
+
+        기관현물_순매수_직전대비 = KOSPI_INSTITUTIONAL_거래대금순매수_직전대비 + KOSPI_STOCK_거래대금순매수_직전대비 + KOSPI_BOHEOM_거래대금순매수_직전대비 + KOSPI_TOOSIN_거래대금순매수_직전대비 + KOSPI_BANK_거래대금순매수_직전대비 + \
+            KOSPI_JONGGEUM_거래대금순매수_직전대비 + KOSPI_GIGEUM_거래대금순매수_직전대비 + KOSPI_GITA_거래대금순매수_직전대비
+
+        item_txt = "{0}\n({1})".format(기관현물_순매수, 기관현물_순매수_직전대비)
+
+        if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 1).text():
+            item = QTableWidgetItem(item_txt)
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(흰색))
+            item.setForeground(QBrush(검정색))
+            self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 3, item)
+        else:
+            pass
+
+        #if NightTime:
+        if False:
 
             선물_거래대금순매수 = FUT_FOREIGNER_거래대금순매수 + FUT_RETAIL_거래대금순매수 + \
                          FUT_INSTITUTIONAL_거래대금순매수 + FUT_STOCK_거래대금순매수 + FUT_BOHEOM_거래대금순매수 + \
@@ -36971,10 +36969,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             현물_거래대금순매수 = 0
             현물_거래대금순매수_직전대비 = 0
 
-            temp1 = format(선물_거래대금순매수, ',')
-            temp2 = format(현물_거래대금순매수, ',')
+            현물 = format(현물_거래대금순매수, ',')
+            선물 = format(선물_거래대금순매수, ',')
 
-            item_txt = "{0}({1})\n{2}({3})".format(temp1, 선물_거래대금순매수_직전대비, temp2, 현물_거래대금순매수_직전대비)
+            item_txt = "{0}\n{1}".format(현물, 선물)
 
             if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 7).text():
                 item = QTableWidgetItem(item_txt)
@@ -37058,12 +37056,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 item.setForeground(QBrush(검정색))
                 self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 6, item)
             else:
-                pass
+                pass        
         
-        temp1 = format(선물_거래대금순매수, ',')
-        temp2 = format(현물_거래대금순매수, ',')
+        현물 = format(현물_거래대금순매수, ',')
+        선물 = format(선물_거래대금순매수, ',')
 
-        item_txt = "{0}({1})\n{2}({3})".format(temp1, 선물_거래대금순매수_직전대비, temp2, 현물_거래대금순매수_직전대비)
+        item_txt = "{0}\n{1}".format(현물, 선물)
 
         if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 7).text():
             item = QTableWidgetItem(item_txt)
@@ -39318,7 +39316,22 @@ if __name__ == "__main__":
     if ipaddress == '127.0.0.1':
         flag_internet = False
     else:
-        flag_internet = True     
+        flag_internet = True
+
+        response = ntplib.NTPClient().request(TimeServer, version=3)
+
+        time_str = time.ctime(response.tx_time).split(' ')
+        srever_time = time_str[3]
+
+        server_hour = int(srever_time[0:2])
+        server_minute = int(srever_time[3:5])
+        server_second = int(srever_time[6:8])
+
+        timegap = round(-response.offset)
+
+        print('\r')
+        #print('시스템 서버간 시간차는 {0}초 입니다...\r', timegap)
+        print('\r')
     
     # 멀티프로세스
     if MULTIPROCESS and flag_internet:
