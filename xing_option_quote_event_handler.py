@@ -422,11 +422,20 @@ class XARealEventHandler:
             # 지수선물 체결
             self.queue.put(self.handle_fc0(tr_code))
         elif tr_code == "OH0" or  tr_code == "EH0":
-            # 지수옵션 호가
+            # 지수옵션 호가            
             values = self.handle_index_option_quote()
             time = datetime.now().strftime('%H%M%S')
 
-            ticktime = int(values[0][0:2]) * 3600 + int(values[0][2:4]) * 60 + int(values[0][4:6])
+            if tr_code == "EH0":
+                if int(values[1][0:2]) >= 24:
+                    tick_hour = int(values[1][0:2]) - 24
+                else:
+                    tick_hour = int(values[1][0:2])
+            else:
+                tick_hour = int(values[1][0:2])
+
+            ticktime = tick_hour * 3600 + int(values[1][2:4]) * 60 + int(values[1][4:6])
+
             systime = int(time[0:2]) * 3600 + int(time[2:4]) * 60 + int(time[4:6])
             time_gap = abs(systime -self.timegap - ticktime)
 
