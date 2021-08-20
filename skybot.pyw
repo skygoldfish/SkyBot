@@ -5275,8 +5275,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command is {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, telegram_command)                        
                         print(txt)
                     else:
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message is {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, telegram_command)
-                        self.textBrowser.append(txt)
+                        pass
+                        #txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message is {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, telegram_command)
+                        #self.textBrowser.append(txt)
                 else:
                     pass
                     #txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message is None\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
@@ -28604,7 +28605,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 self.plot_count = 0
 
-            txt = ' {0:02d}:{1:02d}:{2:02d}({3:d}[{4}], {5:.2f} ms) '.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, self.plot_count, plot1_processing_time)
+            #txt = ' {0:02d}:{1:02d}:{2:02d}({3:d}[{4}], {5:.2f} ms) '.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, self.plot_count, plot1_processing_time)
+            txt = ' [{0:d}], {1:.2f} ms '.format(ovc_x_idx, plot1_processing_time)
             self.plot_x_idx = SERVER_SEC
    
         self.label_time_1.setText(txt)

@@ -431,10 +431,11 @@ class XARealEventHandler:
                     tick_hour = int(values[1][0:2]) - 24
                 else:
                     tick_hour = int(values[1][0:2])
-            else:
-                tick_hour = int(values[1][0:2])
 
-            ticktime = tick_hour * 3600 + int(values[1][2:4]) * 60 + int(values[1][4:6])
+                ticktime = tick_hour * 3600 + int(values[1][2:4]) * 60 + int(values[1][4:6])
+            else:
+                tick_hour = int(values[0][0:2])
+                ticktime = tick_hour * 3600 + int(values[0][2:4]) * 60 + int(values[0][4:6])            
 
             systime = int(time[0:2]) * 3600 + int(time[2:4]) * 60 + int(time[4:6])
             time_gap = abs(systime -self.timegap - ticktime)
