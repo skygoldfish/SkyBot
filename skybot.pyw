@@ -34567,6 +34567,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         txt = '현재스크린 = {0}번, 화면해상도 = {1}x{2}, 중심좌표 X = {3}, Y = {4}\r'.format(스크린번호, screen_info.width(), screen_info.height(), self.centerPoint.x(), self.centerPoint.y())
         self.textBrowser.append(txt)
+
+        response = ntplib.NTPClient().request(TimeServer, version=3)
+
+        time_str = time.ctime(response.tx_time).split(' ')
+        srever_time = time_str[3]
+
+        server_hour = int(srever_time[0:2])
+        server_minute = int(srever_time[3:5])
+        server_second = int(srever_time[6:8])
+
+        timegap = round(-response.offset)
+
+        txt = '🕘 PC와 서버간 시간차는 <<{0}초>> 입니다...\r'.format(timegap)
+        self.textBrowser.append(txt)
          
         # 쓰레드 or 멀티프로세스
         if self.mp_mode:
@@ -39318,22 +39332,7 @@ if __name__ == "__main__":
     if ipaddress == '127.0.0.1':
         flag_internet = False
     else:
-        flag_internet = True
-
-        response = ntplib.NTPClient().request(TimeServer, version=3)
-
-        time_str = time.ctime(response.tx_time).split(' ')
-        srever_time = time_str[3]
-
-        server_hour = int(srever_time[0:2])
-        server_minute = int(srever_time[3:5])
-        server_second = int(srever_time[6:8])
-
-        timegap = round(-response.offset)
-
-        print('\r')
-        #print('시스템 서버간 시간차는 {0}초 입니다...\r', timegap)
-        print('\r')
+        flag_internet = True        
     
     # 멀티프로세스
     if MULTIPROCESS and flag_internet:
