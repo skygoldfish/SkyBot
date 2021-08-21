@@ -3423,6 +3423,137 @@ class SpeakerWorker(QThread):
         pythoncom.CoUninitialize()
 
 #####################################################################################################################################################################
+# Big Chart Update Thread
+#####################################################################################################################################################################
+class PlotUpdateWorker1(QThread):
+
+    trigger = pyqtSignal()
+
+    def __init__(self):
+        super().__init__()
+
+        self.daemon = True
+
+    def run(self):
+
+        global flag_plot_update_interval_changed
+
+        while True:
+
+            if not flag_screen_update_is_running:
+                self.trigger.emit()
+
+            if flag_plot_update_interval_changed:
+                print('plot_update_interval changed...')
+                flag_plot_update_interval_changed = False
+            else:
+                pass
+
+            QTest.qWait(plot_update_interval)
+            QApplication.processEvents()
+            time.sleep(SLEEP_SWITCHING_DELAY)
+
+class PlotUpdateWorker2(QThread):
+
+    trigger = pyqtSignal()
+
+    def __init__(self):
+        super().__init__()
+
+        self.daemon = True
+
+    def run(self):
+
+        while True:
+
+            if not flag_screen_update_is_running:
+                self.trigger.emit()
+
+            QTest.qWait(plot_update_interval)
+            QApplication.processEvents()
+            time.sleep(SLEEP_SWITCHING_DELAY)
+
+class PlotUpdateWorker3(QThread):
+
+    trigger = pyqtSignal()
+
+    def __init__(self):
+        super().__init__()
+
+        self.daemon = True
+
+    def run(self):
+
+        while True:
+
+            if not flag_screen_update_is_running:
+                self.trigger.emit()
+
+            QTest.qWait(plot_update_interval)
+            QApplication.processEvents()
+            time.sleep(SLEEP_SWITCHING_DELAY)
+
+class PlotUpdateWorker4(QThread):
+
+    trigger = pyqtSignal()
+
+    def __init__(self):
+        super().__init__()
+
+        self.daemon = True
+
+    def run(self):
+
+        while True:
+
+            if not flag_screen_update_is_running:
+                self.trigger.emit()
+
+            QTest.qWait(plot_update_interval)
+            QApplication.processEvents()
+            time.sleep(SLEEP_SWITCHING_DELAY)
+
+class PlotUpdateWorker5(QThread):
+
+    trigger = pyqtSignal()
+
+    def __init__(self):
+        super().__init__()
+
+        self.daemon = True
+
+    def run(self):
+
+        while True:
+
+            if not flag_screen_update_is_running:
+                self.trigger.emit()
+
+            QTest.qWait(plot_update_interval)
+            QApplication.processEvents()
+            time.sleep(SLEEP_SWITCHING_DELAY)
+
+class PlotUpdateWorker6(QThread):
+
+    trigger = pyqtSignal()
+
+    def __init__(self):
+        super().__init__()
+
+        self.daemon = True
+
+    def run(self):
+
+        while True:
+
+            if not flag_screen_update_is_running:
+                self.trigger.emit()
+                        
+            QTest.qWait(plot_update_interval)
+            QApplication.processEvents()
+            time.sleep(SLEEP_SWITCHING_DELAY)
+
+#####################################################################################################################################################################
 # 옵션전광판 UI Class
 #####################################################################################################################################################################
 if UI_HIDE:
@@ -21718,136 +21849,6 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         print('설정 Diaglog객체가 소멸됩니다.')
 
-#####################################################################################################################################################################
-# Big Chart Update Thread
-#####################################################################################################################################################################
-class PlotUpdateWorker1(QThread):
-
-    trigger = pyqtSignal()
-
-    def __init__(self):
-        super().__init__()
-
-        self.daemon = True
-
-    def run(self):
-
-        global flag_plot_update_interval_changed
-
-        while True:
-
-            if not flag_screen_update_is_running:
-                self.trigger.emit()
-
-            if flag_plot_update_interval_changed:
-                print('plot_update_interval changed...')
-                flag_plot_update_interval_changed = False
-            else:
-                pass
-
-            QTest.qWait(plot_update_interval)
-            QApplication.processEvents()
-            time.sleep(SLEEP_SWITCHING_DELAY)
-
-class PlotUpdateWorker2(QThread):
-
-    trigger = pyqtSignal()
-
-    def __init__(self):
-        super().__init__()
-
-        self.daemon = True
-
-    def run(self):
-
-        while True:
-
-            if not flag_screen_update_is_running:
-                self.trigger.emit()
-
-            QTest.qWait(plot_update_interval)
-            QApplication.processEvents()
-            time.sleep(SLEEP_SWITCHING_DELAY)
-
-class PlotUpdateWorker3(QThread):
-
-    trigger = pyqtSignal()
-
-    def __init__(self):
-        super().__init__()
-
-        self.daemon = True
-
-    def run(self):
-
-        while True:
-
-            if not flag_screen_update_is_running:
-                self.trigger.emit()
-
-            QTest.qWait(plot_update_interval)
-            QApplication.processEvents()
-            time.sleep(SLEEP_SWITCHING_DELAY)
-
-class PlotUpdateWorker4(QThread):
-
-    trigger = pyqtSignal()
-
-    def __init__(self):
-        super().__init__()
-
-        self.daemon = True
-
-    def run(self):
-
-        while True:
-
-            if not flag_screen_update_is_running:
-                self.trigger.emit()
-
-            QTest.qWait(plot_update_interval)
-            QApplication.processEvents()
-            time.sleep(SLEEP_SWITCHING_DELAY)
-
-class PlotUpdateWorker5(QThread):
-
-    trigger = pyqtSignal()
-
-    def __init__(self):
-        super().__init__()
-
-        self.daemon = True
-
-    def run(self):
-
-        while True:
-
-            if not flag_screen_update_is_running:
-                self.trigger.emit()
-
-            QTest.qWait(plot_update_interval)
-            QApplication.processEvents()
-            time.sleep(SLEEP_SWITCHING_DELAY)
-
-class PlotUpdateWorker6(QThread):
-
-    trigger = pyqtSignal()
-
-    def __init__(self):
-        super().__init__()
-
-        self.daemon = True
-
-    def run(self):
-
-        while True:
-
-            if not flag_screen_update_is_running:
-                self.trigger.emit()
-                        
-            QTest.qWait(plot_update_interval)
-            QApplication.processEvents()
-            time.sleep(SLEEP_SWITCHING_DELAY)
 #####################################################################################################################################################################
 # Big Chart UI Class
 #####################################################################################################################################################################
