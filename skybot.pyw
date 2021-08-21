@@ -34568,18 +34568,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         txt = '현재스크린 = {0}번, 화면해상도 = {1}x{2}, 중심좌표 X = {3}, Y = {4}\r'.format(스크린번호, screen_info.width(), screen_info.height(), self.centerPoint.x(), self.centerPoint.y())
         self.textBrowser.append(txt)
 
-        response = ntplib.NTPClient().request(TimeServer, version=3)
+        PCTIME = datetime.now().strftime('%H:%M:%S')
+
+        response = ntplib.NTPClient().request(TimeServer, version=3)        
 
         time_str = time.ctime(response.tx_time).split(' ')
         srever_time = time_str[3]
+        SERVERTIME = '{0}:{1}:{2}'.format(srever_time[0:2], srever_time[3:5], srever_time[6:8])
 
-        server_hour = int(srever_time[0:2])
-        server_minute = int(srever_time[3:5])
-        server_second = int(srever_time[6:8])
+        self.TIMEGAP = round(-response.offset)
 
-        timegap = round(-response.offset)
-
-        txt = '🕘 PC와 서버간 시간차는 <<{0}초>> 입니다...\r'.format(timegap)
+        txt = '🕘 PC = [{0}]와 서버 = [{1}]간 시간차는 {2}초 입니다...\r'.format(PCTIME, SERVERTIME, self.TIMEGAP)
         self.textBrowser.append(txt)
          
         # 쓰레드 or 멀티프로세스
