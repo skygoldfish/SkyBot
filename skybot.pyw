@@ -34586,8 +34586,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         txt = '🕘 PC = [{0}]와 서버 = [{1}]간 시간차는 {2}초 입니다...\r'.format(PCTIME, SERVERTIME, self.TIMEGAP)        
         self.textBrowser.append(txt)
 
-        txt = 'PC와 써버간 시간차는 {0}초 입니다'.format(self.TIMEGAP)
-        self.speaker.setText(txt)
+        if self.TIMEGAP > 0:
+            txt = 'PC와 써버간 시간차는 {0}초 입니다'.format(self.TIMEGAP)
+            self.speaker.setText(txt)
+        else:
+            pass
          
         # 쓰레드 or 멀티프로세스
         if self.mp_mode:
