@@ -2246,33 +2246,6 @@ class RealDataTableModel(QAbstractTableModel):
         self.beginResetModel()
         self.endResetModel()
 
-#####################################################################################################################################################################
-# 버전 UI Class
-#####################################################################################################################################################################
-if UI_HIDE:
-        import version_ui
-        Ui_버전 = version_ui.Ui_Dialog
-else:
-    Ui_버전, QtBaseClass_버전 = uic.loadUiType(UI_DIR + version_ui_type)
-#####################################################################################################################################################################
-class 화면_버전(QDialog, Ui_버전):
-
-    def __init__(self, parent=None):
-        super(화면_버전, self).__init__(parent)
-        self.setAttribute(Qt.WA_DeleteOnClose)
-        self.setupUi(self)
-        self.setWindowTitle('버전')
-        self.parent = parent
-        
-        self.model = PandasModel()
-        self.tableView.setModel(self.model)
-
-        df = DataFrame(data=프로그램정보,columns=['제목','내용'])
-
-        self.model.update(df)
-        for i in range(len(df.columns)):
-            self.tableView.resizeColumnToContents(i)            
-
 # SKY WORK !!!
 #####################################################################################################################################################################
 # 스크린 갱신 쓰레드
@@ -3552,6 +3525,33 @@ class PlotUpdateWorker6(QThread):
             QTest.qWait(plot_update_interval)
             QApplication.processEvents()
             time.sleep(SLEEP_SWITCHING_DELAY)
+
+#####################################################################################################################################################################
+# 버전 UI Class
+#####################################################################################################################################################################
+if UI_HIDE:
+        import version_ui
+        Ui_버전 = version_ui.Ui_Dialog
+else:
+    Ui_버전, QtBaseClass_버전 = uic.loadUiType(UI_DIR + version_ui_type)
+#####################################################################################################################################################################
+class 화면_버전(QDialog, Ui_버전):
+
+    def __init__(self, parent=None):
+        super(화면_버전, self).__init__(parent)
+        self.setAttribute(Qt.WA_DeleteOnClose)
+        self.setupUi(self)
+        self.setWindowTitle('버전')
+        self.parent = parent
+        
+        self.model = PandasModel()
+        self.tableView.setModel(self.model)
+
+        df = DataFrame(data=프로그램정보,columns=['제목','내용'])
+
+        self.model.update(df)
+        for i in range(len(df.columns)):
+            self.tableView.resizeColumnToContents(i)
 
 #####################################################################################################################################################################
 # 옵션전광판 UI Class
@@ -34569,6 +34569,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         txt = '현재스크린 = {0}번, 화면해상도 = {1}x{2}, 중심좌표 X = {3}, Y = {4}\r'.format(스크린번호, screen_info.width(), screen_info.height(), self.centerPoint.x(), self.centerPoint.y())
         self.textBrowser.append(txt)
 
+        # TTS 쓰레드 설정
+        self.speaker = SpeakerWorker()
+        self.speaker.start() 
+
         PCTIME = datetime.now().strftime('%H:%M:%S')
 
         response = ntplib.NTPClient().request(TimeServer, version=3)        
@@ -34579,8 +34583,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.TIMEGAP = round(-response.offset)
 
-        txt = '🕘 PC = [{0}]와 서버 = [{1}]간 시간차는 {2}초 입니다...\r'.format(PCTIME, SERVERTIME, self.TIMEGAP)
+        txt = '🕘 PC = [{0}]와 서버 = [{1}]간 시간차는 {2}초 입니다...\r'.format(PCTIME, SERVERTIME, self.TIMEGAP)        
         self.textBrowser.append(txt)
+
+        txt = 'PC와 써버간 시간차는 {0}초 입니다'.format(self.TIMEGAP)
+        self.speaker.setText(txt)
          
         # 쓰레드 or 멀티프로세스
         if self.mp_mode:
@@ -34645,11 +34652,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.realtime_thread_dataworker = RealTime_Thread_DataWorker(self.dataQ)
             self.realtime_thread_dataworker.trigger.connect(self.transfer_thread_realdata)
             self.realtime_thread_dataworker.trigger_exception.connect(self.transfer_thread_exception)
-            self.realtime_thread_dataworker.start()
-        
-        # TTS 쓰레드 설정
-        self.speaker = SpeakerWorker()
-        self.speaker.start()        
+            self.realtime_thread_dataworker.start()               
         
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
         atexit.register(self.__del__)
