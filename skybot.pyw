@@ -35318,13 +35318,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.nws_update(data)
             elif szTrCode == 'JIF':
                 self.jif_update(data)
-            elif szTrCode == 'YJ_':
+            elif szTrCode == 'YJ_' and not dongsi_quote:
                 self.yj_update(data)
-            elif szTrCode == 'YFC':
+            elif szTrCode == 'YFC' and not dongsi_quote:
                 self.yfc_update(data)
-            elif szTrCode == 'YS3':
+            elif szTrCode == 'YS3' and not dongsi_quote:
                 self.ys3_update(data)
-            elif szTrCode == 'YOC':
+            elif szTrCode == 'YOC' and not dongsi_quote:
                 self.yoc_update(data)
             elif szTrCode == 'S3_':
                 self.s3_update(data)
