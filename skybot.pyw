@@ -34226,7 +34226,7 @@ class Xing(object):
                     self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
                 else:
                     pass
-
+                '''
                 if flag_telegram_send_start:
 
                     if self.clocktick and dt.second % TELEGRAM_SEND_INTERVAL == 0:
@@ -34244,7 +34244,7 @@ class Xing(object):
                         pass
                 else:
                     pass               
-
+                '''
             except Exception as e:
 
                 ipaddress = socket.gethostbyname(socket.gethostname())
