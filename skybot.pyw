@@ -35958,6 +35958,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.시가.value, item)
 
+            시가갭 = kp200_시가 - KP200_전일종가
+
+            item = QTableWidgetItem("{0:.2f}".format(시가갭))
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if kp200_시가 > KP200_전일종가:
+                item.setBackground(QBrush(콜기준가색))
+                item.setForeground(QBrush(검정색))
+            elif kp200_시가 < KP200_전일종가:
+                item.setBackground(QBrush(풋기준가색))
+                item.setForeground(QBrush(흰색))
+            else:
+                item.setBackground(QBrush(흰색))
+
+            self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.시가갭.value, item)
+
             atm_txt = self.dialog['선물옵션전광판'].get_atm_txt(예상지수)
 
             if atm_txt[-1] == '2' or atm_txt[-1] == '7':
