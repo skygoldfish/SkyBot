@@ -35019,7 +35019,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.statusbar.setStyleSheet("color : darkgreen")
 
-        self.statusbar.showMessage(txt)        
+        self.statusbar.showMessage(txt)                
 
         if time_gap_abs >= view_time_tolerance:
             self.label_2nd.setStyleSheet("background-color: yellow; color: red; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
@@ -35048,6 +35048,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 txt = "{0}\n({1:.2f})".format('POC0', args_processing_time)
             elif szTrCode == 'EC0' and tickdata['단축코드'][0:3] == '301':
                 txt = "{0}\n({1:.2f})".format('PEC0', args_processing_time)            
+            else:
+                pass
+
+            if szTrCode == 'YOC':
+                txt = "YOC"
             else:
                 pass
         
@@ -35369,8 +35374,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         try:               
             flag_option_tick_update_is_running = True
 
-            if flag_t8416_data_receive_done:            
-                self.oc0_update(data)
+            szTrCode = data['tr_code']
+
+            if szTrCode == 'YOC':
+                self.yoc_update(data)
+            else:
+                pass
+
+            if szTrCode == 'OC0' or szTrCode == 'EC0':
+                if flag_t8416_data_receive_done:            
+                    self.oc0_update(data)
+                else:
+                    pass
             else:
                 pass
             
@@ -36230,7 +36245,32 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
 
     def yoc_update(self, data):
-        pass
+
+        result = data
+
+        if result['단축코드'][0:3] == '201':
+
+            index = call_행사가.index(result['단축코드'][5:8])
+
+            # 현재가 갱신
+            콜_현재가 = float(result['현재가'])               
+
+            # 테이블 갱신
+            call_result = copy.deepcopy(result)
+            self.dialog['선물옵션전광판'].call_update(call_result)                                   
+
+        elif result['단축코드'][0:3] == '301':
+
+            index = put_행사가.index(result['단축코드'][5:8])
+
+            # 현재가 갱신
+            풋_현재가 = float(result['현재가'])
+
+            # 테이블 갱신
+            put_result = copy.deepcopy(result)
+            self.dialog['선물옵션전광판'].put_update(put_result)                               
+        else:
+            pass
 
     def s3_update(self, data):
 
