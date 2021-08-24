@@ -1144,8 +1144,14 @@ market_service = False
 
 widget_title = ''
 
-FUT_FOREIGNER_거래대금순매수 = 0
-FUT_RETAIL_거래대금순매수 = 0
+외인선물_순매수 = 0
+외인현물_순매수 = 0
+기관선물_순매수 = 0
+기관현물_순매수 = 0
+개인선물_순매수 = 0
+개인현물_순매수 = 0
+수급방향 = 'None'
+
 FUT_INSTITUTIONAL_거래대금순매수 = 0
 FUT_STOCK_거래대금순매수 = 0
 FUT_BOHEOM_거래대금순매수 = 0
@@ -1166,8 +1172,6 @@ FUT_JONGGEUM_거래대금순매수_직전대비 = 0
 FUT_GIGEUM_거래대금순매수_직전대비 = 0
 FUT_GITA_거래대금순매수_직전대비 = 0
 
-KOSPI_FOREIGNER_거래대금순매수 = 0
-KOSPI_RETAIL_거래대금순매수 = 0
 KOSPI_INSTITUTIONAL_거래대금순매수 = 0
 KOSPI_STOCK_거래대금순매수 = 0
 KOSPI_BOHEOM_거래대금순매수 = 0
@@ -34233,13 +34237,13 @@ class Xing(object):
                     if self.clocktick and TARGET_MONTH == 'CM' and dt.minute % report_interval == 0 and dt.second == 1:
 
                         if flag_call_strong:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ CM Call Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)                        
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] Call Strong({3:.1f} : {4:.1f}), 수급방향 : {5}".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)                        
                         elif flag_call_weak:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ CM Call Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] Call Weak({3:.1f} : {4:.1f}), 수급방향 : {5}".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)
                         elif flag_put_strong:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ CM Put Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] Put Strong({3:.1f} : {4:.1f}), 수급방향 : {5}".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)
                         elif flag_put_weak:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ CM Put Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] Put Weak({3:.1f} : {4:.1f}), 수급방향 : {5}".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)
                         else:
                             send_txt = ''
 
@@ -34250,13 +34254,13 @@ class Xing(object):
                     if self.clocktick and TARGET_MONTH == 'NM' and dt.minute % report_interval == 0 and dt.second == 2:
 
                         if flag_call_strong:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ NM Call Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM Call Strong({3:.1f} : {4:.1f})".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                         elif flag_call_weak:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ NM Call Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM Call Weak({3:.1f} : {4:.1f})".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                         elif flag_put_strong:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ NM Put Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM Put Strong({3:.1f} : {4:.1f})".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                         elif flag_put_weak:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ NM Put Weak({3:.1f} : {4:.1f}) ▼".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM Put Weak({3:.1f} : {4:.1f})".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                         else:
                             send_txt = ''
 
@@ -36685,8 +36689,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
 
     def bm_update(self, data):
+
+        global 외인선물_순매수, 외인현물_순매수, 기관선물_순매수, 기관현물_순매수, 개인선물_순매수, 개인현물_순매수
         
-        global FUT_FOREIGNER_거래대금순매수, FUT_RETAIL_거래대금순매수, FUT_INSTITUTIONAL_거래대금순매수, FUT_STOCK_거래대금순매수, \
+        global 개인선물_순매수, FUT_INSTITUTIONAL_거래대금순매수, FUT_STOCK_거래대금순매수, \
             FUT_BOHEOM_거래대금순매수, FUT_TOOSIN_거래대금순매수, FUT_BANK_거래대금순매수, FUT_JONGGEUM_거래대금순매수, \
             FUT_GIGEUM_거래대금순매수, FUT_GITA_거래대금순매수
 
@@ -36695,7 +36701,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             FUT_BANK_거래대금순매수_직전대비, FUT_JONGGEUM_거래대금순매수_직전대비, FUT_GIGEUM_거래대금순매수_직전대비, \
             FUT_GITA_거래대금순매수_직전대비
 
-        global KOSPI_FOREIGNER_거래대금순매수, KOSPI_RETAIL_거래대금순매수, KOSPI_INSTITUTIONAL_거래대금순매수, KOSPI_STOCK_거래대금순매수, \
+        global 외인현물_순매수, 개인현물_순매수, KOSPI_INSTITUTIONAL_거래대금순매수, KOSPI_STOCK_거래대금순매수, \
             KOSPI_BOHEOM_거래대금순매수, KOSPI_TOOSIN_거래대금순매수, KOSPI_BANK_거래대금순매수, KOSPI_JONGGEUM_거래대금순매수, \
             KOSPI_GIGEUM_거래대금순매수, KOSPI_GITA_거래대금순매수
 
@@ -36714,8 +36720,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         if (result['업종코드'] == FUTURES and result['투자자코드'] == FOREIGNER) or (result['업종코드'] == CME and result['투자자코드'] == FOREIGNER):
 
-            FUT_FOREIGNER_거래대금순매수 = 거래대금순매수
-            순매수 = format(FUT_FOREIGNER_거래대금순매수, ',')
+            외인선물_순매수 = 거래대금순매수
+            순매수 = format(외인선물_순매수, ',')
 
             FUT_FOREIGNER_거래대금순매수_직전대비 = 거래대금순매수직전대비
             FUT_FOREIGNER_직전대비.extend([FUT_FOREIGNER_거래대금순매수_직전대비])
@@ -36761,8 +36767,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         elif (result['업종코드'] == FUTURES and result['투자자코드'] == RETAIL) or (result['업종코드'] == CME and result['투자자코드'] == RETAIL):
 
-            FUT_RETAIL_거래대금순매수 = 거래대금순매수
-            순매수 = format(FUT_RETAIL_거래대금순매수, ',')
+            개인선물_순매수 = 거래대금순매수
+            순매수 = format(개인선물_순매수, ',')
 
             FUT_RETAIL_거래대금순매수_직전대비 = 거래대금순매수직전대비
             FUT_FOREIGNER_직전대비.extend([FUT_RETAIL_거래대금순매수_직전대비])
@@ -36805,22 +36811,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             FUT_INSTITUTIONAL_거래대금순매수 = 거래대금순매수
             FUT_INSTITUTIONAL_거래대금순매수_직전대비 = 거래대금순매수직전대비
 
-            기관_거래대금순매수 = FUT_INSTITUTIONAL_거래대금순매수 + FUT_STOCK_거래대금순매수 + FUT_BOHEOM_거래대금순매수 + \
+            기관선물_순매수 = FUT_INSTITUTIONAL_거래대금순매수 + FUT_STOCK_거래대금순매수 + FUT_BOHEOM_거래대금순매수 + \
                          FUT_TOOSIN_거래대금순매수 + FUT_BANK_거래대금순매수 + FUT_JONGGEUM_거래대금순매수 + \
                          FUT_GIGEUM_거래대금순매수 + FUT_GITA_거래대금순매수
 
-            기관_거래대금순매수_직전대비 = FUT_INSTITUTIONAL_거래대금순매수_직전대비 + FUT_STOCK_거래대금순매수_직전대비 + \
+            기관선물_거래대금순매수_직전대비 = FUT_INSTITUTIONAL_거래대금순매수_직전대비 + FUT_STOCK_거래대금순매수_직전대비 + \
                               FUT_BOHEOM_거래대금순매수_직전대비 + FUT_TOOSIN_거래대금순매수_직전대비 + FUT_BANK_거래대금순매수_직전대비 + \
                               FUT_JONGGEUM_거래대금순매수_직전대비 + FUT_GIGEUM_거래대금순매수_직전대비 + FUT_GITA_거래대금순매수_직전대비
 
-            FUT_INSTITUTIONAL_직전대비.extend([기관_거래대금순매수_직전대비])
+            FUT_INSTITUTIONAL_직전대비.extend([기관선물_거래대금순매수_직전대비])
             temp = list(FUT_INSTITUTIONAL_직전대비)
 
-            순매수 = format(기관_거래대금순매수, ',')
+            순매수 = format(기관선물_순매수, ',')
 
             if min(temp) > 0:
 
-                item_txt = "{0}\n({1})⬈".format(순매수, 기관_거래대금순매수_직전대비)
+                item_txt = "{0}\n({1})⬈".format(순매수, 기관선물_거래대금순매수_직전대비)
 
                 if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 2).text():
                     item = QTableWidgetItem(item_txt)
@@ -36833,7 +36839,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             elif max(temp) < 0:
 
-                item_txt = "{0}\n({1})⬊".format(순매수, 기관_거래대금순매수_직전대비)
+                item_txt = "{0}\n({1})⬊".format(순매수, 기관선물_거래대금순매수_직전대비)
 
                 if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 2).text():
                     item = QTableWidgetItem(item_txt)
@@ -36845,7 +36851,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
             else:
-                item_txt = "{0}\n({1})".format(순매수, 기관_거래대금순매수_직전대비)
+                item_txt = "{0}\n({1})".format(순매수, 기관선물_거래대금순매수_직전대비)
 
                 if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 2).text():
                     item = QTableWidgetItem(item_txt)
@@ -36893,8 +36899,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         elif result['업종코드'] == KOSPI and result['투자자코드'] == FOREIGNER:
 
-            KOSPI_FOREIGNER_거래대금순매수 = 거래대금순매수
-            순매수 = format(KOSPI_FOREIGNER_거래대금순매수, ',')
+            외인현물_순매수 = 거래대금순매수
+            순매수 = format(외인현물_순매수, ',')
 
             KOSPI_FOREIGNER_거래대금순매수_직전대비 = 거래대금순매수직전대비
             KOSPI_FOREIGNER_직전대비.extend([KOSPI_FOREIGNER_거래대금순매수_직전대비])
@@ -36940,10 +36946,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         elif result['업종코드'] == KOSPI and result['투자자코드'] == RETAIL:
 
-            KOSPI_RETAIL_거래대금순매수 = 거래대금순매수
+            개인현물_순매수 = 거래대금순매수
             KOSPI_RETAIL_거래대금순매수_직전대비 = 거래대금순매수직전대비
 
-            item_txt = "{0}\n({1})".format(KOSPI_RETAIL_거래대금순매수, KOSPI_RETAIL_거래대금순매수_직전대비)
+            item_txt = "{0}\n({1})".format(개인현물_순매수, KOSPI_RETAIL_거래대금순매수_직전대비)
 
             if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 1).text():
                 item = QTableWidgetItem(item_txt)
@@ -37011,50 +37017,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             item.setForeground(QBrush(검정색))
             self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 3, item)
         else:
-            pass
-
-        #if NightTime:
-        if False:
-
-            선물_거래대금순매수 = FUT_FOREIGNER_거래대금순매수 + FUT_RETAIL_거래대금순매수 + \
-                         FUT_INSTITUTIONAL_거래대금순매수 + FUT_STOCK_거래대금순매수 + FUT_BOHEOM_거래대금순매수 + \
-                         FUT_TOOSIN_거래대금순매수 + FUT_BANK_거래대금순매수 + FUT_JONGGEUM_거래대금순매수 + \
-                         FUT_GIGEUM_거래대금순매수 + FUT_GITA_거래대금순매수
-
-            선물_거래대금순매수_직전대비 = FUT_FOREIGNER_거래대금순매수_직전대비 + FUT_RETAIL_거래대금순매수_직전대비 + \
-                              FUT_INSTITUTIONAL_거래대금순매수_직전대비 + FUT_STOCK_거래대금순매수_직전대비 + \
-                              FUT_BOHEOM_거래대금순매수_직전대비 + FUT_TOOSIN_거래대금순매수_직전대비 + FUT_BANK_거래대금순매수_직전대비 + \
-                              FUT_JONGGEUM_거래대금순매수_직전대비 + FUT_GIGEUM_거래대금순매수_직전대비 + \
-                              FUT_GITA_거래대금순매수_직전대비
-
-            현물_거래대금순매수 = 0
-            현물_거래대금순매수_직전대비 = 0
-
-            현물 = format(현물_거래대금순매수, ',')
-            선물 = format(선물_거래대금순매수, ',')
-
-            item_txt = "{0}\n{1}".format(현물, 선물)
-
-            if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 7).text():
-                item = QTableWidgetItem(item_txt)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 7, item)
-            else:
-                pass
-        else:
-            pass
+            pass        
 
     def pm_update(self, data):
 
         global 프로그램_전체순매수금액, 프로그램_전체순매수금액직전대비
         global 선물_거래대금순매수, 선물_거래대금순매수_직전대비, 현물_거래대금순매수, 현물_거래대금순매수_직전대비
+        global 수급방향
 
         result = data
         
         프로그램_전체순매수금액 = int(int(result['전체순매수금액합계']) / 100)
         프로그램_전체순매수금액직전대비 = int(int(result['전체순매수금액직전대비']) / 100)
         
-        선물_거래대금순매수 = FUT_FOREIGNER_거래대금순매수 + FUT_RETAIL_거래대금순매수 + \
+        선물_거래대금순매수 = 외인선물_순매수 + 개인선물_순매수 + \
                      FUT_INSTITUTIONAL_거래대금순매수 + FUT_STOCK_거래대금순매수 + FUT_BOHEOM_거래대금순매수 + \
                      FUT_TOOSIN_거래대금순매수 + FUT_BANK_거래대금순매수 + FUT_JONGGEUM_거래대금순매수 + \
                      FUT_GIGEUM_거래대금순매수 + FUT_GITA_거래대금순매수
@@ -37065,7 +37041,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                           FUT_JONGGEUM_거래대금순매수_직전대비 + FUT_GIGEUM_거래대금순매수_직전대비 + \
                           FUT_GITA_거래대금순매수_직전대비
 
-        현물_거래대금순매수 = KOSPI_FOREIGNER_거래대금순매수 + KOSPI_RETAIL_거래대금순매수 + \
+        현물_거래대금순매수 = 외인현물_순매수 + 개인현물_순매수 + \
                      KOSPI_INSTITUTIONAL_거래대금순매수 + KOSPI_STOCK_거래대금순매수 + KOSPI_BOHEOM_거래대금순매수 + \
                      KOSPI_TOOSIN_거래대금순매수 + KOSPI_BANK_거래대금순매수 + KOSPI_JONGGEUM_거래대금순매수 + \
                      KOSPI_GIGEUM_거래대금순매수 + KOSPI_GITA_거래대금순매수 + 프로그램_전체순매수금액
@@ -37125,11 +37101,28 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         item_txt = "{0}\n{1}".format(현물, 선물)
 
         if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 7).text():
+
             item = QTableWidgetItem(item_txt)
             item.setTextAlignment(Qt.AlignCenter)
+
+            if 기관선물_순매수 > 0 and 기관현물_순매수 < 0 and 외인선물_순매수 < 0 and 외인현물_순매수 > 0 and 현물_거래대금순매수 < 0:
+                수급방향 = 'Put'
+                item.setBackground(QBrush(청색))
+                item.setForeground(QBrush(흰색))
+            elif 기관선물_순매수 < 0 and 기관현물_순매수 > 0 and 외인선물_순매수 > 0 and 외인현물_순매수 < 0 and 현물_거래대금순매수 > 0:
+                수급방향 = 'Call'
+                item.setBackground(QBrush(적색))
+                item.setForeground(QBrush(흰색))
+            else:
+                수급방향 = 'None'
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+
             self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 7, item)
         else:
             pass
+        
+        
         
     def fc0_update(self, data):
 
