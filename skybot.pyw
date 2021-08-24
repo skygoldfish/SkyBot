@@ -3769,7 +3769,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_fut.setColumnCount(Futures_column.OID.value + 1)
         self.tableWidget_fut.horizontalHeader().setStyleSheet(fut_header_stylesheet)
 
-        self.tableWidget_fut.setHorizontalHeaderLabels(['TIMER', '▲▼', 'HMSC', 'HMDC', 'HMSR', 'MDHR', 'HCR', 'HRR', '전저', '전고', '종가', '피봇', '시가', '저가', '현재가', '고가', '시가갭', '대비', '체결', '진폭', 'OI', 'OI↕'])
+        self.tableWidget_fut.setHorizontalHeaderLabels(['TIMER', '▲▼', 'HMSC', 'HMDC', 'HMSR', 'HMDR', 'HCR', 'HRR', '전저', '전고', '종가', '피봇', '시가', '저가', '현재가', '고가', '시가갭', '대비', '체결', '진폭', 'OI', 'OI↕'])
         self.tableWidget_fut.verticalHeader().setVisible(False)
         self.tableWidget_fut.setAlternatingRowColors(True)
 
@@ -6325,6 +6325,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if TARGET_MONTH == 'CM':
 
+            pass
+            '''
             if 선물_현재가 < volatility_breakout_downward_point:
 
                 vb_txt = 'CM Volatility Downward Breakout'
@@ -6348,7 +6350,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass                                
             else:
                 pass
-
+            
             if DayTime:
             
                 if flag_call_dominant:
@@ -6361,9 +6363,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
             else:
                 pass
-
+            '''
         elif TARGET_MONTH == 'NM':
 
+            '''
             if 선물_현재가 < volatility_breakout_downward_point:
 
                 vb_txt = 'NM Volatility Downward Breakout'
@@ -6387,7 +6390,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass                
             else:
                 pass
-
+            '''
             if call_ol_count > call_oh_count and put_ol_count < put_oh_count:
 
                 speak_txt = 'Call Dominant'
@@ -6416,10 +6419,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
         else:
-            pass
-        
-        #txt = '[{0:02d}:{1:02d}:{2:02d}] Heartbeat({3}), 시스템서버간 시간차 = {4}초\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, system_server_time_gap)
-        #self.textBrowser.append(txt)       
+            pass       
         
         self.tableWidget_fut.resizeRowsToContents()
         self.tableWidget_fut.resizeColumnsToContents()
@@ -34230,7 +34230,7 @@ class Xing(object):
                     else:
                         report_interval = 10
 
-                    if TARGET_MONTH == 'CM' and dt.minute % report_interval == 0 and dt.second == 1:
+                    if self.clocktick and TARGET_MONTH == 'CM' and dt.minute % report_interval == 0 and dt.second == 1:
 
                         if flag_call_strong:
                             send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ CM Call Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)                        
@@ -34247,7 +34247,7 @@ class Xing(object):
                     else:
                         pass
 
-                    if TARGET_MONTH == 'NM' and dt.minute % report_interval == 0 and dt.second == 2:
+                    if self.clocktick and TARGET_MONTH == 'NM' and dt.minute % report_interval == 0 and dt.second == 2:
 
                         if flag_call_strong:
                             send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ NM Call Strong({3:.1f} : {4:.1f}) ▲".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)

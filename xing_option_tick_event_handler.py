@@ -127,6 +127,16 @@ class XARealEventHandler:
 
         return values
 
+    def handle_index_option_yoc_tick(self) -> list:
+        """
+        지수옵션 예상체결 데이터
+        """
+        values = []
+        for field in INDEX_OPTION_TICK_FIELDS:
+            values.append(self.GetFieldData("OutBlock", field))
+
+        return values
+
     def handle_bm_tick(self) -> list:
         """
         BM
@@ -316,6 +326,18 @@ class XARealEventHandler:
         result = dict(zip(INDEX_OPTION_TICK_COLUMNS_HEADER, values))
 
         return DataType.INDEX_OPTION_TICK, result
+
+    def handle_yoc(self, tr_code) -> tuple:
+        """
+        YOC : 지수옵션 예상체결
+        """
+        values = self.handle_index_option_yoc_tick()
+        values.insert(0, datetime.now().strftime('%H%M%S'))
+        values.insert(1, tr_code)
+
+        result = dict(zip(INDEX_OPTION_TICK_COLUMNS_HEADER, values))
+
+        return DataType.INDEX_OPTION_TICK, result
     
     def handle_ovc(self, tr_code) -> tuple:
         """
@@ -400,6 +422,9 @@ class XARealEventHandler:
         elif tr_code == "YFC":
             # 지수선물 예상체결
             self.queue.put(self.handle_yfc(tr_code))
+        elif tr_code == "YOC":
+            # 지수옵션 예상체결
+            self.queue.put(self.handle_yoc(tr_code))
         elif tr_code == "IJ_":
             # 지수
             self.queue.put(self.handle_ij(tr_code))

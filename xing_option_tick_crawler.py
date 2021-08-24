@@ -82,11 +82,27 @@ def option_tick_crawler(queue: Queue, index_option_cm_tick=False, index_option_n
 
         # 체결
         if index_option_cm_tick:
+
+            if DayTime:
+                print('본월물 실시간 예상체결 요청...')
+                real_time_index_option_yoc_tick = RealTimeIndexOptionYOCTick(queue=queue)
+                real_time_index_option_yoc_tick.set_code_list(cm_code_list, field="optcode")
+            else:
+                pass
+
             print('본월물 실시간 체결요청...')
             real_time_index_option_tick = RealTimeIndexOptionTick(queue=queue)
             real_time_index_option_tick.set_code_list(cm_code_list, field="optcode")
 
         if index_option_nm_tick:
+
+            if DayTime:
+                print('차월물 실시간 예상체결 요청...')
+                real_time_index_option_yoc_tick = RealTimeIndexOptionYOCTick(queue=queue)
+                real_time_index_option_yoc_tick.set_code_list(nm_code_list, field="optcode")
+            else:
+                pass
+            
             print('차월물 실시간 체결요청...')
             real_time_index_option_tick = RealTimeIndexOptionTick(queue=queue)
             real_time_index_option_tick.set_code_list(nm_code_list, field="optcode")
