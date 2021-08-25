@@ -23,6 +23,7 @@ parser.read('.\skybot.ini')
 REAL_SERVER = parser.getboolean('Server Type', 'Real Server')
 OPTION_SLEEP_SWITCH_MODE = parser.getboolean('User Switch', 'MP Option Sleep Switching Mode')
 OPTION_SLEEP_SWITCHING_DELAY = parser.getfloat('Initial Value', 'MP Option Sleep Switching Delay')
+YOC_REQUEST = parser.getboolean('User Switch', 'YOC Request')
 
 계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})
 
@@ -83,7 +84,7 @@ def option_tick_crawler(queue: Queue, index_option_cm_tick=False, index_option_n
         # 체결
         if index_option_cm_tick:
 
-            if DayTime:
+            if YOC_REQUEST and DayTime:
                 print('본월물 실시간 예상체결 요청...')
                 real_time_index_option_yoc_tick = RealTimeIndexOptionYOCTick(queue=queue)
                 real_time_index_option_yoc_tick.set_code_list(cm_code_list, field="optcode")
@@ -96,7 +97,7 @@ def option_tick_crawler(queue: Queue, index_option_cm_tick=False, index_option_n
 
         if index_option_nm_tick:
 
-            if DayTime:
+            if YOC_REQUEST and DayTime:
                 print('차월물 실시간 예상체결 요청...')
                 real_time_index_option_yoc_tick = RealTimeIndexOptionYOCTick(queue=queue)
                 real_time_index_option_yoc_tick.set_code_list(nm_code_list, field="optcode")
