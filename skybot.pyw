@@ -35380,16 +35380,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             szTrCode = data['tr_code']
 
-            if szTrCode == 'YOC':
-                self.yoc_update(data)
-            else:
-                pass
-
             if szTrCode == 'OC0' or szTrCode == 'EC0':
                 if flag_t8416_data_receive_done:            
                     self.oc0_update(data)
                 else:
                     pass
+            else:
+                pass
+            
+            if szTrCode == 'YOC':
+                self.yoc_update(data)
             else:
                 pass
             
@@ -36272,23 +36272,47 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             index = call_행사가.index(result['단축코드'][5:8])
 
-            # 현재가 갱신
-            콜_현재가 = float(result['현재가'])               
+            # 예상시가 갱신
+            예상시가 = result['예상체결가격']
+            콜예상시가 = float(예상시가)               
 
             # 테이블 갱신
-            call_result = copy.deepcopy(result)
-            self.dialog['선물옵션전광판'].call_update(call_result)                                   
+            콜종가 = df_call.at[index, '종가']
+
+            item = QTableWidgetItem(예상시가)
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if 콜예상시가 > 콜종가:
+                item.setForeground(QBrush(적색))
+            elif 콜예상시가 < 콜종가:
+                item.setForeground(QBrush(청색))
+            else:
+                item.setForeground(QBrush(검정색))
+
+            self.dialog['선물옵션전광판'].tableWidget_call.setItem(index, Option_column.시가.value, item)                                  
 
         elif result['단축코드'][0:3] == '301':
 
             index = put_행사가.index(result['단축코드'][5:8])
 
-            # 현재가 갱신
-            풋_현재가 = float(result['현재가'])
+            # 예상시가 갱신
+            예상시가 = result['예상체결가격']
+            풋예상시가 = float(예상시가)               
 
             # 테이블 갱신
-            put_result = copy.deepcopy(result)
-            self.dialog['선물옵션전광판'].put_update(put_result)                               
+            풋종가 = df_put.at[index, '종가']
+
+            item = QTableWidgetItem(예상시가)
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if 풋예상시가 > 풋종가:
+                item.setForeground(QBrush(적색))
+            elif 풋예상시가 < 풋종가:
+                item.setForeground(QBrush(청색))
+            else:
+                item.setForeground(QBrush(검정색))
+
+            self.dialog['선물옵션전광판'].tableWidget_put.setItem(index, Option_column.시가.value, item)                                
         else:
             pass
 
