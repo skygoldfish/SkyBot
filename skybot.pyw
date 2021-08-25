@@ -34234,7 +34234,7 @@ class Xing(object):
                     else:
                         report_interval = 10
 
-                    if self.clocktick and TARGET_MONTH == 'CM' and dt.minute % report_interval == 0 and dt.second == 1:
+                    if not self.clocktick and TARGET_MONTH == 'CM' and dt.minute % report_interval == 0 and dt.second == 0:
 
                         if flag_call_strong:
                             send_txt = "[{0:02d}:{1:02d}:{2:02d}] Call Strong({3:.1f} : {4:.1f}), 수급방향 : {5}".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)                        
@@ -34251,7 +34251,7 @@ class Xing(object):
                     else:
                         pass
 
-                    if self.clocktick and TARGET_MONTH == 'NM' and dt.minute % report_interval == 0 and dt.second == 2:
+                    if not self.clocktick and TARGET_MONTH == 'NM' and dt.minute % report_interval == 0 and dt.second == 0:
 
                         if flag_call_strong:
                             send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM Call Strong({3:.1f} : {4:.1f})".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
