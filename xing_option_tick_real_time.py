@@ -196,10 +196,6 @@ class RealTimeIndexOptionYOCTick(RealTimeAbs):
     [YOC] 지수옵션 예상체결
     """
     def __init__(self, queue: Queue):
-
-        if DayTime:
-            super().__init__(queue, "YOC")
-        else:
-            pass
+        super().__init__(queue, "YOC")
             
 
