@@ -585,6 +585,11 @@ YFC_COLUMNS = ["system_time", "tr_code", *YFC_FIELDS]
 YFC_COLUMNS_HEADER = ["system_time", "tr_code", "수신시간", "예상체결가격", "예상체결가전일종가대비구분", "예상체결가전일종가대비", "예상체결가전일종가등락율", "단축코드"]
 
 # 지수옵션 예상체결
+YOC_FIELDS = ["ychetime", "yeprice", "jnilysign", "preychange", "jnilydrate", "optcode"]
+YOC_COLUMNS = ["system_time", "tr_code", *YOC_FIELDS]
+YOC_COLUMNS_HEADER = ["system_time", "tr_code", "수신시간", "예상체결가격", "예상체결가전일종가대비구분", "예상체결가전일종가대비", "예상체결가전일종가등락율", "단축코드"]
+
+# 지수옵션 예상체결
 
 # KOSPI체결
 S3_FIELDS = ["chetime", "sign", "change", "drate", "price", "opentime", "open", "hightime", "high", "lowtime", "low", "cgubun", "cvolume", "volume", "value", "mdvolume", \

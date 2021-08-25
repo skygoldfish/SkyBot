@@ -335,9 +335,9 @@ class XARealEventHandler:
         values.insert(0, datetime.now().strftime('%H%M%S'))
         values.insert(1, tr_code)
 
-        result = dict(zip(INDEX_OPTION_TICK_COLUMNS_HEADER, values))
+        result = dict(zip(YOC_COLUMNS_HEADER, values))
 
-        return DataType.INDEX_OPTION_TICK, result
+        return DataType.YOC_TICK, result
     
     def handle_ovc(self, tr_code) -> tuple:
         """
