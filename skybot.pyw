@@ -35936,7 +35936,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         result = data
         
-        if result['업종코드'] == KOSPI200:
+        if result['업종코드'] == KOSPI200 and not dongsi_quote:
 
             예상지수 = float(result['예상지수'])
 
