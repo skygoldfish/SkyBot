@@ -3864,7 +3864,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setForeground(QBrush(흰색))
             self.tableWidget_supply.setItem(0, i, item)
 
-        item = QTableWidgetItem('현물합\n선물합')
+        item = QTableWidgetItem('선물합\n현물합')
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(검정색))
         item.setForeground(QBrush(흰색))
@@ -37136,10 +37136,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass        
         
-        현물 = format(현물_총순매수, ',')
         선물 = format(선물_총순매수, ',')
+        현물 = format(현물_총순매수, ',')
 
-        item_txt = "{0}\n{1}".format(현물, 선물)
+        item_txt = "{0}\n{1}".format(선물, 현물)
 
         if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 7).text():
 
