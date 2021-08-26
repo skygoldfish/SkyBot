@@ -1181,8 +1181,8 @@ KOSPI_JONGGEUM_거래대금순매수 = 0
 KOSPI_GIGEUM_거래대금순매수 = 0
 KOSPI_GITA_거래대금순매수 = 0
 
-프로그램_전체순매수금액 = 0
-프로그램_전체순매수금액직전대비 = 0
+프로그램_순매수 = 0
+프로그램_순매수직전대비 = 0
 
 KOSPI_FOREIGNER_거래대금순매수_직전대비 = 0
 KOSPI_RETAIL_거래대금순매수_직전대비 = 0
@@ -1195,8 +1195,8 @@ KOSPI_JONGGEUM_거래대금순매수_직전대비 = 0
 KOSPI_GIGEUM_거래대금순매수_직전대비 = 0
 KOSPI_GITA_거래대금순매수_직전대비 = 0
 
-선물_거래대금순매수 = 0
-현물_거래대금순매수 = 0
+선물_총순매수 = 0
+현물_총순매수 = 0
 
 FUT_FOREIGNER_직전대비 = collections.deque([0, 0, 0], 3)
 FUT_RETAIL_직전대비 = collections.deque([0, 0, 0], 3)
@@ -6394,7 +6394,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass                
             else:
                 pass
-            '''
+            
             if call_ol_count > call_oh_count and put_ol_count < put_oh_count:
 
                 speak_txt = 'Call Dominant'
@@ -6422,6 +6422,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
             else:
                 pass
+            '''
         else:
             pass       
         
@@ -36751,7 +36752,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             KOSPI_GITA_거래대금순매수_직전대비
 
         global FUT_FOREIGNER_직전대비, FUT_RETAIL_직전대비, FUT_INSTITUTIONAL_직전대비, KOSPI_FOREIGNER_직전대비, PROGRAM_직전대비
-        global 선물_거래대금순매수, 선물_거래대금순매수_직전대비, 현물_거래대금순매수, 현물_거래대금순매수_직전대비
+        global 선물_총순매수, 선물_총순매수_직전대비, 현물_총순매수, 현물_총순매수_직전대비
 
         result = data
 
@@ -37061,45 +37062,45 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def pm_update(self, data):
 
-        global 프로그램_전체순매수금액, 프로그램_전체순매수금액직전대비
-        global 선물_거래대금순매수, 선물_거래대금순매수_직전대비, 현물_거래대금순매수, 현물_거래대금순매수_직전대비
+        global 프로그램_순매수, 프로그램_순매수직전대비
+        global 선물_총순매수, 선물_총순매수_직전대비, 현물_총순매수, 현물_총순매수_직전대비
         global 수급방향
 
         result = data
         
-        프로그램_전체순매수금액 = int(int(result['전체순매수금액합계']) / 100)
-        프로그램_전체순매수금액직전대비 = int(int(result['전체순매수금액직전대비']) / 100)
+        프로그램_순매수 = int(int(result['전체순매수금액합계']) / 100)
+        프로그램_순매수직전대비 = int(int(result['전체순매수금액직전대비']) / 100)
         
-        선물_거래대금순매수 = 외인선물_순매수 + 개인선물_순매수 + \
+        선물_총순매수 = 외인선물_순매수 + 개인선물_순매수 + \
                      FUT_INSTITUTIONAL_거래대금순매수 + FUT_STOCK_거래대금순매수 + FUT_BOHEOM_거래대금순매수 + \
                      FUT_TOOSIN_거래대금순매수 + FUT_BANK_거래대금순매수 + FUT_JONGGEUM_거래대금순매수 + \
                      FUT_GIGEUM_거래대금순매수 + FUT_GITA_거래대금순매수
 
-        선물_거래대금순매수_직전대비 = FUT_FOREIGNER_거래대금순매수_직전대비 + FUT_RETAIL_거래대금순매수_직전대비 + \
+        선물_총순매수_직전대비 = FUT_FOREIGNER_거래대금순매수_직전대비 + FUT_RETAIL_거래대금순매수_직전대비 + \
                           FUT_INSTITUTIONAL_거래대금순매수_직전대비 + FUT_STOCK_거래대금순매수_직전대비 + \
                           FUT_BOHEOM_거래대금순매수_직전대비 + FUT_TOOSIN_거래대금순매수_직전대비 + FUT_BANK_거래대금순매수_직전대비 + \
                           FUT_JONGGEUM_거래대금순매수_직전대비 + FUT_GIGEUM_거래대금순매수_직전대비 + \
                           FUT_GITA_거래대금순매수_직전대비
 
-        현물_거래대금순매수 = 외인현물_순매수 + 개인현물_순매수 + \
+        현물_총순매수 = 외인현물_순매수 + 개인현물_순매수 + \
                      KOSPI_INSTITUTIONAL_거래대금순매수 + KOSPI_STOCK_거래대금순매수 + KOSPI_BOHEOM_거래대금순매수 + \
                      KOSPI_TOOSIN_거래대금순매수 + KOSPI_BANK_거래대금순매수 + KOSPI_JONGGEUM_거래대금순매수 + \
-                     KOSPI_GIGEUM_거래대금순매수 + KOSPI_GITA_거래대금순매수 + 프로그램_전체순매수금액
+                     KOSPI_GIGEUM_거래대금순매수 + KOSPI_GITA_거래대금순매수 + 프로그램_순매수
 
-        현물_거래대금순매수_직전대비 = KOSPI_FOREIGNER_거래대금순매수_직전대비 + KOSPI_RETAIL_거래대금순매수_직전대비 + \
+        현물_총순매수_직전대비 = KOSPI_FOREIGNER_거래대금순매수_직전대비 + KOSPI_RETAIL_거래대금순매수_직전대비 + \
                           KOSPI_INSTITUTIONAL_거래대금순매수_직전대비 + KOSPI_STOCK_거래대금순매수_직전대비 + \
                           KOSPI_BOHEOM_거래대금순매수_직전대비 + KOSPI_TOOSIN_거래대금순매수_직전대비 + KOSPI_BANK_거래대금순매수_직전대비 + \
                           KOSPI_JONGGEUM_거래대금순매수_직전대비 + KOSPI_GIGEUM_거래대금순매수_직전대비 + \
-                          KOSPI_GITA_거래대금순매수_직전대비 + 프로그램_전체순매수금액직전대비
+                          KOSPI_GITA_거래대금순매수_직전대비 + 프로그램_순매수직전대비
         
-        PROGRAM_직전대비.extend([프로그램_전체순매수금액직전대비])
+        PROGRAM_직전대비.extend([프로그램_순매수직전대비])
         temp = list(PROGRAM_직전대비)
 
-        순매수 = format(프로그램_전체순매수금액, ',')
+        순매수 = format(프로그램_순매수, ',')
 
         if min(temp) > 0:
 
-            item_txt = "{0}\n({1})⬈".format(순매수, 프로그램_전체순매수금액직전대비)
+            item_txt = "{0}\n({1})⬈".format(순매수, 프로그램_순매수직전대비)
 
             if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 6).text():
                 item = QTableWidgetItem(item_txt)
@@ -37112,7 +37113,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         elif max(temp) < 0:
 
-            item_txt = "{0}\n({1})⬊".format(순매수, 프로그램_전체순매수금액직전대비)
+            item_txt = "{0}\n({1})⬊".format(순매수, 프로그램_순매수직전대비)
 
             if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 6).text():
                 item = QTableWidgetItem(item_txt)
@@ -37124,7 +37125,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
 
         else:
-            item_txt = "{0}\n({1})".format(순매수, 프로그램_전체순매수금액직전대비)
+            item_txt = "{0}\n({1})".format(순매수, 프로그램_순매수직전대비)
 
             if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 6).text():
                 item = QTableWidgetItem(item_txt)
@@ -37135,8 +37136,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass        
         
-        현물 = format(현물_거래대금순매수, ',')
-        선물 = format(선물_거래대금순매수, ',')
+        현물 = format(현물_총순매수, ',')
+        선물 = format(선물_총순매수, ',')
 
         item_txt = "{0}\n{1}".format(현물, 선물)
 
@@ -37145,12 +37146,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             item = QTableWidgetItem(item_txt)
             item.setTextAlignment(Qt.AlignCenter)
 
-            if 기관선물_순매수 > 0 and 기관현물_순매수 < 0 and 외인선물_순매수 < 0 and 외인현물_순매수 > 0 and 현물_거래대금순매수 < 0:
-                수급방향 = 'Put'
+            if (기관선물_순매수 > 0 and 기관현물_순매수 < 0 and 외인선물_순매수 < 0 and 외인현물_순매수 > 0 and 현물_총순매수 < 0):                
+                수급방향 = 'Put1'
                 item.setBackground(QBrush(청색))
                 item.setForeground(QBrush(흰색))
-            elif 기관선물_순매수 < 0 and 기관현물_순매수 > 0 and 외인선물_순매수 > 0 and 외인현물_순매수 < 0 and 현물_거래대금순매수 > 0:
-                수급방향 = 'Call'
+            elif (외인선물_순매수 < 0 and 외인현물_순매수 < 0 and 프로그램_순매수 < 0 and 현물_총순매수 < 0):
+                수급방향 = 'Put2'
+                item.setBackground(QBrush(청색))
+                item.setForeground(QBrush(흰색))
+            elif (기관선물_순매수 < 0 and 기관현물_순매수 > 0 and 외인선물_순매수 > 0 and 외인현물_순매수 < 0 and 현물_총순매수 > 0):                
+                수급방향 = 'Call1'
+                item.setBackground(QBrush(적색))
+                item.setForeground(QBrush(흰색))
+            elif (외인선물_순매수 > 0 and 외인현물_순매수 > 0 and 프로그램_순매수 > 0 and 현물_총순매수 > 0):
+                수급방향 = 'Call2'
                 item.setBackground(QBrush(적색))
                 item.setForeground(QBrush(흰색))
             else:
@@ -37160,9 +37169,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 7, item)
         else:
-            pass
-        
-        
+            pass        
         
     def fc0_update(self, data):
 
@@ -37177,52 +37184,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if pre_start:
             pre_start = False
         else:
-            pass
-
-        # 등락율은 본월물 기준으로 계산
-        if result['단축코드'] == GMSHCODE:
-
-           # 그래프관련 처리 먼저...                    
-            선물_종가대비_등락율 = float(result['등락율'])            
-            선물_시가대비_등락율 = ((float(result['현재가']) - float(result['시가'])) / float(result['시가'])) * 100
-            '''
-            if 선물_시가등락율 == 0:
-                선물_시가등락율 = ((선물_시가 - 선물_종가) / 선물_종가) * 100
-            else:
-                pass
-            '''
-
-            kp200_시가등락율 = ((kp200_시가 - KP200_전일종가) / KP200_전일종가) * 100
-
-            if kp200_시가등락율 == 0:
-                plot_drate_scale_factor = 10
-            else:
-                plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / kp200_시가등락율))
-
-            #txt = '[{0:02d}:{1:02d}:{2:02d}] KP200_전일종가 = {3}, kp200_시가 = {4}, kp200_시가등락율 = {5}\r'.format(dt.hour, dt.minute, dt.second, KP200_전일종가, kp200_시가, kp200_시가등락율)
-            #self.dialog['선물옵션전광판'].textBrowser.append(txt)            
-
-            if plot_drate_scale_factor < 10:
-                plot_drate_scale_factor = 10                
-            elif plot_drate_scale_factor > 100:
-                plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
-            else:
-                pass
-
-            #txt = '[{0:02d}:{1:02d}:{2:02d}] 콜등락율 = {3}, kp200등락율 = {4}, scale_factor = {5}\r'.format(dt.hour, dt.minute, dt.second, 콜_등가_시가등락율, kp200_시가등락율, plot_drate_scale_factor)
-            #self.dialog['선물옵션전광판'].textBrowser.append(txt)
-
-            item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.OI.value, item)
-
-            if abs(선물_종가대비_등락율) > abs(DOW_등락율):
-                flag_fut_vs_dow_drate_direction = True
-            else:
-                flag_fut_vs_dow_drate_direction = False
-
-            #df_futures_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 선물_종가대비_등락율
-            df_futures_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 선물_시가대비_등락율
+            pass        
         
         if result['단축코드'] == FUT_CODE:
 
@@ -37355,6 +37317,38 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 fut_volume_power_energy_direction = ''        
         else:
             pass
+
+        # 등락율은 본월물 기준으로 계산
+        if result['단축코드'] == GMSHCODE:
+
+           # 그래프관련 처리 먼저...                    
+            선물_종가대비_등락율 = float(result['등락율'])            
+            선물_시가대비_등락율 = ((float(result['현재가']) - float(result['시가'])) / float(result['시가'])) * 100
+            
+            if KP200_전일종가 > 0:
+                kp200_시가등락율 = ((kp200_시가 - KP200_전일종가) / KP200_전일종가) * 100
+                plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / kp200_시가등락율))
+            else:
+                plot_drate_scale_factor = 10           
+
+            if plot_drate_scale_factor < 10:
+                plot_drate_scale_factor = 10                
+            elif plot_drate_scale_factor > 100:
+                plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
+            else:
+                pass
+
+            item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.OI.value, item)
+
+            if abs(선물_종가대비_등락율) > abs(DOW_등락율):
+                flag_fut_vs_dow_drate_direction = True
+            else:
+                flag_fut_vs_dow_drate_direction = False
+
+            #df_futures_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 선물_종가대비_등락율
+            df_futures_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 선물_시가대비_등락율
 
     def fh0_update(self, data):
 
