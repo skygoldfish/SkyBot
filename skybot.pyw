@@ -1151,6 +1151,7 @@ widget_title = ''
 개인선물_순매수 = 0
 개인현물_순매수 = 0
 수급방향 = 'None'
+과거_수급방향 = 'None'
 
 FUT_INSTITUTIONAL_거래대금순매수 = 0
 FUT_STOCK_거래대금순매수 = 0
@@ -37064,9 +37065,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         global 프로그램_순매수, 프로그램_순매수직전대비
         global 선물_총순매수, 선물_총순매수_직전대비, 현물_총순매수, 현물_총순매수_직전대비
-        global 수급방향
+        global 수급방향, 과거_수급방향
 
         result = data
+
+        dt = datetime.now()
         
         프로그램_순매수 = int(int(result['전체순매수금액합계']) / 100)
         프로그램_순매수직전대비 = int(int(result['전체순매수금액직전대비']) / 100)
@@ -37141,6 +37144,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         item_txt = "{0}\n{1}".format(선물, 현물)
 
+        과거_수급방향 = 수급방향
+
         if item_txt != self.dialog['선물옵션전광판'].tableWidget_supply.item(0, 7).text():
 
             item = QTableWidgetItem(item_txt)
@@ -37168,6 +37173,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 item.setForeground(QBrush(검정색))
 
             self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 7, item)
+
+            if 수급방향 != 과거_수급방향:
+                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 수급방향이 {3}에서 {4}로 바뀜 ★".format(dt.hour, dt.minute, dt.second, 과거_수급방향, 수급방향)
+                ToYourTelegram(send_txt)
+            else:
+                pass
         else:
             pass        
         
