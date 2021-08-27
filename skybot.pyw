@@ -37151,26 +37151,36 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             item = QTableWidgetItem(item_txt)
             item.setTextAlignment(Qt.AlignCenter)
 
-            if (기관선물_순매수 > 0 and 기관현물_순매수 < 0 and 외인선물_순매수 < 0 and 외인현물_순매수 > 0 and 현물_총순매수 < 0):                
+            if (기관선물_순매수 > 0 and 기관현물_순매수 < 0 and 외인선물_순매수 < 0 and 외인현물_순매수 > 0 and 프로그램_순매수 > 0 and 현물_총순매수 < 0):
                 수급방향 = 'Put1'
-                item.setBackground(QBrush(청색))
-                item.setForeground(QBrush(흰색))
-            elif (외인선물_순매수 < 0 and 외인현물_순매수 < 0 and 프로그램_순매수 < 0 and 현물_총순매수 < 0):
+                item.setBackground(QBrush(lightskyblue))
+                item.setForeground(QBrush(검정색))
+            elif (기관선물_순매수 > 0 and 기관현물_순매수 < 0 and 외인선물_순매수 < 0 and 외인현물_순매수 > 0 and 프로그램_순매수 < 0 and 현물_총순매수 < 0):                
                 수급방향 = 'Put2'
                 item.setBackground(QBrush(청색))
                 item.setForeground(QBrush(흰색))
-            elif (기관선물_순매수 < 0 and 기관현물_순매수 > 0 and 외인선물_순매수 > 0 and 외인현물_순매수 < 0 and 현물_총순매수 > 0):                
+            elif (기관선물_순매수 < 0 and 기관현물_순매수 > 0 and 외인선물_순매수 > 0 and 외인현물_순매수 < 0 and 프로그램_순매수 < 0 and 현물_총순매수 > 0):                
                 수급방향 = 'Call1'
-                item.setBackground(QBrush(적색))
-                item.setForeground(QBrush(흰색))
-            elif (외인선물_순매수 > 0 and 외인현물_순매수 > 0 and 프로그램_순매수 > 0 and 현물_총순매수 > 0):
+                item.setBackground(QBrush(pink))
+                item.setForeground(QBrush(검정색))
+            elif (기관선물_순매수 < 0 and 기관현물_순매수 > 0 and 외인선물_순매수 > 0 and 외인현물_순매수 < 0 and 프로그램_순매수 > 0 and 현물_총순매수 > 0):                
                 수급방향 = 'Call2'
                 item.setBackground(QBrush(적색))
-                item.setForeground(QBrush(흰색))
+                item.setForeground(QBrush(흰색))            
             else:
                 수급방향 = 'None'
                 item.setBackground(QBrush(흰색))
                 item.setForeground(QBrush(검정색))
+
+            if (외인선물_순매수 < 0 and 외인현물_순매수 < 0 and 프로그램_순매수 < 0 and 현물_총순매수 < 0):
+                수급방향 = 'Put3'
+                item.setBackground(QBrush(청색))
+                item.setForeground(QBrush(흰색))
+
+            if (외인선물_순매수 > 0 and 외인현물_순매수 > 0 and 프로그램_순매수 > 0 and 현물_총순매수 > 0):
+                수급방향 = 'Call3'
+                item.setBackground(QBrush(적색))
+                item.setForeground(QBrush(흰색))
 
             self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 7, item)
 
