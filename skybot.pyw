@@ -35631,10 +35631,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
             self.textBrowser.append(txt)
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 예상지수요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.dialog['선물옵션전광판'].textBrowser.append(txt)
-            self.textBrowser.append(txt)
-
             if TTS and TARGET_MONTH == 'CM':
                 #playsound( "Resources/doorbell.wav" )
                 winsound.PlaySound('Resources/doorbell.wav', winsound.SND_FILENAME)
