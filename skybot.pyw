@@ -34229,7 +34229,7 @@ class Xing(object):
                     pass
                 
                 if flag_score_board_start:
-                    
+
                     self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
 
                     if dt.hour == KSE_START_HOUR:
@@ -34250,7 +34250,10 @@ class Xing(object):
                         else:
                             send_txt = ''
 
-                        ToYourTelegram(send_txt)
+                        if send_txt != '':
+                            ToYourTelegram(send_txt)
+                        else:
+                            pass
                     else:
                         pass
 
@@ -34267,7 +34270,10 @@ class Xing(object):
                         else:
                             send_txt = ''
 
-                        ToYourTelegram(send_txt)
+                        if send_txt != '':
+                            ToYourTelegram(send_txt)
+                        else:
+                            pass
                     else:
                         pass
                 else:
@@ -39330,32 +39336,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             logger.info("*************************************************************************************************************************")
             logger.info("LOG STOP")
 
-            if MULTIPROCESS and flag_internet:                               
+            if MULTIPROCESS and flag_internet:
+
+                self.realtime_1st_dataworker.terminate()
+                self.realtime_2nd_dataworker.terminate()
+                self.realtime_3rd_dataworker.terminate()
+                self.realtime_4th_dataworker.terminate()
+
+                QTest.qWait(10)                  
 
                 futures_process.terminate()
                 option_tick_process.terminate()
                 option_quote_process.terminate()
+                ovc_process.terminate()                
 
-                QTest.qWait(10)
-
-                print('모든 멀티프로세스 쓰레드 종료...')
-
-                if self.realtime_1st_dataworker.isRunning():
-                    self.realtime_1st_dataworker.terminate()
-                else:
-                    pass
-
-                if self.mp_number == 2:
-                    self.realtime_2nd_dataworker.terminate()
-                elif self.mp_number == 3:
-                    self.realtime_2nd_dataworker.terminate()
-                    self.realtime_3rd_dataworker.terminate()
-                elif self.mp_number == 4:
-                    self.realtime_2nd_dataworker.terminate()
-                    self.realtime_3rd_dataworker.terminate()
-                    self.realtime_4th_dataworker.terminate()
-                else:
-                    pass                               
+                print('모든 멀티프로세스 쓰레드 종료...')                             
             else:
                 pass
 
@@ -39368,16 +39363,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 #ToMyTelegram(txt)
             else:
-                pass
-
-            self.xing.clock.stop()
-            self.xing.main_connection.disconnect()
+                pass            
 
             if self.speaker.isRunning():
                 self.speaker.terminate()
                 print('TTS Speaker is terminated at Main Window...')
             else:
                 pass
+
+            self.xing.clock.stop()
+            self.xing.main_connection.disconnect()
+
+            QTest.qWait(10) 
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] Main Window를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
