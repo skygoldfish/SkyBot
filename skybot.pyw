@@ -37170,13 +37170,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if (외인선물_순매수 < 0 and 외인현물_순매수 < 0 and 프로그램_순매수 < 0 and 현물_총순매수 < 0):
                 수급방향 = 'Put3'
-                item.setBackground(QBrush(청색))
-                item.setForeground(QBrush(흰색))
+                item.setBackground(QBrush(cyan))
+                item.setForeground(QBrush(검정색))
 
             if (외인선물_순매수 > 0 and 외인현물_순매수 > 0 and 프로그램_순매수 > 0 and 현물_총순매수 > 0):
                 수급방향 = 'Call3'
-                item.setBackground(QBrush(적색))
-                item.setForeground(QBrush(흰색))
+                item.setBackground(QBrush(magenta))
+                item.setForeground(QBrush(검정색))
 
             self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 7, item)
 
