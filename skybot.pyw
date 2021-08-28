@@ -34229,6 +34229,7 @@ class Xing(object):
                     pass
                 
                 if flag_score_board_start:
+                    
                     self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
 
                     if dt.hour == KSE_START_HOUR:
@@ -34239,13 +34240,13 @@ class Xing(object):
                     if not self.clocktick and TARGET_MONTH == 'CM' and dt.minute % report_interval == 0 and dt.second == 0:
 
                         if flag_call_strong:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] Call Strong({3:.1f} : {4:.1f}), 수급방향 : {5}".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)                        
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] Call Strong({3:.1f} : {4:.1f}), 수급 : {5}".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)                        
                         elif flag_call_weak:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] Call Weak({3:.1f} : {4:.1f}), 수급방향 : {5}".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] Call Weak({3:.1f} : {4:.1f}), 수급 : {5}".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)
                         elif flag_put_strong:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] Put Strong({3:.1f} : {4:.1f}), 수급방향 : {5}".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] Put Strong({3:.1f} : {4:.1f}), 수급 : {5}".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)
                         elif flag_put_weak:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] Put Weak({3:.1f} : {4:.1f}), 수급방향 : {5}".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] Put Weak({3:.1f} : {4:.1f}), 수급 : {5}".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)
                         else:
                             send_txt = ''
 
@@ -34271,25 +34272,7 @@ class Xing(object):
                         pass
                 else:
                     pass
-                '''
-                if flag_telegram_send_start:
 
-                    if self.clocktick and dt.second % TELEGRAM_SEND_INTERVAL == 0:
-                        self.caller.dialog['선물옵션전광판'].send_telegram_message()
-                    else:
-                        pass                    
-                else:
-                    pass
-
-                if flag_telegram_listen_start:
-
-                    if not self.clocktick and dt.second % TELEGRAM_POLLING_INTERVAL == 0:
-                        self.caller.dialog['선물옵션전광판'].listen_telegram_message()
-                    else:
-                        pass
-                else:
-                    pass               
-                '''
             except Exception as e:
 
                 ipaddress = socket.gethostbyname(socket.gethostname())
