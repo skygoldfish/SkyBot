@@ -34335,6 +34335,7 @@ class Xing(object):
                             send_txt = ''
 
                         if send_txt != '':
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                             ToYourTelegram(send_txt)
                         else:
                             pass
@@ -34355,6 +34356,7 @@ class Xing(object):
                             send_txt = ''
 
                         if send_txt != '':
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                             ToYourTelegram(send_txt)
                         else:
                             pass
@@ -37255,6 +37257,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if 수급방향 != 과거_수급방향:
                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 수급방향이 {3}에서 {4}로 바뀜 ★".format(dt.hour, dt.minute, dt.second, 과거_수급방향, 수급방향)
+                self.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                 ToYourTelegram(send_txt)
 
                 if 수급방향 == 'Call1':
