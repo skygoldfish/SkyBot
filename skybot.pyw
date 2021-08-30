@@ -35033,11 +35033,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # 1st 프로세스 실시간데이타 갱신
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
-
-            if time_gap_abs < view_time_tolerance:
-                self.update_1st_process(tickdata)
-            else:
-                pass
+            self.update_1st_process(tickdata)
         else:
             pass
         
