@@ -435,6 +435,8 @@ class XARealEventHandler:
             self.queue.put(self.handle_pm(tr_code))
         elif tr_code == "OVC":
             # 해외선물 체결
+            self.queue.put(self.handle_ovc(tr_code))
+            '''
             values = self.handle_ovc_tick()
             time = datetime.now().strftime('%H%M%S')
 
@@ -447,7 +449,7 @@ class XARealEventHandler:
                 self.queue.put(self.handle_ovc(tr_code))
             else:
                 print('OVC 허용오차 오류!!!\r')
-
+            '''
         elif tr_code == "NWS":
             # 뉴스
             self.queue.put(self.handle_nws(tr_code))

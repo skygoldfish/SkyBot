@@ -407,6 +407,8 @@ class XARealEventHandler:
             self.queue.put(self.handle_k3(tr_code))        
         elif tr_code == "FH0":
             # 지수선물 호가
+            self.queue.put(self.handle_fh0(tr_code))
+            '''
             values = self.handle_index_futures_quote()
             time = datetime.now().strftime('%H%M%S')
 
@@ -419,9 +421,11 @@ class XARealEventHandler:
                 self.queue.put(self.handle_fh0(tr_code))
             else:
                 print('FH0 허용오차 오류!!!\r')
-
+            '''
         elif tr_code == "FC0":
             # 지수선물 체결
+            self.queue.put(self.handle_fc0(tr_code))
+            '''
             values = self.handle_index_futures_tick()
             time = datetime.now().strftime('%H%M%S')
 
@@ -434,7 +438,7 @@ class XARealEventHandler:
                 self.queue.put(self.handle_fc0(tr_code))
             else:
                 print('FC0 허용오차 오류!!!\r')
-
+            '''
         elif tr_code == "OH0" or  tr_code == "EH0":
             # 지수옵션 호가
             self.queue.put(self.handle_oh0_eh0(tr_code))

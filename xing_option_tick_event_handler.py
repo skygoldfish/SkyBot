@@ -451,6 +451,8 @@ class XARealEventHandler:
             self.queue.put(self.handle_oh0_eh0(tr_code))
         elif tr_code == "OC0" or tr_code == "EC0":
             # 지수옵션 체결
+            self.queue.put(self.handle_oc0_ec0(tr_code))
+            '''
             values = self.handle_index_option_tick()
             time = datetime.now().strftime('%H%M%S')
 
@@ -464,7 +466,7 @@ class XARealEventHandler:
                 self.queue.put(self.handle_oc0_ec0(tr_code))
             else:
                 print('OC0 허용오차 오류!!!\r')
-
+            '''
         elif tr_code == "BM_":
             # 업종별투자자별 매매현황
             self.queue.put(self.handle_bm(tr_code))

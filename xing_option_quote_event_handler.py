@@ -422,7 +422,9 @@ class XARealEventHandler:
             # 지수선물 체결
             self.queue.put(self.handle_fc0(tr_code))
         elif tr_code == "OH0" or  tr_code == "EH0":
-            # 지수옵션 호가            
+            # 지수옵션 호가
+            self.queue.put(self.handle_oh0_eh0(tr_code))
+            '''            
             values = self.handle_index_option_quote()
             time = datetime.now().strftime('%H%M%S')
 
@@ -445,7 +447,7 @@ class XARealEventHandler:
                 self.queue.put(self.handle_oh0_eh0(tr_code))
             else:
                 print('옵션호가 허용오차 오류!!!\r')
-
+            '''
         elif tr_code == "OC0" or tr_code == "EC0":
             # 지수옵션 체결
             self.queue.put(self.handle_oc0_ec0(tr_code))
