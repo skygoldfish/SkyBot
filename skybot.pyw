@@ -39575,7 +39575,7 @@ if __name__ == "__main__":
         ovcQ = mp.Queue()
 
         if NightTime:
-            quote_number = QUOTE_REQUEST_NUMBER * 2
+            quote_number = QUOTE_REQUEST_NUMBER * 7
         else:
             quote_number = QUOTE_REQUEST_NUMBER        
         
