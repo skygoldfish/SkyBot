@@ -350,6 +350,9 @@ OPTION_SIZE = parser.getboolean('User Switch', 'Option Total Size')
 SLEEP_SWITCH_MODE = parser.getboolean('User Switch', 'Sleep Switching Mode')
 
 # [6]. << Real Time Request Item Switch = 'ON or OFF' >>
+FUTURES_REQUEST = parser.getboolean('RealTime Request Item Switch', 'Domestic Futures Request')
+OPTION_TICK_REQUEST = parser.getboolean('RealTime Request Item Switch', 'Option Tick Request')
+OPTION_QUOTE_REQUEST = parser.getboolean('RealTime Request Item Switch', 'Option Quote Request')
 OVC_REQUEST = parser.getboolean('RealTime Request Item Switch', 'Foreign Futures Request')
 CM_FUT_PRICE = parser.getboolean('RealTime Request Item Switch', 'Current Month Futures Price')
 CM_FUT_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Current Month Futures Quote')
@@ -39508,54 +39511,10 @@ if __name__ == "__main__":
     if MULTIPROCESS and flag_internet:
 
         import multiprocessing as mp
-        #from multiprocessing import *
         from datetime import datetime
         from multiprocessing import Process, get_context
         from multiprocessing.queues import Queue
-        from xing_tick_writer import *
-
-        KOSPI_QUOTE = False               # 코스피 전종목 호가
-        KOSPI_TICK = True                 # 코스피 전종목 체결
-        KOSDAQ_QUOTE = False              # 코스닥 전종목 호가
-        KOSDAQ_TICK = True                # 코스닥 전종목 체결
-        
-        INDEX_FUTURES_QUOTE = True        # 지수선물 전종목 호가
-        INDEX_FUTURES_TICK = True         # 지수선물 전종목 체결
-
-        if TARGET_MONTH == 'CM':
-
-            if OVC_REQUEST:
-                INDEX_OVC = True
-            else:
-                INDEX_OVC = False
-
-            if MANGI_YAGAN:
-                INDEX_OPTION_CM_TICK = False
-                INDEX_OPTION_NM_TICK = True
-                INDEX_OPTION_CM_QUOTE = False
-                INDEX_OPTION_NM_QUOTE = True                
-            else:                
-                INDEX_OPTION_CM_TICK = True       # 지수옵션 본월물 전종목 체결
-                INDEX_OPTION_NM_TICK = False      # 지수옵션 차월물 전종목 체결
-                INDEX_OPTION_CM_QUOTE = True      # 지수옵션 본월물 전종목 호가
-                INDEX_OPTION_NM_QUOTE = False     # 지수옵션 차월물 전종목 호가                
-                
-        elif TARGET_MONTH == 'NM':
-
-            if OVC_REQUEST:
-                INDEX_OVC = True
-            else:
-                INDEX_OVC = False
-
-            INDEX_OPTION_CM_TICK = False
-            INDEX_OPTION_NM_TICK = True
-            INDEX_OPTION_CM_QUOTE = False      
-            INDEX_OPTION_NM_QUOTE = True             
-        else:
-            INDEX_OPTION_CM_TICK = False
-            INDEX_OPTION_NM_TICK = False
-            INDEX_OPTION_CM_QUOTE = False      
-            INDEX_OPTION_NM_QUOTE = False            
+        from xing_tick_writer import *                    
 
         # pyinstaller로 실행파일 만들때 필요함
         mp.freeze_support()
@@ -39565,26 +39524,89 @@ if __name__ == "__main__":
         
         mp.set_start_method('spawn')
         #ctx = mp.get_context('spawn')
-        
-        futuresQ = mp.Queue()
-        option_tickQ = mp.Queue()
-        option_quoteQ = mp.Queue()
-        ovcQ = mp.Queue()
 
-        if NightTime:
-            quote_number = QUOTE_REQUEST_NUMBER * 7
-        else:
-            quote_number = QUOTE_REQUEST_NUMBER        
+        if FUTURES_REQUEST:
+            futuresQ = mp.Queue()
+
+            KOSPI_QUOTE = False               # 코스피 전종목 호가
+            KOSPI_TICK = True                 # 코스피 전종목 체결
+            KOSDAQ_QUOTE = False              # 코스닥 전종목 호가
+            KOSDAQ_TICK = True                # 코스닥 전종목 체결
+
+            INDEX_FUTURES_QUOTE = True        # 지수선물 전종목 호가
+            INDEX_FUTURES_TICK = True         # 지수선물 전종목 체결
         
-        futures_process = mp.Process(target=futures_crawler, args=(futuresQ, INDEX_FUTURES_QUOTE, INDEX_FUTURES_TICK), daemon=True)
-        option_tick_process = mp.Process(target=option_tick_crawler, args=(option_tickQ, INDEX_OPTION_CM_TICK, INDEX_OPTION_NM_TICK), daemon=True)
-        option_quote_process = mp.Process(target=option_quote_crawler, args=(option_quoteQ, quote_number, INDEX_OPTION_CM_QUOTE, INDEX_OPTION_NM_QUOTE), daemon=True)
-        ovc_process = mp.Process(target=ovc_crawler, args=(ovcQ, INDEX_OVC), daemon=True)
+        if OPTION_TICK_REQUEST:
+            option_tickQ = mp.Queue()
+
+            if TARGET_MONTH == 'CM':
+
+                if MANGI_YAGAN:
+                    INDEX_OPTION_CM_TICK = False
+                    INDEX_OPTION_NM_TICK = True               
+                else:                
+                    INDEX_OPTION_CM_TICK = True       # 지수옵션 본월물 전종목 체결
+                    INDEX_OPTION_NM_TICK = False      # 지수옵션 차월물 전종목 체결              
+                
+            elif TARGET_MONTH == 'NM':
+
+                INDEX_OPTION_CM_TICK = False
+                INDEX_OPTION_NM_TICK = True          
+            else:
+                INDEX_OPTION_CM_TICK = False
+                INDEX_OPTION_NM_TICK = False
+
+        if OPTION_QUOTE_REQUEST:
+            option_quoteQ = mp.Queue()
+
+            if TARGET_MONTH == 'CM':
+
+                if MANGI_YAGAN:
+                    INDEX_OPTION_CM_QUOTE = False
+                    INDEX_OPTION_NM_QUOTE = True                
+                else:
+                    INDEX_OPTION_CM_QUOTE = True      # 지수옵션 본월물 전종목 호가
+                    INDEX_OPTION_NM_QUOTE = False     # 지수옵션 차월물 전종목 호가                
+                
+            elif TARGET_MONTH == 'NM':
+
+                INDEX_OPTION_CM_QUOTE = False      
+                INDEX_OPTION_NM_QUOTE = True             
+            else:
+                INDEX_OPTION_CM_QUOTE = False      
+                INDEX_OPTION_NM_QUOTE = False
+
+            if NightTime:
+                quote_number = QUOTE_REQUEST_NUMBER * 7
+            else:
+                quote_number = QUOTE_REQUEST_NUMBER
+
+        if OVC_REQUEST:
+            ovcQ = mp.Queue()
+                
+        if FUTURES_REQUEST:
+            futures_process = mp.Process(target=futures_crawler, args=(futuresQ, INDEX_FUTURES_QUOTE, INDEX_FUTURES_TICK), daemon=True)
+
+        if OPTION_TICK_REQUEST:
+            option_tick_process = mp.Process(target=option_tick_crawler, args=(option_tickQ, INDEX_OPTION_CM_TICK, INDEX_OPTION_NM_TICK), daemon=True)
+
+        if OPTION_QUOTE_REQUEST:
+            option_quote_process = mp.Process(target=option_quote_crawler, args=(option_quoteQ, quote_number, INDEX_OPTION_CM_QUOTE, INDEX_OPTION_NM_QUOTE), daemon=True)
+
+        if OVC_REQUEST:
+            ovc_process = mp.Process(target=ovc_crawler, args=(ovcQ, ), daemon=True)
         
-        futures_process.start()
-        option_tick_process.start()
-        option_quote_process.start()
-        ovc_process.start()
+        if FUTURES_REQUEST:
+            futures_process.start()
+
+        if OPTION_TICK_REQUEST:
+            option_tick_process.start()
+
+        if OPTION_QUOTE_REQUEST:
+            option_quote_process.start()
+
+        if OVC_REQUEST:
+            ovc_process.start()
     else:
         pass
     

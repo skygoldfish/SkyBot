@@ -56,7 +56,7 @@ else:
     is_real_server = False
     config = {"id": ID, "password": PWD, "cert_password": "0"}
 
-def ovc_crawler(queue: Queue, index_ovc=True):
+def ovc_crawler(queue: Queue):
 
     proc = mp.current_process()
     print(f'해외선물 Process Name = {proc.name}, Process ID = {proc.pid}')
@@ -69,19 +69,16 @@ def ovc_crawler(queue: Queue, index_ovc=True):
     if result[0] == 'login' and result[1] == '0000':
 
         # ################################### OVC ####################################################################        
-        real_time_ovc_tick = RealTimeOVCTick(queue=queue)
-            
-        real_time_ovc_tick.set_ovc_code(DOW)
 
-        if index_ovc:
-            real_time_ovc_tick.set_ovc_code(SP500)
-            real_time_ovc_tick.set_ovc_code(NASDAQ)
-            real_time_ovc_tick.set_ovc_code(WTI)
-            real_time_ovc_tick.set_ovc_code(EUROFX)
-            real_time_ovc_tick.set_ovc_code(HANGSENG)
-            real_time_ovc_tick.set_ovc_code(GOLD)
-        else:
-            pass 
+        real_time_ovc_tick = RealTimeOVCTick(queue=queue)
+        
+        real_time_ovc_tick.set_ovc_code(DOW)
+        real_time_ovc_tick.set_ovc_code(SP500)
+        real_time_ovc_tick.set_ovc_code(NASDAQ)
+        real_time_ovc_tick.set_ovc_code(WTI)
+        real_time_ovc_tick.set_ovc_code(EUROFX)
+        real_time_ovc_tick.set_ovc_code(HANGSENG)
+        real_time_ovc_tick.set_ovc_code(GOLD)
 
         while True:
             pythoncom.PumpWaitingMessages()
