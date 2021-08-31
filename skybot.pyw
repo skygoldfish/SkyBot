@@ -34959,6 +34959,35 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         #systime = dt.hour * 3600 + dt.minute * 60 + dt.second
 
+        if self.mp_number == 1:
+
+            first_dropcount = 0
+            first_sys_dropcount = 0
+            first_qsize = 0
+            first_totalcount = 0
+            first_totalsize = 0
+            first_opt_totalsize = 0
+
+            second_dropcount = 0
+            second_sys_dropcount = 0
+            second_qsize = 0
+            second_totalcount = 0
+            second_totalsize = 0
+            second_opt_totalsize = 0
+
+            third_dropcount = 0
+            third_sys_dropcount = 0
+            third_qsize = 0
+            third_totalcount = 0
+            third_totalsize = 0
+            third_opt_totalsize = 0
+
+            fourth_dropcount = 0
+            fourth_sys_dropcount = 0
+            fourth_qsize = 0
+            fourth_totalcount = 0
+            fourth_totalsize = 0
+
         if szTrCode != 'JIF':            
 
             if szTrCode == 'BM_' or szTrCode == 'PM_' or szTrCode == 'NWS':
@@ -34970,10 +34999,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 time_gap = systime - system_server_time_gap - realtime
                 time_gap_abs = abs((systime - system_server_time_gap) - realtime)
 
-                first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_futures_dataworker.get_packet_info()
-                second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_option_tick_dataworker.get_packet_info()
-                third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_option_quote_dataworker.get_packet_info()
-                fourth_dropcount, fourth_sys_dropcount, fourth_qsize, fourth_totalcount, fourth_totalsize = self.realtime_ovc_dataworker.get_packet_info()
+                if FUTURES_REQUEST:
+                    first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_futures_dataworker.get_packet_info()
+
+                if OPTION_TICK_REQUEST:   
+                    second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_option_tick_dataworker.get_packet_info()
+
+                if OPTION_QUOTE_REQUEST:    
+                    third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_option_quote_dataworker.get_packet_info()
+
+                if OVC_REQUEST:    
+                    fourth_dropcount, fourth_sys_dropcount, fourth_qsize, fourth_totalcount, fourth_totalsize = self.realtime_ovc_dataworker.get_packet_info()
 
                 total_dropcount = first_dropcount + second_dropcount + third_dropcount + fourth_dropcount
                 total_sys_dropcount = first_sys_dropcount + second_sys_dropcount + third_sys_dropcount + fourth_sys_dropcount
@@ -35034,6 +35070,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.textBrowser.append(txt)
             self.statusbar.showMessage(trdata[3] + ' ' + trdata[2])
 
+            if self.mp_number == 1:
+
+                # 버티칼 스크롤바를 항상 bottom으로...
+                self.textBrowser.verticalScrollBar().setValue(self.textBrowser.verticalScrollBar().maximum())
+                
+                if AUTO_START:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+
+                    self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
+                    self.dialog['선물옵션전광판'].show()
+
+                    self.dialog['선물옵션전광판'].RunCode()
+                else:
+                    pass
+
         elif trdata[0] == 'login' and trdata[1] != '0000':
 
             txt = '2nd 로그인 실패({0})!  다시 로그인하세요...'.format(trdata[0])
@@ -35050,16 +35102,52 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         #systime = dt.hour * 3600 + dt.minute * 60 + dt.second
 
+        if self.mp_number == 1:
+
+            first_dropcount = 0
+            first_sys_dropcount = 0
+            first_qsize = 0
+            first_totalcount = 0
+            first_totalsize = 0
+            first_opt_totalsize = 0
+
+            second_dropcount = 0
+            second_sys_dropcount = 0
+            second_qsize = 0
+            second_totalcount = 0
+            second_totalsize = 0
+            second_opt_totalsize = 0
+
+            third_dropcount = 0
+            third_sys_dropcount = 0
+            third_qsize = 0
+            third_totalcount = 0
+            third_totalsize = 0
+            third_opt_totalsize = 0
+
+            fourth_dropcount = 0
+            fourth_sys_dropcount = 0
+            fourth_qsize = 0
+            fourth_totalcount = 0
+            fourth_totalsize = 0
+
         systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])
         realtime = int(tickdata['수신시간'][0:2]) * 3600 + int(tickdata['수신시간'][2:4]) * 60 + int(tickdata['수신시간'][4:6])
 
         time_gap = systime - system_server_time_gap - realtime
         time_gap_abs = abs((systime - system_server_time_gap) - realtime)
 
-        first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_futures_dataworker.get_packet_info()
-        second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_option_tick_dataworker.get_packet_info()
-        third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_option_quote_dataworker.get_packet_info()
-        fourth_dropcount, fourth_sys_dropcount, fourth_qsize, fourth_totalcount, fourth_totalsize = self.realtime_ovc_dataworker.get_packet_info()
+        if FUTURES_REQUEST:
+            first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_futures_dataworker.get_packet_info()
+
+        if OPTION_TICK_REQUEST:   
+            second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_option_tick_dataworker.get_packet_info()
+
+        if OPTION_QUOTE_REQUEST:    
+            third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_option_quote_dataworker.get_packet_info()
+
+        if OVC_REQUEST:    
+            fourth_dropcount, fourth_sys_dropcount, fourth_qsize, fourth_totalcount, fourth_totalsize = self.realtime_ovc_dataworker.get_packet_info()
 
         total_dropcount = first_dropcount + second_dropcount + third_dropcount + fourth_dropcount
         total_sys_dropcount = first_sys_dropcount + second_sys_dropcount + third_sys_dropcount + fourth_sys_dropcount
@@ -35189,6 +35277,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             txt = '3rd 백그라운드 프로세스 로그인 성공 !!!\r'
             self.textBrowser.append(txt)
             self.statusbar.showMessage(trdata[3] + ' ' + trdata[2])
+
+            if self.mp_number == 1:
+
+                # 버티칼 스크롤바를 항상 bottom으로...
+                self.textBrowser.verticalScrollBar().setValue(self.textBrowser.verticalScrollBar().maximum())
+                
+                if AUTO_START:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+
+                    self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
+                    self.dialog['선물옵션전광판'].show()
+
+                    self.dialog['선물옵션전광판'].RunCode()
+                else:
+                    pass
             
         elif trdata[0] == 'login' and trdata[1] != '0000':
 
@@ -35209,6 +35313,35 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         szTrCode = tickdata['tr_code']
 
+        if self.mp_number == 1:
+
+            first_dropcount = 0
+            first_sys_dropcount = 0
+            first_qsize = 0
+            first_totalcount = 0
+            first_totalsize = 0
+            first_opt_totalsize = 0
+
+            second_dropcount = 0
+            second_sys_dropcount = 0
+            second_qsize = 0
+            second_totalcount = 0
+            second_totalsize = 0
+            second_opt_totalsize = 0
+
+            third_dropcount = 0
+            third_sys_dropcount = 0
+            third_qsize = 0
+            third_totalcount = 0
+            third_totalsize = 0
+            third_opt_totalsize = 0
+
+            fourth_dropcount = 0
+            fourth_sys_dropcount = 0
+            fourth_qsize = 0
+            fourth_totalcount = 0
+            fourth_totalsize = 0
+
         #systime = dt.hour * 3600 + dt.minute * 60 + dt.second
         systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])        
         
@@ -35220,10 +35353,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         time_gap = systime - system_server_time_gap - realtime
         time_gap_abs = abs((systime - system_server_time_gap) - realtime)
 
-        first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_futures_dataworker.get_packet_info()
-        second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_option_tick_dataworker.get_packet_info()
-        third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_option_quote_dataworker.get_packet_info()
-        fourth_dropcount, fourth_sys_dropcount, fourth_qsize, fourth_totalcount, fourth_totalsize = self.realtime_ovc_dataworker.get_packet_info()
+        if FUTURES_REQUEST:
+            first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_futures_dataworker.get_packet_info()
+
+        if OPTION_TICK_REQUEST:   
+            second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_option_tick_dataworker.get_packet_info()
+
+        if OPTION_QUOTE_REQUEST:    
+            third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_option_quote_dataworker.get_packet_info()
+
+        if OVC_REQUEST:    
+            fourth_dropcount, fourth_sys_dropcount, fourth_qsize, fourth_totalcount, fourth_totalsize = self.realtime_ovc_dataworker.get_packet_info()
 
         total_dropcount = first_dropcount + second_dropcount + third_dropcount + fourth_dropcount
         total_sys_dropcount = first_sys_dropcount + second_sys_dropcount + third_sys_dropcount + fourth_sys_dropcount
@@ -35304,6 +35444,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             txt = '4th 백그라운드 프로세스 로그인 성공 !!!\r'
             self.textBrowser.append(txt)
             self.statusbar.showMessage(trdata[3] + ' ' + trdata[2])
+
+            if self.mp_number == 1:
+
+                # 버티칼 스크롤바를 항상 bottom으로...
+                self.textBrowser.verticalScrollBar().setValue(self.textBrowser.verticalScrollBar().maximum())
+                
+                if AUTO_START:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+
+                    self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
+                    self.dialog['선물옵션전광판'].show()
+
+                    self.dialog['선물옵션전광판'].RunCode()
+                else:
+                    pass
             
         elif trdata[0] == 'login' and trdata[1] != '0000':
 
@@ -35322,6 +35478,35 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 수신된 실시간데이타 정보표시(누락된 패킷수, 큐의 크기, 수신된 총 패킷수, 수신된 총 패킷크기)            
         szTrCode = tickdata['tr_code']
 
+        if self.mp_number == 1:
+
+            first_dropcount = 0
+            first_sys_dropcount = 0
+            first_qsize = 0
+            first_totalcount = 0
+            first_totalsize = 0
+            first_opt_totalsize = 0
+
+            second_dropcount = 0
+            second_sys_dropcount = 0
+            second_qsize = 0
+            second_totalcount = 0
+            second_totalsize = 0
+            second_opt_totalsize = 0
+
+            third_dropcount = 0
+            third_sys_dropcount = 0
+            third_qsize = 0
+            third_totalcount = 0
+            third_totalsize = 0
+            third_opt_totalsize = 0
+
+            fourth_dropcount = 0
+            fourth_sys_dropcount = 0
+            fourth_qsize = 0
+            fourth_totalcount = 0
+            fourth_totalsize = 0
+
         #systime = dt.hour * 3600 + dt.minute * 60 + dt.second
 
         systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])
@@ -35330,10 +35515,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         time_gap = systime - system_server_time_gap - realtime
         time_gap_abs = abs((systime - system_server_time_gap) - realtime)
 
-        first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_futures_dataworker.get_packet_info()
-        second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_option_tick_dataworker.get_packet_info()
-        third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_option_quote_dataworker.get_packet_info()
-        fourth_dropcount, fourth_sys_dropcount, fourth_qsize, fourth_totalcount, fourth_totalsize = self.realtime_ovc_dataworker.get_packet_info()
+        if FUTURES_REQUEST:
+            first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_futures_dataworker.get_packet_info()
+
+        if OPTION_TICK_REQUEST:   
+            second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_option_tick_dataworker.get_packet_info()
+
+        if OPTION_QUOTE_REQUEST:    
+            third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_option_quote_dataworker.get_packet_info()
+
+        if OVC_REQUEST:    
+            fourth_dropcount, fourth_sys_dropcount, fourth_qsize, fourth_totalcount, fourth_totalsize = self.realtime_ovc_dataworker.get_packet_info()
 
         total_dropcount = first_dropcount + second_dropcount + third_dropcount + fourth_dropcount
         total_sys_dropcount = first_sys_dropcount + second_sys_dropcount + third_sys_dropcount + fourth_sys_dropcount
@@ -39662,7 +39854,19 @@ if __name__ == "__main__":
         pass
     
     if MULTIPROCESS and flag_internet:
-        window = MainWindow(futuresQ, option_tickQ, option_quoteQ, ovcQ)
+
+        if FUTURES_REQUEST and not OPTION_TICK_REQUEST and not OPTION_QUOTE_REQUEST and not OVC_REQUEST:
+            window = MainWindow(futuresQ)
+        elif not FUTURES_REQUEST and OPTION_TICK_REQUEST and not OPTION_QUOTE_REQUEST and not OVC_REQUEST:
+            window = MainWindow(option_tickQ)
+        elif not FUTURES_REQUEST and not OPTION_TICK_REQUEST and OPTION_QUOTE_REQUEST and not OVC_REQUEST:
+            window = MainWindow(option_quoteQ)
+        elif not FUTURES_REQUEST and not OPTION_TICK_REQUEST and not OPTION_QUOTE_REQUEST and OVC_REQUEST:
+            window = MainWindow(ovcQ)
+        elif FUTURES_REQUEST and OPTION_TICK_REQUEST and OPTION_QUOTE_REQUEST and OVC_REQUEST:
+            window = MainWindow(futuresQ, option_tickQ, option_quoteQ, ovcQ)
+        else:
+            pass       
     else:
         window = MainWindow()
 
