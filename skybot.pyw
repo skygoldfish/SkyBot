@@ -2869,7 +2869,7 @@ class RealTime_Thread_DataWorker(QThread):
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 멀티프로세스 쓰레드 클래스
 #####################################################################################################################################################################
-class RealTime_1st_MP_DataWorker(QThread):
+class RealTime_Futures_MP_DataWorker(QThread):
 
     # 수신데이타 타입이 list이면 TR데이타, tuple이면 실시간데이타. 
     trigger_list = pyqtSignal(list)
@@ -3047,7 +3047,7 @@ class RealTime_1st_MP_DataWorker(QThread):
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 멀티프로세스 2nd 쓰레드 클래스(옵션 가격만 처리)
 #####################################################################################################################################################################
-class RealTime_2nd_MP_DataWorker(QThread):
+class RealTime_Option_Tick_MP_DataWorker(QThread):
 
     # 수신데이타 타입이 list이면 TR데이타, tuple이면 실시간데이타.        
     trigger_list = pyqtSignal(list)
@@ -3150,7 +3150,7 @@ class RealTime_2nd_MP_DataWorker(QThread):
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 멀티프로세스 3rd 쓰레드 클래스(옵션 호가만 처리)
 #####################################################################################################################################################################
-class RealTime_3rd_MP_DataWorker(QThread):
+class RealTime_Option_Quote_MP_DataWorker(QThread):
 
     # 수신데이타 타입이 list이면 TR데이타, tuple이면 실시간데이타.        
     trigger_list = pyqtSignal(list)
@@ -3267,7 +3267,7 @@ class RealTime_3rd_MP_DataWorker(QThread):
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 멀티프로세스 4th 쓰레드 클래스(해외선물만 처리)
 #####################################################################################################################################################################
-class RealTime_4th_MP_DataWorker(QThread):
+class RealTime_OVC_MP_DataWorker(QThread):
 
     # 수신데이타 타입이 list이면 TR데이타, tuple이면 실시간데이타.        
     trigger_list = pyqtSignal(list)
@@ -6175,20 +6175,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.textBrowser.append(txt)
                                     print(txt)
 
-                                    if self.parent.realtime_1st_dataworker.isRunning():
-                                        self.parent.realtime_1st_dataworker.terminate()
+                                    if self.parent.realtime_futures_dataworker.isRunning():
+                                        self.parent.realtime_futures_dataworker.terminate()
                                     else:
                                         pass
 
                                     if self.parent.mp_number == 2:
-                                        self.parent.realtime_2nd_dataworker.terminate()
+                                        self.parent.realtime_option_tick_dataworker.terminate()
                                     elif self.parent.mp_number == 3:
-                                        self.parent.realtime_2nd_dataworker.terminate()
-                                        self.parent.realtime_3rd_dataworker.terminate()
+                                        self.parent.realtime_option_tick_dataworker.terminate()
+                                        self.parent.realtime_option_quote_dataworker.terminate()
                                     elif self.parent.mp_number == 4:
-                                        self.parent.realtime_2nd_dataworker.terminate()
-                                        self.parent.realtime_3rd_dataworker.terminate()
-                                        self.parent.realtime_4th_dataworker.terminate()
+                                        self.parent.realtime_option_tick_dataworker.terminate()
+                                        self.parent.realtime_option_quote_dataworker.terminate()
+                                        self.parent.realtime_ovc_dataworker.terminate()
                                     else:
                                         pass
 
@@ -6252,20 +6252,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.textBrowser.append(txt)
                                     print(txt)
 
-                                    if self.parent.realtime_1st_dataworker.isRunning():
-                                        self.parent.realtime_1st_dataworker.terminate()
+                                    if self.parent.realtime_futures_dataworker.isRunning():
+                                        self.parent.realtime_futures_dataworker.terminate()
                                     else:
                                         pass
 
                                     if self.parent.mp_number == 2:
-                                        self.parent.realtime_2nd_dataworker.terminate()
+                                        self.parent.realtime_option_tick_dataworker.terminate()
                                     elif self.parent.mp_number == 3:
-                                        self.parent.realtime_2nd_dataworker.terminate()
-                                        self.parent.realtime_3rd_dataworker.terminate()
+                                        self.parent.realtime_option_tick_dataworker.terminate()
+                                        self.parent.realtime_option_quote_dataworker.terminate()
                                     elif self.parent.mp_number == 4:
-                                        self.parent.realtime_2nd_dataworker.terminate()
-                                        self.parent.realtime_3rd_dataworker.terminate()
-                                        self.parent.realtime_4th_dataworker.terminate()
+                                        self.parent.realtime_option_tick_dataworker.terminate()
+                                        self.parent.realtime_option_quote_dataworker.terminate()
+                                        self.parent.realtime_ovc_dataworker.terminate()
                                     else:
                                         pass                                    
                                 else:
@@ -34573,33 +34573,56 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.mp_number = len(args)
         
         if self.mp_number == 0:
-            self.mp_mode = False
+            self.mp_mode = False            
 
         elif self.mp_number == 1:
             self.mp_mode = True
 
-            self.first_dataQ = args[0]
+            if FUTURES_REQUEST:
+                self.futures_dataQ = args[0]
+
+            if OPTION_TICK_REQUEST:
+                self.option_tick_dataQ = args[0]
+
+            if OPTION_QUOTE_REQUEST:
+                self.option_quote_dataQ = args[0]
+
+            if OVC_REQUEST:
+                self.ovc_dataQ = args[0]            
 
         elif self.mp_number == 2:
             self.mp_mode = True
 
-            self.first_dataQ = args[0]
-            self.second_dataQ = args[1]
+            self.futures_dataQ = args[0]
+
+            if OPTION_TICK_REQUEST:
+                self.option_tick_dataQ = args[1]
+
+            if OPTION_QUOTE_REQUEST:
+                self.option_quote_dataQ = args[1]
+
+            if OVC_REQUEST:
+                self.ovc_dataQ = args[1]
 
         elif self.mp_number == 3:
             self.mp_mode = True
 
-            self.first_dataQ = args[0]
-            self.second_dataQ = args[1]
-            self.third_dataQ = args[2]
+            self.futures_dataQ = args[0]
+            self.option_tick_dataQ = args[1]
+
+            if OPTION_QUOTE_REQUEST:
+                self.option_quote_dataQ = args[2]
+
+            if OVC_REQUEST:
+                self.ovc_dataQ = args[2]
 
         elif self.mp_number == 4:
             self.mp_mode = True
 
-            self.first_dataQ = args[0]
-            self.second_dataQ = args[1]
-            self.third_dataQ = args[2]
-            self.fourth_dataQ = args[3]
+            self.futures_dataQ = args[0]
+            self.option_tick_dataQ = args[1]
+            self.option_quote_dataQ = args[2]
+            self.ovc_dataQ = args[3]
         else:
             print('지원하지 않는 인자갯수 입니다...')
         
@@ -34703,58 +34726,33 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 쓰레드 or 멀티프로세스
         if self.mp_mode:
 
-            if self.mp_number == 1:
-                self.realtime_1st_dataworker = RealTime_1st_MP_DataWorker(self.first_dataQ)
-                self.realtime_1st_dataworker.trigger_list.connect(self.transfer_mp_1st_trdata)
-                self.realtime_1st_dataworker.trigger_dict.connect(self.transfer_mp_1st_realdata)            
-                self.realtime_1st_dataworker.start()
-            elif self.mp_number == 2:
-                self.realtime_1st_dataworker = RealTime_1st_MP_DataWorker(self.first_dataQ)
-                self.realtime_1st_dataworker.trigger_list.connect(self.transfer_mp_1st_trdata)
-                self.realtime_1st_dataworker.trigger_dict.connect(self.transfer_mp_1st_realdata)            
-                self.realtime_1st_dataworker.start()
+            if FUTURES_REQUEST:
 
-                self.realtime_2nd_dataworker = RealTime_2nd_MP_DataWorker(self.second_dataQ)
-                self.realtime_2nd_dataworker.trigger_list.connect(self.transfer_mp_2nd_trdata)
-                self.realtime_2nd_dataworker.trigger_dict.connect(self.transfer_mp_2nd_realdata)            
-                self.realtime_2nd_dataworker.start()
-            elif self.mp_number == 3:
-                self.realtime_1st_dataworker = RealTime_1st_MP_DataWorker(self.first_dataQ)
-                self.realtime_1st_dataworker.trigger_list.connect(self.transfer_mp_1st_trdata)
-                self.realtime_1st_dataworker.trigger_dict.connect(self.transfer_mp_1st_realdata)            
-                self.realtime_1st_dataworker.start()
+                self.realtime_futures_dataworker = RealTime_Futures_MP_DataWorker(self.futures_dataQ)
+                self.realtime_futures_dataworker.trigger_list.connect(self.transfer_mp_futures_trdata)
+                self.realtime_futures_dataworker.trigger_dict.connect(self.transfer_mp_futures_realdata)            
+                self.realtime_futures_dataworker.start()
 
-                self.realtime_2nd_dataworker = RealTime_2nd_MP_DataWorker(self.second_dataQ)
-                self.realtime_2nd_dataworker.trigger_list.connect(self.transfer_mp_2nd_trdata)
-                self.realtime_2nd_dataworker.trigger_dict.connect(self.transfer_mp_2nd_realdata)            
-                self.realtime_2nd_dataworker.start()
+            if OPTION_TICK_REQUEST:
 
-                self.realtime_3rd_dataworker = RealTime_3rd_MP_DataWorker(self.third_dataQ)
-                self.realtime_3rd_dataworker.trigger_list.connect(self.transfer_mp_3rd_trdata)
-                self.realtime_3rd_dataworker.trigger_dict.connect(self.transfer_mp_3rd_realdata)            
-                self.realtime_3rd_dataworker.start()
-            elif self.mp_number == 4:
-                self.realtime_1st_dataworker = RealTime_1st_MP_DataWorker(self.first_dataQ)
-                self.realtime_1st_dataworker.trigger_list.connect(self.transfer_mp_1st_trdata)
-                self.realtime_1st_dataworker.trigger_dict.connect(self.transfer_mp_1st_realdata)            
-                self.realtime_1st_dataworker.start()
+                self.realtime_option_tick_dataworker = RealTime_Option_Tick_MP_DataWorker(self.option_tick_dataQ)
+                self.realtime_option_tick_dataworker.trigger_list.connect(self.transfer_mp_option_tick_trdata)
+                self.realtime_option_tick_dataworker.trigger_dict.connect(self.transfer_mp_option_tick_realdata)            
+                self.realtime_option_tick_dataworker.start()
 
-                self.realtime_2nd_dataworker = RealTime_2nd_MP_DataWorker(self.second_dataQ)
-                self.realtime_2nd_dataworker.trigger_list.connect(self.transfer_mp_2nd_trdata)
-                self.realtime_2nd_dataworker.trigger_dict.connect(self.transfer_mp_2nd_realdata)            
-                self.realtime_2nd_dataworker.start()
+            if OPTION_QUOTE_REQUEST:
 
-                self.realtime_3rd_dataworker = RealTime_3rd_MP_DataWorker(self.third_dataQ)
-                self.realtime_3rd_dataworker.trigger_list.connect(self.transfer_mp_3rd_trdata)
-                self.realtime_3rd_dataworker.trigger_dict.connect(self.transfer_mp_3rd_realdata)            
-                self.realtime_3rd_dataworker.start()
+                self.realtime_option_quote_dataworker = RealTime_Option_Quote_MP_DataWorker(self.option_quote_dataQ)
+                self.realtime_option_quote_dataworker.trigger_list.connect(self.transfer_mp_option_quote_trdata)
+                self.realtime_option_quote_dataworker.trigger_dict.connect(self.transfer_mp_option_quote_realdata)            
+                self.realtime_option_quote_dataworker.start()
 
-                self.realtime_4th_dataworker = RealTime_4th_MP_DataWorker(self.fourth_dataQ)
-                self.realtime_4th_dataworker.trigger_list.connect(self.transfer_mp_4th_trdata)
-                self.realtime_4th_dataworker.trigger_dict.connect(self.transfer_mp_4th_realdata)            
-                self.realtime_4th_dataworker.start()
-            else:
-                pass
+            if OVC_REQUEST:
+
+                self.realtime_ovc_dataworker = RealTime_OVC_MP_DataWorker(self.ovc_dataQ)
+                self.realtime_ovc_dataworker.trigger_list.connect(self.transfer_mp_ovc_trdata)
+                self.realtime_ovc_dataworker.trigger_dict.connect(self.transfer_mp_ovc_realdata)            
+                self.realtime_ovc_dataworker.start()
         else:
             from multiprocessing import Queue
             #from queue import Queue #--> 멀티프로세스 큐만 정상 동작함 ???
@@ -34810,7 +34808,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         winsound.PlaySound('Resources/notify.wav', winsound.SND_FILENAME)
 
     @pyqtSlot(list)
-    def transfer_mp_1st_trdata(self, trdata):
+    def transfer_mp_futures_trdata(self, trdata):
 
         dt = datetime.now()
         
@@ -34950,7 +34948,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass       
 
     @pyqtSlot(dict)
-    def transfer_mp_1st_realdata(self, tickdata):
+    def transfer_mp_futures_realdata(self, tickdata):
 
         global drop_txt, drop_percent, time_gap, main_opt_totalsize, main_totalsize, fh0_drop_percent
         
@@ -34972,10 +34970,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 time_gap = systime - system_server_time_gap - realtime
                 time_gap_abs = abs((systime - system_server_time_gap) - realtime)
 
-                first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
-                second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
-                third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_3rd_dataworker.get_packet_info()
-                fourth_dropcount, fourth_sys_dropcount, fourth_qsize, fourth_totalcount, fourth_totalsize = self.realtime_4th_dataworker.get_packet_info()
+                first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_futures_dataworker.get_packet_info()
+                second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_option_tick_dataworker.get_packet_info()
+                third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_option_quote_dataworker.get_packet_info()
+                fourth_dropcount, fourth_sys_dropcount, fourth_qsize, fourth_totalcount, fourth_totalsize = self.realtime_ovc_dataworker.get_packet_info()
 
                 total_dropcount = first_dropcount + second_dropcount + third_dropcount + fourth_dropcount
                 total_sys_dropcount = first_sys_dropcount + second_sys_dropcount + third_sys_dropcount + fourth_sys_dropcount
@@ -35026,7 +35024,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
         
     @pyqtSlot(list)
-    def transfer_mp_2nd_trdata(self, trdata):
+    def transfer_mp_option_tick_trdata(self, trdata):
 
         dt = datetime.now()
 
@@ -35044,7 +35042,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
 
     @pyqtSlot(dict)
-    def transfer_mp_2nd_realdata(self, tickdata):
+    def transfer_mp_option_tick_realdata(self, tickdata):
 
         dt = datetime.now()
 
@@ -35058,10 +35056,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         time_gap = systime - system_server_time_gap - realtime
         time_gap_abs = abs((systime - system_server_time_gap) - realtime)
 
-        first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
-        second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
-        third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_3rd_dataworker.get_packet_info()
-        fourth_dropcount, fourth_sys_dropcount, fourth_qsize, fourth_totalcount, fourth_totalsize = self.realtime_4th_dataworker.get_packet_info()
+        first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_futures_dataworker.get_packet_info()
+        second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_option_tick_dataworker.get_packet_info()
+        third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_option_quote_dataworker.get_packet_info()
+        fourth_dropcount, fourth_sys_dropcount, fourth_qsize, fourth_totalcount, fourth_totalsize = self.realtime_ovc_dataworker.get_packet_info()
 
         total_dropcount = first_dropcount + second_dropcount + third_dropcount + fourth_dropcount
         total_sys_dropcount = first_sys_dropcount + second_sys_dropcount + third_sys_dropcount + fourth_sys_dropcount
@@ -35182,7 +35180,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
 
     @pyqtSlot(list)
-    def transfer_mp_3rd_trdata(self, trdata):
+    def transfer_mp_option_quote_trdata(self, trdata):
 
         dt = datetime.now()
 
@@ -35205,7 +35203,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
     
     @pyqtSlot(dict)
-    def transfer_mp_3rd_realdata(self, tickdata):
+    def transfer_mp_option_quote_realdata(self, tickdata):
 
         dt = datetime.now()
 
@@ -35222,10 +35220,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         time_gap = systime - system_server_time_gap - realtime
         time_gap_abs = abs((systime - system_server_time_gap) - realtime)
 
-        first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
-        second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
-        third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_3rd_dataworker.get_packet_info()
-        fourth_dropcount, fourth_sys_dropcount, fourth_qsize, fourth_totalcount, fourth_totalsize = self.realtime_4th_dataworker.get_packet_info()
+        first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_futures_dataworker.get_packet_info()
+        second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_option_tick_dataworker.get_packet_info()
+        third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_option_quote_dataworker.get_packet_info()
+        fourth_dropcount, fourth_sys_dropcount, fourth_qsize, fourth_totalcount, fourth_totalsize = self.realtime_ovc_dataworker.get_packet_info()
 
         total_dropcount = first_dropcount + second_dropcount + third_dropcount + fourth_dropcount
         total_sys_dropcount = first_sys_dropcount + second_sys_dropcount + third_sys_dropcount + fourth_sys_dropcount
@@ -35297,7 +35295,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
 
     @pyqtSlot(list)
-    def transfer_mp_4th_trdata(self, trdata):
+    def transfer_mp_ovc_trdata(self, trdata):
 
         dt = datetime.now()
 
@@ -35315,7 +35313,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
 
     @pyqtSlot(dict)
-    def transfer_mp_4th_realdata(self, tickdata):
+    def transfer_mp_ovc_realdata(self, tickdata):
 
         global drop_txt, drop_percent, time_gap, main_opt_totalsize, main_totalsize
         
@@ -35332,10 +35330,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         time_gap = systime - system_server_time_gap - realtime
         time_gap_abs = abs((systime - system_server_time_gap) - realtime)
 
-        first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_1st_dataworker.get_packet_info()
-        second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_2nd_dataworker.get_packet_info()
-        third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_3rd_dataworker.get_packet_info()
-        fourth_dropcount, fourth_sys_dropcount, fourth_qsize, fourth_totalcount, fourth_totalsize = self.realtime_4th_dataworker.get_packet_info()
+        first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_futures_dataworker.get_packet_info()
+        second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_option_tick_dataworker.get_packet_info()
+        third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_option_quote_dataworker.get_packet_info()
+        fourth_dropcount, fourth_sys_dropcount, fourth_qsize, fourth_totalcount, fourth_totalsize = self.realtime_ovc_dataworker.get_packet_info()
 
         total_dropcount = first_dropcount + second_dropcount + third_dropcount + fourth_dropcount
         total_sys_dropcount = first_sys_dropcount + second_sys_dropcount + third_sys_dropcount + fourth_sys_dropcount
@@ -39442,10 +39440,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if MULTIPROCESS and flag_internet:
 
-                self.realtime_1st_dataworker.terminate()
-                self.realtime_2nd_dataworker.terminate()
-                self.realtime_3rd_dataworker.terminate()
-                self.realtime_4th_dataworker.terminate()
+                self.realtime_futures_dataworker.terminate()
+                self.realtime_option_tick_dataworker.terminate()
+                self.realtime_option_quote_dataworker.terminate()
+                self.realtime_ovc_dataworker.terminate()
 
                 QTest.qWait(10)                  
 
