@@ -39850,10 +39850,18 @@ if __name__ == "__main__":
             window = MainWindow(option_quoteQ)
         elif not FUTURES_REQUEST and not OPTION_TICK_REQUEST and not OPTION_QUOTE_REQUEST and OVC_REQUEST:
             window = MainWindow(ovcQ)
+        elif FUTURES_REQUEST and OPTION_TICK_REQUEST and not OPTION_QUOTE_REQUEST and not OVC_REQUEST:
+            window = MainWindow(futuresQ, option_tickQ)
+        elif FUTURES_REQUEST and not OPTION_TICK_REQUEST and not OPTION_QUOTE_REQUEST and OVC_REQUEST:
+            window = MainWindow(futuresQ, ovcQ)
+        elif FUTURES_REQUEST and OPTION_TICK_REQUEST and OPTION_QUOTE_REQUEST and not OVC_REQUEST:
+            window = MainWindow(futuresQ, option_tickQ, option_quoteQ)
+        elif FUTURES_REQUEST and OPTION_TICK_REQUEST and not OPTION_QUOTE_REQUEST and OVC_REQUEST:
+            window = MainWindow(futuresQ, option_tickQ, ovcQ)
         elif FUTURES_REQUEST and OPTION_TICK_REQUEST and OPTION_QUOTE_REQUEST and OVC_REQUEST:
             window = MainWindow(futuresQ, option_tickQ, option_quoteQ, ovcQ)
         else:
-            pass       
+            Speak('지원하지 않는 선택지 입니다.')
     else:
         window = MainWindow()
 
