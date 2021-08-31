@@ -2889,8 +2889,6 @@ class RealTime_Futures_MP_DataWorker(QThread):
         self.drop_count = 0
         # 수신된 총 패킷크기
         self.total_packet_size = 0
-        # 수신된 총 옵션 패킷크기
-        self.total_option_packet_size = 0
 
         self.fh0_total_count = 0
         self.fh0_drop_count = 0
@@ -2900,7 +2898,7 @@ class RealTime_Futures_MP_DataWorker(QThread):
 
     def get_packet_info(self):
 
-        return (self.drop_count + self.sys_drop_count), self.sys_drop_count, self.waiting_tasks, self.total_count, self.total_packet_size, self.total_option_packet_size
+        return (self.drop_count + self.sys_drop_count), self.sys_drop_count, self.waiting_tasks, self.total_count, self.total_packet_size
 
     def get_fh0_packet_info(self):
 
@@ -3074,7 +3072,7 @@ class RealTime_Option_Tick_MP_DataWorker(QThread):
 
     def get_packet_info(self):
 
-        return (self.drop_count + self.sys_drop_count), self.sys_drop_count, self.waiting_tasks, self.total_count, self.total_packet_size, self.total_option_packet_size
+        return (self.drop_count + self.sys_drop_count), self.sys_drop_count, self.waiting_tasks, self.total_count, self.total_packet_size
 
     def run(self):
 
@@ -3177,7 +3175,7 @@ class RealTime_Option_Quote_MP_DataWorker(QThread):
 
     def get_packet_info(self):
 
-        return (self.drop_count + self.sys_drop_count), self.sys_drop_count, self.waiting_tasks, self.total_count, self.total_packet_size, self.total_option_packet_size
+        return (self.drop_count + self.sys_drop_count), self.sys_drop_count, self.waiting_tasks, self.total_count, self.total_packet_size
 
     def run(self):
 
@@ -34966,21 +34964,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             first_qsize = 0
             first_totalcount = 0
             first_totalsize = 0
-            first_opt_totalsize = 0
 
             second_dropcount = 0
             second_sys_dropcount = 0
             second_qsize = 0
             second_totalcount = 0
             second_totalsize = 0
-            second_opt_totalsize = 0
 
             third_dropcount = 0
             third_sys_dropcount = 0
             third_qsize = 0
             third_totalcount = 0
             third_totalsize = 0
-            third_opt_totalsize = 0
 
             fourth_dropcount = 0
             fourth_sys_dropcount = 0
@@ -35000,13 +34995,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 time_gap_abs = abs((systime - system_server_time_gap) - realtime)
 
                 if FUTURES_REQUEST:
-                    first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_futures_dataworker.get_packet_info()
+                    first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize = self.realtime_futures_dataworker.get_packet_info()
 
                 if OPTION_TICK_REQUEST:   
-                    second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_option_tick_dataworker.get_packet_info()
+                    second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize = self.realtime_option_tick_dataworker.get_packet_info()
 
                 if OPTION_QUOTE_REQUEST:    
-                    third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_option_quote_dataworker.get_packet_info()
+                    third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize = self.realtime_option_quote_dataworker.get_packet_info()
 
                 if OVC_REQUEST:    
                     fourth_dropcount, fourth_sys_dropcount, fourth_qsize, fourth_totalcount, fourth_totalsize = self.realtime_ovc_dataworker.get_packet_info()
@@ -35022,8 +35017,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                drop_txt = '{0}({1})/{2}({3}k), {4}, [{5:.1f}%]'.format(format(total_dropcount, ','), format(total_sys_dropcount, ','), \
-                    format(totalcount, ','), format(int(totalsize/1000), ','), format(total_waiting_count, ','), drop_percent)
+                drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','), format(int(second_totalsize/1000), ','), drop_percent)
 
                 txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
                     dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt)
@@ -35109,21 +35103,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             first_qsize = 0
             first_totalcount = 0
             first_totalsize = 0
-            first_opt_totalsize = 0
 
             second_dropcount = 0
             second_sys_dropcount = 0
             second_qsize = 0
             second_totalcount = 0
             second_totalsize = 0
-            second_opt_totalsize = 0
 
             third_dropcount = 0
             third_sys_dropcount = 0
             third_qsize = 0
             third_totalcount = 0
             third_totalsize = 0
-            third_opt_totalsize = 0
 
             fourth_dropcount = 0
             fourth_sys_dropcount = 0
@@ -35138,13 +35129,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         time_gap_abs = abs((systime - system_server_time_gap) - realtime)
 
         if FUTURES_REQUEST:
-            first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_futures_dataworker.get_packet_info()
+            first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize = self.realtime_futures_dataworker.get_packet_info()
 
         if OPTION_TICK_REQUEST:   
-            second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_option_tick_dataworker.get_packet_info()
+            second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize = self.realtime_option_tick_dataworker.get_packet_info()
 
         if OPTION_QUOTE_REQUEST:    
-            third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_option_quote_dataworker.get_packet_info()
+            third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize = self.realtime_option_quote_dataworker.get_packet_info()
 
         if OVC_REQUEST:    
             fourth_dropcount, fourth_sys_dropcount, fourth_qsize, fourth_totalcount, fourth_totalsize = self.realtime_ovc_dataworker.get_packet_info()
@@ -35160,8 +35151,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        drop_txt = '{0}({1})/{2}({3}k), {4}, [{5:.1f}%]'.format(format(total_dropcount, ','), format(total_sys_dropcount, ','), \
-                format(totalcount, ','), format(int(totalsize/1000), ','), format(total_waiting_count, ','), drop_percent)
+        drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','), format(int(second_totalsize/1000), ','), drop_percent)
         
         txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
             dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt)
@@ -35320,21 +35310,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             first_qsize = 0
             first_totalcount = 0
             first_totalsize = 0
-            first_opt_totalsize = 0
 
             second_dropcount = 0
             second_sys_dropcount = 0
             second_qsize = 0
             second_totalcount = 0
             second_totalsize = 0
-            second_opt_totalsize = 0
 
             third_dropcount = 0
             third_sys_dropcount = 0
             third_qsize = 0
             third_totalcount = 0
             third_totalsize = 0
-            third_opt_totalsize = 0
 
             fourth_dropcount = 0
             fourth_sys_dropcount = 0
@@ -35354,13 +35341,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         time_gap_abs = abs((systime - system_server_time_gap) - realtime)
 
         if FUTURES_REQUEST:
-            first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_futures_dataworker.get_packet_info()
+            first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize = self.realtime_futures_dataworker.get_packet_info()
 
         if OPTION_TICK_REQUEST:   
-            second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_option_tick_dataworker.get_packet_info()
+            second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize = self.realtime_option_tick_dataworker.get_packet_info()
 
         if OPTION_QUOTE_REQUEST:    
-            third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_option_quote_dataworker.get_packet_info()
+            third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize = self.realtime_option_quote_dataworker.get_packet_info()
 
         if OVC_REQUEST:    
             fourth_dropcount, fourth_sys_dropcount, fourth_qsize, fourth_totalcount, fourth_totalsize = self.realtime_ovc_dataworker.get_packet_info()
@@ -35376,8 +35363,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        drop_txt = '{0}({1})/{2}({3}k), {4}, [{5:.1f}%]'.format(format(total_dropcount, ','), format(total_sys_dropcount, ','), \
-                format(totalcount, ','), format(int(totalsize/1000), ','), format(total_waiting_count, ','), drop_percent)
+        drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','), format(int(second_totalsize/1000), ','), drop_percent)
         
         txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
             dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt)
@@ -35485,21 +35471,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             first_qsize = 0
             first_totalcount = 0
             first_totalsize = 0
-            first_opt_totalsize = 0
 
             second_dropcount = 0
             second_sys_dropcount = 0
             second_qsize = 0
             second_totalcount = 0
             second_totalsize = 0
-            second_opt_totalsize = 0
 
             third_dropcount = 0
             third_sys_dropcount = 0
             third_qsize = 0
             third_totalcount = 0
             third_totalsize = 0
-            third_opt_totalsize = 0
 
             fourth_dropcount = 0
             fourth_sys_dropcount = 0
@@ -35516,13 +35499,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         time_gap_abs = abs((systime - system_server_time_gap) - realtime)
 
         if FUTURES_REQUEST:
-            first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize, first_opt_totalsize = self.realtime_futures_dataworker.get_packet_info()
+            first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize = self.realtime_futures_dataworker.get_packet_info()
 
         if OPTION_TICK_REQUEST:   
-            second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize, second_opt_totalsize = self.realtime_option_tick_dataworker.get_packet_info()
+            second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, second_totalsize = self.realtime_option_tick_dataworker.get_packet_info()
 
         if OPTION_QUOTE_REQUEST:    
-            third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize, third_opt_totalsize = self.realtime_option_quote_dataworker.get_packet_info()
+            third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize = self.realtime_option_quote_dataworker.get_packet_info()
 
         if OVC_REQUEST:    
             fourth_dropcount, fourth_sys_dropcount, fourth_qsize, fourth_totalcount, fourth_totalsize = self.realtime_ovc_dataworker.get_packet_info()
@@ -35538,8 +35521,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        drop_txt = '{0}({1})/{2}({3}k), {4}, [{5:.1f}%]'.format(format(total_dropcount, ','), format(total_sys_dropcount, ','), \
-            format(totalcount, ','), format(int(totalsize/1000), ','), format(total_waiting_count, ','), drop_percent)
+        drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','), format(int(second_totalsize/1000), ','), drop_percent)
         
         txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
             dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt)
