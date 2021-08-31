@@ -34577,17 +34577,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.first_dataQ = args[0]
 
-            self.main_login = False
-            self.second_login = False
-
         elif self.mp_number == 2:
             self.mp_mode = True
 
             self.first_dataQ = args[0]
             self.second_dataQ = args[1]
-
-            self.main_login = False
-            self.second_login = False
 
         elif self.mp_number == 3:
             self.mp_mode = True
@@ -34596,10 +34590,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.second_dataQ = args[1]
             self.third_dataQ = args[2]
 
-            self.main_login = False
-            self.second_login = False
-            self.third_login = False
-
         elif self.mp_number == 4:
             self.mp_mode = True
 
@@ -34607,11 +34597,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.second_dataQ = args[1]
             self.third_dataQ = args[2]
             self.fourth_dataQ = args[3]
-
-            self.main_login = False
-            self.second_login = False
-            self.third_login = False
-            self.fourth_login = False
         else:
             print('지원하지 않는 인자갯수 입니다...')
         
