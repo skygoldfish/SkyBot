@@ -31,7 +31,7 @@ class XARealEventHandler:
 
     def __init__(self):
         self.queue = None
-
+        '''
         response = ntplib.NTPClient().request(TimeServer, version=3)
 
         time_str = time.ctime(response.tx_time).split(' ')
@@ -46,7 +46,7 @@ class XARealEventHandler:
         print('\r')
         print('옵션 시스템 서버간 시간차는 {0}초 입니다...\r', self.timegap)
         print('\r')
-
+        '''
     def handle_jif_tick(self) -> list:
         """
         JIF
