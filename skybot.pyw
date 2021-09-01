@@ -2285,7 +2285,7 @@ class ScreenUpdateWorker(QThread):
                     response = self.ntpclient.request(TimeServer, version=3)
 
                     time_str = time.ctime(response.tx_time).split(' ')
-                    srever_time = time_str[3]
+                    srever_time = time_str[-2]
 
                     self.server_hour = int(srever_time[0:2])
                     self.server_minute = int(srever_time[3:5])
@@ -34306,7 +34306,6 @@ class Xing(object):
 
                     time_str = time.ctime(response.tx_time).split(' ')
                     srever_time = time_str[-2]
-                    #print('srever_time =', time_str, srever_time)
 
                     self.server_hour = int(srever_time[0:2])
                     self.server_minute = int(srever_time[3:5])
@@ -34710,7 +34709,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         response = ntplib.NTPClient().request(TimeServer, version=3)        
 
         time_str = time.ctime(response.tx_time).split(' ')
-        srever_time = time_str[3]
+        srever_time = time_str[-2]
         SERVERTIME = '{0}:{1}:{2}'.format(srever_time[0:2], srever_time[3:5], srever_time[6:8])
 
         self.TIMEGAP = round(-response.offset)
