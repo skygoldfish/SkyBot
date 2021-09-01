@@ -35086,6 +35086,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
+        elif trdata[0] == 'tick':
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션체결 요청리스트 = {3}\r'.format(dt.hour, dt.minute, dt.second, trdata)
+            self.textBrowser.append(txt)
+
         elif trdata[0] == 'login' and trdata[1] != '0000':
 
             txt = '2nd 로그인 실패({0})!  다시 로그인하세요...'.format(trdata[0])
