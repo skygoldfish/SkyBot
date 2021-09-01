@@ -384,7 +384,8 @@ MA_TYPE = parser.getint('Moving Average Type', 'MA Type')
 TIME_TOLERANCE = parser.getint('Initial Value', 'RealTime Tolerance(sec)')
 DOW_START = parser.get('Initial Value', 'Dow Start Time')
 MP_SEND_INTERVAL = parser.getint('Initial Value', 'MP Send Interval')
-QUOTE_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Quote Request')
+OPTION_TICK_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Option Tick Request')
+OPTION_QUOTE_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Option Quote Request')
 CALL_ITM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Call ITM Request')
 CALL_OTM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Call OTM Request')
 PUT_ITM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Put ITM Request')
@@ -39632,17 +39633,31 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if MULTIPROCESS and flag_internet:
 
-                self.realtime_futures_dataworker.terminate()
-                self.realtime_option_tick_dataworker.terminate()
-                self.realtime_option_quote_dataworker.terminate()
-                self.realtime_ovc_dataworker.terminate()
+                if FUTURES_REQUEST:
+                    self.realtime_futures_dataworker.terminate()
+
+                if OPTION_TICK_REQUEST:
+                    self.realtime_option_tick_dataworker.terminate()
+
+                if OPTION_QUOTE_REQUEST:
+                    self.realtime_option_quote_dataworker.terminate()
+
+                if OVC_REQUEST:
+                    self.realtime_ovc_dataworker.terminate()
 
                 QTest.qWait(10)                  
 
-                futures_process.terminate()
-                option_tick_process.terminate()
-                option_quote_process.terminate()
-                ovc_process.terminate()                
+                if FUTURES_REQUEST:
+                    futures_process.terminate()
+
+                if OPTION_TICK_REQUEST:
+                    option_tick_process.terminate()
+
+                if OPTION_QUOTE_REQUEST:
+                    option_quote_process.terminate()
+
+                if OVC_REQUEST:
+                    ovc_process.terminate()                
 
                 print('모든 멀티프로세스 쓰레드 종료...')                             
             else:
@@ -39729,6 +39744,8 @@ if __name__ == "__main__":
         if OPTION_TICK_REQUEST:
             option_tickQ = mp.Queue()
 
+            tick_request_number = OPTION_TICK_REQUEST_NUMBER
+
             if TARGET_MONTH == 'CM':
 
                 if MANGI_YAGAN:
@@ -39767,9 +39784,9 @@ if __name__ == "__main__":
                 INDEX_OPTION_NM_QUOTE = False
 
             if NightTime:
-                quote_number = QUOTE_REQUEST_NUMBER * 7
+                quote_request_number = OPTION_QUOTE_REQUEST_NUMBER * 7
             else:
-                quote_number = QUOTE_REQUEST_NUMBER
+                quote_request_number = OPTION_QUOTE_REQUEST_NUMBER
 
         if OVC_REQUEST:
             ovcQ = mp.Queue()
@@ -39778,10 +39795,10 @@ if __name__ == "__main__":
             futures_process = mp.Process(target=futures_crawler, args=(futuresQ, INDEX_FUTURES_QUOTE, INDEX_FUTURES_TICK), daemon=True)
 
         if OPTION_TICK_REQUEST:
-            option_tick_process = mp.Process(target=option_tick_crawler, args=(option_tickQ, INDEX_OPTION_CM_TICK, INDEX_OPTION_NM_TICK), daemon=True)
+            option_tick_process = mp.Process(target=option_tick_crawler, args=(option_tickQ, tick_request_number, INDEX_OPTION_CM_TICK, INDEX_OPTION_NM_TICK), daemon=True)
 
         if OPTION_QUOTE_REQUEST:
-            option_quote_process = mp.Process(target=option_quote_crawler, args=(option_quoteQ, quote_number, INDEX_OPTION_CM_QUOTE, INDEX_OPTION_NM_QUOTE), daemon=True)
+            option_quote_process = mp.Process(target=option_quote_crawler, args=(option_quoteQ, quote_request_number, INDEX_OPTION_CM_QUOTE, INDEX_OPTION_NM_QUOTE), daemon=True)
 
         if OVC_REQUEST:
             ovc_process = mp.Process(target=ovc_crawler, args=(ovcQ, ), daemon=True)
