@@ -2944,29 +2944,36 @@ class RealTime_Futures_MP_DataWorker(QThread):
 
                         self.waiting_tasks = self.dataQ.qsize()
 
-                        tick_type, tick_data = self.realdata
+                        tick_type, tickdata = self.realdata
 
-                        szTrCode = tick_data['tr_code']
+                        szTrCode = tickdata['tr_code']
 
                         if szTrCode == 'JIF' or szTrCode == 'BM_' or szTrCode == 'PM_':
-                            print(f"\r[{datetime.now()}] 선물체결 TR Type : {tick_data['tr_code']}, System time : {tick_data['system_time']}, waiting tasks : {self.waiting_tasks}", end='')                            
+                            print(f"\r[{datetime.now()}] 선물체결 TR Type : {tickdata['tr_code']}, System time : {tickdata['system_time']}, waiting tasks : {self.waiting_tasks}", end='')                            
                         else:
-                            print(f"\r[{datetime.now()}] 선물체결 TR Type : {tick_data['tr_code']}, System time : {tick_data['system_time']}, 체결시간 : {tick_data['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')                         
+                            print(f"\r[{datetime.now()}] 선물체결 TR Type : {tickdata['tr_code']}, System time : {tickdata['system_time']}, 체결시간 : {tickdata['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')                         
 
                         if CSV_FILE:
-                            tick_data_lst = list(tick_data.values())
-                            handle_tick_data(tick_data_lst, tick_type)
+                            tickdata_lst = list(tickdata.values())
+                            handle_tick_data(tickdata_lst, tick_type)
                         else:
                             pass                        
 
-                        #dt = datetime.now()
-                        systime = int(tick_data['system_time'][0:2]) * 3600 + int(tick_data['system_time'][2:4]) * 60 + int(tick_data['system_time'][4:6])                       
+                        if len(tickdata['system_time']) == 5:
+                            systime = int(tickdata['system_time'][0:1]) * 3600 + int(tickdata['system_time'][1:3]) * 60 + int(tickdata['system_time'][3:5])
+                        else:
+                            systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])                       
 
                         if szTrCode != 'JIF':
 
-                            realtime_hour = int(tick_data['수신시간'][0:2])
-                            realtime_min = int(tick_data['수신시간'][2:4])
-                            realtime_sec = int(tick_data['수신시간'][4:6])
+                            if len(tickdata['수신시간']) == 5:
+                                realtime_hour = int(tickdata['수신시간'][0:1])
+                                realtime_min = int(tickdata['수신시간'][1:3])
+                                realtime_sec = int(tickdata['수신시간'][3:5])
+                            else:
+                                realtime_hour = int(tickdata['수신시간'][0:2])
+                                realtime_min = int(tickdata['수신시간'][2:4])
+                                realtime_sec = int(tickdata['수신시간'][4:6])
 
                             realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
                         else:
@@ -3026,7 +3033,7 @@ class RealTime_Futures_MP_DataWorker(QThread):
                             else:
                                 pass
 
-                            self.trigger_dict.emit(tick_data)                           
+                            self.trigger_dict.emit(tickdata)                           
                         else:
                             self.sys_drop_count += 1                    
                     else:
@@ -3040,10 +3047,10 @@ class RealTime_Futures_MP_DataWorker(QThread):
 
             except Exception as e:
                 
-                txt = '{0} 멀티프로세스 큐 쓰레드에서 {1}타입의 {2}예외가 발생했습니다.'.format(tick_data['tr_code'], type(e).__name__, str(e))
+                txt = '{0} 멀티프로세스 큐 쓰레드에서 {1}타입의 {2}예외가 발생했습니다.'.format(tickdata['tr_code'], type(e).__name__, str(e))
                 print(txt)
 
-                self.trigger_exception.emit(tick_data['tr_code'], str(e))
+                self.trigger_exception.emit(tickdata['tr_code'], str(e))
 
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 멀티프로세스 2nd 쓰레드 클래스(옵션 가격만 처리)
@@ -3108,35 +3115,42 @@ class RealTime_Option_Tick_MP_DataWorker(QThread):
 
                     self.waiting_tasks = self.dataQ.qsize()
 
-                    tick_type, tick_data = self.realdata
-                    print(f"\r[{datetime.now()}] 옵션체결 System time : {tick_data['system_time']}, 체결시간 : {tick_data['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')
+                    tick_type, tickdata = self.realdata
+                    print(f"\r[{datetime.now()}] 옵션체결 System time : {tickdata['system_time']}, 체결시간 : {tickdata['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')
 
                     if CSV_FILE:
-                        tick_data_lst = list(tick_data.values())
-                        handle_tick_data(tick_data_lst, tick_type)
+                        tickdata_lst = list(tickdata.values())
+                        handle_tick_data(tickdata_lst, tick_type)
                     else:
                         pass
-                    
-                    #dt = datetime.now()
-                    systime = int(tick_data['system_time'][0:2]) * 3600 + int(tick_data['system_time'][2:4]) * 60 + int(tick_data['system_time'][4:6])
 
-                    realtime_hour = int(tick_data['수신시간'][0:2])
-                    realtime_min = int(tick_data['수신시간'][2:4])
-                    realtime_sec = int(tick_data['수신시간'][4:6])
+                    if len(tickdata['system_time']) == 5:
+                        systime = int(tickdata['system_time'][0:1]) * 3600 + int(tickdata['system_time'][1:3]) * 60 + int(tickdata['system_time'][3:5])
+                    else:
+                        systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])
+                    
+                    if len(tickdata['수신시간']) == 5:
+                        realtime_hour = int(tickdata['수신시간'][0:1])
+                        realtime_min = int(tickdata['수신시간'][1:3])
+                        realtime_sec = int(tickdata['수신시간'][3:5])
+                    else:
+                        realtime_hour = int(tickdata['수신시간'][0:2])
+                        realtime_min = int(tickdata['수신시간'][2:4])
+                        realtime_sec = int(tickdata['수신시간'][4:6])
 
                     realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                     #if not flag_option_tick_update_is_running:
                     if True:
 
-                        self.total_option_packet_size += sys.getsizeof(tick_data)                        
+                        self.total_option_packet_size += sys.getsizeof(tickdata)                        
 
                         if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
                             self.drop_count += 1
                         else:
                             pass
 
-                        self.trigger_dict.emit(tick_data)
+                        self.trigger_dict.emit(tickdata)
                     else:
                         self.sys_drop_count += 1                
                 else:
@@ -3211,40 +3225,46 @@ class RealTime_Option_Quote_MP_DataWorker(QThread):
 
                     self.waiting_tasks = self.dataQ.qsize()
 
-                    tick_type, tick_data = self.realdata
-                    print(f"\r[{datetime.now()}] 옵션호가 System time : {tick_data['system_time']}, 체결시간 : {tick_data['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')
+                    tick_type, tickdata = self.realdata
+                    print(f"\r[{datetime.now()}] 옵션호가 System time : {tickdata['system_time']}, 체결시간 : {tickdata['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')
 
                     if CSV_FILE:
-                        tick_data_lst = list(tick_data.values())
-                        handle_tick_data(tick_data_lst, tick_type)
+                        tickdata_lst = list(tickdata.values())
+                        handle_tick_data(tickdata_lst, tick_type)
                     else:
                         pass
                     
-                    #dt = datetime.now()
-                    systime = int(tick_data['system_time'][0:2]) * 3600 + int(tick_data['system_time'][2:4]) * 60 + int(tick_data['system_time'][4:6])
+                    if len(tickdata['system_time']) == 5:
+                        systime = int(tickdata['system_time'][0:1]) * 3600 + int(tickdata['system_time'][1:3]) * 60 + int(tickdata['system_time'][3:5])
+                    else:
+                        systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])
 
-                    szTrCode = tick_data['tr_code']
+                    szTrCode = tickdata['tr_code']
 
                     #if not flag_option_quote_update_is_running:
                     if True:
 
                         if szTrCode == 'OH0':
 
-                            self.total_option_packet_size += sys.getsizeof(tick_data)
+                            self.total_option_packet_size += sys.getsizeof(tickdata)
 
-                            realtime_hour = int(tick_data['수신시간'][0:2])                            
+                            if len(tickdata['수신시간']) == 5:
+                                realtime_hour = int(tickdata['수신시간'][0:1])
+                                realtime_min = int(tickdata['수신시간'][1:3])
+                                realtime_sec = int(tickdata['수신시간'][3:5])
+                            else:
+                                realtime_hour = int(tickdata['수신시간'][0:2])
+                                realtime_min = int(tickdata['수신시간'][2:4])
+                                realtime_sec = int(tickdata['수신시간'][4:6])                            
 
                         elif szTrCode == 'EH0':
 
-                            if int(tick_data['수신시간'][0:2]) >= 24:
-                                realtime_hour = int(tick_data['수신시간'][0:2]) - 24
+                            if int(tickdata['수신시간'][0:2]) >= 24:
+                                realtime_hour = int(tickdata['수신시간'][0:2]) - 24
                             else:                            
-                                realtime_hour = int(tick_data['수신시간'][0:2])
+                                realtime_hour = int(tickdata['수신시간'][0:2])
                         else:
-                            pass
-
-                        realtime_min = int(tick_data['수신시간'][2:4])
-                        realtime_sec = int(tick_data['수신시간'][4:6])
+                            pass                        
 
                         realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -3253,7 +3273,7 @@ class RealTime_Option_Quote_MP_DataWorker(QThread):
                         else:
                             pass
 
-                        self.trigger_dict.emit(tick_data)
+                        self.trigger_dict.emit(tickdata)
                     else:
                         self.sys_drop_count += 1                
                 else:
@@ -3326,25 +3346,30 @@ class RealTime_OVC_MP_DataWorker(QThread):
 
                     self.waiting_tasks = self.dataQ.qsize()
 
-                    tick_type, tick_data = self.realdata
-                    print(f"\r[{datetime.now()}] 해외선물 System time : {tick_data['system_time']}, 체결시간 : {tick_data['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')
+                    tick_type, tickdata = self.realdata
+                    print(f"\r[{datetime.now()}] 해외선물 System time : {tickdata['system_time']}, 체결시간 : {tickdata['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')
 
                     if CSV_FILE:
-                        tick_data_lst = list(tick_data.values())
-                        handle_tick_data(tick_data_lst, tick_type)
+                        tickdata_lst = list(tickdata.values())
+                        handle_tick_data(tickdata_lst, tick_type)
                     else:
                         pass
                     
-                    #dt = datetime.now()
-                    systime = int(tick_data['system_time'][0:2]) * 3600 + int(tick_data['system_time'][2:4]) * 60 + int(tick_data['system_time'][4:6])
-
-                    realtime_hour = int(tick_data['수신시간'][0:2])
-                    realtime_min = int(tick_data['수신시간'][2:4])
-                    realtime_sec = int(tick_data['수신시간'][4:6])
+                    if len(tickdata['system_time']) == 5:
+                        systime = int(tickdata['system_time'][0:1]) * 3600 + int(tickdata['system_time'][1:3]) * 60 + int(tickdata['system_time'][3:5])
+                    else:
+                        systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])
+                    
+                    if len(tickdata['수신시간']) == 5:
+                        realtime_hour = int(tickdata['수신시간'][0:1])
+                        realtime_min = int(tickdata['수신시간'][1:3])
+                        realtime_sec = int(tickdata['수신시간'][3:5])
+                    else:
+                        realtime_hour = int(tickdata['수신시간'][0:2])
+                        realtime_min = int(tickdata['수신시간'][2:4])
+                        realtime_sec = int(tickdata['수신시간'][4:6])
 
                     realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                    #szTrCode = tick_data['tr_code']
 
                     #if not flag_option_quote_update_is_running:
                     if True:                        
@@ -3354,7 +3379,7 @@ class RealTime_OVC_MP_DataWorker(QThread):
                         else:
                             pass
 
-                        self.trigger_dict.emit(tick_data)
+                        self.trigger_dict.emit(tickdata)
                     else:
                         self.sys_drop_count += 1                
                 else:
@@ -15286,6 +15311,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_futures_graph.at[0, 'kp200'] = self.fut_realdata['KP200']
                 df_futures_graph.at[0, 'price'] = self.fut_realdata['종가']
                 df_kp200_graph.at[0, 'price'] = self.fut_realdata['KP200']
+                df_kp200_graph.at[0, 'program'] = 0
+                df_kp200_graph.at[0, 'kospi_total'] = 0
 
                 if self.fut_realdata['시가'] > 0:
                     df_futures_graph.at[GuardTime + 1, 'open'] = self.fut_realdata['시가']
@@ -17005,6 +17032,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_futures_graph.at[0, 'kp200'] = KP200_전일종가
                 df_kp200_graph.at[0, 'price'] = KP200_전일종가
+                df_kp200_graph.at[0, 'program'] = 0
+                df_kp200_graph.at[0, 'kospi_total'] = 0
 
                 # 주간 현재가가 야간 종가임
                 df_futures_graph.at[0, 'price'] = self.fut_realdata['현재가']
@@ -19999,7 +20028,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_call_information_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'volume', 'open_interest', 'ms_quote', 'md_quote', 'quote_remainder_ratio', 'drate', 'centerval'])
             df_put_information_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'volume', 'open_interest', 'ms_quote', 'md_quote', 'quote_remainder_ratio', 'drate', 'yanghap'])
 
-            df_kp200_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle'])
+            df_kp200_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'program', 'kospi_total'])
             df_futures_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'kp200', \
                 'c_ms_quote', 'c_md_quote', 'c_quote_remainder_ratio', 'n_ms_quote', 'n_md_quote', 'n_quote_remainder_ratio', \
                     'drate', 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', \
@@ -22313,7 +22342,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         # 선옵체결
         self.plot1_fut_volume_curve = self.plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_call_volume_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_put_volume_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)        
+        self.plot1_put_volume_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot1_program_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_kospi_total_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)        
 
         self.plot1_center_val_lower_line = self.plot1.addLine(x=None, pen=skyblue_pen)
         self.plot1_center_val_line = self.plot1.addLine(x=None, pen=gold_pen)
@@ -23771,6 +23802,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot1_fut_volume_curve.clear()
         self.plot1_call_volume_curve.clear()
         self.plot1_put_volume_curve.clear()
+        self.plot1_program_curve.clear()
+        self.plot1_kospi_total_curve.clear()
 
         for i in range(9):
             self.plot1_mv_line[i].setValue(0)
@@ -28767,8 +28800,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                                 
-                self.plot1_call_volume_curve.setData(df_call_information_graph['volume'].to_numpy())
-                self.plot1_put_volume_curve.setData(df_put_information_graph['volume'].to_numpy())
+                #self.plot1_call_volume_curve.setData(df_call_information_graph['volume'].to_numpy())
+                #self.plot1_put_volume_curve.setData(df_put_information_graph['volume'].to_numpy())
+                self.plot1_program_curve.setData(df_kp200_graph['program'].to_numpy())
+                self.plot1_kospi_total_curve.setData(df_kp200_graph['kospi_total'].to_numpy())
 
             elif comboindex1 == 7 and market_service:
                 
@@ -34990,8 +35025,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if szTrCode == 'BM_' or szTrCode == 'PM_' or szTrCode == 'NWS':
                 pass
             else:
-                systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])
-                realtime = int(tickdata['수신시간'][0:2]) * 3600 + int(tickdata['수신시간'][2:4]) * 60 + int(tickdata['수신시간'][4:6])
+                if len(tickdata['system_time']) == 5:
+                    systime = int(tickdata['system_time'][0:1]) * 3600 + int(tickdata['system_time'][1:3]) * 60 + int(tickdata['system_time'][3:5])
+                else:
+                    systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])
+                
+                if len(tickdata['수신시간']) == 5:
+                    realtime_hour = int(tickdata['수신시간'][0:1])
+                    realtime_min = int(tickdata['수신시간'][1:3])
+                    realtime_sec = int(tickdata['수신시간'][3:5])
+                else:
+                    realtime_hour = int(tickdata['수신시간'][0:2])
+                    realtime_min = int(tickdata['수신시간'][2:4])
+                    realtime_sec = int(tickdata['수신시간'][4:6])
+
+                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
                 time_gap = systime - system_server_time_gap - realtime
                 time_gap_abs = abs((systime - system_server_time_gap) - realtime)
@@ -35134,8 +35182,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             fourth_totalcount = 0
             ovc_tick_total_size = 0
 
-        systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])
-        realtime = int(tickdata['수신시간'][0:2]) * 3600 + int(tickdata['수신시간'][2:4]) * 60 + int(tickdata['수신시간'][4:6])
+        if len(tickdata['system_time']) == 5:
+            systime = int(tickdata['system_time'][0:1]) * 3600 + int(tickdata['system_time'][1:3]) * 60 + int(tickdata['system_time'][3:5])
+        else:
+            systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])
+        
+        if len(tickdata['수신시간']) == 5:
+            realtime_hour = int(tickdata['수신시간'][0:1])
+            realtime_min = int(tickdata['수신시간'][1:3])
+            realtime_sec = int(tickdata['수신시간'][3:5])
+        else:
+            realtime_hour = int(tickdata['수신시간'][0:2])
+            realtime_min = int(tickdata['수신시간'][2:4])
+            realtime_sec = int(tickdata['수신시간'][4:6])
+
+        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
         time_gap = systime - system_server_time_gap - realtime
         time_gap_abs = abs((systime - system_server_time_gap) - realtime)
@@ -35346,13 +35407,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             fourth_totalcount = 0
             ovc_tick_total_size = 0
 
-        #systime = dt.hour * 3600 + dt.minute * 60 + dt.second
-        systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])        
+        if len(tickdata['system_time']) == 5:
+            systime = int(tickdata['system_time'][0:1]) * 3600 + int(tickdata['system_time'][1:3]) * 60 + int(tickdata['system_time'][3:5])
+        else:
+            systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])        
         
         if szTrCode == 'EH0' and int(tickdata['수신시간'][0:2]) >= 24:                
             realtime = (int(tickdata['수신시간'][0:2]) - 24) * 3600 + int(tickdata['수신시간'][2:4]) * 60 + int(tickdata['수신시간'][4:6])                
-        else:                    
-            realtime = int(tickdata['수신시간'][0:2]) * 3600 + int(tickdata['수신시간'][2:4]) * 60 + int(tickdata['수신시간'][4:6])     
+        else:
+            if len(tickdata['수신시간']) == 5:
+                realtime = int(tickdata['수신시간'][0:1]) * 3600 + int(tickdata['수신시간'][1:3]) * 60 + int(tickdata['수신시간'][3:5]) 
+            else:                    
+                realtime = int(tickdata['수신시간'][0:2]) * 3600 + int(tickdata['수신시간'][2:4]) * 60 + int(tickdata['수신시간'][4:6])     
         
         time_gap = systime - system_server_time_gap - realtime
         time_gap_abs = abs((systime - system_server_time_gap) - realtime)
@@ -35510,10 +35576,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             fourth_totalcount = 0
             ovc_tick_total_size = 0
 
-        #systime = dt.hour * 3600 + dt.minute * 60 + dt.second
+        if len(tickdata['system_time']) == 5:
+            systime = int(tickdata['system_time'][0:1]) * 3600 + int(tickdata['system_time'][1:3]) * 60 + int(tickdata['system_time'][3:5])
+        else:
+            systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])
+        
+        if len(tickdata['수신시간']) == 5:
+            realtime_hour = int(tickdata['수신시간'][0:1])
+            realtime_min = int(tickdata['수신시간'][1:3])
+            realtime_sec = int(tickdata['수신시간'][3:5])
+        else:
+            realtime_hour = int(tickdata['수신시간'][0:2])
+            realtime_min = int(tickdata['수신시간'][2:4])
+            realtime_sec = int(tickdata['수신시간'][4:6])
 
-        systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])
-        realtime = int(tickdata['수신시간'][0:2]) * 3600 + int(tickdata['수신시간'][2:4]) * 60 + int(tickdata['수신시간'][4:6])
+        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
         time_gap = systime - system_server_time_gap - realtime
         time_gap_abs = abs((systime - system_server_time_gap) - realtime)
@@ -37332,6 +37409,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 프로그램_순매수, 프로그램_순매수직전대비
         global 선물_총순매수, 선물_총순매수_직전대비, 현물_총순매수, 현물_총순매수_직전대비
         global 수급방향, 과거_수급방향
+        global df_kp200_graph
 
         result = data
 
@@ -37366,6 +37444,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         temp = list(PROGRAM_직전대비)
 
         순매수 = format(프로그램_순매수, ',')
+
+        df_kp200_graph.at[ovc_x_idx, 'program'] = 프로그램_순매수
+        df_kp200_graph.at[ovc_x_idx, 'kospi_total'] = 현물_총순매수
 
         if min(temp) > 0:
 
@@ -37417,36 +37498,53 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             item = QTableWidgetItem(item_txt)
             item.setTextAlignment(Qt.AlignCenter)
 
-            if (기관선물_순매수 > 0 and 기관현물_순매수 < 0 and 외인선물_순매수 < 0 and 외인현물_순매수 > 0 and 프로그램_순매수 > 0 and 현물_총순매수 < 0):
-                수급방향 = 'Put1'
-                item.setBackground(QBrush(lightskyblue))
-                item.setForeground(QBrush(검정색))
-            elif (기관선물_순매수 > 0 and 기관현물_순매수 < 0 and 외인선물_순매수 < 0 and 외인현물_순매수 > 0 and 프로그램_순매수 < 0 and 현물_총순매수 < 0):                
-                수급방향 = 'Put2'
-                item.setBackground(QBrush(청색))
-                item.setForeground(QBrush(흰색))
-            elif (기관선물_순매수 < 0 and 기관현물_순매수 > 0 and 외인선물_순매수 > 0 and 외인현물_순매수 < 0 and 프로그램_순매수 < 0 and 현물_총순매수 > 0):                
-                수급방향 = 'Call1'
-                item.setBackground(QBrush(pink))
-                item.setForeground(QBrush(검정색))
-            elif (기관선물_순매수 < 0 and 기관현물_순매수 > 0 and 외인선물_순매수 > 0 and 외인현물_순매수 < 0 and 프로그램_순매수 > 0 and 현물_총순매수 > 0):                
-                수급방향 = 'Call2'
-                item.setBackground(QBrush(적색))
-                item.setForeground(QBrush(흰색))            
+            if 프로그램_순매수 > 0:
+
+                if 현물_총순매수 < 0:
+                    수급방향 = 'Call0'
+                    item.setBackground(QBrush(pink))
+                    item.setForeground(QBrush(blue))
+
+                if 현물_총순매수 > 0:
+                    수급방향 = 'Call1'
+                    item.setBackground(QBrush(pink))
+                    item.setForeground(QBrush(검정색))
+
+                if 현물_총순매수 > 0 and 기관선물_순매수 < 0 and 기관현물_순매수 > 0 and 외인선물_순매수 > 0 and 외인현물_순매수 < 0:
+                    수급방향 = 'Call2'
+                    item.setBackground(QBrush(적색))
+                    item.setForeground(QBrush(흰색)) 
+
+                if 현물_총순매수 > 0 and 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
+                    수급방향 = 'Call3'
+                    item.setBackground(QBrush(magenta))
+                    item.setForeground(QBrush(검정색))
+
+            elif 프로그램_순매수 < 0:
+
+                if 현물_총순매수 > 0:
+                    수급방향 = 'Put0'
+                    item.setBackground(QBrush(lightskyblue))
+                    item.setForeground(QBrush(red))
+
+                if 현물_총순매수 < 0:
+                    수급방향 = 'Put1'
+                    item.setBackground(QBrush(lightskyblue))
+                    item.setForeground(QBrush(검정색))
+
+                if 현물_총순매수 < 0 and 기관선물_순매수 > 0 and 기관현물_순매수 < 0 and 외인선물_순매수 < 0 and 외인현물_순매수 > 0:
+                    수급방향 = 'Put2'
+                    item.setBackground(QBrush(청색))
+                    item.setForeground(QBrush(흰색))
+
+                if 현물_총순매수 < 0 and 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
+                    수급방향 = 'Put3'
+                    item.setBackground(QBrush(cyan))
+                    item.setForeground(QBrush(검정색))
             else:
                 수급방향 = 'None'
                 item.setBackground(QBrush(흰색))
-                item.setForeground(QBrush(검정색))
-
-            if (외인선물_순매수 < 0 and 외인현물_순매수 < 0 and 프로그램_순매수 < 0 and 현물_총순매수 < 0):
-                수급방향 = 'Put3'
-                item.setBackground(QBrush(cyan))
-                item.setForeground(QBrush(검정색))
-
-            if (외인선물_순매수 > 0 and 외인현물_순매수 > 0 and 프로그램_순매수 > 0 and 현물_총순매수 > 0):
-                수급방향 = 'Call3'
-                item.setBackground(QBrush(magenta))
-                item.setForeground(QBrush(검정색))
+                item.setForeground(QBrush(검정색))                
 
             self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 7, item)
 
@@ -37455,12 +37553,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                 ToYourTelegram(send_txt)
 
-                if 수급방향 == 'Call1':
+                if 수급방향 == 'Call0':
+                    speak_txt = '수급은 콜 제로'
+                elif 수급방향 == 'Call1':
                     speak_txt = '수급은 콜 원'
                 elif 수급방향 == 'Call2':
                     speak_txt = '수급은 콜 투'
                 elif 수급방향 == 'Call3':
                     speak_txt = '수급은 콜 쓰리'
+                elif 수급방향 == 'Put0':
+                    speak_txt = '수급은 풋 제로'
                 elif 수급방향 == 'Put1':
                     speak_txt = '수급은 풋 원'
                 elif 수급방향 == 'Put2':
