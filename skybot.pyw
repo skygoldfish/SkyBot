@@ -28778,7 +28778,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex1 == 4 and market_service:
 
-                txt = " {0:.0f} ".format(df_put_information_graph.at[ovc_x_idx, 'volume'])
+                #txt = " {0:.0f} ".format(df_put_information_graph.at[ovc_x_idx, 'volume'])                
+
+                txt = " {0:.0f} ".format(df_kp200_graph.at[ovc_x_idx, 'program'])
+
+                if df_kp200_graph.at[ovc_x_idx, 'program'] <= 0:
+                    self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_16.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
                 self.label_16.setText(txt)
 
                 txt = " {0:.0f} ".format(fut_cm_volume_power)
@@ -28790,7 +28798,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_17.setText(txt)
                 
-                txt = " {0:.0f} ".format(df_call_information_graph.at[ovc_x_idx, 'volume'])
+                #txt = " {0:.0f} ".format(df_call_information_graph.at[ovc_x_idx, 'volume'])
+                
+                txt = " {0:.0f} ".format(df_kp200_graph.at[ovc_x_idx, 'kospi_total'])
+
+                if df_kp200_graph.at[ovc_x_idx, 'kospi_total'] <= 0:
+                    self.label_18.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    
                 self.label_18.setText(txt)
                 
                 self.plot1_time_line.setValue(ovc_x_idx)
