@@ -1266,6 +1266,7 @@ df_nm_put = pd.DataFrame()
 # 그래프를 위한 데이타프레임
 df_kp200_graph = pd.DataFrame()
 df_futures_graph = pd.DataFrame()
+df_supply_demand_graph = pd.DataFrame()
 
 df_call_graph = [pd.DataFrame()] * ActvalCount
 df_call_information_graph = pd.DataFrame()
@@ -15048,7 +15049,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 선물_전일종가
         global CENTER_VAL, CENTER_VAL_PLUS5, CENTER_VAL_PLUS4, CENTER_VAL_PLUS3, CENTER_VAL_PLUS2, CENTER_VAL_PLUS1, CENTER_VAL_MINUS1, CENTER_VAL_MINUS2, CENTER_VAL_MINUS3, CENTER_VAL_MINUS4, CENTER_VAL_MINUS5
 
-        global df_futures_graph, df_kp200_graph
+        global df_futures_graph, df_kp200_graph, df_supply_demand_graph
         global t8416_call_count, t8416_put_count
         global ui_start_time
         global df_fut_t8416
@@ -15311,8 +15312,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_futures_graph.at[0, 'kp200'] = self.fut_realdata['KP200']
                 df_futures_graph.at[0, 'price'] = self.fut_realdata['종가']
                 df_kp200_graph.at[0, 'price'] = self.fut_realdata['KP200']
-                df_kp200_graph.at[0, 'program'] = 0
-                df_kp200_graph.at[0, 'kospi_total'] = 0
+                df_supply_demand_graph.at[0, 'program'] = 0
+                df_supply_demand_graph.at[0, 'kospi_total'] = 0
 
                 if self.fut_realdata['시가'] > 0:
                     df_futures_graph.at[GuardTime + 1, 'open'] = self.fut_realdata['시가']
@@ -17032,8 +17033,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_futures_graph.at[0, 'kp200'] = KP200_전일종가
                 df_kp200_graph.at[0, 'price'] = KP200_전일종가
-                df_kp200_graph.at[0, 'program'] = 0
-                df_kp200_graph.at[0, 'kospi_total'] = 0
+                df_supply_demand_graph.at[0, 'program'] = 0
+                df_supply_demand_graph.at[0, 'kospi_total'] = 0
 
                 # 주간 현재가가 야간 종가임
                 df_futures_graph.at[0, 'price'] = self.fut_realdata['현재가']
@@ -20028,7 +20029,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_call_information_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'volume', 'open_interest', 'ms_quote', 'md_quote', 'quote_remainder_ratio', 'drate', 'centerval'])
             df_put_information_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'volume', 'open_interest', 'ms_quote', 'md_quote', 'quote_remainder_ratio', 'drate', 'yanghap'])
 
-            df_kp200_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'program', 'kospi_total'])
+            df_kp200_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle'])
+            df_supply_demand_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'program', 'kospi_total'])
             df_futures_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'kp200', \
                 'c_ms_quote', 'c_md_quote', 'c_quote_remainder_ratio', 'n_ms_quote', 'n_md_quote', 'n_quote_remainder_ratio', \
                     'drate', 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', \
@@ -22237,7 +22239,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_68.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_68.setText(" 고가 ")
 
-        self.comboBox1.addItems(['Clear', '선물가격', '선물잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', 'Reserved'])
+        self.comboBox1.addItems(['Clear', '선물가격', '선물잔량비', '수급', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', 'Reserved'])
         self.comboBox1.insertSeparator(1)
         self.comboBox1.insertSeparator(5)
         self.comboBox1.insertSeparator(9)
@@ -23943,7 +23945,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot1_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot1_quote_remainder_ratio_bottom_line.setValue(0.1)
 
-        # 선옵체결
+        # 선옵체결 --> 수급
         elif comboindex1 == 4:
 
             self.plot1_clear()
@@ -23955,12 +23957,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_15.setText(" - ")
 
             self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_16.setText(" 풋체결량 ")
+            self.label_16.setText(" 프로그램 ")
 
             self.label_17.setText(" 선물체결량 ")
 
             self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_18.setText(" 콜체결량 ")
+            self.label_18.setText(" 현물합 ")
             
             self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p1_2.setText(" BB Middle\n PSAR ")
@@ -28780,9 +28782,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 #txt = " {0:.0f} ".format(df_put_information_graph.at[ovc_x_idx, 'volume'])                
 
-                txt = " {0:.0f} ".format(df_kp200_graph.at[ovc_x_idx, 'program'])
+                txt = " {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'program'])
 
-                if df_kp200_graph.at[ovc_x_idx, 'program'] <= 0:
+                if df_supply_demand_graph.at[ovc_x_idx, 'program'] <= 0:
                     self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_16.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -28800,9 +28802,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 #txt = " {0:.0f} ".format(df_call_information_graph.at[ovc_x_idx, 'volume'])
                 
-                txt = " {0:.0f} ".format(df_kp200_graph.at[ovc_x_idx, 'kospi_total'])
+                txt = " {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'])
 
-                if df_kp200_graph.at[ovc_x_idx, 'kospi_total'] <= 0:
+                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'] <= 0:
                     self.label_18.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -28818,8 +28820,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                                 
                 #self.plot1_call_volume_curve.setData(df_call_information_graph['volume'].to_numpy())
                 #self.plot1_put_volume_curve.setData(df_put_information_graph['volume'].to_numpy())
-                self.plot1_program_curve.setData(df_kp200_graph['program'].to_numpy())
-                self.plot1_kospi_total_curve.setData(df_kp200_graph['kospi_total'].to_numpy())
+                self.plot1_program_curve.setData(df_supply_demand_graph['program'].to_numpy())
+                self.plot1_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'].to_numpy())
 
             elif comboindex1 == 7 and market_service:
                 
@@ -37425,7 +37427,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 프로그램_순매수, 프로그램_순매수직전대비
         global 선물_총순매수, 선물_총순매수_직전대비, 현물_총순매수, 현물_총순매수_직전대비
         global 수급방향, 과거_수급방향
-        global df_kp200_graph
+        global df_supply_demand_graph
 
         result = data
 
@@ -37461,8 +37463,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         순매수 = format(프로그램_순매수, ',')
 
-        df_kp200_graph.at[ovc_x_idx, 'program'] = 프로그램_순매수
-        df_kp200_graph.at[ovc_x_idx, 'kospi_total'] = 현물_총순매수
+        df_supply_demand_graph.at[ovc_x_idx, 'program'] = 프로그램_순매수
+        df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'] = 현물_총순매수
 
         if min(temp) > 0:
 
