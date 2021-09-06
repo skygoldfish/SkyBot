@@ -3264,6 +3264,9 @@ class RealTime_Option_Quote_MP_DataWorker(QThread):
                                 realtime_hour = int(tickdata['수신시간'][0:2]) - 24
                             else:                            
                                 realtime_hour = int(tickdata['수신시간'][0:2])
+                                
+                            realtime_min = int(tickdata['수신시간'][2:4])
+                            realtime_sec = int(tickdata['수신시간'][4:6])
                         else:
                             pass                        
 
