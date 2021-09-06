@@ -37545,7 +37545,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if 현물_총순매수 < 0:
                     수급방향 = 'Call0'
                     item.setBackground(QBrush(pink))
-                    item.setForeground(QBrush(black))
+                    item.setForeground(QBrush(검정색))
 
                 if 현물_총순매수 > 0:
                     수급방향 = 'Call1'
@@ -37567,7 +37567,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if 현물_총순매수 > 0:
                     수급방향 = 'Put0'
                     item.setBackground(QBrush(lightskyblue))
-                    item.setForeground(QBrush(black))
+                    item.setForeground(QBrush(검정색))
 
                 if 현물_총순매수 < 0:
                     수급방향 = 'Put1'
