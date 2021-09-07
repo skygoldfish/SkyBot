@@ -6994,6 +6994,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 등가변경됨 : {3} -> {4}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, old_atm_txt, atm_txt)
             self.textBrowser.append(txt)
+
+            winsound.PlaySound('Resources/doorbell.wav', winsound.SND_FILENAME)
         else:
             pass
 
