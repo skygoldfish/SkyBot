@@ -4364,7 +4364,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         elif TARGET_MONTH == 'NM':
 
-            for i in range(len(selected_call)):
+            for i in range(len(selected_put)):
                 print('NM put code =', NM_PUT_CODE[selected_put[i]])
         else:
             pass
@@ -6957,6 +6957,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global basis
         global atm_txt, ATM_INDEX, old_atm_index, call_atm_value, put_atm_value 
         global atm_zero_sum, atm_zero_cha
+        global selected_call, selected_put, flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
         
         global CENTER_VAL, df_call_information_graph 
 
@@ -6986,6 +6987,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             selected_call = [ATM_INDEX]
             selected_put = [ATM_INDEX]
+
+            flag_calltable_checkstate_changed = True
+            flag_puttable_checkstate_changed = True
         else:
             pass
 
