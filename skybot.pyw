@@ -6965,6 +6965,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         # 등가 check & coloring        
         old_atm_index = ATM_INDEX
+        old_atm_txt = atm_txt
 
         atm_txt = self.get_atm_txt(self.fut_realdata['KP200'])
         ATM_INDEX = opt_actval.index(atm_txt)
@@ -6990,6 +6991,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             flag_calltable_checkstate_changed = True
             flag_puttable_checkstate_changed = True
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 등가변경됨 : {3} -> {4}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, old_atm_txt, atm_txt)
+            self.textBrowser.append(txt)
         else:
             pass
 
