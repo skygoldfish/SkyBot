@@ -28665,16 +28665,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.plot_x_idx = SERVER_SEC
 
-            if 수급방향 == 'Call0':
-                self.label_time_1.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call1':
+            if 수급방향 == 'Call1':
                 self.label_time_1.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             elif 수급방향 == 'Call2':
                 self.label_time_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
             elif 수급방향 == 'Call3':
                 self.label_time_1.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put0':
-                self.label_time_1.setStyleSheet('background-color: lightskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             elif 수급방향 == 'Put1':
                 self.label_time_1.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             elif 수급방향 == 'Put2':
@@ -29595,16 +29591,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if OVC_체결시간 == '000000':
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
         else:
-            if 수급방향 == 'Call0':
-                self.label_time_2.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call1':
+            if 수급방향 == 'Call1':
                 self.label_time_2.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             elif 수급방향 == 'Call2':
                 self.label_time_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
             elif 수급방향 == 'Call3':
                 self.label_time_2.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put0':
-                self.label_time_2.setStyleSheet('background-color: lightskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             elif 수급방향 == 'Put1':
                 self.label_time_2.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             elif 수급방향 == 'Put2':
@@ -30532,16 +30524,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if OVC_체결시간 == '000000':
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
         else:
-            if 수급방향 == 'Call0':
-                self.label_time_3.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call1':
+            if 수급방향 == 'Call1':
                 self.label_time_3.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             elif 수급방향 == 'Call2':
                 self.label_time_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
             elif 수급방향 == 'Call3':
                 self.label_time_3.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put0':
-                self.label_time_3.setStyleSheet('background-color: lightskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             elif 수급방향 == 'Put1':
                 self.label_time_3.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             elif 수급방향 == 'Put2':
@@ -31463,16 +31451,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if OVC_체결시간 == '000000':
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
         else:
-            if 수급방향 == 'Call0':
-                self.label_time_4.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call1':
+            if 수급방향 == 'Call1':
                 self.label_time_4.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             elif 수급방향 == 'Call2':
                 self.label_time_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
             elif 수급방향 == 'Call3':
                 self.label_time_4.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put0':
-                self.label_time_4.setStyleSheet('background-color: lightskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             elif 수급방향 == 'Put1':
                 self.label_time_4.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             elif 수급방향 == 'Put2':
@@ -32378,16 +32362,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if OVC_체결시간 == '000000':
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
         else:
-            if 수급방향 == 'Call0':
-                self.label_time_5.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call1':
+            if 수급방향 == 'Call1':
                 self.label_time_5.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             elif 수급방향 == 'Call2':
                 self.label_time_5.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
             elif 수급방향 == 'Call3':
                 self.label_time_5.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put0':
-                self.label_time_5.setStyleSheet('background-color: lightskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             elif 수급방향 == 'Put1':
                 self.label_time_5.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             elif 수급방향 == 'Put2':
@@ -33308,16 +33288,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if OVC_체결시간 == '000000':
             txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
         else:
-            if 수급방향 == 'Call0':
-                self.label_time_6.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call1':
+            if 수급방향 == 'Call1':
                 self.label_time_6.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             elif 수급방향 == 'Call2':
                 self.label_time_6.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
             elif 수급방향 == 'Call3':
                 self.label_time_6.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put0':
-                self.label_time_6.setStyleSheet('background-color: lightskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             elif 수급방향 == 'Put1':
                 self.label_time_6.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             elif 수급방향 == 'Put2':
@@ -37457,12 +37433,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             item.setForeground(QBrush(검정색))
             self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 3, item)
         else:
-            pass        
+            pass
+
+        선물_총순매수_직전대비 = FUT_FOREIGNER_거래대금순매수_직전대비 + FUT_RETAIL_거래대금순매수_직전대비 + \
+                          FUT_INSTITUTIONAL_거래대금순매수_직전대비 + FUT_STOCK_거래대금순매수_직전대비 + \
+                          FUT_BOHEOM_거래대금순매수_직전대비 + FUT_TOOSIN_거래대금순매수_직전대비 + FUT_BANK_거래대금순매수_직전대비 + \
+                          FUT_JONGGEUM_거래대금순매수_직전대비 + FUT_GIGEUM_거래대금순매수_직전대비 + \
+                          FUT_GITA_거래대금순매수_직전대비
+
+        현물_총순매수_직전대비 = KOSPI_FOREIGNER_거래대금순매수_직전대비 + KOSPI_RETAIL_거래대금순매수_직전대비 + \
+                          KOSPI_INSTITUTIONAL_거래대금순매수_직전대비 + KOSPI_STOCK_거래대금순매수_직전대비 + \
+                          KOSPI_BOHEOM_거래대금순매수_직전대비 + KOSPI_TOOSIN_거래대금순매수_직전대비 + KOSPI_BANK_거래대금순매수_직전대비 + \
+                          KOSPI_JONGGEUM_거래대금순매수_직전대비 + KOSPI_GIGEUM_거래대금순매수_직전대비 + \
+                          KOSPI_GITA_거래대금순매수_직전대비 + 프로그램_순매수직전대비        
 
     def pm_update(self, data):
 
         global 프로그램_순매수, 프로그램_순매수직전대비
-        global 선물_총순매수, 선물_총순매수_직전대비, 현물_총순매수, 현물_총순매수_직전대비
+        global 선물_총순매수, 현물_총순매수
         global 수급방향, 과거_수급방향
         global df_supply_demand_graph
 
@@ -37473,27 +37461,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         프로그램_순매수 = int(int(result['전체순매수금액합계']) / 100)
         프로그램_순매수직전대비 = int(int(result['전체순매수금액직전대비']) / 100)
         
-        선물_총순매수 = 외인선물_순매수 + 개인선물_순매수 + \
-                     FUT_INSTITUTIONAL_거래대금순매수 + FUT_STOCK_거래대금순매수 + FUT_BOHEOM_거래대금순매수 + \
-                     FUT_TOOSIN_거래대금순매수 + FUT_BANK_거래대금순매수 + FUT_JONGGEUM_거래대금순매수 + \
-                     FUT_GIGEUM_거래대금순매수 + FUT_GITA_거래대금순매수
-
-        선물_총순매수_직전대비 = FUT_FOREIGNER_거래대금순매수_직전대비 + FUT_RETAIL_거래대금순매수_직전대비 + \
-                          FUT_INSTITUTIONAL_거래대금순매수_직전대비 + FUT_STOCK_거래대금순매수_직전대비 + \
-                          FUT_BOHEOM_거래대금순매수_직전대비 + FUT_TOOSIN_거래대금순매수_직전대비 + FUT_BANK_거래대금순매수_직전대비 + \
-                          FUT_JONGGEUM_거래대금순매수_직전대비 + FUT_GIGEUM_거래대금순매수_직전대비 + \
-                          FUT_GITA_거래대금순매수_직전대비
-
-        현물_총순매수 = 외인현물_순매수 + 개인현물_순매수 + \
-                     KOSPI_INSTITUTIONAL_거래대금순매수 + KOSPI_STOCK_거래대금순매수 + KOSPI_BOHEOM_거래대금순매수 + \
-                     KOSPI_TOOSIN_거래대금순매수 + KOSPI_BANK_거래대금순매수 + KOSPI_JONGGEUM_거래대금순매수 + \
-                     KOSPI_GIGEUM_거래대금순매수 + KOSPI_GITA_거래대금순매수 + 프로그램_순매수
-
-        현물_총순매수_직전대비 = KOSPI_FOREIGNER_거래대금순매수_직전대비 + KOSPI_RETAIL_거래대금순매수_직전대비 + \
-                          KOSPI_INSTITUTIONAL_거래대금순매수_직전대비 + KOSPI_STOCK_거래대금순매수_직전대비 + \
-                          KOSPI_BOHEOM_거래대금순매수_직전대비 + KOSPI_TOOSIN_거래대금순매수_직전대비 + KOSPI_BANK_거래대금순매수_직전대비 + \
-                          KOSPI_JONGGEUM_거래대금순매수_직전대비 + KOSPI_GIGEUM_거래대금순매수_직전대비 + \
-                          KOSPI_GITA_거래대금순매수_직전대비 + 프로그램_순매수직전대비
+        선물_총순매수 = 외인선물_순매수 + 개인선물_순매수 + 기관선물_순매수
+        현물_총순매수 = 외인현물_순매수 + 개인현물_순매수 + 기관현물_순매수
         
         PROGRAM_직전대비.extend([프로그램_순매수직전대비])
         temp = list(PROGRAM_직전대비)
@@ -37553,53 +37522,53 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             item = QTableWidgetItem(item_txt)
             item.setTextAlignment(Qt.AlignCenter)
 
-            if 프로그램_순매수 > 0:
+            수급방향 = 'None'
+            item.setBackground(QBrush(흰색))
+            item.setForeground(QBrush(검정색))
 
-                if 현물_총순매수 < 0:
-                    수급방향 = 'Call0'
-                    item.setBackground(QBrush(pink))
+            if 프로그램_순매수 > 0 and 현물_총순매수 > 0:
+                
+                수급방향 = 'Call1'
+                item.setBackground(QBrush(chocolate))
+                item.setForeground(QBrush(검정색))
+
+                if 외인선물_순매수 < 0 and 기관현물_순매수 < 0:
+                    수급방향 = 'C-None'
+                    item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
 
-                if 현물_총순매수 > 0:
-                    수급방향 = 'Call1'
-                    item.setBackground(QBrush(chocolate))
-                    item.setForeground(QBrush(검정색))
-
-                if 현물_총순매수 > 0 and 기관선물_순매수 < 0 and 기관현물_순매수 > 0 and 외인선물_순매수 > 0 and 외인현물_순매수 < 0:
+                if 기관선물_순매수 < 0 and 기관현물_순매수 > 0 and 외인선물_순매수 > 0 and 외인현물_순매수 < 0:
                     수급방향 = 'Call2'
                     item.setBackground(QBrush(적색))
                     item.setForeground(QBrush(흰색)) 
 
-                if 현물_총순매수 > 0 and 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
+                if 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
                     수급방향 = 'Call3'
                     item.setBackground(QBrush(magenta))
                     item.setForeground(QBrush(검정색))
 
-            elif 프로그램_순매수 < 0:
+            elif 프로그램_순매수 < 0 and 현물_총순매수 < 0:
+                
+                수급방향 = 'Put1'
+                item.setBackground(QBrush(deepskyblue))
+                item.setForeground(QBrush(검정색))
 
-                if 현물_총순매수 > 0:
-                    수급방향 = 'Put0'
-                    item.setBackground(QBrush(lightskyblue))
+                if 외인선물_순매수 > 0 and 기관현물_순매수 > 0:
+                    수급방향 = 'P-None'
+                    item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
 
-                if 현물_총순매수 < 0:
-                    수급방향 = 'Put1'
-                    item.setBackground(QBrush(deepskyblue))
-                    item.setForeground(QBrush(검정색))
-
-                if 현물_총순매수 < 0 and 기관선물_순매수 > 0 and 기관현물_순매수 < 0 and 외인선물_순매수 < 0 and 외인현물_순매수 > 0:
+                if 기관선물_순매수 > 0 and 기관현물_순매수 < 0 and 외인선물_순매수 < 0 and 외인현물_순매수 > 0:
                     수급방향 = 'Put2'
                     item.setBackground(QBrush(청색))
                     item.setForeground(QBrush(흰색))
 
-                if 현물_총순매수 < 0 and 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
+                if 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
                     수급방향 = 'Put3'
                     item.setBackground(QBrush(cyan))
                     item.setForeground(QBrush(검정색))
             else:
-                수급방향 = 'None'
-                item.setBackground(QBrush(흰색))
-                item.setForeground(QBrush(검정색))                
+                pass                
 
             self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 7, item)
 
@@ -37608,16 +37577,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                 ToYourTelegram(send_txt)
 
-                if 수급방향 == 'Call0':
-                    speak_txt = '수급은 콜 제로'
-                elif 수급방향 == 'Call1':
+                if 수급방향 == 'Call1':
                     speak_txt = '수급은 콜 원'
                 elif 수급방향 == 'Call2':
                     speak_txt = '수급은 콜 투'
                 elif 수급방향 == 'Call3':
                     speak_txt = '수급은 콜 쓰리'
-                elif 수급방향 == 'Put0':
-                    speak_txt = '수급은 풋 제로'
                 elif 수급방향 == 'Put1':
                     speak_txt = '수급은 풋 원'
                 elif 수급방향 == 'Put2':
