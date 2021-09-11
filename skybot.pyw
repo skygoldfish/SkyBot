@@ -1480,6 +1480,7 @@ OC0_풋현재가 = ''
 
 콜건수비 = 0
 콜잔량비 = 0
+잔량비차 = 0
 
 풋건수비 = 0
 풋잔량비 = 0
@@ -34408,6 +34409,21 @@ class Xing(object):
                             ToYourTelegram(send_txt)
                         else:
                             pass
+
+                        if not pre_start and 잔량비차 > 5.0:
+
+                            if 콜잔량비 > 풋잔량비:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♣ CM 잔량비 콜우세 {3}:{4} ♣\r".format(dt.hour, dt.minute, dt.second, 콜잔량비, 풋잔량비)
+                                self.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+                                ToYourTelegram(send_txt)
+                            elif 콜잔량비 < 풋잔량비:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♣ CM 잔량비 풋우세 {3}:{4} ♣\r".format(dt.hour, dt.minute, dt.second, 콜잔량비, 풋잔량비)
+                                self.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+                                ToYourTelegram(send_txt)
+                            else:
+                                pass
+                        else:
+                            pass
                     else:
                         pass
 
@@ -34427,6 +34443,21 @@ class Xing(object):
                         if send_txt != '':
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                             ToYourTelegram(send_txt)
+                        else:
+                            pass
+
+                        if not pre_start and 잔량비차 > 5.0:
+
+                            if 콜잔량비 > 풋잔량비:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♣ CM 잔량비 콜우세 {3}:{4} ♣\r".format(dt.hour, dt.minute, dt.second, 콜잔량비, 풋잔량비)
+                                self.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+                                ToYourTelegram(send_txt)
+                            elif 콜잔량비 < 풋잔량비:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♣ CM 잔량비 풋우세 {3}:{4} ♣\r".format(dt.hour, dt.minute, dt.second, 콜잔량비, 풋잔량비)
+                                self.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+                                ToYourTelegram(send_txt)
+                            else:
+                                pass
                         else:
                             pass
                     else:
@@ -38262,6 +38293,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global df_call_quote, df_put_quote, 콜잔량비, 풋잔량비, call_remainder_ratio, put_remainder_ratio
         global df_call_information_graph, df_put_information_graph
         global flag_telegram_send_start, flag_telegram_listen_start
+        global 잔량비차
 
         result = data
 
@@ -38313,23 +38345,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if True:
-
-            if NightTime:
-                df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
-                df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비
-            else:
-                if 콜잔량비 > 5.0:
-                    df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
-                else:
-                    df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
-
-                if 풋잔량비 > 5.0:
-                    df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
-                else:
-                    df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비
+        if NightTime:
+            df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
+            df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비
         else:
-            pass               
+            if 콜잔량비 > 5.0:
+                df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
+            else:
+                df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
+
+            if 풋잔량비 > 5.0:
+                df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
+            else:
+                df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비
+
+        잔량비차 = abs(콜잔량비 - 풋잔량비)
 
         # 야간선물이 없어짐에 따른 텔레그램 기동 대응
         '''
