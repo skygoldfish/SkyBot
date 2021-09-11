@@ -1850,9 +1850,9 @@ fut_mama_symbol = ''
 Fibonacci_Ratio = [0.382, 0.5, 0.618, 0.707, 0.786, 0.886]
 
 fut_quote_count_ratio = 0
-fut_quote_remainder_ratio = 0
+선물_본월물_호가_잔량비 = 0
 fut_cms_quote_count_ratio = 0
-fut_cms_quote_remainder_ratio = 0
+선물_차월물_호가_잔량비 = 0
 fut_ccms_quote_count_ratio = 0
 fut_ccms_quote_remainder_ratio = 0
 
@@ -28771,8 +28771,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_16.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    fut_quote_remainder_ratio, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
-                    fut_cms_quote_remainder_ratio, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
+                    선물_본월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
+                    선물_차월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
                     fut_ccms_quote_remainder_ratio)
 
                 if fut_quote_energy_direction == 'call':
@@ -29824,8 +29824,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_26.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    fut_quote_remainder_ratio, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
-                    fut_cms_quote_remainder_ratio, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
+                    선물_본월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
+                    선물_차월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
                     fut_ccms_quote_remainder_ratio)
 
                 if fut_quote_energy_direction == 'call':
@@ -30757,8 +30757,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_36.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    fut_quote_remainder_ratio, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
-                    fut_cms_quote_remainder_ratio, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
+                    선물_본월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
+                    선물_차월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
                     fut_ccms_quote_remainder_ratio)
 
                 if fut_quote_energy_direction == 'call':
@@ -31560,8 +31560,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_46.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    fut_quote_remainder_ratio, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
-                    fut_cms_quote_remainder_ratio, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
+                    선물_본월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
+                    선물_차월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
                     fut_ccms_quote_remainder_ratio)
 
                 if fut_quote_energy_direction == 'call':
@@ -32595,8 +32595,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_56.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    fut_quote_remainder_ratio, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
-                    fut_cms_quote_remainder_ratio, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
+                    선물_본월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
+                    선물_차월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
                     fut_ccms_quote_remainder_ratio)
 
                 if fut_quote_energy_direction == 'call':
@@ -33521,8 +33521,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_66.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    fut_quote_remainder_ratio, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
-                    fut_cms_quote_remainder_ratio, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
+                    선물_본월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
+                    선물_차월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
                     fut_ccms_quote_remainder_ratio)
 
                 if fut_quote_energy_direction == 'call':
@@ -37811,8 +37811,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def fh0_update(self, data):
 
         global market_service, 선물_호가순매수
-        global df_futures_graph, fut_quote_count_ratio, fut_quote_remainder_ratio, cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max
-        global fut_cms_quote_count_ratio, fut_cms_quote_remainder_ratio, nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max
+        global df_futures_graph, fut_quote_count_ratio, 선물_본월물_호가_잔량비, cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max
+        global fut_cms_quote_count_ratio, 선물_차월물_호가_잔량비, nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max
         global fut_ccms_quote_count_ratio, fut_ccms_quote_remainder_ratio, fut_quote_energy_direction
         global quote_count_ratio, quote_remainder_ratio
 
@@ -37838,8 +37838,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if int(result['매수호가총수량']) > 0 and int(result['매도호가총수량']) > 0:
 
-                fut_quote_remainder_ratio = int(result['매수호가총수량']) / int(result['매도호가총수량'])
-                df_futures_graph.at[ovc_x_idx, 'c_quote_remainder_ratio'] = fut_quote_remainder_ratio
+                선물_본월물_호가_잔량비 = int(result['매수호가총수량']) / int(result['매도호가총수량'])
+                df_futures_graph.at[ovc_x_idx, 'c_quote_remainder_ratio'] = 선물_본월물_호가_잔량비
 
                 cm_fut_quote_min = df_futures_graph['c_quote_remainder_ratio'].min()
                 cm_fut_quote_mean = df_futures_graph['c_quote_remainder_ratio'].mean()
@@ -37911,8 +37911,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if int(result['매수호가총수량']) > 0 and int(result['매도호가총수량']) > 0:
 
-                fut_cms_quote_remainder_ratio = int(result['매수호가총수량']) / int(result['매도호가총수량'])
-                df_futures_graph.at[ovc_x_idx, 'n_quote_remainder_ratio'] = fut_cms_quote_remainder_ratio
+                선물_차월물_호가_잔량비 = int(result['매수호가총수량']) / int(result['매도호가총수량'])
+                df_futures_graph.at[ovc_x_idx, 'n_quote_remainder_ratio'] = 선물_차월물_호가_잔량비
 
                 nm_fut_quote_min = df_futures_graph['n_quote_remainder_ratio'].min()
                 nm_fut_quote_mean = df_futures_graph['n_quote_remainder_ratio'].mean()
@@ -38013,7 +38013,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 에너지방향
         if DayTime and CM_FUT_QUOTE and NM_FUT_QUOTE:
 
-            if fut_cms_quote_remainder_ratio > fut_quote_remainder_ratio:
+            if 선물_차월물_호가_잔량비 > 선물_본월물_호가_잔량비:
 
                 fut_quote_energy_direction = 'call'
 
@@ -38024,7 +38024,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.dialog['선물옵션전광판'].tableWidget_fut.item(1, 0).setBackground(QBrush(적색))
                     self.dialog['선물옵션전광판'].tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
 
-            elif fut_cms_quote_remainder_ratio < fut_quote_remainder_ratio:
+            elif 선물_차월물_호가_잔량비 < 선물_본월물_호가_잔량비:
 
                 fut_quote_energy_direction = 'put'
 
@@ -38057,7 +38057,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnToContents(Futures_column.건수비.value)
 
         # 잔량비 표시
-        item = QTableWidgetItem("{0:.2f}\n({1:.2f})".format(fut_quote_remainder_ratio, fut_cms_quote_remainder_ratio))                
+        item = QTableWidgetItem("{0:.2f}\n({1:.2f})".format(선물_본월물_호가_잔량비, 선물_차월물_호가_잔량비))                
         item.setTextAlignment(Qt.AlignCenter)
 
         if NightTime:
@@ -38069,10 +38069,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         if TARGET_MONTH == 'CM':
             quote_count_ratio = fut_quote_count_ratio
-            quote_remainder_ratio = fut_quote_remainder_ratio
+            quote_remainder_ratio = 선물_본월물_호가_잔량비
         elif TARGET_MONTH == 'NM':
             quote_count_ratio = fut_cms_quote_count_ratio
-            quote_remainder_ratio = fut_cms_quote_remainder_ratio
+            quote_remainder_ratio = 선물_차월물_호가_잔량비
         else:
             pass
 
