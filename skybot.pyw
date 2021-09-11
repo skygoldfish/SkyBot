@@ -34449,11 +34449,11 @@ class Xing(object):
                         if not pre_start and 잔량비차 > 5.0:
 
                             if 콜잔량비 > 풋잔량비:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♣ CM 잔량비 콜우세 {3}:{4} ♣\r".format(dt.hour, dt.minute, dt.second, 콜잔량비, 풋잔량비)
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♣ NM 잔량비 콜우세 {3}:{4} ♣\r".format(dt.hour, dt.minute, dt.second, 콜잔량비, 풋잔량비)
                                 self.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                                 ToYourTelegram(send_txt)
                             elif 콜잔량비 < 풋잔량비:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♣ CM 잔량비 풋우세 {3}:{4} ♣\r".format(dt.hour, dt.minute, dt.second, 콜잔량비, 풋잔량비)
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♣ NM 잔량비 풋우세 {3}:{4} ♣\r".format(dt.hour, dt.minute, dt.second, 콜잔량비, 풋잔량비)
                                 self.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                                 ToYourTelegram(send_txt)
                             else:
