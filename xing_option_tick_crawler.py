@@ -109,13 +109,17 @@ def option_tick_crawler(queue: Queue, tick_request_number=100, index_option_cm_t
             for i in range(tick_request_number):
                 cm_put_atm_list.append(cm_put_code_list[cm_put_atm_index+i+1])
 
-            cm_opt_tick_list = cm_call_atm_list + cm_put_atm_list
-
-            cm_opt_tick_cmd = []
-            cm_opt_tick_cmd.append('tick')
-            cm_opt_tick = cm_opt_tick_cmd + cm_opt_tick_list
+            cm_opt_tick_list = cm_call_atm_list + cm_put_atm_list            
         else:
             pass
+
+        cm_opt_tick_cmd = []
+        cm_opt_tick_cmd.append('tick')
+
+        if tick_request_number != 100:
+            cm_opt_tick = cm_opt_tick_cmd + cm_opt_tick_list
+        else:
+            cm_opt_tick = cm_opt_tick_cmd + cm_code_list
 
         # 체결
         if index_option_cm_tick:
@@ -129,11 +133,11 @@ def option_tick_crawler(queue: Queue, tick_request_number=100, index_option_cm_t
 
             print('본월물 실시간 체결요청...')
             real_time_index_option_tick = RealTimeIndexOptionTick(queue=queue)
+            queue.put(cm_opt_tick)
 
             if tick_request_number == 100:
                 real_time_index_option_tick.set_code_list(cm_code_list, field="optcode")
-            else:
-                queue.put(cm_opt_tick)
+            else:                
                 real_time_index_option_tick.set_code_list(cm_opt_tick_list, field="optcode")
 
         if index_option_nm_tick:

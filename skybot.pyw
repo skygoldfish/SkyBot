@@ -39900,7 +39900,10 @@ if __name__ == "__main__":
         if OPTION_TICK_REQUEST:
             option_tickQ = mp.Queue()
 
-            tick_request_number = OPTION_TICK_REQUEST_NUMBER
+            if NightTime:
+                tick_request_number = 100
+            else:
+                tick_request_number = OPTION_TICK_REQUEST_NUMBER
 
             if TARGET_MONTH == 'CM':
 
