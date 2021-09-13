@@ -39940,7 +39940,7 @@ if __name__ == "__main__":
                 INDEX_OPTION_NM_QUOTE = False
 
             if NightTime:
-                quote_request_number = OPTION_QUOTE_REQUEST_NUMBER * 7
+                quote_request_number = OPTION_QUOTE_REQUEST_NUMBER
             else:
                 quote_request_number = OPTION_QUOTE_REQUEST_NUMBER
 
