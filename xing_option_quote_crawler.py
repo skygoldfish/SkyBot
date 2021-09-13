@@ -47,7 +47,7 @@ else:
     is_real_server = False
     config = {"id": ID, "password": PWD, "cert_password": "0"}
 
-def option_quote_crawler(queue: Queue, quote_request_number=5, index_option_cm_quote=False, index_option_nm_quote=False):
+def option_quote_crawler(queue: Queue, quote_request_number=100, index_option_cm_quote=False, index_option_nm_quote=False):
 
     proc = mp.current_process()
     print(f'\r지수옵션 호가 Process Name = {proc.name}, Process ID = {proc.pid}')
@@ -75,69 +75,91 @@ def option_quote_crawler(queue: Queue, quote_request_number=5, index_option_cm_q
     
         # ################################# 지수옵션 ##################################################################
         listed_code_df, cm_call_code_list, cm_put_code_list, nm_call_code_list, nm_put_code_list = XingAPI.get_index_option_listed_code_list()
-    
-        cm_call_atm_str = cm_call_code_list[0][0:5] + atm_txt
-        cm_put_atm_str =  cm_put_code_list[0][0:5] + atm_txt
-    
-        nm_call_atm_str = nm_call_code_list[0][0:5] + atm_txt
-        nm_put_atm_str =  nm_put_code_list[0][0:5] + atm_txt
-    
-        cm_call_atm_index = cm_call_code_list.index(cm_call_atm_str)
-        cm_put_atm_index = cm_put_code_list.index(cm_put_atm_str)
-        nm_call_atm_index = nm_call_code_list.index(nm_call_atm_str)
-        nm_put_atm_index = nm_put_code_list.index(nm_put_atm_str)
 
-        cm_call_atm_list = []
-        nm_call_atm_list = []
+        cm_code_list = cm_call_code_list + cm_put_code_list
+        nm_code_list = nm_call_code_list + nm_put_code_list 
     
-        for i in range(quote_request_number+1):
-            cm_call_atm_list.append(cm_call_code_list[cm_call_atm_index-i])
-            nm_call_atm_list.append(nm_call_code_list[nm_call_atm_index-i])
-    
-        cm_call_atm_list.reverse()
-        nm_call_atm_list.reverse()
-    
-        for i in range(quote_request_number):
-            cm_call_atm_list.append(cm_call_code_list[cm_call_atm_index+i+1])
-            nm_call_atm_list.append(nm_call_code_list[nm_call_atm_index+i+1])
-    
-        cm_put_atm_list = []
-        nm_put_atm_list = []
-    
-        for i in range(quote_request_number+1):
-            cm_put_atm_list.append(cm_put_code_list[cm_put_atm_index-i])
-            nm_put_atm_list.append(nm_put_code_list[nm_put_atm_index-i])
-    
-        cm_put_atm_list.reverse()
-        nm_put_atm_list.reverse()
-    
-        for i in range(quote_request_number):
-            cm_put_atm_list.append(cm_put_code_list[cm_put_atm_index+i+1])
-            nm_put_atm_list.append(nm_put_code_list[nm_put_atm_index+i+1])
-    
-        cm_opt_quote_list = cm_call_atm_list + cm_put_atm_list
-        nm_opt_quote_list = nm_call_atm_list + nm_put_atm_list
+        if quote_request_number != 100:
+            cm_call_atm_str = cm_call_code_list[0][0:5] + atm_txt
+            cm_put_atm_str =  cm_put_code_list[0][0:5] + atm_txt
+
+            nm_call_atm_str = nm_call_code_list[0][0:5] + atm_txt
+            nm_put_atm_str =  nm_put_code_list[0][0:5] + atm_txt
+
+            cm_call_atm_index = cm_call_code_list.index(cm_call_atm_str)
+            cm_put_atm_index = cm_put_code_list.index(cm_put_atm_str)
+            nm_call_atm_index = nm_call_code_list.index(nm_call_atm_str)
+            nm_put_atm_index = nm_put_code_list.index(nm_put_atm_str)
+
+            cm_call_atm_list = []
+            nm_call_atm_list = []
+
+            for i in range(quote_request_number+1):
+                cm_call_atm_list.append(cm_call_code_list[cm_call_atm_index-i])
+                nm_call_atm_list.append(nm_call_code_list[nm_call_atm_index-i])
+
+            cm_call_atm_list.reverse()
+            nm_call_atm_list.reverse()
+
+            for i in range(quote_request_number):
+                cm_call_atm_list.append(cm_call_code_list[cm_call_atm_index+i+1])
+                nm_call_atm_list.append(nm_call_code_list[nm_call_atm_index+i+1])
+
+            cm_put_atm_list = []
+            nm_put_atm_list = []
+
+            for i in range(quote_request_number+1):
+                cm_put_atm_list.append(cm_put_code_list[cm_put_atm_index-i])
+                nm_put_atm_list.append(nm_put_code_list[nm_put_atm_index-i])
+
+            cm_put_atm_list.reverse()
+            nm_put_atm_list.reverse()
+
+            for i in range(quote_request_number):
+                cm_put_atm_list.append(cm_put_code_list[cm_put_atm_index+i+1])
+                nm_put_atm_list.append(nm_put_code_list[nm_put_atm_index+i+1])
+
+            cm_opt_quote_list = cm_call_atm_list + cm_put_atm_list
+            nm_opt_quote_list = nm_call_atm_list + nm_put_atm_list
+        else:
+            pass
     
         cm_opt_quote_cmd = []
         cm_opt_quote_cmd.append('quote')
-        cm_opt_quote = cm_opt_quote_cmd + cm_opt_quote_list
+
+        if quote_request_number != 100:
+            cm_opt_quote = cm_opt_quote_cmd + cm_opt_quote_list
+        else:
+            cm_opt_quote = cm_opt_quote_cmd + cm_code_list
     
         nm_opt_quote_cmd = []
         nm_opt_quote_cmd.append('quote')
-        nm_opt_quote = nm_opt_quote_cmd + nm_opt_quote_list 
+
+        if quote_request_number != 100:
+            nm_opt_quote = nm_opt_quote_cmd + nm_opt_quote_list
+        else:
+            nm_opt_quote = nm_opt_quote_cmd + nm_code_list
     
         # 호가
         if index_option_cm_quote:
             queue.put(cm_opt_quote)
             print('본월물 실시간 호가요청...')
             real_time_index_option_quote = RealTimeIndexOptionQuote(queue=queue)
-            real_time_index_option_quote.set_code_list(cm_opt_quote_list, field="optcode")
+
+            if quote_request_number != 100:
+                real_time_index_option_quote.set_code_list(cm_opt_quote_list, field="optcode")
+            else:
+                real_time_index_option_quote.set_code_list(cm_code_list, field="optcode")
     
         if index_option_nm_quote:
             queue.put(nm_opt_quote)
             print('차월물 실시간 호가요청...')
             real_time_index_option_quote = RealTimeIndexOptionQuote(queue=queue)
-            real_time_index_option_quote.set_code_list(nm_opt_quote_list, field="optcode")
+
+            if quote_request_number != 100:
+                real_time_index_option_quote.set_code_list(nm_opt_quote_list, field="optcode")
+            else:
+                real_time_index_option_quote.set_code_list(nm_code_list, field="optcode")
     
         # ############################################################################################################
     
