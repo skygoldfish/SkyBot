@@ -157,17 +157,25 @@ class RealTimeKosdaqTick(RealTimeAbs):
 
 class RealTimeIndexFuturesQuote(RealTimeAbs):
     """
-    [FH0] 지수선물호가
+    [FH0/NH0] 지수선물호가
     """
     def __init__(self, queue: Queue):
-        super().__init__(queue, "FH0")
+
+        if NightTime:
+            super().__init__(queue, "NH0")
+        else:
+            super().__init__(queue, "FH0")
 
 class RealTimeIndexFuturesTick(RealTimeAbs):
     """
-    [FC0] 지수선물체결
+    [FC0/NC0] 지수선물체결
     """
     def __init__(self, queue: Queue):
-        super().__init__(queue, "FC0")
+
+        if NightTime:
+            super().__init__(queue, "NC0")
+        else:
+            super().__init__(queue, "FC0")
 
 class RealTimeIndexOptionQuote(RealTimeAbs):
     """

@@ -29005,10 +29005,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 self.plot1_fut_jl_line.setValue(선물_전저)
                 self.plot1_fut_jh_line.setValue(선물_전고)
-                self.plot1_fut_close_line.setValue(선물_종가)
-                self.plot1_fut_pivot_line.setValue(선물_피봇)
+                self.plot1_fut_close_line.setValue(선물_종가)                
                 self.plot1_fut_open_line.setValue(선물_시가)
                 self.plot1_fut_low_line.setValue(선물_저가)
+                self.plot1_fut_pivot_line.setValue(선물_피봇)
 
                 # 종가선 컬러를 살리기위한 임시방편
                 self.plot1_ovc_open_line.setValue(선물_고가)
@@ -29732,10 +29732,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 self.plot2_fut_jl_line.setValue(선물_전저)
                 self.plot2_fut_jh_line.setValue(선물_전고)
-                self.plot2_fut_close_line.setValue(선물_종가)
-                self.plot2_fut_pivot_line.setValue(선물_피봇)
+                self.plot2_fut_close_line.setValue(선물_종가)                
                 self.plot2_fut_open_line.setValue(선물_시가)
                 self.plot2_fut_low_line.setValue(선물_저가)
+                self.plot2_fut_pivot_line.setValue(선물_피봇)
 
                 # 종가선 컬러를 살리기위한 임시방편
                 self.plot2_ovc_open_line.setValue(선물_고가)
@@ -30665,10 +30665,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 self.plot3_fut_jl_line.setValue(선물_전저)
                 self.plot3_fut_jh_line.setValue(선물_전고)
-                self.plot3_fut_close_line.setValue(선물_종가)
-                self.plot3_fut_pivot_line.setValue(선물_피봇)
+                self.plot3_fut_close_line.setValue(선물_종가)                
                 self.plot3_fut_open_line.setValue(선물_시가)
                 self.plot3_fut_low_line.setValue(선물_저가)
+                self.plot3_fut_pivot_line.setValue(선물_피봇)
 
                 # 종가선 컬러를 살리기위한 임시방편
                 self.plot3_ovc_open_line.setValue(선물_고가)
@@ -31776,10 +31776,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 self.plot4_fut_jl_line.setValue(선물_전저)
                 self.plot4_fut_jh_line.setValue(선물_전고)
-                self.plot4_fut_close_line.setValue(선물_종가)
-                self.plot4_fut_pivot_line.setValue(선물_피봇)
+                self.plot4_fut_close_line.setValue(선물_종가)                
                 self.plot4_fut_open_line.setValue(선물_시가)
                 self.plot4_fut_low_line.setValue(선물_저가)
+                self.plot4_fut_pivot_line.setValue(선물_피봇)
 
                 # 종가선 컬러를 살리기위한 임시방편
                 self.plot4_ovc_open_line.setValue(선물_고가)
@@ -32503,10 +32503,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 self.plot5_fut_jl_line.setValue(선물_전저)
                 self.plot5_fut_jh_line.setValue(선물_전고)
-                self.plot5_fut_close_line.setValue(선물_종가)
-                self.plot5_fut_pivot_line.setValue(선물_피봇)
+                self.plot5_fut_close_line.setValue(선물_종가)                
                 self.plot5_fut_open_line.setValue(선물_시가)
                 self.plot5_fut_low_line.setValue(선물_저가)
+                self.plot5_fut_pivot_line.setValue(선물_피봇)
 
                 # 종가선 컬러를 살리기위한 임시방편
                 self.plot5_ovc_open_line.setValue(선물_고가)
@@ -33429,10 +33429,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 self.plot6_fut_jl_line.setValue(선물_전저)
                 self.plot6_fut_jh_line.setValue(선물_전고)
-                self.plot6_fut_close_line.setValue(선물_종가)
-                self.plot6_fut_pivot_line.setValue(선물_피봇)
+                self.plot6_fut_close_line.setValue(선물_종가)                
                 self.plot6_fut_open_line.setValue(선물_시가)
                 self.plot6_fut_low_line.setValue(선물_저가)
+                self.plot6_fut_pivot_line.setValue(선물_피봇)
 
                 # 종가선 컬러를 살리기위한 임시방편
                 self.plot6_ovc_open_line.setValue(선물_고가)
