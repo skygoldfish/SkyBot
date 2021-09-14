@@ -39898,14 +39898,14 @@ if __name__ == "__main__":
             INDEX_FUTURES_TICK = True         # 지수선물 전종목 체결
         
         if OPTION_TICK_REQUEST:
-            option_tickQ = mp.Queue()
-
-            if NightTime:
-                tick_request_number = 100
-            else:
-                tick_request_number = OPTION_TICK_REQUEST_NUMBER
+            option_tickQ = mp.Queue()            
 
             if TARGET_MONTH == 'CM':
+
+                if NightTime:
+                    tick_request_number = 100
+                else:
+                    tick_request_number = OPTION_TICK_REQUEST_NUMBER
 
                 if MANGI_YAGAN:
                     INDEX_OPTION_CM_TICK = False
@@ -39915,6 +39915,11 @@ if __name__ == "__main__":
                     INDEX_OPTION_NM_TICK = False      # 지수옵션 차월물 전종목 체결              
                 
             elif TARGET_MONTH == 'NM':
+
+                if NightTime:
+                    tick_request_number = 100
+                else:
+                    tick_request_number = 100
 
                 INDEX_OPTION_CM_TICK = False
                 INDEX_OPTION_NM_TICK = True          
@@ -39927,6 +39932,11 @@ if __name__ == "__main__":
 
             if TARGET_MONTH == 'CM':
 
+                if NightTime:
+                    quote_request_number = 100
+                else:
+                    quote_request_number = OPTION_QUOTE_REQUEST_NUMBER
+
                 if MANGI_YAGAN:
                     INDEX_OPTION_CM_QUOTE = False
                     INDEX_OPTION_NM_QUOTE = True                
@@ -39936,16 +39946,16 @@ if __name__ == "__main__":
                 
             elif TARGET_MONTH == 'NM':
 
+                if NightTime:
+                    quote_request_number = 100
+                else:
+                    quote_request_number = 100
+
                 INDEX_OPTION_CM_QUOTE = False      
                 INDEX_OPTION_NM_QUOTE = True             
             else:
                 INDEX_OPTION_CM_QUOTE = False      
                 INDEX_OPTION_NM_QUOTE = False
-
-            if NightTime:
-                quote_request_number = 100
-            else:
-                quote_request_number = OPTION_QUOTE_REQUEST_NUMBER
 
         if OVC_REQUEST:
             ovcQ = mp.Queue()
