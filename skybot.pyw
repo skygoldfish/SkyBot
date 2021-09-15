@@ -22257,7 +22257,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_68.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_68.setText(" 고가 ")
 
-        self.comboBox1.addItems(['Clear', '선물가격', '선물잔량비', '수급종합', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', 'Reserved'])
+        self.comboBox1.addItems(['Clear', '선물가격', '선물잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', '수급종합'])
         self.comboBox1.insertSeparator(1)
         self.comboBox1.insertSeparator(5)
         self.comboBox1.insertSeparator(9)
@@ -22297,7 +22297,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.comboBox5.insertSeparator(19)
         self.comboBox5.currentIndexChanged.connect(self.cb5_selectionChanged)
 
-        self.comboBox6.addItems(['Clear', '선물가격', '선물잔량비', '외인수급', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', 'Reserved'])
+        self.comboBox6.addItems(['Clear', '선물가격', '선물잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', '외인수급'])
         self.comboBox6.insertSeparator(1)
         self.comboBox6.insertSeparator(5)
         self.comboBox6.insertSeparator(9)
@@ -22362,9 +22362,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         # 선옵체결
         self.plot1_fut_volume_curve = self.plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_call_volume_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_put_volume_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
-        self.plot1_program_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_kospi_total_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)        
+        self.plot1_put_volume_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)           
 
         self.plot1_center_val_lower_line = self.plot1.addLine(x=None, pen=skyblue_pen)
         self.plot1_center_val_line = self.plot1.addLine(x=None, pen=gold_pen)
@@ -22409,6 +22407,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         self.plot1_oe_conv_curve = self.plot1.plot(pen=mama_pen)
         self.plot1_oe_base_curve = self.plot1.plot(pen=fama_pen)
+
+        # 수급종합
+        self.plot1_program_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_kospi_total_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)     
         
         #cross hair
         if CROSS_HAIR_LINE:
@@ -22784,9 +22786,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         # 선옵체결
         self.plot6_fut_volume_curve = self.plot6.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_call_volume_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_put_volume_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
-        self.plot6_futures_foreigner_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_kospi_foreigner_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot6_put_volume_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)        
 
         self.plot6_center_val_lower_line = self.plot6.addLine(x=None, pen=skyblue_pen)
         self.plot6_center_val_line = self.plot6.addLine(x=None, pen=gold_pen)
@@ -22831,6 +22831,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         self.plot6_oe_conv_curve = self.plot6.plot(pen=mama_pen)
         self.plot6_oe_base_curve = self.plot6.plot(pen=fama_pen)
+
+        # 외인수급
+        self.plot6_futures_foreigner_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_kospi_foreigner_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         #cross hair
         if CROSS_HAIR_LINE:
@@ -23977,12 +23981,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_15.setText(" - ")
 
             self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_16.setText(" 프로그램 ")
+            self.label_16.setText(" 풋체결량 ")
 
             self.label_17.setText(" 선물체결량 ")
 
             self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_18.setText(" 현물합 ")
+            self.label_18.setText(" 콜체결량 ")
             
             self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p1_2.setText(" BB Middle\n PSAR ")
@@ -23992,6 +23996,25 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p1_4.setText(" MAMA ")
+
+        # 수급종합
+        elif comboindex1 == 20:
+
+            self.plot1_clear()
+
+            self.label_11.setText(" - ")
+            self.label_12.setText(" - ")
+            self.label_13.setText(" - ")
+            self.label_14.setText(" - ")
+            self.label_15.setText(" - ")
+
+            self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_16.setText(" 프로그램 ")
+
+            self.label_17.setText(" 선물체결량 ")
+
+            self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_18.setText(" 현물합 ")
 
         # 옵션잔량비
         elif comboindex1 == 7:
@@ -27878,12 +27901,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_65.setText(" - ")
 
             self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_66.setText(" 외인선물 ")
+            self.label_66.setText(" 풋체결량 ")
 
             self.label_67.setText(" 선물체결량 ")
 
             self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_68.setText(" 외인현물 ")
+            self.label_68.setText(" 콜체결량 ")
             
             self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p6_2.setText(" BB Middle\n PSAR ")
@@ -28432,7 +28455,27 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             txt = ' {0} '.format(format(WTI_고가, ','))
             self.label_68.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_68.setText(txt)
-            self.plot6_ovc_high_line.setValue(WTI_고가)            
+            self.plot6_ovc_high_line.setValue(WTI_고가)
+
+        # 외인수급
+        elif comboindex6 == 20:
+
+            self.plot6_clear()
+
+            self.label_61.setText(" - ")
+            self.label_62.setText(" - ")
+            self.label_63.setText(" - ")
+            self.label_64.setText(" - ")
+            self.label_65.setText(" - ")
+
+            self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_66.setText(" 외인선물 ")
+
+            self.label_67.setText(" 선물체결량 ")
+
+            self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_68.setText(" 외인현물 ")
+
         else:
             pass 
 
@@ -28803,7 +28846,32 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex1 == 4 and market_service:
 
-                #txt = " {0:.0f} ".format(df_put_information_graph.at[ovc_x_idx, 'volume'])                
+                self.plot1_time_line.setValue(ovc_x_idx)
+
+                txt = " {0:.0f} ".format(df_put_information_graph.at[ovc_x_idx, 'volume'])
+                self.label_16.setText(txt)
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_17.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_17.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_17.setText(txt)
+                
+                txt = " {0:.0f} ".format(df_call_information_graph.at[ovc_x_idx, 'volume'])
+                self.label_18.setText(txt)
+
+                if DayTime:
+                    self.plot1_fut_volume_curve.setData(df_futures_graph['volume'].to_numpy())
+                else:
+                    pass
+                                
+                self.plot1_call_volume_curve.setData(df_call_information_graph['volume'].to_numpy())
+                self.plot1_put_volume_curve.setData(df_put_information_graph['volume'].to_numpy())                
+
+            elif comboindex1 == 20 and market_service:               
 
                 txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'program'])
 
@@ -28823,8 +28891,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_17.setText(txt)
                 
-                #txt = " {0:.0f} ".format(df_call_information_graph.at[ovc_x_idx, 'volume'])
-                
                 txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'])
 
                 if df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'] <= 0:
@@ -28838,8 +28904,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if DayTime:
                     self.plot1_fut_volume_curve.setData(df_futures_graph['volume'].to_numpy())
-                    #self.plot1_call_volume_curve.setData(df_call_information_graph['volume'].to_numpy())
-                    #self.plot1_put_volume_curve.setData(df_put_information_graph['volume'].to_numpy())
                     self.plot1_program_curve.setData(df_supply_demand_graph['program'].to_numpy())
                     self.plot1_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'].to_numpy())
                 else:
@@ -33484,7 +33548,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
 
             elif comboindex6 == 4 and market_service:
-                '''
+                
                 txt = " {0:.0f} ".format(df_put_information_graph.at[ovc_x_idx, 'volume'])
                 self.label_66.setText(txt)
 
@@ -33508,9 +33572,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
                                 
                 self.plot6_call_volume_curve.setData(df_call_information_graph['volume'].to_numpy())
-                self.plot6_put_volume_curve.setData(df_put_information_graph['volume'].to_numpy())       
-                '''
-                
+                self.plot6_put_volume_curve.setData(df_put_information_graph['volume'].to_numpy())
+
+            elif comboindex6 == 20 and market_service:
+
                 txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'])
 
                 if df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'] <= 0:
@@ -33545,7 +33610,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.plot6_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'].to_numpy())
                     self.plot6_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'].to_numpy())
                 else:
-                    pass                
+                    pass
 
             elif comboindex6 == 7 and market_service:
 
