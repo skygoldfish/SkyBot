@@ -1478,7 +1478,7 @@ OC0_풋현재가 = ''
 
 콜건수비 = 0
 콜잔량비 = 0
-잔량비차 = 0
+옵션_잔량비차 = 0
 
 풋건수비 = 0
 풋잔량비 = 0
@@ -34554,7 +34554,7 @@ class Xing(object):
                         else:
                             pass
 
-                        if not pre_start and 잔량비차 > 5.0:
+                        if not pre_start and 옵션_잔량비차 > 5.0:
 
                             if 콜잔량비 > 풋잔량비:
                                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♣ CM 잔량비 콜우세 {3}:{4} ♣\r".format(dt.hour, dt.minute, dt.second, 콜잔량비, 풋잔량비)
@@ -34590,7 +34590,7 @@ class Xing(object):
                         else:
                             pass
 
-                        if not pre_start and 잔량비차 > 5.0:
+                        if not pre_start and 옵션_잔량비차 > 5.0:
 
                             if 콜잔량비 > 풋잔량비:
                                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♣ NM 잔량비 콜우세 {3}:{4} ♣\r".format(dt.hour, dt.minute, dt.second, 콜잔량비, 풋잔량비)
@@ -38446,7 +38446,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global df_call_quote, df_put_quote, 콜잔량비, 풋잔량비, call_remainder_ratio, put_remainder_ratio
         global df_call_information_graph, df_put_information_graph
         global flag_telegram_send_start, flag_telegram_listen_start
-        global 잔량비차
+        global 옵션_잔량비차
 
         result = data
 
@@ -38512,7 +38512,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비
 
-        잔량비차 = abs(콜잔량비 - 풋잔량비)
+        옵션_잔량비차 = abs(콜잔량비 - 풋잔량비)
 
         # 야간선물이 없어짐에 따른 텔레그램 기동 대응
         '''
