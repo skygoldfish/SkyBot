@@ -452,13 +452,13 @@ month_after_next = int(MONTH_AFTER_NEXT[4:6])
 CENTER_VAL_PLUS1 = GOLDEN_RATIO
 CENTER_VAL_MINUS1 = GOLDEN_RATIO
 
-pre_진성맥점 = [1.20, 2.50, 3.50, 4.85, 5.10, 5.50, 6.85, 7.10, 8.10]
+고정_진성맥점 = [1.20, 2.50, 3.50, 4.85, 5.10, 5.50, 6.85, 7.10, 8.10]
 
-pre_진성맥점.append(MY_COREVAL)
-pre_진성맥점 = list(set(pre_진성맥점))
-pre_진성맥점.sort()
+고정_진성맥점.append(MY_COREVAL)
+고정_진성맥점 = list(set(고정_진성맥점))
+고정_진성맥점.sort()
 
-DEFAULT_NODE_LIST = pre_진성맥점[:]
+DEFAULT_NODE_LIST = 고정_진성맥점[:]
 
 bms_node_val1 = 0
 bms_node_val2 = 0
@@ -515,7 +515,7 @@ if os.path.exists('HL-List.txt'):
 
             bms_node_list.append(bms_node_val1)
             bms_node_frequency_list.append(동적맥점1_빈도수)
-            pre_진성맥점.append(bms_node_val1)
+            고정_진성맥점.append(bms_node_val1)
             
             # 두번재 최대빈도 맥점탐색
             second_list = list(filter((bms_node_val1).__ne__, pre_high_low_list))
@@ -535,7 +535,7 @@ if os.path.exists('HL-List.txt'):
                 
                 bms_node_list.append(bms_node_val2)
                 bms_node_frequency_list.append(동적맥점2_빈도수)
-                pre_진성맥점.append(bms_node_val2)
+                고정_진성맥점.append(bms_node_val2)
 
                 # 세번재 최대빈도 맥점탐색
                 third_list = list(filter((bms_node_val2).__ne__, second_list))
@@ -555,7 +555,7 @@ if os.path.exists('HL-List.txt'):
 
                     bms_node_list.append(bms_node_val3)
                     bms_node_frequency_list.append(동적맥점3_빈도수)
-                    pre_진성맥점.append(bms_node_val3)
+                    고정_진성맥점.append(bms_node_val3)
 
                     # 네번재 최대빈도 맥점탐색
                     fourth_list = list(filter((bms_node_val3).__ne__, third_list))
@@ -573,7 +573,7 @@ if os.path.exists('HL-List.txt'):
 
                         bms_node_list.append(bms_node_val4)
                         bms_node_frequency_list.append(동적맥점4_빈도수)
-                        pre_진성맥점.append(bms_node_val4)
+                        고정_진성맥점.append(bms_node_val4)
 
                         # 다섯번재 최대빈도 맥점탐색
                         fifth_list = list(filter((bms_node_val4).__ne__, fourth_list))
@@ -590,7 +590,7 @@ if os.path.exists('HL-List.txt'):
 
                             bms_node_list.append(bms_node_val5)
                             bms_node_frequency_list.append(동적맥점5_빈도수)
-                            pre_진성맥점.append(bms_node_val5)
+                            고정_진성맥점.append(bms_node_val5)
 
                             # 여섯번재 최대빈도 맥점탐색
                             sixth_list = list(filter((bms_node_val5).__ne__, fifth_list))
@@ -608,13 +608,13 @@ if os.path.exists('HL-List.txt'):
                                 bms_node_list.append(bms_node_val6)
                                 bms_node_frequency_list.append(동적맥점6_빈도수)
 
-                                pre_진성맥점.append(bms_node_val6)
-                                pre_진성맥점 = list(set(pre_진성맥점))
-                                pre_진성맥점.sort()                                    
+                                고정_진성맥점.append(bms_node_val6)
+                                고정_진성맥점 = list(set(고정_진성맥점))
+                                고정_진성맥점.sort()                                    
                                 
                                 print('DEFAULT_NODE_LIST =', DEFAULT_NODE_LIST)
                                 print('bms_node_list =', bms_node_list)
-                                print('pre 진성맥점 리스트 =', pre_진성맥점)
+                                print('pre 진성맥점 리스트 =', 고정_진성맥점)
                             else:
                                 pass
                         else:
@@ -1535,8 +1535,8 @@ silver = QColor(0xC0, 0xC0, 0xC0)
 노란색 = Qt.yellow
 라임 = lime
 
-red = Qt.red
-blue = Qt.blue
+#red = Qt.red
+#blue = Qt.blue
 
 콜기준가색 = orange
 콜월저색 = indianred
@@ -4238,7 +4238,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         global 진성맥점
 
-        진성맥점 = pre_진성맥점[:]
+        진성맥점 = 고정_진성맥점[:]
         print('진성맥점 =', 진성맥점)
 
         if bms_node_list:
@@ -6008,7 +6008,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.call_low_coreval_color_blink(self.alternate_flag)
                         else:                        
                             call_low_coreval_txt = ''
-                            #call_low_node_count = 0
                             call_low_node_list = []
                             call_low_node_txt = ''
 
@@ -6016,7 +6015,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.call_high_coreval_color_blink(self.alternate_flag)
                         else:
                             call_high_coreval_txt = ''
-                            #call_high_node_count = 0
                             call_high_node_list = []
                             call_high_node_txt = ''
 
@@ -6024,7 +6022,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.put_low_coreval_color_blink(self.alternate_flag)
                         else:
                             put_low_coreval_txt = ''
-                            #put_low_node_count = 0
                             put_low_node_list = []
                             put_low_node_txt = ''
 
@@ -6032,7 +6029,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.put_high_coreval_color_blink(self.alternate_flag)                        
                         else:
                             put_high_coreval_txt = '' 
-                            #put_high_node_count = 0
                             put_high_node_list = []
                             put_high_node_txt = ''
 
@@ -8038,12 +8034,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 call_low_node_list.append(저가)
 
                 if blink:
-
                     self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))                    
                 else:
                     self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
                     self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(대맥점색))
+            else:
+                pass
+
+            if 저가 in 고정_진성맥점:
+
+                if blink:
+                    self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(노란색))
+                    self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))                    
+                else:
+                    self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(노란색))
             else:
                 pass
 
@@ -8180,12 +8186,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 call_high_node_list.append(고가)
                     
                 if blink:
-
                     self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))                    
                 else:
                     self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
                     self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(대맥점색))
+            else:
+                pass
+
+            if 고가 in 고정_진성맥점:
+                    
+                if blink:
+                    self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(노란색))
+                    self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))                    
+                else:
+                    self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(노란색))
             else:
                 pass
 
@@ -10609,12 +10625,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_low_node_list.append(저가)
 
                 if blink:
-
                     self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))                                                                     
                 else:
                     self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
                     self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(대맥점색))
+            else:
+                pass
+
+            if 저가 in 고정_진성맥점:
+
+                if blink:
+                    self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(노란색))
+                    self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))                                                                     
+                else:
+                    self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(노란색))
             else:
                 pass
 
@@ -10751,12 +10777,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_high_node_list.append(고가)
 
                 if blink:
-
                     self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))                    
                 else:
                     self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
                     self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(대맥점색))                 
+            else:
+                pass
+
+            if 고가 in 고정_진성맥점:
+
+                if blink:
+                    self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(노란색))
+                    self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))                    
+                else:
+                    self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(노란색))                 
             else:
                 pass
 
@@ -14615,7 +14651,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
                 
-                진성맥점 = pre_진성맥점[:]
+                진성맥점 = 고정_진성맥점[:]
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 진성맥점을 초기화({3})합니다.\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
                 self.textBrowser.append(txt)
@@ -35824,7 +35860,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
 
             if time_gap_abs < view_time_tolerance:
-                self.update_4th_process(tickdata)
+
+                # 주간 장초반 시스템 부하를 줄이기위함
+                if TARGET_MONTH == 'CM' and 3600 * 9 + 10 * 60 <= realtime <= 3600 * 16:
+                    self.update_4th_process(tickdata)
+                elif TARGET_MONTH == 'NM':
+                    self.update_4th_process(tickdata)
+                else:
+                    pass
             else:
                 pass
         else:
