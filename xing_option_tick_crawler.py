@@ -48,7 +48,8 @@ else:
     is_real_server = False
     config = {"id": ID, "password": PWD, "cert_password": "0"}
 
-def option_tick_crawler(queue: Queue, tick_request_number=100, index_option_cm_tick=False, index_option_nm_tick=False):
+#def option_tick_crawler(queue: Queue, tick_request_number=100, index_option_cm_tick=False, index_option_nm_tick=False):
+def option_tick_crawler(queue: Queue, call_itm_number=5, call_otm_number=15, put_itm_number=5, put_otm_number=15, index_option_cm_tick=False, index_option_nm_tick=False):
 
     proc = mp.current_process()
     print(f'\r지수옵션 체결 Process Name = {proc.name}, Process ID = {proc.pid}')
@@ -69,57 +70,48 @@ def option_tick_crawler(queue: Queue, tick_request_number=100, index_option_cm_t
         kp200 = float(t2101_df.at[0, 'KOSPI200지수'])
 
         temp = math.floor(round(kp200 / 2.5, 0) * 2.5)
-        atm_txt = '{0:.0f}'.format(temp)        
-
-        print('kp200 지수 =', kp200, atm_txt)
+        atm_txt = '{0:.0f}'.format(temp)
+        
         # ############################################################################################################        
 
         # ################################# 지수옵션 ##################################################################
         listed_code_df, cm_call_code_list, cm_put_code_list, nm_call_code_list, nm_put_code_list = XingAPI.get_index_option_listed_code_list()
         listed_code_df.to_csv(f"{TODAY_PATH}/index_option_listed_code.csv", encoding='utf-8-sig')
 
+        cm_call_code_list.reverse()
+        cm_put_code_list.reverse()
+        nm_call_code_list.reverse()
+        nm_put_code_list.reverse()
+        
         cm_code_list = cm_call_code_list + cm_put_code_list
-        nm_code_list = nm_call_code_list + nm_put_code_list                
+        nm_code_list = nm_call_code_list + nm_put_code_list 
+        
+        cm_call_atm_str = cm_call_code_list[0][0:5] + atm_txt
+        cm_put_atm_str =  cm_put_code_list[0][0:5] + atm_txt        
 
-        if tick_request_number != 100:
+        cm_call_atm_index = cm_call_code_list.index(cm_call_atm_str)
+        cm_put_atm_index = cm_put_code_list.index(cm_put_atm_str)
 
-            cm_call_atm_str = cm_call_code_list[0][0:5] + atm_txt
-            cm_put_atm_str =  cm_put_code_list[0][0:5] + atm_txt
+        #print('cm_call_code_list =', cm_call_code_list)
+        #print('cm_put_code_list =', cm_put_code_list)
+        print('kp200 지수, 등가, call index, put index =', kp200, atm_txt, cm_call_atm_index, cm_put_atm_index)
 
-            cm_call_atm_index = cm_call_code_list.index(cm_call_atm_str)
-            cm_put_atm_index = cm_put_code_list.index(cm_put_atm_str)
+        cm_call_atm_list = []
 
-            cm_call_atm_list = []
+        for i in range(cm_call_atm_index - call_otm_number, cm_call_atm_index + call_itm_number + 1):
+            cm_call_atm_list.append(cm_call_code_list[i])
 
-            for i in range(tick_request_number+1):
-                cm_call_atm_list.append(cm_call_code_list[cm_call_atm_index-i])
+        cm_put_atm_list = []
 
-            cm_call_atm_list.reverse()
+        for i in range(cm_put_atm_index - put_itm_number, cm_put_atm_index + put_otm_number + 1):
+            cm_put_atm_list.append(cm_put_code_list[i])
 
-            for i in range(tick_request_number):
-                cm_call_atm_list.append(cm_call_code_list[cm_call_atm_index+i+1])
-
-            cm_put_atm_list = []
-
-            for i in range(tick_request_number+1):
-                cm_put_atm_list.append(cm_put_code_list[cm_put_atm_index-i])
-
-            cm_put_atm_list.reverse()
-
-            for i in range(tick_request_number):
-                cm_put_atm_list.append(cm_put_code_list[cm_put_atm_index+i+1])
-
-            cm_opt_tick_list = cm_call_atm_list + cm_put_atm_list            
-        else:
-            pass
+        cm_opt_tick_list = cm_call_atm_list + cm_put_atm_list
 
         cm_opt_tick_cmd = []
         cm_opt_tick_cmd.append('tick')
 
-        if tick_request_number != 100:
-            cm_opt_tick = cm_opt_tick_cmd + cm_opt_tick_list
-        else:
-            cm_opt_tick = cm_opt_tick_cmd + cm_code_list
+        cm_opt_tick = cm_opt_tick_cmd + cm_opt_tick_list
 
         nm_opt_tick_cmd = []
         nm_opt_tick_cmd.append('tick')
@@ -139,10 +131,7 @@ def option_tick_crawler(queue: Queue, tick_request_number=100, index_option_cm_t
             print('본월물 실시간 체결요청...')
             real_time_index_option_tick = RealTimeIndexOptionTick(queue=queue)
 
-            if tick_request_number == 100:
-                real_time_index_option_tick.set_code_list(cm_code_list, field="optcode")
-            else:                
-                real_time_index_option_tick.set_code_list(cm_opt_tick_list, field="optcode")
+            real_time_index_option_tick.set_code_list(cm_opt_tick_list, field="optcode")                
 
         if index_option_nm_tick:
 

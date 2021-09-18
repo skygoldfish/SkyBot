@@ -384,8 +384,6 @@ MA_TYPE = parser.getint('Moving Average Type', 'MA Type')
 TIME_TOLERANCE = parser.getint('Initial Value', 'RealTime Tolerance(sec)')
 DOW_START = parser.get('Initial Value', 'Dow Start Time')
 MP_SEND_INTERVAL = parser.getint('Initial Value', 'MP Send Interval')
-OPTION_TICK_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Option Tick Request')
-OPTION_QUOTE_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Option Quote Request')
 CALL_ITM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Call ITM Request')
 CALL_OTM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Call OTM Request')
 PUT_ITM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Put ITM Request')
@@ -40014,11 +40012,6 @@ if __name__ == "__main__":
 
             if TARGET_MONTH == 'CM':
 
-                if NightTime:
-                    tick_request_number = 100
-                else:
-                    tick_request_number = OPTION_TICK_REQUEST_NUMBER
-
                 if MANGI_YAGAN:
                     INDEX_OPTION_CM_TICK = False
                     INDEX_OPTION_NM_TICK = True               
@@ -40027,11 +40020,6 @@ if __name__ == "__main__":
                     INDEX_OPTION_NM_TICK = False      # 지수옵션 차월물 전종목 체결              
                 
             elif TARGET_MONTH == 'NM':
-
-                if NightTime:
-                    tick_request_number = 100
-                else:
-                    tick_request_number = 100
 
                 INDEX_OPTION_CM_TICK = False
                 INDEX_OPTION_NM_TICK = True          
@@ -40044,11 +40032,6 @@ if __name__ == "__main__":
 
             if TARGET_MONTH == 'CM':
 
-                if NightTime:
-                    quote_request_number = 100
-                else:
-                    quote_request_number = OPTION_QUOTE_REQUEST_NUMBER
-
                 if MANGI_YAGAN:
                     INDEX_OPTION_CM_QUOTE = False
                     INDEX_OPTION_NM_QUOTE = True                
@@ -40057,11 +40040,6 @@ if __name__ == "__main__":
                     INDEX_OPTION_NM_QUOTE = False     # 지수옵션 차월물 전종목 호가                
                 
             elif TARGET_MONTH == 'NM':
-
-                if NightTime:
-                    quote_request_number = 100
-                else:
-                    quote_request_number = 100
 
                 INDEX_OPTION_CM_QUOTE = False      
                 INDEX_OPTION_NM_QUOTE = True             
@@ -40076,10 +40054,10 @@ if __name__ == "__main__":
             futures_process = mp.Process(target=futures_crawler, args=(futuresQ, INDEX_FUTURES_QUOTE, INDEX_FUTURES_TICK), daemon=True)
 
         if OPTION_TICK_REQUEST:
-            option_tick_process = mp.Process(target=option_tick_crawler, args=(option_tickQ, tick_request_number, INDEX_OPTION_CM_TICK, INDEX_OPTION_NM_TICK), daemon=True)
+            option_tick_process = mp.Process(target=option_tick_crawler, args=(option_tickQ, CALL_ITM_REQUEST_NUMBER, CALL_OTM_REQUEST_NUMBER, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER, INDEX_OPTION_CM_TICK, INDEX_OPTION_NM_TICK), daemon=True)
 
         if OPTION_QUOTE_REQUEST:
-            option_quote_process = mp.Process(target=option_quote_crawler, args=(option_quoteQ, quote_request_number, INDEX_OPTION_CM_QUOTE, INDEX_OPTION_NM_QUOTE), daemon=True)
+            option_quote_process = mp.Process(target=option_quote_crawler, args=(option_quoteQ, CALL_ITM_REQUEST_NUMBER, CALL_OTM_REQUEST_NUMBER, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER, INDEX_OPTION_CM_QUOTE, INDEX_OPTION_NM_QUOTE), daemon=True)
 
         if OVC_REQUEST:
             ovc_process = mp.Process(target=ovc_crawler, args=(ovcQ, ), daemon=True)
