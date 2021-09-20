@@ -35862,12 +35862,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if time_gap_abs < view_time_tolerance:
 
                 # 주간 장초반 시스템 부하를 줄이기위함
-                if TARGET_MONTH == 'CM' and 3600 * 9 + 10 * 60 <= realtime <= 3600 * 16:
-                    self.update_4th_process(tickdata)
-                elif TARGET_MONTH == 'NM':
-                    self.update_4th_process(tickdata)
+                if DayTime:
+
+                    if TARGET_MONTH == 'CM' and 3600 * 9 + 10 * 60 <= realtime <= 3600 * 16:
+                        self.update_4th_process(tickdata)
+                    elif TARGET_MONTH == 'NM':
+                        self.update_4th_process(tickdata)
+                    else:
+                        pass                
                 else:
-                    pass
+                    self.update_4th_process(tickdata)
             else:
                 pass
         else:
