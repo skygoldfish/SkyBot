@@ -388,6 +388,7 @@ CALL_ITM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Call ITM Req
 CALL_OTM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Call OTM Request')
 PUT_ITM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Put ITM Request')
 PUT_OTM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Put OTM Request')
+OPTION_PAIRS_QUOTE_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Option Pairs Quote Request')
 HL_Depth = parser.getint('Initial Value', 'HL List Depth')
 NightTime_PreStart_Hour = parser.getint('Initial Value', 'NightTime Pre-Start Hour')
 ActvalCount = parser.getint('Initial Value', 'Actval Count of the Option Pairs')
@@ -40097,7 +40098,9 @@ if __name__ == "__main__":
         if OPTION_QUOTE_REQUEST:
             option_quoteQ = mp.Queue()
 
-            if TARGET_MONTH == 'CM':
+            QUOTE_REQUEST_NUMBER = OPTION_PAIRS_QUOTE_REQUEST_NUMBER
+
+            if TARGET_MONTH == 'CM':                
 
                 if MANGI_YAGAN:
                     INDEX_OPTION_CM_QUOTE = False
@@ -40124,7 +40127,7 @@ if __name__ == "__main__":
             option_tick_process = mp.Process(target=option_tick_crawler, args=(option_tickQ, CALL_ITM_REQUEST_NUMBER, CALL_OTM_REQUEST_NUMBER, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER, INDEX_OPTION_CM_TICK, INDEX_OPTION_NM_TICK), daemon=True)
 
         if OPTION_QUOTE_REQUEST:
-            option_quote_process = mp.Process(target=option_quote_crawler, args=(option_quoteQ, CALL_ITM_REQUEST_NUMBER, CALL_OTM_REQUEST_NUMBER, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER, INDEX_OPTION_CM_QUOTE, INDEX_OPTION_NM_QUOTE), daemon=True)
+            option_quote_process = mp.Process(target=option_quote_crawler, args=(option_quoteQ, QUOTE_REQUEST_NUMBER, QUOTE_REQUEST_NUMBER, QUOTE_REQUEST_NUMBER, QUOTE_REQUEST_NUMBER, INDEX_OPTION_CM_QUOTE, INDEX_OPTION_NM_QUOTE), daemon=True)
 
         if OVC_REQUEST:
             ovc_process = mp.Process(target=ovc_crawler, args=(ovcQ, ), daemon=True)

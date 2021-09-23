@@ -47,7 +47,7 @@ else:
     is_real_server = False
     config = {"id": ID, "password": PWD, "cert_password": "0"}
 
-def option_quote_crawler(queue: Queue, call_itm_number=5, call_otm_number=15, put_itm_number=5, put_otm_number=15, index_option_cm_quote=False, index_option_nm_quote=False):
+def option_quote_crawler(queue: Queue, call_itm_number=5, call_otm_number=5, put_itm_number=5, put_otm_number=5, index_option_cm_quote=False, index_option_nm_quote=False):
 
     proc = mp.current_process()
     print(f'\r지수옵션 호가 Process Name = {proc.name}, Process ID = {proc.pid}')
@@ -103,7 +103,10 @@ def option_quote_crawler(queue: Queue, call_itm_number=5, call_otm_number=15, pu
         cm_opt_quote_cmd = []
         cm_opt_quote_cmd.append('quote')
 
-        cm_opt_quote = cm_opt_quote_cmd + cm_opt_quote_list
+        if DayTime:
+            cm_opt_quote = cm_opt_quote_cmd + cm_opt_quote_list
+        else:
+            cm_opt_quote = cm_opt_quote_cmd + cm_code_list
     
         nm_opt_quote_cmd = []
         nm_opt_quote_cmd.append('quote')
