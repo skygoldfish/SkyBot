@@ -452,6 +452,7 @@ month_after_next = int(MONTH_AFTER_NEXT[4:6])
 CENTER_VAL_PLUS1 = GOLDEN_RATIO
 CENTER_VAL_MINUS1 = GOLDEN_RATIO
 
+FIXED_COREVAL = [1.20, 2.50, 3.50, 4.85, 5.10, 5.50, 6.85, 7.10, 8.10]
 고정_진성맥점 = [1.20, 2.50, 3.50, 4.85, 5.10, 5.50, 6.85, 7.10, 8.10]
 
 고정_진성맥점.append(MY_COREVAL)
@@ -8042,7 +8043,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            if 저가 in 고정_진성맥점:
+            if 저가 in FIXED_COREVAL:
 
                 if blink:
                     self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(노란색))
@@ -8194,7 +8195,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            if 고가 in 고정_진성맥점:
+            if 고가 in FIXED_COREVAL:
                     
                 if blink:
                     self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(노란색))
@@ -10633,7 +10634,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            if 저가 in 고정_진성맥점:
+            if 저가 in FIXED_COREVAL:
 
                 if blink:
                     self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(노란색))
@@ -10785,7 +10786,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            if 고가 in 고정_진성맥점:
+            if 고가 in FIXED_COREVAL:
 
                 if blink:
                     self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(노란색))
@@ -12168,14 +12169,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if flag_fut_vs_dow_drate_direction and fut_quote_energy_direction == 'call' and fut_volume_power_energy_direction == 'call':
 
                 item = QTableWidgetItem("CS")
-                item.setBackground(QBrush(red))
+                item.setBackground(QBrush(적색))
                 item.setForeground(QBrush(흰색))
                 flag_call_dominant = True
 
             elif flag_fut_vs_dow_drate_direction and fut_quote_energy_direction == 'put' and fut_volume_power_energy_direction == 'put':
 
                 item = QTableWidgetItem("PS")
-                item.setBackground(QBrush(blue))
+                item.setBackground(QBrush(청색))
                 item.setForeground(QBrush(흰색))
                 flag_put_dominant = True
             else:
