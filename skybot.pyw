@@ -36304,7 +36304,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.textBrowser.append(txt)
 
         # 장후 동시호가 시작
-        elif result['장구분'] == '5' and result['장상태'] == '31':
+        elif result['장구분'] == '1' and result['장상태'] == '31':
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 장후 동시호가가 시작되었습니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
