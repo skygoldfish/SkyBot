@@ -36182,10 +36182,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
             self.textBrowser.append(txt)
 
-        # 선물장 장전 동시호가 개시
-        elif result['장구분'] == '5' and result['장상태'] == '11':
+        # 현물장 장전 동시호가 개시
+        elif result['장구분'] == '1' and result['장상태'] == '11':
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 선물장 장전 동시호가 개시합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 장전 동시호가가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
             self.textBrowser.append(txt)
 
@@ -36306,18 +36306,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 장후 동시호가 시작
         elif result['장구분'] == '1' and result['장상태'] == '31':
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 장후 동시호가가 시작되었습니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 장후 동시호가가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
             self.textBrowser.append(txt)
 
             dongsi_quote = True
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.dialog['선물옵션전광판'].textBrowser.append(txt)
-            self.textBrowser.append(txt)
-
-            flag_telegram_send_start = False
-            flag_telegram_listen_start = False
 
         # 주간 선물/옵션장 종료
         elif result['장구분'] == '5' and result['장상태'] == '41':
@@ -36341,6 +36334,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 WTI 지수 = {3}\r'.format(dt.hour, dt.minute, dt.second, WTI_현재가)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
             self.textBrowser.append(txt)
+            
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            self.textBrowser.append(txt)
+
+            flag_telegram_send_start = False
+            flag_telegram_listen_start = False
 
             if market_service:
 
