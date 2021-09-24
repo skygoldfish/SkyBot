@@ -35895,14 +35895,55 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.nws_update(data)
             elif szTrCode == 'JIF':
                 self.jif_update(data)
-            elif szTrCode == 'YJ_' and not dongsi_quote:
-                self.yj_update(data)
-            elif szTrCode == 'YFC' and not dongsi_quote:
-                self.yfc_update(data)
-            elif szTrCode == 'YS3' and not dongsi_quote:
-                self.ys3_update(data)
-            elif szTrCode == 'YOC' and not dongsi_quote:
-                self.yoc_update(data)
+
+            elif szTrCode == 'YJ_':
+
+                if len(data['수신시간']) == 5:
+                    realtime_hour = int(data['수신시간'][0:1])
+                else:
+                    realtime_hour = int(data['수신시간'][0:2])
+
+                if realtime_hour < 15:
+                    self.yj_update(data)
+                else:
+                    pass
+
+            elif szTrCode == 'YFC':
+
+                if len(data['수신시간']) == 5:
+                    realtime_hour = int(data['수신시간'][0:1])
+                else:
+                    realtime_hour = int(data['수신시간'][0:2])
+
+                if realtime_hour < 15:
+                    self.yfc_update(data)
+                else:
+                    pass
+
+            elif szTrCode == 'YS3':
+
+                if len(data['수신시간']) == 5:
+                    realtime_hour = int(data['수신시간'][0:1])
+                else:
+                    realtime_hour = int(data['수신시간'][0:2])
+
+                if realtime_hour < 15:    
+                    self.ys3_update(data)
+                else:
+                    pass
+
+            elif szTrCode == 'YOC':
+
+                if len(data['수신시간']) == 5:
+                    realtime_hour = int(data['수신시간'][0:1])
+                else:
+                    realtime_hour = int(data['수신시간'][0:2])
+
+                if realtime_hour < 15:
+                    self.yoc_update(data)
+                else:
+                    pass
+
             elif szTrCode == 'S3_':
 
                 if len(data['수신시간']) == 5:
@@ -36518,7 +36559,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         result = data
         
-        if result['업종코드'] == KOSPI200 and not dongsi_quote:
+        if result['업종코드'] == KOSPI200:
 
             예상지수 = float(result['예상지수'])
 
