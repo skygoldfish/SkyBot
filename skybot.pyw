@@ -17040,8 +17040,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             KP200_COREVAL.sort()
             print('t2801 KP200_COREVAL =', KP200_COREVAL)
 
-            #atm_txt = self.get_atm_txt(KP200_전일종가)
-
             if atm_txt[-1] == '2' or atm_txt[-1] == '7':
 
                 atm_val = float(atm_txt) + 0.5
@@ -36416,13 +36414,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     daytime_file.write(file_txt)
                     file_txt = 'Center Value = {0}\n'.format(CENTER_VAL)
                     daytime_file.write(file_txt)
-                    file_txt = 'KP200 Open = {0}\n'.format(self.dialog['선물옵션전광판'].kp200_realdata['시가'])
+                    file_txt = 'KP200 Open = {0}\n'.format(kp200_시가)
                     daytime_file.write(file_txt)                            
-                    file_txt = 'KP200 High = {0}\n'.format(self.dialog['선물옵션전광판'].kp200_realdata['고가'])
+                    file_txt = 'KP200 High = {0}\n'.format(kp200_고가)
                     daytime_file.write(file_txt)
-                    file_txt = 'KP200 Low = {0}\n'.format(self.dialog['선물옵션전광판'].kp200_realdata['저가'])
+                    file_txt = 'KP200 Low = {0}\n'.format(kp200_저가)
                     daytime_file.write(file_txt)
-                    file_txt = 'KP200 Close = {0}\n'.format(self.dialog['선물옵션전광판'].kp200_realdata['현재가'])
+                    file_txt = 'KP200 Close = {0}\n'.format(kp200_현재가)
                     daytime_file.write(file_txt)
                     file_txt = '################### < Foreign Futures Index of the Day > #####################\n'
                     daytime_file.write(file_txt)
@@ -36555,20 +36553,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def yj_update(self, data):
 
-        global df_futures_graph, df_kp200_graph, yj_atm_index
+        global df_futures_graph, df_kp200_graph, yj_atm_index, kp200_시가
 
         result = data
         
         if result['업종코드'] == KOSPI200:
 
-            예상지수 = float(result['예상지수'])
+            kp200_시가 = float(result['예상지수'])
 
-            kp200_시가 = 예상지수
-            self.dialog['선물옵션전광판'].kp200_realdata['시가'] = 예상지수
-            self.dialog['선물옵션전광판'].fut_realdata['KP200'] = 예상지수
+            self.dialog['선물옵션전광판'].kp200_realdata['시가'] = kp200_시가
+            self.dialog['선물옵션전광판'].fut_realdata['KP200'] = kp200_시가
 
-            df_futures_graph.at[ovc_x_idx, 'kp200'] = 예상지수
-            df_kp200_graph.at[ovc_x_idx, 'price'] = 예상지수
+            df_futures_graph.at[ovc_x_idx, 'kp200'] = kp200_시가
+            df_kp200_graph.at[ovc_x_idx, 'price'] = kp200_시가
 
             item = QTableWidgetItem(result['예상지수'])
             item.setTextAlignment(Qt.AlignCenter)
@@ -36598,7 +36595,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.시가갭.value, item)
 
-            atm_txt = self.dialog['선물옵션전광판'].get_atm_txt(예상지수)
+            atm_txt = self.dialog['선물옵션전광판'].get_atm_txt(kp200_시가)
 
             if atm_txt[-1] == '2' or atm_txt[-1] == '7':
 
@@ -37014,7 +37011,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global df_fut, df_futures_graph, df_kp200_graph
         global ATM_INDEX, call_atm_value, put_atm_value, KP200_COREVAL, 장시작_양합, 장시작_중심가
         global flag_kp200_start_set, flag_kp200_low, flag_kp200_high, kospi_text_color, kosdaq_text_color
-        global kospi_price, kosdaq_price, kp200_시가, kp200_저가, kp200_고가, kp200_진폭
+        global kospi_price, kosdaq_price, kp200_시가, kp200_저가, kp200_현재가, kp200_고가, kp200_진폭
 
         result = data
         
@@ -37026,32 +37023,32 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             고가지수 = result['고가지수']
             
             # 그래프 가격갱신
-            실수_지수 = float(result['지수'])
-            df_futures_graph.at[ovc_x_idx, 'kp200'] = 실수_지수
-            df_kp200_graph.at[ovc_x_idx, 'price'] = 실수_지수
+            kp200_현재가 = float(result['지수'])
+            df_futures_graph.at[ovc_x_idx, 'kp200'] = kp200_현재가
+            df_kp200_graph.at[ovc_x_idx, 'price'] = kp200_현재가
 
             # kp200 현재가
             if 지수 != self.dialog['선물옵션전광판'].tableWidget_fut.item(2, Futures_column.현재가.value).text().split('\n')[0]:
 
-                self.dialog['선물옵션전광판'].fut_realdata['KP200'] = 실수_지수
-                self.dialog['선물옵션전광판'].kp200_realdata['현재가'] = 실수_지수
-                df_fut.at[2, '현재가'] = 실수_지수
+                self.dialog['선물옵션전광판'].fut_realdata['KP200'] = kp200_현재가
+                self.dialog['선물옵션전광판'].kp200_realdata['현재가'] = kp200_현재가
+                df_fut.at[2, '현재가'] = kp200_현재가
                 
                 temp = self.dialog['선물옵션전광판'].tableWidget_fut.item(2, Futures_column.현재가.value).text().split('\n')[0]
 
-                if 실수_지수 < float(temp):
+                if kp200_현재가 < float(temp):
                     item = QTableWidgetItem(지수 + '\n' + '▼')
                     item.setBackground(QBrush(lightskyblue))
-                elif 실수_지수 > float(temp):
+                elif kp200_현재가 > float(temp):
                     item = QTableWidgetItem(지수 + '\n' + '▲')
                     item.setBackground(QBrush(pink))
                 else:    
                     item = QTableWidgetItem(지수)
                     item.setBackground(QBrush(옅은회색))
 
-                if 실수_지수 > kp200_시가:
+                if kp200_현재가 > kp200_시가:
                     item.setForeground(QBrush(적색))
-                elif 실수_지수 < kp200_시가:
+                elif kp200_현재가 < kp200_시가:
                     item.setForeground(QBrush(청색))
                 else:
                     item.setForeground(QBrush(검정색))
