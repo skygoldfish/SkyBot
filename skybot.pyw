@@ -40101,6 +40101,7 @@ if __name__ == "__main__":
         #ctx = mp.get_context('spawn')
 
         if FUTURES_REQUEST:
+
             futuresQ = mp.Queue()
 
             KOSPI_QUOTE = False               # 코스피 전종목 호가
@@ -40110,8 +40111,12 @@ if __name__ == "__main__":
 
             INDEX_FUTURES_QUOTE = True        # 지수선물 전종목 호가
             INDEX_FUTURES_TICK = True         # 지수선물 전종목 체결
+
+            futures_process = mp.Process(target=futures_crawler, args=(futuresQ, INDEX_FUTURES_QUOTE, INDEX_FUTURES_TICK), daemon=True)
+            futures_process.start()
         
         if OPTION_TICK_REQUEST:
+
             option_tickQ = mp.Queue()            
 
             if TARGET_MONTH == 'CM':
@@ -40131,7 +40136,11 @@ if __name__ == "__main__":
                 INDEX_OPTION_CM_TICK = False
                 INDEX_OPTION_NM_TICK = False
 
+            option_tick_process = mp.Process(target=option_tick_crawler, args=(option_tickQ, CALL_ITM_REQUEST_NUMBER, CALL_OTM_REQUEST_NUMBER, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER, INDEX_OPTION_CM_TICK, INDEX_OPTION_NM_TICK), daemon=True)
+            option_tick_process.start()
+
         if OPTION_QUOTE_REQUEST:
+
             option_quoteQ = mp.Queue()
 
             QUOTE_REQUEST_NUMBER = OPTION_PAIRS_QUOTE_REQUEST_NUMBER
@@ -40153,31 +40162,13 @@ if __name__ == "__main__":
                 INDEX_OPTION_CM_QUOTE = False      
                 INDEX_OPTION_NM_QUOTE = False
 
-        if OVC_REQUEST:
-            ovcQ = mp.Queue()
-                
-        if FUTURES_REQUEST:
-            futures_process = mp.Process(target=futures_crawler, args=(futuresQ, INDEX_FUTURES_QUOTE, INDEX_FUTURES_TICK), daemon=True)
-
-        if OPTION_TICK_REQUEST:
-            option_tick_process = mp.Process(target=option_tick_crawler, args=(option_tickQ, CALL_ITM_REQUEST_NUMBER, CALL_OTM_REQUEST_NUMBER, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER, INDEX_OPTION_CM_TICK, INDEX_OPTION_NM_TICK), daemon=True)
-
-        if OPTION_QUOTE_REQUEST:
             option_quote_process = mp.Process(target=option_quote_crawler, args=(option_quoteQ, QUOTE_REQUEST_NUMBER, QUOTE_REQUEST_NUMBER, QUOTE_REQUEST_NUMBER, QUOTE_REQUEST_NUMBER, INDEX_OPTION_CM_QUOTE, INDEX_OPTION_NM_QUOTE), daemon=True)
-
-        if OVC_REQUEST:
-            ovc_process = mp.Process(target=ovc_crawler, args=(ovcQ, ), daemon=True)
-        
-        if FUTURES_REQUEST:
-            futures_process.start()
-
-        if OPTION_TICK_REQUEST:
-            option_tick_process.start()
-
-        if OPTION_QUOTE_REQUEST:
             option_quote_process.start()
 
         if OVC_REQUEST:
+            
+            ovcQ = mp.Queue()
+            ovc_process = mp.Process(target=ovc_crawler, args=(ovcQ, ), daemon=True)
             ovc_process.start()
     else:
         pass
