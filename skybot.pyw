@@ -161,7 +161,6 @@ put_scroll_depth = 30
 선물_종가 = 0
 선물_피봇 = 0
 선물_시가 = 0
-선물_예상시가 = 0
 
 선물_저가 = 0
 
@@ -36608,7 +36607,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
             
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 선물/KOSPI200 예상시가 = {3}/{4}, 예상등가 = {5}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 선물_예상시가, kp200_시가, atm_txt)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 선물/KOSPI200 예상시가 = {3}/{4}, 예상등가 = {5}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 선물_시가, kp200_시가, atm_txt)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
 
             if atm_txt in opt_actval:
@@ -36627,7 +36626,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def yfc_update(self, data):
 
         global market_service, df_futures_graph, flag_futures_ohlc_open, 선물_종가대비_등락율, 선물_진폭비
-        global flag_fut_vs_dow_drate_direction, plot_drate_scale_factor, 선물_현재가_버퍼, 선물_피봇
+        global flag_fut_vs_dow_drate_direction, plot_drate_scale_factor, 선물_현재가_버퍼, 선물_시가, 선물_피봇
 
         result = data
         
@@ -36639,10 +36638,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if result['단축코드'] == GMSHCODE:
 
             예상체결가격 = result['예상체결가격']
-            선물_예상시가 = float(result['예상체결가격'])
+            선물_시가 = float(result['예상체결가격'])
 
             # 그래프 가격갱신
-            df_futures_graph.at[ovc_x_idx, 'price'] = 선물_예상시가
+            df_futures_graph.at[ovc_x_idx, 'price'] = 선물_시가
 
             # 1T OHLC 생성
             df_futures_graph.at[ovc_x_idx, 'ctime'] = result['수신시간']
@@ -36651,18 +36650,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if not flag_futures_ohlc_open:
 
-                    df_futures_graph.at[ovc_x_idx, 'open'] = 선물_예상시가
-                    df_futures_graph.at[ovc_x_idx, 'high'] = 선물_예상시가
-                    df_futures_graph.at[ovc_x_idx, 'low'] = 선물_예상시가
-                    df_futures_graph.at[ovc_x_idx, 'middle'] = 선물_예상시가
-                    df_futures_graph.at[ovc_x_idx, 'close'] = 선물_예상시가
-                    df_futures_graph.at[ovc_x_idx, 'price'] = 선물_예상시가
+                    df_futures_graph.at[ovc_x_idx, 'open'] = 선물_시가
+                    df_futures_graph.at[ovc_x_idx, 'high'] = 선물_시가
+                    df_futures_graph.at[ovc_x_idx, 'low'] = 선물_시가
+                    df_futures_graph.at[ovc_x_idx, 'middle'] = 선물_시가
+                    df_futures_graph.at[ovc_x_idx, 'close'] = 선물_시가
+                    df_futures_graph.at[ovc_x_idx, 'price'] = 선물_시가
 
                     del 선물_현재가_버퍼[:]
 
                     flag_futures_ohlc_open = True
                 else:
-                    선물_현재가_버퍼.append(선물_예상시가)                            
+                    선물_현재가_버퍼.append(선물_시가)                            
             else:
                 if df_futures_graph.at[ovc_x_idx, 'open'] != df_futures_graph.at[ovc_x_idx, 'open']:
                     df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
@@ -36670,7 +36669,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                선물_현재가_버퍼.append(선물_예상시가)
+                선물_현재가_버퍼.append(선물_시가)
 
                 if max(선물_현재가_버퍼) > 0:
                     df_futures_graph.at[ovc_x_idx, 'high'] = max(선물_현재가_버퍼)
@@ -36686,14 +36685,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     df_futures_graph.at[ovc_x_idx, 'low'] = min(선물_현재가_버퍼)
 
-                df_futures_graph.at[ovc_x_idx, 'close'] = 선물_예상시가
+                df_futures_graph.at[ovc_x_idx, 'close'] = 선물_시가
 
                 flag_futures_ohlc_open = False
 
             df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2
-
-            선물_시가 = 선물_예상시가                    
-            self.dialog['선물옵션전광판'].fut_realdata['시가'] = 선물_예상시가
+                  
+            self.dialog['선물옵션전광판'].fut_realdata['시가'] = 선물_시가
 
             item = QTableWidgetItem(result['예상체결가격'])
             item.setTextAlignment(Qt.AlignCenter)
@@ -36743,7 +36741,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, Futures_column.시가.value, item)
 
             if 선물_전일종가 > 0:
-                선물_종가대비_등락율 = ((선물_예상시가 - 선물_전일종가) / 선물_전일종가) * 100
+                선물_종가대비_등락율 = ((선물_시가 - 선물_전일종가) / 선물_전일종가) * 100
             else:
                 pass
 
