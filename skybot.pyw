@@ -3799,8 +3799,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.now()
 
         txt = '[{0:02d}:{1:02d}:{2:02d}] GUI 초기화중...\r'.format(dt.hour, dt.minute, dt.second)
-        self.parent.textBrowser.append(txt)
-        self.textBrowser.append(txt)
+        #self.parent.textBrowser.append(txt)
+        #self.textBrowser.append(txt)
         
         # 선물 tablewidget 초기화
         self.tableWidget_fut.setRowCount(3)
@@ -34626,6 +34626,8 @@ class Xing(object):
 
     def main_login(self, url, id, pwd, cert):
 
+        self.caller.textBrowser.append('Welcome to SkyBot !!!\r')
+
         if REAL_SERVER:
             txt = '실서버에 접속합니다.\r'
         else:
@@ -34679,7 +34681,8 @@ class Xing(object):
             else:
                 pass            
             
-            txt = '메인 프로세스 로그인 성공 !!!\r'
+            #txt = '메인 프로세스 로그인 성공 !!!\r'
+            txt = '메인 프로세스(Process ID = {0}) 로그인 성공 !!!\r'.format(mp.current_process().pid)
             self.caller.textBrowser.append(txt)
             self.caller.statusbar.showMessage(txt)
             #playsound( "Resources/ring.wav" )            
@@ -34879,7 +34882,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.setWindowTitle("SkyBot ver1.0")
         self.textBrowser.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
-        self.textBrowser.append('Welcome to SkyBot\r')
+        #self.textBrowser.append('Welcome to SkyBot\r')
 
         self.label_1st.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
                                     color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
@@ -35063,8 +35066,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.textBrowser.verticalScrollBar().setValue(self.textBrowser.verticalScrollBar().maximum())
             
             if AUTO_START:
-                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(txt)
+                #txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 자동시작 합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                #self.textBrowser.append(txt)
 
                 self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
                 self.dialog['선물옵션전광판'].show()
