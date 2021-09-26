@@ -35054,7 +35054,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         if trdata[0] == 'login' and trdata[1] == '0000':
 
-            txt = '1st 백그라운드 프로세스 로그인 성공 !!!\r'
+            #txt = '1st 백그라운드 프로세스 로그인 성공 !!!\r'
+            txt = '지수선물 체결 프로세스(Process ID = {0}) 로그인 성공 !!!\r'.format(futures_process.pid)
             self.textBrowser.append(txt)            
             self.statusbar.showMessage(trdata[3] + ' ' + trdata[2])          
 
@@ -35318,7 +35319,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         if trdata[0] == 'login' and trdata[1] == '0000':
 
-            txt = '2nd 백그라운드 프로세스 로그인 성공 !!!\r'
+            #txt = '2nd 백그라운드 프로세스 로그인 성공 !!!\r'
+            txt = '지수옵션 체결 프로세스(Process ID = {0}) 로그인 성공 !!!\r'.format(option_tick_process.pid)
             self.textBrowser.append(txt)
             self.statusbar.showMessage(trdata[3] + ' ' + trdata[2])
 
@@ -35545,7 +35547,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         if trdata[0] == 'login' and trdata[1] == '0000':
 
-            txt = '3rd 백그라운드 프로세스 로그인 성공 !!!\r'
+            #txt = '3rd 백그라운드 프로세스 로그인 성공 !!!\r'
+            txt = '지수옵션 호가 프로세스(Process ID = {0}) 로그인 성공 !!!\r'.format(option_quote_process.pid)
             self.textBrowser.append(txt)
             self.statusbar.showMessage(trdata[3] + ' ' + trdata[2])
 
@@ -35718,7 +35721,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         if trdata[0] == 'login' and trdata[1] == '0000':
 
-            txt = '4th 백그라운드 프로세스 로그인 성공 !!!\r'
+            #txt = '4th 백그라운드 프로세스 로그인 성공 !!!\r'
+            txt = '해외선물 프로세스(Process ID = {0}) 로그인 성공 !!!\r'.format(ovc_process.pid)
             self.textBrowser.append(txt)
             self.statusbar.showMessage(trdata[3] + ' ' + trdata[2])
 
@@ -40113,7 +40117,7 @@ if __name__ == "__main__":
             INDEX_FUTURES_TICK = True         # 지수선물 전종목 체결
 
             futures_process = mp.Process(target=futures_crawler, args=(futuresQ, INDEX_FUTURES_QUOTE, INDEX_FUTURES_TICK), daemon=True)
-            futures_process.start()
+            futures_process.start()            
         
         if OPTION_TICK_REQUEST:
 
