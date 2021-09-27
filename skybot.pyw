@@ -35756,6 +35756,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def transfer_mp_ovc_realdata(self, tickdata):
 
         global drop_txt, drop_percent, time_gap, main_totalsize, option_tick_total_size, ovc_tick_total_size
+        global receive_real_ovc
         
         dt = datetime.now()       
 
@@ -35865,10 +35866,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 1st 프로세스 실시간데이타 갱신
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
 
-            if time_gap_abs < view_time_tolerance:
+            if not receive_real_ovc:
+                receive_real_ovc = True
+            else:
+                pass
+
+            if time_gap_abs < view_time_tolerance:                
 
                 # 주간 장초반 시스템 부하를 줄이기위함
-                if DayTime:
+                if DayTime:                   
 
                     if TARGET_MONTH == 'CM' and 3600 * 9 + 10 * 60 <= realtime <= 3600 * 16:
                         self.update_4th_process(tickdata)
@@ -38686,10 +38692,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dt = datetime.now()
 
         try:
+            '''
             if not receive_real_ovc:
                 receive_real_ovc = True
             else:
                 pass
+            '''
 
             result = data
 
