@@ -1141,7 +1141,6 @@ every_5sec = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]
 
 pre_start = False
 
-receive_real_ovc = False
 receive_quote = False
 market_service = False
 
@@ -5649,7 +5648,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global flag_fut_low, flag_fut_high
         global flag_kp200_low, flag_kp200_high
-        global flag_offline, receive_real_ovc            
+        global flag_offline            
 
         global call_plot_data, put_plot_data, centerval_plot_data
         global SP500_당일종가, DOW_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가, GOLD_당일종가 
@@ -23836,8 +23835,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
     def plot1_clear(self):
 
-        print('plot1 clear...')
-
         self.plot1_fut_jl_line.setValue(0)
         self.plot1_fut_jh_line.setValue(0)
         self.plot1_fut_open_line.setValue(0)
@@ -28770,7 +28767,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
    
         self.label_time_1.setText(txt)
                 
-        if FLAG_GUEST_CONTROL and receive_real_ovc:
+        if True:
             
             flag_plot_update_is_running = True
 
@@ -29719,7 +29716,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
    
         self.label_time_2.setText(txt)
 
-        if FLAG_GUEST_CONTROL and receive_real_ovc:
+        if True:
 
             flag_plot_update_is_running = True
 
@@ -30652,7 +30649,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
    
         self.label_time_3.setText(txt)
 
-        if FLAG_GUEST_CONTROL and receive_real_ovc:
+        if True:
 
             flag_plot_update_is_running = True
 
@@ -31579,7 +31576,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
    
         self.label_time_4.setText(txt)
 
-        if FLAG_GUEST_CONTROL and receive_real_ovc:
+        if True:
 
             flag_plot_update_is_running = True
 
@@ -32490,7 +32487,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
    
         self.label_time_5.setText(txt)
 
-        if FLAG_GUEST_CONTROL and receive_real_ovc:
+        if True:
 
             flag_plot_update_is_running = True
 
@@ -33416,7 +33413,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
    
         self.label_time_6.setText(txt)
 
-        if FLAG_GUEST_CONTROL and receive_real_ovc:
+        if True:
 
             flag_plot_update_is_running = True
 
@@ -35756,7 +35753,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def transfer_mp_ovc_realdata(self, tickdata):
 
         global drop_txt, drop_percent, time_gap, main_totalsize, option_tick_total_size, ovc_tick_total_size
-        global receive_real_ovc
         
         dt = datetime.now()       
 
@@ -35865,11 +35861,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # 1st 프로세스 실시간데이타 갱신
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
-
-            if not receive_real_ovc:
-                receive_real_ovc = True
-            else:
-                pass
 
             if time_gap_abs < view_time_tolerance:                
 
@@ -38661,7 +38652,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def ovc_update(self, data):
 
-        global receive_real_ovc, OVC_체결시간, OVC_HOUR, OVC_MIN, OVC_SEC, SERVER_HOUR, SERVER_MIN, SERVER_SEC
+        global OVC_체결시간, OVC_HOUR, OVC_MIN, OVC_SEC, SERVER_HOUR, SERVER_MIN, SERVER_SEC
         global old_ovc_x_idx, ovc_x_idx
         global df_futures_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
 
@@ -38692,13 +38683,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dt = datetime.now()
 
         try:
-            '''
-            if not receive_real_ovc:
-                receive_real_ovc = True
-            else:
-                pass
-            '''
-
             result = data
 
             OVC_체결시간 = result['수신시간']
