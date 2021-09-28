@@ -3033,9 +3033,15 @@ class RealTime_Futures_MP_DataWorker(QThread):
                             else:
                                 pass
 
-                            self.trigger_dict.emit(tickdata)                           
+                            self.trigger_dict.emit(tickdata)                                                    
                         else:
-                            self.sys_drop_count += 1                    
+                            self.sys_drop_count += 1
+
+                        if 9 * 3600 < realtime < 9 * 3600 + 10 * 60:
+                            QApplication.processEvents()
+                            time.sleep(SLEEP_SWITCHING_DELAY)
+                        else:
+                            pass                   
                     else:
                         pass                    
                 else:
@@ -3152,7 +3158,13 @@ class RealTime_Option_Tick_MP_DataWorker(QThread):
 
                         self.trigger_dict.emit(tickdata)
                     else:
-                        self.sys_drop_count += 1                
+                        self.sys_drop_count += 1
+
+                    if 9 * 3600 < realtime < 9 * 3600 + 10 * 60:
+                        QApplication.processEvents()
+                        time.sleep(SLEEP_SWITCHING_DELAY)
+                    else:
+                        pass            
                 else:
                     pass
             else:
@@ -3278,7 +3290,13 @@ class RealTime_Option_Quote_MP_DataWorker(QThread):
 
                         self.trigger_dict.emit(tickdata)
                     else:
-                        self.sys_drop_count += 1                
+                        self.sys_drop_count += 1
+
+                    if 9 * 3600 < realtime < 9 * 3600 + 10 * 60:
+                        QApplication.processEvents()
+                        time.sleep(SLEEP_SWITCHING_DELAY)
+                    else:
+                        pass                
                 else:
                     pass
             else:
@@ -3384,7 +3402,13 @@ class RealTime_OVC_MP_DataWorker(QThread):
 
                         self.trigger_dict.emit(tickdata)
                     else:
-                        self.sys_drop_count += 1                
+                        self.sys_drop_count += 1
+
+                    if 9 * 3600 < realtime < 9 * 3600 + 10 * 60:
+                        QApplication.processEvents()
+                        time.sleep(SLEEP_SWITCHING_DELAY)
+                    else:
+                        pass                
                 else:
                     pass
             else:
