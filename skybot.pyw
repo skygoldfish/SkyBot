@@ -3450,7 +3450,7 @@ class PlotUpdateWorker1(QThread):
 
         while True:
 
-            if not flag_screen_update_is_running:
+            if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
                 self.trigger.emit()
 
             if flag_plot_update_interval_changed:
@@ -3476,7 +3476,7 @@ class PlotUpdateWorker2(QThread):
 
         while True:
 
-            if not flag_screen_update_is_running:
+            if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -3496,7 +3496,7 @@ class PlotUpdateWorker3(QThread):
 
         while True:
 
-            if not flag_screen_update_is_running:
+            if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -3516,7 +3516,7 @@ class PlotUpdateWorker4(QThread):
 
         while True:
 
-            if not flag_screen_update_is_running:
+            if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -3536,7 +3536,7 @@ class PlotUpdateWorker5(QThread):
 
         while True:
 
-            if not flag_screen_update_is_running:
+            if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
@@ -3556,7 +3556,7 @@ class PlotUpdateWorker6(QThread):
 
         while True:
 
-            if not flag_screen_update_is_running:
+            if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
                 self.trigger.emit()
                         
             QTest.qWait(plot_update_interval)
@@ -34524,7 +34524,12 @@ class Xing(object):
                 
                 if flag_score_board_start:
 
-                    self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
+                    if DayTime:
+                        if flag_2nd_process_queue_empty:
+                            self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
+                    else:
+                        if flag_4th_process_queue_empty:
+                            self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
 
                     if dt.hour == KSE_START_HOUR:
                         report_interval = 5
