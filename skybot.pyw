@@ -38441,11 +38441,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if FLAG_GUEST_CONTROL:
 
                 # 테이블 갱신
-                call_result = copy.deepcopy(result)
-                self.dialog['선물옵션전광판'].call_update(call_result)
+                self.dialog['선물옵션전광판'].call_update(result)
+                call_result = copy.deepcopy(result)                
 
-                if not flag_periodic_plot_mode:
-                    #self.dialog['선물옵션전광판'].call_update(call_result)                       
+                if not flag_periodic_plot_mode:                       
                     self.dialog['선물옵션전광판'].call_db_update()
                     self.dialog['선물옵션전광판'].call_volume_power_update()
                     self.dialog['선물옵션전광판'].call_oi_update()
@@ -38503,11 +38502,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass 
 
             # 테이블 갱신
-            put_result = copy.deepcopy(result)
-            self.dialog['선물옵션전광판'].put_update(put_result)                                                    
+            self.dialog['선물옵션전광판'].put_update(result) 
+            put_result = copy.deepcopy(result)                                                               
 
-            if not flag_periodic_plot_mode:
-                #self.dialog['선물옵션전광판'].put_update(put_result)                    
+            if not flag_periodic_plot_mode:                    
                 self.dialog['선물옵션전광판'].put_db_update()
                 self.dialog['선물옵션전광판'].put_volume_power_update()
                 self.dialog['선물옵션전광판'].put_oi_update()
