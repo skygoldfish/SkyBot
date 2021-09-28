@@ -908,7 +908,7 @@ flag_clear = False
 
 진성맥점 = []
 
-FUT_CODE = ''
+fut_code = ''
 GMSHCODE = ''
 CMSHCODE = ''
 CCMSHCODE = ''
@@ -3643,7 +3643,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         atexit.register(self.__del__)     
         
         global TARGET_MONTH, MONTH_FIRSTDAY
-        global widget_title, CURRENT_MONTH, NEXT_MONTH, MONTH_AFTER_NEXT, SP500, DOW, NASDAQ, FUT_CODE
+        global widget_title, CURRENT_MONTH, NEXT_MONTH, MONTH_AFTER_NEXT, SP500, DOW, NASDAQ, fut_code
         global KSE_START_HOUR        
         global call_node_state, put_node_state, COREVAL
         
@@ -8371,7 +8371,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     count_low += 1
 
                     '''
-                    if FUT_CODE == CMSHCODE:
+                    if fut_code == CMSHCODE:
 
                         txt = '차월물 콜 저까 가 {} 입니다'.format(df_call.iloc[i]['저가'])
                     else:
@@ -8402,7 +8402,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     count_high += 1
 
                     '''                        
-                    if FUT_CODE == CMSHCODE:
+                    if fut_code == CMSHCODE:
 
                         txt = '차월물 콜 고까 가 {} 입니다'.format(df_call.iloc[i]['고가'])
                     else:
@@ -8515,7 +8515,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     flag_call_low_coreval = True                        
 
                     '''
-                    if FUT_CODE == CMSHCODE:
+                    if fut_code == CMSHCODE:
 
                         txt = '차월물 콜 저까 가 {} 입니다'.format(df_call.iloc[i]['저가'])
                     else:
@@ -8578,7 +8578,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     flag_call_high_coreval = True                                
 
                     '''
-                    if FUT_CODE == CMSHCODE:
+                    if fut_code == CMSHCODE:
 
                         txt = '차월물 콜 고까 가 {} 입니다'.format(df_call.iloc[i]['고가'])
                     else:
@@ -10962,7 +10962,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     count_low += 1
 
                     '''                        
-                    if FUT_CODE == CMSHCODE:
+                    if fut_code == CMSHCODE:
 
                         txt = '차월물 풋 저까 가 {} 입니다'.format(df_put.iloc[i]['저가'])
                     else:
@@ -10993,7 +10993,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     count_high += 1
 
                     '''
-                    if FUT_CODE == CMSHCODE:
+                    if fut_code == CMSHCODE:
 
                         txt = '차월물 풋 고까 가 {} 입니다'.format(df_put.iloc[i]['고가'])
                     else:
@@ -11106,7 +11106,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     flag_put_low_coreval = True                            
 
                     '''                        
-                    if FUT_CODE == CMSHCODE:
+                    if fut_code == CMSHCODE:
 
                         txt = '차월물 풋 저까 가 {} 입니다'.format(df_put.iloc[i]['저가'])
                     else:
@@ -11169,7 +11169,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     flag_put_high_coreval = True                        
 
                     '''
-                    if FUT_CODE == CMSHCODE:
+                    if fut_code == CMSHCODE:
 
                         txt = '차월물 풋 고까 가 {} 입니다'.format(df_put.iloc[i]['고가'])
                     else:
@@ -15028,7 +15028,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     #####################################################################################################################################################################
     def OnReceiveData(self, result):
 
-        global GMSHCODE, CMSHCODE, CCMSHCODE, FUT_CODE
+        global GMSHCODE, CMSHCODE, CCMSHCODE, fut_code
         global opt_actval
         global ATM_INDEX, old_atm_index
         global df_call_price_graph, df_put_price_graph, df_call_information_graph, df_put_information_graph
@@ -16408,16 +16408,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # 주간 선물전광판 데이타요청
-                self.XQ_t2101.Query(FUT_CODE)
+                self.XQ_t2101.Query(fut_code)
                 
-                if FUT_CODE == GMSHCODE:
+                if fut_code == GMSHCODE:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 본월물 주간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                elif FUT_CODE == CMSHCODE:
+                elif fut_code == CMSHCODE:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 차월물 주간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                elif FUT_CODE == CCMSHCODE:
+                elif fut_code == CCMSHCODE:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 차차월물 주간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 else:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 잘못된 선물코드({3})입니다.\r'.format(dt.hour, dt.minute, dt.second, FUT_CODE)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 잘못된 선물코드({3})입니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
 
                 self.textBrowser.append(txt)
 
@@ -16426,16 +16426,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 QTest.qWait(100)
 
                 # 야간 선물전광판 데이타요청
-                #self.XQ_t2801.Query(FUT_CODE)
+                #self.XQ_t2801.Query(fut_code)
                 
-                if FUT_CODE == GMSHCODE:
+                if fut_code == GMSHCODE:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] t2801 본월물 야간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                elif FUT_CODE == CMSHCODE:
+                elif fut_code == CMSHCODE:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] t2801 차월물 야간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                elif FUT_CODE == CCMSHCODE:
+                elif fut_code == CCMSHCODE:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] t2801 차차월물 야간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 else:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 잘못된 선물코드({3})입니다.\r'.format(dt.hour, dt.minute, dt.second, FUT_CODE)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 잘못된 선물코드({3})입니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
 
                 self.textBrowser.append(txt)
                 '''
@@ -16878,14 +16878,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if True:
 
                         # 주야간 선물전광판 데이타 요청
-                        self.XQ_t2101.Query(종목코드=FUT_CODE)
+                        self.XQ_t2101.Query(종목코드=fut_code)
                         
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
 
                         QTest.qWait(100)
                         '''
-                        self.XQ_t2801.Query(종목코드=FUT_CODE)
+                        self.XQ_t2801.Query(종목코드=fut_code)
                         
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
@@ -18727,12 +18727,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             # 주야간 선물전광판 데이타 요청
             print('t2101 요청')
-            self.XQ_t2101.Query(종목코드=FUT_CODE)
+            self.XQ_t2101.Query(종목코드=fut_code)
             
             QTest.qWait(100)
 
             #print('t2801 요청')
-            #self.XQ_t2801.Query(종목코드=FUT_CODE)
+            #self.XQ_t2801.Query(종목코드=fut_code)
             
             #QTest.qWait(100)
 
@@ -19865,8 +19865,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             if TARGET_MONTH == 'CM':
 
-                FUT_CODE = GMSHCODE
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, current_month, FUT_CODE)
+                fut_code = GMSHCODE
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, current_month, fut_code)
                 self.textBrowser.append(txt)
                 print(txt)
                 
@@ -19893,8 +19893,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif TARGET_MONTH == 'NM':
 
-                FUT_CODE = CMSHCODE
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, next_month, FUT_CODE)
+                fut_code = CMSHCODE
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, next_month, fut_code)
                 self.textBrowser.append(txt)
                 print(txt)
 
@@ -20181,7 +20181,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             print(txt)
 
-            self.parent.realtime_thread_dataworker.RequestRealData('YFC', FUT_CODE)                    
+            self.parent.realtime_thread_dataworker.RequestRealData('YFC', fut_code)                    
 
             # KOSPI 예상체결 요청
             txt = '[{0:02d}:{1:02d}:{2:02d}] 삼성,현대 예상체결을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
@@ -35080,7 +35080,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         elif trdata[0] == 't8432':
             
-            global FUT_CODE, GMSHCODE, CMSHCODE, CCMSHCODE
+            global fut_code, GMSHCODE, CMSHCODE, CCMSHCODE
             global 선물_전저, 선물_전고, 선물_종가 
 
             df = trdata[1]
@@ -35109,7 +35109,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
             if TARGET_MONTH == 'CM':
 
-                FUT_CODE = GMSHCODE
+                fut_code = GMSHCODE
                 
                 선물_전저 = float(df.at[0, '전일저가'])
                 선물_전고 = float(df.at[0, '전일고가'])
@@ -35121,7 +35121,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             elif TARGET_MONTH == 'NM':
 
-                FUT_CODE = CMSHCODE
+                fut_code = CMSHCODE
 
                 선물_전저 = float(df.at[0, '전일저가'])
                 선물_전고 = float(df.at[0, '전일고가'])
@@ -37827,19 +37827,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 ToYourTelegram(send_txt)
 
                 if 수급방향 == 'Call1':
-                    speak_txt = '수급은 콜 원'
+                    speak_txt = '콜 원'
                 elif 수급방향 == 'Call2':
-                    speak_txt = '수급은 콜 투'
+                    speak_txt = '콜 투'
                 elif 수급방향 == 'Call3':
-                    speak_txt = '수급은 콜 쓰리'
+                    speak_txt = '콜 쓰리'
                 elif 수급방향 == 'Put1':
-                    speak_txt = '수급은 풋 원'
+                    speak_txt = '풋 원'
                 elif 수급방향 == 'Put2':
-                    speak_txt = '수급은 풋 투'
+                    speak_txt = '풋 투'
                 elif 수급방향 == 'Put3':
-                    speak_txt = '수급은 풋 쓰리'
+                    speak_txt = '풋 쓰리'
                 else:
-                    speak_txt = '수급은 None'
+                    speak_txt = 'None'
 
                 self.speaker.setText(speak_txt)
             else:
@@ -37862,7 +37862,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass        
         
-        if result['단축코드'] == FUT_CODE:
+        if result['단축코드'] == fut_code:
 
             # 그래프관련 처리 먼저...
             if float(result['현재가']) == float('inf') or float(result['현재가']) == float('-inf'):
