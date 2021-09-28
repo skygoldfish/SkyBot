@@ -3408,6 +3408,12 @@ class RealTime_OVC_MP_DataWorker(QThread):
                         QApplication.processEvents()
                         time.sleep(SLEEP_SWITCHING_DELAY)
                     else:
+                        pass
+
+                    if 22 * 3600 + 30 * 60 < realtime < 22 * 3600 + 40 * 60:
+                        QApplication.processEvents()
+                        time.sleep(SLEEP_SWITCHING_DELAY)
+                    else:
                         pass                
                 else:
                     pass
