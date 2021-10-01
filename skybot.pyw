@@ -3036,12 +3036,6 @@ class RealTime_Futures_MP_DataWorker(QThread):
                             self.trigger_dict.emit(tickdata)                                                    
                         else:
                             self.sys_drop_count += 1
-
-                        if 9 * 3600 < realtime < 9 * 3600 + 10 * 60:
-                            QApplication.processEvents()
-                            time.sleep(SLEEP_SWITCHING_DELAY)
-                        else:
-                            pass                   
                     else:
                         pass                    
                 else:
@@ -3049,7 +3043,7 @@ class RealTime_Futures_MP_DataWorker(QThread):
 
                     if SLEEP_SWITCH_MODE:
                         QApplication.processEvents()
-                        time.sleep(SLEEP_SWITCHING_DELAY)
+                        time.sleep(0.000001)
 
             except Exception as e:
                 
@@ -3122,7 +3116,7 @@ class RealTime_Option_Tick_MP_DataWorker(QThread):
                     self.waiting_tasks = self.dataQ.qsize()
 
                     tick_type, tickdata = self.realdata
-                    print(f"\r[{datetime.now()}] 옵션체결 System time : {tickdata['system_time']}, 체결시간 : {tickdata['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')
+                    #print(f"\r[{datetime.now()}] 옵션체결 System time : {tickdata['system_time']}, 체결시간 : {tickdata['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')
 
                     if CSV_FILE:
                         tickdata_lst = list(tickdata.values())
@@ -3159,12 +3153,6 @@ class RealTime_Option_Tick_MP_DataWorker(QThread):
                         self.trigger_dict.emit(tickdata)
                     else:
                         self.sys_drop_count += 1
-
-                    if 9 * 3600 < realtime < 9 * 3600 + 10 * 60:
-                        QApplication.processEvents()
-                        time.sleep(SLEEP_SWITCHING_DELAY)
-                    else:
-                        pass            
                 else:
                     pass
             else:
@@ -3172,8 +3160,7 @@ class RealTime_Option_Tick_MP_DataWorker(QThread):
 
                 if SLEEP_SWITCH_MODE:
                     QApplication.processEvents()
-                    time.sleep(SLEEP_SWITCHING_DELAY)
-
+                    time.sleep(0.000001)
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 멀티프로세스 3rd 쓰레드 클래스(옵션 호가만 처리)
 #####################################################################################################################################################################
@@ -3238,7 +3225,7 @@ class RealTime_Option_Quote_MP_DataWorker(QThread):
                     self.waiting_tasks = self.dataQ.qsize()
 
                     tick_type, tickdata = self.realdata
-                    print(f"\r[{datetime.now()}] 옵션호가 System time : {tickdata['system_time']}, 체결시간 : {tickdata['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')
+                    #print(f"\r[{datetime.now()}] 옵션호가 System time : {tickdata['system_time']}, 체결시간 : {tickdata['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')
 
                     if CSV_FILE:
                         tickdata_lst = list(tickdata.values())
@@ -3291,12 +3278,6 @@ class RealTime_Option_Quote_MP_DataWorker(QThread):
                         self.trigger_dict.emit(tickdata)
                     else:
                         self.sys_drop_count += 1
-
-                    if 9 * 3600 < realtime < 9 * 3600 + 10 * 60:
-                        QApplication.processEvents()
-                        time.sleep(SLEEP_SWITCHING_DELAY)
-                    else:
-                        pass                
                 else:
                     pass
             else:
@@ -3304,7 +3285,7 @@ class RealTime_Option_Quote_MP_DataWorker(QThread):
 
                 if SLEEP_SWITCH_MODE:
                     QApplication.processEvents()
-                    time.sleep(SLEEP_SWITCHING_DELAY)
+                    time.sleep(0.000001)
 
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 멀티프로세스 4th 쓰레드 클래스(해외선물만 처리)
@@ -3403,18 +3384,6 @@ class RealTime_OVC_MP_DataWorker(QThread):
                         self.trigger_dict.emit(tickdata)
                     else:
                         self.sys_drop_count += 1
-
-                    if 9 * 3600 < realtime < 9 * 3600 + 10 * 60:
-                        QApplication.processEvents()
-                        time.sleep(SLEEP_SWITCHING_DELAY)
-                    else:
-                        pass
-
-                    if 22 * 3600 + 30 * 60 < realtime < 22 * 3600 + 40 * 60:
-                        QApplication.processEvents()
-                        time.sleep(SLEEP_SWITCHING_DELAY)
-                    else:
-                        pass                
                 else:
                     pass
             else:
@@ -3422,7 +3391,7 @@ class RealTime_OVC_MP_DataWorker(QThread):
 
                 if SLEEP_SWITCH_MODE:
                     QApplication.processEvents()
-                    time.sleep(SLEEP_SWITCHING_DELAY)
+                    time.sleep(0.000001)
 
 #####################################################################################################################################################################
 # Speaker Thread Class
