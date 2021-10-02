@@ -2326,7 +2326,7 @@ class TelegramSendWorker(QThread):
             else:
                 pass
 
-            QApplication.processEvents()
+            #QApplication.processEvents()
             QTest.qWait(1000 * TELEGRAM_SEND_INTERVAL)
 #####################################################################################################################################################################
 # 텔레그램 수신 쓰레드
@@ -2349,7 +2349,7 @@ class TelegramListenWorker(QThread):
             else:
                 pass
 
-            QApplication.processEvents()
+            #QApplication.processEvents()
             QTest.qWait(1000 * TELEGRAM_POLLING_INTERVAL)
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 쓰레드 클래스
@@ -3033,8 +3033,8 @@ class RealTime_Futures_MP_DataWorker(QThread):
                     flag_1st_process_queue_empty = True
 
                     if SLEEP_SWITCH_MODE:
-                        QApplication.processEvents()
-                        time.sleep(0.000001)
+                        #QApplication.processEvents()
+                        time.sleep(0.0001)
 
             except Exception as e:
                 
@@ -3144,8 +3144,8 @@ class RealTime_Option_Tick_MP_DataWorker(QThread):
                 flag_2nd_process_queue_empty = True
 
                 if SLEEP_SWITCH_MODE:
-                    QApplication.processEvents()
-                    time.sleep(0.000001)
+                    #QApplication.processEvents()
+                    time.sleep(0.0001)
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 멀티프로세스 3rd 쓰레드 클래스(옵션 호가만 처리)
 #####################################################################################################################################################################
@@ -3263,8 +3263,8 @@ class RealTime_Option_Quote_MP_DataWorker(QThread):
                 flag_3rd_process_queue_empty = True
 
                 if SLEEP_SWITCH_MODE:
-                    QApplication.processEvents()
-                    time.sleep(0.000001)
+                    #QApplication.processEvents()
+                    time.sleep(0.0001)
 
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 멀티프로세스 4th 쓰레드 클래스(해외선물만 처리)
@@ -3363,8 +3363,8 @@ class RealTime_OVC_MP_DataWorker(QThread):
                 flag_4th_process_queue_empty = True
 
                 if SLEEP_SWITCH_MODE:
-                    QApplication.processEvents()
-                    time.sleep(0.000001)
+                    #QApplication.processEvents()
+                    time.sleep(0.0001)
 
 #####################################################################################################################################################################
 # Speaker Thread Class
