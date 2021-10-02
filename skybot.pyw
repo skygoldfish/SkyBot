@@ -35175,8 +35175,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 수신된 실시간데이타 정보표시(누락된 패킷수, 큐의 크기, 수신된 총 패킷수, 수신된 총 패킷크기)            
         szTrCode = tickdata['tr_code']
 
-        #systime = dt.hour * 3600 + dt.minute * 60 + dt.second
-
         if self.mp_number == 1:
 
             first_dropcount = 0
@@ -35337,8 +35335,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dt = datetime.now()
 
         szTrCode = tickdata['tr_code']
-        
-        #systime = dt.hour * 3600 + dt.minute * 60 + dt.second
 
         if self.mp_number == 1:
 
@@ -35836,7 +35832,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.label_4th.setText(txt)                
 
-        # 1st 프로세스 실시간데이타 갱신
+        # 4th 프로세스 실시간데이타 갱신
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
 
             if time_gap_abs < view_time_tolerance:                
