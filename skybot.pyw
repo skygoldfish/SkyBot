@@ -2924,6 +2924,7 @@ class RealTime_Futures_MP_DataWorker(QThread):
                     flag_1st_process_queue_empty = False                    
 
                     self.realdata = self.dataQ.get()
+                    self.waiting_tasks = self.dataQ.qsize()
 
                     self.total_count += 1
                     self.total_packet_size += sys.getsizeof(self.realdata)                    
@@ -2941,8 +2942,6 @@ class RealTime_Futures_MP_DataWorker(QThread):
                         self.trigger_list.emit(self.realdata)
 
                     elif type(self.realdata) == tuple:                       
-
-                        self.waiting_tasks = self.dataQ.qsize()
 
                         tick_type, tickdata = self.realdata
 
@@ -2980,62 +2979,54 @@ class RealTime_Futures_MP_DataWorker(QThread):
                             pass
 
                         # 옵션은 초당 50회 이상 입력됨
-                        #if not flag_futures_update_is_running:
-                        if True:                            
-                            
-                            if szTrCode == 'IJ_' and DayTime:
+                        if szTrCode == 'IJ_' and DayTime:
 
-                                if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
-                                    self.drop_count += 1
-                                else:
-                                    pass                           
+                            if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
+                                self.drop_count += 1
+                            else:
+                                pass                           
 
-                            elif szTrCode == 'S3_' and DayTime:
+                        elif szTrCode == 'S3_' and DayTime:
 
-                                if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
-                                    self.drop_count += 1
-                                else:
-                                    pass                        
-                            
-                            elif szTrCode == 'FC0' and DayTime:
-
-                                if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
-                                    self.drop_count += 1
-                                else:
-                                    pass
-
-                            elif szTrCode == 'NC0':
-
-                                if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
-                                    self.drop_count += 1
-                                else:
-                                    pass
-
-                            elif szTrCode == 'FH0' and DayTime:
-
-                                self.fh0_total_count += 1
-
-                                if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
-                                    self.drop_count += 1
-                                    self.fh0_drop_count += 1
-                                else:
-                                    pass
-
-                            elif szTrCode == 'NH0':
-
-                                if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
-                                    self.drop_count += 1
-                                else:
-                                    pass
-
-                            elif szTrCode == 'OVC':
+                            if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
+                                self.drop_count += 1
+                            else:
                                 pass                        
+                        
+                        elif szTrCode == 'FC0' and DayTime:
+
+                            if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
+                                self.drop_count += 1
                             else:
                                 pass
 
-                            self.trigger_dict.emit(tickdata)                                                    
+                        elif szTrCode == 'NC0':
+
+                            if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
+                                self.drop_count += 1
+                            else:
+                                pass
+
+                        elif szTrCode == 'FH0' and DayTime:
+
+                            self.fh0_total_count += 1
+
+                            if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
+                                self.drop_count += 1
+                                self.fh0_drop_count += 1
+                            else:
+                                pass
+
+                        elif szTrCode == 'NH0':
+
+                            if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
+                                self.drop_count += 1
+                            else:
+                                pass       
                         else:
-                            self.sys_drop_count += 1
+                            pass
+
+                        self.trigger_dict.emit(tickdata)       
                     else:
                         pass                    
                 else:
@@ -3095,6 +3086,7 @@ class RealTime_Option_Tick_MP_DataWorker(QThread):
                 flag_2nd_process_queue_empty = False
 
                 self.realdata = self.dataQ.get()
+                self.waiting_tasks = self.dataQ.qsize()
                 
                 self.total_count += 1                    
                 self.total_packet_size += sys.getsizeof(self.realdata)
@@ -3113,10 +3105,8 @@ class RealTime_Option_Tick_MP_DataWorker(QThread):
 
                 elif type(self.realdata) == tuple:
 
-                    self.waiting_tasks = self.dataQ.qsize()
-
                     tick_type, tickdata = self.realdata
-                    #print(f"\r[{datetime.now()}] 옵션체결 System time : {tickdata['system_time']}, 체결시간 : {tickdata['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')
+                    print(f"\r[{datetime.now()}] 옵션체결 System time : {tickdata['system_time']}, 체결시간 : {tickdata['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')
 
                     if CSV_FILE:
                         tickdata_lst = list(tickdata.values())
@@ -3140,19 +3130,14 @@ class RealTime_Option_Tick_MP_DataWorker(QThread):
 
                     realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                    #if not flag_option_tick_update_is_running:
-                    if True:
+                    self.total_option_packet_size += sys.getsizeof(tickdata)                        
 
-                        self.total_option_packet_size += sys.getsizeof(tickdata)                        
-
-                        if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
-                            self.drop_count += 1
-                        else:
-                            pass
-
-                        self.trigger_dict.emit(tickdata)
+                    if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
+                        self.drop_count += 1
                     else:
-                        self.sys_drop_count += 1
+                        pass
+
+                    self.trigger_dict.emit(tickdata)
                 else:
                     pass
             else:
@@ -3204,6 +3189,7 @@ class RealTime_Option_Quote_MP_DataWorker(QThread):
                 flag_3rd_process_queue_empty = False
 
                 self.realdata = self.dataQ.get()
+                self.waiting_tasks = self.dataQ.qsize()
                 
                 self.total_count += 1                    
                 self.total_packet_size += sys.getsizeof(self.realdata)
@@ -3222,10 +3208,8 @@ class RealTime_Option_Quote_MP_DataWorker(QThread):
 
                 elif type(self.realdata) == tuple:
 
-                    self.waiting_tasks = self.dataQ.qsize()
-
                     tick_type, tickdata = self.realdata
-                    #print(f"\r[{datetime.now()}] 옵션호가 System time : {tickdata['system_time']}, 체결시간 : {tickdata['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')
+                    print(f"\r[{datetime.now()}] 옵션호가 System time : {tickdata['system_time']}, 체결시간 : {tickdata['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')
 
                     if CSV_FILE:
                         tickdata_lst = list(tickdata.values())
@@ -3240,44 +3224,39 @@ class RealTime_Option_Quote_MP_DataWorker(QThread):
 
                     szTrCode = tickdata['tr_code']
 
-                    #if not flag_option_quote_update_is_running:
-                    if True:
+                    if szTrCode == 'OH0':
 
-                        if szTrCode == 'OH0':
+                        self.total_option_packet_size += sys.getsizeof(tickdata)
 
-                            self.total_option_packet_size += sys.getsizeof(tickdata)
-
-                            if len(tickdata['수신시간']) == 5:
-                                realtime_hour = int(tickdata['수신시간'][0:1])
-                                realtime_min = int(tickdata['수신시간'][1:3])
-                                realtime_sec = int(tickdata['수신시간'][3:5])
-                            else:
-                                realtime_hour = int(tickdata['수신시간'][0:2])
-                                realtime_min = int(tickdata['수신시간'][2:4])
-                                realtime_sec = int(tickdata['수신시간'][4:6])                            
-
-                        elif szTrCode == 'EH0':
-
-                            if int(tickdata['수신시간'][0:2]) >= 24:
-                                realtime_hour = int(tickdata['수신시간'][0:2]) - 24
-                            else:                            
-                                realtime_hour = int(tickdata['수신시간'][0:2])
-                                
+                        if len(tickdata['수신시간']) == 5:
+                            realtime_hour = int(tickdata['수신시간'][0:1])
+                            realtime_min = int(tickdata['수신시간'][1:3])
+                            realtime_sec = int(tickdata['수신시간'][3:5])
+                        else:
+                            realtime_hour = int(tickdata['수신시간'][0:2])
                             realtime_min = int(tickdata['수신시간'][2:4])
-                            realtime_sec = int(tickdata['수신시간'][4:6])
-                        else:
-                            pass                        
+                            realtime_sec = int(tickdata['수신시간'][4:6])                            
 
-                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+                    elif szTrCode == 'EH0':
 
-                        if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
-                            self.drop_count += 1
-                        else:
-                            pass
-
-                        self.trigger_dict.emit(tickdata)
+                        if int(tickdata['수신시간'][0:2]) >= 24:
+                            realtime_hour = int(tickdata['수신시간'][0:2]) - 24
+                        else:                            
+                            realtime_hour = int(tickdata['수신시간'][0:2])
+                            
+                        realtime_min = int(tickdata['수신시간'][2:4])
+                        realtime_sec = int(tickdata['수신시간'][4:6])
                     else:
-                        self.sys_drop_count += 1
+                        pass                        
+
+                    realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                    if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
+                        self.drop_count += 1
+                    else:
+                        pass
+
+                    self.trigger_dict.emit(tickdata)
                 else:
                     pass
             else:
@@ -3328,6 +3307,7 @@ class RealTime_OVC_MP_DataWorker(QThread):
                 flag_4th_process_queue_empty = False
 
                 self.realdata = self.dataQ.get()
+                self.waiting_tasks = self.dataQ.qsize()
                 
                 self.total_count += 1                    
                 self.total_packet_size += sys.getsizeof(self.realdata)
@@ -3344,9 +3324,7 @@ class RealTime_OVC_MP_DataWorker(QThread):
 
                     self.trigger_list.emit(self.realdata)
 
-                elif type(self.realdata) == tuple:
-
-                    self.waiting_tasks = self.dataQ.qsize()
+                elif type(self.realdata) == tuple:                    
 
                     tick_type, tickdata = self.realdata
                     print(f"\r[{datetime.now()}] 해외선물 System time : {tickdata['system_time']}, 체결시간 : {tickdata['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')
@@ -3373,17 +3351,12 @@ class RealTime_OVC_MP_DataWorker(QThread):
 
                     realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                    #if not flag_option_quote_update_is_running:
-                    if True:                        
-
-                        if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
-                            self.drop_count += 1
-                        else:
-                            pass
-
-                        self.trigger_dict.emit(tickdata)
+                    if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
+                        self.drop_count += 1
                     else:
-                        self.sys_drop_count += 1
+                        pass
+
+                    self.trigger_dict.emit(tickdata)
                 else:
                     pass
             else:
