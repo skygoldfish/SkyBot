@@ -3036,6 +3036,8 @@ class RealTime_Futures_MP_DataWorker(QThread):
                         #QApplication.processEvents()
                         time.sleep(SLEEP_SWITCHING_DELAY)
 
+                #print('1st process...\r')
+
             except Exception as e:
                 
                 txt = '{0} 멀티프로세스 큐 쓰레드에서 {1}타입의 {2}예외가 발생했습니다.'.format(tickdata['tr_code'], type(e).__name__, str(e))
@@ -3146,6 +3148,8 @@ class RealTime_Option_Tick_MP_DataWorker(QThread):
                 if SLEEP_SWITCH_MODE:
                     #QApplication.processEvents()
                     time.sleep(SLEEP_SWITCHING_DELAY)
+
+            #print('2nd process...\r')
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 멀티프로세스 3rd 쓰레드 클래스(옵션 호가만 처리)
 #####################################################################################################################################################################
@@ -3266,6 +3270,7 @@ class RealTime_Option_Quote_MP_DataWorker(QThread):
                     #QApplication.processEvents()
                     time.sleep(SLEEP_SWITCHING_DELAY)
 
+            #print('3rd process...\r')
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 멀티프로세스 4th 쓰레드 클래스(해외선물만 처리)
 #####################################################################################################################################################################
@@ -3366,6 +3371,7 @@ class RealTime_OVC_MP_DataWorker(QThread):
                     #QApplication.processEvents()
                     time.sleep(SLEEP_SWITCHING_DELAY)
 
+            #print('4th process...\r')
 #####################################################################################################################################################################
 # Speaker Thread Class
 #####################################################################################################################################################################
@@ -3432,8 +3438,10 @@ class PlotUpdateWorker1(QThread):
                 pass
 
             QTest.qWait(plot_update_interval)
-            #QApplication.processEvents()
-            time.sleep(SLEEP_SWITCHING_DELAY)
+
+            if SLEEP_SWITCH_MODE:
+                #QApplication.processEvents()
+                time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker2(QThread):
 
@@ -3452,8 +3460,10 @@ class PlotUpdateWorker2(QThread):
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
-            #QApplication.processEvents()
-            time.sleep(SLEEP_SWITCHING_DELAY)
+
+            if SLEEP_SWITCH_MODE:
+                #QApplication.processEvents()
+                time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker3(QThread):
 
@@ -3472,8 +3482,10 @@ class PlotUpdateWorker3(QThread):
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
-            #QApplication.processEvents()
-            time.sleep(SLEEP_SWITCHING_DELAY)
+
+            if SLEEP_SWITCH_MODE:
+                #QApplication.processEvents()
+                time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker4(QThread):
 
@@ -3492,8 +3504,10 @@ class PlotUpdateWorker4(QThread):
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
-            #QApplication.processEvents()
-            time.sleep(SLEEP_SWITCHING_DELAY)
+
+            if SLEEP_SWITCH_MODE:
+                #QApplication.processEvents()
+                time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker5(QThread):
 
@@ -3512,8 +3526,10 @@ class PlotUpdateWorker5(QThread):
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
-            #QApplication.processEvents()
-            time.sleep(SLEEP_SWITCHING_DELAY)
+
+            if SLEEP_SWITCH_MODE:
+                #QApplication.processEvents()
+                time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker6(QThread):
 
@@ -3532,8 +3548,10 @@ class PlotUpdateWorker6(QThread):
                 self.trigger.emit()
                         
             QTest.qWait(plot_update_interval)
-            #QApplication.processEvents()
-            time.sleep(SLEEP_SWITCHING_DELAY)
+            
+            if SLEEP_SWITCH_MODE:
+                #QApplication.processEvents()
+                time.sleep(SLEEP_SWITCHING_DELAY)
 
 #####################################################################################################################################################################
 # 버전 UI Class
