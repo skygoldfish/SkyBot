@@ -35853,19 +35853,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 4th 프로세스 실시간데이타 갱신
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
 
-            if time_gap_abs < view_time_tolerance:                
-
-                # 주간 장초반 시스템 부하를 줄이기위함
-                if DayTime:                   
-
-                    if TARGET_MONTH == 'CM' and 3600 * 9 + 10 * 60 <= realtime <= 3600 * 16:
-                        self.update_4th_process(tickdata)
-                    elif TARGET_MONTH == 'NM':
-                        self.update_4th_process(tickdata)
-                    else:
-                        pass                
-                else:
-                    self.update_4th_process(tickdata)
+            if time_gap_abs < view_time_tolerance:
+                self.update_4th_process(tickdata)
             else:
                 pass
         else:
@@ -35938,24 +35927,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             elif szTrCode == 'S3_':
 
-                if len(data['수신시간']) == 5:
-                    realtime_hour = int(data['수신시간'][0:1])
-                    realtime_min = int(data['수신시간'][1:3])
-                    realtime_sec = int(data['수신시간'][3:5])
-                else:
-                    realtime_hour = int(data['수신시간'][0:2])
-                    realtime_min = int(data['수신시간'][2:4])
-                    realtime_sec = int(data['수신시간'][4:6])
-
-                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                # 주간 장초반 시스템 부하를 줄이기위함
-                if TARGET_MONTH == 'CM' and 3600 * 9 + 10 * 60 <= realtime <= 3600 * 16:
-                    self.s3_update(data)
-                elif TARGET_MONTH == 'NM':
-                    self.s3_update(data)
-                else:
-                    pass
+                self.s3_update(data)
                 
             elif szTrCode == 'IJ_':
                 self.ij_update(data)

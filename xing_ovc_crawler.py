@@ -32,6 +32,7 @@ GOLD = parser.get('Code of the Foreign Futures', 'GOLD')
 
 SLEEP_SWITCH_MODE = parser.getboolean('User Switch', 'MP Sleep Switching Mode')
 SLEEP_SWITCHING_DELAY = parser.getfloat('Initial Value', 'MP Sleep Switching Delay')
+DOW_START = parser.get('Initial Value', 'Dow Start Time')
 
 계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})
 
@@ -83,7 +84,12 @@ def ovc_crawler(queue: Queue):
         while True:
             pythoncom.PumpWaitingMessages()
 
-            if SLEEP_SWITCH_MODE:
-                time.sleep(SLEEP_SWITCHING_DELAY)
+            if DayTime:
+                if SLEEP_SWITCH_MODE:
+                    time.sleep(SLEEP_SWITCHING_DELAY)
+                else:
+                    pass
+            else:
+                pass                               
     else:
         pass

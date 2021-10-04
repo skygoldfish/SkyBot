@@ -142,7 +142,12 @@ def futures_crawler(queue: Queue, index_futures_quote=True, index_futures_tick=T
         while True:
             pythoncom.PumpWaitingMessages()
 
-            if SLEEP_SWITCH_MODE:
-                time.sleep(SLEEP_SWITCHING_DELAY)
+            dt = datetime.now()
+
+            if dt.hour == 9 and 0 <= dt.minute <= 10:
+                pass
+            else:
+                if SLEEP_SWITCH_MODE:
+                    time.sleep(SLEEP_SWITCHING_DELAY)            
     else:
         pass
