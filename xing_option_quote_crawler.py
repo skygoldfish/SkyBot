@@ -132,12 +132,19 @@ def option_quote_crawler(queue: Queue, call_itm_number=5, call_otm_number=5, put
     
         while True:
             pythoncom.PumpWaitingMessages()
-    
-            dt = datetime.now()
 
-            if dt.hour == 9 and 0 <= dt.minute <= 10:
-                pass
-            else:
+            if index_option_cm_quote:
+    
+                dt = datetime.now()
+
+                if dt.hour == 9 and 0 <= dt.minute <= 10:
+                    pass
+                else:
+                    if OPTION_SLEEP_SWITCH_MODE:
+                        time.sleep(OPTION_SLEEP_SWITCHING_DELAY)
+
+            if index_option_nm_quote:
+
                 if OPTION_SLEEP_SWITCH_MODE:
                     time.sleep(OPTION_SLEEP_SWITCHING_DELAY)
     else:

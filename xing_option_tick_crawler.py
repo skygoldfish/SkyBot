@@ -152,12 +152,21 @@ def option_tick_crawler(queue: Queue, call_itm_number=5, call_otm_number=15, put
         while True:
             pythoncom.PumpWaitingMessages()
 
-            if NightTime:
+            if index_option_cm_tick:
+
+                if NightTime:
+                    if OPTION_SLEEP_SWITCH_MODE:
+                        time.sleep(OPTION_SLEEP_SWITCHING_DELAY)
+                    else:
+                        pass
+                else:
+                    pass
+
+            if index_option_nm_tick:
+
                 if OPTION_SLEEP_SWITCH_MODE:
                     time.sleep(OPTION_SLEEP_SWITCHING_DELAY)
                 else:
                     pass
-            else:
-                pass
     else:
         pass
