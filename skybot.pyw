@@ -3428,6 +3428,8 @@ class PlotUpdateWorker1(QThread):
 
         while True:
 
+            QApplication.processEvents()
+
             if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
                 self.trigger.emit()
 
@@ -3438,10 +3440,6 @@ class PlotUpdateWorker1(QThread):
                 pass
 
             QTest.qWait(plot_update_interval)
-
-            if SLEEP_SWITCH_MODE:
-                #QApplication.processEvents()
-                time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker2(QThread):
 
@@ -3456,14 +3454,12 @@ class PlotUpdateWorker2(QThread):
 
         while True:
 
+            QApplication.processEvents()
+
             if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
-
-            if SLEEP_SWITCH_MODE:
-                #QApplication.processEvents()
-                time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker3(QThread):
 
@@ -3478,14 +3474,12 @@ class PlotUpdateWorker3(QThread):
 
         while True:
 
+            QApplication.processEvents()
+
             if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
-
-            if SLEEP_SWITCH_MODE:
-                #QApplication.processEvents()
-                time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker4(QThread):
 
@@ -3500,14 +3494,12 @@ class PlotUpdateWorker4(QThread):
 
         while True:
 
+            QApplication.processEvents()
+
             if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
-
-            if SLEEP_SWITCH_MODE:
-                #QApplication.processEvents()
-                time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker5(QThread):
 
@@ -3522,14 +3514,12 @@ class PlotUpdateWorker5(QThread):
 
         while True:
 
+            QApplication.processEvents()
+
             if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(plot_update_interval)
-
-            if SLEEP_SWITCH_MODE:
-                #QApplication.processEvents()
-                time.sleep(SLEEP_SWITCHING_DELAY)
 
 class PlotUpdateWorker6(QThread):
 
@@ -3544,14 +3534,12 @@ class PlotUpdateWorker6(QThread):
 
         while True:
 
+            QApplication.processEvents()
+
             if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
                 self.trigger.emit()
                         
             QTest.qWait(plot_update_interval)
-            
-            if SLEEP_SWITCH_MODE:
-                #QApplication.processEvents()
-                time.sleep(SLEEP_SWITCHING_DELAY)
 
 #####################################################################################################################################################################
 # 버전 UI Class
