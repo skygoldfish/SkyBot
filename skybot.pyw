@@ -2857,10 +2857,6 @@ class RealTime_Thread_DataWorker(QThread):
                 else:
                     flag_1st_process_queue_empty = True
 
-                    if SLEEP_SWITCH_MODE:
-                        QApplication.processEvents()
-                        time.sleep(SLEEP_SWITCHING_DELAY)
-
             except Exception as e:
                 
                 # e 클래스의 이름은 type(e).__name__, 예외항목 내용은 str(e)
@@ -3032,12 +3028,6 @@ class RealTime_Futures_MP_DataWorker(QThread):
                 else:
                     flag_1st_process_queue_empty = True
 
-                    if SLEEP_SWITCH_MODE:
-                        #QApplication.processEvents()
-                        time.sleep(SLEEP_SWITCHING_DELAY)
-
-                #print('1st process...\r')
-
             except Exception as e:
                 
                 txt = '{0} 멀티프로세스 큐 쓰레드에서 {1}타입의 {2}예외가 발생했습니다.'.format(tickdata['tr_code'], type(e).__name__, str(e))
@@ -3144,12 +3134,6 @@ class RealTime_Option_Tick_MP_DataWorker(QThread):
                     pass
             else:
                 flag_2nd_process_queue_empty = True
-
-                if SLEEP_SWITCH_MODE:
-                    #QApplication.processEvents()
-                    time.sleep(SLEEP_SWITCHING_DELAY)
-
-            #print('2nd process...\r')
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 멀티프로세스 3rd 쓰레드 클래스(옵션 호가만 처리)
 #####################################################################################################################################################################
@@ -3265,12 +3249,6 @@ class RealTime_Option_Quote_MP_DataWorker(QThread):
                     pass
             else:
                 flag_3rd_process_queue_empty = True
-
-                if SLEEP_SWITCH_MODE:
-                    #QApplication.processEvents()
-                    time.sleep(SLEEP_SWITCHING_DELAY)
-
-            #print('3rd process...\r')
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 멀티프로세스 4th 쓰레드 클래스(해외선물만 처리)
 #####################################################################################################################################################################
@@ -3366,12 +3344,6 @@ class RealTime_OVC_MP_DataWorker(QThread):
                     pass
             else:
                 flag_4th_process_queue_empty = True
-
-                if SLEEP_SWITCH_MODE:
-                    #QApplication.processEvents()
-                    time.sleep(SLEEP_SWITCHING_DELAY)
-
-            #print('4th process...\r')
 #####################################################################################################################################################################
 # Speaker Thread Class
 #####################################################################################################################################################################
