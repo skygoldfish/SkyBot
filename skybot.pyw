@@ -3400,7 +3400,7 @@ class PlotUpdateWorker1(QThread):
 
         while True:
 
-            QApplication.processEvents()
+            #QApplication.processEvents()
 
             if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
                 self.trigger.emit()
@@ -3426,7 +3426,7 @@ class PlotUpdateWorker2(QThread):
 
         while True:
 
-            QApplication.processEvents()
+            #QApplication.processEvents()
 
             if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
                 self.trigger.emit()
@@ -3446,7 +3446,7 @@ class PlotUpdateWorker3(QThread):
 
         while True:
 
-            QApplication.processEvents()
+            #QApplication.processEvents()
 
             if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
                 self.trigger.emit()
@@ -3466,7 +3466,7 @@ class PlotUpdateWorker4(QThread):
 
         while True:
 
-            QApplication.processEvents()
+            #QApplication.processEvents()
 
             if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
                 self.trigger.emit()
@@ -3486,7 +3486,7 @@ class PlotUpdateWorker5(QThread):
 
         while True:
 
-            QApplication.processEvents()
+            #QApplication.processEvents()
 
             if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
                 self.trigger.emit()
@@ -3506,7 +3506,7 @@ class PlotUpdateWorker6(QThread):
 
         while True:
 
-            QApplication.processEvents()
+            #QApplication.processEvents()
 
             if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
                 self.trigger.emit()
@@ -28684,6 +28684,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         global flag_plot_update_is_running        
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
+
+        QApplication.processEvents()
         
         dt = datetime.now()
 
@@ -29638,6 +29640,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         global flag_plot_update_is_running        
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
+
+        QApplication.processEvents()
         
         dt = datetime.now()
 
@@ -30571,6 +30575,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         global flag_plot_update_is_running        
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
+
+        QApplication.processEvents()
         
         dt = datetime.now()
 
@@ -31498,6 +31504,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         global flag_plot_update_is_running        
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
+
+        QApplication.processEvents()
         
         dt = datetime.now()
 
@@ -32409,6 +32417,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         global flag_plot_update_is_running        
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
+
+        QApplication.processEvents()
         
         dt = datetime.now()
 
@@ -33335,6 +33345,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         global flag_plot_update_is_running        
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
+
+        QApplication.processEvents()
         
         dt = datetime.now()
 
