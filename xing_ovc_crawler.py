@@ -90,6 +90,12 @@ def ovc_crawler(queue: Queue):
                 else:
                     pass
             else:
-                pass                               
+                dt = datetime.now()
+
+                if dt.hour == 22 or dt.hour == 23:
+                    pass
+                else:
+                    if SLEEP_SWITCH_MODE:
+                        time.sleep(SLEEP_SWITCHING_DELAY)                               
     else:
         pass
