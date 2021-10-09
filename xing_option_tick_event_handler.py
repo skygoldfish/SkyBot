@@ -31,22 +31,7 @@ class XARealEventHandler:
 
     def __init__(self):
         self.queue = None
-        '''
-        response = ntplib.NTPClient().request(TimeServer, version=3)
-
-        time_str = time.ctime(response.tx_time).split(' ')
-        srever_time = time_str[3]
-
-        server_hour = int(srever_time[0:2])
-        server_minute = int(srever_time[3:5])
-        server_second = int(srever_time[6:8])
-
-        self.timegap = round(-response.offset)
-
-        print('\r')
-        print('옵션 시스템 서버간 시간차는 {0}초 입니다...\r', self.timegap)
-        print('\r')
-        '''
+        
     def handle_jif_tick(self) -> list:
         """
         JIF
@@ -451,22 +436,7 @@ class XARealEventHandler:
             self.queue.put(self.handle_oh0_eh0(tr_code))
         elif tr_code == "OC0" or tr_code == "EC0":
             # 지수옵션 체결
-            self.queue.put(self.handle_oc0_ec0(tr_code))
-            '''
-            values = self.handle_index_option_tick()
-            time = datetime.now().strftime('%H%M%S')
-
-            ticktime = int(values[0][0:2]) * 3600 + int(values[0][2:4]) * 60 + int(values[0][4:6])
-            systime = int(time[0:2]) * 3600 + int(time[2:4]) * 60 + int(time[4:6])
-
-            time_gap = abs(systime -self.timegap - ticktime)
-
-            # 허용오차 이내의 값만 취한다.
-            if time_gap < QUEUE_INPUT_PERMIT_TIME:
-                self.queue.put(self.handle_oc0_ec0(tr_code))
-            else:
-                print('OC0 허용오차 오류!!!\r')
-            '''
+            self.queue.put(self.handle_oc0_ec0(tr_code))            
         elif tr_code == "BM_":
             # 업종별투자자별 매매현황
             self.queue.put(self.handle_bm(tr_code))
