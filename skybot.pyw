@@ -397,7 +397,7 @@ ONEWAY_RATIO = parser.getfloat('Initial Value', 'OneWay Market Ratio')
 GOLDEN_RATIO = parser.getfloat('Initial Value', 'Golden Ratio')
 CROSS_COLOR_INTERVAL = parser.getint('Initial Value', 'Cross Coloring Interval(minute)')
 MAIN_UPDATE_INTERVAL = parser.getint('Initial Value', 'Main Update Interval(msec)')
-BIGCHART_UPDATE_INTERVAL = parser.getint('Initial Value', 'Big Chart Update Interval(msec)')
+CHART_UPDATE_INTERVAL = parser.getint('Initial Value', 'Chart Update Interval(msec)')
 SCORE_BOARD_UPDATE_INTERVAL = parser.getint('Initial Value', 'Score Board Update Interval(sec)')
 SECOND_DISPLAY_X_POSITION = parser.getint('Initial Value', 'X Position of the Second Display')
 SECOND_DISPLAY_Y_POSITION = parser.getint('Initial Value', 'Y Position of the Second Display')
@@ -1605,27 +1605,27 @@ MACDSig_pen = pg.mkPen(aqua, width=1, style=QtCore.Qt.SolidLine)
 mama_pen = pg.mkPen(orange, width=2, style=QtCore.Qt.SolidLine)
 fama_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.SolidLine)
 
-# Big Chart Plot1
+# Sky Chart Plot1
 plot1_x = 0
 plot1_y = 0
 
-# Big Chart Plot2
+# Sky Chart Plot2
 plot2_x = 0
 plot2_y = 0
 
-# Big Chart Plot3
+# Sky Chart Plot3
 plot3_x = 0
 plot3_y = 0
 
-# Big Chart Plot4
+# Sky Chart Plot4
 plot4_x = 0
 plot4_y = 0
 
-# Big Chart Plot5
+# Sky Chart Plot5
 plot5_x = 0
 plot5_y = 0
 
-# Big Chart Plot6
+# Sky Chart Plot6
 plot6_x = 0
 plot6_y = 0
 
@@ -1910,7 +1910,7 @@ flag_calltable_checkstate_changed = False
 flag_puttable_checkstate_changed = False
 
 scoreboard_update_interval = MAIN_UPDATE_INTERVAL
-plot_update_interval = BIGCHART_UPDATE_INTERVAL
+chart_update_interval = CHART_UPDATE_INTERVAL
 
 volatility_breakout_downward_point = 0
 volatility_breakout_upward_point = 0
@@ -3382,7 +3382,7 @@ class SpeakerWorker(QThread):
         pythoncom.CoUninitialize()
 
 #####################################################################################################################################################################
-# Big Chart Update Thread
+# Sky Chart Update Thread
 #####################################################################################################################################################################
 class PlotUpdateWorker1(QThread):
 
@@ -3405,12 +3405,12 @@ class PlotUpdateWorker1(QThread):
                 self.trigger.emit()
 
             if flag_plot_update_interval_changed:
-                print('plot_update_interval changed...')
+                print('chart_update_interval changed...')
                 flag_plot_update_interval_changed = False
             else:
                 pass
 
-            QTest.qWait(plot_update_interval)
+            QTest.qWait(chart_update_interval)
 
 class PlotUpdateWorker2(QThread):
 
@@ -3430,7 +3430,7 @@ class PlotUpdateWorker2(QThread):
             if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
                 self.trigger.emit()
 
-            QTest.qWait(plot_update_interval)
+            QTest.qWait(chart_update_interval)
 
 class PlotUpdateWorker3(QThread):
 
@@ -3450,7 +3450,7 @@ class PlotUpdateWorker3(QThread):
             if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
                 self.trigger.emit()
 
-            QTest.qWait(plot_update_interval)
+            QTest.qWait(chart_update_interval)
 
 class PlotUpdateWorker4(QThread):
 
@@ -3470,7 +3470,7 @@ class PlotUpdateWorker4(QThread):
             if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
                 self.trigger.emit()
 
-            QTest.qWait(plot_update_interval)
+            QTest.qWait(chart_update_interval)
 
 class PlotUpdateWorker5(QThread):
 
@@ -3490,7 +3490,7 @@ class PlotUpdateWorker5(QThread):
             if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
                 self.trigger.emit()
 
-            QTest.qWait(plot_update_interval)
+            QTest.qWait(chart_update_interval)
 
 class PlotUpdateWorker6(QThread):
 
@@ -3510,7 +3510,7 @@ class PlotUpdateWorker6(QThread):
             if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
                 self.trigger.emit()
                         
-            QTest.qWait(plot_update_interval)
+            QTest.qWait(chart_update_interval)
 
 #####################################################################################################################################################################
 # 버전 UI Class
@@ -20804,7 +20804,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         txt = str(view_time_tolerance)
         self.lineEdit_tolerance.setText(txt)
 
-        txt = str(plot_update_interval)
+        txt = str(chart_update_interval)
         self.lineEdit_plot.setText(txt)
 
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
@@ -21025,16 +21025,16 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
     def change_plot_interval(self):
 
-        global plot_update_interval, flag_plot_update_interval_changed
+        global chart_update_interval, flag_plot_update_interval_changed
 
         dt = datetime.now()
 
         txt = self.lineEdit_plot.text()
-        plot_update_interval = int(txt)
+        chart_update_interval = int(txt)
 
         flag_plot_update_interval_changed = True
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] Plot 갱신주기를 {3} msec로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, plot_update_interval)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Plot 갱신주기를 {3} msec로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, chart_update_interval)
         self.parent.textBrowser.append(txt)
 
     def checkBox_cm_fut_price_checkState(self):
@@ -21893,7 +21893,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         print('설정 Diaglog객체가 소멸됩니다.')
 
 #####################################################################################################################################################################
-# Big Chart UI Class
+# Sky Chart UI Class
 #####################################################################################################################################################################
 if UI_HIDE:
         import bigchart_ui
@@ -21932,7 +21932,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.move(qr.topLeft())     
         self.showNormal()
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] Big Chart 초기화중...\r'.format(dt.hour, dt.minute, dt.second)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Sky Chart 초기화중...\r'.format(dt.hour, dt.minute, dt.second)
         self.parent.textBrowser.append(txt)
         
         self.comboBox1.setStyleSheet('background-color: lightgreen; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -21967,11 +21967,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             if TARGET_MONTH == 'CM':
 
-                widget_title = repr(current_month) + '월 만기 주간 Big Chart'
+                widget_title = repr(current_month) + '월 만기 주간 Sky Chart'
 
             elif TARGET_MONTH == 'NM':
 
-                widget_title = repr(next_month) + '월 만기 주간 Big Chart'
+                widget_title = repr(next_month) + '월 만기 주간 Sky Chart'
             else:
                 pass
         else:
@@ -21979,21 +21979,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if TARGET_MONTH == 'CM':
 
-                    widget_title = repr(next_month) + '월 만기 야간 Big Chart'
+                    widget_title = repr(next_month) + '월 만기 야간 Sky Chart'
 
                 elif TARGET_MONTH == 'NM':
 
-                    widget_title = repr(month_after_next) + '월 만기 야간 Big Chart'
+                    widget_title = repr(month_after_next) + '월 만기 야간 Sky Chart'
                 else:
                     pass
             else:
                 if TARGET_MONTH == 'CM':
 
-                    widget_title = repr(current_month) + '월 만기 야간 Big Chart'
+                    widget_title = repr(current_month) + '월 만기 야간 Sky Chart'
 
                 elif TARGET_MONTH == 'NM':
 
-                    widget_title = repr(next_month) + '월 만기 야간 Big Chart'
+                    widget_title = repr(next_month) + '월 만기 야간 Sky Chart'
 
                 else:
                     pass
@@ -22984,7 +22984,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         end_time = timeit.default_timer()
         processing_time = (end_time - start_time) * 1000
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] Big Chart 초기화완료, 시간 = {3} ms\r'.format(dt.hour, dt.minute, dt.second, processing_time)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Sky Chart 초기화완료, 시간 = {3} ms\r'.format(dt.hour, dt.minute, dt.second, processing_time)
         self.parent.textBrowser.append(txt)
         print(txt)
 
@@ -34354,7 +34354,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] Big Chart Dialog를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Sky Chart를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.parent.textBrowser.append(txt)
         print(txt)
 
@@ -34362,7 +34362,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
          
     def __del__(self):
 
-        print('Big Chart Diaglog객체가 소멸됩니다.')         
+        print('Sky Chart Diaglog객체가 소멸됩니다.')         
 
 #####################################################################################################################################################################
 # Xing API Class
@@ -34868,7 +34868,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.label_5th.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
                                     color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
-        self.label_5th.setText('SDB\nIndex')
+        self.label_5th.setText('옵션\n시가대비')
 
         self.label_3rd.mousePressEvent = functools.partial(self.showSDBMsgBox, source_object=self.label_3rd)
 
@@ -34981,7 +34981,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         msgBox.setFont(QFont("Consolas", 15, QFont.Bold))
         msgBox.setIcon(QMessageBox.Information)
         msgBox.setText(source_object.text())
-        msgBox.setWindowTitle('SDB Index')
+        msgBox.setWindowTitle('옵션 시가대비')
         msgBox.show()
 
         returnValue = msgBox.exec_()
@@ -39736,7 +39736,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
                 self.dialog['선물옵션전광판'].show()
 
-        # Big Chart
+        # Sky Chart
         if _action == "actionBigChart":
             
             if self.dialog.get('BigChart') is not None:
@@ -39829,7 +39829,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 Open 합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
         
-        # Big Chart
+        # Sky Chart
         if _action == "action_ToolBar_BigChart":
             
             if self.dialog.get('BigChart') is not None:
