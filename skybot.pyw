@@ -20597,14 +20597,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         # 실시간 NEWS 요청
         if NEWS_CHK:
-
+            '''
             txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 NEWS를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.parent.textBrowser.append(txt)
             print(txt)
 
             self.parent.realtime_thread_dataworker.RequestRealData('NWS')
 
-            self.realdata_request_number += 1                    
+            self.realdata_request_number += 1
+            '''                  
         else:
             pass
 
@@ -21784,7 +21785,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         if self.checkBox_news.isChecked() == True:
 
             NEWS_CHK = True
-
+            '''
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 self.parent.realtime_thread_dataworker.RequestRealData('NWS')
@@ -21793,9 +21794,10 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 self.parent.textBrowser.append(txt)
             else:
                 pass
+            '''
         else:
             NEWS_CHK = False
-
+            '''
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
                 self.parent.realtime_thread_dataworker.CancelRealData('NWS')
@@ -21804,6 +21806,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 self.parent.textBrowser.append(txt)
             else:
                 pass
+            '''
 
     def checkBox_periodic_plot_state_change(self):
 
@@ -35832,7 +35835,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
 
     @logging_time_with_args
-    def update_1st_process(self, data):
+    def update_1st_process(self, tickdata):
         
         global flag_futures_update_is_running
         
@@ -35841,85 +35844,85 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         try:               
             flag_futures_update_is_running = True
 
-            szTrCode = data['tr_code']
+            szTrCode = tickdata['tr_code']
             
             if szTrCode == 'NWS':
-                self.nws_update(data)
+                self.nws_update(tickdata)
             elif szTrCode == 'JIF':
-                self.jif_update(data)
+                self.jif_update(tickdata)
 
             elif szTrCode == 'YJ_':
 
-                if len(data['수신시간']) == 5:
-                    realtime_hour = int(data['수신시간'][0:1])
+                if len(tickdata['수신시간']) == 5:
+                    realtime_hour = int(tickdata['수신시간'][0:1])
                 else:
-                    realtime_hour = int(data['수신시간'][0:2])
+                    realtime_hour = int(tickdata['수신시간'][0:2])
 
                 if realtime_hour < 15:
-                    self.yj_update(data)
+                    self.yj_update(tickdata)
                 else:
                     pass
 
             elif szTrCode == 'YFC':
 
-                if len(data['수신시간']) == 5:
-                    realtime_hour = int(data['수신시간'][0:1])
+                if len(tickdata['수신시간']) == 5:
+                    realtime_hour = int(tickdata['수신시간'][0:1])
                 else:
-                    realtime_hour = int(data['수신시간'][0:2])
+                    realtime_hour = int(tickdata['수신시간'][0:2])
 
                 if realtime_hour < 15:
-                    self.yfc_update(data)
+                    self.yfc_update(tickdata)
                 else:
                     pass
 
             elif szTrCode == 'YS3':
 
-                if len(data['수신시간']) == 5:
-                    realtime_hour = int(data['수신시간'][0:1])
+                if len(tickdata['수신시간']) == 5:
+                    realtime_hour = int(tickdata['수신시간'][0:1])
                 else:
-                    realtime_hour = int(data['수신시간'][0:2])
+                    realtime_hour = int(tickdata['수신시간'][0:2])
 
                 if realtime_hour < 15:    
-                    self.ys3_update(data)
+                    self.ys3_update(tickdata)
                 else:
                     pass
 
             elif szTrCode == 'YOC':
 
-                if len(data['수신시간']) == 5:
-                    realtime_hour = int(data['수신시간'][0:1])
+                if len(tickdata['수신시간']) == 5:
+                    realtime_hour = int(tickdata['수신시간'][0:1])
                 else:
-                    realtime_hour = int(data['수신시간'][0:2])
+                    realtime_hour = int(tickdata['수신시간'][0:2])
 
                 if realtime_hour < 15:
-                    self.yoc_update(data)
+                    self.yoc_update(tickdata)
                 else:
                     pass
 
             elif szTrCode == 'S3_':
 
-                self.s3_update(data)
+                self.s3_update(tickdata)
                 
             elif szTrCode == 'IJ_':
-                self.ij_update(data)
+                self.ij_update(tickdata)
             elif szTrCode == 'BM_':
 
-                if data['거래대금순매수'] != '-' and data['거래대금순매수직전대비'] != '-':
-                    self.bm_update(data)
+                if tickdata['거래대금순매수'] != '-' and tickdata['거래대금순매수직전대비'] != '-':
+                    self.bm_update(tickdata)
                 else:
                     pass
 
             elif szTrCode == 'PM_':
 
-                if data['전체순매수금액합계'] != '-' and data['전체순매수금액직전대비'] != '-':
-                    self.pm_update(data)
+                if tickdata['전체순매수금액합계'] != '-' and tickdata['전체순매수금액직전대비'] != '-':
+                    self.pm_update(tickdata)
                 else:
                     pass
 
             elif szTrCode == 'FC0' or szTrCode == 'NC0':
-                self.fc0_update(data)
+                self.fc0_update(tickdata)
             elif szTrCode == 'FH0' or szTrCode == 'NH0':
-                self.fh0_update(data)
+                self.fh0_update(tickdata)
             else:
                 pass
             
@@ -35932,7 +35935,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             flag_futures_update_is_running = False
 
     @logging_time_with_args
-    def update_2nd_process(self, data):
+    def update_2nd_process(self, tickdata):
         
         global flag_option_tick_update_is_running
         
@@ -35941,18 +35944,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         try:               
             flag_option_tick_update_is_running = True
 
-            szTrCode = data['tr_code']
+            szTrCode = tickdata['tr_code']
 
             if szTrCode == 'OC0' or szTrCode == 'EC0':
                 if flag_t8416_data_receive_done:            
-                    self.oc0_update(data)
+                    self.oc0_update(tickdata)
                 else:
                     pass
             else:
                 pass
             
             if szTrCode == 'YOC':
-                self.yoc_update(data)
+                self.yoc_update(tickdata)
             else:
                 pass
             
@@ -35965,7 +35968,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             flag_option_tick_update_is_running = False
 
     @logging_time_with_args
-    def update_3rd_process(self, data):
+    def update_3rd_process(self, tickdata):
         
         global flag_option_quote_update_is_running
         
@@ -35975,7 +35978,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             flag_option_quote_update_is_running = True
 
             if flag_t8416_data_receive_done:
-                self.oh0_update(data)
+                self.oh0_update(tickdata)
             else:
                 pass
             
@@ -35988,7 +35991,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             flag_option_quote_update_is_running = False
 
     @logging_time_with_args
-    def update_4th_process(self, data):
+    def update_4th_process(self, tickdata):
         
         global flag_ovc_update_is_running
         
@@ -35997,7 +36000,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         try:               
             flag_ovc_update_is_running = True
             
-            self.ovc_update(data)
+            self.ovc_update(tickdata)
             
         except Exception as e:
 
@@ -36127,53 +36130,66 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     #####################################################################################################################################################################
     # 실시간 처리관련 함수들
     #####################################################################################################################################################################
-    def nws_update(self, data):
-        pass
+    def nws_update(self, tickdata):
 
-    def jif_update(self, data):
+        if NEWS_CHK:
+
+            if len(tickdata['수신시간']) == 5:
+                realtime_hour = int(tickdata['수신시간'][0:1])
+                realtime_min = int(tickdata['수신시간'][1:3])
+                realtime_sec = int(tickdata['수신시간'][3:5])
+            else:
+                realtime_hour = int(tickdata['수신시간'][0:2])
+                realtime_min = int(tickdata['수신시간'][2:4])
+                realtime_sec = int(tickdata['수신시간'][4:6])
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] NEWS : {3}\r'.format(realtime_hour, realtime_min, realtime_sec, tickdata['제목'])
+            self.textBrowser.append(txt)
+        else:
+            pass
+
+    def jif_update(self, tickdata):
 
         global market_service, DOW_주간_시작가, WTI_주간_시작가, DOW_야간_시작가, WTI_야간_시작가, dongsi_quote
         global service_terminate, jugan_service_terminate, flag_option_start, receive_quote
         global flag_score_board_start, flag_telegram_send_start, flag_telegram_listen_start
 
-        result = data
-
         dt = datetime.now()
         
-        txt = '[{0:02d}:{1:02d}:{2:02d}] 장구분[{3}], 장상태[{4}]\r'.format(dt.hour, dt.minute, dt.second, result['장구분'], result['장상태'])
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 장구분[{3}], 장상태[{4}]\r'.format(dt.hour, dt.minute, dt.second, tickdata['장구분'], tickdata['장상태'])
         self.dialog['선물옵션전광판'].textBrowser.append(txt)
         self.textBrowser.append(txt)
 
         # 장시작 10분전
-        if result['장구분'] == '5' and result['장상태'] == '25':
+        if tickdata['장구분'] == '5' and tickdata['장상태'] == '25':
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 장시작 10분전입니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
             self.textBrowser.append(txt)
 
         # 현물장 시작 10초전
-        elif result['장구분'] == '1' and result['장상태'] == '22':
+        elif tickdata['장구분'] == '1' and tickdata['장상태'] == '22':
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 현물장 시작 10초전입니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
             self.textBrowser.append(txt)
 
         # 현물장 장전 동시호가 개시
-        elif result['장구분'] == '1' and result['장상태'] == '11':
+        elif tickdata['장구분'] == '1' and tickdata['장상태'] == '11':
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 장전 동시호가가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
             self.textBrowser.append(txt)
 
         # 선물장 시작 10초전
-        elif result['장구분'] == '5' and result['장상태'] == '22':
+        elif tickdata['장구분'] == '5' and tickdata['장상태'] == '22':
         
             txt = '[{0:02d}:{1:02d}:{2:02d}] 선물장 시작 10초전입니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
             self.textBrowser.append(txt)
 
         # 주간 선물/옵션장 시작
-        elif result['장구분'] == '5' and result['장상태'] == '21':
+        elif tickdata['장구분'] == '5' and tickdata['장상태'] == '21':
 
             market_service = True
 
@@ -36199,7 +36215,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
 
         # 야간 선물장 시작
-        elif result['장구분'] == '7' and result['장상태'] == '21':
+        elif tickdata['장구분'] == '7' and tickdata['장상태'] == '21':
         
             market_service = True
 
@@ -36229,7 +36245,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.textBrowser.append(txt)
 
         # 야간 옵션장 시작
-        elif result['장구분'] == '8' and result['장상태'] == '21':
+        elif tickdata['장구분'] == '8' and tickdata['장상태'] == '21':
 
             market_service = True
 
@@ -36259,28 +36275,28 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.textBrowser.append(txt)
 
         # 미국 주식장 시작
-        elif result['장구분'] == '9' and result['장상태'] == '21':
+        elif tickdata['장구분'] == '9' and tickdata['장상태'] == '21':
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 미국 주식장이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
             self.textBrowser.append(txt)
 
         # 현물 장마감 5분전
-        elif result['장구분'] == '1' and result['장상태'] == '44':
+        elif tickdata['장구분'] == '1' and tickdata['장상태'] == '44':
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 현물 장마감 5분전입니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
             self.textBrowser.append(txt)
 
         # 현물 장마감 1분전
-        elif result['장구분'] == '1' and result['장상태'] == '43':
+        elif tickdata['장구분'] == '1' and tickdata['장상태'] == '43':
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 현물 장마감 1분전입니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
             self.textBrowser.append(txt)
 
         # 장후 동시호가 시작
-        elif result['장구분'] == '1' and result['장상태'] == '31':
+        elif tickdata['장구분'] == '1' and tickdata['장상태'] == '31':
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 장후 동시호가가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
@@ -36289,7 +36305,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             dongsi_quote = True
 
         # 주간 선물/옵션장 종료
-        elif result['장구분'] == '5' and result['장상태'] == '41':
+        elif tickdata['장구분'] == '5' and tickdata['장상태'] == '41':
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물/옵션장이 종료되었습니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
@@ -36396,7 +36412,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass                                               
 
         # 야간 선물장 종료
-        elif result['장구분'] == '7' and result['장상태'] == '41':
+        elif tickdata['장구분'] == '7' and tickdata['장상태'] == '41':
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 종료되었습니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
@@ -36444,7 +36460,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass                    
 
         # 야간 옵션장 종료(선물장보다 1시간 먼저 종료됨)
-        elif result['장구분'] == '8' and result['장상태'] == '41':
+        elif tickdata['장구분'] == '8' and tickdata['장상태'] == '41':
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 종료되었습니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
@@ -36478,7 +36494,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
 
         # 아침 6경 발생 --> 미국주식 장마감
-        elif result['장구분'] == '9' and result['장상태'] == '41':
+        elif tickdata['장구분'] == '9' and tickdata['장상태'] == '41':
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 미국주식장 마감합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
@@ -36488,15 +36504,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-    def yj_update(self, data):
+    def yj_update(self, tickdata):
 
         global df_futures_graph, df_kp200_graph, yj_atm_index, kp200_시가
-
-        result = data
         
-        if result['업종코드'] == KOSPI200:
+        if tickdata['업종코드'] == KOSPI200:
 
-            kp200_시가 = float(result['예상지수'])
+            kp200_시가 = float(tickdata['예상지수'])
 
             self.dialog['선물옵션전광판'].kp200_realdata['시가'] = kp200_시가
             self.dialog['선물옵션전광판'].fut_realdata['KP200'] = kp200_시가
@@ -36504,7 +36518,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             df_futures_graph.at[ovc_x_idx, 'kp200'] = kp200_시가
             df_kp200_graph.at[ovc_x_idx, 'price'] = kp200_시가
 
-            item = QTableWidgetItem(result['예상지수'])
+            item = QTableWidgetItem(tickdata['예상지수'])
             item.setTextAlignment(Qt.AlignCenter)
 
             if kp200_시가 > KP200_전일종가:
@@ -36553,36 +36567,34 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-        elif result['업종코드'] == KOSDAQ:
+        elif tickdata['업종코드'] == KOSDAQ:
 
             # YFC로 선물 예상지수 내려옴, 여기로 안옴... --> KOSDAQ 예상지수로 대체
-            txt = '[{0:02d}:{1:02d}:{2:02d}] YJ KOSDAQ 예상시가 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, float(result['예상지수']))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] YJ KOSDAQ 예상시가 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, float(tickdata['예상지수']))
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
         else:
             pass
 
-    def yfc_update(self, data):
+    def yfc_update(self, tickdata):
 
         global market_service, df_futures_graph, flag_futures_ohlc_open, 선물_종가대비_등락율, 선물_진폭비
         global flag_fut_vs_dow_drate_direction, plot_drate_scale_factor, 선물_현재가_버퍼, 선물_시가, 선물_피봇
-
-        result = data
         
         if not market_service:
             market_service = True
         else:
             pass
 
-        if result['단축코드'] == GMSHCODE:
+        if tickdata['단축코드'] == GMSHCODE:
 
-            예상체결가격 = result['예상체결가격']
-            선물_시가 = float(result['예상체결가격'])
+            예상체결가격 = tickdata['예상체결가격']
+            선물_시가 = float(tickdata['예상체결가격'])
 
             # 그래프 가격갱신
             df_futures_graph.at[ovc_x_idx, 'price'] = 선물_시가
 
             # 1T OHLC 생성
-            df_futures_graph.at[ovc_x_idx, 'ctime'] = result['수신시간']
+            df_futures_graph.at[ovc_x_idx, 'ctime'] = tickdata['수신시간']
 
             if OVC_SEC == 0:
 
@@ -36631,7 +36643,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                   
             self.dialog['선물옵션전광판'].fut_realdata['시가'] = 선물_시가
 
-            item = QTableWidgetItem(result['예상체결가격'])
+            item = QTableWidgetItem(tickdata['예상체결가격'])
             item.setTextAlignment(Qt.AlignCenter)
 
             if 선물_시가 > self.dialog['선물옵션전광판'].fut_realdata['종가']:
@@ -36769,68 +36781,64 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-    def ys3_update(self, data):
+    def ys3_update(self, tickdata):
 
-        result = data
+        현재가 = format(int(tickdata['예상체결가격']), ',')
 
-        현재가 = format(int(result['예상체결가격']), ',')
+        if tickdata['단축코드'] == SAMSUNG:
 
-        if result['단축코드'] == SAMSUNG:
+            if tickdata['예상체결가전일종가대비구분'] == '5':
 
-            if result['예상체결가전일종가대비구분'] == '5':
-
-                jisu_txt = "SAMSUNG: {0}({1}, {2:0.1f}%)".format(현재가, format(-int(result['예상체결가전일종가대비']), ','), float(result['예상체결가전일종가등락율']))
+                jisu_txt = "SAMSUNG: {0}({1}, {2:0.1f}%)".format(현재가, format(-int(tickdata['예상체결가전일종가대비']), ','), float(tickdata['예상체결가전일종가등락율']))
 
                 self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
                 self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
 
-            elif result['예상체결가전일종가대비구분'] == '2':
+            elif tickdata['예상체결가전일종가대비구분'] == '2':
 
-                jisu_txt = "SAMSUNG: {0}({1}, {2:0.1f}%)".format(현재가, format(int(result['예상체결가전일종가대비']), ','), float(result['예상체결가전일종가등락율']))
+                jisu_txt = "SAMSUNG: {0}({1}, {2:0.1f}%)".format(현재가, format(int(tickdata['예상체결가전일종가대비']), ','), float(tickdata['예상체결가전일종가등락율']))
 
                 self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
                 self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
 
             else:
-                jisu_txt = "SAMSUNG: {0}({1})".format(현재가, format(int(result['예상체결가전일종가대비']), ','))
+                jisu_txt = "SAMSUNG: {0}({1})".format(현재가, format(int(tickdata['예상체결가전일종가대비']), ','))
 
                 self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
                 self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
 
-        elif result['단축코드'] == HYUNDAI:
+        elif tickdata['단축코드'] == HYUNDAI:
 
-            if result['예상체결가전일종가대비구분'] == '5':
+            if tickdata['예상체결가전일종가대비구분'] == '5':
 
-                jisu_txt = "HYUNDAI: {0}({1}, {2:0.1f}%)".format(현재가, format(-int(result['예상체결가전일종가대비']), ','), float(result['예상체결가전일종가등락율']))
+                jisu_txt = "HYUNDAI: {0}({1}, {2:0.1f}%)".format(현재가, format(-int(tickdata['예상체결가전일종가대비']), ','), float(tickdata['예상체결가전일종가등락율']))
 
                 self.dialog['선물옵션전광판'].label_kosdaq.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
                 self.dialog['선물옵션전광판'].label_kosdaq.setText(jisu_txt)
 
-            elif result['예상체결가전일종가대비구분'] == '2':
+            elif tickdata['예상체결가전일종가대비구분'] == '2':
 
-                jisu_txt = "HYUNDAI: {0}({1}, {2:0.1f}%)".format(현재가, format(int(result['예상체결가전일종가대비']), ','), float(result['예상체결가전일종가등락율']))
+                jisu_txt = "HYUNDAI: {0}({1}, {2:0.1f}%)".format(현재가, format(int(tickdata['예상체결가전일종가대비']), ','), float(tickdata['예상체결가전일종가등락율']))
 
                 self.dialog['선물옵션전광판'].label_kosdaq.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
                 self.dialog['선물옵션전광판'].label_kosdaq.setText(jisu_txt)
 
             else:
-                jisu_txt = "HYUNDAI: {0}({1})".format(현재가, format(int(result['예상체결가전일종가대비']), ','))
+                jisu_txt = "HYUNDAI: {0}({1})".format(현재가, format(int(tickdata['예상체결가전일종가대비']), ','))
 
                 self.dialog['선물옵션전광판'].label_kosdaq.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
                 self.dialog['선물옵션전광판'].label_kosdaq.setText(jisu_txt)
         else:
             pass
 
-    def yoc_update(self, data):
+    def yoc_update(self, tickdata):
 
-        result = data
+        if tickdata['단축코드'][0:3] == '201':
 
-        if result['단축코드'][0:3] == '201':
-
-            index = call_행사가.index(result['단축코드'][5:8])
+            index = call_행사가.index(tickdata['단축코드'][5:8])
 
             # 예상시가 갱신
-            예상시가 = result['예상체결가격']
+            예상시가 = tickdata['예상체결가격']
             콜예상시가 = float(예상시가)               
 
             # 테이블 갱신
@@ -36848,12 +36856,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.dialog['선물옵션전광판'].tableWidget_call.setItem(index, Option_column.시가.value, item)                                  
 
-        elif result['단축코드'][0:3] == '301':
+        elif tickdata['단축코드'][0:3] == '301':
 
-            index = put_행사가.index(result['단축코드'][5:8])
+            index = put_행사가.index(tickdata['단축코드'][5:8])
 
             # 예상시가 갱신
-            예상시가 = result['예상체결가격']
+            예상시가 = tickdata['예상체결가격']
             풋예상시가 = float(예상시가)               
 
             # 테이블 갱신
@@ -36873,16 +36881,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-    def s3_update(self, data):
+    def s3_update(self, tickdata):
 
         global samsung_price, samsung_text_color
-
-        result = data
         
         # S3 데이타표시
-        if result['단축코드'] == SAMSUNG:
+        if tickdata['단축코드'] == SAMSUNG:
 
-            현재가 = float(result['현재가'])
+            현재가 = float(tickdata['현재가'])
 
             if 현재가 != samsung_price:
 
@@ -36890,18 +36896,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     temp_txt = format(현재가, ',')
 
-                    if result['전일대비구분'] == '5':
+                    if tickdata['전일대비구분'] == '5':
 
-                        jisu_txt = "SS: {0} ▲ (-{1}, {2:0.1f}%)".format(temp_txt, format(int(result['전일대비']), ','), float(result['등락율']))
+                        jisu_txt = "SS: {0} ▲ (-{1}, {2:0.1f}%)".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']))
 
                         self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                         self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
 
                         samsung_text_color = 'blue'
 
-                    elif result['전일대비구분'] == '2':
+                    elif tickdata['전일대비구분'] == '2':
 
-                        jisu_txt = "SS: {0} ▲ ({1}, {2:0.1f}%)".format(temp_txt, format(int(result['전일대비']), ','), float(result['등락율']))
+                        jisu_txt = "SS: {0} ▲ ({1}, {2:0.1f}%)".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']))
 
                         self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                         self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
@@ -36914,18 +36920,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     temp_txt = format(현재가, ',')
 
-                    if result['전일대비구분'] == '5':
+                    if tickdata['전일대비구분'] == '5':
 
-                        jisu_txt = "SS: {0} ▼ (-{1}, {2:0.1f}%)".format(temp_txt, format(int(result['전일대비']), ','), float(result['등락율']))
+                        jisu_txt = "SS: {0} ▼ (-{1}, {2:0.1f}%)".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']))
 
                         self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                         self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
 
                         samsung_text_color = 'blue'
 
-                    elif result['전일대비구분'] == '2':
+                    elif tickdata['전일대비구분'] == '2':
 
-                        jisu_txt = "SS: {0} ▼ ({1}, {2:0.1f}%)".format(temp_txt, format(int(result['전일대비']), ','), float(result['등락율']))
+                        jisu_txt = "SS: {0} ▼ ({1}, {2:0.1f}%)".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']))
 
                         self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                         self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
@@ -36942,24 +36948,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass 
 
-    def ij_update(self, data):
+    def ij_update(self, tickdata):
 
         global df_fut, df_futures_graph, df_kp200_graph
         global ATM_INDEX, call_atm_value, put_atm_value, KP200_COREVAL, 장시작_양합, 장시작_중심가
         global flag_kp200_start_set, flag_kp200_low, flag_kp200_high, kospi_text_color, kosdaq_text_color
         global kospi_price, kosdaq_price, kp200_시가, kp200_저가, kp200_현재가, kp200_고가, kp200_진폭
-
-        result = data
         
-        if result['업종코드'] == KOSPI200:
+        if tickdata['업종코드'] == KOSPI200:
 
-            지수 = result['지수']
-            시가지수 = result['시가지수']
-            저가지수 = result['저가지수']
-            고가지수 = result['고가지수']
+            지수 = tickdata['지수']
+            시가지수 = tickdata['시가지수']
+            저가지수 = tickdata['저가지수']
+            고가지수 = tickdata['고가지수']
             
             # 그래프 가격갱신
-            kp200_현재가 = float(result['지수'])
+            kp200_현재가 = float(tickdata['지수'])
             df_futures_graph.at[ovc_x_idx, 'kp200'] = kp200_현재가
             df_kp200_graph.at[ovc_x_idx, 'price'] = kp200_현재가
 
@@ -37000,7 +37004,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 flag_kp200_start_set = True
 
-                kp200_시가 = float(result['시가지수'])
+                kp200_시가 = float(tickdata['시가지수'])
 
                 self.dialog['선물옵션전광판'].kp200_realdata['시가'] = kp200_시가
                 df_futures_graph.at[ovc_x_idx, 'kp200'] = kp200_시가
@@ -37112,7 +37116,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 flag_kp200_low = True
 
-                kp200_저가 = float(result['저가지수'])
+                kp200_저가 = float(tickdata['저가지수'])
                 self.dialog['선물옵션전광판'].kp200_realdata['저가'] = kp200_저가               
 
                 item = QTableWidgetItem(저가지수)
@@ -37139,7 +37143,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 flag_kp200_high = True
 
-                kp200_고가 = float(result['고가지수'])
+                kp200_고가 = float(tickdata['고가지수'])
                 self.dialog['선물옵션전광판'].kp200_realdata['고가'] = kp200_고가            
 
                 item = QTableWidgetItem(고가지수)
@@ -37162,9 +37166,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-        elif result['업종코드'] == KOSPI:
+        elif tickdata['업종코드'] == KOSPI:
 
-            실수_지수 = float(result['지수'])                                
+            실수_지수 = float(tickdata['지수'])                                
 
             if 실수_지수 != kospi_price:
 
@@ -37172,18 +37176,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if 실수_지수 > kospi_price:
 
-                    if result['전일대비구분'] == '5':
+                    if tickdata['전일대비구분'] == '5':
 
-                        jisu_txt = "KOSPI: {0} ▲ (-{1:.2f}, {2:0.1f}%)".format(kospi_txt, float(result['전일비']), float(result['등락율']))
+                        jisu_txt = "KOSPI: {0} ▲ (-{1:.2f}, {2:0.1f}%)".format(kospi_txt, float(tickdata['전일비']), float(tickdata['등락율']))
 
                         self.dialog['선물옵션전광판'].label_kospi.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                         self.dialog['선물옵션전광판'].label_kospi.setText(jisu_txt)
 
                         kospi_text_color = 'blue'
 
-                    elif result['전일대비구분'] == '2':
+                    elif tickdata['전일대비구분'] == '2':
 
-                        jisu_txt = "KOSPI: {0} ▲ ({1:.2f}, {2:0.1f}%)".format(kospi_txt, float(result['전일비']), float(result['등락율']))
+                        jisu_txt = "KOSPI: {0} ▲ ({1:.2f}, {2:0.1f}%)".format(kospi_txt, float(tickdata['전일비']), float(tickdata['등락율']))
 
                         self.dialog['선물옵션전광판'].label_kospi.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                         self.dialog['선물옵션전광판'].label_kospi.setText(jisu_txt)
@@ -37194,18 +37198,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 elif 실수_지수 < kospi_price:
 
-                    if result['전일대비구분'] == '5':
+                    if tickdata['전일대비구분'] == '5':
 
-                        jisu_txt = "KOSPI: {0} ▼ (-{1:.2f}, {2:0.1f}%)".format(kospi_txt, float(result['전일비']), float(result['등락율']))
+                        jisu_txt = "KOSPI: {0} ▼ (-{1:.2f}, {2:0.1f}%)".format(kospi_txt, float(tickdata['전일비']), float(tickdata['등락율']))
 
                         self.dialog['선물옵션전광판'].label_kospi.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                         self.dialog['선물옵션전광판'].label_kospi.setText(jisu_txt)
 
                         kospi_text_color = 'blue'
 
-                    elif result['전일대비구분'] == '2':
+                    elif tickdata['전일대비구분'] == '2':
 
-                        jisu_txt = "KOSPI: {0} ▼ ({1:.2f}, {2:0.1f}%)".format(kospi_txt, float(result['전일비']), float(result['등락율']))
+                        jisu_txt = "KOSPI: {0} ▼ ({1:.2f}, {2:0.1f}%)".format(kospi_txt, float(tickdata['전일비']), float(tickdata['등락율']))
 
                         self.dialog['선물옵션전광판'].label_kospi.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                         self.dialog['선물옵션전광판'].label_kospi.setText(jisu_txt)
@@ -37220,9 +37224,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass                    
 
-        elif result['업종코드'] == KOSDAQ:
+        elif tickdata['업종코드'] == KOSDAQ:
 
-            실수_지수 = float(result['지수'])                                
+            실수_지수 = float(tickdata['지수'])                                
 
             if 실수_지수 != kosdaq_price:    
             
@@ -37230,18 +37234,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if 실수_지수 > kosdaq_price:
 
-                    if result['전일대비구분'] == '5':
+                    if tickdata['전일대비구분'] == '5':
 
-                        jisu_txt = "KOSDAQ: {0} ▲ (-{1:.2f}, {2:0.1f}%)".format(kosdaq_txt, float(result['전일비']), float(result['등락율']))
+                        jisu_txt = "KOSDAQ: {0} ▲ (-{1:.2f}, {2:0.1f}%)".format(kosdaq_txt, float(tickdata['전일비']), float(tickdata['등락율']))
 
                         self.dialog['선물옵션전광판'].label_kosdaq.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                         self.dialog['선물옵션전광판'].label_kosdaq.setText(jisu_txt)
 
                         kosdaq_text_color = 'blue'
 
-                    elif result['전일대비구분'] == '2':
+                    elif tickdata['전일대비구분'] == '2':
 
-                        jisu_txt = "KOSDAQ: {0} ▲ ({1:.2f}, {2:0.1f}%)".format(kosdaq_txt, float(result['전일비']), float(result['등락율']))
+                        jisu_txt = "KOSDAQ: {0} ▲ ({1:.2f}, {2:0.1f}%)".format(kosdaq_txt, float(tickdata['전일비']), float(tickdata['등락율']))
 
                         self.dialog['선물옵션전광판'].label_kosdaq.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                         self.dialog['선물옵션전광판'].label_kosdaq.setText(jisu_txt)
@@ -37252,18 +37256,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 elif 실수_지수 < kosdaq_price:
 
-                    if result['전일대비구분'] == '5':
+                    if tickdata['전일대비구분'] == '5':
 
-                        jisu_txt = "KOSDAQ: {0} ▼ (-{1:.2f}, {2:0.1f}%)".format(kosdaq_txt, float(result['전일비']), float(result['등락율']))
+                        jisu_txt = "KOSDAQ: {0} ▼ (-{1:.2f}, {2:0.1f}%)".format(kosdaq_txt, float(tickdata['전일비']), float(tickdata['등락율']))
 
                         self.dialog['선물옵션전광판'].label_kosdaq.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                         self.dialog['선물옵션전광판'].label_kosdaq.setText(jisu_txt)
 
                         kosdaq_text_color = 'blue'
 
-                    elif result['전일대비구분'] == '2':
+                    elif tickdata['전일대비구분'] == '2':
 
-                        jisu_txt = "KOSDAQ: {0} ▼ ({1:.2f}, {2:0.1f}%)".format(kosdaq_txt, float(result['전일비']), float(result['등락율']))
+                        jisu_txt = "KOSDAQ: {0} ▼ ({1:.2f}, {2:0.1f}%)".format(kosdaq_txt, float(tickdata['전일비']), float(tickdata['등락율']))
 
                         self.dialog['선물옵션전광판'].label_kosdaq.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                         self.dialog['선물옵션전광판'].label_kosdaq.setText(jisu_txt)
@@ -37278,14 +37282,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-        elif result['업종코드'] == FUTURES:
+        elif tickdata['업종코드'] == FUTURES:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 외인 순매수금액 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, int(result['외인순매수금액']))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 외인 순매수금액 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, int(tickdata['외인순매수금액']))
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
         else:                    
             pass
 
-    def bm_update(self, data):
+    def bm_update(self, tickdata):
 
         global 외인선물_순매수, 외인현물_순매수, 기관선물_순매수, 기관현물_순매수, 개인선물_순매수, 개인현물_순매수
         
@@ -37310,12 +37314,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global FUT_FOREIGNER_직전대비, FUT_RETAIL_직전대비, FUT_INSTITUTIONAL_직전대비, KOSPI_FOREIGNER_직전대비, PROGRAM_직전대비
         global 선물_총순매수, 선물_총순매수_직전대비, 현물_총순매수, 현물_총순매수_직전대비
 
-        result = data
+        거래대금순매수 = int(tickdata['거래대금순매수'])
+        거래대금순매수직전대비 = int(tickdata['거래대금순매수직전대비'])
 
-        거래대금순매수 = int(result['거래대금순매수'])
-        거래대금순매수직전대비 = int(result['거래대금순매수직전대비'])
-
-        if (result['업종코드'] == FUTURES and result['투자자코드'] == FOREIGNER) or (result['업종코드'] == CME and result['투자자코드'] == FOREIGNER):
+        if (tickdata['업종코드'] == FUTURES and tickdata['투자자코드'] == FOREIGNER) or (tickdata['업종코드'] == CME and tickdata['투자자코드'] == FOREIGNER):
 
             외인선물_순매수 = 거래대금순매수
             순매수 = format(외인선물_순매수, ',')
@@ -37362,7 +37364,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-        elif (result['업종코드'] == FUTURES and result['투자자코드'] == RETAIL) or (result['업종코드'] == CME and result['투자자코드'] == RETAIL):
+        elif (tickdata['업종코드'] == FUTURES and tickdata['투자자코드'] == RETAIL) or (tickdata['업종코드'] == CME and tickdata['투자자코드'] == RETAIL):
 
             개인선물_순매수 = 거래대금순매수
             순매수 = format(개인선물_순매수, ',')
@@ -37403,7 +37405,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-        elif (result['업종코드'] == FUTURES and result['투자자코드'] == INSTITUTIONAL) or (result['업종코드'] == CME and result['투자자코드'] == INSTITUTIONAL):
+        elif (tickdata['업종코드'] == FUTURES and tickdata['투자자코드'] == INSTITUTIONAL) or (tickdata['업종코드'] == CME and tickdata['투자자코드'] == INSTITUTIONAL):
 
             FUT_INSTITUTIONAL_거래대금순매수 = 거래대금순매수
             FUT_INSTITUTIONAL_거래대금순매수_직전대비 = 거래대금순매수직전대비
@@ -37459,42 +37461,42 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-        elif (result['업종코드'] == FUTURES and result['투자자코드'] == STOCK) or (result['업종코드'] == CME and result['투자자코드'] == STOCK):
+        elif (tickdata['업종코드'] == FUTURES and tickdata['투자자코드'] == STOCK) or (tickdata['업종코드'] == CME and tickdata['투자자코드'] == STOCK):
 
             FUT_STOCK_거래대금순매수 = 거래대금순매수
             FUT_STOCK_거래대금순매수_직전대비 = 거래대금순매수직전대비
 
-        elif (result['업종코드'] == FUTURES and result['투자자코드'] == BOHEOM) or (result['업종코드'] == CME and result['투자자코드'] == BOHEOM):
+        elif (tickdata['업종코드'] == FUTURES and tickdata['투자자코드'] == BOHEOM) or (tickdata['업종코드'] == CME and tickdata['투자자코드'] == BOHEOM):
 
             FUT_BOHEOM_거래대금순매수 = 거래대금순매수
             FUT_BOHEOM_거래대금순매수_직전대비 = 거래대금순매수직전대비
 
-        elif (result['업종코드'] == FUTURES and result['투자자코드'] == TOOSIN) or (result['업종코드'] == CME and result['투자자코드'] == TOOSIN):
+        elif (tickdata['업종코드'] == FUTURES and tickdata['투자자코드'] == TOOSIN) or (tickdata['업종코드'] == CME and tickdata['투자자코드'] == TOOSIN):
 
             FUT_TOOSIN_거래대금순매수 = 거래대금순매수
             FUT_TOOSIN_거래대금순매수_직전대비 = 거래대금순매수직전대비
 
-        elif (result['업종코드'] == FUTURES and result['투자자코드'] == BANK) or (result['업종코드'] == CME and result['투자자코드'] == BANK):
+        elif (tickdata['업종코드'] == FUTURES and tickdata['투자자코드'] == BANK) or (tickdata['업종코드'] == CME and tickdata['투자자코드'] == BANK):
 
             FUT_BANK_거래대금순매수 = 거래대금순매수
             FUT_BANK_거래대금순매수_직전대비 = 거래대금순매수직전대비
 
-        elif (result['업종코드'] == FUTURES and result['투자자코드'] == JONGGEUM) or (result['업종코드'] == CME and result['투자자코드'] == JONGGEUM):
+        elif (tickdata['업종코드'] == FUTURES and tickdata['투자자코드'] == JONGGEUM) or (tickdata['업종코드'] == CME and tickdata['투자자코드'] == JONGGEUM):
 
             FUT_JONGGEUM_거래대금순매수 = 거래대금순매수
             FUT_JONGGEUM_거래대금순매수_직전대비 = 거래대금순매수직전대비
 
-        elif (result['업종코드'] == FUTURES and result['투자자코드'] == GIGEUM) or (result['업종코드'] == CME and result['투자자코드'] == GIGEUM):
+        elif (tickdata['업종코드'] == FUTURES and tickdata['투자자코드'] == GIGEUM) or (tickdata['업종코드'] == CME and tickdata['투자자코드'] == GIGEUM):
 
             FUT_GIGEUM_거래대금순매수 = 거래대금순매수
             FUT_GIGEUM_거래대금순매수_직전대비 = 거래대금순매수직전대비
 
-        elif (result['업종코드'] == FUTURES and result['투자자코드'] == GITA) or (result['업종코드'] == CME and result['투자자코드'] == GITA):
+        elif (tickdata['업종코드'] == FUTURES and tickdata['투자자코드'] == GITA) or (tickdata['업종코드'] == CME and tickdata['투자자코드'] == GITA):
 
             FUT_GITA_거래대금순매수 = 거래대금순매수
             FUT_GITA_거래대금순매수_직전대비 = 거래대금순매수직전대비
 
-        elif result['업종코드'] == KOSPI and result['투자자코드'] == FOREIGNER:
+        elif tickdata['업종코드'] == KOSPI and tickdata['투자자코드'] == FOREIGNER:
 
             외인현물_순매수 = 거래대금순매수
             순매수 = format(외인현물_순매수, ',')
@@ -37541,7 +37543,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-        elif result['업종코드'] == KOSPI and result['투자자코드'] == RETAIL:
+        elif tickdata['업종코드'] == KOSPI and tickdata['투자자코드'] == RETAIL:
 
             개인현물_순매수 = 거래대금순매수
             KOSPI_RETAIL_거래대금순매수_직전대비 = 거래대금순매수직전대비
@@ -37557,42 +37559,42 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-        elif result['업종코드'] == KOSPI and result['투자자코드'] == INSTITUTIONAL:
+        elif tickdata['업종코드'] == KOSPI and tickdata['투자자코드'] == INSTITUTIONAL:
 
             KOSPI_INSTITUTIONAL_거래대금순매수 = 거래대금순매수
             KOSPI_INSTITUTIONAL_거래대금순매수_직전대비 = 거래대금순매수직전대비
 
-        elif result['업종코드'] == KOSPI and result['투자자코드'] == STOCK:
+        elif tickdata['업종코드'] == KOSPI and tickdata['투자자코드'] == STOCK:
 
             KOSPI_STOCK_거래대금순매수 = 거래대금순매수
             KOSPI_STOCK_거래대금순매수_직전대비 = 거래대금순매수직전대비
 
-        elif result['업종코드'] == KOSPI and result['투자자코드'] == BOHEOM:
+        elif tickdata['업종코드'] == KOSPI and tickdata['투자자코드'] == BOHEOM:
 
             KOSPI_BOHEOM_거래대금순매수 = 거래대금순매수
             KOSPI_BOHEOM_거래대금순매수_직전대비 = 거래대금순매수직전대비
 
-        elif result['업종코드'] == KOSPI and result['투자자코드'] == TOOSIN:
+        elif tickdata['업종코드'] == KOSPI and tickdata['투자자코드'] == TOOSIN:
 
             KOSPI_TOOSIN_거래대금순매수 = 거래대금순매수
             KOSPI_TOOSIN_거래대금순매수_직전대비 = 거래대금순매수직전대비
 
-        elif result['업종코드'] == KOSPI and result['투자자코드'] == BANK:
+        elif tickdata['업종코드'] == KOSPI and tickdata['투자자코드'] == BANK:
 
             KOSPI_BANK_거래대금순매수 = 거래대금순매수
             KOSPI_BANK_거래대금순매수_직전대비 = 거래대금순매수직전대비
 
-        elif result['업종코드'] == KOSPI and result['투자자코드'] == JONGGEUM:
+        elif tickdata['업종코드'] == KOSPI and tickdata['투자자코드'] == JONGGEUM:
 
             KOSPI_JONGGEUM_거래대금순매수 = 거래대금순매수
             KOSPI_JONGGEUM_거래대금순매수_직전대비 = 거래대금순매수직전대비
 
-        elif result['업종코드'] == KOSPI and result['투자자코드'] == GIGEUM:
+        elif tickdata['업종코드'] == KOSPI and tickdata['투자자코드'] == GIGEUM:
 
             KOSPI_GIGEUM_거래대금순매수 = 거래대금순매수
             KOSPI_GIGEUM_거래대금순매수_직전대비 = 거래대금순매수직전대비
 
-        elif result['업종코드'] == KOSPI and result['투자자코드'] == GITA:
+        elif tickdata['업종코드'] == KOSPI and tickdata['투자자코드'] == GITA:
 
             KOSPI_GITA_거래대금순매수 = 거래대금순매수
             KOSPI_GITA_거래대금순매수_직전대비 = 거래대금순매수직전대비
@@ -37628,19 +37630,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                           KOSPI_JONGGEUM_거래대금순매수_직전대비 + KOSPI_GIGEUM_거래대금순매수_직전대비 + \
                           KOSPI_GITA_거래대금순매수_직전대비 + 프로그램_순매수직전대비        
 
-    def pm_update(self, data):
+    def pm_update(self, tickdata):
 
         global 프로그램_순매수, 프로그램_순매수직전대비
         global 선물_총순매수, 현물_총순매수
         global 수급방향, 과거_수급방향
         global df_supply_demand_graph
 
-        result = data
-
         dt = datetime.now()
         
-        프로그램_순매수 = int(int(result['전체순매수금액합계']) / 100)
-        프로그램_순매수직전대비 = int(int(result['전체순매수금액직전대비']) / 100)
+        프로그램_순매수 = int(int(tickdata['전체순매수금액합계']) / 100)
+        프로그램_순매수직전대비 = int(int(tickdata['전체순매수금액직전대비']) / 100)
         
         선물_총순매수 = 외인선물_순매수 + 개인선물_순매수 + 기관선물_순매수
         현물_총순매수 = 외인현물_순매수 + 개인현물_순매수 + 기관현물_순매수
@@ -37781,33 +37781,31 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass        
         
-    def fc0_update(self, data):
+    def fc0_update(self, tickdata):
 
         global pre_start, flag_fut_vs_dow_drate_direction, plot_drate_scale_factor, fut_volume_power_energy_direction
         global df_futures_graph, flag_futures_ohlc_open, 선물_현재가_버퍼, fut_result, fut_cm_volume_power, fut_nm_volume_power
         global 선물_종가대비_등락율, 선물_시가등락율, 선물_시가대비_등락율, kp200_시가등락율
 
         dt = datetime.now()
-
-        result = data
         
         if pre_start:
             pre_start = False
         else:
             pass        
         
-        if result['단축코드'] == fut_code:
+        if tickdata['단축코드'] == fut_code:
 
             # 그래프관련 처리 먼저...
-            if float(result['현재가']) == float('inf') or float(result['현재가']) == float('-inf'):
+            if float(tickdata['현재가']) == float('inf') or float(tickdata['현재가']) == float('-inf'):
                 선물_현재가 = float('nan')
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 현재가 무한대 오류발생...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
             else:
-                선물_현재가 = float(result['현재가'])
+                선물_현재가 = float(tickdata['현재가'])
 
             # 1T OHLC 생성
-            df_futures_graph.at[ovc_x_idx, 'ctime'] = result['수신시간']
+            df_futures_graph.at[ovc_x_idx, 'ctime'] = tickdata['수신시간']
             df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
 
             if ovc_x_idx != old_ovc_x_idx:
@@ -37865,7 +37863,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2
 
-            fut_cm_volume_power = int(result['매수누적체결량']) - int(result['매도누적체결량'])
+            fut_cm_volume_power = int(tickdata['매수누적체결량']) - int(tickdata['매도누적체결량'])
             df_futures_graph.at[ovc_x_idx, 'volume'] = fut_cm_volume_power
 
             temp = format(fut_cm_volume_power, ',')
@@ -37891,13 +37889,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.거래량.value, item)                
 
-            fut_result = copy.deepcopy(result)
+            fut_result = copy.deepcopy(tickdata)
 
             self.dialog['선물옵션전광판'].fut_update(fut_result)
 
-        elif TARGET_MONTH == 'CM' and result['단축코드'] == CMSHCODE:
+        elif TARGET_MONTH == 'CM' and tickdata['단축코드'] == CMSHCODE:
 
-            fut_nm_volume_power = int(result['매수누적체결량']) - int(result['매도누적체결량'])
+            fut_nm_volume_power = int(tickdata['매수누적체결량']) - int(tickdata['매도누적체결량'])
 
             temp = format(fut_nm_volume_power, ',')
 
@@ -37929,11 +37927,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
 
         # 등락율은 본월물 기준으로 계산
-        if result['단축코드'] == GMSHCODE:
+        if tickdata['단축코드'] == GMSHCODE:
 
            # 그래프관련 처리 먼저...                    
-            선물_종가대비_등락율 = float(result['등락율'])            
-            선물_시가대비_등락율 = ((float(result['현재가']) - float(result['시가'])) / float(result['시가'])) * 100
+            선물_종가대비_등락율 = float(tickdata['등락율'])            
+            선물_시가대비_등락율 = ((float(tickdata['현재가']) - float(tickdata['시가'])) / float(tickdata['시가'])) * 100
             
             if KP200_전일종가 > 0:
                 kp200_시가등락율 = ((kp200_시가 - KP200_전일종가) / KP200_전일종가) * 100
@@ -37960,37 +37958,35 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             #df_futures_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 선물_종가대비_등락율
             df_futures_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 선물_시가대비_등락율
 
-    def fh0_update(self, data):
+    def fh0_update(self, tickdata):
 
         global market_service, 선물_호가순매수
         global df_futures_graph, fut_quote_count_ratio, 선물_본월물_호가_잔량비, cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max
         global fut_cms_quote_count_ratio, 선물_차월물_호가_잔량비, nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max
         global fut_ccms_quote_count_ratio, fut_ccms_quote_remainder_ratio, fut_quote_energy_direction
         global quote_count_ratio, quote_remainder_ratio
-
-        result = data
         
         if not market_service:
             market_service = True
         else:
             pass
 
-        if result['단축코드'] == GMSHCODE:
+        if tickdata['단축코드'] == GMSHCODE:
             
             # 그래프관련 처리 먼저...
-            if int(result['매도호가총건수']) > 0:
-                fut_quote_count_ratio = int(result['매수호가총건수']) / int(result['매도호가총건수'])
+            if int(tickdata['매도호가총건수']) > 0:
+                fut_quote_count_ratio = int(tickdata['매수호가총건수']) / int(tickdata['매도호가총건수'])
             else:
                 pass
 
-            선물_호가순매수 = int(result['매수호가총수량']) - int(result['매도호가총수량'])
+            선물_호가순매수 = int(tickdata['매수호가총수량']) - int(tickdata['매도호가총수량'])
 
-            df_futures_graph.at[ovc_x_idx, 'c_ms_quote'] = int(result['매수호가총수량'])
-            df_futures_graph.at[ovc_x_idx, 'c_md_quote'] = int(result['매도호가총수량'])
+            df_futures_graph.at[ovc_x_idx, 'c_ms_quote'] = int(tickdata['매수호가총수량'])
+            df_futures_graph.at[ovc_x_idx, 'c_md_quote'] = int(tickdata['매도호가총수량'])
 
-            if int(result['매수호가총수량']) > 0 and int(result['매도호가총수량']) > 0:
+            if int(tickdata['매수호가총수량']) > 0 and int(tickdata['매도호가총수량']) > 0:
 
-                선물_본월물_호가_잔량비 = int(result['매수호가총수량']) / int(result['매도호가총수량'])
+                선물_본월물_호가_잔량비 = int(tickdata['매수호가총수량']) / int(tickdata['매도호가총수량'])
                 df_futures_graph.at[ovc_x_idx, 'c_quote_remainder_ratio'] = 선물_본월물_호가_잔량비
 
                 cm_fut_quote_min = df_futures_graph['c_quote_remainder_ratio'].min()
@@ -38009,7 +38005,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
 
             # 선물호가 갱신
-            item = QTableWidgetItem("{0}".format(format(int(result['매수호가총건수']), ',')))
+            item = QTableWidgetItem("{0}".format(format(int(tickdata['매수호가총건수']), ',')))
             item.setTextAlignment(Qt.AlignCenter)
 
             if NightTime:
@@ -38019,7 +38015,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnToContents(Futures_column.매수건수.value)
 
-            item = QTableWidgetItem("{0}".format(format(int(result['매도호가총건수']), ',')))
+            item = QTableWidgetItem("{0}".format(format(int(tickdata['매도호가총건수']), ',')))
             item.setTextAlignment(Qt.AlignCenter)
 
             if NightTime:
@@ -38029,7 +38025,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnToContents(Futures_column.매도건수.value)
 
-            item = QTableWidgetItem("{0}".format(format(int(result['매수호가총수량']), ',')))
+            item = QTableWidgetItem("{0}".format(format(int(tickdata['매수호가총수량']), ',')))
             item.setTextAlignment(Qt.AlignCenter)
 
             if NightTime:
@@ -38039,7 +38035,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnToContents(Futures_column.매수잔량.value)
 
-            item = QTableWidgetItem("{0}".format(format(int(result['매도호가총수량']), ',')))
+            item = QTableWidgetItem("{0}".format(format(int(tickdata['매도호가총수량']), ',')))
             item.setTextAlignment(Qt.AlignCenter)
 
             if NightTime:
@@ -38050,20 +38046,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnToContents(Futures_column.매도잔량.value)
 
         # 차월물 처리
-        elif result['단축코드'] == CMSHCODE:
+        elif tickdata['단축코드'] == CMSHCODE:
 
             # 그래프관련 처리 먼저...
-            if int(result['매도호가총건수']) > 0:
-                fut_cms_quote_count_ratio = int(result['매수호가총건수']) / int(result['매도호가총건수'])
+            if int(tickdata['매도호가총건수']) > 0:
+                fut_cms_quote_count_ratio = int(tickdata['매수호가총건수']) / int(tickdata['매도호가총건수'])
             else:
                 pass
 
-            df_futures_graph.at[ovc_x_idx, 'n_ms_quote'] = int(result['매수호가총수량'])
-            df_futures_graph.at[ovc_x_idx, 'n_md_quote'] = int(result['매도호가총수량'])
+            df_futures_graph.at[ovc_x_idx, 'n_ms_quote'] = int(tickdata['매수호가총수량'])
+            df_futures_graph.at[ovc_x_idx, 'n_md_quote'] = int(tickdata['매도호가총수량'])
 
-            if int(result['매수호가총수량']) > 0 and int(result['매도호가총수량']) > 0:
+            if int(tickdata['매수호가총수량']) > 0 and int(tickdata['매도호가총수량']) > 0:
 
-                선물_차월물_호가_잔량비 = int(result['매수호가총수량']) / int(result['매도호가총수량'])
+                선물_차월물_호가_잔량비 = int(tickdata['매수호가총수량']) / int(tickdata['매도호가총수량'])
                 df_futures_graph.at[ovc_x_idx, 'n_quote_remainder_ratio'] = 선물_차월물_호가_잔량비
 
                 nm_fut_quote_min = df_futures_graph['n_quote_remainder_ratio'].min()
@@ -38082,7 +38078,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
 
             # 선물호가 갱신
-            item = QTableWidgetItem("{0}".format(format(int(result['매수호가총건수']), ',')))
+            item = QTableWidgetItem("{0}".format(format(int(tickdata['매수호가총건수']), ',')))
             item.setTextAlignment(Qt.AlignCenter)
 
             if NightTime:
@@ -38090,7 +38086,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
 
-            item = QTableWidgetItem("{0}".format(format(int(result['매도호가총건수']), ',')))
+            item = QTableWidgetItem("{0}".format(format(int(tickdata['매도호가총건수']), ',')))
             item.setTextAlignment(Qt.AlignCenter)
 
             if NightTime:
@@ -38098,7 +38094,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
 
-            item = QTableWidgetItem("{0}".format(format(int(result['매수호가총수량']), ',')))
+            item = QTableWidgetItem("{0}".format(format(int(tickdata['매수호가총수량']), ',')))
             item.setTextAlignment(Qt.AlignCenter)
 
             if NightTime:
@@ -38106,7 +38102,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
 
-            item = QTableWidgetItem("{0}".format(format(int(result['매도호가총수량']), ',')))
+            item = QTableWidgetItem("{0}".format(format(int(tickdata['매도호가총수량']), ',')))
             item.setTextAlignment(Qt.AlignCenter)
 
             if NightTime:
@@ -38114,21 +38110,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)                    
 
-        elif result['단축코드'] == CCMSHCODE:
+        elif tickdata['단축코드'] == CCMSHCODE:
             
             # 그래프관련 처리 먼저...
-            if int(result['매도호가총건수']) > 0:
-                fut_ccms_quote_count_ratio = int(result['매수호가총건수']) / int(result['매도호가총건수'])
+            if int(tickdata['매도호가총건수']) > 0:
+                fut_ccms_quote_count_ratio = int(tickdata['매수호가총건수']) / int(tickdata['매도호가총건수'])
             else:
                 pass
 
-            if int(result['매수호가총수량']) > 0 and int(result['매도호가총수량']) > 0:
-                fut_ccms_quote_remainder_ratio = int(result['매수호가총수량']) / int(result['매도호가총수량'])
+            if int(tickdata['매수호가총수량']) > 0 and int(tickdata['매도호가총수량']) > 0:
+                fut_ccms_quote_remainder_ratio = int(tickdata['매수호가총수량']) / int(tickdata['매도호가총수량'])
             else:
                 pass
 
             # 선물호가 갱신                    
-            item = QTableWidgetItem("C{0}".format(format(int(result['매수호가총건수']), ',')))
+            item = QTableWidgetItem("C{0}".format(format(int(tickdata['매수호가총건수']), ',')))
             item.setTextAlignment(Qt.AlignCenter)
 
             if NightTime:
@@ -38136,7 +38132,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
 
-            item = QTableWidgetItem("C{0}".format(format(int(result['매도호가총건수']), ',')))
+            item = QTableWidgetItem("C{0}".format(format(int(tickdata['매도호가총건수']), ',')))
             item.setTextAlignment(Qt.AlignCenter)
 
             if NightTime:
@@ -38144,7 +38140,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
 
-            item = QTableWidgetItem("C{0}".format(format(int(result['매수호가총수량']), ',')))
+            item = QTableWidgetItem("C{0}".format(format(int(tickdata['매수호가총수량']), ',')))
             item.setTextAlignment(Qt.AlignCenter)
 
             if NightTime:
@@ -38152,7 +38148,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
 
-            item = QTableWidgetItem("C{0}".format(format(int(result['매도호가총수량']), ',')))
+            item = QTableWidgetItem("C{0}".format(format(int(tickdata['매도호가총수량']), ',')))
             item.setTextAlignment(Qt.AlignCenter)
 
             if NightTime:
@@ -38270,14 +38266,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-    def oc0_update(self, data):
+    def oc0_update(self, tickdata):
         
         global flag_option_start, pre_start, receive_quote, market_service
         global df_call, call_result, df_call_graph, df_call_information_graph, df_call_volume, call_volume_power, 콜_등가_등락율
         global df_put, put_result, df_put_graph, df_put_information_graph, df_put_volume, put_volume_power, 풋_등가_등락율
         global 콜_수정미결합, 풋_수정미결합, 콜_수정미결퍼센트, 풋_수정미결퍼센트, 콜잔량비, 풋잔량비
-
-        result = data
 
         if not flag_option_start:
             flag_option_start = True
@@ -38289,17 +38283,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if result['단축코드'][0:3] == '201':
+        if tickdata['단축코드'][0:3] == '201':
 
-            index = call_행사가.index(result['단축코드'][5:8])
+            index = call_행사가.index(tickdata['단축코드'][5:8])
 
             # 현재가 갱신
-            콜_현재가 = float(result['현재가'])
+            콜_현재가 = float(tickdata['현재가'])
             df_call_graph[index].at[ovc_x_idx, 'price'] = 콜_현재가
 
             # 등락율 갱신, 본월물 기준으로 계산
             if DayTime and index == ATM_INDEX:
-                콜_등가_등락율 = float(result['등락율'])
+                콜_등가_등락율 = float(tickdata['등락율'])
                 #df_call_information_graph.at[ovc_x_idx, 'drate'] = 콜_등가_등락율
             else:
                 pass
@@ -38309,11 +38303,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if 콜_현재가 <= 콜시가갭:
 
-                매도누적체결량 = int(result['매도누적체결량']) * 콜_현재가
-                매수누적체결량 = int(result['매수누적체결량']) * 콜_현재가
+                매도누적체결량 = int(tickdata['매도누적체결량']) * 콜_현재가
+                매수누적체결량 = int(tickdata['매수누적체결량']) * 콜_현재가
             else:
-                매도누적체결량 = int(result['매도누적체결량']) * (콜_현재가 - 콜시가갭)
-                매수누적체결량 = int(result['매수누적체결량']) * (콜_현재가 - 콜시가갭)
+                매도누적체결량 = int(tickdata['매도누적체결량']) * (콜_현재가 - 콜시가갭)
+                매수누적체결량 = int(tickdata['매수누적체결량']) * (콜_현재가 - 콜시가갭)
 
             df_call_volume.at[index, '매도누적체결량'] = int(매도누적체결량)
             df_call_volume.at[index, '매수누적체결량'] = int(매수누적체결량)
@@ -38326,11 +38320,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if 콜_현재가 <= 콜시가갭:
 
-                    수정미결 = int(result['미결제약정수량']) * 콜_현재가
-                    수정미결증감 = int(result['미결제약정증감']) * 콜_현재가
+                    수정미결 = int(tickdata['미결제약정수량']) * 콜_현재가
+                    수정미결증감 = int(tickdata['미결제약정증감']) * 콜_현재가
                 else:
-                    수정미결 = int(result['미결제약정수량']) * (콜_현재가 - 콜시가갭)
-                    수정미결증감 = int(result['미결제약정증감']) * (콜_현재가 - 콜시가갭)
+                    수정미결 = int(tickdata['미결제약정수량']) * (콜_현재가 - 콜시가갭)
+                    수정미결증감 = int(tickdata['미결제약정증감']) * (콜_현재가 - 콜시가갭)
 
                 df_call.at[index, '수정미결'] = int(수정미결)
                 df_call.at[index, '수정미결증감'] = int(수정미결증감)
@@ -38340,8 +38334,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if FLAG_GUEST_CONTROL:
 
                 # 테이블 갱신
-                self.dialog['선물옵션전광판'].call_update(result)
-                call_result = copy.deepcopy(result)                
+                self.dialog['선물옵션전광판'].call_update(tickdata)
+                call_result = copy.deepcopy(tickdata)                
 
                 if not flag_periodic_plot_mode:                       
                     self.dialog['선물옵션전광판'].call_db_update()
@@ -38352,17 +38346,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass                                    
 
-        elif result['단축코드'][0:3] == '301':
+        elif tickdata['단축코드'][0:3] == '301':
 
-            index = put_행사가.index(result['단축코드'][5:8])
+            index = put_행사가.index(tickdata['단축코드'][5:8])
 
             # 현재가 갱신
-            풋_현재가 = float(result['현재가'])
+            풋_현재가 = float(tickdata['현재가'])
             df_put_graph[index].at[ovc_x_idx, 'price'] = 풋_현재가
 
             # 등락율 갱신, 본월물 기준으로 계산
             if DayTime and index == ATM_INDEX:
-                풋_등가_등락율 = float(result['등락율'])
+                풋_등가_등락율 = float(tickdata['등락율'])
                 #df_put_information_graph.at[ovc_x_idx, 'drate'] = 풋_등가_등락율
             else:
                 pass
@@ -38372,11 +38366,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if 풋_현재가 <= 풋시가갭:
 
-                매도누적체결량 = int(result['매도누적체결량']) * 풋_현재가
-                매수누적체결량 = int(result['매수누적체결량']) * 풋_현재가
+                매도누적체결량 = int(tickdata['매도누적체결량']) * 풋_현재가
+                매수누적체결량 = int(tickdata['매수누적체결량']) * 풋_현재가
             else:
-                매도누적체결량 = int(result['매도누적체결량']) * (풋_현재가 - 풋시가갭)
-                매수누적체결량 = int(result['매수누적체결량']) * (풋_현재가 - 풋시가갭)
+                매도누적체결량 = int(tickdata['매도누적체결량']) * (풋_현재가 - 풋시가갭)
+                매수누적체결량 = int(tickdata['매수누적체결량']) * (풋_현재가 - 풋시가갭)
 
             df_put_volume.at[index, '매도누적체결량'] = int(매도누적체결량)
             df_put_volume.at[index, '매수누적체결량'] = int(매수누적체결량)
@@ -38389,11 +38383,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if 풋_현재가 <= 풋시가갭:
 
-                    수정미결 = int(result['미결제약정수량']) * 풋_현재가
-                    수정미결증감 = int(result['미결제약정증감']) * 풋_현재가
+                    수정미결 = int(tickdata['미결제약정수량']) * 풋_현재가
+                    수정미결증감 = int(tickdata['미결제약정증감']) * 풋_현재가
                 else:
-                    수정미결 = int(result['미결제약정수량']) * (풋_현재가 - 풋시가갭)
-                    수정미결증감 = int(result['미결제약정증감']) * (풋_현재가 - 풋시가갭)
+                    수정미결 = int(tickdata['미결제약정수량']) * (풋_현재가 - 풋시가갭)
+                    수정미결증감 = int(tickdata['미결제약정증감']) * (풋_현재가 - 풋시가갭)
 
                 df_put.at[index, '수정미결'] = int(수정미결)
                 df_put.at[index, '수정미결증감'] = int(수정미결증감)
@@ -38401,8 +38395,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass 
 
             # 테이블 갱신
-            self.dialog['선물옵션전광판'].put_update(result) 
-            put_result = copy.deepcopy(result)                                                               
+            self.dialog['선물옵션전광판'].put_update(tickdata) 
+            put_result = copy.deepcopy(tickdata)                                                               
 
             if not flag_periodic_plot_mode:                    
                 self.dialog['선물옵션전광판'].put_db_update()
@@ -38437,15 +38431,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-    def oh0_update(self, data):
+    def oh0_update(self, tickdata):
 
         global receive_quote, market_service
         global df_call_quote, df_put_quote, 콜잔량비, 풋잔량비, call_remainder_ratio, put_remainder_ratio
         global df_call_information_graph, df_put_information_graph
         global flag_telegram_send_start, flag_telegram_listen_start
         global 옵션_잔량비차
-
-        result = data
 
         if not receive_quote:
             receive_quote = True
@@ -38457,14 +38449,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if result['단축코드'][0:3] == '201':
+        if tickdata['단축코드'][0:3] == '201':
 
-            index = call_행사가.index(result['단축코드'][5:8])
+            index = call_행사가.index(tickdata['단축코드'][5:8])
 
-            df_call_quote.at[index, '매수건수'] = int(result['매수호가총건수'])
-            df_call_quote.at[index, '매도건수'] = int(result['매도호가총건수'])
-            df_call_quote.at[index, '매수잔량'] = int(result['매수호가총수량'])
-            df_call_quote.at[index, '매도잔량'] = int(result['매도호가총수량'])
+            df_call_quote.at[index, '매수건수'] = int(tickdata['매수호가총건수'])
+            df_call_quote.at[index, '매도건수'] = int(tickdata['매도호가총건수'])
+            df_call_quote.at[index, '매수잔량'] = int(tickdata['매수호가총수량'])
+            df_call_quote.at[index, '매도잔량'] = int(tickdata['매도호가총수량'])
 
             call_quote = df_call_quote.sum()
 
@@ -38475,14 +38467,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             콜잔량비 = call_remainder_ratio
 
-        elif result['단축코드'][0:3] == '301':
+        elif tickdata['단축코드'][0:3] == '301':
 
-            index = put_행사가.index(result['단축코드'][5:8])
+            index = put_행사가.index(tickdata['단축코드'][5:8])
 
-            df_put_quote.at[index, '매수건수'] = int(result['매수호가총건수'])
-            df_put_quote.at[index, '매도건수'] = int(result['매도호가총건수'])
-            df_put_quote.at[index, '매수잔량'] = int(result['매수호가총수량'])
-            df_put_quote.at[index, '매도잔량'] = int(result['매도호가총수량'])
+            df_put_quote.at[index, '매수건수'] = int(tickdata['매수호가총건수'])
+            df_put_quote.at[index, '매도건수'] = int(tickdata['매도호가총건수'])
+            df_put_quote.at[index, '매수잔량'] = int(tickdata['매수호가총수량'])
+            df_put_quote.at[index, '매도잔량'] = int(tickdata['매도호가총수량'])
 
             put_quote = df_put_quote.sum()
 
@@ -38582,7 +38574,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
         '''
 
-    def ovc_update(self, data):
+    def ovc_update(self, tickdata):
 
         global OVC_체결시간, OVC_HOUR, OVC_MIN, OVC_SEC, SERVER_HOUR, SERVER_MIN, SERVER_SEC
         global old_ovc_x_idx, ovc_x_idx
@@ -38615,9 +38607,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dt = datetime.now()
 
         try:
-            result = data
-
-            OVC_체결시간 = result['수신시간']
+            OVC_체결시간 = tickdata['수신시간']
             OVC_HOUR = int(OVC_체결시간[0:2])
             OVC_MIN = int(OVC_체결시간[2:4])
             OVC_SEC = int(OVC_체결시간[4:6])
@@ -38673,17 +38663,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-            if result['종목코드'] == DOW:
+            if tickdata['종목코드'] == DOW:
 
                 # 그래프 가격갱신
-                df_dow_graph.at[ovc_x_idx, 'price'] = float(result['체결가격'])              
+                df_dow_graph.at[ovc_x_idx, 'price'] = float(tickdata['체결가격'])              
 
-                DOW_현재가 = int(float(result['체결가격']))                
+                DOW_현재가 = int(float(tickdata['체결가격']))                
                 DOW_전일대비 = int(DOW_현재가 - DOW_종가)
-                DOW_등락율 = float(result['등락율'])                
+                DOW_등락율 = float(tickdata['등락율'])                
 
-                DOW_저가 =  int(float(result['저가']))
-                DOW_고가 =  int(float(result['고가']))
+                DOW_저가 =  int(float(tickdata['저가']))
+                DOW_고가 =  int(float(tickdata['고가']))
                 DOW_진폭 = int(DOW_고가 - DOW_저가)
 
                 if DayTime and DOW_전일종가 > 0:                        
@@ -38758,16 +38748,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if DOW_시가 == 0:
 
-                    if result['전일대비기호'] == '5':
+                    if tickdata['전일대비기호'] == '5':
 
-                        DOW_종가 = int(DOW_현재가 + float(result['전일대비']))
+                        DOW_종가 = int(DOW_현재가 + float(tickdata['전일대비']))
                     else:
-                        DOW_종가 = int(DOW_현재가 - float(result['전일대비']))
+                        DOW_종가 = int(DOW_현재가 - float(tickdata['전일대비']))
 
                     df_dow_graph.at[0, 'price'] = DOW_종가
-                    df_dow_graph.at[1, 'price'] = float(result['시가'])
+                    df_dow_graph.at[1, 'price'] = float(tickdata['시가'])
 
-                    DOW_시가 = int(float(result['시가']))
+                    DOW_시가 = int(float(tickdata['시가']))
                 else:
                     DOW_진폭비 = DOW_진폭 / DOW_시가                                    
 
@@ -38857,17 +38847,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-            elif result['종목코드'] == NASDAQ:
+            elif tickdata['종목코드'] == NASDAQ:
 
                 # 그래프 가격갱신
-                df_nasdaq_graph.at[ovc_x_idx, 'price'] = float(result['체결가격'])
+                df_nasdaq_graph.at[ovc_x_idx, 'price'] = float(tickdata['체결가격'])
 
-                NASDAQ_현재가 = float(result['체결가격'])
+                NASDAQ_현재가 = float(tickdata['체결가격'])
                 NASDAQ_전일대비 = NASDAQ_현재가 - NASDAQ_종가 
-                NASDAQ_등락율 = float(result['등락율'])                 
+                NASDAQ_등락율 = float(tickdata['등락율'])                 
 
-                NASDAQ_저가 =  float(result['저가'])
-                NASDAQ_고가 =  float(result['고가'])                    
+                NASDAQ_저가 =  float(tickdata['저가'])
+                NASDAQ_고가 =  float(tickdata['고가'])                    
                 NASDAQ_진폭 = NASDAQ_고가 - NASDAQ_저가
 
                 if NASDAQ_전일종가 > 0 and DayTime:
@@ -38929,16 +38919,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if NASDAQ_시가 == 0:
 
-                    if result['전일대비기호'] == '5':
+                    if tickdata['전일대비기호'] == '5':
 
-                        NASDAQ_종가 = NASDAQ_현재가 + float(result['전일대비'])
+                        NASDAQ_종가 = NASDAQ_현재가 + float(tickdata['전일대비'])
                     else:
-                        NASDAQ_종가 = NASDAQ_현재가 - float(result['전일대비'])
+                        NASDAQ_종가 = NASDAQ_현재가 - float(tickdata['전일대비'])
 
                     df_nasdaq_graph.at[0, 'price'] = NASDAQ_종가
-                    df_nasdaq_graph.at[1, 'price'] = float(result['시가'])
+                    df_nasdaq_graph.at[1, 'price'] = float(tickdata['시가'])
 
-                    NASDAQ_시가 = float(result['시가'])
+                    NASDAQ_시가 = float(tickdata['시가'])
                 else:
                     pass
                 
@@ -39020,17 +39010,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-            elif result['종목코드'] == SP500:
+            elif tickdata['종목코드'] == SP500:
 
                 # 그래프 가격갱신
-                df_sp500_graph.at[ovc_x_idx, 'price'] = float(result['체결가격'])
+                df_sp500_graph.at[ovc_x_idx, 'price'] = float(tickdata['체결가격'])
 
-                SP500_현재가 = float(result['체결가격'])
+                SP500_현재가 = float(tickdata['체결가격'])
                 SP500_전일대비 = round((SP500_현재가 - SP500_종가), 2)
-                SP500_등락율 = float(result['등락율'])
+                SP500_등락율 = float(tickdata['등락율'])
 
-                SP500_저가 =  float(result['저가'])
-                SP500_고가 =  float(result['고가'])
+                SP500_저가 =  float(tickdata['저가'])
+                SP500_고가 =  float(tickdata['고가'])
                 SP500_진폭 = SP500_고가 - SP500_저가
 
                 if SP500_전일종가 > 0 and DayTime:
@@ -39094,16 +39084,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if SP500_시가 == 0:
 
-                    if result['전일대비기호'] == '5':
+                    if tickdata['전일대비기호'] == '5':
 
-                        SP500_종가 = SP500_현재가 + float(result['전일대비'])
+                        SP500_종가 = SP500_현재가 + float(tickdata['전일대비'])
                     else:
-                        SP500_종가 = SP500_현재가 - float(result['전일대비'])
+                        SP500_종가 = SP500_현재가 - float(tickdata['전일대비'])
 
                     df_sp500_graph.at[0, 'price'] = SP500_종가
-                    df_sp500_graph.at[1, 'price'] = float(result['시가'])
+                    df_sp500_graph.at[1, 'price'] = float(tickdata['시가'])
 
-                    SP500_시가 = float(result['시가'])
+                    SP500_시가 = float(tickdata['시가'])
                 else:
                     pass                                                 
 
@@ -39185,17 +39175,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-            elif result['종목코드'] == WTI:
+            elif tickdata['종목코드'] == WTI:
             
                 # 그래프 가격갱신
-                df_wti_graph.at[ovc_x_idx, 'price'] = float(result['체결가격'])
+                df_wti_graph.at[ovc_x_idx, 'price'] = float(tickdata['체결가격'])
 
-                WTI_현재가 = float(result['체결가격'])
+                WTI_현재가 = float(tickdata['체결가격'])
                 WTI_전일대비 = round((WTI_현재가 - WTI_종가), 2)
-                WTI_등락율 = float(result['등락율'])
+                WTI_등락율 = float(tickdata['등락율'])
 
-                WTI_저가 =  float(result['저가'])
-                WTI_고가 =  float(result['고가'])
+                WTI_저가 =  float(tickdata['저가'])
+                WTI_고가 =  float(tickdata['고가'])
                 WTI_진폭 = round((WTI_고가 - WTI_저가), 2)
 
                 if WTI_전일종가 > 0 and DayTime:
@@ -39259,16 +39249,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if WTI_시가 == 0:
 
-                    if result['전일대비기호'] == '5':
+                    if tickdata['전일대비기호'] == '5':
 
-                        WTI_종가 = round((WTI_현재가 + float(result['전일대비'])), 2)
+                        WTI_종가 = round((WTI_현재가 + float(tickdata['전일대비'])), 2)
                     else:
-                        WTI_종가 = round((WTI_현재가 - float(result['전일대비'])), 2)
+                        WTI_종가 = round((WTI_현재가 - float(tickdata['전일대비'])), 2)
 
                     df_wti_graph.at[0, 'price'] = WTI_종가
-                    df_wti_graph.at[1, 'price'] = float(result['시가'])
+                    df_wti_graph.at[1, 'price'] = float(tickdata['시가'])
 
-                    WTI_시가 = float(result['시가'])
+                    WTI_시가 = float(tickdata['시가'])
                 else:
                     pass                 
 
@@ -39350,38 +39340,38 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-            elif result['종목코드'] == HANGSENG:
+            elif tickdata['종목코드'] == HANGSENG:
 
                 # 그래프 가격갱신
-                df_hangseng_graph.at[ovc_x_idx, 'price'] = float(result['체결가격'])
+                df_hangseng_graph.at[ovc_x_idx, 'price'] = float(tickdata['체결가격'])
 
-                HANGSENG_현재가 = int(float(result['체결가격']))
-                HANGSENG_전일대비 = int(float(result['체결가격']) - HANGSENG_종가)                    
-                HANGSENG_등락율 = float(result['등락율'])
+                HANGSENG_현재가 = int(float(tickdata['체결가격']))
+                HANGSENG_전일대비 = int(float(tickdata['체결가격']) - HANGSENG_종가)                    
+                HANGSENG_등락율 = float(tickdata['등락율'])
 
-                HANGSENG_저가 =  int(float(result['저가']))
-                HANGSENG_고가 =  int(float(result['고가']))                    
+                HANGSENG_저가 =  int(float(tickdata['저가']))
+                HANGSENG_고가 =  int(float(tickdata['고가']))                    
                 HANGSENG_진폭 = int(HANGSENG_고가 - HANGSENG_저가)
 
                 if HANGSENG_전일종가 > 0 and DayTime:
-                    HANGSENG_등락율 = ((float(result['체결가격']) - HANGSENG_전일종가) / HANGSENG_전일종가) * 100
+                    HANGSENG_등락율 = ((float(tickdata['체결가격']) - HANGSENG_전일종가) / HANGSENG_전일종가) * 100
                 else:
                     pass
 
-                체결가격 = locale.format('%d', float(result['체결가격']), 1)
+                체결가격 = locale.format('%d', float(tickdata['체결가격']), 1)
 
                 if HANGSENG_시가 == 0:
 
-                    if result['전일대비기호'] == '5':
+                    if tickdata['전일대비기호'] == '5':
 
-                        HANGSENG_종가 = int(float(result['체결가격']) + float(result['전일대비']))
+                        HANGSENG_종가 = int(float(tickdata['체결가격']) + float(tickdata['전일대비']))
                     else:
-                        HANGSENG_종가 = int(float(result['체결가격']) - float(result['전일대비']))
+                        HANGSENG_종가 = int(float(tickdata['체결가격']) - float(tickdata['전일대비']))
 
                     df_hangseng_graph.at[0, 'price'] = HANGSENG_종가
-                    df_hangseng_graph.at[1, 'price'] = float(result['시가'])
+                    df_hangseng_graph.at[1, 'price'] = float(tickdata['시가'])
 
-                    HANGSENG_시가 = int(float(result['시가']))
+                    HANGSENG_시가 = int(float(tickdata['시가']))
                 else:
                     pass                    
 
@@ -39463,36 +39453,36 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-            elif result['종목코드'] == EUROFX and pre_start:
+            elif tickdata['종목코드'] == EUROFX and pre_start:
 
                 # 그래프 가격갱신
-                df_eurofx_graph.at[ovc_x_idx, 'price'] = float(result['체결가격'])                    
+                df_eurofx_graph.at[ovc_x_idx, 'price'] = float(tickdata['체결가격'])                    
 
-                EUROFX_현재가 = float(result['체결가격'])
+                EUROFX_현재가 = float(tickdata['체결가격'])
                 EUROFX_전일대비 = round((EUROFX_현재가 - EUROFX_종가), 5)
-                EUROFX_등락율 = result['등락율']
+                EUROFX_등락율 = tickdata['등락율']
 
-                EUROFX_저가 =  float(result['저가'])
-                EUROFX_고가 =  float(result['고가'])                    
+                EUROFX_저가 =  float(tickdata['저가'])
+                EUROFX_고가 =  float(tickdata['고가'])                    
                 EUROFX_진폭 = round((EUROFX_고가 - EUROFX_저가), 2)
 
                 if EUROFX_전일종가 > 0 and DayTime:
-                    EUROFX_등락율 = ((result['체결가격'] - EUROFX_전일종가) / EUROFX_전일종가) * 100
+                    EUROFX_등락율 = ((tickdata['체결가격'] - EUROFX_전일종가) / EUROFX_전일종가) * 100
                 else:
                     pass
 
                 if EUROFX_시가 == 0:
 
-                    if result['전일대비기호'] == '5':
+                    if tickdata['전일대비기호'] == '5':
 
-                        EUROFX_종가 = round((EUROFX_현재가 + float(result['전일대비'])), 5)
+                        EUROFX_종가 = round((EUROFX_현재가 + float(tickdata['전일대비'])), 5)
                     else:
-                        EUROFX_종가 = round((EUROFX_현재가 - float(result['전일대비'])), 5)
+                        EUROFX_종가 = round((EUROFX_현재가 - float(tickdata['전일대비'])), 5)
 
                     df_eurofx_graph.at[0, 'price'] = EUROFX_종가
-                    df_eurofx_graph.at[1, 'price'] = float(result['시가'])
+                    df_eurofx_graph.at[1, 'price'] = float(tickdata['시가'])
 
-                    EUROFX_시가 = float(result['시가'])
+                    EUROFX_시가 = float(tickdata['시가'])
                 else:
                     pass                    
                 
@@ -39574,36 +39564,36 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-            elif result['종목코드'] == GOLD:
+            elif tickdata['종목코드'] == GOLD:
 
                 # 그래프 가격갱신
-                df_gold_graph.at[ovc_x_idx, 'price'] = float(result['체결가격'])
+                df_gold_graph.at[ovc_x_idx, 'price'] = float(tickdata['체결가격'])
 
-                GOLD_현재가 = float(result['체결가격'])
+                GOLD_현재가 = float(tickdata['체결가격'])
                 GOLD_전일대비 = GOLD_현재가 - GOLD_종가
-                GOLD_등락율 = float(result['등락율'])
+                GOLD_등락율 = float(tickdata['등락율'])
 
-                GOLD_저가 =  float(result['저가'])
-                GOLD_고가 =  float(result['고가'])                    
+                GOLD_저가 =  float(tickdata['저가'])
+                GOLD_고가 =  float(tickdata['고가'])                    
                 GOLD_진폭 = GOLD_고가 - GOLD_저가
 
                 if GOLD_전일종가 > 0 and DayTime:
-                    GOLD_등락율 = ((result['체결가격'] - GOLD_전일종가) / GOLD_전일종가) * 100
+                    GOLD_등락율 = ((tickdata['체결가격'] - GOLD_전일종가) / GOLD_전일종가) * 100
                 else:
                     pass
 
                 if GOLD_시가 == 0:
 
-                    if result['전일대비기호'] == '5':
+                    if tickdata['전일대비기호'] == '5':
 
-                        GOLD_종가 = GOLD_현재가 + float(result['전일대비'])
+                        GOLD_종가 = GOLD_현재가 + float(tickdata['전일대비'])
                     else:
-                        GOLD_종가 = GOLD_현재가 - float(result['전일대비'])
+                        GOLD_종가 = GOLD_현재가 - float(tickdata['전일대비'])
 
                     df_gold_graph.at[0, 'price'] = GOLD_종가
-                    df_gold_graph.at[1, 'price'] = float(result['시가'])
+                    df_gold_graph.at[1, 'price'] = float(tickdata['시가'])
 
-                    GOLD_시가 = float(result['시가'])
+                    GOLD_시가 = float(tickdata['시가'])
                 else:
                     pass                    
 
@@ -39731,7 +39721,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
             if self.dialog.get('선물옵션전광판') is not None:
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 다시 오픈합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board를 다시 오픈합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
 
                 try:
@@ -39740,7 +39730,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
                     self.dialog['선물옵션전광판'].show()
             else:                
-                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 생성합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board를 Open 합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
 
                 self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
@@ -39752,7 +39742,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if self.dialog.get('BigChart') is not None:
 
                 try:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] Big Chart Dialog를 표시합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] Sky Chart를 Open 합니다...\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
 
                     self.dialog['BigChart'].show()
@@ -39763,7 +39753,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['BigChart'] = 화면_BigChart(parent=self)
                 self.dialog['BigChart'].show()
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] Big Chart Dialog를 생성합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Sky Chart를 Open 합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
 
         # 설정(추후 구현)
@@ -39772,7 +39762,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if self.dialog.get('RealTimeItem') is not None:
 
                 try:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] RealTime Item Dialog를 표시합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] RealTime Item를 표시합니다...\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
 
                     self.dialog['RealTimeItem'].show()
@@ -39783,7 +39773,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['RealTimeItem'] = 화면_RealTimeItem(parent=self)
                 self.dialog['RealTimeItem'].show()
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] RealTime Item Dialog를 생성합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] RealTime Item를 Open 합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
         
         '''
@@ -39836,7 +39826,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
                 self.dialog['선물옵션전광판'].show()
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 생성합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 Open 합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
         
         # Big Chart
@@ -39845,7 +39835,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if self.dialog.get('BigChart') is not None:
 
                 try:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] Big Chart Dialog를 표시합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] Sky Chart를 표시합니다...\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
                     print(txt)
 
@@ -39858,7 +39848,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['BigChart'] = 화면_BigChart(parent=self)
                 self.dialog['BigChart'].show()
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] Big Chart Dialog를 생성합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Sky Chart를 Open 합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
 
         # 실시간요청 설정
@@ -39878,8 +39868,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['RealTimeItem'] = 화면_RealTimeItem(parent=self)
                 self.dialog['RealTimeItem'].show()
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간요청 설정 Dialog를 생성합니다...\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(txt)
+                #txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간요청 설정 Dialog를 Open 합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                #self.textBrowser.append(txt)
     
     def closeEvent(self,event):
 
