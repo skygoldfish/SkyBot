@@ -35963,7 +35963,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
             
             if szTrCode == 'YOC':
-                self.yoc_update(tickdata)
+
+                if len(tickdata['수신시간']) == 5:
+                    realtime_hour = int(tickdata['수신시간'][0:1])
+                else:
+                    realtime_hour = int(tickdata['수신시간'][0:2])
+
+                if realtime_hour < 15:
+                    self.yoc_update(tickdata)
+                else:
+                    pass
             else:
                 pass
             
