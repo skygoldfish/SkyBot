@@ -346,7 +346,6 @@ TTS = parser.getboolean('User Switch', 'Text To Speach')
 SEARCH_MOVING_NODE = parser.getboolean('User Switch', 'Search Moving Node')
 UI_HIDE = parser.getboolean('User Switch', 'UI Hide')
 OPTION_SIZE = parser.getboolean('User Switch', 'Option Total Size')
-SLEEP_SWITCH_MODE = parser.getboolean('User Switch', 'Sleep Switching Mode')
 
 # [6]. << Real Time Request Item Switch = 'ON or OFF' >>
 FUTURES_REQUEST = parser.getboolean('RealTime Request Item Switch', 'Domestic Futures Request')
