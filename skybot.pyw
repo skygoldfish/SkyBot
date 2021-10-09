@@ -39831,7 +39831,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 try:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 표시합니다...\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
+                    #self.textBrowser.append(txt)
 
                     self.dialog['선물옵션전광판'].show()
                 except Exception as e:
@@ -39873,7 +39873,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 try:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간요청 설정 Dialog를 표시합니다...\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
+                    #self.textBrowser.append(txt)
 
                     self.dialog['RealTimeItem'].show()
                 except Exception as e:
