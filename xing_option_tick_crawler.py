@@ -121,14 +121,14 @@ def option_tick_crawler(queue: Queue, call_itm_number=5, call_otm_number=15, put
         if index_option_cm_tick:
 
             if YOC_REQUEST:
-                print('본월물 실시간 예상체결 요청...')
+                print('본월물 옵션 실시간 예상체결 요청...')
                 real_time_index_option_yoc_tick = RealTimeIndexOptionYOCTick(queue=queue)
                 real_time_index_option_yoc_tick.set_code_list(cm_code_list, field="optcode")
             else:
                 pass           
             
             queue.put(cm_opt_tick)
-            print('본월물 실시간 체결요청...')
+            print('본월물 옵션 실시간 체결요청...')
             real_time_index_option_tick = RealTimeIndexOptionTick(queue=queue)
 
             real_time_index_option_tick.set_code_list(cm_opt_tick_list, field="optcode")                
@@ -136,14 +136,14 @@ def option_tick_crawler(queue: Queue, call_itm_number=5, call_otm_number=15, put
         if index_option_nm_tick:
 
             if YOC_REQUEST:
-                print('차월물 실시간 예상체결 요청...')
+                print('차월물 옵션 실시간 예상체결 요청...')
                 real_time_index_option_yoc_tick = RealTimeIndexOptionYOCTick(queue=queue)
                 real_time_index_option_yoc_tick.set_code_list(nm_code_list, field="optcode")
             else:
                 pass
             
             queue.put(nm_opt_tick)
-            print('차월물 실시간 체결요청...')
+            print('차월물 옵션 실시간 체결요청...')
             real_time_index_option_tick = RealTimeIndexOptionTick(queue=queue)            
 
             real_time_index_option_tick.set_code_list(nm_code_list, field="optcode")

@@ -116,14 +116,14 @@ def option_quote_crawler(queue: Queue, call_itm_number=5, call_otm_number=5, put
         # 호가
         if index_option_cm_quote:
             queue.put(cm_opt_quote)
-            print('본월물 실시간 호가요청...')
+            print('본월물 옵션 실시간 호가요청...')
             real_time_index_option_quote = RealTimeIndexOptionQuote(queue=queue)
 
             real_time_index_option_quote.set_code_list(cm_opt_quote_list, field="optcode")
     
         if index_option_nm_quote:
             queue.put(nm_opt_quote)
-            print('차월물 실시간 호가요청...')
+            print('차월물 옵션 실시간 호가요청...')
             real_time_index_option_quote = RealTimeIndexOptionQuote(queue=queue)
 
             real_time_index_option_quote.set_code_list(nm_code_list, field="optcode")                
