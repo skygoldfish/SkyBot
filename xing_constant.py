@@ -1,5 +1,4 @@
 from enum import Enum
-
 from xing_config import *
 
 class DataType(Enum):
@@ -33,114 +32,6 @@ JIF_FIELDS = ["jangubun", "jstatus"]
 JIF_COLUMNS = ["system_time", "tr_code", *JIF_FIELDS]
 JIF_COLUMNS_HEADER = ["system_time", "tr_code", "장구분", "장상태"]
 
-# 지수
-IJ_FIELDS = ["time", "jisu", "sign", "change", "drate", "cvolume", 
-    "volume", "value", "upjo", "highjo", "unchgjo", "lowjo", "downjo", 
-    "upjrate", "openjisu", "opentime", "highjisu", "hightime", "lowjisu",
-    "lowtime", "frgsvolume", "orgsvolume", "frgsvalue", "orgsvalue", "upcode"]
-IJ_COLUMNS = ["system_time", "tr_code", *IJ_FIELDS]
-IJ_COLUMNS_HEADER = ["system_time", "tr_code", "수신시간", "지수", "전일대비구분", "전일비", "등락율", "체결량", 
-    "거래량", "거래대금", "상한종목수", "상승종목수", "보합종목수", "하락종목수", "하한종목수", 
-    "상승종목비율", "시가지수", "시가시간", "고가지수", "고가시간", "저가지수",
-    "저가시간", "외인순매수수량", "기관순매수수량", "외인순매수금액", "기관순매수금액", "업종코드"]
-
-# 체결
-TICK_FIELDS = [    
-    "chetime",
-    "sign",
-    "change",
-    "drate",
-    "price",
-    "opentime",
-    "open",
-    "hightime",
-    "high",
-    "lowtime",
-    "low",
-    "cgubun",
-    "cvolume",
-    "volume",
-    "value",
-    "mdvolume",
-    "mdchecnt",
-    "msvolume",
-    "mschecnt",
-    "cpower",
-    "w_avrg",
-    "offerho",
-    "bidho",
-    "status",
-    "jnilvolume",
-    "shcode",
-]
-TICK_COLUMNS = [
-    "system_time",
-    "tr_code",
-    *TICK_FIELDS
-]
-TICK_COLUMNS_HEADER = [
-    "system_time",
-    "tr_code",    
-    "수신시간",
-    "전일대비구분",
-    "전일대비",
-    "등락율",
-    "현재가",
-    "시가시간",
-    "시가",
-    "고가시간",
-    "고가",
-    "저가시간",
-    "저가",
-    "체결구분",
-    "체결량",
-    "누적거래량",
-    "누적거래대금",
-    "매도누적체결량",
-    "매도누적체결건수",
-    "매수누적체결량",
-    "매수누적체결건수",
-    "체결강도",
-    "가중평균가",
-    "매도호가",
-    "매수호가",
-    "장정보",
-    "전일동시간대거래량",
-    "단축코드",
-]
-
-# 호가
-QUOTE_FIELDS = [
-    "shcode", "hotime", "donsigubun", "totofferrem", "totbidrem",
-    "offerho1", "bidho1", "offerrem1", "bidrem1",
-    "offerho2", "bidho2", "offerrem2", "bidrem2",
-    "offerho3", "bidho3", "offerrem3", "bidrem3",
-    "offerho4", "bidho4", "offerrem4", "bidrem4",
-    "offerho5", "bidho5", "offerrem5", "bidrem5",
-    "offerho6", "bidho6", "offerrem6", "bidrem6",
-    "offerho7", "bidho7", "offerrem7", "bidrem7",
-    "offerho8", "bidho8", "offerrem8", "bidrem8",
-    "offerho9", "bidho9", "offerrem9", "bidrem9",
-    "offerho10", "bidho10", "offerrem10", "bidrem10",
-]
-QUOTE_COLUMNS = [
-    "system_time",
-    "tr_code",
-    *QUOTE_FIELDS
-]
-QUOTE_COLUMNS_HEADER = [
-    "system_time", "tr_code", "shcode", "hotime", "donsigubun", "totofferrem", "totbidrem",
-    "offerho1", "bidho1", "offerrem1", "bidrem1",
-    "offerho2", "bidho2", "offerrem2", "bidrem2",
-    "offerho3", "bidho3", "offerrem3", "bidrem3",
-    "offerho4", "bidho4", "offerrem4", "bidrem4",
-    "offerho5", "bidho5", "offerrem5", "bidrem5",
-    "offerho6", "bidho6", "offerrem6", "bidrem6",
-    "offerho7", "bidho7", "offerrem7", "bidrem7",
-    "offerho8", "bidho8", "offerrem8", "bidrem8",
-    "offerho9", "bidho9", "offerrem9", "bidrem9",
-    "offerho10", "bidho10", "offerrem10", "bidrem10",
-]
 
 # 지수선물 체결
 INDEX_FUTURES_TICK_FIELDS = [    
@@ -549,17 +440,6 @@ INDEX_OPTION_QUOTE_COLUMNS = [
     *INDEX_OPTION_QUOTE_FIELDS
 ]
 
-# 업종별 투자자별 매매현황
-BM_FIELDS = ["tjjcode", "tjjtime", "msvolume", "mdvolume", "msvol", "p_msvol", "msvalue", "mdvalue", "msval", "p_msval", "upcode"]
-BM_COLUMNS = ["system_time", "tr_code", *BM_FIELDS]
-BM_COLUMNS_HEADER = ["system_time", "tr_code", "투자자코드", "수신시간", "매수거래량", "매도거래량", "거래량순매수", "거래량순매수직전대비", 
-    "매수거래대금", "매도거래대금", "거래대금순매수", "거래대금순매수직전대비", "업종코드"]
-
-# KOSPI 프로그램매매 전체집계
-PM_FIELDS = ["time", "tdvalue", "tsvalue", "tval", "p_tvalcha", "gubun"]
-PM_COLUMNS = ["system_time", "tr_code", *PM_FIELDS]
-PM_COLUMNS_HEADER = ["system_time", "tr_code", "수신시간", "전체매도체결금액합계", "전체매수체결금액합계", "전체순매수금액합계", "전체순매수금액직전대비", "구분값"]
-
 # 해외선물 체결
 OVC_FIELDS = ["symbol", "ovsdate", "kordate", "trdtm", "kortm", "curpr", "ydiffpr", "ydiffSign", "open", "high", "low", "chgrate", "trdq", "totq", 
     "cgubun", "mdvolume", "msvolume", "ovsmkend"]
@@ -567,11 +447,6 @@ OVC_COLUMNS = ["system_time", "tr_code", *OVC_FIELDS]
 OVC_COLUMNS_HEADER = ["system_time", "tr_code", "종목코드", "체결일자_현지", "체결일자_한국", "체결시간_현지", "수신시간", "체결가격", 
     "전일대비", "전일대비기호", "시가", "고가", "저가", "등락율", "건별체결수량", "누적체결수량", 
     "체결구분", "매도누적체결수량", "매수누적체결수량", "장마감일"]
-
-# 실시간 뉴스
-NWS_FIELDS = ["date", "time", "id", "realkey", "title", "code", "bodysize"]
-NWS_COLUMNS = ["system_time", "tr_code", *NWS_FIELDS]
-NWS_COLUMNS_HEADER = ["system_time", "tr_code", "날짜", "수신시간", "뉴스구분자", "키값", "제목", "단축종목코드", "BODY길이"]
 
 # 예상지수
 YJ_FIELDS = ["time", "jisu", "sign", "change", "drate", "cvolume", "volume", "value", "upcode"]
@@ -588,7 +463,16 @@ YOC_FIELDS = ["ychetime", "yeprice", "jnilysign", "preychange", "jnilydrate", "o
 YOC_COLUMNS = ["system_time", "tr_code", *YOC_FIELDS]
 YOC_COLUMNS_HEADER = ["system_time", "tr_code", "수신시간", "예상체결가격", "예상체결가전일종가대비구분", "예상체결가전일종가대비", "예상체결가전일종가등락율", "단축코드"]
 
-# 지수옵션 예상체결
+# 지수
+IJ_FIELDS = ["time", "jisu", "sign", "change", "drate", "cvolume", 
+    "volume", "value", "upjo", "highjo", "unchgjo", "lowjo", "downjo", 
+    "upjrate", "openjisu", "opentime", "highjisu", "hightime", "lowjisu",
+    "lowtime", "frgsvolume", "orgsvolume", "frgsvalue", "orgsvalue", "upcode"]
+IJ_COLUMNS = ["system_time", "tr_code", *IJ_FIELDS]
+IJ_COLUMNS_HEADER = ["system_time", "tr_code", "수신시간", "지수", "전일대비구분", "전일비", "등락율", "체결량", 
+    "거래량", "거래대금", "상한종목수", "상승종목수", "보합종목수", "하락종목수", "하한종목수", 
+    "상승종목비율", "시가지수", "시가시간", "고가지수", "고가시간", "저가지수",
+    "저가시간", "외인순매수수량", "기관순매수수량", "외인순매수금액", "기관순매수금액", "업종코드"]
 
 # KOSPI체결
 S3_FIELDS = ["chetime", "sign", "change", "drate", "price", "opentime", "open", "hightime", "high", "lowtime", "low", "cgubun", "cvolume", "volume", "value", "mdvolume", \
@@ -597,3 +481,116 @@ S3_COLUMNS = ["system_time", "tr_code", *S3_FIELDS]
 S3_COLUMNS_HEADER = ["system_time", "tr_code", "수신시간", "전일대비구분", "전일대비", "등락율", "현재가", "시가시간", "시가", "고가시간", "고가", "저가시간", "저가", "체결구분", \
     "체결량", "누적거래량", "누적거래대금", "매도누적체결량", "매도누적체결건수", "매수누적체결량", "매수누적체결건수", "체결강도", "가중평균가", "매도호가", "매수호가", "장정보", "전일동시간대거래량", "단축코드"]
 
+# 업종별 투자자별 매매현황
+BM_FIELDS = ["tjjcode", "tjjtime", "msvolume", "mdvolume", "msvol", "p_msvol", "msvalue", "mdvalue", "msval", "p_msval", "upcode"]
+BM_COLUMNS = ["system_time", "tr_code", *BM_FIELDS]
+BM_COLUMNS_HEADER = ["system_time", "tr_code", "투자자코드", "수신시간", "매수거래량", "매도거래량", "거래량순매수", "거래량순매수직전대비", 
+    "매수거래대금", "매도거래대금", "거래대금순매수", "거래대금순매수직전대비", "업종코드"]
+
+# KOSPI 프로그램매매 전체집계
+PM_FIELDS = ["time", "tdvalue", "tsvalue", "tval", "p_tvalcha", "gubun"]
+PM_COLUMNS = ["system_time", "tr_code", *PM_FIELDS]
+PM_COLUMNS_HEADER = ["system_time", "tr_code", "수신시간", "전체매도체결금액합계", "전체매수체결금액합계", "전체순매수금액합계", "전체순매수금액직전대비", "구분값"]
+
+# KOSPI/KOSDAQ 체결
+TICK_FIELDS = [    
+    "chetime",
+    "sign",
+    "change",
+    "drate",
+    "price",
+    "opentime",
+    "open",
+    "hightime",
+    "high",
+    "lowtime",
+    "low",
+    "cgubun",
+    "cvolume",
+    "volume",
+    "value",
+    "mdvolume",
+    "mdchecnt",
+    "msvolume",
+    "mschecnt",
+    "cpower",
+    "w_avrg",
+    "offerho",
+    "bidho",
+    "status",
+    "jnilvolume",
+    "shcode",
+]
+TICK_COLUMNS = [
+    "system_time",
+    "tr_code",
+    *TICK_FIELDS
+]
+TICK_COLUMNS_HEADER = [
+    "system_time",
+    "tr_code",    
+    "수신시간",
+    "전일대비구분",
+    "전일대비",
+    "등락율",
+    "현재가",
+    "시가시간",
+    "시가",
+    "고가시간",
+    "고가",
+    "저가시간",
+    "저가",
+    "체결구분",
+    "체결량",
+    "누적거래량",
+    "누적거래대금",
+    "매도누적체결량",
+    "매도누적체결건수",
+    "매수누적체결량",
+    "매수누적체결건수",
+    "체결강도",
+    "가중평균가",
+    "매도호가",
+    "매수호가",
+    "장정보",
+    "전일동시간대거래량",
+    "단축코드",
+]
+
+# KOSPI/KOSDAQ 호가
+QUOTE_FIELDS = [
+    "shcode", "hotime", "donsigubun", "totofferrem", "totbidrem",
+    "offerho1", "bidho1", "offerrem1", "bidrem1",
+    "offerho2", "bidho2", "offerrem2", "bidrem2",
+    "offerho3", "bidho3", "offerrem3", "bidrem3",
+    "offerho4", "bidho4", "offerrem4", "bidrem4",
+    "offerho5", "bidho5", "offerrem5", "bidrem5",
+    "offerho6", "bidho6", "offerrem6", "bidrem6",
+    "offerho7", "bidho7", "offerrem7", "bidrem7",
+    "offerho8", "bidho8", "offerrem8", "bidrem8",
+    "offerho9", "bidho9", "offerrem9", "bidrem9",
+    "offerho10", "bidho10", "offerrem10", "bidrem10",
+]
+QUOTE_COLUMNS = [
+    "system_time",
+    "tr_code",
+    *QUOTE_FIELDS
+]
+QUOTE_COLUMNS_HEADER = [
+    "system_time", "tr_code", "shcode", "hotime", "donsigubun", "totofferrem", "totbidrem",
+    "offerho1", "bidho1", "offerrem1", "bidrem1",
+    "offerho2", "bidho2", "offerrem2", "bidrem2",
+    "offerho3", "bidho3", "offerrem3", "bidrem3",
+    "offerho4", "bidho4", "offerrem4", "bidrem4",
+    "offerho5", "bidho5", "offerrem5", "bidrem5",
+    "offerho6", "bidho6", "offerrem6", "bidrem6",
+    "offerho7", "bidho7", "offerrem7", "bidrem7",
+    "offerho8", "bidho8", "offerrem8", "bidrem8",
+    "offerho9", "bidho9", "offerrem9", "bidrem9",
+    "offerho10", "bidho10", "offerrem10", "bidrem10",
+]
+
+# 실시간 뉴스
+NWS_FIELDS = ["date", "time", "id", "realkey", "title", "code", "bodysize"]
+NWS_COLUMNS = ["system_time", "tr_code", *NWS_FIELDS]
+NWS_COLUMNS_HEADER = ["system_time", "tr_code", "날짜", "수신시간", "뉴스구분자", "키값", "제목", "단축종목코드", "BODY길이"]
