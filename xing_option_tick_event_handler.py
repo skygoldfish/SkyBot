@@ -274,7 +274,7 @@ class XARealEventHandler:
 
         result = dict(zip(INDEX_FUTURES_QUOTE_COLUMNS_HEADER, values))
 
-        return DataType.INDEX_FUTURES_QUOTE, result
+        return DataType.FUTURES_QUOTE, result
 
     def handle_fc0(self, tr_code) -> tuple:
         """
@@ -286,7 +286,7 @@ class XARealEventHandler:
 
         result = dict(zip(INDEX_FUTURES_TICK_COLUMNS_HEADER, values))
 
-        return DataType.INDEX_FUTURES_TICK, result
+        return DataType.FUTURES_TICK, result
 
     def handle_oh0_eh0(self, tr_code) -> tuple:
         """
@@ -298,7 +298,7 @@ class XARealEventHandler:
 
         result = dict(zip(INDEX_OPTION_QUOTE_COLUMNS_HEADER, values))
 
-        return DataType.INDEX_OPTION_QUOTE, result
+        return DataType.OPTION_QUOTE, result
 
     def handle_oc0_ec0(self, tr_code) -> tuple:
         """
@@ -310,7 +310,7 @@ class XARealEventHandler:
 
         result = dict(zip(INDEX_OPTION_TICK_COLUMNS_HEADER, values))
 
-        return DataType.INDEX_OPTION_TICK, result
+        return DataType.OPTION_TICK, result
 
     def handle_yoc(self, tr_code) -> tuple:
         """

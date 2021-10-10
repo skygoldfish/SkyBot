@@ -5,29 +5,28 @@ from xing_config import *
 class DataType(Enum):
 
     JIF_TICK = 1
-    IJ_TICK = 2
 
-    KOSPI_QUOTE = 3
-    KOSPI_TICK = 4
+    FUTURES_TICK = 2
+    FUTURES_QUOTE = 3
+    OPTION_TICK = 4
+    OPTION_QUOTE = 5
 
-    KOSDAQ_QUOTE = 5
-    KOSDAQ_TICK = 6
+    OVC_TICK = 6
+    YJ_TICK = 7
+    YFC_TICK = 8
+    YOC_TICK = 9
+    IJ_TICK = 10
+    S3_TICK = 11
+    BM_TICK = 12
+    PM_TICK = 13
 
-    INDEX_FUTURES_QUOTE = 7
-    INDEX_FUTURES_TICK = 8
-
-    INDEX_OPTION_QUOTE = 9
-    INDEX_OPTION_TICK = 10
+    KOSPI_TICK = 14
+    KOSPI_QUOTE = 15
     
-    BM_TICK = 11
-    PM_TICK = 12
-    OVC_TICK = 13
-    NWS_TICK = 14
+    KOSDAQ_TICK = 16
+    KOSDAQ_QUOTE = 17
 
-    YJ_TICK = 15
-    YFC_TICK = 16
-    YOC_TICK = 17
-    S3_TICK = 18
+    NWS_TICK = 18
 
 # 장운영정보
 JIF_FIELDS = ["jangubun", "jstatus"]

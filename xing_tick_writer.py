@@ -76,8 +76,16 @@ def write_header(tick_type: DataType, writer: csv.writer) -> None:
 
     if tick_type == DataType.JIF_TICK:
         writer.writerow(JIF_COLUMNS_HEADER)
-    elif tick_type == DataType.NWS_TICK:
-        writer.writerow(NWS_COLUMNS_HEADER)
+    elif tick_type == DataType.FUTURES_TICK:
+        writer.writerow(INDEX_FUTURES_TICK_COLUMNS_HEADER)
+    elif tick_type == DataType.FUTURES_QUOTE:
+        writer.writerow(INDEX_FUTURES_QUOTE_COLUMNS_HEADER)
+    elif tick_type == DataType.OPTION_TICK:
+        writer.writerow(INDEX_OPTION_TICK_COLUMNS_HEADER)   
+    elif tick_type == DataType.OPTION_QUOTE:
+        writer.writerow(INDEX_OPTION_QUOTE_COLUMNS_HEADER)    
+    elif tick_type == DataType.OVC_TICK:
+        writer.writerow(OVC_COLUMNS_HEADER)    
     elif tick_type == DataType.YJ_TICK:
         writer.writerow(YJ_COLUMNS_HEADER)
     elif tick_type == DataType.YFC_TICK:
@@ -92,20 +100,12 @@ def write_header(tick_type: DataType, writer: csv.writer) -> None:
         writer.writerow(BM_COLUMNS_HEADER)
     elif tick_type == DataType.PM_TICK:
         writer.writerow(PM_COLUMNS_HEADER)
-    elif tick_type == DataType.OVC_TICK:
-        writer.writerow(OVC_COLUMNS_HEADER)
-    elif tick_type in [DataType.KOSPI_QUOTE, DataType.KOSDAQ_QUOTE]:
-        writer.writerow(QUOTE_COLUMNS_HEADER)
     elif tick_type in [DataType.KOSPI_TICK, DataType.KOSDAQ_TICK]:
         writer.writerow(TICK_COLUMNS_HEADER)    
-    elif tick_type == DataType.INDEX_FUTURES_QUOTE:
-        writer.writerow(INDEX_FUTURES_QUOTE_COLUMNS_HEADER)
-    elif tick_type == DataType.INDEX_FUTURES_TICK:
-        writer.writerow(INDEX_FUTURES_TICK_COLUMNS_HEADER)
-    elif tick_type == DataType.INDEX_OPTION_QUOTE:
-        writer.writerow(INDEX_OPTION_QUOTE_COLUMNS_HEADER)
-    elif tick_type == DataType.INDEX_OPTION_TICK:
-        writer.writerow(INDEX_OPTION_TICK_COLUMNS_HEADER)
+    elif tick_type in [DataType.KOSPI_QUOTE, DataType.KOSDAQ_QUOTE]:
+        writer.writerow(QUOTE_COLUMNS_HEADER)       
+    elif tick_type == DataType.NWS_TICK:
+        writer.writerow(NWS_COLUMNS_HEADER)
     else:
         pass
 
