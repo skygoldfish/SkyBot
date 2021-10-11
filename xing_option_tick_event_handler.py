@@ -117,7 +117,7 @@ class XARealEventHandler:
         지수옵션 예상체결 데이터
         """
         values = []
-        for field in INDEX_OPTION_TICK_FIELDS:
+        for field in YOC_FIELDS:
             values.append(self.GetFieldData("OutBlock", field))
 
         return values
