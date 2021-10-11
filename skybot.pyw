@@ -401,7 +401,6 @@ CHART_UPDATE_INTERVAL = parser.getint('Initial Value', 'Chart Update Interval(ms
 SCORE_BOARD_UPDATE_INTERVAL = parser.getint('Initial Value', 'Score Board Update Interval(sec)')
 SECOND_DISPLAY_X_POSITION = parser.getint('Initial Value', 'X Position of the Second Display')
 SECOND_DISPLAY_Y_POSITION = parser.getint('Initial Value', 'Y Position of the Second Display')
-SLEEP_SWITCHING_DELAY = parser.getfloat('Initial Value', 'Sleep Switching Delay')
 
 # [9]. << Code of the Foreign Futures (H/M/U/Z) >>
 SP500 = parser.get('Code of the Foreign Futures', 'S&P 500')
@@ -2302,7 +2301,6 @@ class ScreenUpdateWorker(QThread):
             
             QTest.qWait(scoreboard_update_interval)
             QApplication.processEvents()
-            time.sleep(SLEEP_SWITCHING_DELAY)
 #####################################################################################################################################################################
 # 텔레그램 송신 쓰레드
 #####################################################################################################################################################################
@@ -3933,7 +3931,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = ' 옵션테이블 초기화중({0:.0f}%)...\r'.format((i / ActvalCount) * 100)
                 self.parent.statusbar.showMessage(txt)
                 QApplication.processEvents()
-                time.sleep(SLEEP_SWITCHING_DELAY)
             else:
                 pass
 
@@ -7971,7 +7968,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
-                time.sleep(SLEEP_SWITCHING_DELAY)
             else:
                 pass
 
@@ -8123,7 +8119,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
-                time.sleep(SLEEP_SWITCHING_DELAY)
             else:
                 pass
 
@@ -8283,7 +8278,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
-                time.sleep(SLEEP_SWITCHING_DELAY)
             else:
                 pass
 
@@ -8436,7 +8430,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
-                time.sleep(SLEEP_SWITCHING_DELAY)
             else:
                 pass
 
@@ -8499,7 +8492,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
-                time.sleep(SLEEP_SWITCHING_DELAY)
             else:
                 pass
 
@@ -10562,7 +10554,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
-                time.sleep(SLEEP_SWITCHING_DELAY)
             else:
                 pass
 
@@ -10714,7 +10705,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
-                time.sleep(SLEEP_SWITCHING_DELAY)
             else:
                 pass
 
@@ -10874,7 +10864,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
-                time.sleep(SLEEP_SWITCHING_DELAY)
             else:
                 pass
 
@@ -11027,7 +11016,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
-                time.sleep(SLEEP_SWITCHING_DELAY)
             else:
                 pass
 
@@ -11090,7 +11078,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if i_count % 10 == 0:
                 QApplication.processEvents()
-                time.sleep(SLEEP_SWITCHING_DELAY)
             else:
                 pass
 
@@ -13048,7 +13035,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if index_count % 10 == 0:
                     QApplication.processEvents()
-                    time.sleep(SLEEP_SWITCHING_DELAY)
                 else:
                     pass
 
@@ -14109,7 +14095,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if index_count % 10 == 0:
                     QApplication.processEvents()
-                    time.sleep(SLEEP_SWITCHING_DELAY)
                 else:
                     pass
 
@@ -22905,7 +22890,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' Plot윈도우 초기화중({0:.0f}%)...\r'.format((i / option_pairs_count) * 100)
                 self.parent.statusbar.showMessage(txt)
                 QApplication.processEvents()
-                time.sleep(SLEEP_SWITCHING_DELAY)
             else:
                 pass
 

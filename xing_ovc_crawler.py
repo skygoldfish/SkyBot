@@ -30,7 +30,7 @@ EUROFX = parser.get('Code of the Foreign Futures', 'EUROFX')
 HANGSENG = parser.get('Code of the Foreign Futures', 'HANGSENG')
 GOLD = parser.get('Code of the Foreign Futures', 'GOLD')
 
-MP_OVC_SLEEP_SWITCH_MODE = parser.getboolean('User Switch', 'MP Sleep Switching Mode')
+MP_OVC_SLEEP_SWITCH_MODE = parser.getboolean('User Switch', 'MP OVC Sleep Switching Mode')
 MP_OVC_SLEEP_SWITCHING_DELAY = parser.getfloat('Initial Value', 'MP Sleep Switching Delay')
 DOW_START = parser.get('Initial Value', 'Dow Start Time')
 

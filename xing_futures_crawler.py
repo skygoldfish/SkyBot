@@ -30,7 +30,7 @@ FUTURES = '900'
 SAMSUNG = '005930'
 HYUNDAI = '005380'
 
-SLEEP_SWITCH_MODE = parser.getboolean('User Switch', 'MP Sleep Switching Mode')
+SLEEP_FUT_SWITCH_MODE = parser.getboolean('User Switch', 'MP FUT Sleep Switching Mode')
 SLEEP_SWITCHING_DELAY = parser.getfloat('Initial Value', 'MP Sleep Switching Delay')
 
 계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})
@@ -147,7 +147,7 @@ def futures_crawler(queue: Queue, index_futures_quote=True, index_futures_tick=T
             if dt.hour == 9 and 0 <= dt.minute <= 10:
                 pass
             else:
-                if SLEEP_SWITCH_MODE:
+                if SLEEP_FUT_SWITCH_MODE:
                     time.sleep(SLEEP_SWITCHING_DELAY)            
     else:
         pass
