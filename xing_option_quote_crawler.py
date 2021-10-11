@@ -143,10 +143,14 @@ def option_quote_crawler(queue: Queue, call_itm_number=5, call_otm_number=5, put
                 else:
                     if MP_OPTION_SLEEP_SWITCH_MODE:
                         time.sleep(MP_SLEEP_SWITCHING_DELAY)
+                    else:
+                        pass
 
             if index_option_nm_quote:
 
                 if MP_OPTION_SLEEP_SWITCH_MODE:
                     time.sleep(MP_SLEEP_SWITCHING_DELAY)
+                else:
+                    pass
     else:
         pass

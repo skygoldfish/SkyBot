@@ -149,6 +149,8 @@ def futures_crawler(queue: Queue, index_futures_quote=True, index_futures_tick=T
                 pass
             else:
                 if MP_FUT_SLEEP_SWITCH_MODE:
-                    time.sleep(MP_SLEEP_SWITCHING_DELAY)            
+                    time.sleep(MP_SLEEP_SWITCHING_DELAY)
+                else:
+                    pass          
     else:
         pass
