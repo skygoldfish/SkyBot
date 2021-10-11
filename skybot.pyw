@@ -35408,9 +35408,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif szTrCode == 'OC0' and tickdata['단축코드'][0:3] == '301':
                 txt = "{0}\n({1})".format('POC0', time_gap_abs)
             elif szTrCode == 'EC0' and tickdata['단축코드'][0:3] == '301':
-                txt = "{0}\n({1})".format('PEC0', time_gap_abs)            
+                txt = "{0}\n({1})".format('PEC0', time_gap_abs)
+            elif szTrCode == 'YOC':
+                txt = "{0}\n({1})".format('YOC', time_gap_abs)
             else:
-                pass
+                pass            
         else:
             if flag_2nd_process_queue_empty:
                 self.label_2nd.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
@@ -35425,13 +35427,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 txt = "{0}\n({1:.2f})".format('POC0', args_processing_time)
             elif szTrCode == 'EC0' and tickdata['단축코드'][0:3] == '301':
                 txt = "{0}\n({1:.2f})".format('PEC0', args_processing_time)            
+            elif szTrCode == 'YOC':
+                txt = "{0}\n({1:.2f})".format('YOC', args_processing_time)
             else:
-                pass
-
-        if szTrCode == 'YOC':
-            txt = "YOC"
-        else:
-            pass
+                pass            
         
         self.label_2nd.setText(txt)
 
