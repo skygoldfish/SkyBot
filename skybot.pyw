@@ -36838,12 +36838,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             index = call_행사가.index(tickdata['단축코드'][5:8])
 
             # 예상시가 갱신
-            콜예상시가 = tickdata['예상체결가격']    
+            콜예상시가 = float(tickdata['예상체결가격'])    
 
             # 테이블 갱신
             콜종가 = df_call.at[index, '종가']
 
-            item = QTableWidgetItem(콜예상시가)
+            item = QTableWidgetItem(tickdata['예상체결가격'])
             item.setTextAlignment(Qt.AlignCenter)
 
             if 콜예상시가 > 콜종가:
@@ -36860,12 +36860,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             index = put_행사가.index(tickdata['단축코드'][5:8])
 
             # 예상시가 갱신
-            풋예상시가 = tickdata['예상체결가격']      
-
+            풋예상시가 = float(tickdata['예상체결가격'])
+            
             # 테이블 갱신
             풋종가 = df_put.at[index, '종가']
 
-            item = QTableWidgetItem(풋예상시가)
+            item = QTableWidgetItem(tickdata['예상체결가격'])
             item.setTextAlignment(Qt.AlignCenter)
 
             if 풋예상시가 > 풋종가:
