@@ -23,6 +23,7 @@ parser.read('.\skybot.ini')
 REAL_SERVER = parser.getboolean('Server Type', 'Real Server')
 MP_OPTION_SLEEP_SWITCH_MODE = parser.getboolean('User Switch', 'MP Option Sleep Switching Mode')
 MP_SLEEP_SWITCHING_DELAY = parser.getfloat('Initial Value', 'MP Sleep Switching Delay')
+FEVER_TIME_DURATION = parser.getint('Initial Value', 'Fever Time Duration')
 
 계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})
 
@@ -137,7 +138,7 @@ def option_quote_crawler(queue: Queue, call_itm_number=5, call_otm_number=5, put
     
                 dt = datetime.now()
 
-                if dt.hour == 9 and 0 <= dt.minute <= 10:
+                if dt.hour == 9 and 0 <= dt.minute <= FEVER_TIME_DURATION:
                     pass
                 else:
                     if MP_OPTION_SLEEP_SWITCH_MODE:
