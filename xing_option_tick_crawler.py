@@ -22,7 +22,7 @@ parser.read('.\skybot.ini')
 
 REAL_SERVER = parser.getboolean('Server Type', 'Real Server')
 MP_OPTION_SLEEP_SWITCH_MODE = parser.getboolean('User Switch', 'MP Option Sleep Switching Mode')
-MP_OPTION_SLEEP_SWITCHING_DELAY = parser.getfloat('Initial Value', 'MP Option Sleep Switching Delay')
+MP_SLEEP_SWITCHING_DELAY = parser.getfloat('Initial Value', 'MP Sleep Switching Delay')
 YOC_REQUEST = parser.getboolean('User Switch', 'YOC Request')
 
 계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})
@@ -156,7 +156,7 @@ def option_tick_crawler(queue: Queue, call_itm_number=5, call_otm_number=15, put
 
                 if NightTime:
                     if MP_OPTION_SLEEP_SWITCH_MODE:
-                        time.sleep(MP_OPTION_SLEEP_SWITCHING_DELAY)
+                        time.sleep(MP_SLEEP_SWITCHING_DELAY)
                     else:
                         pass
                 else:
@@ -165,7 +165,7 @@ def option_tick_crawler(queue: Queue, call_itm_number=5, call_otm_number=15, put
             if index_option_nm_tick:
 
                 if MP_OPTION_SLEEP_SWITCH_MODE:
-                    time.sleep(MP_OPTION_SLEEP_SWITCHING_DELAY)
+                    time.sleep(MP_SLEEP_SWITCHING_DELAY)
                 else:
                     pass
     else:
