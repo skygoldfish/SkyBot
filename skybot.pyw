@@ -28787,7 +28787,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex1 == 3 and market_service:                
 
-                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
+                txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
                 self.label_16.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
@@ -28804,7 +28804,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_17.setText(txt)
 
-                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
+                txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
                 self.label_18.setText(txt)
 
                 self.plot1_time_line.setValue(ovc_x_idx)
@@ -29862,7 +29862,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex2 == 3 and market_service:
 
-                txt = ' min: {0:.2f}, meam: {1:.2f}, max: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
+                txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
                 self.label_26.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
@@ -29879,7 +29879,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_27.setText(txt)
 
-                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
+                txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
                 self.label_28.setText(txt)
                 
                 self.plot2_time_line.setValue(ovc_x_idx)
@@ -30797,7 +30797,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex3 == 3 and market_service:
 
-                txt = ' min: {0:.2f}, meam: {1:.2f}, max: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
+                txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
                 self.label_36.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
@@ -30814,7 +30814,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_37.setText(txt)
 
-                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
+                txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
                 self.label_38.setText(txt)
                 
                 self.plot3_time_line.setValue(ovc_x_idx)
@@ -31602,7 +31602,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex4 == 3 and market_service:
 
-                txt = ' min: {0:.2f}, meam: {1:.2f}, max: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
+                txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
                 self.label_46.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
@@ -31619,7 +31619,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_47.setText(txt)
 
-                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
+                txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
                 self.label_48.setText(txt)
                 
                 self.plot4_time_line.setValue(ovc_x_idx)
@@ -32639,7 +32639,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex5 == 3 and market_service:
 
-                txt = ' min: {0:.2f}, meam: {1:.2f}, max: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
+                txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
                 self.label_56.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
@@ -32656,7 +32656,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_57.setText(txt)
 
-                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
+                txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
                 self.label_58.setText(txt)
                 
                 self.plot5_time_line.setValue(ovc_x_idx)
@@ -33605,7 +33605,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex6 == 3 and market_service:
 
-                txt = ' min: {0:.2f}, meam: {1:.2f}, max: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
+                txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
                 self.label_66.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
@@ -33622,7 +33622,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_67.setText(txt)
 
-                txt = ' min: {0:.2f}, mean: {1:.2f}, max: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
+                txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
                 self.label_68.setText(txt)
                 
                 self.plot6_time_line.setValue(ovc_x_idx)
