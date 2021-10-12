@@ -34487,13 +34487,25 @@ class Xing(object):
                     if not self.clocktick and TARGET_MONTH == 'CM' and dt.minute % report_interval == 0 and dt.second == 0:
 
                         if flag_call_strong:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] Call Strong({3:.1f} : {4:.1f}), 수급 : {5}\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)                        
+                            if DayTime:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Call Strong({3:.1f} : {4:.1f}), 수급 : {5}\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)
+                            else:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Call Strong({3:.1f} : {4:.1f})\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)                       
                         elif flag_call_weak:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] Call Weak({3:.1f} : {4:.1f}), 수급 : {5}\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)
+                            if DayTime:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Call Weak({3:.1f} : {4:.1f})\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
+                            else:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Call Weak({3:.1f} : {4:.1f}), 수급 : {5}\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)
                         elif flag_put_strong:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] Put Strong({3:.1f} : {4:.1f}), 수급 : {5}\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)
+                            if DayTime:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Put Strong({3:.1f} : {4:.1f}), 수급 : {5}\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)
+                            else:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Put Strong({3:.1f} : {4:.1f})\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                         elif flag_put_weak:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] Put Weak({3:.1f} : {4:.1f}), 수급 : {5}\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)
+                            if DayTime:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Put Weak({3:.1f} : {4:.1f}), 수급 : {5}\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)
+                            else:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Put Weak({3:.1f} : {4:.1f})\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                         else:
                             send_txt = ''
 
