@@ -123,7 +123,7 @@ def option_tick_crawler(queue: Queue, call_itm_number=5, call_otm_number=15, put
             if YOC_REQUEST:
                 print('본월물 옵션 실시간 예상체결 요청...')
                 real_time_index_option_yoc_tick = RealTimeIndexOptionYOCTick(queue=queue)
-                real_time_index_option_yoc_tick.set_code_list(cm_code_list, field="optcode")
+                real_time_index_option_yoc_tick.set_code_list(cm_opt_tick_list, field="optcode")
             else:
                 pass           
             
