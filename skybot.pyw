@@ -36848,13 +36848,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if 콜예상시가 > 콜종가:
                 item.setForeground(QBrush(magenta))
-                item.setBackground(QBrush(흰색))
+                item.setBackground(QBrush(검정색))
             elif 콜예상시가 < 콜종가:
                 item.setForeground(QBrush(cyan))
-                item.setBackground(QBrush(흰색))
+                item.setBackground(QBrush(검정색))
             else:
-                item.setForeground(QBrush(검정색))
-                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(흰색))
+                item.setBackground(QBrush(검정색))
 
             self.dialog['선물옵션전광판'].tableWidget_call.setItem(index, Option_column.시가.value, item)                                  
 
@@ -36873,13 +36873,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if 풋예상시가 > 풋종가:
                 item.setForeground(QBrush(magenta))
-                item.setBackground(QBrush(흰색))
+                item.setBackground(QBrush(검정색))
             elif 풋예상시가 < 풋종가:
                 item.setForeground(QBrush(cyan))
-                item.setBackground(QBrush(흰색))
+                item.setBackground(QBrush(검정색))
             else:
-                item.setForeground(QBrush(검정색))
-                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(흰색))
+                item.setBackground(QBrush(검정색))
 
             self.dialog['선물옵션전광판'].tableWidget_put.setItem(index, Option_column.시가.value, item)                                
         else:
