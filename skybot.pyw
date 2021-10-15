@@ -34452,9 +34452,9 @@ class Xing(object):
                                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] Call Strong({3:.1f} : {4:.1f})\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)                       
                         elif flag_call_weak:
                             if DayTime:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Call Weak({3:.1f} : {4:.1f})\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Call Weak({3:.1f} : {4:.1f}), 수급 : {5}\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)                                
                             else:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Call Weak({3:.1f} : {4:.1f}), 수급 : {5}\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Call Weak({3:.1f} : {4:.1f})\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                         elif flag_put_strong:
                             if DayTime:
                                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] Put Strong({3:.1f} : {4:.1f}), 수급 : {5}\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)
