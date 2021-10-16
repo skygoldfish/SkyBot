@@ -3753,7 +3753,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_fut.setColumnCount(Futures_column.OID.value + 1)
         self.tableWidget_fut.horizontalHeader().setStyleSheet(fut_header_stylesheet)
 
-        self.tableWidget_fut.setHorizontalHeaderLabels(['TIMER', '▲▼', 'HMSC', 'HMDC', 'HMSR', 'HMDR', 'HCR', 'HRR', '전저', '전고', '종가', '피봇', '시가', '저가', '현재가', '고가', '시가갭', '대비', '체결', '진폭', 'OI', 'OI↕'])
+        self.tableWidget_fut.setHorizontalHeaderLabels(['MLT', '▲▼', 'HMSC', 'HMDC', 'HMSR', 'HMDR', 'HCR', 'HRR', '전저', '전고', '종가', '피봇', '시가', '저가', '현재가', '고가', '시가갭', '대비', '체결', '진폭', 'OI', 'OI↕'])
         self.tableWidget_fut.verticalHeader().setVisible(False)
         self.tableWidget_fut.setAlternatingRowColors(True)
 
@@ -34547,12 +34547,12 @@ class Xing(object):
 
     def main_login(self, url, id, pwd, cert):
 
-        self.caller.textBrowser.append('Welcome to SkyBot !!!\r')
+        PCTIME = datetime.now().strftime('%H:%M:%S')
 
         if REAL_SERVER:
-            txt = '실서버에 접속합니다.\r'
+            txt = '[{0}] Welcome to SkyBot. 실서버에 접속합니다.\r'.format(PCTIME)
         else:
-            txt = '모의서버에 접속합니다.\r'
+            txt = '[{0}] Welcome to SkyBot. 모의서버에 접속합니다.\r'.format(PCTIME)
 
         self.caller.textBrowser.append(txt)
         
@@ -34839,9 +34839,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
         self.start_time = datetime.now()
 
-        txt = '시작시간 = {0}\r'.format(self.start_time)        
-        self.textBrowser.append(txt)
-        print(txt)
+        #txt = '시작시간 = {0}\r'.format(self.start_time)        
+        #self.textBrowser.append(txt)
+        #print(txt)
         
         global all_screens, 스크린번호, screen_info
 
@@ -39975,6 +39975,8 @@ if __name__ == "__main__":
 
     if ipaddress == '127.0.0.1':
         flag_internet = False
+        Speak('인터넷 연결을 확인해주세요.')
+        sys.exit(0)
     else:
         flag_internet = True        
     
@@ -40148,14 +40150,4 @@ if __name__ == "__main__":
         window = MainWindow()
 
     window.show()
-    
-    '''
-    if MODERN_WINDOW_DARK_STYLE:
-        qtmodern.styles.dark(app)
-        win = qtmodern.windows.ModernWindow(window)        
-        win.show()
-    else:
-        window.show()
-    '''
-
     sys.exit(app.exec_())
