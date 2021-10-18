@@ -36532,8 +36532,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
             
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 선물/KOSPI200 예상시가 = {3}/{4}, 예상등가 = {5}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 선물_시가, kp200_시가, atm_txt)
-            self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            #txt = '[{0:02d}:{1:02d}:{2:02d}] 선물/KOSPI200 예상시가 = {3}/{4}, 예상등가 = {5}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 선물_시가, kp200_시가, atm_txt)
+            #self.dialog['선물옵션전광판'].textBrowser.append(txt)
 
             if atm_txt in opt_actval:
                 yj_atm_index = opt_actval.index(atm_txt)
@@ -36657,6 +36657,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             item.setBackground(QBrush(검정색))
             item.setForeground(QBrush(대맥점색))
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, Futures_column.시가.value, item)
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] DOW기준 예상 선물시가 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, DOW_기준_예상시가)
+            self.dialog['선물옵션전광판'].textBrowser.append(txt)
 
             선물_피봇 = calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
 
