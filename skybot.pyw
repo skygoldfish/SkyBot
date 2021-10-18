@@ -12459,6 +12459,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem(call_txt)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
+                self.tableWidget_call.resizeColumnToContents(Option_column.시가갭.value)
             else:
                 pass
 
@@ -13513,6 +13514,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem(put_txt)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
+                self.tableWidget_put.resizeColumnToContents(Option_column.시가갭.value)
             else:
                 pass
 
@@ -36644,15 +36646,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 item.setBackground(QBrush(흰색))
 
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
-
-            선물_피봇 = calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
-
-            item = QTableWidgetItem("{0:.2f}".format(선물_피봇))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
-
-            self.dialog['선물옵션전광판'].fut_realdata['피봇'] = 선물_피봇
-
+            
             if DOW_전일종가 > 0:
                 DOW_기준_예상시가 = (선물_전일종가 * DOW_현재가) / DOW_전일종가
             else:
@@ -36663,6 +36657,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             item.setBackground(QBrush(검정색))
             item.setForeground(QBrush(대맥점색))
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, Futures_column.시가.value, item)
+
+            선물_피봇 = calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
+
+            item = QTableWidgetItem("{0:.2f}".format(선물_피봇))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
+
+            self.dialog['선물옵션전광판'].fut_realdata['피봇'] = 선물_피봇
 
             if 선물_전일종가 > 0:
                 선물_종가대비_등락율 = ((선물_시가 - 선물_전일종가) / 선물_전일종가) * 100
