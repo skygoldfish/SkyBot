@@ -36618,11 +36618,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             item.setTextAlignment(Qt.AlignCenter)
 
             if 선물_시가 > self.dialog['선물옵션전광판'].fut_realdata['종가']:
-                item.setForeground(QBrush(적색))
+                item.setForeground(QBrush(magenta))
+                item.setBackground(QBrush(검정색))
             elif 선물_시가 < self.dialog['선물옵션전광판'].fut_realdata['종가']:
-                item.setForeground(QBrush(청색))
+                item.setForeground(QBrush(cyan))
+                item.setBackground(QBrush(검정색))
             else:
-                item.setForeground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
+                item.setBackground(QBrush(검정색))
 
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.시가.value, item)
 
@@ -36827,7 +36830,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 item.setForeground(QBrush(흰색))
                 item.setBackground(QBrush(검정색))
 
-            self.dialog['선물옵션전광판'].tableWidget_call.setItem(index, Option_column.시가.value, item)                                  
+            self.dialog['선물옵션전광판'].tableWidget_call.setItem(index, Option_column.시가.value, item)
+
+            if 콜예상시가 in COREVAL:
+                self.dialog['선물옵션전광판'].tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
+                self.dialog['선물옵션전광판'].tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
+            else:
+                pass                                  
 
         elif tickdata['단축코드'][0:3] == '301':
 
@@ -36852,7 +36861,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 item.setForeground(QBrush(흰색))
                 item.setBackground(QBrush(검정색))
 
-            self.dialog['선물옵션전광판'].tableWidget_put.setItem(index, Option_column.시가.value, item)                                
+            self.dialog['선물옵션전광판'].tableWidget_put.setItem(index, Option_column.시가.value, item)
+
+            if 풋예상시가 in COREVAL:
+                self.dialog['선물옵션전광판'].tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
+                self.dialog['선물옵션전광판'].tableWidget_put.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
+            else:
+                pass                                
         else:
             pass
 
