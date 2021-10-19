@@ -12411,11 +12411,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
 
             if 콜시가 > 콜종가:
-                item.setForeground(QBrush(적색))
+                item.setForeground(QBrush(magenta))
+                item.setBackground(QBrush(검정색))
             elif 콜시가 < 콜종가:
-                item.setForeground(QBrush(청색))
+                item.setForeground(QBrush(cyan))
+                item.setBackground(QBrush(검정색))
             else:
-                item.setForeground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
+                item.setBackground(QBrush(검정색))
 
             self.tableWidget_call.setItem(index, Option_column.시가.value, item)
             
@@ -13468,11 +13471,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
 
             if 풋시가 > 풋종가:
-                item.setForeground(QBrush(적색))
+                item.setForeground(QBrush(magenta))
+                item.setBackground(QBrush(검정색))
             elif 풋시가 < 풋종가:
-                item.setForeground(QBrush(청색))
+                item.setForeground(QBrush(cyan))
+                item.setBackground(QBrush(검정색))
             else:
-                item.setForeground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
+                item.setBackground(QBrush(검정색))
 
             self.tableWidget_put.setItem(index, Option_column.시가.value, item)
 
