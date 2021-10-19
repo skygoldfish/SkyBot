@@ -6178,7 +6178,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] 수신된 OVC 틱 데이타 크기 : {3}\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second, ovc_tick_total_size)
                                 self.textBrowser.append(txt)
 
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간데이타 통계 : {3}, 패킷 손실율 : {4}\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second, drop_txt, drop_percent)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간데이타 통계 : {3}\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second, drop_txt)
                                 self.textBrowser.append(txt)
 
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
@@ -6193,7 +6193,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 pass
                         else:
-                            self.parent.statusbar.showMessage("오프라인")                            
+                            txt = '오프라인 : {0}'.format(drop_txt)
+                            self.parent.statusbar.showMessage(txt)                           
                     else:
                         pass
                 else:
@@ -6251,7 +6252,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] 수신된 옵션 틱 데이타 크기 : {3}\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second, option_tick_total_size)
                                 self.textBrowser.append(txt)
                                 
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간데이타 통계 : {3}, 패킷 손실율 : {4}\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second, drop_txt, drop_percent)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간데이타 통계 : {3}\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second, drop_txt)
                                 self.textBrowser.append(txt)
 
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
@@ -6266,7 +6267,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 pass
                         else:
-                            self.parent.statusbar.showMessage("오프라인")                            
+                            txt = '오프라인 : {0}'.format(drop_txt)
+                            self.parent.statusbar.showMessage(txt)                            
                     else:
                         pass
             else:
@@ -34407,7 +34409,8 @@ class Xing(object):
                     # 서버시간 조회, 초당 5건
                     self.XQ_t0167.Query() 
                 else:
-                    msg = "오프라인"
+                    #msg = "오프라인"
+                    msg = '오프라인 : {0}'.format(drop_txt)
 
             self.caller.statusbar.showMessage(msg)
         else:
@@ -37751,7 +37754,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 7, item)
 
             if 수급방향 != 과거_수급방향:
-                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 수급방향이 {3}에서 {4}로 바뀜 ★".format(dt.hour, dt.minute, dt.second, 과거_수급방향, 수급방향)
+                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 수급방향이 {3}에서 {4}로 바뀜 ★\r".format(dt.hour, dt.minute, dt.second, 과거_수급방향, 수급방향)
                 self.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                 ToYourTelegram(send_txt)
 
