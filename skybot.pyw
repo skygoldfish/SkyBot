@@ -36495,14 +36495,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             df_kp200_graph.at[ovc_x_idx, 'price'] = kp200_시가
 
             item = QTableWidgetItem(tickdata['예상지수'])
-            item.setTextAlignment(Qt.AlignCenter)
-
+            item.setTextAlignment(Qt.AlignCenter)    
+            
             if kp200_시가 > KP200_전일종가:
-                item.setForeground(QBrush(적색))
+                item.setForeground(QBrush(magenta))
+                item.setBackground(QBrush(검정색))
             elif kp200_시가 < KP200_전일종가:
-                item.setForeground(QBrush(청색))
+                item.setForeground(QBrush(cyan))
+                item.setBackground(QBrush(검정색))
             else:
-                item.setForeground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
+                item.setBackground(QBrush(검정색))
 
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.시가.value, item)
 
