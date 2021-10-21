@@ -880,6 +880,8 @@ else:
     OPT_REAL = 'OPT_REAL_OC0'
     OPT_HO = 'OPT_HO_OH0'
 
+total_packet_size = 0
+
 server_date = ''
 server_time = ''
 system_server_timegap = 0
@@ -34331,7 +34333,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] Sky Chart를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Sky Chart를 Close합니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.parent.textBrowser.append(txt)
         print(txt)
 
@@ -34509,6 +34511,27 @@ class Xing(object):
                         else:
                             pass
 
+                        if dt.hour == 9 and dt.minute == 30 and dt.second == 5:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] Rx Packet Size : {3} MByte\r".format(dt.hour, dt.minute, dt.second, int(total_packet_size/1000))
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+                            ToYourTelegram(send_txt)
+                        else:
+                            pass
+
+                        if dt.hour == 10 and dt.minute == 30 and dt.second == 5:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] Rx Packet Size : {3} MByte\r".format(dt.hour, dt.minute, dt.second, int(total_packet_size/1000))
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+                            ToYourTelegram(send_txt)
+                        else:
+                            pass
+
+                        if dt.hour == 11 and dt.minute == 30 and dt.second == 5:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] Rx Packet Size : {3} MByte\r".format(dt.hour, dt.minute, dt.second, int(total_packet_size/1000))
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+                            ToYourTelegram(send_txt)
+                        else:
+                            pass
+
                         if not pre_start and 옵션_잔량비차 > 5.0:
 
                             if 콜잔량비 > 풋잔량비:
@@ -34640,7 +34663,7 @@ class Xing(object):
             #txt = '메인 프로세스 로그인 성공 !!!\r'
             txt = '메인 프로세스(Process ID = {0}) 로그인 성공 !!!\r'.format(mp.current_process().pid)
             self.caller.textBrowser.append(txt)
-            self.caller.statusbar.showMessage(txt)
+            #self.caller.statusbar.showMessage(txt)
             #playsound( "Resources/ring.wav" )            
             
             if not self.caller.mp_mode and AUTO_START:
@@ -35151,6 +35174,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def transfer_mp_futures_realdata(self, tickdata):
 
         global drop_txt, drop_percent, time_gap, main_totalsize, fh0_drop_percent, option_tick_total_size, ovc_tick_total_size
+        global total_packet_size
         
         dt = datetime.now()       
 
@@ -35223,7 +35247,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 total_sys_dropcount = first_sys_dropcount + second_sys_dropcount + third_sys_dropcount + fourth_sys_dropcount
                 total_waiting_count = first_qsize + second_qsize + third_qsize + fourth_qsize
                 totalcount = first_totalcount + second_totalcount + third_totalcount + fourth_totalcount
-                totalsize = first_totalsize + option_tick_total_size + third_totalsize + ovc_tick_total_size
+                total_packet_size = first_totalsize + option_tick_total_size + third_totalsize + ovc_tick_total_size
 
                 if totalcount > 0:
                     drop_percent = (total_dropcount / totalcount) * 100
@@ -35231,9 +35255,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
                 if DayTime:
-                    drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','), format(int(option_tick_total_size/1000), ','), drop_percent)
+                    drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(option_tick_total_size/1000), ','), drop_percent)
                 else:
-                    drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','), format(int(ovc_tick_total_size/1000), ','), drop_percent)
+                    drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(ovc_tick_total_size/1000), ','), drop_percent)
 
                 txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
                     dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt)
@@ -35313,6 +35337,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def transfer_mp_option_tick_realdata(self, tickdata):
 
         global option_tick_total_size, ovc_tick_total_size
+        global total_packet_size
 
         dt = datetime.now()
 
@@ -35379,7 +35404,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         total_sys_dropcount = first_sys_dropcount + second_sys_dropcount + third_sys_dropcount + fourth_sys_dropcount
         total_waiting_count = first_qsize + second_qsize + third_qsize + fourth_qsize
         totalcount = first_totalcount + second_totalcount + third_totalcount + fourth_totalcount
-        totalsize = first_totalsize + option_tick_total_size + third_totalsize + ovc_tick_total_size
+        total_packet_size = first_totalsize + option_tick_total_size + third_totalsize + ovc_tick_total_size
 
         if totalcount > 0:
             drop_percent = (total_dropcount / totalcount) * 100
@@ -35387,9 +35412,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
 
         if DayTime:
-            drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','), format(int(option_tick_total_size/1000), ','), drop_percent)
+            drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(option_tick_total_size/1000), ','), drop_percent)
         else:
-            drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','), format(int(ovc_tick_total_size/1000), ','), drop_percent)
+            drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(ovc_tick_total_size/1000), ','), drop_percent)
         
         txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
             dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt)
@@ -35538,6 +35563,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def transfer_mp_option_quote_realdata(self, tickdata):
 
         global option_tick_total_size, ovc_tick_total_size
+        global total_packet_size
 
         dt = datetime.now()
 
@@ -35601,7 +35627,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         total_sys_dropcount = first_sys_dropcount + second_sys_dropcount + third_sys_dropcount + fourth_sys_dropcount
         total_waiting_count = first_qsize + second_qsize + third_qsize + fourth_qsize
         totalcount = first_totalcount + second_totalcount + third_totalcount + fourth_totalcount
-        totalsize = first_totalsize + option_tick_total_size + third_totalsize + ovc_tick_total_size
+        total_packet_size = first_totalsize + option_tick_total_size + third_totalsize + ovc_tick_total_size
 
         if totalcount > 0:
             drop_percent = (total_dropcount / totalcount) * 100
@@ -35609,9 +35635,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
 
         if DayTime:
-            drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','), format(int(option_tick_total_size/1000), ','), drop_percent)
+            drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(option_tick_total_size/1000), ','), drop_percent)
         else:
-            drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','), format(int(ovc_tick_total_size/1000), ','), drop_percent)
+            drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(ovc_tick_total_size/1000), ','), drop_percent)
         
         txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
             dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt)
@@ -35707,6 +35733,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def transfer_mp_ovc_realdata(self, tickdata):
 
         global drop_txt, drop_percent, time_gap, main_totalsize, option_tick_total_size, ovc_tick_total_size
+        global total_packet_size
         
         dt = datetime.now()       
 
@@ -35774,7 +35801,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         total_sys_dropcount = first_sys_dropcount + second_sys_dropcount + third_sys_dropcount + fourth_sys_dropcount
         total_waiting_count = first_qsize + second_qsize + third_qsize + fourth_qsize
         totalcount = first_totalcount + second_totalcount + third_totalcount + fourth_totalcount
-        totalsize = first_totalsize + option_tick_total_size + third_totalsize + ovc_tick_total_size
+        total_packet_size = first_totalsize + option_tick_total_size + third_totalsize + ovc_tick_total_size
 
         if totalcount > 0:
             drop_percent = (total_dropcount / totalcount) * 100
@@ -35782,9 +35809,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
 
         if DayTime:
-            drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','), format(int(option_tick_total_size/1000), ','), drop_percent)
+            drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(option_tick_total_size/1000), ','), drop_percent)
         else:
-            drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(totalsize/1000), ','), format(int(ovc_tick_total_size/1000), ','), drop_percent)
+            drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(ovc_tick_total_size/1000), ','), drop_percent)
         
         txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
             dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt)
@@ -39761,7 +39788,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
                     self.dialog['선물옵션전광판'].show()
             else:                
-                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board를 Open 합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board를 Open합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
 
                 self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
@@ -39773,7 +39800,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if self.dialog.get('BigChart') is not None:
 
                 try:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] Sky Chart를 Open 합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] Sky Chart를 Open합니다...\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
 
                     self.dialog['BigChart'].show()
@@ -39784,7 +39811,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['BigChart'] = 화면_BigChart(parent=self)
                 self.dialog['BigChart'].show()
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] Sky Chart를 Open 합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Sky Chart를 Open합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
 
         # 설정(추후 구현)
@@ -39804,7 +39831,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['RealTimeItem'] = 화면_RealTimeItem(parent=self)
                 self.dialog['RealTimeItem'].show()
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] RealTime Item를 Open 합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] RealTime Item를 Open합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
         
         '''
@@ -39857,7 +39884,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self)
                 self.dialog['선물옵션전광판'].show()
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 Open 합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 Open합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
         
         # Sky Chart
@@ -39879,7 +39906,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['BigChart'] = 화면_BigChart(parent=self)
                 self.dialog['BigChart'].show()
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] Sky Chart를 Open 합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Sky Chart를 Open합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
 
         # 실시간요청 설정
@@ -39899,7 +39926,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['RealTimeItem'] = 화면_RealTimeItem(parent=self)
                 self.dialog['RealTimeItem'].show()
 
-                #txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간요청 설정 Dialog를 Open 합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                #txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간요청 설정 Dialog를 Open합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 #self.textBrowser.append(txt)
     
     def closeEvent(self,event):
