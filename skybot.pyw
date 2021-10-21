@@ -7993,7 +7993,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if blink:
                     self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(노란색))
-                    self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))                    
+                    self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(적색))                    
                 else:
                     self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
                     self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(노란색))
@@ -8144,7 +8144,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                 if blink:
                     self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(노란색))
-                    self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))                    
+                    self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(적색))                    
                 else:
                     self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
                     self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(노란색))
@@ -10579,7 +10579,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if blink:
                     self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(노란색))
-                    self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))                                                                     
+                    self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(적색))                                                                     
                 else:
                     self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
                     self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(노란색))
@@ -10730,7 +10730,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if blink:
                     self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(노란색))
-                    self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))                    
+                    self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(적색))                    
                 else:
                     self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
                     self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(노란색))                 
@@ -12586,6 +12586,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setForeground(QBrush(검정색))
                 self.tableWidget_call.setItem(index, Option_column.저가.value, item)
 
+                if 콜저가 in FIXED_COREVAL:
+                    self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(노란색))
+                    self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(적색)) 
+                else:
+                    pass
+
                 if 콜전저 >= 콜저가:
 
                     txt = '{0:.2f}'.format(콜전저) + '\n' + '▼'
@@ -12694,6 +12700,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setBackground(QBrush(pink))
                 item.setForeground(QBrush(검정색))
                 self.tableWidget_call.setItem(index, Option_column.고가.value, item)
+
+                if 콜고가 in FIXED_COREVAL:
+                    self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(노란색))
+                    self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(적색)) 
+                else:
+                    pass
 
                 if 콜전고 <= 콜고가:
 
@@ -13644,6 +13656,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setForeground(QBrush(검정색))
                 self.tableWidget_put.setItem(index, Option_column.저가.value, item)
 
+                if 풋저가 in FIXED_COREVAL:
+                    self.tableWidget_put.item(index, Option_column.저가.value).setBackground(QBrush(노란색))
+                    self.tableWidget_put.item(index, Option_column.저가.value).setForeground(QBrush(적색)) 
+                else:
+                    pass
+
                 if 풋전저 >= 풋저가:
 
                     txt = '{0:.2f}'.format(풋전저) + '\n' + '▼'
@@ -13752,6 +13770,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setBackground(QBrush(pink))
                 item.setForeground(QBrush(검정색))
                 self.tableWidget_put.setItem(index, Option_column.고가.value, item)
+
+                if 풋고가 in FIXED_COREVAL:
+                    self.tableWidget_put.item(index, Option_column.고가.value).setBackground(QBrush(노란색))
+                    self.tableWidget_put.item(index, Option_column.고가.value).setForeground(QBrush(적색)) 
+                else:
+                    pass
 
                 if 풋전고 <= 풋고가:
 
