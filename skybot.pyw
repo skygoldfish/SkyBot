@@ -35304,7 +35304,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     txt = "{0}\n({1:.2f})".format(szTrCode, args_processing_time)
 
-                self.label_1st.setText(txt)                
+                if DayTime:
+                    self.label_1st.setText(txt)
+                else:
+                    pass                
         else:
             pass        
 
