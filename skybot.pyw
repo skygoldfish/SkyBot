@@ -37792,44 +37792,46 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             item.setForeground(QBrush(검정색))
 
             if 프로그램_순매수 > 0 and 현물_총순매수 > 0:
-                
-                수급방향 = 'Call1'
-                item.setBackground(QBrush(chocolate))
-                item.setForeground(QBrush(검정색))
 
-                if 외인선물_순매수 < 0 and 기관현물_순매수 < 0:
+                if 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
                     수급방향 = 'C-None'
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
 
-                if 기관선물_순매수 < 0 and 기관현물_순매수 > 0 and 외인선물_순매수 > 0 and 외인현물_순매수 < 0:
-                    수급방향 = 'Call2'
-                    item.setBackground(QBrush(적색))
-                    item.setForeground(QBrush(흰색)) 
+                if 외인선물_순매수 < 0 and 외인현물_순매수 > 0:
+                    수급방향 = 'C-Cross1'
+                    item.setBackground(QBrush(chocolate))
+                    item.setForeground(QBrush(검정색))
+
+                if 외인선물_순매수 > 0 and 외인현물_순매수 < 0:
+                    수급방향 = 'C-Cross2'
+                    item.setBackground(QBrush(chocolate))
+                    item.setForeground(QBrush(검정색)) 
 
                 if 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
-                    수급방향 = 'Call3'
+                    수급방향 = 'Call'
                     item.setBackground(QBrush(magenta))
                     item.setForeground(QBrush(검정색))
 
             elif 프로그램_순매수 < 0 and 현물_총순매수 < 0:
-                
-                수급방향 = 'Put1'
-                item.setBackground(QBrush(deepskyblue))
-                item.setForeground(QBrush(검정색))
 
-                if 외인선물_순매수 > 0 and 기관현물_순매수 > 0:
+                if 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
                     수급방향 = 'P-None'
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
 
-                if 기관선물_순매수 > 0 and 기관현물_순매수 < 0 and 외인선물_순매수 < 0 and 외인현물_순매수 > 0:
-                    수급방향 = 'Put2'
-                    item.setBackground(QBrush(청색))
-                    item.setForeground(QBrush(흰색))
+                if 외인선물_순매수 > 0 and 외인현물_순매수 < 0:
+                    수급방향 = 'P-Cross1'
+                    item.setBackground(QBrush(deepskyblue))
+                    item.setForeground(QBrush(검정색))
+
+                if 외인선물_순매수 < 0 and 외인현물_순매수 > 0:
+                    수급방향 = 'P-Cross2'
+                    item.setBackground(QBrush(deepskyblue))
+                    item.setForeground(QBrush(검정색))                
 
                 if 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
-                    수급방향 = 'Put3'
+                    수급방향 = 'Put'
                     item.setBackground(QBrush(cyan))
                     item.setForeground(QBrush(검정색))
             else:
@@ -37842,18 +37844,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                 ToYourTelegram(send_txt)
 
-                if 수급방향 == 'Call1':
-                    speak_txt = '콜 원'
-                elif 수급방향 == 'Call2':
-                    speak_txt = '콜 투'
-                elif 수급방향 == 'Call3':
-                    speak_txt = '콜 쓰리'
-                elif 수급방향 == 'Put1':
-                    speak_txt = '풋 원'
-                elif 수급방향 == 'Put2':
-                    speak_txt = '풋 투'
-                elif 수급방향 == 'Put3':
-                    speak_txt = '풋 쓰리'
+                if 수급방향 == 'Call':
+                    speak_txt = '콜'
+                elif 수급방향 == 'Put':
+                    speak_txt = '풋'
                 else:
                     speak_txt = 'None'
 
