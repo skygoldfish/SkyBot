@@ -470,6 +470,16 @@ pre_high_low_list = []
 bms_node_list = []
 bms_node_frequency_list = []
 
+flag_cm_call_low_in_fixed_coreval = False
+flag_cm_call_high_in_fixed_coreval = False
+flag_cm_put_low_in_fixed_coreval = False
+flag_cm_put_high_in_fixed_coreval = False
+
+flag_nm_call_low_in_fixed_coreval = False
+flag_nm_call_high_in_fixed_coreval = False
+flag_nm_put_low_in_fixed_coreval = False
+flag_nm_put_high_in_fixed_coreval = False
+
 if os.path.exists('HL-List.txt'):
 
     # 저가, 고가 리스트에서 맥점 추출
@@ -5978,7 +5988,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             put_high_coreval_txt = '' 
                             put_high_node_list = []
-                            put_high_node_txt = ''
+                            put_high_node_txt = ''                        
 
                         global kp200_low_node_txt, kp200_high_node_txt                            
 
@@ -7950,6 +7960,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global call_low_node_count, call_low_node_list, call_low_node_txt
         global telegram_send_txt_call_low
+        global flag_cm_call_low_in_fixed_coreval, flag_nm_call_low_in_fixed_coreval 
 
         dt = datetime.now()
         
@@ -7964,7 +7975,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         call_low_node_old_count = call_low_node_count
 
-        i_count = 0           
+        i_count = 0
+
+        if TARGET_MONTH == 'CM':
+            flag_cm_call_low_in_fixed_coreval = False
+        elif TARGET_MONTH == 'NM':
+            flag_nm_call_low_in_fixed_coreval = False
+        else:
+            pass              
 
         for i in loop_list:
 
@@ -7999,6 +8017,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
                     self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(노란색))
+
+                if TARGET_MONTH == 'CM':
+                    flag_cm_call_low_in_fixed_coreval = True
+                elif TARGET_MONTH == 'NM':
+                    flag_nm_call_low_in_fixed_coreval = True
+                else:
+                    pass
             else:
                 pass
 
@@ -8100,7 +8125,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def call_high_coreval_color_blink(self, blink):
 
         global call_high_node_count, call_high_node_list, call_high_node_txt
-        global telegram_send_txt_call_high 
+        global telegram_send_txt_call_high
+        global flag_cm_call_high_in_fixed_coreval, flag_nm_call_high_in_fixed_coreval
 
         dt = datetime.now()
         
@@ -8115,7 +8141,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         call_high_node_old_count = call_high_node_count
 
-        i_count = 0           
+        i_count = 0
+
+        if TARGET_MONTH == 'CM':
+            flag_cm_call_high_in_fixed_coreval = False
+        elif TARGET_MONTH == 'NM':
+            flag_nm_call_high_in_fixed_coreval = False
+        else:
+            pass           
 
         for i in loop_list:
 
@@ -8150,6 +8183,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
                     self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(노란색))
+
+                if TARGET_MONTH == 'CM':
+                    flag_cm_call_high_in_fixed_coreval = True
+                elif TARGET_MONTH == 'NM':
+                    flag_nm_call_high_in_fixed_coreval = True
+                else:
+                    pass
             else:
                 pass
 
@@ -10536,6 +10576,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global put_low_node_count, put_low_node_list, put_low_node_txt
         global telegram_send_txt_put_low
+        global flag_cm_put_low_in_fixed_coreval, flag_nm_put_low_in_fixed_coreval 
 
         dt = datetime.now()
         
@@ -10550,7 +10591,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         put_low_node_old_count = put_low_node_count
 
-        i_count = 0      
+        i_count = 0
+
+        if TARGET_MONTH == 'CM':
+            flag_cm_put_low_in_fixed_coreval = False
+        elif TARGET_MONTH == 'NM':
+            flag_nm_put_low_in_fixed_coreval = False
+        else:
+            pass      
 
         for i in loop_list:
 
@@ -10585,6 +10633,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
                     self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(노란색))
+
+                if TARGET_MONTH == 'CM':
+                    flag_cm_put_low_in_fixed_coreval = True
+                elif TARGET_MONTH == 'NM':
+                    flag_nm_put_low_in_fixed_coreval = True
+                else:
+                    pass
             else:
                 pass
 
@@ -10687,6 +10742,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global put_high_node_count, put_high_node_list, put_high_node_txt
         global telegram_send_txt_put_high
+        global flag_cm_put_high_in_fixed_coreval, flag_nm_put_high_in_fixed_coreval
 
         dt = datetime.now()
 
@@ -10701,7 +10757,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         put_high_node_old_count = put_high_node_count
 
-        i_count = 0             
+        i_count = 0
+
+        if TARGET_MONTH == 'CM':
+            flag_cm_put_high_in_fixed_coreval = False
+        elif TARGET_MONTH == 'NM':
+            flag_nm_put_high_in_fixed_coreval = False
+        else:
+            pass             
 
         for i in loop_list:
 
@@ -10735,7 +10798,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(적색))                    
                 else:
                     self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
-                    self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(노란색))                 
+                    self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(노란색))
+
+                if TARGET_MONTH == 'CM':
+                    flag_cm_put_high_in_fixed_coreval = True
+                elif TARGET_MONTH == 'NM':
+                    flag_nm_put_high_in_fixed_coreval = True
+                else:
+                    pass                 
             else:
                 pass
 
@@ -34605,6 +34675,19 @@ class Xing(object):
                             pass
                     else:
                         pass
+
+                    if self.clocktick and TARGET_MONTH == 'CM' and dt.second % 10 == 0:
+                        if flag_cm_call_low_in_fixed_coreval or flag_cm_call_high_in_fixed_coreval or flag_cm_put_low_in_fixed_coreval or flag_cm_put_high_in_fixed_coreval:
+                             winsound.PlaySound('Resources/notify.wav', winsound.SND_FILENAME)
+                        else:
+                            pass                   
+                    elif self.clocktick and TARGET_MONTH == 'NM' and dt.second % 10 == 0:
+                        if flag_nm_call_low_in_fixed_coreval or flag_nm_call_high_in_fixed_coreval or flag_nm_put_low_in_fixed_coreval or flag_nm_put_high_in_fixed_coreval:
+                             winsound.PlaySound('Resources/ring.wav', winsound.SND_FILENAME)
+                        else:
+                            pass
+                    else:
+                        pass
                 else:
                     pass
 
@@ -35048,7 +35131,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.textBrowser.append(txt)
 
         #playsound('Resources/notify.wav')
-        winsound.PlaySound('Resources/notify.wav', winsound.SND_FILENAME)
+        #winsound.PlaySound('Resources/notify.wav', winsound.SND_FILENAME)
 
     @pyqtSlot(list)
     def transfer_mp_futures_trdata(self, trdata):
@@ -36078,7 +36161,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.textBrowser.append(txt)
 
         #playsound('Resources/notify.wav')
-        winsound.PlaySound('Resources/notify.wav', winsound.SND_FILENAME)
+        #winsound.PlaySound('Resources/notify.wav', winsound.SND_FILENAME)
 
     @pyqtSlot(dict)
     def transfer_thread_realdata(self, data):
