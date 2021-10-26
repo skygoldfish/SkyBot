@@ -450,8 +450,8 @@ month_after_next = int(MONTH_AFTER_NEXT[4:6])
 CENTER_VAL_PLUS1 = GOLDEN_RATIO
 CENTER_VAL_MINUS1 = GOLDEN_RATIO
 
-FIXED_COREVAL = [1.20, 2.50, 3.50, 4.85, 5.10, 5.50, 6.85, 7.10, 8.10]
-고정_진성맥점 = [1.20, 2.50, 3.50, 4.85, 5.10, 5.50, 6.85, 7.10, 8.10]
+FIXED_COREVAL = [1.20, 2.50, 3.50, 4.85, 5.50, 6.85]
+고정_진성맥점 = [1.20, 2.50, 3.50, 4.85, 5.50, 6.85]
 
 고정_진성맥점.append(MY_COREVAL)
 고정_진성맥점 = list(set(고정_진성맥점))
