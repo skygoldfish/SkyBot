@@ -3409,9 +3409,8 @@ class PlotUpdateWorker1(QThread):
 
         while True:
 
-            #QApplication.processEvents()
-
-            if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
+            #if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
+            if True:
                 self.trigger.emit()
 
             if flag_plot_update_interval_changed:
@@ -3435,9 +3434,8 @@ class PlotUpdateWorker2(QThread):
 
         while True:
 
-            #QApplication.processEvents()
-
-            if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
+            #if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
+            if True:
                 self.trigger.emit()
 
             QTest.qWait(chart_update_interval)
@@ -3455,9 +3453,8 @@ class PlotUpdateWorker3(QThread):
 
         while True:
 
-            #QApplication.processEvents()
-
-            if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
+            #if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
+            if True:
                 self.trigger.emit()
 
             QTest.qWait(chart_update_interval)
@@ -3475,9 +3472,8 @@ class PlotUpdateWorker4(QThread):
 
         while True:
 
-            #QApplication.processEvents()
-
-            if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
+            #if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
+            if True:
                 self.trigger.emit()
 
             QTest.qWait(chart_update_interval)
@@ -3495,9 +3491,8 @@ class PlotUpdateWorker5(QThread):
 
         while True:
 
-            #QApplication.processEvents()
-
-            if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
+            #if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
+            if True:
                 self.trigger.emit()
 
             QTest.qWait(chart_update_interval)
@@ -3515,9 +3510,8 @@ class PlotUpdateWorker6(QThread):
 
         while True:
 
-            #QApplication.processEvents()
-
-            if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
+            #if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
+            if True:
                 self.trigger.emit()
                         
             QTest.qWait(chart_update_interval)
@@ -14598,11 +14592,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.now()
 
-        # 백그라운드로 로그인해도 포어그라운드에서 TR조회 가능함(이유?)        
+        # 백그라운드로 로그인해도 포어그라운드에서 TR조회 가능함(이유?)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 코스피지수를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
+        self.parent.textBrowser.append(txt)
         self.XQ_t1514.Query(KOSPI) # 코스피지수 조회
         
         QTest.qWait(1100)
         
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 코스닥지수를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
+        self.parent.textBrowser.append(txt)
         self.XQ_t1514.Query(KOSDAQ) # 코스닥지수 조회
         
         if service_terminate:
@@ -14624,13 +14622,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                                         QPushButton:pressed {background-color: gold}')
                 self.pushButton_start.setText(' Starting... ')
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] t8432 지수선물 마스터 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] t8432 지수선물 마스터 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
                 
                 # 지수선물 마스터조회 API용
                 self.XQ_t8432.Query()
                 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] t8433 지수옵션 마스터 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] t8433 지수옵션 마스터 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
                 
                 # 지수옵션 마스터조회 API용
@@ -14719,7 +14717,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     t2301_month_info = CURRENT_MONTH
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 주간옵션 전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 주간옵션 전광판 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
                 self.textBrowser.append(txt)
 
             elif TARGET_MONTH == 'NM':
@@ -14729,7 +14727,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     t2301_month_info = NEXT_MONTH   
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 주간옵션 전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 주간옵션 전광판 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
                 self.textBrowser.append(txt)
             else:
                 pass
@@ -16430,7 +16428,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print('flag_t2301_eventloop =', flag_t2301_eventloop)                       
 
                 if TARGET_MONTH == 'CM':
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 변동성지수 본월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, GMSHCODE)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 변동성지수 본월물 선물({3})을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, GMSHCODE)
                     self.textBrowser.append(txt)
                     #self.parent.textBrowser.append(txt)
                     print(txt)
@@ -16438,7 +16436,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.t8416_fut_request(GMSHCODE)
 
                 elif TARGET_MONTH == 'NM':
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 변동성지수 차월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, CMSHCODE)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 변동성지수 차월물 선물({3})을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, CMSHCODE)
                     self.textBrowser.append(txt)
                     #self.parent.textBrowser.append(txt)
                     print(txt)
@@ -16451,11 +16449,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.XQ_t2101.Query(fut_code)
                 
                 if fut_code == GMSHCODE:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 본월물 주간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 본월물 주간선물 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 elif fut_code == CMSHCODE:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 차월물 주간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 차월물 주간선물 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 elif fut_code == CCMSHCODE:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 차차월물 주간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 차차월물 주간선물 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 else:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 잘못된 선물코드({3})입니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
 
@@ -16469,11 +16467,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 #self.XQ_t2801.Query(fut_code)
                 
                 if fut_code == GMSHCODE:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] t2801 본월물 야간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] t2801 본월물 야간선물 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 elif fut_code == CMSHCODE:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] t2801 차월물 야간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] t2801 차월물 야간선물 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 elif fut_code == CCMSHCODE:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] t2801 차차월물 야간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] t2801 차차월물 야간선물 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 else:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 잘못된 선물코드({3})입니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
 
@@ -16920,14 +16918,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         # 주야간 선물전광판 데이타 요청
                         self.XQ_t2101.Query(종목코드=fut_code)
                         
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물전광판 갱신을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
 
                         QTest.qWait(100)
                         '''
                         self.XQ_t2801.Query(종목코드=fut_code)
                         
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물전광판 갱신을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(txt)
 
                         QTest.qWait(100)  
@@ -16940,7 +16938,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     print('t2835 요청')
                     self.XQ_t2835.Query(월물=t2835_month_info)
                     
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판 갱신을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
 
             if SEARCH_MOVING_NODE:
@@ -19766,7 +19764,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 t2835_month_info = CURRENT_MONTH
 
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] EUREX(t2835) 본월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] EUREX(t2835) 본월물 야간옵션 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(txt)
                             print(txt)
 
@@ -19777,7 +19775,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 t2835_month_info = NEXT_MONTH
 
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] EUREX(t2835) 차월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] EUREX(t2835) 차월물 야간옵션 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(txt)
                             print(txt)
                         else:
@@ -19906,7 +19904,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if TARGET_MONTH == 'CM':
 
                 fut_code = GMSHCODE
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, current_month, fut_code)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3:02d}월물, {4}) 선물 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, current_month, fut_code)
                 self.textBrowser.append(txt)
                 print(txt)
                 
@@ -19934,7 +19932,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             elif TARGET_MONTH == 'NM':
 
                 fut_code = CMSHCODE
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, next_month, fut_code)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3:02d}월물, {4}) 선물 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, next_month, fut_code)
                 self.textBrowser.append(txt)
                 print(txt)
 
@@ -20159,7 +20157,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         flag_t8416_rerequest = False
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 잔여데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 잔여데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.parent.statusbar.showMessage(txt)
 
         for i in range(t8416_option_pairs_count, option_pairs_count):
@@ -20181,7 +20179,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def request_realdata(self):
 
         # 장운영 정보 요청
-        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 장운영 정보를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 장운영 정보를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.textBrowser.append(txt)
         print(txt)
 
@@ -20191,11 +20189,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         # KOSPI200 지수요청
         if DayTime:
-            txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI200 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI200 지수를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
             print(txt)
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 지수를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
             print(txt)
 
@@ -20209,7 +20207,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if DayTime and pre_start:
 
             # KOSPI200/FUTURES 예상지수 요청
-            txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI200, KOSDAQ 예상체결을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI200, KOSDAQ 예상체결을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
             print(txt)
 
@@ -20217,14 +20215,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.parent.realtime_thread_dataworker.RequestRealData('YJ', KOSDAQ)                   
 
             # 지수선물 예상체결 요청
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 선물 예상체결을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 선물 예상체결을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
             print(txt)
 
             self.parent.realtime_thread_dataworker.RequestRealData('YFC', fut_code)                    
 
             # KOSPI 예상체결 요청
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 삼성,현대 예상체결을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 삼성,현대 예상체결을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
             print(txt)
 
@@ -20238,7 +20236,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if DayTime:
                 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 가격을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
                 print(txt)
 
@@ -20255,7 +20253,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if DayTime:
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 호가를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
                 print(txt)
 
@@ -20270,12 +20268,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 실시간 본월물 옵션 가격요청
         if CM_OPT_PRICE:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
             print(txt)
 
             if DayTime and pre_start:
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 예상가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 예상가격을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
                 print(txt)
             else:
@@ -20298,12 +20296,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if CM_OPT_PRICE1:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격(내가 {3}개, 외가 {4}개)을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
             self.textBrowser.append(txt)
             print(txt)
 
             if DayTime and pre_start:
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 예상가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 예상가격(내가 {3}개, 외가 {4}개)을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
                 self.textBrowser.append(txt)
                 print(txt)
             else:
@@ -20348,7 +20346,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 실시간 본월물 옵션 호가요청
         if CM_OPT_QUOTE:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
             print(txt)
 
@@ -20363,7 +20361,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 실시간 본월물 옵션 호가요청(등가근처 10개)
         if CM_OPT_QUOTE1:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가(내가 {3}개, 외가 {4}개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가(내가 {3}개, 외가 {4}개)를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
             self.textBrowser.append(txt)
             print(txt)
 
@@ -20398,7 +20396,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if DayTime:
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 선물 가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 선물 가격을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
                 print(txt)
 
@@ -20415,7 +20413,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if DayTime:
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 선물 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 선물 호가를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
                 print(txt)
 
@@ -20431,12 +20429,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 실시간 차월물 옵션 가격요청
         if NM_OPT_PRICE:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 가격을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
             print(txt)
 
             if DayTime and pre_start:
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 예상가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 예상가격을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
                 print(txt)
             else:
@@ -20459,12 +20457,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if NM_OPT_PRICE1:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 가격(내가 {3}개, 외가 {4}개)을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
             self.textBrowser.append(txt)
             print(txt)
 
             if DayTime and pre_start:
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 예상가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 예상가격(내가 {3}개, 외가 {4}개)을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
                 self.textBrowser.append(txt)
                 print(txt)
             else:
@@ -20509,7 +20507,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 실시간 차월물 옵션 호가요청
         if NM_OPT_QUOTE:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
             print(txt)
 
@@ -20524,7 +20522,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 실시간 차월물 옵션 호가요청(등가근처 10개)
         if NM_OPT_QUOTE1:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가(내가 {3}개, 외가 {4}개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가(내가 {3}개, 외가 {4}개)를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
             self.textBrowser.append(txt)
             print(txt)
 
@@ -20557,7 +20555,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         if KOSPI_KOSDAQ and DayTime:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI/KOSDAQ 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI/KOSDAQ 지수를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
             print(txt)
 
@@ -20570,7 +20568,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         # SAMSUNG 체결지수 요청
         if DayTime:
-            txt = '[{0:02d}:{1:02d}:{2:02d}] SAMSUNG 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] SAMSUNG 지수를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
             print(txt)
 
@@ -20583,7 +20581,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 실시간 업종별 투자자별 & 프로그램 매매현황 요청
         if SUPPLY_DEMAND and DayTime:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 업종별 투자자별 & 프로그램 매매현황을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 업종별 투자자별 & 프로그램 매매현황을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
             print(txt)
             
@@ -20598,7 +20596,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 실시간 해외선물 DOW 요청
         if DOW_CHK:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 DOW를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 DOW를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
             print(txt)
 
@@ -20611,7 +20609,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 실시간 해외선물 SP500 요청
         if SP500_CHK:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 S&P 500을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 S&P 500을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
             print(txt)
 
@@ -20624,7 +20622,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 실시간 해외선물 NASDAQ 요청
         if NASDAQ_CHK:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 NASDAQ을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 NASDAQ을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
             print(txt)
 
@@ -20637,7 +20635,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 실시간 해외선물 WTI OIL 요청
         if WTI_CHK:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 WTI OIL을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 WTI OIL을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
             print(txt)
 
@@ -20650,7 +20648,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 실시간 해외선물 EUROFX 요청
         if EUROFX_CHK:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 EUROFX을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 EUROFX을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
             print(txt)
 
@@ -20663,7 +20661,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 실시간 해외선물 HANGSENG 요청
         if HANGSENG_CHK:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 HANGSENG을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 HANGSENG을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
             print(txt)
 
@@ -20676,7 +20674,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 실시간 해외선물 GOLD 요청
         if GOLD_CHK:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 GOLD를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 GOLD를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
             print(txt)
 
@@ -20689,7 +20687,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 실시간 NEWS 요청
         if NEWS_CHK:
             '''
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 NEWS를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 NEWS를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.parent.textBrowser.append(txt)
             print(txt)
 
@@ -21142,7 +21140,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                 self.parent.realtime_thread_dataworker.RequestRealData(FUT_REAL, GMSHCODE)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 가격을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21172,7 +21170,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                 self.parent.realtime_thread_dataworker.RequestRealData(FUT_HO, GMSHCODE)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 호가를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21204,7 +21202,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                     self.parent.realtime_thread_dataworker.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
                     self.parent.realtime_thread_dataworker.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21254,7 +21252,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                     else:
                         pass                
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격(내가 {3}개, 외가 {4}개)을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21286,7 +21284,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                     self.parent.realtime_thread_dataworker.RequestRealData(OPT_HO, CM_CALL_CODE[i])
                     self.parent.realtime_thread_dataworker.RequestRealData(OPT_HO, CM_PUT_CODE[i])
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21336,7 +21334,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                     else:
                         pass                
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가(내가 {3}개, 외가 {4}개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가(내가 {3}개, 외가 {4}개)를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21366,7 +21364,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 
                 self.parent.realtime_thread_dataworker.RequestRealData(FUT_REAL, CMSHCODE)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 선물 가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 선물 가격을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21396,7 +21394,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                 self.parent.realtime_thread_dataworker.RequestRealData(FUT_HO, CMSHCODE)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 선물 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 선물 호가를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21428,7 +21426,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                     self.parent.realtime_thread_dataworker.RequestRealData(OPT_REAL, NM_CALL_CODE[i])
                     self.parent.realtime_thread_dataworker.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 가격을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 가격을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21478,7 +21476,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                     else:
                         pass                
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격(내가 {3}개, 외가 {4}개)을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격(내가 {3}개, 외가 {4}개)을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21510,7 +21508,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                     self.parent.realtime_thread_dataworker.RequestRealData(OPT_HO, NM_CALL_CODE[i])
                     self.parent.realtime_thread_dataworker.RequestRealData(OPT_HO, NM_PUT_CODE[i])
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21560,7 +21558,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                     else:
                         pass                
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가(내가 {3}개, 외가 {4}개)를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 호가(내가 {3}개, 외가 {4}개)를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21592,7 +21590,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 self.parent.realtime_thread_dataworker.RequestRealData('IJ', KOSDAQ)
                 self.parent.realtime_thread_dataworker.RequestRealData('S3', SAMSUNG)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI, KOSDAQ, SAMSUNG 지수를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI, KOSDAQ, SAMSUNG 지수를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21626,7 +21624,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 self.parent.realtime_thread_dataworker.RequestRealData('BM', KOSPI)
                 self.parent.realtime_thread_dataworker.RequestRealData('PM', KOSPI)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 투자자별 매매현황을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 투자자별 매매현황을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21657,7 +21655,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                 self.parent.realtime_thread_dataworker.RequestRealData('OVC', DOW)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 DOW를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 DOW를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21689,7 +21687,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                 self.parent.realtime_thread_dataworker.RequestRealData('OVC', SP500)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 S&P 500을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 S&P 500을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21721,7 +21719,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                 self.parent.realtime_thread_dataworker.RequestRealData('OVC', NASDAQ)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 NASDAQ을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 NASDAQ을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21753,7 +21751,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                 self.parent.realtime_thread_dataworker.RequestRealData('OVC', WTI)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 WTI OIL을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 WTI OIL을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21785,7 +21783,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                 self.parent.realtime_thread_dataworker.RequestRealData('OVC', EUROFX)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 EUROFX을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 EUROFX을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21817,7 +21815,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                 self.parent.realtime_thread_dataworker.RequestRealData('OVC', HANGSENG)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 HANGSENG을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 HANGSENG을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21849,7 +21847,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                 self.parent.realtime_thread_dataworker.RequestRealData('OVC', GOLD)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 GOLD를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 GOLD를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21881,7 +21879,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                 self.parent.realtime_thread_dataworker.RequestRealData('NWS')
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 NEWS를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 NEWS를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -34599,42 +34597,42 @@ class Xing(object):
                         pass
 
                     if not self.clocktick and TARGET_MONTH == 'CM' and dt.hour == 9 and dt.minute == 30 and dt.second == 5:
-                        send_txt = "[{0:02d}:{1:02d}:{2:02d}] Rx Packet Size : {3} KByte\r".format(dt.hour, dt.minute, dt.second, int(total_packet_size/1000))
+                        send_txt = "[{0:02d}:{1:02d}:{2:02d}] � Rx Packet Size : {3} KByte\r".format(dt.hour, dt.minute, dt.second, int(total_packet_size/1000))
                         self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                         ToYourTelegram(send_txt)
                     else:
                         pass
 
                     if not self.clocktick and TARGET_MONTH == 'CM' and dt.hour == 10 and dt.minute == 0 and dt.second == 5:
-                        send_txt = "[{0:02d}:{1:02d}:{2:02d}] Rx Packet Size : {3} KByte\r".format(dt.hour, dt.minute, dt.second, int(total_packet_size/1000))
+                        send_txt = "[{0:02d}:{1:02d}:{2:02d}] � Rx Packet Size : {3} KByte\r".format(dt.hour, dt.minute, dt.second, int(total_packet_size/1000))
                         self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                         ToYourTelegram(send_txt)
                     else:
                         pass
 
                     if not self.clocktick and TARGET_MONTH == 'CM' and dt.hour == 10 and dt.minute == 30 and dt.second == 5:
-                        send_txt = "[{0:02d}:{1:02d}:{2:02d}] Rx Packet Size : {3} KByte\r".format(dt.hour, dt.minute, dt.second, int(total_packet_size/1000))
+                        send_txt = "[{0:02d}:{1:02d}:{2:02d}] � Rx Packet Size : {3} KByte\r".format(dt.hour, dt.minute, dt.second, int(total_packet_size/1000))
                         self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                         ToYourTelegram(send_txt)
                     else:
                         pass
 
                     if not self.clocktick and TARGET_MONTH == 'CM' and dt.hour == 11 and dt.minute == 0 and dt.second == 5:
-                        send_txt = "[{0:02d}:{1:02d}:{2:02d}] Rx Packet Size : {3} KByte\r".format(dt.hour, dt.minute, dt.second, int(total_packet_size/1000))
+                        send_txt = "[{0:02d}:{1:02d}:{2:02d}] � Rx Packet Size : {3} KByte\r".format(dt.hour, dt.minute, dt.second, int(total_packet_size/1000))
                         self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                         ToYourTelegram(send_txt)
                     else:
                         pass
 
                     if not self.clocktick and TARGET_MONTH == 'CM' and dt.hour == 11 and dt.minute == 30 and dt.second == 5:
-                        send_txt = "[{0:02d}:{1:02d}:{2:02d}] Rx Packet Size : {3} KByte\r".format(dt.hour, dt.minute, dt.second, int(total_packet_size/1000))
+                        send_txt = "[{0:02d}:{1:02d}:{2:02d}] � Rx Packet Size : {3} KByte\r".format(dt.hour, dt.minute, dt.second, int(total_packet_size/1000))
                         self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                         ToYourTelegram(send_txt)
                     else:
                         pass
 
                     if not self.clocktick and TARGET_MONTH == 'CM' and dt.hour == 12 and dt.minute == 0 and dt.second == 5:
-                        send_txt = "[{0:02d}:{1:02d}:{2:02d}] Rx Packet Size : {3} KByte\r".format(dt.hour, dt.minute, dt.second, int(total_packet_size/1000))
+                        send_txt = "[{0:02d}:{1:02d}:{2:02d}] � Rx Packet Size : {3} KByte\r".format(dt.hour, dt.minute, dt.second, int(total_packet_size/1000))
                         self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                         ToYourTelegram(send_txt)
                     else:
@@ -35141,7 +35139,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if trdata[0] == 'login' and trdata[1] == '0000':
 
             #txt = '1st 백그라운드 프로세스 로그인 성공 !!!\r'
-            txt = '지수선물 체결 프로세스(Process ID = {0}) 로그인 성공 !!!\r'.format(futures_process.pid)
+            txt = '지수선물 프로세스(Process ID = {0}) 로그인 성공 !!!\r'.format(futures_process.pid)
             self.textBrowser.append(txt)            
             self.statusbar.showMessage(trdata[3] + ' ' + trdata[2])          
 
@@ -35809,7 +35807,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if trdata[0] == 'login' and trdata[1] == '0000':
 
             #txt = '4th 백그라운드 프로세스 로그인 성공 !!!\r'
-            txt = '해외선물 프로세스(Process ID = {0}) 로그인 성공 !!!\r'.format(ovc_process.pid)
+            txt = '해외선물 체결 프로세스(Process ID = {0}) 로그인 성공 !!!\r'.format(ovc_process.pid)
             self.textBrowser.append(txt)
             self.statusbar.showMessage(trdata[3] + ' ' + trdata[2])
 
