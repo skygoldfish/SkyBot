@@ -395,6 +395,8 @@ MY_COREVAL = parser.getfloat('Initial Value', 'My Coreval')
 ASYM_RATIO = parser.getfloat('Initial Value', 'Asymmetric Market Ratio')
 ONEWAY_RATIO = parser.getfloat('Initial Value', 'OneWay Market Ratio')
 GOLDEN_RATIO = parser.getfloat('Initial Value', 'Golden Ratio')
+SEARCH_MOVING_NODE_START_VALUE = parser.getfloat('Initial Value', 'Search Moving Node Start Value')
+SEARCH_MOVING_NODE_END_VALUE = parser.getfloat('Initial Value', 'Search Moving Node End Value')
 CROSS_COLOR_INTERVAL = parser.getint('Initial Value', 'Cross Coloring Interval(minute)')
 MAIN_UPDATE_INTERVAL = parser.getint('Initial Value', 'Main Update Interval(msec)')
 CHART_UPDATE_INTERVAL = parser.getint('Initial Value', 'Chart Update Interval(msec)')
@@ -6432,23 +6434,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         put_고가 = df_put['고가'].values.tolist()
         
         call_저가.sort()
-        index1 = bisect(call_저가, 1.20)
-        index2 = bisect(call_저가, 9.99)
+        index1 = bisect(call_저가, SEARCH_MOVING_NODE_START_VALUE)
+        index2 = bisect(call_저가, SEARCH_MOVING_NODE_END_VALUE)
         call_low_list = call_저가[index1:index2]
 
         call_고가.sort()
-        index1 = bisect(call_고가, 1.20)
-        index2 = bisect(call_고가, 9.99)
+        index1 = bisect(call_고가, SEARCH_MOVING_NODE_START_VALUE)
+        index2 = bisect(call_고가, SEARCH_MOVING_NODE_END_VALUE)
         call_high_list = call_고가[index1:index2]
 
         put_저가.sort()
-        index1 = bisect(put_저가, 1.20)
-        index2 = bisect(put_저가, 9.99)
+        index1 = bisect(put_저가, SEARCH_MOVING_NODE_START_VALUE)
+        index2 = bisect(put_저가, SEARCH_MOVING_NODE_END_VALUE)
         put_low_list = put_저가[index1:index2]
 
         put_고가.sort()
-        index1 = bisect(put_고가, 1.20)
-        index2 = bisect(put_고가, 9.99)
+        index1 = bisect(put_고가, SEARCH_MOVING_NODE_START_VALUE)
+        index2 = bisect(put_고가, SEARCH_MOVING_NODE_END_VALUE)
         put_high_list = put_고가[index1:index2]
 
         high_low_list = call_low_list + call_high_list + put_low_list + put_high_list
@@ -12640,7 +12642,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 call_저가 = df_call['저가'].values.tolist()
                 call_저가_node_list = self.make_node_list(call_저가)
 
-                if 1.20 < 콜저가 < 10.0:
+                if SEARCH_MOVING_NODE_START_VALUE < 콜저가 < SEARCH_MOVING_NODE_END_VALUE:
                     self.opt_high_low_list_update()
                     빈도수 = moving_list.count(콜저가)
                     item = QTableWidgetItem(저가 + '\n(' + repr(빈도수) + ')')
@@ -12755,7 +12757,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 call_고가 = df_call['고가'].values.tolist()
                 call_고가_node_list = self.make_node_list(call_고가)
 
-                if 1.20 < 콜고가 < 10.0:
+                if SEARCH_MOVING_NODE_START_VALUE < 콜고가 < SEARCH_MOVING_NODE_END_VALUE:
                     self.opt_high_low_list_update()
                     빈도수 = moving_list.count(콜고가)
                     item = QTableWidgetItem(고가 + '\n(' + repr(빈도수) + ')')
@@ -13710,7 +13712,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_저가 = df_put['저가'].values.tolist()
                 put_저가_node_list = self.make_node_list(put_저가)
 
-                if 1.20 < 풋저가 < 10.0:
+                if SEARCH_MOVING_NODE_START_VALUE < 풋저가 < SEARCH_MOVING_NODE_END_VALUE:
                     self.opt_high_low_list_update()
                     빈도수 = moving_list.count(풋저가)
                     item = QTableWidgetItem(저가 + '\n(' + repr(빈도수) + ')')
@@ -13825,7 +13827,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_고가 = df_put['고가'].values.tolist()
                 put_고가_node_list = self.make_node_list(put_고가)
 
-                if 1.20 < 풋고가 < 10.0:
+                if SEARCH_MOVING_NODE_START_VALUE < 풋고가 < SEARCH_MOVING_NODE_END_VALUE:
                     self.opt_high_low_list_update()
                     빈도수 = moving_list.count(풋고가)
                     item = QTableWidgetItem(고가 + '\n(' + repr(빈도수) + ')')
@@ -16832,7 +16834,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             df_call.at[i, '저가'] = 저가
                             빈도수 = moving_list.count(저가)
 
-                            if 1.20 < 저가 < 10.0:
+                            if SEARCH_MOVING_NODE_START_VALUE < 저가 < SEARCH_MOVING_NODE_END_VALUE:
                                 item_txt = '{0:.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
                                 item = QTableWidgetItem(item_txt)
                             else:
@@ -16850,7 +16852,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             df_call.at[i, '고가'] = 고가
                             빈도수 = moving_list.count(고가)
 
-                            if 1.20 < 고가 < 10.0:
+                            if SEARCH_MOVING_NODE_START_VALUE < 고가 < SEARCH_MOVING_NODE_END_VALUE:
                                 item_txt = '{0:.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
                                 item = QTableWidgetItem(item_txt)
                             else:
@@ -16878,7 +16880,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             df_put.at[i, '저가'] = 저가
                             빈도수 = moving_list.count(저가)
 
-                            if 1.20 < 저가 < 10.0:
+                            if SEARCH_MOVING_NODE_START_VALUE < 저가 < SEARCH_MOVING_NODE_END_VALUE:
                                 item_txt = '{0:.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
                                 item = QTableWidgetItem(item_txt)
                             else:
@@ -16896,7 +16898,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             df_put.at[i, '고가'] = 고가
                             빈도수 = moving_list.count(고가)
 
-                            if 1.20 < 고가 < 10.0:
+                            if SEARCH_MOVING_NODE_START_VALUE < 고가 < SEARCH_MOVING_NODE_END_VALUE:
                                 item_txt = '{0:.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
                                 item = QTableWidgetItem(item_txt)
                             else:
@@ -18662,7 +18664,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_call.at[i, '저가'] = 저가
                         빈도수 = moving_list.count(저가)                    
 
-                        if 1.20 < 저가 < 10.0:
+                        if SEARCH_MOVING_NODE_START_VALUE < 저가 < SEARCH_MOVING_NODE_END_VALUE:
                             item_txt = '{0:.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
                             item = QTableWidgetItem(item_txt)
                         else:
@@ -18682,7 +18684,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_call.at[i, '고가'] = 고가
                         빈도수 = moving_list.count(고가)
 
-                        if 1.20 < 고가 < 10.0:
+                        if SEARCH_MOVING_NODE_START_VALUE < 고가 < SEARCH_MOVING_NODE_END_VALUE:
                             item_txt = '{0:.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
                             item = QTableWidgetItem(item_txt)
                         else:
@@ -18712,7 +18714,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_put.at[i, '저가'] = 저가
                         빈도수 = moving_list.count(저가)                    
 
-                        if 1.20 < 저가 < 10.0:
+                        if SEARCH_MOVING_NODE_START_VALUE < 저가 < SEARCH_MOVING_NODE_END_VALUE:
                             item_txt = '{0:.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
                             item = QTableWidgetItem(item_txt)
                         else:
@@ -18732,7 +18734,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_put.at[i, '고가'] = 고가
                         빈도수 = moving_list.count(고가)                    
 
-                        if 1.20 < 고가 < 10.0:
+                        if SEARCH_MOVING_NODE_START_VALUE < 고가 < SEARCH_MOVING_NODE_END_VALUE:
                             item_txt = '{0:.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
                             item = QTableWidgetItem(item_txt)
                         else:
