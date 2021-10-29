@@ -3796,13 +3796,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
-        self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
+        self.tableWidget_fut.setItem(0, Futures_column.진폭.value, item)
 
         item = QTableWidgetItem("{0}".format('Scale\nFactor'))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(검정색))
         item.setForeground(QBrush(흰색))
-        self.tableWidget_fut.setItem(2, Futures_column.OI.value, item)
+        self.tableWidget_fut.setItem(2, Futures_column.진폭.value, item)
         
         # Quote tablewidget 초기화
         self.tableWidget_quote.setRowCount(1)
@@ -12162,11 +12162,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setForeground(QBrush(검정색))
 
         if NightTime:
-            self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
+            self.tableWidget_fut.setItem(1, Futures_column.진폭.value, item)
         else:
-            self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
+            self.tableWidget_fut.setItem(0, Futures_column.진폭.value, item)
 
-        self.tableWidget_fut.resizeColumnToContents(Futures_column.대비.value)
+        self.tableWidget_fut.resizeColumnToContents(Futures_column.진폭.value)
         
         # 종합 에너지방향 표시
         if TARGET_MONTH == 'CM' and DayTime:
@@ -38107,7 +38107,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
             item.setTextAlignment(Qt.AlignCenter)
-            self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.OI.value, item)
+            self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.진폭.value, item)
 
             if abs(선물_종가대비_등락율) > abs(DOW_등락율):
                 flag_fut_vs_dow_drate_direction = True
