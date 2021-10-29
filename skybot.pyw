@@ -908,7 +908,7 @@ telegram_toggle = True
 system_server_time_gap = 0
 
 Option_column = Enum('Option_column', '행사가 OLOH 기준가 월저 월고 전저 전고 종가 피봇 시가 저가 현재가 고가 시가갭 대비 진폭 VP OI OID')
-Futures_column = Enum('Futures_column', 'OLOH 매수건수 매도건수 매수잔량 매도잔량 건수비 잔량비 전저 전고 종가 피봇 시가 저가 현재가 고가 시가갭 대비 거래량 진폭 OI OID')
+Futures_column = Enum('Futures_column', 'OLOH 매수건수 매도건수 매수잔량 매도잔량 건수비 잔량비 전저 전고 종가 피봇 시가 저가 현재가 고가 시가갭 대비 진폭 거래량 OI OID')
 Supply_column = Enum('Supply_column', '외인선물 외인현물 기관선물 기관현물 개인선물 개인현물 프로그램 종합')
 Quote_column = Enum('Quote_column', 'C-MSCC C-MDCC C-MSCR C-MDCR P-MSCC P-MDCC P-MSCR P-MDCR 콜건수비 콜잔량비 풋건수비 풋잔량비 호가종합 미결종합')
 
@@ -3761,7 +3761,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_fut.setColumnCount(Futures_column.OID.value + 1)
         self.tableWidget_fut.horizontalHeader().setStyleSheet(fut_header_stylesheet)
 
-        self.tableWidget_fut.setHorizontalHeaderLabels(['MLT', '▲▼', 'HMSC', 'HMDC', 'HMSR', 'HMDR', 'HCR', 'HRR', '전저', '전고', '종가', '피봇', '시가', '저가', '현재가', '고가', '시가갭', '대비', '체결', '진폭', 'OI', 'OI↕'])
+        self.tableWidget_fut.setHorizontalHeaderLabels(['MLT', '▲▼', 'HMSC', 'HMDC', 'HMSR', 'HMDR', 'HCR', 'HRR', '전저', '전고', '종가', '피봇', '시가', '저가', '현재가', '고가', '시가갭', '대비', '진폭', '체결', 'OI', 'OI↕'])
         self.tableWidget_fut.verticalHeader().setVisible(False)
         self.tableWidget_fut.setAlternatingRowColors(True)
 
