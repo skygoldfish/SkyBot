@@ -34711,10 +34711,13 @@ class Xing(object):
 
         PCTIME = datetime.now().strftime('%H:%M:%S')
 
+        txt = '[{0}] Welcome to SkyBot.\r'.format(PCTIME)
+        self.caller.textBrowser.append(txt)
+
         if REAL_SERVER:
-            txt = '[{0}] Welcome to SkyBot. 실서버에 접속합니다.\r'.format(PCTIME)
+            txt = '실서버에 접속합니다.\r'
         else:
-            txt = '[{0}] Welcome to SkyBot. 모의서버에 접속합니다.\r'.format(PCTIME)
+            txt = '모의서버에 접속합니다.\r'
 
         self.caller.textBrowser.append(txt)
         
