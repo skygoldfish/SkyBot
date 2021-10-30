@@ -12174,6 +12174,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if flag_fut_vs_dow_drate_direction and fut_quote_energy_direction == 'call' and fut_volume_power_energy_direction == 'call':
 
                 item = QTableWidgetItem("CS")
+                item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(적색))
                 item.setForeground(QBrush(흰색))
                 flag_call_dominant = True
@@ -12181,11 +12182,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             elif flag_fut_vs_dow_drate_direction and fut_quote_energy_direction == 'put' and fut_volume_power_energy_direction == 'put':
 
                 item = QTableWidgetItem("PS")
+                item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(청색))
                 item.setForeground(QBrush(흰색))
                 flag_put_dominant = True
             else:
-                item = QTableWidgetItem("-")               
+                item = QTableWidgetItem("-")
+                item.setTextAlignment(Qt.AlignCenter)               
                 item.setBackground(QBrush(흰색))
                 item.setForeground(QBrush(검정색))
                 flag_call_dominant = False
