@@ -6893,13 +6893,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         refresh_coloring = True
         
         self.call_node_color_clear()
-        self.put_node_color_clear() 
-
         self.call_open_check()
         self.call_cross_color_update()
         self.call_node_color_update()
         self.call_coreval_color_update()
-        
+
+        self.put_node_color_clear()
         self.put_open_check()        
         self.put_cross_color_update()        
         self.put_node_color_update()
