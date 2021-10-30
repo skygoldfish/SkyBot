@@ -34714,10 +34714,15 @@ class Xing(object):
         txt = '[{0}] Welcome to SkyBot.\r'.format(PCTIME)
         self.caller.textBrowser.append(txt)
 
-        if REAL_SERVER:
-            txt = '실서버에 접속합니다.\r'
+        if TARGET_MONTH == 'NM':
+            month_txt = '차월물'
         else:
-            txt = '모의서버에 접속합니다.\r'
+            month_txt = '본월물'
+
+        if REAL_SERVER:
+            txt = '{0} 실서버에 접속합니다.\r'.format(month_txt)
+        else:
+            txt = '{0} 모의서버에 접속합니다.\r'.format(month_txt)
 
         self.caller.textBrowser.append(txt)
         
