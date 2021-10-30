@@ -15328,7 +15328,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setForeground(QBrush(검정색))
             self.tableWidget_fut.setItem(2, Futures_column.종가.value, item)
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 등가지수는 {3}({4})입니다.\r'.format(dt.hour, dt.minute, dt.second, atm_txt, ATM_INDEX)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 등가지수는 {3}(index = {4})입니다.\r'.format(dt.hour, dt.minute, dt.second, atm_txt, ATM_INDEX)
             self.parent.textBrowser.append(txt)
 
             if self.call_open_list:
@@ -34809,7 +34809,7 @@ class Xing(object):
                 pass            
             
             #txt = '메인 프로세스 로그인 성공 !!!\r'
-            txt = '메인 프로세스(Process ID = {0}) 로그인 성공 !!!\r'.format(mp.current_process().pid)
+            txt = '메인 프로세스(Process ID = {0}) 생성 성공 !!!\r'.format(mp.current_process().pid)
             self.caller.textBrowser.append(txt)
             #self.caller.statusbar.showMessage(txt)
             #playsound( "Resources/ring.wav" )            
@@ -35185,7 +35185,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if trdata[0] == 'login' and trdata[1] == '0000':
 
             #txt = '1st 백그라운드 프로세스 로그인 성공 !!!\r'
-            txt = '지수선물 프로세스(Process ID = {0}) 로그인 성공 !!!\r'.format(futures_process.pid)
+            txt = '지수선물 프로세스(Process ID = {0}) 생성 성공 !!!\r'.format(futures_process.pid)
             self.textBrowser.append(txt)            
             self.statusbar.showMessage(trdata[3] + ' ' + trdata[2])          
 
@@ -35452,7 +35452,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if trdata[0] == 'login' and trdata[1] == '0000':
 
             #txt = '2nd 백그라운드 프로세스 로그인 성공 !!!\r'
-            txt = '지수옵션 체결 프로세스(Process ID = {0}) 로그인 성공 !!!\r'.format(option_tick_process.pid)
+            txt = '지수옵션 체결 프로세스(Process ID = {0}) 생성 성공 !!!\r'.format(option_tick_process.pid)
             self.textBrowser.append(txt)
             self.statusbar.showMessage(trdata[3] + ' ' + trdata[2])
 
@@ -35678,7 +35678,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if trdata[0] == 'login' and trdata[1] == '0000':
 
             #txt = '3rd 백그라운드 프로세스 로그인 성공 !!!\r'
-            txt = '지수옵션 호가 프로세스(Process ID = {0}) 로그인 성공 !!!\r'.format(option_quote_process.pid)
+            txt = '지수옵션 호가 프로세스(Process ID = {0}) 생성 성공 !!!\r'.format(option_quote_process.pid)
             self.textBrowser.append(txt)
             self.statusbar.showMessage(trdata[3] + ' ' + trdata[2])
 
@@ -35853,7 +35853,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if trdata[0] == 'login' and trdata[1] == '0000':
 
             #txt = '4th 백그라운드 프로세스 로그인 성공 !!!\r'
-            txt = '해외선물 체결 프로세스(Process ID = {0}) 로그인 성공 !!!\r'.format(ovc_process.pid)
+            txt = '해외선물 체결 프로세스(Process ID = {0}) 생성 성공 !!!\r'.format(ovc_process.pid)
             self.textBrowser.append(txt)
             self.statusbar.showMessage(trdata[3] + ' ' + trdata[2])
 
