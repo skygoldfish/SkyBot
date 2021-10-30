@@ -36721,9 +36721,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-        elif tickdata['업종코드'] == KOSDAQ:
+        elif tickdata['업종코드'] == KOSPI:
 
-            # YFC로 선물 예상지수 내려옴, 여기로 안옴... --> KOSDAQ 예상지수로 대체
+            # YFC로 선물 예상지수 내려옴, 여기로 안옴... --> KOSPI 예상지수로 대체
+            txt = '[{0:02d}:{1:02d}:{2:02d}] YJ KOSPI 예상시가 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, float(tickdata['예상지수']))
+            self.dialog['선물옵션전광판'].textBrowser.append(txt)
+
+        elif tickdata['업종코드'] == KOSDAQ:
+            
             txt = '[{0:02d}:{1:02d}:{2:02d}] YJ KOSDAQ 예상시가 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, float(tickdata['예상지수']))
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
         else:
