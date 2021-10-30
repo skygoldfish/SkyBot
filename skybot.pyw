@@ -14624,13 +14624,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                                         QPushButton:pressed {background-color: gold}')
                 self.pushButton_start.setText(' Starting... ')
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] t8432 지수선물 마스터 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 지수선물 마스터 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
                 
                 # 지수선물 마스터조회 API용
                 self.XQ_t8432.Query()
                 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] t8433 지수옵션 마스터 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 지수옵션 마스터 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
                 
                 # 지수옵션 마스터조회 API용
