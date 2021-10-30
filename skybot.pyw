@@ -502,12 +502,15 @@ if os.path.exists('HL-List.txt'):
         
         hlfile_line_number = hlfile_line_number - 1
         
-        pre_high_low_list = file_list[:]
         FILE_HIGH_LOW_LIST = file_list[:]
+        FILE_HIGH_LOW_LIST.sort()
 
-        pre_high_low_list.sort()
+        index1 = bisect(FILE_HIGH_LOW_LIST, SEARCH_MOVING_NODE_START_VALUE)
+        index2 = bisect(FILE_HIGH_LOW_LIST, SEARCH_MOVING_NODE_END_VALUE)
+        pre_high_low_list = FILE_HIGH_LOW_LIST[index1:index2]
+        FILE_HIGH_LOW_LIST = pre_high_low_list[:]
+
         pre_high_low_list.reverse()
-        #print('pre_high_low_list =', pre_high_low_list)
 
         # 첫번재 최대빈도 맥점탐색
         result = list(Counter(pre_high_low_list).values())
@@ -6474,6 +6477,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         moving_list = FILE_HIGH_LOW_LIST + high_low_list
         moving_list.sort()
+        
+        #print('opt_high_low_list_update FILE_HIGH_LOW_LIST =', FILE_HIGH_LOW_LIST)
+        #print('opt_high_low_list_update moving_list =', moving_list)        
 
     def get_value_frequency(self, value):
 
@@ -6520,10 +6526,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.opt_high_low_list_update()
         
-        txt = '[{0:02d}:{1:02d}:{2:02d}] high low list in search_moving_node = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, high_low_list)
-        #self.textBrowser.append(txt)
-        print(txt)        
-
         # 1st search
         동적맥점1, 동적맥점1_빈도수 = self.get_maxval_info(moving_list)
         동적맥점_리스트.append(동적맥점1)
@@ -6759,8 +6761,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         call_scroll = True
             
         self.call_node_color_clear()         
-        self.call_open_check()   
-        #self.call_only_cross_color_update()
+        self.call_open_check()
         self.call_cross_color_update()        
         self.call_node_color_update()
         self.call_coreval_color_update()
@@ -6825,8 +6826,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         put_scroll = True
             
         self.put_node_color_clear()        
-        self.put_open_check()    
-        #self.put_only_cross_color_update()
+        self.put_open_check()
         self.put_cross_color_update()        
         self.put_node_color_update()
         self.put_coreval_color_update()
@@ -6891,6 +6891,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         node_coloring = True
         refresh_coloring = True
+
+        if not pre_start and bms_node_list and SEARCH_MOVING_NODE:
+            self.search_moving_node()            
+        else:
+            pass
         
         self.call_node_color_clear()
         self.call_open_check()
@@ -6902,12 +6907,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.put_open_check()        
         self.put_cross_color_update()        
         self.put_node_color_update()
-        self.put_coreval_color_update()
-
-        if not pre_start and bms_node_list and SEARCH_MOVING_NODE:        
-            self.search_moving_node()
-        else:
-            pass
+        self.put_coreval_color_update()        
         
         node_coloring = False
         refresh_coloring = False
@@ -14675,7 +14675,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 TTS = False
 
-                SEARCH_MOVING_NODE = not SEARCH_MOVING_NODE
+                #SEARCH_MOVING_NODE = not SEARCH_MOVING_NODE
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] SEARCH_MOVING_NODE = {3}\r'.format(dt.hour, dt.minute, dt.second, SEARCH_MOVING_NODE)
                 self.textBrowser.append(txt)
