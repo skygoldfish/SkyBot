@@ -14613,10 +14613,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.now()
 
+        if pre_start:
+            jisu_txt = "KOSPI: {0}".format(KOSPI_PRICE)
+                    
+            self.label_kospi.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
+                                            rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
+                                            color: lightskyblue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: lightskyblue; border-radius: 5px')
+            self.label_kospi.setText(jisu_txt)
+
+            jisu_txt = "KOSDAQ: {0}".format(KOSDAQ_PRICE)
+                    
+            self.label_kosdaq.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
+                                            rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
+                                            color: lightskyblue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: lightskyblue; border-radius: 5px')
+            self.label_kosdaq.setText(jisu_txt)
+        else:
+            pass
+
         # 백그라운드로 로그인해도 포어그라운드에서 TR조회 가능함(이유?)
         txt = '[{0:02d}:{1:02d}:{2:02d}] 코스피지수를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.parent.textBrowser.append(txt)
-        self.XQ_t1514.Query(KOSPI) # 코스피지수 조회
+        self.XQ_t1514.Query(KOSPI) # 코스피지수 조회        
         
         QTest.qWait(1100)
         
