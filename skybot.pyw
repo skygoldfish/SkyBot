@@ -36836,7 +36836,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             item.setForeground(QBrush(대맥점색))
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, Futures_column.시가.value, item)
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] DOW기준 예상 선물시가 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, DOW_기준_예상시가)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] DOW기준 예상 선물시가 = {3:.2f}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, DOW_기준_예상시가)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
 
             선물_피봇 = calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
