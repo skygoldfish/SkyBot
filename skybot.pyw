@@ -793,6 +793,22 @@ if os.path.isfile('daytime.txt'):
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
+        KOSPI_PRICE = float(temp[3])
+
+        print('KOSPI_PRICE =', KOSPI_PRICE)
+
+        tmp = daytime_file.readline().strip()
+
+        tmp = daytime_file.readline().strip()
+        temp = tmp.split()
+        KOSDAQ_PRICE = float(temp[3])
+
+        print('KOSDAQ_PRICE =', KOSDAQ_PRICE)
+
+        tmp = daytime_file.readline().strip()
+
+        tmp = daytime_file.readline().strip()
+        temp = tmp.split()
         INIT_CENTER_VAL = float(temp[3])
         장시작_중심가 = INIT_CENTER_VAL
 
@@ -36514,6 +36530,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # KP200의 주요정보를 저장
                 with open('daytime.txt', mode='w') as daytime_file:
 
+                    file_txt = '################# < KOSPI Price of the Last Day > ###################\n'                        
+                    daytime_file.write(file_txt)
+                    file_txt = 'KOSPI Price = {0}\n'.format(kospi_price)
+                    daytime_file.write(file_txt)
+
+                    file_txt = '################# < KOSDAQ Price of the Last Day > ###################\n'                        
+                    daytime_file.write(file_txt)
+                    file_txt = 'KOSDAQ Price = {0}\n'.format(kosdaq_price)
+                    daytime_file.write(file_txt)
+
                     file_txt = '################# < KP200 Index of the Last Day > ###################\n'                        
                     daytime_file.write(file_txt)
                     file_txt = 'Center Value = {0}\n'.format(CENTER_VAL)
@@ -36526,6 +36552,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     daytime_file.write(file_txt)
                     file_txt = 'KP200 Close = {0}\n'.format(kp200_현재가)
                     daytime_file.write(file_txt)
+
                     file_txt = '################### < Foreign Futures Index of the Day > #####################\n'
                     daytime_file.write(file_txt)
                     file_txt = 'SP500 Day Close = {0}\n'.format(SP500_현재가)
