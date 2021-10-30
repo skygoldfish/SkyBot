@@ -3952,13 +3952,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             # 긴 loop를 도는 동안 GUI 응답없음을 방지하기 위함
             if i % 10 == 0:                
-                txt = ' 옵션테이블 초기화중({0:.0f}%)...\r'.format((i / ActvalCount) * 100)
+                txt = ' 옵션전광판 초기화중({0:.0f}%)...\r'.format((i / ActvalCount) * 100)
                 self.parent.statusbar.showMessage(txt)
                 QApplication.processEvents()
             else:
                 pass
 
-        txt = ' 옵션테이블 초기화 완료\r'
+        txt = ' 옵션전광판 초기화 완료\r'
         self.parent.statusbar.showMessage(txt)
 
         # 선물관련 변수 초기화
