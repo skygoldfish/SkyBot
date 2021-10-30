@@ -3792,6 +3792,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setForeground(QBrush(흰색))
                 self.tableWidget_fut.setItem(i, j, item)
                 self.tableWidget_fut.resizeColumnToContents(j)
+
+        item = QTableWidgetItem('-')
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(흰색))
+        self.tableWidget_fut.setItem(0, Futures_column.OLOH.value, item)
+
+        item = QTableWidgetItem('-')
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(흰색))
+        self.tableWidget_fut.setItem(1, Futures_column.OLOH.value, item)
+
+        item = QTableWidgetItem('-')
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(흰색))
+        self.tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
         
         item = QTableWidgetItem("{0}".format('야간'))
         item.setTextAlignment(Qt.AlignCenter)
@@ -11403,7 +11421,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             fut_oloh_txt = ''
             flag_fut_oloh = False
 
-            item = QTableWidgetItem('')
+            item = QTableWidgetItem('-')
+
+            self.tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
 
             if NightTime:
                 self.tableWidget_fut.setItem(0, Futures_column.OLOH.value, item)
@@ -12217,7 +12237,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         df_fut.at[1, '미결'] = int(result['미결제약정수량']) 
         self.fut_realdata['미결'] = int(result['미결제약정수량'])
 
-        temp = format(int(result['미결제약정수량']), ',')                
+        #temp = format(int(result['미결제약정수량']), ',')
+        temp = '{0}k'.format(int(self.fut_realdata['미결']/1000))
 
         item = QTableWidgetItem(temp)
         item.setTextAlignment(Qt.AlignCenter)
@@ -15537,7 +15558,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_fut.setItem(1, Futures_column.진폭.value, item)
 
             self.fut_realdata['거래량'] = df['거래량']
-            temp = format(self.fut_realdata['거래량'], ',')
+            #temp = format(self.fut_realdata['거래량'], ',')
+            temp = '{0}k'.format(int(self.fut_realdata['거래량']/1000))
 
             item = QTableWidgetItem(temp)
             item.setTextAlignment(Qt.AlignCenter)
@@ -15546,7 +15568,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_fut.setItem(1, Futures_column.거래량.value, item)
 
             self.fut_realdata['미결'] = df['미결제량']
-            temp = format(self.fut_realdata['미결'], ',')
+            #temp = format(self.fut_realdata['미결'], ',')
+            temp = '{0}k'.format(int(self.fut_realdata['미결']/1000))
 
             item = QTableWidgetItem(temp)
             item.setTextAlignment(Qt.AlignCenter)
@@ -38084,7 +38107,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             fut_cm_volume_power = int(tickdata['매수누적체결량']) - int(tickdata['매도누적체결량'])
             df_futures_graph.at[ovc_x_idx, 'volume'] = fut_cm_volume_power
 
-            temp = format(fut_cm_volume_power, ',')
+            #temp = format(fut_cm_volume_power, ',')
+            temp = '{0}k'.format(int(fut_cm_volume_power/1000))
 
             item = QTableWidgetItem(temp)
             item.setTextAlignment(Qt.AlignCenter)
