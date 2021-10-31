@@ -6910,7 +6910,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         node_coloring = True
         refresh_coloring = True
 
-        if not pre_start and bms_node_list and SEARCH_MOVING_NODE:
+        if bms_node_list and SEARCH_MOVING_NODE:
             self.search_moving_node()            
         else:
             pass
