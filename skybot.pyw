@@ -11420,10 +11420,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             flag_fut_oh = False
             fut_oloh_txt = ''
             flag_fut_oloh = False
-
+            '''
             item = QTableWidgetItem('-')
-
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(검정색))
+            item.setForeground(QBrush(흰색))
             self.tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
+            '''
+            item = QTableWidgetItem('-')
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(검정색))
+            item.setForeground(QBrush(흰색))
 
             if NightTime:
                 self.tableWidget_fut.setItem(0, Futures_column.OLOH.value, item)
@@ -14632,7 +14639,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 진성맥점, TTS, SEARCH_MOVING_NODE
 
         dt = datetime.now()
-
+        '''
         if pre_start:
             jisu_txt = "KOSPI: {0}".format(KOSPI_PRICE)
                     
@@ -14649,7 +14656,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.label_kosdaq.setText(jisu_txt)
         else:
             pass
-
+        '''
         # 백그라운드로 로그인해도 포어그라운드에서 TR조회 가능함(이유?)
         txt = '[{0:02d}:{1:02d}:{2:02d}] 코스피지수를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.parent.textBrowser.append(txt)
@@ -36790,8 +36797,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         elif tickdata['업종코드'] == KOSPI:
 
             # YFC로 선물 예상지수 내려옴, 여기로 안옴... --> KOSPI 예상지수로 대체
-            txt = '[{0:02d}:{1:02d}:{2:02d}] YJ KOSPI 예상시가 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, float(tickdata['예상지수']))
-            self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            #txt = '[{0:02d}:{1:02d}:{2:02d}] YJ KOSPI 예상시가 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, tickdata['예상지수'])
+            #self.dialog['선물옵션전광판'].textBrowser.append(txt)
+
+            if tickdata['예상전일대비구분'] == '5':
+
+                jisu_txt = "KOSPI: {0} (-{1:.2f}, {2:0.1f}%)".format(tickdata['예상지수'], float(tickdata['예상전일비']), float(tickdata['예상등락율']))
+
+                self.dialog['선물옵션전광판'].label_kospi.setStyleSheet('background-color: black; color: cyan; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                self.dialog['선물옵션전광판'].label_kospi.setText(jisu_txt)
+
+            elif tickdata['예상전일대비구분'] == '2':
+
+                jisu_txt = "KOSPI: {0} ({1:.2f}, {2:0.1f}%)".format(tickdata['예상지수'], float(tickdata['예상전일비']), float(tickdata['예상등락율']))
+
+                self.dialog['선물옵션전광판'].label_kospi.setStyleSheet('background-color: black; color: magenta; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                self.dialog['선물옵션전광판'].label_kospi.setText(jisu_txt)
+            else:
+                pass
 
         elif tickdata['업종코드'] == KOSDAQ:
             
