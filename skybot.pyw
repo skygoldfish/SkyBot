@@ -34745,11 +34745,16 @@ class Xing(object):
                         pass
 
                     if self.clocktick and TARGET_MONTH == 'CM' and dt.second % 10 == 0:
+
                         if flag_cm_call_low_in_fixed_coreval or flag_cm_call_high_in_fixed_coreval or flag_cm_put_low_in_fixed_coreval or flag_cm_put_high_in_fixed_coreval:
                              winsound.PlaySound('Resources/notify.wav', winsound.SND_FILENAME)
                         else:
-                            pass                   
-                    elif self.clocktick and TARGET_MONTH == 'NM' and dt.second % 10 == 0:
+                            pass
+                    else:
+                        pass
+
+                    if self.clocktick and TARGET_MONTH == 'NM' and dt.second % 10 == 0:
+                        
                         if flag_nm_call_low_in_fixed_coreval or flag_nm_call_high_in_fixed_coreval or flag_nm_put_low_in_fixed_coreval or flag_nm_put_high_in_fixed_coreval:
                              winsound.PlaySound('Resources/ring.wav', winsound.SND_FILENAME)
                         else:
