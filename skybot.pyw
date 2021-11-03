@@ -34753,8 +34753,8 @@ class Xing(object):
                     else:
                         pass
 
-                    if self.clocktick and TARGET_MONTH == 'NM' and dt.second % 10 == 0:
-                        
+                    if not self.clocktick and TARGET_MONTH == 'NM' and dt.second % 10 == 0:
+
                         if flag_nm_call_low_in_fixed_coreval or flag_nm_call_high_in_fixed_coreval or flag_nm_put_low_in_fixed_coreval or flag_nm_put_high_in_fixed_coreval:
                              winsound.PlaySound('Resources/ring.wav', winsound.SND_FILENAME)
                         else:
@@ -38763,13 +38763,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
             df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비
         else:
-            if 콜잔량비 > 5.0:
-                df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
+            if 콜잔량비 > 10.0:
+                df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 10.0
             else:
                 df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
 
-            if 풋잔량비 > 5.0:
-                df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
+            if 풋잔량비 > 10.0:
+                df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 10.0
             else:
                 df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비
 
