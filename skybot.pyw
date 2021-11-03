@@ -11798,6 +11798,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_fut.item(0, Futures_column.시가갭.value).setForeground(QBrush(흰색))
                 else:
                     self.tableWidget_fut.item(0, Futures_column.시가갭.value).setBackground(QBrush(흰색))
+                    self.tableWidget_fut.item(0, Futures_column.시가갭.value).setForeground(QBrush(검정색))
             else:
 
                 if 선물_시가 > 선물_종가:
@@ -11807,7 +11808,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_fut.item(1, Futures_column.시가갭.value).setBackground(QBrush(풋기준가색))
                     self.tableWidget_fut.item(1, Futures_column.시가갭.value).setForeground(QBrush(흰색))
                 else:
-                    self.tableWidget_fut.item(1, Futures_column.시가갭.value).setBackground(QBrush(흰색))   
+                    self.tableWidget_fut.item(1, Futures_column.시가갭.value).setBackground(QBrush(흰색))
+                    self.tableWidget_fut.item(1, Futures_column.시가갭.value).setForeground(QBrush(검정색))   
         else:
             pass        
         
@@ -11863,7 +11865,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setBackground(QBrush(풋기준가색))
                     item.setForeground(QBrush(흰색))
                 else:
-                    item.setBackground(QBrush(흰색))  
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색)) 
 
                 self.tableWidget_fut.setItem(0, Futures_column.시가갭.value, item)
                 
@@ -35448,6 +35451,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         self.statusbar.setStyleSheet("color : darkgreen")
 
                 self.statusbar.showMessage(txt)
+                #self.dialog['선물옵션전광판'].statusbar.showMessage(txt)
 
                 if time_gap_abs >= view_time_tolerance:
                     self.label_1st.setStyleSheet("background-color: yellow; color: red; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
@@ -36796,10 +36800,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         elif tickdata['업종코드'] == KOSPI:
 
-            # YFC로 선물 예상지수 내려옴, 여기로 안옴... --> KOSPI 예상지수로 대체
-            #txt = '[{0:02d}:{1:02d}:{2:02d}] YJ KOSPI 예상시가 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, tickdata['예상지수'])
-            #self.dialog['선물옵션전광판'].textBrowser.append(txt)
-
             if tickdata['예상전일대비구분'] == '5':
 
                 jisu_txt = "KOSPI: {0} (-{1:.2f}, {2:0.1f}%)".format(tickdata['예상지수'], float(tickdata['예상전일비']), float(tickdata['예상등락율']))
@@ -36818,8 +36818,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         elif tickdata['업종코드'] == KOSDAQ:
             
-            txt = '[{0:02d}:{1:02d}:{2:02d}] YJ KOSDAQ 예상시가 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, float(tickdata['예상지수']))
-            self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            # KOSDAQ 예상시가는 안내려옴
+            #txt = '[{0:02d}:{1:02d}:{2:02d}] YJ KOSDAQ 예상시가 = {3}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, float(tickdata['예상지수']))
+            #self.dialog['선물옵션전광판'].textBrowser.append(txt)
+            pass
         else:
             pass
 
