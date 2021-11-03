@@ -5685,7 +5685,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass              
 
-                    file = open('inernet_error.log', 'w')
+                    file = open('inernet_error.log', 'w', encoding='UTF-8')
                     text = self.textBrowser.toPlainText()
                     file.write(text)
                     file.close()
@@ -5716,7 +5716,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.capture_screenshot()              
 
-                    file = open('sc_error.log', 'w')
+                    file = open('sc_error.log', 'w', encoding='UTF-8')
                     text = self.textBrowser.toPlainText()
                     file.write(text)
                     file.close()
@@ -6106,7 +6106,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             print(txt)
 
                             # 야간장의 주요정보를 저장
-                            with open('nighttime.txt', mode='w') as nighttime_file:
+                            with open('nighttime.txt', mode='w', encoding='UTF-8') as nighttime_file:
 
                                 now = time.localtime()
 
@@ -6229,7 +6229,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
                                 self.textBrowser.append(txt)
 
-                                file = open('lastnight.log', 'w')
+                                file = open('lastnight.log', 'w', encoding='UTF-8')
                                 text = self.textBrowser.toPlainText()
                                 file.write(text)
                                 file.close()
@@ -6303,7 +6303,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(ntp_server_hour, ntp_server_minute, ntp_server_second)
                                 self.textBrowser.append(txt)
 
-                                file = open('today.log', 'w')
+                                file = open('today.log', 'w', encoding='UTF-8')
                                 text = self.textBrowser.toPlainText()
                                 file.write(text)
                                 file.close()
@@ -14861,9 +14861,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
 
             if NightTime:
-                file = open('lastnight.log', 'w')
+                file = open('lastnight.log', 'w', encoding='UTF-8')
             else:
-                file = open('today.log', 'w')
+                file = open('today.log', 'w', encoding='UTF-8')
 
             text = self.textBrowser.toPlainText()
             file.write(text)
