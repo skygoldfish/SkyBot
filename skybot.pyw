@@ -123,6 +123,7 @@ Celltrion = '068270'
 MOBIS = '012330'
 NAVER = '035420'
 
+SAMOFUND = "0000"
 STOCK = "0001"
 BOHEOM = "0002"
 TOOSIN = "0003"
@@ -131,8 +132,12 @@ JONGGEUM = "0005"
 GIGEUM = "0006"
 GITA = "0007"
 RETAIL = "0008"
+FOREIGN1 = "0009"
+FOREIGN2 = "0010"
+NATION = "0011"
 FOREIGNER = "0017"
 INSTITUTIONAL = "0018"
+NONAME = "9999"
 
 flag_internet_connection_broken = False
 flag_service_provider_broken = False
@@ -36122,17 +36127,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             elif szTrCode == 'BM_':
 
-                if tickdata['거래대금순매수'] != '-' and tickdata['거래대금순매수직전대비'] != '-':
-                    self.bm_update(tickdata)
-                else:
-                    pass
+                self.bm_update(tickdata)
 
             elif szTrCode == 'PM_':
 
-                if tickdata['전체순매수금액합계'] != '-' and tickdata['전체순매수금액직전대비'] != '-':
-                    self.pm_update(tickdata)
-                else:
-                    pass
+                self.pm_update(tickdata)
 
             elif szTrCode == 'FC0' or szTrCode == 'NC0':
                 self.fc0_update(tickdata)
@@ -36321,17 +36320,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.ij_update(data)
             elif szTrCode == 'BM_':
 
-                if data['거래대금순매수'] != '-' and data['거래대금순매수직전대비'] != '-':
-                    self.bm_update(data)
-                else:
-                    pass
+                self.bm_update(data)
 
             elif szTrCode == 'PM_':
 
-                if data['전체순매수금액합계'] != '-' and data['전체순매수금액직전대비'] != '-':
-                    self.pm_update(data)
-                else:
-                    pass
+                self.pm_update(data)
 
             elif szTrCode == 'FC0' or szTrCode == 'NC0':
                 self.fc0_update(data)
@@ -37593,8 +37586,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global FUT_FOREIGNER_직전대비, FUT_RETAIL_직전대비, FUT_INSTITUTIONAL_직전대비, KOSPI_FOREIGNER_직전대비, PROGRAM_직전대비
         global 선물_총순매수, 선물_총순매수_직전대비, 현물_총순매수, 현물_총순매수_직전대비
 
-        거래대금순매수 = int(tickdata['거래대금순매수'])
-        거래대금순매수직전대비 = int(tickdata['거래대금순매수직전대비'])
+
+        매수거래대금 = int(tickdata['매수거래대금'])
+        매도거래대금 = int(tickdata['매도거래대금'])
+
+        #거래대금순매수 = int(tickdata['거래대금순매수'])
+        거래대금순매수 = 매수거래대금 - 매도거래대금
+
+        if tickdata['거래대금순매수직전대비'] == '-':
+            거래대금순매수직전대비 = 0
+        else:
+            거래대금순매수직전대비 = int(tickdata['거래대금순매수직전대비'])
 
         if (tickdata['업종코드'] == FUTURES and tickdata['투자자코드'] == FOREIGNER) or (tickdata['업종코드'] == CME and tickdata['투자자코드'] == FOREIGNER):
 
@@ -37918,8 +37920,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         dt = datetime.now()
         
-        프로그램_순매수 = int(int(tickdata['전체순매수금액합계']) / 100)
-        프로그램_순매수직전대비 = int(int(tickdata['전체순매수금액직전대비']) / 100)
+        if tickdata['전체순매수금액합계'] == '-':
+            프로그램_순매수 = 0
+        else:
+            프로그램_순매수 = int(int(tickdata['전체순매수금액합계']) / 100)
+
+        if tickdata['전체순매수금액직전대비'] == '-':
+            프로그램_순매수직전대비 = 0
+        else:
+            프로그램_순매수직전대비 = int(int(tickdata['전체순매수금액직전대비']) / 100)
         
         선물_총순매수 = 외인선물_순매수 + 개인선물_순매수 + 기관선물_순매수
         현물_총순매수 = 외인현물_순매수 + 개인현물_순매수 + 기관현물_순매수
