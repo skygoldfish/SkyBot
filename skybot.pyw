@@ -34611,7 +34611,7 @@ class Xing(object):
                     else:
                         report_interval = 10
 
-                    if not self.clocktick and TARGET_MONTH == 'CM' and dt.minute % report_interval == 0 and dt.second == 0:
+                    if self.clocktick and TARGET_MONTH == 'CM' and dt.minute % report_interval == 0 and dt.second == 0:
 
                         if flag_call_strong:
                             if DayTime:
@@ -34659,42 +34659,42 @@ class Xing(object):
                     else:
                         pass
 
-                    if not self.clocktick and TARGET_MONTH == 'CM' and dt.hour == 9 and dt.minute == 30 and dt.second == 5:
+                    if self.clocktick and TARGET_MONTH == 'CM' and dt.hour == 9 and dt.minute == 30 and dt.second == 5:
                         send_txt = "[{0:02d}:{1:02d}:{2:02d}] � Rx Packet Size : {3} KByte\r".format(dt.hour, dt.minute, dt.second, int(total_packet_size/1000))
                         self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                         ToYourTelegram(send_txt)
                     else:
                         pass
 
-                    if not self.clocktick and TARGET_MONTH == 'CM' and dt.hour == 10 and dt.minute == 0 and dt.second == 5:
+                    if self.clocktick and TARGET_MONTH == 'CM' and dt.hour == 10 and dt.minute == 0 and dt.second == 5:
                         send_txt = "[{0:02d}:{1:02d}:{2:02d}] � Rx Packet Size : {3} KByte\r".format(dt.hour, dt.minute, dt.second, int(total_packet_size/1000))
                         self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                         ToYourTelegram(send_txt)
                     else:
                         pass
 
-                    if not self.clocktick and TARGET_MONTH == 'CM' and dt.hour == 10 and dt.minute == 30 and dt.second == 5:
+                    if self.clocktick and TARGET_MONTH == 'CM' and dt.hour == 10 and dt.minute == 30 and dt.second == 5:
                         send_txt = "[{0:02d}:{1:02d}:{2:02d}] � Rx Packet Size : {3} KByte\r".format(dt.hour, dt.minute, dt.second, int(total_packet_size/1000))
                         self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                         ToYourTelegram(send_txt)
                     else:
                         pass
 
-                    if not self.clocktick and TARGET_MONTH == 'CM' and dt.hour == 11 and dt.minute == 0 and dt.second == 5:
+                    if self.clocktick and TARGET_MONTH == 'CM' and dt.hour == 11 and dt.minute == 0 and dt.second == 5:
                         send_txt = "[{0:02d}:{1:02d}:{2:02d}] � Rx Packet Size : {3} KByte\r".format(dt.hour, dt.minute, dt.second, int(total_packet_size/1000))
                         self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                         ToYourTelegram(send_txt)
                     else:
                         pass
 
-                    if not self.clocktick and TARGET_MONTH == 'CM' and dt.hour == 11 and dt.minute == 30 and dt.second == 5:
+                    if self.clocktick and TARGET_MONTH == 'CM' and dt.hour == 11 and dt.minute == 30 and dt.second == 5:
                         send_txt = "[{0:02d}:{1:02d}:{2:02d}] � Rx Packet Size : {3} KByte\r".format(dt.hour, dt.minute, dt.second, int(total_packet_size/1000))
                         self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                         ToYourTelegram(send_txt)
                     else:
                         pass
 
-                    if not self.clocktick and TARGET_MONTH == 'CM' and dt.hour == 12 and dt.minute == 0 and dt.second == 5:
+                    if self.clocktick and TARGET_MONTH == 'CM' and dt.hour == 12 and dt.minute == 0 and dt.second == 5:
                         send_txt = "[{0:02d}:{1:02d}:{2:02d}] � Rx Packet Size : {3} KByte\r".format(dt.hour, dt.minute, dt.second, int(total_packet_size/1000))
                         self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                         ToYourTelegram(send_txt)
