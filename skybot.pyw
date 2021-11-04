@@ -34606,13 +34606,6 @@ class Xing(object):
                 
                 if flag_score_board_start:
 
-                    if DayTime:
-                        if flag_2nd_process_queue_empty:
-                            self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
-                    else:
-                        if flag_4th_process_queue_empty:
-                            self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
-
                     if dt.hour == KSE_START_HOUR:
                         report_interval = 5
                     else:
@@ -34761,6 +34754,13 @@ class Xing(object):
                             pass
                     else:
                         pass
+                    
+                    if DayTime:
+                        if flag_2nd_process_queue_empty:
+                            self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
+                    else:
+                        if flag_4th_process_queue_empty:
+                            self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
                 else:
                     pass
 
