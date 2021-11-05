@@ -86,6 +86,8 @@ from Utils import *
        
 #from xing_tick_writer import * 
 
+sys.setrecursionlimit(10000)
+
 # 4k 해상도 대응
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True) #use highdpi icons
@@ -3433,17 +3435,16 @@ class PlotUpdateWorker1(QThread):
 
         global flag_plot_update_interval_changed
 
-        while True:
-
-            #if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
-            if True:
-                self.trigger.emit()
+        while True:            
 
             if flag_plot_update_interval_changed:
                 print('chart_update_interval changed...')
                 flag_plot_update_interval_changed = False
             else:
                 pass
+
+            if not flag_screen_update_is_running:
+                self.trigger.emit()
 
             QTest.qWait(chart_update_interval)
 
@@ -3460,8 +3461,7 @@ class PlotUpdateWorker2(QThread):
 
         while True:
 
-            #if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
-            if True:
+            if not flag_screen_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(chart_update_interval)
@@ -3479,8 +3479,7 @@ class PlotUpdateWorker3(QThread):
 
         while True:
 
-            #if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
-            if True:
+            if not flag_screen_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(chart_update_interval)
@@ -3498,8 +3497,7 @@ class PlotUpdateWorker4(QThread):
 
         while True:
 
-            #if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
-            if True:
+            if not flag_screen_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(chart_update_interval)
@@ -3517,8 +3515,7 @@ class PlotUpdateWorker5(QThread):
 
         while True:
 
-            #if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
-            if True:
+            if not flag_screen_update_is_running:
                 self.trigger.emit()
 
             QTest.qWait(chart_update_interval)
@@ -3536,8 +3533,7 @@ class PlotUpdateWorker6(QThread):
 
         while True:
 
-            #if not flag_screen_update_is_running and not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_option_quote_update_is_running and not flag_ovc_update_is_running:
-            if True:
+            if not flag_screen_update_is_running:
                 self.trigger.emit()
                         
             QTest.qWait(chart_update_interval)
@@ -34761,12 +34757,10 @@ class Xing(object):
                         pass
                     
                     if DayTime:
-                        #if flag_2nd_process_queue_empty:
-                        if True:
+                        if not flag_screen_update_is_running:
                             self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
                     else:
-                        #if flag_4th_process_queue_empty:
-                        if True:
+                        if not flag_screen_update_is_running:
                             self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
                 else:
                     pass
