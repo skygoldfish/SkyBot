@@ -35395,59 +35395,62 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         if szTrCode != 'JIF':            
 
-            if szTrCode == 'BM_' or szTrCode == 'PM_' or szTrCode == 'NWS':
-                pass
+            if len(tickdata['system_time']) == 5:
+                systime = int(tickdata['system_time'][0:1]) * 3600 + int(tickdata['system_time'][1:3]) * 60 + int(tickdata['system_time'][3:5])
             else:
-                if len(tickdata['system_time']) == 5:
-                    systime = int(tickdata['system_time'][0:1]) * 3600 + int(tickdata['system_time'][1:3]) * 60 + int(tickdata['system_time'][3:5])
+                systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])
+            
+            if len(tickdata['수신시간']) == 5:
+                realtime_hour = int(tickdata['수신시간'][0:1])
+                realtime_min = int(tickdata['수신시간'][1:3])
+                realtime_sec = int(tickdata['수신시간'][3:5])
+            else:
+                realtime_hour = int(tickdata['수신시간'][0:2])
+                realtime_min = int(tickdata['수신시간'][2:4])
+                realtime_sec = int(tickdata['수신시간'][4:6])
+
+            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+            time_gap = systime - system_server_time_gap - realtime
+            time_gap_abs = abs((systime - system_server_time_gap) - realtime)
+
+            if FUTURES_REQUEST:
+                first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize = self.realtime_futures_dataworker.get_packet_info()
+
+            if OPTION_TICK_REQUEST:   
+                second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, option_tick_total_size = self.realtime_option_tick_dataworker.get_packet_info()
+
+            if OPTION_QUOTE_REQUEST:    
+                third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize = self.realtime_option_quote_dataworker.get_packet_info()
+
+            if OVC_REQUEST:    
+                fourth_dropcount, fourth_sys_dropcount, fourth_qsize, fourth_totalcount, ovc_tick_total_size = self.realtime_ovc_dataworker.get_packet_info()
+
+            total_dropcount = first_dropcount + second_dropcount + third_dropcount + fourth_dropcount
+            total_sys_dropcount = first_sys_dropcount + second_sys_dropcount + third_sys_dropcount + fourth_sys_dropcount
+            total_waiting_count = first_qsize + second_qsize + third_qsize + fourth_qsize
+            totalcount = first_totalcount + second_totalcount + third_totalcount + fourth_totalcount
+            total_packet_size = first_totalsize + option_tick_total_size + third_totalsize + ovc_tick_total_size
+
+            if totalcount > 0:
+                drop_percent = (total_dropcount / totalcount) * 100
+            else:
+                pass
+
+            if DayTime:
+                drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(option_tick_total_size/1000), ','), drop_percent)
+            else:
+                drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(ovc_tick_total_size/1000), ','), drop_percent)
+
+            txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
+                dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt)
+
+            if szTrCode == 'NWS' or szTrCode == 'BM_':
+                if DARK_STYLESHEET:
+                    self.statusbar.setStyleSheet("color : lawngreen")
                 else:
-                    systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])
-                
-                if len(tickdata['수신시간']) == 5:
-                    realtime_hour = int(tickdata['수신시간'][0:1])
-                    realtime_min = int(tickdata['수신시간'][1:3])
-                    realtime_sec = int(tickdata['수신시간'][3:5])
-                else:
-                    realtime_hour = int(tickdata['수신시간'][0:2])
-                    realtime_min = int(tickdata['수신시간'][2:4])
-                    realtime_sec = int(tickdata['수신시간'][4:6])
-
-                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                time_gap = systime - system_server_time_gap - realtime
-                time_gap_abs = abs((systime - system_server_time_gap) - realtime)
-
-                if FUTURES_REQUEST:
-                    first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize = self.realtime_futures_dataworker.get_packet_info()
-
-                if OPTION_TICK_REQUEST:   
-                    second_dropcount, second_sys_dropcount, second_qsize, second_totalcount, option_tick_total_size = self.realtime_option_tick_dataworker.get_packet_info()
-
-                if OPTION_QUOTE_REQUEST:    
-                    third_dropcount, third_sys_dropcount, third_qsize, third_totalcount, third_totalsize = self.realtime_option_quote_dataworker.get_packet_info()
-
-                if OVC_REQUEST:    
-                    fourth_dropcount, fourth_sys_dropcount, fourth_qsize, fourth_totalcount, ovc_tick_total_size = self.realtime_ovc_dataworker.get_packet_info()
-
-                total_dropcount = first_dropcount + second_dropcount + third_dropcount + fourth_dropcount
-                total_sys_dropcount = first_sys_dropcount + second_sys_dropcount + third_sys_dropcount + fourth_sys_dropcount
-                total_waiting_count = first_qsize + second_qsize + third_qsize + fourth_qsize
-                totalcount = first_totalcount + second_totalcount + third_totalcount + fourth_totalcount
-                total_packet_size = first_totalsize + option_tick_total_size + third_totalsize + ovc_tick_total_size
-
-                if totalcount > 0:
-                    drop_percent = (total_dropcount / totalcount) * 100
-                else:
-                    pass
-
-                if DayTime:
-                    drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(option_tick_total_size/1000), ','), drop_percent)
-                else:
-                    drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(ovc_tick_total_size/1000), ','), drop_percent)
-
-                txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
-                    dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt)
-
+                    self.statusbar.setStyleSheet("color : darkgreen")
+            else:
                 if time_gap_abs >= view_time_tolerance:
                     self.statusbar.setStyleSheet("color : red")
                 else:
@@ -35456,9 +35459,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         self.statusbar.setStyleSheet("color : darkgreen")
 
-                self.statusbar.showMessage(txt)
-                #self.dialog['선물옵션전광판'].statusbar.showMessage(txt)
+            self.statusbar.showMessage(txt)
+            #self.dialog['선물옵션전광판'].statusbar.showMessage(txt)
 
+            if szTrCode == 'NWS' or szTrCode == 'BM_':
+                if flag_1st_process_queue_empty:
+                    self.label_1st.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                else:
+                    self.label_1st.setStyleSheet("background-color: black; color: lime; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+
+                txt = "{0}\n({1:.2f})".format(szTrCode, args_processing_time)
+            else:
                 if time_gap_abs >= view_time_tolerance:
                     self.label_1st.setStyleSheet("background-color: yellow; color: red; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
                     txt = "{0}\n({1})".format(szTrCode, time_gap_abs)
@@ -35470,10 +35481,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     txt = "{0}\n({1:.2f})".format(szTrCode, args_processing_time)
 
-                if DayTime:
-                    self.label_1st.setText(txt)
-                else:
-                    pass                
+            self.label_1st.setText(txt)                
         else:
             pass        
 
