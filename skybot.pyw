@@ -22563,7 +22563,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot1.addItem(self.plot1_vLine, ignoreBounds=True)
             self.plot1.addItem(self.plot1_hLine, ignoreBounds=True)
             self.plot1.setMouseTracking(True)
-            self.plot1.scene().sigMouseMoved.connect(self.plot1_mouseMoved)
+            #self.plot1.scene().sigMouseMoved.connect(self.plot1_mouseMoved)
+            self.plot1.scene().sigMouseClicked.connect(self.plot1_mouseClicked)
         else:
             pass
 
@@ -22647,7 +22648,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot2.addItem(self.plot2_vLine, ignoreBounds=True)
             self.plot2.addItem(self.plot2_hLine, ignoreBounds=True)
             self.plot2.setMouseTracking(True)
-            self.plot2.scene().sigMouseMoved.connect(self.plot2_mouseMoved)
+            #self.plot2.scene().sigMouseMoved.connect(self.plot2_mouseMoved)
+            self.plot2.scene().sigMouseClicked.connect(self.plot2_mouseClicked)
         else:
             pass 
 
@@ -22731,7 +22733,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot3.addItem(self.plot3_vLine, ignoreBounds=True)
             self.plot3.addItem(self.plot3_hLine, ignoreBounds=True)
             self.plot3.setMouseTracking(True)
-            self.plot3.scene().sigMouseMoved.connect(self.plot3_mouseMoved)
+            #self.plot3.scene().sigMouseMoved.connect(self.plot3_mouseMoved)
+            self.plot3.scene().sigMouseClicked.connect(self.plot3_mouseClicked)
         else:
             pass
 
@@ -22815,7 +22818,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot4.addItem(self.plot4_vLine, ignoreBounds=True)
             self.plot4.addItem(self.plot4_hLine, ignoreBounds=True)
             self.plot4.setMouseTracking(True)
-            self.plot4.scene().sigMouseMoved.connect(self.plot4_mouseMoved)
+            #self.plot4.scene().sigMouseMoved.connect(self.plot4_mouseMoved)
+            self.plot4.scene().sigMouseClicked.connect(self.plot4_mouseClicked)
         else:
             pass  
 
@@ -22899,7 +22903,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot5.addItem(self.plot5_vLine, ignoreBounds=True)
             self.plot5.addItem(self.plot5_hLine, ignoreBounds=True)
             self.plot5.setMouseTracking(True)
-            self.plot5.scene().sigMouseMoved.connect(self.plot5_mouseMoved)
+            #self.plot5.scene().sigMouseMoved.connect(self.plot5_mouseMoved)
+            self.plot5.scene().sigMouseClicked.connect(self.plot5_mouseClicked)
         else:
             pass 
 
@@ -22987,7 +22992,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot6.addItem(self.plot6_vLine, ignoreBounds=True)
             self.plot6.addItem(self.plot6_hLine, ignoreBounds=True)
             self.plot6.setMouseTracking(True)
-            self.plot6.scene().sigMouseMoved.connect(self.plot6_mouseMoved)
+            #self.plot6.scene().sigMouseMoved.connect(self.plot6_mouseMoved)
+            self.plot6.scene().sigMouseClicked.connect(self.plot6_mouseClicked)
         else:
             pass
 
@@ -23241,6 +23247,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass
 
+    def plot1_mouseClicked(self, evt):
+
+        if self.plot1.sceneBoundingRect().contains(evt._scenePos):
+
+            mousePoint = self.plot1.plotItem.vb.mapSceneToView(evt._scenePos)
+
+            plot_x = int(mousePoint.x())
+            plot_y = mousePoint.y()
+
+            self.plot1_vLine.setPos(mousePoint.x())
+            self.plot1_hLine.setPos(mousePoint.y())
+
+            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
+            self.label_p1_1.setText(txt)
+
     def plot2_mouseMoved(self, evt):
 
         global plot2_x, plot2_y
@@ -23333,6 +23354,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass                
         else:
             pass
+
+    def plot2_mouseClicked(self, evt):
+
+        if self.plot2.sceneBoundingRect().contains(evt._scenePos):
+
+            mousePoint = self.plot2.plotItem.vb.mapSceneToView(evt._scenePos)
+
+            plot_x = int(mousePoint.x())
+            plot_y = mousePoint.y()
+
+            self.plot2_vLine.setPos(mousePoint.x())
+            self.plot2_hLine.setPos(mousePoint.y())
+
+            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
+            self.label_p2_1.setText(txt)
 
     def plot3_mouseMoved(self, evt):
 
@@ -23427,6 +23463,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass
 
+    def plot3_mouseClicked(self, evt):
+
+        if self.plot3.sceneBoundingRect().contains(evt._scenePos):
+
+            mousePoint = self.plot3.plotItem.vb.mapSceneToView(evt._scenePos)
+
+            plot_x = int(mousePoint.x())
+            plot_y = mousePoint.y()
+
+            self.plot3_vLine.setPos(mousePoint.x())
+            self.plot3_hLine.setPos(mousePoint.y())
+
+            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
+            self.label_p3_1.setText(txt)
+
     def plot4_mouseMoved(self, evt):
         
         global plot4_x, plot4_y
@@ -23516,7 +23567,22 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
             
             else:
-                pass                    
+                pass
+
+    def plot4_mouseClicked(self, evt):
+
+        if self.plot4.sceneBoundingRect().contains(evt._scenePos):
+
+            mousePoint = self.plot4.plotItem.vb.mapSceneToView(evt._scenePos)
+
+            plot_x = int(mousePoint.x())
+            plot_y = mousePoint.y()
+
+            self.plot4_vLine.setPos(mousePoint.x())
+            self.plot4_hLine.setPos(mousePoint.y())
+
+            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
+            self.label_p4_1.setText(txt)                    
 
     def plot5_mouseMoved(self, evt):
 
@@ -23611,6 +23677,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass
 
+    def plot5_mouseClicked(self, evt):
+
+        if self.plot5.sceneBoundingRect().contains(evt._scenePos):
+
+            mousePoint = self.plot5.plotItem.vb.mapSceneToView(evt._scenePos)
+
+            plot_x = int(mousePoint.x())
+            plot_y = mousePoint.y()
+
+            self.plot5_vLine.setPos(mousePoint.x())
+            self.plot5_hLine.setPos(mousePoint.y())
+
+            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
+            self.label_p5_1.setText(txt)
+
     def plot6_mouseMoved(self, evt):
 
         global plot6_x, plot6_y
@@ -23704,29 +23785,20 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass
 
-    def plot1_mouseClicked(self, evt):
-        
-        self.label_p1_2.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p1_2.setText("X = %d, Y = %0.2f" % (plot1_x, plot1_y))
-
-    def plot2_mouseClicked(self, evt):
-        
-        self.label_p2_2.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p2_2.setText("X = %d, Y = %0.2f" % (plot2_x, plot2_y))
-
-    def plot3_mouseClicked(self, evt):
-
-        self.label_p3_2.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p3_2.setText("X = %d, Y = %0.2f" % (plot3_x, plot3_y))
-
-    def plot4_mouseClicked(self, evt):
-        pass
-
-    def plot5_mouseClicked(self, evt):
-        pass
-
     def plot6_mouseClicked(self, evt):
-        pass
+
+        if self.plot6.sceneBoundingRect().contains(evt._scenePos):
+
+            mousePoint = self.plot6.plotItem.vb.mapSceneToView(evt._scenePos)
+
+            plot_x = int(mousePoint.x())
+            plot_y = mousePoint.y()
+
+            self.plot6_vLine.setPos(mousePoint.x())
+            self.plot6_hLine.setPos(mousePoint.y())
+
+            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
+            self.label_p6_1.setText(txt)    
 
     def checkBox_plot1_bband_checkState(self):
 
