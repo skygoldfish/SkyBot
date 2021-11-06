@@ -653,7 +653,7 @@ else:
 
 if os.path.isfile('nighttime.txt'):
 
-    # 야간시장의 데이타를 가져옴
+    # 야간장의 데이타를 가져옴
     with open('nighttime.txt', mode='r') as nighttime_file:
 
         tmp = nighttime_file.readline().strip()
@@ -1886,7 +1886,7 @@ fut_mama_symbol = ''
 Fibonacci_Ratio = [0.382, 0.5, 0.618, 0.707, 0.786, 0.886]
 
 fut_quote_count_ratio = 0
-선물_본월물_호가_잔량비 = 0
+선물_근월물_호가_잔량비 = 0
 fut_cms_quote_count_ratio = 0
 선물_차월물_호가_잔량비 = 0
 fut_ccms_quote_count_ratio = 0
@@ -6361,7 +6361,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print(txt)
 
                 if TTS:
-                    self.parent.speaker.setText('본월물 하향 변동성 출현')
+                    self.parent.speaker.setText('근월물 하향 변동성 출현')
                 else:
                     pass                
                 
@@ -6372,7 +6372,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print(txt)
 
                 if TTS:
-                    self.parent.speaker.setText('본월물 상향 변동성 출현')
+                    self.parent.speaker.setText('근월물 상향 변동성 출현')
                 else:
                     pass                                
             else:
@@ -14786,7 +14786,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     t2301_month_info = CURRENT_MONTH
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 주간옵션 전광판 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 근월물({3}) 주간옵션 전광판 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
                 self.textBrowser.append(txt)
 
             elif TARGET_MONTH == 'NM':
@@ -16420,11 +16420,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_call_information_graph.at[0, 'volume'] = 0
                 df_put_information_graph.at[0, 'volume'] = 0
                 
-                # 본월물 옵션 호가잔량비 초기화(초기값을 1.0으로 해야 장중 최소값을 구할수 있다.)
+                # 근월물 옵션 호가잔량비 초기화(초기값을 1.0으로 해야 장중 최소값을 구할수 있다.)
                 df_call_information_graph.at[0, 'quote_remainder_ratio'] = 1.0
                 df_put_information_graph.at[0, 'quote_remainder_ratio'] = 1.0
 
-                # 본월물, 차월물 선물 호가잔량비 초기화
+                # 근월물, 차월물 선물 호가잔량비 초기화
                 df_futures_graph.at[0, 'c_quote_remainder_ratio'] = 1.0
                 df_futures_graph.at[0, 'n_quote_remainder_ratio'] = 1.0
 
@@ -16499,7 +16499,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print('flag_t2301_eventloop =', flag_t2301_eventloop)                       
 
                 if TARGET_MONTH == 'CM':
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 변동성지수 본월물 선물({3})을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, GMSHCODE)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] t8416 변동성지수 근월물 선물({3})을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, GMSHCODE)
                     self.textBrowser.append(txt)
                     #self.parent.textBrowser.append(txt)
                     print(txt)
@@ -16520,7 +16520,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.XQ_t2101.Query(fut_code)
                 
                 if fut_code == GMSHCODE:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 본월물 주간선물 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 근월물 주간선물 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 elif fut_code == CMSHCODE:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 차월물 주간선물 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 elif fut_code == CCMSHCODE:
@@ -16538,7 +16538,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 #self.XQ_t2801.Query(fut_code)
                 
                 if fut_code == GMSHCODE:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] t2801 본월물 야간선물 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] t2801 근월물 야간선물 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 elif fut_code == CMSHCODE:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] t2801 차월물 야간선물 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 elif fut_code == CCMSHCODE:
@@ -19835,7 +19835,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 t2835_month_info = CURRENT_MONTH
 
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] EUREX(t2835) 본월물 야간옵션 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] EUREX(t2835) 근월물 야간옵션 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(txt)
                             print(txt)
 
@@ -19954,28 +19954,28 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             szTrCode, df = result
 
-            근월물선물코드 = df.at[0, '단축코드']
-            차월물선물코드 = df.at[1, '단축코드']
-            차차월물선물코드 = df.at[2, '단축코드']
+            근월물_선물코드 = df.at[0, '단축코드']
+            차월물_선물코드 = df.at[1, '단축코드']
+            차차월물_선물코드 = df.at[2, '단축코드']
 
             if MANGI_YAGAN:
 
                 if current_month == 3 or current_month == 6 or current_month == 9 or current_month == 12:
-                    GMSHCODE = 차월물선물코드
-                    CMSHCODE = 차차월물선물코드
+                    GMSHCODE = 차월물_선물코드
+                    CMSHCODE = 차차월물_선물코드
                 else:
-                    GMSHCODE = 근월물선물코드
-                    CMSHCODE = 차월물선물코드
-                    CCMSHCODE = 차차월물선물코드
+                    GMSHCODE = 근월물_선물코드
+                    CMSHCODE = 차월물_선물코드
+                    CCMSHCODE = 차차월물_선물코드
             else:
-                GMSHCODE = 근월물선물코드
-                CMSHCODE = 차월물선물코드
-                CCMSHCODE = 차차월물선물코드
+                GMSHCODE = 근월물_선물코드
+                CMSHCODE = 차월물_선물코드
+                CCMSHCODE = 차차월물_선물코드
             
             if TARGET_MONTH == 'CM':
 
                 fut_code = GMSHCODE
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3:02d}월물, {4}) 선물 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, current_month, fut_code)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 근월물({3:02d}월물, {4}) 선물 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, current_month, fut_code)
                 self.textBrowser.append(txt)
                 print(txt)
                 
@@ -20148,7 +20148,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             print('df nm call = {0}\r'.format(df_nm_call))
             print('df nm put = {0}\r'.format(df_nm_put))
             '''
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 옵션갯수 = {4}\r'.format(dt.hour, dt.minute, dt.second, CM_OPTCODE, CM_OPT_LENGTH)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 근월물({3}) 옵션갯수 = {4}\r'.format(dt.hour, dt.minute, dt.second, CM_OPTCODE, CM_OPT_LENGTH)
             self.textBrowser.append(txt)
             print(txt)
 
@@ -20157,7 +20157,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             print(txt)
 
             if TTS:
-                txt = '본월물 옵션갯수는 콜 {0}개, 풋 {1}개, 차월물 옵션갯수는 콜 {2}개, 풋 {3}개 입니다.'.format(CM_OPT_LENGTH, CM_OPT_LENGTH, NM_OPT_LENGTH, NM_OPT_LENGTH)
+                txt = '근월물 옵션갯수는 콜 {0}개, 풋 {1}개, 차월물 옵션갯수는 콜 {2}개, 풋 {3}개 입니다.'.format(CM_OPT_LENGTH, CM_OPT_LENGTH, NM_OPT_LENGTH, NM_OPT_LENGTH)
                 self.parent.speaker.setText(txt)
             else:
                 pass
@@ -20302,12 +20302,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        # 실시간 본월물 선물 가격요청
+        # 실시간 근월물 선물 가격요청
         if CM_FUT_PRICE:
 
             if DayTime:
                 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 가격을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 근월물 선물 가격을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
                 print(txt)
 
@@ -20319,12 +20319,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        # 실시간 본월물 선물 호가요청
+        # 실시간 근월물 선물 호가요청
         if CM_FUT_QUOTE:            
 
             if DayTime:
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 호가를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 근월물 선물 호가를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
                 print(txt)
 
@@ -20336,15 +20336,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        # 실시간 본월물 옵션 가격요청
+        # 실시간 근월물 옵션 가격요청
         if CM_OPT_PRICE:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 근월물 옵션 가격을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
             print(txt)
 
             if DayTime and pre_start:
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 예상가격을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 근월물 옵션 예상가격을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
                 print(txt)
             else:
@@ -20367,12 +20367,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if CM_OPT_PRICE1:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격(내가 {3}개, 외가 {4}개)을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 근월물 옵션 가격(내가 {3}개, 외가 {4}개)을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
             self.textBrowser.append(txt)
             print(txt)
 
             if DayTime and pre_start:
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 예상가격(내가 {3}개, 외가 {4}개)을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 근월물 옵션 예상가격(내가 {3}개, 외가 {4}개)을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
                 self.textBrowser.append(txt)
                 print(txt)
             else:
@@ -20414,10 +20414,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        # 실시간 본월물 옵션 호가요청
+        # 실시간 근월물 옵션 호가요청
         if CM_OPT_QUOTE:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 근월물 옵션 호가를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
             print(txt)
 
@@ -20429,10 +20429,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        # 실시간 본월물 옵션 호가요청(등가근처 10개)
+        # 실시간 근월물 옵션 호가요청(등가근처 10개)
         if CM_OPT_QUOTE1:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가(내가 {3}개, 외가 {4}개)를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 근월물 옵션 호가(내가 {3}개, 외가 {4}개)를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
             self.textBrowser.append(txt)
             print(txt)
 
@@ -20883,10 +20883,10 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         '''
         if TARGET_MONTH == 'CM':
 
-            cm_price_all_txt = '본월물 옵션가격(전체)'
-            cm_price_part_txt = '본월물 옵션가격(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
-            cm_quote_all_txt = '본월물 옵션호가(전체)'
-            cm_quote_part_txt = '본월물 옵션호가(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
+            cm_price_all_txt = '근월물 옵션가격(전체)'
+            cm_price_part_txt = '근월물 옵션가격(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
+            cm_quote_all_txt = '근월물 옵션호가(전체)'
+            cm_quote_part_txt = '근월물 옵션호가(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
 
             nm_price_all_txt = '차월물 옵션가격(전체)'
             nm_price_part_txt = '차월물 옵션가격(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
@@ -20907,10 +20907,10 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         else:
             pass
         '''
-        cm_price_all_txt = '본월물 옵션가격(전체)'
-        cm_price_part_txt = '본월물 옵션가격(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
-        cm_quote_all_txt = '본월물 옵션호가(전체)'
-        cm_quote_part_txt = '본월물 옵션호가(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
+        cm_price_all_txt = '근월물 옵션가격(전체)'
+        cm_price_part_txt = '근월물 옵션가격(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
+        cm_quote_all_txt = '근월물 옵션호가(전체)'
+        cm_quote_part_txt = '근월물 옵션호가(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
 
         nm_price_all_txt = '차월물 옵션가격(전체)'
         nm_price_part_txt = '차월물 옵션가격(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
@@ -21026,8 +21026,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         if TARGET_MONTH == 'CM':
 
-            cm_price_part_txt = '본월물 옵션가격(C내가:{0}, C외가:{1})'.format(call_itm_number, call_otm_number)
-            cm_quote_part_txt = '본월물 옵션호가(C내가:{0}, C외가:{1})'.format(call_itm_number, call_otm_number)
+            cm_price_part_txt = '근월물 옵션가격(C내가:{0}, C외가:{1})'.format(call_itm_number, call_otm_number)
+            cm_quote_part_txt = '근월물 옵션호가(C내가:{0}, C외가:{1})'.format(call_itm_number, call_otm_number)
 
             nm_price_part_txt = '차월물 옵션가격(C내가:{0}, C외가:{1})'.format(call_itm_number, call_otm_number)
             nm_quote_part_txt = '차월물 옵션호가(C내가:{0}, C외가:{1})'.format(call_itm_number, call_otm_number)
@@ -21063,8 +21063,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         if TARGET_MONTH == 'CM':
 
-            cm_price_part_txt = '본월물 옵션가격(C내가:{0}, C외가:{1})'.format(call_itm_number, call_otm_number)
-            cm_quote_part_txt = '본월물 옵션호가(C내가:{0}, C외가:{1})'.format(call_itm_number, call_otm_number)
+            cm_price_part_txt = '근월물 옵션가격(C내가:{0}, C외가:{1})'.format(call_itm_number, call_otm_number)
+            cm_quote_part_txt = '근월물 옵션호가(C내가:{0}, C외가:{1})'.format(call_itm_number, call_otm_number)
 
             nm_price_part_txt = '차월물 옵션가격(C내가:{0}, C외가:{1})'.format(call_itm_number, call_otm_number)
             nm_quote_part_txt = '차월물 옵션호가(C내가:{0}, C외가:{1})'.format(call_itm_number, call_otm_number)
@@ -21100,8 +21100,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         if TARGET_MONTH == 'CM':
 
-            cm_price_part_txt = '본월물 옵션가격(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
-            cm_quote_part_txt = '본월물 옵션호가(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
+            cm_price_part_txt = '근월물 옵션가격(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
+            cm_quote_part_txt = '근월물 옵션호가(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
 
             nm_price_part_txt = '차월물 옵션가격(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
             nm_quote_part_txt = '차월물 옵션호가(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
@@ -21137,8 +21137,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         if TARGET_MONTH == 'CM':
 
-            cm_price_part_txt = '본월물 옵션가격(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
-            cm_quote_part_txt = '본월물 옵션호가(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
+            cm_price_part_txt = '근월물 옵션가격(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
+            cm_quote_part_txt = '근월물 옵션호가(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
 
             nm_price_part_txt = '차월물 옵션가격(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
             nm_quote_part_txt = '차월물 옵션호가(P내가:{0}, P외가:{1})'.format(put_itm_number, put_otm_number)
@@ -21211,7 +21211,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                 self.parent.realtime_thread_dataworker.RequestRealData(FUT_REAL, GMSHCODE)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 가격을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 근월물 선물 가격을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21222,7 +21222,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                 self.parent.realtime_thread_dataworker.CancelRealData(FUT_REAL, GMSHCODE)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 가격요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 근월물 선물 가격요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21241,7 +21241,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                 self.parent.realtime_thread_dataworker.RequestRealData(FUT_HO, GMSHCODE)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 호가를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 근월물 선물 호가를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21252,7 +21252,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                 self.parent.realtime_thread_dataworker.CancelRealData(FUT_HO, GMSHCODE)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 선물 호가요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 근월물 선물 호가요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21273,7 +21273,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                     self.parent.realtime_thread_dataworker.RequestRealData(OPT_REAL, CM_CALL_CODE[i])
                     self.parent.realtime_thread_dataworker.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 근월물 옵션 가격을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21284,7 +21284,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                 self.parent.realtime_thread_dataworker.CancelRealData(OPT_REAL)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격요청 전체를 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 근월물 옵션 가격요청 전체를 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21323,7 +21323,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                     else:
                         pass                
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격(내가 {3}개, 외가 {4}개)을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 근월물 옵션 가격(내가 {3}개, 외가 {4}개)을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21334,7 +21334,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                 self.parent.realtime_thread_dataworker.CancelRealData(OPT_REAL)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격요청(풋내가 {3}개, 풋외가 {4}개)을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 근월물 옵션 가격요청(풋내가 {3}개, 풋외가 {4}개)을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21355,7 +21355,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                     self.parent.realtime_thread_dataworker.RequestRealData(OPT_HO, CM_CALL_CODE[i])
                     self.parent.realtime_thread_dataworker.RequestRealData(OPT_HO, CM_PUT_CODE[i])
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 근월물 옵션 호가를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21366,7 +21366,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                 self.parent.realtime_thread_dataworker.CancelRealData(OPT_HO)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가요청 전체를 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 근월물 옵션 호가요청 전체를 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21405,7 +21405,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                     else:
                         pass                
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가(내가 {3}개, 외가 {4}개)를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 근월물 옵션 호가(내가 {3}개, 외가 {4}개)를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21416,7 +21416,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                 self.parent.realtime_thread_dataworker.CancelRealData(OPT_HO)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 호가요청(풋내가 {3}개, 풋외가 {4}개)을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 근월물 옵션 호가요청(풋내가 {3}개, 풋외가 {4}개)을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21547,7 +21547,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                     else:
                         pass                
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격(내가 {3}개, 외가 {4}개)을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 근월물 옵션 가격(내가 {3}개, 외가 {4}개)을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -21558,7 +21558,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
                 self.parent.realtime_thread_dataworker.CancelRealData(OPT_REAL)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 본월물 옵션 가격요청(풋내가 {3}개, 풋외가 {4}개)을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 근월물 옵션 가격요청(풋내가 {3}개, 풋외가 {4}개)을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -24242,8 +24242,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_13.setText(" - ")
             self.label_14.setText(" - ")
             self.label_15.setText(" - ")
-            self.label_16.setText(" 본월물 최소, 평균, 최대 ")
-            self.label_17.setText(" 본월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
+            self.label_16.setText(" 근월물 최소, 평균, 최대 ")
+            self.label_17.setText(" 근월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
             self.label_18.setText(" 차월물 최소, 평균, 최대 ")
             
             self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -25018,8 +25018,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_23.setText(" - ")
             self.label_24.setText(" - ")
             self.label_25.setText(" - ")
-            self.label_26.setText(" 본월물 최소, 평균, 최대 ")
-            self.label_27.setText(" 본월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
+            self.label_26.setText(" 근월물 최소, 평균, 최대 ")
+            self.label_27.setText(" 근월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
             self.label_28.setText(" 차월물 최소, 평균, 최대 ")
             
             self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -25791,8 +25791,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_33.setText(" - ")
             self.label_34.setText(" - ")
             self.label_35.setText(" - ")
-            self.label_36.setText(" 본월물 최소, 평균, 최대 ")
-            self.label_37.setText(" 본월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
+            self.label_36.setText(" 근월물 최소, 평균, 최대 ")
+            self.label_37.setText(" 근월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
             self.label_38.setText(" 차월물 최소, 평균, 최대 ")
             
             self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -26565,8 +26565,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_43.setText(" - ")
             self.label_44.setText(" - ")
             self.label_45.setText(" - ")
-            self.label_46.setText(" 본월물 최소, 평균, 최대 ")
-            self.label_47.setText(" 본월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
+            self.label_46.setText(" 근월물 최소, 평균, 최대 ")
+            self.label_47.setText(" 근월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
             self.label_48.setText(" 차월물 최소, 평균, 최대 ")
             
             self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -27322,8 +27322,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_53.setText(" - ")
             self.label_54.setText(" - ")
             self.label_55.setText(" - ")
-            self.label_56.setText(" 본월물 최소, 평균, 최대 ")
-            self.label_57.setText(" 본월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
+            self.label_56.setText(" 근월물 최소, 평균, 최대 ")
+            self.label_57.setText(" 근월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
             self.label_58.setText(" 차월물 최소, 평균, 최대 ")
             
             self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -28098,8 +28098,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_63.setText(" - ")
             self.label_64.setText(" - ")
             self.label_65.setText(" - ")
-            self.label_66.setText(" 본월물 최소, 평균, 최대 ")
-            self.label_67.setText(" 본월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
+            self.label_66.setText(" 근월물 최소, 평균, 최대 ")
+            self.label_67.setText(" 근월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
             self.label_68.setText(" 차월물 최소, 평균, 최대 ")
             
             self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -29102,7 +29102,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_16.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    선물_본월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
+                    선물_근월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
                     선물_차월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
                     fut_ccms_quote_remainder_ratio)
 
@@ -30050,7 +30050,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_26.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    선물_본월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
+                    선물_근월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
                     선물_차월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
                     fut_ccms_quote_remainder_ratio)
 
@@ -30981,7 +30981,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_36.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    선물_본월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
+                    선물_근월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
                     선물_차월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
                     fut_ccms_quote_remainder_ratio)
 
@@ -31905,7 +31905,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_46.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    선물_본월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
+                    선물_근월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
                     선물_차월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
                     fut_ccms_quote_remainder_ratio)
 
@@ -32815,7 +32815,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_56.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    선물_본월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
+                    선물_근월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
                     선물_차월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
                     fut_ccms_quote_remainder_ratio)
 
@@ -33740,7 +33740,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_66.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    선물_본월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
+                    선물_근월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
                     선물_차월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
                     fut_ccms_quote_remainder_ratio)
 
@@ -34863,7 +34863,7 @@ class Xing(object):
         if TARGET_MONTH == 'NM':
             month_txt = '차월물'
         else:
-            month_txt = '본월물'
+            month_txt = '근월물'
 
         if REAL_SERVER:
             txt = '{0} 실서버에 접속합니다.\r'.format(month_txt)
@@ -35325,27 +35325,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             df = trdata[1]
 
-            근월물선물코드 = df.at[0, '단축코드']
-            차월물선물코드 = df.at[1, '단축코드']
-            차차월물선물코드 = df.at[2, '단축코드']
+            근월물_선물코드 = df.at[0, '단축코드']
+            차월물_선물코드 = df.at[1, '단축코드']
+            차차월물_선물코드 = df.at[2, '단축코드']
 
-            print('근월물선물코드 =', 근월물선물코드)
-            print('차월물선물코드 =', 차월물선물코드)
-            print('차차월물선물코드 =', 차차월물선물코드)
+            print('근월물 선물코드 =', 근월물_선물코드)
+            print('차월물 선물코드 =', 차월물_선물코드)
+            print('차차월물 선물코드 =', 차차월물_선물코드)
 
             if MANGI_YAGAN:
 
                 if current_month == 3 or current_month == 6 or current_month == 9 or current_month == 12:
-                    GMSHCODE = 차월물선물코드
-                    CMSHCODE = 차차월물선물코드
+                    GMSHCODE = 차월물_선물코드
+                    CMSHCODE = 차차월물_선물코드
                 else:
-                    GMSHCODE = 근월물선물코드
-                    CMSHCODE = 차월물선물코드
-                    CCMSHCODE = 차차월물선물코드
+                    GMSHCODE = 근월물_선물코드
+                    CMSHCODE = 차월물_선물코드
+                    CCMSHCODE = 차차월물_선물코드
             else:
-                GMSHCODE = 근월물선물코드
-                CMSHCODE = 차월물선물코드
-                CCMSHCODE = 차차월물선물코드
+                GMSHCODE = 근월물_선물코드
+                CMSHCODE = 차월물_선물코드
+                CCMSHCODE = 차차월물_선물코드
             
             if TARGET_MONTH == 'CM':
 
@@ -38283,7 +38283,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        # 등락율은 본월물 기준으로 계산
+        # 등락율은 근월물 기준으로 계산
         if tickdata['단축코드'] == GMSHCODE:
 
            # 그래프관련 처리 먼저...                    
@@ -38318,7 +38318,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def fh0_update(self, tickdata):
 
         global market_service, 선물_호가순매수
-        global df_futures_graph, fut_quote_count_ratio, 선물_본월물_호가_잔량비, cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max
+        global df_futures_graph, fut_quote_count_ratio, 선물_근월물_호가_잔량비, cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max
         global fut_cms_quote_count_ratio, 선물_차월물_호가_잔량비, nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max
         global fut_ccms_quote_count_ratio, fut_ccms_quote_remainder_ratio, fut_quote_energy_direction
         global quote_count_ratio, quote_remainder_ratio
@@ -38343,8 +38343,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if int(tickdata['매수호가총수량']) > 0 and int(tickdata['매도호가총수량']) > 0:
 
-                선물_본월물_호가_잔량비 = int(tickdata['매수호가총수량']) / int(tickdata['매도호가총수량'])
-                df_futures_graph.at[ovc_x_idx, 'c_quote_remainder_ratio'] = 선물_본월물_호가_잔량비
+                선물_근월물_호가_잔량비 = int(tickdata['매수호가총수량']) / int(tickdata['매도호가총수량'])
+                df_futures_graph.at[ovc_x_idx, 'c_quote_remainder_ratio'] = 선물_근월물_호가_잔량비
 
                 cm_fut_quote_min = df_futures_graph['c_quote_remainder_ratio'].min()
                 cm_fut_quote_mean = df_futures_graph['c_quote_remainder_ratio'].mean()
@@ -38518,7 +38518,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 에너지방향
         if DayTime and CM_FUT_QUOTE and NM_FUT_QUOTE:
 
-            if 선물_차월물_호가_잔량비 > 선물_본월물_호가_잔량비:
+            if 선물_차월물_호가_잔량비 > 선물_근월물_호가_잔량비:
 
                 fut_quote_energy_direction = 'call'
 
@@ -38529,7 +38529,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.dialog['선물옵션전광판'].tableWidget_fut.item(1, 0).setBackground(QBrush(적색))
                     self.dialog['선물옵션전광판'].tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
 
-            elif 선물_차월물_호가_잔량비 < 선물_본월물_호가_잔량비:
+            elif 선물_차월물_호가_잔량비 < 선물_근월물_호가_잔량비:
 
                 fut_quote_energy_direction = 'put'
 
@@ -38562,7 +38562,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnToContents(Futures_column.건수비.value)
 
         # 잔량비 표시
-        item = QTableWidgetItem("{0:.2f}\n({1:.2f})".format(선물_본월물_호가_잔량비, 선물_차월물_호가_잔량비))                
+        item = QTableWidgetItem("{0:.2f}\n({1:.2f})".format(선물_근월물_호가_잔량비, 선물_차월물_호가_잔량비))                
         item.setTextAlignment(Qt.AlignCenter)
 
         if NightTime:
@@ -38574,7 +38574,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         if TARGET_MONTH == 'CM':
             quote_count_ratio = fut_quote_count_ratio
-            quote_remainder_ratio = 선물_본월물_호가_잔량비
+            quote_remainder_ratio = 선물_근월물_호가_잔량비
         elif TARGET_MONTH == 'NM':
             quote_count_ratio = fut_cms_quote_count_ratio
             quote_remainder_ratio = 선물_차월물_호가_잔량비
@@ -38648,7 +38648,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             콜_현재가 = float(tickdata['현재가'])
             df_call_graph[index].at[ovc_x_idx, 'price'] = 콜_현재가
 
-            # 등락율 갱신, 본월물 기준으로 계산
+            # 등락율 갱신, 근월물 기준으로 계산
             if DayTime and index == ATM_INDEX:
                 콜_등가_등락율 = float(tickdata['등락율'])
                 #df_call_information_graph.at[ovc_x_idx, 'drate'] = 콜_등가_등락율
@@ -38711,7 +38711,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             풋_현재가 = float(tickdata['현재가'])
             df_put_graph[index].at[ovc_x_idx, 'price'] = 풋_현재가
 
-            # 등락율 갱신, 본월물 기준으로 계산
+            # 등락율 갱신, 근월물 기준으로 계산
             if DayTime and index == ATM_INDEX:
                 풋_등가_등락율 = float(tickdata['등락율'])
                 #df_put_information_graph.at[ovc_x_idx, 'drate'] = 풋_등가_등락율
@@ -40405,7 +40405,7 @@ if __name__ == "__main__":
                     INDEX_OPTION_CM_TICK = False
                     INDEX_OPTION_NM_TICK = True               
                 else:                
-                    INDEX_OPTION_CM_TICK = True       # 지수옵션 본월물 전종목 체결
+                    INDEX_OPTION_CM_TICK = True       # 지수옵션 근월물 전종목 체결
                     INDEX_OPTION_NM_TICK = False      # 지수옵션 차월물 전종목 체결              
                 
             elif TARGET_MONTH == 'NM':
@@ -40431,7 +40431,7 @@ if __name__ == "__main__":
                     INDEX_OPTION_CM_QUOTE = False
                     INDEX_OPTION_NM_QUOTE = True                
                 else:
-                    INDEX_OPTION_CM_QUOTE = True      # 지수옵션 본월물 전종목 호가
+                    INDEX_OPTION_CM_QUOTE = True      # 지수옵션 근월물 전종목 호가
                     INDEX_OPTION_NM_QUOTE = False     # 지수옵션 차월물 전종목 호가                
                 
             elif TARGET_MONTH == 'NM':
@@ -40455,7 +40455,7 @@ if __name__ == "__main__":
     
     # TTS test...
     if TTS:
-        #Speak('본월물 하향 변동성 출현')
+        #Speak('근월물 하향 변동성 출현')
         '''
         text ="Welcome to SkyBot"
         tts = gTTS(text=text, lang='en')
