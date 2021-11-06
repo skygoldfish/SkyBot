@@ -12346,10 +12346,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setBackground(QBrush(흰색))
             item.setForeground(QBrush(검정색))
 
-        if NightTime:
-            self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
-        else:
-            self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
+        self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)            
         
         if 선물_시가 > 0:
             선물_진폭비 = (선물_고가 - 선물_저가) / 선물_시가
@@ -12371,34 +12368,30 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_fut.resizeColumnToContents(Futures_column.거래량.value)
         
         # 종합 에너지방향 표시
-        if TARGET_MONTH == 'CM' and DayTime:
+        if flag_fut_vs_dow_drate_direction and fut_quote_energy_direction == 'call' and fut_volume_power_energy_direction == 'call':
 
-            if flag_fut_vs_dow_drate_direction and fut_quote_energy_direction == 'call' and fut_volume_power_energy_direction == 'call':
+            item = QTableWidgetItem("CS")
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(적색))
+            item.setForeground(QBrush(흰색))
+            flag_call_dominant = True
 
-                item = QTableWidgetItem("CS")
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(적색))
-                item.setForeground(QBrush(흰색))
-                flag_call_dominant = True
+        elif flag_fut_vs_dow_drate_direction and fut_quote_energy_direction == 'put' and fut_volume_power_energy_direction == 'put':
 
-            elif flag_fut_vs_dow_drate_direction and fut_quote_energy_direction == 'put' and fut_volume_power_energy_direction == 'put':
-
-                item = QTableWidgetItem("PS")
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(청색))
-                item.setForeground(QBrush(흰색))
-                flag_put_dominant = True
-            else:
-                item = QTableWidgetItem("-")
-                item.setTextAlignment(Qt.AlignCenter)               
-                item.setBackground(QBrush(흰색))
-                item.setForeground(QBrush(검정색))
-                flag_call_dominant = False
-                flag_put_dominant = False
-
-            self.tableWidget_fut.setItem(0, Futures_column.거래량.value, item)
+            item = QTableWidgetItem("PS")
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(청색))
+            item.setForeground(QBrush(흰색))
+            flag_put_dominant = True
         else:
-            pass
+            item = QTableWidgetItem("-")
+            item.setTextAlignment(Qt.AlignCenter)               
+            item.setBackground(QBrush(흰색))
+            item.setForeground(QBrush(검정색))
+            flag_call_dominant = False
+            flag_put_dominant = False
+
+        self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
         
         # 미결 갱신
         df_fut.at[1, '미결'] = int(result['미결제약정수량']) 
