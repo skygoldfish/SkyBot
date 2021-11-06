@@ -35216,7 +35216,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.id = None
         self.xing = Xing(self)          # Xing객체와 윈도우간 정보교환
 
-        self.setWindowTitle("SkyBot ver1.0")
+        if TARGET_MONTH == 'NM':
+            self.setWindowTitle("SkyBot NM ver1.0")            
+        else:
+            self.setWindowTitle("SkyBot CM ver1.0")
+
         self.textBrowser.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
         #self.textBrowser.append('Welcome to SkyBot\r')
 
