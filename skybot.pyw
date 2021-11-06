@@ -34977,9 +34977,9 @@ class Xing(object):
         self.caller.textBrowser.append(txt)
 
         if TARGET_MONTH == 'NM':
-            month_txt = '차월물'
+            month_txt = '차월물 옵션'
         else:
-            month_txt = '근월물'
+            month_txt = '근월물 옵션'
 
         if REAL_SERVER:
             txt = '{0} 실서버에 접속합니다.\r'.format(month_txt)
