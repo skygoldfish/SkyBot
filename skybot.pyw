@@ -23068,13 +23068,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot6_put_curve.append(self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
 
             if i % 10 == 0:                
-                txt = ' Plot윈도우 초기화중({0:.0f}%)...\r'.format((i / option_pairs_count) * 100)
+                txt = ' Chart윈도우 초기화중({0:.0f}%)...\r'.format((i / option_pairs_count) * 100)
                 self.parent.statusbar.showMessage(txt)
                 QApplication.processEvents()
             else:
                 pass
 
-        txt = ' Plot윈도우 초기화 완료\r'
+        txt = ' Chart윈도우 초기화 완료\r'
         self.parent.statusbar.showMessage(txt)
 
         if NightTime:
