@@ -1125,9 +1125,6 @@ put_oneway_level3 = False
 put_oneway_level4 = False
 put_oneway_level5 = False
 
-flag_fut_low = False
-flag_fut_high = False
-
 flag_kp200_low = False
 flag_kp200_high = False
 
@@ -5662,7 +5659,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_internet_connection_broken, flag_service_provider_broken
         global flag_screen_update_is_running
 
-        global flag_fut_low, flag_fut_high
         global flag_kp200_low, flag_kp200_high
         global flag_offline            
 
@@ -11676,7 +11672,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global df_fut
         global atm_txt, atm_val, ATM_INDEX, old_atm_index        
         global 선물_시가, 선물_현재가, 선물_저가, 선물_고가, 선물_피봇
-        global flag_fut_low, flag_fut_high 
         global fut_cm_volume_power
         global flag_first_arrive, fut_first_arrive_time
         global telegram_send_worker_on_time, flag_telegram_send_worker, flag_telegram_listen_worker
@@ -11969,8 +11964,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if 저가 != fut_low:
 
-            flag_fut_low = True
-
             txt = '{0:.2f}'.format(선물_저가) + '\n' + '({0:.2f})'.format(volatility_breakout_downward_point)
 
             item = QTableWidgetItem(txt)
@@ -12028,8 +12021,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             fut_high = self.tableWidget_fut.item(1, Futures_column.고가.value).text().split('\n')[0]
 
         if 고가 != fut_high:
-
-            flag_fut_high = True
 
             txt = '{0:.2f}'.format(선물_고가) + '\n' + '({0:.2f})'.format(volatility_breakout_upward_point)
 
@@ -12155,7 +12146,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
     # 차월물 선물	
-    def fut_nm_update(self, result):  
+    def fut_nm_update(self, result):
+
         global 차월물_선물_시가, 차월물_선물_현재가, 차월물_선물_저가, 차월물_선물_고가, 차월물_선물_피봇, 차월물_선물_진폭
 
         dt = datetime.now()
@@ -12251,8 +12243,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if 저가 != fut_low:
 
-            #flag_fut_low = True
-
             txt = '{0:.2f}'.format(선물_저가)
 
             item = QTableWidgetItem(txt)
@@ -12293,8 +12283,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         fut_high = self.tableWidget_fut.item(0, Futures_column.고가.value).text().split('\n')[0]
 
         if 고가 != fut_high:
-
-            #flag_fut_high = True
 
             txt = '{0:.2f}'.format(선물_고가)
 
