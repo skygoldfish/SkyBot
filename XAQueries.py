@@ -2452,8 +2452,8 @@ class t2101(XAQuery):
         result['KOSPI200전일대비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "kospichange", 0))
         result['KOSPI200등락율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "kospidiff", 0))
         result['상장최고가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "listhprice", 0))
-        result['상장최저가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "listlprice", 0))
-        '''
+        result['상장최저가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "listlprice", 0))        
+        
         result['델타'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "delt", 0))
         result['감마'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "gama", 0))
         result['세타'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "ceta", 0))
@@ -2478,7 +2478,8 @@ class t2101(XAQuery):
         result['예상체결가전일종가대비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "jnilychange", 0))
         result['예상체결가전일종가등락율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "jnilydrate", 0))
         result['배분구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "alloc_gubun", 0)
-        '''
+        result['잔여일'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "bjandatecnt", 0))
+        result['종목코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "focode", 0)        
 
         #print(result)
 

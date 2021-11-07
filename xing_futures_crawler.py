@@ -124,7 +124,12 @@ def futures_crawler(queue: Queue, index_futures_quote=True, index_futures_tick=T
         
         # #################################### YFC ###################################################################
         real_time_yfc_tick = RealTimeYFCTick(queue=queue)
+
+        print('근월물 선물({0}) 예상체결 요청...\r'.format(listed_code_df['단축코드'][0]))
         real_time_yfc_tick.set_yfc_code(listed_code_df['단축코드'][0])
+
+        print('차월물 선물({0}) 예상체결 요청...\r'.format(listed_code_df['단축코드'][1]))
+        real_time_yfc_tick.set_yfc_code(listed_code_df['단축코드'][1])
         # ############################################################################################################
 
         code_list = listed_code_df['단축코드'].tolist()
