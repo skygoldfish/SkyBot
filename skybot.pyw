@@ -1865,7 +1865,8 @@ SP500_현재가_버퍼 = []
 NASDAQ_현재가_버퍼 = []
 WTI_현재가_버퍼 = []
 
-flag_futures_ohlc_open = False
+flag_futures_cm_ohlc_open = False
+flag_futures_nm_ohlc_open = False
 flag_dow_ohlc_open = False
 flag_sp500_ohlc_open = False
 flag_nasdaq_ohlc_open = False
@@ -11687,13 +11688,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 근월물_선물_저가, 근월물_선물_현재가, 근월물_선물_시가대비, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_고가, 근월물_선물_진폭, 근월물_선물_시가등락율
         global 선물_진폭비, 선물_체결시간
         global fut_tick_list, fut_value_list, df_fut_ohlc
-        global 근월물_선물_현재가_버퍼
-        global flag_futures_ohlc_open
         global flag_call_dominant, flag_put_dominant
         global plot_drate_scale_factor
         global flag_fut_vs_dow_drate_direction
         global volatility_breakout_downward_point, volatility_breakout_upward_point
-        global df_futures_cm_graph, flag_futures_ohlc_open, 근월물_선물_현재가_버퍼
+        global df_futures_cm_graph, flag_futures_cm_ohlc_open, 근월물_선물_현재가_버퍼
         global flag_telegram_send_start, flag_telegram_listen_start
 
         dt = datetime.now()
@@ -15830,6 +15829,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 차월물_선물_전일종가 = df['전일종가']
 
+                df_futures_nm_graph.at[0, 'price'] = 차월물_선물_전일종가
+
                 item = QTableWidgetItem("{0}".format(df['전일종가']))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(흰색))
@@ -15837,6 +15838,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.setItem(0, Futures_column.종가.value, item)
 
                 차월물_선물_시가 = df['시가']
+
+                df_futures_nm_graph.at[GuardTime + 1, 'open'] = 차월물_선물_시가
 
                 item = QTableWidgetItem("{0:.2f}".format(df['시가']))
                 item.setTextAlignment(Qt.AlignCenter)
@@ -22754,7 +22757,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot1_fut_low_line = self.plot1.addLine(x=None, pen=skyblue_pen)
         self.plot1_fut_high_line = self.plot1.addLine(x=None, pen=pink_pen)
 
-        self.plot1_fut_price_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_fut_cm_price_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_fut_nm_price_curve = self.plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_kp200_curve = self.plot1.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         # 선물잔량비
@@ -22843,7 +22847,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot2_fut_low_line = self.plot2.addLine(x=None, pen=skyblue_pen)
         self.plot2_fut_high_line = self.plot2.addLine(x=None, pen=pink_pen)
 
-        self.plot2_fut_price_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_fut_cm_price_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_fut_nm_price_curve = self.plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_kp200_curve = self.plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         # 선물잔량비
@@ -22928,7 +22933,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot3_fut_low_line = self.plot3.addLine(x=None, pen=skyblue_pen)
         self.plot3_fut_high_line = self.plot3.addLine(x=None, pen=pink_pen)
 
-        self.plot3_fut_price_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_fut_cm_price_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_fut_nm_price_curve = self.plot3.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_kp200_curve = self.plot3.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         # 선물잔량비
@@ -23013,7 +23019,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot4_fut_low_line = self.plot4.addLine(x=None, pen=skyblue_pen)
         self.plot4_fut_high_line = self.plot4.addLine(x=None, pen=pink_pen)
 
-        self.plot4_fut_price_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_fut_cm_price_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_fut_nm_price_curve = self.plot4.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_kp200_curve = self.plot4.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         # 선물잔량비
@@ -23098,7 +23105,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot5_fut_low_line = self.plot5.addLine(x=None, pen=skyblue_pen)
         self.plot5_fut_high_line = self.plot5.addLine(x=None, pen=pink_pen)
 
-        self.plot5_fut_price_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_fut_cm_price_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_fut_nm_price_curve = self.plot5.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_kp200_curve = self.plot5.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         # 선물잔량비
@@ -23183,7 +23191,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot6_fut_low_line = self.plot6.addLine(x=None, pen=skyblue_pen)
         self.plot6_fut_high_line = self.plot6.addLine(x=None, pen=pink_pen)
 
-        self.plot6_fut_price_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_fut_cm_price_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_fut_nm_price_curve = self.plot6.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_kp200_curve = self.plot6.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         # 선물잔량비
@@ -24296,7 +24305,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         for i in range(10):
             self.plot1_kp200_line[i].setValue(0)
 
-        self.plot1_fut_price_curve.clear()
+        self.plot1_fut_cm_price_curve.clear()
+        self.plot1_fut_nm_price_curve.clear()
         self.plot1_kp200_curve.clear()
 
         self.plot1_quote_remainder_ratio_base_line.setValue(0)
@@ -25075,7 +25085,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         for i in range(10):
             self.plot2_kp200_line[i].setValue(0)
 
-        self.plot2_fut_price_curve.clear()
+        self.plot2_fut_cm_price_curve.clear()
+        self.plot2_fut_nm_price_curve.clear()
         self.plot2_kp200_curve.clear()
 
         self.plot2_quote_remainder_ratio_base_line.setValue(0)
@@ -25848,7 +25859,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         for i in range(10):
             self.plot3_kp200_line[i].setValue(0)
 
-        self.plot3_fut_price_curve.clear()
+        self.plot3_fut_cm_price_curve.clear()
+        self.plot3_fut_nm_price_curve.clear()
         self.plot3_kp200_curve.clear()
 
         self.plot3_quote_remainder_ratio_base_line.setValue(0)
@@ -26621,7 +26633,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         for i in range(10):
             self.plot4_kp200_line[i].setValue(0)
 
-        self.plot4_fut_price_curve.clear()
+        self.plot4_fut_cm_price_curve.clear()
+        self.plot4_fut_nm_price_curve.clear()
         self.plot4_kp200_curve.clear()
 
         self.plot4_quote_remainder_ratio_base_line.setValue(0)
@@ -27379,7 +27392,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         for i in range(10):
             self.plot5_kp200_line[i].setValue(0)
 
-        self.plot5_fut_price_curve.clear()
+        self.plot5_fut_cm_price_curve.clear()
+        self.plot5_fut_nm_price_curve.clear()
         self.plot5_kp200_curve.clear()
 
         self.plot5_quote_remainder_ratio_base_line.setValue(0)
@@ -28152,7 +28166,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         for i in range(10):
             self.plot6_kp200_line[i].setValue(0)
 
-        self.plot6_fut_price_curve.clear()
+        self.plot6_fut_cm_price_curve.clear()
+        self.plot6_fut_nm_price_curve.clear()
         self.plot6_kp200_curve.clear()
 
         self.plot6_quote_remainder_ratio_base_line.setValue(0)
@@ -29327,7 +29342,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.plot1_fut_high_line.setValue(근월물_선물_고가)   
 
                 self.plot1_kp200_curve.setData(df_kp200_graph['price'].to_numpy())
-                self.plot1_fut_price_curve.setData(df_futures_cm_graph['price'].to_numpy())
+                self.plot1_fut_cm_price_curve.setData(df_futures_cm_graph['price'].to_numpy())
+                self.plot1_fut_nm_price_curve.setData(df_futures_nm_graph['price'].to_numpy())
 
                 if flag_checkBox_plot1_bband:
 
@@ -30275,7 +30291,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.plot2_fut_high_line.setValue(근월물_선물_고가)                  
 
                 self.plot2_kp200_curve.setData(df_kp200_graph['price'].to_numpy())
-                self.plot2_fut_price_curve.setData(df_futures_cm_graph['price'].to_numpy())
+                self.plot2_fut_cm_price_curve.setData(df_futures_cm_graph['price'].to_numpy())
+                self.plot2_fut_nm_price_curve.setData(df_futures_nm_graph['price'].to_numpy())
 
                 if flag_checkBox_plot2_bband:
 
@@ -31206,7 +31223,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.plot3_fut_high_line.setValue(근월물_선물_고가) 
 
                 self.plot3_kp200_curve.setData(df_kp200_graph['price'].to_numpy())
-                self.plot3_fut_price_curve.setData(df_futures_cm_graph['price'].to_numpy())
+                self.plot3_fut_cm_price_curve.setData(df_futures_cm_graph['price'].to_numpy())
+                self.plot3_fut_nm_price_curve.setData(df_futures_nm_graph['price'].to_numpy())
 
                 if flag_checkBox_plot3_bband:
 
@@ -32130,7 +32148,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.plot4_fut_high_line.setValue(근월물_선물_고가)  
 
                 self.plot4_kp200_curve.setData(df_kp200_graph['price'].to_numpy())
-                self.plot4_fut_price_curve.setData(df_futures_cm_graph['price'].to_numpy())
+                self.plot4_fut_cm_price_curve.setData(df_futures_cm_graph['price'].to_numpy())
+                self.plot4_fut_nm_price_curve.setData(df_futures_nm_graph['price'].to_numpy())
 
                 if flag_checkBox_plot4_bband:
 
@@ -33040,7 +33059,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.plot5_fut_high_line.setValue(근월물_선물_고가) 
 
                 self.plot5_kp200_curve.setData(df_kp200_graph['price'].to_numpy())
-                self.plot5_fut_price_curve.setData(df_futures_cm_graph['price'].to_numpy())
+                self.plot5_fut_cm_price_curve.setData(df_futures_cm_graph['price'].to_numpy())
+                self.plot5_fut_nm_price_curve.setData(df_futures_nm_graph['price'].to_numpy())
 
                 if flag_checkBox_plot5_bband:
 
@@ -33965,7 +33985,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.plot6_fut_high_line.setValue(근월물_선물_고가) 
 
                 self.plot6_kp200_curve.setData(df_kp200_graph['price'].to_numpy())
-                self.plot6_fut_price_curve.setData(df_futures_cm_graph['price'].to_numpy())
+                self.plot6_fut_cm_price_curve.setData(df_futures_cm_graph['price'].to_numpy())
+                self.plot6_fut_nm_price_curve.setData(df_futures_nm_graph['price'].to_numpy())
 
                 if flag_checkBox_plot6_bband:
 
@@ -37160,9 +37181,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def yfc_update(self, tickdata):
 
-        global market_service, df_futures_cm_graph, df_futures_nm_graph, flag_futures_ohlc_open, 근월물_선물_종가대비_등락율, 선물_진폭비
-        global flag_fut_vs_dow_drate_direction, plot_drate_scale_factor, 근월물_선물_현재가_버퍼, 근월물_선물_시가, 근월물_선물_피봇
-        global DOW_기준_예상시가, 차월물_선물_시가
+        global market_service, 근월물_선물_종가대비_등락율, 선물_진폭비
+        global flag_fut_vs_dow_drate_direction, plot_drate_scale_factor, 근월물_선물_피봇
+        global DOW_기준_예상시가
+        global 근월물_선물_시가, 근월물_선물_현재가_버퍼, df_futures_cm_graph, flag_futures_cm_ohlc_open
+        global 차월물_선물_시가, 차월물_선물_현재가_버퍼, df_futures_nm_graph, flag_futures_nm_ohlc_open
         
         if not market_service:
             market_service = True
@@ -37182,7 +37205,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if OVC_SEC == 0:
 
-                if not flag_futures_ohlc_open:
+                if not flag_futures_cm_ohlc_open:
 
                     df_futures_cm_graph.at[ovc_x_idx, 'open'] = 근월물_선물_시가
                     df_futures_cm_graph.at[ovc_x_idx, 'high'] = 근월물_선물_시가
@@ -37193,7 +37216,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     del 근월물_선물_현재가_버퍼[:]
 
-                    flag_futures_ohlc_open = True
+                    flag_futures_cm_ohlc_open = True
                 else:
                     근월물_선물_현재가_버퍼.append(근월물_선물_시가)                            
             else:
@@ -37221,7 +37244,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 df_futures_cm_graph.at[ovc_x_idx, 'close'] = 근월물_선물_시가
 
-                flag_futures_ohlc_open = False
+                flag_futures_cm_ohlc_open = False
 
             df_futures_cm_graph.at[ovc_x_idx, 'middle'] = (df_futures_cm_graph.at[ovc_x_idx, 'high'] + df_futures_cm_graph.at[ovc_x_idx, 'low']) / 2
                   
@@ -37368,6 +37391,57 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         elif tickdata['단축코드'] == CMSHCODE:
 
             차월물_선물_시가 = float(tickdata['예상체결가격'])
+
+            # 그래프 가격갱신
+            df_futures_nm_graph.at[ovc_x_idx, 'price'] = 차월물_선물_시가
+
+            # 1T OHLC 생성
+            df_futures_nm_graph.at[ovc_x_idx, 'ctime'] = tickdata['수신시간']
+
+            if OVC_SEC == 0:
+
+                if not flag_futures_nm_ohlc_open:
+
+                    df_futures_nm_graph.at[ovc_x_idx, 'open'] = 차월물_선물_시가
+                    df_futures_nm_graph.at[ovc_x_idx, 'high'] = 차월물_선물_시가
+                    df_futures_nm_graph.at[ovc_x_idx, 'low'] = 차월물_선물_시가
+                    df_futures_nm_graph.at[ovc_x_idx, 'middle'] = 차월물_선물_시가
+                    df_futures_nm_graph.at[ovc_x_idx, 'close'] = 차월물_선물_시가
+                    df_futures_nm_graph.at[ovc_x_idx, 'price'] = 차월물_선물_시가
+
+                    del 차월물_선물_현재가_버퍼[:]
+
+                    flag_futures_nm_ohlc_open = True
+                else:
+                    차월물_선물_현재가_버퍼.append(차월물_선물_시가)                            
+            else:
+                if df_futures_nm_graph.at[ovc_x_idx, 'open'] != df_futures_nm_graph.at[ovc_x_idx, 'open']:
+                    df_futures_nm_graph.at[ovc_x_idx, 'open'] = df_futures_nm_graph.at[ovc_x_idx - 1, 'close']
+                    del 차월물_선물_현재가_버퍼[:]
+                else:
+                    pass
+
+                차월물_선물_현재가_버퍼.append(차월물_선물_시가)
+
+                if max(차월물_선물_현재가_버퍼) > 0:
+                    df_futures_nm_graph.at[ovc_x_idx, 'high'] = max(차월물_선물_현재가_버퍼)
+                else:
+                    pass
+
+                if min(차월물_선물_현재가_버퍼) == 0:
+
+                    if max(차월물_선물_현재가_버퍼) > 0:
+                        df_futures_nm_graph.at[ovc_x_idx, 'low'] = max(차월물_선물_현재가_버퍼)
+                    else:
+                        pass
+                else:
+                    df_futures_nm_graph.at[ovc_x_idx, 'low'] = min(차월물_선물_현재가_버퍼)
+
+                df_futures_nm_graph.at[ovc_x_idx, 'close'] = 차월물_선물_시가
+
+                flag_futures_nm_ohlc_open = False
+
+            df_futures_nm_graph.at[ovc_x_idx, 'middle'] = (df_futures_nm_graph.at[ovc_x_idx, 'high'] + df_futures_nm_graph.at[ovc_x_idx, 'low']) / 2
 
             item = QTableWidgetItem(차월물_선물_시가)
             item.setTextAlignment(Qt.AlignCenter)
@@ -38431,9 +38505,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def fc0_update(self, tickdata):
 
         global pre_start, flag_fut_vs_dow_drate_direction, plot_drate_scale_factor, fut_volume_power_energy_direction
-        global df_futures_cm_graph, flag_futures_ohlc_open, 근월물_선물_현재가_버퍼, fut_cm_volume_power, fut_nm_volume_power
+        global fut_cm_volume_power, fut_nm_volume_power
         global 근월물_선물_종가대비_등락율, 근월물_선물_시가등락율, 근월물_선물_시가대비_등락율, kp200_시가등락율
-        global fut_cm_result, fut_nm_result
+        global df_futures_cm_graph, 근월물_선물_현재가, 근월물_선물_현재가_버퍼, flag_futures_cm_ohlc_open, fut_cm_result
+        global df_futures_nm_graph, 차월물_선물_현재가, 차월물_선물_현재가_버퍼, flag_futures_nm_ohlc_open, fut_nm_result 
 
         dt = datetime.now()
         
@@ -38447,7 +38522,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # 그래프관련 처리 먼저...
             if float(tickdata['현재가']) == float('inf') or float(tickdata['현재가']) == float('-inf'):
                 근월물_선물_현재가 = float('nan')
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 현재가 무한대 오류발생...\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 근월물 선물 현재가 무한대 오류발생...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
             else:
                 근월물_선물_현재가 = float(tickdata['현재가'])
@@ -38468,7 +38543,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if OVC_SEC == 0:
 
-                if not flag_futures_ohlc_open:
+                if not flag_futures_cm_ohlc_open:
 
                     df_futures_cm_graph.at[ovc_x_idx, 'open'] = 근월물_선물_현재가
                     df_futures_cm_graph.at[ovc_x_idx, 'high'] = 근월물_선물_현재가
@@ -38479,7 +38554,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     del 근월물_선물_현재가_버퍼[:]
 
-                    flag_futures_ohlc_open = True
+                    flag_futures_cm_ohlc_open = True
                 else:
                     근월물_선물_현재가_버퍼.append(근월물_선물_현재가)              
             else:
@@ -38507,7 +38582,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 df_futures_cm_graph.at[ovc_x_idx, 'close'] = 근월물_선물_현재가
 
-                flag_futures_ohlc_open = False
+                flag_futures_cm_ohlc_open = False
 
             df_futures_cm_graph.at[ovc_x_idx, 'middle'] = (df_futures_cm_graph.at[ovc_x_idx, 'high'] + df_futures_cm_graph.at[ovc_x_idx, 'low']) / 2
 
@@ -38569,6 +38644,73 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.dialog['선물옵션전광판'].fut_cm_update(fut_cm_result)
 
         elif tickdata['단축코드'] == CMSHCODE:
+
+            # 그래프관련 처리 먼저...
+            if float(tickdata['현재가']) == float('inf') or float(tickdata['현재가']) == float('-inf'):
+                차월물_선물_현재가 = float('nan')
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 선물 현재가 무한대 오류발생...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
+            else:
+                차월물_선물_현재가 = float(tickdata['현재가'])
+
+            # 1T OHLC 생성
+            df_futures_nm_graph.at[ovc_x_idx, 'ctime'] = tickdata['수신시간']
+            df_futures_nm_graph.at[ovc_x_idx, 'price'] = 차월물_선물_현재가
+
+            if ovc_x_idx != old_ovc_x_idx:
+                
+                df_futures_nm_graph.at[ovc_x_idx, 'high'] = df_futures_nm_graph.at[ovc_x_idx- 1, 'high']
+                df_futures_nm_graph.at[ovc_x_idx, 'low'] = df_futures_nm_graph.at[ovc_x_idx - 1, 'low']
+                df_futures_nm_graph.at[ovc_x_idx, 'middle'] = df_futures_nm_graph.at[ovc_x_idx - 1, 'middle']
+                df_futures_nm_graph.at[ovc_x_idx, 'close'] = df_futures_nm_graph.at[ovc_x_idx - 1, 'close']
+                df_futures_nm_graph.at[ovc_x_idx, 'price'] = df_futures_nm_graph.at[ovc_x_idx - 1, 'close']                        
+            else:
+                pass                    
+
+            if OVC_SEC == 0:
+
+                if not flag_futures_nm_ohlc_open:
+
+                    df_futures_nm_graph.at[ovc_x_idx, 'open'] = 차월물_선물_현재가
+                    df_futures_nm_graph.at[ovc_x_idx, 'high'] = 차월물_선물_현재가
+                    df_futures_nm_graph.at[ovc_x_idx, 'low'] = 차월물_선물_현재가
+                    df_futures_nm_graph.at[ovc_x_idx, 'middle'] = 차월물_선물_현재가
+                    df_futures_nm_graph.at[ovc_x_idx, 'close'] = 차월물_선물_현재가
+                    df_futures_nm_graph.at[ovc_x_idx, 'price'] = 차월물_선물_현재가
+
+                    del 차월물_선물_현재가_버퍼[:]
+
+                    flag_futures_nm_ohlc_open = True
+                else:
+                    차월물_선물_현재가_버퍼.append(차월물_선물_현재가)              
+            else:
+                if df_futures_nm_graph.at[ovc_x_idx, 'open'] != df_futures_nm_graph.at[ovc_x_idx, 'open']:
+                    df_futures_nm_graph.at[ovc_x_idx, 'open'] = df_futures_nm_graph.at[ovc_x_idx - 1, 'close']
+                    del 차월물_선물_현재가_버퍼[:]
+                else:
+                    pass
+
+                차월물_선물_현재가_버퍼.append(근월물_선물_현재가)
+
+                if max(차월물_선물_현재가_버퍼) > 0:
+                    df_futures_nm_graph.at[ovc_x_idx, 'high'] = max(차월물_선물_현재가_버퍼)
+                else:
+                    pass
+
+                if min(차월물_선물_현재가_버퍼) == 0:
+
+                    if max(차월물_선물_현재가_버퍼) > 0:
+                        df_futures_nm_graph.at[ovc_x_idx, 'low'] = max(차월물_선물_현재가_버퍼)
+                    else:
+                        pass
+                else:
+                    df_futures_nm_graph.at[ovc_x_idx, 'low'] = min(차월물_선물_현재가_버퍼)
+
+                df_futures_nm_graph.at[ovc_x_idx, 'close'] = 근월물_선물_현재가
+
+                flag_futures_nm_ohlc_open = False
+
+            df_futures_nm_graph.at[ovc_x_idx, 'middle'] = (df_futures_nm_graph.at[ovc_x_idx, 'high'] + df_futures_nm_graph.at[ovc_x_idx, 'low']) / 2
 
             fut_nm_volume_power = int(tickdata['매수누적체결량']) - int(tickdata['매도누적체결량'])
 
