@@ -161,28 +161,28 @@ plot_drate_scale_factor = 10
 call_scroll_depth = 19
 put_scroll_depth = 30
 
-선물_전일종가 = 0
+근월물_선물_전일종가 = 0
 
-선물_전저 = 0
-선물_전고 = 0
-선물_종가 = 0
-선물_피봇 = 0
-선물_시가 = 0
+근월물_선물_전저 = 0
+근월물_선물_전고 = 0
+근월물_선물_종가 = 0
+근월물_선물_피봇 = 0
+근월물_선물_시가 = 0
 
-선물_저가 = 0
+근월물_선물_저가 = 0
 
-선물_현재가 = 0
-선물_과거가 = 0
-선물_시가대비 = 0
-선물_종가대비 = 0
-선물_종가대비_등락율 = 0
-선물_시가등락율 = 0
-선물_시가대비_등락율 = 0
+근월물_선물_현재가 = 0
+근월물_선물_과거가 = 0
+근월물_선물_시가대비 = 0
+근월물_선물_종가대비 = 0
+근월물_선물_종가대비_등락율 = 0
+근월물_선물_시가등락율 = 0
+근월물_선물_시가대비_등락율 = 0
 
 kp200_시가등락율 = 0
 
-선물_고가 = 0
-선물_진폭 = 0
+근월물_선물_고가 = 0
+근월물_선물_진폭 = 0
 
 차월물_선물_전저 = 0
 차월물_선물_전고 = 0
@@ -194,6 +194,8 @@ kp200_시가등락율 = 0
 차월물_선물_현재가 = 0
 차월물_선물_고가 = 0
 차월물_선물_진폭 = 0
+
+DOW_기준_예상시가 = 0
 
 SP500_전저 = 0
 SP500_전고 = 0
@@ -1159,7 +1161,7 @@ option_pairs_count = 0
 t8416_option_pairs_count = 0
 real_option_pairs_count = 0
 
-fut_result = dict()
+fut_cm_result = dict()
 fut_nm_result = dict()
 
 call_result = dict()
@@ -1307,7 +1309,8 @@ df_nm_put = pd.DataFrame()
 
 # 그래프를 위한 데이타프레임
 df_kp200_graph = pd.DataFrame()
-df_futures_graph = pd.DataFrame()
+df_futures_cm_graph = pd.DataFrame()
+df_futures_nm_graph = pd.DataFrame()
 df_supply_demand_graph = pd.DataFrame()
 
 df_call_graph = [pd.DataFrame()] * ActvalCount
@@ -1855,7 +1858,8 @@ df_gold_ohlc_15min = pd.DataFrame()
 
 선물_체결시간 = ''
 
-선물_현재가_버퍼 = []
+근월물_선물_현재가_버퍼 = []
+차월물_선물_현재가_버퍼 = []
 DOW_현재가_버퍼 = []
 SP500_현재가_버퍼 = []
 NASDAQ_현재가_버퍼 = []
@@ -5344,10 +5348,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         # Strong 에너지 알람
                         if flag_call_dominant:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ Call Strong({3:.2f}/{4:.2f}) !!!".format(dt.hour, dt.minute, dt.second, 선물_종가대비_등락율, DOW_등락율)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ Call Strong({3:.2f}/{4:.2f}) !!!".format(dt.hour, dt.minute, dt.second, 근월물_선물_종가대비_등락율, DOW_등락율)
                             ToYourTelegram(send_txt)
                         elif flag_put_dominant:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ Put Strong({3:.2f}/{4:.2f}) !!!".format(dt.hour, dt.minute, dt.second, 선물_종가대비_등락율, DOW_등락율)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ Put Strong({3:.2f}/{4:.2f}) !!!".format(dt.hour, dt.minute, dt.second, 근월물_선물_종가대비_등락율, DOW_등락율)
                             ToYourTelegram(send_txt)
                         else:
                             pass
@@ -5490,7 +5494,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             chetime = nowDate + ' ' + time_txt
 
             fut_tick_list.append(chetime)
-            fut_value_list.append(선물_현재가)
+            fut_value_list.append(근월물_선물_현재가)
 
             temp_dict = {"value": fut_value_list}
             df_fut_ohlc = pd.DataFrame(temp_dict, index=fut_tick_list)
@@ -5797,8 +5801,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if market_service:
                     self.option_quote_update()
                     
-                    if DayTime and fut_result:                    
-                        self.fut_etc_update(fut_result)
+                    if DayTime and fut_cm_result:                    
+                        self.fut_cm_etc_update(fut_cm_result)
+                    else:
+                        pass
+
+                    if DayTime and fut_nm_result:
+                        self.fut_nm_etc_update(fut_nm_result)
                     else:
                         pass
                 else:
@@ -6374,7 +6383,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             pass
             '''
-            if 선물_현재가 < volatility_breakout_downward_point:
+            if 근월물_선물_현재가 < volatility_breakout_downward_point:
 
                 vb_txt = 'CM Volatility Downward Breakout'
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
@@ -6385,7 +6394,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass                
                 
-            elif 선물_현재가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
+            elif 근월물_선물_현재가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
 
                 vb_txt = 'CM Volatility Upward Breakout'
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
@@ -6401,10 +6410,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if DayTime:
             
                 if flag_call_dominant:
-                    txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call Strong({3:.2f}/{4:.2f}) ▲\r".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 선물_종가대비_등락율, DOW_등락율)
+                    txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call Strong({3:.2f}/{4:.2f}) ▲\r".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 근월물_선물_종가대비_등락율, DOW_등락율)
                     self.parent.textBrowser.append(txt)
                 elif flag_put_dominant:
-                    txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Put Strong({3:.2f}/{4:.2f}) ▼\r".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 선물_종가대비_등락율, DOW_등락율)
+                    txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Put Strong({3:.2f}/{4:.2f}) ▼\r".format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 근월물_선물_종가대비_등락율, DOW_등락율)
                     self.parent.textBrowser.append(txt)
                 else:
                     pass
@@ -6414,7 +6423,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         elif TARGET_MONTH == 'NM':
 
             '''
-            if 선물_현재가 < volatility_breakout_downward_point:
+            if 근월물_선물_현재가 < volatility_breakout_downward_point:
 
                 vb_txt = 'NM Volatility Downward Breakout'
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
@@ -6425,7 +6434,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass                
                 
-            elif 선물_현재가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
+            elif 근월물_선물_현재가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
 
                 vb_txt = 'NM Volatility Upward Breakout'
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, vb_txt)
@@ -11288,7 +11297,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.now()
 
         # FUT OL/OH
-        if self.is_within_n_tick(선물_시가, 선물_저가, 10) and not self.is_within_n_tick(선물_시가, 선물_고가, 10):
+        if self.is_within_n_tick(근월물_선물_시가, 근월물_선물_저가, 10) and not self.is_within_n_tick(근월물_선물_시가, 근월물_선물_고가, 10):
 
             item = QTableWidgetItem('▲')
             item.setTextAlignment(Qt.AlignCenter)
@@ -11310,7 +11319,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             flag_fut_cm_ol = True
 
-        elif not self.is_within_n_tick(선물_시가, 선물_저가, 10) and self.is_within_n_tick(선물_시가, 선물_고가, 10):
+        elif not self.is_within_n_tick(근월물_선물_시가, 근월물_선물_저가, 10) and self.is_within_n_tick(근월물_선물_시가, 근월물_선물_고가, 10):
 
             item = QTableWidgetItem('▼')
             item.setTextAlignment(Qt.AlignCenter)
@@ -11517,7 +11526,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.now()
         
         # 전저, 전고, 종가, 피봇 컬러링
-        if self.is_within_n_tick(선물_전저, 선물_저가, 10):
+        if self.is_within_n_tick(근월물_선물_전저, 근월물_선물_저가, 10):
 
             self.tableWidget_fut.item(1, Futures_column.전저.value).setBackground(QBrush(콜전저색))
             self.tableWidget_fut.item(1, Futures_column.전저.value).setForeground(QBrush(검정색))
@@ -11526,7 +11535,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if self.is_within_n_tick(선물_전고, 선물_저가, 10):
+        if self.is_within_n_tick(근월물_선물_전고, 근월물_선물_저가, 10):
 
             self.tableWidget_fut.item(1, Futures_column.전고.value).setBackground(QBrush(콜전고색))
             self.tableWidget_fut.item(1, Futures_column.전고.value).setForeground(QBrush(검정색))
@@ -11535,7 +11544,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if self.is_within_n_tick(선물_종가, 선물_저가, 10):
+        if self.is_within_n_tick(근월물_선물_종가, 근월물_선물_저가, 10):
 
             self.tableWidget_fut.item(1, Futures_column.종가.value).setBackground(QBrush(콜종가색))
             self.tableWidget_fut.item(1, Futures_column.종가.value).setForeground(QBrush(검정색))
@@ -11544,7 +11553,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if 선물_피봇 > 0 and self.is_within_n_tick(선물_피봇, 선물_저가, 10):
+        if 근월물_선물_피봇 > 0 and self.is_within_n_tick(근월물_선물_피봇, 근월물_선물_저가, 10):
 
             self.tableWidget_fut.item(1, Futures_column.피봇.value).setBackground(QBrush(콜피봇색))
             self.tableWidget_fut.item(1, Futures_column.피봇.value).setForeground(QBrush(검정색))
@@ -11553,7 +11562,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass       
 
-        if self.is_within_n_tick(선물_전저, 선물_고가, 10):
+        if self.is_within_n_tick(근월물_선물_전저, 근월물_선물_고가, 10):
 
             self.tableWidget_fut.item(1, Futures_column.전저.value).setBackground(QBrush(콜전저색))
             self.tableWidget_fut.item(1, Futures_column.전저.value).setForeground(QBrush(검정색))
@@ -11562,7 +11571,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass        
 
-        if self.is_within_n_tick(선물_전고, 선물_고가, 10):
+        if self.is_within_n_tick(근월물_선물_전고, 근월물_선물_고가, 10):
 
             self.tableWidget_fut.item(1, Futures_column.전고.value).setBackground(QBrush(콜전고색))
             self.tableWidget_fut.item(1, Futures_column.전고.value).setForeground(QBrush(검정색))
@@ -11571,7 +11580,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass        
 
-        if self.is_within_n_tick(선물_종가, 선물_고가, 10):
+        if self.is_within_n_tick(근월물_선물_종가, 근월물_선물_고가, 10):
 
             self.tableWidget_fut.item(1, Futures_column.종가.value).setBackground(QBrush(콜종가색))
             self.tableWidget_fut.item(1, Futures_column.종가.value).setForeground(QBrush(검정색))
@@ -11580,7 +11589,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if 선물_피봇 > 0 and self.is_within_n_tick(선물_피봇, 선물_고가, 10):                
+        if 근월물_선물_피봇 > 0 and self.is_within_n_tick(근월물_선물_피봇, 근월물_선물_고가, 10):                
 
             self.tableWidget_fut.item(1, Futures_column.피봇.value).setBackground(QBrush(콜피봇색))
             self.tableWidget_fut.item(1, Futures_column.피봇.value).setForeground(QBrush(검정색))
@@ -11671,21 +11680,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global df_fut
         global atm_txt, atm_val, ATM_INDEX, old_atm_index        
-        global 선물_시가, 선물_현재가, 선물_저가, 선물_고가, 선물_피봇
+        global 근월물_선물_시가, 근월물_선물_현재가, 근월물_선물_저가, 근월물_선물_고가, 근월물_선물_피봇
         global fut_cm_volume_power
         global flag_first_arrive, fut_first_arrive_time
         global telegram_send_worker_on_time, flag_telegram_send_worker, flag_telegram_listen_worker
-        global 선물_저가, 선물_현재가, 선물_시가대비, 선물_종가대비, 선물_종가대비_등락율, 선물_고가, 선물_진폭, 선물_시가등락율
+        global 근월물_선물_저가, 근월물_선물_현재가, 근월물_선물_시가대비, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_고가, 근월물_선물_진폭, 근월물_선물_시가등락율
         global 선물_진폭비, 선물_체결시간
         global fut_tick_list, fut_value_list, df_fut_ohlc
-        global 선물_현재가_버퍼
+        global 근월물_선물_현재가_버퍼
         global flag_futures_ohlc_open
-        global df_futures_graph
         global flag_call_dominant, flag_put_dominant
         global plot_drate_scale_factor
         global flag_fut_vs_dow_drate_direction
         global volatility_breakout_downward_point, volatility_breakout_upward_point
-        global df_futures_graph, flag_futures_ohlc_open, 선물_현재가_버퍼
+        global df_futures_cm_graph, flag_futures_ohlc_open, 근월물_선물_현재가_버퍼
         global flag_telegram_send_start, flag_telegram_listen_start
 
         dt = datetime.now()
@@ -11697,17 +11705,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         저가 = result['저가']
         고가 = result['고가']    
         
-        선물_시가 = float(result['시가'])
-        선물_현재가 = float(result['현재가'])
-        선물_저가 = float(result['저가'])
-        선물_고가 = float(result['고가'])
+        근월물_선물_시가 = float(result['시가'])
+        근월물_선물_현재가 = float(result['현재가'])
+        근월물_선물_저가 = float(result['저가'])
+        근월물_선물_고가 = float(result['고가'])
         
-        선물_시가대비 = 선물_현재가 - 선물_시가
-        선물_종가대비 = 선물_현재가 - 선물_종가        
-        선물_진폭 = 선물_고가 - 선물_저가
+        근월물_선물_시가대비 = 근월물_선물_현재가 - 근월물_선물_시가
+        근월물_선물_종가대비 = 근월물_선물_현재가 - 근월물_선물_종가        
+        근월물_선물_진폭 = 근월물_선물_고가 - 근월물_선물_저가
         
-        volatility_breakout_downward_point = 선물_시가 - k_value
-        volatility_breakout_upward_point = 선물_시가 + k_value
+        volatility_breakout_downward_point = 근월물_선물_시가 - k_value
+        volatility_breakout_upward_point = 근월물_선물_시가 + k_value
                 
         fut_time = dt.hour * 3600 + dt.minute * 60 + dt.second
         
@@ -11780,10 +11788,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 선물 시가갭 컬러링(주간 장시작시 표시안되는 오류 대응)
             if NightTime:
 
-                if 선물_시가 > 선물_종가:
+                if 근월물_선물_시가 > 근월물_선물_종가:
                     self.tableWidget_fut.item(0, Futures_column.시가갭.value).setBackground(QBrush(콜기준가색))
                     self.tableWidget_fut.item(0, Futures_column.시가갭.value).setForeground(QBrush(검정색))
-                elif 선물_시가 < 선물_종가:
+                elif 근월물_선물_시가 < 근월물_선물_종가:
                     self.tableWidget_fut.item(0, Futures_column.시가갭.value).setBackground(QBrush(풋기준가색))
                     self.tableWidget_fut.item(0, Futures_column.시가갭.value).setForeground(QBrush(흰색))
                 else:
@@ -11791,10 +11799,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_fut.item(0, Futures_column.시가갭.value).setForeground(QBrush(검정색))
             else:
 
-                if 선물_시가 > 선물_종가:
+                if 근월물_선물_시가 > 근월물_선물_종가:
                     self.tableWidget_fut.item(1, Futures_column.시가갭.value).setBackground(QBrush(콜기준가색))
                     self.tableWidget_fut.item(1, Futures_column.시가갭.value).setForeground(QBrush(검정색))
-                elif 선물_시가 < 선물_종가:
+                elif 근월물_선물_시가 < 근월물_선물_종가:
                     self.tableWidget_fut.item(1, Futures_column.시가갭.value).setBackground(QBrush(풋기준가색))
                     self.tableWidget_fut.item(1, Futures_column.시가갭.value).setForeground(QBrush(흰색))
                 else:
@@ -11804,28 +11812,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass        
         
         # 시가 및 피봇 갱신
-        if NightTime:
-            fut_open = self.tableWidget_fut.item(0, Futures_column.시가.value).text()
-        else:
-            fut_open = self.tableWidget_fut.item(1, Futures_column.시가.value).text()
+        fut_open = self.tableWidget_fut.item(1, Futures_column.시가.value).text()            
 
         if 시가 != fut_open:
 
-            df_futures_graph.at[GuardTime + 1, 'open'] = 선물_시가
+            df_futures_cm_graph.at[GuardTime + 1, 'open'] = 근월물_선물_시가
 
-            선물_피봇 = calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
+            근월물_선물_피봇 = calc_pivot(근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_시가)
 
-            시가갭 = 선물_시가 - 선물_종가
+            시가갭 = 근월물_선물_시가 - 근월물_선물_종가
 
-            #선물_시가등락율 = ((선물_시가 - 선물_종가) / 선물_종가) * 100
+            txt = '{0}\n({1:.2f})'.format(시가, DOW_기준_예상시가)
 
-            item = QTableWidgetItem(시가)
+            item = QTableWidgetItem(txt)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(흰색))        
 
-            if 선물_시가 > 선물_종가:
+            if 근월물_선물_시가 > 근월물_선물_종가:
                 item.setForeground(QBrush(적색))
-            elif 선물_시가 < 선물_종가:
+            elif 근월물_선물_시가 < 근월물_선물_종가:
                 item.setForeground(QBrush(청색))
             else:
                 item.setForeground(QBrush(검정색))    
@@ -11834,24 +11839,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_fut.setItem(0, Futures_column.시가.value, item)
 
-                df_fut.at[0, '시가'] = 선물_시가
-                self.cme_realdata['시가'] = 선물_시가
+                df_fut.at[0, '시가'] = 근월물_선물_시가
+                self.cme_realdata['시가'] = 근월물_선물_시가
 
-                item = QTableWidgetItem("{0:.2f}".format(선물_피봇))
+                item = QTableWidgetItem("{0:.2f}".format(근월물_선물_피봇))
                 item.setTextAlignment(Qt.AlignCenter)
 
                 self.tableWidget_fut.setItem(0, Futures_column.피봇.value, item)
 
-                df_fut.at[0, '피봇'] = 선물_피봇
-                self.cme_realdata['피봇'] = 선물_피봇
+                df_fut.at[0, '피봇'] = 근월물_선물_피봇
+                self.cme_realdata['피봇'] = 근월물_선물_피봇
 
                 item = QTableWidgetItem("{0:.2f}".format(시가갭))
                 item.setTextAlignment(Qt.AlignCenter)
 
-                if 선물_시가 > 선물_종가:
+                if 근월물_선물_시가 > 근월물_선물_종가:
                     item.setBackground(QBrush(콜기준가색))
                     item.setForeground(QBrush(검정색))
-                elif 선물_시가 < 선물_종가:
+                elif 근월물_선물_시가 < 근월물_선물_종가:
                     item.setBackground(QBrush(풋기준가색))
                     item.setForeground(QBrush(흰색))
                 else:
@@ -11865,24 +11870,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.시가.value, item)
 
-                df_fut.at[1, '시가'] = 선물_시가
-                self.fut_realdata['시가'] = 선물_시가
+                df_fut.at[1, '시가'] = 근월물_선물_시가
+                self.fut_realdata['시가'] = 근월물_선물_시가
 
-                item = QTableWidgetItem("{0:.2f}".format(선물_피봇))
+                item = QTableWidgetItem("{0:.2f}".format(근월물_선물_피봇))
                 item.setTextAlignment(Qt.AlignCenter)
 
                 self.tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
 
-                df_fut.at[1, '피봇'] = 선물_피봇
-                self.fut_realdata['피봇'] = 선물_피봇             
+                df_fut.at[1, '피봇'] = 근월물_선물_피봇
+                self.fut_realdata['피봇'] = 근월물_선물_피봇             
 
                 item = QTableWidgetItem("{0:.2f}".format(시가갭))
                 item.setTextAlignment(Qt.AlignCenter)
 
-                if 선물_시가 > 선물_종가:
+                if 근월물_선물_시가 > 근월물_선물_종가:
                     item.setBackground(QBrush(콜기준가색))
                     item.setForeground(QBrush(검정색))
-                elif 선물_시가 < 선물_종가:
+                elif 근월물_선물_시가 < 근월물_선물_종가:
                     item.setBackground(QBrush(풋기준가색))
                     item.setForeground(QBrush(흰색))
                 else:
@@ -11893,22 +11898,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
         
         # 현재가 갱신
-        if NightTime:
-            fut_price = self.tableWidget_fut.item(0, Futures_column.현재가.value).text().split('\n')[0]
-        else:
-            fut_price = self.tableWidget_fut.item(1, Futures_column.현재가.value).text().split('\n')[0]
+        fut_price = self.tableWidget_fut.item(1, Futures_column.현재가.value).text().split('\n')[0]            
 
         if 현재가 != fut_price:
 
             if NightTime:
                 
-                df_fut.at[0, '현재가'] = 선물_현재가
-                self.cme_realdata['현재가'] = 선물_현재가
+                df_fut.at[0, '현재가'] = 근월물_선물_현재가
+                self.cme_realdata['현재가'] = 근월물_선물_현재가
 
-                if 선물_현재가 < float(fut_price):
+                if 근월물_선물_현재가 < float(fut_price):
                     item = QTableWidgetItem(현재가 + '\n' + '▼')
                     item.setBackground(QBrush(lightskyblue))
-                elif 선물_현재가 > float(fut_price):
+                elif 근월물_선물_현재가 > float(fut_price):
                     item = QTableWidgetItem(현재가 + '\n' + '▲')
                     item.setBackground(QBrush(pink))
                 else:    
@@ -11917,9 +11919,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(흰색))
 
-                if 선물_시가 < 선물_현재가:
+                if 근월물_선물_시가 < 근월물_선물_현재가:
                     item.setForeground(QBrush(적색))
-                elif 선물_시가 > 선물_현재가:
+                elif 근월물_선물_시가 > 근월물_선물_현재가:
                     item.setForeground(QBrush(청색))
                 else:
                     item.setForeground(QBrush(검정색))
@@ -11928,21 +11930,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_fut.resizeRowToContents(0)
             else:
-                df_fut.at[1, '현재가'] = 선물_현재가
-                self.fut_realdata['현재가'] = 선물_현재가 
+                df_fut.at[1, '현재가'] = 근월물_선물_현재가
+                self.fut_realdata['현재가'] = 근월물_선물_현재가 
 
-                if 선물_현재가 < float(fut_price):
+                if 근월물_선물_현재가 < float(fut_price):
                     item = QTableWidgetItem(현재가 + '\n' + '▼')
                     item.setBackground(QBrush(lightskyblue))
-                elif 선물_현재가 > float(fut_price):
+                elif 근월물_선물_현재가 > float(fut_price):
                     item = QTableWidgetItem(현재가 + '\n' + '▲')
                     item.setBackground(QBrush(pink))
                 else:    
                     item = QTableWidgetItem(현재가)
 
-                if 선물_시가 < 선물_현재가:
+                if 근월물_선물_시가 < 근월물_선물_현재가:
                     item.setForeground(QBrush(적색))
-                elif 선물_시가 > 선물_현재가:
+                elif 근월물_선물_시가 > 근월물_선물_현재가:
                     item.setForeground(QBrush(청색))
                 else:
                     item.setForeground(QBrush(검정색))
@@ -11957,14 +11959,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         # 저가 갱신
-        if NightTime:
-            fut_low = self.tableWidget_fut.item(0, Futures_column.저가.value).text().split('\n')[0]
-        else:
-            fut_low = self.tableWidget_fut.item(1, Futures_column.저가.value).text().split('\n')[0]
+        fut_low = self.tableWidget_fut.item(1, Futures_column.저가.value).text().split('\n')[0]            
 
         if 저가 != fut_low:
 
-            txt = '{0:.2f}'.format(선물_저가) + '\n' + '({0:.2f})'.format(volatility_breakout_downward_point)
+            txt = '{0:.2f}'.format(근월물_선물_저가) + '\n' + '({0:.2f})'.format(volatility_breakout_downward_point)
 
             item = QTableWidgetItem(txt)
             item.setTextAlignment(Qt.AlignCenter)
@@ -11973,16 +11972,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if NightTime:
 
                 self.tableWidget_fut.setItem(0, Futures_column.저가.value, item)
-                df_fut.at[0, '저가'] = 선물_저가
-                self.cme_realdata['저가'] = 선물_저가
+                df_fut.at[0, '저가'] = 근월물_선물_저가
+                self.cme_realdata['저가'] = 근월물_선물_저가
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.저가.value, item)
-                df_fut.at[1, '저가'] = 선물_저가
-                self.fut_realdata['저가'] = 선물_저가
+                df_fut.at[1, '저가'] = 근월물_선물_저가
+                self.fut_realdata['저가'] = 근월물_선물_저가
 
-            if 선물_전저 >= 선물_저가:
+            if 근월물_선물_전저 >= 근월물_선물_저가:
 
-                txt = '{0:.2f}'.format(선물_전저) + '\n▼'
+                txt = '{0:.2f}'.format(근월물_선물_전저) + '\n▼'
 
                 item = QTableWidgetItem(txt)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -11999,10 +11998,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.fut_cm_oloh_check()
             self.fut_cm_node_coloring()
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 저가 {3} Update...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 선물_저가)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 저가 {3} Update...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 근월물_선물_저가)
             self.textBrowser.append(txt)
             
-            진폭 = 선물_고가 - 선물_저가
+            진폭 = 근월물_선물_고가 - 근월물_선물_저가
 
             item = QTableWidgetItem("{0:.2f}".format(진폭))
             item.setTextAlignment(Qt.AlignCenter)
@@ -12015,14 +12014,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         # 고가 갱신
-        if NightTime:
-            fut_high = self.tableWidget_fut.item(0, Futures_column.고가.value).text().split('\n')[0]
-        else:
-            fut_high = self.tableWidget_fut.item(1, Futures_column.고가.value).text().split('\n')[0]
+        fut_high = self.tableWidget_fut.item(1, Futures_column.고가.value).text().split('\n')[0]            
 
         if 고가 != fut_high:
 
-            txt = '{0:.2f}'.format(선물_고가) + '\n' + '({0:.2f})'.format(volatility_breakout_upward_point)
+            txt = '{0:.2f}'.format(근월물_선물_고가) + '\n' + '({0:.2f})'.format(volatility_breakout_upward_point)
 
             item = QTableWidgetItem(txt)
             item.setTextAlignment(Qt.AlignCenter)
@@ -12031,16 +12027,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if NightTime:
                 
                 self.tableWidget_fut.setItem(0, Futures_column.고가.value, item)
-                df_fut.at[0, '고가'] = 선물_고가
-                self.cme_realdata['고가'] = 선물_고가
+                df_fut.at[0, '고가'] = 근월물_선물_고가
+                self.cme_realdata['고가'] = 근월물_선물_고가
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.고가.value, item)
-                df_fut.at[1, '고가'] = 선물_고가
-                self.fut_realdata['고가'] = 선물_고가
+                df_fut.at[1, '고가'] = 근월물_선물_고가
+                self.fut_realdata['고가'] = 근월물_선물_고가
 
-            if 선물_전고 <= 선물_고가:
+            if 근월물_선물_전고 <= 근월물_선물_고가:
 
-                txt = '{0:.2f}'.format(선물_전고) + '\n▲'
+                txt = '{0:.2f}'.format(근월물_선물_전고) + '\n▲'
 
                 item = QTableWidgetItem(txt)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -12057,10 +12053,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.fut_cm_oloh_check()
             self.fut_cm_node_coloring()
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 고가 {3} Update...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 선물_고가)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 고가 {3} Update...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 근월물_선물_고가)
             self.textBrowser.append(txt)
             
-            진폭 = 선물_고가 - 선물_저가
+            진폭 = 근월물_선물_고가 - 근월물_선물_저가
 
             item = QTableWidgetItem("{0:.2f}".format(진폭))
             item.setTextAlignment(Qt.AlignCenter)
@@ -12076,7 +12072,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if TARGET_MONTH == 'CM':
 
-            if 선물_현재가 < volatility_breakout_downward_point:
+            if 근월물_선물_현재가 < volatility_breakout_downward_point:
 
                 item = QTableWidgetItem('VDB')
                 item.setTextAlignment(Qt.AlignCenter)
@@ -12084,7 +12080,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setForeground(QBrush(cyan))
                 self.tableWidget_fut.setItem(2, 0, item)               
                 
-            elif 선물_현재가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
+            elif 근월물_선물_현재가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
 
                 item = QTableWidgetItem('VUB')
                 item.setTextAlignment(Qt.AlignCenter)
@@ -12100,7 +12096,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
         elif TARGET_MONTH == 'NM':
 
-            if 선물_현재가 < volatility_breakout_downward_point:
+            if 근월물_선물_현재가 < volatility_breakout_downward_point:
 
                 item = QTableWidgetItem('VDB')
                 item.setTextAlignment(Qt.AlignCenter)
@@ -12108,7 +12104,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setForeground(QBrush(cyan))
                 self.tableWidget_fut.setItem(2, 0, item)              
                 
-            elif 선물_현재가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
+            elif 근월물_선물_현재가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
 
                 item = QTableWidgetItem('VUB')
                 item.setTextAlignment(Qt.AlignCenter)
@@ -12148,7 +12144,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 차월물 선물	
     def fut_nm_update(self, result):
 
-        global 차월물_선물_시가, 차월물_선물_현재가, 차월물_선물_저가, 차월물_선물_고가, 차월물_선물_피봇, 차월물_선물_진폭
+        global 차월물_선물_피봇, 차월물_선물_시가, 차월물_선물_저가, 차월물_선물_현재가, 차월물_선물_고가, 차월물_선물_진폭
 
         dt = datetime.now()
 
@@ -12243,7 +12239,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if 저가 != fut_low:
 
-            txt = '{0:.2f}'.format(선물_저가)
+            txt = '{0:.2f}'.format(근월물_선물_저가)
 
             item = QTableWidgetItem(txt)
             item.setTextAlignment(Qt.AlignCenter)
@@ -12284,7 +12280,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if 고가 != fut_high:
 
-            txt = '{0:.2f}'.format(선물_고가)
+            txt = '{0:.2f}'.format(근월물_선물_고가)
 
             item = QTableWidgetItem(txt)
             item.setTextAlignment(Qt.AlignCenter)
@@ -12320,7 +12316,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass       
 
-    def fut_etc_update(self, result):
+    def fut_cm_etc_update(self, result):
 
         global df_fut, 선물_진폭비, flag_call_dominant, flag_put_dominant
 
@@ -12330,15 +12326,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setForeground(QBrush(검정색))
         self.tableWidget_fut.setItem(2, Futures_column.대비.value, item)
 
-        item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(선물_시가대비, 선물_종가대비_등락율))
+        item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(근월물_선물_시가대비, 근월물_선물_종가대비_등락율))
         item.setTextAlignment(Qt.AlignCenter)
 
-        if 선물_종가대비_등락율 > 0 and DOW_등락율 > 0 and flag_fut_vs_dow_drate_direction:
+        if 근월물_선물_종가대비_등락율 > 0 and DOW_등락율 > 0 and flag_fut_vs_dow_drate_direction:
 
             item.setBackground(QBrush(pink))
             item.setForeground(QBrush(검정색))
 
-        elif 선물_종가대비_등락율 < 0 and DOW_등락율 < 0 and flag_fut_vs_dow_drate_direction:
+        elif 근월물_선물_종가대비_등락율 < 0 and DOW_등락율 < 0 and flag_fut_vs_dow_drate_direction:
 
             item.setBackground(QBrush(lightskyblue))
             item.setForeground(QBrush(검정색))
@@ -12348,8 +12344,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)            
         
-        if 선물_시가 > 0:
-            선물_진폭비 = (선물_고가 - 선물_저가) / 선물_시가
+        if 근월물_선물_시가 > 0:
+            선물_진폭비 = (근월물_선물_고가 - 근월물_선물_저가) / 근월물_선물_시가
         else:
             선물_진폭비 = 0
 
@@ -12427,38 +12423,38 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         '''
         global fut_bollinger_symbol, fut_psar_symbol, fut_oe_symbol, fut_mama_symbol
 
-        if df_futures_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_graph.at[ovc_x_idx, 'BBMiddle']:
+        if df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle']:
 
-            if df_futures_graph.at[ovc_x_idx, 'BBMiddle'] >= df_futures_graph.at[ovc_x_idx, 'price']:
+            if df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'] >= df_futures_cm_graph.at[ovc_x_idx, 'price']:
                 fut_bollinger_symbol = '▼'
             else:
                 fut_bollinger_symbol = '▲'
         else:
             pass               
 
-        if df_futures_graph.at[ovc_x_idx, 'PSAR'] == df_futures_graph.at[ovc_x_idx, 'PSAR']:
+        if df_futures_cm_graph.at[ovc_x_idx, 'PSAR'] == df_futures_cm_graph.at[ovc_x_idx, 'PSAR']:
 
-            if df_futures_graph.at[ovc_x_idx, 'PSAR'] >= df_futures_graph.at[ovc_x_idx, 'price']:
+            if df_futures_cm_graph.at[ovc_x_idx, 'PSAR'] >= df_futures_cm_graph.at[ovc_x_idx, 'price']:
                 fut_psar_symbol = '▼'
             else:
                 fut_psar_symbol = '▲'
         else:
             pass
         
-        if df_futures_graph.at[ovc_x_idx, 'OE_CONV'] == df_futures_graph.at[ovc_x_idx, 'OE_CONV'] and df_futures_graph.at[ovc_x_idx, 'OE_BASE'] == df_futures_graph.at[ovc_x_idx, 'OE_BASE']:
+        if df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] == df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] and df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE'] == df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE']:
 
-            if df_futures_graph.at[ovc_x_idx, 'OE_CONV'] < df_futures_graph.at[ovc_x_idx, 'OE_BASE']:
+            if df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] < df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE']:
                 fut_oe_symbol = '▼'
             else:
                 fut_oe_symbol = '▲'
         else:
             pass
 
-        if df_futures_graph.at[ovc_x_idx, 'MAMA'] == df_futures_graph.at[ovc_x_idx, 'MAMA'] and df_futures_graph.at[ovc_x_idx, 'FAMA'] == df_futures_graph.at[ovc_x_idx, 'FAMA']:
+        if df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] and df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'FAMA']:
 
-            if df_futures_graph.at[ovc_x_idx, 'FAMA'] >= df_futures_graph.at[ovc_x_idx, 'BBLower']:
+            if df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] >= df_futures_cm_graph.at[ovc_x_idx, 'BBLower']:
 
-                if df_futures_graph.at[ovc_x_idx, 'MAMA'] < df_futures_graph.at[ovc_x_idx, 'FAMA']:                
+                if df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] < df_futures_cm_graph.at[ovc_x_idx, 'FAMA']:                
                     fut_mama_symbol = '▼'
                 else:
                     fut_mama_symbol = '▲'
@@ -12476,6 +12472,32 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
         '''
+
+    def fut_nm_etc_update(self, result):
+                
+        # 미결 갱신 
+        미결 = int(result['미결제약정수량'])
+
+        temp = '{0}k'.format(int(미결/1000))
+        item = QTableWidgetItem(temp)
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(0, Futures_column.OI.value, item) 
+
+        # 미결증감 갱신
+        미결증감 = int(result['미결제약정증감'])
+
+        temp = format(미결증감, ',')
+        item = QTableWidgetItem(temp)
+        item.setTextAlignment(Qt.AlignCenter)
+
+        if 미결증감 < 0:
+            item.setBackground(QBrush(라임))
+        else:
+            item.setBackground(QBrush(흰색))
+
+        item.setForeground(QBrush(검정색))
+
+        self.tableWidget_fut.setItem(0, Futures_column.OID.value, item)
 
     def check_call_oloh(self):
 
@@ -14978,7 +15000,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if DayTime:
 
                 futures_graph_csv = "Futures {}{}".format(times, '.csv')
-                df_futures_graph.to_csv(futures_graph_csv, encoding='ms949')
+                df_futures_cm_graph.to_csv(futures_graph_csv, encoding='ms949')
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 국내선물 Graph 파일을 저장했습니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
                 self.textBrowser.append(txt)
@@ -15341,7 +15363,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
         global view_actval
         
-        global 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_시가, 선물_저가, 선물_현재가, 선물_고가
+        global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_피봇, 근월물_선물_시가, 근월물_선물_저가, 근월물_선물_현재가, 근월물_선물_고가
         global call_itm_count, call_max_actval
         global put_itm_count, put_max_actval
         global KP200_전일종가, kp200_시가, kp200_저가, kp200_현재가, kp200_고가, kp200_진폭
@@ -15350,10 +15372,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global CM_OPTCODE, NM_OPTCODE
         global call_otm_cdb_percent_mean, put_otm_cdb_percent_mean
         global atm_zero_sum, atm_zero_cha
-        global 선물_전일종가
+        global 근월물_선물_전일종가
         global CENTER_VAL, CENTER_VAL_PLUS5, CENTER_VAL_PLUS4, CENTER_VAL_PLUS3, CENTER_VAL_PLUS2, CENTER_VAL_PLUS1, CENTER_VAL_MINUS1, CENTER_VAL_MINUS2, CENTER_VAL_MINUS3, CENTER_VAL_MINUS4, CENTER_VAL_MINUS5
 
-        global df_futures_graph, df_kp200_graph, df_supply_demand_graph
+        global df_futures_cm_graph, df_futures_nm_graph, df_kp200_graph, df_supply_demand_graph
         global t8416_call_count, t8416_put_count
         global ui_start_time
         global df_fut_t8416
@@ -15363,6 +15385,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global t8416_option_pairs_count, t8416_loop_finish_time
         
         global flag_score_board_start, flag_telegram_send_start, flag_telegram_listen_start
+        global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_시가, 근월물_선물_저가, 근월물_선물_현재가, 근월물_선물_고가
+        global 차월물_선물_전저, 차월물_선물_전고, 차월물_선물_종가, 차월물_선물_시가, 차월물_선물_저가, 차월물_선물_현재가, 차월물_선물_고가
 
         dt = datetime.now()
 
@@ -15460,188 +15484,193 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             szTrCode, df = result
 
-            self.fut_realdata['현재가'] = df['현재가']
-            self.fut_realdata['KP200'] = df['KOSPI200지수']
-            
-            atm_txt = self.get_atm_txt(self.fut_realdata['KP200'])
+            if df['종목코드'] == GMSHCODE:
 
-            if atm_txt[-1] == '2' or atm_txt[-1] == '7':
+                print('근월물 선물 현재가 = {0}\r'.format(df['현재가']))
 
-                atm_val = float(atm_txt) + 0.5
-            else:
-                atm_val = float(atm_txt)
+                self.fut_realdata['현재가'] = df['현재가']
+                self.fut_realdata['KP200'] = df['KOSPI200지수']
 
-            if atm_txt in opt_actval:
+                atm_txt = self.get_atm_txt(self.fut_realdata['KP200'])
 
-                ATM_INDEX = opt_actval.index(atm_txt)
+                if atm_txt[-1] == '2' or atm_txt[-1] == '7':
+
+                    atm_val = float(atm_txt) + 0.5
+                else:
+                    atm_val = float(atm_txt)
+
+                if atm_txt in opt_actval:
+
+                    ATM_INDEX = opt_actval.index(atm_txt)
+
+                    view_actval = opt_actval[ATM_INDEX-5:ATM_INDEX+6]
+
+                    call_atm_value = df_call.at[ATM_INDEX, '현재가']
+                    put_atm_value = df_put.at[ATM_INDEX, '현재가']
+
+                    txt = '{0:.2f}({1:.2f}:{2:.2f})'.format(
+                        self.fut_realdata['현재가'] - self.fut_realdata['KP200'],
+                        call_atm_value + put_atm_value,
+                        abs(call_atm_value - put_atm_value))
+                    self.label_atm.setText(txt) 
+
+                    df_futures_cm_graph.at[0, 'drate'] = 0
+                    df_dow_graph.at[0, 'drate'] = 0
+
+                    df_call_information_graph.at[0, 'drate'] = 0
+                    df_put_information_graph.at[0, 'drate'] = 0
+
+                    item_txt = '{0:0.2f}% \n {1:0.2f}% '.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+
+                    item = QTableWidgetItem(item_txt)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_quote.setItem(0, Quote_column.미결종합.value - 1, item)
+                else:
+                    print("atm값({0})이 리스트에 없습니다.".format(atm_txt))
+
+                item = QTableWidgetItem("{0:.2f}".format(KP200_전일종가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_fut.setItem(2, Futures_column.종가.value, item)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 등가지수는 {3}(index = {4})입니다.\r'.format(dt.hour, dt.minute, dt.second, atm_txt, ATM_INDEX)
+                self.parent.textBrowser.append(txt)
+
+                if self.call_open_list:
+
+                    for index in self.call_open_list:
+
+                        if index > ATM_INDEX:
+                            call_itm_count += 1
+                        else:
+                            pass
+                        
+                        if index == option_pairs_count - 1:
+                            call_max_actval = True
+                        else:
+                            pass
+                else:
+                    pass
+
+                if self.put_open_list:
+
+                    for index in self.put_open_list:
+
+                        if index > ATM_INDEX:
+                            put_itm_count += 1
+                        else:
+                            pass
+                        
+                        if index == option_pairs_count - 1:
+                            put_max_actval = True
+                        else:
+                            pass
+                else:
+                    pass
+
+                # kp200 맥점 10개를 리스트로 만듬
+                global KP200_COREVAL
+
+                # KP200_COREVAL 리스트 기존데이타 삭제(초기화)
+                del KP200_COREVAL[:]
+
+                for i in range(6):
+
+                    KP200_COREVAL.append(atm_val - 2.5 * i + 1.25) 
+
+                for i in range(1, 5):
+
+                    KP200_COREVAL.append(atm_val + 2.5 * i + 1.25)
+
+                KP200_COREVAL.sort()
+                print('t2101 KP200_COREVAL =', KP200_COREVAL)  
+
+                self.tableWidget_call.item(ATM_INDEX, Option_column.행사가.value).setBackground(QBrush(노란색))
+                self.tableWidget_call.item(ATM_INDEX, Option_column.행사가.value).setForeground(QBrush(검정색))
+                self.tableWidget_put.item(ATM_INDEX, Option_column.행사가.value).setBackground(QBrush(노란색))
+                self.tableWidget_put.item(ATM_INDEX, Option_column.행사가.value).setForeground(QBrush(검정색))            
+
+                if not self.flag_refresh:
+
+                    self.tableWidget_call.cellWidget(ATM_INDEX, 0).findChild(type(QCheckBox())).setChecked(Qt.Checked)
+                    self.tableWidget_put.cellWidget(ATM_INDEX, 0).findChild(type(QCheckBox())).setChecked(Qt.Checked)
+                    selected_call = [ATM_INDEX]
+                    selected_put = [ATM_INDEX]
+                else:
+                    pass
 
                 view_actval = opt_actval[ATM_INDEX-5:ATM_INDEX+6]
 
                 call_atm_value = df_call.at[ATM_INDEX, '현재가']
                 put_atm_value = df_put.at[ATM_INDEX, '현재가']
-                
+
                 txt = '{0:.2f}({1:.2f}:{2:.2f})'.format(
                     self.fut_realdata['현재가'] - self.fut_realdata['KP200'],
                     call_atm_value + put_atm_value,
                     abs(call_atm_value - put_atm_value))
-                self.label_atm.setText(txt) 
-                
-                df_futures_graph.at[0, 'drate'] = 0
-                df_dow_graph.at[0, 'drate'] = 0
+                self.label_atm.setText(txt)           
 
-                df_call_information_graph.at[0, 'drate'] = 0
-                df_put_information_graph.at[0, 'drate'] = 0
+                self.fut_realdata['종가'] = df['전일종가']
+                근월물_선물_전일종가 = df['전일종가']
 
-                item_txt = '{0:0.2f}% \n {1:0.2f}% '.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
-
-                item = QTableWidgetItem(item_txt)
+                item = QTableWidgetItem("{0:.2f}".format(df['전일종가']))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(흰색))
                 item.setForeground(QBrush(검정색))
-                self.tableWidget_quote.setItem(0, Quote_column.미결종합.value - 1, item)
-            else:
-                print("atm값({0})이 리스트에 없습니다.".format(atm_txt))
-            
-            item = QTableWidgetItem("{0:.2f}".format(KP200_전일종가))
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
-            self.tableWidget_fut.setItem(2, Futures_column.종가.value, item)
+                self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 등가지수는 {3}(index = {4})입니다.\r'.format(dt.hour, dt.minute, dt.second, atm_txt, ATM_INDEX)
-            self.parent.textBrowser.append(txt)
+                self.fut_realdata['시가'] = df['시가']
 
-            if self.call_open_list:
+                txt = '{0}\n({1:.2f})'.format(df['시가'], DOW_기준_예상시가)
 
-                for index in self.call_open_list:
+                item = QTableWidgetItem(txt)
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
 
-                    if index > ATM_INDEX:
-                        call_itm_count += 1
+                if self.fut_realdata['시가'] > self.fut_realdata['종가']:
+                    item.setForeground(QBrush(적색))
+                elif self.fut_realdata['시가'] < self.fut_realdata['종가']:
+                    item.setForeground(QBrush(청색))
+                else:
+                    item.setForeground(QBrush(검정색))
+
+                self.tableWidget_fut.setItem(1, Futures_column.시가.value, item)
+
+                if DayTime:
+
+                    df_call_information_graph.at[0, 'centerval'] = CENTER_VAL
+
+                    df_futures_cm_graph.at[0, 'kp200'] = self.fut_realdata['KP200']
+                    df_futures_cm_graph.at[0, 'price'] = self.fut_realdata['종가']
+                    df_kp200_graph.at[0, 'price'] = self.fut_realdata['KP200']
+                    df_supply_demand_graph.at[0, 'program'] = 0
+                    df_supply_demand_graph.at[0, 'kospi_total'] = 0
+                    df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'] = 0
+                    df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'] = 0
+
+                    if self.fut_realdata['시가'] > 0:
+                        df_futures_cm_graph.at[GuardTime + 1, 'open'] = self.fut_realdata['시가']
                     else:
                         pass
-                    
-                    if index == option_pairs_count - 1:
-                        call_max_actval = True
-                    else:
-                        pass
-            else:
-                pass                
 
-            if self.put_open_list:
-
-                for index in self.put_open_list:
-
-                    if index > ATM_INDEX:
-                        put_itm_count += 1
-                    else:
-                        pass
-                    
-                    if index == option_pairs_count - 1:
-                        put_max_actval = True
-                    else:
-                        pass
-            else:
-                pass                    
-
-            # kp200 맥점 10개를 리스트로 만듬
-            global KP200_COREVAL
-
-            # KP200_COREVAL 리스트 기존데이타 삭제(초기화)
-            del KP200_COREVAL[:]
-
-            for i in range(6):
-
-                KP200_COREVAL.append(atm_val - 2.5 * i + 1.25) 
-
-            for i in range(1, 5):
-
-                KP200_COREVAL.append(atm_val + 2.5 * i + 1.25)
-
-            KP200_COREVAL.sort()
-            print('t2101 KP200_COREVAL =', KP200_COREVAL)  
-            
-            self.tableWidget_call.item(ATM_INDEX, Option_column.행사가.value).setBackground(QBrush(노란색))
-            self.tableWidget_call.item(ATM_INDEX, Option_column.행사가.value).setForeground(QBrush(검정색))
-            self.tableWidget_put.item(ATM_INDEX, Option_column.행사가.value).setBackground(QBrush(노란색))
-            self.tableWidget_put.item(ATM_INDEX, Option_column.행사가.value).setForeground(QBrush(검정색))            
-            
-            if not self.flag_refresh:
-
-                self.tableWidget_call.cellWidget(ATM_INDEX, 0).findChild(type(QCheckBox())).setChecked(Qt.Checked)
-                self.tableWidget_put.cellWidget(ATM_INDEX, 0).findChild(type(QCheckBox())).setChecked(Qt.Checked)
-                selected_call = [ATM_INDEX]
-                selected_put = [ATM_INDEX]
-            else:
-                pass
-
-            view_actval = opt_actval[ATM_INDEX-5:ATM_INDEX+6]
-
-            call_atm_value = df_call.at[ATM_INDEX, '현재가']
-            put_atm_value = df_put.at[ATM_INDEX, '현재가']
-
-            txt = '{0:.2f}({1:.2f}:{2:.2f})'.format(
-                self.fut_realdata['현재가'] - self.fut_realdata['KP200'],
-                call_atm_value + put_atm_value,
-                abs(call_atm_value - put_atm_value))
-            self.label_atm.setText(txt)           
-
-            self.fut_realdata['종가'] = df['전일종가']
-            선물_전일종가 = df['전일종가']
-
-            item = QTableWidgetItem("{0:.2f}".format(df['전일종가']))
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
-            self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)
-
-            self.fut_realdata['시가'] = df['시가']
-
-            item = QTableWidgetItem("{0:.2f}".format(df['시가']))
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-
-            if self.fut_realdata['시가'] > self.fut_realdata['종가']:
-                item.setForeground(QBrush(적색))
-            elif self.fut_realdata['시가'] < self.fut_realdata['종가']:
-                item.setForeground(QBrush(청색))
-            else:
-                item.setForeground(QBrush(검정색))
-
-            self.tableWidget_fut.setItem(1, Futures_column.시가.value, item)
-
-            if DayTime:
-
-                df_call_information_graph.at[0, 'centerval'] = CENTER_VAL
-
-                df_futures_graph.at[0, 'kp200'] = self.fut_realdata['KP200']
-                df_futures_graph.at[0, 'price'] = self.fut_realdata['종가']
-                df_kp200_graph.at[0, 'price'] = self.fut_realdata['KP200']
-                df_supply_demand_graph.at[0, 'program'] = 0
-                df_supply_demand_graph.at[0, 'kospi_total'] = 0
-                df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'] = 0
-                df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'] = 0
-
-                if self.fut_realdata['시가'] > 0:
-                    df_futures_graph.at[GuardTime + 1, 'open'] = self.fut_realdata['시가']
+                    df_futures_cm_graph.at[0, 'volume'] = 0
                 else:
                     pass
 
-                df_futures_graph.at[0, 'volume'] = 0
-            else:
-                pass
+                if self.fut_realdata['전저'] > 0 and self.fut_realdata['전고'] > 0:
+                    self.fut_realdata['피봇'] = calc_pivot(self.fut_realdata['전저'], self.fut_realdata['전고'], self.fut_realdata['종가'], df['시가'])
+                    근월물_선물_피봇 = self.fut_realdata['피봇']
 
-            if DayTime and df['시가'] > 0:
-
-                self.fut_realdata['피봇'] = calc_pivot(self.fut_realdata['전저'], self.fut_realdata['전고'],
-                                                         self.fut_realdata['종가'], df['시가'])
-
-                item = QTableWidgetItem("{0:.2f}".format(self.fut_realdata['피봇']))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(흰색))
-                item.setForeground(QBrush(검정색))
-                self.tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
-
-                선물_피봇 = self.fut_realdata['피봇']
+                    item = QTableWidgetItem("{0:.2f}".format(self.fut_realdata['피봇']))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
+                else:
+                    pass                
 
                 self.fut_realdata['시가갭'] = self.fut_realdata['시가'] - self.fut_realdata['종가']
 
@@ -15659,138 +15688,245 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(검정색))  
 
                 self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
-            else:
-                pass            
 
-            self.fut_realdata['현재가'] = df['현재가']
+                self.fut_realdata['현재가'] = df['현재가']
 
-            item = QTableWidgetItem("{0:.2f}".format(self.fut_realdata['현재가']))
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-
-            if df['현재가'] > df['시가']:
-                item.setForeground(QBrush(적색))
-            elif df['현재가'] < df['시가']:
-                item.setForeground(QBrush(청색))
-            else:
-                item.setForeground(QBrush(검정색))
-
-            self.tableWidget_fut.setItem(1, Futures_column.현재가.value, item)
-            
-            if df['시가'] > 0:
-
-                self.fut_realdata['대비'] = round((df['현재가'] - df['시가']), 2)
-            else:
-                self.fut_realdata['대비'] = 0
-
-            item = QTableWidgetItem("{0:.2f}".format(self.fut_realdata['대비']))
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
-            self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
-            
-            self.fut_realdata['저가'] = df['저가']
-
-            txt = '{0:.2f}'.format(self.fut_realdata['저가']) + '\n' + '({0:.2f})'.format(df['시가'] - k_value)
-
-            item = QTableWidgetItem(txt)
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
-            self.tableWidget_fut.setItem(1, Futures_column.저가.value, item)
-
-            self.fut_realdata['고가'] = df['고가']
-
-            txt = '{0:.2f}'.format(self.fut_realdata['고가']) + '\n' + '({0:.2f})'.format(df['시가'] + k_value)
-
-            item = QTableWidgetItem(txt)
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
-            self.tableWidget_fut.setItem(1, Futures_column.고가.value, item)
-
-            self.fut_realdata['진폭'] = df['고가'] - df['저가']
-
-            item = QTableWidgetItem("{0:.2f}".format(self.fut_realdata['진폭']))
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
-            self.tableWidget_fut.setItem(1, Futures_column.진폭.value, item)
-
-            self.fut_realdata['거래량'] = df['거래량']
-            #temp = format(self.fut_realdata['거래량'], ',')
-            temp = '{0}k'.format(int(self.fut_realdata['거래량']/1000))
-
-            item = QTableWidgetItem(temp)
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
-            self.tableWidget_fut.setItem(1, Futures_column.거래량.value, item)
-
-            self.fut_realdata['미결'] = df['미결제량']
-            #temp = format(self.fut_realdata['미결'], ',')
-            temp = '{0}k'.format(int(self.fut_realdata['미결']/1000))
-
-            item = QTableWidgetItem(temp)
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
-            self.tableWidget_fut.setItem(1, Futures_column.OI.value, item)
-
-            self.fut_realdata['미결증감'] = df['미결제증감']
-            temp = format(self.fut_realdata['미결증감'], ',')
-
-            item = QTableWidgetItem(temp)
-            item.setTextAlignment(Qt.AlignCenter)
-
-            if self.fut_realdata['미결증감'] < 0:
-                item.setBackground(QBrush(라임))
-            else:
+                item = QTableWidgetItem("{0:.2f}".format(self.fut_realdata['현재가']))
+                item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(흰색))
 
-            item.setForeground(QBrush(검정색))
+                if df['현재가'] > df['시가']:
+                    item.setForeground(QBrush(적색))
+                elif df['현재가'] < df['시가']:
+                    item.setForeground(QBrush(청색))
+                else:
+                    item.setForeground(QBrush(검정색))
 
-            self.tableWidget_fut.setItem(1, Futures_column.OID.value, item)            
+                self.tableWidget_fut.setItem(1, Futures_column.현재가.value, item)
+
+                if df['시가'] > 0:
+
+                    self.fut_realdata['대비'] = round((df['현재가'] - df['시가']), 2)
+                else:
+                    self.fut_realdata['대비'] = 0
+
+                item = QTableWidgetItem("{0:.2f}".format(self.fut_realdata['대비']))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
+
+                self.fut_realdata['저가'] = df['저가']
+
+                txt = '{0:.2f}'.format(self.fut_realdata['저가']) + '\n' + '({0:.2f})'.format(df['시가'] - k_value)
+
+                item = QTableWidgetItem(txt)
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_fut.setItem(1, Futures_column.저가.value, item)
+
+                self.fut_realdata['고가'] = df['고가']
+
+                txt = '{0:.2f}'.format(self.fut_realdata['고가']) + '\n' + '({0:.2f})'.format(df['시가'] + k_value)
+
+                item = QTableWidgetItem(txt)
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_fut.setItem(1, Futures_column.고가.value, item)
+
+                self.fut_realdata['진폭'] = df['고가'] - df['저가']
+
+                item = QTableWidgetItem("{0:.2f}".format(self.fut_realdata['진폭']))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_fut.setItem(1, Futures_column.진폭.value, item)
+
+                self.fut_realdata['거래량'] = df['거래량']
+                #temp = format(self.fut_realdata['거래량'], ',')
+                temp = '{0}k'.format(int(self.fut_realdata['거래량']/1000))
+
+                item = QTableWidgetItem(temp)
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_fut.setItem(1, Futures_column.거래량.value, item)
+
+                self.fut_realdata['미결'] = df['미결제량']
+                #temp = format(self.fut_realdata['미결'], ',')
+                temp = '{0}k'.format(int(self.fut_realdata['미결']/1000))
+
+                item = QTableWidgetItem(temp)
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_fut.setItem(1, Futures_column.OI.value, item)
+
+                self.fut_realdata['미결증감'] = df['미결제증감']
+                temp = format(self.fut_realdata['미결증감'], ',')
+
+                item = QTableWidgetItem(temp)
+                item.setTextAlignment(Qt.AlignCenter)
+
+                if self.fut_realdata['미결증감'] < 0:
+                    item.setBackground(QBrush(라임))
+                else:
+                    item.setBackground(QBrush(흰색))
+
+                item.setForeground(QBrush(검정색))
+
+                self.tableWidget_fut.setItem(1, Futures_column.OID.value, item)
+
+                if DayTime:
+
+                    근월물_선물_피봇 = self.fut_realdata['피봇']
+                    근월물_선물_시가 = df['시가']
+                    근월물_선물_저가 = df['저가']
+                    근월물_선물_현재가 = df['현재가']
+                    근월물_선물_고가 = df['고가']
+                else:
+                    pass
+
+                # 선물 맥점 컬러 체크(실시간에서만 표시됨)
+                if market_service:
+                    self.fut_cm_node_color_clear()
+                    self.fut_cm_oloh_check()
+                    self.fut_cm_node_coloring()
+
+                    self.fut_nm_node_color_clear()
+                    self.fut_nm_oloh_check()
+                    self.fut_nm_node_coloring()
+
+                    self.kp200_node_color_clear()
+                    self.kp200_node_coloring()
+
+                    self.kp200_low_node_coloring()
+                    self.kp200_high_node_coloring()
+                else:
+                    pass
+                
+                if ResizeRowsToContents:  
+                    self.tableWidget_fut.resizeRowsToContents()
+                else:
+                    pass
+
+                self.tableWidget_fut.resizeColumnsToContents()
+
+                if self.flag_refresh:
             
-            if DayTime:
+                    # 옵션 맥점 컬러링                
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션맥점 Refresh 컬러링을 시작합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
+                    self.textBrowser.append(txt)
 
-                선물_피봇 = self.fut_realdata['피봇']
-                선물_시가 = df['시가']
-                선물_저가 = df['저가']
-                선물_현재가 = df['현재가']
-                선물_고가 = df['고가']
+                    self.opt_all_node_coloring()
+                else:
+                    pass
+
+            elif df['종목코드'] == CMSHCODE:
+
+                print('차월물 선물 현재가 = {0}\r'.format(df['현재가']))
+
+                차월물_선물_전일종가 = df['전일종가']
+
+                item = QTableWidgetItem("{0}".format(df['전일종가']))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_fut.setItem(0, Futures_column.종가.value, item)
+
+                차월물_선물_시가 = df['시가']
+
+                item = QTableWidgetItem("{0:.2f}".format(df['시가']))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+
+                if 차월물_선물_시가 > 차월물_선물_전일종가:
+                    item.setForeground(QBrush(적색))
+                elif 차월물_선물_시가 < 차월물_선물_전일종가:
+                    item.setForeground(QBrush(청색))
+                else:
+                    item.setForeground(QBrush(검정색))
+
+                self.tableWidget_fut.setItem(0, Futures_column.시가.value, item)
+
+                if 차월물_선물_전저 > 0 and 차월물_선물_전고 > 0:
+                    차월물_선물_피봇 = calc_pivot(차월물_선물_전저, 차월물_선물_전고, 차월물_선물_전일종가, 차월물_선물_시가)
+
+                    item = QTableWidgetItem("{0:.2f}".format(차월물_선물_피봇))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_fut.setItem(0, Futures_column.피봇.value, item)
+                else:
+                    pass
+
+                시가갭 = 차월물_선물_시가 - 차월물_선물_전일종가
+
+                item = QTableWidgetItem("{0:.2f}".format(시가갭))
+                item.setTextAlignment(Qt.AlignCenter)
+
+                if 차월물_선물_시가 > 차월물_선물_전일종가:
+                    item.setBackground(QBrush(콜기준가색))
+                    item.setForeground(QBrush(검정색))
+                elif 차월물_선물_시가 < 차월물_선물_전일종가:
+                    item.setBackground(QBrush(풋기준가색))
+                    item.setForeground(QBrush(흰색))
+                else:
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))  
+
+                self.tableWidget_fut.setItem(0, Futures_column.시가갭.value, item)
+
+                차월물_선물_저가 = df['저가']
+
+                item = QTableWidgetItem('{0}'.format(df['저가']))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_fut.setItem(0, Futures_column.저가.value, item)
+
+                차월물_선물_현재가 = df['현재가']
+
+                item = QTableWidgetItem("{0}".format(df['현재가']))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+
+                if 차월물_선물_현재가 > 차월물_선물_시가:
+                    item.setForeground(QBrush(적색))
+                elif 차월물_선물_현재가 < 차월물_선물_시가:
+                    item.setForeground(QBrush(청색))
+                else:
+                    item.setForeground(QBrush(검정색))
+
+                self.tableWidget_fut.setItem(0, Futures_column.현재가.value, item)
+
+                대비 = 차월물_선물_현재가 - 차월물_선물_시가
+
+                item = QTableWidgetItem("{0:.2f}".format(대비))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
+
+                차월물_선물_고가 = df['고가']
+
+                item = QTableWidgetItem('{0}'.format(df['고가']))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_fut.setItem(0, Futures_column.고가.value, item)
+
+                진폭 = 차월물_선물_고가 - 차월물_선물_저가
+
+                item = QTableWidgetItem("{0:.2f}".format(진폭))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_fut.setItem(0, Futures_column.진폭.value, item)
             else:
-                pass
-
-            # 선물 맥점 컬러 체크(실시간에서만 표시됨)
-            if market_service:
-                self.fut_cm_node_color_clear()
-                self.fut_cm_oloh_check()
-                self.fut_cm_node_coloring()
-
-                self.kp200_node_color_clear()
-                self.kp200_node_coloring()
-
-                self.kp200_low_node_coloring()
-                self.kp200_high_node_coloring()
-            else:
-                pass
-            
-            if ResizeRowsToContents:  
-                self.tableWidget_fut.resizeRowsToContents()
-            else:
-                pass                        
-            self.tableWidget_fut.resizeColumnsToContents()             
-            
-            if self.flag_refresh:
-            
-                # 옵션 맥점 컬러링                
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션맥점 Refresh 컬러링을 시작합니다.\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC)
-                self.textBrowser.append(txt)
-
-                self.opt_all_node_coloring()
-            else:
-                pass
+                pass            
 
         elif szTrCode == 't2301':
 
@@ -16574,8 +16710,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_put_information_graph.at[0, 'quote_remainder_ratio'] = 1.0
 
                 # 근월물, 차월물 선물 호가잔량비 초기화
-                df_futures_graph.at[0, 'c_quote_remainder_ratio'] = 1.0
-                df_futures_graph.at[0, 'n_quote_remainder_ratio'] = 1.0
+                df_futures_cm_graph.at[0, 'c_quote_remainder_ratio'] = 1.0
+                df_futures_cm_graph.at[0, 'n_quote_remainder_ratio'] = 1.0
 
                 # 해외선물 호가 초기화
                 df_sp500_graph.at[0, 'quote_remainder_ratio'] = 1.0
@@ -16665,15 +16801,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                # 주간 선물전광판 데이타요청
+                # 주간 근월물 선물전광판 데이타요청
                 self.XQ_t2101.Query(GMSHCODE)
                 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 근월물 주간선물 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(txt)                
+                self.textBrowser.append(txt)
+
+                QTest.qWait(100)
+
+                # 주간 차월물 선물전광판 데이타요청
+                self.XQ_t2101.Query(CMSHCODE)
+                
+                txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 차월물 주간선물 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
+
+                QTest.qWait(100)
 
                 # t8416 요청                
-                print('t8416 call 요청시작...')
-                QTest.qWait(100)
+                print('t8416 call 요청시작...')                
 
                 global flag_t8416_rerequest
 
@@ -17106,14 +17251,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    # 주야간 선물전광판 데이타 요청
+                    # 주간 근월물 선물전광판 데이타 요청
                     self.XQ_t2101.Query(종목코드=GMSHCODE)
                     
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물전광판 갱신을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
 
                     QTest.qWait(100)
-                                       
+
+                    # 주간 차월물 선물전광판 데이타요청
+                    self.XQ_t2101.Query(CMSHCODE)
+
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 차월물 주간선물 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+
+                    QTest.qWait(100)                                       
                 else:                    
                     # EUREX 야간옵션 시세전광판 --> 갱신이 안되는 오류!!!
                     print('t2835 요청')
@@ -17298,7 +17450,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setForeground(QBrush(검정색))
                 self.tableWidget_quote.setItem(0, Quote_column.미결종합.value - 1, item)
 
-                df_futures_graph.at[0, 'kp200'] = KP200_전일종가
+                df_futures_cm_graph.at[0, 'kp200'] = KP200_전일종가
                 df_kp200_graph.at[0, 'price'] = KP200_전일종가
                 df_supply_demand_graph.at[0, 'program'] = 0
                 df_supply_demand_graph.at[0, 'kospi_total'] = 0
@@ -17306,12 +17458,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'] = 0
 
                 # 주간 현재가가 야간 종가임
-                df_futures_graph.at[0, 'price'] = self.fut_realdata['현재가']
+                df_futures_cm_graph.at[0, 'price'] = self.fut_realdata['현재가']
 
-                df_futures_graph.at[0, 'volume'] = 0
+                df_futures_cm_graph.at[0, 'volume'] = 0
 
                 if df['시가'] > 0:
-                    df_futures_graph.at[GuardTime + 1, 'open'] = df['시가']
+                    df_futures_cm_graph.at[GuardTime + 1, 'open'] = df['시가']
                 else:
                     pass
 
@@ -17438,53 +17590,53 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             if NightTime:
 
-                선물_전저 = self.cme_realdata['전저']
-                선물_전고 = self.cme_realdata['전고']
+                근월물_선물_전저 = self.cme_realdata['전저']
+                근월물_선물_전고 = self.cme_realdata['전고']
 
                 # 주간 현재가가 야간종가 임
-                선물_종가 = self.cme_realdata['종가']
+                근월물_선물_종가 = self.cme_realdata['종가']
 
                 if self.cme_realdata['피봇'] > 0:
-                    선물_피봇 = self.cme_realdata['피봇']
+                    근월물_선물_피봇 = self.cme_realdata['피봇']
                 else:
-                    #선물_피봇 = self.cme_realdata['종가']
+                    #근월물_선물_피봇 = self.cme_realdata['종가']
                     pass
 
                 if df['시가'] > 0:
-                    선물_시가 = df['시가']
+                    근월물_선물_시가 = df['시가']
                 else:
-                    선물_시가 = self.cme_realdata['종가']
+                    근월물_선물_시가 = self.cme_realdata['종가']
 
                 if df['저가'] > 0:
-                    선물_저가 = df['저가']
+                    근월물_선물_저가 = df['저가']
                 else:
-                    #선물_저가 = self.cme_realdata['종가']
+                    #근월물_선물_저가 = self.cme_realdata['종가']
                     pass
 
                 if df['현재가'] > 0:
-                    선물_현재가 = df['현재가']
+                    근월물_선물_현재가 = df['현재가']
                 else:
-                    선물_현재가 = self.cme_realdata['종가']
+                    근월물_선물_현재가 = self.cme_realdata['종가']
 
                 if df['고가'] > 0:
-                    선물_고가 = df['고가']
+                    근월물_선물_고가 = df['고가']
                 else:
-                    #선물_고가 = self.cme_realdata['종가']
+                    #근월물_선물_고가 = self.cme_realdata['종가']
                     pass
             else:
                 pass    
             
             if NightTime:
 
-                df_futures_graph.at[0, 'kp200'] = self.fut_realdata['KP200']
-                df_futures_graph.at[0, 'price'] = self.cme_realdata['종가']
+                df_futures_cm_graph.at[0, 'kp200'] = self.fut_realdata['KP200']
+                df_futures_cm_graph.at[0, 'price'] = self.cme_realdata['종가']
 
                 if self.cme_realdata['시가'] > 0:
-                    df_futures_graph.at[GuardTime + 1, 'open'] = self.cme_realdata['시가']
+                    df_futures_cm_graph.at[GuardTime + 1, 'open'] = self.cme_realdata['시가']
                 else:
                     pass
 
-                df_futures_graph.at[0, 'volume'] = 0
+                df_futures_cm_graph.at[0, 'volume'] = 0
             else:
                 pass
 
@@ -18944,9 +19096,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
             self.tableWidget_put.resizeColumnsToContents()
 
-            # 주야간 선물전광판 데이타 요청
-            print('t2101 요청')
+            # 야간 근월물 선물전광판 데이타 요청
+            print('t2101 근월물 선물전광판 데이타 요청...\r')
             self.XQ_t2101.Query(종목코드=GMSHCODE)
+            
+            QTest.qWait(100)
+
+            # 야간 차월물 선물전광판 데이타 요청
+            print('t2101 차월물 선물전광판 데이타 요청...\r')
+            self.XQ_t2101.Query(종목코드=CMSHCODE)
             
             QTest.qWait(100)
 
@@ -19157,7 +19315,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_fut_t8416.at[i, 'noise_ratio'] = noise_ratio
 
                 fut_avg_noise_ratio = df_fut_t8416['noise_ratio'].sum() / len(df_fut_t8416)
-                k_value = (선물_전고 - 선물_전저) * fut_avg_noise_ratio
+                k_value = (근월물_선물_전고 - 근월물_선물_전저) * fut_avg_noise_ratio
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 변동성지수 Noise Ratio 평균 = {3:.2f}, K value = {4:.2f}\r'.format(dt.hour, dt.minute, dt.second, fut_avg_noise_ratio, k_value)
                 self.textBrowser.append(txt)
@@ -20078,32 +20236,32 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 CCMSHCODE = 차차월물_선물코드
 
             fut_code = GMSHCODE
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 근월물({3:02d}월물, {4}) 선물 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, current_month, GMSHCODE)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 근월물({3}) 선물 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, GMSHCODE)
             self.textBrowser.append(txt)
             print(txt)
             
             self.fut_realdata['전저'] = df.at[0, '전일저가']
-            선물_전저 = df.at[0, '전일저가']
+            근월물_선물_전저 = df.at[0, '전일저가']
 
             item = QTableWidgetItem("{0:.2f}".format(df.at[0, '전일저가']))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(1, Futures_column.전저.value, item)
 
             self.fut_realdata['전고'] = df.at[0, '전일고가']
-            선물_전고 = df.at[0, '전일고가']
+            근월물_선물_전고 = df.at[0, '전일고가']
 
             item = QTableWidgetItem("{0:.2f}".format(df.at[0, '전일고가']))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(1, Futures_column.전고.value, item)
 
             self.fut_realdata['종가'] = df.at[0, '전일종가']
-            선물_종가 = df.at[0, '전일종가']
+            근월물_선물_종가 = df.at[0, '전일종가']
 
             item = QTableWidgetItem("{0:.2f}".format(df.at[0, '전일종가']))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)
             
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3:02d}월물, {4}) 선물 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, next_month, CMSHCODE)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 선물 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, CMSHCODE)
             self.textBrowser.append(txt)
             print(txt)
 
@@ -20287,7 +20445,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             df_kp200_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle'])
             df_supply_demand_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'program', 'kospi_total', 'kospi_foreigner', 'futures_foreigner'])
-            df_futures_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'kp200', \
+
+            df_futures_cm_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'kp200', \
+                'c_ms_quote', 'c_md_quote', 'c_quote_remainder_ratio', 'n_ms_quote', 'n_md_quote', 'n_quote_remainder_ratio', \
+                    'drate', 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', \
+                    'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
+            
+            df_futures_nm_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'kp200', \
                 'c_ms_quote', 'c_md_quote', 'c_quote_remainder_ratio', 'n_ms_quote', 'n_md_quote', 'n_quote_remainder_ratio', \
                     'drate', 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', \
                     'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
@@ -23271,12 +23435,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             if comboindex1 == 2:
 
-                if not np.isnan(df_futures_graph.at[plot_x, 'price']):                    
+                if not np.isnan(df_futures_cm_graph.at[plot_x, 'price']):                    
                 
-                    Open = df_futures_graph.at[plot_x, 'open']                    
-                    High = df_futures_graph.at[plot_x, 'high']
-                    Low = df_futures_graph.at[plot_x, 'low']
-                    Close = df_futures_graph.at[plot_x, 'close']
+                    Open = df_futures_cm_graph.at[plot_x, 'open']                    
+                    High = df_futures_cm_graph.at[plot_x, 'high']
+                    Low = df_futures_cm_graph.at[plot_x, 'low']
+                    Close = df_futures_cm_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p1_1.setText(txt)
@@ -23379,12 +23543,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             if comboindex2 == 2:
 
-                if not np.isnan(df_futures_graph.at[plot_x, 'price']):                    
+                if not np.isnan(df_futures_cm_graph.at[plot_x, 'price']):                    
                 
-                    Open = df_futures_graph.at[plot_x, 'open']                    
-                    High = df_futures_graph.at[plot_x, 'high']
-                    Low = df_futures_graph.at[plot_x, 'low']
-                    Close = df_futures_graph.at[plot_x, 'close']
+                    Open = df_futures_cm_graph.at[plot_x, 'open']                    
+                    High = df_futures_cm_graph.at[plot_x, 'high']
+                    Low = df_futures_cm_graph.at[plot_x, 'low']
+                    Close = df_futures_cm_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p2_1.setText(txt)
@@ -23487,12 +23651,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             if comboindex3 == 2:
 
-                if not np.isnan(df_futures_graph.at[plot_x, 'price']):                    
+                if not np.isnan(df_futures_cm_graph.at[plot_x, 'price']):                    
                 
-                    Open = df_futures_graph.at[plot_x, 'open']                    
-                    High = df_futures_graph.at[plot_x, 'high']
-                    Low = df_futures_graph.at[plot_x, 'low']
-                    Close = df_futures_graph.at[plot_x, 'close']
+                    Open = df_futures_cm_graph.at[plot_x, 'open']                    
+                    High = df_futures_cm_graph.at[plot_x, 'high']
+                    Low = df_futures_cm_graph.at[plot_x, 'low']
+                    Close = df_futures_cm_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p3_1.setText(txt)
@@ -23595,12 +23759,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             if comboindex4 == 2:
 
-                if not np.isnan(df_futures_graph.at[plot_x, 'price']):
+                if not np.isnan(df_futures_cm_graph.at[plot_x, 'price']):
                     
-                    Open = df_futures_graph.at[plot_x, 'open']                    
-                    High = df_futures_graph.at[plot_x, 'high']
-                    Low = df_futures_graph.at[plot_x, 'low']
-                    Close = df_futures_graph.at[plot_x, 'close']
+                    Open = df_futures_cm_graph.at[plot_x, 'open']                    
+                    High = df_futures_cm_graph.at[plot_x, 'high']
+                    Low = df_futures_cm_graph.at[plot_x, 'low']
+                    Close = df_futures_cm_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p4_1.setText(txt)
@@ -23701,12 +23865,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             if comboindex5 == 2:
 
-                if not np.isnan(df_futures_graph.at[plot_x, 'price']):
+                if not np.isnan(df_futures_cm_graph.at[plot_x, 'price']):
                     
-                    Open = df_futures_graph.at[plot_x, 'open']                    
-                    High = df_futures_graph.at[plot_x, 'high']
-                    Low = df_futures_graph.at[plot_x, 'low']
-                    Close = df_futures_graph.at[plot_x, 'close']
+                    Open = df_futures_cm_graph.at[plot_x, 'open']                    
+                    High = df_futures_cm_graph.at[plot_x, 'high']
+                    Low = df_futures_cm_graph.at[plot_x, 'low']
+                    Close = df_futures_cm_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p5_1.setText(txt)
@@ -23809,12 +23973,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             if comboindex6 == 2:
 
-                if not np.isnan(df_futures_graph.at[plot_x, 'price']):
+                if not np.isnan(df_futures_cm_graph.at[plot_x, 'price']):
                     
-                    Open = df_futures_graph.at[plot_x, 'open']                    
-                    High = df_futures_graph.at[plot_x, 'high']
-                    Low = df_futures_graph.at[plot_x, 'low']
-                    Close = df_futures_graph.at[plot_x, 'close']
+                    Open = df_futures_cm_graph.at[plot_x, 'open']                    
+                    High = df_futures_cm_graph.at[plot_x, 'high']
+                    Low = df_futures_cm_graph.at[plot_x, 'low']
+                    Close = df_futures_cm_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p6_1.setText(txt)
@@ -24198,7 +24362,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         global comboindex1
         
-        global 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_시가, 선물_저가, 선물_고가
+        global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_피봇, 근월물_선물_시가, 근월물_선물_저가, 근월물_선물_고가
         global SP500_전저, SP500_전고, SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가
         global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
         global NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가
@@ -24243,91 +24407,91 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot1_kp200_line[8].setValue(KP200_COREVAL[6])
             self.plot1_kp200_line[9].setValue(KP200_COREVAL[6])
                         
-            if 선물_전저 == 0:
-                선물_전저 = CME_종가
+            if 근월물_선물_전저 == 0:
+                근월물_선물_전저 = CME_종가
             else:
                 pass
 
-            if 선물_전고 == 0:
-                선물_전고 = CME_종가
+            if 근월물_선물_전고 == 0:
+                근월물_선물_전고 = CME_종가
             else:
                 pass
 
-            if 선물_종가 == 0:
-                선물_종가 = CME_종가
+            if 근월물_선물_종가 == 0:
+                근월물_선물_종가 = CME_종가
             else:
                 pass
 
-            if 선물_피봇 == 0:
-                선물_피봇 = CME_종가
+            if 근월물_선물_피봇 == 0:
+                근월물_선물_피봇 = CME_종가
             else:
                 pass
 
-            if 선물_시가 == 0:
-                선물_시가 = CME_종가
+            if 근월물_선물_시가 == 0:
+                근월물_선물_시가 = CME_종가
             else:
                 pass
 
-            if 선물_저가 == 0:
-                선물_저가 = CME_종가
+            if 근월물_선물_저가 == 0:
+                근월물_선물_저가 = CME_종가
             else:
                 pass
 
-            if 선물_고가 == 0:
-                선물_고가 = CME_종가
+            if 근월물_선물_고가 == 0:
+                근월물_선물_고가 = CME_종가
             else:
                 pass
             
             # 종가선 컬러를 살리기위한 임시방편            
-            self.plot1_quote_remainder_ratio_base_line.setValue(선물_고가)
-            self.plot1_quote_remainder_ratio_bottom_line.setValue(선물_고가)
+            self.plot1_quote_remainder_ratio_base_line.setValue(근월물_선물_고가)
+            self.plot1_quote_remainder_ratio_bottom_line.setValue(근월물_선물_고가)
 
             for i in range(9):
-                self.plot1_mv_line[i].setValue(선물_고가)
+                self.plot1_mv_line[i].setValue(근월물_선물_고가)
 
-            self.plot1_center_val_lower_line.setValue(선물_고가)
-            self.plot1_center_val_line.setValue(선물_고가)
-            self.plot1_center_val_upper_line.setValue(선물_고가)
+            self.plot1_center_val_lower_line.setValue(근월물_선물_고가)
+            self.plot1_center_val_line.setValue(근월물_선물_고가)
+            self.plot1_center_val_upper_line.setValue(근월물_선물_고가)
 
-            self.plot1_ovc_open_line.setValue(선물_고가)
-            self.plot1_ovc_jl_line.setValue(선물_고가)
-            self.plot1_ovc_jh_line.setValue(선물_고가)
-            self.plot1_ovc_pivot_line.setValue(선물_고가)
-            self.plot1_ovc_low_line.setValue(선물_고가)
-            self.plot1_ovc_high_line.setValue(선물_고가)
-            self.plot1_ovc_close_line.setValue(선물_고가)
+            self.plot1_ovc_open_line.setValue(근월물_선물_고가)
+            self.plot1_ovc_jl_line.setValue(근월물_선물_고가)
+            self.plot1_ovc_jh_line.setValue(근월물_선물_고가)
+            self.plot1_ovc_pivot_line.setValue(근월물_선물_고가)
+            self.plot1_ovc_low_line.setValue(근월물_선물_고가)
+            self.plot1_ovc_high_line.setValue(근월물_선물_고가)
+            self.plot1_ovc_close_line.setValue(근월물_선물_고가)
 
-            txt = ' {0} '.format(선물_전저)
+            txt = ' {0} '.format(근월물_선물_전저)
             self.label_11.setText(txt) 
-            self.plot1_fut_jl_line.setValue(선물_전저)
+            self.plot1_fut_jl_line.setValue(근월물_선물_전저)
             
-            txt = ' {0} '.format(선물_전고)
+            txt = ' {0} '.format(근월물_선물_전고)
             self.label_12.setText(txt)
-            self.plot1_fut_jh_line.setValue(선물_전고) 
+            self.plot1_fut_jh_line.setValue(근월물_선물_전고) 
             
-            txt = ' {0} '.format(선물_피봇)
+            txt = ' {0} '.format(근월물_선물_피봇)
             self.label_14.setText(txt)
-            self.plot1_fut_pivot_line.setValue(선물_피봇)
+            self.plot1_fut_pivot_line.setValue(근월물_선물_피봇)
 
-            txt = ' {0} '.format(선물_시가)
+            txt = ' {0} '.format(근월물_선물_시가)
             self.label_15.setText(txt)
-            self.plot1_fut_open_line.setValue(선물_시가)
+            self.plot1_fut_open_line.setValue(근월물_선물_시가)
 
-            txt = ' {0} '.format(선물_저가)
+            txt = ' {0} '.format(근월물_선물_저가)
             self.label_16.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_16.setText(txt)
-            self.plot1_fut_low_line.setValue(선물_저가)
+            self.plot1_fut_low_line.setValue(근월물_선물_저가)
             
             self.label_17.setText(" 000.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(선물_고가)
+            txt = ' {0} '.format(근월물_선물_고가)
             self.label_18.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_18.setText(txt)
-            self.plot1_fut_high_line.setValue(선물_고가)
+            self.plot1_fut_high_line.setValue(근월물_선물_고가)
             
-            txt = ' {0} '.format(선물_종가)
+            txt = ' {0} '.format(근월물_선물_종가)
             self.label_13.setText(txt)
-            self.plot1_fut_close_line.setValue(선물_종가)
+            self.plot1_fut_close_line.setValue(근월물_선물_종가)
 
         # 선물잔량비
         elif comboindex1 == 3:
@@ -25019,91 +25183,91 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot2_kp200_line[8].setValue(KP200_COREVAL[6])
             self.plot2_kp200_line[9].setValue(KP200_COREVAL[6])
                         
-            if 선물_전저 == 0:
-                선물_전저 = CME_종가
+            if 근월물_선물_전저 == 0:
+                근월물_선물_전저 = CME_종가
             else:
                 pass
 
-            if 선물_전고 == 0:
-                선물_전고 = CME_종가
+            if 근월물_선물_전고 == 0:
+                근월물_선물_전고 = CME_종가
             else:
                 pass
 
-            if 선물_종가 == 0:
-                선물_종가 = CME_종가
+            if 근월물_선물_종가 == 0:
+                근월물_선물_종가 = CME_종가
             else:
                 pass
 
-            if 선물_피봇 == 0:
-                선물_피봇 = CME_종가
+            if 근월물_선물_피봇 == 0:
+                근월물_선물_피봇 = CME_종가
             else:
                 pass
 
-            if 선물_시가 == 0:
-                선물_시가 = CME_종가
+            if 근월물_선물_시가 == 0:
+                근월물_선물_시가 = CME_종가
             else:
                 pass
 
-            if 선물_저가 == 0:
-                선물_저가 = CME_종가
+            if 근월물_선물_저가 == 0:
+                근월물_선물_저가 = CME_종가
             else:
                 pass
 
-            if 선물_고가 == 0:
-                선물_고가 = CME_종가
+            if 근월물_선물_고가 == 0:
+                근월물_선물_고가 = CME_종가
             else:
                 pass
             
             # 종가선 컬러를 살리기위한 임시방편            
-            self.plot2_quote_remainder_ratio_base_line.setValue(선물_고가)
-            self.plot2_quote_remainder_ratio_bottom_line.setValue(선물_고가)
+            self.plot2_quote_remainder_ratio_base_line.setValue(근월물_선물_고가)
+            self.plot2_quote_remainder_ratio_bottom_line.setValue(근월물_선물_고가)
 
             for i in range(9):
-                self.plot2_mv_line[i].setValue(선물_고가)
+                self.plot2_mv_line[i].setValue(근월물_선물_고가)
 
-            self.plot2_center_val_lower_line.setValue(선물_고가)
-            self.plot2_center_val_line.setValue(선물_고가)
-            self.plot2_center_val_upper_line.setValue(선물_고가)
+            self.plot2_center_val_lower_line.setValue(근월물_선물_고가)
+            self.plot2_center_val_line.setValue(근월물_선물_고가)
+            self.plot2_center_val_upper_line.setValue(근월물_선물_고가)
 
-            self.plot2_ovc_open_line.setValue(선물_고가)
-            self.plot2_ovc_jl_line.setValue(선물_고가)
-            self.plot2_ovc_jh_line.setValue(선물_고가)
-            self.plot2_ovc_pivot_line.setValue(선물_고가)
-            self.plot2_ovc_low_line.setValue(선물_고가)
-            self.plot2_ovc_high_line.setValue(선물_고가)
-            self.plot2_ovc_close_line.setValue(선물_고가)
+            self.plot2_ovc_open_line.setValue(근월물_선물_고가)
+            self.plot2_ovc_jl_line.setValue(근월물_선물_고가)
+            self.plot2_ovc_jh_line.setValue(근월물_선물_고가)
+            self.plot2_ovc_pivot_line.setValue(근월물_선물_고가)
+            self.plot2_ovc_low_line.setValue(근월물_선물_고가)
+            self.plot2_ovc_high_line.setValue(근월물_선물_고가)
+            self.plot2_ovc_close_line.setValue(근월물_선물_고가)
 
-            txt = ' {0} '.format(선물_전저)
+            txt = ' {0} '.format(근월물_선물_전저)
             self.label_21.setText(txt) 
-            self.plot2_fut_jl_line.setValue(선물_전저)
+            self.plot2_fut_jl_line.setValue(근월물_선물_전저)
             
-            txt = ' {0} '.format(선물_전고)
+            txt = ' {0} '.format(근월물_선물_전고)
             self.label_22.setText(txt)
-            self.plot2_fut_jh_line.setValue(선물_전고) 
+            self.plot2_fut_jh_line.setValue(근월물_선물_전고) 
             
-            txt = ' {0} '.format(선물_피봇)
+            txt = ' {0} '.format(근월물_선물_피봇)
             self.label_24.setText(txt)
-            self.plot2_fut_pivot_line.setValue(선물_피봇)
+            self.plot2_fut_pivot_line.setValue(근월물_선물_피봇)
 
-            txt = ' {0} '.format(선물_시가)
+            txt = ' {0} '.format(근월물_선물_시가)
             self.label_25.setText(txt)
-            self.plot2_fut_open_line.setValue(선물_시가)
+            self.plot2_fut_open_line.setValue(근월물_선물_시가)
 
-            txt = ' {0} '.format(선물_저가)
+            txt = ' {0} '.format(근월물_선물_저가)
             self.label_26.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_26.setText(txt)
-            self.plot2_fut_low_line.setValue(선물_저가)
+            self.plot2_fut_low_line.setValue(근월물_선물_저가)
             
             self.label_27.setText(" 000.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(선물_고가)
+            txt = ' {0} '.format(근월물_선물_고가)
             self.label_28.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_28.setText(txt)
-            self.plot2_fut_high_line.setValue(선물_고가)
+            self.plot2_fut_high_line.setValue(근월물_선물_고가)
             
-            txt = ' {0} '.format(선물_종가)
+            txt = ' {0} '.format(근월물_선물_종가)
             self.label_23.setText(txt)
-            self.plot2_fut_close_line.setValue(선물_종가)
+            self.plot2_fut_close_line.setValue(근월물_선물_종가)
         
         # 선물잔량비
         elif comboindex2 == 3:
@@ -25792,91 +25956,91 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot3_kp200_line[8].setValue(KP200_COREVAL[6])
             self.plot3_kp200_line[9].setValue(KP200_COREVAL[6])
                         
-            if 선물_전저 == 0:
-                선물_전저 = CME_종가
+            if 근월물_선물_전저 == 0:
+                근월물_선물_전저 = CME_종가
             else:
                 pass
 
-            if 선물_전고 == 0:
-                선물_전고 = CME_종가
+            if 근월물_선물_전고 == 0:
+                근월물_선물_전고 = CME_종가
             else:
                 pass
 
-            if 선물_종가 == 0:
-                선물_종가 = CME_종가
+            if 근월물_선물_종가 == 0:
+                근월물_선물_종가 = CME_종가
             else:
                 pass
 
-            if 선물_피봇 == 0:
-                선물_피봇 = CME_종가
+            if 근월물_선물_피봇 == 0:
+                근월물_선물_피봇 = CME_종가
             else:
                 pass
 
-            if 선물_시가 == 0:
-                선물_시가 = CME_종가
+            if 근월물_선물_시가 == 0:
+                근월물_선물_시가 = CME_종가
             else:
                 pass
 
-            if 선물_저가 == 0:
-                선물_저가 = CME_종가
+            if 근월물_선물_저가 == 0:
+                근월물_선물_저가 = CME_종가
             else:
                 pass
 
-            if 선물_고가 == 0:
-                선물_고가 = CME_종가
+            if 근월물_선물_고가 == 0:
+                근월물_선물_고가 = CME_종가
             else:
                 pass
             
             # 종가선 컬러를 살리기위한 임시방편            
-            self.plot3_quote_remainder_ratio_base_line.setValue(선물_고가)
-            self.plot3_quote_remainder_ratio_bottom_line.setValue(선물_고가)
+            self.plot3_quote_remainder_ratio_base_line.setValue(근월물_선물_고가)
+            self.plot3_quote_remainder_ratio_bottom_line.setValue(근월물_선물_고가)
 
             for i in range(9):
-                self.plot3_mv_line[i].setValue(선물_고가)
+                self.plot3_mv_line[i].setValue(근월물_선물_고가)
 
-            self.plot3_center_val_lower_line.setValue(선물_고가)
-            self.plot3_center_val_line.setValue(선물_고가)
-            self.plot3_center_val_upper_line.setValue(선물_고가)
+            self.plot3_center_val_lower_line.setValue(근월물_선물_고가)
+            self.plot3_center_val_line.setValue(근월물_선물_고가)
+            self.plot3_center_val_upper_line.setValue(근월물_선물_고가)
 
-            self.plot3_ovc_open_line.setValue(선물_고가)
-            self.plot3_ovc_jl_line.setValue(선물_고가)
-            self.plot3_ovc_jh_line.setValue(선물_고가)
-            self.plot3_ovc_pivot_line.setValue(선물_고가)
-            self.plot3_ovc_low_line.setValue(선물_고가)
-            self.plot3_ovc_high_line.setValue(선물_고가)
-            self.plot3_ovc_close_line.setValue(선물_고가)
+            self.plot3_ovc_open_line.setValue(근월물_선물_고가)
+            self.plot3_ovc_jl_line.setValue(근월물_선물_고가)
+            self.plot3_ovc_jh_line.setValue(근월물_선물_고가)
+            self.plot3_ovc_pivot_line.setValue(근월물_선물_고가)
+            self.plot3_ovc_low_line.setValue(근월물_선물_고가)
+            self.plot3_ovc_high_line.setValue(근월물_선물_고가)
+            self.plot3_ovc_close_line.setValue(근월물_선물_고가)
 
-            txt = ' {0} '.format(선물_전저)
+            txt = ' {0} '.format(근월물_선물_전저)
             self.label_31.setText(txt) 
-            self.plot3_fut_jl_line.setValue(선물_전저)
+            self.plot3_fut_jl_line.setValue(근월물_선물_전저)
             
-            txt = ' {0} '.format(선물_전고)
+            txt = ' {0} '.format(근월물_선물_전고)
             self.label_32.setText(txt)
-            self.plot3_fut_jh_line.setValue(선물_전고) 
+            self.plot3_fut_jh_line.setValue(근월물_선물_전고) 
             
-            txt = ' {0} '.format(선물_피봇)
+            txt = ' {0} '.format(근월물_선물_피봇)
             self.label_34.setText(txt)
-            self.plot3_fut_pivot_line.setValue(선물_피봇)
+            self.plot3_fut_pivot_line.setValue(근월물_선물_피봇)
 
-            txt = ' {0} '.format(선물_시가)
+            txt = ' {0} '.format(근월물_선물_시가)
             self.label_35.setText(txt)
-            self.plot3_fut_open_line.setValue(선물_시가)
+            self.plot3_fut_open_line.setValue(근월물_선물_시가)
 
-            txt = ' {0} '.format(선물_저가)
+            txt = ' {0} '.format(근월물_선물_저가)
             self.label_36.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_36.setText(txt)
-            self.plot3_fut_low_line.setValue(선물_저가)
+            self.plot3_fut_low_line.setValue(근월물_선물_저가)
             
             self.label_37.setText(" 000.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(선물_고가)
+            txt = ' {0} '.format(근월물_선물_고가)
             self.label_38.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_38.setText(txt)
-            self.plot3_fut_high_line.setValue(선물_고가)
+            self.plot3_fut_high_line.setValue(근월물_선물_고가)
             
-            txt = ' {0} '.format(선물_종가)
+            txt = ' {0} '.format(근월물_선물_종가)
             self.label_33.setText(txt)
-            self.plot3_fut_close_line.setValue(선물_종가)
+            self.plot3_fut_close_line.setValue(근월물_선물_종가)
         
         # 선물잔량비
         elif comboindex3 == 3:
@@ -26521,7 +26685,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         global comboindex4
         
-        global 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_시가, 선물_저가, 선물_고가
+        global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_피봇, 근월물_선물_시가, 근월물_선물_저가, 근월물_선물_고가
         global SP500_전저, SP500_전고, SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가
         global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
         global NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가
@@ -26566,91 +26730,91 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot4_kp200_line[8].setValue(KP200_COREVAL[6])
             self.plot4_kp200_line[9].setValue(KP200_COREVAL[6])
                         
-            if 선물_전저 == 0:
-                선물_전저 = CME_종가
+            if 근월물_선물_전저 == 0:
+                근월물_선물_전저 = CME_종가
             else:
                 pass
 
-            if 선물_전고 == 0:
-                선물_전고 = CME_종가
+            if 근월물_선물_전고 == 0:
+                근월물_선물_전고 = CME_종가
             else:
                 pass
 
-            if 선물_종가 == 0:
-                선물_종가 = CME_종가
+            if 근월물_선물_종가 == 0:
+                근월물_선물_종가 = CME_종가
             else:
                 pass
 
-            if 선물_피봇 == 0:
-                선물_피봇 = CME_종가
+            if 근월물_선물_피봇 == 0:
+                근월물_선물_피봇 = CME_종가
             else:
                 pass
 
-            if 선물_시가 == 0:
-                선물_시가 = CME_종가
+            if 근월물_선물_시가 == 0:
+                근월물_선물_시가 = CME_종가
             else:
                 pass
 
-            if 선물_저가 == 0:
-                선물_저가 = CME_종가
+            if 근월물_선물_저가 == 0:
+                근월물_선물_저가 = CME_종가
             else:
                 pass
 
-            if 선물_고가 == 0:
-                선물_고가 = CME_종가
+            if 근월물_선물_고가 == 0:
+                근월물_선물_고가 = CME_종가
             else:
                 pass
             
             # 종가선 컬러를 살리기위한 임시방편            
-            self.plot4_quote_remainder_ratio_base_line.setValue(선물_고가)
-            self.plot4_quote_remainder_ratio_bottom_line.setValue(선물_고가)
+            self.plot4_quote_remainder_ratio_base_line.setValue(근월물_선물_고가)
+            self.plot4_quote_remainder_ratio_bottom_line.setValue(근월물_선물_고가)
 
             for i in range(9):
-                self.plot4_mv_line[i].setValue(선물_고가)
+                self.plot4_mv_line[i].setValue(근월물_선물_고가)
 
-            self.plot4_center_val_lower_line.setValue(선물_고가)
-            self.plot4_center_val_line.setValue(선물_고가)
-            self.plot4_center_val_upper_line.setValue(선물_고가)
+            self.plot4_center_val_lower_line.setValue(근월물_선물_고가)
+            self.plot4_center_val_line.setValue(근월물_선물_고가)
+            self.plot4_center_val_upper_line.setValue(근월물_선물_고가)
 
-            self.plot4_ovc_open_line.setValue(선물_고가)
-            self.plot4_ovc_jl_line.setValue(선물_고가)
-            self.plot4_ovc_jh_line.setValue(선물_고가)
-            self.plot4_ovc_pivot_line.setValue(선물_고가)
-            self.plot4_ovc_low_line.setValue(선물_고가)
-            self.plot4_ovc_high_line.setValue(선물_고가)
-            self.plot4_ovc_close_line.setValue(선물_고가)
+            self.plot4_ovc_open_line.setValue(근월물_선물_고가)
+            self.plot4_ovc_jl_line.setValue(근월물_선물_고가)
+            self.plot4_ovc_jh_line.setValue(근월물_선물_고가)
+            self.plot4_ovc_pivot_line.setValue(근월물_선물_고가)
+            self.plot4_ovc_low_line.setValue(근월물_선물_고가)
+            self.plot4_ovc_high_line.setValue(근월물_선물_고가)
+            self.plot4_ovc_close_line.setValue(근월물_선물_고가)
 
-            txt = ' {0} '.format(선물_전저)
+            txt = ' {0} '.format(근월물_선물_전저)
             self.label_41.setText(txt) 
-            self.plot4_fut_jl_line.setValue(선물_전저)
+            self.plot4_fut_jl_line.setValue(근월물_선물_전저)
             
-            txt = ' {0} '.format(선물_전고)
+            txt = ' {0} '.format(근월물_선물_전고)
             self.label_42.setText(txt)
-            self.plot4_fut_jh_line.setValue(선물_전고)
+            self.plot4_fut_jh_line.setValue(근월물_선물_전고)
             
-            txt = ' {0} '.format(선물_종가)
+            txt = ' {0} '.format(근월물_선물_종가)
             self.label_43.setText(txt)
-            self.plot4_fut_close_line.setValue(선물_종가)
+            self.plot4_fut_close_line.setValue(근월물_선물_종가)
             
-            txt = ' {0} '.format(선물_피봇)
+            txt = ' {0} '.format(근월물_선물_피봇)
             self.label_44.setText(txt)
-            self.plot4_fut_pivot_line.setValue(선물_피봇)
+            self.plot4_fut_pivot_line.setValue(근월물_선물_피봇)
 
-            txt = ' {0} '.format(선물_시가)
+            txt = ' {0} '.format(근월물_선물_시가)
             self.label_45.setText(txt)
-            self.plot4_fut_open_line.setValue(선물_시가)
+            self.plot4_fut_open_line.setValue(근월물_선물_시가)
 
-            txt = ' {0} '.format(선물_저가)
+            txt = ' {0} '.format(근월물_선물_저가)
             self.label_46.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_46.setText(txt)
-            self.plot4_fut_low_line.setValue(선물_저가)
+            self.plot4_fut_low_line.setValue(근월물_선물_저가)
             
             self.label_47.setText(" 000.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(선물_고가)
+            txt = ' {0} '.format(근월물_선물_고가)
             self.label_48.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_48.setText(txt)
-            self.plot4_fut_high_line.setValue(선물_고가)        
+            self.plot4_fut_high_line.setValue(근월물_선물_고가)        
         
         # 선물잔량비
         elif comboindex4 == 3:
@@ -27323,91 +27487,91 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot5_kp200_line[8].setValue(KP200_COREVAL[6])
             self.plot5_kp200_line[9].setValue(KP200_COREVAL[6])
                         
-            if 선물_전저 == 0:
-                선물_전저 = CME_종가
+            if 근월물_선물_전저 == 0:
+                근월물_선물_전저 = CME_종가
             else:
                 pass
 
-            if 선물_전고 == 0:
-                선물_전고 = CME_종가
+            if 근월물_선물_전고 == 0:
+                근월물_선물_전고 = CME_종가
             else:
                 pass
 
-            if 선물_종가 == 0:
-                선물_종가 = CME_종가
+            if 근월물_선물_종가 == 0:
+                근월물_선물_종가 = CME_종가
             else:
                 pass
 
-            if 선물_피봇 == 0:
-                선물_피봇 = CME_종가
+            if 근월물_선물_피봇 == 0:
+                근월물_선물_피봇 = CME_종가
             else:
                 pass
 
-            if 선물_시가 == 0:
-                선물_시가 = CME_종가
+            if 근월물_선물_시가 == 0:
+                근월물_선물_시가 = CME_종가
             else:
                 pass
 
-            if 선물_저가 == 0:
-                선물_저가 = CME_종가
+            if 근월물_선물_저가 == 0:
+                근월물_선물_저가 = CME_종가
             else:
                 pass
 
-            if 선물_고가 == 0:
-                선물_고가 = CME_종가
+            if 근월물_선물_고가 == 0:
+                근월물_선물_고가 = CME_종가
             else:
                 pass
             
             # 종가선 컬러를 살리기위한 임시방편            
-            self.plot5_quote_remainder_ratio_base_line.setValue(선물_고가)
-            self.plot5_quote_remainder_ratio_bottom_line.setValue(선물_고가)
+            self.plot5_quote_remainder_ratio_base_line.setValue(근월물_선물_고가)
+            self.plot5_quote_remainder_ratio_bottom_line.setValue(근월물_선물_고가)
 
             for i in range(9):
-                self.plot5_mv_line[i].setValue(선물_고가)
+                self.plot5_mv_line[i].setValue(근월물_선물_고가)
 
-            self.plot5_center_val_lower_line.setValue(선물_고가)
-            self.plot5_center_val_line.setValue(선물_고가)
-            self.plot5_center_val_upper_line.setValue(선물_고가)
+            self.plot5_center_val_lower_line.setValue(근월물_선물_고가)
+            self.plot5_center_val_line.setValue(근월물_선물_고가)
+            self.plot5_center_val_upper_line.setValue(근월물_선물_고가)
 
-            self.plot5_ovc_open_line.setValue(선물_고가)
-            self.plot5_ovc_jl_line.setValue(선물_고가)
-            self.plot5_ovc_jh_line.setValue(선물_고가)
-            self.plot5_ovc_pivot_line.setValue(선물_고가)
-            self.plot5_ovc_low_line.setValue(선물_고가)
-            self.plot5_ovc_high_line.setValue(선물_고가)
-            self.plot5_ovc_close_line.setValue(선물_고가)
+            self.plot5_ovc_open_line.setValue(근월물_선물_고가)
+            self.plot5_ovc_jl_line.setValue(근월물_선물_고가)
+            self.plot5_ovc_jh_line.setValue(근월물_선물_고가)
+            self.plot5_ovc_pivot_line.setValue(근월물_선물_고가)
+            self.plot5_ovc_low_line.setValue(근월물_선물_고가)
+            self.plot5_ovc_high_line.setValue(근월물_선물_고가)
+            self.plot5_ovc_close_line.setValue(근월물_선물_고가)
 
-            txt = ' {0} '.format(선물_전저)
+            txt = ' {0} '.format(근월물_선물_전저)
             self.label_51.setText(txt) 
-            self.plot5_fut_jl_line.setValue(선물_전저)
+            self.plot5_fut_jl_line.setValue(근월물_선물_전저)
             
-            txt = ' {0} '.format(선물_전고)
+            txt = ' {0} '.format(근월물_선물_전고)
             self.label_52.setText(txt)
-            self.plot5_fut_jh_line.setValue(선물_전고)
+            self.plot5_fut_jh_line.setValue(근월물_선물_전고)
             
-            txt = ' {0} '.format(선물_종가)
+            txt = ' {0} '.format(근월물_선물_종가)
             self.label_53.setText(txt)
-            self.plot5_fut_close_line.setValue(선물_종가)
+            self.plot5_fut_close_line.setValue(근월물_선물_종가)
             
-            txt = ' {0} '.format(선물_피봇)
+            txt = ' {0} '.format(근월물_선물_피봇)
             self.label_54.setText(txt)
-            self.plot5_fut_pivot_line.setValue(선물_피봇)
+            self.plot5_fut_pivot_line.setValue(근월물_선물_피봇)
 
-            txt = ' {0} '.format(선물_시가)
+            txt = ' {0} '.format(근월물_선물_시가)
             self.label_55.setText(txt)
-            self.plot5_fut_open_line.setValue(선물_시가)
+            self.plot5_fut_open_line.setValue(근월물_선물_시가)
 
-            txt = ' {0} '.format(선물_저가)
+            txt = ' {0} '.format(근월물_선물_저가)
             self.label_56.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_56.setText(txt)
-            self.plot5_fut_low_line.setValue(선물_저가)
+            self.plot5_fut_low_line.setValue(근월물_선물_저가)
             
             self.label_57.setText(" 000.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(선물_고가)
+            txt = ' {0} '.format(근월물_선물_고가)
             self.label_58.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_58.setText(txt)
-            self.plot5_fut_high_line.setValue(선물_고가)
+            self.plot5_fut_high_line.setValue(근월물_선물_고가)
         
         # 선물잔량비
         elif comboindex5 == 3:
@@ -28099,91 +28263,91 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot6_kp200_line[8].setValue(KP200_COREVAL[6])
             self.plot6_kp200_line[9].setValue(KP200_COREVAL[6])
                         
-            if 선물_전저 == 0:
-                선물_전저 = CME_종가
+            if 근월물_선물_전저 == 0:
+                근월물_선물_전저 = CME_종가
             else:
                 pass
 
-            if 선물_전고 == 0:
-                선물_전고 = CME_종가
+            if 근월물_선물_전고 == 0:
+                근월물_선물_전고 = CME_종가
             else:
                 pass
 
-            if 선물_종가 == 0:
-                선물_종가 = CME_종가
+            if 근월물_선물_종가 == 0:
+                근월물_선물_종가 = CME_종가
             else:
                 pass
 
-            if 선물_피봇 == 0:
-                선물_피봇 = CME_종가
+            if 근월물_선물_피봇 == 0:
+                근월물_선물_피봇 = CME_종가
             else:
                 pass
 
-            if 선물_시가 == 0:
-                선물_시가 = CME_종가
+            if 근월물_선물_시가 == 0:
+                근월물_선물_시가 = CME_종가
             else:
                 pass
 
-            if 선물_저가 == 0:
-                선물_저가 = CME_종가
+            if 근월물_선물_저가 == 0:
+                근월물_선물_저가 = CME_종가
             else:
                 pass
 
-            if 선물_고가 == 0:
-                선물_고가 = CME_종가
+            if 근월물_선물_고가 == 0:
+                근월물_선물_고가 = CME_종가
             else:
                 pass
             
             # 종가선 컬러를 살리기위한 임시방편            
-            self.plot6_quote_remainder_ratio_base_line.setValue(선물_고가)
-            self.plot6_quote_remainder_ratio_bottom_line.setValue(선물_고가)
+            self.plot6_quote_remainder_ratio_base_line.setValue(근월물_선물_고가)
+            self.plot6_quote_remainder_ratio_bottom_line.setValue(근월물_선물_고가)
 
             for i in range(9):
-                self.plot6_mv_line[i].setValue(선물_고가)
+                self.plot6_mv_line[i].setValue(근월물_선물_고가)
 
-            self.plot6_center_val_lower_line.setValue(선물_고가)
-            self.plot6_center_val_line.setValue(선물_고가)
-            self.plot6_center_val_upper_line.setValue(선물_고가)
+            self.plot6_center_val_lower_line.setValue(근월물_선물_고가)
+            self.plot6_center_val_line.setValue(근월물_선물_고가)
+            self.plot6_center_val_upper_line.setValue(근월물_선물_고가)
 
-            self.plot6_ovc_open_line.setValue(선물_고가)
-            self.plot6_ovc_jl_line.setValue(선물_고가)
-            self.plot6_ovc_jh_line.setValue(선물_고가)
-            self.plot6_ovc_pivot_line.setValue(선물_고가)
-            self.plot6_ovc_low_line.setValue(선물_고가)
-            self.plot6_ovc_high_line.setValue(선물_고가)
-            self.plot6_ovc_close_line.setValue(선물_고가)
+            self.plot6_ovc_open_line.setValue(근월물_선물_고가)
+            self.plot6_ovc_jl_line.setValue(근월물_선물_고가)
+            self.plot6_ovc_jh_line.setValue(근월물_선물_고가)
+            self.plot6_ovc_pivot_line.setValue(근월물_선물_고가)
+            self.plot6_ovc_low_line.setValue(근월물_선물_고가)
+            self.plot6_ovc_high_line.setValue(근월물_선물_고가)
+            self.plot6_ovc_close_line.setValue(근월물_선물_고가)
 
-            txt = ' {0} '.format(선물_전저)
+            txt = ' {0} '.format(근월물_선물_전저)
             self.label_61.setText(txt) 
-            self.plot6_fut_jl_line.setValue(선물_전저)
+            self.plot6_fut_jl_line.setValue(근월물_선물_전저)
             
-            txt = ' {0} '.format(선물_전고)
+            txt = ' {0} '.format(근월물_선물_전고)
             self.label_62.setText(txt)
-            self.plot6_fut_jh_line.setValue(선물_전고)
+            self.plot6_fut_jh_line.setValue(근월물_선물_전고)
             
-            txt = ' {0} '.format(선물_종가)
+            txt = ' {0} '.format(근월물_선물_종가)
             self.label_63.setText(txt)
-            self.plot6_fut_close_line.setValue(선물_종가)
+            self.plot6_fut_close_line.setValue(근월물_선물_종가)
             
-            txt = ' {0} '.format(선물_피봇)
+            txt = ' {0} '.format(근월물_선물_피봇)
             self.label_64.setText(txt)
-            self.plot6_fut_pivot_line.setValue(선물_피봇)
+            self.plot6_fut_pivot_line.setValue(근월물_선물_피봇)
 
-            txt = ' {0} '.format(선물_시가)
+            txt = ' {0} '.format(근월물_선물_시가)
             self.label_65.setText(txt)
-            self.plot6_fut_open_line.setValue(선물_시가)
+            self.plot6_fut_open_line.setValue(근월물_선물_시가)
 
-            txt = ' {0} '.format(선물_저가)
+            txt = ' {0} '.format(근월물_선물_저가)
             self.label_66.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_66.setText(txt)
-            self.plot6_fut_low_line.setValue(선물_저가)
+            self.plot6_fut_low_line.setValue(근월물_선물_저가)
             
             self.label_67.setText(" 000.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(선물_고가)
+            txt = ' {0} '.format(근월물_선물_고가)
             self.label_68.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_68.setText(txt)
-            self.plot6_fut_high_line.setValue(선물_고가)
+            self.plot6_fut_high_line.setValue(근월물_선물_고가)
         
         # 선물잔량비
         elif comboindex6 == 3:
@@ -28778,14 +28942,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if type == 'FUT':
 
             # Parabolic SAR
-            df_futures_graph['PSAR'] = talib.SAR(np.array(df_futures_graph['high'], dtype=float), np.array(df_futures_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+            df_futures_cm_graph['PSAR'] = talib.SAR(np.array(df_futures_cm_graph['high'], dtype=float), np.array(df_futures_cm_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             # Bollinger Bands            
-            upper, middle, lower = talib.BBANDS(np.array(df_futures_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(np.array(df_futures_cm_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
-            df_futures_graph['BBUpper'] = upper
-            df_futures_graph['BBMiddle'] = middle
-            df_futures_graph['BBLower'] = lower
+            df_futures_cm_graph['BBUpper'] = upper
+            df_futures_cm_graph['BBMiddle'] = middle
+            df_futures_cm_graph['BBLower'] = lower
 
         elif type == 'DOW':
 
@@ -28845,12 +29009,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if type == 'FUT':
 
             # Ichimoku Indicator
-            futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'])
+            futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_cm_graph['high'], df_futures_cm_graph['low'])
 
-            df_futures_graph['SPAN_A'] = futures_Ichimoku.ichimoku_a()
-            df_futures_graph['SPAN_B'] = futures_Ichimoku.ichimoku_b()
-            df_futures_graph['OE_BASE'] = futures_Ichimoku.ichimoku_base_line()
-            df_futures_graph['OE_CONV'] = futures_Ichimoku.ichimoku_conversion_line()
+            df_futures_cm_graph['SPAN_A'] = futures_Ichimoku.ichimoku_a()
+            df_futures_cm_graph['SPAN_B'] = futures_Ichimoku.ichimoku_b()
+            df_futures_cm_graph['OE_BASE'] = futures_Ichimoku.ichimoku_base_line()
+            df_futures_cm_graph['OE_CONV'] = futures_Ichimoku.ichimoku_conversion_line()
 
         elif type == 'DOW':
 
@@ -28901,17 +29065,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if type == 'FUT':
 
             # MAMA
-            mama, fama = talib.MAMA(np.array(df_futures_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+            mama, fama = talib.MAMA(np.array(df_futures_cm_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
 
-            df_futures_graph['MAMA'] = mama
-            df_futures_graph['FAMA'] = fama
+            df_futures_cm_graph['MAMA'] = mama
+            df_futures_cm_graph['FAMA'] = fama
 
-            if df_futures_graph.at[ovc_x_idx, 'FAMA'] == df_futures_graph.at[ovc_x_idx, 'FAMA'] and df_futures_graph.at[ovc_x_idx, 'BBLower'] == df_futures_graph.at[ovc_x_idx, 'BBLower']:
+            if df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] and df_futures_cm_graph.at[ovc_x_idx, 'BBLower'] == df_futures_cm_graph.at[ovc_x_idx, 'BBLower']:
 
-                if df_futures_graph.at[ovc_x_idx, 'FAMA'] < df_futures_graph.at[ovc_x_idx, 'BBLower']:
-                    df_futures_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_graph.at[ovc_x_idx, 'BBLower']
+                if df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] < df_futures_cm_graph.at[ovc_x_idx, 'BBLower']:
+                    df_futures_cm_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_cm_graph.at[ovc_x_idx, 'BBLower']
                 else:
-                    df_futures_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_graph.at[ovc_x_idx, 'FAMA']
+                    df_futures_cm_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_cm_graph.at[ovc_x_idx, 'FAMA']
             else:
                 pass
 
@@ -29037,86 +29201,86 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot1 그래프 그리기
             if comboindex1 == 2:
 
-                if df_futures_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle']:
 
-                    if df_futures_graph.at[ovc_x_idx, 'BBMiddle'] >= df_futures_graph.at[ovc_x_idx, 'price']:
+                    if df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'] >= df_futures_cm_graph.at[ovc_x_idx, 'price']:
                         self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass               
 
-                if df_futures_graph.at[ovc_x_idx, 'PSAR'] == df_futures_graph.at[ovc_x_idx, 'PSAR']:
+                if df_futures_cm_graph.at[ovc_x_idx, 'PSAR'] == df_futures_cm_graph.at[ovc_x_idx, 'PSAR']:
 
-                    if df_futures_graph.at[ovc_x_idx, 'PSAR'] >= df_futures_graph.at[ovc_x_idx, 'price']:
+                    if df_futures_cm_graph.at[ovc_x_idx, 'PSAR'] >= df_futures_cm_graph.at[ovc_x_idx, 'price']:
                         self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_graph.at[ovc_x_idx, 'PSAR'], 선물_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_cm_graph.at[ovc_x_idx, 'PSAR'], 선물_호가순매수)
                     self.label_p1_2.setText(txt)
                 else:
                     pass
                 
-                if df_futures_graph.at[ovc_x_idx, 'OE_CONV'] == df_futures_graph.at[ovc_x_idx, 'OE_CONV'] and df_futures_graph.at[ovc_x_idx, 'OE_BASE'] == df_futures_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] == df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] and df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE'] == df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE']:
 
-                    if df_futures_graph.at[ovc_x_idx, 'OE_CONV'] < df_futures_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] < df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'OE_CONV'], df_futures_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'], df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p1_3.setText(txt)
                 else:
                     pass
 
-                if df_futures_graph.at[ovc_x_idx, 'MAMA'] == df_futures_graph.at[ovc_x_idx, 'MAMA'] and df_futures_graph.at[ovc_x_idx, 'FAMA'] == df_futures_graph.at[ovc_x_idx, 'FAMA']:
+                if df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] and df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'FAMA']:
 
-                    if df_futures_graph.at[ovc_x_idx, 'FAMA'] >= df_futures_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] >= df_futures_cm_graph.at[ovc_x_idx, 'BBLower']:
 
-                        if df_futures_graph.at[ovc_x_idx, 'MAMA'] < df_futures_graph.at[ovc_x_idx, 'FAMA']:                        
+                        if df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] < df_futures_cm_graph.at[ovc_x_idx, 'FAMA']:                        
                             self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'MAMA'], df_futures_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'MAMA'], df_futures_cm_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p1_4.setText(txt)
                 else:
                     pass
 
-                txt = ' {0} '.format(선물_피봇)
+                txt = ' {0} '.format(근월물_선물_피봇)
                 self.label_14.setText(txt)
 
-                txt = ' {0} '.format(선물_시가)
+                txt = ' {0} '.format(근월물_선물_시가)
                 self.label_15.setText(txt)
                 
-                txt = ' {0} '.format(선물_저가)
+                txt = ' {0} '.format(근월물_선물_저가)
                 self.label_16.setText(txt)
 
                 value = self.label_17.text().split()[0]
 
-                if 선물_현재가 > float(value):
+                if 근월물_선물_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_종가대비_등락율, 선물_진폭)
+                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭)
 
-                    if 선물_종가대비 > 0:
+                    if 근월물_선물_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif 선물_종가대비 < 0:
+                    elif 근월물_선물_종가대비 < 0:
                         self.label_17.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_17.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     self.label_17.setText(txt)
 
-                elif 선물_현재가 < float(value):
+                elif 근월물_선물_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_종가대비_등락율, 선물_진폭)
+                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭)
 
-                    if 선물_종가대비 > 0:
+                    if 근월물_선물_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    if 선물_종가대비 < 0:
+                    if 근월물_선물_종가대비 < 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_17.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -29125,7 +29289,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                txt = ' {0} '.format(선물_고가)
+                txt = ' {0} '.format(근월물_선물_고가)
                 self.label_18.setText(txt)
                 
                 self.plot1_time_line.setValue(ovc_x_idx)
@@ -29145,33 +29309,33 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                self.plot1_fut_jl_line.setValue(선물_전저)
-                self.plot1_fut_jh_line.setValue(선물_전고)
-                self.plot1_fut_close_line.setValue(선물_종가)                
-                self.plot1_fut_open_line.setValue(선물_시가)
-                self.plot1_fut_low_line.setValue(선물_저가)
-                self.plot1_fut_pivot_line.setValue(선물_피봇)
+                self.plot1_fut_jl_line.setValue(근월물_선물_전저)
+                self.plot1_fut_jh_line.setValue(근월물_선물_전고)
+                self.plot1_fut_close_line.setValue(근월물_선물_종가)                
+                self.plot1_fut_open_line.setValue(근월물_선물_시가)
+                self.plot1_fut_low_line.setValue(근월물_선물_저가)
+                self.plot1_fut_pivot_line.setValue(근월물_선물_피봇)
 
                 # 종가선 컬러를 살리기위한 임시방편
-                self.plot1_ovc_open_line.setValue(선물_고가)
-                self.plot1_ovc_jl_line.setValue(선물_고가)
-                self.plot1_ovc_jh_line.setValue(선물_고가)
-                self.plot1_ovc_pivot_line.setValue(선물_고가)
-                self.plot1_ovc_low_line.setValue(선물_고가)
-                self.plot1_ovc_high_line.setValue(선물_고가)
-                self.plot1_ovc_close_line.setValue(선물_고가)
-                self.plot1_fut_high_line.setValue(선물_고가)   
+                self.plot1_ovc_open_line.setValue(근월물_선물_고가)
+                self.plot1_ovc_jl_line.setValue(근월물_선물_고가)
+                self.plot1_ovc_jh_line.setValue(근월물_선물_고가)
+                self.plot1_ovc_pivot_line.setValue(근월물_선물_고가)
+                self.plot1_ovc_low_line.setValue(근월물_선물_고가)
+                self.plot1_ovc_high_line.setValue(근월물_선물_고가)
+                self.plot1_ovc_close_line.setValue(근월물_선물_고가)
+                self.plot1_fut_high_line.setValue(근월물_선물_고가)   
 
                 self.plot1_kp200_curve.setData(df_kp200_graph['price'].to_numpy())
-                self.plot1_fut_price_curve.setData(df_futures_graph['price'].to_numpy())
+                self.plot1_fut_price_curve.setData(df_futures_cm_graph['price'].to_numpy())
 
                 if flag_checkBox_plot1_bband:
 
                     self.Calc_SAR_BBand('FUT')
 
-                    self.plot1_bollinger_upper_curve.setData(df_futures_graph['BBUpper'].to_numpy())
-                    self.plot1_bollinger_middle_curve.setData(df_futures_graph['BBMiddle'].to_numpy())
-                    self.plot1_bollinger_lower_curve.setData(df_futures_graph['BBLower'].to_numpy())
+                    self.plot1_bollinger_upper_curve.setData(df_futures_cm_graph['BBUpper'].to_numpy())
+                    self.plot1_bollinger_middle_curve.setData(df_futures_cm_graph['BBMiddle'].to_numpy())
+                    self.plot1_bollinger_lower_curve.setData(df_futures_cm_graph['BBLower'].to_numpy())
                 else:
                     pass
 
@@ -29179,8 +29343,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.Calc_MAMA('FUT')
 
-                    self.plot1_mama_curve.setData(df_futures_graph['MAMA'].to_numpy())
-                    self.plot1_fama_curve.setData(df_futures_graph['A_FAMA'].to_numpy())
+                    self.plot1_mama_curve.setData(df_futures_cm_graph['MAMA'].to_numpy())
+                    self.plot1_fama_curve.setData(df_futures_cm_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
@@ -29188,8 +29352,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.Calc_Ichimoku('FUT')
 
-                    self.plot1_oe_conv_curve.setData(df_futures_graph['OE_CONV'].to_numpy())
-                    self.plot1_oe_base_curve.setData(df_futures_graph['OE_BASE'].to_numpy())
+                    self.plot1_oe_conv_curve.setData(df_futures_cm_graph['OE_CONV'].to_numpy())
+                    self.plot1_oe_base_curve.setData(df_futures_cm_graph['OE_BASE'].to_numpy())
                 else:
                     pass
             
@@ -29199,8 +29363,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_16.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    선물_근월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
-                    선물_차월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
+                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
+                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
                     fut_ccms_quote_remainder_ratio)
 
                 if fut_quote_energy_direction == 'call':
@@ -29217,8 +29381,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.plot1_time_line.setValue(ovc_x_idx)
 
-                self.plot1_fut_cm_quote_remainder_ratio_curve.setData(df_futures_graph['c_quote_remainder_ratio'].to_numpy())
-                self.plot1_fut_nm_quote_remainder_ratio_curve.setData(df_futures_graph['n_quote_remainder_ratio'].to_numpy())
+                self.plot1_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
+                self.plot1_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
 
             elif comboindex1 == 4:
 
@@ -29240,7 +29404,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_18.setText(txt)
 
                 if DayTime:
-                    self.plot1_fut_volume_curve.setData(df_futures_graph['volume'].to_numpy())
+                    self.plot1_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
                 else:
                     pass
                                 
@@ -29366,10 +29530,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 if DayTime:
 
-                    txt = " {0:.2f}({1}) ".format(선물_시가대비_등락율, 선물_현재가)
+                    txt = " {0:.2f}({1}) ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_17.setText(txt)
 
-                    self.plot1_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
+                    self.plot1_fut_drate_curve.setData(df_futures_cm_graph['drate'].to_numpy())
                 else:
                     pass
 
@@ -29929,7 +30093,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.plot1_time_line.setValue(ovc_x_idx)
 
                 if DayTime:
-                    self.plot1_fut_volume_curve.setData(df_futures_graph['volume'].to_numpy())
+                    self.plot1_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
                     self.plot1_program_curve.setData(df_supply_demand_graph['program'].to_numpy())
                     self.plot1_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'].to_numpy())
                 else:
@@ -29985,86 +30149,86 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # 선물가격
             if comboindex2 == 2:
 
-                if df_futures_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle']:
 
-                    if df_futures_graph.at[ovc_x_idx, 'BBMiddle'] >= df_futures_graph.at[ovc_x_idx, 'price']:
+                    if df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'] >= df_futures_cm_graph.at[ovc_x_idx, 'price']:
                         self.label_p2_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass               
 
-                if df_futures_graph.at[ovc_x_idx, 'PSAR'] == df_futures_graph.at[ovc_x_idx, 'PSAR']:
+                if df_futures_cm_graph.at[ovc_x_idx, 'PSAR'] == df_futures_cm_graph.at[ovc_x_idx, 'PSAR']:
 
-                    if df_futures_graph.at[ovc_x_idx, 'PSAR'] >= df_futures_graph.at[ovc_x_idx, 'price']:
+                    if df_futures_cm_graph.at[ovc_x_idx, 'PSAR'] >= df_futures_cm_graph.at[ovc_x_idx, 'price']:
                         self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_graph.at[ovc_x_idx, 'PSAR'], 선물_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_cm_graph.at[ovc_x_idx, 'PSAR'], 선물_호가순매수)
                     self.label_p2_2.setText(txt)
                 else:
                     pass
                 
-                if df_futures_graph.at[ovc_x_idx, 'OE_CONV'] == df_futures_graph.at[ovc_x_idx, 'OE_CONV'] and df_futures_graph.at[ovc_x_idx, 'OE_BASE'] == df_futures_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] == df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] and df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE'] == df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE']:
 
-                    if df_futures_graph.at[ovc_x_idx, 'OE_CONV'] < df_futures_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] < df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'OE_CONV'], df_futures_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'], df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p2_3.setText(txt)
                 else:
                     pass
 
-                if df_futures_graph.at[ovc_x_idx, 'MAMA'] == df_futures_graph.at[ovc_x_idx, 'MAMA'] and df_futures_graph.at[ovc_x_idx, 'FAMA'] == df_futures_graph.at[ovc_x_idx, 'FAMA']:
+                if df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] and df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'FAMA']:
 
-                    if df_futures_graph.at[ovc_x_idx, 'FAMA'] >= df_futures_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] >= df_futures_cm_graph.at[ovc_x_idx, 'BBLower']:
 
-                        if df_futures_graph.at[ovc_x_idx, 'MAMA'] < df_futures_graph.at[ovc_x_idx, 'FAMA']:                        
+                        if df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] < df_futures_cm_graph.at[ovc_x_idx, 'FAMA']:                        
                             self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p2_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'MAMA'], df_futures_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'MAMA'], df_futures_cm_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p2_4.setText(txt)
                 else:
                     pass
 
-                txt = ' {0} '.format(선물_피봇)
+                txt = ' {0} '.format(근월물_선물_피봇)
                 self.label_24.setText(txt)
 
-                txt = ' {0} '.format(선물_시가)
+                txt = ' {0} '.format(근월물_선물_시가)
                 self.label_25.setText(txt)
 
-                txt = ' {0} '.format(선물_저가)
+                txt = ' {0} '.format(근월물_선물_저가)
                 self.label_26.setText(txt)       
 
                 value = self.label_27.text().split()[0]
 
-                if 선물_현재가 > float(value):
+                if 근월물_선물_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_종가대비_등락율, 선물_진폭)
+                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭)
 
-                    if 선물_종가대비 > 0:
+                    if 근월물_선물_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif 선물_종가대비 < 0:
+                    elif 근월물_선물_종가대비 < 0:
                         self.label_27.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_27.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     self.label_27.setText(txt)
 
-                elif 선물_현재가 < float(value):
+                elif 근월물_선물_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_종가대비_등락율, 선물_진폭)
+                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭)
 
-                    if 선물_종가대비 > 0:
+                    if 근월물_선물_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    if 선물_종가대비 < 0:
+                    if 근월물_선물_종가대비 < 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_27.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -30073,7 +30237,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                txt = ' {0} '.format(선물_고가)
+                txt = ' {0} '.format(근월물_선물_고가)
                 self.label_28.setText(txt)
                 
                 self.plot2_time_line.setValue(ovc_x_idx)
@@ -30093,33 +30257,33 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                self.plot2_fut_jl_line.setValue(선물_전저)
-                self.plot2_fut_jh_line.setValue(선물_전고)
-                self.plot2_fut_close_line.setValue(선물_종가)                
-                self.plot2_fut_open_line.setValue(선물_시가)
-                self.plot2_fut_low_line.setValue(선물_저가)
-                self.plot2_fut_pivot_line.setValue(선물_피봇)
+                self.plot2_fut_jl_line.setValue(근월물_선물_전저)
+                self.plot2_fut_jh_line.setValue(근월물_선물_전고)
+                self.plot2_fut_close_line.setValue(근월물_선물_종가)                
+                self.plot2_fut_open_line.setValue(근월물_선물_시가)
+                self.plot2_fut_low_line.setValue(근월물_선물_저가)
+                self.plot2_fut_pivot_line.setValue(근월물_선물_피봇)
 
                 # 종가선 컬러를 살리기위한 임시방편
-                self.plot2_ovc_open_line.setValue(선물_고가)
-                self.plot2_ovc_jl_line.setValue(선물_고가)
-                self.plot2_ovc_jh_line.setValue(선물_고가)
-                self.plot2_ovc_pivot_line.setValue(선물_고가)
-                self.plot2_ovc_low_line.setValue(선물_고가)
-                self.plot2_ovc_high_line.setValue(선물_고가)
-                self.plot2_ovc_close_line.setValue(선물_고가)
-                self.plot2_fut_high_line.setValue(선물_고가)                  
+                self.plot2_ovc_open_line.setValue(근월물_선물_고가)
+                self.plot2_ovc_jl_line.setValue(근월물_선물_고가)
+                self.plot2_ovc_jh_line.setValue(근월물_선물_고가)
+                self.plot2_ovc_pivot_line.setValue(근월물_선물_고가)
+                self.plot2_ovc_low_line.setValue(근월물_선물_고가)
+                self.plot2_ovc_high_line.setValue(근월물_선물_고가)
+                self.plot2_ovc_close_line.setValue(근월물_선물_고가)
+                self.plot2_fut_high_line.setValue(근월물_선물_고가)                  
 
                 self.plot2_kp200_curve.setData(df_kp200_graph['price'].to_numpy())
-                self.plot2_fut_price_curve.setData(df_futures_graph['price'].to_numpy())
+                self.plot2_fut_price_curve.setData(df_futures_cm_graph['price'].to_numpy())
 
                 if flag_checkBox_plot2_bband:
 
                     self.Calc_SAR_BBand('FUT')
 
-                    self.plot2_bollinger_upper_curve.setData(df_futures_graph['BBUpper'].to_numpy())
-                    self.plot2_bollinger_middle_curve.setData(df_futures_graph['BBMiddle'].to_numpy())
-                    self.plot2_bollinger_lower_curve.setData(df_futures_graph['BBLower'].to_numpy())
+                    self.plot2_bollinger_upper_curve.setData(df_futures_cm_graph['BBUpper'].to_numpy())
+                    self.plot2_bollinger_middle_curve.setData(df_futures_cm_graph['BBMiddle'].to_numpy())
+                    self.plot2_bollinger_lower_curve.setData(df_futures_cm_graph['BBLower'].to_numpy())
                 else:
                     pass
 
@@ -30127,8 +30291,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.Calc_MAMA('FUT')
 
-                    self.plot2_mama_curve.setData(df_futures_graph['MAMA'].to_numpy())
-                    self.plot2_fama_curve.setData(df_futures_graph['A_FAMA'].to_numpy())
+                    self.plot2_mama_curve.setData(df_futures_cm_graph['MAMA'].to_numpy())
+                    self.plot2_fama_curve.setData(df_futures_cm_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
@@ -30136,8 +30300,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.Calc_Ichimoku('FUT')
 
-                    self.plot2_oe_conv_curve.setData(df_futures_graph['OE_CONV'].to_numpy())
-                    self.plot2_oe_base_curve.setData(df_futures_graph['OE_BASE'].to_numpy())
+                    self.plot2_oe_conv_curve.setData(df_futures_cm_graph['OE_CONV'].to_numpy())
+                    self.plot2_oe_base_curve.setData(df_futures_cm_graph['OE_BASE'].to_numpy())
                 else:
                     pass
 
@@ -30147,8 +30311,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_26.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    선물_근월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
-                    선물_차월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
+                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
+                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
                     fut_ccms_quote_remainder_ratio)
 
                 if fut_quote_energy_direction == 'call':
@@ -30165,8 +30329,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 self.plot2_time_line.setValue(ovc_x_idx)
 
-                self.plot2_fut_cm_quote_remainder_ratio_curve.setData(df_futures_graph['c_quote_remainder_ratio'].to_numpy())
-                self.plot2_fut_nm_quote_remainder_ratio_curve.setData(df_futures_graph['n_quote_remainder_ratio'].to_numpy())
+                self.plot2_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
+                self.plot2_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
 
             elif comboindex2 == 4:
 
@@ -30188,7 +30352,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_28.setText(txt)
 
                 if DayTime:
-                    self.plot2_fut_volume_curve.setData(df_futures_graph['volume'].to_numpy())
+                    self.plot2_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
                 else:
                     pass
                                 
@@ -30314,10 +30478,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 if DayTime:
 
-                    txt = " {0:.2f}({1}) ".format(선물_시가대비_등락율, 선물_현재가)
+                    txt = " {0:.2f}({1}) ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_27.setText(txt)
 
-                    self.plot2_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
+                    self.plot2_fut_drate_curve.setData(df_futures_cm_graph['drate'].to_numpy())
                 else:
                     pass
 
@@ -30916,86 +31080,86 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # 선물가격
             if comboindex3 == 2:
 
-                if df_futures_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle']:
 
-                    if df_futures_graph.at[ovc_x_idx, 'BBMiddle'] >= df_futures_graph.at[ovc_x_idx, 'price']:
+                    if df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'] >= df_futures_cm_graph.at[ovc_x_idx, 'price']:
                         self.label_p3_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass               
 
-                if df_futures_graph.at[ovc_x_idx, 'PSAR'] == df_futures_graph.at[ovc_x_idx, 'PSAR']:
+                if df_futures_cm_graph.at[ovc_x_idx, 'PSAR'] == df_futures_cm_graph.at[ovc_x_idx, 'PSAR']:
 
-                    if df_futures_graph.at[ovc_x_idx, 'PSAR'] >= df_futures_graph.at[ovc_x_idx, 'price']:
+                    if df_futures_cm_graph.at[ovc_x_idx, 'PSAR'] >= df_futures_cm_graph.at[ovc_x_idx, 'price']:
                         self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_graph.at[ovc_x_idx, 'PSAR'], 선물_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_cm_graph.at[ovc_x_idx, 'PSAR'], 선물_호가순매수)
                     self.label_p3_2.setText(txt)
                 else:
                     pass
                 
-                if df_futures_graph.at[ovc_x_idx, 'OE_CONV'] == df_futures_graph.at[ovc_x_idx, 'OE_CONV'] and df_futures_graph.at[ovc_x_idx, 'OE_BASE'] == df_futures_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] == df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] and df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE'] == df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE']:
 
-                    if df_futures_graph.at[ovc_x_idx, 'OE_CONV'] < df_futures_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] < df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'OE_CONV'], df_futures_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'], df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p3_3.setText(txt)
                 else:
                     pass
 
-                if df_futures_graph.at[ovc_x_idx, 'MAMA'] == df_futures_graph.at[ovc_x_idx, 'MAMA'] and df_futures_graph.at[ovc_x_idx, 'FAMA'] == df_futures_graph.at[ovc_x_idx, 'FAMA']:
+                if df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] and df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'FAMA']:
 
-                    if df_futures_graph.at[ovc_x_idx, 'FAMA'] >= df_futures_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] >= df_futures_cm_graph.at[ovc_x_idx, 'BBLower']:
 
-                        if df_futures_graph.at[ovc_x_idx, 'MAMA'] < df_futures_graph.at[ovc_x_idx, 'FAMA']:                        
+                        if df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] < df_futures_cm_graph.at[ovc_x_idx, 'FAMA']:                        
                             self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p3_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'MAMA'], df_futures_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'MAMA'], df_futures_cm_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p3_4.setText(txt)
                 else:
                     pass
 
-                txt = ' {0} '.format(선물_피봇)
+                txt = ' {0} '.format(근월물_선물_피봇)
                 self.label_34.setText(txt)
 
-                txt = ' {0} '.format(선물_시가)
+                txt = ' {0} '.format(근월물_선물_시가)
                 self.label_35.setText(txt)
                 
-                txt = ' {0} '.format(선물_저가)
+                txt = ' {0} '.format(근월물_선물_저가)
                 self.label_36.setText(txt)       
 
                 value = self.label_37.text().split()[0]
 
-                if 선물_현재가 > float(value):
+                if 근월물_선물_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_종가대비_등락율, 선물_진폭)
+                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭)
 
-                    if 선물_종가대비 > 0:
+                    if 근월물_선물_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif 선물_종가대비 < 0:
+                    elif 근월물_선물_종가대비 < 0:
                         self.label_37.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_37.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     self.label_37.setText(txt)
 
-                elif 선물_현재가 < float(value):
+                elif 근월물_선물_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_종가대비_등락율, 선물_진폭)
+                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭)
 
-                    if 선물_종가대비 > 0:
+                    if 근월물_선물_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    if 선물_종가대비 < 0:
+                    if 근월물_선물_종가대비 < 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_37.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -31004,7 +31168,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                txt = ' {0} '.format(선물_고가)
+                txt = ' {0} '.format(근월물_선물_고가)
                 self.label_38.setText(txt) 
                 
                 self.plot3_time_line.setValue(ovc_x_idx)
@@ -31024,33 +31188,33 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                self.plot3_fut_jl_line.setValue(선물_전저)
-                self.plot3_fut_jh_line.setValue(선물_전고)
-                self.plot3_fut_close_line.setValue(선물_종가)                
-                self.plot3_fut_open_line.setValue(선물_시가)
-                self.plot3_fut_low_line.setValue(선물_저가)
-                self.plot3_fut_pivot_line.setValue(선물_피봇)
+                self.plot3_fut_jl_line.setValue(근월물_선물_전저)
+                self.plot3_fut_jh_line.setValue(근월물_선물_전고)
+                self.plot3_fut_close_line.setValue(근월물_선물_종가)                
+                self.plot3_fut_open_line.setValue(근월물_선물_시가)
+                self.plot3_fut_low_line.setValue(근월물_선물_저가)
+                self.plot3_fut_pivot_line.setValue(근월물_선물_피봇)
 
                 # 종가선 컬러를 살리기위한 임시방편
-                self.plot3_ovc_open_line.setValue(선물_고가)
-                self.plot3_ovc_jl_line.setValue(선물_고가)
-                self.plot3_ovc_jh_line.setValue(선물_고가)
-                self.plot3_ovc_pivot_line.setValue(선물_고가)
-                self.plot3_ovc_low_line.setValue(선물_고가)
-                self.plot3_ovc_high_line.setValue(선물_고가)
-                self.plot3_ovc_close_line.setValue(선물_고가)
-                self.plot3_fut_high_line.setValue(선물_고가) 
+                self.plot3_ovc_open_line.setValue(근월물_선물_고가)
+                self.plot3_ovc_jl_line.setValue(근월물_선물_고가)
+                self.plot3_ovc_jh_line.setValue(근월물_선물_고가)
+                self.plot3_ovc_pivot_line.setValue(근월물_선물_고가)
+                self.plot3_ovc_low_line.setValue(근월물_선물_고가)
+                self.plot3_ovc_high_line.setValue(근월물_선물_고가)
+                self.plot3_ovc_close_line.setValue(근월물_선물_고가)
+                self.plot3_fut_high_line.setValue(근월물_선물_고가) 
 
                 self.plot3_kp200_curve.setData(df_kp200_graph['price'].to_numpy())
-                self.plot3_fut_price_curve.setData(df_futures_graph['price'].to_numpy())
+                self.plot3_fut_price_curve.setData(df_futures_cm_graph['price'].to_numpy())
 
                 if flag_checkBox_plot3_bband:
 
                     self.Calc_SAR_BBand('FUT')
 
-                    self.plot3_bollinger_upper_curve.setData(df_futures_graph['BBUpper'].to_numpy())
-                    self.plot3_bollinger_middle_curve.setData(df_futures_graph['BBMiddle'].to_numpy())
-                    self.plot3_bollinger_lower_curve.setData(df_futures_graph['BBLower'].to_numpy())
+                    self.plot3_bollinger_upper_curve.setData(df_futures_cm_graph['BBUpper'].to_numpy())
+                    self.plot3_bollinger_middle_curve.setData(df_futures_cm_graph['BBMiddle'].to_numpy())
+                    self.plot3_bollinger_lower_curve.setData(df_futures_cm_graph['BBLower'].to_numpy())
                 else:
                     pass
 
@@ -31058,8 +31222,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.Calc_MAMA('FUT')
 
-                    self.plot3_mama_curve.setData(df_futures_graph['MAMA'].to_numpy())
-                    self.plot3_fama_curve.setData(df_futures_graph['A_FAMA'].to_numpy())
+                    self.plot3_mama_curve.setData(df_futures_cm_graph['MAMA'].to_numpy())
+                    self.plot3_fama_curve.setData(df_futures_cm_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
@@ -31067,8 +31231,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.Calc_Ichimoku('FUT')
 
-                    self.plot3_oe_conv_curve.setData(df_futures_graph['OE_CONV'].to_numpy())
-                    self.plot3_oe_base_curve.setData(df_futures_graph['OE_BASE'].to_numpy())
+                    self.plot3_oe_conv_curve.setData(df_futures_cm_graph['OE_CONV'].to_numpy())
+                    self.plot3_oe_base_curve.setData(df_futures_cm_graph['OE_BASE'].to_numpy())
                 else:
                     pass
 
@@ -31078,8 +31242,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_36.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    선물_근월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
-                    선물_차월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
+                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
+                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
                     fut_ccms_quote_remainder_ratio)
 
                 if fut_quote_energy_direction == 'call':
@@ -31096,8 +31260,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 self.plot3_time_line.setValue(ovc_x_idx)
 
-                self.plot3_fut_cm_quote_remainder_ratio_curve.setData(df_futures_graph['c_quote_remainder_ratio'].to_numpy())
-                self.plot3_fut_nm_quote_remainder_ratio_curve.setData(df_futures_graph['n_quote_remainder_ratio'].to_numpy())
+                self.plot3_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
+                self.plot3_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
 
             elif comboindex3 == 4:
 
@@ -31119,7 +31283,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.plot3_time_line.setValue(ovc_x_idx)
 
                 if DayTime:
-                    self.plot3_fut_volume_curve.setData(df_futures_graph['volume'].to_numpy())
+                    self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
                 else:
                     pass
                                 
@@ -31243,10 +31407,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 if DayTime:
 
-                    txt = " {0:.2f}({1}) ".format(선물_시가대비_등락율, 선물_현재가)
+                    txt = " {0:.2f}({1}) ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_37.setText(txt)
 
-                    self.plot3_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
+                    self.plot3_fut_drate_curve.setData(df_futures_cm_graph['drate'].to_numpy())
                 else:
                     pass
 
@@ -31840,86 +32004,86 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot4 그래프 그리기
             if comboindex4 == 2:
 
-                if df_futures_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle']:
 
-                    if df_futures_graph.at[ovc_x_idx, 'BBMiddle'] >= df_futures_graph.at[ovc_x_idx, 'price']:
+                    if df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'] >= df_futures_cm_graph.at[ovc_x_idx, 'price']:
                         self.label_p4_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass               
 
-                if df_futures_graph.at[ovc_x_idx, 'PSAR'] == df_futures_graph.at[ovc_x_idx, 'PSAR']:
+                if df_futures_cm_graph.at[ovc_x_idx, 'PSAR'] == df_futures_cm_graph.at[ovc_x_idx, 'PSAR']:
 
-                    if df_futures_graph.at[ovc_x_idx, 'PSAR'] >= df_futures_graph.at[ovc_x_idx, 'price']:
+                    if df_futures_cm_graph.at[ovc_x_idx, 'PSAR'] >= df_futures_cm_graph.at[ovc_x_idx, 'price']:
                         self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_graph.at[ovc_x_idx, 'PSAR'], 선물_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_cm_graph.at[ovc_x_idx, 'PSAR'], 선물_호가순매수)
                     self.label_p4_2.setText(txt)
                 else:
                     pass
                 
-                if df_futures_graph.at[ovc_x_idx, 'OE_CONV'] == df_futures_graph.at[ovc_x_idx, 'OE_CONV'] and df_futures_graph.at[ovc_x_idx, 'OE_BASE'] == df_futures_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] == df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] and df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE'] == df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE']:
 
-                    if df_futures_graph.at[ovc_x_idx, 'OE_CONV'] < df_futures_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] < df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'OE_CONV'], df_futures_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'], df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p4_3.setText(txt)
                 else:
                     pass
 
-                if df_futures_graph.at[ovc_x_idx, 'MAMA'] == df_futures_graph.at[ovc_x_idx, 'MAMA'] and df_futures_graph.at[ovc_x_idx, 'FAMA'] == df_futures_graph.at[ovc_x_idx, 'FAMA']:
+                if df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] and df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'FAMA']:
 
-                    if df_futures_graph.at[ovc_x_idx, 'FAMA'] >= df_futures_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] >= df_futures_cm_graph.at[ovc_x_idx, 'BBLower']:
 
-                        if df_futures_graph.at[ovc_x_idx, 'MAMA'] < df_futures_graph.at[ovc_x_idx, 'FAMA']:
+                        if df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] < df_futures_cm_graph.at[ovc_x_idx, 'FAMA']:
                             self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p4_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'MAMA'], df_futures_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'MAMA'], df_futures_cm_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p4_4.setText(txt)
                 else:
                     pass
 
-                txt = ' {0} '.format(선물_피봇)
+                txt = ' {0} '.format(근월물_선물_피봇)
                 self.label_44.setText(txt)
 
-                txt = ' {0} '.format(선물_시가)
+                txt = ' {0} '.format(근월물_선물_시가)
                 self.label_45.setText(txt)
                 
-                txt = ' {0} '.format(선물_저가)
+                txt = ' {0} '.format(근월물_선물_저가)
                 self.label_46.setText(txt)    
 
                 value = self.label_47.text().split()[0]
 
-                if 선물_현재가 > float(value):
+                if 근월물_선물_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_종가대비_등락율, 선물_진폭)
+                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭)
 
-                    if 선물_종가대비 > 0:
+                    if 근월물_선물_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif 선물_종가대비 < 0:
+                    elif 근월물_선물_종가대비 < 0:
                         self.label_47.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_47.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     self.label_47.setText(txt)
 
-                elif 선물_현재가 < float(value):
+                elif 근월물_선물_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_종가대비_등락율, 선물_진폭)
+                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭)
 
-                    if 선물_종가대비 > 0:
+                    if 근월물_선물_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    if 선물_종가대비 < 0:
+                    if 근월물_선물_종가대비 < 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_47.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -31928,7 +32092,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                txt = ' {0} '.format(선물_고가)
+                txt = ' {0} '.format(근월물_선물_고가)
                 self.label_48.setText(txt) 
                 
                 self.plot4_time_line.setValue(ovc_x_idx)
@@ -31948,33 +32112,33 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                self.plot4_fut_jl_line.setValue(선물_전저)
-                self.plot4_fut_jh_line.setValue(선물_전고)
-                self.plot4_fut_close_line.setValue(선물_종가)                
-                self.plot4_fut_open_line.setValue(선물_시가)
-                self.plot4_fut_low_line.setValue(선물_저가)
-                self.plot4_fut_pivot_line.setValue(선물_피봇)
+                self.plot4_fut_jl_line.setValue(근월물_선물_전저)
+                self.plot4_fut_jh_line.setValue(근월물_선물_전고)
+                self.plot4_fut_close_line.setValue(근월물_선물_종가)                
+                self.plot4_fut_open_line.setValue(근월물_선물_시가)
+                self.plot4_fut_low_line.setValue(근월물_선물_저가)
+                self.plot4_fut_pivot_line.setValue(근월물_선물_피봇)
 
                 # 종가선 컬러를 살리기위한 임시방편
-                self.plot4_ovc_open_line.setValue(선물_고가)
-                self.plot4_ovc_jl_line.setValue(선물_고가)
-                self.plot4_ovc_jh_line.setValue(선물_고가)
-                self.plot4_ovc_pivot_line.setValue(선물_고가)
-                self.plot4_ovc_low_line.setValue(선물_고가)
-                self.plot4_ovc_high_line.setValue(선물_고가)
-                self.plot4_ovc_close_line.setValue(선물_고가)
-                self.plot4_fut_high_line.setValue(선물_고가)  
+                self.plot4_ovc_open_line.setValue(근월물_선물_고가)
+                self.plot4_ovc_jl_line.setValue(근월물_선물_고가)
+                self.plot4_ovc_jh_line.setValue(근월물_선물_고가)
+                self.plot4_ovc_pivot_line.setValue(근월물_선물_고가)
+                self.plot4_ovc_low_line.setValue(근월물_선물_고가)
+                self.plot4_ovc_high_line.setValue(근월물_선물_고가)
+                self.plot4_ovc_close_line.setValue(근월물_선물_고가)
+                self.plot4_fut_high_line.setValue(근월물_선물_고가)  
 
                 self.plot4_kp200_curve.setData(df_kp200_graph['price'].to_numpy())
-                self.plot4_fut_price_curve.setData(df_futures_graph['price'].to_numpy())
+                self.plot4_fut_price_curve.setData(df_futures_cm_graph['price'].to_numpy())
 
                 if flag_checkBox_plot4_bband:
 
                     self.Calc_SAR_BBand('FUT')
 
-                    self.plot4_bollinger_upper_curve.setData(df_futures_graph['BBUpper'].to_numpy())
-                    self.plot4_bollinger_middle_curve.setData(df_futures_graph['BBMiddle'].to_numpy())
-                    self.plot4_bollinger_lower_curve.setData(df_futures_graph['BBLower'].to_numpy())
+                    self.plot4_bollinger_upper_curve.setData(df_futures_cm_graph['BBUpper'].to_numpy())
+                    self.plot4_bollinger_middle_curve.setData(df_futures_cm_graph['BBMiddle'].to_numpy())
+                    self.plot4_bollinger_lower_curve.setData(df_futures_cm_graph['BBLower'].to_numpy())
                 else:
                     pass
 
@@ -31982,8 +32146,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.Calc_MAMA('FUT')
 
-                    self.plot4_mama_curve.setData(df_futures_graph['MAMA'].to_numpy())
-                    self.plot4_fama_curve.setData(df_futures_graph['A_FAMA'].to_numpy())
+                    self.plot4_mama_curve.setData(df_futures_cm_graph['MAMA'].to_numpy())
+                    self.plot4_fama_curve.setData(df_futures_cm_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
@@ -31991,8 +32155,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.Calc_Ichimoku('FUT')
 
-                    self.plot4_oe_conv_curve.setData(df_futures_graph['OE_CONV'].to_numpy())
-                    self.plot4_oe_base_curve.setData(df_futures_graph['OE_BASE'].to_numpy())
+                    self.plot4_oe_conv_curve.setData(df_futures_cm_graph['OE_CONV'].to_numpy())
+                    self.plot4_oe_base_curve.setData(df_futures_cm_graph['OE_BASE'].to_numpy())
                 else:
                     pass
 
@@ -32002,8 +32166,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_46.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    선물_근월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
-                    선물_차월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
+                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
+                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
                     fut_ccms_quote_remainder_ratio)
 
                 if fut_quote_energy_direction == 'call':
@@ -32020,8 +32184,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 self.plot4_time_line.setValue(ovc_x_idx)
 
-                self.plot4_fut_cm_quote_remainder_ratio_curve.setData(df_futures_graph['c_quote_remainder_ratio'].to_numpy())
-                self.plot4_fut_nm_quote_remainder_ratio_curve.setData(df_futures_graph['n_quote_remainder_ratio'].to_numpy())
+                self.plot4_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
+                self.plot4_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
 
             elif comboindex4 == 4:
 
@@ -32043,7 +32207,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.plot4_time_line.setValue(ovc_x_idx)                      
 
                 if DayTime:
-                    self.plot4_fut_volume_curve.setData(df_futures_graph['volume'].to_numpy())
+                    self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
                 else:
                     pass
                                 
@@ -32169,10 +32333,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 if DayTime:
 
-                    txt = " {0:.2f}({1}) ".format(선물_시가대비_등락율, 선물_현재가)
+                    txt = " {0:.2f}({1}) ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_47.setText(txt)
 
-                    self.plot4_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
+                    self.plot4_fut_drate_curve.setData(df_futures_cm_graph['drate'].to_numpy())
                 else:
                     pass 
 
@@ -32750,86 +32914,86 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # 선물가격
             if comboindex5 == 2:
 
-                if df_futures_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle']:
 
-                    if df_futures_graph.at[ovc_x_idx, 'BBMiddle'] >= df_futures_graph.at[ovc_x_idx, 'price']:
+                    if df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'] >= df_futures_cm_graph.at[ovc_x_idx, 'price']:
                         self.label_p5_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass               
 
-                if df_futures_graph.at[ovc_x_idx, 'PSAR'] == df_futures_graph.at[ovc_x_idx, 'PSAR']:
+                if df_futures_cm_graph.at[ovc_x_idx, 'PSAR'] == df_futures_cm_graph.at[ovc_x_idx, 'PSAR']:
 
-                    if df_futures_graph.at[ovc_x_idx, 'PSAR'] >= df_futures_graph.at[ovc_x_idx, 'price']:
+                    if df_futures_cm_graph.at[ovc_x_idx, 'PSAR'] >= df_futures_cm_graph.at[ovc_x_idx, 'price']:
                         self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_graph.at[ovc_x_idx, 'PSAR'], 선물_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_cm_graph.at[ovc_x_idx, 'PSAR'], 선물_호가순매수)
                     self.label_p5_2.setText(txt)
                 else:
                     pass
                 
-                if df_futures_graph.at[ovc_x_idx, 'OE_CONV'] == df_futures_graph.at[ovc_x_idx, 'OE_CONV'] and df_futures_graph.at[ovc_x_idx, 'OE_BASE'] == df_futures_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] == df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] and df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE'] == df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE']:
 
-                    if df_futures_graph.at[ovc_x_idx, 'OE_CONV'] < df_futures_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] < df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'OE_CONV'], df_futures_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'], df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p5_3.setText(txt)
                 else:
                     pass
 
-                if df_futures_graph.at[ovc_x_idx, 'MAMA'] == df_futures_graph.at[ovc_x_idx, 'MAMA'] and df_futures_graph.at[ovc_x_idx, 'FAMA'] == df_futures_graph.at[ovc_x_idx, 'FAMA']:
+                if df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] and df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'FAMA']:
 
-                    if df_futures_graph.at[ovc_x_idx, 'FAMA'] >= df_futures_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] >= df_futures_cm_graph.at[ovc_x_idx, 'BBLower']:
 
-                        if df_futures_graph.at[ovc_x_idx, 'MAMA'] < df_futures_graph.at[ovc_x_idx, 'FAMA']:                        
+                        if df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] < df_futures_cm_graph.at[ovc_x_idx, 'FAMA']:                        
                             self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p5_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'MAMA'], df_futures_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'MAMA'], df_futures_cm_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p5_4.setText(txt)
                 else:
                     pass
 
-                txt = ' {0} '.format(선물_피봇)
+                txt = ' {0} '.format(근월물_선물_피봇)
                 self.label_54.setText(txt)
 
-                txt = ' {0} '.format(선물_시가)
+                txt = ' {0} '.format(근월물_선물_시가)
                 self.label_55.setText(txt)
                 
-                txt = ' {0} '.format(선물_저가)
+                txt = ' {0} '.format(근월물_선물_저가)
                 self.label_56.setText(txt)       
 
                 value = self.label_57.text().split()[0]
 
-                if 선물_현재가 > float(value):
+                if 근월물_선물_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_종가대비_등락율, 선물_진폭)
+                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭)
 
-                    if 선물_종가대비 > 0:
+                    if 근월물_선물_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif 선물_종가대비 < 0:
+                    elif 근월물_선물_종가대비 < 0:
                         self.label_57.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_57.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     self.label_57.setText(txt)
 
-                elif 선물_현재가 < float(value):
+                elif 근월물_선물_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_종가대비_등락율, 선물_진폭)
+                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭)
 
-                    if 선물_종가대비 > 0:
+                    if 근월물_선물_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    if 선물_종가대비 < 0:
+                    if 근월물_선물_종가대비 < 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_57.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -32838,7 +33002,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                txt = ' {0} '.format(선물_고가)
+                txt = ' {0} '.format(근월물_선물_고가)
                 self.label_58.setText(txt)  
                 
                 self.plot5_time_line.setValue(ovc_x_idx)
@@ -32858,33 +33022,33 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                self.plot5_fut_jl_line.setValue(선물_전저)
-                self.plot5_fut_jh_line.setValue(선물_전고)
-                self.plot5_fut_close_line.setValue(선물_종가)                
-                self.plot5_fut_open_line.setValue(선물_시가)
-                self.plot5_fut_low_line.setValue(선물_저가)
-                self.plot5_fut_pivot_line.setValue(선물_피봇)
+                self.plot5_fut_jl_line.setValue(근월물_선물_전저)
+                self.plot5_fut_jh_line.setValue(근월물_선물_전고)
+                self.plot5_fut_close_line.setValue(근월물_선물_종가)                
+                self.plot5_fut_open_line.setValue(근월물_선물_시가)
+                self.plot5_fut_low_line.setValue(근월물_선물_저가)
+                self.plot5_fut_pivot_line.setValue(근월물_선물_피봇)
 
                 # 종가선 컬러를 살리기위한 임시방편
-                self.plot5_ovc_open_line.setValue(선물_고가)
-                self.plot5_ovc_jl_line.setValue(선물_고가)
-                self.plot5_ovc_jh_line.setValue(선물_고가)
-                self.plot5_ovc_pivot_line.setValue(선물_고가)
-                self.plot5_ovc_low_line.setValue(선물_고가)
-                self.plot5_ovc_high_line.setValue(선물_고가)
-                self.plot5_ovc_close_line.setValue(선물_고가)
-                self.plot5_fut_high_line.setValue(선물_고가) 
+                self.plot5_ovc_open_line.setValue(근월물_선물_고가)
+                self.plot5_ovc_jl_line.setValue(근월물_선물_고가)
+                self.plot5_ovc_jh_line.setValue(근월물_선물_고가)
+                self.plot5_ovc_pivot_line.setValue(근월물_선물_고가)
+                self.plot5_ovc_low_line.setValue(근월물_선물_고가)
+                self.plot5_ovc_high_line.setValue(근월물_선물_고가)
+                self.plot5_ovc_close_line.setValue(근월물_선물_고가)
+                self.plot5_fut_high_line.setValue(근월물_선물_고가) 
 
                 self.plot5_kp200_curve.setData(df_kp200_graph['price'].to_numpy())
-                self.plot5_fut_price_curve.setData(df_futures_graph['price'].to_numpy())
+                self.plot5_fut_price_curve.setData(df_futures_cm_graph['price'].to_numpy())
 
                 if flag_checkBox_plot5_bband:
 
                     self.Calc_SAR_BBand('FUT')
 
-                    self.plot5_bollinger_upper_curve.setData(df_futures_graph['BBUpper'].to_numpy())
-                    self.plot5_bollinger_middle_curve.setData(df_futures_graph['BBMiddle'].to_numpy())
-                    self.plot5_bollinger_lower_curve.setData(df_futures_graph['BBLower'].to_numpy())
+                    self.plot5_bollinger_upper_curve.setData(df_futures_cm_graph['BBUpper'].to_numpy())
+                    self.plot5_bollinger_middle_curve.setData(df_futures_cm_graph['BBMiddle'].to_numpy())
+                    self.plot5_bollinger_lower_curve.setData(df_futures_cm_graph['BBLower'].to_numpy())
                 else:
                     pass
 
@@ -32892,8 +33056,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.Calc_MAMA('FUT')
 
-                    self.plot5_mama_curve.setData(df_futures_graph['MAMA'].to_numpy())
-                    self.plot5_fama_curve.setData(df_futures_graph['A_FAMA'].to_numpy())
+                    self.plot5_mama_curve.setData(df_futures_cm_graph['MAMA'].to_numpy())
+                    self.plot5_fama_curve.setData(df_futures_cm_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
@@ -32901,8 +33065,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.Calc_Ichimoku('FUT')
 
-                    self.plot5_oe_conv_curve.setData(df_futures_graph['OE_CONV'].to_numpy())
-                    self.plot5_oe_base_curve.setData(df_futures_graph['OE_BASE'].to_numpy())
+                    self.plot5_oe_conv_curve.setData(df_futures_cm_graph['OE_CONV'].to_numpy())
+                    self.plot5_oe_base_curve.setData(df_futures_cm_graph['OE_BASE'].to_numpy())
                 else:
                     pass
 
@@ -32912,8 +33076,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_56.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    선물_근월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
-                    선물_차월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
+                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
+                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
                     fut_ccms_quote_remainder_ratio)
 
                 if fut_quote_energy_direction == 'call':
@@ -32930,8 +33094,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 self.plot5_time_line.setValue(ovc_x_idx)
 
-                self.plot5_fut_cm_quote_remainder_ratio_curve.setData(df_futures_graph['c_quote_remainder_ratio'].to_numpy())
-                self.plot5_fut_nm_quote_remainder_ratio_curve.setData(df_futures_graph['n_quote_remainder_ratio'].to_numpy())
+                self.plot5_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
+                self.plot5_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
 
             elif comboindex5 == 4:
 
@@ -32953,7 +33117,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.plot5_time_line.setValue(ovc_x_idx)
 
                 if DayTime:
-                    self.plot5_fut_volume_curve.setData(df_futures_graph['volume'].to_numpy())
+                    self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
                 else:
                     pass
                                 
@@ -33076,10 +33240,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 if DayTime:
 
-                    txt = " {0:.2f}({1}) ".format(선물_시가대비_등락율, 선물_현재가)
+                    txt = " {0:.2f}({1}) ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_57.setText(txt)
 
-                    self.plot5_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
+                    self.plot5_fut_drate_curve.setData(df_futures_cm_graph['drate'].to_numpy())
                 else:
                     pass
 
@@ -33675,86 +33839,86 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # 선물가격
             if comboindex6 == 2:
 
-                if df_futures_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle']:
 
-                    if df_futures_graph.at[ovc_x_idx, 'BBMiddle'] >= df_futures_graph.at[ovc_x_idx, 'price']:
+                    if df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'] >= df_futures_cm_graph.at[ovc_x_idx, 'price']:
                         self.label_p6_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass               
 
-                if df_futures_graph.at[ovc_x_idx, 'PSAR'] == df_futures_graph.at[ovc_x_idx, 'PSAR']:
+                if df_futures_cm_graph.at[ovc_x_idx, 'PSAR'] == df_futures_cm_graph.at[ovc_x_idx, 'PSAR']:
 
-                    if df_futures_graph.at[ovc_x_idx, 'PSAR'] >= df_futures_graph.at[ovc_x_idx, 'price']:
+                    if df_futures_cm_graph.at[ovc_x_idx, 'PSAR'] >= df_futures_cm_graph.at[ovc_x_idx, 'price']:
                         self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_graph.at[ovc_x_idx, 'PSAR'], 선물_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_cm_graph.at[ovc_x_idx, 'PSAR'], 선물_호가순매수)
                     self.label_p6_2.setText(txt)
                 else:
                     pass
                 
-                if df_futures_graph.at[ovc_x_idx, 'OE_CONV'] == df_futures_graph.at[ovc_x_idx, 'OE_CONV'] and df_futures_graph.at[ovc_x_idx, 'OE_BASE'] == df_futures_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] == df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] and df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE'] == df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE']:
 
-                    if df_futures_graph.at[ovc_x_idx, 'OE_CONV'] < df_futures_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] < df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'OE_CONV'], df_futures_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'], df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p6_3.setText(txt)
                 else:
                     pass
 
-                if df_futures_graph.at[ovc_x_idx, 'MAMA'] == df_futures_graph.at[ovc_x_idx, 'MAMA'] and df_futures_graph.at[ovc_x_idx, 'FAMA'] == df_futures_graph.at[ovc_x_idx, 'FAMA']:
+                if df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] and df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'FAMA']:
 
-                    if df_futures_graph.at[ovc_x_idx, 'FAMA'] >= df_futures_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] >= df_futures_cm_graph.at[ovc_x_idx, 'BBLower']:
 
-                        if df_futures_graph.at[ovc_x_idx, 'MAMA'] < df_futures_graph.at[ovc_x_idx, 'FAMA']:                        
+                        if df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] < df_futures_cm_graph.at[ovc_x_idx, 'FAMA']:                        
                             self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p6_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_graph.at[ovc_x_idx, 'MAMA'], df_futures_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'MAMA'], df_futures_cm_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p6_4.setText(txt)
                 else:
                     pass
 
-                txt = ' {0} '.format(선물_피봇)
+                txt = ' {0} '.format(근월물_선물_피봇)
                 self.label_64.setText(txt)
 
-                txt = ' {0} '.format(선물_시가)
+                txt = ' {0} '.format(근월물_선물_시가)
                 self.label_65.setText(txt)
                 
-                txt = ' {0} '.format(선물_저가)
+                txt = ' {0} '.format(근월물_선물_저가)
                 self.label_66.setText(txt)       
 
                 value = self.label_67.text().split()[0]
 
-                if 선물_현재가 > float(value):
+                if 근월물_선물_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_종가대비_등락율, 선물_진폭)
+                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭)
 
-                    if 선물_종가대비 > 0:
+                    if 근월물_선물_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif 선물_종가대비 < 0:
+                    elif 근월물_선물_종가대비 < 0:
                         self.label_67.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_67.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     self.label_67.setText(txt)
 
-                elif 선물_현재가 < float(value):
+                elif 근월물_선물_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(선물_현재가, 선물_종가대비, 선물_종가대비_등락율, 선물_진폭)
+                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭)
 
-                    if 선물_종가대비 > 0:
+                    if 근월물_선물_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    if 선물_종가대비 < 0:
+                    if 근월물_선물_종가대비 < 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_67.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33763,7 +33927,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                txt = ' {0} '.format(선물_고가)
+                txt = ' {0} '.format(근월물_선물_고가)
                 self.label_68.setText(txt)  
                 
                 self.plot6_time_line.setValue(ovc_x_idx)
@@ -33783,33 +33947,33 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                self.plot6_fut_jl_line.setValue(선물_전저)
-                self.plot6_fut_jh_line.setValue(선물_전고)
-                self.plot6_fut_close_line.setValue(선물_종가)                
-                self.plot6_fut_open_line.setValue(선물_시가)
-                self.plot6_fut_low_line.setValue(선물_저가)
-                self.plot6_fut_pivot_line.setValue(선물_피봇)
+                self.plot6_fut_jl_line.setValue(근월물_선물_전저)
+                self.plot6_fut_jh_line.setValue(근월물_선물_전고)
+                self.plot6_fut_close_line.setValue(근월물_선물_종가)                
+                self.plot6_fut_open_line.setValue(근월물_선물_시가)
+                self.plot6_fut_low_line.setValue(근월물_선물_저가)
+                self.plot6_fut_pivot_line.setValue(근월물_선물_피봇)
 
                 # 종가선 컬러를 살리기위한 임시방편
-                self.plot6_ovc_open_line.setValue(선물_고가)
-                self.plot6_ovc_jl_line.setValue(선물_고가)
-                self.plot6_ovc_jh_line.setValue(선물_고가)
-                self.plot6_ovc_pivot_line.setValue(선물_고가)
-                self.plot6_ovc_low_line.setValue(선물_고가)
-                self.plot6_ovc_high_line.setValue(선물_고가)
-                self.plot6_ovc_close_line.setValue(선물_고가)
-                self.plot6_fut_high_line.setValue(선물_고가) 
+                self.plot6_ovc_open_line.setValue(근월물_선물_고가)
+                self.plot6_ovc_jl_line.setValue(근월물_선물_고가)
+                self.plot6_ovc_jh_line.setValue(근월물_선물_고가)
+                self.plot6_ovc_pivot_line.setValue(근월물_선물_고가)
+                self.plot6_ovc_low_line.setValue(근월물_선물_고가)
+                self.plot6_ovc_high_line.setValue(근월물_선물_고가)
+                self.plot6_ovc_close_line.setValue(근월물_선물_고가)
+                self.plot6_fut_high_line.setValue(근월물_선물_고가) 
 
                 self.plot6_kp200_curve.setData(df_kp200_graph['price'].to_numpy())
-                self.plot6_fut_price_curve.setData(df_futures_graph['price'].to_numpy())
+                self.plot6_fut_price_curve.setData(df_futures_cm_graph['price'].to_numpy())
 
                 if flag_checkBox_plot6_bband:
 
                     self.Calc_SAR_BBand('FUT')
 
-                    self.plot6_bollinger_upper_curve.setData(df_futures_graph['BBUpper'].to_numpy())
-                    self.plot6_bollinger_middle_curve.setData(df_futures_graph['BBMiddle'].to_numpy())
-                    self.plot6_bollinger_lower_curve.setData(df_futures_graph['BBLower'].to_numpy())
+                    self.plot6_bollinger_upper_curve.setData(df_futures_cm_graph['BBUpper'].to_numpy())
+                    self.plot6_bollinger_middle_curve.setData(df_futures_cm_graph['BBMiddle'].to_numpy())
+                    self.plot6_bollinger_lower_curve.setData(df_futures_cm_graph['BBLower'].to_numpy())
                 else:
                     pass
 
@@ -33817,8 +33981,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.Calc_MAMA('FUT')
 
-                    self.plot6_mama_curve.setData(df_futures_graph['MAMA'].to_numpy())
-                    self.plot6_fama_curve.setData(df_futures_graph['A_FAMA'].to_numpy())
+                    self.plot6_mama_curve.setData(df_futures_cm_graph['MAMA'].to_numpy())
+                    self.plot6_fama_curve.setData(df_futures_cm_graph['A_FAMA'].to_numpy())
                 else:
                     pass
 
@@ -33826,8 +33990,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.Calc_Ichimoku('FUT')
 
-                    self.plot6_oe_conv_curve.setData(df_futures_graph['OE_CONV'].to_numpy())
-                    self.plot6_oe_base_curve.setData(df_futures_graph['OE_BASE'].to_numpy())
+                    self.plot6_oe_conv_curve.setData(df_futures_cm_graph['OE_CONV'].to_numpy())
+                    self.plot6_oe_base_curve.setData(df_futures_cm_graph['OE_BASE'].to_numpy())
                 else:
                     pass
 
@@ -33837,8 +34001,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_66.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    선물_근월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_graph.at[ovc_x_idx, 'c_md_quote'], \
-                    선물_차월물_호가_잔량비, df_futures_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_graph.at[ovc_x_idx, 'n_md_quote'], \
+                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
+                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
                     fut_ccms_quote_remainder_ratio)
 
                 if fut_quote_energy_direction == 'call':
@@ -33855,8 +34019,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 self.plot6_time_line.setValue(ovc_x_idx)
 
-                self.plot6_fut_cm_quote_remainder_ratio_curve.setData(df_futures_graph['c_quote_remainder_ratio'].to_numpy())
-                self.plot6_fut_nm_quote_remainder_ratio_curve.setData(df_futures_graph['n_quote_remainder_ratio'].to_numpy())
+                self.plot6_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
+                self.plot6_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
 
             elif comboindex6 == 4:
                 
@@ -33878,7 +34042,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.plot6_time_line.setValue(ovc_x_idx)
 
                 if DayTime:
-                    self.plot6_fut_volume_curve.setData(df_futures_graph['volume'].to_numpy())
+                    self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
                 else:
                     pass
                                 
@@ -34001,10 +34165,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 if DayTime:
 
-                    txt = " {0:.2f}({1}) ".format(선물_시가대비_등락율, 선물_현재가)
+                    txt = " {0:.2f}({1}) ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_67.setText(txt)
 
-                    self.plot6_fut_drate_curve.setData(df_futures_graph['drate'].to_numpy())
+                    self.plot6_fut_drate_curve.setData(df_futures_cm_graph['drate'].to_numpy())
                 else:
                     pass 
 
@@ -34581,7 +34745,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.plot6_time_line.setValue(ovc_x_idx)
 
                 if DayTime:
-                    self.plot6_fut_volume_curve.setData(df_futures_graph['volume'].to_numpy())
+                    self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
                     self.plot6_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'].to_numpy())
                     self.plot6_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'].to_numpy())
                 else:
@@ -35424,7 +35588,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         elif trdata[0] == 't8432':
             
             global fut_code, GMSHCODE, CMSHCODE, CCMSHCODE
-            global 선물_전저, 선물_전고, 선물_종가, 차월물_선물_전저, 차월물_선물_전고, 차월물_선물_종가
+            global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 차월물_선물_전저, 차월물_선물_전고, 차월물_선물_종가
 
             df = trdata[1]
 
@@ -35452,13 +35616,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             fut_code = GMSHCODE
             
-            선물_전저 = float(df.at[0, '전일저가'])
-            선물_전고 = float(df.at[0, '전일고가'])
-            선물_종가 = float(df.at[0, '전일종가'])
+            근월물_선물_전저 = float(df.at[0, '전일저가'])
+            근월물_선물_전고 = float(df.at[0, '전일고가'])
+            근월물_선물_종가 = float(df.at[0, '전일종가'])
 
-            print('선물_전저 =', 선물_전저)
-            print('선물_전고 =', 선물_전고)
-            print('선물_종가 =', 선물_종가)
+            print('근월물_선물_전저 =', 근월물_선물_전저)
+            print('근월물_선물_전고 =', 근월물_선물_전고)
+            print('근월물_선물_종가 =', 근월물_선물_종가)
 
             차월물_선물_전저 = float(df.at[1, '전일저가'])
             차월물_선물_전고 = float(df.at[1, '전일고가'])
@@ -36903,7 +37067,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def yj_update(self, tickdata):
 
-        global df_futures_graph, df_kp200_graph, yj_atm_index, kp200_시가
+        global df_futures_cm_graph, df_kp200_graph, yj_atm_index, kp200_시가
         
         if tickdata['업종코드'] == KOSPI200:
 
@@ -36912,7 +37076,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.dialog['선물옵션전광판'].kp200_realdata['시가'] = kp200_시가
             self.dialog['선물옵션전광판'].fut_realdata['KP200'] = kp200_시가
 
-            df_futures_graph.at[ovc_x_idx, 'kp200'] = kp200_시가
+            df_futures_cm_graph.at[ovc_x_idx, 'kp200'] = kp200_시가
             df_kp200_graph.at[ovc_x_idx, 'price'] = kp200_시가
 
             item = QTableWidgetItem(tickdata['예상지수'])
@@ -36959,7 +37123,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
             
-            #txt = '[{0:02d}:{1:02d}:{2:02d}] 선물/KOSPI200 예상시가 = {3}/{4}, 예상등가 = {5}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 선물_시가, kp200_시가, atm_txt)
+            #txt = '[{0:02d}:{1:02d}:{2:02d}] 선물/KOSPI200 예상시가 = {3}/{4}, 예상등가 = {5}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 근월물_선물_시가, kp200_시가, atm_txt)
             #self.dialog['선물옵션전광판'].textBrowser.append(txt)
 
             if atm_txt in opt_actval:
@@ -36996,8 +37160,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def yfc_update(self, tickdata):
 
-        global market_service, df_futures_graph, flag_futures_ohlc_open, 선물_종가대비_등락율, 선물_진폭비
-        global flag_fut_vs_dow_drate_direction, plot_drate_scale_factor, 선물_현재가_버퍼, 선물_시가, 선물_피봇
+        global market_service, df_futures_cm_graph, df_futures_nm_graph, flag_futures_ohlc_open, 근월물_선물_종가대비_등락율, 선물_진폭비
+        global flag_fut_vs_dow_drate_direction, plot_drate_scale_factor, 근월물_선물_현재가_버퍼, 근월물_선물_시가, 근월물_선물_피봇
+        global DOW_기준_예상시가, 차월물_선물_시가
         
         if not market_service:
             market_service = True
@@ -37007,68 +37172,70 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if tickdata['단축코드'] == GMSHCODE:
 
             예상체결가격 = tickdata['예상체결가격']
-            선물_시가 = float(tickdata['예상체결가격'])
+            근월물_선물_시가 = float(tickdata['예상체결가격'])
 
             # 그래프 가격갱신
-            df_futures_graph.at[ovc_x_idx, 'price'] = 선물_시가
+            df_futures_cm_graph.at[ovc_x_idx, 'price'] = 근월물_선물_시가
 
             # 1T OHLC 생성
-            df_futures_graph.at[ovc_x_idx, 'ctime'] = tickdata['수신시간']
+            df_futures_cm_graph.at[ovc_x_idx, 'ctime'] = tickdata['수신시간']
 
             if OVC_SEC == 0:
 
                 if not flag_futures_ohlc_open:
 
-                    df_futures_graph.at[ovc_x_idx, 'open'] = 선물_시가
-                    df_futures_graph.at[ovc_x_idx, 'high'] = 선물_시가
-                    df_futures_graph.at[ovc_x_idx, 'low'] = 선물_시가
-                    df_futures_graph.at[ovc_x_idx, 'middle'] = 선물_시가
-                    df_futures_graph.at[ovc_x_idx, 'close'] = 선물_시가
-                    df_futures_graph.at[ovc_x_idx, 'price'] = 선물_시가
+                    df_futures_cm_graph.at[ovc_x_idx, 'open'] = 근월물_선물_시가
+                    df_futures_cm_graph.at[ovc_x_idx, 'high'] = 근월물_선물_시가
+                    df_futures_cm_graph.at[ovc_x_idx, 'low'] = 근월물_선물_시가
+                    df_futures_cm_graph.at[ovc_x_idx, 'middle'] = 근월물_선물_시가
+                    df_futures_cm_graph.at[ovc_x_idx, 'close'] = 근월물_선물_시가
+                    df_futures_cm_graph.at[ovc_x_idx, 'price'] = 근월물_선물_시가
 
-                    del 선물_현재가_버퍼[:]
+                    del 근월물_선물_현재가_버퍼[:]
 
                     flag_futures_ohlc_open = True
                 else:
-                    선물_현재가_버퍼.append(선물_시가)                            
+                    근월물_선물_현재가_버퍼.append(근월물_선물_시가)                            
             else:
-                if df_futures_graph.at[ovc_x_idx, 'open'] != df_futures_graph.at[ovc_x_idx, 'open']:
-                    df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
-                    del 선물_현재가_버퍼[:]
+                if df_futures_cm_graph.at[ovc_x_idx, 'open'] != df_futures_cm_graph.at[ovc_x_idx, 'open']:
+                    df_futures_cm_graph.at[ovc_x_idx, 'open'] = df_futures_cm_graph.at[ovc_x_idx - 1, 'close']
+                    del 근월물_선물_현재가_버퍼[:]
                 else:
                     pass
 
-                선물_현재가_버퍼.append(선물_시가)
+                근월물_선물_현재가_버퍼.append(근월물_선물_시가)
 
-                if max(선물_현재가_버퍼) > 0:
-                    df_futures_graph.at[ovc_x_idx, 'high'] = max(선물_현재가_버퍼)
+                if max(근월물_선물_현재가_버퍼) > 0:
+                    df_futures_cm_graph.at[ovc_x_idx, 'high'] = max(근월물_선물_현재가_버퍼)
                 else:
                     pass
 
-                if min(선물_현재가_버퍼) == 0:
+                if min(근월물_선물_현재가_버퍼) == 0:
 
-                    if max(선물_현재가_버퍼) > 0:
-                        df_futures_graph.at[ovc_x_idx, 'low'] = max(선물_현재가_버퍼)
+                    if max(근월물_선물_현재가_버퍼) > 0:
+                        df_futures_cm_graph.at[ovc_x_idx, 'low'] = max(근월물_선물_현재가_버퍼)
                     else:
                         pass
                 else:
-                    df_futures_graph.at[ovc_x_idx, 'low'] = min(선물_현재가_버퍼)
+                    df_futures_cm_graph.at[ovc_x_idx, 'low'] = min(근월물_선물_현재가_버퍼)
 
-                df_futures_graph.at[ovc_x_idx, 'close'] = 선물_시가
+                df_futures_cm_graph.at[ovc_x_idx, 'close'] = 근월물_선물_시가
 
                 flag_futures_ohlc_open = False
 
-            df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2
+            df_futures_cm_graph.at[ovc_x_idx, 'middle'] = (df_futures_cm_graph.at[ovc_x_idx, 'high'] + df_futures_cm_graph.at[ovc_x_idx, 'low']) / 2
                   
-            self.dialog['선물옵션전광판'].fut_realdata['시가'] = 선물_시가
+            self.dialog['선물옵션전광판'].fut_realdata['시가'] = 근월물_선물_시가
 
-            item = QTableWidgetItem(tickdata['예상체결가격'])
+            txt = '{0}\n({1:.2f})'.format(tickdata['예상체결가격'], DOW_기준_예상시가)
+
+            item = QTableWidgetItem(txt)
             item.setTextAlignment(Qt.AlignCenter)
 
-            if 선물_시가 > self.dialog['선물옵션전광판'].fut_realdata['종가']:
+            if 근월물_선물_시가 > self.dialog['선물옵션전광판'].fut_realdata['종가']:
                 item.setForeground(QBrush(magenta))
                 item.setBackground(QBrush(검정색))
-            elif 선물_시가 < self.dialog['선물옵션전광판'].fut_realdata['종가']:
+            elif 근월물_선물_시가 < self.dialog['선물옵션전광판'].fut_realdata['종가']:
                 item.setForeground(QBrush(cyan))
                 item.setBackground(QBrush(검정색))
             else:
@@ -37077,15 +37244,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.시가.value, item)
 
-            시가갭 = 선물_시가 - self.dialog['선물옵션전광판'].fut_realdata['종가']
+            시가갭 = 근월물_선물_시가 - self.dialog['선물옵션전광판'].fut_realdata['종가']
 
             item = QTableWidgetItem("{0:.2f}".format(시가갭))
             item.setTextAlignment(Qt.AlignCenter)
 
-            if 선물_시가 > self.dialog['선물옵션전광판'].fut_realdata['종가']:
+            if 근월물_선물_시가 > self.dialog['선물옵션전광판'].fut_realdata['종가']:
                 item.setBackground(QBrush(콜기준가색))
                 item.setForeground(QBrush(검정색))
-            elif 선물_시가 < self.dialog['선물옵션전광판'].fut_realdata['종가']:
+            elif 근월물_선물_시가 < self.dialog['선물옵션전광판'].fut_realdata['종가']:
                 item.setBackground(QBrush(풋기준가색))
                 item.setForeground(QBrush(흰색))
             else:
@@ -37094,39 +37261,33 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
             
             if DOW_전일종가 > 0:
-                DOW_기준_예상시가 = (선물_전일종가 * DOW_현재가) / DOW_전일종가
+                DOW_기준_예상시가 = (근월물_선물_전일종가 * DOW_현재가) / DOW_전일종가
             else:
-                pass
-
-            item = QTableWidgetItem("{0:.2f}".format(DOW_기준_예상시가))
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(검정색))
-            item.setForeground(QBrush(대맥점색))
-            self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, Futures_column.시가.value, item)
+                pass            
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] DOW기준 예상 선물시가 = {3:.2f}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, DOW_기준_예상시가)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
 
-            선물_피봇 = calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
+            근월물_선물_피봇 = calc_pivot(근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_시가)
 
-            item = QTableWidgetItem("{0:.2f}".format(선물_피봇))
+            item = QTableWidgetItem("{0:.2f}".format(근월물_선물_피봇))
             item.setTextAlignment(Qt.AlignCenter)
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
 
-            self.dialog['선물옵션전광판'].fut_realdata['피봇'] = 선물_피봇
+            self.dialog['선물옵션전광판'].fut_realdata['피봇'] = 근월물_선물_피봇
 
-            if 선물_전일종가 > 0:
-                선물_종가대비_등락율 = ((선물_시가 - 선물_전일종가) / 선물_전일종가) * 100
+            if 근월물_선물_전일종가 > 0:
+                근월물_선물_종가대비_등락율 = ((근월물_선물_시가 - 근월물_선물_전일종가) / 근월물_선물_전일종가) * 100
             else:
                 pass
 
-            item = QTableWidgetItem("선물\n({0:.2f}%)".format(선물_종가대비_등락율))
+            item = QTableWidgetItem("선물\n({0:.2f}%)".format(근월물_선물_종가대비_등락율))
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(흰색))
             item.setForeground(QBrush(검정색))
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.대비.value, item)
             
-            df_futures_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 선물_종가대비_등락율
+            df_futures_cm_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 근월물_선물_종가대비_등락율
 
             if fut_quote_energy_direction == 'call':
 
@@ -37159,15 +37320,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             item.setForeground(QBrush(검정색))
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.대비.value, item)
 
-            item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(선물_시가대비, 선물_종가대비_등락율))
+            item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(근월물_선물_시가대비, 근월물_선물_종가대비_등락율))
             item.setTextAlignment(Qt.AlignCenter)
 
-            if 선물_종가대비_등락율 > 0 and DOW_등락율 > 0 and flag_fut_vs_dow_drate_direction:
+            if 근월물_선물_종가대비_등락율 > 0 and DOW_등락율 > 0 and flag_fut_vs_dow_drate_direction:
 
                 item.setBackground(QBrush(pink))
                 item.setForeground(QBrush(검정색))
 
-            elif 선물_종가대비_등락율 < 0 and DOW_등락율 < 0 and flag_fut_vs_dow_drate_direction:
+            elif 근월물_선물_종가대비_등락율 < 0 and DOW_등락율 < 0 and flag_fut_vs_dow_drate_direction:
 
                 item.setBackground(QBrush(lightskyblue))
                 item.setForeground(QBrush(검정색))
@@ -37180,8 +37341,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.대비.value, item)
 
-            if 선물_시가 > 0:
-                선물_진폭비 = (선물_고가 - 선물_저가) / 선물_시가
+            if 근월물_선물_시가 > 0:
+                선물_진폭비 = (근월물_선물_고가 - 근월물_선물_저가) / 근월물_선물_시가
             else:
                 pass
 
@@ -37202,7 +37363,42 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass                    
 
             self.dialog['선물옵션전광판'].tableWidget_fut.resizeRowsToContents()
-            self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnsToContents()                    
+            self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnsToContents()
+
+        elif tickdata['단축코드'] == CMSHCODE:
+
+            차월물_선물_시가 = float(tickdata['예상체결가격'])
+
+            item = QTableWidgetItem(차월물_선물_시가)
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if 차월물_선물_시가 > 차월물_선물_종가:
+                item.setForeground(QBrush(magenta))
+                item.setBackground(QBrush(검정색))
+            elif 차월물_선물_시가 < 차월물_선물_종가:
+                item.setForeground(QBrush(cyan))
+                item.setBackground(QBrush(검정색))
+            else:
+                item.setForeground(QBrush(흰색))
+                item.setBackground(QBrush(검정색))
+
+            self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, Futures_column.시가.value, item)
+
+            시가갭 = 차월물_선물_시가 - 차월물_선물_종가
+
+            item = QTableWidgetItem("{0:.2f}".format(시가갭))
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if 차월물_선물_시가 > 차월물_선물_종가:
+                item.setBackground(QBrush(콜기준가색))
+                item.setForeground(QBrush(검정색))
+            elif 차월물_선물_시가 < 차월물_선물_종가:
+                item.setBackground(QBrush(풋기준가색))
+                item.setForeground(QBrush(흰색))
+            else:
+                item.setBackground(QBrush(흰색))
+
+            self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, Futures_column.시가갭.value, item)
         else:
             pass
 
@@ -37391,7 +37587,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def ij_update(self, tickdata):
 
-        global df_fut, df_futures_graph, df_kp200_graph
+        global df_fut, df_futures_cm_graph, df_kp200_graph
         global ATM_INDEX, call_atm_value, put_atm_value, KP200_COREVAL, 장시작_양합, 장시작_중심가
         global flag_kp200_start_set, flag_kp200_low, flag_kp200_high, kospi_text_color, kosdaq_text_color
         global kospi_price, kosdaq_price, kp200_시가, kp200_저가, kp200_현재가, kp200_고가, kp200_진폭
@@ -37405,7 +37601,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
             # 그래프 가격갱신
             kp200_현재가 = float(tickdata['지수'])
-            df_futures_graph.at[ovc_x_idx, 'kp200'] = kp200_현재가
+            df_futures_cm_graph.at[ovc_x_idx, 'kp200'] = kp200_현재가
             df_kp200_graph.at[ovc_x_idx, 'price'] = kp200_현재가
 
             # kp200 현재가
@@ -37448,7 +37644,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 kp200_시가 = float(tickdata['시가지수'])
 
                 self.dialog['선물옵션전광판'].kp200_realdata['시가'] = kp200_시가
-                df_futures_graph.at[ovc_x_idx, 'kp200'] = kp200_시가
+                df_futures_cm_graph.at[ovc_x_idx, 'kp200'] = kp200_시가
                 df_kp200_graph.at[ovc_x_idx, 'price'] = kp200_시가
 
                 item = QTableWidgetItem(시가지수)
@@ -37491,19 +37687,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
                 # 선물 피봇을 다시 계산하여 표시한다.
-                선물_피봇 = calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
+                근월물_선물_피봇 = calc_pivot(근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_시가)
 
-                item = QTableWidgetItem("{0:.2f}".format(선물_피봇))
+                item = QTableWidgetItem("{0:.2f}".format(근월물_선물_피봇))
                 item.setTextAlignment(Qt.AlignCenter)
 
                 if NightTime:
                     self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, Futures_column.피봇.value, item)
-                    df_fut.at[0, '피봇'] = 선물_피봇
-                    self.dialog['선물옵션전광판'].cme_realdata['피봇'] = 선물_피봇
+                    df_fut.at[0, '피봇'] = 근월물_선물_피봇
+                    self.dialog['선물옵션전광판'].cme_realdata['피봇'] = 근월물_선물_피봇
                 else:
                     self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
-                    df_fut.at[1, '피봇'] = 선물_피봇
-                    self.dialog['선물옵션전광판'].fut_realdata['피봇'] = 선물_피봇              
+                    df_fut.at[1, '피봇'] = 근월물_선물_피봇
+                    self.dialog['선물옵션전광판'].fut_realdata['피봇'] = 근월물_선물_피봇              
 
                 atm_txt = self.dialog['선물옵션전광판'].get_atm_txt(kp200_시가)
                 ATM_INDEX = opt_actval.index(atm_txt)
@@ -38235,9 +38431,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def fc0_update(self, tickdata):
 
         global pre_start, flag_fut_vs_dow_drate_direction, plot_drate_scale_factor, fut_volume_power_energy_direction
-        global df_futures_graph, flag_futures_ohlc_open, 선물_현재가_버퍼, fut_result, fut_cm_volume_power, fut_nm_volume_power
-        global 선물_종가대비_등락율, 선물_시가등락율, 선물_시가대비_등락율, kp200_시가등락율
-        global fut_nm_result
+        global df_futures_cm_graph, flag_futures_ohlc_open, 근월물_선물_현재가_버퍼, fut_cm_volume_power, fut_nm_volume_power
+        global 근월물_선물_종가대비_등락율, 근월물_선물_시가등락율, 근월물_선물_시가대비_등락율, kp200_시가등락율
+        global fut_cm_result, fut_nm_result
 
         dt = datetime.now()
         
@@ -38250,23 +38446,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             # 그래프관련 처리 먼저...
             if float(tickdata['현재가']) == float('inf') or float(tickdata['현재가']) == float('-inf'):
-                선물_현재가 = float('nan')
+                근월물_선물_현재가 = float('nan')
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 선물 현재가 무한대 오류발생...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
             else:
-                선물_현재가 = float(tickdata['현재가'])
+                근월물_선물_현재가 = float(tickdata['현재가'])
 
             # 1T OHLC 생성
-            df_futures_graph.at[ovc_x_idx, 'ctime'] = tickdata['수신시간']
-            df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
+            df_futures_cm_graph.at[ovc_x_idx, 'ctime'] = tickdata['수신시간']
+            df_futures_cm_graph.at[ovc_x_idx, 'price'] = 근월물_선물_현재가
 
             if ovc_x_idx != old_ovc_x_idx:
                 
-                df_futures_graph.at[ovc_x_idx, 'high'] = df_futures_graph.at[ovc_x_idx- 1, 'high']
-                df_futures_graph.at[ovc_x_idx, 'low'] = df_futures_graph.at[ovc_x_idx - 1, 'low']
-                df_futures_graph.at[ovc_x_idx, 'middle'] = df_futures_graph.at[ovc_x_idx - 1, 'middle']
-                df_futures_graph.at[ovc_x_idx, 'close'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
-                df_futures_graph.at[ovc_x_idx, 'price'] = df_futures_graph.at[ovc_x_idx - 1, 'close']                        
+                df_futures_cm_graph.at[ovc_x_idx, 'high'] = df_futures_cm_graph.at[ovc_x_idx- 1, 'high']
+                df_futures_cm_graph.at[ovc_x_idx, 'low'] = df_futures_cm_graph.at[ovc_x_idx - 1, 'low']
+                df_futures_cm_graph.at[ovc_x_idx, 'middle'] = df_futures_cm_graph.at[ovc_x_idx - 1, 'middle']
+                df_futures_cm_graph.at[ovc_x_idx, 'close'] = df_futures_cm_graph.at[ovc_x_idx - 1, 'close']
+                df_futures_cm_graph.at[ovc_x_idx, 'price'] = df_futures_cm_graph.at[ovc_x_idx - 1, 'close']                        
             else:
                 pass                    
 
@@ -38274,49 +38470,49 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if not flag_futures_ohlc_open:
 
-                    df_futures_graph.at[ovc_x_idx, 'open'] = 선물_현재가
-                    df_futures_graph.at[ovc_x_idx, 'high'] = 선물_현재가
-                    df_futures_graph.at[ovc_x_idx, 'low'] = 선물_현재가
-                    df_futures_graph.at[ovc_x_idx, 'middle'] = 선물_현재가
-                    df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
-                    df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
+                    df_futures_cm_graph.at[ovc_x_idx, 'open'] = 근월물_선물_현재가
+                    df_futures_cm_graph.at[ovc_x_idx, 'high'] = 근월물_선물_현재가
+                    df_futures_cm_graph.at[ovc_x_idx, 'low'] = 근월물_선물_현재가
+                    df_futures_cm_graph.at[ovc_x_idx, 'middle'] = 근월물_선물_현재가
+                    df_futures_cm_graph.at[ovc_x_idx, 'close'] = 근월물_선물_현재가
+                    df_futures_cm_graph.at[ovc_x_idx, 'price'] = 근월물_선물_현재가
 
-                    del 선물_현재가_버퍼[:]
+                    del 근월물_선물_현재가_버퍼[:]
 
                     flag_futures_ohlc_open = True
                 else:
-                    선물_현재가_버퍼.append(선물_현재가)              
+                    근월물_선물_현재가_버퍼.append(근월물_선물_현재가)              
             else:
-                if df_futures_graph.at[ovc_x_idx, 'open'] != df_futures_graph.at[ovc_x_idx, 'open']:
-                    df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
-                    del 선물_현재가_버퍼[:]
+                if df_futures_cm_graph.at[ovc_x_idx, 'open'] != df_futures_cm_graph.at[ovc_x_idx, 'open']:
+                    df_futures_cm_graph.at[ovc_x_idx, 'open'] = df_futures_cm_graph.at[ovc_x_idx - 1, 'close']
+                    del 근월물_선물_현재가_버퍼[:]
                 else:
                     pass
 
-                선물_현재가_버퍼.append(선물_현재가)
+                근월물_선물_현재가_버퍼.append(근월물_선물_현재가)
 
-                if max(선물_현재가_버퍼) > 0:
-                    df_futures_graph.at[ovc_x_idx, 'high'] = max(선물_현재가_버퍼)
+                if max(근월물_선물_현재가_버퍼) > 0:
+                    df_futures_cm_graph.at[ovc_x_idx, 'high'] = max(근월물_선물_현재가_버퍼)
                 else:
                     pass
 
-                if min(선물_현재가_버퍼) == 0:
+                if min(근월물_선물_현재가_버퍼) == 0:
 
-                    if max(선물_현재가_버퍼) > 0:
-                        df_futures_graph.at[ovc_x_idx, 'low'] = max(선물_현재가_버퍼)
+                    if max(근월물_선물_현재가_버퍼) > 0:
+                        df_futures_cm_graph.at[ovc_x_idx, 'low'] = max(근월물_선물_현재가_버퍼)
                     else:
                         pass
                 else:
-                    df_futures_graph.at[ovc_x_idx, 'low'] = min(선물_현재가_버퍼)
+                    df_futures_cm_graph.at[ovc_x_idx, 'low'] = min(근월물_선물_현재가_버퍼)
 
-                df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
+                df_futures_cm_graph.at[ovc_x_idx, 'close'] = 근월물_선물_현재가
 
                 flag_futures_ohlc_open = False
 
-            df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2
+            df_futures_cm_graph.at[ovc_x_idx, 'middle'] = (df_futures_cm_graph.at[ovc_x_idx, 'high'] + df_futures_cm_graph.at[ovc_x_idx, 'low']) / 2
 
             fut_cm_volume_power = int(tickdata['매수누적체결량']) - int(tickdata['매도누적체결량'])
-            df_futures_graph.at[ovc_x_idx, 'volume'] = fut_cm_volume_power
+            df_futures_cm_graph.at[ovc_x_idx, 'volume'] = fut_cm_volume_power
 
             #temp = format(fut_cm_volume_power, ',')
             temp = '{0}k'.format(int(fut_cm_volume_power/1000))
@@ -38340,8 +38536,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.거래량.value, item)                
 
             # 그래프관련 처리 먼저...                    
-            선물_종가대비_등락율 = float(tickdata['등락율'])            
-            선물_시가대비_등락율 = ((float(tickdata['현재가']) - float(tickdata['시가'])) / float(tickdata['시가'])) * 100
+            근월물_선물_종가대비_등락율 = float(tickdata['등락율'])            
+            근월물_선물_시가대비_등락율 = ((float(tickdata['현재가']) - float(tickdata['시가'])) / float(tickdata['시가'])) * 100
             
             if KP200_전일종가 > 0:
                 kp200_시가등락율 = ((kp200_시가 - KP200_전일종가) / KP200_전일종가) * 100
@@ -38360,17 +38556,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             item.setTextAlignment(Qt.AlignCenter)
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.OI.value, item)
 
-            if abs(선물_종가대비_등락율) > abs(DOW_등락율):
+            if abs(근월물_선물_종가대비_등락율) > abs(DOW_등락율):
                 flag_fut_vs_dow_drate_direction = True
             else:
                 flag_fut_vs_dow_drate_direction = False
 
-            #df_futures_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 선물_종가대비_등락율
-            df_futures_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 선물_시가대비_등락율                
+            #df_futures_cm_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 근월물_선물_종가대비_등락율
+            df_futures_cm_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 근월물_선물_시가대비_등락율                
 
-            fut_result = copy.deepcopy(tickdata)
+            fut_cm_result = copy.deepcopy(tickdata)
 
-            self.dialog['선물옵션전광판'].fut_cm_update(fut_result)
+            self.dialog['선물옵션전광판'].fut_cm_update(fut_cm_result)
 
         elif tickdata['단축코드'] == CMSHCODE:
 
@@ -38412,7 +38608,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def fh0_update(self, tickdata):
 
         global market_service, 선물_호가순매수
-        global df_futures_graph, fut_quote_count_ratio, 선물_근월물_호가_잔량비, cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max
+        global df_futures_cm_graph, fut_quote_count_ratio, 선물_근월물_호가_잔량비, cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max
         global fut_cms_quote_count_ratio, 선물_차월물_호가_잔량비, nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max
         global fut_ccms_quote_count_ratio, fut_ccms_quote_remainder_ratio, fut_quote_energy_direction
         global quote_count_ratio, quote_remainder_ratio
@@ -38432,17 +38628,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             선물_호가순매수 = int(tickdata['매수호가총수량']) - int(tickdata['매도호가총수량'])
 
-            df_futures_graph.at[ovc_x_idx, 'c_ms_quote'] = int(tickdata['매수호가총수량'])
-            df_futures_graph.at[ovc_x_idx, 'c_md_quote'] = int(tickdata['매도호가총수량'])
+            df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'] = int(tickdata['매수호가총수량'])
+            df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'] = int(tickdata['매도호가총수량'])
 
             if int(tickdata['매수호가총수량']) > 0 and int(tickdata['매도호가총수량']) > 0:
 
                 선물_근월물_호가_잔량비 = int(tickdata['매수호가총수량']) / int(tickdata['매도호가총수량'])
-                df_futures_graph.at[ovc_x_idx, 'c_quote_remainder_ratio'] = 선물_근월물_호가_잔량비
+                df_futures_cm_graph.at[ovc_x_idx, 'c_quote_remainder_ratio'] = 선물_근월물_호가_잔량비
 
-                cm_fut_quote_min = df_futures_graph['c_quote_remainder_ratio'].min()
-                cm_fut_quote_mean = df_futures_graph['c_quote_remainder_ratio'].mean()
-                cm_fut_quote_max = df_futures_graph['c_quote_remainder_ratio'].max()
+                cm_fut_quote_min = df_futures_cm_graph['c_quote_remainder_ratio'].min()
+                cm_fut_quote_mean = df_futures_cm_graph['c_quote_remainder_ratio'].mean()
+                cm_fut_quote_max = df_futures_cm_graph['c_quote_remainder_ratio'].max()
 
                 item_txt = '{0:.2f}'.format(cm_fut_quote_min)
 
@@ -38505,17 +38701,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-            df_futures_graph.at[ovc_x_idx, 'n_ms_quote'] = int(tickdata['매수호가총수량'])
-            df_futures_graph.at[ovc_x_idx, 'n_md_quote'] = int(tickdata['매도호가총수량'])
+            df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'] = int(tickdata['매수호가총수량'])
+            df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'] = int(tickdata['매도호가총수량'])
 
             if int(tickdata['매수호가총수량']) > 0 and int(tickdata['매도호가총수량']) > 0:
 
                 선물_차월물_호가_잔량비 = int(tickdata['매수호가총수량']) / int(tickdata['매도호가총수량'])
-                df_futures_graph.at[ovc_x_idx, 'n_quote_remainder_ratio'] = 선물_차월물_호가_잔량비
+                df_futures_cm_graph.at[ovc_x_idx, 'n_quote_remainder_ratio'] = 선물_차월물_호가_잔량비
 
-                nm_fut_quote_min = df_futures_graph['n_quote_remainder_ratio'].min()
-                nm_fut_quote_mean = df_futures_graph['n_quote_remainder_ratio'].mean()
-                nm_fut_quote_max = df_futures_graph['n_quote_remainder_ratio'].max()
+                nm_fut_quote_min = df_futures_cm_graph['n_quote_remainder_ratio'].min()
+                nm_fut_quote_mean = df_futures_cm_graph['n_quote_remainder_ratio'].mean()
+                nm_fut_quote_max = df_futures_cm_graph['n_quote_remainder_ratio'].max()
 
                 item_txt = '{0:.2f}'.format(nm_fut_quote_min)
 
@@ -39029,7 +39225,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         global OVC_체결시간, OVC_HOUR, OVC_MIN, OVC_SEC, SERVER_HOUR, SERVER_MIN, SERVER_SEC
         global old_ovc_x_idx, ovc_x_idx
-        global df_futures_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
+        global df_futures_cm_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
 
         global sp500_delta, old_sp500_delta, sp500_직전대비, sp500_text_color
         global dow_delta, old_dow_delta, dow_직전대비, dow_text_color
