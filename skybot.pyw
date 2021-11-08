@@ -11841,7 +11841,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             item = QTableWidgetItem("{0:.2f}".format(근월물_선물_피봇))
             item.setTextAlignment(Qt.AlignCenter)
-
+            item.setBackground(QBrush(흰색))
+            item.setForeground(QBrush(검정색))
             self.tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
 
             df_fut.at[1, '피봇'] = 근월물_선물_피봇
@@ -37222,6 +37223,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             item = QTableWidgetItem("{0:.2f}".format(근월물_선물_피봇))
             item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(흰색))
+            item.setForeground(QBrush(검정색))
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
 
             self.dialog['선물옵션전광판'].fut_realdata['피봇'] = 근월물_선물_피봇
@@ -37695,6 +37698,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 item = QTableWidgetItem("{0:.2f}".format(근월물_선물_피봇))
                 item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
 
                 if NightTime:
                     self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, Futures_column.피봇.value, item)
@@ -37769,6 +37774,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 item = QTableWidgetItem("{0:.2f}".format(kp200_진폭))
                 item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.진폭.value, item)
 
                 self.dialog['선물옵션전광판'].kp200_node_color_clear()
@@ -37796,6 +37803,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 item = QTableWidgetItem("{0:.2f}".format(kp200_진폭))
                 item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.진폭.value, item)
 
                 self.dialog['선물옵션전광판'].kp200_node_color_clear()
