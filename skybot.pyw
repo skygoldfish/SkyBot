@@ -12230,10 +12230,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 선물 저가 {3} Update...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 차월물_선물_저가)
             self.textBrowser.append(txt)
-            
-            진폭 = 차월물_선물_고가 - 차월물_선물_저가
 
-            item = QTableWidgetItem("{0:.2f}".format(진폭))
+            item = QTableWidgetItem("{0:.2f}".format(차월물_선물_진폭))
             item.setTextAlignment(Qt.AlignCenter)
 
             self.tableWidget_fut.setItem(0, Futures_column.진폭.value, item)       
@@ -12271,10 +12269,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 선물 고가 {3} Update...\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 차월물_선물_고가)
             self.textBrowser.append(txt)
-            
-            진폭 = 차월물_선물_고가 - 차월물_선물_저가
 
-            item = QTableWidgetItem("{0:.2f}".format(진폭))
+            item = QTableWidgetItem("{0:.2f}".format(차월물_선물_진폭))
             item.setTextAlignment(Qt.AlignCenter)
 
             self.tableWidget_fut.setItem(0, Futures_column.진폭.value, item)    
