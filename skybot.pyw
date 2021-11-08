@@ -12185,7 +12185,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem(현재가)
 
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
 
             if 차월물_선물_시가 < 차월물_선물_현재가:
                 item.setForeground(QBrush(적색))
