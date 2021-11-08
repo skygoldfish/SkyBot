@@ -37323,89 +37323,93 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             차월물_선물_시가 = float(tickdata['예상체결가격'])
 
             # 그래프 가격갱신
-            df_futures_nm_graph.at[ovc_x_idx, 'price'] = 차월물_선물_시가
+            if 차월물_선물_시가 > 0:
+                
+                df_futures_nm_graph.at[ovc_x_idx, 'price'] = 차월물_선물_시가
 
-            # 1T OHLC 생성
-            df_futures_nm_graph.at[ovc_x_idx, 'ctime'] = tickdata['수신시간']
+                # 1T OHLC 생성
+                df_futures_nm_graph.at[ovc_x_idx, 'ctime'] = tickdata['수신시간']
 
-            if OVC_SEC == 0:
+                if OVC_SEC == 0:
 
-                if not flag_futures_nm_ohlc_open:
+                    if not flag_futures_nm_ohlc_open:
 
-                    df_futures_nm_graph.at[ovc_x_idx, 'open'] = 차월물_선물_시가
-                    df_futures_nm_graph.at[ovc_x_idx, 'high'] = 차월물_선물_시가
-                    df_futures_nm_graph.at[ovc_x_idx, 'low'] = 차월물_선물_시가
-                    df_futures_nm_graph.at[ovc_x_idx, 'middle'] = 차월물_선물_시가
-                    df_futures_nm_graph.at[ovc_x_idx, 'close'] = 차월물_선물_시가
-                    df_futures_nm_graph.at[ovc_x_idx, 'price'] = 차월물_선물_시가
+                        df_futures_nm_graph.at[ovc_x_idx, 'open'] = 차월물_선물_시가
+                        df_futures_nm_graph.at[ovc_x_idx, 'high'] = 차월물_선물_시가
+                        df_futures_nm_graph.at[ovc_x_idx, 'low'] = 차월물_선물_시가
+                        df_futures_nm_graph.at[ovc_x_idx, 'middle'] = 차월물_선물_시가
+                        df_futures_nm_graph.at[ovc_x_idx, 'close'] = 차월물_선물_시가
+                        df_futures_nm_graph.at[ovc_x_idx, 'price'] = 차월물_선물_시가
 
-                    del 차월물_선물_현재가_버퍼[:]
+                        del 차월물_선물_현재가_버퍼[:]
 
-                    flag_futures_nm_ohlc_open = True
+                        flag_futures_nm_ohlc_open = True
+                    else:
+                        차월물_선물_현재가_버퍼.append(차월물_선물_시가)                            
                 else:
-                    차월물_선물_현재가_버퍼.append(차월물_선물_시가)                            
-            else:
-                if df_futures_nm_graph.at[ovc_x_idx, 'open'] != df_futures_nm_graph.at[ovc_x_idx, 'open']:
-                    df_futures_nm_graph.at[ovc_x_idx, 'open'] = df_futures_nm_graph.at[ovc_x_idx - 1, 'close']
-                    del 차월물_선물_현재가_버퍼[:]
-                else:
-                    pass
-
-                차월물_선물_현재가_버퍼.append(차월물_선물_시가)
-
-                if max(차월물_선물_현재가_버퍼) > 0:
-                    df_futures_nm_graph.at[ovc_x_idx, 'high'] = max(차월물_선물_현재가_버퍼)
-                else:
-                    pass
-
-                if min(차월물_선물_현재가_버퍼) == 0:
-
-                    if max(차월물_선물_현재가_버퍼) > 0:
-                        df_futures_nm_graph.at[ovc_x_idx, 'low'] = max(차월물_선물_현재가_버퍼)
+                    if df_futures_nm_graph.at[ovc_x_idx, 'open'] != df_futures_nm_graph.at[ovc_x_idx, 'open']:
+                        df_futures_nm_graph.at[ovc_x_idx, 'open'] = df_futures_nm_graph.at[ovc_x_idx - 1, 'close']
+                        del 차월물_선물_현재가_버퍼[:]
                     else:
                         pass
+
+                    차월물_선물_현재가_버퍼.append(차월물_선물_시가)
+
+                    if max(차월물_선물_현재가_버퍼) > 0:
+                        df_futures_nm_graph.at[ovc_x_idx, 'high'] = max(차월물_선물_현재가_버퍼)
+                    else:
+                        pass
+
+                    if min(차월물_선물_현재가_버퍼) == 0:
+
+                        if max(차월물_선물_현재가_버퍼) > 0:
+                            df_futures_nm_graph.at[ovc_x_idx, 'low'] = max(차월물_선물_현재가_버퍼)
+                        else:
+                            pass
+                    else:
+                        df_futures_nm_graph.at[ovc_x_idx, 'low'] = min(차월물_선물_현재가_버퍼)
+
+                    df_futures_nm_graph.at[ovc_x_idx, 'close'] = 차월물_선물_시가
+
+                    flag_futures_nm_ohlc_open = False
+
+                df_futures_nm_graph.at[ovc_x_idx, 'middle'] = (df_futures_nm_graph.at[ovc_x_idx, 'high'] + df_futures_nm_graph.at[ovc_x_idx, 'low']) / 2
+
+                item = QTableWidgetItem(차월물_선물_시가)
+                item.setTextAlignment(Qt.AlignCenter)
+
+                if 차월물_선물_시가 > 차월물_선물_종가:
+                    item.setForeground(QBrush(magenta))
+                    item.setBackground(QBrush(검정색))
+                elif 차월물_선물_시가 < 차월물_선물_종가:
+                    item.setForeground(QBrush(cyan))
+                    item.setBackground(QBrush(검정색))
                 else:
-                    df_futures_nm_graph.at[ovc_x_idx, 'low'] = min(차월물_선물_현재가_버퍼)
+                    item.setForeground(QBrush(흰색))
+                    item.setBackground(QBrush(검정색))
 
-                df_futures_nm_graph.at[ovc_x_idx, 'close'] = 차월물_선물_시가
+                self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, Futures_column.시가.value, item)
 
-                flag_futures_nm_ohlc_open = False
+                시가갭 = 차월물_선물_시가 - 차월물_선물_종가
 
-            df_futures_nm_graph.at[ovc_x_idx, 'middle'] = (df_futures_nm_graph.at[ovc_x_idx, 'high'] + df_futures_nm_graph.at[ovc_x_idx, 'low']) / 2
+                item = QTableWidgetItem("{0:.2f}".format(시가갭))
+                item.setTextAlignment(Qt.AlignCenter)
 
-            item = QTableWidgetItem(차월물_선물_시가)
-            item.setTextAlignment(Qt.AlignCenter)
+                if 차월물_선물_시가 > 차월물_선물_종가:
+                    item.setBackground(QBrush(콜기준가색))
+                    item.setForeground(QBrush(검정색))
+                elif 차월물_선물_시가 < 차월물_선물_종가:
+                    item.setBackground(QBrush(풋기준가색))
+                    item.setForeground(QBrush(흰색))
+                else:
+                    item.setBackground(QBrush(흰색))
 
-            if 차월물_선물_시가 > 차월물_선물_종가:
-                item.setForeground(QBrush(magenta))
-                item.setBackground(QBrush(검정색))
-            elif 차월물_선물_시가 < 차월물_선물_종가:
-                item.setForeground(QBrush(cyan))
-                item.setBackground(QBrush(검정색))
+                self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, Futures_column.시가갭.value, item)
+
+                self.dialog['선물옵션전광판'].tableWidget_fut.resizeRowsToContents()
+                self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnsToContents()
             else:
-                item.setForeground(QBrush(흰색))
-                item.setBackground(QBrush(검정색))
-
-            self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, Futures_column.시가.value, item)
-
-            시가갭 = 차월물_선물_시가 - 차월물_선물_종가
-
-            item = QTableWidgetItem("{0:.2f}".format(시가갭))
-            item.setTextAlignment(Qt.AlignCenter)
-
-            if 차월물_선물_시가 > 차월물_선물_종가:
-                item.setBackground(QBrush(콜기준가색))
-                item.setForeground(QBrush(검정색))
-            elif 차월물_선물_시가 < 차월물_선물_종가:
-                item.setBackground(QBrush(풋기준가색))
-                item.setForeground(QBrush(흰색))
-            else:
-                item.setBackground(QBrush(흰색))
-
-            self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, Futures_column.시가갭.value, item)
-
-            self.dialog['선물옵션전광판'].tableWidget_fut.resizeRowsToContents()
-            self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnsToContents()
+                pass
         else:
             pass
 
