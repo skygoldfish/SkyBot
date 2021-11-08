@@ -993,7 +993,6 @@ CENTER_VAL_MINUS4 = 0
 CENTER_VAL_MINUS5 = 0
 
 dongsi_quote = False
-flag_kp200_start_set = False
 
 flag_telegram_send_worker = False
 flag_telegram_listen_worker = False
@@ -15452,11 +15451,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     print("atm값({0})이 리스트에 없습니다.".format(atm_txt))
 
-                item = QTableWidgetItem("{0:.2f}".format(KP200_전일종가))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(흰색))
-                item.setForeground(QBrush(검정색))
-                self.tableWidget_fut.setItem(2, Futures_column.종가.value, item)
+                if DayTime:
+                    item = QTableWidgetItem("{0:.2f}".format(KP200_전일종가))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_fut.setItem(2, Futures_column.종가.value, item)
+                else:
+                    pass
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 등가지수는 {3}(index = {4})입니다.\r'.format(dt.hour, dt.minute, dt.second, atm_txt, ATM_INDEX)
                 self.parent.textBrowser.append(txt)
@@ -20219,17 +20221,48 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if os.path.isfile('daytime.txt'):
 
-                item = QTableWidgetItem("{0:.2f}".format(KP200_전저))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_fut.setItem(2, Futures_column.전저.value, item)
+                if DayTime:
+                    item = QTableWidgetItem("{0:.2f}".format(KP200_전저))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_fut.setItem(2, Futures_column.전저.value, item)
 
-                item = QTableWidgetItem("{0:.2f}".format(KP200_전고))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_fut.setItem(2, Futures_column.전고.value, item)
+                    item = QTableWidgetItem("{0:.2f}".format(KP200_전고))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_fut.setItem(2, Futures_column.전고.value, item)
 
-                item = QTableWidgetItem("{0:.2f}".format(KP200_전일시가))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_fut.setItem(2, Futures_column.시가.value, item)
+                    item = QTableWidgetItem("{0:.2f}".format(KP200_전일시가))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_fut.setItem(2, Futures_column.시가.value, item)
+                else:
+                    item = QTableWidgetItem("{0:.2f}".format(KP200_전일시가))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_fut.setItem(2, Futures_column.시가.value, item)
+
+                    item = QTableWidgetItem("{0:.2f}".format(KP200_전저))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_fut.setItem(2, Futures_column.저가.value, item)
+
+                    item = QTableWidgetItem("{0:.2f}".format(KP200_전고))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_fut.setItem(2, Futures_column.고가.value, item)
+
+                    item = QTableWidgetItem("{0:.2f}".format(KP200_전일종가))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
             else:
                 pass            
 
@@ -37600,7 +37633,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         global df_fut, df_futures_cm_graph, df_kp200_graph
         global ATM_INDEX, call_atm_value, put_atm_value, KP200_COREVAL, 장시작_양합, 장시작_중심가
-        global flag_kp200_start_set, flag_kp200_low, flag_kp200_high, kospi_text_color, kosdaq_text_color
+        global flag_kp200_low, flag_kp200_high, kospi_text_color, kosdaq_text_color
         global kospi_price, kosdaq_price, kp200_시가, kp200_저가, kp200_현재가, kp200_고가, kp200_진폭
         
         if tickdata['업종코드'] == KOSPI200:
@@ -37648,9 +37681,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-            if 시가지수 != self.dialog['선물옵션전광판'].tableWidget_fut.item(2, Futures_column.시가.value).text() and not flag_kp200_start_set:
-
-                flag_kp200_start_set = True
+            if 시가지수 != self.dialog['선물옵션전광판'].tableWidget_fut.item(2, Futures_column.시가.value).text():
 
                 kp200_시가 = float(tickdata['시가지수'])
 
@@ -37660,6 +37691,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 item = QTableWidgetItem(시가지수)
                 item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
 
                 if kp200_시가 > KP200_전일종가:
                     item.setForeground(QBrush(적색))
