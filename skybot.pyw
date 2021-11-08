@@ -11821,7 +11821,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             시가갭 = 근월물_선물_시가 - 근월물_선물_종가
 
-            txt = '{0:.2f}\n({1:.2f})'.format(시가, DOW_기준_예상시가)
+            txt = '{0}\n({1:.2f})'.format(시가, DOW_기준_예상시가)
 
             item = QTableWidgetItem(txt)
             item.setTextAlignment(Qt.AlignCenter)
@@ -12174,11 +12174,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if 현재가 != fut_price:
 
             if 차월물_선물_현재가 < float(fut_price):
-                txt = '{0:.2f}'.format(현재가) + '\n▼'
+                txt = '{0}'.format(현재가) + '\n▼'
                 item = QTableWidgetItem(txt)
                 item.setBackground(QBrush(lightskyblue))
             elif 차월물_선물_현재가 > float(fut_price):
-                txt = '{0:.2f}'.format(현재가) + '\n▲'
+                txt = '{0}'.format(현재가) + '\n▲'
                 item = QTableWidgetItem(txt)
                 item.setBackground(QBrush(pink))
             else:    
@@ -12205,7 +12205,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if 저가 != fut_low:
 
-            txt = '{0:.2f}'.format(근월물_선물_저가)
+            txt = '{0:.2f}'.format(차월물_선물_저가)
 
             item = QTableWidgetItem(txt)
             item.setTextAlignment(Qt.AlignCenter)
@@ -12246,7 +12246,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if 고가 != fut_high:
 
-            txt = '{0:.2f}'.format(근월물_선물_고가)
+            txt = '{0:.2f}'.format(차월물_선물_고가)
 
             item = QTableWidgetItem(txt)
             item.setTextAlignment(Qt.AlignCenter)
@@ -37159,7 +37159,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if tickdata['단축코드'] == GMSHCODE:
+        if tickdata['단축코드'] == GMSHCODE:            
 
             예상체결가격 = tickdata['예상체결가격']
             근월물_선물_시가 = float(tickdata['예상체결가격'])
@@ -37217,7 +37217,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                   
             self.dialog['선물옵션전광판'].fut_realdata['시가'] = 근월물_선물_시가
 
-            txt = '{0:.2f}\n({1:.2f})'.format(tickdata['예상체결가격'], DOW_기준_예상시가)
+            txt = '{0}\n({1:.2f})'.format(tickdata['예상체결가격'], DOW_기준_예상시가)
 
             item = QTableWidgetItem(txt)
             item.setTextAlignment(Qt.AlignCenter)
