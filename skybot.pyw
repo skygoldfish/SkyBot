@@ -15452,7 +15452,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     print("atm값({0})이 리스트에 없습니다.".format(atm_txt))
 
                 if DayTime:
-                    item = QTableWidgetItem("{0:.2f}".format(KP200_전일종가))
+
+                    if KP200_전일종가 > 0:
+                        item = QTableWidgetItem("{0:.2f}".format(KP200_전일종가))                        
+                    else:
+                        item = QTableWidgetItem("{0:.2f}".format(df['KOSPI200지수']))
+                        
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
