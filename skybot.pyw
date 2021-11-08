@@ -37400,6 +37400,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 item.setBackground(QBrush(흰색))
 
             self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, Futures_column.시가갭.value, item)
+
+            self.dialog['선물옵션전광판'].tableWidget_fut.resizeRowsToContents()
+            self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnsToContents()
         else:
             pass
 
