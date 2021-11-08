@@ -11866,57 +11866,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if 현재가 != fut_price:
 
-            if NightTime:
-                
-                df_fut.at[0, '현재가'] = 근월물_선물_현재가
-                self.cme_realdata['현재가'] = 근월물_선물_현재가
+            df_fut.at[1, '현재가'] = 근월물_선물_현재가
+            self.fut_realdata['현재가'] = 근월물_선물_현재가 
 
-                if 근월물_선물_현재가 < float(fut_price):
-                    item = QTableWidgetItem(현재가 + '\n' + '▼')
-                    item.setBackground(QBrush(lightskyblue))
-                elif 근월물_선물_현재가 > float(fut_price):
-                    item = QTableWidgetItem(현재가 + '\n' + '▲')
-                    item.setBackground(QBrush(pink))
-                else:    
-                    item = QTableWidgetItem(현재가)
+            if 근월물_선물_현재가 < float(fut_price):
+                item = QTableWidgetItem(현재가 + '\n' + '▼')
+                item.setBackground(QBrush(lightskyblue))
+            elif 근월물_선물_현재가 > float(fut_price):
+                item = QTableWidgetItem(현재가 + '\n' + '▲')
+                item.setBackground(QBrush(pink))
+            else:    
+                item = QTableWidgetItem(현재가)
 
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(흰색))
-
-                if 근월물_선물_시가 < 근월물_선물_현재가:
-                    item.setForeground(QBrush(적색))
-                elif 근월물_선물_시가 > 근월물_선물_현재가:
-                    item.setForeground(QBrush(청색))
-                else:
-                    item.setForeground(QBrush(검정색))
-                
-                self.tableWidget_fut.setItem(0, Futures_column.현재가.value, item)
-
-                self.tableWidget_fut.resizeRowToContents(0)
+            if 근월물_선물_시가 < 근월물_선물_현재가:
+                item.setForeground(QBrush(적색))
+            elif 근월물_선물_시가 > 근월물_선물_현재가:
+                item.setForeground(QBrush(청색))
             else:
-                df_fut.at[1, '현재가'] = 근월물_선물_현재가
-                self.fut_realdata['현재가'] = 근월물_선물_현재가 
+                item.setForeground(QBrush(검정색))
 
-                if 근월물_선물_현재가 < float(fut_price):
-                    item = QTableWidgetItem(현재가 + '\n' + '▼')
-                    item.setBackground(QBrush(lightskyblue))
-                elif 근월물_선물_현재가 > float(fut_price):
-                    item = QTableWidgetItem(현재가 + '\n' + '▲')
-                    item.setBackground(QBrush(pink))
-                else:    
-                    item = QTableWidgetItem(현재가)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_fut.setItem(1, Futures_column.현재가.value, item)
 
-                if 근월물_선물_시가 < 근월물_선물_현재가:
-                    item.setForeground(QBrush(적색))
-                elif 근월물_선물_시가 > 근월물_선물_현재가:
-                    item.setForeground(QBrush(청색))
-                else:
-                    item.setForeground(QBrush(검정색))
-
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_fut.setItem(1, Futures_column.현재가.value, item)
-
-                self.tableWidget_fut.resizeRowToContents(1)
+            self.tableWidget_fut.resizeRowToContents(1)
             
             self.tableWidget_fut.resizeColumnToContents(Futures_column.현재가.value)
         else:
@@ -11933,15 +11905,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(회색))            
 
-            if NightTime:
-
-                self.tableWidget_fut.setItem(0, Futures_column.저가.value, item)
-                df_fut.at[0, '저가'] = 근월물_선물_저가
-                self.cme_realdata['저가'] = 근월물_선물_저가
-            else:
-                self.tableWidget_fut.setItem(1, Futures_column.저가.value, item)
-                df_fut.at[1, '저가'] = 근월물_선물_저가
-                self.fut_realdata['저가'] = 근월물_선물_저가
+            self.tableWidget_fut.setItem(1, Futures_column.저가.value, item)
+            df_fut.at[1, '저가'] = 근월물_선물_저가
+            self.fut_realdata['저가'] = 근월물_선물_저가
 
             if 근월물_선물_전저 >= 근월물_선물_저가:
 
@@ -11988,15 +11954,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(회색))            
 
-            if NightTime:
-                
-                self.tableWidget_fut.setItem(0, Futures_column.고가.value, item)
-                df_fut.at[0, '고가'] = 근월물_선물_고가
-                self.cme_realdata['고가'] = 근월물_선물_고가
-            else:
-                self.tableWidget_fut.setItem(1, Futures_column.고가.value, item)
-                df_fut.at[1, '고가'] = 근월물_선물_고가
-                self.fut_realdata['고가'] = 근월물_선물_고가
+            self.tableWidget_fut.setItem(1, Futures_column.고가.value, item)
+            df_fut.at[1, '고가'] = 근월물_선물_고가
+            self.fut_realdata['고가'] = 근월물_선물_고가
 
             if 근월물_선물_전고 <= 근월물_선물_고가:
 
@@ -15756,10 +15716,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.fut_cm_oloh_check()
                     self.fut_cm_node_coloring()
 
-                    self.fut_nm_node_color_clear()
-                    self.fut_nm_oloh_check()
-                    self.fut_nm_node_coloring()
-
                     self.kp200_node_color_clear()
                     self.kp200_node_coloring()
 
@@ -15773,7 +15729,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                self.tableWidget_fut.resizeColumnsToContents()
+                #self.tableWidget_fut.resizeColumnsToContents()
 
                 if self.flag_refresh:
             
@@ -15890,6 +15846,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setBackground(QBrush(흰색))
                 item.setForeground(QBrush(검정색))
                 self.tableWidget_fut.setItem(0, Futures_column.진폭.value, item)
+
+                if market_service:
+                    self.fut_nm_node_color_clear()
+                    self.fut_nm_oloh_check()
+                    self.fut_nm_node_coloring()
+                else:
+                    pass
+
+                self.tableWidget_fut.resizeColumnsToContents()
             else:
                 pass            
 
