@@ -5695,83 +5695,82 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.alternate_flag = not self.alternate_flag
             
             # 온라인 여부확인
-            online_state = self.parent.xing.main_connection.IsConnected()                
-
-            # 인터넷 연결확인
+            online_state = self.parent.xing.main_connection.IsConnected()
+            
             ipaddress = socket.gethostbyname(socket.gethostname())
 
-            if not online_state and ipaddress == '127.0.0.1':
+            if not online_state:
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 인터넷 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
-                self.parent.statusbar.showMessage(txt)
-                
-                if not flag_broken_capture:                
-
-                    self.textBrowser.append(txt)
-                    print(txt)
-
+                if ipaddress == '127.0.0.1':
+                    # 인터넷 연결확인
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 인터넷 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
                     self.parent.statusbar.showMessage(txt)
 
-                    if TARGET_MONTH == 'CM':
-                        self.capture_screenshot()
+                    if not flag_broken_capture:                
+
+                        self.textBrowser.append(txt)
+                        print(txt)
+
+                        self.parent.statusbar.showMessage(txt)
+
+                        if TARGET_MONTH == 'CM':
+                            self.capture_screenshot()
+                        else:
+                            pass              
+
+                        file = open('inernet_error.log', 'w', encoding='UTF-8')
+                        text = self.textBrowser.toPlainText()
+                        file.write(text)
+                        file.close()
+
+                        flag_broken_capture = True
+
+                        QMessageBox.critical(self, 'Error!', '인터넷 연결이 끊겼습니다.', QMessageBox.Ok)
+                        return  
                     else:
-                        pass              
-
-                    file = open('inernet_error.log', 'w', encoding='UTF-8')
-                    text = self.textBrowser.toPlainText()
-                    file.write(text)
-                    file.close()
-
-                    flag_broken_capture = True
-                    
-                    QMessageBox.critical(self, 'Error!', '인터넷 연결이 끊겼습니다.', QMessageBox.Ok)
-                    return  
+                        pass
+                
+                    flag_internet_connection_broken = True
                 else:
-                    pass
-                
-                flag_internet_connection_broken = True              
-            else:
-                flag_internet_connection_broken = False                
-            
-            # 증권사 연결확인(인터넷이 연결된 상태에서만 확인가능)
-            if not online_state and ipaddress != '127.0.0.1':
-
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 증권사 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
-                self.parent.statusbar.showMessage(txt)
-                
-                if TARGET_MONTH == 'CM' and not flag_broken_capture:
-
-                    self.textBrowser.append(txt)
-                    print(txt)
-
+                    # 증권사 연결확인(인터넷이 연결된 상태에서만 확인가능)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 증권사 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
                     self.parent.statusbar.showMessage(txt)
 
-                    self.capture_screenshot()              
+                    if TARGET_MONTH == 'CM' and not flag_broken_capture:
 
-                    file = open('sc_error.log', 'w', encoding='UTF-8')
-                    text = self.textBrowser.toPlainText()
-                    file.write(text)
-                    file.close()
+                        self.textBrowser.append(txt)
+                        print(txt)
 
-                    flag_broken_capture = True
-                    
-                    # 모든 쓰레드를 중지시킨다.
-                    self.KillScoreBoardAllThread()
+                        self.parent.statusbar.showMessage(txt)
 
-                    ToYourTelegram('증권사 연결이 끊겼습니다...')
+                        self.capture_screenshot()              
 
-                    QMessageBox.critical(self, 'Error!', '증권사 연결이 끊겼습니다.', QMessageBox.Ok)
-                    return
-                else:
-                    pass                               
-                
-                flag_service_provider_broken = True
+                        file = open('sc_error.log', 'w', encoding='UTF-8')
+                        text = self.textBrowser.toPlainText()
+                        file.write(text)
+                        file.close()
+
+                        flag_broken_capture = True
+
+                        # 모든 쓰레드를 중지시킨다.
+                        self.KillScoreBoardAllThread()
+
+                        ToYourTelegram('증권사 연결이 끊겼습니다...')
+
+                        QMessageBox.critical(self, 'Error!', '증권사 연결이 끊겼습니다.', QMessageBox.Ok)
+                        return
+                    else:
+                        pass                               
+
+                    flag_service_provider_broken = True              
             else:
-                flag_service_provider_broken = False            
+                flag_internet_connection_broken = False
+                flag_service_provider_broken = False
             
             # 서버시간 기준으로 1분마다 체크!!!            
             if not flag_internet_connection_broken and self.alternate_flag and flag_heartbeat:
-                self.heartbeat_check()
+                pass
+                #self.heartbeat_check()
             else:
                 pass
             
@@ -6429,6 +6428,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             '''
         elif TARGET_MONTH == 'NM':
 
+            pass
             '''
             if 근월물_선물_현재가 < volatility_breakout_downward_point:
 
