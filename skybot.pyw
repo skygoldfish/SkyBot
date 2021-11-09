@@ -4289,11 +4289,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             bms_node_list.sort()
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 오늘의 중요맥점은'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(txt)
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, bms_node_list)
-            self.textBrowser.append(txt)            
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 오늘의 중요맥점은 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, bms_node_list)
+            self.textBrowser.append(txt)        
         else:
             pass
 
@@ -11784,28 +11781,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if fut_time == fut_first_arrive_time + 2 or fut_time == fut_first_arrive_time + 3:
             
             # 선물 시가갭 컬러링(주간 장시작시 표시안되는 오류 대응)
-            if NightTime:
-
-                if 근월물_선물_시가 > 근월물_선물_종가:
-                    self.tableWidget_fut.item(0, Futures_column.시가갭.value).setBackground(QBrush(콜기준가색))
-                    self.tableWidget_fut.item(0, Futures_column.시가갭.value).setForeground(QBrush(검정색))
-                elif 근월물_선물_시가 < 근월물_선물_종가:
-                    self.tableWidget_fut.item(0, Futures_column.시가갭.value).setBackground(QBrush(풋기준가색))
-                    self.tableWidget_fut.item(0, Futures_column.시가갭.value).setForeground(QBrush(흰색))
-                else:
-                    self.tableWidget_fut.item(0, Futures_column.시가갭.value).setBackground(QBrush(흰색))
-                    self.tableWidget_fut.item(0, Futures_column.시가갭.value).setForeground(QBrush(검정색))
+            if 근월물_선물_시가 > 근월물_선물_종가:
+                self.tableWidget_fut.item(1, Futures_column.시가갭.value).setBackground(QBrush(콜기준가색))
+                self.tableWidget_fut.item(1, Futures_column.시가갭.value).setForeground(QBrush(검정색))
+            elif 근월물_선물_시가 < 근월물_선물_종가:
+                self.tableWidget_fut.item(1, Futures_column.시가갭.value).setBackground(QBrush(풋기준가색))
+                self.tableWidget_fut.item(1, Futures_column.시가갭.value).setForeground(QBrush(흰색))
             else:
-
-                if 근월물_선물_시가 > 근월물_선물_종가:
-                    self.tableWidget_fut.item(1, Futures_column.시가갭.value).setBackground(QBrush(콜기준가색))
-                    self.tableWidget_fut.item(1, Futures_column.시가갭.value).setForeground(QBrush(검정색))
-                elif 근월물_선물_시가 < 근월물_선물_종가:
-                    self.tableWidget_fut.item(1, Futures_column.시가갭.value).setBackground(QBrush(풋기준가색))
-                    self.tableWidget_fut.item(1, Futures_column.시가갭.value).setForeground(QBrush(흰색))
-                else:
-                    self.tableWidget_fut.item(1, Futures_column.시가갭.value).setBackground(QBrush(흰색))
-                    self.tableWidget_fut.item(1, Futures_column.시가갭.value).setForeground(QBrush(검정색))   
+                self.tableWidget_fut.item(1, Futures_column.시가갭.value).setBackground(QBrush(흰색))
+                self.tableWidget_fut.item(1, Futures_column.시가갭.value).setForeground(QBrush(검정색))                  
         else:
             pass        
         
@@ -15791,22 +15775,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                시가갭 = 차월물_선물_시가 - 차월물_선물_전일종가
+                if 차월물_선물_시가 > 0:
+                    시가갭 = 차월물_선물_시가 - 차월물_선물_전일종가
 
-                item = QTableWidgetItem("{0:.2f}".format(시가갭))
-                item.setTextAlignment(Qt.AlignCenter)
+                    item = QTableWidgetItem("{0:.2f}".format(시가갭))
+                    item.setTextAlignment(Qt.AlignCenter)
 
-                if 차월물_선물_시가 > 차월물_선물_전일종가:
-                    item.setBackground(QBrush(콜기준가색))
-                    item.setForeground(QBrush(검정색))
-                elif 차월물_선물_시가 < 차월물_선물_전일종가:
-                    item.setBackground(QBrush(풋기준가색))
-                    item.setForeground(QBrush(흰색))
+                    if 차월물_선물_시가 > 차월물_선물_전일종가:
+                        item.setBackground(QBrush(콜기준가색))
+                        item.setForeground(QBrush(검정색))
+                    elif 차월물_선물_시가 < 차월물_선물_전일종가:
+                        item.setBackground(QBrush(풋기준가색))
+                        item.setForeground(QBrush(흰색))
+                    else:
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))  
+
+                    self.tableWidget_fut.setItem(0, Futures_column.시가갭.value, item)
                 else:
-                    item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))  
-
-                self.tableWidget_fut.setItem(0, Futures_column.시가갭.value, item)
+                    pass
 
                 차월물_선물_저가 = df['저가']
 
@@ -37153,6 +37140,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 근월물_선물_시가, 근월물_선물_현재가_버퍼, df_futures_cm_graph, flag_futures_cm_ohlc_open
         global 차월물_선물_시가, 차월물_선물_현재가_버퍼, df_futures_nm_graph, flag_futures_nm_ohlc_open
         
+        dt = datetime.now()
+        
         if not market_service:
             market_service = True
         else:
@@ -37254,7 +37243,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass            
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] DOW기준 예상 선물시가 = {3:.2f}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, DOW_기준_예상시가)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] DOW기준 예상 선물시가 = {3:.2f}\r'.format(dt.hour, dt.minute, dt.second, DOW_기준_예상시가)
             self.dialog['선물옵션전광판'].textBrowser.append(txt)
 
             근월물_선물_피봇 = calc_pivot(근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_시가)
