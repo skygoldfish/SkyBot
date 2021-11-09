@@ -2997,7 +2997,7 @@ class RealTime_Futures_MP_DataWorker(QThread):
 
                         szTrCode = tickdata['tr_code']
 
-                        if szTrCode == 'JIF' or szTrCode == 'BM_' or szTrCode == 'PM_':
+                        if szTrCode == 'JIF' or szTrCode == 'BM_':
                             print(f"\r[{datetime.now()}] 선물체결 TR Type : {tickdata['tr_code']}, System time : {tickdata['system_time']}, waiting tasks : {self.waiting_tasks}", end='')                            
                         else:
                             print(f"\r[{datetime.now()}] 선물체결 TR Type : {tickdata['tr_code']}, System time : {tickdata['system_time']}, 체결시간 : {tickdata['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')                         
@@ -3013,23 +3013,33 @@ class RealTime_Futures_MP_DataWorker(QThread):
                         else:
                             systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])                       
 
-                        if szTrCode != 'JIF':
+                        if szTrCode != 'JIF' and szTrCode != 'BM_':
 
-                            if len(tickdata['수신시간']) == 5:
-                                realtime_hour = int(tickdata['수신시간'][0:1])
-                                realtime_min = int(tickdata['수신시간'][1:3])
-                                realtime_sec = int(tickdata['수신시간'][3:5])
+                            if tickdata['수신시간'] == '888888' or tickdata['수신시간'] == '999999' or tickdata['수신시간'] == 'EXTJJJ':
+                                pass
                             else:
-                                realtime_hour = int(tickdata['수신시간'][0:2])
-                                realtime_min = int(tickdata['수신시간'][2:4])
-                                realtime_sec = int(tickdata['수신시간'][4:6])
+                                if len(tickdata['수신시간']) == 5:
+                                    realtime_hour = int(tickdata['수신시간'][0:1])
+                                    realtime_min = int(tickdata['수신시간'][1:3])
+                                    realtime_sec = int(tickdata['수신시간'][3:5])
+                                else:
+                                    realtime_hour = int(tickdata['수신시간'][0:2])
+                                    realtime_min = int(tickdata['수신시간'][2:4])
+                                    realtime_sec = int(tickdata['수신시간'][4:6])
 
-                            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+                                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
                         else:
                             pass
 
                         # 옵션은 초당 50회 이상 입력됨
                         if szTrCode == 'IJ_' and DayTime:
+
+                            if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
+                                self.drop_count += 1
+                            else:
+                                pass
+
+                        if szTrCode == 'PM_' and DayTime:
 
                             if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
                                 self.drop_count += 1
@@ -3050,13 +3060,6 @@ class RealTime_Futures_MP_DataWorker(QThread):
                             else:
                                 pass
 
-                        elif szTrCode == 'NC0':
-
-                            if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
-                                self.drop_count += 1
-                            else:
-                                pass
-
                         elif szTrCode == 'FH0' and DayTime:
 
                             self.fh0_total_count += 1
@@ -3066,6 +3069,13 @@ class RealTime_Futures_MP_DataWorker(QThread):
                                 self.fh0_drop_count += 1
                             else:
                                 pass
+
+                        elif szTrCode == 'NC0':
+
+                            if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
+                                self.drop_count += 1
+                            else:
+                                pass                        
 
                         elif szTrCode == 'NH0':
 
@@ -35704,19 +35714,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])
             
-            if len(tickdata['수신시간']) == 5:
-                realtime_hour = int(tickdata['수신시간'][0:1])
-                realtime_min = int(tickdata['수신시간'][1:3])
-                realtime_sec = int(tickdata['수신시간'][3:5])
+            if tickdata['수신시간'] == '888888' or tickdata['수신시간'] == '999999' or tickdata['수신시간'] == 'EXTJJJ':
+                pass
             else:
-                realtime_hour = int(tickdata['수신시간'][0:2])
-                realtime_min = int(tickdata['수신시간'][2:4])
-                realtime_sec = int(tickdata['수신시간'][4:6])
+                if len(tickdata['수신시간']) == 5:
+                    realtime_hour = int(tickdata['수신시간'][0:1])
+                    realtime_min = int(tickdata['수신시간'][1:3])
+                    realtime_sec = int(tickdata['수신시간'][3:5])
+                else:
+                    realtime_hour = int(tickdata['수신시간'][0:2])
+                    realtime_min = int(tickdata['수신시간'][2:4])
+                    realtime_sec = int(tickdata['수신시간'][4:6])
 
-            realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+                realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-            time_gap = systime - system_server_time_gap - realtime
-            time_gap_abs = abs((systime - system_server_time_gap) - realtime)
+                time_gap = systime - system_server_time_gap - realtime
+                time_gap_abs = abs((systime - system_server_time_gap) - realtime)
 
             if FUTURES_REQUEST:
                 first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize = self.realtime_futures_dataworker.get_packet_info()
