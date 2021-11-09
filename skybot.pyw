@@ -35144,6 +35144,9 @@ class Xing(object):
 
             except Exception as e:
 
+                txt = '[{0:02d}:{1:02d}:{2:02d}] OnClockTick에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+                self.caller.textBrowser.append(txt)
+
                 ipaddress = socket.gethostbyname(socket.gethostname())
 
                 if ipaddress == '127.0.0.1':
