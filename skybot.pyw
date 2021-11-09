@@ -15268,7 +15268,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
         global view_actval
         
-        global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_피봇, 근월물_선물_시가, 근월물_선물_저가, 근월물_선물_현재가, 근월물_선물_고가
         global call_itm_count, call_max_actval
         global put_itm_count, put_max_actval
         global KP200_전일종가, kp200_시가, kp200_저가, kp200_현재가, kp200_고가, kp200_진폭
@@ -15290,8 +15289,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global t8416_option_pairs_count, t8416_loop_finish_time
         
         global flag_score_board_start, flag_telegram_send_start, flag_telegram_listen_start
-        global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_시가, 근월물_선물_저가, 근월물_선물_현재가, 근월물_선물_고가
-        global 차월물_선물_전저, 차월물_선물_전고, 차월물_선물_종가, 차월물_선물_시가, 차월물_선물_저가, 차월물_선물_현재가, 차월물_선물_고가
+        global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_피봇, 근월물_선물_시가, 근월물_선물_저가, 근월물_선물_현재가, 근월물_선물_고가
+        global 차월물_선물_전저, 차월물_선물_전고, 차월물_선물_종가, 차월물_선물_피봇, 차월물_선물_시가, 차월물_선물_저가, 차월물_선물_현재가, 차월물_선물_고가
 
         dt = datetime.now()
 
@@ -15737,9 +15736,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 print('차월물 선물 현재가 = {0}\r'.format(df['현재가']))
 
-                차월물_선물_전일종가 = df['전일종가']
+                차월물_선물_종가 = df['전일종가']
 
-                df_futures_nm_graph.at[0, 'price'] = 차월물_선물_전일종가
+                df_futures_nm_graph.at[0, 'price'] = 차월물_선물_종가
 
                 item = QTableWidgetItem("{0:.2f}".format(df['전일종가']))
                 item.setTextAlignment(Qt.AlignCenter)
@@ -15755,9 +15754,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(흰색))
 
-                if 차월물_선물_시가 > 차월물_선물_전일종가:
+                if 차월물_선물_시가 > 차월물_선물_종가:
                     item.setForeground(QBrush(적색))
-                elif 차월물_선물_시가 < 차월물_선물_전일종가:
+                elif 차월물_선물_시가 < 차월물_선물_종가:
                     item.setForeground(QBrush(청색))
                 else:
                     item.setForeground(QBrush(검정색))
@@ -15765,7 +15764,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.setItem(0, Futures_column.시가.value, item)
 
                 if 차월물_선물_전저 > 0 and 차월물_선물_전고 > 0:
-                    차월물_선물_피봇 = calc_pivot(차월물_선물_전저, 차월물_선물_전고, 차월물_선물_전일종가, 차월물_선물_시가)
+                    차월물_선물_피봇 = calc_pivot(차월물_선물_전저, 차월물_선물_전고, 차월물_선물_종가, 차월물_선물_시가)
 
                     item = QTableWidgetItem("{0:.2f}".format(차월물_선물_피봇))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -15776,15 +15775,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 if 차월물_선물_시가 > 0:
-                    시가갭 = 차월물_선물_시가 - 차월물_선물_전일종가
+                    시가갭 = 차월물_선물_시가 - 차월물_선물_종가
 
                     item = QTableWidgetItem("{0:.2f}".format(시가갭))
                     item.setTextAlignment(Qt.AlignCenter)
 
-                    if 차월물_선물_시가 > 차월물_선물_전일종가:
+                    if 차월물_선물_시가 > 차월물_선물_종가:
                         item.setBackground(QBrush(콜기준가색))
                         item.setForeground(QBrush(검정색))
-                    elif 차월물_선물_시가 < 차월물_선물_전일종가:
+                    elif 차월물_선물_시가 < 차월물_선물_종가:
                         item.setBackground(QBrush(풋기준가색))
                         item.setForeground(QBrush(흰색))
                     else:
