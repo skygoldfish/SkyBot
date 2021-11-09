@@ -3094,7 +3094,7 @@ class RealTime_Futures_MP_DataWorker(QThread):
 
             except Exception as e:
                 
-                txt = '{0} 멀티프로세스 큐 쓰레드에서 {1}타입의 {2}예외가 발생했습니다.'.format(tickdata['tr_code'], type(e).__name__, str(e))
+                txt = '{0} RealTime_Futures_MP_DataWorker 쓰레드에서 {1}타입의 {2}예외가 발생했습니다.\r'.format(tickdata['tr_code'], type(e).__name__, str(e))
                 print(txt)
 
                 self.trigger_exception.emit(tickdata['tr_code'], str(e))
@@ -3136,68 +3136,75 @@ class RealTime_Option_Tick_MP_DataWorker(QThread):
         global flag_2nd_process_queue_empty, flag_drop_reset2
 
         while True:
+            
+            try:
+                if not self.dataQ.empty():
 
-            if not self.dataQ.empty():
+                    flag_2nd_process_queue_empty = False
 
-                flag_2nd_process_queue_empty = False
+                    self.realdata = self.dataQ.get()
+                    self.waiting_tasks = self.dataQ.qsize()
 
-                self.realdata = self.dataQ.get()
-                self.waiting_tasks = self.dataQ.qsize()
+                    self.total_count += 1                    
+                    self.total_packet_size += sys.getsizeof(self.realdata)
+
+                    if flag_drop_reset2:
+                        self.drop_count = 0
+                        self.sys_drop_count = 0
+                        self.total_count = 0
+                        flag_drop_reset2 = False
+                    else:
+                        pass
+
+                    if type(self.realdata) == list:
+
+                        self.trigger_list.emit(self.realdata)
+
+                    elif type(self.realdata) == tuple:
+
+                        tick_type, tickdata = self.realdata
+                        print(f"\r[{datetime.now()}] 옵션체결 System time : {tickdata['system_time']}, 체결시간 : {tickdata['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')
+
+                        if CSV_FILE:
+                            tickdata_lst = list(tickdata.values())
+                            handle_tick_data(tickdata_lst, tick_type)
+                        else:
+                            pass
+
+                        if len(tickdata['system_time']) == 5:
+                            systime = int(tickdata['system_time'][0:1]) * 3600 + int(tickdata['system_time'][1:3]) * 60 + int(tickdata['system_time'][3:5])
+                        else:
+                            systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])
+
+                        if len(tickdata['수신시간']) == 5:
+                            realtime_hour = int(tickdata['수신시간'][0:1])
+                            realtime_min = int(tickdata['수신시간'][1:3])
+                            realtime_sec = int(tickdata['수신시간'][3:5])
+                        else:
+                            realtime_hour = int(tickdata['수신시간'][0:2])
+                            realtime_min = int(tickdata['수신시간'][2:4])
+                            realtime_sec = int(tickdata['수신시간'][4:6])
+
+                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                        self.total_option_packet_size += sys.getsizeof(tickdata)                        
+
+                        if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
+                            self.drop_count += 1
+                        else:
+                            pass
+
+                        self.trigger_dict.emit(tickdata)
+                    else:
+                        pass
+                else:
+                    flag_2nd_process_queue_empty = True
+
+            except Exception as e:
                 
-                self.total_count += 1                    
-                self.total_packet_size += sys.getsizeof(self.realdata)
-
-                if flag_drop_reset2:
-                    self.drop_count = 0
-                    self.sys_drop_count = 0
-                    self.total_count = 0
-                    flag_drop_reset2 = False
-                else:
-                    pass
-
-                if type(self.realdata) == list:
-
-                    self.trigger_list.emit(self.realdata)
-
-                elif type(self.realdata) == tuple:
-
-                    tick_type, tickdata = self.realdata
-                    print(f"\r[{datetime.now()}] 옵션체결 System time : {tickdata['system_time']}, 체결시간 : {tickdata['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')
-
-                    if CSV_FILE:
-                        tickdata_lst = list(tickdata.values())
-                        handle_tick_data(tickdata_lst, tick_type)
-                    else:
-                        pass
-
-                    if len(tickdata['system_time']) == 5:
-                        systime = int(tickdata['system_time'][0:1]) * 3600 + int(tickdata['system_time'][1:3]) * 60 + int(tickdata['system_time'][3:5])
-                    else:
-                        systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])
-                    
-                    if len(tickdata['수신시간']) == 5:
-                        realtime_hour = int(tickdata['수신시간'][0:1])
-                        realtime_min = int(tickdata['수신시간'][1:3])
-                        realtime_sec = int(tickdata['수신시간'][3:5])
-                    else:
-                        realtime_hour = int(tickdata['수신시간'][0:2])
-                        realtime_min = int(tickdata['수신시간'][2:4])
-                        realtime_sec = int(tickdata['수신시간'][4:6])
-
-                    realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                    self.total_option_packet_size += sys.getsizeof(tickdata)                        
-
-                    if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
-                        self.drop_count += 1
-                    else:
-                        pass
-
-                    self.trigger_dict.emit(tickdata)
-                else:
-                    pass
-            else:
-                flag_2nd_process_queue_empty = True
+                txt = '{0} RealTime_Option_Tick_MP_DataWorker 쓰레드에서 {1}타입의 {2}예외가 발생했습니다.\r'.format(tickdata['tr_code'], type(e).__name__, str(e))
+                print(txt)
+            
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 멀티프로세스 3rd 쓰레드 클래스(옵션 호가만 처리)
 #####################################################################################################################################################################
@@ -3236,83 +3243,89 @@ class RealTime_Option_Quote_MP_DataWorker(QThread):
 
         while True:
 
-            if not self.dataQ.empty():
+            try:
+                if not self.dataQ.empty():
 
-                flag_3rd_process_queue_empty = False
+                    flag_3rd_process_queue_empty = False
 
-                self.realdata = self.dataQ.get()
-                self.waiting_tasks = self.dataQ.qsize()
-                
-                self.total_count += 1                    
-                self.total_packet_size += sys.getsizeof(self.realdata)
+                    self.realdata = self.dataQ.get()
+                    self.waiting_tasks = self.dataQ.qsize()
 
-                if flag_drop_reset3:
-                    self.drop_count = 0
-                    self.sys_drop_count = 0
-                    self.total_count = 0
-                    flag_drop_reset3 = False
-                else:
-                    pass
+                    self.total_count += 1                    
+                    self.total_packet_size += sys.getsizeof(self.realdata)
 
-                if type(self.realdata) == list:
-
-                    self.trigger_list.emit(self.realdata)
-
-                elif type(self.realdata) == tuple:
-
-                    tick_type, tickdata = self.realdata
-                    print(f"\r[{datetime.now()}] 옵션호가 System time : {tickdata['system_time']}, 체결시간 : {tickdata['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')
-
-                    if CSV_FILE:
-                        tickdata_lst = list(tickdata.values())
-                        handle_tick_data(tickdata_lst, tick_type)
+                    if flag_drop_reset3:
+                        self.drop_count = 0
+                        self.sys_drop_count = 0
+                        self.total_count = 0
+                        flag_drop_reset3 = False
                     else:
                         pass
-                    
-                    if len(tickdata['system_time']) == 5:
-                        systime = int(tickdata['system_time'][0:1]) * 3600 + int(tickdata['system_time'][1:3]) * 60 + int(tickdata['system_time'][3:5])
-                    else:
-                        systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])
 
-                    szTrCode = tickdata['tr_code']
+                    if type(self.realdata) == list:
 
-                    if szTrCode == 'OH0':
+                        self.trigger_list.emit(self.realdata)
 
-                        self.total_option_packet_size += sys.getsizeof(tickdata)
+                    elif type(self.realdata) == tuple:
 
-                        if len(tickdata['수신시간']) == 5:
-                            realtime_hour = int(tickdata['수신시간'][0:1])
-                            realtime_min = int(tickdata['수신시간'][1:3])
-                            realtime_sec = int(tickdata['수신시간'][3:5])
+                        tick_type, tickdata = self.realdata
+                        print(f"\r[{datetime.now()}] 옵션호가 System time : {tickdata['system_time']}, 체결시간 : {tickdata['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')
+
+                        if CSV_FILE:
+                            tickdata_lst = list(tickdata.values())
+                            handle_tick_data(tickdata_lst, tick_type)
                         else:
-                            realtime_hour = int(tickdata['수신시간'][0:2])
+                            pass
+
+                        if len(tickdata['system_time']) == 5:
+                            systime = int(tickdata['system_time'][0:1]) * 3600 + int(tickdata['system_time'][1:3]) * 60 + int(tickdata['system_time'][3:5])
+                        else:
+                            systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])
+
+                        szTrCode = tickdata['tr_code']
+
+                        if szTrCode == 'OH0':
+
+                            self.total_option_packet_size += sys.getsizeof(tickdata)
+
+                            if len(tickdata['수신시간']) == 5:
+                                realtime_hour = int(tickdata['수신시간'][0:1])
+                                realtime_min = int(tickdata['수신시간'][1:3])
+                                realtime_sec = int(tickdata['수신시간'][3:5])
+                            else:
+                                realtime_hour = int(tickdata['수신시간'][0:2])
+                                realtime_min = int(tickdata['수신시간'][2:4])
+                                realtime_sec = int(tickdata['수신시간'][4:6])                            
+
+                        elif szTrCode == 'EH0':
+
+                            if int(tickdata['수신시간'][0:2]) >= 24:
+                                realtime_hour = int(tickdata['수신시간'][0:2]) - 24
+                            else:                            
+                                realtime_hour = int(tickdata['수신시간'][0:2])
+
                             realtime_min = int(tickdata['수신시간'][2:4])
-                            realtime_sec = int(tickdata['수신시간'][4:6])                            
+                            realtime_sec = int(tickdata['수신시간'][4:6])
+                        else:
+                            pass                        
 
-                    elif szTrCode == 'EH0':
+                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
-                        if int(tickdata['수신시간'][0:2]) >= 24:
-                            realtime_hour = int(tickdata['수신시간'][0:2]) - 24
-                        else:                            
-                            realtime_hour = int(tickdata['수신시간'][0:2])
-                            
-                        realtime_min = int(tickdata['수신시간'][2:4])
-                        realtime_sec = int(tickdata['수신시간'][4:6])
-                    else:
-                        pass                        
+                        if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
+                            self.drop_count += 1
+                        else:
+                            pass
 
-                    realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                    if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
-                        self.drop_count += 1
+                        self.trigger_dict.emit(tickdata)
                     else:
                         pass
-
-                    self.trigger_dict.emit(tickdata)
                 else:
-                    pass
-            else:
-                flag_3rd_process_queue_empty = True
+                    flag_3rd_process_queue_empty = True
+
+            except Exception as e:
+                
+                txt = '{0} RealTime_Option_Quote_MP_DataWorker 쓰레드에서 {1}타입의 {2}예외가 발생했습니다.\r'.format(tickdata['tr_code'], type(e).__name__, str(e))
+                print(txt)
 #####################################################################################################################################################################
 # 실시간 데이타수신을 위한 멀티프로세스 4th 쓰레드 클래스(해외선물만 처리)
 #####################################################################################################################################################################
@@ -3349,65 +3362,71 @@ class RealTime_OVC_MP_DataWorker(QThread):
 
         while True:
 
-            if not self.dataQ.empty():
+            try:
+                if not self.dataQ.empty():
 
-                flag_4th_process_queue_empty = False
+                    flag_4th_process_queue_empty = False
 
-                self.realdata = self.dataQ.get()
-                self.waiting_tasks = self.dataQ.qsize()
+                    self.realdata = self.dataQ.get()
+                    self.waiting_tasks = self.dataQ.qsize()
+
+                    self.total_count += 1                    
+                    self.total_packet_size += sys.getsizeof(self.realdata)
+
+                    if flag_drop_reset4:
+                        self.drop_count = 0
+                        self.sys_drop_count = 0
+                        self.total_count = 0
+                        flag_drop_reset4 = False
+                    else:
+                        pass
+
+                    if type(self.realdata) == list:
+
+                        self.trigger_list.emit(self.realdata)
+
+                    elif type(self.realdata) == tuple:                    
+
+                        tick_type, tickdata = self.realdata
+                        print(f"\r[{datetime.now()}] 해외선물 System time : {tickdata['system_time']}, 체결시간 : {tickdata['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')
+
+                        if CSV_FILE:
+                            tickdata_lst = list(tickdata.values())
+                            handle_tick_data(tickdata_lst, tick_type)
+                        else:
+                            pass
+
+                        if len(tickdata['system_time']) == 5:
+                            systime = int(tickdata['system_time'][0:1]) * 3600 + int(tickdata['system_time'][1:3]) * 60 + int(tickdata['system_time'][3:5])
+                        else:
+                            systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])
+
+                        if len(tickdata['수신시간']) == 5:
+                            realtime_hour = int(tickdata['수신시간'][0:1])
+                            realtime_min = int(tickdata['수신시간'][1:3])
+                            realtime_sec = int(tickdata['수신시간'][3:5])
+                        else:
+                            realtime_hour = int(tickdata['수신시간'][0:2])
+                            realtime_min = int(tickdata['수신시간'][2:4])
+                            realtime_sec = int(tickdata['수신시간'][4:6])
+
+                        realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
+
+                        if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
+                            self.drop_count += 1
+                        else:
+                            pass
+
+                        self.trigger_dict.emit(tickdata)
+                    else:
+                        pass
+                else:
+                    flag_4th_process_queue_empty = True
+
+            except Exception as e:
                 
-                self.total_count += 1                    
-                self.total_packet_size += sys.getsizeof(self.realdata)
-
-                if flag_drop_reset4:
-                    self.drop_count = 0
-                    self.sys_drop_count = 0
-                    self.total_count = 0
-                    flag_drop_reset4 = False
-                else:
-                    pass
-
-                if type(self.realdata) == list:
-
-                    self.trigger_list.emit(self.realdata)
-
-                elif type(self.realdata) == tuple:                    
-
-                    tick_type, tickdata = self.realdata
-                    print(f"\r[{datetime.now()}] 해외선물 System time : {tickdata['system_time']}, 체결시간 : {tickdata['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')
-
-                    if CSV_FILE:
-                        tickdata_lst = list(tickdata.values())
-                        handle_tick_data(tickdata_lst, tick_type)
-                    else:
-                        pass
-                    
-                    if len(tickdata['system_time']) == 5:
-                        systime = int(tickdata['system_time'][0:1]) * 3600 + int(tickdata['system_time'][1:3]) * 60 + int(tickdata['system_time'][3:5])
-                    else:
-                        systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])
-                    
-                    if len(tickdata['수신시간']) == 5:
-                        realtime_hour = int(tickdata['수신시간'][0:1])
-                        realtime_min = int(tickdata['수신시간'][1:3])
-                        realtime_sec = int(tickdata['수신시간'][3:5])
-                    else:
-                        realtime_hour = int(tickdata['수신시간'][0:2])
-                        realtime_min = int(tickdata['수신시간'][2:4])
-                        realtime_sec = int(tickdata['수신시간'][4:6])
-
-                    realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
-
-                    if abs((systime - system_server_time_gap) - realtime) >= view_time_tolerance:
-                        self.drop_count += 1
-                    else:
-                        pass
-
-                    self.trigger_dict.emit(tickdata)
-                else:
-                    pass
-            else:
-                flag_4th_process_queue_empty = True
+                txt = '{0} RealTime_OVC_MP_DataWorker 쓰레드에서 {1}타입의 {2}예외가 발생했습니다.\r'.format(tickdata['tr_code'], type(e).__name__, str(e))
+                print(txt)
 #####################################################################################################################################################################
 # Speaker Thread Class
 #####################################################################################################################################################################
@@ -3433,15 +3452,21 @@ class SpeakerWorker(QThread):
 
         while True:            
 
-            if self.flag_speak:
-                print('TTS Text =', self.txt)
-                Speak(self.txt)
-                self.flag_speak = False
-            else:
-                pass
+            try:
+                if self.flag_speak:
+                    print('TTS Text =', self.txt)
+                    Speak(self.txt)
+                    self.flag_speak = False
+                else:
+                    pass
 
-            #QApplication.processEvents()
-            QTest.qWait(1)
+                #QApplication.processEvents()
+                QTest.qWait(1)
+
+            except Exception as e:
+                
+                txt = 'SpeakerWorker 쓰레드에서 {1}타입의 {2}예외가 발생했습니다.\r'.format(type(e).__name__, str(e))
+                print(txt)
 
         # 사용 후 uninitialize
         pythoncom.CoUninitialize()
@@ -3464,16 +3489,22 @@ class PlotUpdateWorker1(QThread):
 
         while True:            
 
-            if flag_plot_update_interval_changed:
-                print('chart_update_interval changed...')
-                flag_plot_update_interval_changed = False
-            else:
-                pass
+            try:
+                if flag_plot_update_interval_changed:
+                    print('chart_update_interval changed...')
+                    flag_plot_update_interval_changed = False
+                else:
+                    pass
 
-            if not flag_screen_update_is_running:
-                self.trigger.emit()
+                if not flag_screen_update_is_running:
+                    self.trigger.emit()
 
-            QTest.qWait(chart_update_interval)
+                QTest.qWait(chart_update_interval)
+
+            except Exception as e:
+                
+                txt = 'PlotUpdateWorker1 쓰레드에서 {1}타입의 {2}예외가 발생했습니다.\r'.format(type(e).__name__, str(e))
+                print(txt)            
 
 class PlotUpdateWorker2(QThread):
 
@@ -3488,10 +3519,16 @@ class PlotUpdateWorker2(QThread):
 
         while True:
 
-            if not flag_screen_update_is_running:
-                self.trigger.emit()
+            try:
+                if not flag_screen_update_is_running:
+                    self.trigger.emit()
 
-            QTest.qWait(chart_update_interval)
+                QTest.qWait(chart_update_interval)
+
+            except Exception as e:
+                
+                txt = 'PlotUpdateWorker2 쓰레드에서 {1}타입의 {2}예외가 발생했습니다.\r'.format(type(e).__name__, str(e))
+                print(txt)
 
 class PlotUpdateWorker3(QThread):
 
@@ -3506,10 +3543,16 @@ class PlotUpdateWorker3(QThread):
 
         while True:
 
-            if not flag_screen_update_is_running:
-                self.trigger.emit()
+            try:
+                if not flag_screen_update_is_running:
+                    self.trigger.emit()
 
-            QTest.qWait(chart_update_interval)
+                QTest.qWait(chart_update_interval)
+
+            except Exception as e:
+                
+                txt = 'PlotUpdateWorker3 쓰레드에서 {1}타입의 {2}예외가 발생했습니다.\r'.format(type(e).__name__, str(e))
+                print(txt)
 
 class PlotUpdateWorker4(QThread):
 
@@ -3524,10 +3567,16 @@ class PlotUpdateWorker4(QThread):
 
         while True:
 
-            if not flag_screen_update_is_running:
-                self.trigger.emit()
+            try:
+                if not flag_screen_update_is_running:
+                    self.trigger.emit()
 
-            QTest.qWait(chart_update_interval)
+                QTest.qWait(chart_update_interval)
+
+            except Exception as e:
+                
+                txt = 'PlotUpdateWorker4 쓰레드에서 {1}타입의 {2}예외가 발생했습니다.\r'.format(type(e).__name__, str(e))
+                print(txt)
 
 class PlotUpdateWorker5(QThread):
 
@@ -3542,10 +3591,16 @@ class PlotUpdateWorker5(QThread):
 
         while True:
 
-            if not flag_screen_update_is_running:
-                self.trigger.emit()
+            try:
+                if not flag_screen_update_is_running:
+                    self.trigger.emit()
 
-            QTest.qWait(chart_update_interval)
+                QTest.qWait(chart_update_interval)
+
+            except Exception as e:
+                
+                txt = 'PlotUpdateWorker5 쓰레드에서 {1}타입의 {2}예외가 발생했습니다.\r'.format(type(e).__name__, str(e))
+                print(txt)
 
 class PlotUpdateWorker6(QThread):
 
@@ -3560,10 +3615,16 @@ class PlotUpdateWorker6(QThread):
 
         while True:
 
-            if not flag_screen_update_is_running:
-                self.trigger.emit()
-                        
-            QTest.qWait(chart_update_interval)
+            try:
+                if not flag_screen_update_is_running:
+                    self.trigger.emit()
+
+                QTest.qWait(chart_update_interval)
+
+            except Exception as e:
+                
+                txt = 'PlotUpdateWorker6 쓰레드에서 {1}타입의 {2}예외가 발생했습니다.\r'.format(type(e).__name__, str(e))
+                print(txt)
 
 #####################################################################################################################################################################
 # 버전 UI Class
