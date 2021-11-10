@@ -34967,7 +34967,12 @@ class Xing(object):
 
         dt = datetime.now()
 
-        self.clocktick = not self.clocktick        
+        self.clocktick = not self.clocktick
+
+        file = open('footprint.log', 'w', encoding='UTF-8')
+        text = self.caller.textBrowser.toPlainText()
+        file.write(text)
+        file.close()        
 
         if self.clocktick and dt.second == 30: # 매 30초 마다(1분 주기)
 
