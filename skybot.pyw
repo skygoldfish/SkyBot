@@ -86,7 +86,7 @@ from Utils import *
        
 #from xing_tick_writer import * 
 
-sys.setrecursionlimit(10 ** 6)
+#sys.setrecursionlimit(10 ** 6)
 
 # 4k 해상도 대응
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
