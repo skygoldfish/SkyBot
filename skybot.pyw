@@ -2350,9 +2350,7 @@ class ScreenUpdateWorker(QThread):
 
                     self.trigger.emit(self.server_hour, self.server_minute, self.server_second, timegap)
                 except Exception as e:
-                    print('NTP Server Time Get Error...', str(e))
-                    #dt = datetime.now()
-                    #self.trigger.emit(dt.hour, dt.minute, dt.second, system_server_time_gap)                   
+                    print('NTP Server Time Get Error...', str(e))                   
             else:
                 pass
             
@@ -5741,11 +5739,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_call_low_update, flag_call_high_update, flag_put_low_update, flag_put_high_update
         global flag_call_cross_coloring, flag_put_cross_coloring, flag_clear
 
-        global ntp_server_hour, ntp_server_minute, ntp_server_second, system_server_time_gap
-
-        dt = datetime.now()
+        global ntp_server_hour, ntp_server_minute, ntp_server_second, system_server_time_gap        
 
         try:
+            dt = datetime.now()
+
             flag_screen_update_is_running = True
 
             ntp_server_hour = hour
@@ -6429,7 +6427,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] update screen에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_screen에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
             self.textBrowser.append(txt)
             self.parent.textBrowser.append(txt)
 
@@ -12123,7 +12121,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] fut_cm_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : fut_cm_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
             self.parent.textBrowser.append(txt)
 
     # 차월물 선물	
@@ -12301,7 +12299,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] fut_nm_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : fut_nm_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
             self.parent.textBrowser.append(txt)       
 
     def fut_cm_etc_update(self, result):
@@ -13037,7 +13035,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] call_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, szTrCode, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : call_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, szTrCode, type(e).__name__, str(e))
             self.parent.textBrowser.append(txt)   
     
     def call_db_update(self):
@@ -14113,7 +14111,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] put_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : put_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
             self.parent.textBrowser.append(txt)      
     
     def put_db_update(self):
@@ -35164,7 +35162,7 @@ class Xing(object):
 
             except Exception as e:
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] OnClockTick에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : OnClockTick에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
                 self.caller.textBrowser.append(txt)
 
                 ipaddress = socket.gethostbyname(socket.gethostname())
@@ -36537,15 +36535,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.pm_update(tickdata)
 
             elif szTrCode == 'FC0' or szTrCode == 'NC0':
-                self.fc0_update(tickdata)
+                self.futures_tick_update(tickdata)
             elif szTrCode == 'FH0' or szTrCode == 'NH0':
-                self.fh0_update(tickdata)
+                self.futures_quote_update(tickdata)
             else:
                 pass
             
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] update_1st_process {3}에서 {4}타입의 {5}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, szTrCode, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_1st_process {3}에서 {4}타입의 {5}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, szTrCode, type(e).__name__, str(e))
             self.textBrowser.append(txt)
 
         finally:
@@ -36565,7 +36563,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if szTrCode == 'OC0' or szTrCode == 'EC0':
                 if flag_t8416_data_receive_done:            
-                    self.oc0_update(tickdata)
+                    self.option_tick_update(tickdata)
                 else:
                     pass
             else:
@@ -36587,7 +36585,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] update_2nd_process {3}에서 {4}타입의 {5}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, szTrCode, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_2nd_process {3}에서 {4}타입의 {5}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, szTrCode, type(e).__name__, str(e))
             self.textBrowser.append(txt)
 
         finally:
@@ -36604,13 +36602,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             flag_option_quote_update_is_running = True
 
             if flag_t8416_data_receive_done:
-                self.oh0_update(tickdata)
+                self.option_quote_update(tickdata)
             else:
                 pass
             
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] update_3rd_process {3}에서 {4}타입의 {5}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, szTrCode, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_3rd_process {3}에서 {4}타입의 {5}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, szTrCode, type(e).__name__, str(e))
             self.textBrowser.append(txt)
 
         finally:
@@ -36630,7 +36628,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] update_4th_process {3}에서 {4}타입의 {5}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, szTrCode, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_4th_process {3}에서 {4}타입의 {5}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, szTrCode, type(e).__name__, str(e))
             self.textBrowser.append(txt)
 
         finally:
@@ -36730,18 +36728,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.pm_update(data)
 
             elif szTrCode == 'FC0' or szTrCode == 'NC0':
-                self.fc0_update(data)
+                self.futures_tick_update(data)
             elif szTrCode == 'FH0' or szTrCode == 'NH0':
-                self.fh0_update(data)            
+                self.futures_quote_update(data)            
             elif szTrCode == 'OVC':
                 self.ovc_update(data)
             else:
                 pass
             '''
             elif szTrCode == 'OC0' or szTrCode == 'EC0':
-                self.oc0_update(data)
+                self.option_tick_update(data)
             elif szTrCode == 'OH0' or szTrCode == 'EH0':
-                self.oh0_update(data)
+                self.option_quote_update(data)
             '''
             
         else:
@@ -36774,7 +36772,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] nws_update {3}에서 {4}타입의 {5}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, szTrCode, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : nws_update {3}에서 {4}타입의 {5}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, szTrCode, type(e).__name__, str(e))
             self.textBrowser.append(txt)
 
     def jif_update(self, tickdata):
@@ -37148,7 +37146,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] jif_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : jif_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
             self.textBrowser.append(txt)
 
     def yj_update(self, tickdata):
@@ -37248,7 +37246,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] yj_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : yj_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
             self.textBrowser.append(txt)
 
     def yfc_update(self, tickdata):
@@ -37563,7 +37561,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] yfc_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : yfc_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
             self.textBrowser.append(txt)
 
     def ys3_update(self, tickdata):
@@ -37622,7 +37620,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] ys3_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : ys3_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
             self.textBrowser.append(txt)
 
     def yoc_update(self, tickdata):
@@ -37697,7 +37695,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] yoc_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : yoc_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
             self.textBrowser.append(txt)
 
     def s3_update(self, tickdata):
@@ -37773,7 +37771,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] s3_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : s3_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
             self.textBrowser.append(txt) 
 
     def ij_update(self, tickdata):
@@ -38128,7 +38126,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] ij_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : ij_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
             self.textBrowser.append(txt)
 
     def bm_update(self, tickdata):
@@ -38486,7 +38484,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] bm_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : bm_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
             self.textBrowser.append(txt)        
 
     def pm_update(self, tickdata):
@@ -38645,10 +38643,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] pm_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : pm_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
             self.textBrowser.append(txt)        
         
-    def fc0_update(self, tickdata):
+    def futures_tick_update(self, tickdata):
 
         global pre_start, flag_fut_vs_dow_drate_direction, plot_drate_scale_factor, fut_volume_power_energy_direction
         global fut_cm_volume_power, fut_nm_volume_power
@@ -38897,10 +38895,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] fc0_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : futures_tick_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
             self.textBrowser.append(txt)           
 
-    def fh0_update(self, tickdata):
+    def futures_quote_update(self, tickdata):
 
         global market_service, 선물_호가순매수
         global df_futures_cm_graph, fut_quote_count_ratio, 선물_근월물_호가_잔량비, cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max
@@ -39214,10 +39212,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] fh0_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : futures_quote_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
             self.textBrowser.append(txt)
 
-    def oc0_update(self, tickdata):
+    def option_tick_update(self, tickdata):
         
         global flag_option_start, pre_start, receive_quote, market_service
         global df_call, call_result, df_call_graph, df_call_information_graph, df_call_volume, call_volume_power, 콜_등가_등락율
@@ -39388,10 +39386,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] oc0_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : option_tick_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
             self.textBrowser.append(txt)
 
-    def oh0_update(self, tickdata):
+    def option_quote_update(self, tickdata):
 
         global receive_quote, market_service
         global df_call_quote, df_put_quote, 콜잔량비, 풋잔량비, call_remainder_ratio, put_remainder_ratio
@@ -39540,7 +39538,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] oh0_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : option_quote_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
             self.textBrowser.append(txt)
 
     def ovc_update(self, tickdata):
@@ -40649,7 +40647,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] ovc_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : ovc_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
             self.textBrowser.append(txt)
 
     #####################################################################################################################################################################
