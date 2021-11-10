@@ -34826,6 +34826,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
     def closeEvent(self,event):
 
+        dt = datetime.now()
+
         self.flag_big_chart_open = False
 
         self.comboBox1.setCurrentIndex(0)
@@ -34995,6 +34997,7 @@ class Xing(object):
         if self.caller.dialog['선물옵션전광판'] is not None:
 
             try:
+                '''
                 if self.clocktick:
                     response = self.ntpclient.request(TimeServer, version=3)
 
@@ -35008,7 +35011,7 @@ class Xing(object):
                     self.timegap = round(-response.offset)                    
                 else:
                     pass
-                
+                '''
                 if flag_score_board_start:
 
                     if dt.hour == KSE_START_HOUR:
@@ -35161,7 +35164,8 @@ class Xing(object):
                         pass
                     
                     if not flag_screen_update_is_running:
-                        self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
+                        #self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
+                        self.caller.dialog['선물옵션전광판'].update_screen(dt.hour, dt.minute, dt.second, system_server_time_gap)
                 else:
                     pass
 
@@ -35496,7 +35500,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #self.textBrowser.append(txt)
         #print(txt)
         
-        global all_screens, 스크린번호, screen_info
+        global all_screens, 스크린번호, screen_info, system_server_time_gap
 
         all_screens = QApplication.screens()
 
@@ -35530,6 +35534,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         SERVERTIME = '{0}:{1}:{2}'.format(srever_time[0:2], srever_time[3:5], srever_time[6:8])
 
         self.TIMEGAP = round(-response.offset)
+        system_server_time_gap = round(-response.offset)
 
         txt = '🕘 PC = [{0}]와 서버 = [{1}]간 시간차는 {2}초 입니다...\r'.format(PCTIME, SERVERTIME, self.TIMEGAP)        
         self.textBrowser.append(txt)
