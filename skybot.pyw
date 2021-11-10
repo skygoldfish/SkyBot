@@ -36787,7 +36787,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global flag_score_board_start, flag_telegram_send_start, flag_telegram_listen_start
 
         try:
-            szTrCode = tickdata['tr_code']
+            #szTrCode = tickdata['tr_code']
             dt = datetime.now()
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 장구분[{3}], 장상태[{4}]\r'.format(dt.hour, dt.minute, dt.second, tickdata['장구분'], tickdata['장상태'])
@@ -37159,7 +37159,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global df_futures_cm_graph, df_kp200_graph, yj_atm_index, kp200_시가
 
         try:
-            szTrCode = tickdata['tr_code']
+            #szTrCode = tickdata['tr_code']
             dt = datetime.now()
 
             if tickdata['업종코드'] == KOSPI200:
@@ -37263,7 +37263,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 차월물_선물_시가, 차월물_선물_현재가_버퍼, df_futures_nm_graph, flag_futures_nm_ohlc_open
         
         try:
-            szTrCode = tickdata['tr_code']
+            #szTrCode = tickdata['tr_code']
             dt = datetime.now()
 
             if not market_service:
@@ -37572,7 +37572,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def ys3_update(self, tickdata):
 
         try:
-            szTrCode = tickdata['tr_code']
+            #szTrCode = tickdata['tr_code']
             dt = datetime.now()
 
             현재가 = format(int(tickdata['예상체결가격']), ',')
@@ -37631,7 +37631,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def yoc_update(self, tickdata):
 
         try:
-            szTrCode = tickdata['tr_code']
+            #szTrCode = tickdata['tr_code']
             dt = datetime.now()
 
             if tickdata['단축코드'][0:3] == '201':
@@ -37708,7 +37708,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global samsung_price, samsung_text_color
 
         try:
-            szTrCode = tickdata['tr_code']
+            #szTrCode = tickdata['tr_code']
             dt = datetime.now()
         
             # S3 데이타표시
@@ -37787,7 +37787,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global kospi_price, kosdaq_price, kp200_시가, kp200_저가, kp200_현재가, kp200_고가, kp200_진폭
 
         try:
-            szTrCode = tickdata['tr_code']
+            #szTrCode = tickdata['tr_code']
             dt = datetime.now()
         
             if tickdata['업종코드'] == KOSPI200:
@@ -38160,7 +38160,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 선물_총순매수, 선물_총순매수_직전대비, 현물_총순매수, 현물_총순매수_직전대비
 
         try:
-            szTrCode = tickdata['tr_code']
+            #szTrCode = tickdata['tr_code']
             dt = datetime.now()
 
             매수거래대금 = int(tickdata['매수거래대금'])
@@ -38500,7 +38500,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global df_supply_demand_graph
 
         try:
-            szTrCode = tickdata['tr_code']
+            #szTrCode = tickdata['tr_code']
             dt = datetime.now()
 
             if tickdata['전체순매수금액합계'] == '-':
@@ -38660,7 +38660,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global df_futures_nm_graph, 차월물_선물_현재가, 차월물_선물_현재가_버퍼, flag_futures_nm_ohlc_open, fut_nm_result 
 
         try:
-            szTrCode = tickdata['tr_code']
+            #szTrCode = tickdata['tr_code']
             dt = datetime.now()
 
             if pre_start:
@@ -38912,7 +38912,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global quote_count_ratio, quote_remainder_ratio
 
         try:
-            szTrCode = tickdata['tr_code']
+            #szTrCode = tickdata['tr_code']
             dt = datetime.now()
         
             if not market_service:
@@ -39228,7 +39228,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 콜_수정미결합, 풋_수정미결합, 콜_수정미결퍼센트, 풋_수정미결퍼센트, 콜잔량비, 풋잔량비
 
         try:
-            szTrCode = tickdata['tr_code']
+            #szTrCode = tickdata['tr_code']
             dt = datetime.now()
 
             if not flag_option_start:
@@ -39403,7 +39403,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 옵션_잔량비차
 
         try:
-            szTrCode = tickdata['tr_code']
+            #szTrCode = tickdata['tr_code']
             dt = datetime.now()
 
             if not receive_quote:
@@ -39577,7 +39577,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global flag_eurofx_ohlc_open, flag_hangseng_ohlc_open, flag_gold_ohlc_open        
 
         try:
-            szTrCode = tickdata['tr_code']
+            #szTrCode = tickdata['tr_code']
             dt = datetime.now()
 
             OVC_체결시간 = tickdata['수신시간']
