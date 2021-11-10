@@ -35024,11 +35024,11 @@ class Xing(object):
 
                             if 콜잔량비 > 풋잔량비:
                                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♣ CM 잔량비 콜우세 {3}:{4} ♣\r".format(dt.hour, dt.minute, dt.second, 콜잔량비, 풋잔량비)
-                                self.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+                                self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                                 ToYourTelegram(send_txt)
                             elif 콜잔량비 < 풋잔량비:
                                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♣ CM 잔량비 풋우세 {3}:{4} ♣\r".format(dt.hour, dt.minute, dt.second, 콜잔량비, 풋잔량비)
-                                self.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+                                self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                                 ToYourTelegram(send_txt)
                             else:
                                 pass
@@ -35133,12 +35133,8 @@ class Xing(object):
                     else:
                         pass
                     
-                    if DayTime:
-                        if not flag_screen_update_is_running:
-                            self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
-                    else:
-                        if not flag_screen_update_is_running:
-                            self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
+                    if not flag_screen_update_is_running:
+                        self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
                 else:
                     pass
 
