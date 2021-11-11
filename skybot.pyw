@@ -34997,21 +34997,46 @@ class Xing(object):
         if self.caller.dialog['선물옵션전광판'] is not None:
 
             try:
-                '''
+                
                 if self.clocktick:
-                    response = self.ntpclient.request(TimeServer, version=3)
 
-                    time_str = time.ctime(response.tx_time).split(' ')
-                    srever_time = time_str[-2]
+                    try:
+                        response = self.ntpclient.request(TimeServer, version=3)
 
-                    self.server_hour = int(srever_time[0:2])
-                    self.server_minute = int(srever_time[3:5])
-                    self.server_second = int(srever_time[6:8])
+                        time_str = time.ctime(response.tx_time).split(' ')
+                        srever_time = time_str[-2]
 
-                    self.timegap = round(-response.offset)                    
+                        self.server_hour = int(srever_time[0:2])
+                        self.server_minute = int(srever_time[3:5])
+                        self.server_second = int(srever_time[6:8])
+
+                        self.timegap = round(-response.offset)
+
+                    except Exception as e:
+                        
+                        self.server_hour = dt.hour
+                        self.server_minute = dt,minute
+                        self.server_second = dt.second
+
+                        self.timegap = system_server_time_gap
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : OnClockTick에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+                        self.caller.textBrowser.append(txt)
+
+                        ipaddress = socket.gethostbyname(socket.gethostname())
+
+                        if ipaddress == '127.0.0.1':
+                            
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] NTP Server Time Get Error({3})...\r'.format(dt.hour, dt.minute, dt.second, str(e))
+                            self.caller.textBrowser.append(txt)
+                            
+                            msg = ' 인터넷 연결이 끊겼습니다.'
+                            self.caller.statusbar.showMessage(msg)
+                        else:
+                            pass
                 else:
                     pass
-                '''
+                
                 if flag_score_board_start:
 
                     if dt.hour == KSE_START_HOUR:
@@ -35164,27 +35189,13 @@ class Xing(object):
                         pass
                     
                     if not flag_screen_update_is_running:
-                        #self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
-                        self.caller.dialog['선물옵션전광판'].update_screen(dt.hour, dt.minute, dt.second, system_server_time_gap)
+                        self.caller.dialog['선물옵션전광판'].update_screen(self.server_hour, self.server_minute, self.server_second, self.timegap)
+                        #self.caller.dialog['선물옵션전광판'].update_screen(dt.hour, dt.minute, dt.second, system_server_time_gap)
                 else:
                     pass
 
             except Exception as e:
-
-                txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : OnClockTick에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
-                self.caller.textBrowser.append(txt)
-
-                ipaddress = socket.gethostbyname(socket.gethostname())
-
-                if ipaddress == '127.0.0.1':
-                    
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] NTP Server Time Get Error({3})...\r'.format(dt.hour, dt.minute, dt.second, str(e))
-                    self.caller.textBrowser.append(txt)
-                    
-                    msg = ' 인터넷 연결이 끊겼습니다.'
-                    self.caller.statusbar.showMessage(msg)
-                else:
-                    pass
+                pass
         else:
             pass
 
