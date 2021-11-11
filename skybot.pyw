@@ -35015,7 +35015,7 @@ class Xing(object):
                     except Exception as e:
                         
                         self.server_hour = dt.hour
-                        self.server_minute = dt,minute
+                        self.server_minute = dt.minute
                         self.server_second = dt.second
 
                         self.timegap = system_server_time_gap
