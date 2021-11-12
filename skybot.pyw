@@ -423,6 +423,8 @@ CHART_UPDATE_INTERVAL = parser.getint('Initial Value', 'Chart Update Interval(ms
 SCORE_BOARD_UPDATE_INTERVAL = parser.getint('Initial Value', 'Score Board Update Interval(sec)')
 SECOND_DISPLAY_X_POSITION = parser.getint('Initial Value', 'X Position of the Second Display')
 SECOND_DISPLAY_Y_POSITION = parser.getint('Initial Value', 'Y Position of the Second Display')
+UNDER_CALL_LIMIT_VAL = parser.getfloat('Initial Value', 'Under Call Limit Value')
+OVER_CALL_LIMIT_VAL = parser.getfloat('Initial Value', 'Over Call Limit Value')
 
 # [9]. << Code of the Foreign Futures (H/M/U/Z) >>
 SP500 = parser.get('Code of the Foreign Futures', 'S&P 500')
@@ -2045,6 +2047,9 @@ flag_telegram_send_start = False
 flag_telegram_listen_start = False
 
 remove_set = {0, nan, NaN}
+
+flag_under_call = False
+flag_over_call = False
 
 #####################################################################################################################################################################
 # UI 파일정의
@@ -24580,8 +24585,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p1_4.setText(" MAMA ")
             
             self.plot1_quote_remainder_ratio_base_line.setValue(1.0)
-            self.plot1_quote_remainder_ratio_bottom_line.setValue(0.1)
-            #self.plot1_quote_remainder_ratio_upper_line.setValue(10.0)
+            self.plot1_quote_remainder_ratio_bottom_line.setValue(UNDER_CALL_LIMIT_VAL)
+            #self.plot1_quote_remainder_ratio_upper_line.setValue(OVER_CALL_LIMIT_VAL)
 
         # 선옵체결 --> 수급
         elif comboindex1 == 4:
@@ -25364,8 +25369,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p2_4.setText(" MAMA ")
 
             self.plot2_quote_remainder_ratio_base_line.setValue(1.0)
-            self.plot2_quote_remainder_ratio_bottom_line.setValue(0.1)
-            #self.plot2_quote_remainder_ratio_upper_line.setValue(10.0)
+            self.plot2_quote_remainder_ratio_bottom_line.setValue(UNDER_CALL_LIMIT_VAL)
+            #self.plot2_quote_remainder_ratio_upper_line.setValue(OVER_CALL_LIMIT_VAL)
 
         # 선옵체결
         elif comboindex2 == 4:
@@ -26145,8 +26150,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p3_4.setText(" MAMA ")
 
             self.plot3_quote_remainder_ratio_base_line.setValue(1.0)
-            self.plot3_quote_remainder_ratio_bottom_line.setValue(0.1)
-            #self.plot3_quote_remainder_ratio_upper_line.setValue(10.0)
+            self.plot3_quote_remainder_ratio_bottom_line.setValue(UNDER_CALL_LIMIT_VAL)
+            #self.plot3_quote_remainder_ratio_upper_line.setValue(OVER_CALL_LIMIT_VAL)
 
         # 선옵체결
         elif comboindex3 == 4:
@@ -26927,8 +26932,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p4_4.setText(" MAMA ")
             
             self.plot4_quote_remainder_ratio_base_line.setValue(1.0)
-            self.plot4_quote_remainder_ratio_bottom_line.setValue(0.1)
-            #self.plot4_quote_remainder_ratio_upper_line.setValue(10.0)
+            self.plot4_quote_remainder_ratio_bottom_line.setValue(UNDER_CALL_LIMIT_VAL)
+            #self.plot4_quote_remainder_ratio_upper_line.setValue(OVER_CALL_LIMIT_VAL)
 
         # 선옵체결
         elif comboindex4 == 4:
@@ -27692,8 +27697,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p5_4.setText(" MAMA ")
 
             self.plot5_quote_remainder_ratio_base_line.setValue(1.0)
-            self.plot5_quote_remainder_ratio_bottom_line.setValue(0.1)
-            #self.plot5_quote_remainder_ratio_upper_line.setValue(10.0)
+            self.plot5_quote_remainder_ratio_bottom_line.setValue(UNDER_CALL_LIMIT_VAL)
+            #self.plot5_quote_remainder_ratio_upper_line.setValue(OVER_CALL_LIMIT_VAL)
 
         # 선옵체결
         elif comboindex5 == 4:
@@ -28476,8 +28481,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p6_4.setText(" MAMA ")
 
             self.plot6_quote_remainder_ratio_base_line.setValue(1.0)
-            self.plot6_quote_remainder_ratio_bottom_line.setValue(0.1)
-            #self.plot6_quote_remainder_ratio_upper_line.setValue(10.0)
+            self.plot6_quote_remainder_ratio_bottom_line.setValue(UNDER_CALL_LIMIT_VAL)
+            #self.plot6_quote_remainder_ratio_upper_line.setValue(OVER_CALL_LIMIT_VAL)
 
         # 선옵체결
         elif comboindex6 == 4:
@@ -35110,7 +35115,35 @@ class Xing(object):
                     else:
                         report_interval = 10
 
+                    if not self.clocktick and TARGET_MONTH == 'CM' and dt.second % 5 == 0:
+
+                        if flag_under_call:
+                            txt = '과매도 구간진입'
+                            self.caller.speaker.setText(txt)
+
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] Under Call...\r".format(dt.hour, dt.minute, dt.second)
+                            ToYourTelegram(send_txt)
+                        else:
+                            pass
+
+                        if flag_over_call:
+                            txt = '과매수 구간진입'
+                            self.caller.speaker.setText(txt)
+
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] Over Call...\r".format(dt.hour, dt.minute, dt.second)
+                            ToYourTelegram(send_txt)
+                        else:
+                            pass
+                    else:
+                        pass
+
                     if self.clocktick and TARGET_MONTH == 'CM' and dt.minute % report_interval == 0 and dt.second == 0:
+
+                        if flag_under_call:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] Under Call...\r".format(dt.hour, dt.minute, dt.second)
+                            ToYourTelegram(send_txt)
+                        else:
+                            pass
 
                         if flag_call_strong:
                             if DayTime:
@@ -35621,7 +35654,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if system_server_time_gap > 0:
                 txt = 'PC와 써버간 시간차는 {0}초 입니다'.format(system_server_time_gap)
-                self.speaker.setText(txt)
+                self.speaker.setText(txt)                
             else:
                 pass
         except Exception as e:
@@ -38999,6 +39032,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global fut_cms_quote_count_ratio, 선물_차월물_호가_잔량비, nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max
         global fut_ccms_quote_count_ratio, fut_ccms_quote_remainder_ratio, fut_quote_energy_direction
         global quote_count_ratio, quote_remainder_ratio
+        global flag_under_call, flag_over_call
 
         try:
             #szTrCode = tickdata['tr_code']
@@ -39103,6 +39137,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     nm_fut_quote_min = df_futures_cm_graph['n_quote_remainder_ratio'].min()
                     nm_fut_quote_mean = df_futures_cm_graph['n_quote_remainder_ratio'].mean()
                     nm_fut_quote_max = df_futures_cm_graph['n_quote_remainder_ratio'].max()
+
+                    if nm_fut_quote_min < UNDER_CALL_LIMIT_VAL:
+                        flag_under_call = True
+                    else:
+                        flag_under_call = False
+
+                    if nm_fut_quote_max >= OVER_CALL_LIMIT_VAL:
+                        flag_over_call = True
+                    else:
+                        flag_over_call = False
 
                     item_txt = '{0:.2f}'.format(nm_fut_quote_min)
 
