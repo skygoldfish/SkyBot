@@ -39138,12 +39138,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     nm_fut_quote_mean = df_futures_cm_graph['n_quote_remainder_ratio'].mean()
                     nm_fut_quote_max = df_futures_cm_graph['n_quote_remainder_ratio'].max()
 
-                    if nm_fut_quote_min < UNDER_CALL_LIMIT_VAL:
+                    if 선물_차월물_호가_잔량비 < UNDER_CALL_LIMIT_VAL:
                         flag_under_call = True
                     else:
                         flag_under_call = False
 
-                    if nm_fut_quote_max >= OVER_CALL_LIMIT_VAL:
+                    if 선물_차월물_호가_잔량비 >= OVER_CALL_LIMIT_VAL:
                         flag_over_call = True
                     else:
                         flag_over_call = False
