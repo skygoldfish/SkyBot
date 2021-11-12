@@ -24581,7 +24581,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             self.plot1_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot1_quote_remainder_ratio_bottom_line.setValue(0.1)
-            self.plot1_quote_remainder_ratio_upper_line.setValue(10.0)
+            #self.plot1_quote_remainder_ratio_upper_line.setValue(10.0)
 
         # 선옵체결 --> 수급
         elif comboindex1 == 4:
@@ -25365,7 +25365,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.plot2_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot2_quote_remainder_ratio_bottom_line.setValue(0.1)
-            self.plot2_quote_remainder_ratio_upper_line.setValue(10.0)
+            #self.plot2_quote_remainder_ratio_upper_line.setValue(10.0)
 
         # 선옵체결
         elif comboindex2 == 4:
@@ -26146,7 +26146,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.plot3_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot3_quote_remainder_ratio_bottom_line.setValue(0.1)
-            self.plot3_quote_remainder_ratio_upper_line.setValue(10.0)
+            #self.plot3_quote_remainder_ratio_upper_line.setValue(10.0)
 
         # 선옵체결
         elif comboindex3 == 4:
@@ -26928,7 +26928,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             self.plot4_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot4_quote_remainder_ratio_bottom_line.setValue(0.1)
-            self.plot4_quote_remainder_ratio_upper_line.setValue(10.0)
+            #self.plot4_quote_remainder_ratio_upper_line.setValue(10.0)
 
         # 선옵체결
         elif comboindex4 == 4:
@@ -27693,7 +27693,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.plot5_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot5_quote_remainder_ratio_bottom_line.setValue(0.1)
-            self.plot5_quote_remainder_ratio_upper_line.setValue(10.0)
+            #self.plot5_quote_remainder_ratio_upper_line.setValue(10.0)
 
         # 선옵체결
         elif comboindex5 == 4:
@@ -28477,7 +28477,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.plot6_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot6_quote_remainder_ratio_bottom_line.setValue(0.1)
-            self.plot6_quote_remainder_ratio_upper_line.setValue(10.0)
+            #self.plot6_quote_remainder_ratio_upper_line.setValue(10.0)
 
         # 선옵체결
         elif comboindex6 == 4:
@@ -29468,30 +29468,33 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex1 == 3:                
 
-                txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
-                self.label_16.setText(txt)
+                if DayTime:
+                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
+                    self.label_16.setText(txt)
 
-                txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
-                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
-                    fut_ccms_quote_remainder_ratio)
+                    txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
+                        선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
+                        선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
+                        fut_ccms_quote_remainder_ratio)
 
-                if fut_quote_energy_direction == 'call':
-                    self.label_17.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif fut_quote_energy_direction == 'put':
-                    self.label_17.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    if fut_quote_energy_direction == 'call':
+                        self.label_17.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif fut_quote_energy_direction == 'put':
+                        self.label_17.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_17.setText(txt)
+
+                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
+                    self.label_18.setText(txt)
+
+                    self.plot1_time_line.setValue(ovc_x_idx)
+
+                    self.plot1_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
+                    self.plot1_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
                 else:
-                    self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_17.setText(txt)
-
-                txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
-                self.label_18.setText(txt)
-
-                self.plot1_time_line.setValue(ovc_x_idx)
-
-                self.plot1_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
-                self.plot1_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
+                    pass
 
             elif comboindex1 == 4:
 
@@ -30417,30 +30420,33 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex2 == 3:
 
-                txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
-                self.label_26.setText(txt)
+                if DayTime:
+                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
+                    self.label_26.setText(txt)
 
-                txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
-                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
-                    fut_ccms_quote_remainder_ratio)
+                    txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
+                        선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
+                        선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
+                        fut_ccms_quote_remainder_ratio)
 
-                if fut_quote_energy_direction == 'call':
-                    self.label_27.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif fut_quote_energy_direction == 'put':
-                    self.label_27.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    if fut_quote_energy_direction == 'call':
+                        self.label_27.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif fut_quote_energy_direction == 'put':
+                        self.label_27.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_27.setText(txt)
+
+                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
+                    self.label_28.setText(txt)
+
+                    self.plot2_time_line.setValue(ovc_x_idx)
+
+                    self.plot2_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
+                    self.plot2_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
                 else:
-                    self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_27.setText(txt)
-
-                txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
-                self.label_28.setText(txt)
-                
-                self.plot2_time_line.setValue(ovc_x_idx)
-
-                self.plot2_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
-                self.plot2_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
+                    pass
 
             elif comboindex2 == 4:
 
@@ -31349,30 +31355,33 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex3 == 3:
 
-                txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
-                self.label_36.setText(txt)
+                if DayTime:
+                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
+                    self.label_36.setText(txt)
 
-                txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
-                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
-                    fut_ccms_quote_remainder_ratio)
+                    txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
+                        선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
+                        선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
+                        fut_ccms_quote_remainder_ratio)
 
-                if fut_quote_energy_direction == 'call':
-                    self.label_37.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif fut_quote_energy_direction == 'put':
-                    self.label_37.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    if fut_quote_energy_direction == 'call':
+                        self.label_37.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif fut_quote_energy_direction == 'put':
+                        self.label_37.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_37.setText(txt)
+
+                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
+                    self.label_38.setText(txt)
+
+                    self.plot3_time_line.setValue(ovc_x_idx)
+
+                    self.plot3_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
+                    self.plot3_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
                 else:
-                    self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_37.setText(txt)
-
-                txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
-                self.label_38.setText(txt)
-                
-                self.plot3_time_line.setValue(ovc_x_idx)
-
-                self.plot3_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
-                self.plot3_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
+                    pass
 
             elif comboindex3 == 4:
 
@@ -32274,30 +32283,33 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex4 == 3:
 
-                txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
-                self.label_46.setText(txt)
+                if DayTime:
+                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
+                    self.label_46.setText(txt)
 
-                txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
-                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
-                    fut_ccms_quote_remainder_ratio)
+                    txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
+                        선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
+                        선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
+                        fut_ccms_quote_remainder_ratio)
 
-                if fut_quote_energy_direction == 'call':
-                    self.label_47.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif fut_quote_energy_direction == 'put':
-                    self.label_47.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    if fut_quote_energy_direction == 'call':
+                        self.label_47.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif fut_quote_energy_direction == 'put':
+                        self.label_47.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_47.setText(txt)
+
+                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
+                    self.label_48.setText(txt)
+
+                    self.plot4_time_line.setValue(ovc_x_idx)
+
+                    self.plot4_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
+                    self.plot4_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
                 else:
-                    self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_47.setText(txt)
-
-                txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
-                self.label_48.setText(txt)
-                
-                self.plot4_time_line.setValue(ovc_x_idx)
-
-                self.plot4_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
-                self.plot4_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
+                    pass
 
             elif comboindex4 == 4:
 
@@ -33185,30 +33197,33 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex5 == 3:
 
-                txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
-                self.label_56.setText(txt)
+                if DayTime:
+                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
+                    self.label_56.setText(txt)
 
-                txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
-                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
-                    fut_ccms_quote_remainder_ratio)
+                    txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
+                        선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
+                        선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
+                        fut_ccms_quote_remainder_ratio)
 
-                if fut_quote_energy_direction == 'call':
-                    self.label_57.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif fut_quote_energy_direction == 'put':
-                    self.label_57.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    if fut_quote_energy_direction == 'call':
+                        self.label_57.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif fut_quote_energy_direction == 'put':
+                        self.label_57.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_57.setText(txt)
+
+                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
+                    self.label_58.setText(txt)
+
+                    self.plot5_time_line.setValue(ovc_x_idx)
+
+                    self.plot5_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
+                    self.plot5_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
                 else:
-                    self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_57.setText(txt)
-
-                txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
-                self.label_58.setText(txt)
-                
-                self.plot5_time_line.setValue(ovc_x_idx)
-
-                self.plot5_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
-                self.plot5_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
+                    pass
 
             elif comboindex5 == 4:
 
@@ -34111,30 +34126,33 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex6 == 3:
 
-                txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
-                self.label_66.setText(txt)
+                if DayTime:
+                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
+                    self.label_66.setText(txt)
 
-                txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
-                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
-                    fut_ccms_quote_remainder_ratio)
+                    txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
+                        선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
+                        선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
+                        fut_ccms_quote_remainder_ratio)
 
-                if fut_quote_energy_direction == 'call':
-                    self.label_67.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif fut_quote_energy_direction == 'put':
-                    self.label_67.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    if fut_quote_energy_direction == 'call':
+                        self.label_67.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif fut_quote_energy_direction == 'put':
+                        self.label_67.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_67.setText(txt)
+
+                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
+                    self.label_68.setText(txt)
+
+                    self.plot6_time_line.setValue(ovc_x_idx)
+
+                    self.plot6_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
+                    self.plot6_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
                 else:
-                    self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_67.setText(txt)
-
-                txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
-                self.label_68.setText(txt)
-                
-                self.plot6_time_line.setValue(ovc_x_idx)
-
-                self.plot6_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
-                self.plot6_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
+                    pass
 
             elif comboindex6 == 4:
                 
