@@ -1189,7 +1189,7 @@ every_5sec = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]
 pre_start = False
 
 receive_quote = False
-market_service = False
+flag_market_service = False
 
 widget_title = ''
 
@@ -5492,7 +5492,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass   
             '''
-            if market_service:
+            if flag_market_service:
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Send Message = {3}\r'.format(t0167_hour, t0167_minute, t0167_second, send_txt)
                 self.textBrowser.append(txt)
                 print(txt)
@@ -5510,7 +5510,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         try:
             dt = datetime.now()            
 
-            if market_service:
+            if flag_market_service:
 
                 if TELEGRAM_SERVICE and flag_telegram_on:
 
@@ -5559,7 +5559,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.now()
 
         # 선물 OHLC 데이타프레임 생성
-        if market_service and DayTime:
+        if flag_market_service and DayTime:
                   
             time_txt = 선물_체결시간[0:2] + ':' + 선물_체결시간[2:4] + ':' + 선물_체결시간[4:6]
             chetime = nowDate + ' ' + time_txt
@@ -5868,7 +5868,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 self.display_atm(self.alternate_flag)
                 
-                if market_service:
+                if flag_market_service:
                     self.option_quote_update()
                     
                     if DayTime and fut_cm_result:                    
@@ -5883,7 +5883,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
                 
-                if market_service and flag_option_start:
+                if flag_market_service and flag_option_start:
                     
                     if flag_periodic_plot_mode:
 
@@ -6890,7 +6890,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        if market_service:
+        if flag_market_service:
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check : {3:.2f} ms\r'.format(t0167_hour, t0167_minute, t0167_second, process_time)
             self.textBrowser.append(txt)
@@ -6955,7 +6955,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        if market_service:
+        if flag_market_service:
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check : {3:.2f} ms\r'.format(t0167_hour, t0167_minute, t0167_second, process_time)
             self.textBrowser.append(txt)
@@ -7792,7 +7792,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         for i in range(call_scroll_begin_position, call_scroll_end_position):
             '''
-            if not market_service or call_scroll or refresh_coloring:
+            if not flag_market_service or call_scroll or refresh_coloring:
             
                 oloh_txt = ''                           
                 item = QTableWidgetItem(oloh_txt)
@@ -10581,7 +10581,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         for i in range(put_scroll_begin_position, put_scroll_end_position):
             '''
-            if not market_service or put_scroll or refresh_coloring:
+            if not flag_market_service or put_scroll or refresh_coloring:
             
                 oloh_txt = ''                           
                 item = QTableWidgetItem(oloh_txt)
@@ -13310,7 +13310,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         dt = datetime.now()
 
-        if not market_service or call_scroll or refresh_coloring:
+        if not flag_market_service or call_scroll or refresh_coloring:
             
             call_ol = [False] * option_pairs_count
             call_oh = [False] * option_pairs_count
@@ -14389,7 +14389,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         dt = datetime.now()
 
-        if not market_service or put_scroll or refresh_coloring:
+        if not flag_market_service or put_scroll or refresh_coloring:
             
             put_ol = [False] * option_pairs_count
             put_oh = [False] * option_pairs_count            
@@ -15800,7 +15800,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # 선물 맥점 컬러 체크(실시간에서만 표시됨)
-                if market_service:
+                #if flag_market_service:
+                if True:
                     self.fut_cm_node_color_clear()
                     self.fut_cm_oloh_check()
                     self.fut_cm_node_coloring()
@@ -15939,7 +15940,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setForeground(QBrush(검정색))
                 self.tableWidget_fut.setItem(0, Futures_column.진폭.value, item)
 
-                if market_service:
+                #if flag_market_service:
+                if True:
                     self.fut_nm_node_color_clear()
                     self.fut_nm_oloh_check()
                     self.fut_nm_node_coloring()
@@ -17276,7 +17278,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # 주간 근월물 선물전광판 데이타 요청
                     self.XQ_t2101.Query(종목코드=GMSHCODE)
                     
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물전광판 갱신을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 근월물 선물전광판을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
 
                     QTest.qWait(100)
@@ -17284,7 +17286,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # 주간 차월물 선물전광판 데이타요청
                     self.XQ_t2101.Query(CMSHCODE)
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 차월물 주간선물 데이타를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] t2101 차월물 선물전광판을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
 
                     QTest.qWait(100)                                       
@@ -17728,7 +17730,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             print('df_fut', df_fut)
 
             # 선물 맥점 컬러 체크(실시간에서만 표시됨)
-            if market_service:
+            #if flag_market_service:
+            if True:
                 self.fut_cm_node_color_clear()
                 self.fut_cm_oloh_check()
                 self.fut_cm_node_coloring()
@@ -36904,7 +36907,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def jif_update(self, tickdata):
 
-        global market_service, DOW_주간_시작가, WTI_주간_시작가, DOW_야간_시작가, WTI_야간_시작가, dongsi_quote
+        global flag_market_service, DOW_주간_시작가, WTI_주간_시작가, DOW_야간_시작가, WTI_야간_시작가, dongsi_quote
         global service_terminate, jugan_service_terminate, flag_option_start, receive_quote
         global flag_score_board_start, flag_telegram_send_start, flag_telegram_listen_start
 
@@ -36947,7 +36950,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # 주간 선물/옵션장 시작
             elif tickdata['장구분'] == '5' and tickdata['장상태'] == '21':
 
-                market_service = True
+                flag_market_service = True
 
                 DOW_주간_시작가 = DOW_현재가
                 WTI_주간_시작가 = WTI_현재가
@@ -36973,7 +36976,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # 야간 선물장 시작
             elif tickdata['장구분'] == '7' and tickdata['장상태'] == '21':
             
-                market_service = True
+                flag_market_service = True
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
@@ -37003,7 +37006,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # 야간 옵션장 시작
             elif tickdata['장구분'] == '8' and tickdata['장상태'] == '21':
 
-                market_service = True
+                flag_market_service = True
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
@@ -37090,9 +37093,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 flag_telegram_send_start = False
                 flag_telegram_listen_start = False
 
-                if market_service:
+                if flag_market_service:
 
-                    market_service = False
+                    flag_market_service = False
                     service_terminate = True
                     jugan_service_terminate = True
                     flag_option_start = False
@@ -37199,9 +37202,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 WTI 지수 = {3}\r'.format(t0167_hour, t0167_minute, t0167_second, WTI_현재가)
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
 
-                if market_service:
+                if flag_market_service:
 
-                    market_service = False
+                    flag_market_service = False
                     service_terminate = True
                     receive_quote = False
 
@@ -37233,9 +37236,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
                 self.textBrowser.append(txt)
 
-                if market_service:
+                if flag_market_service:
 
-                    market_service = False
+                    flag_market_service = False
                     service_terminate = True
                     receive_quote = False
 
@@ -37378,7 +37381,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def yfc_update(self, tickdata):
 
-        global market_service, 근월물_선물_종가대비_등락율, 선물_진폭비
+        global flag_market_service, 근월물_선물_종가대비_등락율, 선물_진폭비
         global flag_fut_vs_dow_drate_direction, plot_drate_scale_factor, 근월물_선물_피봇
         global DOW_기준_예상시가
         global 근월물_선물_시가, 근월물_선물_현재가_버퍼, df_futures_cm_graph, flag_futures_cm_ohlc_open
@@ -37388,8 +37391,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             #szTrCode = tickdata['tr_code']
             dt = datetime.now()
 
-            if not market_service:
-                market_service = True
+            if not flag_market_service:
+                flag_market_service = True
             else:
                 pass
 
@@ -38004,24 +38007,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.피봇.value, item)
                     else:
                         pass
-
-                    # 선물 피봇을 다시 계산하여 표시한다.
-                    근월물_선물_피봇 = calc_pivot(근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_시가)
-
-                    item = QTableWidgetItem("{0:.2f}".format(근월물_선물_피봇))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
-
-                    if NightTime:
-                        self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, Futures_column.피봇.value, item)
-                        df_fut.at[0, '피봇'] = 근월물_선물_피봇
-                        self.dialog['선물옵션전광판'].cme_realdata['피봇'] = 근월물_선물_피봇
-                    else:
-                        self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
-                        df_fut.at[1, '피봇'] = 근월물_선물_피봇
-                        self.dialog['선물옵션전광판'].fut_realdata['피봇'] = 근월물_선물_피봇              
-
+                    
                     atm_txt = self.dialog['선물옵션전광판'].get_atm_txt(kp200_시가)
                     ATM_INDEX = opt_actval.index(atm_txt)
 
@@ -39027,7 +39013,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def futures_quote_update(self, tickdata):
 
-        global market_service, 선물_호가순매수
+        global flag_market_service, 선물_호가순매수
         global df_futures_cm_graph, fut_quote_count_ratio, 선물_근월물_호가_잔량비, cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max
         global fut_cms_quote_count_ratio, 선물_차월물_호가_잔량비, nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max
         global fut_ccms_quote_count_ratio, fut_ccms_quote_remainder_ratio, fut_quote_energy_direction
@@ -39038,8 +39024,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             #szTrCode = tickdata['tr_code']
             dt = datetime.now()
         
-            if not market_service:
-                market_service = True
+            if not flag_market_service:
+                flag_market_service = True
             else:
                 pass
 
@@ -39355,7 +39341,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def option_tick_update(self, tickdata):
         
-        global flag_option_start, pre_start, receive_quote, market_service
+        global flag_option_start, pre_start, receive_quote, flag_market_service
         global df_call, call_result, df_call_graph, df_call_information_graph, df_call_volume, call_volume_power, 콜_등가_등락율
         global df_put, put_result, df_put_graph, df_put_information_graph, df_put_volume, put_volume_power, 풋_등가_등락율
         global 콜_수정미결합, 풋_수정미결합, 콜_수정미결퍼센트, 풋_수정미결퍼센트, 콜잔량비, 풋잔량비
@@ -39529,7 +39515,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def option_quote_update(self, tickdata):
 
-        global receive_quote, market_service
+        global receive_quote, flag_market_service
         global df_call_quote, df_put_quote, 콜잔량비, 풋잔량비, call_remainder_ratio, put_remainder_ratio
         global df_call_information_graph, df_put_information_graph
         global flag_telegram_send_start, flag_telegram_listen_start
@@ -39544,8 +39530,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-            if not market_service:
-                market_service = True
+            if not flag_market_service:
+                flag_market_service = True
             else:
                 pass
 
