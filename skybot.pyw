@@ -24588,8 +24588,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p1_4.setText(" MAMA ")
             
             self.plot1_quote_remainder_ratio_base_line.setValue(1.0)
-            self.plot1_quote_remainder_ratio_bottom_line.setValue(nm_fut_quote_min)
-            self.plot1_quote_remainder_ratio_upper_line.setValue(nm_fut_quote_max)
+            self.plot1_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot1_quote_remainder_ratio_upper_line.setValue(1.0)
 
         # 선옵체결 --> 수급
         elif comboindex1 == 4:
@@ -25372,8 +25372,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p2_4.setText(" MAMA ")
 
             self.plot2_quote_remainder_ratio_base_line.setValue(1.0)
-            self.plot2_quote_remainder_ratio_bottom_line.setValue(nm_fut_quote_min)
-            self.plot2_quote_remainder_ratio_upper_line.setValue(nm_fut_quote_max)
+            self.plot2_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot2_quote_remainder_ratio_upper_line.setValue(1.0)
 
         # 선옵체결
         elif comboindex2 == 4:
@@ -26153,8 +26153,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p3_4.setText(" MAMA ")
 
             self.plot3_quote_remainder_ratio_base_line.setValue(1.0)
-            self.plot3_quote_remainder_ratio_bottom_line.setValue(nm_fut_quote_min)
-            self.plot3_quote_remainder_ratio_upper_line.setValue(nm_fut_quote_max)
+            self.plot3_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot3_quote_remainder_ratio_upper_line.setValue(1.0)
 
         # 선옵체결
         elif comboindex3 == 4:
@@ -26935,8 +26935,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p4_4.setText(" MAMA ")
             
             self.plot4_quote_remainder_ratio_base_line.setValue(1.0)
-            self.plot4_quote_remainder_ratio_bottom_line.setValue(nm_fut_quote_min)
-            self.plot4_quote_remainder_ratio_upper_line.setValue(nm_fut_quote_max)
+            self.plot4_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot4_quote_remainder_ratio_upper_line.setValue(1.0)
 
         # 선옵체결
         elif comboindex4 == 4:
@@ -27700,8 +27700,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p5_4.setText(" MAMA ")
 
             self.plot5_quote_remainder_ratio_base_line.setValue(1.0)
-            self.plot5_quote_remainder_ratio_bottom_line.setValue(nm_fut_quote_min)
-            self.plot5_quote_remainder_ratio_upper_line.setValue(nm_fut_quote_max)
+            self.plot5_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot5_quote_remainder_ratio_upper_line.setValue(1.0)
 
         # 선옵체결
         elif comboindex5 == 4:
@@ -28484,8 +28484,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p6_4.setText(" MAMA ")
 
             self.plot6_quote_remainder_ratio_base_line.setValue(1.0)
-            self.plot6_quote_remainder_ratio_bottom_line.setValue(nm_fut_quote_min)
-            self.plot6_quote_remainder_ratio_upper_line.setValue(nm_fut_quote_max)
+            self.plot6_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot6_quote_remainder_ratio_upper_line.setValue(1.0)
 
         # 선옵체결
         elif comboindex6 == 4:
@@ -29501,6 +29501,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.plot1_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
                     self.plot1_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
+                    self.plot1_quote_remainder_ratio_bottom_line.setValue(nm_fut_quote_min)
+                    self.plot1_quote_remainder_ratio_upper_line.setValue(nm_fut_quote_max)
                 else:
                     pass
 
@@ -30453,6 +30455,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.plot2_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
                     self.plot2_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
+                    self.plot2_quote_remainder_ratio_bottom_line.setValue(nm_fut_quote_min)
+                    self.plot2_quote_remainder_ratio_upper_line.setValue(nm_fut_quote_max)
                 else:
                     pass
 
@@ -31388,6 +31392,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.plot3_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
                     self.plot3_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
+                    self.plot3_quote_remainder_ratio_bottom_line.setValue(nm_fut_quote_min)
+                    self.plot3_quote_remainder_ratio_upper_line.setValue(nm_fut_quote_max)
                 else:
                     pass
 
@@ -32316,6 +32322,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.plot4_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
                     self.plot4_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
+                    self.plot4_quote_remainder_ratio_bottom_line.setValue(nm_fut_quote_min)
+                    self.plot4_quote_remainder_ratio_upper_line.setValue(nm_fut_quote_max)
                 else:
                     pass
 
@@ -33230,6 +33238,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.plot5_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
                     self.plot5_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
+                    self.plot5_quote_remainder_ratio_bottom_line.setValue(nm_fut_quote_min)
+                    self.plot5_quote_remainder_ratio_upper_line.setValue(nm_fut_quote_max)
                 else:
                     pass
 
@@ -34159,6 +34169,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.plot6_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
                     self.plot6_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
+                    self.plot6_quote_remainder_ratio_bottom_line.setValue(nm_fut_quote_min)
+                    self.plot6_quote_remainder_ratio_upper_line.setValue(nm_fut_quote_max)
                 else:
                     pass
 
