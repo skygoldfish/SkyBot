@@ -5729,7 +5729,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     
     @logging_time_main_loop
     #@pyqtSlot(int, int, int, int)
-    def update_screen(self, hour, minute, second, timegap):
+    def update_screen(self):
 
         global flag_internet_connection_broken, flag_service_provider_broken
         global flag_screen_update_is_running
@@ -5750,11 +5750,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             dt = datetime.now()
 
             flag_screen_update_is_running = True
-
-            t0167_server_hour = hour
-            t0167_server_minute = minute
-            t0167_server_second = second
-            system_server_time_gap = timegap
 
             self.alternate_flag = not self.alternate_flag
             
@@ -5830,14 +5825,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 flag_internet_connection_broken = False
                 flag_service_provider_broken = False
-            
-            # 서버시간 기준으로 1분마다 체크!!!            
-            if not flag_internet_connection_broken and self.alternate_flag and flag_heartbeat:
-                pass
-                #self.heartbeat_check()
-            else:
-                pass
-            
+                        
             # 옵션 행사가가 200개 이상일 경우 대응
             if flag_t8416_rerequest and not flag_internet_connection_broken and self.alternate_flag:
 
@@ -5857,12 +5845,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
                         
-            # Market 유형을 시간과 함께 표시
-            if (not flag_internet_connection_broken and not flag_service_provider_broken):
-                self.market_type_display(self.alternate_flag)
-            else:
-                pass
-            
             # 실시간 서비스
             if (not flag_internet_connection_broken and not flag_service_provider_broken) and FLAG_GUEST_CONTROL:
                 
@@ -6791,15 +6773,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def market_type_display(self, blink):
 
-        global 시스템시간, t0167_hour, t0167_minute, t0167_second 
-
-        dt = datetime.now()
-
-        # 해외선물 한국시간 표시
-        if OVC_체결시간 == '000000':
-            txt = '{0:02d}:{1:02d}:{2:02d}({3:+d})'.format(dt.hour, dt.minute, dt.second, system_server_time_gap)
-        else:
-            txt = '{0:02d}:{1:02d}:{2:02d}({3:+d})'.format(t0167_server_hour, t0167_server_minute, t0167_server_second, system_server_time_gap)
+        dt = datetime.now()        
 
         if flag_option_start:
 
@@ -6865,6 +6839,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             self.label_main_time.setStyleSheet('background-color: black; color: lawngreen; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: lawngreen; border-radius: 5px')            
         
+        # 해외선물 한국시간 표시
+        if flag_screen_update_is_running:
+            txt = '{0:02d}:{1:02d}:{2:02d}({3})'.format(dt.hour, dt.minute, dt.second, '⌛')
+        else:
+            txt = '{0:02d}:{1:02d}:{2:02d}({3:+d})'.format(dt.hour, dt.minute, dt.second, system_server_time_gap)
+
         self.label_main_time.setText(txt)
     
     def call_scroll_coloring(self):
@@ -35301,9 +35281,11 @@ class Xing(object):
                             pass
                     else:
                         pass
+
+                    self.caller.dialog['선물옵션전광판'].market_type_display(self.clocktick)
                     
                     if not flag_screen_update_is_running:
-                        self.caller.dialog['선물옵션전광판'].update_screen(t0167_hour, t0167_minute, t0167_second, system_server_time_gap)
+                        self.caller.dialog['선물옵션전광판'].update_screen()
                     else:
                         pass
                 else:
