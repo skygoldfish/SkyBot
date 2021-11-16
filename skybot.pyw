@@ -3919,19 +3919,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(검정색))
         item.setForeground(QBrush(녹색))
-        self.tableWidget_fut.setItem(2, 0, item)        
+        self.tableWidget_fut.setItem(2, 0, item)
+
+        item = QTableWidgetItem("{0}".format('SF'))
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(흰색))
+        self.tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)        
 
         item = QTableWidgetItem("{0}".format('F/D\n진폭비'))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
         self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
-        
-        item = QTableWidgetItem("{0}".format('Scale\nFactor'))
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(검정색))
-        item.setForeground(QBrush(흰색))
-        self.tableWidget_fut.setItem(2, Futures_column.OI.value, item)
 
         self.tableWidget_fut.resizeColumnsToContents()
         
@@ -4952,17 +4952,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if cell is not None:
 
             global 콜매수, 콜매도, 풋매수, 풋매도, 손절, 익절
-            global drate_scale_factor
+            global plot_drate_scale_factor
             
             fut_txt = cell.text()
             
-            if row == 2 and col == Futures_column.OI.value:
-                pass
-            else:
-                title = 'Futures Cell Information'
-                txt = "({0}, {1}) = {2}".format(row, col, fut_txt)
-                self.showCustomMsgBox(title, txt)
-
+            '''
             if row == 2 and col == Futures_column.OLOH.value:
 
                 if self.telegram_flag:
@@ -5067,12 +5061,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 전송예약이 취소되었습니다.\r'.format(t0167_hour, t0167_minute, t0167_second)
                     self.textBrowser.append(txt)
-            elif row == 2 and col == Futures_column.OI.value:
+            '''
+            if row == 2 and col == Futures_column.OLOH.value:
                 
-                if int(fut_txt) != drate_scale_factor:
-                    drate_scale_factor = int(fut_txt)
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] Scale Factor = {3:.1f} 로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, drate_scale_factor)
-                    self.textBrowser.append(txt)
+                if float(fut_txt) != plot_drate_scale_factor:
+                    plot_drate_scale_factor = float(fut_txt)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] Drate Scale Factor를 {3:.1f} 으로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, plot_drate_scale_factor)
+                    self.parent.textBrowser.append(txt)
                 else:
                     pass
             else:
@@ -38864,7 +38859,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
                 item.setTextAlignment(Qt.AlignCenter)
-                self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.OI.value, item)
+                self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
 
                 if abs(근월물_선물_종가대비_등락율) > abs(DOW_등락율):
                     flag_fut_vs_dow_drate_direction = True
