@@ -29639,10 +29639,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if TARGET_MONTH == 'NM':
-                    self.plot1_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
-                else:
-                    pass              
+                self.plot1_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())              
             
             elif comboindex1 == 12:
 
@@ -30593,10 +30590,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if TARGET_MONTH == 'NM':
-                    self.plot2_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
-                else:
-                    pass
+                self.plot2_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
             
             elif comboindex2 == 12:
 
@@ -31528,10 +31522,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if TARGET_MONTH == 'NM':
-                    self.plot3_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
-                else:
-                    pass
+                self.plot3_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
             
             elif comboindex3 == 12:
 
@@ -32460,10 +32451,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass 
 
-                if TARGET_MONTH == 'NM':
-                    self.plot4_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
-                else:
-                    pass
+                self.plot4_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
             
             elif comboindex4 == 12:
 
@@ -33373,10 +33361,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if TARGET_MONTH == 'NM':
-                    self.plot5_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
-                else:
-                    pass
+                self.plot5_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
             
             elif comboindex5 == 12:
 
@@ -34304,10 +34289,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass 
 
-                if TARGET_MONTH == 'NM':
-                    self.plot6_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
-                else:
-                    pass
+                self.plot6_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
             
             elif comboindex6 == 12:
 
