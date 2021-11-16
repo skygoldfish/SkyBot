@@ -30228,10 +30228,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 self.label_time_2.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
 
-            if comboindex2 == 3:
-                txt = ' [{0:.1f}%], {1:.2f} ms '.format(fh0_drop_percent, plot2_processing_time)
-            else:            
-                txt = ' [{0:.1f}%], {1:.2f} ms '.format(drop_percent, plot2_processing_time)
+            txt = ' {0:.2f} ms '.format(plot2_processing_time)                
    
         self.label_time_2.setText(txt)
 
@@ -31162,10 +31159,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 self.label_time_3.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
 
-            if comboindex3 == 3:
-                txt = ' [{0:.1f}%], {1:.2f} ms '.format(fh0_drop_percent, plot3_processing_time)
-            else:            
-                txt = ' [{0:.1f}%], {1:.2f} ms '.format(drop_percent, plot3_processing_time)
+            txt = ' {0:.2f} ms '.format(plot3_processing_time)
    
         self.label_time_3.setText(txt)
 
@@ -32090,10 +32084,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 self.label_time_4.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
 
-            if comboindex4 == 3:
-                txt = ' [{0:.1f}%], {1:.2f} ms '.format(fh0_drop_percent, plot4_processing_time)
-            else:            
-                txt = ' [{0:.1f}%], {1:.2f} ms '.format(drop_percent, plot4_processing_time)
+            txt = ' {0:.2f} ms '.format(plot4_processing_time)
    
         self.label_time_4.setText(txt)
 
@@ -33002,10 +32993,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 self.label_time_5.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
 
-            if comboindex5 == 3:
-                txt = ' [{0:.1f}%], {1:.2f} ms '.format(fh0_drop_percent, plot5_processing_time)
-            else:            
-                txt = ' [{0:.1f}%], {1:.2f} ms '.format(drop_percent, plot5_processing_time)
+            txt = ' {0:.2f} ms '.format(plot5_processing_time)
    
         self.label_time_5.setText(txt)
 
@@ -33930,10 +33918,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 self.label_time_6.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
 
-            if comboindex6 == 3:
-                txt = ' [{0:.1f}%], {1:.2f} ms '.format(fh0_drop_percent, plot6_processing_time)
-            else:            
-                txt = ' [{0:.1f}%], {1:.2f} ms '.format(drop_percent, plot6_processing_time)
+            txt = ' {0:.2f} ms '.format(plot6_processing_time)
    
         self.label_time_6.setText(txt)
 
