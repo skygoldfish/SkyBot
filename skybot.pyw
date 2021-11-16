@@ -982,6 +982,8 @@ kp200_현재가 = 0
 kp200_고가 = 0
 kp200_진폭 = 0
 
+kp200_yj_시가 = 0
+
 CENTER_VAL = 0
 
 CENTER_VAL_PLUS5 = 0
@@ -37238,7 +37240,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def yj_update(self, tickdata):
 
-        global df_futures_cm_graph, df_kp200_graph, yj_atm_index, kp200_시가
+        global df_futures_cm_graph, df_kp200_graph, yj_atm_index, kp200_yj_시가
 
         try:
             #szTrCode = tickdata['tr_code']
@@ -37246,36 +37248,36 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if tickdata['업종코드'] == KOSPI200:
 
-                kp200_시가 = float(tickdata['예상지수'])
+                kp200_yj_시가 = float(tickdata['예상지수'])
 
-                self.dialog['선물옵션전광판'].kp200_realdata['시가'] = kp200_시가
-                self.dialog['선물옵션전광판'].fut_realdata['KP200'] = kp200_시가
+                self.dialog['선물옵션전광판'].kp200_realdata['시가'] = kp200_yj_시가
+                self.dialog['선물옵션전광판'].fut_realdata['KP200'] = kp200_yj_시가
 
-                df_futures_cm_graph.at[ovc_x_idx, 'kp200'] = kp200_시가
-                df_kp200_graph.at[ovc_x_idx, 'price'] = kp200_시가
+                df_futures_cm_graph.at[ovc_x_idx, 'kp200'] = kp200_yj_시가
+                df_kp200_graph.at[ovc_x_idx, 'price'] = kp200_yj_시가
 
                 item = QTableWidgetItem(tickdata['예상지수'])
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(흰색))  
 
-                if kp200_시가 > KP200_전일종가:
+                if kp200_yj_시가 > KP200_전일종가:
                     item.setForeground(QBrush(적색))                
-                elif kp200_시가 < KP200_전일종가:
+                elif kp200_yj_시가 < KP200_전일종가:
                     item.setForeground(QBrush(청색))
                 else:
                     item.setForeground(QBrush(검정색))
 
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.시가.value, item)
 
-                시가갭 = kp200_시가 - KP200_전일종가
+                시가갭 = kp200_yj_시가 - KP200_전일종가
 
                 item = QTableWidgetItem("{0:.2f}".format(시가갭))
                 item.setTextAlignment(Qt.AlignCenter)
 
-                if kp200_시가 > KP200_전일종가:
+                if kp200_yj_시가 > KP200_전일종가:
                     item.setBackground(QBrush(콜기준가색))
                     item.setForeground(QBrush(검정색))
-                elif kp200_시가 < KP200_전일종가:
+                elif kp200_yj_시가 < KP200_전일종가:
                     item.setBackground(QBrush(풋기준가색))
                     item.setForeground(QBrush(흰색))
                 else:
@@ -37283,7 +37285,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.시가갭.value, item)
 
-                atm_txt = self.dialog['선물옵션전광판'].get_atm_txt(kp200_시가)
+                atm_txt = self.dialog['선물옵션전광판'].get_atm_txt(kp200_yj_시가)
 
                 if atm_txt[-1] == '2' or atm_txt[-1] == '7':
 
