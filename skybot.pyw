@@ -157,6 +157,7 @@ screen_info = None
 
 drate_scale_factor = 1
 plot_drate_scale_factor = 10
+flag_drate_scale_factor_set = False
 
 call_scroll_depth = 19
 put_scroll_depth = 30
@@ -38721,7 +38722,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global fut_cm_volume_power, fut_nm_volume_power
         global 근월물_선물_종가대비_등락율, 근월물_선물_시가등락율, 근월물_선물_시가대비_등락율, kp200_시가등락율
         global df_futures_cm_graph, 근월물_선물_현재가, 근월물_선물_현재가_버퍼, flag_futures_cm_ohlc_open, fut_cm_result
-        global df_futures_nm_graph, 차월물_선물_현재가, 차월물_선물_현재가_버퍼, flag_futures_nm_ohlc_open, fut_nm_result 
+        global df_futures_nm_graph, 차월물_선물_현재가, 차월물_선물_현재가_버퍼, flag_futures_nm_ohlc_open, fut_nm_result
+        global flag_drate_scale_factor_set
 
         try:
             #szTrCode = tickdata['tr_code']
@@ -38829,18 +38831,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 근월물_선물_종가대비_등락율 = float(tickdata['등락율'])            
                 근월물_선물_시가대비_등락율 = ((float(tickdata['현재가']) - float(tickdata['시가'])) / float(tickdata['시가'])) * 100
 
-                if KP200_전일종가 > 0:
+                if KP200_전일종가 > 0 and kp200_시가 > 0 and abs(콜_등가_시가등락율) > 0 and not flag_drate_scale_factor_set:
+
                     kp200_시가등락율 = ((kp200_시가 - KP200_전일종가) / KP200_전일종가) * 100
                     plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / kp200_시가등락율))
-                else:
-                    plot_drate_scale_factor = 10           
 
-                if plot_drate_scale_factor < 10:
-                    plot_drate_scale_factor = 10                
-                elif plot_drate_scale_factor > 100:
-                    plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
+                    if plot_drate_scale_factor < 10:
+                        plot_drate_scale_factor = 10                
+                    elif plot_drate_scale_factor > 100:
+                        plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
+                    else:
+                        pass
+
+                    flag_drate_scale_factor_set = True
                 else:
-                    pass
+                    pass                
 
                 item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
                 item.setTextAlignment(Qt.AlignCenter)
