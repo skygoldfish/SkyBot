@@ -12365,37 +12365,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item = QTableWidgetItem("{0:.2f}".format(선물_DOW_진폭비율))
         item.setTextAlignment(Qt.AlignCenter)
 
-        item.setBackground(QBrush(라임))
-        item.setForeground(QBrush(검정색))
-
-        self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
-        self.tableWidget_fut.resizeColumnToContents(Futures_column.거래량.value)
-
         # 종합 에너지방향 표시
         if flag_fut_vs_dow_drate_direction and fut_quote_energy_direction == 'call' and fut_volume_power_energy_direction == 'call':
 
-            item = QTableWidgetItem("CS")
-            item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(적색))
             item.setForeground(QBrush(흰색))
             flag_call_dominant = True
 
         elif flag_fut_vs_dow_drate_direction and fut_quote_energy_direction == 'put' and fut_volume_power_energy_direction == 'put':
 
-            item = QTableWidgetItem("PS")
-            item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(청색))
             item.setForeground(QBrush(흰색))
             flag_put_dominant = True
-        else:
-            item = QTableWidgetItem("-")
-            item.setTextAlignment(Qt.AlignCenter)               
-            item.setBackground(QBrush(흰색))
+        else:             
+            item.setBackground(QBrush(라임))
             item.setForeground(QBrush(검정색))
             flag_call_dominant = False
             flag_put_dominant = False
 
         self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
+        self.tableWidget_fut.resizeColumnToContents(Futures_column.거래량.value)        
 
         # 미결 갱신
         df_fut.at[1, '미결'] = int(result['미결제약정수량']) 
