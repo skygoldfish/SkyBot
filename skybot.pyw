@@ -196,6 +196,12 @@ kp200_시가등락율 = 0
 차월물_선물_고가 = 0
 차월물_선물_진폭 = 0
 
+차월물_선물_시가대비 = 0
+차월물_선물_종가대비 = 0
+차월물_선물_종가대비_등락율 = 0
+차월물_선물_시가등락율 = 0
+차월물_선물_시가대비_등락율 = 0
+
 DOW_기준_예상시가 = 0
 
 SP500_전저 = 0
@@ -12134,6 +12140,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def fut_nm_update(self, result):
 
         global 차월물_선물_피봇, 차월물_선물_시가, 차월물_선물_저가, 차월물_선물_현재가, 차월물_선물_고가, 차월물_선물_진폭
+        global 차월물_선물_시가대비, 차월물_선물_종가대비 
 
         try:
             dt = datetime.now()
@@ -12149,6 +12156,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             차월물_선물_고가 = float(result['고가'])
 
             차월물_선물_진폭 = 차월물_선물_고가 - 차월물_선물_저가
+
+            차월물_선물_시가대비 = 차월물_선물_현재가 - 차월물_선물_시가
+            차월물_선물_종가대비 = 차월물_선물_현재가 - 차월물_선물_종가 
 
             # 시가 및 피봇 갱신
             fut_open = self.tableWidget_fut.item(0, Futures_column.시가.value).text()
@@ -12466,6 +12476,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         '''        
 
     def fut_nm_etc_update(self, result):
+
+        item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(차월물_선물_시가대비, 차월물_선물_종가대비_등락율))
+        item.setTextAlignment(Qt.AlignCenter)
+
+        if 차월물_선물_종가대비_등락율:
+
+            item.setBackground(QBrush(pink))
+            item.setForeground(QBrush(검정색))
+
+        elif 차월물_선물_종가대비_등락율:
+
+            item.setBackground(QBrush(lightskyblue))
+            item.setForeground(QBrush(검정색))
+        else:                
+            item.setBackground(QBrush(흰색))
+            item.setForeground(QBrush(검정색))
+
+        self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
                 
         # 미결 갱신 
         미결 = int(result['미결제약정수량'])
@@ -38749,6 +38777,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global df_futures_cm_graph, 근월물_선물_현재가, 근월물_선물_현재가_버퍼, flag_futures_cm_ohlc_open, fut_cm_result
         global df_futures_nm_graph, 차월물_선물_현재가, 차월물_선물_현재가_버퍼, flag_futures_nm_ohlc_open, fut_nm_result
         global flag_drate_scale_factor_set
+        global 차월물_선물_종가대비_등락율, 차월물_선물_시가대비_등락율
 
         try:
             #szTrCode = tickdata['tr_code']
@@ -38891,6 +38920,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif tickdata['단축코드'] == CMSHCODE:
 
                 # 그래프관련 처리 먼저...
+                차월물_선물_종가대비_등락율 = float(tickdata['등락율'])            
+                차월물_선물_시가대비_등락율 = ((float(tickdata['현재가']) - float(tickdata['시가'])) / float(tickdata['시가'])) * 100
+
                 if float(tickdata['현재가']) == float('inf') or float(tickdata['현재가']) == float('-inf'):
                     차월물_선물_현재가 = float('nan')
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 선물 현재가 무한대 오류발생...\r'.format(dt.hour, dt.minute, dt.second)
