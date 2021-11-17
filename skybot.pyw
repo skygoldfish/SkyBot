@@ -38868,13 +38868,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         pass
 
+                    item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
+
                     flag_drate_scale_factor_set = True
                 else:
                     pass                
-
-                item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
 
                 if abs(근월물_선물_종가대비_등락율) > abs(DOW_등락율):
                     flag_fut_vs_dow_drate_direction = True
