@@ -11954,6 +11954,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_fut.setItem(1, Futures_column.현재가.value, item)
 
+                item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(근월물_선물_시가대비, 근월물_선물_종가대비_등락율))
+                item.setTextAlignment(Qt.AlignCenter)
+
+                if 근월물_선물_종가대비_등락율 > 0 and DOW_등락율 > 0 and flag_fut_vs_dow_drate_direction:
+
+                    item.setBackground(QBrush(pink))
+                    item.setForeground(QBrush(검정색))
+
+                elif 근월물_선물_종가대비_등락율 < 0 and DOW_등락율 < 0 and flag_fut_vs_dow_drate_direction:
+
+                    item.setBackground(QBrush(lightskyblue))
+                    item.setForeground(QBrush(검정색))
+                else:                
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+
+                self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
+
                 self.tableWidget_fut.resizeRowToContents(1)
 
                 self.tableWidget_fut.resizeColumnToContents(Futures_column.현재가.value)
@@ -12231,6 +12249,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_fut.setItem(0, Futures_column.현재가.value, item)
 
+                item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(차월물_선물_시가대비, 차월물_선물_종가대비_등락율))
+                item.setTextAlignment(Qt.AlignCenter)
+
+                if 차월물_선물_종가대비_등락율:
+
+                    item.setBackground(QBrush(pink))
+                    item.setForeground(QBrush(검정색))
+
+                elif 차월물_선물_종가대비_등락율:
+
+                    item.setBackground(QBrush(lightskyblue))
+                    item.setForeground(QBrush(검정색))
+                else:                
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+
+                self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
+
                 self.tableWidget_fut.resizeRowToContents(0)
             else:
                 pass
@@ -12321,31 +12357,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def fut_cm_etc_update(self, result):
 
         global df_fut, 선물_진폭비, flag_call_dominant, flag_put_dominant
-
-        item = QTableWidgetItem("DOW\n({0:.2f}%)".format(DOW_등락율))
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(흰색))
-        item.setForeground(QBrush(검정색))
-        self.tableWidget_fut.setItem(2, Futures_column.대비.value, item)
-
-        item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(근월물_선물_시가대비, 근월물_선물_종가대비_등락율))
-        item.setTextAlignment(Qt.AlignCenter)
-
-        if 근월물_선물_종가대비_등락율 > 0 and DOW_등락율 > 0 and flag_fut_vs_dow_drate_direction:
-
-            item.setBackground(QBrush(pink))
-            item.setForeground(QBrush(검정색))
-
-        elif 근월물_선물_종가대비_등락율 < 0 and DOW_등락율 < 0 and flag_fut_vs_dow_drate_direction:
-
-            item.setBackground(QBrush(lightskyblue))
-            item.setForeground(QBrush(검정색))
-        else:                
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
-
-        self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)            
-
+        
         if 근월물_선물_시가 > 0:
             선물_진폭비 = (근월물_선물_고가 - 근월물_선물_저가) / 근월물_선물_시가
         else:
@@ -12420,7 +12432,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.tableWidget_fut.setItem(1, Futures_column.OID.value, item)
 
-
         # 선물 Up/Down Indicator 표시
         '''
         global fut_bollinger_symbol, fut_psar_symbol, fut_oe_symbol, fut_mama_symbol
@@ -12475,25 +12486,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
         '''        
 
-    def fut_nm_etc_update(self, result):
-
-        item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(차월물_선물_시가대비, 차월물_선물_종가대비_등락율))
-        item.setTextAlignment(Qt.AlignCenter)
-
-        if 차월물_선물_종가대비_등락율:
-
-            item.setBackground(QBrush(pink))
-            item.setForeground(QBrush(검정색))
-
-        elif 차월물_선물_종가대비_등락율:
-
-            item.setBackground(QBrush(lightskyblue))
-            item.setForeground(QBrush(검정색))
-        else:                
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
-
-        self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
+    def fut_nm_etc_update(self, result):        
                 
         # 미결 갱신 
         미결 = int(result['미결제약정수량'])
@@ -37966,6 +37959,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     item.setTextAlignment(Qt.AlignCenter)
                     self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
+
+                    item = QTableWidgetItem("DOW\n({0:.2f}%)".format(DOW_등락율))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.대비.value, item)
 
                     self.dialog['선물옵션전광판'].tableWidget_fut.resizeRowToContents(2)
                 else:
