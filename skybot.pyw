@@ -15662,6 +15662,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)
 
                 self.fut_realdata['시가'] = df['시가']
+                근월물_선물_시가 = df['시가']
 
                 txt = '{0:.2f}\n({1:.2f})'.format(df['시가'], DOW_기준_예상시가)
 
@@ -15669,9 +15670,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(흰색))
 
-                if self.fut_realdata['시가'] > self.fut_realdata['종가']:
+                if df['시가'] > df['전일종가']:
                     item.setForeground(QBrush(적색))
-                elif self.fut_realdata['시가'] < self.fut_realdata['종가']:
+                elif df['시가'] < df['전일종가']:
                     item.setForeground(QBrush(청색))
                 else:
                     item.setForeground(QBrush(검정색))
@@ -37469,10 +37470,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 item = QTableWidgetItem(txt)
                 item.setTextAlignment(Qt.AlignCenter)
 
-                if 근월물_선물_시가 > self.dialog['선물옵션전광판'].fut_realdata['종가']:
+                if 근월물_선물_시가 > 근월물_선물_종가:
                     item.setForeground(QBrush(magenta))
                     item.setBackground(QBrush(검정색))
-                elif 근월물_선물_시가 < self.dialog['선물옵션전광판'].fut_realdata['종가']:
+                elif 근월물_선물_시가 < 근월물_선물_종가:
                     item.setForeground(QBrush(cyan))
                     item.setBackground(QBrush(검정색))
                 else:
