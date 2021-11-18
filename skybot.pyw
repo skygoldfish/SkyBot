@@ -11870,7 +11870,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass        
             
             # 시가 및 피봇 갱신
-            fut_open = self.tableWidget_fut.item(1, Futures_column.시가.value).text()            
+            fut_open = self.tableWidget_fut.item(1, Futures_column.시가.value).text().split('\n')[0]            
 
             if 시가 != fut_open:
 
@@ -12173,7 +12173,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             차월물_선물_종가대비 = 차월물_선물_현재가 - 차월물_선물_종가 
 
             # 시가 및 피봇 갱신
-            fut_open = self.tableWidget_fut.item(0, Futures_column.시가.value).text()
+            fut_open = self.tableWidget_fut.item(0, Futures_column.시가.value)
 
             if 시가 != fut_open:
 
@@ -12266,7 +12266,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             # 저가 갱신
-            fut_low = self.tableWidget_fut.item(0, Futures_column.저가.value).text().split('\n')[0]
+            fut_low = self.tableWidget_fut.item(0, Futures_column.저가.value).text()
 
             if 저가 != fut_low:
 
@@ -12305,7 +12305,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             # 고가 갱신
-            fut_high = self.tableWidget_fut.item(0, Futures_column.고가.value).text().split('\n')[0]
+            fut_high = self.tableWidget_fut.item(0, Futures_column.고가.value).text()
 
             if 고가 != fut_high:
 
