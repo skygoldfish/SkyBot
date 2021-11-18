@@ -11870,9 +11870,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass        
             
             # 시가 및 피봇 갱신
-            fut_open = self.tableWidget_fut.item(1, Futures_column.시가.value).text().split('\n')[0]            
+            #fut_open = self.tableWidget_fut.item(1, Futures_column.시가.value).text().split('\n')[0]            
 
-            if 시가 != fut_open:
+            if 시가 != self.tableWidget_fut.item(1, Futures_column.시가.value).text().split('\n')[0]:
 
                 df_futures_cm_graph.at[GuardTime + 1, 'open'] = 근월물_선물_시가
 
@@ -11973,9 +11973,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             # 저가 갱신
-            fut_low = self.tableWidget_fut.item(1, Futures_column.저가.value).text().split('\n')[0]            
+            #fut_low = self.tableWidget_fut.item(1, Futures_column.저가.value).text().split('\n')[0]            
 
-            if 저가 != fut_low:
+            if 저가 != self.tableWidget_fut.item(1, Futures_column.저가.value).text().split('\n')[0]:
 
                 txt = '{0:.2f}'.format(근월물_선물_저가) + '\n' + '({0:.2f})'.format(volatility_breakout_downward_point)
 
@@ -12022,9 +12022,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             # 고가 갱신
-            fut_high = self.tableWidget_fut.item(1, Futures_column.고가.value).text().split('\n')[0]            
+            #fut_high = self.tableWidget_fut.item(1, Futures_column.고가.value).text().split('\n')[0]            
 
-            if 고가 != fut_high:
+            if 고가 != self.tableWidget_fut.item(1, Futures_column.고가.value).text().split('\n')[0]:
 
                 txt = '{0:.2f}'.format(근월물_선물_고가) + '\n' + '({0:.2f})'.format(volatility_breakout_upward_point)
 
@@ -12173,9 +12173,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             차월물_선물_종가대비 = 차월물_선물_현재가 - 차월물_선물_종가 
 
             # 시가 및 피봇 갱신
-            fut_open = self.tableWidget_fut.item(0, Futures_column.시가.value)
+            #fut_open = self.tableWidget_fut.item(0, Futures_column.시가.value).text()
 
-            if 시가 != fut_open:
+            if 시가 != self.tableWidget_fut.item(0, Futures_column.시가.value).text():
 
                 차월물_선물_피봇 = calc_pivot(차월물_선물_전저, 차월물_선물_전고, 차월물_선물_종가, 차월물_선물_시가)
 
@@ -12266,9 +12266,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             # 저가 갱신
-            fut_low = self.tableWidget_fut.item(0, Futures_column.저가.value).text()
+            #fut_low = self.tableWidget_fut.item(0, Futures_column.저가.value).text()
 
-            if 저가 != fut_low:
+            if 저가 != self.tableWidget_fut.item(0, Futures_column.저가.value).text():
 
                 txt = '{0:.2f}'.format(차월물_선물_저가)
 
@@ -12305,9 +12305,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             # 고가 갱신
-            fut_high = self.tableWidget_fut.item(0, Futures_column.고가.value).text()
+            #fut_high = self.tableWidget_fut.item(0, Futures_column.고가.value).text()
 
-            if 고가 != fut_high:
+            if 고가 != self.tableWidget_fut.item(0, Futures_column.고가.value).text():
 
                 txt = '{0:.2f}'.format(차월물_선물_고가)
 
