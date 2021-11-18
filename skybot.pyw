@@ -38868,7 +38868,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 근월물_선물_종가대비_등락율 = float(tickdata['등락율'])            
                 근월물_선물_시가대비_등락율 = ((float(tickdata['현재가']) - float(tickdata['시가'])) / float(tickdata['시가'])) * 100
 
-                if KP200_전일종가 > 0 and kp200_시가 > 0 and abs(콜_등가_시가등락율) > 0 and not flag_drate_scale_factor_set:
+                if TARGET_MONTH == 'CM' and KP200_전일종가 > 0 and kp200_시가 > 0 and abs(콜_등가_시가등락율) > 0 and not flag_drate_scale_factor_set:
 
                     kp200_시가등락율 = ((kp200_시가 - KP200_전일종가) / KP200_전일종가) * 100
                     plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / kp200_시가등락율))
@@ -38905,6 +38905,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 그래프관련 처리 먼저...
                 차월물_선물_종가대비_등락율 = float(tickdata['등락율'])            
                 차월물_선물_시가대비_등락율 = ((float(tickdata['현재가']) - float(tickdata['시가'])) / float(tickdata['시가'])) * 100
+
+                if TARGET_MONTH == 'NM' and KP200_전일종가 > 0 and kp200_시가 > 0 and abs(콜_등가_시가등락율) > 0 and not flag_drate_scale_factor_set:
+
+                    kp200_시가등락율 = ((kp200_시가 - KP200_전일종가) / KP200_전일종가) * 100
+                    plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / kp200_시가등락율))
+
+                    if plot_drate_scale_factor < 10:
+                        plot_drate_scale_factor = 10                
+                    elif plot_drate_scale_factor > 100:
+                        plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
+                    else:
+                        pass
+
+                    item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
+
+                    flag_drate_scale_factor_set = True
+                else:
+                    pass
 
                 if float(tickdata['현재가']) == float('inf') or float(tickdata['현재가']) == float('-inf'):
                     차월물_선물_현재가 = float('nan')
