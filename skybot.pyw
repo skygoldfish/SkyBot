@@ -12304,7 +12304,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            # 고가 갱신
+            # 고가 갱신 
             #fut_high = self.tableWidget_fut.item(0, Futures_column.고가.value).text()
 
             if 고가 != self.tableWidget_fut.item(0, Futures_column.고가.value).text():
