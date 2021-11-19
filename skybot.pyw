@@ -29750,6 +29750,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
                 self.label_16.setText(txt)
+
+                txt = " ▼ : {0:.2f}, ▲ : {1:.2f} ".format(옵션_잔량비_최소, 옵션_잔량비_최대)
+                self.label_17.setText(txt)
                 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
                 self.label_18.setText(txt)
@@ -30701,6 +30704,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
                 self.label_26.setText(txt)
+
+                txt = " ▼ : {0:.2f}, ▲ : {1:.2f} ".format(옵션_잔량비_최소, 옵션_잔량비_최대)
+                self.label_27.setText(txt)
                 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
                 self.label_28.setText(txt)
@@ -31633,6 +31639,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
                 self.label_36.setText(txt)
+
+                txt = " ▼ : {0:.2f}, ▲ : {1:.2f} ".format(옵션_잔량비_최소, 옵션_잔량비_최대)
+                self.label_37.setText(txt)
                 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
                 self.label_38.setText(txt)
@@ -32562,6 +32571,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
                 self.label_46.setText(txt)
+
+                txt = " ▼ : {0:.2f}, ▲ : {1:.2f} ".format(옵션_잔량비_최소, 옵션_잔량비_최대)
+                self.label_47.setText(txt)
                 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
                 self.label_48.setText(txt)
@@ -33472,6 +33484,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
                 self.label_56.setText(txt)
+
+                txt = " ▼ : {0:.2f}, ▲ : {1:.2f} ".format(옵션_잔량비_최소, 옵션_잔량비_최대)
+                self.label_57.setText(txt)
                 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
                 self.label_58.setText(txt)
@@ -34400,6 +34415,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
                 self.label_66.setText(txt)
+
+                txt = " ▼ : {0:.2f}, ▲ : {1:.2f} ".format(옵션_잔량비_최소, 옵션_잔량비_최대)
+                self.label_67.setText(txt)
                 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
                 self.label_68.setText(txt)
@@ -39294,36 +39312,40 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     선물_차월물_호가_잔량비 = int(tickdata['매수호가총수량']) / int(tickdata['매도호가총수량'])
                     df_futures_cm_graph.at[ovc_x_idx, 'n_quote_remainder_ratio'] = 선물_차월물_호가_잔량비
 
-                    nm_fut_quote_min = df_futures_cm_graph['n_quote_remainder_ratio'].min()
-                    nm_fut_quote_mean = df_futures_cm_graph['n_quote_remainder_ratio'].mean()
-                    nm_fut_quote_max = df_futures_cm_graph['n_quote_remainder_ratio'].max()
+                    if flag_market_service:
 
-                    if nm_fut_quote_min < 차월물_선물_호가잔량비_최소:
-                        차월물_선물_호가잔량비_최소 = nm_fut_quote_min
-                    else:
-                        pass
+                        nm_fut_quote_min = df_futures_cm_graph['n_quote_remainder_ratio'].min()
+                        nm_fut_quote_mean = df_futures_cm_graph['n_quote_remainder_ratio'].mean()
+                        nm_fut_quote_max = df_futures_cm_graph['n_quote_remainder_ratio'].max()
 
-                    if nm_fut_quote_max > 차월물_선물_호가잔량비_최대:
-                        차월물_선물_호가잔량비_최대 = nm_fut_quote_max
-                    else:
-                        pass
+                        if nm_fut_quote_min < 차월물_선물_호가잔량비_최소:
+                            차월물_선물_호가잔량비_최소 = nm_fut_quote_min
+                        else:
+                            pass
 
-                    if 선물_차월물_호가_잔량비 < UNDER_CALL_LIMIT_VAL:
-                        flag_under_call = True
-                    else:
-                        flag_under_call = False
+                        if nm_fut_quote_max > 차월물_선물_호가잔량비_최대:
+                            차월물_선물_호가잔량비_최대 = nm_fut_quote_max
+                        else:
+                            pass
 
-                    if 선물_차월물_호가_잔량비 >= OVER_CALL_LIMIT_VAL:
-                        flag_over_call = True
-                    else:
-                        flag_over_call = False
+                        if 선물_차월물_호가_잔량비 < UNDER_CALL_LIMIT_VAL:
+                            flag_under_call = True
+                        else:
+                            flag_under_call = False
 
-                    item_txt = '{0:.2f}'.format(nm_fut_quote_min)
+                        if 선물_차월물_호가_잔량비 >= OVER_CALL_LIMIT_VAL:
+                            flag_over_call = True
+                        else:
+                            flag_over_call = False
 
-                    if item_txt != self.dialog['선물옵션전광판'].tableWidget_fut.horizontalHeaderItem(7).text():                        
-                        item = QTableWidgetItem(item_txt)
-                        item.setTextAlignment(Qt.AlignCenter)
-                        self.dialog['선물옵션전광판'].tableWidget_fut.setHorizontalHeaderItem(7, item)
+                        item_txt = '{0:.2f}'.format(nm_fut_quote_min)
+
+                        if item_txt != self.dialog['선물옵션전광판'].tableWidget_fut.horizontalHeaderItem(7).text():                        
+                            item = QTableWidgetItem(item_txt)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            self.dialog['선물옵션전광판'].tableWidget_fut.setHorizontalHeaderItem(7, item)
+                        else:
+                            pass
                     else:
                         pass
                 else:
