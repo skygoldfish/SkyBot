@@ -2003,6 +2003,9 @@ nm_fut_quote_min = 0
 nm_fut_quote_mean = 0
 nm_fut_quote_max = 0
 
+차월물_선물_호가잔량비_최소 = 1
+차월물_선물_호가잔량비_최대 = 0
+
 call_itm_number = CALL_ITM_REQUEST_NUMBER
 call_otm_number = CALL_OTM_REQUEST_NUMBER
 
@@ -29500,15 +29503,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_17.setText(txt)
 
-                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
+                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(차월물_선물_호가잔량비_최소, nm_fut_quote_mean, 차월물_선물_호가잔량비_최대)
                     self.label_18.setText(txt)
 
                     self.plot1_time_line.setValue(ovc_x_idx)
 
                     self.plot1_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
                     self.plot1_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
-                    self.plot1_quote_remainder_ratio_bottom_line.setValue(nm_fut_quote_min)
-                    self.plot1_quote_remainder_ratio_upper_line.setValue(nm_fut_quote_max)
+                    self.plot1_quote_remainder_ratio_bottom_line.setValue(차월물_선물_호가잔량비_최소)
+                    self.plot1_quote_remainder_ratio_upper_line.setValue(차월물_선물_호가잔량비_최대)
                 else:
                     pass
 
@@ -30448,15 +30451,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_27.setText(txt)
 
-                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
+                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(차월물_선물_호가잔량비_최소, nm_fut_quote_mean, 차월물_선물_호가잔량비_최대)
                     self.label_28.setText(txt)
 
                     self.plot2_time_line.setValue(ovc_x_idx)
 
                     self.plot2_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
                     self.plot2_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
-                    self.plot2_quote_remainder_ratio_bottom_line.setValue(nm_fut_quote_min)
-                    self.plot2_quote_remainder_ratio_upper_line.setValue(nm_fut_quote_max)
+                    self.plot2_quote_remainder_ratio_bottom_line.setValue(차월물_선물_호가잔량비_최소)
+                    self.plot2_quote_remainder_ratio_upper_line.setValue(차월물_선물_호가잔량비_최대)
                 else:
                     pass
 
@@ -31379,15 +31382,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_37.setText(txt)
 
-                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
+                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(차월물_선물_호가잔량비_최소, nm_fut_quote_mean, 차월물_선물_호가잔량비_최대)
                     self.label_38.setText(txt)
 
                     self.plot3_time_line.setValue(ovc_x_idx)
 
                     self.plot3_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
                     self.plot3_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
-                    self.plot3_quote_remainder_ratio_bottom_line.setValue(nm_fut_quote_min)
-                    self.plot3_quote_remainder_ratio_upper_line.setValue(nm_fut_quote_max)
+                    self.plot3_quote_remainder_ratio_bottom_line.setValue(차월물_선물_호가잔량비_최소)
+                    self.plot3_quote_remainder_ratio_upper_line.setValue(차월물_선물_호가잔량비_최대)
                 else:
                     pass
 
@@ -32303,15 +32306,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_47.setText(txt)
 
-                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
+                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(차월물_선물_호가잔량비_최소, nm_fut_quote_mean, 차월물_선물_호가잔량비_최대)
                     self.label_48.setText(txt)
 
                     self.plot4_time_line.setValue(ovc_x_idx)
 
                     self.plot4_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
                     self.plot4_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
-                    self.plot4_quote_remainder_ratio_bottom_line.setValue(nm_fut_quote_min)
-                    self.plot4_quote_remainder_ratio_upper_line.setValue(nm_fut_quote_max)
+                    self.plot4_quote_remainder_ratio_bottom_line.setValue(차월물_선물_호가잔량비_최소)
+                    self.plot4_quote_remainder_ratio_upper_line.setValue(차월물_선물_호가잔량비_최대)
                 else:
                     pass
 
@@ -33213,15 +33216,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_57.setText(txt)
 
-                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
+                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(차월물_선물_호가잔량비_최소, nm_fut_quote_mean, 차월물_선물_호가잔량비_최대)
                     self.label_58.setText(txt)
 
                     self.plot5_time_line.setValue(ovc_x_idx)
 
                     self.plot5_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
                     self.plot5_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
-                    self.plot5_quote_remainder_ratio_bottom_line.setValue(nm_fut_quote_min)
-                    self.plot5_quote_remainder_ratio_upper_line.setValue(nm_fut_quote_max)
+                    self.plot5_quote_remainder_ratio_bottom_line.setValue(차월물_선물_호가잔량비_최소)
+                    self.plot5_quote_remainder_ratio_upper_line.setValue(차월물_선물_호가잔량비_최대)
                 else:
                     pass
 
@@ -34138,15 +34141,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_67.setText(txt)
 
-                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
+                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(차월물_선물_호가잔량비_최소, nm_fut_quote_mean, 차월물_선물_호가잔량비_최대)
                     self.label_68.setText(txt)
 
                     self.plot6_time_line.setValue(ovc_x_idx)
 
                     self.plot6_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
                     self.plot6_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
-                    self.plot6_quote_remainder_ratio_bottom_line.setValue(nm_fut_quote_min)
-                    self.plot6_quote_remainder_ratio_upper_line.setValue(nm_fut_quote_max)
+                    self.plot6_quote_remainder_ratio_bottom_line.setValue(차월물_선물_호가잔량비_최소)
+                    self.plot6_quote_remainder_ratio_upper_line.setValue(차월물_선물_호가잔량비_최대)
                 else:
                     pass
 
@@ -39040,6 +39043,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global fut_ccms_quote_count_ratio, fut_ccms_quote_remainder_ratio, fut_quote_energy_direction
         global quote_count_ratio, quote_remainder_ratio
         global flag_under_call, flag_over_call
+        global 차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대
 
         try:
             #szTrCode = tickdata['tr_code']
@@ -39144,6 +39148,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     nm_fut_quote_min = df_futures_cm_graph['n_quote_remainder_ratio'].min()
                     nm_fut_quote_mean = df_futures_cm_graph['n_quote_remainder_ratio'].mean()
                     nm_fut_quote_max = df_futures_cm_graph['n_quote_remainder_ratio'].max()
+
+                    if nm_fut_quote_min < 차월물_선물_호가잔량비_최소:
+                        차월물_선물_호가잔량비_최소 = nm_fut_quote_min
+                    else:
+                        pass
+
+                    if nm_fut_quote_max > 차월물_선물_호가잔량비_최대:
+                        차월물_선물_호가잔량비_최대 = nm_fut_quote_max
+                    else:
+                        pass
 
                     if 선물_차월물_호가_잔량비 < UNDER_CALL_LIMIT_VAL:
                         flag_under_call = True
