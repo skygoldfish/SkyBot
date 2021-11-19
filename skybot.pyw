@@ -39788,6 +39788,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if flag_market_service:
 
+                df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
+                df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비
+
+                옵션_잔량비차 = abs(콜잔량비 - 풋잔량비)
+
                 if 콜잔량비 < 옵션_잔량비_최소:
                     옵션_잔량비_최소 = 콜잔량비
                 else:
@@ -39808,23 +39813,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
             else:
-                pass
-
-            if NightTime:
-                df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
-                df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비
-            else:
-                if 콜잔량비 > 10.0:
-                    df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 10.0
+                if 콜잔량비 > 5.0:
+                    df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
                 else:
                     df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
 
-                if 풋잔량비 > 10.0:
-                    df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 10.0
+                if 풋잔량비 > 5.0:
+                    df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
                 else:
-                    df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비
-
-            옵션_잔량비차 = abs(콜잔량비 - 풋잔량비)
+                    df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비            
 
             # 야간선물이 없어짐에 따른 텔레그램 기동 대응
             '''
