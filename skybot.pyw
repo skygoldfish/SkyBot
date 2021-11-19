@@ -1540,6 +1540,12 @@ OC0_풋현재가 = ''
 풋건수비 = 0
 풋잔량비 = 1
 
+콜_잔량비_최소 = 1
+콜_잔량비_최대 = 0
+
+풋_잔량비_최소 = 1
+풋_잔량비_최대 = 0
+
 옵션_잔량비_최소 = 1
 옵션_잔량비_최대 = 0
 
@@ -29748,13 +29754,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex1 == 7:
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) [▼ : {3:.2f}, ▲ : {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_16.setText(txt)
-
-                txt = " ▼ : {0:.2f}, ▲ : {1:.2f} ".format(옵션_잔량비_최소, 옵션_잔량비_최대)
-                self.label_17.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) [▼ : {3:.2f}, ▲ : {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_18.setText(txt)
                 
                 self.plot1_time_line.setValue(ovc_x_idx)
@@ -30702,13 +30705,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex2 == 7:
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) [▼ : {3:.2f}, ▲ : {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_26.setText(txt)
-
-                txt = " ▼ : {0:.2f}, ▲ : {1:.2f} ".format(옵션_잔량비_최소, 옵션_잔량비_최대)
-                self.label_27.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) [▼ : {3:.2f}, ▲ : {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_28.setText(txt)
                 
                 self.plot2_time_line.setValue(ovc_x_idx)
@@ -31637,13 +31637,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex3 == 7:
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) [▼ : {3:.2f}, ▲ : {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_36.setText(txt)
-
-                txt = " ▼ : {0:.2f}, ▲ : {1:.2f} ".format(옵션_잔량비_최소, 옵션_잔량비_최대)
-                self.label_37.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) [▼ : {3:.2f}, ▲ : {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_38.setText(txt)
                 
                 self.plot3_time_line.setValue(ovc_x_idx)
@@ -32569,13 +32566,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex4 == 7:
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) [▼ : {3:.2f}, ▲ : {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_46.setText(txt)
-
-                txt = " ▼ : {0:.2f}, ▲ : {1:.2f} ".format(옵션_잔량비_최소, 옵션_잔량비_최대)
-                self.label_47.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) [▼ : {3:.2f}, ▲ : {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_48.setText(txt)
                 
                 self.plot4_time_line.setValue(ovc_x_idx)
@@ -33482,13 +33476,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex5 == 7:
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) [▼ : {3:.2f}, ▲ : {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_56.setText(txt)
-
-                txt = " ▼ : {0:.2f}, ▲ : {1:.2f} ".format(옵션_잔량비_최소, 옵션_잔량비_최대)
-                self.label_57.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) [▼ : {3:.2f}, ▲ : {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_58.setText(txt)
                 
                 self.plot5_time_line.setValue(ovc_x_idx)
@@ -34413,13 +34404,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex6 == 7:
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) [▼ : {3:.2f}, ▲ : {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_66.setText(txt)
-
-                txt = " ▼ : {0:.2f}, ▲ : {1:.2f} ".format(옵션_잔량비_최소, 옵션_잔량비_최대)
-                self.label_67.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) [▼ : {3:.2f}, ▲ : {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_68.setText(txt)
                 
                 self.plot6_time_line.setValue(ovc_x_idx)
@@ -39731,6 +39719,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global df_call_information_graph, df_put_information_graph
         global flag_telegram_send_start, flag_telegram_listen_start
         global 옵션_잔량비차
+        global 콜_잔량비_최소, 콜_잔량비_최대, 풋_잔량비_최소, 풋_잔량비_최대
         global 옵션_잔량비_최소, 옵션_잔량비_최대
 
         try:
@@ -39793,25 +39782,35 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 옵션_잔량비차 = abs(콜잔량비 - 풋잔량비)
 
-                if 콜잔량비 < 옵션_잔량비_최소:
-                    옵션_잔량비_최소 = 콜잔량비
+                if 콜잔량비 < 콜_잔량비_최소:
+                    콜_잔량비_최소 = 콜잔량비
                 else:
                     pass
 
                 if 콜잔량비 > 옵션_잔량비_최대:
-                    옵션_잔량비_최대 = 콜잔량비
+                    콜_잔량비_최대 = 콜잔량비
                 else:
                     pass
 
-                if 풋잔량비 < 옵션_잔량비_최소:
-                    옵션_잔량비_최소 = 풋잔량비
+                if 풋잔량비 < 풋_잔량비_최소:
+                    풋_잔량비_최소 = 풋잔량비
                 else:
                     pass
 
-                if 풋잔량비 > 옵션_잔량비_최대:
-                    옵션_잔량비_최대 = 풋잔량비
+                if 풋잔량비 > 풋_잔량비_최대:
+                    풋_잔량비_최대 = 풋잔량비
                 else:
                     pass
+
+                if 콜_잔량비_최소 < 풋_잔량비_최소:
+                    옵션_잔량비_최소 = 콜_잔량비_최소
+                else:
+                    옵션_잔량비_최소 = 풋_잔량비_최소
+
+                if 콜_잔량비_최대 > 풋_잔량비_최대:
+                    옵션_잔량비_최대 = 콜_잔량비_최대
+                else:
+                    옵션_잔량비_최대 = 풋_잔량비_최대
             else:
                 if 콜잔량비 > 5.0:
                     df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
