@@ -22823,44 +22823,44 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot1_fut_low_line = self.plot1.addLine(x=None, pen=skyblue_pen)
         self.plot1_fut_high_line = self.plot1.addLine(x=None, pen=pink_pen)
 
-        self.plot1_fut_cm_price_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_fut_nm_price_curve = self.plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_kp200_curve = self.plot1.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot1_fut_cm_price_curve = self.plot1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_fut_nm_price_curve = self.plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_kp200_curve = self.plot1.plot(pen=ypen, symbolBrush='b', symbolPen='w', symbol='h', symbolSize=3)
 
         # 선물잔량비
         self.plot1_quote_remainder_ratio_base_line = self.plot1.addLine(x=None, pen=ypen1)
         self.plot1_nm_futures_quote_remainder_ratio_bottom_line = self.plot1.addLine(x=None, pen=gpen1)
         self.plot1_nm_futures_quote_remainder_ratio_upper_line = self.plot1.addLine(x=None, pen=red_dot_pen)
         
-        self.plot1_fut_cm_quote_remainder_ratio_curve = self.plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_fut_nm_quote_remainder_ratio_curve = self.plot1.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_fut_cm_quote_remainder_ratio_curve = self.plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_fut_nm_quote_remainder_ratio_curve = self.plot1.plot(pen=ypen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot1_fut_volume_curve = self.plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_call_volume_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_put_volume_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)           
+        self.plot1_fut_volume_curve = self.plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_call_volume_curve = self.plot1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_put_volume_curve = self.plot1.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)           
 
         self.plot1_center_val_lower_line = self.plot1.addLine(x=None, pen=skyblue_pen)
         self.plot1_center_val_line = self.plot1.addLine(x=None, pen=gold_pen)
         self.plot1_center_val_upper_line = self.plot1.addLine(x=None, pen=pink_pen)
 
-        self.plot1_center_val_curve = self.plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot1_center_val_curve = self.plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
         
         # 선옵잔량비
-        self.plot1_call_quote_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_put_quote_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot1_call_quote_curve = self.plot1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_put_quote_curve = self.plot1.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
         #self.plot1_option_quote_remainder_ratio_bottom_line = self.plot1.addLine(x=None, pen=gpen1)
         #self.plot1_option_quote_remainder_ratio_upper_line = self.plot1.addLine(x=None, pen=red_dot_pen)
 
         # 옵션미결
-        self.plot1_call_oi_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_put_oi_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot1_call_oi_curve = self.plot1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_put_oi_curve = self.plot1.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
 
         # 등락율비
-        self.plot1_fut_drate_curve = self.plot1.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_dow_drate_curve = self.plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
-        self.plot1_call_drate_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_put_drate_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot1_fut_drate_curve = self.plot1.plot(pen=ypen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_dow_drate_curve = self.plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot1_call_drate_curve = self.plot1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_put_drate_curve = self.plot1.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
 
         # 해외선물        
         self.plot1_ovc_jl_line = self.plot1.addLine(x=None, pen=goldenrod_pen)
@@ -22871,10 +22871,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot1_ovc_low_line = self.plot1.addLine(x=None, pen=skyblue_pen)
         self.plot1_ovc_high_line = self.plot1.addLine(x=None, pen=pink_pen)
 
-        self.plot1_sp500_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_dow_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_nasdaq_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
-        self.plot1_wti_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_sp500_curve = self.plot1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_dow_curve = self.plot1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_nasdaq_curve = self.plot1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3) 
+        self.plot1_wti_curve = self.plot1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
 
         self.plot1_bollinger_upper_curve = self.plot1.plot(pen=bb_upper_pen)
         self.plot1_bollinger_middle_curve = self.plot1.plot(pen=bb_middle_pen)
@@ -22887,8 +22887,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot1_oe_base_curve = self.plot1.plot(pen=fama_pen)
 
         # 수급종합
-        self.plot1_program_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_kospi_total_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)     
+        self.plot1_program_curve = self.plot1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_kospi_total_curve = self.plot1.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)     
         
         #cross hair
         if CROSS_HAIR_LINE:
@@ -22916,44 +22916,44 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot2_fut_low_line = self.plot2.addLine(x=None, pen=skyblue_pen)
         self.plot2_fut_high_line = self.plot2.addLine(x=None, pen=pink_pen)
 
-        self.plot2_fut_cm_price_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_fut_nm_price_curve = self.plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_kp200_curve = self.plot2.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot2_fut_cm_price_curve = self.plot2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_fut_nm_price_curve = self.plot2.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_kp200_curve = self.plot2.plot(pen=ypen, symbolBrush='b', symbolPen='w', symbol='h', symbolSize=3)
 
         # 선물잔량비
         self.plot2_quote_remainder_ratio_base_line = self.plot2.addLine(x=None, pen=ypen1)
         self.plot2_nm_futures_quote_remainder_ratio_bottom_line = self.plot2.addLine(x=None, pen=gpen1)
         self.plot2_nm_futures_quote_remainder_ratio_upper_line = self.plot2.addLine(x=None, pen=red_dot_pen)
         
-        self.plot2_fut_cm_quote_remainder_ratio_curve = self.plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_fut_nm_quote_remainder_ratio_curve = self.plot2.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_fut_cm_quote_remainder_ratio_curve = self.plot2.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_fut_nm_quote_remainder_ratio_curve = self.plot2.plot(pen=ypen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot2_fut_volume_curve = self.plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_call_volume_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_put_volume_curve = self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)        
+        self.plot2_fut_volume_curve = self.plot2.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_call_volume_curve = self.plot2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_put_volume_curve = self.plot2.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)        
 
         self.plot2_center_val_lower_line = self.plot2.addLine(x=None, pen=skyblue_pen)
         self.plot2_center_val_line = self.plot2.addLine(x=None, pen=gold_pen)
         self.plot2_center_val_upper_line = self.plot2.addLine(x=None, pen=pink_pen)
 
-        self.plot2_center_val_curve = self.plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot2_center_val_curve = self.plot2.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
         
         # 선옵잔량비
-        self.plot2_call_quote_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_put_quote_curve = self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot2_call_quote_curve = self.plot2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_put_quote_curve = self.plot2.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
         #self.plot2_option_quote_remainder_ratio_bottom_line = self.plot2.addLine(x=None, pen=gpen1)
         #self.plot2_option_quote_remainder_ratio_upper_line = self.plot2.addLine(x=None, pen=red_dot_pen)
 
         # 옵션미결
-        self.plot2_call_oi_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_put_oi_curve = self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot2_call_oi_curve = self.plot2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_put_oi_curve = self.plot2.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
 
         # 등락율비
-        self.plot2_fut_drate_curve = self.plot2.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_dow_drate_curve = self.plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
-        self.plot2_call_drate_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_put_drate_curve = self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot2_fut_drate_curve = self.plot2.plot(pen=ypen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_dow_drate_curve = self.plot2.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot2_call_drate_curve = self.plot2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_put_drate_curve = self.plot2.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
 
         # 해외선물        
         self.plot2_ovc_jl_line = self.plot2.addLine(x=None, pen=goldenrod_pen)
@@ -22964,10 +22964,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot2_ovc_low_line = self.plot2.addLine(x=None, pen=skyblue_pen)
         self.plot2_ovc_high_line = self.plot2.addLine(x=None, pen=pink_pen)
 
-        self.plot2_sp500_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_dow_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_nasdaq_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
-        self.plot2_wti_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_sp500_curve = self.plot2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_dow_curve = self.plot2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_nasdaq_curve = self.plot2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3) 
+        self.plot2_wti_curve = self.plot2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
 
         self.plot2_bollinger_upper_curve = self.plot2.plot(pen=bb_upper_pen)
         self.plot2_bollinger_middle_curve = self.plot2.plot(pen=bb_middle_pen)
@@ -23005,44 +23005,44 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot3_fut_low_line = self.plot3.addLine(x=None, pen=skyblue_pen)
         self.plot3_fut_high_line = self.plot3.addLine(x=None, pen=pink_pen)
 
-        self.plot3_fut_cm_price_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_fut_nm_price_curve = self.plot3.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_kp200_curve = self.plot3.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot3_fut_cm_price_curve = self.plot3.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_fut_nm_price_curve = self.plot3.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_kp200_curve = self.plot3.plot(pen=ypen, symbolBrush='b', symbolPen='w', symbol='h', symbolSize=3)
 
         # 선물잔량비
         self.plot3_quote_remainder_ratio_base_line = self.plot3.addLine(x=None, pen=ypen1)
         self.plot3_nm_futures_quote_remainder_ratio_bottom_line = self.plot3.addLine(x=None, pen=gpen1)
         self.plot3_nm_futures_quote_remainder_ratio_upper_line = self.plot3.addLine(x=None, pen=red_dot_pen)
         
-        self.plot3_fut_cm_quote_remainder_ratio_curve = self.plot3.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_fut_nm_quote_remainder_ratio_curve = self.plot3.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_fut_cm_quote_remainder_ratio_curve = self.plot3.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_fut_nm_quote_remainder_ratio_curve = self.plot3.plot(pen=ypen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot3_fut_volume_curve = self.plot3.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_call_volume_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_put_volume_curve = self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot3_fut_volume_curve = self.plot3.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_call_volume_curve = self.plot3.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_put_volume_curve = self.plot3.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
 
         self.plot3_center_val_lower_line = self.plot3.addLine(x=None, pen=skyblue_pen)
         self.plot3_center_val_line = self.plot3.addLine(x=None, pen=gold_pen)
         self.plot3_center_val_upper_line = self.plot3.addLine(x=None, pen=pink_pen)
 
-        self.plot3_center_val_curve = self.plot3.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot3_center_val_curve = self.plot3.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
         
         # 선옵잔량비
-        self.plot3_call_quote_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_put_quote_curve = self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot3_call_quote_curve = self.plot3.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_put_quote_curve = self.plot3.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
         #self.plot3_option_quote_remainder_ratio_bottom_line = self.plot3.addLine(x=None, pen=gpen1)
         #self.plot3_option_quote_remainder_ratio_upper_line = self.plot3.addLine(x=None, pen=red_dot_pen)
 
         # 옵션미결
-        self.plot3_call_oi_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_put_oi_curve = self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot3_call_oi_curve = self.plot3.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_put_oi_curve = self.plot3.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
 
         # 등락율비
-        self.plot3_fut_drate_curve = self.plot3.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_dow_drate_curve = self.plot3.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
-        self.plot3_call_drate_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_put_drate_curve = self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot3_fut_drate_curve = self.plot3.plot(pen=ypen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_dow_drate_curve = self.plot3.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot3_call_drate_curve = self.plot3.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_put_drate_curve = self.plot3.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
 
         # 해외선물        
         self.plot3_ovc_jl_line = self.plot3.addLine(x=None, pen=goldenrod_pen)
@@ -23053,10 +23053,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot3_ovc_low_line = self.plot3.addLine(x=None, pen=skyblue_pen)
         self.plot3_ovc_high_line = self.plot3.addLine(x=None, pen=pink_pen)
 
-        self.plot3_sp500_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_dow_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_nasdaq_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
-        self.plot3_wti_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_sp500_curve = self.plot3.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_dow_curve = self.plot3.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_nasdaq_curve = self.plot3.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3) 
+        self.plot3_wti_curve = self.plot3.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
 
         self.plot3_bollinger_upper_curve = self.plot3.plot(pen=bb_upper_pen)
         self.plot3_bollinger_middle_curve = self.plot3.plot(pen=bb_middle_pen)
@@ -23094,44 +23094,44 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot4_fut_low_line = self.plot4.addLine(x=None, pen=skyblue_pen)
         self.plot4_fut_high_line = self.plot4.addLine(x=None, pen=pink_pen)
 
-        self.plot4_fut_cm_price_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_fut_nm_price_curve = self.plot4.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_kp200_curve = self.plot4.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot4_fut_cm_price_curve = self.plot4.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_fut_nm_price_curve = self.plot4.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_kp200_curve = self.plot4.plot(pen=ypen, symbolBrush='b', symbolPen='w', symbol='h', symbolSize=3)
 
         # 선물잔량비
         self.plot4_quote_remainder_ratio_base_line = self.plot4.addLine(x=None, pen=ypen1)
         self.plot4_nm_futures_quote_remainder_ratio_bottom_line = self.plot4.addLine(x=None, pen=gpen1)
         self.plot4_nm_futures_quote_remainder_ratio_upper_line = self.plot4.addLine(x=None, pen=red_dot_pen)
         
-        self.plot4_fut_cm_quote_remainder_ratio_curve = self.plot4.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_fut_nm_quote_remainder_ratio_curve = self.plot4.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_fut_cm_quote_remainder_ratio_curve = self.plot4.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_fut_nm_quote_remainder_ratio_curve = self.plot4.plot(pen=ypen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot4_fut_volume_curve = self.plot4.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_call_volume_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_put_volume_curve = self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)        
+        self.plot4_fut_volume_curve = self.plot4.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_call_volume_curve = self.plot4.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_put_volume_curve = self.plot4.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)        
 
         self.plot4_center_val_lower_line = self.plot4.addLine(x=None, pen=skyblue_pen)
         self.plot4_center_val_line = self.plot4.addLine(x=None, pen=gold_pen)
         self.plot4_center_val_upper_line = self.plot4.addLine(x=None, pen=pink_pen)
 
-        self.plot4_center_val_curve = self.plot4.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot4_center_val_curve = self.plot4.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
         
         # 선옵잔량비
-        self.plot4_call_quote_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_put_quote_curve = self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot4_call_quote_curve = self.plot4.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_put_quote_curve = self.plot4.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
         #self.plot4_option_quote_remainder_ratio_bottom_line = self.plot4.addLine(x=None, pen=gpen1)
         #self.plot4_option_quote_remainder_ratio_upper_line = self.plot4.addLine(x=None, pen=red_dot_pen)
 
         # 옵션미결
-        self.plot4_call_oi_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_put_oi_curve = self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot4_call_oi_curve = self.plot4.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_put_oi_curve = self.plot4.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
 
         # 등락율비
-        self.plot4_fut_drate_curve = self.plot4.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_dow_drate_curve = self.plot4.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
-        self.plot4_call_drate_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_put_drate_curve = self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot4_fut_drate_curve = self.plot4.plot(pen=ypen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_dow_drate_curve = self.plot4.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot4_call_drate_curve = self.plot4.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_put_drate_curve = self.plot4.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
 
         # 해외선물        
         self.plot4_ovc_jl_line = self.plot4.addLine(x=None, pen=goldenrod_pen)
@@ -23142,10 +23142,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot4_ovc_low_line = self.plot4.addLine(x=None, pen=skyblue_pen)
         self.plot4_ovc_high_line = self.plot4.addLine(x=None, pen=pink_pen)
 
-        self.plot4_sp500_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_dow_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_nasdaq_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
-        self.plot4_wti_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_sp500_curve = self.plot4.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_dow_curve = self.plot4.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_nasdaq_curve = self.plot4.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3) 
+        self.plot4_wti_curve = self.plot4.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
 
         self.plot4_bollinger_upper_curve = self.plot4.plot(pen=bb_upper_pen)
         self.plot4_bollinger_middle_curve = self.plot4.plot(pen=bb_middle_pen)
@@ -23183,44 +23183,44 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot5_fut_low_line = self.plot5.addLine(x=None, pen=skyblue_pen)
         self.plot5_fut_high_line = self.plot5.addLine(x=None, pen=pink_pen)
 
-        self.plot5_fut_cm_price_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_fut_nm_price_curve = self.plot5.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_kp200_curve = self.plot5.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot5_fut_cm_price_curve = self.plot5.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_fut_nm_price_curve = self.plot5.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_kp200_curve = self.plot5.plot(pen=ypen, symbolBrush='b', symbolPen='w', symbol='h', symbolSize=3)
 
         # 선물잔량비
         self.plot5_quote_remainder_ratio_base_line = self.plot5.addLine(x=None, pen=ypen1)
         self.plot5_nm_futures_quote_remainder_ratio_bottom_line = self.plot5.addLine(x=None, pen=gpen1)
         self.plot5_nm_futures_quote_remainder_ratio_upper_line = self.plot5.addLine(x=None, pen=red_dot_pen)
         
-        self.plot5_fut_cm_quote_remainder_ratio_curve = self.plot5.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_fut_nm_quote_remainder_ratio_curve = self.plot5.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_fut_cm_quote_remainder_ratio_curve = self.plot5.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_fut_nm_quote_remainder_ratio_curve = self.plot5.plot(pen=ypen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot5_fut_volume_curve = self.plot5.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_call_volume_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_put_volume_curve = self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot5_fut_volume_curve = self.plot5.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_call_volume_curve = self.plot5.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_put_volume_curve = self.plot5.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
 
         self.plot5_center_val_lower_line = self.plot5.addLine(x=None, pen=skyblue_pen)
         self.plot5_center_val_line = self.plot5.addLine(x=None, pen=gold_pen)
         self.plot5_center_val_upper_line = self.plot5.addLine(x=None, pen=pink_pen)
 
-        self.plot5_center_val_curve = self.plot5.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot5_center_val_curve = self.plot5.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
         
         # 선옵잔량비
-        self.plot5_call_quote_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_put_quote_curve = self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot5_call_quote_curve = self.plot5.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_put_quote_curve = self.plot5.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
         #self.plot5_option_quote_remainder_ratio_bottom_line = self.plot5.addLine(x=None, pen=gpen1)
         #self.plot5_option_quote_remainder_ratio_upper_line = self.plot5.addLine(x=None, pen=red_dot_pen)
 
         # 옵션미결
-        self.plot5_call_oi_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_put_oi_curve = self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot5_call_oi_curve = self.plot5.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_put_oi_curve = self.plot5.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
 
         # 등락율비
-        self.plot5_fut_drate_curve = self.plot5.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_dow_drate_curve = self.plot5.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
-        self.plot5_call_drate_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_put_drate_curve = self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot5_fut_drate_curve = self.plot5.plot(pen=ypen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_dow_drate_curve = self.plot5.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot5_call_drate_curve = self.plot5.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_put_drate_curve = self.plot5.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
 
         # 해외선물        
         self.plot5_ovc_jl_line = self.plot5.addLine(x=None, pen=goldenrod_pen)
@@ -23231,10 +23231,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot5_ovc_low_line = self.plot5.addLine(x=None, pen=skyblue_pen)
         self.plot5_ovc_high_line = self.plot5.addLine(x=None, pen=pink_pen)
 
-        self.plot5_sp500_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_dow_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_nasdaq_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
-        self.plot5_wti_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_sp500_curve = self.plot5.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_dow_curve = self.plot5.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_nasdaq_curve = self.plot5.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3) 
+        self.plot5_wti_curve = self.plot5.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
 
         self.plot5_bollinger_upper_curve = self.plot5.plot(pen=bb_upper_pen)
         self.plot5_bollinger_middle_curve = self.plot5.plot(pen=bb_middle_pen)
@@ -23272,44 +23272,44 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot6_fut_low_line = self.plot6.addLine(x=None, pen=skyblue_pen)
         self.plot6_fut_high_line = self.plot6.addLine(x=None, pen=pink_pen)
 
-        self.plot6_fut_cm_price_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_fut_nm_price_curve = self.plot6.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_kp200_curve = self.plot6.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot6_fut_cm_price_curve = self.plot6.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_fut_nm_price_curve = self.plot6.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_kp200_curve = self.plot6.plot(pen=ypen, symbolBrush='b', symbolPen='w', symbol='h', symbolSize=3)
 
         # 선물잔량비
         self.plot6_quote_remainder_ratio_base_line = self.plot6.addLine(x=None, pen=ypen1)
         self.plot6_nm_futures_quote_remainder_ratio_bottom_line = self.plot6.addLine(x=None, pen=gpen1)
         self.plot6_nm_futures_quote_remainder_ratio_upper_line = self.plot6.addLine(x=None, pen=red_dot_pen)
         
-        self.plot6_fut_cm_quote_remainder_ratio_curve = self.plot6.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_fut_nm_quote_remainder_ratio_curve = self.plot6.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_fut_cm_quote_remainder_ratio_curve = self.plot6.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_fut_nm_quote_remainder_ratio_curve = self.plot6.plot(pen=ypen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot6_fut_volume_curve = self.plot6.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_call_volume_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_put_volume_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)        
+        self.plot6_fut_volume_curve = self.plot6.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_call_volume_curve = self.plot6.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_put_volume_curve = self.plot6.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)        
 
         self.plot6_center_val_lower_line = self.plot6.addLine(x=None, pen=skyblue_pen)
         self.plot6_center_val_line = self.plot6.addLine(x=None, pen=gold_pen)
         self.plot6_center_val_upper_line = self.plot6.addLine(x=None, pen=pink_pen)
 
-        self.plot6_center_val_curve = self.plot6.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot6_center_val_curve = self.plot6.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
         
         # 선옵잔량비
-        self.plot6_call_quote_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_put_quote_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot6_call_quote_curve = self.plot6.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_put_quote_curve = self.plot6.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
         #self.plot6_option_quote_remainder_ratio_bottom_line = self.plot6.addLine(x=None, pen=gpen1)
         #self.plot6_option_quote_remainder_ratio_upper_line = self.plot6.addLine(x=None, pen=red_dot_pen)
 
         # 옵션미결
-        self.plot6_call_oi_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_put_oi_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot6_call_oi_curve = self.plot6.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_put_oi_curve = self.plot6.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
 
         # 등락율비
-        self.plot6_fut_drate_curve = self.plot6.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_dow_drate_curve = self.plot6.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
-        self.plot6_call_drate_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_put_drate_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot6_fut_drate_curve = self.plot6.plot(pen=ypen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_dow_drate_curve = self.plot6.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot6_call_drate_curve = self.plot6.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_put_drate_curve = self.plot6.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
 
         # 해외선물        
         self.plot6_ovc_jl_line = self.plot6.addLine(x=None, pen=goldenrod_pen)
@@ -23320,10 +23320,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot6_ovc_low_line = self.plot6.addLine(x=None, pen=skyblue_pen)
         self.plot6_ovc_high_line = self.plot6.addLine(x=None, pen=pink_pen)
 
-        self.plot6_sp500_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_dow_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_nasdaq_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
-        self.plot6_wti_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_sp500_curve = self.plot6.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_dow_curve = self.plot6.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_nasdaq_curve = self.plot6.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3) 
+        self.plot6_wti_curve = self.plot6.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
 
         self.plot6_bollinger_upper_curve = self.plot6.plot(pen=bb_upper_pen)
         self.plot6_bollinger_middle_curve = self.plot6.plot(pen=bb_middle_pen)
@@ -23336,8 +23336,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot6_oe_base_curve = self.plot6.plot(pen=fama_pen)
 
         # 외인수급
-        self.plot6_futures_foreigner_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_kospi_foreigner_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot6_futures_foreigner_curve = self.plot6.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_kospi_foreigner_curve = self.plot6.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
 
         #cross hair
         if CROSS_HAIR_LINE:
@@ -23403,23 +23403,23 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         
         for i in range(option_pairs_count):
 
-            self.plot1_call_curve.append(self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
-            self.plot1_put_curve.append(self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+            self.plot1_call_curve.append(self.plot1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+            self.plot1_put_curve.append(self.plot1.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3))
 
-            self.plot2_call_curve.append(self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
-            self.plot2_put_curve.append(self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+            self.plot2_call_curve.append(self.plot2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+            self.plot2_put_curve.append(self.plot2.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3))
 
-            self.plot3_call_curve.append(self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
-            self.plot3_put_curve.append(self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+            self.plot3_call_curve.append(self.plot3.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+            self.plot3_put_curve.append(self.plot3.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3))
 
-            self.plot4_call_curve.append(self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
-            self.plot4_put_curve.append(self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+            self.plot4_call_curve.append(self.plot4.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+            self.plot4_put_curve.append(self.plot4.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3))
 
-            self.plot5_call_curve.append(self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
-            self.plot5_put_curve.append(self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+            self.plot5_call_curve.append(self.plot5.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+            self.plot5_put_curve.append(self.plot5.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3))
 
-            self.plot6_call_curve.append(self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
-            self.plot6_put_curve.append(self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+            self.plot6_call_curve.append(self.plot6.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+            self.plot6_put_curve.append(self.plot6.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3))
 
             if i % 10 == 0:                
                 txt = ' Chart윈도우 초기화중({0:.0f}%)...\r'.format((i / option_pairs_count) * 100)
