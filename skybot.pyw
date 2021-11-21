@@ -29437,45 +29437,44 @@ class 화면_BigChart(QDialog, Ui_BigChart):
     def update_plot1(self):
 
         global flag_plot1_update_is_running        
-        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
-
-        QApplication.processEvents()
-        
-        dt = datetime.now()
-
-        # 해외선물 한국시간 표시
-        if OVC_체결시간 == '000000':
-            txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
-        else:
-            if t0167_second == self.plot_x_idx:
-                self.plot_count += 1
-            else:
-                self.plot_count = 0
-
-            self.plot_x_idx = t0167_second
-
-            if 수급방향 == 'Call1':
-                self.label_time_1.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call2':
-                self.label_time_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call3':
-                self.label_time_1.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put1':
-                self.label_time_1.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put2':
-                self.label_time_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put3':
-                self.label_time_1.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            else:
-                self.label_time_1.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-
-            txt = ' [{0:d}], {1:.2f} ms '.format(ovc_x_idx, plot1_processing_time)            
-   
-        self.label_time_1.setText(txt)
+        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed        
                 
-        if True:
-            
+        try:
+            QApplication.processEvents()
+        
+            dt = datetime.now()
+
             flag_plot1_update_is_running = True
+
+            # 해외선물 한국시간 표시
+            if OVC_체결시간 == '000000':
+                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
+            else:
+                if t0167_second == self.plot_x_idx:
+                    self.plot_count += 1
+                else:
+                    self.plot_count = 0
+
+                self.plot_x_idx = t0167_second
+
+                if 수급방향 == 'Call1':
+                    self.label_time_1.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call2':
+                    self.label_time_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call3':
+                    self.label_time_1.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put1':
+                    self.label_time_1.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put2':
+                    self.label_time_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put3':
+                    self.label_time_1.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_time_1.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                txt = ' [{0:d}], {1:.2f} ms '.format(ovc_x_idx, plot1_processing_time)            
+   
+            self.label_time_1.setText(txt)            
 
             # Plot1 그래프 그리기
             if comboindex1 == 2:
@@ -30404,48 +30403,52 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass            
             else:
-                pass  
-            
-            flag_plot1_update_is_running = False        
-        else:
-            pass        
+                pass            
+
+        except Exception as e:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot1에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            self.textBrowser.append(txt)
+            self.parent.textBrowser.append(txt)
+
+        finally:
+            flag_plot1_update_is_running = False      
         
     @logging_time_plot2
     @pyqtSlot()    
     def update_plot2(self):
 
         global flag_plot2_update_is_running        
-        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
+        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed        
 
-        QApplication.processEvents()
+        try:
+            QApplication.processEvents()
         
-        dt = datetime.now()
-
-        if OVC_체결시간 == '000000':
-            txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
-        else:
-            if 수급방향 == 'Call1':
-                self.label_time_2.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call2':
-                self.label_time_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call3':
-                self.label_time_2.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put1':
-                self.label_time_2.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put2':
-                self.label_time_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put3':
-                self.label_time_2.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            else:
-                self.label_time_2.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-
-            txt = ' {0:.2f} ms '.format(plot2_processing_time)                
-   
-        self.label_time_2.setText(txt)
-
-        if True:
+            dt = datetime.now()
 
             flag_plot2_update_is_running = True
+
+            if OVC_체결시간 == '000000':
+                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
+            else:
+                if 수급방향 == 'Call1':
+                    self.label_time_2.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call2':
+                    self.label_time_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call3':
+                    self.label_time_2.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put1':
+                    self.label_time_2.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put2':
+                    self.label_time_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put3':
+                    self.label_time_2.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_time_2.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                txt = ' {0:.2f} ms '.format(plot2_processing_time)                
+   
+            self.label_time_2.setText(txt)            
 
             # Plot2 그래프 그리기
             # 선물가격
@@ -31358,48 +31361,52 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
             else:
-                pass
+                pass            
+        
+        except Exception as e:
 
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot2에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            self.textBrowser.append(txt)
+            self.parent.textBrowser.append(txt)
+
+        finally:
             flag_plot2_update_is_running = False
-        else:
-            pass
 
     @logging_time_plot3
     @pyqtSlot()    
     def update_plot3(self):
 
         global flag_plot3_update_is_running        
-        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
+        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed        
 
-        QApplication.processEvents()
+        try:
+            QApplication.processEvents()
         
-        dt = datetime.now()
-
-        if OVC_체결시간 == '000000':
-            txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
-        else:
-            if 수급방향 == 'Call1':
-                self.label_time_3.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call2':
-                self.label_time_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call3':
-                self.label_time_3.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put1':
-                self.label_time_3.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put2':
-                self.label_time_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put3':
-                self.label_time_3.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            else:
-                self.label_time_3.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-
-            txt = ' {0:.2f} ms '.format(plot3_processing_time)
-   
-        self.label_time_3.setText(txt)
-
-        if True:
+            dt = datetime.now()
 
             flag_plot3_update_is_running = True
+
+            if OVC_체결시간 == '000000':
+                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
+            else:
+                if 수급방향 == 'Call1':
+                    self.label_time_3.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call2':
+                    self.label_time_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call3':
+                    self.label_time_3.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put1':
+                    self.label_time_3.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put2':
+                    self.label_time_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put3':
+                    self.label_time_3.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_time_3.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                txt = ' {0:.2f} ms '.format(plot3_processing_time)
+   
+            self.label_time_3.setText(txt)            
 
             # Plot3 그래프 그리기
             # 선물가격
@@ -32308,46 +32315,50 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
 
+        except Exception as e:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot3에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            self.textBrowser.append(txt)
+            self.parent.textBrowser.append(txt)
+
+        finally:
             flag_plot3_update_is_running = False
-        else:
-            pass
 
     @logging_time_plot4
     @pyqtSlot()    
     def update_plot4(self):
 
         global flag_plot4_update_is_running        
-        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
+        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed        
 
-        QApplication.processEvents()
+        try:
+            QApplication.processEvents()
         
-        dt = datetime.now()
-
-        if OVC_체결시간 == '000000':
-            txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
-        else:
-            if 수급방향 == 'Call1':
-                self.label_time_4.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call2':
-                self.label_time_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call3':
-                self.label_time_4.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put1':
-                self.label_time_4.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put2':
-                self.label_time_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put3':
-                self.label_time_4.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            else:
-                self.label_time_4.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-
-            txt = ' {0:.2f} ms '.format(plot4_processing_time)
-   
-        self.label_time_4.setText(txt)
-
-        if True:
+            dt = datetime.now()
 
             flag_plot4_update_is_running = True
+
+            if OVC_체결시간 == '000000':
+                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
+            else:
+                if 수급방향 == 'Call1':
+                    self.label_time_4.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call2':
+                    self.label_time_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call3':
+                    self.label_time_4.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put1':
+                    self.label_time_4.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put2':
+                    self.label_time_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put3':
+                    self.label_time_4.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_time_4.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                txt = ' {0:.2f} ms '.format(plot4_processing_time)
+   
+            self.label_time_4.setText(txt)            
 
             # Plot4 그래프 그리기
             if comboindex4 == 2:
@@ -33239,47 +33250,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
             else:
                 pass
+            
+        except Exception as e:
 
-            flag_plot4_update_is_running = False
-        else:
-            pass   
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot4에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            self.textBrowser.append(txt)
+            self.parent.textBrowser.append(txt)
+
+        finally:
+            flag_plot4_update_is_running = False 
 
     @logging_time_plot5
     @pyqtSlot()    
     def update_plot5(self):
 
         global flag_plot5_update_is_running        
-        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
+        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed        
 
-        QApplication.processEvents()
+        try:
+            QApplication.processEvents()
         
-        dt = datetime.now()
-
-        if OVC_체결시간 == '000000':
-            txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
-        else:
-            if 수급방향 == 'Call1':
-                self.label_time_5.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call2':
-                self.label_time_5.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call3':
-                self.label_time_5.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put1':
-                self.label_time_5.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put2':
-                self.label_time_5.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put3':
-                self.label_time_5.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            else:
-                self.label_time_5.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-
-            txt = ' {0:.2f} ms '.format(plot5_processing_time)
-   
-        self.label_time_5.setText(txt)
-
-        if True:
+            dt = datetime.now()
 
             flag_plot5_update_is_running = True
+
+            if OVC_체결시간 == '000000':
+                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
+            else:
+                if 수급방향 == 'Call1':
+                    self.label_time_5.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call2':
+                    self.label_time_5.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call3':
+                    self.label_time_5.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put1':
+                    self.label_time_5.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put2':
+                    self.label_time_5.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put3':
+                    self.label_time_5.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_time_5.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                txt = ' {0:.2f} ms '.format(plot5_processing_time)
+   
+            self.label_time_5.setText(txt)            
 
             # Plot5 그래프 그리기
             # 선물가격
@@ -34188,46 +34203,50 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
 
+        except Exception as e:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot5에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            self.textBrowser.append(txt)
+            self.parent.textBrowser.append(txt)
+
+        finally:
             flag_plot5_update_is_running = False
-        else:
-            pass
 
     @logging_time_plot6
     @pyqtSlot()    
     def update_plot6(self):
 
         global flag_plot6_update_is_running        
-        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
+        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed        
 
-        QApplication.processEvents()
+        try:
+            QApplication.processEvents()
         
-        dt = datetime.now()
-
-        if OVC_체결시간 == '000000':
-            txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
-        else:
-            if 수급방향 == 'Call1':
-                self.label_time_6.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call2':
-                self.label_time_6.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call3':
-                self.label_time_6.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put1':
-                self.label_time_6.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put2':
-                self.label_time_6.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put3':
-                self.label_time_6.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            else:
-                self.label_time_6.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-
-            txt = ' {0:.2f} ms '.format(plot6_processing_time)
-   
-        self.label_time_6.setText(txt)
-
-        if True:
+            dt = datetime.now()
 
             flag_plot6_update_is_running = True
+
+            if OVC_체결시간 == '000000':
+                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
+            else:
+                if 수급방향 == 'Call1':
+                    self.label_time_6.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call2':
+                    self.label_time_6.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call3':
+                    self.label_time_6.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put1':
+                    self.label_time_6.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put2':
+                    self.label_time_6.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put3':
+                    self.label_time_6.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_time_6.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                txt = ' {0:.2f} ms '.format(plot6_processing_time)
+   
+            self.label_time_6.setText(txt)            
 
             # Plot6 그래프 그리기
             # 선물가격
@@ -35174,9 +35193,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
 
+        except Exception as e:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot6에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            self.textBrowser.append(txt)
+            self.parent.textBrowser.append(txt)
+
+        finally:
             flag_plot6_update_is_running = False
-        else:
-            pass
 
     def closeEvent(self,event):
 
