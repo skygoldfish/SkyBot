@@ -22858,7 +22858,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         # 등락율비
         self.plot1_fut_drate_curve = self.plot1.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_dow_drate_curve = self.plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot1_cme_drate_curve = self.plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
         self.plot1_call_drate_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_put_drate_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -22951,7 +22951,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         # 등락율비
         self.plot2_fut_drate_curve = self.plot2.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_dow_drate_curve = self.plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot2_cme_drate_curve = self.plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
         self.plot2_call_drate_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_put_drate_curve = self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -23040,7 +23040,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         # 등락율비
         self.plot3_fut_drate_curve = self.plot3.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_dow_drate_curve = self.plot3.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot3_cme_drate_curve = self.plot3.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
         self.plot3_call_drate_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_put_drate_curve = self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -23129,7 +23129,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         # 등락율비
         self.plot4_fut_drate_curve = self.plot4.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_dow_drate_curve = self.plot4.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot4_cme_drate_curve = self.plot4.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
         self.plot4_call_drate_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_put_drate_curve = self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -23218,7 +23218,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         # 등락율비
         self.plot5_fut_drate_curve = self.plot5.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_dow_drate_curve = self.plot5.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot5_cme_drate_curve = self.plot5.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
         self.plot5_call_drate_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_put_drate_curve = self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -23307,7 +23307,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         # 등락율비
         self.plot6_fut_drate_curve = self.plot6.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_dow_drate_curve = self.plot6.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot6_cme_drate_curve = self.plot6.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
         self.plot6_call_drate_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_put_drate_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -24429,7 +24429,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot1_put_oi_curve.clear()
 
         self.plot1_fut_drate_curve.clear()
-        self.plot1_dow_drate_curve.clear()
+        self.plot1_cme_drate_curve.clear()
         self.plot1_call_drate_curve.clear()
         self.plot1_put_drate_curve.clear()
 
@@ -25245,7 +25245,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot2_put_oi_curve.clear()
 
         self.plot2_fut_drate_curve.clear()
-        self.plot2_dow_drate_curve.clear()
+        self.plot2_cme_drate_curve.clear()
         self.plot2_call_drate_curve.clear()
         self.plot2_put_drate_curve.clear()
 
@@ -26057,7 +26057,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot3_put_oi_curve.clear()
 
         self.plot3_fut_drate_curve.clear()
-        self.plot3_dow_drate_curve.clear()
+        self.plot3_cme_drate_curve.clear()
         self.plot3_call_drate_curve.clear()
         self.plot3_put_drate_curve.clear()
 
@@ -26869,7 +26869,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot4_put_oi_curve.clear()
 
         self.plot4_fut_drate_curve.clear()
-        self.plot4_dow_drate_curve.clear()
+        self.plot4_cme_drate_curve.clear()
         self.plot4_call_drate_curve.clear()
         self.plot4_put_drate_curve.clear()
 
@@ -27666,7 +27666,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot5_put_oi_curve.clear()
 
         self.plot5_fut_drate_curve.clear()
-        self.plot5_dow_drate_curve.clear()
+        self.plot5_cme_drate_curve.clear()
         self.plot5_call_drate_curve.clear()
         self.plot5_put_drate_curve.clear()
 
@@ -28481,7 +28481,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot6_put_oi_curve.clear()
 
         self.plot6_fut_drate_curve.clear()
-        self.plot6_dow_drate_curve.clear()
+        self.plot6_cme_drate_curve.clear()
         self.plot6_call_drate_curve.clear()
         self.plot6_put_drate_curve.clear()
 
@@ -29875,7 +29875,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                self.plot1_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())              
+                self.plot1_cme_drate_curve.setData(df_sp500_graph['drate'].to_numpy())              
             
             elif comboindex1 == 12:
 
@@ -30832,7 +30832,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                self.plot2_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
+                self.plot2_cme_drate_curve.setData(df_sp500_graph['drate'].to_numpy())
             
             elif comboindex2 == 12:
 
@@ -31770,7 +31770,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                self.plot3_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
+                self.plot3_cme_drate_curve.setData(df_sp500_graph['drate'].to_numpy())
             
             elif comboindex3 == 12:
 
@@ -32705,7 +32705,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass 
 
-                self.plot4_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
+                self.plot4_cme_drate_curve.setData(df_sp500_graph['drate'].to_numpy())
             
             elif comboindex4 == 12:
 
@@ -33621,7 +33621,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                self.plot5_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
+                self.plot5_cme_drate_curve.setData(df_sp500_graph['drate'].to_numpy())
             
             elif comboindex5 == 12:
 
@@ -34555,7 +34555,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass 
 
-                self.plot6_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
+                self.plot6_cme_drate_curve.setData(df_sp500_graph['drate'].to_numpy())
             
             elif comboindex6 == 12:
 
@@ -39186,6 +39186,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
+                df_futures_nm_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 차월물_선물_시가대비_등락율
+
                 if float(tickdata['현재가']) == float('inf') or float(tickdata['현재가']) == float('-inf'):
                     차월물_선물_현재가 = float('nan')
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 선물 현재가 무한대 오류발생...\r'.format(dt.hour, dt.minute, dt.second)
@@ -40452,10 +40454,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 SP500_고가 =  float(tickdata['고가'])
                 SP500_진폭 = SP500_고가 - SP500_저가
 
-                if SP500_전일종가 > 0 and DayTime:
+                if DayTime and SP500_전일종가 > 0:
                     SP500_등락율 = ((SP500_현재가 - SP500_전일종가) / SP500_전일종가) * 100
                 else:
+                    pass              
+
+                drate_temp = plot_drate_scale_factor * SP500_등락율
+
+                # 등락율에 스파이크 발생하는 문제 임시해결
+                if drate_temp > 50:
+                    drate_temp = 50.0
+                elif drate_temp < -50:
+                    drate_temp = -50.0
+                else:
                     pass
+                
+                # 그래프 등락율 가격갱신
+                df_sp500_graph.at[ovc_x_idx, 'drate'] = drate_temp
 
                 체결가격 = locale.format('%.2f', SP500_현재가, 1)
 
