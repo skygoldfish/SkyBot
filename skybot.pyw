@@ -13098,7 +13098,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         call_otm_jdb_mean = round(np.mean(np_call_otm_jdb_local), 2)            
         call_otm_jdb_percent_mean = round(np.mean(np_call_otm_jdb_percent_local), 1)
 
-        df_call_information_graph.at[ovc_x_idx, 'drate'] = call_otm_cdb_percent_mean
+        if call_otm_cdb_percent_mean > 10.0:
+            df_call_information_graph.at[ovc_x_idx, 'drate'] = 10.0
+        elif call_otm_cdb_percent_mean < -10.0:
+            df_call_information_graph.at[ovc_x_idx, 'drate'] = -10.0
+        else:
+            df_call_information_graph.at[ovc_x_idx, 'drate'] = call_otm_cdb_percent_mean
 
         call_txt = repr(call_otm_cdb_mean) + '\n' + repr(call_otm_cdb_percent_mean) + '%'
 
@@ -14174,7 +14179,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         put_otm_jdb_mean = round(np.mean(np_put_otm_jdb_local), 2)      
         put_otm_jdb_percent_mean = round(np.mean(np_put_otm_jdb_percent_local), 1)
 
-        df_put_information_graph.at[ovc_x_idx, 'drate'] = put_otm_cdb_percent_mean
+        if put_otm_cdb_percent_mean > 10.0:
+            df_put_information_graph.at[ovc_x_idx, 'drate'] = 10.0
+        elif put_otm_cdb_percent_mean < -10.0:
+            df_put_information_graph.at[ovc_x_idx, 'drate'] = -10.0
+        else:
+            df_put_information_graph.at[ovc_x_idx, 'drate'] = put_otm_cdb_percent_mean
 
         put_txt = repr(put_otm_cdb_mean) + '\n' + repr(put_otm_cdb_percent_mean) + '%'
 
