@@ -1755,6 +1755,7 @@ moving_list = []
 동적맥점_빈도수_리스트 = []
 
 DOW_진폭비 = 0
+SP500_진폭비 = 0
 선물_진폭비 = 0
 
 flag_first_search = False
@@ -3949,7 +3950,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setForeground(QBrush(녹색))
         self.tableWidget_fut.setItem(2, 0, item)                
 
-        item = QTableWidgetItem("{0}".format('F/D\n진폭비'))
+        item = QTableWidgetItem("{0}".format('F/C\n진폭비'))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
@@ -12364,12 +12365,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             선물_진폭비 = 0
 
-        if DOW_진폭비 > 0:           
-            선물_DOW_진폭비율 = 선물_진폭비 / DOW_진폭비 
+        if SP500_진폭비 > 0:           
+            선물_SP500_진폭비율 = 선물_진폭비 / SP500_진폭비 
         else:
-            선물_DOW_진폭비율 = 0
+            선물_SP500_진폭비율 = 0
 
-        item = QTableWidgetItem("{0:.2f}".format(선물_DOW_진폭비율))
+        item = QTableWidgetItem("{0:.2f}".format(선물_SP500_진폭비율))
         item.setTextAlignment(Qt.AlignCenter)
 
         # 종합 에너지방향 표시
@@ -37790,7 +37791,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         self.dialog['선물옵션전광판'].tableWidget_fut.item(1, 0).setBackground(QBrush(검정색))
                         self.dialog['선물옵션전광판'].tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
 
-                item = QTableWidgetItem("DOW\n({0:.2f}%)".format(DOW_등락율))
+                item = QTableWidgetItem("CME\n({0:.2f}%)".format(SP500_등락율))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(흰색))
                 item.setForeground(QBrush(검정색))
@@ -37822,10 +37823,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if DOW_진폭비 > 0:            
-                    선물_DOW_진폭비율 = 선물_진폭비 / DOW_진폭비
+                if SP500_진폭비 > 0:            
+                    선물_SP500_진폭비율 = 선물_진폭비 / SP500_진폭비
 
-                    item = QTableWidgetItem("{0:.2f}".format(선물_DOW_진폭비율))
+                    item = QTableWidgetItem("{0:.2f}".format(선물_SP500_진폭비율))
                     item.setTextAlignment(Qt.AlignCenter)
 
                     item.setBackground(QBrush(라임))
@@ -38203,7 +38204,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
 
-                    item = QTableWidgetItem("DOW\n({0:.2f}%)".format(DOW_등락율))
+                    item = QTableWidgetItem("CME\n({0:.2f}%)".format(SP500_등락율))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -40018,7 +40019,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global hangseng_delta, old_hangseng_delta, hangseng_직전대비, hangseng_text_color
         global gold_delta, old_gold_delta, gold_직전대비, gold_text_color
 
-        global SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_현재가, SP500_전일대비, SP500_등락율, SP500_진폭, SP500_고가
+        global SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_현재가, SP500_전일대비, SP500_등락율, SP500_진폭, SP500_고가, SP500_진폭비
         global DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_현재가, DOW_전일대비, DOW_등락율, DOW_진폭, DOW_고가, DOW_진폭비
         global NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_현재가, NASDAQ_전일대비, NASDAQ_등락율, NASDAQ_진폭, NASDAQ_고가
         global WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭, WTI_고가
@@ -40539,7 +40540,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     SP500_시가 = float(tickdata['시가'])
                 else:
-                    pass                                                 
+                    SP500_진폭비 = SP500_진폭 / SP500_시가                                                  
 
                 if SP500_피봇 == 0:
 
