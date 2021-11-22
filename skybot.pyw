@@ -5887,31 +5887,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if flag_market_service and flag_option_start:
                     
                     if flag_periodic_plot_mode:
-
-                        if call_result:
-                            pass
-                            #self.call_update(call_result)
-                        else:
-                            pass
-
-                        if put_result:
-                            pass
-                            #self.put_update(put_result)
-                        else:
-                            pass                
                         
                         if self.alternate_flag:
                             # 콜 테이블 데이타 갱신 
-                            if call_result:                                
-                                self.call_db_update()
-                                self.call_volume_power_update()                                
+                            if call_result:
+                                pass                                
+                                #self.call_db_update()
+                                #self.call_volume_power_update()                                
                             else:
                                 pass
                         else:
                             # 풋 테이블 데이타 갱신
-                            if put_result:                                
-                                self.put_db_update()
-                                self.put_volume_power_update()
+                            if put_result:
+                                pass                              
+                                #self.put_db_update()
+                                #self.put_volume_power_update()
                             else:
                                 pass
 
@@ -39723,11 +39713,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     # 테이블 갱신
                     self.dialog['선물옵션전광판'].call_update(tickdata)
-                    call_result = copy.deepcopy(tickdata)                
+                    call_result = copy.deepcopy(tickdata)
+
+                    self.dialog['선물옵션전광판'].call_db_update()
+                    self.dialog['선물옵션전광판'].call_volume_power_update()                
 
                     if not flag_periodic_plot_mode:                       
-                        self.dialog['선물옵션전광판'].call_db_update()
-                        self.dialog['선물옵션전광판'].call_volume_power_update()
+                        #self.dialog['선물옵션전광판'].call_db_update()
+                        #self.dialog['선물옵션전광판'].call_volume_power_update()
                         self.dialog['선물옵션전광판'].call_oi_update()
                     else:
                         pass
@@ -39783,12 +39776,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass 
 
                 # 테이블 갱신
-                self.dialog['선물옵션전광판'].put_update(tickdata) 
-                put_result = copy.deepcopy(tickdata)                                                               
+                self.dialog['선물옵션전광판'].put_update(tickdata)
+                put_result = copy.deepcopy(tickdata)
+
+                self.dialog['선물옵션전광판'].put_db_update()
+                self.dialog['선물옵션전광판'].put_volume_power_update()                                                                               
 
                 if not flag_periodic_plot_mode:                    
-                    self.dialog['선물옵션전광판'].put_db_update()
-                    self.dialog['선물옵션전광판'].put_volume_power_update()
+                    #self.dialog['선물옵션전광판'].put_db_update()
+                    #self.dialog['선물옵션전광판'].put_volume_power_update()
                     self.dialog['선물옵션전광판'].put_oi_update()
                 else:
                     pass                                 
