@@ -22728,7 +22728,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_68.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_68.setText(" 고가 ")
 
-        self.comboBox1.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', '수급종합'])
+        self.comboBox1.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', '수급종합', '외인수급'])
         self.comboBox1.insertSeparator(1)
         self.comboBox1.insertSeparator(5)
         self.comboBox1.insertSeparator(9)
@@ -22736,7 +22736,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.comboBox1.insertSeparator(19)
         self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-        self.comboBox2.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', 'Reserved'])
+        self.comboBox2.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', '수급종합', '외인수급'])
         self.comboBox2.insertSeparator(1)
         self.comboBox2.insertSeparator(5)
         self.comboBox2.insertSeparator(9)
@@ -22744,7 +22744,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.comboBox2.insertSeparator(19)
         self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
-        self.comboBox3.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', 'Reserved'])
+        self.comboBox3.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', '수급종합', '외인수급'])
         self.comboBox3.insertSeparator(1)
         self.comboBox3.insertSeparator(5)
         self.comboBox3.insertSeparator(9)
@@ -22752,7 +22752,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.comboBox3.insertSeparator(19)
         self.comboBox3.currentIndexChanged.connect(self.cb3_selectionChanged)
 
-        self.comboBox4.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', 'Reserved'])
+        self.comboBox4.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', '수급종합', '외인수급'])
         self.comboBox4.insertSeparator(1)
         self.comboBox4.insertSeparator(5)
         self.comboBox4.insertSeparator(9)
@@ -22760,7 +22760,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.comboBox4.insertSeparator(19)
         self.comboBox4.currentIndexChanged.connect(self.cb4_selectionChanged)
 
-        self.comboBox5.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', 'Reserved'])
+        self.comboBox5.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', '수급종합', '외인수급'])
         self.comboBox5.insertSeparator(1)
         self.comboBox5.insertSeparator(5)
         self.comboBox5.insertSeparator(9)
@@ -22768,7 +22768,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.comboBox5.insertSeparator(19)
         self.comboBox5.currentIndexChanged.connect(self.cb5_selectionChanged)
 
-        self.comboBox6.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', '외인수급'])
+        self.comboBox6.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', '수급종합', '외인수급'])
         self.comboBox6.insertSeparator(1)
         self.comboBox6.insertSeparator(5)
         self.comboBox6.insertSeparator(9)
@@ -22885,7 +22885,22 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         # 수급종합
         self.plot1_program_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_kospi_total_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)     
+        self.plot1_kospi_total_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+
+        self.plot2_program_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_kospi_total_curve = self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+
+        self.plot3_program_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_kospi_total_curve = self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+
+        self.plot4_program_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_kospi_total_curve = self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+
+        self.plot5_program_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_kospi_total_curve = self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+
+        self.plot6_program_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_kospi_total_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)    
         
         #cross hair
         if CROSS_HAIR_LINE:
@@ -23333,6 +23348,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot6_oe_base_curve = self.plot6.plot(pen=fama_pen)
 
         # 외인수급
+        self.plot1_futures_foreigner_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_kospi_foreigner_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+
+        self.plot2_futures_foreigner_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_kospi_foreigner_curve = self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+
+        self.plot3_futures_foreigner_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_kospi_foreigner_curve = self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+
+        self.plot4_futures_foreigner_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_kospi_foreigner_curve = self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+
+        self.plot5_futures_foreigner_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_kospi_foreigner_curve = self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+
         self.plot6_futures_foreigner_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_kospi_foreigner_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -24403,8 +24433,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot1_fut_volume_curve.clear()
         self.plot1_call_volume_curve.clear()
         self.plot1_put_volume_curve.clear()
-        self.plot1_program_curve.clear()
-        self.plot1_kospi_total_curve.clear()
 
         for i in range(9):
             self.plot1_mv_line[i].setValue(0)
@@ -24452,6 +24480,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         self.plot1_oe_conv_curve.clear()
         self.plot1_oe_base_curve.clear()
+
+        self.plot1_program_curve.clear()
+        self.plot1_kospi_total_curve.clear()
+        self.plot1_futures_foreigner_curve.clear()
+        self.plot1_kospi_foreigner_curve.clear()
     
     def cb1_selectionChanged(self):
 
@@ -25187,7 +25220,25 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_18.setText(" 현물합 ")
-        
+
+        # 외인수급
+        elif comboindex1 == 21:
+
+            self.plot1_clear()
+
+            self.label_11.setText(" - ")
+            self.label_12.setText(" - ")
+            self.label_13.setText(" - ")
+            self.label_14.setText(" - ")
+            self.label_15.setText(" - ")
+
+            self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_16.setText(" 외인선물 ")
+
+            self.label_17.setText(" 선물체결량 ")
+
+            self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_18.setText(" 외인현물 ")
         else:
             pass
 
@@ -25268,6 +25319,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         self.plot2_oe_conv_curve.clear()
         self.plot2_oe_base_curve.clear()
+
+        self.plot2_program_curve.clear()
+        self.plot2_kospi_total_curve.clear()
+        self.plot2_futures_foreigner_curve.clear()
+        self.plot2_kospi_foreigner_curve.clear()
 
     def cb2_selectionChanged(self):
 
@@ -26000,6 +26056,43 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_28.setText(txt)
             self.plot2_ovc_high_line.setValue(SP500_고가)
         
+        # 수급종합
+        elif comboindex2 == 20:
+
+            self.plot2_clear()
+
+            self.label_21.setText(" - ")
+            self.label_22.setText(" - ")
+            self.label_23.setText(" - ")
+            self.label_24.setText(" - ")
+            self.label_25.setText(" - ")
+
+            self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_26.setText(" 프로그램 ")
+
+            self.label_27.setText(" 선물체결량 ")
+
+            self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_28.setText(" 현물합 ")
+
+        # 외인수급
+        elif comboindex2 == 21:
+
+            self.plot2_clear()
+
+            self.label_21.setText(" - ")
+            self.label_22.setText(" - ")
+            self.label_23.setText(" - ")
+            self.label_24.setText(" - ")
+            self.label_25.setText(" - ")
+
+            self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_26.setText(" 외인선물 ")
+
+            self.label_27.setText(" 선물체결량 ")
+
+            self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_28.setText(" 외인현물 ")
         else:
             pass
 
@@ -26080,6 +26173,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         self.plot3_oe_conv_curve.clear()
         self.plot3_oe_base_curve.clear()
+
+        self.plot3_program_curve.clear()
+        self.plot3_kospi_total_curve.clear()
+        self.plot3_futures_foreigner_curve.clear()
+        self.plot3_kospi_foreigner_curve.clear()
     
     def cb3_selectionChanged(self):
 
@@ -26812,6 +26910,43 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_38.setText(txt)
             self.plot3_ovc_high_line.setValue(SP500_고가)
 
+        # 수급종합
+        elif comboindex3 == 20:
+
+            self.plot3_clear()
+
+            self.label_31.setText(" - ")
+            self.label_32.setText(" - ")
+            self.label_33.setText(" - ")
+            self.label_34.setText(" - ")
+            self.label_35.setText(" - ")
+
+            self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_36.setText(" 프로그램 ")
+
+            self.label_37.setText(" 선물체결량 ")
+
+            self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_38.setText(" 현물합 ")
+
+        # 외인수급
+        elif comboindex3 == 21:
+
+            self.plot3_clear()
+
+            self.label_31.setText(" - ")
+            self.label_32.setText(" - ")
+            self.label_33.setText(" - ")
+            self.label_34.setText(" - ")
+            self.label_35.setText(" - ")
+
+            self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_36.setText(" 외인선물 ")
+
+            self.label_37.setText(" 선물체결량 ")
+
+            self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_38.setText(" 외인현물 ")
         else:
             pass
 
@@ -26892,6 +27027,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         self.plot4_oe_conv_curve.clear()
         self.plot4_oe_base_curve.clear()
+
+        self.plot4_program_curve.clear()
+        self.plot4_kospi_total_curve.clear()
+        self.plot4_futures_foreigner_curve.clear()
+        self.plot4_kospi_foreigner_curve.clear()
 
     def cb4_selectionChanged(self):
 
@@ -27609,6 +27749,43 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_48.setText(txt)
             self.plot4_ovc_high_line.setValue(SP500_고가)
         
+        # 수급종합
+        elif comboindex4 == 20:
+
+            self.plot4_clear()
+
+            self.label_41.setText(" - ")
+            self.label_42.setText(" - ")
+            self.label_43.setText(" - ")
+            self.label_44.setText(" - ")
+            self.label_45.setText(" - ")
+
+            self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_46.setText(" 프로그램 ")
+
+            self.label_47.setText(" 선물체결량 ")
+
+            self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_48.setText(" 현물합 ")
+
+        # 외인수급
+        elif comboindex4 == 21:
+
+            self.plot4_clear()
+
+            self.label_41.setText(" - ")
+            self.label_42.setText(" - ")
+            self.label_43.setText(" - ")
+            self.label_44.setText(" - ")
+            self.label_45.setText(" - ")
+
+            self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_46.setText(" 외인선물 ")
+
+            self.label_47.setText(" 선물체결량 ")
+
+            self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_48.setText(" 외인현물 ")
         else:
             pass
 
@@ -27689,6 +27866,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         self.plot5_oe_conv_curve.clear()
         self.plot5_oe_base_curve.clear()
+
+        self.plot5_program_curve.clear()
+        self.plot5_kospi_total_curve.clear()
+        self.plot5_futures_foreigner_curve.clear()
+        self.plot5_kospi_foreigner_curve.clear()
 
     def cb5_selectionChanged(self):
 
@@ -28421,6 +28603,43 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_58.setText(txt)
             self.plot5_ovc_high_line.setValue(SP500_고가)
         
+        # 수급종합
+        elif comboindex5 == 20:
+
+            self.plot5_clear()
+
+            self.label_51.setText(" - ")
+            self.label_52.setText(" - ")
+            self.label_53.setText(" - ")
+            self.label_54.setText(" - ")
+            self.label_55.setText(" - ")
+
+            self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_56.setText(" 프로그램 ")
+
+            self.label_57.setText(" 선물체결량 ")
+
+            self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_58.setText(" 현물합 ")
+
+        # 외인수급
+        elif comboindex5 == 21:
+
+            self.plot5_clear()
+
+            self.label_51.setText(" - ")
+            self.label_52.setText(" - ")
+            self.label_53.setText(" - ")
+            self.label_54.setText(" - ")
+            self.label_55.setText(" - ")
+
+            self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_56.setText(" 외인선물 ")
+
+            self.label_57.setText(" 선물체결량 ")
+
+            self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_58.setText(" 외인현물 ")
         else:
             pass
 
@@ -28454,9 +28673,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot6_fut_volume_curve.clear()
         self.plot6_call_volume_curve.clear()
         self.plot6_put_volume_curve.clear()
-
-        self.plot6_futures_foreigner_curve.clear()
-        self.plot6_kospi_foreigner_curve.clear()
 
         for i in range(9):
             self.plot6_mv_line[i].setValue(0)
@@ -28504,6 +28720,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         self.plot6_oe_conv_curve.clear()
         self.plot6_oe_base_curve.clear()
+
+        self.plot6_program_curve.clear()
+        self.plot6_kospi_total_curve.clear()
+        self.plot6_futures_foreigner_curve.clear()
+        self.plot6_kospi_foreigner_curve.clear()
 
     def cb6_selectionChanged(self):
 
@@ -29236,8 +29457,27 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_68.setText(txt)
             self.plot6_ovc_high_line.setValue(SP500_고가)
 
-        # 외인수급
+        # 수급종합
         elif comboindex6 == 20:
+
+            self.plot6_clear()
+
+            self.label_61.setText(" - ")
+            self.label_62.setText(" - ")
+            self.label_63.setText(" - ")
+            self.label_64.setText(" - ")
+            self.label_65.setText(" - ")
+
+            self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_66.setText(" 프로그램 ")
+
+            self.label_67.setText(" 선물체결량 ")
+
+            self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_68.setText(" 현물합 ")
+
+        # 외인수급
+        elif comboindex6 == 21:
 
             self.plot6_clear()
 
@@ -29254,7 +29494,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_68.setText(" 외인현물 ")
-
         else:
             pass 
 
@@ -30429,9 +30668,47 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.plot1_program_curve.setData(df_supply_demand_graph['program'].to_numpy())
                     self.plot1_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'].to_numpy())
                 else:
-                    pass            
+                    pass
+
+            elif comboindex1 == 21:
+
+                txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'] <= 0:
+                    self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_16.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_16.setText(txt)
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_17.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_17.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_17.setText(txt)
+                
+                txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'] <= 0:
+                    self.label_18.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    
+                self.label_18.setText(txt)
+                
+                self.plot1_time_line.setValue(ovc_x_idx)
+
+                if DayTime:
+                    self.plot1_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
+                    self.plot1_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'].to_numpy())
+                    self.plot1_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'].to_numpy())
+                else:
+                    pass
             else:
-                pass            
+                pass
 
         except Exception as e:
 
@@ -31370,6 +31647,82 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.plot2_oe_base_curve.setData(df_sp500_graph['OE_BASE'].to_numpy())
                 else:
                     pass
+            
+            elif comboindex2 == 20:
+
+                txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'program'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'program'] <= 0:
+                    self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_26.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_26.setText(txt)
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_27.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_27.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_27.setText(txt)
+                
+                txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'] <= 0:
+                    self.label_28.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    
+                self.label_28.setText(txt)
+                
+                self.plot2_time_line.setValue(ovc_x_idx)
+
+                if DayTime:
+                    self.plot2_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
+                    self.plot2_program_curve.setData(df_supply_demand_graph['program'].to_numpy())
+                    self.plot2_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'].to_numpy())
+                else:
+                    pass
+
+            elif comboindex2 == 21:
+
+                txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'] <= 0:
+                    self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_26.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_26.setText(txt)
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_27.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_27.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_27.setText(txt)
+                
+                txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'] <= 0:
+                    self.label_28.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    
+                self.label_28.setText(txt)
+                
+                self.plot2_time_line.setValue(ovc_x_idx)
+
+                if DayTime:
+                    self.plot2_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
+                    self.plot2_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'].to_numpy())
+                    self.plot2_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'].to_numpy())
+                else:
+                    pass
             else:
                 pass            
         
@@ -32304,6 +32657,82 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.plot3_oe_base_curve.setData(df_sp500_graph['OE_BASE'].to_numpy())
                 else:
                     pass
+            
+            elif comboindex3 == 20:
+
+                txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'program'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'program'] <= 0:
+                    self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_36.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_36.setText(txt)
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_37.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_37.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_37.setText(txt)
+                
+                txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'] <= 0:
+                    self.label_38.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    
+                self.label_38.setText(txt)
+                
+                self.plot3_time_line.setValue(ovc_x_idx)
+
+                if DayTime:
+                    self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
+                    self.plot3_program_curve.setData(df_supply_demand_graph['program'].to_numpy())
+                    self.plot3_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'].to_numpy())
+                else:
+                    pass
+
+            elif comboindex3 == 21:
+
+                txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'] <= 0:
+                    self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_36.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_36.setText(txt)
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_37.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_37.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_37.setText(txt)
+                
+                txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'] <= 0:
+                    self.label_38.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    
+                self.label_38.setText(txt)
+                
+                self.plot3_time_line.setValue(ovc_x_idx)
+
+                if DayTime:
+                    self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
+                    self.plot3_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'].to_numpy())
+                    self.plot3_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'].to_numpy())
+                else:
+                    pass
             else:
                 pass
 
@@ -33220,6 +33649,82 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.plot4_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].to_numpy())
                     self.plot4_oe_base_curve.setData(df_sp500_graph['OE_BASE'].to_numpy())
+                else:
+                    pass
+            
+            elif comboindex4 == 20:
+
+                txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'program'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'program'] <= 0:
+                    self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_46.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_46.setText(txt)
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_47.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_47.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_47.setText(txt)
+                
+                txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'] <= 0:
+                    self.label_48.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    
+                self.label_48.setText(txt)
+                
+                self.plot4_time_line.setValue(ovc_x_idx)
+
+                if DayTime:
+                    self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
+                    self.plot4_program_curve.setData(df_supply_demand_graph['program'].to_numpy())
+                    self.plot4_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'].to_numpy())
+                else:
+                    pass
+
+            elif comboindex4 == 21:
+
+                txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'] <= 0:
+                    self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_46.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_46.setText(txt)
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_47.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_47.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_47.setText(txt)
+                
+                txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'] <= 0:
+                    self.label_48.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    
+                self.label_48.setText(txt)
+                
+                self.plot4_time_line.setValue(ovc_x_idx)
+
+                if DayTime:
+                    self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
+                    self.plot4_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'].to_numpy())
+                    self.plot4_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'].to_numpy())
                 else:
                     pass
             else:
@@ -34156,6 +34661,81 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
             
+            elif comboindex5 == 20:
+
+                txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'program'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'program'] <= 0:
+                    self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_56.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_56.setText(txt)
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_57.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_57.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_57.setText(txt)
+                
+                txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'] <= 0:
+                    self.label_58.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    
+                self.label_58.setText(txt)
+                
+                self.plot5_time_line.setValue(ovc_x_idx)
+
+                if DayTime:
+                    self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
+                    self.plot5_program_curve.setData(df_supply_demand_graph['program'].to_numpy())
+                    self.plot5_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'].to_numpy())
+                else:
+                    pass
+
+            elif comboindex5 == 21:
+
+                txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'] <= 0:
+                    self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_56.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_56.setText(txt)
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_57.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_57.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_57.setText(txt)
+                
+                txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'] <= 0:
+                    self.label_58.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    
+                self.label_58.setText(txt)
+                
+                self.plot5_time_line.setValue(ovc_x_idx)
+
+                if DayTime:
+                    self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
+                    self.plot5_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'].to_numpy())
+                    self.plot5_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'].to_numpy())
+                else:
+                    pass
             else:
                 pass
 
@@ -35092,6 +35672,44 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex6 == 20:
 
+                txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'program'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'program'] <= 0:
+                    self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_66.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_66.setText(txt)
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_67.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_67.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_67.setText(txt)
+                
+                txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'] <= 0:
+                    self.label_68.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    
+                self.label_68.setText(txt)
+                
+                self.plot6_time_line.setValue(ovc_x_idx)
+
+                if DayTime:
+                    self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
+                    self.plot6_program_curve.setData(df_supply_demand_graph['program'].to_numpy())
+                    self.plot6_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'].to_numpy())
+                else:
+                    pass
+
+            elif comboindex6 == 21:
+
                 txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'])
 
                 if df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'] <= 0:
@@ -35126,8 +35744,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.plot6_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'].to_numpy())
                     self.plot6_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'].to_numpy())
                 else:
-                    pass
-            
+                    pass            
             else:
                 pass
 
