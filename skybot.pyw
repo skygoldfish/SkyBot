@@ -16736,6 +16736,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_call_information_graph.at[0, 'volume'] = 0
                 df_put_information_graph.at[0, 'volume'] = 0
+
+                df_call_information_graph.at[0, 'drate'] = 0
+                df_put_information_graph.at[0, 'drate'] = 0
                 
                 # 근월물 옵션 호가잔량비 초기화(초기값을 1.0으로 해야 장중 최소값을 구할수 있다.)
                 df_call_information_graph.at[0, 'quote_remainder_ratio'] = 1.0
@@ -16744,6 +16747,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 근월물, 차월물 선물 호가잔량비 초기화
                 df_futures_cm_graph.at[0, 'c_quote_remainder_ratio'] = 1.0
                 df_futures_cm_graph.at[0, 'n_quote_remainder_ratio'] = 1.0
+
+                df_futures_cm_graph.at[0, 'drate'] = 0
 
                 # 해외선물 호가 초기화
                 df_sp500_graph.at[0, 'quote_remainder_ratio'] = 1.0
