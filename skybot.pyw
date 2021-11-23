@@ -16753,6 +16753,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_eurofx_graph.at[0, 'quote_remainder_ratio'] = 1.0
                 df_hangseng_graph.at[0, 'quote_remainder_ratio'] = 1.0
                 df_gold_graph.at[0, 'quote_remainder_ratio'] = 1.0
+
+                df_sp500_graph.at[0, 'drate'] = 0
+                df_dow_graph.at[0, 'drate'] = 0
                 
                 콜_순미결합 = df_call['순미결'].sum()
                 풋_순미결합 = df_put['순미결'].sum()
