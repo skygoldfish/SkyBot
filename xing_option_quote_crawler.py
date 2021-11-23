@@ -125,7 +125,8 @@ def option_quote_crawler(queue: Queue, call_itm_number=5, call_otm_number=5, put
         if DayTime:
             cm_opt_quote = cm_opt_quote_cmd + cm_opt_quote_list
         else:
-            cm_opt_quote = cm_opt_quote_cmd + cm_code_list
+            #cm_opt_quote = cm_opt_quote_cmd + cm_code_list
+            cm_opt_quote = cm_opt_quote_cmd + cm_opt_quote_list
     
         nm_opt_quote_cmd = []
         nm_opt_quote_cmd.append('quote')
@@ -133,7 +134,8 @@ def option_quote_crawler(queue: Queue, call_itm_number=5, call_otm_number=5, put
         if DayTime:
             nm_opt_quote = nm_opt_quote_cmd + nm_opt_quote_list
         else:
-            nm_opt_quote = nm_opt_quote_cmd + nm_code_list
+            #nm_opt_quote = nm_opt_quote_cmd + nm_code_list
+            nm_opt_quote = nm_opt_quote_cmd + nm_opt_quote_list
     
         # 호가
         if index_option_cm_quote:

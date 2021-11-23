@@ -86,7 +86,7 @@ from Utils import *
        
 #from xing_tick_writer import * 
 
-#sys.setrecursionlimit(10 ** 6)
+sys.setrecursionlimit(10 ** 6)
 
 # 4k 해상도 대응
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
@@ -1534,11 +1534,20 @@ OC0_풋현재가 = ''
 풋매도잔량 = 0
 
 콜건수비 = 0
-콜잔량비 = 0
+콜잔량비 = 1
 옵션_잔량비차 = 0
 
 풋건수비 = 0
-풋잔량비 = 0
+풋잔량비 = 1
+
+콜_잔량비_최소 = 1
+콜_잔량비_최대 = 0
+
+풋_잔량비_최소 = 1
+풋_잔량비_최대 = 0
+
+옵션_잔량비_최소 = 1
+옵션_잔량비_최대 = 0
 
 # 컬러정의
 blueviolet = QColor(138, 43, 226)
@@ -1636,7 +1645,7 @@ fut_pvt_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
 fut_hc_pen = pg.mkPen(lawngreen, width=1, style=QtCore.Qt.DashLine)
 opt_hc_pen = pg.mkPen(lawngreen, width=1, style=QtCore.Qt.DashLine)
 
-red_pen = pg.mkPen('r', width=2, style=QtCore.Qt.DotLine)
+red_dot_pen = pg.mkPen('r', width=2, style=QtCore.Qt.DotLine)
 aqua_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
 aqua_pen1 = pg.mkPen(aqua, width=2, style=QtCore.Qt.SolidLine)
 magenta_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
@@ -1746,6 +1755,7 @@ moving_list = []
 동적맥점_빈도수_리스트 = []
 
 DOW_진폭비 = 0
+SP500_진폭비 = 0
 선물_진폭비 = 0
 
 flag_first_search = False
@@ -1949,6 +1959,13 @@ flag_ovc_update_is_running = False
 flag_screen_update_is_running = False
 flag_plot_update_is_running = False
 
+flag_plot1_update_is_running = False
+flag_plot2_update_is_running = False
+flag_plot3_update_is_running = False
+flag_plot4_update_is_running = False
+flag_plot5_update_is_running = False
+flag_plot6_update_is_running = False
+
 ui_start_time = 0
 
 flag_option_pair_full = False
@@ -2002,6 +2019,9 @@ cm_fut_quote_max = 0
 nm_fut_quote_min = 0
 nm_fut_quote_mean = 0
 nm_fut_quote_max = 0
+
+차월물_선물_호가잔량비_최소 = 1
+차월물_선물_호가잔량비_최대 = 0
 
 call_itm_number = CALL_ITM_REQUEST_NUMBER
 call_otm_number = CALL_OTM_REQUEST_NUMBER
@@ -3508,7 +3528,7 @@ class PlotUpdateWorker1(QThread):
                 else:
                     pass
 
-                if not flag_screen_update_is_running:
+                if not flag_screen_update_is_running and not flag_plot1_update_is_running:
                     self.trigger.emit()
 
                 QTest.qWait(chart_update_interval)
@@ -3532,7 +3552,7 @@ class PlotUpdateWorker2(QThread):
         while True:
 
             try:
-                if not flag_screen_update_is_running:
+                if not flag_screen_update_is_running and not flag_plot2_update_is_running:
                     self.trigger.emit()
 
                 QTest.qWait(chart_update_interval)
@@ -3556,7 +3576,7 @@ class PlotUpdateWorker3(QThread):
         while True:
 
             try:
-                if not flag_screen_update_is_running:
+                if not flag_screen_update_is_running and not flag_plot3_update_is_running:
                     self.trigger.emit()
 
                 QTest.qWait(chart_update_interval)
@@ -3580,7 +3600,7 @@ class PlotUpdateWorker4(QThread):
         while True:
 
             try:
-                if not flag_screen_update_is_running:
+                if not flag_screen_update_is_running and not flag_plot4_update_is_running:
                     self.trigger.emit()
 
                 QTest.qWait(chart_update_interval)
@@ -3604,7 +3624,7 @@ class PlotUpdateWorker5(QThread):
         while True:
 
             try:
-                if not flag_screen_update_is_running:
+                if not flag_screen_update_is_running and not flag_plot5_update_is_running:
                     self.trigger.emit()
 
                 QTest.qWait(chart_update_interval)
@@ -3628,7 +3648,7 @@ class PlotUpdateWorker6(QThread):
         while True:
 
             try:
-                if not flag_screen_update_is_running:
+                if not flag_screen_update_is_running and not flag_plot6_update_is_running:
                     self.trigger.emit()
 
                 QTest.qWait(chart_update_interval)
@@ -3930,7 +3950,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setForeground(QBrush(녹색))
         self.tableWidget_fut.setItem(2, 0, item)                
 
-        item = QTableWidgetItem("{0}".format('F/D\n진폭비'))
+        item = QTableWidgetItem("{0}".format('F/C\n진폭비'))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(라임))
         item.setForeground(QBrush(검정색))
@@ -5848,7 +5868,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 self.display_atm(self.alternate_flag)
                 
-                if flag_market_service:
+                #if flag_market_service:
+                if True:
                     self.option_quote_update()
                     
                     if DayTime and fut_cm_result:                    
@@ -5866,29 +5887,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if flag_market_service and flag_option_start:
                     
                     if flag_periodic_plot_mode:
-
-                        if call_result:
-                            pass
-                            #self.call_update(call_result)
-                        else:
-                            pass
-
-                        if put_result:
-                            pass
-                            #self.put_update(put_result)
-                        else:
-                            pass                
                         
                         if self.alternate_flag:
                             # 콜 테이블 데이타 갱신 
-                            if call_result:                                
+                            if call_result:                        
                                 self.call_db_update()
                                 self.call_volume_power_update()                                
                             else:
                                 pass
                         else:
                             # 풋 테이블 데이타 갱신
-                            if put_result:                                
+                            if put_result:                      
                                 self.put_db_update()
                                 self.put_volume_power_update()
                             else:
@@ -6868,15 +6877,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        if flag_market_service:
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check : {3:.2f} ms\r'.format(t0167_hour, t0167_minute, t0167_second, process_time)
-            self.textBrowser.append(txt)
-            print(txt)
-        else:
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check : {3:.2f} ms\r'.format(t0167_hour, t0167_minute, t0167_second, process_time)
-            self.textBrowser.append(txt)
-            print(txt)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check : {3:.2f} ms\r'.format(t0167_hour, t0167_minute, t0167_second, process_time)
+        self.textBrowser.append(txt)
+        print(txt)
 
     def call_low_node_coloring(self):
 
@@ -6933,16 +6936,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        if flag_market_service:
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check : {3:.2f} ms\r'.format(t0167_hour, t0167_minute, t0167_second, process_time)
-            self.textBrowser.append(txt)
-            print(txt)                                 
-        else:
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check : {3:.2f} ms\r'.format(t0167_hour, t0167_minute, t0167_second, process_time)
-            self.textBrowser.append(txt)
-            print(txt)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check : {3:.2f} ms\r'.format(t0167_hour, t0167_minute, t0167_second, process_time)
+        self.textBrowser.append(txt)
+        print(txt)
 
     def put_low_node_coloring(self):
 
@@ -12357,12 +12353,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             선물_진폭비 = 0
 
-        if DOW_진폭비 > 0:           
-            선물_DOW_진폭비율 = 선물_진폭비 / DOW_진폭비 
+        if SP500_진폭비 > 0:           
+            선물_SP500_진폭비율 = 선물_진폭비 / SP500_진폭비 
         else:
-            선물_DOW_진폭비율 = 0
+            선물_SP500_진폭비율 = 0
 
-        item = QTableWidgetItem("{0:.2f}".format(선물_DOW_진폭비율))
+        item = QTableWidgetItem("{0:.2f}".format(선물_SP500_진폭비율))
         item.setTextAlignment(Qt.AlignCenter)
 
         # 종합 에너지방향 표시
@@ -13090,7 +13086,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         call_otm_jdb_mean = round(np.mean(np_call_otm_jdb_local), 2)            
         call_otm_jdb_percent_mean = round(np.mean(np_call_otm_jdb_percent_local), 1)
 
-        df_call_information_graph.at[ovc_x_idx, 'drate'] = call_otm_cdb_percent_mean
+        if flag_market_service:
+            df_call_information_graph.at[ovc_x_idx, 'drate'] = call_otm_cdb_percent_mean
+        else:
+            pass
 
         call_txt = repr(call_otm_cdb_mean) + '\n' + repr(call_otm_cdb_percent_mean) + '%'
 
@@ -14166,7 +14165,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         put_otm_jdb_mean = round(np.mean(np_put_otm_jdb_local), 2)      
         put_otm_jdb_percent_mean = round(np.mean(np_put_otm_jdb_percent_local), 1)
 
-        df_put_information_graph.at[ovc_x_idx, 'drate'] = put_otm_cdb_percent_mean
+        if flag_market_service:
+            df_put_information_graph.at[ovc_x_idx, 'drate'] = put_otm_cdb_percent_mean
+        else:
+            pass
 
         put_txt = repr(put_otm_cdb_mean) + '\n' + repr(put_otm_cdb_percent_mean) + '%'
 
@@ -22724,7 +22726,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_68.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_68.setText(" 고가 ")
 
-        self.comboBox1.addItems(['Clear', '선물가격', '선물잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', '수급종합'])
+        self.comboBox1.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', '수급종합', '외인수급'])
         self.comboBox1.insertSeparator(1)
         self.comboBox1.insertSeparator(5)
         self.comboBox1.insertSeparator(9)
@@ -22732,7 +22734,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.comboBox1.insertSeparator(19)
         self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-        self.comboBox2.addItems(['Clear', '선물가격', '선물잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', 'Reserved'])
+        self.comboBox2.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', '수급종합', '외인수급'])
         self.comboBox2.insertSeparator(1)
         self.comboBox2.insertSeparator(5)
         self.comboBox2.insertSeparator(9)
@@ -22740,7 +22742,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.comboBox2.insertSeparator(19)
         self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
-        self.comboBox3.addItems(['Clear', '선물가격', '선물잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', 'Reserved'])
+        self.comboBox3.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', '수급종합', '외인수급'])
         self.comboBox3.insertSeparator(1)
         self.comboBox3.insertSeparator(5)
         self.comboBox3.insertSeparator(9)
@@ -22748,7 +22750,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.comboBox3.insertSeparator(19)
         self.comboBox3.currentIndexChanged.connect(self.cb3_selectionChanged)
 
-        self.comboBox4.addItems(['Clear', '선물가격', '선물잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', 'Reserved'])
+        self.comboBox4.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', '수급종합', '외인수급'])
         self.comboBox4.insertSeparator(1)
         self.comboBox4.insertSeparator(5)
         self.comboBox4.insertSeparator(9)
@@ -22756,7 +22758,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.comboBox4.insertSeparator(19)
         self.comboBox4.currentIndexChanged.connect(self.cb4_selectionChanged)
 
-        self.comboBox5.addItems(['Clear', '선물가격', '선물잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', 'Reserved'])
+        self.comboBox5.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', '수급종합', '외인수급'])
         self.comboBox5.insertSeparator(1)
         self.comboBox5.insertSeparator(5)
         self.comboBox5.insertSeparator(9)
@@ -22764,7 +22766,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.comboBox5.insertSeparator(19)
         self.comboBox5.currentIndexChanged.connect(self.cb5_selectionChanged)
 
-        self.comboBox6.addItems(['Clear', '선물가격', '선물잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', '외인수급'])
+        self.comboBox6.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', '수급종합', '외인수급'])
         self.comboBox6.insertSeparator(1)
         self.comboBox6.insertSeparator(5)
         self.comboBox6.insertSeparator(9)
@@ -22810,26 +22812,26 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         # 선물가격
         self.plot1_fut_jl_line = self.plot1.addLine(x=None, pen=goldenrod_pen)
         self.plot1_fut_jh_line = self.plot1.addLine(x=None, pen=gold_pen)  
-        self.plot1_fut_open_line = self.plot1.addLine(x=None, pen=red_pen)
+        self.plot1_fut_open_line = self.plot1.addLine(x=None, pen=red_dot_pen)
         self.plot1_fut_close_line = self.plot1.addLine(x=None, pen=lime_pen)
         self.plot1_fut_pivot_line = self.plot1.addLine(x=None, pen=fut_pvt_pen)
         self.plot1_fut_low_line = self.plot1.addLine(x=None, pen=skyblue_pen)
         self.plot1_fut_high_line = self.plot1.addLine(x=None, pen=pink_pen)
 
         self.plot1_fut_cm_price_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_fut_nm_price_curve = self.plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_kp200_curve = self.plot1.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot1_fut_nm_price_curve = self.plot1.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_kp200_curve = self.plot1.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
-        # 선물잔량비
+        # 선옵잔량비
         self.plot1_quote_remainder_ratio_base_line = self.plot1.addLine(x=None, pen=ypen1)
-        self.plot1_quote_remainder_ratio_bottom_line = self.plot1.addLine(x=None, pen=gpen1)
-        self.plot1_quote_remainder_ratio_upper_line = self.plot1.addLine(x=None, pen=red_pen)
+        self.plot1_nm_futures_quote_remainder_ratio_bottom_line = self.plot1.addLine(x=None, pen=gpen1)
+        self.plot1_nm_futures_quote_remainder_ratio_upper_line = self.plot1.addLine(x=None, pen=red_dot_pen)
         
-        self.plot1_fut_cm_quote_remainder_ratio_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_fut_nm_quote_remainder_ratio_curve = self.plot1.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_fut_cm_quote_remainder_ratio_curve = self.plot1.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_fut_nm_quote_remainder_ratio_curve = self.plot1.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot1_fut_volume_curve = self.plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_fut_volume_curve = self.plot1.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_call_volume_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_put_volume_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)           
 
@@ -22837,19 +22839,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot1_center_val_line = self.plot1.addLine(x=None, pen=gold_pen)
         self.plot1_center_val_upper_line = self.plot1.addLine(x=None, pen=pink_pen)
 
-        self.plot1_center_val_curve = self.plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot1_center_val_curve = self.plot1.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         
         # 옵션잔량비
         self.plot1_call_quote_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_put_quote_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot1_option_quote_remainder_ratio_bottom_line = self.plot1.addLine(x=None, pen=gpen1)
+        self.plot1_option_quote_remainder_ratio_upper_line = self.plot1.addLine(x=None, pen=red_dot_pen)
 
         # 옵션미결
         self.plot1_call_oi_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_put_oi_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         # 등락율비
-        self.plot1_fut_drate_curve = self.plot1.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_dow_drate_curve = self.plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot1_fut_drate_curve = self.plot1.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_cme_drate_curve = self.plot1.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         self.plot1_call_drate_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_put_drate_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -22857,7 +22861,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot1_ovc_jl_line = self.plot1.addLine(x=None, pen=goldenrod_pen)
         self.plot1_ovc_jh_line = self.plot1.addLine(x=None, pen=gold_pen)  
         self.plot1_ovc_close_line = self.plot1.addLine(x=None, pen=lime_pen)
-        self.plot1_ovc_open_line = self.plot1.addLine(x=None, pen=red_pen)
+        self.plot1_ovc_open_line = self.plot1.addLine(x=None, pen=red_dot_pen)
         self.plot1_ovc_pivot_line = self.plot1.addLine(x=None, pen=fut_pvt_pen)
         self.plot1_ovc_low_line = self.plot1.addLine(x=None, pen=skyblue_pen)
         self.plot1_ovc_high_line = self.plot1.addLine(x=None, pen=pink_pen)
@@ -22879,7 +22883,22 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         # 수급종합
         self.plot1_program_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_kospi_total_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)     
+        self.plot1_kospi_total_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+
+        self.plot2_program_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_kospi_total_curve = self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+
+        self.plot3_program_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_kospi_total_curve = self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+
+        self.plot4_program_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_kospi_total_curve = self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+
+        self.plot5_program_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_kospi_total_curve = self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+
+        self.plot6_program_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_kospi_total_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)    
         
         #cross hair
         if CROSS_HAIR_LINE:
@@ -22901,26 +22920,26 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         # 선물가격
         self.plot2_fut_jl_line = self.plot2.addLine(x=None, pen=goldenrod_pen)
         self.plot2_fut_jh_line = self.plot2.addLine(x=None, pen=gold_pen)  
-        self.plot2_fut_open_line = self.plot2.addLine(x=None, pen=red_pen)
+        self.plot2_fut_open_line = self.plot2.addLine(x=None, pen=red_dot_pen)
         self.plot2_fut_close_line = self.plot2.addLine(x=None, pen=lime_pen)
         self.plot2_fut_pivot_line = self.plot2.addLine(x=None, pen=fut_pvt_pen)
         self.plot2_fut_low_line = self.plot2.addLine(x=None, pen=skyblue_pen)
         self.plot2_fut_high_line = self.plot2.addLine(x=None, pen=pink_pen)
 
         self.plot2_fut_cm_price_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_fut_nm_price_curve = self.plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_kp200_curve = self.plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot2_fut_nm_price_curve = self.plot2.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_kp200_curve = self.plot2.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
-        # 선물잔량비
+        # 선옵잔량비
         self.plot2_quote_remainder_ratio_base_line = self.plot2.addLine(x=None, pen=ypen1)
-        self.plot2_quote_remainder_ratio_bottom_line = self.plot2.addLine(x=None, pen=gpen1)
-        self.plot2_quote_remainder_ratio_upper_line = self.plot2.addLine(x=None, pen=red_pen)
+        self.plot2_nm_futures_quote_remainder_ratio_bottom_line = self.plot2.addLine(x=None, pen=gpen1)
+        self.plot2_nm_futures_quote_remainder_ratio_upper_line = self.plot2.addLine(x=None, pen=red_dot_pen)
         
-        self.plot2_fut_cm_quote_remainder_ratio_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_fut_nm_quote_remainder_ratio_curve = self.plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_fut_cm_quote_remainder_ratio_curve = self.plot2.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_fut_nm_quote_remainder_ratio_curve = self.plot2.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot2_fut_volume_curve = self.plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_fut_volume_curve = self.plot2.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_call_volume_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_put_volume_curve = self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)        
 
@@ -22928,19 +22947,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot2_center_val_line = self.plot2.addLine(x=None, pen=gold_pen)
         self.plot2_center_val_upper_line = self.plot2.addLine(x=None, pen=pink_pen)
 
-        self.plot2_center_val_curve = self.plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot2_center_val_curve = self.plot2.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         
         # 옵션잔량비
         self.plot2_call_quote_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_put_quote_curve = self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot2_option_quote_remainder_ratio_bottom_line = self.plot2.addLine(x=None, pen=gpen1)
+        self.plot2_option_quote_remainder_ratio_upper_line = self.plot2.addLine(x=None, pen=red_dot_pen)
 
         # 옵션미결
         self.plot2_call_oi_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_put_oi_curve = self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         # 등락율비
-        self.plot2_fut_drate_curve = self.plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_dow_drate_curve = self.plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot2_fut_drate_curve = self.plot2.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_cme_drate_curve = self.plot2.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         self.plot2_call_drate_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_put_drate_curve = self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -22948,7 +22969,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot2_ovc_jl_line = self.plot2.addLine(x=None, pen=goldenrod_pen)
         self.plot2_ovc_jh_line = self.plot2.addLine(x=None, pen=gold_pen)  
         self.plot2_ovc_close_line = self.plot2.addLine(x=None, pen=lime_pen)
-        self.plot2_ovc_open_line = self.plot2.addLine(x=None, pen=red_pen)
+        self.plot2_ovc_open_line = self.plot2.addLine(x=None, pen=red_dot_pen)
         self.plot2_ovc_pivot_line = self.plot2.addLine(x=None, pen=fut_pvt_pen)
         self.plot2_ovc_low_line = self.plot2.addLine(x=None, pen=skyblue_pen)
         self.plot2_ovc_high_line = self.plot2.addLine(x=None, pen=pink_pen)
@@ -22988,26 +23009,26 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         # 선물가격
         self.plot3_fut_jl_line = self.plot3.addLine(x=None, pen=goldenrod_pen)
         self.plot3_fut_jh_line = self.plot3.addLine(x=None, pen=gold_pen)  
-        self.plot3_fut_open_line = self.plot3.addLine(x=None, pen=red_pen)
+        self.plot3_fut_open_line = self.plot3.addLine(x=None, pen=red_dot_pen)
         self.plot3_fut_close_line = self.plot3.addLine(x=None, pen=lime_pen)
         self.plot3_fut_pivot_line = self.plot3.addLine(x=None, pen=fut_pvt_pen)
         self.plot3_fut_low_line = self.plot3.addLine(x=None, pen=skyblue_pen)
         self.plot3_fut_high_line = self.plot3.addLine(x=None, pen=pink_pen)
 
         self.plot3_fut_cm_price_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_fut_nm_price_curve = self.plot3.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_kp200_curve = self.plot3.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot3_fut_nm_price_curve = self.plot3.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_kp200_curve = self.plot3.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
-        # 선물잔량비
+        # 선옵잔량비
         self.plot3_quote_remainder_ratio_base_line = self.plot3.addLine(x=None, pen=ypen1)
-        self.plot3_quote_remainder_ratio_bottom_line = self.plot3.addLine(x=None, pen=gpen1)
-        self.plot3_quote_remainder_ratio_upper_line = self.plot3.addLine(x=None, pen=red_pen)
+        self.plot3_nm_futures_quote_remainder_ratio_bottom_line = self.plot3.addLine(x=None, pen=gpen1)
+        self.plot3_nm_futures_quote_remainder_ratio_upper_line = self.plot3.addLine(x=None, pen=red_dot_pen)
         
-        self.plot3_fut_cm_quote_remainder_ratio_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_fut_nm_quote_remainder_ratio_curve = self.plot3.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_fut_cm_quote_remainder_ratio_curve = self.plot3.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_fut_nm_quote_remainder_ratio_curve = self.plot3.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot3_fut_volume_curve = self.plot3.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_fut_volume_curve = self.plot3.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_call_volume_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_put_volume_curve = self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -23015,19 +23036,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot3_center_val_line = self.plot3.addLine(x=None, pen=gold_pen)
         self.plot3_center_val_upper_line = self.plot3.addLine(x=None, pen=pink_pen)
 
-        self.plot3_center_val_curve = self.plot3.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot3_center_val_curve = self.plot3.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         
         # 옵션잔량비
         self.plot3_call_quote_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_put_quote_curve = self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot3_option_quote_remainder_ratio_bottom_line = self.plot3.addLine(x=None, pen=gpen1)
+        self.plot3_option_quote_remainder_ratio_upper_line = self.plot3.addLine(x=None, pen=red_dot_pen)
 
         # 옵션미결
         self.plot3_call_oi_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_put_oi_curve = self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         # 등락율비
-        self.plot3_fut_drate_curve = self.plot3.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_dow_drate_curve = self.plot3.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot3_fut_drate_curve = self.plot3.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_cme_drate_curve = self.plot3.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         self.plot3_call_drate_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_put_drate_curve = self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -23035,7 +23058,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot3_ovc_jl_line = self.plot3.addLine(x=None, pen=goldenrod_pen)
         self.plot3_ovc_jh_line = self.plot3.addLine(x=None, pen=gold_pen)  
         self.plot3_ovc_close_line = self.plot3.addLine(x=None, pen=lime_pen)
-        self.plot3_ovc_open_line = self.plot3.addLine(x=None, pen=red_pen)
+        self.plot3_ovc_open_line = self.plot3.addLine(x=None, pen=red_dot_pen)
         self.plot3_ovc_pivot_line = self.plot3.addLine(x=None, pen=fut_pvt_pen)
         self.plot3_ovc_low_line = self.plot3.addLine(x=None, pen=skyblue_pen)
         self.plot3_ovc_high_line = self.plot3.addLine(x=None, pen=pink_pen)
@@ -23075,26 +23098,26 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         # 선물가격
         self.plot4_fut_jl_line = self.plot4.addLine(x=None, pen=goldenrod_pen)
         self.plot4_fut_jh_line = self.plot4.addLine(x=None, pen=gold_pen)  
-        self.plot4_fut_open_line = self.plot4.addLine(x=None, pen=red_pen)
+        self.plot4_fut_open_line = self.plot4.addLine(x=None, pen=red_dot_pen)
         self.plot4_fut_close_line = self.plot4.addLine(x=None, pen=lime_pen)
         self.plot4_fut_pivot_line = self.plot4.addLine(x=None, pen=fut_pvt_pen)
         self.plot4_fut_low_line = self.plot4.addLine(x=None, pen=skyblue_pen)
         self.plot4_fut_high_line = self.plot4.addLine(x=None, pen=pink_pen)
 
         self.plot4_fut_cm_price_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_fut_nm_price_curve = self.plot4.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_kp200_curve = self.plot4.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot4_fut_nm_price_curve = self.plot4.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_kp200_curve = self.plot4.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
-        # 선물잔량비
+        # 선옵잔량비
         self.plot4_quote_remainder_ratio_base_line = self.plot4.addLine(x=None, pen=ypen1)
-        self.plot4_quote_remainder_ratio_bottom_line = self.plot4.addLine(x=None, pen=gpen1)
-        self.plot4_quote_remainder_ratio_upper_line = self.plot4.addLine(x=None, pen=red_pen)
+        self.plot4_nm_futures_quote_remainder_ratio_bottom_line = self.plot4.addLine(x=None, pen=gpen1)
+        self.plot4_nm_futures_quote_remainder_ratio_upper_line = self.plot4.addLine(x=None, pen=red_dot_pen)
         
-        self.plot4_fut_cm_quote_remainder_ratio_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_fut_nm_quote_remainder_ratio_curve = self.plot4.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_fut_cm_quote_remainder_ratio_curve = self.plot4.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_fut_nm_quote_remainder_ratio_curve = self.plot4.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot4_fut_volume_curve = self.plot4.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_fut_volume_curve = self.plot4.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_call_volume_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_put_volume_curve = self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)        
 
@@ -23102,19 +23125,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot4_center_val_line = self.plot4.addLine(x=None, pen=gold_pen)
         self.plot4_center_val_upper_line = self.plot4.addLine(x=None, pen=pink_pen)
 
-        self.plot4_center_val_curve = self.plot4.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot4_center_val_curve = self.plot4.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         
         # 옵션잔량비
         self.plot4_call_quote_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_put_quote_curve = self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot4_option_quote_remainder_ratio_bottom_line = self.plot4.addLine(x=None, pen=gpen1)
+        self.plot4_option_quote_remainder_ratio_upper_line = self.plot4.addLine(x=None, pen=red_dot_pen)
 
         # 옵션미결
         self.plot4_call_oi_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_put_oi_curve = self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         # 등락율비
-        self.plot4_fut_drate_curve = self.plot4.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_dow_drate_curve = self.plot4.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot4_fut_drate_curve = self.plot4.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_cme_drate_curve = self.plot4.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         self.plot4_call_drate_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_put_drate_curve = self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -23122,7 +23147,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot4_ovc_jl_line = self.plot4.addLine(x=None, pen=goldenrod_pen)
         self.plot4_ovc_jh_line = self.plot4.addLine(x=None, pen=gold_pen)  
         self.plot4_ovc_close_line = self.plot4.addLine(x=None, pen=lime_pen)
-        self.plot4_ovc_open_line = self.plot4.addLine(x=None, pen=red_pen)
+        self.plot4_ovc_open_line = self.plot4.addLine(x=None, pen=red_dot_pen)
         self.plot4_ovc_pivot_line = self.plot4.addLine(x=None, pen=fut_pvt_pen)
         self.plot4_ovc_low_line = self.plot4.addLine(x=None, pen=skyblue_pen)
         self.plot4_ovc_high_line = self.plot4.addLine(x=None, pen=pink_pen)
@@ -23162,26 +23187,26 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         # 선물가격
         self.plot5_fut_jl_line = self.plot5.addLine(x=None, pen=goldenrod_pen)
         self.plot5_fut_jh_line = self.plot5.addLine(x=None, pen=gold_pen)  
-        self.plot5_fut_open_line = self.plot5.addLine(x=None, pen=red_pen)
+        self.plot5_fut_open_line = self.plot5.addLine(x=None, pen=red_dot_pen)
         self.plot5_fut_close_line = self.plot5.addLine(x=None, pen=lime_pen)
         self.plot5_fut_pivot_line = self.plot5.addLine(x=None, pen=fut_pvt_pen)
         self.plot5_fut_low_line = self.plot5.addLine(x=None, pen=skyblue_pen)
         self.plot5_fut_high_line = self.plot5.addLine(x=None, pen=pink_pen)
 
         self.plot5_fut_cm_price_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_fut_nm_price_curve = self.plot5.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_kp200_curve = self.plot5.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot5_fut_nm_price_curve = self.plot5.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_kp200_curve = self.plot5.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
-        # 선물잔량비
+        # 선옵잔량비
         self.plot5_quote_remainder_ratio_base_line = self.plot5.addLine(x=None, pen=ypen1)
-        self.plot5_quote_remainder_ratio_bottom_line = self.plot5.addLine(x=None, pen=gpen1)
-        self.plot5_quote_remainder_ratio_upper_line = self.plot5.addLine(x=None, pen=red_pen)
+        self.plot5_nm_futures_quote_remainder_ratio_bottom_line = self.plot5.addLine(x=None, pen=gpen1)
+        self.plot5_nm_futures_quote_remainder_ratio_upper_line = self.plot5.addLine(x=None, pen=red_dot_pen)
         
-        self.plot5_fut_cm_quote_remainder_ratio_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_fut_nm_quote_remainder_ratio_curve = self.plot5.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_fut_cm_quote_remainder_ratio_curve = self.plot5.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_fut_nm_quote_remainder_ratio_curve = self.plot5.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot5_fut_volume_curve = self.plot5.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_fut_volume_curve = self.plot5.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_call_volume_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_put_volume_curve = self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -23189,19 +23214,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot5_center_val_line = self.plot5.addLine(x=None, pen=gold_pen)
         self.plot5_center_val_upper_line = self.plot5.addLine(x=None, pen=pink_pen)
 
-        self.plot5_center_val_curve = self.plot5.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot5_center_val_curve = self.plot5.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         
         # 옵션잔량비
         self.plot5_call_quote_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_put_quote_curve = self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot5_option_quote_remainder_ratio_bottom_line = self.plot5.addLine(x=None, pen=gpen1)
+        self.plot5_option_quote_remainder_ratio_upper_line = self.plot5.addLine(x=None, pen=red_dot_pen)
 
         # 옵션미결
         self.plot5_call_oi_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_put_oi_curve = self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         # 등락율비
-        self.plot5_fut_drate_curve = self.plot5.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_dow_drate_curve = self.plot5.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot5_fut_drate_curve = self.plot5.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_cme_drate_curve = self.plot5.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         self.plot5_call_drate_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_put_drate_curve = self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -23209,7 +23236,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot5_ovc_jl_line = self.plot5.addLine(x=None, pen=goldenrod_pen)
         self.plot5_ovc_jh_line = self.plot5.addLine(x=None, pen=gold_pen)  
         self.plot5_ovc_close_line = self.plot5.addLine(x=None, pen=lime_pen)
-        self.plot5_ovc_open_line = self.plot5.addLine(x=None, pen=red_pen)
+        self.plot5_ovc_open_line = self.plot5.addLine(x=None, pen=red_dot_pen)
         self.plot5_ovc_pivot_line = self.plot5.addLine(x=None, pen=fut_pvt_pen)
         self.plot5_ovc_low_line = self.plot5.addLine(x=None, pen=skyblue_pen)
         self.plot5_ovc_high_line = self.plot5.addLine(x=None, pen=pink_pen)
@@ -23249,26 +23276,26 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         # 선물가격
         self.plot6_fut_jl_line = self.plot6.addLine(x=None, pen=goldenrod_pen)
         self.plot6_fut_jh_line = self.plot6.addLine(x=None, pen=gold_pen)  
-        self.plot6_fut_open_line = self.plot6.addLine(x=None, pen=red_pen)
+        self.plot6_fut_open_line = self.plot6.addLine(x=None, pen=red_dot_pen)
         self.plot6_fut_close_line = self.plot6.addLine(x=None, pen=lime_pen)
         self.plot6_fut_pivot_line = self.plot6.addLine(x=None, pen=fut_pvt_pen)
         self.plot6_fut_low_line = self.plot6.addLine(x=None, pen=skyblue_pen)
         self.plot6_fut_high_line = self.plot6.addLine(x=None, pen=pink_pen)
 
         self.plot6_fut_cm_price_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_fut_nm_price_curve = self.plot6.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_kp200_curve = self.plot6.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot6_fut_nm_price_curve = self.plot6.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_kp200_curve = self.plot6.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
-        # 선물잔량비
+        # 선옵잔량비
         self.plot6_quote_remainder_ratio_base_line = self.plot6.addLine(x=None, pen=ypen1)
-        self.plot6_quote_remainder_ratio_bottom_line = self.plot6.addLine(x=None, pen=gpen1)
-        self.plot6_quote_remainder_ratio_upper_line = self.plot6.addLine(x=None, pen=red_pen)
+        self.plot6_nm_futures_quote_remainder_ratio_bottom_line = self.plot6.addLine(x=None, pen=gpen1)
+        self.plot6_nm_futures_quote_remainder_ratio_upper_line = self.plot6.addLine(x=None, pen=red_dot_pen)
         
-        self.plot6_fut_cm_quote_remainder_ratio_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_fut_nm_quote_remainder_ratio_curve = self.plot6.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_fut_cm_quote_remainder_ratio_curve = self.plot6.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_fut_nm_quote_remainder_ratio_curve = self.plot6.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot6_fut_volume_curve = self.plot6.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_fut_volume_curve = self.plot6.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_call_volume_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_put_volume_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)        
 
@@ -23276,19 +23303,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot6_center_val_line = self.plot6.addLine(x=None, pen=gold_pen)
         self.plot6_center_val_upper_line = self.plot6.addLine(x=None, pen=pink_pen)
 
-        self.plot6_center_val_curve = self.plot6.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot6_center_val_curve = self.plot6.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         
         # 옵션잔량비
         self.plot6_call_quote_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_put_quote_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot6_option_quote_remainder_ratio_bottom_line = self.plot6.addLine(x=None, pen=gpen1)
+        self.plot6_option_quote_remainder_ratio_upper_line = self.plot6.addLine(x=None, pen=red_dot_pen)
 
         # 옵션미결
         self.plot6_call_oi_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_put_oi_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         # 등락율비
-        self.plot6_fut_drate_curve = self.plot6.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_dow_drate_curve = self.plot6.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot6_fut_drate_curve = self.plot6.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_cme_drate_curve = self.plot6.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         self.plot6_call_drate_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_put_drate_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -23296,7 +23325,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot6_ovc_jl_line = self.plot6.addLine(x=None, pen=goldenrod_pen)
         self.plot6_ovc_jh_line = self.plot6.addLine(x=None, pen=gold_pen)  
         self.plot6_ovc_close_line = self.plot6.addLine(x=None, pen=lime_pen)
-        self.plot6_ovc_open_line = self.plot6.addLine(x=None, pen=red_pen)
+        self.plot6_ovc_open_line = self.plot6.addLine(x=None, pen=red_dot_pen)
         self.plot6_ovc_pivot_line = self.plot6.addLine(x=None, pen=fut_pvt_pen)
         self.plot6_ovc_low_line = self.plot6.addLine(x=None, pen=skyblue_pen)
         self.plot6_ovc_high_line = self.plot6.addLine(x=None, pen=pink_pen)
@@ -23317,6 +23346,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot6_oe_base_curve = self.plot6.plot(pen=fama_pen)
 
         # 외인수급
+        self.plot1_futures_foreigner_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_kospi_foreigner_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+
+        self.plot2_futures_foreigner_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_kospi_foreigner_curve = self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+
+        self.plot3_futures_foreigner_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_kospi_foreigner_curve = self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+
+        self.plot4_futures_foreigner_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_kospi_foreigner_curve = self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+
+        self.plot5_futures_foreigner_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_kospi_foreigner_curve = self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+
         self.plot6_futures_foreigner_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_kospi_foreigner_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -24375,8 +24419,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot1_kp200_curve.clear()
 
         self.plot1_quote_remainder_ratio_base_line.setValue(0)
-        self.plot1_quote_remainder_ratio_bottom_line.setValue(0)
-        self.plot1_quote_remainder_ratio_upper_line.setValue(0)
+        self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(0)
+        self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(0)
+
+        self.plot1_option_quote_remainder_ratio_bottom_line.setValue(0)
+        self.plot1_option_quote_remainder_ratio_upper_line.setValue(0)
 
         self.plot1_fut_cm_quote_remainder_ratio_curve.clear()
         self.plot1_fut_nm_quote_remainder_ratio_curve.clear()
@@ -24384,8 +24431,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot1_fut_volume_curve.clear()
         self.plot1_call_volume_curve.clear()
         self.plot1_put_volume_curve.clear()
-        self.plot1_program_curve.clear()
-        self.plot1_kospi_total_curve.clear()
 
         for i in range(9):
             self.plot1_mv_line[i].setValue(0)
@@ -24407,7 +24452,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot1_put_oi_curve.clear()
 
         self.plot1_fut_drate_curve.clear()
-        self.plot1_dow_drate_curve.clear()
+        self.plot1_cme_drate_curve.clear()
         self.plot1_call_drate_curve.clear()
         self.plot1_put_drate_curve.clear()
 
@@ -24433,6 +24478,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         self.plot1_oe_conv_curve.clear()
         self.plot1_oe_base_curve.clear()
+
+        self.plot1_program_curve.clear()
+        self.plot1_kospi_total_curve.clear()
+        self.plot1_futures_foreigner_curve.clear()
+        self.plot1_kospi_foreigner_curve.clear()
     
     def cb1_selectionChanged(self):
 
@@ -24520,8 +24570,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             # 종가선 컬러를 살리기위한 임시방편            
             self.plot1_quote_remainder_ratio_base_line.setValue(근월물_선물_고가)
-            self.plot1_quote_remainder_ratio_bottom_line.setValue(근월물_선물_고가)
-            self.plot1_quote_remainder_ratio_upper_line.setValue(근월물_선물_고가)
+            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(근월물_선물_고가)
+            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(근월물_선물_고가)
+
+            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(근월물_선물_고가)
+            self.plot1_option_quote_remainder_ratio_upper_line.setValue(근월물_선물_고가)
 
             for i in range(9):
                 self.plot1_mv_line[i].setValue(근월물_선물_고가)
@@ -24570,7 +24623,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_13.setText(txt)
             self.plot1_fut_close_line.setValue(근월물_선물_종가)
 
-        # 선물잔량비
+        # 선옵잔량비
         elif comboindex1 == 3:
 
             self.plot1_clear()
@@ -24580,9 +24633,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_13.setText(" - ")
             self.label_14.setText(" - ")
             self.label_15.setText(" - ")
-            self.label_16.setText(" 근월물 최소, 평균, 최대 ")
-            self.label_17.setText(" 근월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
-            self.label_18.setText(" 차월물 최소, 평균, 최대 ")
+
+            self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_16.setText(" 풋잔량비 ")
+
+            self.label_17.setText(" - ")
+
+            self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_18.setText(" 콜잔량비 ")
             
             self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p1_2.setText(" BB Middle\n PSAR ")
@@ -24594,8 +24652,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p1_4.setText(" MAMA ")
             
             self.plot1_quote_remainder_ratio_base_line.setValue(1.0)
-            self.plot1_quote_remainder_ratio_bottom_line.setValue(1.0)
-            self.plot1_quote_remainder_ratio_upper_line.setValue(1.0)
+            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(1.0)
+
+            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot1_option_quote_remainder_ratio_upper_line.setValue(1.0)
 
         # 선옵체결 --> 수급
         elif comboindex1 == 4:
@@ -24686,6 +24747,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p1_4.setText(" MAMA ")
                         
             self.plot1_quote_remainder_ratio_base_line.setValue(1.0)
+            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(1.0)
+
+            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot1_option_quote_remainder_ratio_upper_line.setValue(1.0)
         
         # 옵션미결
         elif comboindex1 == 8:
@@ -24713,7 +24779,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p1_3.setText(" OneEye ")
 
             self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p1_4.setText(" MAMA ")      
+            self.label_p1_4.setText(" MAMA ")
 
         # 등락율비
         elif comboindex1 == 10:
@@ -24752,8 +24818,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot1_clear()
 
             self.plot1_quote_remainder_ratio_base_line.setValue(DOW_종가)
-            self.plot1_quote_remainder_ratio_bottom_line.setValue(DOW_종가)
-            self.plot1_quote_remainder_ratio_upper_line.setValue(DOW_종가)  
+            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(DOW_종가)
+            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(DOW_종가)
+
+            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(DOW_종가)
+            self.plot1_option_quote_remainder_ratio_upper_line.setValue(DOW_종가)
             
             for i in range(10):
                 self.plot1_kp200_line[i].setValue(DOW_종가)
@@ -24846,8 +24915,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot1_clear()
 
             self.plot1_quote_remainder_ratio_base_line.setValue(NASDAQ_종가)
-            self.plot1_quote_remainder_ratio_bottom_line.setValue(NASDAQ_종가)
-            self.plot1_quote_remainder_ratio_upper_line.setValue(NASDAQ_종가) 
+            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(NASDAQ_종가)
+            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(NASDAQ_종가)
+
+            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(NASDAQ_종가)
+            self.plot1_option_quote_remainder_ratio_upper_line.setValue(NASDAQ_종가)
             
             for i in range(10):
                 self.plot1_kp200_line[i].setValue(NASDAQ_종가)
@@ -24940,8 +25012,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot1_clear()
 
             self.plot1_quote_remainder_ratio_base_line.setValue(WTI_종가)
-            self.plot1_quote_remainder_ratio_bottom_line.setValue(WTI_종가)
-            self.plot1_quote_remainder_ratio_upper_line.setValue(WTI_종가) 
+            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(WTI_종가)
+            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(WTI_종가)
+
+            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(WTI_종가)
+            self.plot1_option_quote_remainder_ratio_upper_line.setValue(WTI_종가)
             
             for i in range(10):
                 self.plot1_kp200_line[i].setValue(WTI_종가)
@@ -25034,8 +25109,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot1_clear()
 
             self.plot1_quote_remainder_ratio_base_line.setValue(SP500_종가)
-            self.plot1_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
-            self.plot1_quote_remainder_ratio_upper_line.setValue(SP500_종가)
+            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
+            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(SP500_종가)
+
+            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
+            self.plot1_option_quote_remainder_ratio_upper_line.setValue(SP500_종가)
             
             for i in range(10):
                 self.plot1_kp200_line[i].setValue(SP500_종가)
@@ -25140,7 +25218,25 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_18.setText(" 현물합 ")
-        
+
+        # 외인수급
+        elif comboindex1 == 21:
+
+            self.plot1_clear()
+
+            self.label_11.setText(" - ")
+            self.label_12.setText(" - ")
+            self.label_13.setText(" - ")
+            self.label_14.setText(" - ")
+            self.label_15.setText(" - ")
+
+            self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_16.setText(" 외인선물 ")
+
+            self.label_17.setText(" 선물체결량 ")
+
+            self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_18.setText(" 외인현물 ")
         else:
             pass
 
@@ -25162,8 +25258,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot2_kp200_curve.clear()
 
         self.plot2_quote_remainder_ratio_base_line.setValue(0)
-        self.plot2_quote_remainder_ratio_bottom_line.setValue(0)
-        self.plot2_quote_remainder_ratio_upper_line.setValue(0)
+        self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(0)
+        self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(0)
+
+        self.plot2_option_quote_remainder_ratio_bottom_line.setValue(0)
+        self.plot2_option_quote_remainder_ratio_upper_line.setValue(0)
 
         self.plot2_fut_cm_quote_remainder_ratio_curve.clear()
         self.plot2_fut_nm_quote_remainder_ratio_curve.clear()
@@ -25192,7 +25291,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot2_put_oi_curve.clear()
 
         self.plot2_fut_drate_curve.clear()
-        self.plot2_dow_drate_curve.clear()
+        self.plot2_cme_drate_curve.clear()
         self.plot2_call_drate_curve.clear()
         self.plot2_put_drate_curve.clear()
 
@@ -25218,6 +25317,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         self.plot2_oe_conv_curve.clear()
         self.plot2_oe_base_curve.clear()
+
+        self.plot2_program_curve.clear()
+        self.plot2_kospi_total_curve.clear()
+        self.plot2_futures_foreigner_curve.clear()
+        self.plot2_kospi_foreigner_curve.clear()
 
     def cb2_selectionChanged(self):
 
@@ -25304,8 +25408,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             # 종가선 컬러를 살리기위한 임시방편            
             self.plot2_quote_remainder_ratio_base_line.setValue(근월물_선물_고가)
-            self.plot2_quote_remainder_ratio_bottom_line.setValue(근월물_선물_고가)
-            self.plot2_quote_remainder_ratio_upper_line.setValue(근월물_선물_고가)
+            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(근월물_선물_고가)
+            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(근월물_선물_고가)
+
+            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(근월물_선물_고가)
+            self.plot2_option_quote_remainder_ratio_upper_line.setValue(근월물_선물_고가)
 
             for i in range(9):
                 self.plot2_mv_line[i].setValue(근월물_선물_고가)
@@ -25354,7 +25461,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_23.setText(txt)
             self.plot2_fut_close_line.setValue(근월물_선물_종가)
         
-        # 선물잔량비
+        # 선옵잔량비
         elif comboindex2 == 3:
 
             self.plot2_clear()
@@ -25364,9 +25471,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_23.setText(" - ")
             self.label_24.setText(" - ")
             self.label_25.setText(" - ")
-            self.label_26.setText(" 근월물 최소, 평균, 최대 ")
-            self.label_27.setText(" 근월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
-            self.label_28.setText(" 차월물 최소, 평균, 최대 ")
+
+            self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_26.setText(" 풋잔량비 ")
+
+            self.label_27.setText(" 선물잔량비 ")
+
+            self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_28.setText(" 콜잔량비 ")
             
             self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p2_2.setText(" BB Middle\n PSAR ")
@@ -25378,8 +25490,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p2_4.setText(" MAMA ")
 
             self.plot2_quote_remainder_ratio_base_line.setValue(1.0)
-            self.plot2_quote_remainder_ratio_bottom_line.setValue(1.0)
-            self.plot2_quote_remainder_ratio_upper_line.setValue(1.0)
+            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(1.0)
+
+            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot2_option_quote_remainder_ratio_upper_line.setValue(1.0)
 
         # 선옵체결
         elif comboindex2 == 4:
@@ -25469,7 +25584,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p2_4.setText(" MAMA ")
 
-            self.plot2_quote_remainder_ratio_base_line.setValue(1.0)      
+            self.plot2_quote_remainder_ratio_base_line.setValue(1.0)
+            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(1.0)
+
+            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot2_option_quote_remainder_ratio_upper_line.setValue(1.0)     
         
         # 옵션미결
         elif comboindex2 == 8:
@@ -25536,8 +25656,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot2_clear()
 
             self.plot2_quote_remainder_ratio_base_line.setValue(DOW_종가)
-            self.plot2_quote_remainder_ratio_bottom_line.setValue(DOW_종가)
-            self.plot2_quote_remainder_ratio_upper_line.setValue(DOW_종가)
+            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(DOW_종가)
+            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(DOW_종가)
+
+            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(DOW_종가)
+            self.plot2_option_quote_remainder_ratio_upper_line.setValue(DOW_종가)
             
             for i in range(10):
                 self.plot2_kp200_line[i].setValue(DOW_종가)
@@ -25634,8 +25757,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot2_clear()
 
             self.plot2_quote_remainder_ratio_base_line.setValue(NASDAQ_종가)
-            self.plot2_quote_remainder_ratio_bottom_line.setValue(NASDAQ_종가)
-            self.plot2_quote_remainder_ratio_upper_line.setValue(NASDAQ_종가)
+            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(NASDAQ_종가)
+            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(NASDAQ_종가)
+
+            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(NASDAQ_종가)
+            self.plot2_option_quote_remainder_ratio_upper_line.setValue(NASDAQ_종가)
             
             for i in range(10):
                 self.plot2_kp200_line[i].setValue(NASDAQ_종가)
@@ -25732,8 +25858,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot2_clear()
 
             self.plot2_quote_remainder_ratio_base_line.setValue(WTI_종가)
-            self.plot2_quote_remainder_ratio_bottom_line.setValue(WTI_종가)
-            self.plot2_quote_remainder_ratio_upper_line.setValue(WTI_종가)
+            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(WTI_종가)
+            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(WTI_종가)
+
+            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(WTI_종가)
+            self.plot2_option_quote_remainder_ratio_upper_line.setValue(WTI_종가)
             
             for i in range(10):
                 self.plot2_kp200_line[i].setValue(WTI_종가)
@@ -25830,8 +25959,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot2_clear()
 
             self.plot2_quote_remainder_ratio_base_line.setValue(SP500_종가)
-            self.plot2_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
-            self.plot2_quote_remainder_ratio_upper_line.setValue(SP500_종가)
+            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
+            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(SP500_종가)
+
+            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
+            self.plot2_option_quote_remainder_ratio_upper_line.setValue(SP500_종가)
             
             for i in range(10):
                 self.plot2_kp200_line[i].setValue(SP500_종가)
@@ -25922,6 +26054,43 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_28.setText(txt)
             self.plot2_ovc_high_line.setValue(SP500_고가)
         
+        # 수급종합
+        elif comboindex2 == 20:
+
+            self.plot2_clear()
+
+            self.label_21.setText(" - ")
+            self.label_22.setText(" - ")
+            self.label_23.setText(" - ")
+            self.label_24.setText(" - ")
+            self.label_25.setText(" - ")
+
+            self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_26.setText(" 프로그램 ")
+
+            self.label_27.setText(" 선물체결량 ")
+
+            self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_28.setText(" 현물합 ")
+
+        # 외인수급
+        elif comboindex2 == 21:
+
+            self.plot2_clear()
+
+            self.label_21.setText(" - ")
+            self.label_22.setText(" - ")
+            self.label_23.setText(" - ")
+            self.label_24.setText(" - ")
+            self.label_25.setText(" - ")
+
+            self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_26.setText(" 외인선물 ")
+
+            self.label_27.setText(" 선물체결량 ")
+
+            self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_28.setText(" 외인현물 ")
         else:
             pass
 
@@ -25943,8 +26112,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot3_kp200_curve.clear()
 
         self.plot3_quote_remainder_ratio_base_line.setValue(0)
-        self.plot3_quote_remainder_ratio_bottom_line.setValue(0)
-        self.plot3_quote_remainder_ratio_upper_line.setValue(0)
+        self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(0)
+        self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(0)
+
+        self.plot3_option_quote_remainder_ratio_bottom_line.setValue(0)
+        self.plot3_option_quote_remainder_ratio_upper_line.setValue(0)
 
         self.plot3_fut_cm_quote_remainder_ratio_curve.clear()
         self.plot3_fut_nm_quote_remainder_ratio_curve.clear()
@@ -25973,7 +26145,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot3_put_oi_curve.clear()
 
         self.plot3_fut_drate_curve.clear()
-        self.plot3_dow_drate_curve.clear()
+        self.plot3_cme_drate_curve.clear()
         self.plot3_call_drate_curve.clear()
         self.plot3_put_drate_curve.clear()
 
@@ -25999,6 +26171,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         self.plot3_oe_conv_curve.clear()
         self.plot3_oe_base_curve.clear()
+
+        self.plot3_program_curve.clear()
+        self.plot3_kospi_total_curve.clear()
+        self.plot3_futures_foreigner_curve.clear()
+        self.plot3_kospi_foreigner_curve.clear()
     
     def cb3_selectionChanged(self):
 
@@ -26085,8 +26262,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             # 종가선 컬러를 살리기위한 임시방편            
             self.plot3_quote_remainder_ratio_base_line.setValue(근월물_선물_고가)
-            self.plot3_quote_remainder_ratio_bottom_line.setValue(근월물_선물_고가)
-            self.plot3_quote_remainder_ratio_upper_line.setValue(근월물_선물_고가)
+            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(근월물_선물_고가)
+            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(근월물_선물_고가)
+
+            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(근월물_선물_고가)
+            self.plot3_option_quote_remainder_ratio_upper_line.setValue(근월물_선물_고가)
 
             for i in range(9):
                 self.plot3_mv_line[i].setValue(근월물_선물_고가)
@@ -26135,7 +26315,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_33.setText(txt)
             self.plot3_fut_close_line.setValue(근월물_선물_종가)
         
-        # 선물잔량비
+        # 선옵잔량비
         elif comboindex3 == 3:
 
             self.plot3_clear()
@@ -26145,9 +26325,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_33.setText(" - ")
             self.label_34.setText(" - ")
             self.label_35.setText(" - ")
-            self.label_36.setText(" 근월물 최소, 평균, 최대 ")
-            self.label_37.setText(" 근월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
-            self.label_38.setText(" 차월물 최소, 평균, 최대 ")
+
+            self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_36.setText(" 풋잔량비 ")
+
+            self.label_37.setText(" 선물잔량비 ")
+
+            self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_38.setText(" 콜잔량비 ")
             
             self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p3_2.setText(" BB Middle\n PSAR ")
@@ -26159,8 +26344,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p3_4.setText(" MAMA ")
 
             self.plot3_quote_remainder_ratio_base_line.setValue(1.0)
-            self.plot3_quote_remainder_ratio_bottom_line.setValue(1.0)
-            self.plot3_quote_remainder_ratio_upper_line.setValue(1.0)
+            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(1.0)
+
+            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot3_option_quote_remainder_ratio_upper_line.setValue(1.0)
 
         # 선옵체결
         elif comboindex3 == 4:
@@ -26250,7 +26438,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p3_4.setText(" MAMA ")
 
-            self.plot3_quote_remainder_ratio_base_line.setValue(1.0)       
+            self.plot3_quote_remainder_ratio_base_line.setValue(1.0)
+            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(1.0)
+
+            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot3_option_quote_remainder_ratio_upper_line.setValue(1.0)       
         
         # 옵션미결
         elif comboindex3 == 8:
@@ -26317,8 +26510,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot3_clear()
 
             self.plot3_quote_remainder_ratio_base_line.setValue(DOW_종가)
-            self.plot3_quote_remainder_ratio_bottom_line.setValue(DOW_종가)
-            self.plot3_quote_remainder_ratio_upper_line.setValue(DOW_종가)
+            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(DOW_종가)
+            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(DOW_종가)
+
+            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(DOW_종가)
+            self.plot3_option_quote_remainder_ratio_upper_line.setValue(DOW_종가)
             
             for i in range(10):
                 self.plot3_kp200_line[i].setValue(DOW_종가)
@@ -26415,8 +26611,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot3_clear()
 
             self.plot3_quote_remainder_ratio_base_line.setValue(NASDAQ_종가)
-            self.plot3_quote_remainder_ratio_bottom_line.setValue(NASDAQ_종가)
-            self.plot3_quote_remainder_ratio_upper_line.setValue(NASDAQ_종가)
+            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(NASDAQ_종가)
+            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(NASDAQ_종가)
+
+            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(NASDAQ_종가)
+            self.plot3_option_quote_remainder_ratio_upper_line.setValue(NASDAQ_종가)
             
             for i in range(10):
                 self.plot3_kp200_line[i].setValue(NASDAQ_종가)
@@ -26513,8 +26712,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot3_clear()
 
             self.plot3_quote_remainder_ratio_base_line.setValue(WTI_종가)
-            self.plot3_quote_remainder_ratio_bottom_line.setValue(WTI_종가)
-            self.plot3_quote_remainder_ratio_upper_line.setValue(WTI_종가)
+            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(WTI_종가)
+            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(WTI_종가)
+
+            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(WTI_종가)
+            self.plot3_option_quote_remainder_ratio_upper_line.setValue(WTI_종가)
             
             for i in range(10):
                 self.plot3_kp200_line[i].setValue(WTI_종가)
@@ -26611,8 +26813,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot3_clear()
 
             self.plot3_quote_remainder_ratio_base_line.setValue(SP500_종가)
-            self.plot3_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
-            self.plot3_quote_remainder_ratio_upper_line.setValue(SP500_종가)
+            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
+            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(SP500_종가)
+
+            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
+            self.plot3_option_quote_remainder_ratio_upper_line.setValue(SP500_종가)
             
             for i in range(10):
                 self.plot3_kp200_line[i].setValue(SP500_종가)
@@ -26703,6 +26908,43 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_38.setText(txt)
             self.plot3_ovc_high_line.setValue(SP500_고가)
 
+        # 수급종합
+        elif comboindex3 == 20:
+
+            self.plot3_clear()
+
+            self.label_31.setText(" - ")
+            self.label_32.setText(" - ")
+            self.label_33.setText(" - ")
+            self.label_34.setText(" - ")
+            self.label_35.setText(" - ")
+
+            self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_36.setText(" 프로그램 ")
+
+            self.label_37.setText(" 선물체결량 ")
+
+            self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_38.setText(" 현물합 ")
+
+        # 외인수급
+        elif comboindex3 == 21:
+
+            self.plot3_clear()
+
+            self.label_31.setText(" - ")
+            self.label_32.setText(" - ")
+            self.label_33.setText(" - ")
+            self.label_34.setText(" - ")
+            self.label_35.setText(" - ")
+
+            self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_36.setText(" 외인선물 ")
+
+            self.label_37.setText(" 선물체결량 ")
+
+            self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_38.setText(" 외인현물 ")
         else:
             pass
 
@@ -26724,8 +26966,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot4_kp200_curve.clear()
 
         self.plot4_quote_remainder_ratio_base_line.setValue(0)
-        self.plot4_quote_remainder_ratio_bottom_line.setValue(0)
-        self.plot4_quote_remainder_ratio_upper_line.setValue(0)
+        self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(0)
+        self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(0)
+
+        self.plot4_option_quote_remainder_ratio_bottom_line.setValue(0)
+        self.plot4_option_quote_remainder_ratio_upper_line.setValue(0)
 
         self.plot4_fut_cm_quote_remainder_ratio_curve.clear()
         self.plot4_fut_nm_quote_remainder_ratio_curve.clear()
@@ -26754,7 +26999,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot4_put_oi_curve.clear()
 
         self.plot4_fut_drate_curve.clear()
-        self.plot4_dow_drate_curve.clear()
+        self.plot4_cme_drate_curve.clear()
         self.plot4_call_drate_curve.clear()
         self.plot4_put_drate_curve.clear()
 
@@ -26780,6 +27025,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         self.plot4_oe_conv_curve.clear()
         self.plot4_oe_base_curve.clear()
+
+        self.plot4_program_curve.clear()
+        self.plot4_kospi_total_curve.clear()
+        self.plot4_futures_foreigner_curve.clear()
+        self.plot4_kospi_foreigner_curve.clear()
 
     def cb4_selectionChanged(self):
 
@@ -26867,8 +27117,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             # 종가선 컬러를 살리기위한 임시방편            
             self.plot4_quote_remainder_ratio_base_line.setValue(근월물_선물_고가)
-            self.plot4_quote_remainder_ratio_bottom_line.setValue(근월물_선물_고가)
-            self.plot4_quote_remainder_ratio_upper_line.setValue(근월물_선물_고가)
+            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(근월물_선물_고가)
+            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(근월물_선물_고가)
+
+            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(근월물_선물_고가)
+            self.plot4_option_quote_remainder_ratio_upper_line.setValue(근월물_선물_고가)
 
             for i in range(9):
                 self.plot4_mv_line[i].setValue(근월물_선물_고가)
@@ -26917,7 +27170,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_48.setText(txt)
             self.plot4_fut_high_line.setValue(근월물_선물_고가)        
         
-        # 선물잔량비
+        # 선옵잔량비
         elif comboindex4 == 3:
 
             self.plot4_clear()
@@ -26927,9 +27180,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_43.setText(" - ")
             self.label_44.setText(" - ")
             self.label_45.setText(" - ")
-            self.label_46.setText(" 근월물 최소, 평균, 최대 ")
-            self.label_47.setText(" 근월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
-            self.label_48.setText(" 차월물 최소, 평균, 최대 ")
+
+            self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_46.setText(" 풋잔량비 ")
+
+            self.label_47.setText(" 선물잔량비 ")
+
+            self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_48.setText(" 콜잔량비 ")
             
             self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p4_2.setText(" BB Middle\n PSAR ")
@@ -26941,8 +27199,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p4_4.setText(" MAMA ")
             
             self.plot4_quote_remainder_ratio_base_line.setValue(1.0)
-            self.plot4_quote_remainder_ratio_bottom_line.setValue(1.0)
-            self.plot4_quote_remainder_ratio_upper_line.setValue(1.0)
+            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(1.0)
+
+            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot4_option_quote_remainder_ratio_upper_line.setValue(1.0)
 
         # 선옵체결
         elif comboindex4 == 4:
@@ -27032,7 +27293,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p4_4.setText(" MAMA ")
             
-            self.plot4_quote_remainder_ratio_base_line.setValue(1.0) 
+            self.plot4_quote_remainder_ratio_base_line.setValue(1.0)
+            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(1.0)
+
+            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot4_option_quote_remainder_ratio_upper_line.setValue(1.0)
         
         # 옵션미결
         elif comboindex4 == 8:
@@ -27099,8 +27365,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot4_clear()
 
             self.plot4_quote_remainder_ratio_base_line.setValue(DOW_종가)
-            self.plot4_quote_remainder_ratio_bottom_line.setValue(DOW_종가)
-            self.plot4_quote_remainder_ratio_upper_line.setValue(DOW_종가)  
+            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(DOW_종가)
+            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(DOW_종가)
+
+            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(DOW_종가)
+            self.plot4_option_quote_remainder_ratio_upper_line.setValue(DOW_종가)
             
             for i in range(10):
                 self.plot4_kp200_line[i].setValue(DOW_종가)
@@ -27193,8 +27462,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot4_clear()
 
             self.plot4_quote_remainder_ratio_base_line.setValue(NASDAQ_종가)
-            self.plot4_quote_remainder_ratio_bottom_line.setValue(NASDAQ_종가)
-            self.plot4_quote_remainder_ratio_upper_line.setValue(NASDAQ_종가) 
+            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(NASDAQ_종가)
+            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(NASDAQ_종가)
+
+            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(NASDAQ_종가)
+            self.plot4_option_quote_remainder_ratio_upper_line.setValue(NASDAQ_종가)
             
             for i in range(10):
                 self.plot4_kp200_line[i].setValue(NASDAQ_종가)
@@ -27287,8 +27559,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot4_clear()
 
             self.plot4_quote_remainder_ratio_base_line.setValue(WTI_종가)
-            self.plot4_quote_remainder_ratio_bottom_line.setValue(WTI_종가)
-            self.plot4_quote_remainder_ratio_upper_line.setValue(WTI_종가)   
+            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(WTI_종가)
+            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(WTI_종가)
+
+            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(WTI_종가)
+            self.plot4_option_quote_remainder_ratio_upper_line.setValue(WTI_종가)
             
             for i in range(10):
                 self.plot4_kp200_line[i].setValue(WTI_종가)
@@ -27381,8 +27656,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot4_clear()
 
             self.plot4_quote_remainder_ratio_base_line.setValue(SP500_종가)
-            self.plot4_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
-            self.plot4_quote_remainder_ratio_upper_line.setValue(SP500_종가)
+            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
+            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(SP500_종가)
+
+            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
+            self.plot4_option_quote_remainder_ratio_upper_line.setValue(SP500_종가)
             
             for i in range(10):
                 self.plot4_kp200_line[i].setValue(SP500_종가)
@@ -27469,6 +27747,43 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_48.setText(txt)
             self.plot4_ovc_high_line.setValue(SP500_고가)
         
+        # 수급종합
+        elif comboindex4 == 20:
+
+            self.plot4_clear()
+
+            self.label_41.setText(" - ")
+            self.label_42.setText(" - ")
+            self.label_43.setText(" - ")
+            self.label_44.setText(" - ")
+            self.label_45.setText(" - ")
+
+            self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_46.setText(" 프로그램 ")
+
+            self.label_47.setText(" 선물체결량 ")
+
+            self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_48.setText(" 현물합 ")
+
+        # 외인수급
+        elif comboindex4 == 21:
+
+            self.plot4_clear()
+
+            self.label_41.setText(" - ")
+            self.label_42.setText(" - ")
+            self.label_43.setText(" - ")
+            self.label_44.setText(" - ")
+            self.label_45.setText(" - ")
+
+            self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_46.setText(" 외인선물 ")
+
+            self.label_47.setText(" 선물체결량 ")
+
+            self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_48.setText(" 외인현물 ")
         else:
             pass
 
@@ -27490,8 +27805,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot5_kp200_curve.clear()
 
         self.plot5_quote_remainder_ratio_base_line.setValue(0)
-        self.plot5_quote_remainder_ratio_bottom_line.setValue(0)
-        self.plot5_quote_remainder_ratio_upper_line.setValue(0)
+        self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(0)
+        self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(0)
+
+        self.plot5_option_quote_remainder_ratio_bottom_line.setValue(0)
+        self.plot5_option_quote_remainder_ratio_upper_line.setValue(0)
 
         self.plot5_fut_cm_quote_remainder_ratio_curve.clear()
         self.plot5_fut_nm_quote_remainder_ratio_curve.clear()
@@ -27520,7 +27838,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot5_put_oi_curve.clear()
 
         self.plot5_fut_drate_curve.clear()
-        self.plot5_dow_drate_curve.clear()
+        self.plot5_cme_drate_curve.clear()
         self.plot5_call_drate_curve.clear()
         self.plot5_put_drate_curve.clear()
 
@@ -27546,6 +27864,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         self.plot5_oe_conv_curve.clear()
         self.plot5_oe_base_curve.clear()
+
+        self.plot5_program_curve.clear()
+        self.plot5_kospi_total_curve.clear()
+        self.plot5_futures_foreigner_curve.clear()
+        self.plot5_kospi_foreigner_curve.clear()
 
     def cb5_selectionChanged(self):
 
@@ -27632,8 +27955,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             # 종가선 컬러를 살리기위한 임시방편            
             self.plot5_quote_remainder_ratio_base_line.setValue(근월물_선물_고가)
-            self.plot5_quote_remainder_ratio_bottom_line.setValue(근월물_선물_고가)
-            self.plot5_quote_remainder_ratio_upper_line.setValue(근월물_선물_고가)
+            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(근월물_선물_고가)
+            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(근월물_선물_고가)
+
+            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(근월물_선물_고가)
+            self.plot5_option_quote_remainder_ratio_upper_line.setValue(근월물_선물_고가)
 
             for i in range(9):
                 self.plot5_mv_line[i].setValue(근월물_선물_고가)
@@ -27682,7 +28008,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_58.setText(txt)
             self.plot5_fut_high_line.setValue(근월물_선물_고가)
         
-        # 선물잔량비
+        # 선옵잔량비
         elif comboindex5 == 3:
 
             self.plot5_clear()
@@ -27692,9 +28018,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_53.setText(" - ")
             self.label_54.setText(" - ")
             self.label_55.setText(" - ")
-            self.label_56.setText(" 근월물 최소, 평균, 최대 ")
-            self.label_57.setText(" 근월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
-            self.label_58.setText(" 차월물 최소, 평균, 최대 ")
+
+            self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_56.setText(" 풋잔량비 ")
+
+            self.label_57.setText(" 선물잔량비 ")
+
+            self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_58.setText(" 콜잔량비 ")
             
             self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p5_2.setText(" BB Middle\n PSAR ")
@@ -27706,8 +28037,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p5_4.setText(" MAMA ")
 
             self.plot5_quote_remainder_ratio_base_line.setValue(1.0)
-            self.plot5_quote_remainder_ratio_bottom_line.setValue(1.0)
-            self.plot5_quote_remainder_ratio_upper_line.setValue(1.0)
+            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(1.0)
+
+            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot5_option_quote_remainder_ratio_upper_line.setValue(1.0)
 
         # 선옵체결
         elif comboindex5 == 4:
@@ -27797,7 +28131,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p5_4.setText(" MAMA ")
 
-            self.plot5_quote_remainder_ratio_base_line.setValue(1.0)      
+            self.plot5_quote_remainder_ratio_base_line.setValue(1.0)
+            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(1.0)
+
+            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot5_option_quote_remainder_ratio_upper_line.setValue(1.0)     
 
         # 옵션미결
         elif comboindex5 == 8:
@@ -27864,8 +28203,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot5_clear()
 
             self.plot5_quote_remainder_ratio_base_line.setValue(DOW_종가)
-            self.plot5_quote_remainder_ratio_bottom_line.setValue(DOW_종가)
-            self.plot5_quote_remainder_ratio_upper_line.setValue(DOW_종가)
+            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(DOW_종가)
+            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(DOW_종가)
+
+            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(DOW_종가)
+            self.plot5_option_quote_remainder_ratio_upper_line.setValue(DOW_종가)
             
             for i in range(10):
                 self.plot5_kp200_line[i].setValue(DOW_종가)
@@ -27962,8 +28304,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot5_clear()
 
             self.plot5_quote_remainder_ratio_base_line.setValue(NASDAQ_종가)
-            self.plot5_quote_remainder_ratio_bottom_line.setValue(NASDAQ_종가)
-            self.plot5_quote_remainder_ratio_upper_line.setValue(NASDAQ_종가)
+            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(NASDAQ_종가)
+            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(NASDAQ_종가)
+
+            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(NASDAQ_종가)
+            self.plot5_option_quote_remainder_ratio_upper_line.setValue(NASDAQ_종가)
             
             for i in range(10):
                 self.plot5_kp200_line[i].setValue(NASDAQ_종가)
@@ -28060,8 +28405,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot5_clear()
 
             self.plot5_quote_remainder_ratio_base_line.setValue(WTI_종가)
-            self.plot5_quote_remainder_ratio_bottom_line.setValue(WTI_종가)
-            self.plot5_quote_remainder_ratio_upper_line.setValue(WTI_종가)
+            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(WTI_종가)
+            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(WTI_종가)
+
+            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(WTI_종가)
+            self.plot5_option_quote_remainder_ratio_upper_line.setValue(WTI_종가)
             
             for i in range(10):
                 self.plot5_kp200_line[i].setValue(WTI_종가)
@@ -28158,8 +28506,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot5_clear()
 
             self.plot5_quote_remainder_ratio_base_line.setValue(SP500_종가)
-            self.plot5_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
-            self.plot5_quote_remainder_ratio_upper_line.setValue(SP500_종가)
+            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
+            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(SP500_종가)
+
+            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
+            self.plot5_option_quote_remainder_ratio_upper_line.setValue(SP500_종가)
             
             for i in range(10):
                 self.plot5_kp200_line[i].setValue(SP500_종가)
@@ -28250,6 +28601,43 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_58.setText(txt)
             self.plot5_ovc_high_line.setValue(SP500_고가)
         
+        # 수급종합
+        elif comboindex5 == 20:
+
+            self.plot5_clear()
+
+            self.label_51.setText(" - ")
+            self.label_52.setText(" - ")
+            self.label_53.setText(" - ")
+            self.label_54.setText(" - ")
+            self.label_55.setText(" - ")
+
+            self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_56.setText(" 프로그램 ")
+
+            self.label_57.setText(" 선물체결량 ")
+
+            self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_58.setText(" 현물합 ")
+
+        # 외인수급
+        elif comboindex5 == 21:
+
+            self.plot5_clear()
+
+            self.label_51.setText(" - ")
+            self.label_52.setText(" - ")
+            self.label_53.setText(" - ")
+            self.label_54.setText(" - ")
+            self.label_55.setText(" - ")
+
+            self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_56.setText(" 외인선물 ")
+
+            self.label_57.setText(" 선물체결량 ")
+
+            self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_58.setText(" 외인현물 ")
         else:
             pass
 
@@ -28271,8 +28659,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot6_kp200_curve.clear()
 
         self.plot6_quote_remainder_ratio_base_line.setValue(0)
-        self.plot6_quote_remainder_ratio_bottom_line.setValue(0)
-        self.plot6_quote_remainder_ratio_upper_line.setValue(0)
+        self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(0)
+        self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(0)
+
+        self.plot6_option_quote_remainder_ratio_bottom_line.setValue(0)
+        self.plot6_option_quote_remainder_ratio_upper_line.setValue(0)
 
         self.plot6_fut_cm_quote_remainder_ratio_curve.clear()
         self.plot6_fut_nm_quote_remainder_ratio_curve.clear()
@@ -28280,9 +28671,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot6_fut_volume_curve.clear()
         self.plot6_call_volume_curve.clear()
         self.plot6_put_volume_curve.clear()
-
-        self.plot6_futures_foreigner_curve.clear()
-        self.plot6_kospi_foreigner_curve.clear()
 
         for i in range(9):
             self.plot6_mv_line[i].setValue(0)
@@ -28304,7 +28692,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot6_put_oi_curve.clear()
 
         self.plot6_fut_drate_curve.clear()
-        self.plot6_dow_drate_curve.clear()
+        self.plot6_cme_drate_curve.clear()
         self.plot6_call_drate_curve.clear()
         self.plot6_put_drate_curve.clear()
 
@@ -28330,6 +28718,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         self.plot6_oe_conv_curve.clear()
         self.plot6_oe_base_curve.clear()
+
+        self.plot6_program_curve.clear()
+        self.plot6_kospi_total_curve.clear()
+        self.plot6_futures_foreigner_curve.clear()
+        self.plot6_kospi_foreigner_curve.clear()
 
     def cb6_selectionChanged(self):
 
@@ -28416,8 +28809,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             # 종가선 컬러를 살리기위한 임시방편            
             self.plot6_quote_remainder_ratio_base_line.setValue(근월물_선물_고가)
-            self.plot6_quote_remainder_ratio_bottom_line.setValue(근월물_선물_고가)
-            self.plot6_quote_remainder_ratio_upper_line.setValue(근월물_선물_고가)
+            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(근월물_선물_고가)
+            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(근월물_선물_고가)
+
+            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(근월물_선물_고가)
+            self.plot6_option_quote_remainder_ratio_upper_line.setValue(근월물_선물_고가)
 
             for i in range(9):
                 self.plot6_mv_line[i].setValue(근월물_선물_고가)
@@ -28466,7 +28862,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_68.setText(txt)
             self.plot6_fut_high_line.setValue(근월물_선물_고가)
         
-        # 선물잔량비
+        # 선옵잔량비
         elif comboindex6 == 3:
 
             self.plot6_clear()
@@ -28476,9 +28872,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_63.setText(" - ")
             self.label_64.setText(" - ")
             self.label_65.setText(" - ")
-            self.label_66.setText(" 근월물 최소, 평균, 최대 ")
-            self.label_67.setText(" 근월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
-            self.label_68.setText(" 차월물 최소, 평균, 최대 ")
+
+            self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_66.setText(" 풋잔량비 ")
+
+            self.label_67.setText(" 선물잔량비 ")
+
+            self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_68.setText(" 콜잔량비 ")
             
             self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p6_2.setText(" BB Middle\n PSAR ")
@@ -28490,8 +28891,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p6_4.setText(" MAMA ")
 
             self.plot6_quote_remainder_ratio_base_line.setValue(1.0)
-            self.plot6_quote_remainder_ratio_bottom_line.setValue(1.0)
-            self.plot6_quote_remainder_ratio_upper_line.setValue(1.0)
+            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(1.0)
+
+            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot6_option_quote_remainder_ratio_upper_line.setValue(1.0)
 
         # 선옵체결
         elif comboindex6 == 4:
@@ -28581,7 +28985,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p6_4.setText(" MAMA ")
 
-            self.plot6_quote_remainder_ratio_base_line.setValue(1.0)      
+            self.plot6_quote_remainder_ratio_base_line.setValue(1.0)
+            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(1.0)
+
+            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(1.0)
+            self.plot6_option_quote_remainder_ratio_upper_line.setValue(1.0)     
 
         # 옵션미결
         elif comboindex6 == 8:
@@ -28648,8 +29057,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot6_clear()
 
             self.plot6_quote_remainder_ratio_base_line.setValue(DOW_종가)
-            self.plot6_quote_remainder_ratio_bottom_line.setValue(DOW_종가)
-            self.plot6_quote_remainder_ratio_upper_line.setValue(DOW_종가)
+            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(DOW_종가)
+            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(DOW_종가)
+
+            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(DOW_종가)
+            self.plot6_option_quote_remainder_ratio_upper_line.setValue(DOW_종가)
             
             for i in range(10):
                 self.plot6_kp200_line[i].setValue(DOW_종가)
@@ -28746,8 +29158,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot6_clear()
 
             self.plot6_quote_remainder_ratio_base_line.setValue(NASDAQ_종가)
-            self.plot6_quote_remainder_ratio_bottom_line.setValue(NASDAQ_종가)
-            self.plot6_quote_remainder_ratio_upper_line.setValue(NASDAQ_종가)
+            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(NASDAQ_종가)
+            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(NASDAQ_종가)
+
+            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(NASDAQ_종가)
+            self.plot6_option_quote_remainder_ratio_upper_line.setValue(NASDAQ_종가)
             
             for i in range(10):
                 self.plot6_kp200_line[i].setValue(NASDAQ_종가)
@@ -28844,8 +29259,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot6_clear()
 
             self.plot6_quote_remainder_ratio_base_line.setValue(WTI_종가)
-            self.plot6_quote_remainder_ratio_bottom_line.setValue(WTI_종가)
-            self.plot6_quote_remainder_ratio_upper_line.setValue(WTI_종가)
+            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(WTI_종가)
+            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(WTI_종가)
+
+            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(WTI_종가)
+            self.plot6_option_quote_remainder_ratio_upper_line.setValue(WTI_종가)
             
             for i in range(10):
                 self.plot6_kp200_line[i].setValue(WTI_종가)
@@ -28942,8 +29360,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot6_clear()
 
             self.plot6_quote_remainder_ratio_base_line.setValue(SP500_종가)
-            self.plot6_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
-            self.plot6_quote_remainder_ratio_upper_line.setValue(SP500_종가)
+            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
+            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(SP500_종가)
+
+            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
+            self.plot6_option_quote_remainder_ratio_upper_line.setValue(SP500_종가)
             
             for i in range(10):
                 self.plot6_kp200_line[i].setValue(SP500_종가)
@@ -29034,8 +29455,27 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_68.setText(txt)
             self.plot6_ovc_high_line.setValue(SP500_고가)
 
-        # 외인수급
+        # 수급종합
         elif comboindex6 == 20:
+
+            self.plot6_clear()
+
+            self.label_61.setText(" - ")
+            self.label_62.setText(" - ")
+            self.label_63.setText(" - ")
+            self.label_64.setText(" - ")
+            self.label_65.setText(" - ")
+
+            self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_66.setText(" 프로그램 ")
+
+            self.label_67.setText(" 선물체결량 ")
+
+            self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_68.setText(" 현물합 ")
+
+        # 외인수급
+        elif comboindex6 == 21:
 
             self.plot6_clear()
 
@@ -29052,7 +29492,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_68.setText(" 외인현물 ")
-
         else:
             pass 
 
@@ -29279,46 +29718,45 @@ class 화면_BigChart(QDialog, Ui_BigChart):
     @pyqtSlot()    
     def update_plot1(self):
 
-        global flag_plot_update_is_running        
-        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
-
-        QApplication.processEvents()
-        
-        dt = datetime.now()
-
-        # 해외선물 한국시간 표시
-        if OVC_체결시간 == '000000':
-            txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
-        else:
-            if t0167_second == self.plot_x_idx:
-                self.plot_count += 1
-            else:
-                self.plot_count = 0
-
-            self.plot_x_idx = t0167_second
-
-            if 수급방향 == 'Call1':
-                self.label_time_1.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call2':
-                self.label_time_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call3':
-                self.label_time_1.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put1':
-                self.label_time_1.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put2':
-                self.label_time_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put3':
-                self.label_time_1.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            else:
-                self.label_time_1.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-
-            txt = ' [{0:d}], {1:.2f} ms '.format(ovc_x_idx, plot1_processing_time)            
-   
-        self.label_time_1.setText(txt)
+        global flag_plot1_update_is_running        
+        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed        
                 
-        if True:
-            
-            flag_plot_update_is_running = True
+        try:
+            QApplication.processEvents()
+        
+            dt = datetime.now()
+
+            flag_plot1_update_is_running = True
+
+            # 해외선물 한국시간 표시
+            if OVC_체결시간 == '000000':
+                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
+            else:
+                if t0167_second == self.plot_x_idx:
+                    self.plot_count += 1
+                else:
+                    self.plot_count = 0
+
+                self.plot_x_idx = t0167_second
+
+                if 수급방향 == 'Call1':
+                    self.label_time_1.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call2':
+                    self.label_time_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call3':
+                    self.label_time_1.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put1':
+                    self.label_time_1.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put2':
+                    self.label_time_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put3':
+                    self.label_time_1.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_time_1.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                txt = ' [{0:d}], {1:.2f} ms '.format(ovc_x_idx, plot1_processing_time)            
+   
+            self.label_time_1.setText(txt)            
 
             # Plot1 그래프 그리기
             if comboindex1 == 2:
@@ -29482,33 +29920,36 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex1 == 3:                
 
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
+                self.label_16.setText(txt)
+
+                txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), [▼: {6:.2f}, ▲: {7:.2f}] ".format(\
+                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
+                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
+                    차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
+
+                if fut_quote_energy_direction == 'call':
+                    self.label_17.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif fut_quote_energy_direction == 'put':
+                    self.label_17.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_17.setText(txt)
+                
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
+                self.label_18.setText(txt)
+                
+                self.plot1_time_line.setValue(ovc_x_idx)
+
+                self.plot1_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
+                self.plot1_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
+
                 if DayTime:
-                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
-                    self.label_16.setText(txt)
-
-                    txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                        선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
-                        선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
-                        fut_ccms_quote_remainder_ratio)
-
-                    if fut_quote_energy_direction == 'call':
-                        self.label_17.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif fut_quote_energy_direction == 'put':
-                        self.label_17.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_17.setText(txt)
-
-                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
-                    self.label_18.setText(txt)
-
-                    self.plot1_time_line.setValue(ovc_x_idx)
-
                     self.plot1_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
                     self.plot1_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
-                    self.plot1_quote_remainder_ratio_bottom_line.setValue(nm_fut_quote_min)
-                    self.plot1_quote_remainder_ratio_upper_line.setValue(nm_fut_quote_max)
+                    self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(차월물_선물_호가잔량비_최소)
+                    self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(차월물_선물_호가잔량비_최대)
                 else:
                     pass
 
@@ -29615,17 +30056,20 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
             
             elif comboindex1 == 7:
-                
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
+
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_16.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_18.setText(txt)
                 
                 self.plot1_time_line.setValue(ovc_x_idx)
 
                 self.plot1_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
                 self.plot1_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
+                
+                self.plot1_option_quote_remainder_ratio_bottom_line.setValue(옵션_잔량비_최소)
+                self.plot1_option_quote_remainder_ratio_upper_line.setValue(옵션_잔량비_최대)
 
             elif comboindex1 == 8:
 
@@ -29665,7 +30109,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                self.plot1_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())              
+                self.plot1_cme_drate_curve.setData(df_sp500_graph['drate'].to_numpy())              
             
             elif comboindex1 == 12:
 
@@ -30222,50 +30666,91 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.plot1_program_curve.setData(df_supply_demand_graph['program'].to_numpy())
                     self.plot1_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'].to_numpy())
                 else:
-                    pass            
+                    pass
+
+            elif comboindex1 == 21:
+
+                txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'] <= 0:
+                    self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_16.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_16.setText(txt)
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_17.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_17.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_17.setText(txt)
+                
+                txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'] <= 0:
+                    self.label_18.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    
+                self.label_18.setText(txt)
+                
+                self.plot1_time_line.setValue(ovc_x_idx)
+
+                if DayTime:
+                    self.plot1_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
+                    self.plot1_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'].to_numpy())
+                    self.plot1_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'].to_numpy())
+                else:
+                    pass
             else:
-                pass  
-            
-            flag_plot_update_is_running = False        
-        else:
-            pass        
+                pass
+
+        except Exception as e:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot1에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            self.parent.textBrowser.append(txt)
+
+        finally:
+            flag_plot1_update_is_running = False      
         
     @logging_time_plot2
     @pyqtSlot()    
     def update_plot2(self):
 
-        global flag_plot_update_is_running        
-        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
+        global flag_plot2_update_is_running        
+        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed        
 
-        QApplication.processEvents()
+        try:
+            QApplication.processEvents()
         
-        dt = datetime.now()
+            dt = datetime.now()
 
-        if OVC_체결시간 == '000000':
-            txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
-        else:
-            if 수급방향 == 'Call1':
-                self.label_time_2.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call2':
-                self.label_time_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call3':
-                self.label_time_2.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put1':
-                self.label_time_2.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put2':
-                self.label_time_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put3':
-                self.label_time_2.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+            flag_plot2_update_is_running = True
+
+            if OVC_체결시간 == '000000':
+                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
             else:
-                self.label_time_2.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                if 수급방향 == 'Call1':
+                    self.label_time_2.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call2':
+                    self.label_time_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call3':
+                    self.label_time_2.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put1':
+                    self.label_time_2.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put2':
+                    self.label_time_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put3':
+                    self.label_time_2.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_time_2.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
 
-            txt = ' {0:.2f} ms '.format(plot2_processing_time)                
+                txt = ' {0:.2f} ms '.format(plot2_processing_time)                
    
-        self.label_time_2.setText(txt)
-
-        if True:
-
-            flag_plot_update_is_running = True
+            self.label_time_2.setText(txt)            
 
             # Plot2 그래프 그리기
             # 선물가격
@@ -30430,33 +30915,36 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex2 == 3:
 
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
+                self.label_26.setText(txt)
+
+                txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), [▼: {6:.2f}, ▲: {7:.2f}] ".format(\
+                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
+                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
+                    차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
+
+                if fut_quote_energy_direction == 'call':
+                    self.label_27.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif fut_quote_energy_direction == 'put':
+                    self.label_27.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_27.setText(txt)
+                
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
+                self.label_28.setText(txt)
+                
+                self.plot2_time_line.setValue(ovc_x_idx)
+
+                self.plot2_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
+                self.plot2_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
+
                 if DayTime:
-                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
-                    self.label_26.setText(txt)
-
-                    txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                        선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
-                        선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
-                        fut_ccms_quote_remainder_ratio)
-
-                    if fut_quote_energy_direction == 'call':
-                        self.label_27.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif fut_quote_energy_direction == 'put':
-                        self.label_27.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_27.setText(txt)
-
-                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
-                    self.label_28.setText(txt)
-
-                    self.plot2_time_line.setValue(ovc_x_idx)
-
                     self.plot2_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
                     self.plot2_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
-                    self.plot2_quote_remainder_ratio_bottom_line.setValue(nm_fut_quote_min)
-                    self.plot2_quote_remainder_ratio_upper_line.setValue(nm_fut_quote_max)
+                    self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(차월물_선물_호가잔량비_최소)
+                    self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(차월물_선물_호가잔량비_최대)
                 else:
                     pass
 
@@ -30564,16 +31052,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex2 == 7:
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_26.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_28.setText(txt)
                 
                 self.plot2_time_line.setValue(ovc_x_idx)
 
                 self.plot2_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
-                self.plot2_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())        
+                self.plot2_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
+
+                self.plot2_option_quote_remainder_ratio_bottom_line.setValue(옵션_잔량비_최소)
+                self.plot2_option_quote_remainder_ratio_upper_line.setValue(옵션_잔량비_최대)        
 
             elif comboindex2 == 8:
 
@@ -30613,7 +31104,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                self.plot2_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
+                self.plot2_cme_drate_curve.setData(df_sp500_graph['drate'].to_numpy())
             
             elif comboindex2 == 12:
 
@@ -31154,49 +31645,128 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.plot2_oe_base_curve.setData(df_sp500_graph['OE_BASE'].to_numpy())
                 else:
                     pass
-            else:
-                pass
+            
+            elif comboindex2 == 20:
 
-            flag_plot_update_is_running = False
-        else:
-            pass
+                txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'program'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'program'] <= 0:
+                    self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_26.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_26.setText(txt)
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_27.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_27.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_27.setText(txt)
+                
+                txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'] <= 0:
+                    self.label_28.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    
+                self.label_28.setText(txt)
+                
+                self.plot2_time_line.setValue(ovc_x_idx)
+
+                if DayTime:
+                    self.plot2_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
+                    self.plot2_program_curve.setData(df_supply_demand_graph['program'].to_numpy())
+                    self.plot2_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'].to_numpy())
+                else:
+                    pass
+
+            elif comboindex2 == 21:
+
+                txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'] <= 0:
+                    self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_26.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_26.setText(txt)
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_27.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_27.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_27.setText(txt)
+                
+                txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'] <= 0:
+                    self.label_28.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    
+                self.label_28.setText(txt)
+                
+                self.plot2_time_line.setValue(ovc_x_idx)
+
+                if DayTime:
+                    self.plot2_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
+                    self.plot2_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'].to_numpy())
+                    self.plot2_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'].to_numpy())
+                else:
+                    pass
+            else:
+                pass            
+        
+        except Exception as e:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot2에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            self.parent.textBrowser.append(txt)
+
+        finally:
+            flag_plot2_update_is_running = False
 
     @logging_time_plot3
     @pyqtSlot()    
     def update_plot3(self):
 
-        global flag_plot_update_is_running        
-        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
+        global flag_plot3_update_is_running        
+        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed        
 
-        QApplication.processEvents()
+        try:
+            QApplication.processEvents()
         
-        dt = datetime.now()
+            dt = datetime.now()
 
-        if OVC_체결시간 == '000000':
-            txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
-        else:
-            if 수급방향 == 'Call1':
-                self.label_time_3.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call2':
-                self.label_time_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call3':
-                self.label_time_3.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put1':
-                self.label_time_3.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put2':
-                self.label_time_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put3':
-                self.label_time_3.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+            flag_plot3_update_is_running = True
+
+            if OVC_체결시간 == '000000':
+                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
             else:
-                self.label_time_3.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                if 수급방향 == 'Call1':
+                    self.label_time_3.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call2':
+                    self.label_time_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call3':
+                    self.label_time_3.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put1':
+                    self.label_time_3.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put2':
+                    self.label_time_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put3':
+                    self.label_time_3.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_time_3.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
 
-            txt = ' {0:.2f} ms '.format(plot3_processing_time)
+                txt = ' {0:.2f} ms '.format(plot3_processing_time)
    
-        self.label_time_3.setText(txt)
-
-        if True:
-
-            flag_plot_update_is_running = True
+            self.label_time_3.setText(txt)            
 
             # Plot3 그래프 그리기
             # 선물가격
@@ -31361,33 +31931,36 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex3 == 3:
 
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
+                self.label_36.setText(txt)
+
+                txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), [▼: {6:.2f}, ▲: {7:.2f}] ".format(\
+                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
+                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
+                    차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
+
+                if fut_quote_energy_direction == 'call':
+                    self.label_37.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif fut_quote_energy_direction == 'put':
+                    self.label_37.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_37.setText(txt)
+                
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
+                self.label_38.setText(txt)
+                
+                self.plot3_time_line.setValue(ovc_x_idx)
+
+                self.plot3_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
+                self.plot3_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
+
                 if DayTime:
-                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
-                    self.label_36.setText(txt)
-
-                    txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                        선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
-                        선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
-                        fut_ccms_quote_remainder_ratio)
-
-                    if fut_quote_energy_direction == 'call':
-                        self.label_37.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif fut_quote_energy_direction == 'put':
-                        self.label_37.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_37.setText(txt)
-
-                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
-                    self.label_38.setText(txt)
-
-                    self.plot3_time_line.setValue(ovc_x_idx)
-
                     self.plot3_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
                     self.plot3_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
-                    self.plot3_quote_remainder_ratio_bottom_line.setValue(nm_fut_quote_min)
-                    self.plot3_quote_remainder_ratio_upper_line.setValue(nm_fut_quote_max)
+                    self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(차월물_선물_호가잔량비_최소)
+                    self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(차월물_선물_호가잔량비_최대)
                 else:
                     pass
 
@@ -31493,16 +32066,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex3 == 7:
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_36.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_38.setText(txt)
                 
                 self.plot3_time_line.setValue(ovc_x_idx)
 
                 self.plot3_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
-                self.plot3_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())            
+                self.plot3_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
+
+                self.plot3_option_quote_remainder_ratio_bottom_line.setValue(옵션_잔량비_최소)
+                self.plot3_option_quote_remainder_ratio_upper_line.setValue(옵션_잔량비_최대)        
 
             elif comboindex3 == 8:
 
@@ -31542,7 +32118,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                self.plot3_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
+                self.plot3_cme_drate_curve.setData(df_sp500_graph['drate'].to_numpy())
             
             elif comboindex3 == 12:
 
@@ -32079,49 +32655,128 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.plot3_oe_base_curve.setData(df_sp500_graph['OE_BASE'].to_numpy())
                 else:
                     pass
+            
+            elif comboindex3 == 20:
+
+                txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'program'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'program'] <= 0:
+                    self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_36.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_36.setText(txt)
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_37.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_37.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_37.setText(txt)
+                
+                txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'] <= 0:
+                    self.label_38.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    
+                self.label_38.setText(txt)
+                
+                self.plot3_time_line.setValue(ovc_x_idx)
+
+                if DayTime:
+                    self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
+                    self.plot3_program_curve.setData(df_supply_demand_graph['program'].to_numpy())
+                    self.plot3_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'].to_numpy())
+                else:
+                    pass
+
+            elif comboindex3 == 21:
+
+                txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'] <= 0:
+                    self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_36.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_36.setText(txt)
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_37.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_37.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_37.setText(txt)
+                
+                txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'] <= 0:
+                    self.label_38.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    
+                self.label_38.setText(txt)
+                
+                self.plot3_time_line.setValue(ovc_x_idx)
+
+                if DayTime:
+                    self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
+                    self.plot3_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'].to_numpy())
+                    self.plot3_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'].to_numpy())
+                else:
+                    pass
             else:
                 pass
 
-            flag_plot_update_is_running = False
-        else:
-            pass
+        except Exception as e:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot3에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            self.parent.textBrowser.append(txt)
+
+        finally:
+            flag_plot3_update_is_running = False
 
     @logging_time_plot4
     @pyqtSlot()    
     def update_plot4(self):
 
-        global flag_plot_update_is_running        
-        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
+        global flag_plot4_update_is_running        
+        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed        
 
-        QApplication.processEvents()
+        try:
+            QApplication.processEvents()
         
-        dt = datetime.now()
+            dt = datetime.now()
 
-        if OVC_체결시간 == '000000':
-            txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
-        else:
-            if 수급방향 == 'Call1':
-                self.label_time_4.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call2':
-                self.label_time_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call3':
-                self.label_time_4.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put1':
-                self.label_time_4.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put2':
-                self.label_time_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put3':
-                self.label_time_4.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+            flag_plot4_update_is_running = True
+
+            if OVC_체결시간 == '000000':
+                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
             else:
-                self.label_time_4.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                if 수급방향 == 'Call1':
+                    self.label_time_4.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call2':
+                    self.label_time_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call3':
+                    self.label_time_4.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put1':
+                    self.label_time_4.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put2':
+                    self.label_time_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put3':
+                    self.label_time_4.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_time_4.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
 
-            txt = ' {0:.2f} ms '.format(plot4_processing_time)
+                txt = ' {0:.2f} ms '.format(plot4_processing_time)
    
-        self.label_time_4.setText(txt)
-
-        if True:
-
-            flag_plot_update_is_running = True
+            self.label_time_4.setText(txt)            
 
             # Plot4 그래프 그리기
             if comboindex4 == 2:
@@ -32285,33 +32940,36 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex4 == 3:
 
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
+                self.label_46.setText(txt)
+
+                txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), [▼: {6:.2f}, ▲: {7:.2f}] ".format(\
+                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
+                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
+                    차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
+
+                if fut_quote_energy_direction == 'call':
+                    self.label_47.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif fut_quote_energy_direction == 'put':
+                    self.label_47.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_47.setText(txt)
+                
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
+                self.label_48.setText(txt)
+                
+                self.plot4_time_line.setValue(ovc_x_idx)
+
+                self.plot4_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
+                self.plot4_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
+
                 if DayTime:
-                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
-                    self.label_46.setText(txt)
-
-                    txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                        선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
-                        선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
-                        fut_ccms_quote_remainder_ratio)
-
-                    if fut_quote_energy_direction == 'call':
-                        self.label_47.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif fut_quote_energy_direction == 'put':
-                        self.label_47.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_47.setText(txt)
-
-                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
-                    self.label_48.setText(txt)
-
-                    self.plot4_time_line.setValue(ovc_x_idx)
-
                     self.plot4_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
                     self.plot4_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
-                    self.plot4_quote_remainder_ratio_bottom_line.setValue(nm_fut_quote_min)
-                    self.plot4_quote_remainder_ratio_upper_line.setValue(nm_fut_quote_max)
+                    self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(차월물_선물_호가잔량비_최소)
+                    self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(차월물_선물_호가잔량비_최대)
                 else:
                     pass
 
@@ -32419,16 +33077,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex4 == 7:
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_46.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_48.setText(txt)
                 
                 self.plot4_time_line.setValue(ovc_x_idx)
 
                 self.plot4_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
                 self.plot4_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
+
+                self.plot4_option_quote_remainder_ratio_bottom_line.setValue(옵션_잔량비_최소)
+                self.plot4_option_quote_remainder_ratio_upper_line.setValue(옵션_잔량비_최대)
 
             elif comboindex4 == 8:
 
@@ -32468,7 +33129,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass 
 
-                self.plot4_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
+                self.plot4_cme_drate_curve.setData(df_sp500_graph['drate'].to_numpy())
             
             elif comboindex4 == 12:
 
@@ -32988,49 +33649,128 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.plot4_oe_base_curve.setData(df_sp500_graph['OE_BASE'].to_numpy())
                 else:
                     pass
+            
+            elif comboindex4 == 20:
+
+                txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'program'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'program'] <= 0:
+                    self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_46.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_46.setText(txt)
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_47.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_47.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_47.setText(txt)
+                
+                txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'] <= 0:
+                    self.label_48.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    
+                self.label_48.setText(txt)
+                
+                self.plot4_time_line.setValue(ovc_x_idx)
+
+                if DayTime:
+                    self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
+                    self.plot4_program_curve.setData(df_supply_demand_graph['program'].to_numpy())
+                    self.plot4_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'].to_numpy())
+                else:
+                    pass
+
+            elif comboindex4 == 21:
+
+                txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'] <= 0:
+                    self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_46.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_46.setText(txt)
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_47.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_47.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_47.setText(txt)
+                
+                txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'] <= 0:
+                    self.label_48.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    
+                self.label_48.setText(txt)
+                
+                self.plot4_time_line.setValue(ovc_x_idx)
+
+                if DayTime:
+                    self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
+                    self.plot4_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'].to_numpy())
+                    self.plot4_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'].to_numpy())
+                else:
+                    pass
             else:
                 pass
+            
+        except Exception as e:
 
-            flag_plot_update_is_running = False
-        else:
-            pass   
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot4에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            self.parent.textBrowser.append(txt)
+
+        finally:
+            flag_plot4_update_is_running = False 
 
     @logging_time_plot5
     @pyqtSlot()    
     def update_plot5(self):
 
-        global flag_plot_update_is_running        
-        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
+        global flag_plot5_update_is_running        
+        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed        
 
-        QApplication.processEvents()
+        try:
+            QApplication.processEvents()
         
-        dt = datetime.now()
+            dt = datetime.now()
 
-        if OVC_체결시간 == '000000':
-            txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
-        else:
-            if 수급방향 == 'Call1':
-                self.label_time_5.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call2':
-                self.label_time_5.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call3':
-                self.label_time_5.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put1':
-                self.label_time_5.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put2':
-                self.label_time_5.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put3':
-                self.label_time_5.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+            flag_plot5_update_is_running = True
+
+            if OVC_체결시간 == '000000':
+                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
             else:
-                self.label_time_5.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                if 수급방향 == 'Call1':
+                    self.label_time_5.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call2':
+                    self.label_time_5.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call3':
+                    self.label_time_5.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put1':
+                    self.label_time_5.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put2':
+                    self.label_time_5.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put3':
+                    self.label_time_5.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_time_5.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
 
-            txt = ' {0:.2f} ms '.format(plot5_processing_time)
+                txt = ' {0:.2f} ms '.format(plot5_processing_time)
    
-        self.label_time_5.setText(txt)
-
-        if True:
-
-            flag_plot_update_is_running = True
+            self.label_time_5.setText(txt)            
 
             # Plot5 그래프 그리기
             # 선물가격
@@ -33195,33 +33935,36 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex5 == 3:
 
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
+                self.label_56.setText(txt)
+
+                txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), [▼: {6:.2f}, ▲: {7:.2f}] ".format(\
+                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
+                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
+                    차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
+
+                if fut_quote_energy_direction == 'call':
+                    self.label_57.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif fut_quote_energy_direction == 'put':
+                    self.label_57.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_57.setText(txt)
+                
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
+                self.label_58.setText(txt)
+                
+                self.plot5_time_line.setValue(ovc_x_idx)
+
+                self.plot5_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
+                self.plot5_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
+
                 if DayTime:
-                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
-                    self.label_56.setText(txt)
-
-                    txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                        선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
-                        선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
-                        fut_ccms_quote_remainder_ratio)
-
-                    if fut_quote_energy_direction == 'call':
-                        self.label_57.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif fut_quote_energy_direction == 'put':
-                        self.label_57.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_57.setText(txt)
-
-                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
-                    self.label_58.setText(txt)
-
-                    self.plot5_time_line.setValue(ovc_x_idx)
-
                     self.plot5_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
                     self.plot5_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
-                    self.plot5_quote_remainder_ratio_bottom_line.setValue(nm_fut_quote_min)
-                    self.plot5_quote_remainder_ratio_upper_line.setValue(nm_fut_quote_max)
+                    self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(차월물_선물_호가잔량비_최소)
+                    self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(차월물_선물_호가잔량비_최대)
                 else:
                     pass
 
@@ -33326,16 +34069,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex5 == 7:
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_56.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_58.setText(txt)
                 
                 self.plot5_time_line.setValue(ovc_x_idx)
 
                 self.plot5_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
-                self.plot5_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())        
+                self.plot5_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
+
+                self.plot5_option_quote_remainder_ratio_bottom_line.setValue(옵션_잔량비_최소)
+                self.plot5_option_quote_remainder_ratio_upper_line.setValue(옵션_잔량비_최대)       
 
             elif comboindex5 == 8:
 
@@ -33375,7 +34121,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                self.plot5_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
+                self.plot5_cme_drate_curve.setData(df_sp500_graph['drate'].to_numpy())
             
             elif comboindex5 == 12:
 
@@ -33913,49 +34659,127 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
             
+            elif comboindex5 == 20:
+
+                txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'program'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'program'] <= 0:
+                    self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_56.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_56.setText(txt)
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_57.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_57.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_57.setText(txt)
+                
+                txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'] <= 0:
+                    self.label_58.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    
+                self.label_58.setText(txt)
+                
+                self.plot5_time_line.setValue(ovc_x_idx)
+
+                if DayTime:
+                    self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
+                    self.plot5_program_curve.setData(df_supply_demand_graph['program'].to_numpy())
+                    self.plot5_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'].to_numpy())
+                else:
+                    pass
+
+            elif comboindex5 == 21:
+
+                txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'] <= 0:
+                    self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_56.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_56.setText(txt)
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_57.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_57.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_57.setText(txt)
+                
+                txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'] <= 0:
+                    self.label_58.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    
+                self.label_58.setText(txt)
+                
+                self.plot5_time_line.setValue(ovc_x_idx)
+
+                if DayTime:
+                    self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
+                    self.plot5_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'].to_numpy())
+                    self.plot5_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'].to_numpy())
+                else:
+                    pass
             else:
                 pass
 
-            flag_plot_update_is_running = False
-        else:
-            pass
+        except Exception as e:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot5에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            self.parent.textBrowser.append(txt)
+
+        finally:
+            flag_plot5_update_is_running = False
 
     @logging_time_plot6
     @pyqtSlot()    
     def update_plot6(self):
 
-        global flag_plot_update_is_running        
-        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
+        global flag_plot6_update_is_running        
+        global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed        
 
-        QApplication.processEvents()
+        try:
+            QApplication.processEvents()
         
-        dt = datetime.now()
+            dt = datetime.now()
 
-        if OVC_체결시간 == '000000':
-            txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
-        else:
-            if 수급방향 == 'Call1':
-                self.label_time_6.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call2':
-                self.label_time_6.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Call3':
-                self.label_time_6.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put1':
-                self.label_time_6.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put2':
-                self.label_time_6.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            elif 수급방향 == 'Put3':
-                self.label_time_6.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+            flag_plot6_update_is_running = True
+
+            if OVC_체결시간 == '000000':
+                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
             else:
-                self.label_time_6.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                if 수급방향 == 'Call1':
+                    self.label_time_6.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call2':
+                    self.label_time_6.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call3':
+                    self.label_time_6.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put1':
+                    self.label_time_6.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put2':
+                    self.label_time_6.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put3':
+                    self.label_time_6.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_time_6.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
 
-            txt = ' {0:.2f} ms '.format(plot6_processing_time)
+                txt = ' {0:.2f} ms '.format(plot6_processing_time)
    
-        self.label_time_6.setText(txt)
-
-        if True:
-
-            flag_plot_update_is_running = True
+            self.label_time_6.setText(txt)            
 
             # Plot6 그래프 그리기
             # 선물가격
@@ -34120,33 +34944,36 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex6 == 3:
 
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
+                self.label_66.setText(txt)
+
+                txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), [▼: {6:.2f}, ▲: {7:.2f}] ".format(\
+                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
+                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
+                    차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
+
+                if fut_quote_energy_direction == 'call':
+                    self.label_67.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif fut_quote_energy_direction == 'put':
+                    self.label_67.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_67.setText(txt)
+                
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
+                self.label_68.setText(txt)
+                
+                self.plot6_time_line.setValue(ovc_x_idx)
+
+                self.plot6_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
+                self.plot6_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
+
                 if DayTime:
-                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(cm_fut_quote_min, cm_fut_quote_mean, cm_fut_quote_max)
-                    self.label_66.setText(txt)
-
-                    txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
-                        선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
-                        선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
-                        fut_ccms_quote_remainder_ratio)
-
-                    if fut_quote_energy_direction == 'call':
-                        self.label_67.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif fut_quote_energy_direction == 'put':
-                        self.label_67.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_67.setText(txt)
-
-                    txt = ' ▼: {0:.2f}, mean: {1:.2f}, ▲: {2:.2f} '.format(nm_fut_quote_min, nm_fut_quote_mean, nm_fut_quote_max)
-                    self.label_68.setText(txt)
-
-                    self.plot6_time_line.setValue(ovc_x_idx)
-
                     self.plot6_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
                     self.plot6_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
-                    self.plot6_quote_remainder_ratio_bottom_line.setValue(nm_fut_quote_min)
-                    self.plot6_quote_remainder_ratio_upper_line.setValue(nm_fut_quote_max)
+                    self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(차월물_선물_호가잔량비_최소)
+                    self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(차월물_선물_호가잔량비_최대)
                 else:
                     pass
 
@@ -34251,16 +35078,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex6 == 7:
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_66.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_68.setText(txt)
                 
                 self.plot6_time_line.setValue(ovc_x_idx)
 
                 self.plot6_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
-                self.plot6_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())        
+                self.plot6_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
+
+                self.plot6_option_quote_remainder_ratio_bottom_line.setValue(옵션_잔량비_최소)
+                self.plot6_option_quote_remainder_ratio_upper_line.setValue(옵션_잔량비_최대)        
 
             elif comboindex6 == 8:
 
@@ -34300,7 +35130,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass 
 
-                self.plot6_dow_drate_curve.setData(df_dow_graph['drate'].to_numpy())
+                self.plot6_cme_drate_curve.setData(df_sp500_graph['drate'].to_numpy())
             
             elif comboindex6 == 12:
 
@@ -34840,6 +35670,44 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex6 == 20:
 
+                txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'program'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'program'] <= 0:
+                    self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_66.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_66.setText(txt)
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_67.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_67.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_67.setText(txt)
+                
+                txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'])
+
+                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'] <= 0:
+                    self.label_68.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    
+                self.label_68.setText(txt)
+                
+                self.plot6_time_line.setValue(ovc_x_idx)
+
+                if DayTime:
+                    self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
+                    self.plot6_program_curve.setData(df_supply_demand_graph['program'].to_numpy())
+                    self.plot6_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'].to_numpy())
+                else:
+                    pass
+
+            elif comboindex6 == 21:
+
                 txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'])
 
                 if df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'] <= 0:
@@ -34874,14 +35742,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.plot6_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'].to_numpy())
                     self.plot6_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'].to_numpy())
                 else:
-                    pass
-            
+                    pass            
             else:
                 pass
 
-            flag_plot_update_is_running = False
-        else:
-            pass
+        except Exception as e:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot6에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            self.parent.textBrowser.append(txt)
+
+        finally:
+            flag_plot6_update_is_running = False
 
     def closeEvent(self,event):
 
@@ -37379,7 +38250,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             dt = datetime.now()
 
             if not flag_market_service:
-                flag_market_service = True
+                pass
+                #flag_market_service = True
             else:
                 pass
 
@@ -37530,7 +38402,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         self.dialog['선물옵션전광판'].tableWidget_fut.item(1, 0).setBackground(QBrush(검정색))
                         self.dialog['선물옵션전광판'].tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
 
-                item = QTableWidgetItem("DOW\n({0:.2f}%)".format(DOW_등락율))
+                item = QTableWidgetItem("CME\n({0:.2f}%)".format(SP500_등락율))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(흰색))
                 item.setForeground(QBrush(검정색))
@@ -37562,10 +38434,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if DOW_진폭비 > 0:            
-                    선물_DOW_진폭비율 = 선물_진폭비 / DOW_진폭비
+                if SP500_진폭비 > 0:            
+                    선물_SP500_진폭비율 = 선물_진폭비 / SP500_진폭비
 
-                    item = QTableWidgetItem("{0:.2f}".format(선물_DOW_진폭비율))
+                    item = QTableWidgetItem("{0:.2f}".format(선물_SP500_진폭비율))
                     item.setTextAlignment(Qt.AlignCenter)
 
                     item.setBackground(QBrush(라임))
@@ -37943,7 +38815,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
 
-                    item = QTableWidgetItem("DOW\n({0:.2f}%)".format(DOW_등락율))
+                    item = QTableWidgetItem("CME\n({0:.2f}%)".format(SP500_등락율))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -38926,6 +39798,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
+                df_futures_nm_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 차월물_선물_시가대비_등락율
+
                 if float(tickdata['현재가']) == float('inf') or float(tickdata['현재가']) == float('-inf'):
                     차월물_선물_현재가 = float('nan')
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 선물 현재가 무한대 오류발생...\r'.format(dt.hour, dt.minute, dt.second)
@@ -39040,13 +39914,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global fut_ccms_quote_count_ratio, fut_ccms_quote_remainder_ratio, fut_quote_energy_direction
         global quote_count_ratio, quote_remainder_ratio
         global flag_under_call, flag_over_call
+        global 차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대
 
         try:
             #szTrCode = tickdata['tr_code']
             dt = datetime.now()
         
             if not flag_market_service:
-                flag_market_service = True
+                pass
+                #flag_market_service = True
             else:
                 pass
 
@@ -39141,26 +40017,40 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     선물_차월물_호가_잔량비 = int(tickdata['매수호가총수량']) / int(tickdata['매도호가총수량'])
                     df_futures_cm_graph.at[ovc_x_idx, 'n_quote_remainder_ratio'] = 선물_차월물_호가_잔량비
 
-                    nm_fut_quote_min = df_futures_cm_graph['n_quote_remainder_ratio'].min()
-                    nm_fut_quote_mean = df_futures_cm_graph['n_quote_remainder_ratio'].mean()
-                    nm_fut_quote_max = df_futures_cm_graph['n_quote_remainder_ratio'].max()
+                    if flag_market_service:
 
-                    if 선물_차월물_호가_잔량비 < UNDER_CALL_LIMIT_VAL:
-                        flag_under_call = True
-                    else:
-                        flag_under_call = False
+                        nm_fut_quote_min = df_futures_cm_graph['n_quote_remainder_ratio'].min()
+                        nm_fut_quote_mean = df_futures_cm_graph['n_quote_remainder_ratio'].mean()
+                        nm_fut_quote_max = df_futures_cm_graph['n_quote_remainder_ratio'].max()
 
-                    if 선물_차월물_호가_잔량비 >= OVER_CALL_LIMIT_VAL:
-                        flag_over_call = True
-                    else:
-                        flag_over_call = False
+                        if nm_fut_quote_min < 차월물_선물_호가잔량비_최소:
+                            차월물_선물_호가잔량비_최소 = nm_fut_quote_min
+                        else:
+                            pass
 
-                    item_txt = '{0:.2f}'.format(nm_fut_quote_min)
+                        if nm_fut_quote_max > 차월물_선물_호가잔량비_최대:
+                            차월물_선물_호가잔량비_최대 = nm_fut_quote_max
+                        else:
+                            pass
 
-                    if item_txt != self.dialog['선물옵션전광판'].tableWidget_fut.horizontalHeaderItem(7).text():                        
-                        item = QTableWidgetItem(item_txt)
-                        item.setTextAlignment(Qt.AlignCenter)
-                        self.dialog['선물옵션전광판'].tableWidget_fut.setHorizontalHeaderItem(7, item)
+                        if 선물_차월물_호가_잔량비 < UNDER_CALL_LIMIT_VAL:
+                            flag_under_call = True
+                        else:
+                            flag_under_call = False
+
+                        if 선물_차월물_호가_잔량비 >= OVER_CALL_LIMIT_VAL:
+                            flag_over_call = True
+                        else:
+                            flag_over_call = False
+
+                        item_txt = '{0:.2f}'.format(nm_fut_quote_min)
+
+                        if item_txt != self.dialog['선물옵션전광판'].tableWidget_fut.horizontalHeaderItem(7).text():                        
+                            item = QTableWidgetItem(item_txt)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            self.dialog['선물옵션전광판'].tableWidget_fut.setHorizontalHeaderItem(7, item)
+                        else:
+                            pass
                     else:
                         pass
                 else:
@@ -39381,6 +40271,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
+            if not flag_market_service:                
+                flag_market_service = True
+            else:
+                pass
+
             if tickdata['단축코드'][0:3] == '201':
 
                 index = call_행사가.index(tickdata['단축코드'][5:8])
@@ -39493,8 +40388,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass 
 
                 # 테이블 갱신
-                self.dialog['선물옵션전광판'].put_update(tickdata) 
-                put_result = copy.deepcopy(tickdata)                                                               
+                self.dialog['선물옵션전광판'].put_update(tickdata)
+                put_result = copy.deepcopy(tickdata)                                                                              
 
                 if not flag_periodic_plot_mode:                    
                     self.dialog['선물옵션전광판'].put_db_update()
@@ -39541,6 +40436,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global df_call_information_graph, df_put_information_graph
         global flag_telegram_send_start, flag_telegram_listen_start
         global 옵션_잔량비차
+        global 콜_잔량비_최소, 콜_잔량비_최대, 풋_잔량비_최소, 풋_잔량비_최대
+        global 옵션_잔량비_최소, 옵션_잔량비_최대
 
         try:
             #szTrCode = tickdata['tr_code']
@@ -39552,7 +40449,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
 
             if not flag_market_service:
-                flag_market_service = True
+                pass
+                #flag_market_service = True
             else:
                 pass
 
@@ -39594,21 +40492,53 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-            if NightTime:
+            if flag_market_service:
+
                 df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
                 df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비
+
+                옵션_잔량비차 = abs(콜잔량비 - 풋잔량비)
+                
+                if 콜잔량비 < 콜_잔량비_최소:
+                    콜_잔량비_최소 = 콜잔량비
+                else:
+                    pass
+
+                if 콜잔량비 > 옵션_잔량비_최대:
+                    콜_잔량비_최대 = 콜잔량비
+                else:
+                    pass
+
+                if 풋잔량비 < 풋_잔량비_최소:
+                    풋_잔량비_최소 = 풋잔량비
+                else:
+                    pass
+
+                if 풋잔량비 > 풋_잔량비_최대:
+                    풋_잔량비_최대 = 풋잔량비
+                else:
+                    pass
+
+                if 콜_잔량비_최소 < 풋_잔량비_최소:
+                    옵션_잔량비_최소 = 콜_잔량비_최소
+                else:
+                    옵션_잔량비_최소 = 풋_잔량비_최소
+
+                if 콜_잔량비_최대 > 풋_잔량비_최대:
+                    옵션_잔량비_최대 = 콜_잔량비_최대
+                else:
+                    옵션_잔량비_최대 = 풋_잔량비_최대
+                
             else:
-                if 콜잔량비 > 10.0:
-                    df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 10.0
+                if 콜잔량비 > 5.0:
+                    df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
                 else:
                     df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
 
-                if 풋잔량비 > 10.0:
-                    df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 10.0
+                if 풋잔량비 > 5.0:
+                    df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
                 else:
-                    df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비
-
-            옵션_잔량비차 = abs(콜잔량비 - 풋잔량비)
+                    df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비            
 
             # 야간선물이 없어짐에 따른 텔레그램 기동 대응
             '''
@@ -39700,7 +40630,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global hangseng_delta, old_hangseng_delta, hangseng_직전대비, hangseng_text_color
         global gold_delta, old_gold_delta, gold_직전대비, gold_text_color
 
-        global SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_현재가, SP500_전일대비, SP500_등락율, SP500_진폭, SP500_고가
+        global SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_현재가, SP500_전일대비, SP500_등락율, SP500_진폭, SP500_고가, SP500_진폭비
         global DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_현재가, DOW_전일대비, DOW_등락율, DOW_진폭, DOW_고가, DOW_진폭비
         global NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_현재가, NASDAQ_전일대비, NASDAQ_등락율, NASDAQ_진폭, NASDAQ_고가
         global WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭, WTI_고가
@@ -40136,10 +41066,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 SP500_고가 =  float(tickdata['고가'])
                 SP500_진폭 = SP500_고가 - SP500_저가
 
-                if SP500_전일종가 > 0 and DayTime:
+                if DayTime and SP500_전일종가 > 0:
                     SP500_등락율 = ((SP500_현재가 - SP500_전일종가) / SP500_전일종가) * 100
                 else:
+                    pass              
+
+                drate_temp = plot_drate_scale_factor * SP500_등락율
+
+                # 등락율에 스파이크 발생하는 문제 임시해결
+                if drate_temp > 50:
+                    drate_temp = 50.0
+                elif drate_temp < -50:
+                    drate_temp = -50.0
+                else:
                     pass
+                
+                # 그래프 등락율 가격갱신
+                df_sp500_graph.at[ovc_x_idx, 'drate'] = drate_temp
 
                 체결가격 = locale.format('%.2f', SP500_현재가, 1)
 
@@ -40208,7 +41151,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     SP500_시가 = float(tickdata['시가'])
                 else:
-                    pass                                                 
+                    SP500_진폭비 = SP500_진폭 / SP500_시가                                                  
 
                 if SP500_피봇 == 0:
 
@@ -41022,6 +41965,43 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if self.dialog['BigChart'] is not None:
 
                 if self.dialog['BigChart'].flag_big_chart_open:
+
+                    if self.dialog['BigChart'].plot_update_worker1.isRunning():
+                        self.dialog['BigChart'].plot_update_worker1.terminate()
+                        print('plot1 thread is terminated...')
+                    else:
+                        pass
+
+                    if self.dialog['BigChart'].plot_update_worker2.isRunning():
+                        self.dialog['BigChart'].plot_update_worker2.terminate()
+                        print('plot2 thread is terminated...')
+                    else:
+                        pass
+
+                    if self.dialog['BigChart'].plot_update_worker3.isRunning():
+                        self.dialog['BigChart'].plot_update_worker3.terminate()
+                        print('plot3 thread is terminated...')
+                    else:
+                        pass
+
+                    if self.dialog['BigChart'].plot_update_worker4.isRunning():
+                        self.dialog['BigChart'].plot_update_worker4.terminate()
+                        print('plot4 thread is terminated...')
+                    else:
+                        pass
+
+                    if self.dialog['BigChart'].plot_update_worker5.isRunning():
+                        self.dialog['BigChart'].plot_update_worker5.terminate()
+                        print('plot5 thread is terminated...')
+                    else:
+                        pass
+
+                    if self.dialog['BigChart'].plot_update_worker6.isRunning():
+                        self.dialog['BigChart'].plot_update_worker6.terminate()
+                        print('plot6 thread is terminated...')
+                    else:
+                        pass
+
                     self.dialog['BigChart'].close()
                 else:
                     pass
