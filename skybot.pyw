@@ -5890,18 +5890,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         if self.alternate_flag:
                             # 콜 테이블 데이타 갱신 
-                            if call_result:
-                                pass                                
-                                #self.call_db_update()
-                                #self.call_volume_power_update()                                
+                            if call_result:                        
+                                self.call_db_update()
+                                self.call_volume_power_update()                                
                             else:
                                 pass
                         else:
                             # 풋 테이블 데이타 갱신
-                            if put_result:
-                                pass                              
-                                #self.put_db_update()
-                                #self.put_volume_power_update()
+                            if put_result:                      
+                                self.put_db_update()
+                                self.put_volume_power_update()
                             else:
                                 pass
 
@@ -22821,19 +22819,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot1_fut_high_line = self.plot1.addLine(x=None, pen=pink_pen)
 
         self.plot1_fut_cm_price_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_fut_nm_price_curve = self.plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_kp200_curve = self.plot1.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot1_fut_nm_price_curve = self.plot1.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_kp200_curve = self.plot1.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
         # 선옵잔량비
         self.plot1_quote_remainder_ratio_base_line = self.plot1.addLine(x=None, pen=ypen1)
         self.plot1_nm_futures_quote_remainder_ratio_bottom_line = self.plot1.addLine(x=None, pen=gpen1)
         self.plot1_nm_futures_quote_remainder_ratio_upper_line = self.plot1.addLine(x=None, pen=red_dot_pen)
         
-        self.plot1_fut_cm_quote_remainder_ratio_curve = self.plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_fut_nm_quote_remainder_ratio_curve = self.plot1.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_fut_cm_quote_remainder_ratio_curve = self.plot1.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_fut_nm_quote_remainder_ratio_curve = self.plot1.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot1_fut_volume_curve = self.plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_fut_volume_curve = self.plot1.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_call_volume_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_put_volume_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)           
 
@@ -22841,7 +22839,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot1_center_val_line = self.plot1.addLine(x=None, pen=gold_pen)
         self.plot1_center_val_upper_line = self.plot1.addLine(x=None, pen=pink_pen)
 
-        self.plot1_center_val_curve = self.plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot1_center_val_curve = self.plot1.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         
         # 옵션잔량비
         self.plot1_call_quote_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
@@ -22854,8 +22852,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot1_put_oi_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         # 등락율비
-        self.plot1_fut_drate_curve = self.plot1.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_cme_drate_curve = self.plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot1_fut_drate_curve = self.plot1.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_cme_drate_curve = self.plot1.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         self.plot1_call_drate_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_put_drate_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -22929,19 +22927,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot2_fut_high_line = self.plot2.addLine(x=None, pen=pink_pen)
 
         self.plot2_fut_cm_price_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_fut_nm_price_curve = self.plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_kp200_curve = self.plot2.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot2_fut_nm_price_curve = self.plot2.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_kp200_curve = self.plot2.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
         # 선옵잔량비
         self.plot2_quote_remainder_ratio_base_line = self.plot2.addLine(x=None, pen=ypen1)
         self.plot2_nm_futures_quote_remainder_ratio_bottom_line = self.plot2.addLine(x=None, pen=gpen1)
         self.plot2_nm_futures_quote_remainder_ratio_upper_line = self.plot2.addLine(x=None, pen=red_dot_pen)
         
-        self.plot2_fut_cm_quote_remainder_ratio_curve = self.plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_fut_nm_quote_remainder_ratio_curve = self.plot2.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_fut_cm_quote_remainder_ratio_curve = self.plot2.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_fut_nm_quote_remainder_ratio_curve = self.plot2.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot2_fut_volume_curve = self.plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_fut_volume_curve = self.plot2.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_call_volume_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_put_volume_curve = self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)        
 
@@ -22949,7 +22947,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot2_center_val_line = self.plot2.addLine(x=None, pen=gold_pen)
         self.plot2_center_val_upper_line = self.plot2.addLine(x=None, pen=pink_pen)
 
-        self.plot2_center_val_curve = self.plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot2_center_val_curve = self.plot2.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         
         # 옵션잔량비
         self.plot2_call_quote_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
@@ -22962,8 +22960,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot2_put_oi_curve = self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         # 등락율비
-        self.plot2_fut_drate_curve = self.plot2.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_cme_drate_curve = self.plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot2_fut_drate_curve = self.plot2.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_cme_drate_curve = self.plot2.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         self.plot2_call_drate_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_put_drate_curve = self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -23018,19 +23016,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot3_fut_high_line = self.plot3.addLine(x=None, pen=pink_pen)
 
         self.plot3_fut_cm_price_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_fut_nm_price_curve = self.plot3.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_kp200_curve = self.plot3.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot3_fut_nm_price_curve = self.plot3.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_kp200_curve = self.plot3.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
         # 선옵잔량비
         self.plot3_quote_remainder_ratio_base_line = self.plot3.addLine(x=None, pen=ypen1)
         self.plot3_nm_futures_quote_remainder_ratio_bottom_line = self.plot3.addLine(x=None, pen=gpen1)
         self.plot3_nm_futures_quote_remainder_ratio_upper_line = self.plot3.addLine(x=None, pen=red_dot_pen)
         
-        self.plot3_fut_cm_quote_remainder_ratio_curve = self.plot3.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_fut_nm_quote_remainder_ratio_curve = self.plot3.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_fut_cm_quote_remainder_ratio_curve = self.plot3.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_fut_nm_quote_remainder_ratio_curve = self.plot3.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot3_fut_volume_curve = self.plot3.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_fut_volume_curve = self.plot3.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_call_volume_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_put_volume_curve = self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -23038,7 +23036,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot3_center_val_line = self.plot3.addLine(x=None, pen=gold_pen)
         self.plot3_center_val_upper_line = self.plot3.addLine(x=None, pen=pink_pen)
 
-        self.plot3_center_val_curve = self.plot3.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot3_center_val_curve = self.plot3.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         
         # 옵션잔량비
         self.plot3_call_quote_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
@@ -23051,8 +23049,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot3_put_oi_curve = self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         # 등락율비
-        self.plot3_fut_drate_curve = self.plot3.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_cme_drate_curve = self.plot3.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot3_fut_drate_curve = self.plot3.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_cme_drate_curve = self.plot3.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         self.plot3_call_drate_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_put_drate_curve = self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -23107,19 +23105,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot4_fut_high_line = self.plot4.addLine(x=None, pen=pink_pen)
 
         self.plot4_fut_cm_price_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_fut_nm_price_curve = self.plot4.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_kp200_curve = self.plot4.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot4_fut_nm_price_curve = self.plot4.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_kp200_curve = self.plot4.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
         # 선옵잔량비
         self.plot4_quote_remainder_ratio_base_line = self.plot4.addLine(x=None, pen=ypen1)
         self.plot4_nm_futures_quote_remainder_ratio_bottom_line = self.plot4.addLine(x=None, pen=gpen1)
         self.plot4_nm_futures_quote_remainder_ratio_upper_line = self.plot4.addLine(x=None, pen=red_dot_pen)
         
-        self.plot4_fut_cm_quote_remainder_ratio_curve = self.plot4.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_fut_nm_quote_remainder_ratio_curve = self.plot4.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_fut_cm_quote_remainder_ratio_curve = self.plot4.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_fut_nm_quote_remainder_ratio_curve = self.plot4.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot4_fut_volume_curve = self.plot4.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_fut_volume_curve = self.plot4.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_call_volume_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_put_volume_curve = self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)        
 
@@ -23127,7 +23125,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot4_center_val_line = self.plot4.addLine(x=None, pen=gold_pen)
         self.plot4_center_val_upper_line = self.plot4.addLine(x=None, pen=pink_pen)
 
-        self.plot4_center_val_curve = self.plot4.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot4_center_val_curve = self.plot4.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         
         # 옵션잔량비
         self.plot4_call_quote_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
@@ -23140,8 +23138,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot4_put_oi_curve = self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         # 등락율비
-        self.plot4_fut_drate_curve = self.plot4.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_cme_drate_curve = self.plot4.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot4_fut_drate_curve = self.plot4.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_cme_drate_curve = self.plot4.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         self.plot4_call_drate_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_put_drate_curve = self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -23196,19 +23194,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot5_fut_high_line = self.plot5.addLine(x=None, pen=pink_pen)
 
         self.plot5_fut_cm_price_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_fut_nm_price_curve = self.plot5.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_kp200_curve = self.plot5.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot5_fut_nm_price_curve = self.plot5.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_kp200_curve = self.plot5.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
         # 선옵잔량비
         self.plot5_quote_remainder_ratio_base_line = self.plot5.addLine(x=None, pen=ypen1)
         self.plot5_nm_futures_quote_remainder_ratio_bottom_line = self.plot5.addLine(x=None, pen=gpen1)
         self.plot5_nm_futures_quote_remainder_ratio_upper_line = self.plot5.addLine(x=None, pen=red_dot_pen)
         
-        self.plot5_fut_cm_quote_remainder_ratio_curve = self.plot5.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_fut_nm_quote_remainder_ratio_curve = self.plot5.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_fut_cm_quote_remainder_ratio_curve = self.plot5.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_fut_nm_quote_remainder_ratio_curve = self.plot5.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot5_fut_volume_curve = self.plot5.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_fut_volume_curve = self.plot5.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_call_volume_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_put_volume_curve = self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -23216,7 +23214,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot5_center_val_line = self.plot5.addLine(x=None, pen=gold_pen)
         self.plot5_center_val_upper_line = self.plot5.addLine(x=None, pen=pink_pen)
 
-        self.plot5_center_val_curve = self.plot5.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot5_center_val_curve = self.plot5.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         
         # 옵션잔량비
         self.plot5_call_quote_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
@@ -23229,8 +23227,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot5_put_oi_curve = self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         # 등락율비
-        self.plot5_fut_drate_curve = self.plot5.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_cme_drate_curve = self.plot5.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot5_fut_drate_curve = self.plot5.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_cme_drate_curve = self.plot5.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         self.plot5_call_drate_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_put_drate_curve = self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -23285,19 +23283,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot6_fut_high_line = self.plot6.addLine(x=None, pen=pink_pen)
 
         self.plot6_fut_cm_price_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_fut_nm_price_curve = self.plot6.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_kp200_curve = self.plot6.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot6_fut_nm_price_curve = self.plot6.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_kp200_curve = self.plot6.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
         # 선옵잔량비
         self.plot6_quote_remainder_ratio_base_line = self.plot6.addLine(x=None, pen=ypen1)
         self.plot6_nm_futures_quote_remainder_ratio_bottom_line = self.plot6.addLine(x=None, pen=gpen1)
         self.plot6_nm_futures_quote_remainder_ratio_upper_line = self.plot6.addLine(x=None, pen=red_dot_pen)
         
-        self.plot6_fut_cm_quote_remainder_ratio_curve = self.plot6.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_fut_nm_quote_remainder_ratio_curve = self.plot6.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_fut_cm_quote_remainder_ratio_curve = self.plot6.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_fut_nm_quote_remainder_ratio_curve = self.plot6.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot6_fut_volume_curve = self.plot6.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_fut_volume_curve = self.plot6.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_call_volume_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_put_volume_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)        
 
@@ -23305,7 +23303,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot6_center_val_line = self.plot6.addLine(x=None, pen=gold_pen)
         self.plot6_center_val_upper_line = self.plot6.addLine(x=None, pen=pink_pen)
 
-        self.plot6_center_val_curve = self.plot6.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot6_center_val_curve = self.plot6.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         
         # 옵션잔량비
         self.plot6_call_quote_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
@@ -23318,8 +23316,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot6_put_oi_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         # 등락율비
-        self.plot6_fut_drate_curve = self.plot6.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_cme_drate_curve = self.plot6.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        self.plot6_fut_drate_curve = self.plot6.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_cme_drate_curve = self.plot6.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         self.plot6_call_drate_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_put_drate_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -40330,14 +40328,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     # 테이블 갱신
                     self.dialog['선물옵션전광판'].call_update(tickdata)
-                    call_result = copy.deepcopy(tickdata)
-
-                    self.dialog['선물옵션전광판'].call_db_update()
-                    self.dialog['선물옵션전광판'].call_volume_power_update()                
+                    call_result = copy.deepcopy(tickdata)                
 
                     if not flag_periodic_plot_mode:                       
-                        #self.dialog['선물옵션전광판'].call_db_update()
-                        #self.dialog['선물옵션전광판'].call_volume_power_update()
+                        self.dialog['선물옵션전광판'].call_db_update()
+                        self.dialog['선물옵션전광판'].call_volume_power_update()
                         self.dialog['선물옵션전광판'].call_oi_update()
                     else:
                         pass
@@ -40394,14 +40389,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 # 테이블 갱신
                 self.dialog['선물옵션전광판'].put_update(tickdata)
-                put_result = copy.deepcopy(tickdata)
-
-                self.dialog['선물옵션전광판'].put_db_update()
-                self.dialog['선물옵션전광판'].put_volume_power_update()                                                                               
+                put_result = copy.deepcopy(tickdata)                                                                              
 
                 if not flag_periodic_plot_mode:                    
-                    #self.dialog['선물옵션전광판'].put_db_update()
-                    #self.dialog['선물옵션전광판'].put_volume_power_update()
+                    self.dialog['선물옵션전광판'].put_db_update()
+                    self.dialog['선물옵션전광판'].put_volume_power_update()
                     self.dialog['선물옵션전광판'].put_oi_update()
                 else:
                     pass                                 
