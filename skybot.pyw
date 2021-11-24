@@ -12626,6 +12626,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             콜고가 = float(result['고가'])
             콜등락율 = float(result['등락율'])
 
+            if index == ATM_INDEX:
+                콜_등가_시가등락율 = (콜시가 / 콜종가 - 1) * 100
+            else:
+                pass
+
             # 콜 외가(등가포함) 대비 저장
             if index <= ATM_INDEX and 콜시가 > OTM_SEARCH_START_VAL and 콜저가 < 콜고가:
                 call_otm_cdb[index] = 콜현재가 - 콜시가
@@ -12711,7 +12716,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if True:
                     call_gap_percent[index] = (콜시가 / 콜종가 - 1) * 100
 
-                    콜_등가_시가등락율 = call_gap_percent[ATM_INDEX]
+                    #콜_등가_시가등락율 = call_gap_percent[ATM_INDEX]
 
                     gap_txt = "{0:.2f}\n{1:.1f}%".format(시가갭, call_gap_percent[index])
 
