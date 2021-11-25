@@ -40542,6 +40542,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     옵션_잔량비_최대 = 풋_잔량비_최대
                 
+                if 옵션_잔량비_최대 > 10.0:
+                    옵션_잔량비_최대 = 10.0
+                else:
+                    pass                                    
             else:
                 if 콜잔량비 > 5.0:
                     df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
