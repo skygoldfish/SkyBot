@@ -5757,7 +5757,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_call_low_update, flag_call_high_update, flag_put_low_update, flag_put_high_update
         global flag_call_cross_coloring, flag_put_cross_coloring, flag_clear
 
-        global t0167_server_hour, t0167_server_minute, t0167_server_second, system_server_time_gap        
+        global t0167_server_hour, t0167_server_minute, t0167_server_second, system_server_time_gap
+        global call_low_coreval_txt, call_high_coreval_txt, put_low_coreval_txt, put_high_coreval_txt
+        global call_low_node_count, call_high_node_count, put_low_node_count, put_high_node_count
+        global call_low_node_list, call_high_node_list, put_low_node_list, put_high_node_list
+        global call_low_node_txt, call_high_node_txt, put_low_node_txt, put_high_node_txt
+        global kp200_low_node_txt, kp200_high_node_txt
 
         try:
             dt = datetime.now()
@@ -6074,11 +6079,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if not dongsi_quote:
                     
                         # 진성 의미가인 경우 blinking(매우 중요 !!!)
-                        global call_low_coreval_txt, call_high_coreval_txt, put_low_coreval_txt, put_high_coreval_txt
-                        global call_low_node_count, call_high_node_count, put_low_node_count, put_high_node_count
-                        global call_low_node_list, call_high_node_list, put_low_node_list, put_high_node_list
-                        global call_low_node_txt, call_high_node_txt, put_low_node_txt, put_high_node_txt
-
                         if flag_call_low_coreval:
                             self.call_low_coreval_color_blink(self.alternate_flag)
                         else:                        
@@ -6105,9 +6105,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             put_high_coreval_txt = '' 
                             put_high_node_list = []
-                            put_high_node_txt = ''                        
-
-                        global kp200_low_node_txt, kp200_high_node_txt                            
+                            put_high_node_txt = ''                                                    
 
                         if flag_kp200_low_node:
 
@@ -6125,7 +6123,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     # 비대칭장 탐색
                     if not dongsi_quote and abs(call_otm_cdb_percent_mean) > 0 and abs(put_otm_cdb_percent_mean) > 0:
-
                         self.asym_detect(self.alternate_flag)
                     else:
                         pass
