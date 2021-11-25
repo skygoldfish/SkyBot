@@ -12944,6 +12944,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
 
                     self.check_call_oloh()
+                    self.call_coreval_color_update()
 
                     # 콜은 인덱스 기준으로 갱신
                     if 콜저가 < 콜고가:
@@ -13027,6 +13028,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
 
                     self.check_call_oloh()
+                    self.call_coreval_color_update()
 
                     # 콜은 인덱스 기준으로 갱신
                     if 콜저가 < 콜고가:
@@ -14023,6 +14025,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
 
                     self.check_put_oloh()
+                    self.put_coreval_color_update()
 
                     # 풋은 가격기준으로 갱신
                     if 풋저가 < 풋고가 and update_start < 풋저가 < update_end:            
@@ -14106,6 +14109,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
 
                     self.check_put_oloh()
+                    self.put_coreval_color_update()
 
                     # 풋은 가격기준으로 갱신
                     if 풋저가 < 풋고가 and update_start < 풋고가 < update_end:            
@@ -36515,8 +36519,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         try:
             global system_server_time_gap
 
-            response = ntplib.NTPClient().request(TimeServer, version=3)
-
+            ntp_client = ntplib.NTPClient()
+            time.sleep(0.01)            
+            response = ntp_client.request(TimeServer, version=3)
+            
             time_str = time.ctime(response.tx_time).split(' ')
             srever_time = time_str[-2]
             SERVERTIME = '{0}:{1}:{2}'.format(srever_time[0:2], srever_time[3:5], srever_time[6:8])
