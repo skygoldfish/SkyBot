@@ -501,15 +501,10 @@ pre_high_low_list = []
 bms_node_list = []
 bms_node_frequency_list = []
 
-flag_cm_call_low_in_fixed_coreval = False
-flag_cm_call_high_in_fixed_coreval = False
-flag_cm_put_low_in_fixed_coreval = False
-flag_cm_put_high_in_fixed_coreval = False
-
-flag_nm_call_low_in_fixed_coreval = False
-flag_nm_call_high_in_fixed_coreval = False
-flag_nm_put_low_in_fixed_coreval = False
-flag_nm_put_high_in_fixed_coreval = False
+flag_call_low_in_fixed_coreval = False
+flag_call_high_in_fixed_coreval = False
+flag_put_low_in_fixed_coreval = False
+flag_put_high_in_fixed_coreval = False
 
 if os.path.exists('HL-List.txt'):
 
@@ -8064,12 +8059,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global call_low_node_count, call_low_node_list, call_low_node_txt
         global telegram_send_txt_call_low
-        global flag_cm_call_low_in_fixed_coreval, flag_nm_call_low_in_fixed_coreval 
+        global flag_call_low_in_fixed_coreval
 
         dt = datetime.now()
+
+        flag_call_low_in_fixed_coreval = False
         
         if self.call_open_list:
-
             loop_list = self.call_open_list
         else:
             loop_list = self.opt_total_actval_list
@@ -8079,14 +8075,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         call_low_node_old_count = call_low_node_count
 
-        i_count = 0
-
-        if TARGET_MONTH == 'CM':
-            flag_cm_call_low_in_fixed_coreval = False
-        elif TARGET_MONTH == 'NM':
-            flag_nm_call_low_in_fixed_coreval = False
-        else:
-            pass              
+        i_count = 0       
 
         for i in loop_list:
 
@@ -8115,19 +8104,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if 저가 in FIXED_COREVAL:
 
+                flag_call_low_in_fixed_coreval = True
+
                 if blink:
                     self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(노란색))
                     self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(적색))                    
                 else:
                     self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
                     self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(노란색))
-
-                if TARGET_MONTH == 'CM':
-                    flag_cm_call_low_in_fixed_coreval = True
-                elif TARGET_MONTH == 'NM':
-                    flag_nm_call_low_in_fixed_coreval = True
-                else:
-                    pass
             else:
                 pass
 
@@ -8230,12 +8214,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global call_high_node_count, call_high_node_list, call_high_node_txt
         global telegram_send_txt_call_high
-        global flag_cm_call_high_in_fixed_coreval, flag_nm_call_high_in_fixed_coreval
+        global flag_call_high_in_fixed_coreval
 
         dt = datetime.now()
+
+        flag_call_high_in_fixed_coreval = False
         
         if self.call_open_list:
-
             loop_list = self.call_open_list
         else:
             loop_list = self.opt_total_actval_list 
@@ -8245,14 +8230,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         call_high_node_old_count = call_high_node_count
 
-        i_count = 0
-
-        if TARGET_MONTH == 'CM':
-            flag_cm_call_high_in_fixed_coreval = False
-        elif TARGET_MONTH == 'NM':
-            flag_nm_call_high_in_fixed_coreval = False
-        else:
-            pass           
+        i_count = 0    
 
         for i in loop_list:
 
@@ -8280,6 +8258,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             if 고가 in FIXED_COREVAL:
+
+                flag_call_high_in_fixed_coreval = True
                     
                 if blink:
                     self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(노란색))
@@ -8287,13 +8267,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
                     self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(노란색))
-
-                if TARGET_MONTH == 'CM':
-                    flag_cm_call_high_in_fixed_coreval = True
-                elif TARGET_MONTH == 'NM':
-                    flag_nm_call_high_in_fixed_coreval = True
-                else:
-                    pass
             else:
                 pass
 
@@ -8397,11 +8370,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_call_low_coreval, flag_call_high_coreval
         global call_low_node_count, call_high_node_count
         global telegram_send_txt_call_low, telegram_send_txt_call_high
+        global flag_call_low_in_fixed_coreval, flag_call_high_in_fixed_coreval
 
         dt = datetime.now()
         
         flag_call_low_coreval = False
         flag_call_high_coreval = False
+
+        flag_call_low_in_fixed_coreval = False
+        flag_call_high_in_fixed_coreval = False
 
         item = QTableWidgetItem('저가')
         self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
@@ -8433,7 +8410,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             저가 = df_call.at[i, '저가']
             고가 = df_call.at[i, '고가']
 
-            if opt_coreval_search_start_value < 시가 < opt_search_end_value:
+            if True:
 
                 if 시가 in COREVAL:
 
@@ -8464,6 +8441,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
+                if 저가 in FIXED_COREVAL:
+                    flag_call_low_in_fixed_coreval = True
+                else:
+                    pass
+
                 if 고가 in COREVAL:
 
                     self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
@@ -8483,6 +8465,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     count_high += 1
 
+                else:
+                    pass
+
+                if 고가 in FIXED_COREVAL:
+                    flag_call_high_in_fixed_coreval = True
                 else:
                     pass
             else:
@@ -8541,13 +8528,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def call_low_coreval_color_update(self):
 
         global flag_call_low_coreval
+        global flag_call_low_in_fixed_coreval
 
-        dt = datetime.now()
-
-        flag_call_low_coreval = False 
+        flag_call_low_coreval = False
+        flag_call_low_in_fixed_coreval = False
 
         if self.call_open_list:
-
             loop_list = self.call_open_list
         else:
             loop_list = self.opt_total_actval_list
@@ -8566,26 +8552,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             시가 = df_call.at[i, '시가']
             저가 = df_call.at[i, '저가']
 
-            if opt_coreval_search_start_value < 시가 < opt_search_end_value:
+            if True:
 
                 if 시가 in COREVAL:
-
                     self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
                 else:
                     pass
 
                 if 저가 in COREVAL:
-
                     self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
                 else:
                     pass
                 
                 if 저가 in 진성맥점:
+                    flag_call_low_coreval = True
+                else:
+                    pass
 
-                    flag_call_low_coreval = True                        
-
+                if 저가 in FIXED_COREVAL:
+                    flag_call_low_in_fixed_coreval = True
                 else:
                     pass                
             else:
@@ -8594,13 +8581,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def call_high_coreval_color_update(self):
 
         global flag_call_high_coreval
-
-        dt = datetime.now()
+        global flag_call_high_in_fixed_coreval
 
         flag_call_high_coreval = False
+        flag_call_high_in_fixed_coreval = False
 
         if self.call_open_list:
-
             loop_list = self.call_open_list
         else:
             loop_list = self.opt_total_actval_list
@@ -8619,26 +8605,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             시가 = df_call.at[i, '시가']
             고가 = df_call.at[i, '고가']
 
-            if opt_coreval_search_start_value < 시가 < opt_search_end_value:
+            if True:
 
                 if 시가 in COREVAL:
-
                     self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
                 else:
                     pass                
 
                 if 고가 in COREVAL:
-
                     self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
                 else:
                     pass
                 
                 if 고가 in 진성맥점:
+                    flag_call_high_coreval = True
+                else:
+                    pass
 
-                    flag_call_high_coreval = True                                
-
+                if 고가 in FIXED_COREVAL:
+                    flag_call_high_in_fixed_coreval = True
                 else:
                     pass
             else:
@@ -10644,12 +10631,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global put_low_node_count, put_low_node_list, put_low_node_txt
         global telegram_send_txt_put_low
-        global flag_cm_put_low_in_fixed_coreval, flag_nm_put_low_in_fixed_coreval 
+        global flag_put_low_in_fixed_coreval
 
         dt = datetime.now()
+
+        flag_put_low_in_fixed_coreval = False
         
         if self.put_open_list:
-
             loop_list = self.put_open_list
         else:
             loop_list = self.opt_total_actval_list
@@ -10660,13 +10648,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         put_low_node_old_count = put_low_node_count
 
         i_count = 0
-
-        if TARGET_MONTH == 'CM':
-            flag_cm_put_low_in_fixed_coreval = False
-        elif TARGET_MONTH == 'NM':
-            flag_nm_put_low_in_fixed_coreval = False
-        else:
-            pass      
 
         for i in loop_list:
 
@@ -10695,19 +10676,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if 저가 in FIXED_COREVAL:
 
+                flag_put_low_in_fixed_coreval = True
+
                 if blink:
                     self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(노란색))
                     self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(적색))                                                                     
                 else:
                     self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
                     self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(노란색))
-
-                if TARGET_MONTH == 'CM':
-                    flag_cm_put_low_in_fixed_coreval = True
-                elif TARGET_MONTH == 'NM':
-                    flag_nm_put_low_in_fixed_coreval = True
-                else:
-                    pass
             else:
                 pass
 
@@ -10810,12 +10786,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global put_high_node_count, put_high_node_list, put_high_node_txt
         global telegram_send_txt_put_high
-        global flag_cm_put_high_in_fixed_coreval, flag_nm_put_high_in_fixed_coreval
+        global flag_put_high_in_fixed_coreval
 
         dt = datetime.now()
 
-        if self.put_open_list:
+        flag_put_high_in_fixed_coreval = False
 
+        if self.put_open_list:
             loop_list = self.put_open_list
         else:
             loop_list = self.opt_total_actval_list
@@ -10825,14 +10802,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         put_high_node_old_count = put_high_node_count
 
-        i_count = 0
-
-        if TARGET_MONTH == 'CM':
-            flag_cm_put_high_in_fixed_coreval = False
-        elif TARGET_MONTH == 'NM':
-            flag_nm_put_high_in_fixed_coreval = False
-        else:
-            pass             
+        i_count = 0   
 
         for i in loop_list:
 
@@ -10861,19 +10831,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if 고가 in FIXED_COREVAL:
 
+                flag_put_high_in_fixed_coreval = True
+
                 if blink:
                     self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(노란색))
                     self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(적색))                    
                 else:
                     self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
                     self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(노란색))
-
-                if TARGET_MONTH == 'CM':
-                    flag_cm_put_high_in_fixed_coreval = True
-                elif TARGET_MONTH == 'NM':
-                    flag_nm_put_high_in_fixed_coreval = True
-                else:
-                    pass                 
             else:
                 pass
 
@@ -10977,11 +10942,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_put_low_coreval, flag_put_high_coreval
         global put_low_node_count, put_high_node_count
         global telegram_send_txt_put_low, telegram_send_txt_put_high
+        global flag_put_low_in_fixed_coreval, flag_put_high_in_fixed_coreval
 
         dt = datetime.now()
         
         flag_put_low_coreval = False
         flag_put_high_coreval = False
+
+        flag_put_low_in_fixed_coreval = False
+        flag_put_high_in_fixed_coreval = False
 
         item = QTableWidgetItem('저가')
         self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
@@ -11013,7 +10982,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             저가 = df_put.at[i, '저가']
             고가 = df_put.at[i, '고가']
 
-            if opt_coreval_search_start_value < 시가 < opt_search_end_value:
+            if True:
 
                 if 시가 in COREVAL:
 
@@ -11044,6 +11013,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
+                if 저가 in FIXED_COREVAL:
+                    flag_put_low_in_fixed_coreval = True
+                else:
+                    pass
+
                 if 고가 in COREVAL:
 
                     self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
@@ -11063,6 +11037,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     count_high += 1
 
+                else:
+                    pass
+
+                if 고가 in FIXED_COREVAL:
+                    flag_put_high_in_fixed_coreval = True
                 else:
                     pass
             else:
@@ -11121,13 +11100,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def put_low_coreval_color_update(self):
 
         global flag_put_low_coreval
-
-        dt = datetime.now()
+        global flag_put_low_in_fixed_coreval
 
         flag_put_low_coreval = False
+        flag_put_low_in_fixed_coreval = False
 
         if self.put_open_list:
-
             loop_list = self.put_open_list
         else:
             loop_list = self.opt_total_actval_list
@@ -11146,26 +11124,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             시가 = df_put.at[i, '시가']
             저가 = df_put.at[i, '저가']
 
-            if opt_coreval_search_start_value < 시가 < opt_search_end_value:
+            if True:
 
                 if 시가 in COREVAL:
-
                     self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
                 else:
                     pass
 
                 if 저가 in COREVAL:
-
                     self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
                 else:
                     pass
                 
                 if 저가 in 진성맥점:
+                    flag_put_low_coreval = True
+                else:
+                    pass
 
-                    flag_put_low_coreval = True                            
-
+                if 저가 in FIXED_COREVAL:
+                    flag_put_low_in_fixed_coreval = True
                 else:
                     pass                
             else:
@@ -11174,13 +11153,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def put_high_coreval_color_update(self):
 
         global flag_put_high_coreval
-
-        dt = datetime.now()
+        global flag_put_high_in_fixed_coreval
 
         flag_put_high_coreval = False
+        flag_put_high_in_fixed_coreval = False
 
         if self.put_open_list:
-
             loop_list = self.put_open_list
         else:
             loop_list = self.opt_total_actval_list
@@ -11199,26 +11177,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             시가 = df_put.at[i, '시가']
             고가 = df_put.at[i, '고가']
 
-            if opt_coreval_search_start_value < 시가 < opt_search_end_value:
+            if True:
 
                 if 시가 in COREVAL:
-
                     self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
                 else:
                     pass                
 
                 if 고가 in COREVAL:
-
                     self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
                 else:
                     pass
                 
                 if 고가 in 진성맥점:
+                    flag_put_high_coreval = True
+                else:
+                    pass
 
-                    flag_put_high_coreval = True                        
-
+                if 고가 in FIXED_COREVAL:
+                    flag_put_high_in_fixed_coreval = True
                 else:
                     pass
             else:
@@ -12944,7 +12923,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
 
                     self.check_call_oloh()
-                    self.call_coreval_color_update()
+                    #self.call_low_coreval_color_update()
 
                     # 콜은 인덱스 기준으로 갱신
                     if 콜저가 < 콜고가:
@@ -13028,7 +13007,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
 
                     self.check_call_oloh()
-                    self.call_coreval_color_update()
+                    #self.call_high_coreval_color_update()
 
                     # 콜은 인덱스 기준으로 갱신
                     if 콜저가 < 콜고가:
@@ -14025,7 +14004,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
 
                     self.check_put_oloh()
-                    self.put_coreval_color_update()
+                    #self.put_low_coreval_color_update()
 
                     # 풋은 가격기준으로 갱신
                     if 풋저가 < 풋고가 and update_start < 풋저가 < update_end:            
@@ -14109,7 +14088,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
 
                     self.check_put_oloh()
-                    self.put_coreval_color_update()
+                    #self.put_high_coreval_color_update()
 
                     # 풋은 가격기준으로 갱신
                     if 풋저가 < 풋고가 and update_start < 풋고가 < update_end:            
@@ -36147,7 +36126,7 @@ class Xing(object):
 
                     if self.clocktick and TARGET_MONTH == 'CM' and dt.second % 10 == 0:
 
-                        if flag_cm_call_low_in_fixed_coreval or flag_cm_call_high_in_fixed_coreval or flag_cm_put_low_in_fixed_coreval or flag_cm_put_high_in_fixed_coreval:
+                        if flag_call_low_in_fixed_coreval or flag_call_high_in_fixed_coreval or flag_put_low_in_fixed_coreval or flag_put_high_in_fixed_coreval:
                              winsound.PlaySound('Resources/notify.wav', winsound.SND_FILENAME)
                         else:
                             pass
@@ -36156,7 +36135,7 @@ class Xing(object):
 
                     if not self.clocktick and TARGET_MONTH == 'NM' and dt.second % 10 == 0:
 
-                        if flag_nm_call_low_in_fixed_coreval or flag_nm_call_high_in_fixed_coreval or flag_nm_put_low_in_fixed_coreval or flag_nm_put_high_in_fixed_coreval:
+                        if flag_call_low_in_fixed_coreval or flag_call_high_in_fixed_coreval or flag_put_low_in_fixed_coreval or flag_put_high_in_fixed_coreval:
                              winsound.PlaySound('Resources/ring.wav', winsound.SND_FILENAME)
                         else:
                             pass
