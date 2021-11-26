@@ -146,6 +146,8 @@ flag_internet_connection_broken = False
 flag_service_provider_broken = False
 flag_broken_capture = False
 
+flag_t8433_response_ok = False
+
 all_screens = None
 
 스크린번호 = 0
@@ -1181,8 +1183,8 @@ put_volume_power = 0
 option_volume_power = 0
 
 # 모든 시간은 해외선물 기준으로 처리
-ovc_x_idx = 0
-old_ovc_x_idx = 0
+cme_time_index = 0
+old_cme_time_index = 0
 
 server_x_idx = 0
 
@@ -7104,7 +7106,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             txt = '[{0:02d}:{1:02d}:{2:02d}] 등가 {3}에서 교차 중심가 {4} 발생 !!!\r'.format(t0167_hour, t0167_minute, t0167_second, atm_txt, CENTER_VAL)
             self.textBrowser.append(txt)
         
-        df_call_information_graph.at[ovc_x_idx, 'centerval'] = CENTER_VAL
+        df_call_information_graph.at[cme_time_index, 'centerval'] = CENTER_VAL
 
         atm_list = []
         atm_list.append(atm_minus_5)
@@ -12389,38 +12391,38 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         '''
         global fut_bollinger_symbol, fut_psar_symbol, fut_oe_symbol, fut_mama_symbol
 
-        if df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle']:
+        if df_futures_cm_graph.at[cme_time_index, 'BBMiddle'] == df_futures_cm_graph.at[cme_time_index, 'BBMiddle']:
 
-            if df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'] >= df_futures_cm_graph.at[ovc_x_idx, 'price']:
+            if df_futures_cm_graph.at[cme_time_index, 'BBMiddle'] >= df_futures_cm_graph.at[cme_time_index, 'price']:
                 fut_bollinger_symbol = '▼'
             else:
                 fut_bollinger_symbol = '▲'
         else:
             pass               
 
-        if df_futures_cm_graph.at[ovc_x_idx, 'PSAR'] == df_futures_cm_graph.at[ovc_x_idx, 'PSAR']:
+        if df_futures_cm_graph.at[cme_time_index, 'PSAR'] == df_futures_cm_graph.at[cme_time_index, 'PSAR']:
 
-            if df_futures_cm_graph.at[ovc_x_idx, 'PSAR'] >= df_futures_cm_graph.at[ovc_x_idx, 'price']:
+            if df_futures_cm_graph.at[cme_time_index, 'PSAR'] >= df_futures_cm_graph.at[cme_time_index, 'price']:
                 fut_psar_symbol = '▼'
             else:
                 fut_psar_symbol = '▲'
         else:
             pass
         
-        if df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] == df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] and df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE'] == df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE']:
+        if df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] == df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] and df_futures_cm_graph.at[cme_time_index, 'OE_BASE'] == df_futures_cm_graph.at[cme_time_index, 'OE_BASE']:
 
-            if df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] < df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE']:
+            if df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] < df_futures_cm_graph.at[cme_time_index, 'OE_BASE']:
                 fut_oe_symbol = '▼'
             else:
                 fut_oe_symbol = '▲'
         else:
             pass
 
-        if df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] and df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'FAMA']:
+        if df_futures_cm_graph.at[cme_time_index, 'MAMA'] == df_futures_cm_graph.at[cme_time_index, 'MAMA'] and df_futures_cm_graph.at[cme_time_index, 'FAMA'] == df_futures_cm_graph.at[cme_time_index, 'FAMA']:
 
-            if df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] >= df_futures_cm_graph.at[ovc_x_idx, 'BBLower']:
+            if df_futures_cm_graph.at[cme_time_index, 'FAMA'] >= df_futures_cm_graph.at[cme_time_index, 'BBLower']:
 
-                if df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] < df_futures_cm_graph.at[ovc_x_idx, 'FAMA']:                
+                if df_futures_cm_graph.at[cme_time_index, 'MAMA'] < df_futures_cm_graph.at[cme_time_index, 'FAMA']:                
                     fut_mama_symbol = '▼'
                 else:
                     fut_mama_symbol = '▲'
@@ -12917,8 +12919,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
 
-                    self.check_call_oloh()
-                    #self.call_low_coreval_color_update()
+                    if call_result:
+                        self.check_call_oloh()
+                        #self.call_low_coreval_color_update()
+                    else:
+                        pass
 
                     # 콜은 인덱스 기준으로 갱신
                     if 콜저가 < 콜고가:
@@ -13001,8 +13006,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
 
-                    self.check_call_oloh()
-                    #self.call_high_coreval_color_update()
+                    if call_result:
+                        self.check_call_oloh()
+                        #self.call_high_coreval_color_update()
+                    else:
+                        pass
 
                     # 콜은 인덱스 기준으로 갱신
                     if 콜저가 < 콜고가:
@@ -13068,7 +13076,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         call_otm_jdb_percent_mean = round(np.mean(np_call_otm_jdb_percent_local), 1)
 
         if flag_market_service:
-            df_call_information_graph.at[ovc_x_idx, 'drate'] = call_otm_cdb_percent_mean
+            df_call_information_graph.at[cme_time_index, 'drate'] = call_otm_cdb_percent_mean
         else:
             pass
 
@@ -13998,8 +14006,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
 
-                    self.check_put_oloh()
-                    #self.put_low_coreval_color_update()
+                    if put_result:
+                        self.check_put_oloh()
+                        #self.put_low_coreval_color_update()
+                    else:
+                        pass
 
                     # 풋은 가격기준으로 갱신
                     if 풋저가 < 풋고가 and update_start < 풋저가 < update_end:            
@@ -14082,8 +14093,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
 
-                    self.check_put_oloh()
-                    #self.put_high_coreval_color_update()
+                    if put_result:
+                        self.check_put_oloh()
+                        #self.put_high_coreval_color_update()
+                    else:
+                        pass
 
                     # 풋은 가격기준으로 갱신
                     if 풋저가 < 풋고가 and update_start < 풋고가 < update_end:            
@@ -14149,7 +14163,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         put_otm_jdb_percent_mean = round(np.mean(np_put_otm_jdb_percent_local), 1)
 
         if flag_market_service:
-            df_put_information_graph.at[ovc_x_idx, 'drate'] = put_otm_cdb_percent_mean
+            df_put_information_graph.at[cme_time_index, 'drate'] = put_otm_cdb_percent_mean
         else:
             pass
 
@@ -14673,8 +14687,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         콜건수비 = call_count_ratio
 
-        df_call_information_graph.at[ovc_x_idx, 'ms_quote'] = call_quote['매수잔량']
-        df_call_information_graph.at[ovc_x_idx, 'md_quote'] = call_quote['매도잔량']
+        df_call_information_graph.at[cme_time_index, 'ms_quote'] = call_quote['매수잔량']
+        df_call_information_graph.at[cme_time_index, 'md_quote'] = call_quote['매도잔량']
 
         if put_quote['매도건수'] > 0:
             put_count_ratio = round((put_quote['매수건수'] / put_quote['매도건수']), 2)
@@ -14683,8 +14697,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         풋건수비 = put_count_ratio
 
-        df_put_information_graph.at[ovc_x_idx, 'ms_quote'] = put_quote['매수잔량']
-        df_put_information_graph.at[ovc_x_idx, 'md_quote'] = put_quote['매도잔량']
+        df_put_information_graph.at[cme_time_index, 'ms_quote'] = put_quote['매수잔량']
+        df_put_information_graph.at[cme_time_index, 'md_quote'] = put_quote['매도잔량']
 
         item_txt = "{0}\n({1})\n({2})".format(repr(call_count_ratio), format(call_quote['매수건수'], ','), format(call_quote['매도건수'], ','))
 
@@ -15387,7 +15401,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if szTrCode == 't0167':
             
             global 서버시간, system_server_time_gap, flag_heartbeat
-            global t0167_hour, t0167_minute, t0167_second, server_x_idx, ovc_x_idx, 시스템시간_분, 서버시간_분
+            global t0167_hour, t0167_minute, t0167_second, server_x_idx, cme_time_index, 시스템시간_분, 서버시간_분
 
             szTrCode, server_date, server_time = result
             
@@ -15418,7 +15432,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 server_x_idx = (t0167_hour - DayTime_PreStart_Hour) * 60 + t0167_minute + 1
 
-            ovc_x_idx = server_x_idx
+            cme_time_index = server_x_idx
 
             flag_heartbeat = True
 
@@ -15649,8 +15663,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_kp200_graph.at[0, 'price'] = self.fut_realdata['KP200']
                     df_supply_demand_graph.at[0, 'program'] = 0
                     df_supply_demand_graph.at[0, 'kospi_total'] = 0
-                    df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'] = 0
-                    df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'] = 0
+                    df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'] = 0
+                    df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'] = 0
 
                     if self.fut_realdata['시가'] > 0:
                         df_futures_cm_graph.at[GuardTime + 1, 'open'] = self.fut_realdata['시가']
@@ -16918,7 +16932,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         현재가 = df['현재가'][i]
                         df_call.at[i, '현재가'] = 현재가
 
-                        df_call_graph[i].at[ovc_x_idx, 'price'] = 현재가
+                        df_call_graph[i].at[cme_time_index, 'price'] = 현재가
 
                         item = QTableWidgetItem("{0:.2f}".format(현재가))
                         item.setTextAlignment(Qt.AlignCenter)
@@ -17056,7 +17070,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         현재가 = df1['현재가'][i]
                         df_put.at[i, '현재가'] = 현재가
 
-                        df_put_graph[i].at[ovc_x_idx, 'price'] = 현재가
+                        df_put_graph[i].at[cme_time_index, 'price'] = 현재가
 
                         item = QTableWidgetItem("{0:.2f}".format(현재가))
                         item.setTextAlignment(Qt.AlignCenter)
@@ -17477,8 +17491,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_kp200_graph.at[0, 'price'] = KP200_전일종가
                 df_supply_demand_graph.at[0, 'program'] = 0
                 df_supply_demand_graph.at[0, 'kospi_total'] = 0
-                df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'] = 0
-                df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'] = 0
+                df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'] = 0
+                df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'] = 0
 
                 # 주간 현재가가 야간 종가임
                 df_futures_cm_graph.at[0, 'price'] = self.fut_realdata['현재가']
@@ -20368,6 +20382,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             szTrCode, df = result
             
             global df_cm_call, df_cm_put, df_nm_call, df_nm_put
+            global flag_t8433_response_ok
 
             first_cm_call = False
             first_cm_put = False
@@ -20525,6 +20540,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
             df_gold_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate', \
                 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
+
+            flag_t8433_response_ok = True
         else:
             pass
 
@@ -29622,12 +29639,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             df_futures_cm_graph['MAMA'] = mama
             df_futures_cm_graph['FAMA'] = fama
 
-            if df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] and df_futures_cm_graph.at[ovc_x_idx, 'BBLower'] == df_futures_cm_graph.at[ovc_x_idx, 'BBLower']:
+            if df_futures_cm_graph.at[cme_time_index, 'FAMA'] == df_futures_cm_graph.at[cme_time_index, 'FAMA'] and df_futures_cm_graph.at[cme_time_index, 'BBLower'] == df_futures_cm_graph.at[cme_time_index, 'BBLower']:
 
-                if df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] < df_futures_cm_graph.at[ovc_x_idx, 'BBLower']:
-                    df_futures_cm_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_cm_graph.at[ovc_x_idx, 'BBLower']
+                if df_futures_cm_graph.at[cme_time_index, 'FAMA'] < df_futures_cm_graph.at[cme_time_index, 'BBLower']:
+                    df_futures_cm_graph.at[cme_time_index, 'A_FAMA'] = df_futures_cm_graph.at[cme_time_index, 'BBLower']
                 else:
-                    df_futures_cm_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_cm_graph.at[ovc_x_idx, 'FAMA']
+                    df_futures_cm_graph.at[cme_time_index, 'A_FAMA'] = df_futures_cm_graph.at[cme_time_index, 'FAMA']
             else:
                 pass
 
@@ -29640,12 +29657,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             df_dow_graph['FAMA'] = fama
             #df_dow_graph['A_FAMA'] = fama
 
-            if df_dow_graph.at[ovc_x_idx, 'FAMA'] == df_dow_graph.at[ovc_x_idx, 'FAMA'] and df_dow_graph.at[ovc_x_idx, 'BBLower'] == df_dow_graph.at[ovc_x_idx, 'BBLower']:
+            if df_dow_graph.at[cme_time_index, 'FAMA'] == df_dow_graph.at[cme_time_index, 'FAMA'] and df_dow_graph.at[cme_time_index, 'BBLower'] == df_dow_graph.at[cme_time_index, 'BBLower']:
 
-                if df_dow_graph.at[ovc_x_idx, 'FAMA'] < df_dow_graph.at[ovc_x_idx, 'BBLower']:
-                    df_dow_graph.at[ovc_x_idx, 'A_FAMA'] = df_dow_graph.at[ovc_x_idx, 'BBLower']
+                if df_dow_graph.at[cme_time_index, 'FAMA'] < df_dow_graph.at[cme_time_index, 'BBLower']:
+                    df_dow_graph.at[cme_time_index, 'A_FAMA'] = df_dow_graph.at[cme_time_index, 'BBLower']
                 else:
-                    df_dow_graph.at[ovc_x_idx, 'A_FAMA'] = df_dow_graph.at[ovc_x_idx, 'FAMA']
+                    df_dow_graph.at[cme_time_index, 'A_FAMA'] = df_dow_graph.at[cme_time_index, 'FAMA']
             else:
                 pass
 
@@ -29657,12 +29674,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             df_sp500_graph['MAMA'] = mama
             df_sp500_graph['FAMA'] = fama
 
-            if df_sp500_graph.at[ovc_x_idx, 'FAMA'] == df_sp500_graph.at[ovc_x_idx, 'FAMA'] and df_sp500_graph.at[ovc_x_idx, 'BBLower'] == df_sp500_graph.at[ovc_x_idx, 'BBLower']:
+            if df_sp500_graph.at[cme_time_index, 'FAMA'] == df_sp500_graph.at[cme_time_index, 'FAMA'] and df_sp500_graph.at[cme_time_index, 'BBLower'] == df_sp500_graph.at[cme_time_index, 'BBLower']:
 
-                if df_sp500_graph.at[ovc_x_idx, 'FAMA'] < df_sp500_graph.at[ovc_x_idx, 'BBLower']:
-                    df_sp500_graph.at[ovc_x_idx, 'A_FAMA'] = df_sp500_graph.at[ovc_x_idx, 'BBLower']
+                if df_sp500_graph.at[cme_time_index, 'FAMA'] < df_sp500_graph.at[cme_time_index, 'BBLower']:
+                    df_sp500_graph.at[cme_time_index, 'A_FAMA'] = df_sp500_graph.at[cme_time_index, 'BBLower']
                 else:
-                    df_sp500_graph.at[ovc_x_idx, 'A_FAMA'] = df_sp500_graph.at[ovc_x_idx, 'FAMA']
+                    df_sp500_graph.at[cme_time_index, 'A_FAMA'] = df_sp500_graph.at[cme_time_index, 'FAMA']
             else:
                 pass
 
@@ -29674,12 +29691,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             df_nasdaq_graph['MAMA'] = mama
             df_nasdaq_graph['FAMA'] = fama
 
-            if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] and df_nasdaq_graph.at[ovc_x_idx, 'BBLower'] == df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
+            if df_nasdaq_graph.at[cme_time_index, 'FAMA'] == df_nasdaq_graph.at[cme_time_index, 'FAMA'] and df_nasdaq_graph.at[cme_time_index, 'BBLower'] == df_nasdaq_graph.at[cme_time_index, 'BBLower']:
 
-                if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
-                    df_nasdaq_graph.at[ovc_x_idx, 'A_FAMA'] = df_nasdaq_graph.at[ovc_x_idx, 'BBLower']
+                if df_nasdaq_graph.at[cme_time_index, 'FAMA'] < df_nasdaq_graph.at[cme_time_index, 'BBLower']:
+                    df_nasdaq_graph.at[cme_time_index, 'A_FAMA'] = df_nasdaq_graph.at[cme_time_index, 'BBLower']
                 else:
-                    df_nasdaq_graph.at[ovc_x_idx, 'A_FAMA'] = df_nasdaq_graph.at[ovc_x_idx, 'FAMA']
+                    df_nasdaq_graph.at[cme_time_index, 'A_FAMA'] = df_nasdaq_graph.at[cme_time_index, 'FAMA']
             else:
                 pass
 
@@ -29691,12 +29708,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             df_wti_graph['MAMA'] = mama
             df_wti_graph['FAMA'] = fama
 
-            if df_wti_graph.at[ovc_x_idx, 'FAMA'] == df_wti_graph.at[ovc_x_idx, 'FAMA'] and df_wti_graph.at[ovc_x_idx, 'BBLower'] == df_wti_graph.at[ovc_x_idx, 'BBLower']:
+            if df_wti_graph.at[cme_time_index, 'FAMA'] == df_wti_graph.at[cme_time_index, 'FAMA'] and df_wti_graph.at[cme_time_index, 'BBLower'] == df_wti_graph.at[cme_time_index, 'BBLower']:
 
-                if df_wti_graph.at[ovc_x_idx, 'FAMA'] < df_wti_graph.at[ovc_x_idx, 'BBLower']:
-                    df_wti_graph.at[ovc_x_idx, 'A_FAMA'] = df_wti_graph.at[ovc_x_idx, 'BBLower']
+                if df_wti_graph.at[cme_time_index, 'FAMA'] < df_wti_graph.at[cme_time_index, 'BBLower']:
+                    df_wti_graph.at[cme_time_index, 'A_FAMA'] = df_wti_graph.at[cme_time_index, 'BBLower']
                 else:
-                    df_wti_graph.at[ovc_x_idx, 'A_FAMA'] = df_wti_graph.at[ovc_x_idx, 'FAMA']
+                    df_wti_graph.at[cme_time_index, 'A_FAMA'] = df_wti_graph.at[cme_time_index, 'FAMA']
             else:
                 pass
         else:
@@ -29745,58 +29762,58 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     self.label_time_1.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                txt = ' [{0:d}], {1:.2f} ms '.format(ovc_x_idx, plot1_processing_time)            
+                txt = ' [{0:d}], {1:.2f} ms '.format(cme_time_index, plot1_processing_time)            
    
             self.label_time_1.setText(txt)            
 
             # Plot1 그래프 그리기
             if comboindex1 == 2:
 
-                if df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_futures_cm_graph.at[cme_time_index, 'BBMiddle'] == df_futures_cm_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'] >= df_futures_cm_graph.at[ovc_x_idx, 'price']:
+                    if df_futures_cm_graph.at[cme_time_index, 'BBMiddle'] >= df_futures_cm_graph.at[cme_time_index, 'price']:
                         self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass               
 
-                if df_futures_cm_graph.at[ovc_x_idx, 'PSAR'] == df_futures_cm_graph.at[ovc_x_idx, 'PSAR']:
+                if df_futures_cm_graph.at[cme_time_index, 'PSAR'] == df_futures_cm_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_futures_cm_graph.at[ovc_x_idx, 'PSAR'] >= df_futures_cm_graph.at[ovc_x_idx, 'price']:
+                    if df_futures_cm_graph.at[cme_time_index, 'PSAR'] >= df_futures_cm_graph.at[cme_time_index, 'price']:
                         self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_cm_graph.at[ovc_x_idx, 'PSAR'], 선물_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_cm_graph.at[cme_time_index, 'BBMiddle'], df_futures_cm_graph.at[cme_time_index, 'PSAR'], 선물_호가순매수)
                     self.label_p1_2.setText(txt)
                 else:
                     pass
                 
-                if df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] == df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] and df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE'] == df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] == df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] and df_futures_cm_graph.at[cme_time_index, 'OE_BASE'] == df_futures_cm_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] < df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] < df_futures_cm_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'], df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_graph.at[cme_time_index, 'OE_CONV'], df_futures_cm_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p1_3.setText(txt)
                 else:
                     pass
 
-                if df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] and df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'FAMA']:
+                if df_futures_cm_graph.at[cme_time_index, 'MAMA'] == df_futures_cm_graph.at[cme_time_index, 'MAMA'] and df_futures_cm_graph.at[cme_time_index, 'FAMA'] == df_futures_cm_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] >= df_futures_cm_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_futures_cm_graph.at[cme_time_index, 'FAMA'] >= df_futures_cm_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] < df_futures_cm_graph.at[ovc_x_idx, 'FAMA']:                        
+                        if df_futures_cm_graph.at[cme_time_index, 'MAMA'] < df_futures_cm_graph.at[cme_time_index, 'FAMA']:                        
                             self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'MAMA'], df_futures_cm_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_graph.at[cme_time_index, 'MAMA'], df_futures_cm_graph.at[cme_time_index, 'FAMA'])
                     self.label_p1_4.setText(txt)
                 else:
                     pass
@@ -29843,7 +29860,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(근월물_선물_고가)
                 self.label_18.setText(txt)
                 
-                self.plot1_time_line.setValue(ovc_x_idx)
+                self.plot1_time_line.setValue(cme_time_index)
                 
                 self.plot1_kp200_line[3].setValue(KP200_COREVAL[3])
                 self.plot1_kp200_line[4].setValue(KP200_COREVAL[4])
@@ -29911,12 +29928,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex1 == 3:                
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[cme_time_index, 'ms_quote'], df_put_information_graph.at[cme_time_index, 'md_quote'])
                 self.label_16.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), [▼: {6:.2f}, ▲: {7:.2f}] ".format(\
-                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
-                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
+                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[cme_time_index, 'c_ms_quote'], df_futures_cm_graph.at[cme_time_index, 'c_md_quote'], \
+                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[cme_time_index, 'n_ms_quote'], df_futures_cm_graph.at[cme_time_index, 'n_md_quote'], \
                     차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
 
                 if fut_quote_energy_direction == 'call':
@@ -29928,10 +29945,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_17.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[cme_time_index, 'ms_quote'], df_call_information_graph.at[cme_time_index, 'md_quote'])
                 self.label_18.setText(txt)
                 
-                self.plot1_time_line.setValue(ovc_x_idx)
+                self.plot1_time_line.setValue(cme_time_index)
 
                 self.plot1_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
                 self.plot1_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
@@ -29946,9 +29963,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex1 == 4:
 
-                self.plot1_time_line.setValue(ovc_x_idx)
+                self.plot1_time_line.setValue(cme_time_index)
 
-                txt = " {0:.0f} ".format(df_put_information_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_put_information_graph.at[cme_time_index, 'volume'])
                 self.label_16.setText(txt)
 
                 txt = " {0:.0f} ".format(fut_cm_volume_power)
@@ -29960,7 +29977,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_17.setText(txt)
                 
-                txt = " {0:.0f} ".format(df_call_information_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_call_information_graph.at[cme_time_index, 'volume'])
                 self.label_18.setText(txt)
 
                 if DayTime:
@@ -30004,7 +30021,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                self.plot1_time_line.setValue(ovc_x_idx)
+                self.plot1_time_line.setValue(cme_time_index)
 
                 if flag_calltable_checkstate_changed:
                     flag_calltable_checkstate_changed = False
@@ -30048,13 +30065,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex1 == 7:
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[cme_time_index, 'ms_quote'], df_put_information_graph.at[cme_time_index, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_16.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[cme_time_index, 'ms_quote'], df_call_information_graph.at[cme_time_index, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_18.setText(txt)
                 
-                self.plot1_time_line.setValue(ovc_x_idx)
+                self.plot1_time_line.setValue(cme_time_index)
 
                 self.plot1_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
                 self.plot1_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
@@ -30064,13 +30081,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex1 == 8:
 
-                txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[cme_time_index, 'open_interest'], put_oi_init_percent)
                 self.label_16.setText(txt)
                 
-                txt = " {0:.2f}({1:.2f}) ".format(df_call_information_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(df_call_information_graph.at[cme_time_index, 'open_interest'], call_oi_init_percent)
                 self.label_18.setText(txt)
                 
-                self.plot1_time_line.setValue(ovc_x_idx)
+                self.plot1_time_line.setValue(cme_time_index)
 
                 self.plot1_call_oi_curve.setData(df_call_information_graph['open_interest'].to_numpy())
                 self.plot1_put_oi_curve.setData(df_put_information_graph['open_interest'].to_numpy())
@@ -30086,7 +30103,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(call_otm_cdb_percent_mean, call_atm_value)
                 self.label_18.setText(txt)
                 
-                self.plot1_time_line.setValue(ovc_x_idx)                
+                self.plot1_time_line.setValue(cme_time_index)                
                                
                 self.plot1_call_drate_curve.setData(df_call_information_graph['drate'].to_numpy())
                 self.plot1_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy())
@@ -30104,51 +30121,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex1 == 12:
 
-                if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] == df_dow_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_dow_graph.at[cme_time_index, 'BBMiddle'] == df_dow_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                    if df_dow_graph.at[cme_time_index, 'BBMiddle'] >= df_dow_graph.at[cme_time_index, 'price']:
                         self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass                 
 
-                if df_dow_graph.at[ovc_x_idx, 'PSAR'] == df_dow_graph.at[ovc_x_idx, 'PSAR']:
+                if df_dow_graph.at[cme_time_index, 'PSAR'] == df_dow_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_dow_graph.at[ovc_x_idx, 'PSAR'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                    if df_dow_graph.at[cme_time_index, 'PSAR'] >= df_dow_graph.at[cme_time_index, 'price']:
                         self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_dow_graph.at[cme_time_index, 'BBMiddle'], df_dow_graph.at[cme_time_index, 'PSAR'], DOW_호가순매수)
                     self.label_p1_2.setText(txt)
                 else:
                     pass
                 
-                if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] == df_dow_graph.at[ovc_x_idx, 'OE_CONV'] and df_dow_graph.at[ovc_x_idx, 'OE_BASE'] == df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_dow_graph.at[cme_time_index, 'OE_CONV'] == df_dow_graph.at[cme_time_index, 'OE_CONV'] and df_dow_graph.at[cme_time_index, 'OE_BASE'] == df_dow_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] < df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_dow_graph.at[cme_time_index, 'OE_CONV'] < df_dow_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[cme_time_index, 'OE_CONV'], df_dow_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p1_3.setText(txt)
                 else:
                     pass
 
-                if df_dow_graph.at[ovc_x_idx, 'MAMA'] == df_dow_graph.at[ovc_x_idx, 'MAMA'] and df_dow_graph.at[ovc_x_idx, 'FAMA'] == df_dow_graph.at[ovc_x_idx, 'FAMA']:
+                if df_dow_graph.at[cme_time_index, 'MAMA'] == df_dow_graph.at[cme_time_index, 'MAMA'] and df_dow_graph.at[cme_time_index, 'FAMA'] == df_dow_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_dow_graph.at[ovc_x_idx, 'FAMA'] >= df_dow_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_dow_graph.at[cme_time_index, 'FAMA'] >= df_dow_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_dow_graph.at[ovc_x_idx, 'MAMA'] < df_dow_graph.at[ovc_x_idx, 'FAMA']:
+                        if df_dow_graph.at[cme_time_index, 'MAMA'] < df_dow_graph.at[cme_time_index, 'FAMA']:
                             self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[cme_time_index, 'MAMA'], df_dow_graph.at[cme_time_index, 'FAMA'])
                     self.label_p1_4.setText(txt)
                 else:
                     pass
@@ -30192,7 +30209,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(DOW_고가, ','))
                 self.label_18.setText(txt)
                 
-                self.plot1_time_line.setValue(ovc_x_idx)
+                self.plot1_time_line.setValue(cme_time_index)
 
                 self.plot1_ovc_jl_line.setValue(DOW_전저)
                 self.plot1_ovc_jh_line.setValue(DOW_전고)
@@ -30234,51 +30251,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex1 == 13:
 
-                if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] == df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] == df_nasdaq_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                    if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] >= df_nasdaq_graph.at[cme_time_index, 'price']:
                         self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass                
 
-                if df_nasdaq_graph.at[ovc_x_idx, 'PSAR'] == df_nasdaq_graph.at[ovc_x_idx, 'PSAR']:
+                if df_nasdaq_graph.at[cme_time_index, 'PSAR'] == df_nasdaq_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'PSAR'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                    if df_nasdaq_graph.at[cme_time_index, 'PSAR'] >= df_nasdaq_graph.at[cme_time_index, 'price']:
                         self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_nasdaq_graph.at[cme_time_index, 'BBMiddle'], df_nasdaq_graph.at[cme_time_index, 'PSAR'], NASDAQ_호가순매수)
                     self.label_p1_2.setText(txt)
                 else:
                     pass
                 
-                if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] == df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] and df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'] == df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] == df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] and df_nasdaq_graph.at[cme_time_index, 'OE_BASE'] == df_nasdaq_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] < df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] < df_nasdaq_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[cme_time_index, 'OE_CONV'], df_nasdaq_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p1_3.setText(txt)
                 else:
                     pass
 
-                if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] and df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
+                if df_nasdaq_graph.at[cme_time_index, 'MAMA'] == df_nasdaq_graph.at[cme_time_index, 'MAMA'] and df_nasdaq_graph.at[cme_time_index, 'FAMA'] == df_nasdaq_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] >= df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_nasdaq_graph.at[cme_time_index, 'FAMA'] >= df_nasdaq_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
+                        if df_nasdaq_graph.at[cme_time_index, 'MAMA'] < df_nasdaq_graph.at[cme_time_index, 'FAMA']:
                             self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_graph.at[cme_time_index, 'MAMA'], df_nasdaq_graph.at[cme_time_index, 'FAMA'])
                     self.label_p1_4.setText(txt)
                 else:
                     pass
@@ -30322,7 +30339,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(NASDAQ_고가, ','))
                 self.label_18.setText(txt)
                 
-                self.plot1_time_line.setValue(ovc_x_idx)
+                self.plot1_time_line.setValue(cme_time_index)
 
                 self.plot1_ovc_jl_line.setValue(NASDAQ_전저)
                 self.plot1_ovc_jh_line.setValue(NASDAQ_전고)
@@ -30364,51 +30381,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex1 == 14:
 
-                if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] == df_wti_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_wti_graph.at[cme_time_index, 'BBMiddle'] == df_wti_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                    if df_wti_graph.at[cme_time_index, 'BBMiddle'] >= df_wti_graph.at[cme_time_index, 'price']:
                         self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass                 
 
-                if df_wti_graph.at[ovc_x_idx, 'PSAR'] == df_wti_graph.at[ovc_x_idx, 'PSAR']:
+                if df_wti_graph.at[cme_time_index, 'PSAR'] == df_wti_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_wti_graph.at[ovc_x_idx, 'PSAR'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                    if df_wti_graph.at[cme_time_index, 'PSAR'] >= df_wti_graph.at[cme_time_index, 'price']:
                         self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_wti_graph.at[cme_time_index, 'BBMiddle'], df_wti_graph.at[cme_time_index, 'PSAR'], WTI_호가순매수)
                     self.label_p1_2.setText(txt)
                 else:
                     pass
                 
-                if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] == df_wti_graph.at[ovc_x_idx, 'OE_CONV'] and df_wti_graph.at[ovc_x_idx, 'OE_BASE'] == df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_wti_graph.at[cme_time_index, 'OE_CONV'] == df_wti_graph.at[cme_time_index, 'OE_CONV'] and df_wti_graph.at[cme_time_index, 'OE_BASE'] == df_wti_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] < df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_wti_graph.at[cme_time_index, 'OE_CONV'] < df_wti_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[cme_time_index, 'OE_CONV'], df_wti_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p1_3.setText(txt)
                 else:
                     pass
 
-                if df_wti_graph.at[ovc_x_idx, 'MAMA'] == df_wti_graph.at[ovc_x_idx, 'MAMA'] and df_wti_graph.at[ovc_x_idx, 'FAMA'] == df_wti_graph.at[ovc_x_idx, 'FAMA']:
+                if df_wti_graph.at[cme_time_index, 'MAMA'] == df_wti_graph.at[cme_time_index, 'MAMA'] and df_wti_graph.at[cme_time_index, 'FAMA'] == df_wti_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_wti_graph.at[ovc_x_idx, 'FAMA'] >= df_wti_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_wti_graph.at[cme_time_index, 'FAMA'] >= df_wti_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_wti_graph.at[ovc_x_idx, 'MAMA'] < df_wti_graph.at[ovc_x_idx, 'FAMA']:
+                        if df_wti_graph.at[cme_time_index, 'MAMA'] < df_wti_graph.at[cme_time_index, 'FAMA']:
                             self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_graph.at[cme_time_index, 'MAMA'], df_wti_graph.at[cme_time_index, 'FAMA'])
                     self.label_p1_4.setText(txt)
                 else:
                     pass
@@ -30451,7 +30468,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(WTI_고가, ','))
                 self.label_18.setText(txt)
                 
-                self.plot1_time_line.setValue(ovc_x_idx)
+                self.plot1_time_line.setValue(cme_time_index)
 
                 self.plot1_ovc_jl_line.setValue(WTI_전저)
                 self.plot1_ovc_jh_line.setValue(WTI_전고)
@@ -30493,51 +30510,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex1 == 15:
 
-                if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] == df_sp500_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_sp500_graph.at[cme_time_index, 'BBMiddle'] == df_sp500_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                    if df_sp500_graph.at[cme_time_index, 'BBMiddle'] >= df_sp500_graph.at[cme_time_index, 'price']:
                         self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass                 
 
-                if df_sp500_graph.at[ovc_x_idx, 'PSAR'] == df_sp500_graph.at[ovc_x_idx, 'PSAR']:
+                if df_sp500_graph.at[cme_time_index, 'PSAR'] == df_sp500_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_sp500_graph.at[ovc_x_idx, 'PSAR'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                    if df_sp500_graph.at[cme_time_index, 'PSAR'] >= df_sp500_graph.at[cme_time_index, 'price']:
                         self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[cme_time_index, 'BBMiddle'], df_sp500_graph.at[cme_time_index, 'PSAR'], SP500_호가순매수)
                     self.label_p1_2.setText(txt)
                 else:
                     pass
                 
-                if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] == df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] and df_sp500_graph.at[ovc_x_idx, 'OE_BASE'] == df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_sp500_graph.at[cme_time_index, 'OE_CONV'] == df_sp500_graph.at[cme_time_index, 'OE_CONV'] and df_sp500_graph.at[cme_time_index, 'OE_BASE'] == df_sp500_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] < df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_sp500_graph.at[cme_time_index, 'OE_CONV'] < df_sp500_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'OE_CONV'], df_sp500_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p1_3.setText(txt)
                 else:
                     pass
 
-                if df_sp500_graph.at[ovc_x_idx, 'MAMA'] == df_sp500_graph.at[ovc_x_idx, 'MAMA'] and df_sp500_graph.at[ovc_x_idx, 'FAMA'] == df_sp500_graph.at[ovc_x_idx, 'FAMA']:
+                if df_sp500_graph.at[cme_time_index, 'MAMA'] == df_sp500_graph.at[cme_time_index, 'MAMA'] and df_sp500_graph.at[cme_time_index, 'FAMA'] == df_sp500_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_sp500_graph.at[ovc_x_idx, 'FAMA'] >= df_sp500_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_sp500_graph.at[cme_time_index, 'FAMA'] >= df_sp500_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_sp500_graph.at[ovc_x_idx, 'MAMA'] < df_sp500_graph.at[ovc_x_idx, 'FAMA']:
+                        if df_sp500_graph.at[cme_time_index, 'MAMA'] < df_sp500_graph.at[cme_time_index, 'FAMA']:
                             self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'MAMA'], df_sp500_graph.at[cme_time_index, 'FAMA'])
                     self.label_p1_4.setText(txt)
                 else:
                     pass
@@ -30581,7 +30598,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(SP500_고가, ','))
                 self.label_18.setText(txt) 
                 
-                self.plot1_time_line.setValue(ovc_x_idx)
+                self.plot1_time_line.setValue(cme_time_index)
 
                 self.plot1_ovc_jl_line.setValue(SP500_전저)
                 self.plot1_ovc_jh_line.setValue(SP500_전고)
@@ -30623,9 +30640,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex1 == 20:               
 
-                txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'program'])
+                txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
 
-                if df_supply_demand_graph.at[ovc_x_idx, 'program'] <= 0:
+                if df_supply_demand_graph.at[cme_time_index, 'program'] <= 0:
                     self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_16.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -30641,16 +30658,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_17.setText(txt)
                 
-                txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'])
+                txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_total'])
 
-                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'] <= 0:
+                if df_supply_demand_graph.at[cme_time_index, 'kospi_total'] <= 0:
                     self.label_18.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     
                 self.label_18.setText(txt)
                 
-                self.plot1_time_line.setValue(ovc_x_idx)
+                self.plot1_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot1_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
@@ -30661,9 +30678,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex1 == 21:
 
-                txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'])
+                txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
 
-                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'] <= 0:
+                if df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'] <= 0:
                     self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_16.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -30679,16 +30696,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_17.setText(txt)
                 
-                txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'])
+                txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'])
 
-                if df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'] <= 0:
+                if df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'] <= 0:
                     self.label_18.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     
                 self.label_18.setText(txt)
                 
-                self.plot1_time_line.setValue(ovc_x_idx)
+                self.plot1_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot1_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
@@ -30747,51 +30764,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # 선물가격
             if comboindex2 == 2:
 
-                if df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_futures_cm_graph.at[cme_time_index, 'BBMiddle'] == df_futures_cm_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'] >= df_futures_cm_graph.at[ovc_x_idx, 'price']:
+                    if df_futures_cm_graph.at[cme_time_index, 'BBMiddle'] >= df_futures_cm_graph.at[cme_time_index, 'price']:
                         self.label_p2_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass               
 
-                if df_futures_cm_graph.at[ovc_x_idx, 'PSAR'] == df_futures_cm_graph.at[ovc_x_idx, 'PSAR']:
+                if df_futures_cm_graph.at[cme_time_index, 'PSAR'] == df_futures_cm_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_futures_cm_graph.at[ovc_x_idx, 'PSAR'] >= df_futures_cm_graph.at[ovc_x_idx, 'price']:
+                    if df_futures_cm_graph.at[cme_time_index, 'PSAR'] >= df_futures_cm_graph.at[cme_time_index, 'price']:
                         self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_cm_graph.at[ovc_x_idx, 'PSAR'], 선물_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_cm_graph.at[cme_time_index, 'BBMiddle'], df_futures_cm_graph.at[cme_time_index, 'PSAR'], 선물_호가순매수)
                     self.label_p2_2.setText(txt)
                 else:
                     pass
                 
-                if df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] == df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] and df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE'] == df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] == df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] and df_futures_cm_graph.at[cme_time_index, 'OE_BASE'] == df_futures_cm_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] < df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] < df_futures_cm_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'], df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_graph.at[cme_time_index, 'OE_CONV'], df_futures_cm_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p2_3.setText(txt)
                 else:
                     pass
 
-                if df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] and df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'FAMA']:
+                if df_futures_cm_graph.at[cme_time_index, 'MAMA'] == df_futures_cm_graph.at[cme_time_index, 'MAMA'] and df_futures_cm_graph.at[cme_time_index, 'FAMA'] == df_futures_cm_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] >= df_futures_cm_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_futures_cm_graph.at[cme_time_index, 'FAMA'] >= df_futures_cm_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] < df_futures_cm_graph.at[ovc_x_idx, 'FAMA']:                        
+                        if df_futures_cm_graph.at[cme_time_index, 'MAMA'] < df_futures_cm_graph.at[cme_time_index, 'FAMA']:                        
                             self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p2_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'MAMA'], df_futures_cm_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_graph.at[cme_time_index, 'MAMA'], df_futures_cm_graph.at[cme_time_index, 'FAMA'])
                     self.label_p2_4.setText(txt)
                 else:
                     pass
@@ -30838,7 +30855,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(근월물_선물_고가)
                 self.label_28.setText(txt)
                 
-                self.plot2_time_line.setValue(ovc_x_idx)
+                self.plot2_time_line.setValue(cme_time_index)
                 
                 self.plot2_kp200_line[3].setValue(KP200_COREVAL[3])
                 self.plot2_kp200_line[4].setValue(KP200_COREVAL[4])
@@ -30906,12 +30923,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex2 == 3:
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[cme_time_index, 'ms_quote'], df_put_information_graph.at[cme_time_index, 'md_quote'])
                 self.label_26.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), [▼: {6:.2f}, ▲: {7:.2f}] ".format(\
-                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
-                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
+                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[cme_time_index, 'c_ms_quote'], df_futures_cm_graph.at[cme_time_index, 'c_md_quote'], \
+                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[cme_time_index, 'n_ms_quote'], df_futures_cm_graph.at[cme_time_index, 'n_md_quote'], \
                     차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
 
                 if fut_quote_energy_direction == 'call':
@@ -30923,10 +30940,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_27.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[cme_time_index, 'ms_quote'], df_call_information_graph.at[cme_time_index, 'md_quote'])
                 self.label_28.setText(txt)
                 
-                self.plot2_time_line.setValue(ovc_x_idx)
+                self.plot2_time_line.setValue(cme_time_index)
 
                 self.plot2_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
                 self.plot2_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
@@ -30941,9 +30958,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex2 == 4:
 
-                self.plot2_time_line.setValue(ovc_x_idx)
+                self.plot2_time_line.setValue(cme_time_index)
 
-                txt = " {0:.0f} ".format(df_put_information_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_put_information_graph.at[cme_time_index, 'volume'])
                 self.label_26.setText(txt)
 
                 txt = " {0:.0f} ".format(fut_cm_volume_power)
@@ -30955,7 +30972,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_27.setText(txt)
                 
-                txt = " {0:.0f} ".format(df_call_information_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_call_information_graph.at[cme_time_index, 'volume'])
                 self.label_28.setText(txt)
 
                 if DayTime:
@@ -30999,7 +31016,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass 
 
-                self.plot2_time_line.setValue(ovc_x_idx)
+                self.plot2_time_line.setValue(cme_time_index)
 
                 if flag_calltable_checkstate_changed:
                     flag_calltable_checkstate_changed = False
@@ -31043,13 +31060,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex2 == 7:
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[cme_time_index, 'ms_quote'], df_put_information_graph.at[cme_time_index, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_26.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[cme_time_index, 'ms_quote'], df_call_information_graph.at[cme_time_index, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_28.setText(txt)
                 
-                self.plot2_time_line.setValue(ovc_x_idx)
+                self.plot2_time_line.setValue(cme_time_index)
 
                 self.plot2_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
                 self.plot2_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
@@ -31059,13 +31076,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex2 == 8:
 
-                txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[cme_time_index, 'open_interest'], put_oi_init_percent)
                 self.label_26.setText(txt)
                 
-                txt = " {0:.2f}({1:.2f}) ".format(df_call_information_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(df_call_information_graph.at[cme_time_index, 'open_interest'], call_oi_init_percent)
                 self.label_28.setText(txt)
                 
-                self.plot2_time_line.setValue(ovc_x_idx)
+                self.plot2_time_line.setValue(cme_time_index)
 
                 self.plot2_call_oi_curve.setData(df_call_information_graph['open_interest'].to_numpy())
                 self.plot2_put_oi_curve.setData(df_put_information_graph['open_interest'].to_numpy())
@@ -31081,7 +31098,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(call_otm_cdb_percent_mean, call_atm_value)
                 self.label_28.setText(txt)
                 
-                self.plot2_time_line.setValue(ovc_x_idx)
+                self.plot2_time_line.setValue(cme_time_index)
                 
                 self.plot2_call_drate_curve.setData(df_call_information_graph['drate'].to_numpy())
                 self.plot2_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy())
@@ -31099,51 +31116,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex2 == 12:
 
-                if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] == df_dow_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_dow_graph.at[cme_time_index, 'BBMiddle'] == df_dow_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                    if df_dow_graph.at[cme_time_index, 'BBMiddle'] >= df_dow_graph.at[cme_time_index, 'price']:
                         self.label_p2_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass                
 
-                if df_dow_graph.at[ovc_x_idx, 'PSAR'] == df_dow_graph.at[ovc_x_idx, 'PSAR']:
+                if df_dow_graph.at[cme_time_index, 'PSAR'] == df_dow_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_dow_graph.at[ovc_x_idx, 'PSAR'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                    if df_dow_graph.at[cme_time_index, 'PSAR'] >= df_dow_graph.at[cme_time_index, 'price']:
                         self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_dow_graph.at[cme_time_index, 'BBMiddle'], df_dow_graph.at[cme_time_index, 'PSAR'], DOW_호가순매수)
                     self.label_p2_2.setText(txt)
                 else:
                     pass
                 
-                if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] == df_dow_graph.at[ovc_x_idx, 'OE_CONV'] and df_dow_graph.at[ovc_x_idx, 'OE_BASE'] == df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_dow_graph.at[cme_time_index, 'OE_CONV'] == df_dow_graph.at[cme_time_index, 'OE_CONV'] and df_dow_graph.at[cme_time_index, 'OE_BASE'] == df_dow_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] < df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_dow_graph.at[cme_time_index, 'OE_CONV'] < df_dow_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[cme_time_index, 'OE_CONV'], df_dow_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p2_3.setText(txt)
                 else:
                     pass
 
-                if df_dow_graph.at[ovc_x_idx, 'MAMA'] == df_dow_graph.at[ovc_x_idx, 'MAMA'] and df_dow_graph.at[ovc_x_idx, 'FAMA'] == df_dow_graph.at[ovc_x_idx, 'FAMA']:
+                if df_dow_graph.at[cme_time_index, 'MAMA'] == df_dow_graph.at[cme_time_index, 'MAMA'] and df_dow_graph.at[cme_time_index, 'FAMA'] == df_dow_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_dow_graph.at[ovc_x_idx, 'FAMA'] >= df_dow_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_dow_graph.at[cme_time_index, 'FAMA'] >= df_dow_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_dow_graph.at[ovc_x_idx, 'MAMA'] < df_dow_graph.at[ovc_x_idx, 'FAMA']:
+                        if df_dow_graph.at[cme_time_index, 'MAMA'] < df_dow_graph.at[cme_time_index, 'FAMA']:
                             self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p2_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[cme_time_index, 'MAMA'], df_dow_graph.at[cme_time_index, 'FAMA'])
                     self.label_p2_4.setText(txt)
                 else:
                     pass
@@ -31187,7 +31204,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(DOW_고가, ','))
                 self.label_28.setText(txt)
                 
-                self.plot2_time_line.setValue(ovc_x_idx)
+                self.plot2_time_line.setValue(cme_time_index)
 
                 self.plot2_ovc_jl_line.setValue(DOW_전저)
                 self.plot2_ovc_jh_line.setValue(DOW_전고)
@@ -31234,51 +31251,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex2 == 13:
 
-                if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] == df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] == df_nasdaq_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                    if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] >= df_nasdaq_graph.at[cme_time_index, 'price']:
                         self.label_p2_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass                
 
-                if df_nasdaq_graph.at[ovc_x_idx, 'PSAR'] == df_nasdaq_graph.at[ovc_x_idx, 'PSAR']:
+                if df_nasdaq_graph.at[cme_time_index, 'PSAR'] == df_nasdaq_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'PSAR'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                    if df_nasdaq_graph.at[cme_time_index, 'PSAR'] >= df_nasdaq_graph.at[cme_time_index, 'price']:
                         self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_nasdaq_graph.at[cme_time_index, 'BBMiddle'], df_nasdaq_graph.at[cme_time_index, 'PSAR'], NASDAQ_호가순매수)
                     self.label_p2_2.setText(txt)
                 else:
                     pass
                 
-                if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] == df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] and df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'] == df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] == df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] and df_nasdaq_graph.at[cme_time_index, 'OE_BASE'] == df_nasdaq_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] < df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] < df_nasdaq_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[cme_time_index, 'OE_CONV'], df_nasdaq_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p2_3.setText(txt)
                 else:
                     pass
 
-                if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] and df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
+                if df_nasdaq_graph.at[cme_time_index, 'MAMA'] == df_nasdaq_graph.at[cme_time_index, 'MAMA'] and df_nasdaq_graph.at[cme_time_index, 'FAMA'] == df_nasdaq_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] >= df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_nasdaq_graph.at[cme_time_index, 'FAMA'] >= df_nasdaq_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
+                        if df_nasdaq_graph.at[cme_time_index, 'MAMA'] < df_nasdaq_graph.at[cme_time_index, 'FAMA']:
                             self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p2_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_graph.at[cme_time_index, 'MAMA'], df_nasdaq_graph.at[cme_time_index, 'FAMA'])
                     self.label_p2_4.setText(txt)
                 else:
                     pass
@@ -31322,7 +31339,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(NASDAQ_고가, ','))
                 self.label_28.setText(txt) 
                 
-                self.plot2_time_line.setValue(ovc_x_idx)
+                self.plot2_time_line.setValue(cme_time_index)
 
                 self.plot2_ovc_jl_line.setValue(NASDAQ_전저)
                 self.plot2_ovc_jh_line.setValue(NASDAQ_전고)
@@ -31369,51 +31386,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex2 == 14:
 
-                if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] == df_wti_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_wti_graph.at[cme_time_index, 'BBMiddle'] == df_wti_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                    if df_wti_graph.at[cme_time_index, 'BBMiddle'] >= df_wti_graph.at[cme_time_index, 'price']:
                         self.label_p2_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass                
 
-                if df_wti_graph.at[ovc_x_idx, 'PSAR'] == df_wti_graph.at[ovc_x_idx, 'PSAR']:
+                if df_wti_graph.at[cme_time_index, 'PSAR'] == df_wti_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_wti_graph.at[ovc_x_idx, 'PSAR'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                    if df_wti_graph.at[cme_time_index, 'PSAR'] >= df_wti_graph.at[cme_time_index, 'price']:
                         self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_wti_graph.at[cme_time_index, 'BBMiddle'], df_wti_graph.at[cme_time_index, 'PSAR'], WTI_호가순매수)
                     self.label_p2_2.setText(txt)
                 else:
                     pass
                 
-                if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] == df_wti_graph.at[ovc_x_idx, 'OE_CONV'] and df_wti_graph.at[ovc_x_idx, 'OE_BASE'] == df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_wti_graph.at[cme_time_index, 'OE_CONV'] == df_wti_graph.at[cme_time_index, 'OE_CONV'] and df_wti_graph.at[cme_time_index, 'OE_BASE'] == df_wti_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] < df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_wti_graph.at[cme_time_index, 'OE_CONV'] < df_wti_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[cme_time_index, 'OE_CONV'], df_wti_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p2_3.setText(txt)
                 else:
                     pass
 
-                if df_wti_graph.at[ovc_x_idx, 'MAMA'] == df_wti_graph.at[ovc_x_idx, 'MAMA'] and df_wti_graph.at[ovc_x_idx, 'FAMA'] == df_wti_graph.at[ovc_x_idx, 'FAMA']:
+                if df_wti_graph.at[cme_time_index, 'MAMA'] == df_wti_graph.at[cme_time_index, 'MAMA'] and df_wti_graph.at[cme_time_index, 'FAMA'] == df_wti_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_wti_graph.at[ovc_x_idx, 'FAMA'] >= df_wti_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_wti_graph.at[cme_time_index, 'FAMA'] >= df_wti_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_wti_graph.at[ovc_x_idx, 'MAMA'] < df_wti_graph.at[ovc_x_idx, 'FAMA']:
+                        if df_wti_graph.at[cme_time_index, 'MAMA'] < df_wti_graph.at[cme_time_index, 'FAMA']:
                             self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p2_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_graph.at[cme_time_index, 'MAMA'], df_wti_graph.at[cme_time_index, 'FAMA'])
                     self.label_p2_4.setText(txt)
                 else:
                     pass
@@ -31456,7 +31473,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(WTI_고가, ','))
                 self.label_28.setText(txt) 
                 
-                self.plot2_time_line.setValue(ovc_x_idx)
+                self.plot2_time_line.setValue(cme_time_index)
 
                 self.plot2_ovc_jl_line.setValue(WTI_전저)
                 self.plot2_ovc_jh_line.setValue(WTI_전고)
@@ -31503,51 +31520,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex2 == 15:
 
-                if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] == df_sp500_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_sp500_graph.at[cme_time_index, 'BBMiddle'] == df_sp500_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                    if df_sp500_graph.at[cme_time_index, 'BBMiddle'] >= df_sp500_graph.at[cme_time_index, 'price']:
                         self.label_p2_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass                 
 
-                if df_sp500_graph.at[ovc_x_idx, 'PSAR'] == df_sp500_graph.at[ovc_x_idx, 'PSAR']:
+                if df_sp500_graph.at[cme_time_index, 'PSAR'] == df_sp500_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_sp500_graph.at[ovc_x_idx, 'PSAR'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                    if df_sp500_graph.at[cme_time_index, 'PSAR'] >= df_sp500_graph.at[cme_time_index, 'price']:
                         self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[cme_time_index, 'BBMiddle'], df_sp500_graph.at[cme_time_index, 'PSAR'], SP500_호가순매수)
                     self.label_p2_2.setText(txt)
                 else:
                     pass
                 
-                if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] == df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] and df_sp500_graph.at[ovc_x_idx, 'OE_BASE'] == df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_sp500_graph.at[cme_time_index, 'OE_CONV'] == df_sp500_graph.at[cme_time_index, 'OE_CONV'] and df_sp500_graph.at[cme_time_index, 'OE_BASE'] == df_sp500_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] < df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_sp500_graph.at[cme_time_index, 'OE_CONV'] < df_sp500_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'OE_CONV'], df_sp500_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p2_3.setText(txt)
                 else:
                     pass
 
-                if df_sp500_graph.at[ovc_x_idx, 'MAMA'] == df_sp500_graph.at[ovc_x_idx, 'MAMA'] and df_sp500_graph.at[ovc_x_idx, 'FAMA'] == df_sp500_graph.at[ovc_x_idx, 'FAMA']:
+                if df_sp500_graph.at[cme_time_index, 'MAMA'] == df_sp500_graph.at[cme_time_index, 'MAMA'] and df_sp500_graph.at[cme_time_index, 'FAMA'] == df_sp500_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_sp500_graph.at[ovc_x_idx, 'FAMA'] >= df_sp500_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_sp500_graph.at[cme_time_index, 'FAMA'] >= df_sp500_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_sp500_graph.at[ovc_x_idx, 'MAMA'] < df_sp500_graph.at[ovc_x_idx, 'FAMA']:
+                        if df_sp500_graph.at[cme_time_index, 'MAMA'] < df_sp500_graph.at[cme_time_index, 'FAMA']:
                             self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p2_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'MAMA'], df_sp500_graph.at[cme_time_index, 'FAMA'])
                     self.label_p2_4.setText(txt)
                 else:
                     pass
@@ -31591,7 +31608,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(SP500_고가, ','))
                 self.label_28.setText(txt) 
                 
-                self.plot2_time_line.setValue(ovc_x_idx)
+                self.plot2_time_line.setValue(cme_time_index)
 
                 self.plot2_ovc_jl_line.setValue(SP500_전저)
                 self.plot2_ovc_jh_line.setValue(SP500_전고)
@@ -31639,9 +31656,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex2 == 20:
 
-                txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'program'])
+                txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
 
-                if df_supply_demand_graph.at[ovc_x_idx, 'program'] <= 0:
+                if df_supply_demand_graph.at[cme_time_index, 'program'] <= 0:
                     self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_26.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -31657,16 +31674,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_27.setText(txt)
                 
-                txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'])
+                txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_total'])
 
-                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'] <= 0:
+                if df_supply_demand_graph.at[cme_time_index, 'kospi_total'] <= 0:
                     self.label_28.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     
                 self.label_28.setText(txt)
                 
-                self.plot2_time_line.setValue(ovc_x_idx)
+                self.plot2_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot2_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
@@ -31677,9 +31694,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex2 == 21:
 
-                txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'])
+                txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
 
-                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'] <= 0:
+                if df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'] <= 0:
                     self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_26.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -31695,16 +31712,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_27.setText(txt)
                 
-                txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'])
+                txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'])
 
-                if df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'] <= 0:
+                if df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'] <= 0:
                     self.label_28.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     
                 self.label_28.setText(txt)
                 
-                self.plot2_time_line.setValue(ovc_x_idx)
+                self.plot2_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot2_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
@@ -31763,51 +31780,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # 선물가격
             if comboindex3 == 2:
 
-                if df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_futures_cm_graph.at[cme_time_index, 'BBMiddle'] == df_futures_cm_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'] >= df_futures_cm_graph.at[ovc_x_idx, 'price']:
+                    if df_futures_cm_graph.at[cme_time_index, 'BBMiddle'] >= df_futures_cm_graph.at[cme_time_index, 'price']:
                         self.label_p3_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass               
 
-                if df_futures_cm_graph.at[ovc_x_idx, 'PSAR'] == df_futures_cm_graph.at[ovc_x_idx, 'PSAR']:
+                if df_futures_cm_graph.at[cme_time_index, 'PSAR'] == df_futures_cm_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_futures_cm_graph.at[ovc_x_idx, 'PSAR'] >= df_futures_cm_graph.at[ovc_x_idx, 'price']:
+                    if df_futures_cm_graph.at[cme_time_index, 'PSAR'] >= df_futures_cm_graph.at[cme_time_index, 'price']:
                         self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_cm_graph.at[ovc_x_idx, 'PSAR'], 선물_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_cm_graph.at[cme_time_index, 'BBMiddle'], df_futures_cm_graph.at[cme_time_index, 'PSAR'], 선물_호가순매수)
                     self.label_p3_2.setText(txt)
                 else:
                     pass
                 
-                if df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] == df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] and df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE'] == df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] == df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] and df_futures_cm_graph.at[cme_time_index, 'OE_BASE'] == df_futures_cm_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] < df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] < df_futures_cm_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'], df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_graph.at[cme_time_index, 'OE_CONV'], df_futures_cm_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p3_3.setText(txt)
                 else:
                     pass
 
-                if df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] and df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'FAMA']:
+                if df_futures_cm_graph.at[cme_time_index, 'MAMA'] == df_futures_cm_graph.at[cme_time_index, 'MAMA'] and df_futures_cm_graph.at[cme_time_index, 'FAMA'] == df_futures_cm_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] >= df_futures_cm_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_futures_cm_graph.at[cme_time_index, 'FAMA'] >= df_futures_cm_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] < df_futures_cm_graph.at[ovc_x_idx, 'FAMA']:                        
+                        if df_futures_cm_graph.at[cme_time_index, 'MAMA'] < df_futures_cm_graph.at[cme_time_index, 'FAMA']:                        
                             self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p3_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'MAMA'], df_futures_cm_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_graph.at[cme_time_index, 'MAMA'], df_futures_cm_graph.at[cme_time_index, 'FAMA'])
                     self.label_p3_4.setText(txt)
                 else:
                     pass
@@ -31854,7 +31871,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(근월물_선물_고가)
                 self.label_38.setText(txt) 
                 
-                self.plot3_time_line.setValue(ovc_x_idx)
+                self.plot3_time_line.setValue(cme_time_index)
                 
                 self.plot3_kp200_line[3].setValue(KP200_COREVAL[3])
                 self.plot3_kp200_line[4].setValue(KP200_COREVAL[4])
@@ -31922,12 +31939,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex3 == 3:
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[cme_time_index, 'ms_quote'], df_put_information_graph.at[cme_time_index, 'md_quote'])
                 self.label_36.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), [▼: {6:.2f}, ▲: {7:.2f}] ".format(\
-                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
-                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
+                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[cme_time_index, 'c_ms_quote'], df_futures_cm_graph.at[cme_time_index, 'c_md_quote'], \
+                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[cme_time_index, 'n_ms_quote'], df_futures_cm_graph.at[cme_time_index, 'n_md_quote'], \
                     차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
 
                 if fut_quote_energy_direction == 'call':
@@ -31939,10 +31956,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_37.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[cme_time_index, 'ms_quote'], df_call_information_graph.at[cme_time_index, 'md_quote'])
                 self.label_38.setText(txt)
                 
-                self.plot3_time_line.setValue(ovc_x_idx)
+                self.plot3_time_line.setValue(cme_time_index)
 
                 self.plot3_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
                 self.plot3_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
@@ -31957,7 +31974,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex3 == 4:
 
-                txt = " {0:.0f} ".format(df_put_information_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_put_information_graph.at[cme_time_index, 'volume'])
                 self.label_36.setText(txt)
 
                 txt = " {0:.0f} ".format(fut_cm_volume_power)
@@ -31969,10 +31986,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_37.setText(txt)
                 
-                txt = " {0:.0f} ".format(df_call_information_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_call_information_graph.at[cme_time_index, 'volume'])
                 self.label_38.setText(txt)
                 
-                self.plot3_time_line.setValue(ovc_x_idx)
+                self.plot3_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
@@ -32015,7 +32032,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                self.plot3_time_line.setValue(ovc_x_idx)
+                self.plot3_time_line.setValue(cme_time_index)
 
                 if flag_calltable_checkstate_changed:
                     flag_calltable_checkstate_changed = False
@@ -32057,13 +32074,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex3 == 7:
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[cme_time_index, 'ms_quote'], df_put_information_graph.at[cme_time_index, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_36.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[cme_time_index, 'ms_quote'], df_call_information_graph.at[cme_time_index, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_38.setText(txt)
                 
-                self.plot3_time_line.setValue(ovc_x_idx)
+                self.plot3_time_line.setValue(cme_time_index)
 
                 self.plot3_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
                 self.plot3_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
@@ -32073,13 +32090,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex3 == 8:
 
-                txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[cme_time_index, 'open_interest'], put_oi_init_percent)
                 self.label_36.setText(txt)
                 
-                txt = " {0:.2f}({1:.2f}) ".format(df_call_information_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(df_call_information_graph.at[cme_time_index, 'open_interest'], call_oi_init_percent)
                 self.label_38.setText(txt)
                 
-                self.plot3_time_line.setValue(ovc_x_idx)
+                self.plot3_time_line.setValue(cme_time_index)
 
                 self.plot3_call_oi_curve.setData(df_call_information_graph['open_interest'].to_numpy())
                 self.plot3_put_oi_curve.setData(df_put_information_graph['open_interest'].to_numpy())
@@ -32095,7 +32112,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(call_otm_cdb_percent_mean, call_atm_value)
                 self.label_38.setText(txt)
                 
-                self.plot3_time_line.setValue(ovc_x_idx)
+                self.plot3_time_line.setValue(cme_time_index)
                 
                 self.plot3_call_drate_curve.setData(df_call_information_graph['drate'].to_numpy())
                 self.plot3_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy())
@@ -32113,51 +32130,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex3 == 12:
 
-                if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] == df_dow_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_dow_graph.at[cme_time_index, 'BBMiddle'] == df_dow_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                    if df_dow_graph.at[cme_time_index, 'BBMiddle'] >= df_dow_graph.at[cme_time_index, 'price']:
                         self.label_p3_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass
 
-                if df_dow_graph.at[ovc_x_idx, 'PSAR'] == df_dow_graph.at[ovc_x_idx, 'PSAR']:
+                if df_dow_graph.at[cme_time_index, 'PSAR'] == df_dow_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_dow_graph.at[ovc_x_idx, 'PSAR'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                    if df_dow_graph.at[cme_time_index, 'PSAR'] >= df_dow_graph.at[cme_time_index, 'price']:
                         self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_dow_graph.at[cme_time_index, 'BBMiddle'], df_dow_graph.at[cme_time_index, 'PSAR'], DOW_호가순매수)
                     self.label_p3_2.setText(txt)
                 else:
                     pass
                 
-                if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] == df_dow_graph.at[ovc_x_idx, 'OE_CONV'] and df_dow_graph.at[ovc_x_idx, 'OE_BASE'] == df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_dow_graph.at[cme_time_index, 'OE_CONV'] == df_dow_graph.at[cme_time_index, 'OE_CONV'] and df_dow_graph.at[cme_time_index, 'OE_BASE'] == df_dow_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] < df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_dow_graph.at[cme_time_index, 'OE_CONV'] < df_dow_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[cme_time_index, 'OE_CONV'], df_dow_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p3_3.setText(txt)
                 else:
                     pass
 
-                if df_dow_graph.at[ovc_x_idx, 'MAMA'] == df_dow_graph.at[ovc_x_idx, 'MAMA'] and df_dow_graph.at[ovc_x_idx, 'FAMA'] == df_dow_graph.at[ovc_x_idx, 'FAMA']:
+                if df_dow_graph.at[cme_time_index, 'MAMA'] == df_dow_graph.at[cme_time_index, 'MAMA'] and df_dow_graph.at[cme_time_index, 'FAMA'] == df_dow_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_dow_graph.at[ovc_x_idx, 'FAMA'] >= df_dow_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_dow_graph.at[cme_time_index, 'FAMA'] >= df_dow_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_dow_graph.at[ovc_x_idx, 'MAMA'] < df_dow_graph.at[ovc_x_idx, 'FAMA']:
+                        if df_dow_graph.at[cme_time_index, 'MAMA'] < df_dow_graph.at[cme_time_index, 'FAMA']:
                             self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p3_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[cme_time_index, 'MAMA'], df_dow_graph.at[cme_time_index, 'FAMA'])
                     self.label_p3_4.setText(txt)
                 else:
                     pass
@@ -32201,7 +32218,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(DOW_고가, ','))
                 self.label_38.setText(txt)
                 
-                self.plot3_time_line.setValue(ovc_x_idx)
+                self.plot3_time_line.setValue(cme_time_index)
 
                 self.plot3_ovc_jl_line.setValue(DOW_전저)
                 self.plot3_ovc_jh_line.setValue(DOW_전고)
@@ -32247,51 +32264,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex3 == 13:
 
-                if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] == df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] == df_nasdaq_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                    if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] >= df_nasdaq_graph.at[cme_time_index, 'price']:
                         self.label_p3_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass
 
-                if df_nasdaq_graph.at[ovc_x_idx, 'PSAR'] == df_nasdaq_graph.at[ovc_x_idx, 'PSAR']:
+                if df_nasdaq_graph.at[cme_time_index, 'PSAR'] == df_nasdaq_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'PSAR'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                    if df_nasdaq_graph.at[cme_time_index, 'PSAR'] >= df_nasdaq_graph.at[cme_time_index, 'price']:
                         self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_nasdaq_graph.at[cme_time_index, 'BBMiddle'], df_nasdaq_graph.at[cme_time_index, 'PSAR'], NASDAQ_호가순매수)
                     self.label_p3_2.setText(txt)
                 else:
                     pass
                 
-                if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] == df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] and df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'] == df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] == df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] and df_nasdaq_graph.at[cme_time_index, 'OE_BASE'] == df_nasdaq_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] < df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] < df_nasdaq_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[cme_time_index, 'OE_CONV'], df_nasdaq_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p3_3.setText(txt)
                 else:
                     pass
 
-                if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] and df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
+                if df_nasdaq_graph.at[cme_time_index, 'MAMA'] == df_nasdaq_graph.at[cme_time_index, 'MAMA'] and df_nasdaq_graph.at[cme_time_index, 'FAMA'] == df_nasdaq_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] >= df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_nasdaq_graph.at[cme_time_index, 'FAMA'] >= df_nasdaq_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
+                        if df_nasdaq_graph.at[cme_time_index, 'MAMA'] < df_nasdaq_graph.at[cme_time_index, 'FAMA']:
                             self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p3_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_graph.at[cme_time_index, 'MAMA'], df_nasdaq_graph.at[cme_time_index, 'FAMA'])
                     self.label_p3_4.setText(txt)
                 else:
                     pass
@@ -32335,7 +32352,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(NASDAQ_고가, ','))
                 self.label_38.setText(txt) 
                 
-                self.plot3_time_line.setValue(ovc_x_idx)
+                self.plot3_time_line.setValue(cme_time_index)
 
                 self.plot3_ovc_jl_line.setValue(NASDAQ_전저)
                 self.plot3_ovc_jh_line.setValue(NASDAQ_전고)
@@ -32381,51 +32398,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex3 == 14:
 
-                if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] == df_wti_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_wti_graph.at[cme_time_index, 'BBMiddle'] == df_wti_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                    if df_wti_graph.at[cme_time_index, 'BBMiddle'] >= df_wti_graph.at[cme_time_index, 'price']:
                         self.label_p3_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass
 
-                if df_wti_graph.at[ovc_x_idx, 'PSAR'] == df_wti_graph.at[ovc_x_idx, 'PSAR']:
+                if df_wti_graph.at[cme_time_index, 'PSAR'] == df_wti_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_wti_graph.at[ovc_x_idx, 'PSAR'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                    if df_wti_graph.at[cme_time_index, 'PSAR'] >= df_wti_graph.at[cme_time_index, 'price']:
                         self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_wti_graph.at[cme_time_index, 'BBMiddle'], df_wti_graph.at[cme_time_index, 'PSAR'], WTI_호가순매수)
                     self.label_p3_2.setText(txt)
                 else:
                     pass
                 
-                if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] == df_wti_graph.at[ovc_x_idx, 'OE_CONV'] and df_wti_graph.at[ovc_x_idx, 'OE_BASE'] == df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_wti_graph.at[cme_time_index, 'OE_CONV'] == df_wti_graph.at[cme_time_index, 'OE_CONV'] and df_wti_graph.at[cme_time_index, 'OE_BASE'] == df_wti_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] < df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_wti_graph.at[cme_time_index, 'OE_CONV'] < df_wti_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[cme_time_index, 'OE_CONV'], df_wti_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p3_3.setText(txt)
                 else:
                     pass
 
-                if df_wti_graph.at[ovc_x_idx, 'MAMA'] == df_wti_graph.at[ovc_x_idx, 'MAMA'] and df_wti_graph.at[ovc_x_idx, 'FAMA'] == df_wti_graph.at[ovc_x_idx, 'FAMA']:
+                if df_wti_graph.at[cme_time_index, 'MAMA'] == df_wti_graph.at[cme_time_index, 'MAMA'] and df_wti_graph.at[cme_time_index, 'FAMA'] == df_wti_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_wti_graph.at[ovc_x_idx, 'FAMA'] >= df_wti_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_wti_graph.at[cme_time_index, 'FAMA'] >= df_wti_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_wti_graph.at[ovc_x_idx, 'MAMA'] < df_wti_graph.at[ovc_x_idx, 'FAMA']:
+                        if df_wti_graph.at[cme_time_index, 'MAMA'] < df_wti_graph.at[cme_time_index, 'FAMA']:
                             self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p3_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_graph.at[cme_time_index, 'MAMA'], df_wti_graph.at[cme_time_index, 'FAMA'])
                     self.label_p3_4.setText(txt)
                 else:
                     pass
@@ -32468,7 +32485,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(WTI_고가, ','))
                 self.label_38.setText(txt) 
                 
-                self.plot3_time_line.setValue(ovc_x_idx)
+                self.plot3_time_line.setValue(cme_time_index)
 
                 self.plot3_ovc_jl_line.setValue(WTI_전저)
                 self.plot3_ovc_jh_line.setValue(WTI_전고)
@@ -32514,51 +32531,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex3 == 15:
 
-                if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] == df_sp500_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_sp500_graph.at[cme_time_index, 'BBMiddle'] == df_sp500_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                    if df_sp500_graph.at[cme_time_index, 'BBMiddle'] >= df_sp500_graph.at[cme_time_index, 'price']:
                         self.label_p3_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass                 
 
-                if df_sp500_graph.at[ovc_x_idx, 'PSAR'] == df_sp500_graph.at[ovc_x_idx, 'PSAR']:
+                if df_sp500_graph.at[cme_time_index, 'PSAR'] == df_sp500_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_sp500_graph.at[ovc_x_idx, 'PSAR'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                    if df_sp500_graph.at[cme_time_index, 'PSAR'] >= df_sp500_graph.at[cme_time_index, 'price']:
                         self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[cme_time_index, 'BBMiddle'], df_sp500_graph.at[cme_time_index, 'PSAR'], SP500_호가순매수)
                     self.label_p3_2.setText(txt)
                 else:
                     pass
                 
-                if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] == df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] and df_sp500_graph.at[ovc_x_idx, 'OE_BASE'] == df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_sp500_graph.at[cme_time_index, 'OE_CONV'] == df_sp500_graph.at[cme_time_index, 'OE_CONV'] and df_sp500_graph.at[cme_time_index, 'OE_BASE'] == df_sp500_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] < df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_sp500_graph.at[cme_time_index, 'OE_CONV'] < df_sp500_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'OE_CONV'], df_sp500_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p3_3.setText(txt)
                 else:
                     pass
 
-                if df_sp500_graph.at[ovc_x_idx, 'MAMA'] == df_sp500_graph.at[ovc_x_idx, 'MAMA'] and df_sp500_graph.at[ovc_x_idx, 'FAMA'] == df_sp500_graph.at[ovc_x_idx, 'FAMA']:
+                if df_sp500_graph.at[cme_time_index, 'MAMA'] == df_sp500_graph.at[cme_time_index, 'MAMA'] and df_sp500_graph.at[cme_time_index, 'FAMA'] == df_sp500_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_sp500_graph.at[ovc_x_idx, 'FAMA'] >= df_sp500_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_sp500_graph.at[cme_time_index, 'FAMA'] >= df_sp500_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_sp500_graph.at[ovc_x_idx, 'MAMA'] < df_sp500_graph.at[ovc_x_idx, 'FAMA']:
+                        if df_sp500_graph.at[cme_time_index, 'MAMA'] < df_sp500_graph.at[cme_time_index, 'FAMA']:
                             self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p3_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'MAMA'], df_sp500_graph.at[cme_time_index, 'FAMA'])
                     self.label_p3_4.setText(txt)
                 else:
                     pass
@@ -32602,7 +32619,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(SP500_고가, ','))
                 self.label_38.setText(txt)
                 
-                self.plot3_time_line.setValue(ovc_x_idx)
+                self.plot3_time_line.setValue(cme_time_index)
 
                 self.plot3_ovc_jl_line.setValue(SP500_전저)
                 self.plot3_ovc_jh_line.setValue(SP500_전고)
@@ -32649,9 +32666,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex3 == 20:
 
-                txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'program'])
+                txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
 
-                if df_supply_demand_graph.at[ovc_x_idx, 'program'] <= 0:
+                if df_supply_demand_graph.at[cme_time_index, 'program'] <= 0:
                     self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_36.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -32667,16 +32684,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_37.setText(txt)
                 
-                txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'])
+                txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_total'])
 
-                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'] <= 0:
+                if df_supply_demand_graph.at[cme_time_index, 'kospi_total'] <= 0:
                     self.label_38.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     
                 self.label_38.setText(txt)
                 
-                self.plot3_time_line.setValue(ovc_x_idx)
+                self.plot3_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
@@ -32687,9 +32704,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex3 == 21:
 
-                txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'])
+                txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
 
-                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'] <= 0:
+                if df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'] <= 0:
                     self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_36.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -32705,16 +32722,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_37.setText(txt)
                 
-                txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'])
+                txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'])
 
-                if df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'] <= 0:
+                if df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'] <= 0:
                     self.label_38.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     
                 self.label_38.setText(txt)
                 
-                self.plot3_time_line.setValue(ovc_x_idx)
+                self.plot3_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
@@ -32772,51 +32789,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot4 그래프 그리기
             if comboindex4 == 2:
 
-                if df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_futures_cm_graph.at[cme_time_index, 'BBMiddle'] == df_futures_cm_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'] >= df_futures_cm_graph.at[ovc_x_idx, 'price']:
+                    if df_futures_cm_graph.at[cme_time_index, 'BBMiddle'] >= df_futures_cm_graph.at[cme_time_index, 'price']:
                         self.label_p4_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass               
 
-                if df_futures_cm_graph.at[ovc_x_idx, 'PSAR'] == df_futures_cm_graph.at[ovc_x_idx, 'PSAR']:
+                if df_futures_cm_graph.at[cme_time_index, 'PSAR'] == df_futures_cm_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_futures_cm_graph.at[ovc_x_idx, 'PSAR'] >= df_futures_cm_graph.at[ovc_x_idx, 'price']:
+                    if df_futures_cm_graph.at[cme_time_index, 'PSAR'] >= df_futures_cm_graph.at[cme_time_index, 'price']:
                         self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_cm_graph.at[ovc_x_idx, 'PSAR'], 선물_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_cm_graph.at[cme_time_index, 'BBMiddle'], df_futures_cm_graph.at[cme_time_index, 'PSAR'], 선물_호가순매수)
                     self.label_p4_2.setText(txt)
                 else:
                     pass
                 
-                if df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] == df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] and df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE'] == df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] == df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] and df_futures_cm_graph.at[cme_time_index, 'OE_BASE'] == df_futures_cm_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] < df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] < df_futures_cm_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'], df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_graph.at[cme_time_index, 'OE_CONV'], df_futures_cm_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p4_3.setText(txt)
                 else:
                     pass
 
-                if df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] and df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'FAMA']:
+                if df_futures_cm_graph.at[cme_time_index, 'MAMA'] == df_futures_cm_graph.at[cme_time_index, 'MAMA'] and df_futures_cm_graph.at[cme_time_index, 'FAMA'] == df_futures_cm_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] >= df_futures_cm_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_futures_cm_graph.at[cme_time_index, 'FAMA'] >= df_futures_cm_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] < df_futures_cm_graph.at[ovc_x_idx, 'FAMA']:
+                        if df_futures_cm_graph.at[cme_time_index, 'MAMA'] < df_futures_cm_graph.at[cme_time_index, 'FAMA']:
                             self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p4_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'MAMA'], df_futures_cm_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_graph.at[cme_time_index, 'MAMA'], df_futures_cm_graph.at[cme_time_index, 'FAMA'])
                     self.label_p4_4.setText(txt)
                 else:
                     pass
@@ -32863,7 +32880,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(근월물_선물_고가)
                 self.label_48.setText(txt) 
                 
-                self.plot4_time_line.setValue(ovc_x_idx)
+                self.plot4_time_line.setValue(cme_time_index)
                 
                 self.plot4_kp200_line[3].setValue(KP200_COREVAL[3])
                 self.plot4_kp200_line[4].setValue(KP200_COREVAL[4])
@@ -32931,12 +32948,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex4 == 3:
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[cme_time_index, 'ms_quote'], df_put_information_graph.at[cme_time_index, 'md_quote'])
                 self.label_46.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), [▼: {6:.2f}, ▲: {7:.2f}] ".format(\
-                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
-                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
+                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[cme_time_index, 'c_ms_quote'], df_futures_cm_graph.at[cme_time_index, 'c_md_quote'], \
+                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[cme_time_index, 'n_ms_quote'], df_futures_cm_graph.at[cme_time_index, 'n_md_quote'], \
                     차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
 
                 if fut_quote_energy_direction == 'call':
@@ -32948,10 +32965,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_47.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[cme_time_index, 'ms_quote'], df_call_information_graph.at[cme_time_index, 'md_quote'])
                 self.label_48.setText(txt)
                 
-                self.plot4_time_line.setValue(ovc_x_idx)
+                self.plot4_time_line.setValue(cme_time_index)
 
                 self.plot4_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
                 self.plot4_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
@@ -32966,7 +32983,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex4 == 4:
 
-                txt = " {0:.0f} ".format(df_put_information_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_put_information_graph.at[cme_time_index, 'volume'])
                 self.label_46.setText(txt)
 
                 txt = " {0:.0f} ".format(fut_cm_volume_power)
@@ -32978,10 +32995,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_47.setText(txt)
                 
-                txt = " {0:.0f} ".format(df_call_information_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_call_information_graph.at[cme_time_index, 'volume'])
                 self.label_48.setText(txt)
                 
-                self.plot4_time_line.setValue(ovc_x_idx)                      
+                self.plot4_time_line.setValue(cme_time_index)                      
 
                 if DayTime:
                     self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
@@ -33024,7 +33041,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                self.plot4_time_line.setValue(ovc_x_idx)
+                self.plot4_time_line.setValue(cme_time_index)
 
                 if flag_calltable_checkstate_changed:
                     flag_calltable_checkstate_changed = False
@@ -33068,13 +33085,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex4 == 7:
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[cme_time_index, 'ms_quote'], df_put_information_graph.at[cme_time_index, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_46.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[cme_time_index, 'ms_quote'], df_call_information_graph.at[cme_time_index, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_48.setText(txt)
                 
-                self.plot4_time_line.setValue(ovc_x_idx)
+                self.plot4_time_line.setValue(cme_time_index)
 
                 self.plot4_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
                 self.plot4_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
@@ -33084,13 +33101,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex4 == 8:
 
-                txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[cme_time_index, 'open_interest'], put_oi_init_percent)
                 self.label_46.setText(txt)
                 
-                txt = " {0:.2f}({1:.2f}) ".format(df_call_information_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(df_call_information_graph.at[cme_time_index, 'open_interest'], call_oi_init_percent)
                 self.label_48.setText(txt)
                 
-                self.plot4_time_line.setValue(ovc_x_idx)
+                self.plot4_time_line.setValue(cme_time_index)
 
                 self.plot4_call_oi_curve.setData(df_call_information_graph['open_interest'].to_numpy())
                 self.plot4_put_oi_curve.setData(df_put_information_graph['open_interest'].to_numpy())
@@ -33106,7 +33123,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(call_otm_cdb_percent_mean, call_atm_value)
                 self.label_48.setText(txt)
                 
-                self.plot4_time_line.setValue(ovc_x_idx)
+                self.plot4_time_line.setValue(cme_time_index)
                 
                 self.plot4_call_drate_curve.setData(df_call_information_graph['drate'].to_numpy())
                 self.plot4_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy())
@@ -33124,51 +33141,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex4 == 12:
 
-                if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] == df_dow_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_dow_graph.at[cme_time_index, 'BBMiddle'] == df_dow_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                    if df_dow_graph.at[cme_time_index, 'BBMiddle'] >= df_dow_graph.at[cme_time_index, 'price']:
                         self.label_p4_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass                 
 
-                if df_dow_graph.at[ovc_x_idx, 'PSAR'] == df_dow_graph.at[ovc_x_idx, 'PSAR']:
+                if df_dow_graph.at[cme_time_index, 'PSAR'] == df_dow_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_dow_graph.at[ovc_x_idx, 'PSAR'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                    if df_dow_graph.at[cme_time_index, 'PSAR'] >= df_dow_graph.at[cme_time_index, 'price']:
                         self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_dow_graph.at[cme_time_index, 'BBMiddle'], df_dow_graph.at[cme_time_index, 'PSAR'], DOW_호가순매수)
                     self.label_p4_2.setText(txt)
                 else:
                     pass
                 
-                if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] == df_dow_graph.at[ovc_x_idx, 'OE_CONV'] and df_dow_graph.at[ovc_x_idx, 'OE_BASE'] == df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_dow_graph.at[cme_time_index, 'OE_CONV'] == df_dow_graph.at[cme_time_index, 'OE_CONV'] and df_dow_graph.at[cme_time_index, 'OE_BASE'] == df_dow_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] < df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_dow_graph.at[cme_time_index, 'OE_CONV'] < df_dow_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[cme_time_index, 'OE_CONV'], df_dow_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p4_3.setText(txt)
                 else:
                     pass
 
-                if df_dow_graph.at[ovc_x_idx, 'MAMA'] == df_dow_graph.at[ovc_x_idx, 'MAMA'] and df_dow_graph.at[ovc_x_idx, 'FAMA'] == df_dow_graph.at[ovc_x_idx, 'FAMA']:
+                if df_dow_graph.at[cme_time_index, 'MAMA'] == df_dow_graph.at[cme_time_index, 'MAMA'] and df_dow_graph.at[cme_time_index, 'FAMA'] == df_dow_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_dow_graph.at[ovc_x_idx, 'FAMA'] >= df_dow_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_dow_graph.at[cme_time_index, 'FAMA'] >= df_dow_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_dow_graph.at[ovc_x_idx, 'MAMA'] < df_dow_graph.at[ovc_x_idx, 'FAMA']:
+                        if df_dow_graph.at[cme_time_index, 'MAMA'] < df_dow_graph.at[cme_time_index, 'FAMA']:
                             self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p4_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[cme_time_index, 'MAMA'], df_dow_graph.at[cme_time_index, 'FAMA'])
                     self.label_p4_4.setText(txt)
                 else:
                     pass
@@ -33212,7 +33229,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(DOW_고가, ','))
                 self.label_48.setText(txt) 
                 
-                self.plot4_time_line.setValue(ovc_x_idx)
+                self.plot4_time_line.setValue(cme_time_index)
 
                 self.plot4_ovc_jl_line.setValue(DOW_전저)
                 self.plot4_ovc_jh_line.setValue(DOW_전고)
@@ -33254,51 +33271,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex4 == 13:
 
-                if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] == df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] == df_nasdaq_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                    if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] >= df_nasdaq_graph.at[cme_time_index, 'price']:
                         self.label_p4_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass                
 
-                if df_nasdaq_graph.at[ovc_x_idx, 'PSAR'] == df_nasdaq_graph.at[ovc_x_idx, 'PSAR']:
+                if df_nasdaq_graph.at[cme_time_index, 'PSAR'] == df_nasdaq_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'PSAR'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                    if df_nasdaq_graph.at[cme_time_index, 'PSAR'] >= df_nasdaq_graph.at[cme_time_index, 'price']:
                         self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_nasdaq_graph.at[cme_time_index, 'BBMiddle'], df_nasdaq_graph.at[cme_time_index, 'PSAR'], NASDAQ_호가순매수)
                     self.label_p4_2.setText(txt)
                 else:
                     pass
                 
-                if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] == df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] and df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'] == df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] == df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] and df_nasdaq_graph.at[cme_time_index, 'OE_BASE'] == df_nasdaq_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] < df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] < df_nasdaq_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[cme_time_index, 'OE_CONV'], df_nasdaq_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p4_3.setText(txt)
                 else:
                     pass
 
-                if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] and df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
+                if df_nasdaq_graph.at[cme_time_index, 'MAMA'] == df_nasdaq_graph.at[cme_time_index, 'MAMA'] and df_nasdaq_graph.at[cme_time_index, 'FAMA'] == df_nasdaq_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] >= df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_nasdaq_graph.at[cme_time_index, 'FAMA'] >= df_nasdaq_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
+                        if df_nasdaq_graph.at[cme_time_index, 'MAMA'] < df_nasdaq_graph.at[cme_time_index, 'FAMA']:
                             self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p4_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_graph.at[cme_time_index, 'MAMA'], df_nasdaq_graph.at[cme_time_index, 'FAMA'])
                     self.label_p4_4.setText(txt)
                 else:
                     pass
@@ -33342,7 +33359,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(NASDAQ_고가, ','))
                 self.label_48.setText(txt)
                 
-                self.plot4_time_line.setValue(ovc_x_idx)
+                self.plot4_time_line.setValue(cme_time_index)
 
                 self.plot4_ovc_jl_line.setValue(NASDAQ_전저)
                 self.plot4_ovc_jh_line.setValue(NASDAQ_전고)
@@ -33384,51 +33401,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex4 == 14:
 
-                if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] == df_wti_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_wti_graph.at[cme_time_index, 'BBMiddle'] == df_wti_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                    if df_wti_graph.at[cme_time_index, 'BBMiddle'] >= df_wti_graph.at[cme_time_index, 'price']:
                         self.label_p4_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass                 
 
-                if df_wti_graph.at[ovc_x_idx, 'PSAR'] == df_wti_graph.at[ovc_x_idx, 'PSAR']:
+                if df_wti_graph.at[cme_time_index, 'PSAR'] == df_wti_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_wti_graph.at[ovc_x_idx, 'PSAR'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                    if df_wti_graph.at[cme_time_index, 'PSAR'] >= df_wti_graph.at[cme_time_index, 'price']:
                         self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_wti_graph.at[cme_time_index, 'BBMiddle'], df_wti_graph.at[cme_time_index, 'PSAR'], WTI_호가순매수)
                     self.label_p4_2.setText(txt)
                 else:
                     pass
                 
-                if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] == df_wti_graph.at[ovc_x_idx, 'OE_CONV'] and df_wti_graph.at[ovc_x_idx, 'OE_BASE'] == df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_wti_graph.at[cme_time_index, 'OE_CONV'] == df_wti_graph.at[cme_time_index, 'OE_CONV'] and df_wti_graph.at[cme_time_index, 'OE_BASE'] == df_wti_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] < df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_wti_graph.at[cme_time_index, 'OE_CONV'] < df_wti_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[cme_time_index, 'OE_CONV'], df_wti_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p4_3.setText(txt)
                 else:
                     pass
 
-                if df_wti_graph.at[ovc_x_idx, 'MAMA'] == df_wti_graph.at[ovc_x_idx, 'MAMA'] and df_wti_graph.at[ovc_x_idx, 'FAMA'] == df_wti_graph.at[ovc_x_idx, 'FAMA']:
+                if df_wti_graph.at[cme_time_index, 'MAMA'] == df_wti_graph.at[cme_time_index, 'MAMA'] and df_wti_graph.at[cme_time_index, 'FAMA'] == df_wti_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_wti_graph.at[ovc_x_idx, 'FAMA'] >= df_wti_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_wti_graph.at[cme_time_index, 'FAMA'] >= df_wti_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_wti_graph.at[ovc_x_idx, 'MAMA'] < df_wti_graph.at[ovc_x_idx, 'FAMA']:
+                        if df_wti_graph.at[cme_time_index, 'MAMA'] < df_wti_graph.at[cme_time_index, 'FAMA']:
                             self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p4_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_graph.at[cme_time_index, 'MAMA'], df_wti_graph.at[cme_time_index, 'FAMA'])
                     self.label_p4_4.setText(txt)
                 else:
                     pass
@@ -33471,7 +33488,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(WTI_고가, ','))
                 self.label_48.setText(txt)
                 
-                self.plot4_time_line.setValue(ovc_x_idx)
+                self.plot4_time_line.setValue(cme_time_index)
 
                 self.plot4_ovc_jl_line.setValue(WTI_전저)
                 self.plot4_ovc_jh_line.setValue(WTI_전고)
@@ -33513,51 +33530,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex4 == 15:
 
-                if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] == df_sp500_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_sp500_graph.at[cme_time_index, 'BBMiddle'] == df_sp500_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                    if df_sp500_graph.at[cme_time_index, 'BBMiddle'] >= df_sp500_graph.at[cme_time_index, 'price']:
                         self.label_p4_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass                 
 
-                if df_sp500_graph.at[ovc_x_idx, 'PSAR'] == df_sp500_graph.at[ovc_x_idx, 'PSAR']:
+                if df_sp500_graph.at[cme_time_index, 'PSAR'] == df_sp500_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_sp500_graph.at[ovc_x_idx, 'PSAR'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                    if df_sp500_graph.at[cme_time_index, 'PSAR'] >= df_sp500_graph.at[cme_time_index, 'price']:
                         self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[cme_time_index, 'BBMiddle'], df_sp500_graph.at[cme_time_index, 'PSAR'], SP500_호가순매수)
                     self.label_p4_2.setText(txt)
                 else:
                     pass
                 
-                if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] == df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] and df_sp500_graph.at[ovc_x_idx, 'OE_BASE'] == df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_sp500_graph.at[cme_time_index, 'OE_CONV'] == df_sp500_graph.at[cme_time_index, 'OE_CONV'] and df_sp500_graph.at[cme_time_index, 'OE_BASE'] == df_sp500_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] < df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_sp500_graph.at[cme_time_index, 'OE_CONV'] < df_sp500_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'OE_CONV'], df_sp500_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p4_3.setText(txt)
                 else:
                     pass
 
-                if df_sp500_graph.at[ovc_x_idx, 'MAMA'] == df_sp500_graph.at[ovc_x_idx, 'MAMA'] and df_sp500_graph.at[ovc_x_idx, 'FAMA'] == df_sp500_graph.at[ovc_x_idx, 'FAMA']:
+                if df_sp500_graph.at[cme_time_index, 'MAMA'] == df_sp500_graph.at[cme_time_index, 'MAMA'] and df_sp500_graph.at[cme_time_index, 'FAMA'] == df_sp500_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_sp500_graph.at[ovc_x_idx, 'FAMA'] >= df_sp500_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_sp500_graph.at[cme_time_index, 'FAMA'] >= df_sp500_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_sp500_graph.at[ovc_x_idx, 'MAMA'] < df_sp500_graph.at[ovc_x_idx, 'FAMA']:
+                        if df_sp500_graph.at[cme_time_index, 'MAMA'] < df_sp500_graph.at[cme_time_index, 'FAMA']:
                             self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p4_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'MAMA'], df_sp500_graph.at[cme_time_index, 'FAMA'])
                     self.label_p4_4.setText(txt)
                 else:
                     pass
@@ -33601,7 +33618,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(SP500_고가, ','))
                 self.label_48.setText(txt) 
                 
-                self.plot4_time_line.setValue(ovc_x_idx)
+                self.plot4_time_line.setValue(cme_time_index)
 
                 self.plot4_ovc_jl_line.setValue(SP500_전저)
                 self.plot4_ovc_jh_line.setValue(SP500_전고)
@@ -33643,9 +33660,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex4 == 20:
 
-                txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'program'])
+                txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
 
-                if df_supply_demand_graph.at[ovc_x_idx, 'program'] <= 0:
+                if df_supply_demand_graph.at[cme_time_index, 'program'] <= 0:
                     self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_46.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33661,16 +33678,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_47.setText(txt)
                 
-                txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'])
+                txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_total'])
 
-                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'] <= 0:
+                if df_supply_demand_graph.at[cme_time_index, 'kospi_total'] <= 0:
                     self.label_48.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     
                 self.label_48.setText(txt)
                 
-                self.plot4_time_line.setValue(ovc_x_idx)
+                self.plot4_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
@@ -33681,9 +33698,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex4 == 21:
 
-                txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'])
+                txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
 
-                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'] <= 0:
+                if df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'] <= 0:
                     self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_46.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33699,16 +33716,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_47.setText(txt)
                 
-                txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'])
+                txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'])
 
-                if df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'] <= 0:
+                if df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'] <= 0:
                     self.label_48.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     
                 self.label_48.setText(txt)
                 
-                self.plot4_time_line.setValue(ovc_x_idx)
+                self.plot4_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
@@ -33767,51 +33784,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # 선물가격
             if comboindex5 == 2:
 
-                if df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_futures_cm_graph.at[cme_time_index, 'BBMiddle'] == df_futures_cm_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'] >= df_futures_cm_graph.at[ovc_x_idx, 'price']:
+                    if df_futures_cm_graph.at[cme_time_index, 'BBMiddle'] >= df_futures_cm_graph.at[cme_time_index, 'price']:
                         self.label_p5_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass               
 
-                if df_futures_cm_graph.at[ovc_x_idx, 'PSAR'] == df_futures_cm_graph.at[ovc_x_idx, 'PSAR']:
+                if df_futures_cm_graph.at[cme_time_index, 'PSAR'] == df_futures_cm_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_futures_cm_graph.at[ovc_x_idx, 'PSAR'] >= df_futures_cm_graph.at[ovc_x_idx, 'price']:
+                    if df_futures_cm_graph.at[cme_time_index, 'PSAR'] >= df_futures_cm_graph.at[cme_time_index, 'price']:
                         self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_cm_graph.at[ovc_x_idx, 'PSAR'], 선물_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_cm_graph.at[cme_time_index, 'BBMiddle'], df_futures_cm_graph.at[cme_time_index, 'PSAR'], 선물_호가순매수)
                     self.label_p5_2.setText(txt)
                 else:
                     pass
                 
-                if df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] == df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] and df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE'] == df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] == df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] and df_futures_cm_graph.at[cme_time_index, 'OE_BASE'] == df_futures_cm_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] < df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] < df_futures_cm_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'], df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_graph.at[cme_time_index, 'OE_CONV'], df_futures_cm_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p5_3.setText(txt)
                 else:
                     pass
 
-                if df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] and df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'FAMA']:
+                if df_futures_cm_graph.at[cme_time_index, 'MAMA'] == df_futures_cm_graph.at[cme_time_index, 'MAMA'] and df_futures_cm_graph.at[cme_time_index, 'FAMA'] == df_futures_cm_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] >= df_futures_cm_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_futures_cm_graph.at[cme_time_index, 'FAMA'] >= df_futures_cm_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] < df_futures_cm_graph.at[ovc_x_idx, 'FAMA']:                        
+                        if df_futures_cm_graph.at[cme_time_index, 'MAMA'] < df_futures_cm_graph.at[cme_time_index, 'FAMA']:                        
                             self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p5_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'MAMA'], df_futures_cm_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_graph.at[cme_time_index, 'MAMA'], df_futures_cm_graph.at[cme_time_index, 'FAMA'])
                     self.label_p5_4.setText(txt)
                 else:
                     pass
@@ -33858,7 +33875,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(근월물_선물_고가)
                 self.label_58.setText(txt)  
                 
-                self.plot5_time_line.setValue(ovc_x_idx)
+                self.plot5_time_line.setValue(cme_time_index)
                 
                 self.plot5_kp200_line[3].setValue(KP200_COREVAL[3])
                 self.plot5_kp200_line[4].setValue(KP200_COREVAL[4])
@@ -33926,12 +33943,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex5 == 3:
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[cme_time_index, 'ms_quote'], df_put_information_graph.at[cme_time_index, 'md_quote'])
                 self.label_56.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), [▼: {6:.2f}, ▲: {7:.2f}] ".format(\
-                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
-                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
+                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[cme_time_index, 'c_ms_quote'], df_futures_cm_graph.at[cme_time_index, 'c_md_quote'], \
+                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[cme_time_index, 'n_ms_quote'], df_futures_cm_graph.at[cme_time_index, 'n_md_quote'], \
                     차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
 
                 if fut_quote_energy_direction == 'call':
@@ -33943,10 +33960,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_57.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[cme_time_index, 'ms_quote'], df_call_information_graph.at[cme_time_index, 'md_quote'])
                 self.label_58.setText(txt)
                 
-                self.plot5_time_line.setValue(ovc_x_idx)
+                self.plot5_time_line.setValue(cme_time_index)
 
                 self.plot5_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
                 self.plot5_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
@@ -33961,7 +33978,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex5 == 4:
 
-                txt = " {0:.0f} ".format(df_put_information_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_put_information_graph.at[cme_time_index, 'volume'])
                 self.label_56.setText(txt)
 
                 txt = " {0:.0f} ".format(fut_cm_volume_power)
@@ -33973,10 +33990,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_57.setText(txt)
                 
-                txt = " {0:.0f} ".format(df_call_information_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_call_information_graph.at[cme_time_index, 'volume'])
                 self.label_58.setText(txt)
                 
-                self.plot5_time_line.setValue(ovc_x_idx)
+                self.plot5_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
@@ -34019,7 +34036,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                self.plot5_time_line.setValue(ovc_x_idx)
+                self.plot5_time_line.setValue(cme_time_index)
 
                 if flag_calltable_checkstate_changed:
                     flag_calltable_checkstate_changed = False
@@ -34060,13 +34077,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex5 == 7:
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[cme_time_index, 'ms_quote'], df_put_information_graph.at[cme_time_index, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_56.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[cme_time_index, 'ms_quote'], df_call_information_graph.at[cme_time_index, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_58.setText(txt)
                 
-                self.plot5_time_line.setValue(ovc_x_idx)
+                self.plot5_time_line.setValue(cme_time_index)
 
                 self.plot5_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
                 self.plot5_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
@@ -34076,13 +34093,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex5 == 8:
 
-                txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[cme_time_index, 'open_interest'], put_oi_init_percent)
                 self.label_56.setText(txt)
                 
-                txt = " {0:.2f}({1:.2f}) ".format(df_call_information_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(df_call_information_graph.at[cme_time_index, 'open_interest'], call_oi_init_percent)
                 self.label_58.setText(txt)
                 
-                self.plot5_time_line.setValue(ovc_x_idx)
+                self.plot5_time_line.setValue(cme_time_index)
 
                 self.plot5_call_oi_curve.setData(df_call_information_graph['open_interest'].to_numpy())
                 self.plot5_put_oi_curve.setData(df_put_information_graph['open_interest'].to_numpy())
@@ -34098,7 +34115,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(call_otm_cdb_percent_mean, call_atm_value)
                 self.label_58.setText(txt)
                 
-                self.plot5_time_line.setValue(ovc_x_idx)
+                self.plot5_time_line.setValue(cme_time_index)
                 
                 self.plot5_call_drate_curve.setData(df_call_information_graph['drate'].to_numpy())
                 self.plot5_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy())
@@ -34116,51 +34133,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex5 == 12:
 
-                if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] == df_dow_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_dow_graph.at[cme_time_index, 'BBMiddle'] == df_dow_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                    if df_dow_graph.at[cme_time_index, 'BBMiddle'] >= df_dow_graph.at[cme_time_index, 'price']:
                         self.label_p5_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass                
 
-                if df_dow_graph.at[ovc_x_idx, 'PSAR'] == df_dow_graph.at[ovc_x_idx, 'PSAR']:
+                if df_dow_graph.at[cme_time_index, 'PSAR'] == df_dow_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_dow_graph.at[ovc_x_idx, 'PSAR'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                    if df_dow_graph.at[cme_time_index, 'PSAR'] >= df_dow_graph.at[cme_time_index, 'price']:
                         self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_dow_graph.at[cme_time_index, 'BBMiddle'], df_dow_graph.at[cme_time_index, 'PSAR'], DOW_호가순매수)
                     self.label_p5_2.setText(txt)
                 else:
                     pass
                 
-                if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] == df_dow_graph.at[ovc_x_idx, 'OE_CONV'] and df_dow_graph.at[ovc_x_idx, 'OE_BASE'] == df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_dow_graph.at[cme_time_index, 'OE_CONV'] == df_dow_graph.at[cme_time_index, 'OE_CONV'] and df_dow_graph.at[cme_time_index, 'OE_BASE'] == df_dow_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] < df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_dow_graph.at[cme_time_index, 'OE_CONV'] < df_dow_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[cme_time_index, 'OE_CONV'], df_dow_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p5_3.setText(txt)
                 else:
                     pass
 
-                if df_dow_graph.at[ovc_x_idx, 'MAMA'] == df_dow_graph.at[ovc_x_idx, 'MAMA'] and df_dow_graph.at[ovc_x_idx, 'FAMA'] == df_dow_graph.at[ovc_x_idx, 'FAMA']:
+                if df_dow_graph.at[cme_time_index, 'MAMA'] == df_dow_graph.at[cme_time_index, 'MAMA'] and df_dow_graph.at[cme_time_index, 'FAMA'] == df_dow_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_dow_graph.at[ovc_x_idx, 'FAMA'] >= df_dow_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_dow_graph.at[cme_time_index, 'FAMA'] >= df_dow_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_dow_graph.at[ovc_x_idx, 'MAMA'] < df_dow_graph.at[ovc_x_idx, 'FAMA']:
+                        if df_dow_graph.at[cme_time_index, 'MAMA'] < df_dow_graph.at[cme_time_index, 'FAMA']:
                             self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p5_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[cme_time_index, 'MAMA'], df_dow_graph.at[cme_time_index, 'FAMA'])
                     self.label_p5_4.setText(txt)
                 else:
                     pass
@@ -34204,7 +34221,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(DOW_고가, ','))
                 self.label_58.setText(txt)
                 
-                self.plot5_time_line.setValue(ovc_x_idx)
+                self.plot5_time_line.setValue(cme_time_index)
 
                 self.plot5_ovc_jl_line.setValue(DOW_전저)
                 self.plot5_ovc_jh_line.setValue(DOW_전고)
@@ -34250,51 +34267,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex5 == 13:
 
-                if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] == df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] == df_nasdaq_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                    if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] >= df_nasdaq_graph.at[cme_time_index, 'price']:
                         self.label_p5_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass                
 
-                if df_nasdaq_graph.at[ovc_x_idx, 'PSAR'] == df_nasdaq_graph.at[ovc_x_idx, 'PSAR']:
+                if df_nasdaq_graph.at[cme_time_index, 'PSAR'] == df_nasdaq_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'PSAR'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                    if df_nasdaq_graph.at[cme_time_index, 'PSAR'] >= df_nasdaq_graph.at[cme_time_index, 'price']:
                         self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_nasdaq_graph.at[cme_time_index, 'BBMiddle'], df_nasdaq_graph.at[cme_time_index, 'PSAR'], NASDAQ_호가순매수)
                     self.label_p5_2.setText(txt)
                 else:
                     pass
                 
-                if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] == df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] and df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'] == df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] == df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] and df_nasdaq_graph.at[cme_time_index, 'OE_BASE'] == df_nasdaq_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] < df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] < df_nasdaq_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[cme_time_index, 'OE_CONV'], df_nasdaq_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p5_3.setText(txt)
                 else:
                     pass
 
-                if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] and df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
+                if df_nasdaq_graph.at[cme_time_index, 'MAMA'] == df_nasdaq_graph.at[cme_time_index, 'MAMA'] and df_nasdaq_graph.at[cme_time_index, 'FAMA'] == df_nasdaq_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] >= df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_nasdaq_graph.at[cme_time_index, 'FAMA'] >= df_nasdaq_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
+                        if df_nasdaq_graph.at[cme_time_index, 'MAMA'] < df_nasdaq_graph.at[cme_time_index, 'FAMA']:
                             self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p5_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_graph.at[cme_time_index, 'MAMA'], df_nasdaq_graph.at[cme_time_index, 'FAMA'])
                     self.label_p5_4.setText(txt)
                 else:
                     pass
@@ -34338,7 +34355,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(NASDAQ_고가, ','))
                 self.label_58.setText(txt) 
                 
-                self.plot5_time_line.setValue(ovc_x_idx)
+                self.plot5_time_line.setValue(cme_time_index)
 
                 self.plot5_ovc_jl_line.setValue(NASDAQ_전저)
                 self.plot5_ovc_jh_line.setValue(NASDAQ_전고)
@@ -34384,51 +34401,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex5 == 14:
 
-                if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] == df_wti_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_wti_graph.at[cme_time_index, 'BBMiddle'] == df_wti_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                    if df_wti_graph.at[cme_time_index, 'BBMiddle'] >= df_wti_graph.at[cme_time_index, 'price']:
                         self.label_p5_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass                
 
-                if df_wti_graph.at[ovc_x_idx, 'PSAR'] == df_wti_graph.at[ovc_x_idx, 'PSAR']:
+                if df_wti_graph.at[cme_time_index, 'PSAR'] == df_wti_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_wti_graph.at[ovc_x_idx, 'PSAR'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                    if df_wti_graph.at[cme_time_index, 'PSAR'] >= df_wti_graph.at[cme_time_index, 'price']:
                         self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_wti_graph.at[cme_time_index, 'BBMiddle'], df_wti_graph.at[cme_time_index, 'PSAR'], WTI_호가순매수)
                     self.label_p5_2.setText(txt)
                 else:
                     pass
                 
-                if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] == df_wti_graph.at[ovc_x_idx, 'OE_CONV'] and df_wti_graph.at[ovc_x_idx, 'OE_BASE'] == df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_wti_graph.at[cme_time_index, 'OE_CONV'] == df_wti_graph.at[cme_time_index, 'OE_CONV'] and df_wti_graph.at[cme_time_index, 'OE_BASE'] == df_wti_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] < df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_wti_graph.at[cme_time_index, 'OE_CONV'] < df_wti_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[cme_time_index, 'OE_CONV'], df_wti_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p5_3.setText(txt)
                 else:
                     pass
 
-                if df_wti_graph.at[ovc_x_idx, 'MAMA'] == df_wti_graph.at[ovc_x_idx, 'MAMA'] and df_wti_graph.at[ovc_x_idx, 'FAMA'] == df_wti_graph.at[ovc_x_idx, 'FAMA']:
+                if df_wti_graph.at[cme_time_index, 'MAMA'] == df_wti_graph.at[cme_time_index, 'MAMA'] and df_wti_graph.at[cme_time_index, 'FAMA'] == df_wti_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_wti_graph.at[ovc_x_idx, 'FAMA'] >= df_wti_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_wti_graph.at[cme_time_index, 'FAMA'] >= df_wti_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_wti_graph.at[ovc_x_idx, 'MAMA'] < df_wti_graph.at[ovc_x_idx, 'FAMA']:
+                        if df_wti_graph.at[cme_time_index, 'MAMA'] < df_wti_graph.at[cme_time_index, 'FAMA']:
                             self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p5_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_graph.at[cme_time_index, 'MAMA'], df_wti_graph.at[cme_time_index, 'FAMA'])
                     self.label_p5_4.setText(txt)
                 else:
                     pass
@@ -34471,7 +34488,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(WTI_고가, ','))
                 self.label_58.setText(txt)  
                 
-                self.plot5_time_line.setValue(ovc_x_idx)
+                self.plot5_time_line.setValue(cme_time_index)
 
                 self.plot5_ovc_jl_line.setValue(WTI_전저)
                 self.plot5_ovc_jh_line.setValue(WTI_전고)
@@ -34517,51 +34534,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex5 == 15:
 
-                if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] == df_sp500_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_sp500_graph.at[cme_time_index, 'BBMiddle'] == df_sp500_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                    if df_sp500_graph.at[cme_time_index, 'BBMiddle'] >= df_sp500_graph.at[cme_time_index, 'price']:
                         self.label_p5_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass                 
 
-                if df_sp500_graph.at[ovc_x_idx, 'PSAR'] == df_sp500_graph.at[ovc_x_idx, 'PSAR']:
+                if df_sp500_graph.at[cme_time_index, 'PSAR'] == df_sp500_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_sp500_graph.at[ovc_x_idx, 'PSAR'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                    if df_sp500_graph.at[cme_time_index, 'PSAR'] >= df_sp500_graph.at[cme_time_index, 'price']:
                         self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[cme_time_index, 'BBMiddle'], df_sp500_graph.at[cme_time_index, 'PSAR'], SP500_호가순매수)
                     self.label_p5_2.setText(txt)
                 else:
                     pass
                 
-                if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] == df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] and df_sp500_graph.at[ovc_x_idx, 'OE_BASE'] == df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_sp500_graph.at[cme_time_index, 'OE_CONV'] == df_sp500_graph.at[cme_time_index, 'OE_CONV'] and df_sp500_graph.at[cme_time_index, 'OE_BASE'] == df_sp500_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] < df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_sp500_graph.at[cme_time_index, 'OE_CONV'] < df_sp500_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'OE_CONV'], df_sp500_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p5_3.setText(txt)
                 else:
                     pass
 
-                if df_sp500_graph.at[ovc_x_idx, 'MAMA'] == df_sp500_graph.at[ovc_x_idx, 'MAMA'] and df_sp500_graph.at[ovc_x_idx, 'FAMA'] == df_sp500_graph.at[ovc_x_idx, 'FAMA']:
+                if df_sp500_graph.at[cme_time_index, 'MAMA'] == df_sp500_graph.at[cme_time_index, 'MAMA'] and df_sp500_graph.at[cme_time_index, 'FAMA'] == df_sp500_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_sp500_graph.at[ovc_x_idx, 'FAMA'] >= df_sp500_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_sp500_graph.at[cme_time_index, 'FAMA'] >= df_sp500_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_sp500_graph.at[ovc_x_idx, 'MAMA'] < df_sp500_graph.at[ovc_x_idx, 'FAMA']:
+                        if df_sp500_graph.at[cme_time_index, 'MAMA'] < df_sp500_graph.at[cme_time_index, 'FAMA']:
                             self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p5_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'MAMA'], df_sp500_graph.at[cme_time_index, 'FAMA'])
                     self.label_p5_4.setText(txt)
                 else:
                     pass
@@ -34605,7 +34622,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(SP500_고가, ','))
                 self.label_58.setText(txt)
                 
-                self.plot5_time_line.setValue(ovc_x_idx)
+                self.plot5_time_line.setValue(cme_time_index)
 
                 self.plot5_ovc_jl_line.setValue(SP500_전저)
                 self.plot5_ovc_jh_line.setValue(SP500_전고)
@@ -34652,9 +34669,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex5 == 20:
 
-                txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'program'])
+                txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
 
-                if df_supply_demand_graph.at[ovc_x_idx, 'program'] <= 0:
+                if df_supply_demand_graph.at[cme_time_index, 'program'] <= 0:
                     self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_56.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34670,16 +34687,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_57.setText(txt)
                 
-                txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'])
+                txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_total'])
 
-                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'] <= 0:
+                if df_supply_demand_graph.at[cme_time_index, 'kospi_total'] <= 0:
                     self.label_58.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     
                 self.label_58.setText(txt)
                 
-                self.plot5_time_line.setValue(ovc_x_idx)
+                self.plot5_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
@@ -34690,9 +34707,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex5 == 21:
 
-                txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'])
+                txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
 
-                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'] <= 0:
+                if df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'] <= 0:
                     self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_56.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34708,16 +34725,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_57.setText(txt)
                 
-                txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'])
+                txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'])
 
-                if df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'] <= 0:
+                if df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'] <= 0:
                     self.label_58.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     
                 self.label_58.setText(txt)
                 
-                self.plot5_time_line.setValue(ovc_x_idx)
+                self.plot5_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
@@ -34776,51 +34793,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # 선물가격
             if comboindex6 == 2:
 
-                if df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_futures_cm_graph.at[cme_time_index, 'BBMiddle'] == df_futures_cm_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'] >= df_futures_cm_graph.at[ovc_x_idx, 'price']:
+                    if df_futures_cm_graph.at[cme_time_index, 'BBMiddle'] >= df_futures_cm_graph.at[cme_time_index, 'price']:
                         self.label_p6_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass               
 
-                if df_futures_cm_graph.at[ovc_x_idx, 'PSAR'] == df_futures_cm_graph.at[ovc_x_idx, 'PSAR']:
+                if df_futures_cm_graph.at[cme_time_index, 'PSAR'] == df_futures_cm_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_futures_cm_graph.at[ovc_x_idx, 'PSAR'] >= df_futures_cm_graph.at[ovc_x_idx, 'price']:
+                    if df_futures_cm_graph.at[cme_time_index, 'PSAR'] >= df_futures_cm_graph.at[cme_time_index, 'price']:
                         self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_cm_graph.at[ovc_x_idx, 'PSAR'], 선물_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_cm_graph.at[cme_time_index, 'BBMiddle'], df_futures_cm_graph.at[cme_time_index, 'PSAR'], 선물_호가순매수)
                     self.label_p6_2.setText(txt)
                 else:
                     pass
                 
-                if df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] == df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] and df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE'] == df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] == df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] and df_futures_cm_graph.at[cme_time_index, 'OE_BASE'] == df_futures_cm_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'] < df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] < df_futures_cm_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'OE_CONV'], df_futures_cm_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_graph.at[cme_time_index, 'OE_CONV'], df_futures_cm_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p6_3.setText(txt)
                 else:
                     pass
 
-                if df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] and df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] == df_futures_cm_graph.at[ovc_x_idx, 'FAMA']:
+                if df_futures_cm_graph.at[cme_time_index, 'MAMA'] == df_futures_cm_graph.at[cme_time_index, 'MAMA'] and df_futures_cm_graph.at[cme_time_index, 'FAMA'] == df_futures_cm_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_futures_cm_graph.at[ovc_x_idx, 'FAMA'] >= df_futures_cm_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_futures_cm_graph.at[cme_time_index, 'FAMA'] >= df_futures_cm_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_futures_cm_graph.at[ovc_x_idx, 'MAMA'] < df_futures_cm_graph.at[ovc_x_idx, 'FAMA']:                        
+                        if df_futures_cm_graph.at[cme_time_index, 'MAMA'] < df_futures_cm_graph.at[cme_time_index, 'FAMA']:                        
                             self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p6_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_graph.at[ovc_x_idx, 'MAMA'], df_futures_cm_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_graph.at[cme_time_index, 'MAMA'], df_futures_cm_graph.at[cme_time_index, 'FAMA'])
                     self.label_p6_4.setText(txt)
                 else:
                     pass
@@ -34867,7 +34884,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(근월물_선물_고가)
                 self.label_68.setText(txt)  
                 
-                self.plot6_time_line.setValue(ovc_x_idx)
+                self.plot6_time_line.setValue(cme_time_index)
                 
                 self.plot6_kp200_line[3].setValue(KP200_COREVAL[3])
                 self.plot6_kp200_line[4].setValue(KP200_COREVAL[4])
@@ -34935,12 +34952,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex6 == 3:
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[cme_time_index, 'ms_quote'], df_put_information_graph.at[cme_time_index, 'md_quote'])
                 self.label_66.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), [▼: {6:.2f}, ▲: {7:.2f}] ".format(\
-                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'], \
-                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'], df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'], \
+                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[cme_time_index, 'c_ms_quote'], df_futures_cm_graph.at[cme_time_index, 'c_md_quote'], \
+                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[cme_time_index, 'n_ms_quote'], df_futures_cm_graph.at[cme_time_index, 'n_md_quote'], \
                     차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
 
                 if fut_quote_energy_direction == 'call':
@@ -34952,10 +34969,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_67.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[cme_time_index, 'ms_quote'], df_call_information_graph.at[cme_time_index, 'md_quote'])
                 self.label_68.setText(txt)
                 
-                self.plot6_time_line.setValue(ovc_x_idx)
+                self.plot6_time_line.setValue(cme_time_index)
 
                 self.plot6_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
                 self.plot6_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
@@ -34970,7 +34987,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex6 == 4:
                 
-                txt = " {0:.0f} ".format(df_put_information_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_put_information_graph.at[cme_time_index, 'volume'])
                 self.label_66.setText(txt)
 
                 txt = " {0:.0f} ".format(fut_cm_volume_power)
@@ -34982,10 +34999,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_67.setText(txt)
                 
-                txt = " {0:.0f} ".format(df_call_information_graph.at[ovc_x_idx, 'volume'])
+                txt = " {0:.0f} ".format(df_call_information_graph.at[cme_time_index, 'volume'])
                 self.label_68.setText(txt)
                 
-                self.plot6_time_line.setValue(ovc_x_idx)
+                self.plot6_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
@@ -35028,7 +35045,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass 
 
-                self.plot6_time_line.setValue(ovc_x_idx)
+                self.plot6_time_line.setValue(cme_time_index)
 
                 if flag_calltable_checkstate_changed:
                     flag_calltable_checkstate_changed = False
@@ -35069,13 +35086,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex6 == 7:
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[ovc_x_idx, 'ms_quote'], df_put_information_graph.at[ovc_x_idx, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[cme_time_index, 'ms_quote'], df_put_information_graph.at[cme_time_index, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_66.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[ovc_x_idx, 'ms_quote'], df_call_information_graph.at[ovc_x_idx, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[cme_time_index, 'ms_quote'], df_call_information_graph.at[cme_time_index, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_68.setText(txt)
                 
-                self.plot6_time_line.setValue(ovc_x_idx)
+                self.plot6_time_line.setValue(cme_time_index)
 
                 self.plot6_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
                 self.plot6_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
@@ -35085,13 +35102,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex6 == 8:
 
-                txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[cme_time_index, 'open_interest'], put_oi_init_percent)
                 self.label_66.setText(txt)
                 
-                txt = " {0:.2f}({1:.2f}) ".format(df_call_information_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(df_call_information_graph.at[cme_time_index, 'open_interest'], call_oi_init_percent)
                 self.label_68.setText(txt)
                 
-                self.plot6_time_line.setValue(ovc_x_idx)
+                self.plot6_time_line.setValue(cme_time_index)
 
                 self.plot6_call_oi_curve.setData(df_call_information_graph['open_interest'].to_numpy())
                 self.plot6_put_oi_curve.setData(df_put_information_graph['open_interest'].to_numpy())
@@ -35107,7 +35124,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = " {0:.2f}({1}) ".format(call_otm_cdb_percent_mean, call_atm_value)
                 self.label_68.setText(txt)
                 
-                self.plot6_time_line.setValue(ovc_x_idx)
+                self.plot6_time_line.setValue(cme_time_index)
                 
                 self.plot6_call_drate_curve.setData(df_call_information_graph['drate'].to_numpy())
                 self.plot6_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy())
@@ -35125,51 +35142,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex6 == 12:
 
-                if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] == df_dow_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_dow_graph.at[cme_time_index, 'BBMiddle'] == df_dow_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                    if df_dow_graph.at[cme_time_index, 'BBMiddle'] >= df_dow_graph.at[cme_time_index, 'price']:
                         self.label_p6_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass
 
-                if df_dow_graph.at[ovc_x_idx, 'PSAR'] == df_dow_graph.at[ovc_x_idx, 'PSAR']:
+                if df_dow_graph.at[cme_time_index, 'PSAR'] == df_dow_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_dow_graph.at[ovc_x_idx, 'PSAR'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                    if df_dow_graph.at[cme_time_index, 'PSAR'] >= df_dow_graph.at[cme_time_index, 'price']:
                         self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_dow_graph.at[cme_time_index, 'BBMiddle'], df_dow_graph.at[cme_time_index, 'PSAR'], DOW_호가순매수)
                     self.label_p6_2.setText(txt)
                 else:
                     pass
                 
-                if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] == df_dow_graph.at[ovc_x_idx, 'OE_CONV'] and df_dow_graph.at[ovc_x_idx, 'OE_BASE'] == df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_dow_graph.at[cme_time_index, 'OE_CONV'] == df_dow_graph.at[cme_time_index, 'OE_CONV'] and df_dow_graph.at[cme_time_index, 'OE_BASE'] == df_dow_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] < df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_dow_graph.at[cme_time_index, 'OE_CONV'] < df_dow_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[cme_time_index, 'OE_CONV'], df_dow_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p6_3.setText(txt)
                 else:
                     pass
 
-                if df_dow_graph.at[ovc_x_idx, 'MAMA'] == df_dow_graph.at[ovc_x_idx, 'MAMA'] and df_dow_graph.at[ovc_x_idx, 'FAMA'] == df_dow_graph.at[ovc_x_idx, 'FAMA']:
+                if df_dow_graph.at[cme_time_index, 'MAMA'] == df_dow_graph.at[cme_time_index, 'MAMA'] and df_dow_graph.at[cme_time_index, 'FAMA'] == df_dow_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_dow_graph.at[ovc_x_idx, 'FAMA'] >= df_dow_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_dow_graph.at[cme_time_index, 'FAMA'] >= df_dow_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_dow_graph.at[ovc_x_idx, 'MAMA'] < df_dow_graph.at[ovc_x_idx, 'FAMA']:
+                        if df_dow_graph.at[cme_time_index, 'MAMA'] < df_dow_graph.at[cme_time_index, 'FAMA']:
                             self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p6_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[cme_time_index, 'MAMA'], df_dow_graph.at[cme_time_index, 'FAMA'])
                     self.label_p6_4.setText(txt)
                 else:
                     pass
@@ -35213,7 +35230,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(DOW_고가, ','))
                 self.label_68.setText(txt)  
                 
-                self.plot6_time_line.setValue(ovc_x_idx)
+                self.plot6_time_line.setValue(cme_time_index)
 
                 self.plot6_ovc_jl_line.setValue(DOW_전저)
                 self.plot6_ovc_jh_line.setValue(DOW_전고)
@@ -35259,51 +35276,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex6 == 13:
 
-                if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] == df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] == df_nasdaq_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                    if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] >= df_nasdaq_graph.at[cme_time_index, 'price']:
                         self.label_p6_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass
 
-                if df_nasdaq_graph.at[ovc_x_idx, 'PSAR'] == df_nasdaq_graph.at[ovc_x_idx, 'PSAR']:
+                if df_nasdaq_graph.at[cme_time_index, 'PSAR'] == df_nasdaq_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'PSAR'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                    if df_nasdaq_graph.at[cme_time_index, 'PSAR'] >= df_nasdaq_graph.at[cme_time_index, 'price']:
                         self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_nasdaq_graph.at[cme_time_index, 'BBMiddle'], df_nasdaq_graph.at[cme_time_index, 'PSAR'], NASDAQ_호가순매수)
                     self.label_p6_2.setText(txt)
                 else:
                     pass
                 
-                if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] == df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] and df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'] == df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] == df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] and df_nasdaq_graph.at[cme_time_index, 'OE_BASE'] == df_nasdaq_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] < df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] < df_nasdaq_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[cme_time_index, 'OE_CONV'], df_nasdaq_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p6_3.setText(txt)
                 else:
                     pass
 
-                if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] and df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
+                if df_nasdaq_graph.at[cme_time_index, 'MAMA'] == df_nasdaq_graph.at[cme_time_index, 'MAMA'] and df_nasdaq_graph.at[cme_time_index, 'FAMA'] == df_nasdaq_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] >= df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_nasdaq_graph.at[cme_time_index, 'FAMA'] >= df_nasdaq_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
+                        if df_nasdaq_graph.at[cme_time_index, 'MAMA'] < df_nasdaq_graph.at[cme_time_index, 'FAMA']:
                             self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p6_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_graph.at[cme_time_index, 'MAMA'], df_nasdaq_graph.at[cme_time_index, 'FAMA'])
                     self.label_p6_4.setText(txt)
                 else:
                     pass
@@ -35347,7 +35364,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(NASDAQ_고가, ','))
                 self.label_68.setText(txt)  
                 
-                self.plot6_time_line.setValue(ovc_x_idx)
+                self.plot6_time_line.setValue(cme_time_index)
 
                 self.plot6_ovc_jl_line.setValue(NASDAQ_전저)
                 self.plot6_ovc_jh_line.setValue(NASDAQ_전고)
@@ -35393,51 +35410,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex6 == 14:
 
-                if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] == df_wti_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_wti_graph.at[cme_time_index, 'BBMiddle'] == df_wti_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                    if df_wti_graph.at[cme_time_index, 'BBMiddle'] >= df_wti_graph.at[cme_time_index, 'price']:
                         self.label_p6_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass
 
-                if df_wti_graph.at[ovc_x_idx, 'PSAR'] == df_wti_graph.at[ovc_x_idx, 'PSAR']:
+                if df_wti_graph.at[cme_time_index, 'PSAR'] == df_wti_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_wti_graph.at[ovc_x_idx, 'PSAR'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                    if df_wti_graph.at[cme_time_index, 'PSAR'] >= df_wti_graph.at[cme_time_index, 'price']:
                         self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_wti_graph.at[cme_time_index, 'BBMiddle'], df_wti_graph.at[cme_time_index, 'PSAR'], WTI_호가순매수)
                     self.label_p6_2.setText(txt)
                 else:
                     pass
                 
-                if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] == df_wti_graph.at[ovc_x_idx, 'OE_CONV'] and df_wti_graph.at[ovc_x_idx, 'OE_BASE'] == df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_wti_graph.at[cme_time_index, 'OE_CONV'] == df_wti_graph.at[cme_time_index, 'OE_CONV'] and df_wti_graph.at[cme_time_index, 'OE_BASE'] == df_wti_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] < df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_wti_graph.at[cme_time_index, 'OE_CONV'] < df_wti_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[cme_time_index, 'OE_CONV'], df_wti_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p6_3.setText(txt)
                 else:
                     pass
 
-                if df_wti_graph.at[ovc_x_idx, 'MAMA'] == df_wti_graph.at[ovc_x_idx, 'MAMA'] and df_wti_graph.at[ovc_x_idx, 'FAMA'] == df_wti_graph.at[ovc_x_idx, 'FAMA']:
+                if df_wti_graph.at[cme_time_index, 'MAMA'] == df_wti_graph.at[cme_time_index, 'MAMA'] and df_wti_graph.at[cme_time_index, 'FAMA'] == df_wti_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_wti_graph.at[ovc_x_idx, 'FAMA'] >= df_wti_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_wti_graph.at[cme_time_index, 'FAMA'] >= df_wti_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_wti_graph.at[ovc_x_idx, 'MAMA'] < df_wti_graph.at[ovc_x_idx, 'FAMA']:
+                        if df_wti_graph.at[cme_time_index, 'MAMA'] < df_wti_graph.at[cme_time_index, 'FAMA']:
                             self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p6_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_graph.at[cme_time_index, 'MAMA'], df_wti_graph.at[cme_time_index, 'FAMA'])
                     self.label_p6_4.setText(txt)
                 else:
                     pass
@@ -35480,7 +35497,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(WTI_고가, ','))
                 self.label_68.setText(txt)  
                 
-                self.plot6_time_line.setValue(ovc_x_idx)
+                self.plot6_time_line.setValue(cme_time_index)
 
                 self.plot6_ovc_jl_line.setValue(WTI_전저)
                 self.plot6_ovc_jh_line.setValue(WTI_전고)
@@ -35526,51 +35543,51 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex6 == 15:
 
-                if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] == df_sp500_graph.at[ovc_x_idx, 'BBMiddle']:
+                if df_sp500_graph.at[cme_time_index, 'BBMiddle'] == df_sp500_graph.at[cme_time_index, 'BBMiddle']:
 
-                    if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                    if df_sp500_graph.at[cme_time_index, 'BBMiddle'] >= df_sp500_graph.at[cme_time_index, 'price']:
                         self.label_p6_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     pass                 
 
-                if df_sp500_graph.at[ovc_x_idx, 'PSAR'] == df_sp500_graph.at[ovc_x_idx, 'PSAR']:
+                if df_sp500_graph.at[cme_time_index, 'PSAR'] == df_sp500_graph.at[cme_time_index, 'PSAR']:
 
-                    if df_sp500_graph.at[ovc_x_idx, 'PSAR'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                    if df_sp500_graph.at[cme_time_index, 'PSAR'] >= df_sp500_graph.at[cme_time_index, 'price']:
                         self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[cme_time_index, 'BBMiddle'], df_sp500_graph.at[cme_time_index, 'PSAR'], SP500_호가순매수)
                     self.label_p6_2.setText(txt)
                 else:
                     pass
                 
-                if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] == df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] and df_sp500_graph.at[ovc_x_idx, 'OE_BASE'] == df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
+                if df_sp500_graph.at[cme_time_index, 'OE_CONV'] == df_sp500_graph.at[cme_time_index, 'OE_CONV'] and df_sp500_graph.at[cme_time_index, 'OE_BASE'] == df_sp500_graph.at[cme_time_index, 'OE_BASE']:
 
-                    if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] < df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
+                    if df_sp500_graph.at[cme_time_index, 'OE_CONV'] < df_sp500_graph.at[cme_time_index, 'OE_BASE']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'OE_CONV'], df_sp500_graph.at[cme_time_index, 'OE_BASE'])
                     self.label_p6_3.setText(txt)
                 else:
                     pass
 
-                if df_sp500_graph.at[ovc_x_idx, 'MAMA'] == df_sp500_graph.at[ovc_x_idx, 'MAMA'] and df_sp500_graph.at[ovc_x_idx, 'FAMA'] == df_sp500_graph.at[ovc_x_idx, 'FAMA']:
+                if df_sp500_graph.at[cme_time_index, 'MAMA'] == df_sp500_graph.at[cme_time_index, 'MAMA'] and df_sp500_graph.at[cme_time_index, 'FAMA'] == df_sp500_graph.at[cme_time_index, 'FAMA']:
 
-                    if df_sp500_graph.at[ovc_x_idx, 'FAMA'] >= df_sp500_graph.at[ovc_x_idx, 'BBLower']:
+                    if df_sp500_graph.at[cme_time_index, 'FAMA'] >= df_sp500_graph.at[cme_time_index, 'BBLower']:
 
-                        if df_sp500_graph.at[ovc_x_idx, 'MAMA'] < df_sp500_graph.at[ovc_x_idx, 'FAMA']:
+                        if df_sp500_graph.at[cme_time_index, 'MAMA'] < df_sp500_graph.at[cme_time_index, 'FAMA']:
                             self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p6_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'MAMA'], df_sp500_graph.at[cme_time_index, 'FAMA'])
                     self.label_p6_4.setText(txt)
                 else:
                     pass
@@ -35614,7 +35631,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(SP500_고가, ','))
                 self.label_68.setText(txt) 
                 
-                self.plot6_time_line.setValue(ovc_x_idx)
+                self.plot6_time_line.setValue(cme_time_index)
 
                 self.plot6_ovc_jl_line.setValue(SP500_전저)
                 self.plot6_ovc_jh_line.setValue(SP500_전고)
@@ -35661,9 +35678,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex6 == 20:
 
-                txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'program'])
+                txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
 
-                if df_supply_demand_graph.at[ovc_x_idx, 'program'] <= 0:
+                if df_supply_demand_graph.at[cme_time_index, 'program'] <= 0:
                     self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_66.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35679,16 +35696,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_67.setText(txt)
                 
-                txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'])
+                txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_total'])
 
-                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'] <= 0:
+                if df_supply_demand_graph.at[cme_time_index, 'kospi_total'] <= 0:
                     self.label_68.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     
                 self.label_68.setText(txt)
                 
-                self.plot6_time_line.setValue(ovc_x_idx)
+                self.plot6_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
@@ -35699,9 +35716,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex6 == 21:
 
-                txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'])
+                txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
 
-                if df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'] <= 0:
+                if df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'] <= 0:
                     self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_66.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35717,16 +35734,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_67.setText(txt)
                 
-                txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'])
+                txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'])
 
-                if df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'] <= 0:
+                if df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'] <= 0:
                     self.label_68.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     
                 self.label_68.setText(txt)
                 
-                self.plot6_time_line.setValue(ovc_x_idx)
+                self.plot6_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
@@ -36256,7 +36273,7 @@ class Xing(object):
     def OnReceiveData(self, result):
 
         global 서버시간, system_server_time_gap, flag_heartbeat
-        global t0167_hour, t0167_minute, t0167_second, server_x_idx, ovc_x_idx, 시스템시간_분, 서버시간_분
+        global t0167_hour, t0167_minute, t0167_second, server_x_idx, cme_time_index, 시스템시간_분, 서버시간_분
 
         dt = datetime.now()
 
@@ -36296,7 +36313,7 @@ class Xing(object):
                 # 해외선물 개장시간은 국내시장의 2시간 전
                 server_x_idx = (t0167_hour - DayTime_PreStart_Hour) * 60 + t0167_minute + 1
 
-            ovc_x_idx = server_x_idx
+            cme_time_index = server_x_idx
             
             txt = '[{0:02d}:{1:02d}:{2:02d}] HeartBeat 수신...\r'.format(t0167_hour, t0167_minute, t0167_second)
             self.caller.textBrowser.append(txt)
@@ -36681,7 +36698,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         elif trdata[0] == 't0167':
 
             global 서버시간, system_server_time_gap, flag_heartbeat
-            global t0167_hour, t0167_minute, t0167_second, server_x_idx, ovc_x_idx, 시스템시간_분, 서버시간_분
+            global t0167_hour, t0167_minute, t0167_second, server_x_idx, cme_time_index, 시스템시간_분, 서버시간_분
 
             server_time = trdata[2]
 
@@ -36717,7 +36734,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 server_x_idx = (t0167_hour - DayTime_PreStart_Hour) * 60 + t0167_minute + 1
 
-            ovc_x_idx = server_x_idx            
+            cme_time_index = server_x_idx            
 
             if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
 
@@ -37516,9 +37533,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.pm_update(tickdata)
 
             elif szTrCode == 'FC0' or szTrCode == 'NC0':
-                self.futures_tick_update(tickdata)
+                if flag_t8433_response_ok:
+                    self.futures_tick_update(tickdata)
+                else:
+                    pass
             elif szTrCode == 'FH0' or szTrCode == 'NH0':
-                self.futures_quote_update(tickdata)
+                if flag_t8433_response_ok:
+                    self.futures_quote_update(tickdata)
+                else:
+                    pass
             else:
                 pass
             
@@ -37605,7 +37628,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         try:               
             flag_ovc_update_is_running = True
             
-            self.ovc_update(tickdata)
+            if flag_t8433_response_ok:
+                self.ovc_update(tickdata)
+            else:
+                pass
             
         except Exception as e:
 
@@ -38145,8 +38171,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].kp200_realdata['시가'] = kp200_yj_시가
                 self.dialog['선물옵션전광판'].fut_realdata['KP200'] = kp200_yj_시가
 
-                df_futures_cm_graph.at[ovc_x_idx, 'kp200'] = kp200_yj_시가
-                df_kp200_graph.at[ovc_x_idx, 'price'] = kp200_yj_시가
+                df_futures_cm_graph.at[cme_time_index, 'kp200'] = kp200_yj_시가
+                df_kp200_graph.at[cme_time_index, 'price'] = kp200_yj_시가
 
                 item = QTableWidgetItem(tickdata['예상지수'])
                 item.setTextAlignment(Qt.AlignCenter)
@@ -38254,21 +38280,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 근월물_선물_시가 = float(tickdata['예상체결가격'])
 
                 # 그래프 가격갱신
-                df_futures_cm_graph.at[ovc_x_idx, 'price'] = 근월물_선물_시가
+                df_futures_cm_graph.at[cme_time_index, 'price'] = 근월물_선물_시가
 
                 # 1T OHLC 생성
-                df_futures_cm_graph.at[ovc_x_idx, 'ctime'] = tickdata['수신시간']
+                df_futures_cm_graph.at[cme_time_index, 'ctime'] = tickdata['수신시간']
 
                 if OVC_SEC == 0:
 
                     if not flag_futures_cm_ohlc_open:
 
-                        df_futures_cm_graph.at[ovc_x_idx, 'open'] = 근월물_선물_시가
-                        df_futures_cm_graph.at[ovc_x_idx, 'high'] = 근월물_선물_시가
-                        df_futures_cm_graph.at[ovc_x_idx, 'low'] = 근월물_선물_시가
-                        df_futures_cm_graph.at[ovc_x_idx, 'middle'] = 근월물_선물_시가
-                        df_futures_cm_graph.at[ovc_x_idx, 'close'] = 근월물_선물_시가
-                        df_futures_cm_graph.at[ovc_x_idx, 'price'] = 근월물_선물_시가
+                        df_futures_cm_graph.at[cme_time_index, 'open'] = 근월물_선물_시가
+                        df_futures_cm_graph.at[cme_time_index, 'high'] = 근월물_선물_시가
+                        df_futures_cm_graph.at[cme_time_index, 'low'] = 근월물_선물_시가
+                        df_futures_cm_graph.at[cme_time_index, 'middle'] = 근월물_선물_시가
+                        df_futures_cm_graph.at[cme_time_index, 'close'] = 근월물_선물_시가
+                        df_futures_cm_graph.at[cme_time_index, 'price'] = 근월물_선물_시가
 
                         del 근월물_선물_현재가_버퍼[:]
 
@@ -38276,8 +38302,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         근월물_선물_현재가_버퍼.append(근월물_선물_시가)                            
                 else:
-                    if df_futures_cm_graph.at[ovc_x_idx, 'open'] != df_futures_cm_graph.at[ovc_x_idx, 'open']:
-                        df_futures_cm_graph.at[ovc_x_idx, 'open'] = df_futures_cm_graph.at[ovc_x_idx - 1, 'close']
+                    #if df_futures_cm_graph.at[cme_time_index, 'open'] != df_futures_cm_graph.at[cme_time_index, 'open']:
+                    if not np.isnan(df_futures_cm_graph.at[cme_time_index, 'open']):
+                        df_futures_cm_graph.at[cme_time_index, 'open'] = df_futures_cm_graph.at[cme_time_index - 1, 'close']
                         del 근월물_선물_현재가_버퍼[:]
                     else:
                         pass
@@ -38285,24 +38312,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     근월물_선물_현재가_버퍼.append(근월물_선물_시가)
 
                     if max(근월물_선물_현재가_버퍼) > 0:
-                        df_futures_cm_graph.at[ovc_x_idx, 'high'] = max(근월물_선물_현재가_버퍼)
+                        df_futures_cm_graph.at[cme_time_index, 'high'] = max(근월물_선물_현재가_버퍼)
                     else:
                         pass
 
                     if min(근월물_선물_현재가_버퍼) == 0:
 
                         if max(근월물_선물_현재가_버퍼) > 0:
-                            df_futures_cm_graph.at[ovc_x_idx, 'low'] = max(근월물_선물_현재가_버퍼)
+                            df_futures_cm_graph.at[cme_time_index, 'low'] = max(근월물_선물_현재가_버퍼)
                         else:
                             pass
                     else:
-                        df_futures_cm_graph.at[ovc_x_idx, 'low'] = min(근월물_선물_현재가_버퍼)
+                        df_futures_cm_graph.at[cme_time_index, 'low'] = min(근월물_선물_현재가_버퍼)
 
-                    df_futures_cm_graph.at[ovc_x_idx, 'close'] = 근월물_선물_시가
+                    df_futures_cm_graph.at[cme_time_index, 'close'] = 근월물_선물_시가
 
                     flag_futures_cm_ohlc_open = False
 
-                df_futures_cm_graph.at[ovc_x_idx, 'middle'] = (df_futures_cm_graph.at[ovc_x_idx, 'high'] + df_futures_cm_graph.at[ovc_x_idx, 'low']) / 2
+                df_futures_cm_graph.at[cme_time_index, 'middle'] = (df_futures_cm_graph.at[cme_time_index, 'high'] + df_futures_cm_graph.at[cme_time_index, 'low']) / 2
 
                 self.dialog['선물옵션전광판'].fut_realdata['시가'] = 근월물_선물_시가
 
@@ -38368,7 +38395,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 item.setForeground(QBrush(검정색))
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.대비.value, item)
 
-                df_futures_cm_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 근월물_선물_종가대비_등락율
+                df_futures_cm_graph.at[cme_time_index, 'drate'] = plot_drate_scale_factor * 근월물_선물_종가대비_등락율
 
                 if fut_quote_energy_direction == 'call':
 
@@ -38453,21 +38480,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 그래프 가격갱신
                 if 차월물_선물_시가 > 0:
 
-                    df_futures_nm_graph.at[ovc_x_idx, 'price'] = 차월물_선물_시가
+                    df_futures_nm_graph.at[cme_time_index, 'price'] = 차월물_선물_시가
 
                     # 1T OHLC 생성
-                    df_futures_nm_graph.at[ovc_x_idx, 'ctime'] = tickdata['수신시간']
+                    df_futures_nm_graph.at[cme_time_index, 'ctime'] = tickdata['수신시간']
 
                     if OVC_SEC == 0:
 
                         if not flag_futures_nm_ohlc_open:
 
-                            df_futures_nm_graph.at[ovc_x_idx, 'open'] = 차월물_선물_시가
-                            df_futures_nm_graph.at[ovc_x_idx, 'high'] = 차월물_선물_시가
-                            df_futures_nm_graph.at[ovc_x_idx, 'low'] = 차월물_선물_시가
-                            df_futures_nm_graph.at[ovc_x_idx, 'middle'] = 차월물_선물_시가
-                            df_futures_nm_graph.at[ovc_x_idx, 'close'] = 차월물_선물_시가
-                            df_futures_nm_graph.at[ovc_x_idx, 'price'] = 차월물_선물_시가
+                            df_futures_nm_graph.at[cme_time_index, 'open'] = 차월물_선물_시가
+                            df_futures_nm_graph.at[cme_time_index, 'high'] = 차월물_선물_시가
+                            df_futures_nm_graph.at[cme_time_index, 'low'] = 차월물_선물_시가
+                            df_futures_nm_graph.at[cme_time_index, 'middle'] = 차월물_선물_시가
+                            df_futures_nm_graph.at[cme_time_index, 'close'] = 차월물_선물_시가
+                            df_futures_nm_graph.at[cme_time_index, 'price'] = 차월물_선물_시가
 
                             del 차월물_선물_현재가_버퍼[:]
 
@@ -38475,8 +38502,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         else:
                             차월물_선물_현재가_버퍼.append(차월물_선물_시가)                            
                     else:
-                        if df_futures_nm_graph.at[ovc_x_idx, 'open'] != df_futures_nm_graph.at[ovc_x_idx, 'open']:
-                            df_futures_nm_graph.at[ovc_x_idx, 'open'] = df_futures_nm_graph.at[ovc_x_idx - 1, 'close']
+                        #if df_futures_nm_graph.at[cme_time_index, 'open'] != df_futures_nm_graph.at[cme_time_index, 'open']:
+                        if not np.isnan(df_futures_nm_graph.at[cme_time_index, 'open']):
+                            df_futures_nm_graph.at[cme_time_index, 'open'] = df_futures_nm_graph.at[cme_time_index - 1, 'close']
                             del 차월물_선물_현재가_버퍼[:]
                         else:
                             pass
@@ -38484,26 +38512,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         차월물_선물_현재가_버퍼.append(차월물_선물_시가)
 
                         if max(차월물_선물_현재가_버퍼) > 0:
-                            df_futures_nm_graph.at[ovc_x_idx, 'high'] = max(차월물_선물_현재가_버퍼)
+                            df_futures_nm_graph.at[cme_time_index, 'high'] = max(차월물_선물_현재가_버퍼)
                         else:
                             pass
 
                         if min(차월물_선물_현재가_버퍼) == 0:
 
                             if max(차월물_선물_현재가_버퍼) > 0:
-                                df_futures_nm_graph.at[ovc_x_idx, 'low'] = max(차월물_선물_현재가_버퍼)
+                                df_futures_nm_graph.at[cme_time_index, 'low'] = max(차월물_선물_현재가_버퍼)
                             else:
                                 pass
                         else:
-                            df_futures_nm_graph.at[ovc_x_idx, 'low'] = min(차월물_선물_현재가_버퍼)
+                            df_futures_nm_graph.at[cme_time_index, 'low'] = min(차월물_선물_현재가_버퍼)
 
-                        df_futures_nm_graph.at[ovc_x_idx, 'close'] = 차월물_선물_시가
+                        df_futures_nm_graph.at[cme_time_index, 'close'] = 차월물_선물_시가
 
                         flag_futures_nm_ohlc_open = False
 
-                    df_futures_nm_graph.at[ovc_x_idx, 'middle'] = (df_futures_nm_graph.at[ovc_x_idx, 'high'] + df_futures_nm_graph.at[ovc_x_idx, 'low']) / 2
+                    df_futures_nm_graph.at[cme_time_index, 'middle'] = (df_futures_nm_graph.at[cme_time_index, 'high'] + df_futures_nm_graph.at[cme_time_index, 'low']) / 2
 
-                    item = QTableWidgetItem(차월물_선물_시가)
+                    item = QTableWidgetItem("{0:.2f}".format(차월물_선물_시가))
                     item.setTextAlignment(Qt.AlignCenter)
 
                     if 차월물_선물_시가 > 차월물_선물_종가:
@@ -38776,8 +38804,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 # 그래프 가격갱신
                 kp200_현재가 = float(tickdata['지수'])
-                df_futures_cm_graph.at[ovc_x_idx, 'kp200'] = kp200_현재가
-                df_kp200_graph.at[ovc_x_idx, 'price'] = kp200_현재가
+                df_futures_cm_graph.at[cme_time_index, 'kp200'] = kp200_현재가
+                df_kp200_graph.at[cme_time_index, 'price'] = kp200_현재가
 
                 # kp200 현재가
                 if 지수 != self.dialog['선물옵션전광판'].tableWidget_fut.item(2, Futures_column.현재가.value).text().split('\n')[0]:
@@ -38823,8 +38851,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     kp200_시가 = float(tickdata['시가지수'])
 
                     self.dialog['선물옵션전광판'].kp200_realdata['시가'] = kp200_시가
-                    df_futures_cm_graph.at[ovc_x_idx, 'kp200'] = kp200_시가
-                    df_kp200_graph.at[ovc_x_idx, 'price'] = kp200_시가
+                    df_futures_cm_graph.at[cme_time_index, 'kp200'] = kp200_시가
+                    df_kp200_graph.at[cme_time_index, 'price'] = kp200_시가
 
                     item = QTableWidgetItem(시가지수)
                     item.setTextAlignment(Qt.AlignCenter)
@@ -39487,10 +39515,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             순매수 = format(프로그램_순매수, ',')
 
-            df_supply_demand_graph.at[ovc_x_idx, 'program'] = 프로그램_순매수
-            df_supply_demand_graph.at[ovc_x_idx, 'kospi_total'] = 현물_총순매수
-            df_supply_demand_graph.at[ovc_x_idx, 'kospi_foreigner'] = 외인현물_순매수
-            df_supply_demand_graph.at[ovc_x_idx, 'futures_foreigner'] = 외인선물_순매수
+            df_supply_demand_graph.at[cme_time_index, 'program'] = 프로그램_순매수
+            df_supply_demand_graph.at[cme_time_index, 'kospi_total'] = 현물_총순매수
+            df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'] = 외인현물_순매수
+            df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'] = 외인선물_순매수
 
             if min(temp) > 0:
 
@@ -39647,16 +39675,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     근월물_선물_현재가 = float(tickdata['현재가'])
 
                 # 1T OHLC 생성
-                df_futures_cm_graph.at[ovc_x_idx, 'ctime'] = tickdata['수신시간']
-                df_futures_cm_graph.at[ovc_x_idx, 'price'] = 근월물_선물_현재가
+                df_futures_cm_graph.at[cme_time_index, 'ctime'] = tickdata['수신시간']
+                df_futures_cm_graph.at[cme_time_index, 'price'] = 근월물_선물_현재가
 
-                if ovc_x_idx != old_ovc_x_idx:
+                if cme_time_index != old_cme_time_index:
 
-                    df_futures_cm_graph.at[ovc_x_idx, 'high'] = df_futures_cm_graph.at[ovc_x_idx- 1, 'high']
-                    df_futures_cm_graph.at[ovc_x_idx, 'low'] = df_futures_cm_graph.at[ovc_x_idx - 1, 'low']
-                    df_futures_cm_graph.at[ovc_x_idx, 'middle'] = df_futures_cm_graph.at[ovc_x_idx - 1, 'middle']
-                    df_futures_cm_graph.at[ovc_x_idx, 'close'] = df_futures_cm_graph.at[ovc_x_idx - 1, 'close']
-                    df_futures_cm_graph.at[ovc_x_idx, 'price'] = df_futures_cm_graph.at[ovc_x_idx - 1, 'close']                        
+                    df_futures_cm_graph.at[cme_time_index, 'high'] = df_futures_cm_graph.at[cme_time_index- 1, 'high']
+                    df_futures_cm_graph.at[cme_time_index, 'low'] = df_futures_cm_graph.at[cme_time_index - 1, 'low']
+                    df_futures_cm_graph.at[cme_time_index, 'middle'] = df_futures_cm_graph.at[cme_time_index - 1, 'middle']
+                    df_futures_cm_graph.at[cme_time_index, 'close'] = df_futures_cm_graph.at[cme_time_index - 1, 'close']
+                    df_futures_cm_graph.at[cme_time_index, 'price'] = df_futures_cm_graph.at[cme_time_index - 1, 'close']                        
                 else:
                     pass                    
 
@@ -39664,12 +39692,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     if not flag_futures_cm_ohlc_open:
 
-                        df_futures_cm_graph.at[ovc_x_idx, 'open'] = 근월물_선물_현재가
-                        df_futures_cm_graph.at[ovc_x_idx, 'high'] = 근월물_선물_현재가
-                        df_futures_cm_graph.at[ovc_x_idx, 'low'] = 근월물_선물_현재가
-                        df_futures_cm_graph.at[ovc_x_idx, 'middle'] = 근월물_선물_현재가
-                        df_futures_cm_graph.at[ovc_x_idx, 'close'] = 근월물_선물_현재가
-                        df_futures_cm_graph.at[ovc_x_idx, 'price'] = 근월물_선물_현재가
+                        df_futures_cm_graph.at[cme_time_index, 'open'] = 근월물_선물_현재가
+                        df_futures_cm_graph.at[cme_time_index, 'high'] = 근월물_선물_현재가
+                        df_futures_cm_graph.at[cme_time_index, 'low'] = 근월물_선물_현재가
+                        df_futures_cm_graph.at[cme_time_index, 'middle'] = 근월물_선물_현재가
+                        df_futures_cm_graph.at[cme_time_index, 'close'] = 근월물_선물_현재가
+                        df_futures_cm_graph.at[cme_time_index, 'price'] = 근월물_선물_현재가
 
                         del 근월물_선물_현재가_버퍼[:]
 
@@ -39677,8 +39705,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         근월물_선물_현재가_버퍼.append(근월물_선물_현재가)              
                 else:
-                    if df_futures_cm_graph.at[ovc_x_idx, 'open'] != df_futures_cm_graph.at[ovc_x_idx, 'open']:
-                        df_futures_cm_graph.at[ovc_x_idx, 'open'] = df_futures_cm_graph.at[ovc_x_idx - 1, 'close']
+                    #if df_futures_cm_graph.at[cme_time_index, 'open'] != df_futures_cm_graph.at[cme_time_index, 'open']:
+                    if not np.isnan(df_futures_cm_graph.at[cme_time_index, 'open']):
+                        df_futures_cm_graph.at[cme_time_index, 'open'] = df_futures_cm_graph.at[cme_time_index - 1, 'close']
                         del 근월물_선물_현재가_버퍼[:]
                     else:
                         pass
@@ -39686,27 +39715,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     근월물_선물_현재가_버퍼.append(근월물_선물_현재가)
 
                     if max(근월물_선물_현재가_버퍼) > 0:
-                        df_futures_cm_graph.at[ovc_x_idx, 'high'] = max(근월물_선물_현재가_버퍼)
+                        df_futures_cm_graph.at[cme_time_index, 'high'] = max(근월물_선물_현재가_버퍼)
                     else:
                         pass
 
                     if min(근월물_선물_현재가_버퍼) == 0:
 
                         if max(근월물_선물_현재가_버퍼) > 0:
-                            df_futures_cm_graph.at[ovc_x_idx, 'low'] = max(근월물_선물_현재가_버퍼)
+                            df_futures_cm_graph.at[cme_time_index, 'low'] = max(근월물_선물_현재가_버퍼)
                         else:
                             pass
                     else:
-                        df_futures_cm_graph.at[ovc_x_idx, 'low'] = min(근월물_선물_현재가_버퍼)
+                        df_futures_cm_graph.at[cme_time_index, 'low'] = min(근월물_선물_현재가_버퍼)
 
-                    df_futures_cm_graph.at[ovc_x_idx, 'close'] = 근월물_선물_현재가
+                    df_futures_cm_graph.at[cme_time_index, 'close'] = 근월물_선물_현재가
 
                     flag_futures_cm_ohlc_open = False
 
-                df_futures_cm_graph.at[ovc_x_idx, 'middle'] = (df_futures_cm_graph.at[ovc_x_idx, 'high'] + df_futures_cm_graph.at[ovc_x_idx, 'low']) / 2
+                df_futures_cm_graph.at[cme_time_index, 'middle'] = (df_futures_cm_graph.at[cme_time_index, 'high'] + df_futures_cm_graph.at[cme_time_index, 'low']) / 2
 
                 fut_cm_volume_power = int(tickdata['매수누적체결량']) - int(tickdata['매도누적체결량'])
-                df_futures_cm_graph.at[ovc_x_idx, 'volume'] = fut_cm_volume_power
+                df_futures_cm_graph.at[cme_time_index, 'volume'] = fut_cm_volume_power
 
                 #temp = format(fut_cm_volume_power, ',')
                 temp = '{0}k'.format(int(fut_cm_volume_power/1000))
@@ -39758,8 +39787,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     flag_fut_vs_dow_drate_direction = False
 
-                #df_futures_cm_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 근월물_선물_종가대비_등락율
-                df_futures_cm_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 근월물_선물_시가대비_등락율                
+                #df_futures_cm_graph.at[cme_time_index, 'drate'] = plot_drate_scale_factor * 근월물_선물_종가대비_등락율
+                df_futures_cm_graph.at[cme_time_index, 'drate'] = plot_drate_scale_factor * 근월물_선물_시가대비_등락율                
 
                 fut_cm_result = copy.deepcopy(tickdata)
 
@@ -39791,7 +39820,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                df_futures_nm_graph.at[ovc_x_idx, 'drate'] = plot_drate_scale_factor * 차월물_선물_시가대비_등락율
+                df_futures_nm_graph.at[cme_time_index, 'drate'] = plot_drate_scale_factor * 차월물_선물_시가대비_등락율
 
                 if float(tickdata['현재가']) == float('inf') or float(tickdata['현재가']) == float('-inf'):
                     차월물_선물_현재가 = float('nan')
@@ -39801,16 +39830,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     차월물_선물_현재가 = float(tickdata['현재가'])
 
                 # 1T OHLC 생성
-                df_futures_nm_graph.at[ovc_x_idx, 'ctime'] = tickdata['수신시간']
-                df_futures_nm_graph.at[ovc_x_idx, 'price'] = 차월물_선물_현재가
+                df_futures_nm_graph.at[cme_time_index, 'ctime'] = tickdata['수신시간']
+                df_futures_nm_graph.at[cme_time_index, 'price'] = 차월물_선물_현재가
 
-                if ovc_x_idx != old_ovc_x_idx:
+                if cme_time_index != old_cme_time_index:
 
-                    df_futures_nm_graph.at[ovc_x_idx, 'high'] = df_futures_nm_graph.at[ovc_x_idx- 1, 'high']
-                    df_futures_nm_graph.at[ovc_x_idx, 'low'] = df_futures_nm_graph.at[ovc_x_idx - 1, 'low']
-                    df_futures_nm_graph.at[ovc_x_idx, 'middle'] = df_futures_nm_graph.at[ovc_x_idx - 1, 'middle']
-                    df_futures_nm_graph.at[ovc_x_idx, 'close'] = df_futures_nm_graph.at[ovc_x_idx - 1, 'close']
-                    df_futures_nm_graph.at[ovc_x_idx, 'price'] = df_futures_nm_graph.at[ovc_x_idx - 1, 'close']                        
+                    df_futures_nm_graph.at[cme_time_index, 'high'] = df_futures_nm_graph.at[cme_time_index- 1, 'high']
+                    df_futures_nm_graph.at[cme_time_index, 'low'] = df_futures_nm_graph.at[cme_time_index - 1, 'low']
+                    df_futures_nm_graph.at[cme_time_index, 'middle'] = df_futures_nm_graph.at[cme_time_index - 1, 'middle']
+                    df_futures_nm_graph.at[cme_time_index, 'close'] = df_futures_nm_graph.at[cme_time_index - 1, 'close']
+                    df_futures_nm_graph.at[cme_time_index, 'price'] = df_futures_nm_graph.at[cme_time_index - 1, 'close']                        
                 else:
                     pass                    
 
@@ -39818,12 +39847,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     if not flag_futures_nm_ohlc_open:
 
-                        df_futures_nm_graph.at[ovc_x_idx, 'open'] = 차월물_선물_현재가
-                        df_futures_nm_graph.at[ovc_x_idx, 'high'] = 차월물_선물_현재가
-                        df_futures_nm_graph.at[ovc_x_idx, 'low'] = 차월물_선물_현재가
-                        df_futures_nm_graph.at[ovc_x_idx, 'middle'] = 차월물_선물_현재가
-                        df_futures_nm_graph.at[ovc_x_idx, 'close'] = 차월물_선물_현재가
-                        df_futures_nm_graph.at[ovc_x_idx, 'price'] = 차월물_선물_현재가
+                        df_futures_nm_graph.at[cme_time_index, 'open'] = 차월물_선물_현재가
+                        df_futures_nm_graph.at[cme_time_index, 'high'] = 차월물_선물_현재가
+                        df_futures_nm_graph.at[cme_time_index, 'low'] = 차월물_선물_현재가
+                        df_futures_nm_graph.at[cme_time_index, 'middle'] = 차월물_선물_현재가
+                        df_futures_nm_graph.at[cme_time_index, 'close'] = 차월물_선물_현재가
+                        df_futures_nm_graph.at[cme_time_index, 'price'] = 차월물_선물_현재가
 
                         del 차월물_선물_현재가_버퍼[:]
 
@@ -39831,8 +39860,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         차월물_선물_현재가_버퍼.append(차월물_선물_현재가)              
                 else:
-                    if df_futures_nm_graph.at[ovc_x_idx, 'open'] != df_futures_nm_graph.at[ovc_x_idx, 'open']:
-                        df_futures_nm_graph.at[ovc_x_idx, 'open'] = df_futures_nm_graph.at[ovc_x_idx - 1, 'close']
+                    #if df_futures_nm_graph.at[cme_time_index, 'open'] != df_futures_nm_graph.at[cme_time_index, 'open']:
+                    if not np.isnan(df_futures_nm_graph.at[cme_time_index, 'open']):
+                        df_futures_nm_graph.at[cme_time_index, 'open'] = df_futures_nm_graph.at[cme_time_index - 1, 'close']
                         del 차월물_선물_현재가_버퍼[:]
                     else:
                         pass
@@ -39840,24 +39870,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     차월물_선물_현재가_버퍼.append(근월물_선물_현재가)
 
                     if max(차월물_선물_현재가_버퍼) > 0:
-                        df_futures_nm_graph.at[ovc_x_idx, 'high'] = max(차월물_선물_현재가_버퍼)
+                        df_futures_nm_graph.at[cme_time_index, 'high'] = max(차월물_선물_현재가_버퍼)
                     else:
                         pass
 
                     if min(차월물_선물_현재가_버퍼) == 0:
 
                         if max(차월물_선물_현재가_버퍼) > 0:
-                            df_futures_nm_graph.at[ovc_x_idx, 'low'] = max(차월물_선물_현재가_버퍼)
+                            df_futures_nm_graph.at[cme_time_index, 'low'] = max(차월물_선물_현재가_버퍼)
                         else:
                             pass
                     else:
-                        df_futures_nm_graph.at[ovc_x_idx, 'low'] = min(차월물_선물_현재가_버퍼)
+                        df_futures_nm_graph.at[cme_time_index, 'low'] = min(차월물_선물_현재가_버퍼)
 
-                    df_futures_nm_graph.at[ovc_x_idx, 'close'] = 근월물_선물_현재가
+                    df_futures_nm_graph.at[cme_time_index, 'close'] = 근월물_선물_현재가
 
                     flag_futures_nm_ohlc_open = False
 
-                df_futures_nm_graph.at[ovc_x_idx, 'middle'] = (df_futures_nm_graph.at[ovc_x_idx, 'high'] + df_futures_nm_graph.at[ovc_x_idx, 'low']) / 2
+                df_futures_nm_graph.at[cme_time_index, 'middle'] = (df_futures_nm_graph.at[cme_time_index, 'high'] + df_futures_nm_graph.at[cme_time_index, 'low']) / 2
 
                 fut_nm_volume_power = int(tickdata['매수누적체결량']) - int(tickdata['매도누적체결량'])
 
@@ -39929,13 +39959,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 선물_호가순매수 = int(tickdata['매수호가총수량']) - int(tickdata['매도호가총수량'])
 
-                df_futures_cm_graph.at[ovc_x_idx, 'c_ms_quote'] = int(tickdata['매수호가총수량'])
-                df_futures_cm_graph.at[ovc_x_idx, 'c_md_quote'] = int(tickdata['매도호가총수량'])
+                df_futures_cm_graph.at[cme_time_index, 'c_ms_quote'] = int(tickdata['매수호가총수량'])
+                df_futures_cm_graph.at[cme_time_index, 'c_md_quote'] = int(tickdata['매도호가총수량'])
 
                 if int(tickdata['매수호가총수량']) > 0 and int(tickdata['매도호가총수량']) > 0:
 
                     선물_근월물_호가_잔량비 = int(tickdata['매수호가총수량']) / int(tickdata['매도호가총수량'])
-                    df_futures_cm_graph.at[ovc_x_idx, 'c_quote_remainder_ratio'] = 선물_근월물_호가_잔량비
+                    df_futures_cm_graph.at[cme_time_index, 'c_quote_remainder_ratio'] = 선물_근월물_호가_잔량비
 
                     cm_fut_quote_min = df_futures_cm_graph['c_quote_remainder_ratio'].min()
                     cm_fut_quote_mean = df_futures_cm_graph['c_quote_remainder_ratio'].mean()
@@ -40002,13 +40032,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                df_futures_cm_graph.at[ovc_x_idx, 'n_ms_quote'] = int(tickdata['매수호가총수량'])
-                df_futures_cm_graph.at[ovc_x_idx, 'n_md_quote'] = int(tickdata['매도호가총수량'])
+                df_futures_cm_graph.at[cme_time_index, 'n_ms_quote'] = int(tickdata['매수호가총수량'])
+                df_futures_cm_graph.at[cme_time_index, 'n_md_quote'] = int(tickdata['매도호가총수량'])
 
                 if int(tickdata['매수호가총수량']) > 0 and int(tickdata['매도호가총수량']) > 0:
 
                     선물_차월물_호가_잔량비 = int(tickdata['매수호가총수량']) / int(tickdata['매도호가총수량'])
-                    df_futures_cm_graph.at[ovc_x_idx, 'n_quote_remainder_ratio'] = 선물_차월물_호가_잔량비
+                    df_futures_cm_graph.at[cme_time_index, 'n_quote_remainder_ratio'] = 선물_차월물_호가_잔량비
 
                     if flag_market_service:
 
@@ -40275,12 +40305,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 # 현재가 갱신
                 콜_현재가 = float(tickdata['현재가'])
-                df_call_graph[index].at[ovc_x_idx, 'price'] = 콜_현재가
+                df_call_graph[index].at[cme_time_index, 'price'] = 콜_현재가
 
                 # 등락율 갱신, 근월물 기준으로 계산
                 if DayTime and index == ATM_INDEX:
                     콜_등가_등락율 = float(tickdata['등락율'])
-                    #df_call_information_graph.at[ovc_x_idx, 'drate'] = 콜_등가_등락율
+                    #df_call_information_graph.at[cme_time_index, 'drate'] = 콜_등가_등락율
                 else:
                     pass
 
@@ -40299,7 +40329,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_call_volume.at[index, '매수누적체결량'] = int(매수누적체결량)
 
                 call_volume_power = df_call_volume['매수누적체결량'].sum() - df_call_volume['매도누적체결량'].sum()
-                df_call_information_graph.at[ovc_x_idx, 'volume'] = call_volume_power
+                df_call_information_graph.at[cme_time_index, 'volume'] = call_volume_power
 
                 # 미결 갱신
                 if DayTime:
@@ -40338,12 +40368,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 # 현재가 갱신
                 풋_현재가 = float(tickdata['현재가'])
-                df_put_graph[index].at[ovc_x_idx, 'price'] = 풋_현재가
+                df_put_graph[index].at[cme_time_index, 'price'] = 풋_현재가
 
                 # 등락율 갱신, 근월물 기준으로 계산
                 if DayTime and index == ATM_INDEX:
                     풋_등가_등락율 = float(tickdata['등락율'])
-                    #df_put_information_graph.at[ovc_x_idx, 'drate'] = 풋_등가_등락율
+                    #df_put_information_graph.at[cme_time_index, 'drate'] = 풋_등가_등락율
                 else:
                     pass
 
@@ -40362,7 +40392,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_put_volume.at[index, '매수누적체결량'] = int(매수누적체결량)
 
                 put_volume_power = df_put_volume['매수누적체결량'].sum() - df_put_volume['매도누적체결량'].sum()
-                df_put_information_graph.at[ovc_x_idx, 'volume'] = put_volume_power 
+                df_put_information_graph.at[cme_time_index, 'volume'] = put_volume_power 
 
                 # 미결 갱신
                 if DayTime:
@@ -40410,8 +40440,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         콜_수정미결퍼센트 = 0
                         풋_수정미결퍼센트 = 0
 
-                    df_call_information_graph.at[ovc_x_idx, 'open_interest'] = 콜_수정미결퍼센트
-                    df_put_information_graph.at[ovc_x_idx, 'open_interest'] = 풋_수정미결퍼센트
+                    df_call_information_graph.at[cme_time_index, 'open_interest'] = 콜_수정미결퍼센트
+                    df_put_information_graph.at[cme_time_index, 'open_interest'] = 풋_수정미결퍼센트
                 else:
                     pass
             else:
@@ -40487,8 +40517,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if flag_market_service:
 
-                df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
-                df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비
+                df_call_information_graph.at[cme_time_index, 'quote_remainder_ratio'] = 콜잔량비
+                df_put_information_graph.at[cme_time_index, 'quote_remainder_ratio'] = 풋잔량비
 
                 옵션_잔량비차 = abs(콜잔량비 - 풋잔량비)
                 
@@ -40528,14 +40558,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass                                    
             else:
                 if 콜잔량비 > 5.0:
-                    df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
+                    df_call_information_graph.at[cme_time_index, 'quote_remainder_ratio'] = 5.0
                 else:
-                    df_call_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 콜잔량비
+                    df_call_information_graph.at[cme_time_index, 'quote_remainder_ratio'] = 콜잔량비
 
                 if 풋잔량비 > 5.0:
-                    df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 5.0
+                    df_put_information_graph.at[cme_time_index, 'quote_remainder_ratio'] = 5.0
                 else:
-                    df_put_information_graph.at[ovc_x_idx, 'quote_remainder_ratio'] = 풋잔량비            
+                    df_put_information_graph.at[cme_time_index, 'quote_remainder_ratio'] = 풋잔량비            
 
             # 야간선물이 없어짐에 따른 텔레그램 기동 대응
             '''
@@ -40616,7 +40646,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def ovc_update(self, tickdata):
 
         global OVC_체결시간, OVC_HOUR, OVC_MIN, OVC_SEC, t0167_hour, t0167_minute, t0167_second
-        global old_ovc_x_idx, ovc_x_idx
+        global old_cme_time_index, cme_time_index
         global df_futures_cm_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
 
         global sp500_delta, old_sp500_delta, sp500_직전대비, sp500_text_color
@@ -40657,7 +40687,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             t0167_second = OVC_SEC
 
             # 과거값 저장
-            old_ovc_x_idx = ovc_x_idx                       
+            old_cme_time_index = cme_time_index                       
 
             # X축 시간좌표 계산, 해외선물 시간과 동기를 맞춤
             if NightTime:
@@ -40669,44 +40699,44 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                ovc_x_idx = (night_time - NightTime_PreStart_Hour) * 60 + OVC_MIN + 1         
+                cme_time_index = (night_time - NightTime_PreStart_Hour) * 60 + OVC_MIN + 1         
             else:                    
                 # 해외선물 개장시간은 국내시장의 2시간 전
-                ovc_x_idx = (OVC_HOUR - DayTime_PreStart_Hour) * 60 + OVC_MIN + 1
+                cme_time_index = (OVC_HOUR - DayTime_PreStart_Hour) * 60 + OVC_MIN + 1
 
             # 갱신된 현재값을 과거값과 비교(NaN 방지를 위해)
-            if ovc_x_idx != old_ovc_x_idx:
+            if cme_time_index != old_cme_time_index:
 
-                df_dow_graph.at[ovc_x_idx, 'high'] = df_dow_graph.at[ovc_x_idx - 1, 'high']
-                df_dow_graph.at[ovc_x_idx, 'low'] = df_dow_graph.at[ovc_x_idx - 1, 'low']
-                df_dow_graph.at[ovc_x_idx, 'middle'] = df_dow_graph.at[ovc_x_idx - 1, 'middle']
-                df_dow_graph.at[ovc_x_idx, 'close'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
-                df_dow_graph.at[ovc_x_idx, 'price'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
+                df_dow_graph.at[cme_time_index, 'high'] = df_dow_graph.at[cme_time_index - 1, 'high']
+                df_dow_graph.at[cme_time_index, 'low'] = df_dow_graph.at[cme_time_index - 1, 'low']
+                df_dow_graph.at[cme_time_index, 'middle'] = df_dow_graph.at[cme_time_index - 1, 'middle']
+                df_dow_graph.at[cme_time_index, 'close'] = df_dow_graph.at[cme_time_index - 1, 'close']
+                df_dow_graph.at[cme_time_index, 'price'] = df_dow_graph.at[cme_time_index - 1, 'close']
 
-                df_nasdaq_graph.at[ovc_x_idx, 'high'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'high']
-                df_nasdaq_graph.at[ovc_x_idx, 'low'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'low']
-                df_nasdaq_graph.at[ovc_x_idx, 'middle'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'middle']
-                df_nasdaq_graph.at[ovc_x_idx, 'close'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
-                df_nasdaq_graph.at[ovc_x_idx, 'price'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
+                df_nasdaq_graph.at[cme_time_index, 'high'] = df_nasdaq_graph.at[cme_time_index - 1, 'high']
+                df_nasdaq_graph.at[cme_time_index, 'low'] = df_nasdaq_graph.at[cme_time_index - 1, 'low']
+                df_nasdaq_graph.at[cme_time_index, 'middle'] = df_nasdaq_graph.at[cme_time_index - 1, 'middle']
+                df_nasdaq_graph.at[cme_time_index, 'close'] = df_nasdaq_graph.at[cme_time_index - 1, 'close']
+                df_nasdaq_graph.at[cme_time_index, 'price'] = df_nasdaq_graph.at[cme_time_index - 1, 'close']
 
-                df_sp500_graph.at[ovc_x_idx, 'high'] = df_sp500_graph.at[ovc_x_idx - 1, 'high']
-                df_sp500_graph.at[ovc_x_idx, 'low'] = df_sp500_graph.at[ovc_x_idx - 1, 'low']
-                df_sp500_graph.at[ovc_x_idx, 'middle'] = df_sp500_graph.at[ovc_x_idx - 1, 'middle']
-                df_sp500_graph.at[ovc_x_idx, 'close'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
-                df_sp500_graph.at[ovc_x_idx, 'price'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
+                df_sp500_graph.at[cme_time_index, 'high'] = df_sp500_graph.at[cme_time_index - 1, 'high']
+                df_sp500_graph.at[cme_time_index, 'low'] = df_sp500_graph.at[cme_time_index - 1, 'low']
+                df_sp500_graph.at[cme_time_index, 'middle'] = df_sp500_graph.at[cme_time_index - 1, 'middle']
+                df_sp500_graph.at[cme_time_index, 'close'] = df_sp500_graph.at[cme_time_index - 1, 'close']
+                df_sp500_graph.at[cme_time_index, 'price'] = df_sp500_graph.at[cme_time_index - 1, 'close']
 
-                df_wti_graph.at[ovc_x_idx, 'high'] = df_wti_graph.at[ovc_x_idx - 1, 'high']
-                df_wti_graph.at[ovc_x_idx, 'low'] = df_wti_graph.at[ovc_x_idx - 1, 'low']
-                df_wti_graph.at[ovc_x_idx, 'middle'] = df_wti_graph.at[ovc_x_idx - 1, 'middle']
-                df_wti_graph.at[ovc_x_idx, 'close'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
-                df_wti_graph.at[ovc_x_idx, 'price'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
+                df_wti_graph.at[cme_time_index, 'high'] = df_wti_graph.at[cme_time_index - 1, 'high']
+                df_wti_graph.at[cme_time_index, 'low'] = df_wti_graph.at[cme_time_index - 1, 'low']
+                df_wti_graph.at[cme_time_index, 'middle'] = df_wti_graph.at[cme_time_index - 1, 'middle']
+                df_wti_graph.at[cme_time_index, 'close'] = df_wti_graph.at[cme_time_index - 1, 'close']
+                df_wti_graph.at[cme_time_index, 'price'] = df_wti_graph.at[cme_time_index - 1, 'close']
             else:
                 pass
 
             if tickdata['종목코드'] == DOW:
 
                 # 그래프 가격갱신
-                df_dow_graph.at[ovc_x_idx, 'price'] = float(tickdata['체결가격'])              
+                df_dow_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])              
 
                 DOW_현재가 = int(float(tickdata['체결가격']))                
                 DOW_전일대비 = int(DOW_현재가 - DOW_종가)
@@ -40732,10 +40762,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
                 
                 # 그래프 등락율 가격갱신
-                df_dow_graph.at[ovc_x_idx, 'drate'] = drate_temp
+                df_dow_graph.at[cme_time_index, 'drate'] = drate_temp
 
                 # 1T OHLC 생성
-                df_dow_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간                
+                df_dow_graph.at[cme_time_index, 'ctime'] = OVC_체결시간                
 
                 if DOW_현재가 > 0:
 
@@ -40743,12 +40773,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         if not flag_dow_ohlc_open:
 
-                            df_dow_graph.at[ovc_x_idx, 'open'] = DOW_현재가
-                            df_dow_graph.at[ovc_x_idx, 'high'] = DOW_현재가
-                            df_dow_graph.at[ovc_x_idx, 'low'] = DOW_현재가
-                            df_dow_graph.at[ovc_x_idx, 'middle'] = DOW_현재가
-                            df_dow_graph.at[ovc_x_idx, 'close'] = DOW_현재가
-                            df_dow_graph.at[ovc_x_idx, 'price'] = DOW_현재가
+                            df_dow_graph.at[cme_time_index, 'open'] = DOW_현재가
+                            df_dow_graph.at[cme_time_index, 'high'] = DOW_현재가
+                            df_dow_graph.at[cme_time_index, 'low'] = DOW_현재가
+                            df_dow_graph.at[cme_time_index, 'middle'] = DOW_현재가
+                            df_dow_graph.at[cme_time_index, 'close'] = DOW_현재가
+                            df_dow_graph.at[cme_time_index, 'price'] = DOW_현재가
 
                             del DOW_현재가_버퍼[:]
 
@@ -40756,8 +40786,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         else:
                             DOW_현재가_버퍼.append(DOW_현재가)                        
                     else:
-                        if df_dow_graph.at[ovc_x_idx, 'open'] != df_dow_graph.at[ovc_x_idx, 'open']:
-                            df_dow_graph.at[ovc_x_idx, 'open'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
+                        #if df_dow_graph.at[cme_time_index, 'open'] != df_dow_graph.at[cme_time_index, 'open']:
+                        if not np.isnan(df_dow_graph.at[cme_time_index, 'open']):
+                            df_dow_graph.at[cme_time_index, 'open'] = df_dow_graph.at[cme_time_index - 1, 'close']
                             del DOW_현재가_버퍼[:]
                         else:
                             pass
@@ -40765,24 +40796,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         DOW_현재가_버퍼.append(DOW_현재가)
 
                         if max(DOW_현재가_버퍼) > 0:
-                            df_dow_graph.at[ovc_x_idx, 'high'] = max(DOW_현재가_버퍼)
+                            df_dow_graph.at[cme_time_index, 'high'] = max(DOW_현재가_버퍼)
                         else:
                             pass
 
                         if min(DOW_현재가_버퍼) == 0:
 
                             if max(DOW_현재가_버퍼) > 0:
-                                df_dow_graph.at[ovc_x_idx, 'low'] = max(DOW_현재가_버퍼)
+                                df_dow_graph.at[cme_time_index, 'low'] = max(DOW_현재가_버퍼)
                             else:
                                 pass
                         else:
-                            df_dow_graph.at[ovc_x_idx, 'low'] = min(DOW_현재가_버퍼)
+                            df_dow_graph.at[cme_time_index, 'low'] = min(DOW_현재가_버퍼)
 
-                        df_dow_graph.at[ovc_x_idx, 'close'] = DOW_현재가
+                        df_dow_graph.at[cme_time_index, 'close'] = DOW_현재가
 
                         flag_dow_ohlc_open = False
 
-                    df_dow_graph.at[ovc_x_idx, 'middle'] = (df_dow_graph.at[ovc_x_idx, 'high'] + df_dow_graph.at[ovc_x_idx, 'low']) / 2
+                    df_dow_graph.at[cme_time_index, 'middle'] = (df_dow_graph.at[cme_time_index, 'high'] + df_dow_graph.at[cme_time_index, 'low']) / 2
                 else:
                     pass                        
 
@@ -40890,7 +40921,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif tickdata['종목코드'] == NASDAQ:
 
                 # 그래프 가격갱신
-                df_nasdaq_graph.at[ovc_x_idx, 'price'] = float(tickdata['체결가격'])
+                df_nasdaq_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])
 
                 NASDAQ_현재가 = float(tickdata['체결가격'])
                 NASDAQ_전일대비 = NASDAQ_현재가 - NASDAQ_종가 
@@ -40906,7 +40937,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
                 # 1T OHLC 생성
-                df_nasdaq_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
+                df_nasdaq_graph.at[cme_time_index, 'ctime'] = OVC_체결시간
 
                 if NASDAQ_현재가 > 0:
 
@@ -40914,12 +40945,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         if not flag_nasdaq_ohlc_open:
                         
-                            df_nasdaq_graph.at[ovc_x_idx, 'open'] = NASDAQ_현재가
-                            df_nasdaq_graph.at[ovc_x_idx, 'high'] = NASDAQ_현재가
-                            df_nasdaq_graph.at[ovc_x_idx, 'low'] = NASDAQ_현재가
-                            df_nasdaq_graph.at[ovc_x_idx, 'middle'] = NASDAQ_현재가
-                            df_nasdaq_graph.at[ovc_x_idx, 'close'] = NASDAQ_현재가
-                            df_nasdaq_graph.at[ovc_x_idx, 'price'] = NASDAQ_현재가
+                            df_nasdaq_graph.at[cme_time_index, 'open'] = NASDAQ_현재가
+                            df_nasdaq_graph.at[cme_time_index, 'high'] = NASDAQ_현재가
+                            df_nasdaq_graph.at[cme_time_index, 'low'] = NASDAQ_현재가
+                            df_nasdaq_graph.at[cme_time_index, 'middle'] = NASDAQ_현재가
+                            df_nasdaq_graph.at[cme_time_index, 'close'] = NASDAQ_현재가
+                            df_nasdaq_graph.at[cme_time_index, 'price'] = NASDAQ_현재가
 
                             del NASDAQ_현재가_버퍼[:]
 
@@ -40927,8 +40958,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         else:
                             NASDAQ_현재가_버퍼.append(NASDAQ_현재가)                       
                     else:
-                        if df_nasdaq_graph.at[ovc_x_idx, 'open'] != df_nasdaq_graph.at[ovc_x_idx, 'open']:
-                            df_nasdaq_graph.at[ovc_x_idx, 'open'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
+                        #if df_nasdaq_graph.at[cme_time_index, 'open'] != df_nasdaq_graph.at[cme_time_index, 'open']:
+                        if not np.isnan(df_nasdaq_graph.at[cme_time_index, 'open']):
+                            df_nasdaq_graph.at[cme_time_index, 'open'] = df_nasdaq_graph.at[cme_time_index - 1, 'close']
                             del NASDAQ_현재가_버퍼[:]
                         else:
                             pass
@@ -40936,24 +40968,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         NASDAQ_현재가_버퍼.append(NASDAQ_현재가)
 
                         if max(NASDAQ_현재가_버퍼) > 0:
-                            df_nasdaq_graph.at[ovc_x_idx, 'high'] = max(NASDAQ_현재가_버퍼)
+                            df_nasdaq_graph.at[cme_time_index, 'high'] = max(NASDAQ_현재가_버퍼)
                         else:
                             pass
 
                         if min(NASDAQ_현재가_버퍼) == 0:
 
                             if max(NASDAQ_현재가_버퍼) > 0:
-                                df_nasdaq_graph.at[ovc_x_idx, 'low'] = max(NASDAQ_현재가_버퍼)
+                                df_nasdaq_graph.at[cme_time_index, 'low'] = max(NASDAQ_현재가_버퍼)
                             else:
                                 pass
                         else:
-                            df_nasdaq_graph.at[ovc_x_idx, 'low'] = min(NASDAQ_현재가_버퍼)
+                            df_nasdaq_graph.at[cme_time_index, 'low'] = min(NASDAQ_현재가_버퍼)
 
-                        df_nasdaq_graph.at[ovc_x_idx, 'close'] = NASDAQ_현재가
+                        df_nasdaq_graph.at[cme_time_index, 'close'] = NASDAQ_현재가
 
                         flag_nasdaq_ohlc_open = False
 
-                    df_nasdaq_graph.at[ovc_x_idx, 'middle'] = (df_nasdaq_graph.at[ovc_x_idx, 'high'] + df_nasdaq_graph.at[ovc_x_idx, 'low']) / 2
+                    df_nasdaq_graph.at[cme_time_index, 'middle'] = (df_nasdaq_graph.at[cme_time_index, 'high'] + df_nasdaq_graph.at[cme_time_index, 'low']) / 2
                 else:
                     pass                
 
@@ -41053,7 +41085,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif tickdata['종목코드'] == SP500:
 
                 # 그래프 가격갱신
-                df_sp500_graph.at[ovc_x_idx, 'price'] = float(tickdata['체결가격'])
+                df_sp500_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])
 
                 SP500_현재가 = float(tickdata['체결가격'])
                 SP500_전일대비 = round((SP500_현재가 - SP500_종가), 2)
@@ -41079,12 +41111,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
                 
                 # 그래프 등락율 가격갱신
-                df_sp500_graph.at[ovc_x_idx, 'drate'] = drate_temp
+                df_sp500_graph.at[cme_time_index, 'drate'] = drate_temp
 
                 체결가격 = locale.format('%.2f', SP500_현재가, 1)
 
                 # 1T OHLC 생성
-                df_sp500_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
+                df_sp500_graph.at[cme_time_index, 'ctime'] = OVC_체결시간
 
                 if SP500_현재가 > 0:
 
@@ -41092,12 +41124,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         if not flag_sp500_ohlc_open:
 
-                            df_sp500_graph.at[ovc_x_idx, 'open'] = SP500_현재가
-                            df_sp500_graph.at[ovc_x_idx, 'high'] = SP500_현재가
-                            df_sp500_graph.at[ovc_x_idx, 'low'] = SP500_현재가
-                            df_sp500_graph.at[ovc_x_idx, 'middle'] = SP500_현재가
-                            df_sp500_graph.at[ovc_x_idx, 'close'] = SP500_현재가
-                            df_sp500_graph.at[ovc_x_idx, 'price'] = SP500_현재가
+                            df_sp500_graph.at[cme_time_index, 'open'] = SP500_현재가
+                            df_sp500_graph.at[cme_time_index, 'high'] = SP500_현재가
+                            df_sp500_graph.at[cme_time_index, 'low'] = SP500_현재가
+                            df_sp500_graph.at[cme_time_index, 'middle'] = SP500_현재가
+                            df_sp500_graph.at[cme_time_index, 'close'] = SP500_현재가
+                            df_sp500_graph.at[cme_time_index, 'price'] = SP500_현재가
 
                             del SP500_현재가_버퍼[:]
 
@@ -41105,8 +41137,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         else:
                             SP500_현재가_버퍼.append(SP500_현재가)                        
                     else:
-                        if df_sp500_graph.at[ovc_x_idx, 'open'] != df_sp500_graph.at[ovc_x_idx, 'open']:
-                            df_sp500_graph.at[ovc_x_idx, 'open'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
+                        #if df_sp500_graph.at[cme_time_index, 'open'] != df_sp500_graph.at[cme_time_index, 'open']:
+                        if not np.isnan(df_sp500_graph.at[cme_time_index, 'open']):
+                            df_sp500_graph.at[cme_time_index, 'open'] = df_sp500_graph.at[cme_time_index - 1, 'close']
                             del SP500_현재가_버퍼[:]
                         else:
                             pass
@@ -41114,24 +41147,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         SP500_현재가_버퍼.append(SP500_현재가)
 
                         if max(SP500_현재가_버퍼) > 0:
-                            df_sp500_graph.at[ovc_x_idx, 'high'] = max(SP500_현재가_버퍼)
+                            df_sp500_graph.at[cme_time_index, 'high'] = max(SP500_현재가_버퍼)
                         else:
                             pass
 
                         if min(SP500_현재가_버퍼) == 0:
 
                             if max(SP500_현재가_버퍼) > 0:
-                                df_sp500_graph.at[ovc_x_idx, 'low'] = max(SP500_현재가_버퍼)
+                                df_sp500_graph.at[cme_time_index, 'low'] = max(SP500_현재가_버퍼)
                             else:
                                 pass
                         else:
-                            df_sp500_graph.at[ovc_x_idx, 'low'] = min(SP500_현재가_버퍼)
+                            df_sp500_graph.at[cme_time_index, 'low'] = min(SP500_현재가_버퍼)
 
-                        df_sp500_graph.at[ovc_x_idx, 'close'] = SP500_현재가
+                        df_sp500_graph.at[cme_time_index, 'close'] = SP500_현재가
 
                         flag_sp500_ohlc_open = False
 
-                    df_sp500_graph.at[ovc_x_idx, 'middle'] = (df_sp500_graph.at[ovc_x_idx, 'high'] + df_sp500_graph.at[ovc_x_idx, 'low']) / 2  
+                    df_sp500_graph.at[cme_time_index, 'middle'] = (df_sp500_graph.at[cme_time_index, 'high'] + df_sp500_graph.at[cme_time_index, 'low']) / 2  
                 else:
                     pass              
 
@@ -41231,7 +41264,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif tickdata['종목코드'] == WTI:
             
                 # 그래프 가격갱신
-                df_wti_graph.at[ovc_x_idx, 'price'] = float(tickdata['체결가격'])
+                df_wti_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])
 
                 WTI_현재가 = float(tickdata['체결가격'])
                 WTI_전일대비 = round((WTI_현재가 - WTI_종가), 2)
@@ -41249,7 +41282,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 체결가격 = locale.format('%.2f', WTI_현재가, 1)
 
                 # 1T OHLC 생성
-                df_wti_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
+                df_wti_graph.at[cme_time_index, 'ctime'] = OVC_체결시간
 
                 if WTI_현재가 > 0:
 
@@ -41257,12 +41290,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         if not flag_wti_ohlc_open:
                         
-                            df_wti_graph.at[ovc_x_idx, 'open'] = WTI_현재가
-                            df_wti_graph.at[ovc_x_idx, 'high'] = WTI_현재가
-                            df_wti_graph.at[ovc_x_idx, 'low'] = WTI_현재가
-                            df_wti_graph.at[ovc_x_idx, 'middle'] = WTI_현재가
-                            df_wti_graph.at[ovc_x_idx, 'close'] = WTI_현재가
-                            df_wti_graph.at[ovc_x_idx, 'price'] = WTI_현재가
+                            df_wti_graph.at[cme_time_index, 'open'] = WTI_현재가
+                            df_wti_graph.at[cme_time_index, 'high'] = WTI_현재가
+                            df_wti_graph.at[cme_time_index, 'low'] = WTI_현재가
+                            df_wti_graph.at[cme_time_index, 'middle'] = WTI_현재가
+                            df_wti_graph.at[cme_time_index, 'close'] = WTI_현재가
+                            df_wti_graph.at[cme_time_index, 'price'] = WTI_현재가
 
                             del WTI_현재가_버퍼[:]
 
@@ -41270,8 +41303,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         else:
                             WTI_현재가_버퍼.append(WTI_현재가)                        
                     else:
-                        if df_wti_graph.at[ovc_x_idx, 'open'] != df_wti_graph.at[ovc_x_idx, 'open']:
-                            df_wti_graph.at[ovc_x_idx, 'open'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
+                        #if df_wti_graph.at[cme_time_index, 'open'] != df_wti_graph.at[cme_time_index, 'open']:
+                        if not np.isnan(df_wti_graph.at[cme_time_index, 'open']):
+                            df_wti_graph.at[cme_time_index, 'open'] = df_wti_graph.at[cme_time_index - 1, 'close']
                             del WTI_현재가_버퍼[:]
                         else:
                             pass
@@ -41279,24 +41313,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         WTI_현재가_버퍼.append(WTI_현재가)
 
                         if max(WTI_현재가_버퍼) > 0:
-                            df_wti_graph.at[ovc_x_idx, 'high'] = max(WTI_현재가_버퍼)
+                            df_wti_graph.at[cme_time_index, 'high'] = max(WTI_현재가_버퍼)
                         else:
                             pass
 
                         if min(WTI_현재가_버퍼) == 0:
 
                             if max(WTI_현재가_버퍼) > 0:
-                                df_wti_graph.at[ovc_x_idx, 'low'] = max(WTI_현재가_버퍼)
+                                df_wti_graph.at[cme_time_index, 'low'] = max(WTI_현재가_버퍼)
                             else:
                                 pass
                         else:
-                            df_wti_graph.at[ovc_x_idx, 'low'] = min(WTI_현재가_버퍼)
+                            df_wti_graph.at[cme_time_index, 'low'] = min(WTI_현재가_버퍼)
 
-                        df_wti_graph.at[ovc_x_idx, 'close'] = WTI_현재가
+                        df_wti_graph.at[cme_time_index, 'close'] = WTI_현재가
 
                         flag_wti_ohlc_open = False
 
-                    df_wti_graph.at[ovc_x_idx, 'middle'] = (df_wti_graph.at[ovc_x_idx, 'high'] + df_wti_graph.at[ovc_x_idx, 'low']) / 2
+                    df_wti_graph.at[cme_time_index, 'middle'] = (df_wti_graph.at[cme_time_index, 'high'] + df_wti_graph.at[cme_time_index, 'low']) / 2
                 else:
                     pass     
 
@@ -41396,7 +41430,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif tickdata['종목코드'] == HANGSENG:
 
                 # 그래프 가격갱신
-                df_hangseng_graph.at[ovc_x_idx, 'price'] = float(tickdata['체결가격'])
+                df_hangseng_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])
 
                 HANGSENG_현재가 = int(float(tickdata['체결가격']))
                 HANGSENG_전일대비 = int(float(tickdata['체결가격']) - HANGSENG_종가)                    
@@ -41509,7 +41543,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif tickdata['종목코드'] == EUROFX and pre_start:
 
                 # 그래프 가격갱신
-                df_eurofx_graph.at[ovc_x_idx, 'price'] = float(tickdata['체결가격'])                    
+                df_eurofx_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])                    
 
                 EUROFX_현재가 = float(tickdata['체결가격'])
                 EUROFX_전일대비 = round((EUROFX_현재가 - EUROFX_종가), 5)
@@ -41620,7 +41654,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif tickdata['종목코드'] == GOLD:
 
                 # 그래프 가격갱신
-                df_gold_graph.at[ovc_x_idx, 'price'] = float(tickdata['체결가격'])
+                df_gold_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])
 
                 GOLD_현재가 = float(tickdata['체결가격'])
                 GOLD_전일대비 = GOLD_현재가 - GOLD_종가
