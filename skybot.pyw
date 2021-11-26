@@ -10,6 +10,7 @@
 
 # 기본 모듈
 import sys, os
+import traceback
 import atexit
 from datetime import *
 import time
@@ -6413,11 +6414,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_screen에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
-            self.textBrowser.append(txt)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_screen에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
             self.parent.textBrowser.append(txt)
-
-            #playsound('Resources/notify.wav')
 
         finally:
             flag_screen_update_is_running = False
@@ -13024,8 +13022,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : call_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, szTrCode, type(e).__name__, str(e))
-            self.parent.textBrowser.append(txt)   
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : call_update 에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
+            self.parent.textBrowser.append(txt)
     
     def call_db_update(self):
 
@@ -14105,8 +14103,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : put_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
-            self.parent.textBrowser.append(txt)      
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : put_update 에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
+            self.parent.textBrowser.append(txt) 
     
     def put_db_update(self):
 
@@ -30703,7 +30701,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot1에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot1에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
             self.parent.textBrowser.append(txt)
 
         finally:
@@ -31719,7 +31717,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot2에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot2에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
             self.parent.textBrowser.append(txt)
 
         finally:
@@ -32729,7 +32727,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot3에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot3에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
             self.parent.textBrowser.append(txt)
 
         finally:
@@ -33723,7 +33721,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot4에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot4에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
             self.parent.textBrowser.append(txt)
 
         finally:
@@ -34732,7 +34730,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot5에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot5에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
             self.parent.textBrowser.append(txt)
 
         finally:
@@ -35741,7 +35739,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot6에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot6에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
             self.parent.textBrowser.append(txt)
 
         finally:
@@ -37526,7 +37524,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_1st_process {3}에서 {4}타입의 {5}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, szTrCode, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_1st_process {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
             self.textBrowser.append(txt)
 
         finally:
@@ -37568,7 +37566,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_2nd_process {3}에서 {4}타입의 {5}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, szTrCode, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_2nd_process {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
             self.textBrowser.append(txt)
 
         finally:
@@ -37591,7 +37589,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_3rd_process {3}에서 {4}타입의 {5}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, szTrCode, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_3rd_process {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
             self.textBrowser.append(txt)
 
         finally:
@@ -37611,7 +37609,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_4th_process {3}에서 {4}타입의 {5}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, szTrCode, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_4th_process {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
             self.textBrowser.append(txt)
 
         finally:
@@ -39457,8 +39455,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : bm_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
-            self.textBrowser.append(txt)        
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : bm_update 에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
+            self.textBrowser.append(txt)       
 
     def pm_update(self, tickdata):
 
@@ -39616,8 +39614,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : pm_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
-            self.textBrowser.append(txt)        
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : pm_update 에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
+            self.textBrowser.append(txt)     
         
     def futures_tick_update(self, tickdata):
 
@@ -41734,7 +41732,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : ovc_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : ovc_update 에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
             self.textBrowser.append(txt)
 
     #####################################################################################################################################################################
