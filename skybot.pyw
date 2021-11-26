@@ -6416,7 +6416,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_screen에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_screen 에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
             self.parent.textBrowser.append(txt)
 
         finally:
@@ -30718,7 +30718,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot1에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot1 에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
             self.parent.textBrowser.append(txt)
 
         finally:
@@ -31734,7 +31734,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot2에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot2 에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
             self.parent.textBrowser.append(txt)
 
         finally:
@@ -32744,7 +32744,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot3에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot3 에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
             self.parent.textBrowser.append(txt)
 
         finally:
@@ -33738,7 +33738,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot4에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot4 에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
             self.parent.textBrowser.append(txt)
 
         finally:
@@ -34747,7 +34747,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot5에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot5 에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
             self.parent.textBrowser.append(txt)
 
         finally:
@@ -35756,7 +35756,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot6에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot6 에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
             self.parent.textBrowser.append(txt)
 
         finally:
@@ -36507,32 +36507,50 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         PCTIME = datetime.now().strftime('%H:%M:%S')
 
-        try:
-            global system_server_time_gap
+        global system_server_time_gap
 
-            ntp_client = ntplib.NTPClient()
-            time.sleep(0.01)            
-            response = ntp_client.request(TimeServer, version=3)
-            
-            time_str = time.ctime(response.tx_time).split(' ')
-            srever_time = time_str[-2]
-            SERVERTIME = '{0}:{1}:{2}'.format(srever_time[0:2], srever_time[3:5], srever_time[6:8])
+        attempts = 0
+        client = ntplib.NTPClient()
+        response = None
 
-            system_server_time_gap = round(-response.offset)
+        while True:            
 
-            txt = '🕘 PC = [{0}]와 서버 = [{1}]간 시간차는 {2}초 입니다...\r'.format(PCTIME, SERVERTIME, system_server_time_gap)        
-            self.textBrowser.append(txt)
-
-            if system_server_time_gap > 0:
-                txt = 'PC와 써버간 시간차는 {0}초 입니다'.format(system_server_time_gap)
-                self.speaker.setText(txt)                
-            else:
+            try:
+                response = client.request(TimeServer, version=3)
+            except Exception as e:
                 pass
-        except Exception as e:
 
-            txt = 'NTP Server 통신응답이 없습니다.\r'
-            self.textBrowser.append(txt)        
-         
+            if response:
+
+                time_str = time.ctime(response.tx_time).split(' ')
+                srever_time = time_str[-2]
+                SERVERTIME = '{0}:{1}:{2}'.format(srever_time[0:2], srever_time[3:5], srever_time[6:8])
+
+                system_server_time_gap = round(-response.offset)
+
+                txt = '🕘 PC = [{0}]와 NTP서버 = [{1}]간 시간차는 {2}초 입니다...\r'.format(PCTIME, SERVERTIME, system_server_time_gap)        
+                self.textBrowser.append(txt)
+
+                if system_server_time_gap > 0:
+                    txt = 'PC와 NTP 써버간 시간차는 {0}초 입니다'.format(system_server_time_gap)
+                    self.speaker.setText(txt)
+                else:
+                    pass
+
+                break
+            else:
+                if attempts >= 3:
+                    txt = 'NTP Server 통신시도 3회 초과...\r'
+                    self.textBrowser.append(txt)
+                    txt = 'NTP 서버 IP를 확인해주세요.'
+                    self.speaker.setText(txt)
+                    break
+                else:
+                    txt = 'waiting {0} seconds and trying again...\r'.format(0.1)
+                    self.textBrowser.append(txt)
+                    time.sleep(0.1)
+                    attempts += 1   
+
         # 쓰레드 or 멀티프로세스
         if self.mp_mode:
 
@@ -37547,7 +37565,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_1st_process {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_1st_process 에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
             self.textBrowser.append(txt)
 
         finally:
@@ -37589,7 +37607,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_2nd_process {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_2nd_process 에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
             self.textBrowser.append(txt)
 
         finally:
@@ -37612,7 +37630,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_3rd_process {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_3rd_process 에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
             self.textBrowser.append(txt)
 
         finally:
@@ -37635,7 +37653,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
         except Exception as e:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_4th_process {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_4th_process 에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
             self.textBrowser.append(txt)
 
         finally:
