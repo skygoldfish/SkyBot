@@ -18,7 +18,7 @@ make_dir(TODAY_PATH)
 
 # Configuration Parser
 parser = ConfigParser()
-parser.read('.\skybot.ini')
+parser.read('.\skybot.ini', encoding='UTF-8')
 
 REAL_SERVER = parser.getboolean('Server Type', 'Real Server')
 

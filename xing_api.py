@@ -8,7 +8,7 @@ from xing_event_handler import *
 
 # Configuration Parser
 parser = ConfigParser()
-parser.read('.\skybot.ini')
+parser.read('.\skybot.ini', encoding='UTF-8')
 
 CURRENT_MONTH = parser.get('Month Info', 'Current Month')
 

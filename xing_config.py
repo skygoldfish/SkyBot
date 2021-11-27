@@ -4,7 +4,7 @@ import ntplib
 
 # Configuration Parser
 parser = ConfigParser()
-parser.read('.\skybot.ini')
+parser.read('.\skybot.ini', encoding='UTF-8')
 
 NightTime_PreStart_Hour = parser.getint('Initial Value', 'NightTime Pre-Start Hour')
 QUEUE_INPUT_PERMIT_TIME = parser.getint('Initial Value', 'Queue Input Permit Time')

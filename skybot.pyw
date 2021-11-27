@@ -342,7 +342,7 @@ SCORE_BOARD_UPDATE_INTERVAL = 2
 #####################################################################################################################################################################
 # Configuration Parser
 parser = ConfigParser()
-parser.read('skybot.ini')
+parser.read('skybot.ini', encoding='UTF-8')
 
 # [0]. << Logging Level >>
 Logging_Level = parser.getint('Logging Level', 'Log Level')
