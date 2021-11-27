@@ -36103,24 +36103,34 @@ class Xing(object):
 
                             if flag_call_low_in_fixed_coreval:
                                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 콜저가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
+                                self.caller.textBrowser.append(send_txt)
+                                self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
                             if flag_call_high_in_fixed_coreval:
                                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 콜고가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
+                                self.caller.textBrowser.append(send_txt)
+                                self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
                             if flag_put_low_in_fixed_coreval:
                                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 풋저가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
+                                self.caller.textBrowser.append(send_txt)
+                                self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
                             if flag_put_high_in_fixed_coreval:
                                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 풋고가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
+                                self.caller.textBrowser.append(send_txt)
+                                self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
                             if flag_kp200_low_node:
                                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ kp200 저가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
+                                self.caller.textBrowser.append(send_txt)
+                                self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
                             if flag_kp200_high_node:
                                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ kp200 고가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
-
-                            self.caller.textBrowser.append(send_txt)
-                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+                                self.caller.textBrowser.append(send_txt)
+                                self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+                            
                             winsound.PlaySound('Resources/notify.wav', winsound.SND_FILENAME)
                         else:
                             pass
@@ -36133,18 +36143,24 @@ class Xing(object):
                             
                             if flag_call_low_in_fixed_coreval:
                                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 콜저가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
+                                self.caller.textBrowser.append(send_txt)
+                                self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
                             if flag_call_high_in_fixed_coreval:
                                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 콜고가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
+                                self.caller.textBrowser.append(send_txt)
+                                self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
                             if flag_put_low_in_fixed_coreval:
                                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 풋저가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
+                                self.caller.textBrowser.append(send_txt)
+                                self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
                             if flag_put_high_in_fixed_coreval:
                                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 풋고가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
-
-                            self.caller.textBrowser.append(send_txt)
-                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+                                self.caller.textBrowser.append(send_txt)
+                                self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+                                
                             winsound.PlaySound('Resources/ring.wav', winsound.SND_FILENAME)
                         else:
                             pass
