@@ -349,7 +349,7 @@ Logging_Level = parser.getint('Logging Level', 'Log Level')
 
 # [1]. << Server Type >>
 REAL_SERVER = parser.getboolean('Server Type', 'Real Server')
-TimeServer = parser.get('Server Type', 'NTP Server')
+NTP_Server = parser.get('Server Type', 'NTP Server')
 
 # [2]. << Month Info >>
 KSE_START_HOUR = parser.getint('Month Info', 'KSE Start Hour')
@@ -2369,7 +2369,7 @@ class ScreenUpdateWorker(QThread):
             if not flag_futures_update_is_running:
 
                 try:
-                    response = self.ntpclient.request(TimeServer, version=3)
+                    response = self.ntpclient.request(NTP_Server, version=3)
 
                     time_str = time.ctime(response.tx_time).split(' ')
                     srever_time = time_str[-2]
@@ -35939,7 +35939,7 @@ class Xing(object):
                 if self.clocktick:
 
                     try:
-                        response = self.ntpclient.request(TimeServer, version=3)
+                        response = self.ntpclient.request(NTP_Server, version=3)
 
                         time_str = time.ctime(response.tx_time).split(' ')
                         srever_time = time_str[-2]
@@ -36170,9 +36170,9 @@ class Xing(object):
 
     def main_login(self, url, id, pwd, cert):
 
-        PCTIME = datetime.now().strftime('%H:%M:%S')
+        System_Time = datetime.now().strftime('%H:%M:%S')
 
-        txt = '[{0}] Welcome to SkyBot.\r'.format(PCTIME)
+        txt = '[{0}] Welcome to SkyBot.\r'.format(System_Time)
         self.caller.textBrowser.append(txt)
 
         if TARGET_MONTH == 'NM':
@@ -36503,9 +36503,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # TTS 쓰레드 설정
         self.speaker = SpeakerWorker()
-        self.speaker.start() 
+        self.speaker.start()
 
-        PCTIME = datetime.now().strftime('%H:%M:%S')
+        #System_Time = datetime.now().strftime('%H:%M:%S')        
 
         global system_server_time_gap
 
@@ -36516,7 +36516,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         while True:            
 
             try:
-                response = client.request(TimeServer, version=3)
+                response = client.request(NTP_Server, version=3)
             except Exception as e:
                 pass
 
@@ -36524,11 +36524,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 time_str = time.ctime(response.tx_time).split(' ')
                 srever_time = time_str[-2]
-                SERVERTIME = '{0}:{1}:{2}'.format(srever_time[0:2], srever_time[3:5], srever_time[6:8])
+                NTP_Server_Time = '{0}:{1}:{2}'.format(srever_time[0:2], srever_time[3:5], srever_time[6:8])
+                System_Time = datetime.now().strftime('%H:%M:%S')
 
                 system_server_time_gap = round(-response.offset)
 
-                txt = '🕘 PC = [{0}]와 NTP서버 = [{1}]간 시간차는 {2}초 입니다...\r'.format(PCTIME, SERVERTIME, system_server_time_gap)        
+                txt = 'PC({0})와 NTP서버[{1}]({2})간 시간차 = {3}초\r'.format(System_Time, NTP_Server, NTP_Server_Time, system_server_time_gap)        
                 self.textBrowser.append(txt)
 
                 if system_server_time_gap > 0:
@@ -36540,7 +36541,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 break
             else:
                 if attempts >= 3:
-                    txt = 'NTP Server 통신시도 3회 초과...\r'
+                    txt = 'NTP Server 통신시도 3회 초과!\r'
                     self.textBrowser.append(txt)
                     txt = 'NTP 서버 IP를 확인해주세요.'
                     self.speaker.setText(txt)
