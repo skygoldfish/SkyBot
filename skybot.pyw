@@ -1628,6 +1628,7 @@ silver = QColor(0xC0, 0xC0, 0xC0)
 rpen = pg.mkPen('r', width=2, style=QtCore.Qt.SolidLine)
 bpen = pg.mkPen('b', width=2, style=QtCore.Qt.SolidLine)
 gpen = pg.mkPen('g', width=2, style=QtCore.Qt.SolidLine)
+wpen = pg.mkPen('w', width=2, style=QtCore.Qt.SolidLine)
 gpen1 = pg.mkPen('g', width=2, style=QtCore.Qt.DotLine)
 ypen = pg.mkPen('y', width=2, style=QtCore.Qt.SolidLine)
 ypen1 = pg.mkPen('y', width=2, style=QtCore.Qt.DotLine)
@@ -22839,7 +22840,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot1_fut_nm_quote_remainder_ratio_curve = self.plot1.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot1_fut_volume_curve = self.plot1.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_fut_volume_curve = self.plot1.plot(pen=wpen, symbolBrush='w', symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_call_volume_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_put_volume_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)           
 
@@ -22928,7 +22929,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot2_fut_nm_quote_remainder_ratio_curve = self.plot2.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot2_fut_volume_curve = self.plot2.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_fut_volume_curve = self.plot2.plot(pen=wpen, symbolBrush='w', symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_call_volume_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_put_volume_curve = self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)        
 
@@ -23017,7 +23018,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot3_fut_nm_quote_remainder_ratio_curve = self.plot3.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot3_fut_volume_curve = self.plot3.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_fut_volume_curve = self.plot3.plot(pen=wpen, symbolBrush='w', symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_call_volume_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_put_volume_curve = self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -23106,7 +23107,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot4_fut_nm_quote_remainder_ratio_curve = self.plot4.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot4_fut_volume_curve = self.plot4.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_fut_volume_curve = self.plot4.plot(pen=wpen, symbolBrush='w', symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_call_volume_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_put_volume_curve = self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)        
 
@@ -23195,7 +23196,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot5_fut_nm_quote_remainder_ratio_curve = self.plot5.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot5_fut_volume_curve = self.plot5.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_fut_volume_curve = self.plot5.plot(pen=wpen, symbolBrush='w', symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_call_volume_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_put_volume_curve = self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -23284,7 +23285,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot6_fut_nm_quote_remainder_ratio_curve = self.plot6.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot6_fut_volume_curve = self.plot6.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_fut_volume_curve = self.plot6.plot(pen=wpen, symbolBrush='w', symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_call_volume_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_put_volume_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)        
 
@@ -23347,42 +23348,42 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             pass
 
         # 수급종합
-        self.plot1_program_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_kospi_total_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot1_program_curve = self.plot1.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_kospi_total_curve = self.plot1.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
-        self.plot2_program_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_kospi_total_curve = self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot2_program_curve = self.plot2.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_kospi_total_curve = self.plot2.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
-        self.plot3_program_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_kospi_total_curve = self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot3_program_curve = self.plot3.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_kospi_total_curve = self.plot3.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
-        self.plot4_program_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_kospi_total_curve = self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot4_program_curve = self.plot4.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_kospi_total_curve = self.plot4.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
-        self.plot5_program_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_kospi_total_curve = self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot5_program_curve = self.plot5.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_kospi_total_curve = self.plot5.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
-        self.plot6_program_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_kospi_total_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot6_program_curve = self.plot6.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_kospi_total_curve = self.plot6.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
         # 외인수급
-        self.plot1_futures_foreigner_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_kospi_foreigner_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot1_futures_foreigner_curve = self.plot1.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_kospi_foreigner_curve = self.plot1.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
-        self.plot2_futures_foreigner_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_kospi_foreigner_curve = self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot2_futures_foreigner_curve = self.plot2.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_kospi_foreigner_curve = self.plot2.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
-        self.plot3_futures_foreigner_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_kospi_foreigner_curve = self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot3_futures_foreigner_curve = self.plot3.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_kospi_foreigner_curve = self.plot3.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
-        self.plot4_futures_foreigner_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_kospi_foreigner_curve = self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot4_futures_foreigner_curve = self.plot4.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_kospi_foreigner_curve = self.plot4.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
-        self.plot5_futures_foreigner_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_kospi_foreigner_curve = self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot5_futures_foreigner_curve = self.plot5.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_kospi_foreigner_curve = self.plot5.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
-        self.plot6_futures_foreigner_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_kospi_foreigner_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3) 
+        self.plot6_futures_foreigner_curve = self.plot6.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_kospi_foreigner_curve = self.plot6.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3) 
 
         # 선물관련 그래프 초기화(시간을 줄이기위해 for문 일괄처리)
         self.plot1_kp200_line = []
