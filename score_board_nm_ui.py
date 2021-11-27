@@ -2,11 +2,13 @@
 
 # Form implementation generated from reading ui file 'score_board_nm.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.12.3
 #
 # WARNING! All changes made in this file will be lost!
 
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -196,9 +198,6 @@ class Ui_Dialog(object):
         self.horizontalLayout.addWidget(self.label_kosdaq)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem)
-        self.checkBox_NM = QtWidgets.QCheckBox(self.layoutWidget)
-        self.checkBox_NM.setObjectName("checkBox_NM")
-        self.horizontalLayout.addWidget(self.checkBox_NM)
         self.pushButton_start = QtWidgets.QPushButton(self.layoutWidget)
         self.pushButton_start.setMaximumSize(QtCore.QSize(100, 16777215))
         font = QtGui.QFont()
@@ -237,7 +236,15 @@ class Ui_Dialog(object):
         self.label_4th_index.setText(_translate("Dialog", "4th index"))
         self.label_kospi.setText(_translate("Dialog", "KOSPI"))
         self.label_kosdaq.setText(_translate("Dialog", "KOSDAQ"))
-        self.checkBox_NM.setText(_translate("Dialog", "NM"))
         self.pushButton_start.setText(_translate("Dialog", "Start"))
         self.pushButton_telegram.setText(_translate("Dialog", "Telegram"))
 
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Dialog = QtWidgets.QDialog()
+    ui = Ui_Dialog()
+    ui.setupUi(Dialog)
+    Dialog.show()
+    sys.exit(app.exec_())

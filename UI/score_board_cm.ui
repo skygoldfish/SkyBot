@@ -393,13 +393,6 @@
      </spacer>
     </item>
     <item>
-     <widget class="QCheckBox" name="checkBox_NM">
-      <property name="text">
-       <string>NM</string>
-      </property>
-     </widget>
-    </item>
-    <item>
      <widget class="QPushButton" name="pushButton_start">
       <property name="maximumSize">
        <size>

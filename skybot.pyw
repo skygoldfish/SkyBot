@@ -2053,7 +2053,7 @@ schedule_min = 0
 schedule_sec = 0
 
 flag_plot_first_mode = PLOT_FIRST
-flag_periodic_plot_mode = PLOT_FIRST
+flag_option_periodic_update_mode = PLOT_FIRST
 
 flag_drop_reset1 = False
 flag_drop_reset2 = False
@@ -3836,8 +3836,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.pushButton_start.clicked.connect(self.start_button_clicked)
         self.pushButton_telegram.clicked.connect(self.telegram_button_clicked)
 
-        self.checkBox_NM.setText('PF')
-        self.checkBox_NM.setChecked(flag_periodic_plot_mode)
+        #self.checkBox_NM.setText('PF')
+        #self.checkBox_NM.setChecked(flag_option_periodic_update_mode)
         
         # label_main_time, label_atm 관련 setFont 추후 검토필요!!!
         self.label_main_time.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
@@ -4178,7 +4178,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_call.verticalScrollBar().valueChanged.connect(self.calltable_vertical_scroll_position)
         self.tableWidget_put.verticalScrollBar().valueChanged.connect(self.puttable_vertical_scroll_position)        
         
-        self.checkBox_NM.stateChanged.connect(self.checkBox_NM_checkState)        
+        #self.checkBox_NM.stateChanged.connect(self.checkBox_NM_checkState)        
 
         self.alternate_flag = True
 
@@ -4549,25 +4549,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}번째 화면을 캡처했습니다.\r'.format(now.tm_hour, now.tm_min, now.tm_sec, num)
                 self.textBrowser.append(txt)
                 print(txt)
-
+    '''
     def checkBox_NM_checkState(self):
 
-        global flag_periodic_plot_mode
+        global flag_option_periodic_update_mode
 
         dt = datetime.now()
         
         if self.checkBox_NM.isChecked() == True:
 
-            flag_periodic_plot_mode = True
+            flag_option_periodic_update_mode = True
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Plot 우선모드로 설정합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Option 주기적 갱신모드로 설정합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.parent.textBrowser.append(txt)
         else:
-            flag_periodic_plot_mode = False
+            flag_option_periodic_update_mode = False
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Plot 우선모드를 해지합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Option 주기적 갱신모드를 해지합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.parent.textBrowser.append(txt)
-    
+    '''
     def showCustomMsgBox(self, title, txt):
 
         msgBox = QMessageBox()
@@ -5890,7 +5890,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 if flag_market_service and flag_option_start:
                     
-                    if flag_periodic_plot_mode:
+                    if flag_option_periodic_update_mode:
                         
                         if self.alternate_flag:
                             # 콜 테이블 데이타 갱신 
@@ -21284,7 +21284,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_gold.setChecked(GOLD_CHK)
         self.checkBox_news.setChecked(NEWS_CHK)
 
-        self.checkBox_periodic_plot.setChecked(flag_periodic_plot_mode)
+        self.checkBox_periodic_plot.setChecked(flag_option_periodic_update_mode)
         self.checkBox_plot_first.setChecked(flag_plot_first_mode)
 
         self.spinBox_call_itm.setValue(call_itm_number)
@@ -22306,17 +22306,17 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.now()
 
-        global flag_periodic_plot_mode
+        global flag_option_periodic_update_mode
 
         if self.checkBox_periodic_plot.isChecked() == True:
 
-            flag_periodic_plot_mode = True
+            flag_option_periodic_update_mode = True
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] Plot을 주기적 갱신모드로 설정합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.parent.textBrowser.append(txt)
             print(txt)
         else:
-            flag_periodic_plot_mode = False
+            flag_option_periodic_update_mode = False
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] Plot의 주기적 갱신모드를 해지합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.parent.textBrowser.append(txt)
@@ -40373,7 +40373,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.dialog['선물옵션전광판'].call_update(tickdata)
                     call_result = copy.deepcopy(tickdata)                
 
-                    if not flag_periodic_plot_mode:                       
+                    if not flag_option_periodic_update_mode:                       
                         self.dialog['선물옵션전광판'].call_db_update()
                         self.dialog['선물옵션전광판'].call_volume_power_update()
                         self.dialog['선물옵션전광판'].call_oi_update()
@@ -40434,7 +40434,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].put_update(tickdata)
                 put_result = copy.deepcopy(tickdata)                                                                              
 
-                if not flag_periodic_plot_mode:                    
+                if not flag_option_periodic_update_mode:                    
                     self.dialog['선물옵션전광판'].put_db_update()
                     self.dialog['선물옵션전광판'].put_volume_power_update()
                     self.dialog['선물옵션전광판'].put_oi_update()

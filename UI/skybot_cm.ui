@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>640</width>
-    <height>378</height>
+    <height>506</height>
    </rect>
   </property>
   <property name="font">
@@ -30,7 +30,7 @@
       <x>9</x>
       <y>9</y>
       <width>622</width>
-      <height>277</height>
+      <height>411</height>
      </rect>
     </property>
     <property name="title">
@@ -39,10 +39,10 @@
     <widget class="QWidget" name="">
      <property name="geometry">
       <rect>
-       <x>12</x>
-       <y>20</y>
-       <width>601</width>
-       <height>251</height>
+       <x>13</x>
+       <y>21</y>
+       <width>595</width>
+       <height>369</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
@@ -73,6 +73,26 @@
         </item>
         <item>
          <widget class="QLabel" name="label_3rd">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_4th">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_5th">
           <property name="text">
            <string>TextLabel</string>
           </property>
