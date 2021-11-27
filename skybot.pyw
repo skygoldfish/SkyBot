@@ -4089,13 +4089,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             # 긴 loop를 도는 동안 GUI 응답없음을 방지하기 위함
             if i % 10 == 0:                
-                txt = ' 옵션전광판 초기화중({0:.0f}%)...\r'.format((i / ActvalCount) * 100)
+                txt = ' 선물옵션 전광판 초기화중({0:.0f}%)...\r'.format((i / ActvalCount) * 100)
                 self.parent.statusbar.showMessage(txt)
                 QApplication.processEvents()
             else:
                 pass
 
-        txt = ' 옵션전광판 초기화 완료\r'
+        txt = ' 선물옵션 전광판 초기화완료\r'
         self.parent.statusbar.showMessage(txt)
 
         # 선물관련 변수 초기화
@@ -6112,13 +6112,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             put_high_node_txt = ''                                                    
 
                         if flag_kp200_low_node:
-
                             self.kp200_low_color_blink(self.alternate_flag)
                         else:
                             kp200_low_node_txt = ''
 
                         if flag_kp200_high_node:
-
                             self.kp200_high_color_blink(self.alternate_flag)
                         else:
                             kp200_high_node_txt = ''
@@ -8036,7 +8034,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def kp200_low_color_blink(self, blink):
 
         if blink:
-
             self.tableWidget_fut.item(2, Futures_column.저가.value).setBackground(QBrush(대맥점색))
             self.tableWidget_fut.item(2, Futures_column.저가.value).setForeground(QBrush(검정색))
         else:
@@ -8046,7 +8043,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def kp200_high_color_blink(self, blink):
 
         if blink:
-
             self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(대맥점색))
             self.tableWidget_fut.item(2, Futures_column.고가.value).setForeground(QBrush(검정색))
         else:
@@ -35936,46 +35932,6 @@ class Xing(object):
         if self.caller.dialog['선물옵션전광판'] is not None:
 
             try:
-                '''
-                if self.clocktick:
-
-                    try:
-                        response = self.ntpclient.request(NTP_Server, version=3)
-
-                        time_str = time.ctime(response.tx_time).split(' ')
-                        srever_time = time_str[-2]
-
-                        self.t0167_hour = int(srever_time[0:2])
-                        self.server_minute = int(srever_time[3:5])
-                        self.server_second = int(srever_time[6:8])
-
-                        self.timegap = round(-response.offset)
-
-                    except Exception as e:
-                        
-                        self.t0167_hour = dt.hour
-                        self.server_minute = dt.minute
-                        self.server_second = dt.second
-
-                        self.timegap = system_server_time_gap
-
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : OnClockTick에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
-                        self.caller.textBrowser.append(txt)
-
-                        ipaddress = socket.gethostbyname(socket.gethostname())
-
-                        if ipaddress == '127.0.0.1':
-                            
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] NTP Server Time Get Error({3})...\r'.format(dt.hour, dt.minute, dt.second, str(e))
-                            self.caller.textBrowser.append(txt)
-                            
-                            msg = ' 인터넷 연결이 끊겼습니다.'
-                            self.caller.statusbar.showMessage(msg)
-                        else:
-                            pass
-                else:
-                    pass
-                '''
                 if flag_score_board_start:
 
                     if dt.hour == KSE_START_HOUR:
@@ -36046,10 +36002,12 @@ class Xing(object):
 
                             if 콜잔량비 > 풋잔량비:
                                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♣ CM 잔량비 콜우세 {3}:{4} ♣\r".format(dt.hour, dt.minute, dt.second, 콜잔량비, 풋잔량비)
+                                self.caller.textBrowser.append(send_txt)
                                 self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                                 ToYourTelegram(send_txt)
                             elif 콜잔량비 < 풋잔량비:
                                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♣ CM 잔량비 풋우세 {3}:{4} ♣\r".format(dt.hour, dt.minute, dt.second, 콜잔량비, 풋잔량비)
+                                self.caller.textBrowser.append(send_txt)
                                 self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                                 ToYourTelegram(send_txt)
                             else:
@@ -36124,10 +36082,12 @@ class Xing(object):
 
                             if 콜잔량비 > 풋잔량비:
                                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♣ NM 잔량비 콜우세 {3}:{4} ♣\r".format(dt.hour, dt.minute, dt.second, 콜잔량비, 풋잔량비)
+                                self.caller.textBrowser.append(send_txt)
                                 self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                                 ToYourTelegram(send_txt)
                             elif 콜잔량비 < 풋잔량비:
                                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♣ NM 잔량비 풋우세 {3}:{4} ♣\r".format(dt.hour, dt.minute, dt.second, 콜잔량비, 풋잔량비)
+                                self.caller.textBrowser.append(send_txt)
                                 self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                                 ToYourTelegram(send_txt)
                             else:
@@ -36139,8 +36099,29 @@ class Xing(object):
 
                     if self.clocktick and TARGET_MONTH == 'CM' and dt.second % 10 == 0:
 
-                        if flag_call_low_in_fixed_coreval or flag_call_high_in_fixed_coreval or flag_put_low_in_fixed_coreval or flag_put_high_in_fixed_coreval:
-                             winsound.PlaySound('Resources/notify.wav', winsound.SND_FILENAME)
+                        if flag_call_low_in_fixed_coreval or flag_call_high_in_fixed_coreval or flag_put_low_in_fixed_coreval or flag_put_high_in_fixed_coreval or flag_kp200_low_node or flag_kp200_high_node:
+
+                            if flag_call_low_in_fixed_coreval:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 콜저가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
+
+                            if flag_call_high_in_fixed_coreval:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 콜고가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
+
+                            if flag_put_low_in_fixed_coreval:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 풋저가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
+
+                            if flag_put_high_in_fixed_coreval:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 풋고가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
+
+                            if flag_kp200_low_node:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ kp200 저가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
+
+                            if flag_kp200_high_node:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ kp200 고가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
+
+                            self.caller.textBrowser.append(send_txt)
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+                            winsound.PlaySound('Resources/notify.wav', winsound.SND_FILENAME)
                         else:
                             pass
                     else:
@@ -36149,7 +36130,22 @@ class Xing(object):
                     if not self.clocktick and TARGET_MONTH == 'NM' and dt.second % 10 == 0:
 
                         if flag_call_low_in_fixed_coreval or flag_call_high_in_fixed_coreval or flag_put_low_in_fixed_coreval or flag_put_high_in_fixed_coreval:
-                             winsound.PlaySound('Resources/ring.wav', winsound.SND_FILENAME)
+                            
+                            if flag_call_low_in_fixed_coreval:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 콜저가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
+
+                            if flag_call_high_in_fixed_coreval:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 콜고가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
+
+                            if flag_put_low_in_fixed_coreval:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 풋저가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
+
+                            if flag_put_high_in_fixed_coreval:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 풋고가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
+
+                            self.caller.textBrowser.append(send_txt)
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+                            winsound.PlaySound('Resources/ring.wav', winsound.SND_FILENAME)
                         else:
                             pass
                     else:
@@ -36530,7 +36526,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 system_server_time_gap = round(-response.offset)
 
-                txt = 'PC({0})와 NTP서버[{1}]({2})간 시간차 = {3}초\r'.format(System_Time, NTP_Server, NTP_Server_Time, system_server_time_gap)        
+                txt = 'PC({0})와 NTP서버[{1}]({2})간 시간차 : {3}초\r'.format(System_Time, NTP_Server, NTP_Server_Time, system_server_time_gap)        
                 self.textBrowser.append(txt)
 
                 if system_server_time_gap > 0:
