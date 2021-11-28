@@ -292,6 +292,23 @@ EUROFX_등락율 = 0
 EUROFX_고가 = 0
 EUROFX_진폭 = 0
 
+YEN_전저 = 0
+YEN_전고 = 0
+YEN_종가 = 0
+YEN_피봇 = 0
+YEN_시가 = 0
+
+YEN_저가 = 0
+
+YEN_현재가 = 0
+YEN_과거가 = 0
+YEN_대비 = 0
+YEN_전일대비 = 0
+YEN_등락율 = 0
+
+YEN_고가 = 0
+YEN_진폭 = 0
+
 HANGSENG_전저 = 0
 HANGSENG_전고 = 0
 HANGSENG_종가 = 0
@@ -332,6 +349,7 @@ SP500_당일종가 = 0
 NASDAQ_당일종가 = 0
 WTI_당일종가 = 0
 EUROFX_당일종가 = 0
+YEN_당일종가 = 0
 HANGSENG_당일종가 = 0
 GOLD_당일종가 = 0
 
@@ -810,6 +828,9 @@ else:
     EUROFX_전저 = 0
     EUROFX_전고 = 0
     EUROFX_종가 = 0
+    YEN_전저 = 0
+    YEN_전고 = 0
+    YEN_종가 = 0
     HANGSENG_전저 = 0
     HANGSENG_전고 = 0
     HANGSENG_종가 = 0
@@ -900,6 +921,7 @@ else:
     NASDAQ_전일종가 = 0
     WTI_전일종가 = 0
     EUROFX_전일종가 = 0
+    YEN_전일종가 = 0
     HANGSENG_전일종가 = 0
     GOLD_전일종가 = 0
 
@@ -3868,24 +3890,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.label_1st_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
             color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
-        self.label_1st_index.setText("DOW: 가격 (전일대비, 등락율, 진폭)")
+        self.label_1st_index.setText("DOW/SP500: 가격 (전일대비, 등락율, 진폭)")
         
         self.label_2nd_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
             color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
-        self.label_2nd_index.setText("NASDAQ: 가격 (전일대비, 등락율)")
+        self.label_2nd_index.setText("NASDAQ/HANGSEN: 가격 (전일대비, 등락율)")
         
         self.label_3rd_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
             color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
-        self.label_3rd_index.setText("WTI: 가격 (전일대비, 등락율)")
+        self.label_3rd_index.setText("원자재: 가격 (전일대비, 등락율)")
         
         self.label_4th_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
             color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
 
         if NightTime:
-            self.label_4th_index.setText("SP500: 가격 (전일대비, 등락율)")
+            self.label_4th_index.setText("외환: 가격 (전일대비, 등락율)")
         else:
             self.label_4th_index.setText("SAMSUNG: 가격 (전일대비, 등락율)")
         
@@ -40700,12 +40722,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_현재가, NASDAQ_전일대비, NASDAQ_등락율, NASDAQ_진폭, NASDAQ_고가
         global WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭, WTI_고가
         global EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭, EUROFX_고가
+        global YEN_종가, YEN_피봇, YEN_시가, YEN_저가, YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭, YEN_고가
         global HANGSENG_종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭, HANGSENG_고가
         global GOLD_종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭, GOLD_고가
         global DOW_현재가_버퍼, SP500_현재가_버퍼, NASDAQ_현재가_버퍼, WTI_현재가_버퍼
-        global SP500_과거가, DOW_과거가, NASDAQ_과거가, WTI_과거가, EUROFX_과거가, HANGSENG_과거가, GOLD_과거가
+        global SP500_과거가, DOW_과거가, NASDAQ_과거가, WTI_과거가, EUROFX_과거가, YEN_과거가, HANGSENG_과거가, GOLD_과거가
 
-        global DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가, GOLD_당일종가
+        global DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, YEN_당일종가, HANGSENG_당일종가, GOLD_당일종가
         global DOW_주간_시작가, WTI_주간_시작가, DOW_야간_시작가, WTI_야간_시작가
         
         global flag_dow_ohlc_open, flag_sp500_ohlc_open, flag_nasdaq_ohlc_open, flag_wti_ohlc_open
@@ -41151,7 +41174,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 그래프 등락율 가격갱신
                 df_sp500_graph.at[cme_time_index, 'drate'] = drate_temp
 
-                체결가격 = locale.format('%.2f', SP500_현재가, 1)
+                SP500_체결가격 = locale.format('%.2f', SP500_현재가, 1)
 
                 # 1T OHLC 생성
                 df_sp500_graph.at[cme_time_index, 'ctime'] = OVC_체결시간
@@ -41242,24 +41265,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         if SP500_등락율 < 0:
 
                             if min(대비리스트) > 0:
-                                jisu_txt = "SP500: {0} ({1:.2f}, {2:.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                                jisu_txt = "SP500: {0} ({1:.2f}, {2:.2f}%)⬈".format(SP500_체결가격, SP500_전일대비, SP500_등락율)                                    
                             else:
-                                jisu_txt = "SP500: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+                                jisu_txt = "SP500: {0} ▲ ({1:.2f}, {2:.2f}%)".format(SP500_체결가격, SP500_전일대비, SP500_등락율)
 
-                            self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+                            self.dialog['선물옵션전광판'].label_1st_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_1st_index.setText(jisu_txt)
 
                             sp500_text_color = 'blue'                           
 
                         elif SP500_등락율 > 0:  
 
                             if min(대비리스트) > 0:
-                                jisu_txt = "SP500: {0} ▲ ({1:.2f}, {2:.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                                jisu_txt = "SP500: {0} ▲ ({1:.2f}, {2:.2f}%)⬈".format(SP500_체결가격, SP500_전일대비, SP500_등락율)                                    
                             else:
-                                jisu_txt = "SP500: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+                                jisu_txt = "SP500: {0} ▲ ({1:.2f}, {2:.2f}%)".format(SP500_체결가격, SP500_전일대비, SP500_등락율)
 
-                            self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+                            self.dialog['선물옵션전광판'].label_1st_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_1st_index.setText(jisu_txt)
 
                             sp500_text_color = 'red'
                         else:
@@ -41270,24 +41293,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         if SP500_등락율 < 0: 
 
                             if max(대비리스트) < 0:
-                                jisu_txt = "SP500: {0} ({1:.2f}, {2:.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                                jisu_txt = "SP500: {0} ({1:.2f}, {2:.2f}%)⬊".format(SP500_체결가격, SP500_전일대비, SP500_등락율)                                    
                             else:
-                                jisu_txt = "SP500: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+                                jisu_txt = "SP500: {0} ▼ ({1:.2f}, {2:.2f}%)".format(SP500_체결가격, SP500_전일대비, SP500_등락율)
 
-                            self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+                            self.dialog['선물옵션전광판'].label_1st_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_1st_index.setText(jisu_txt)
 
                             sp500_text_color = 'blue'                                
 
                         elif SP500_등락율 > 0:
 
                             if max(대비리스트) < 0:
-                                jisu_txt = "SP500: {0} ({1:.2f}, {2:.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                                jisu_txt = "SP500: {0} ({1:.2f}, {2:.2f}%)⬊".format(SP500_체결가격, SP500_전일대비, SP500_등락율)                                    
                             else:
-                                jisu_txt = "SP500: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+                                jisu_txt = "SP500: {0} ▼ ({1:.2f}, {2:.2f}%)".format(SP500_체결가격, SP500_전일대비, SP500_등락율)
 
-                            self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+                            self.dialog['선물옵션전광판'].label_1st_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_1st_index.setText(jisu_txt)
 
                             sp500_text_color = 'red'                                
                         else:
@@ -41317,7 +41340,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
                 
-                체결가격 = locale.format('%.2f', WTI_현재가, 1)
+                WTI_체결가격 = locale.format('%.2f', WTI_현재가, 1)
 
                 # 1T OHLC 생성
                 df_wti_graph.at[cme_time_index, 'ctime'] = OVC_체결시간
@@ -41408,9 +41431,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         if WTI_등락율 < 0:
 
                             if min(대비리스트) > 0:
-                                jisu_txt = "WTI: {0} ({1:.2f}, {2:.2f}%)⬈".format(체결가격, WTI_전일대비, WTI_등락율)                                    
+                                jisu_txt = "WTI: {0} ({1:.2f}, {2:.2f}%)⬈".format(WTI_체결가격, WTI_전일대비, WTI_등락율)                                    
                             else:
-                                jisu_txt = "WTI: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
+                                jisu_txt = "WTI: {0} ▲ ({1:.2f}, {2:.2f}%)".format(WTI_체결가격, WTI_전일대비, WTI_등락율)
 
                             self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
@@ -41420,9 +41443,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         elif WTI_등락율 > 0:
 
                             if min(대비리스트) > 0:
-                                jisu_txt = "WTI: {0} ▲ ({1:.2f}, {2:.2f}%)⬈".format(체결가격, WTI_전일대비, WTI_등락율)                                    
+                                jisu_txt = "WTI: {0} ▲ ({1:.2f}, {2:.2f}%)⬈".format(WTI_체결가격, WTI_전일대비, WTI_등락율)                                    
                             else:
-                                jisu_txt = "WTI: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
+                                jisu_txt = "WTI: {0} ▲ ({1:.2f}, {2:.2f}%)".format(WTI_체결가격, WTI_전일대비, WTI_등락율)
 
                             self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
@@ -41436,9 +41459,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         if WTI_등락율 < 0:
 
                             if max(대비리스트) < 0:
-                                jisu_txt = "WTI: {0} ({1:.2f}, {2:.2f}%)⬊".format(체결가격, WTI_전일대비, WTI_등락율)                                    
+                                jisu_txt = "WTI: {0} ({1:.2f}, {2:.2f}%)⬊".format(WTI_체결가격, WTI_전일대비, WTI_등락율)                                    
                             else:
-                                jisu_txt = "WTI: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
+                                jisu_txt = "WTI: {0} ▼ ({1:.2f}, {2:.2f}%)".format(WTI_체결가격, WTI_전일대비, WTI_등락율)
 
                             self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
@@ -41448,9 +41471,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         elif WTI_등락율 > 0:
 
                             if max(대비리스트) < 0:
-                                jisu_txt = "WTI: {0} ({1:.2f}, {2:.2f}%)⬊".format(체결가격, WTI_전일대비, WTI_등락율)                                    
+                                jisu_txt = "WTI: {0} ({1:.2f}, {2:.2f}%)⬊".format(WTI_체결가격, WTI_전일대비, WTI_등락율)                                    
                             else:
-                                jisu_txt = "WTI: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
+                                jisu_txt = "WTI: {0} ▼ ({1:.2f}, {2:.2f}%)".format(WTI_체결가격, WTI_전일대비, WTI_등락율)
 
                             self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
@@ -41519,9 +41542,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         if GOLD_등락율 < 0:
 
                             if min(대비리스트) > 0:
-                                jisu_txt = "GOLD: {0} ({1:.2f}, {2:.2f}%)⬈".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
+                                jisu_txt = "GOLD: {0} ({1:.2f}, {2:.2f}%)⬈".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율)                                    
                             else:
-                                jisu_txt = "GOLD: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
+                                jisu_txt = "GOLD: {0} ▲ ({1:.2f}, {2:.2f}%)".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율)
 
                             self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
@@ -41531,9 +41554,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         elif GOLD_등락율 > 0:
 
                             if min(대비리스트) > 0:
-                                jisu_txt = "GOLD: {0} ▲ ({1:.2f}, {2:.2f}%)⬈".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
+                                jisu_txt = "GOLD: {0} ▲ ({1:.2f}, {2:.2f}%)⬈".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율)                                    
                             else:
-                                jisu_txt = "GOLD: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
+                                jisu_txt = "GOLD: {0} ▲ ({1:.2f}, {2:.2f}%)".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율)
 
                             self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
@@ -41547,9 +41570,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         if GOLD_등락율 < 0:
 
                             if max(대비리스트) < 0:
-                                jisu_txt = "GOLD: {0} ({1:.2f}, {2:.2f}%)⬊".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
+                                jisu_txt = "GOLD: {0} ({1:.2f}, {2:.2f}%)⬊".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율)                                    
                             else:
-                                jisu_txt = "GOLD: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
+                                jisu_txt = "GOLD: {0} ▼ ({1:.2f}, {2:.2f}%)".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율)
 
                             self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
@@ -41559,9 +41582,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         elif GOLD_등락율 > 0:
 
                             if max(대비리스트) < 0:
-                                jisu_txt = "GOLD: {0} ({1:.2f}, {2:.2f}%)⬊".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
+                                jisu_txt = "GOLD: {0} ({1:.2f}, {2:.2f}%)⬊".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율)                                    
                             else:
-                                jisu_txt = "GOLD: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
+                                jisu_txt = "GOLD: {0} ▼ ({1:.2f}, {2:.2f}%)".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율)
 
                             self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
@@ -41576,7 +41599,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass            
             
-            elif tickdata['종목코드'] == EUROFX and pre_start:
+            elif tickdata['종목코드'] == EUROFX:
 
                 # 그래프 가격갱신
                 df_eurofx_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])                    
@@ -41630,24 +41653,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         if EUROFX_등락율 < 0:
 
                             if min(대비리스트) > 0:
-                                jisu_txt = "EUROFX: {0:0.5f} ({1:0.5f}, {2:.2f}%)⬈".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
+                                jisu_txt = "EUROFX: {0:0.5f} ({1:0.5f}, {2:.2f}%)⬈".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율)                                    
                             else:
-                                jisu_txt = "EUROFX: {0:0.5f} ▲ ({1:0.5f}, {2:.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
+                                jisu_txt = "EUROFX: {0:0.5f} ▲ ({1:0.5f}, {2:.2f}%)".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율)
 
-                            self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
+                            self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
 
                             eurofx_text_color = 'blue'                                           
 
                         elif EUROFX_등락율 > 0:
 
                             if min(대비리스트) > 0:
-                                jisu_txt = "EUROFX: {0:0.5f} ▲ ({1:0.5f}, {2:.2f}%)⬈".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
+                                jisu_txt = "EUROFX: {0:0.5f} ▲ ({1:0.5f}, {2:.2f}%)⬈".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율)                                    
                             else:
-                                jisu_txt = "EUROFX: {0:0.5f} ▲ ({1:0.5f}, {2:.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
+                                jisu_txt = "EUROFX: {0:0.5f} ▲ ({1:0.5f}, {2:.2f}%)".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율)
 
-                            self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
+                            self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
 
                             eurofx_text_color = 'red'                                                                             
                         else:
@@ -41658,24 +41681,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         if EUROFX_등락율 < 0:
 
                             if max(대비리스트) < 0:
-                                jisu_txt = "EUROFX: {0:0.5f} ({1:0.5f}, {2:.2f}%)⬊".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
+                                jisu_txt = "EUROFX: {0:0.5f} ({1:0.5f}, {2:.2f}%)⬊".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율)                                    
                             else:
-                                jisu_txt = "EUROFX: {0:0.5f} ▼ ({1:0.5f}, {2:.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
+                                jisu_txt = "EUROFX: {0:0.5f} ▼ ({1:0.5f}, {2:.2f}%)".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율)
 
-                            self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
+                            self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
 
                             eurofx_text_color = 'blue'
 
                         elif EUROFX_등락율 > 0:
 
                             if max(대비리스트) < 0:
-                                jisu_txt = "EUROFX: {0:0.5f} ({1:0.5f}, {2:.2f}%)⬊".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
+                                jisu_txt = "EUROFX: {0:0.5f} ({1:0.5f}, {2:.2f}%)⬊".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율)                                    
                             else:
-                                jisu_txt = "EUROFX: {0:0.5f} ▼ ({1:0.5f}, {2:.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
+                                jisu_txt = "EUROFX: {0:0.5f} ▼ ({1:0.5f}, {2:.2f}%)".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율)
 
-                            self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
+                            self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
 
                             eurofx_text_color = 'red'
                         else:
@@ -41687,9 +41710,120 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-            elif tickdata['종목코드'] == YEN and pre_start:
-                txt = 'YEN 가격 = {0}\r'.format(tickdata['체결가격'])
-                print(txt)
+            elif tickdata['종목코드'] == YEN:
+
+                #txt = 'YEN 가격 = {0}\r'.format(tickdata['체결가격'])
+                #print(txt)
+
+                # 그래프 가격갱신
+                df_yen_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])                    
+
+                YEN_현재가 = float(tickdata['체결가격'])
+                YEN_전일대비 = round((YEN_현재가 - YEN_종가), 5)
+                YEN_등락율 = tickdata['등락율']
+
+                YEN_저가 =  float(tickdata['저가'])
+                YEN_고가 =  float(tickdata['고가'])                    
+                YEN_진폭 = round((YEN_고가 - YEN_저가), 2)
+
+                if YEN_전일종가 > 0 and DayTime:
+                    YEN_등락율 = ((tickdata['체결가격'] - YEN_전일종가) / YEN_전일종가) * 100
+                else:
+                    pass
+
+                if YEN_시가 == 0:
+
+                    if tickdata['전일대비기호'] == '5':
+
+                        YEN_종가 = round((YEN_현재가 + float(tickdata['전일대비'])), 5)
+                    else:
+                        YEN_종가 = round((YEN_현재가 - float(tickdata['전일대비'])), 5)
+
+                    df_yen_graph.at[0, 'price'] = YEN_종가
+                    df_yen_graph.at[1, 'price'] = float(tickdata['시가'])
+
+                    YEN_시가 = float(tickdata['시가'])
+                else:
+                    pass                    
+                
+                if YEN_피봇 == 0:
+
+                    if YEN_전저 > 0 and YEN_전고 > 0:
+                        YEN_피봇 = calc_pivot(YEN_전저, YEN_전고, YEN_종가, YEN_시가)
+                    else:
+                        pass
+                else:
+                    pass
+                
+                if YEN_현재가 != YEN_과거가:
+                
+                    old_yen_delta = yen_delta
+                    yen_delta = YEN_현재가
+                    yen_직전대비.extend([yen_delta - old_yen_delta])
+                    대비리스트 = list(yen_직전대비)                         
+
+                    if YEN_현재가 > YEN_과거가:
+
+                        if YEN_등락율 < 0:
+
+                            if min(대비리스트) > 0:
+                                jisu_txt = "YEN: {0:0.5f} ({1:0.5f}, {2:.2f}%)⬈".format(YEN_현재가, YEN_전일대비, YEN_등락율)                                    
+                            else:
+                                jisu_txt = "YEN: {0:0.5f} ▲ ({1:0.5f}, {2:.2f}%)".format(YEN_현재가, YEN_전일대비, YEN_등락율)
+
+                            self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+
+                            yen_text_color = 'blue'                                           
+
+                        elif YEN_등락율 > 0:
+
+                            if min(대비리스트) > 0:
+                                jisu_txt = "YEN: {0:0.5f} ▲ ({1:0.5f}, {2:.2f}%)⬈".format(YEN_현재가, YEN_전일대비, YEN_등락율)                                    
+                            else:
+                                jisu_txt = "YEN: {0:0.5f} ▲ ({1:0.5f}, {2:.2f}%)".format(YEN_현재가, YEN_전일대비, YEN_등락율)
+
+                            self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+
+                            yen_text_color = 'red'                                                                             
+                        else:
+                            pass
+
+                    elif YEN_현재가 < YEN_과거가:
+
+                        if YEN_등락율 < 0:
+
+                            if max(대비리스트) < 0:
+                                jisu_txt = "YEN: {0:0.5f} ({1:0.5f}, {2:.2f}%)⬊".format(YEN_현재가, YEN_전일대비, YEN_등락율)                                    
+                            else:
+                                jisu_txt = "YEN: {0:0.5f} ▼ ({1:0.5f}, {2:.2f}%)".format(YEN_현재가, YEN_전일대비, YEN_등락율)
+
+                            self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+
+                            yen_text_color = 'blue'
+
+                        elif YEN_등락율 > 0:
+
+                            if max(대비리스트) < 0:
+                                jisu_txt = "YEN: {0:0.5f} ({1:0.5f}, {2:.2f}%)⬊".format(YEN_현재가, YEN_전일대비, YEN_등락율)                                    
+                            else:
+                                jisu_txt = "YEN: {0:0.5f} ▼ ({1:0.5f}, {2:.2f}%)".format(YEN_현재가, YEN_전일대비, YEN_등락율)
+
+                            self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+
+                            yen_text_color = 'red'
+                        else:
+                            pass                            
+                    else:
+                        pass
+
+                    YEN_과거가 = YEN_현재가
+                else:
+                    pass                
+
             elif tickdata['종목코드'] == HANGSENG:
 
                 # 그래프 가격갱신
@@ -41708,7 +41842,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                체결가격 = locale.format('%d', float(tickdata['체결가격']), 1)
+                HANGSENG_체결가격 = locale.format('%d', float(tickdata['체결가격']), 1)
 
                 if HANGSENG_시가 == 0:
 
@@ -41746,9 +41880,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         if HANGSENG_등락율 < 0:
 
                             if min(대비리스트) > 0:
-                                jisu_txt = "HANGSENG: {0} ({1}, {2:.2f}%)⬈".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                                jisu_txt = "HANGSENG: {0} ({1}, {2:.2f}%)⬈".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
                             else:
-                                jisu_txt = "HANGSENG: {0} ▲ ({1}, {2:.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+                                jisu_txt = "HANGSENG: {0} ▲ ({1}, {2:.2f}%)".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)
 
                             self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
@@ -41758,9 +41892,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         elif HANGSENG_등락율 > 0:
 
                             if min(대비리스트) > 0:
-                                jisu_txt = "HANGSENG: {0} ▲ ({1}, {2:.2f}%)⬈".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                                jisu_txt = "HANGSENG: {0} ▲ ({1}, {2:.2f}%)⬈".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
                             else:
-                                jisu_txt = "HANGSENG: {0} ▲ ({1}, {2:.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+                                jisu_txt = "HANGSENG: {0} ▲ ({1}, {2:.2f}%)".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)
 
                             self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
@@ -41774,9 +41908,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         if HANGSENG_등락율 < 0:
 
                             if max(대비리스트) < 0:
-                                jisu_txt = "HANGSENG: {0} ({1}, {2:.2f}%)⬊".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                                jisu_txt = "HANGSENG: {0} ({1}, {2:.2f}%)⬊".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
                             else:
-                                jisu_txt = "HANGSENG: {0} ▼ ({1}, {2:.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+                                jisu_txt = "HANGSENG: {0} ▼ ({1}, {2:.2f}%)".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)
 
                             self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
@@ -41786,9 +41920,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         elif HANGSENG_등락율 > 0:
 
                             if max(대비리스트) < 0:
-                                jisu_txt = "HANGSENG: {0} ({1}, {2:.2f}%)⬊".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                                jisu_txt = "HANGSENG: {0} ({1}, {2:.2f}%)⬊".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
                             else:
-                                jisu_txt = "HANGSENG: {0} ▼ ({1}, {2:.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+                                jisu_txt = "HANGSENG: {0} ▼ ({1}, {2:.2f}%)".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)
 
                             self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
