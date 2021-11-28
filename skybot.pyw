@@ -5892,7 +5892,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 #if flag_market_service:
                 if True:
                     self.option_quote_update()
-                    
+                    '''
                     if DayTime and fut_cm_result:                    
                         self.fut_cm_etc_update(fut_cm_result)
                     else:
@@ -5902,6 +5902,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.fut_nm_etc_update(fut_nm_result)
                     else:
                         pass
+                    '''
                 else:
                     pass
                 
@@ -5944,78 +5945,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.oi_total_update()
                     else:
                         pass
-                    
-                    # 선물, 콜, 풋 현재가 클리어
-                    #self.cv_color_clear()
-                    #self.price_color_clear()
-
-                    # 매 10분마다 교차컬러링 수행
-                    if not flag_call_low_update and not flag_call_high_update and not flag_put_low_update and not flag_put_high_update:
-
-                        if flag_put_cross_coloring or (self.alternate_flag and dt.minute % CROSS_COLOR_INTERVAL == 0 and dt.second == 0):
-
-                            flag_call_cross_coloring = True
-
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] Call 교차컬러링을 수행합니다.\r'.format(t0167_server_hour, t0167_server_minute, t0167_server_second)
-                            self.textBrowser.append(txt)
-                            print(txt)
-
-                            if not flag_clear:
-                                
-                                self.call_node_color_clear()
-                                self.put_node_color_clear()
-                                flag_clear = True
-                                
-                                if SEARCH_MOVING_NODE and bms_node_list:
-                                    self.search_moving_node()
-                                else:
-                                    pass
-                            else:
-                                pass 
-
-                            self.call_open_check()   
-                            self.call_cross_color_update()        
-                            self.call_node_color_update()
-                            self.call_coreval_color_update()
-
-                        elif flag_call_cross_coloring or (not self.alternate_flag and dt.minute % CROSS_COLOR_INTERVAL == 0 and dt.second == 0):
-
-                            flag_put_cross_coloring = True
-
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] Put 교차컬러링을 수행합니다.\r'.format(t0167_server_hour, t0167_server_minute, t0167_server_second)
-                            self.textBrowser.append(txt)
-                            print(txt)                                        
-                            
-                            if not flag_clear:
-
-                                self.call_node_color_clear()
-                                self.put_node_color_clear()
-                                flag_clear = True
-
-                                if SEARCH_MOVING_NODE and bms_node_list:
-                                    self.search_moving_node()
-                                else:
-                                    pass
-                            else:
-                                pass
-
-                            self.put_open_check()
-                            self.put_cross_color_update()         
-                            self.put_node_color_update()
-                            self.put_coreval_color_update()
-
-                        else:
-                            pass
-                    else:
-                        pass
-
-                    if flag_call_cross_coloring and flag_put_cross_coloring:
-
-                        flag_call_cross_coloring = False
-                        flag_put_cross_coloring = False
-                        flag_clear = False
-                    else:
-                        pass                                     
 
                     if self.alternate_flag:                    
 
@@ -6096,6 +6025,74 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             flag_put_high_update = False
                         else:
                             pass 
+
+                    # 매 10분마다 교차컬러링 수행
+                    if not flag_call_low_update and not flag_call_high_update and not flag_put_low_update and not flag_put_high_update:
+
+                        if flag_put_cross_coloring or (self.alternate_flag and dt.minute % CROSS_COLOR_INTERVAL == 0 and dt.second == 0):
+
+                            flag_call_cross_coloring = True
+
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] Call 교차컬러링을 수행합니다.\r'.format(t0167_server_hour, t0167_server_minute, t0167_server_second)
+                            self.textBrowser.append(txt)
+                            print(txt)
+
+                            if not flag_clear:
+                                
+                                self.call_node_color_clear()
+                                self.put_node_color_clear()
+                                flag_clear = True
+                                
+                                if SEARCH_MOVING_NODE and bms_node_list:
+                                    self.search_moving_node()
+                                else:
+                                    pass
+                            else:
+                                pass 
+
+                            self.call_open_check()   
+                            self.call_cross_color_update()        
+                            self.call_node_color_update()
+                            self.call_coreval_color_update()
+
+                        elif flag_call_cross_coloring or (not self.alternate_flag and dt.minute % CROSS_COLOR_INTERVAL == 0 and dt.second == 0):
+
+                            flag_put_cross_coloring = True
+
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] Put 교차컬러링을 수행합니다.\r'.format(t0167_server_hour, t0167_server_minute, t0167_server_second)
+                            self.textBrowser.append(txt)
+                            print(txt)                                        
+                            
+                            if not flag_clear:
+
+                                self.call_node_color_clear()
+                                self.put_node_color_clear()
+                                flag_clear = True
+
+                                if SEARCH_MOVING_NODE and bms_node_list:
+                                    self.search_moving_node()
+                                else:
+                                    pass
+                            else:
+                                pass
+
+                            self.put_open_check()
+                            self.put_cross_color_update()         
+                            self.put_node_color_update()
+                            self.put_coreval_color_update()
+
+                        else:
+                            pass
+                    else:
+                        pass
+
+                    if flag_call_cross_coloring and flag_put_cross_coloring:
+
+                        flag_call_cross_coloring = False
+                        flag_put_cross_coloring = False
+                        flag_clear = False
+                    else:
+                        pass
 
                     if not dongsi_quote:
                     
@@ -8398,7 +8395,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
 
         if self.call_open_list:
-
             loop_list = self.call_open_list
         else:
             loop_list = self.opt_total_actval_list
@@ -10970,7 +10966,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
 
         if self.put_open_list:
-
             loop_list = self.put_open_list
         else:
             loop_list = self.opt_total_actval_list
@@ -39832,7 +39827,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 fut_cm_result = copy.deepcopy(tickdata)
 
-                self.dialog['선물옵션전광판'].fut_cm_update(fut_cm_result)
+                self.dialog['선물옵션전광판'].fut_cm_update(tickdata)
+                self.dialog['선물옵션전광판'].fut_cm_etc_update(tickdata)
 
             elif tickdata['단축코드'] == CMSHCODE:
 
@@ -39960,7 +39956,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 fut_nm_result = copy.deepcopy(tickdata)
 
-                self.dialog['선물옵션전광판'].fut_nm_update(fut_nm_result)       
+                self.dialog['선물옵션전광판'].fut_nm_update(tickdata)
+                self.dialog['선물옵션전광판'].fut_nm_etc_update(tickdata)    
             else:
                 pass
 
