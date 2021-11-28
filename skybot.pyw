@@ -12480,17 +12480,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.tableWidget_fut.setItem(0, Futures_column.OID.value, item)
 
-    def check_call_oloh(self):
+    def check_call_oloh(self, result):
 
         global call_ol, call_oh 
         global call_ol_count, call_oh_count
 
-        index = call_행사가.index(call_result['단축코드'][5:8])
+        index = call_행사가.index(result['단축코드'][5:8])
         
-        콜시가 = float(call_result['시가'])
-        콜현재가 = float(call_result['현재가'])
-        콜저가 = float(call_result['저가'])
-        콜고가 = float(call_result['고가'])
+        콜시가 = float(result['시가'])
+        콜현재가 = float(result['현재가'])
+        콜저가 = float(result['저가'])
+        콜고가 = float(result['고가'])
 
         if 콜시가 >= oloh_cutoff:
 
@@ -12932,11 +12932,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
 
-                    if call_result:
-                        self.check_call_oloh()
-                        #self.call_low_coreval_color_update()
-                    else:
-                        pass
+                    self.check_call_oloh(result)
 
                     # 콜은 인덱스 기준으로 갱신
                     if 콜저가 < 콜고가:
@@ -13019,11 +13015,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
 
-                    if call_result:
-                        self.check_call_oloh()
-                        #self.call_high_coreval_color_update()
-                    else:
-                        pass
+                    self.check_call_oloh(result)
 
                     # 콜은 인덱스 기준으로 갱신
                     if 콜저가 < 콜고가:
@@ -13575,17 +13567,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-    def check_put_oloh(self):
+    def check_put_oloh(self, result):
 
         global put_ol, put_oh
         global put_ol_count, put_oh_count
 
-        index = put_행사가.index(put_result['단축코드'][5:8])
+        index = put_행사가.index(result['단축코드'][5:8])
         
-        풋시가 = float(put_result['시가'])
-        풋현재가 = float(put_result['현재가'])
-        풋저가 = float(put_result['저가'])
-        풋고가 = float(put_result['고가'])
+        풋시가 = float(result['시가'])
+        풋현재가 = float(result['현재가'])
+        풋저가 = float(result['저가'])
+        풋고가 = float(result['고가'])
 
         if 풋시가 >= oloh_cutoff:
 
@@ -14019,11 +14011,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
 
-                    if put_result:
-                        self.check_put_oloh()
-                        #self.put_low_coreval_color_update()
-                    else:
-                        pass
+                    self.check_put_oloh(result)
 
                     # 풋은 가격기준으로 갱신
                     if 풋저가 < 풋고가 and update_start < 풋저가 < update_end:            
@@ -14106,11 +14094,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
 
-                    if put_result:
-                        self.check_put_oloh()
-                        #self.put_high_coreval_color_update()
-                    else:
-                        pass
+                    self.check_put_oloh(result)
 
                     # 풋은 가격기준으로 갱신
                     if 풋저가 < 풋고가 and update_start < 풋고가 < update_end:            
