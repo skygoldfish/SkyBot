@@ -400,9 +400,10 @@ DOW_CHK = parser.getboolean('RealTime Request Item Switch', 'DOW')
 SP500_CHK = parser.getboolean('RealTime Request Item Switch', 'S&P 500')
 NASDAQ_CHK = parser.getboolean('RealTime Request Item Switch', 'NASDAQ')
 WTI_CHK = parser.getboolean('RealTime Request Item Switch', 'WTI OIL')
-EUROFX_CHK = parser.getboolean('RealTime Request Item Switch', 'EUROFX')
-HANGSENG_CHK = parser.getboolean('RealTime Request Item Switch', 'HANGSENG')
 GOLD_CHK = parser.getboolean('RealTime Request Item Switch', 'GOLD')
+EUROFX_CHK = parser.getboolean('RealTime Request Item Switch', 'EUROFX')
+YEN_CHK = parser.getboolean('RealTime Request Item Switch', 'YEN')
+HANGSENG_CHK = parser.getboolean('RealTime Request Item Switch', 'HANGSENG')
 NEWS_CHK = parser.getboolean('RealTime Request Item Switch', 'NEWS')
 
 # [7]. << Moving Average Type >>
