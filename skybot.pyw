@@ -440,10 +440,11 @@ OVER_CALL_LIMIT_VAL = parser.getfloat('Initial Value', 'Over Call Limit Value')
 SP500 = parser.get('Code of the Foreign Futures', 'S&P 500')
 DOW = parser.get('Code of the Foreign Futures', 'DOW')
 NASDAQ = parser.get('Code of the Foreign Futures', 'NASDAQ')
-WTI = parser.get('Code of the Foreign Futures', 'WTI')
-EUROFX = parser.get('Code of the Foreign Futures', 'EUROFX')
 HANGSENG = parser.get('Code of the Foreign Futures', 'HANGSENG')
+WTI = parser.get('Code of the Foreign Futures', 'WTI')
 GOLD = parser.get('Code of the Foreign Futures', 'GOLD')
+EUROFX = parser.get('Code of the Foreign Futures', 'EUROFX')
+YEN = parser.get('Code of the Foreign Futures', 'YEN')
 
 # [10]. << Telegram >>
 TELEGRAM_START_TIME = parser.getint('Telegram', 'Telegram polling start time(minute) after service')
@@ -1268,9 +1269,10 @@ sp500_직전대비 = collections.deque([0, 0, 0], 5)
 dow_직전대비 = collections.deque([0, 0, 0], 5)
 nasdaq_직전대비 = collections.deque([0, 0, 0], 5)
 wti_직전대비 = collections.deque([0, 0, 0], 5)
-eurofx_직전대비 = collections.deque([0, 0, 0], 5)
-hangseng_직전대비 = collections.deque([0, 0, 0], 5)
 gold_직전대비 = collections.deque([0, 0, 0], 5)
+eurofx_직전대비 = collections.deque([0, 0, 0], 5)
+yen_직전대비 = collections.deque([0, 0, 0], 5)
+hangseng_직전대비 = collections.deque([0, 0, 0], 5)
 
 actval_increased = False
 
@@ -1331,9 +1333,10 @@ df_sp500_graph = pd.DataFrame()
 df_dow_graph = pd.DataFrame()
 df_nasdaq_graph = pd.DataFrame()
 df_wti_graph = pd.DataFrame()
-df_eurofx_graph = pd.DataFrame()
-df_hangseng_graph = pd.DataFrame()
 df_gold_graph = pd.DataFrame()
+df_eurofx_graph = pd.DataFrame()
+df_yen_graph = pd.DataFrame()
+df_hangseng_graph = pd.DataFrame()
 
 call_quote = pd.Series()
 put_quote = pd.Series()
@@ -1495,14 +1498,17 @@ old_nasdaq_delta = 0
 wti_delta = 0
 old_wti_delta = 0
 
+gold_delta = 0
+old_gold_delta = 0
+
 eurofx_delta = 0
 old_eurofx_delta = 0
 
+yen_delta = 0
+old_yen_delta = 0
+
 hangseng_delta = 0
 old_hangseng_delta = 0
-
-gold_delta = 0
-old_gold_delta = 0
 
 comboindex1 = 0
 comboindex2 = 0
@@ -1706,9 +1712,10 @@ sp500_text_color = ''
 dow_text_color = ''
 nasdaq_text_color = ''
 wti_text_color = ''
-eurofx_text_color = ''
-hangseng_text_color = ''
 gold_text_color = ''
+eurofx_text_color = ''
+yen_text_color = ''
+hangseng_text_color = ''
 
 call_max_actval = False
 put_max_actval = False
@@ -1851,6 +1858,14 @@ df_wti_ohlc_1min = pd.DataFrame()
 df_wti_ohlc_5min = pd.DataFrame()
 df_wti_ohlc_15min = pd.DataFrame()
 
+# GOLD OHLC 연산
+gold_tick_list = []
+gold_value_list = []
+df_gold_ohlc = pd.DataFrame()
+df_gold_ohlc_1min = pd.DataFrame()
+df_gold_ohlc_5min = pd.DataFrame()
+df_gold_ohlc_15min = pd.DataFrame()
+
 # EUROFX OHLC 연산
 eurofx_tick_list = []
 eurofx_value_list = []
@@ -1859,6 +1874,14 @@ df_eurofx_ohlc_1min = pd.DataFrame()
 df_eurofx_ohlc_5min = pd.DataFrame()
 df_eurofx_ohlc_15min = pd.DataFrame()
 
+# YEN OHLC 연산
+yen_tick_list = []
+yen_value_list = []
+df_yen_ohlc = pd.DataFrame()
+df_yen_ohlc_1min = pd.DataFrame()
+df_yen_ohlc_5min = pd.DataFrame()
+df_yen_ohlc_15min = pd.DataFrame()
+
 # HANGSENG OHLC 연산
 hangseng_tick_list = []
 hangseng_value_list = []
@@ -1866,14 +1889,6 @@ df_hangseng_ohlc = pd.DataFrame()
 df_hangseng_ohlc_1min = pd.DataFrame()
 df_hangseng_ohlc_5min = pd.DataFrame()
 df_hangseng_ohlc_15min = pd.DataFrame()
-
-# GOLD OHLC 연산
-gold_tick_list = []
-gold_value_list = []
-df_gold_ohlc = pd.DataFrame()
-df_gold_ohlc_1min = pd.DataFrame()
-df_gold_ohlc_5min = pd.DataFrame()
-df_gold_ohlc_15min = pd.DataFrame()
 
 선물_체결시간 = ''
 
@@ -1890,9 +1905,10 @@ flag_dow_ohlc_open = False
 flag_sp500_ohlc_open = False
 flag_nasdaq_ohlc_open = False
 flag_wti_ohlc_open = False
-flag_eurofx_ohlc_open = False
-flag_hangseng_ohlc_open = False
 flag_gold_ohlc_open = False
+flag_eurofx_ohlc_open = False
+flag_yen_ohlc_open = False
+flag_hangseng_ohlc_open = False
 
 flag_checkBox_plot1_bband = False
 flag_checkBox_plot2_bband = False
@@ -15364,7 +15380,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global start_time_txt, end_time_txt
 
-        global df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
+        global df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_wti_graph, df_gold_graph, df_eurofx_graph, df_yen_graph, df_hangseng_graph
         global view_actval
         
         global call_itm_count, call_max_actval
@@ -16749,9 +16765,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_dow_graph.at[0, 'quote_remainder_ratio'] = 1.0
                 df_nasdaq_graph.at[0, 'quote_remainder_ratio'] = 1.0
                 df_wti_graph.at[0, 'quote_remainder_ratio'] = 1.0
-                df_eurofx_graph.at[0, 'quote_remainder_ratio'] = 1.0
-                df_hangseng_graph.at[0, 'quote_remainder_ratio'] = 1.0
                 df_gold_graph.at[0, 'quote_remainder_ratio'] = 1.0
+                df_eurofx_graph.at[0, 'quote_remainder_ratio'] = 1.0
+                df_yen_graph.at[0, 'quote_remainder_ratio'] = 1.0
+                df_hangseng_graph.at[0, 'quote_remainder_ratio'] = 1.0                
 
                 df_sp500_graph.at[0, 'drate'] = 0
                 df_dow_graph.at[0, 'drate'] = 0
@@ -20531,12 +20548,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
             df_wti_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate', \
                 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
-            df_eurofx_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate', \
-                'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
-            df_hangseng_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate', \
-                'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
             df_gold_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate', \
                 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
+            df_eurofx_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate', \
+                'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
+            df_yen_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate', \
+                'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
+            df_hangseng_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate', \
+                'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])            
 
             flag_t8433_response_ok = True
         else:
@@ -40683,15 +40702,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         global OVC_체결시간, OVC_HOUR, OVC_MIN, OVC_SEC, t0167_hour, t0167_minute, t0167_second
         global old_cme_time_index, cme_time_index
-        global df_futures_cm_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
+        global df_futures_cm_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_gold_graph, df_eurofx_graph, df_yen_graph, df_hangseng_graph
 
         global sp500_delta, old_sp500_delta, sp500_직전대비, sp500_text_color
         global dow_delta, old_dow_delta, dow_직전대비, dow_text_color
         global nasdaq_delta, old_nasdaq_delta, nasdaq_직전대비, nasdaq_text_color
         global wti_delta, old_wti_delta, wti_직전대비, wti_text_color
-        global eurofx_delta, old_eurofx_delta, eurofx_직전대비, eurofx_text_color
-        global hangseng_delta, old_hangseng_delta, hangseng_직전대비, hangseng_text_color
         global gold_delta, old_gold_delta, gold_직전대비, gold_text_color
+        global eurofx_delta, old_eurofx_delta, eurofx_직전대비, eurofx_text_color
+        global yen_delta, old_yen_delta, yen_직전대비, yen_text_color
+        global hangseng_delta, old_hangseng_delta, hangseng_직전대비, hangseng_text_color        
 
         global SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_현재가, SP500_전일대비, SP500_등락율, SP500_진폭, SP500_고가, SP500_진폭비
         global DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_현재가, DOW_전일대비, DOW_등락율, DOW_진폭, DOW_고가, DOW_진폭비
@@ -40707,7 +40727,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global DOW_주간_시작가, WTI_주간_시작가, DOW_야간_시작가, WTI_야간_시작가
         
         global flag_dow_ohlc_open, flag_sp500_ohlc_open, flag_nasdaq_ohlc_open, flag_wti_ohlc_open
-        global flag_eurofx_ohlc_open, flag_hangseng_ohlc_open, flag_gold_ohlc_open        
+        global flag_eurofx_ohlc_open, flag_yen_ohlc_open, flag_hangseng_ohlc_open, flag_gold_ohlc_open        
 
         try:
             #szTrCode = tickdata['tr_code']
@@ -41463,119 +41483,117 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-            elif tickdata['종목코드'] == HANGSENG:
+            elif tickdata['종목코드'] == GOLD:
 
                 # 그래프 가격갱신
-                df_hangseng_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])
+                df_gold_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])
 
-                HANGSENG_현재가 = int(float(tickdata['체결가격']))
-                HANGSENG_전일대비 = int(float(tickdata['체결가격']) - HANGSENG_종가)                    
-                HANGSENG_등락율 = float(tickdata['등락율'])
+                GOLD_현재가 = float(tickdata['체결가격'])
+                GOLD_전일대비 = GOLD_현재가 - GOLD_종가
+                GOLD_등락율 = float(tickdata['등락율'])
 
-                HANGSENG_저가 =  int(float(tickdata['저가']))
-                HANGSENG_고가 =  int(float(tickdata['고가']))                    
-                HANGSENG_진폭 = int(HANGSENG_고가 - HANGSENG_저가)
+                GOLD_저가 =  float(tickdata['저가'])
+                GOLD_고가 =  float(tickdata['고가'])                    
+                GOLD_진폭 = GOLD_고가 - GOLD_저가
 
-                if HANGSENG_전일종가 > 0 and DayTime:
-                    HANGSENG_등락율 = ((float(tickdata['체결가격']) - HANGSENG_전일종가) / HANGSENG_전일종가) * 100
+                if GOLD_전일종가 > 0 and DayTime:
+                    GOLD_등락율 = ((tickdata['체결가격'] - GOLD_전일종가) / GOLD_전일종가) * 100
                 else:
                     pass
 
-                체결가격 = locale.format('%d', float(tickdata['체결가격']), 1)
-
-                if HANGSENG_시가 == 0:
+                if GOLD_시가 == 0:
 
                     if tickdata['전일대비기호'] == '5':
 
-                        HANGSENG_종가 = int(float(tickdata['체결가격']) + float(tickdata['전일대비']))
+                        GOLD_종가 = GOLD_현재가 + float(tickdata['전일대비'])
                     else:
-                        HANGSENG_종가 = int(float(tickdata['체결가격']) - float(tickdata['전일대비']))
+                        GOLD_종가 = GOLD_현재가 - float(tickdata['전일대비'])
 
-                    df_hangseng_graph.at[0, 'price'] = HANGSENG_종가
-                    df_hangseng_graph.at[1, 'price'] = float(tickdata['시가'])
+                    df_gold_graph.at[0, 'price'] = GOLD_종가
+                    df_gold_graph.at[1, 'price'] = float(tickdata['시가'])
 
-                    HANGSENG_시가 = int(float(tickdata['시가']))
+                    GOLD_시가 = float(tickdata['시가'])
                 else:
                     pass                    
 
-                if HANGSENG_피봇 == 0:
+                if GOLD_피봇 == 0:
 
-                    if HANGSENG_전저 > 0 and HANGSENG_전고 > 0:
-                        HANGSENG_피봇 = calc_pivot(HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_시가)
+                    if GOLD_전저 > 0 and GOLD_전고 > 0:
+                        GOLD_피봇 = calc_pivot(GOLD_전저, GOLD_전고, GOLD_종가, GOLD_시가)
                     else:
                         pass
                 else:
                     pass
 
-                if HANGSENG_현재가 != HANGSENG_과거가:
+                if GOLD_현재가 != GOLD_과거가:
 
-                    old_hangseng_delta = hangseng_delta
-                    hangseng_delta = HANGSENG_현재가
-                    hangseng_직전대비.extend([hangseng_delta - old_hangseng_delta])
-                    대비리스트 = list(hangseng_직전대비)
+                    old_gold_delta = gold_delta
+                    gold_delta = GOLD_현재가
+                    gold_직전대비.extend([gold_delta - old_gold_delta])
+                    대비리스트 = list(gold_직전대비)
 
-                    if HANGSENG_현재가 > HANGSENG_과거가:
+                    if GOLD_현재가 > GOLD_과거가:
 
-                        if HANGSENG_등락율 < 0:
-
-                            if min(대비리스트) > 0:
-                                jisu_txt = "HANGSENG: {0} ({1}, {2:.2f}%)⬈".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
-                            else:
-                                jisu_txt = "HANGSENG: {0} ▲ ({1}, {2:.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
-
-                            self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
-
-                            hangseng_text_color = 'blue'                                           
-
-                        elif HANGSENG_등락율 > 0:
+                        if GOLD_등락율 < 0:
 
                             if min(대비리스트) > 0:
-                                jisu_txt = "HANGSENG: {0} ▲ ({1}, {2:.2f}%)⬈".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                                jisu_txt = "GOLD: {0} ({1:.2f}, {2:.2f}%)⬈".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
                             else:
-                                jisu_txt = "HANGSENG: {0} ▲ ({1}, {2:.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+                                jisu_txt = "GOLD: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
 
-                            self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
+                            self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
 
-                            hangseng_text_color = 'red'                                                                             
+                            gold_text_color = 'blue'                                           
+
+                        elif GOLD_등락율 > 0:
+
+                            if min(대비리스트) > 0:
+                                jisu_txt = "GOLD: {0} ▲ ({1:.2f}, {2:.2f}%)⬈".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
+                            else:
+                                jisu_txt = "GOLD: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
+
+                            self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
+
+                            gold_text_color = 'red'                                                                             
                         else:
                             pass
 
-                    elif HANGSENG_현재가 < HANGSENG_과거가:
+                    elif GOLD_현재가 < GOLD_과거가:
 
-                        if HANGSENG_등락율 < 0:
-
-                            if max(대비리스트) < 0:
-                                jisu_txt = "HANGSENG: {0} ({1}, {2:.2f}%)⬊".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
-                            else:
-                                jisu_txt = "HANGSENG: {0} ▼ ({1}, {2:.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
-
-                            self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
-
-                            hangseng_text_color = 'blue'
-
-                        elif HANGSENG_등락율 > 0:
+                        if GOLD_등락율 < 0:
 
                             if max(대비리스트) < 0:
-                                jisu_txt = "HANGSENG: {0} ({1}, {2:.2f}%)⬊".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                                jisu_txt = "GOLD: {0} ({1:.2f}, {2:.2f}%)⬊".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
                             else:
-                                jisu_txt = "HANGSENG: {0} ▼ ({1}, {2:.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+                                jisu_txt = "GOLD: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
 
-                            self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
+                            self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
 
-                            hangseng_text_color = 'red'
+                            gold_text_color = 'blue'
+
+                        elif GOLD_등락율 > 0:
+
+                            if max(대비리스트) < 0:
+                                jisu_txt = "GOLD: {0} ({1:.2f}, {2:.2f}%)⬊".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
+                            else:
+                                jisu_txt = "GOLD: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
+
+                            self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
+
+                            gold_text_color = 'red'
                         else:
                             pass                            
                     else:
                         pass
 
-                    HANGSENG_과거가 = HANGSENG_현재가
+                    GOLD_과거가 = GOLD_현재가
                 else:
-                    pass
-
+                    pass            
+            
             elif tickdata['종목코드'] == EUROFX and pre_start:
 
                 # 그래프 가격갱신
@@ -41687,116 +41705,121 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-            elif tickdata['종목코드'] == GOLD:
+            elif tickdata['종목코드'] == YEN and pre_start:
+                txt = 'YEN 가격 = {0}\r'.format(tickdata['체결가격'])
+                print(txt)
+            elif tickdata['종목코드'] == HANGSENG:
 
                 # 그래프 가격갱신
-                df_gold_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])
+                df_hangseng_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])
 
-                GOLD_현재가 = float(tickdata['체결가격'])
-                GOLD_전일대비 = GOLD_현재가 - GOLD_종가
-                GOLD_등락율 = float(tickdata['등락율'])
+                HANGSENG_현재가 = int(float(tickdata['체결가격']))
+                HANGSENG_전일대비 = int(float(tickdata['체결가격']) - HANGSENG_종가)                    
+                HANGSENG_등락율 = float(tickdata['등락율'])
 
-                GOLD_저가 =  float(tickdata['저가'])
-                GOLD_고가 =  float(tickdata['고가'])                    
-                GOLD_진폭 = GOLD_고가 - GOLD_저가
+                HANGSENG_저가 =  int(float(tickdata['저가']))
+                HANGSENG_고가 =  int(float(tickdata['고가']))                    
+                HANGSENG_진폭 = int(HANGSENG_고가 - HANGSENG_저가)
 
-                if GOLD_전일종가 > 0 and DayTime:
-                    GOLD_등락율 = ((tickdata['체결가격'] - GOLD_전일종가) / GOLD_전일종가) * 100
+                if HANGSENG_전일종가 > 0 and DayTime:
+                    HANGSENG_등락율 = ((float(tickdata['체결가격']) - HANGSENG_전일종가) / HANGSENG_전일종가) * 100
                 else:
                     pass
 
-                if GOLD_시가 == 0:
+                체결가격 = locale.format('%d', float(tickdata['체결가격']), 1)
+
+                if HANGSENG_시가 == 0:
 
                     if tickdata['전일대비기호'] == '5':
 
-                        GOLD_종가 = GOLD_현재가 + float(tickdata['전일대비'])
+                        HANGSENG_종가 = int(float(tickdata['체결가격']) + float(tickdata['전일대비']))
                     else:
-                        GOLD_종가 = GOLD_현재가 - float(tickdata['전일대비'])
+                        HANGSENG_종가 = int(float(tickdata['체결가격']) - float(tickdata['전일대비']))
 
-                    df_gold_graph.at[0, 'price'] = GOLD_종가
-                    df_gold_graph.at[1, 'price'] = float(tickdata['시가'])
+                    df_hangseng_graph.at[0, 'price'] = HANGSENG_종가
+                    df_hangseng_graph.at[1, 'price'] = float(tickdata['시가'])
 
-                    GOLD_시가 = float(tickdata['시가'])
+                    HANGSENG_시가 = int(float(tickdata['시가']))
                 else:
                     pass                    
 
-                if GOLD_피봇 == 0:
+                if HANGSENG_피봇 == 0:
 
-                    if GOLD_전저 > 0 and GOLD_전고 > 0:
-                        GOLD_피봇 = calc_pivot(GOLD_전저, GOLD_전고, GOLD_종가, GOLD_시가)
+                    if HANGSENG_전저 > 0 and HANGSENG_전고 > 0:
+                        HANGSENG_피봇 = calc_pivot(HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_시가)
                     else:
                         pass
                 else:
                     pass
 
-                if GOLD_현재가 != GOLD_과거가:
+                if HANGSENG_현재가 != HANGSENG_과거가:
 
-                    old_gold_delta = gold_delta
-                    gold_delta = GOLD_현재가
-                    gold_직전대비.extend([gold_delta - old_gold_delta])
-                    대비리스트 = list(gold_직전대비)
+                    old_hangseng_delta = hangseng_delta
+                    hangseng_delta = HANGSENG_현재가
+                    hangseng_직전대비.extend([hangseng_delta - old_hangseng_delta])
+                    대비리스트 = list(hangseng_직전대비)
 
-                    if GOLD_현재가 > GOLD_과거가:
+                    if HANGSENG_현재가 > HANGSENG_과거가:
 
-                        if GOLD_등락율 < 0:
-
-                            if min(대비리스트) > 0:
-                                jisu_txt = "GOLD: {0} ({1:.2f}, {2:.2f}%)⬈".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
-                            else:
-                                jisu_txt = "GOLD: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
-
-                            self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
-
-                            gold_text_color = 'blue'                                           
-
-                        elif GOLD_등락율 > 0:
+                        if HANGSENG_등락율 < 0:
 
                             if min(대비리스트) > 0:
-                                jisu_txt = "GOLD: {0} ▲ ({1:.2f}, {2:.2f}%)⬈".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
+                                jisu_txt = "HANGSENG: {0} ({1}, {2:.2f}%)⬈".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
                             else:
-                                jisu_txt = "GOLD: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
+                                jisu_txt = "HANGSENG: {0} ▲ ({1}, {2:.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
 
-                            self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
+                            self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
 
-                            gold_text_color = 'red'                                                                             
+                            hangseng_text_color = 'blue'                                           
+
+                        elif HANGSENG_등락율 > 0:
+
+                            if min(대비리스트) > 0:
+                                jisu_txt = "HANGSENG: {0} ▲ ({1}, {2:.2f}%)⬈".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                            else:
+                                jisu_txt = "HANGSENG: {0} ▲ ({1}, {2:.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+
+                            self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
+
+                            hangseng_text_color = 'red'                                                                             
                         else:
                             pass
 
-                    elif GOLD_현재가 < GOLD_과거가:
+                    elif HANGSENG_현재가 < HANGSENG_과거가:
 
-                        if GOLD_등락율 < 0:
-
-                            if max(대비리스트) < 0:
-                                jisu_txt = "GOLD: {0} ({1:.2f}, {2:.2f}%)⬊".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
-                            else:
-                                jisu_txt = "GOLD: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
-
-                            self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
-
-                            gold_text_color = 'blue'
-
-                        elif GOLD_등락율 > 0:
+                        if HANGSENG_등락율 < 0:
 
                             if max(대비리스트) < 0:
-                                jisu_txt = "GOLD: {0} ({1:.2f}, {2:.2f}%)⬊".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
+                                jisu_txt = "HANGSENG: {0} ({1}, {2:.2f}%)⬊".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
                             else:
-                                jisu_txt = "GOLD: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
+                                jisu_txt = "HANGSENG: {0} ▼ ({1}, {2:.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
 
-                            self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
+                            self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
 
-                            gold_text_color = 'red'
+                            hangseng_text_color = 'blue'
+
+                        elif HANGSENG_등락율 > 0:
+
+                            if max(대비리스트) < 0:
+                                jisu_txt = "HANGSENG: {0} ({1}, {2:.2f}%)⬊".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                            else:
+                                jisu_txt = "HANGSENG: {0} ▼ ({1}, {2:.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+
+                            self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
+
+                            hangseng_text_color = 'red'
                         else:
                             pass                            
                     else:
                         pass
 
-                    GOLD_과거가 = GOLD_현재가
+                    HANGSENG_과거가 = HANGSENG_현재가
                 else:
-                    pass
+                    pass            
             else:
                 pass
 
