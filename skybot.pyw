@@ -41606,7 +41606,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 EUROFX_현재가 = float(tickdata['체결가격'])
                 EUROFX_전일대비 = round((EUROFX_현재가 - EUROFX_종가), 5)
-                EUROFX_등락율 = tickdata['등락율']
+                EUROFX_등락율 = float(tickdata['등락율'])
 
                 EUROFX_저가 =  float(tickdata['저가'])
                 EUROFX_고가 =  float(tickdata['고가'])                    
