@@ -25332,6 +25332,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         global comboindex2
         
+        global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_피봇, 근월물_선물_시가, 근월물_선물_저가, 근월물_선물_고가
         global SP500_전저, SP500_전고, SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가
         global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
         global NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가
@@ -26186,6 +26187,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         global comboindex3
         
+        global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_피봇, 근월물_선물_시가, 근월물_선물_저가, 근월물_선물_고가
         global SP500_전저, SP500_전고, SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가
         global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
         global NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가
@@ -27879,6 +27881,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         global comboindex5
         
+        global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_피봇, 근월물_선물_시가, 근월물_선물_저가, 근월물_선물_고가
         global SP500_전저, SP500_전고, SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가
         global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
         global NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가
@@ -28733,6 +28736,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         global comboindex6
         
+        global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_피봇, 근월물_선물_시가, 근월물_선물_저가, 근월물_선물_고가
         global SP500_전저, SP500_전고, SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가
         global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
         global NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가
