@@ -41712,9 +41712,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             elif tickdata['종목코드'] == YEN:
 
-                #txt = 'YEN 가격 = {0}\r'.format(tickdata['체결가격'])
-                #print(txt)
-
+                txt = 'YEN 가격 = {0}\r'.format(tickdata['체결가격'])
+                print(txt)
+                '''
                 # 그래프 가격갱신
                 df_yen_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])                    
 
@@ -41822,7 +41822,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     YEN_과거가 = YEN_현재가
                 else:
-                    pass                
+                    pass
+                '''                
 
             elif tickdata['종목코드'] == HANGSENG:
 
