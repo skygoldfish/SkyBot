@@ -5891,7 +5891,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 #if flag_market_service:
                 if True:
-                    self.option_quote_update()
+                    self.option_quote_periodic_update()
                     '''
                     if DayTime and fut_cm_result:                    
                         self.fut_cm_etc_update(fut_cm_result)
@@ -14664,7 +14664,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
     # 호가표시
-    def option_quote_update(self):
+    def option_quote_periodic_update(self):
         
         global call_quote, put_quote
         global 콜매수잔량, 콜매도잔량, 풋매수잔량, 풋매도잔량, 콜건수비, 콜잔량비, 풋건수비, 풋잔량비
@@ -14680,18 +14680,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         콜건수비 = call_count_ratio
 
-        df_call_information_graph.at[cme_time_index, 'ms_quote'] = call_quote['매수잔량']
-        df_call_information_graph.at[cme_time_index, 'md_quote'] = call_quote['매도잔량']
-
         if put_quote['매도건수'] > 0:
             put_count_ratio = round((put_quote['매수건수'] / put_quote['매도건수']), 2)
         else:
             put_count_ratio = 0
 
         풋건수비 = put_count_ratio
-
-        df_put_information_graph.at[cme_time_index, 'ms_quote'] = put_quote['매수잔량']
-        df_put_information_graph.at[cme_time_index, 'md_quote'] = put_quote['매도잔량']
 
         item_txt = "{0}\n({1})\n({2})".format(repr(call_count_ratio), format(call_quote['매수건수'], ','), format(call_quote['매도건수'], ','))
 
@@ -40525,6 +40519,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 call_quote = df_call_quote.sum()
 
+                df_call_information_graph.at[cme_time_index, 'ms_quote'] = call_quote['매수잔량']
+                df_call_information_graph.at[cme_time_index, 'md_quote'] = call_quote['매도잔량']
+
                 if call_quote['매도잔량'] > 0:
                     call_remainder_ratio = round((call_quote['매수잔량'] / call_quote['매도잔량']), 2)
                 else:
@@ -40542,6 +40539,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_put_quote.at[index, '매도잔량'] = int(tickdata['매도호가총수량'])
 
                 put_quote = df_put_quote.sum()
+
+                df_put_information_graph.at[cme_time_index, 'ms_quote'] = put_quote['매수잔량']
+                df_put_information_graph.at[cme_time_index, 'md_quote'] = put_quote['매도잔량']
 
                 if put_quote['매도잔량'] > 0:
                     put_remainder_ratio = round((put_quote['매수잔량'] / put_quote['매도잔량']), 2)
