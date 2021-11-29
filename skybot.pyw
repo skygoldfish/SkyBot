@@ -23665,16 +23665,60 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
 
             elif comboindex1 == 16:
-                pass
+                
+                if not np.isnan(df_gold_graph.at[plot_x, 'price']):
+                    
+                    Open = df_gold_graph.at[plot_x, 'open']                    
+                    High = df_gold_graph.at[plot_x, 'high']
+                    Low = df_gold_graph.at[plot_x, 'low']
+                    Close = df_gold_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
+                else:
+                    pass
 
             elif comboindex1 == 17:
-                pass
+                
+                if not np.isnan(df_eurofx_graph.at[plot_x, 'price']):
+                    
+                    Open = df_eurofx_graph.at[plot_x, 'open']                    
+                    High = df_eurofx_graph.at[plot_x, 'high']
+                    Low = df_eurofx_graph.at[plot_x, 'low']
+                    Close = df_eurofx_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
+                else:
+                    pass
 
             elif comboindex1 == 18:
-                pass
+                
+                if not np.isnan(df_yen_graph.at[plot_x, 'price']):
+                    
+                    Open = df_yen_graph.at[plot_x, 'open']                    
+                    High = df_yen_graph.at[plot_x, 'high']
+                    Low = df_yen_graph.at[plot_x, 'low']
+                    Close = df_yen_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
+                else:
+                    pass
 
             elif comboindex1 == 19:
-                pass
+                
+                if not np.isnan(df_hangseng_graph.at[plot_x, 'price']):
+                    
+                    Open = df_hangseng_graph.at[plot_x, 'open']                    
+                    High = df_hangseng_graph.at[plot_x, 'high']
+                    Low = df_hangseng_graph.at[plot_x, 'low']
+                    Close = df_hangseng_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
+                else:
+                    pass
             else:
                 pass
         else:
@@ -23784,16 +23828,60 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
 
             elif comboindex2 == 16:
-                pass
+                
+                if not np.isnan(df_gold_graph.at[plot_x, 'price']):
+                    
+                    Open = df_gold_graph.at[plot_x, 'open']                    
+                    High = df_gold_graph.at[plot_x, 'high']
+                    Low = df_gold_graph.at[plot_x, 'low']
+                    Close = df_gold_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
+                else:
+                    pass
 
             elif comboindex2 == 17:
-                pass
+                
+                if not np.isnan(df_eurofx_graph.at[plot_x, 'price']):
+                    
+                    Open = df_eurofx_graph.at[plot_x, 'open']                    
+                    High = df_eurofx_graph.at[plot_x, 'high']
+                    Low = df_eurofx_graph.at[plot_x, 'low']
+                    Close = df_eurofx_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
+                else:
+                    pass
 
             elif comboindex2 == 18:
-                pass
+                
+                if not np.isnan(df_yen_graph.at[plot_x, 'price']):
+                    
+                    Open = df_yen_graph.at[plot_x, 'open']                    
+                    High = df_yen_graph.at[plot_x, 'high']
+                    Low = df_yen_graph.at[plot_x, 'low']
+                    Close = df_yen_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
+                else:
+                    pass
 
             elif comboindex2 == 19:
-                pass            
+                
+                if not np.isnan(df_hangseng_graph.at[plot_x, 'price']):
+                    
+                    Open = df_hangseng_graph.at[plot_x, 'open']                    
+                    High = df_hangseng_graph.at[plot_x, 'high']
+                    Low = df_hangseng_graph.at[plot_x, 'low']
+                    Close = df_hangseng_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
+                else:
+                    pass            
             else:
                 pass                           
         else:
@@ -23903,16 +23991,60 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
 
             elif comboindex3 == 16:
-                pass
+                
+                if not np.isnan(df_gold_graph.at[plot_x, 'price']):
+                    
+                    Open = df_gold_graph.at[plot_x, 'open']                    
+                    High = df_gold_graph.at[plot_x, 'high']
+                    Low = df_gold_graph.at[plot_x, 'low']
+                    Close = df_gold_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
+                else:
+                    pass
 
             elif comboindex3 == 17:
-                pass
+                
+                if not np.isnan(df_eurofx_graph.at[plot_x, 'price']):
+                    
+                    Open = df_eurofx_graph.at[plot_x, 'open']                    
+                    High = df_eurofx_graph.at[plot_x, 'high']
+                    Low = df_eurofx_graph.at[plot_x, 'low']
+                    Close = df_eurofx_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
+                else:
+                    pass
 
             elif comboindex3 == 18:
-                pass
+                
+                if not np.isnan(df_yen_graph.at[plot_x, 'price']):
+                    
+                    Open = df_yen_graph.at[plot_x, 'open']                    
+                    High = df_yen_graph.at[plot_x, 'high']
+                    Low = df_yen_graph.at[plot_x, 'low']
+                    Close = df_yen_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
+                else:
+                    pass
 
             elif comboindex3 == 19:
-                pass            
+                
+                if not np.isnan(df_hangseng_graph.at[plot_x, 'price']):
+                    
+                    Open = df_hangseng_graph.at[plot_x, 'open']                    
+                    High = df_hangseng_graph.at[plot_x, 'high']
+                    Low = df_hangseng_graph.at[plot_x, 'low']
+                    Close = df_hangseng_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
+                else:
+                    pass            
             else:
                 pass                            
         else:
@@ -24022,16 +24154,60 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
 
             elif comboindex4 == 16:
-                pass
+                
+                if not np.isnan(df_gold_graph.at[plot_x, 'price']):
+                    
+                    Open = df_gold_graph.at[plot_x, 'open']                    
+                    High = df_gold_graph.at[plot_x, 'high']
+                    Low = df_gold_graph.at[plot_x, 'low']
+                    Close = df_gold_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
+                else:
+                    pass
 
             elif comboindex4 == 17:
-                pass
+                
+                if not np.isnan(df_eurofx_graph.at[plot_x, 'price']):
+                    
+                    Open = df_eurofx_graph.at[plot_x, 'open']                    
+                    High = df_eurofx_graph.at[plot_x, 'high']
+                    Low = df_eurofx_graph.at[plot_x, 'low']
+                    Close = df_eurofx_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
+                else:
+                    pass
 
             elif comboindex4 == 18:
-                pass
+                
+                if not np.isnan(df_yen_graph.at[plot_x, 'price']):
+                    
+                    Open = df_yen_graph.at[plot_x, 'open']                    
+                    High = df_yen_graph.at[plot_x, 'high']
+                    Low = df_yen_graph.at[plot_x, 'low']
+                    Close = df_yen_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
+                else:
+                    pass
 
             elif comboindex4 == 19:
-                pass            
+                
+                if not np.isnan(df_hangseng_graph.at[plot_x, 'price']):
+                    
+                    Open = df_hangseng_graph.at[plot_x, 'open']                    
+                    High = df_hangseng_graph.at[plot_x, 'high']
+                    Low = df_hangseng_graph.at[plot_x, 'low']
+                    Close = df_hangseng_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
+                else:
+                    pass            
             else:
                 pass
 
@@ -24139,16 +24315,60 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
 
             elif comboindex5 == 16:
-                pass
+                
+                if not np.isnan(df_gold_graph.at[plot_x, 'price']):
+                    
+                    Open = df_gold_graph.at[plot_x, 'open']                    
+                    High = df_gold_graph.at[plot_x, 'high']
+                    Low = df_gold_graph.at[plot_x, 'low']
+                    Close = df_gold_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
+                else:
+                    pass
 
             elif comboindex5 == 17:
-                pass
+                
+                if not np.isnan(df_eurofx_graph.at[plot_x, 'price']):
+                    
+                    Open = df_eurofx_graph.at[plot_x, 'open']                    
+                    High = df_eurofx_graph.at[plot_x, 'high']
+                    Low = df_eurofx_graph.at[plot_x, 'low']
+                    Close = df_eurofx_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
+                else:
+                    pass
 
             elif comboindex5 == 18:
-                pass
+                
+                if not np.isnan(df_yen_graph.at[plot_x, 'price']):
+                    
+                    Open = df_yen_graph.at[plot_x, 'open']                    
+                    High = df_yen_graph.at[plot_x, 'high']
+                    Low = df_yen_graph.at[plot_x, 'low']
+                    Close = df_yen_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
+                else:
+                    pass
 
             elif comboindex5 == 19:
-                pass
+                
+                if not np.isnan(df_hangseng_graph.at[plot_x, 'price']):
+                    
+                    Open = df_hangseng_graph.at[plot_x, 'open']                    
+                    High = df_hangseng_graph.at[plot_x, 'high']
+                    Low = df_hangseng_graph.at[plot_x, 'low']
+                    Close = df_hangseng_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
+                else:
+                    pass
             else:
                 pass                       
         else:
@@ -24258,16 +24478,60 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
 
             elif comboindex6 == 16:
-                pass
+                
+                if not np.isnan(df_gold_graph.at[plot_x, 'price']):
+                    
+                    Open = df_gold_graph.at[plot_x, 'open']                    
+                    High = df_gold_graph.at[plot_x, 'high']
+                    Low = df_gold_graph.at[plot_x, 'low']
+                    Close = df_gold_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
+                else:
+                    pass
 
             elif comboindex6 == 17:
-                pass
+                
+                if not np.isnan(df_eurofx_graph.at[plot_x, 'price']):
+                    
+                    Open = df_eurofx_graph.at[plot_x, 'open']                    
+                    High = df_eurofx_graph.at[plot_x, 'high']
+                    Low = df_eurofx_graph.at[plot_x, 'low']
+                    Close = df_eurofx_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
+                else:
+                    pass
 
             elif comboindex6 == 18:
-                pass
+                
+                if not np.isnan(df_yen_graph.at[plot_x, 'price']):
+                    
+                    Open = df_yen_graph.at[plot_x, 'open']                    
+                    High = df_yen_graph.at[plot_x, 'high']
+                    Low = df_yen_graph.at[plot_x, 'low']
+                    Close = df_yen_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
+                else:
+                    pass
 
             elif comboindex6 == 19:
-                pass
+                
+                if not np.isnan(df_hangseng_graph.at[plot_x, 'price']):
+                    
+                    Open = df_hangseng_graph.at[plot_x, 'open']                    
+                    High = df_hangseng_graph.at[plot_x, 'high']
+                    Low = df_hangseng_graph.at[plot_x, 'low']
+                    Close = df_hangseng_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
+                else:
+                    pass
             else:
                 pass                
         else:
