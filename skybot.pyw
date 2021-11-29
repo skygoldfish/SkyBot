@@ -41499,6 +41499,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_nasdaq_graph.at[cme_time_index, 'ctime'] = OVC_체결시간
 
+                NASDAQ_체결가격 = locale.format('%.2f', NASDAQ_현재가, 1)
+
                 if NASDAQ_현재가 > 0:
 
                     if OVC_SEC == 0:
@@ -41585,9 +41587,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         if NASDAQ_등락율 < 0:
 
                             if min(대비리스트) > 0:
-                                jisu_txt = "NASDAQ: {0} ({1:.2f}, {2:.2f}%)⬈".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
+                                jisu_txt = "NASDAQ: {0} ({1:.2f}, {2:.2f}%)⬈".format(NASDAQ_체결가격, NASDAQ_전일대비, NASDAQ_등락율)                                    
                             else:
-                                jisu_txt = "NASDAQ: {0} ▲ ({1:.2f}, {2:.2f}%)".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)
+                                jisu_txt = "NASDAQ: {0} ▲ ({1:.2f}, {2:.2f}%)".format(NASDAQ_체결가격, NASDAQ_전일대비, NASDAQ_등락율)
 
                             self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: pink; color: blue;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
@@ -41597,9 +41599,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         elif NASDAQ_등락율 > 0:                            
 
                             if min(대비리스트) > 0:
-                                jisu_txt = "NASDAQ: {0} ({1:.2f}, {2:.2f}%)⬈".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
+                                jisu_txt = "NASDAQ: {0} ({1:.2f}, {2:.2f}%)⬈".format(NASDAQ_체결가격, NASDAQ_전일대비, NASDAQ_등락율)                                    
                             else:
-                                jisu_txt = "NASDAQ: {0} ▲ ({1:.2f}, {2:.2f}%)".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)
+                                jisu_txt = "NASDAQ: {0} ▲ ({1:.2f}, {2:.2f}%)".format(NASDAQ_체결가격, NASDAQ_전일대비, NASDAQ_등락율)
 
                             self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: pink; color: red;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
@@ -41613,9 +41615,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         if NASDAQ_등락율 < 0:     
 
                             if max(대비리스트) < 0:
-                                jisu_txt = "NASDAQ: {0} ({1:.2f}, {2:.2f}%)⬊".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
+                                jisu_txt = "NASDAQ: {0} ({1:.2f}, {2:.2f}%)⬊".format(NASDAQ_체결가격, NASDAQ_전일대비, NASDAQ_등락율)                                    
                             else:
-                                jisu_txt = "NASDAQ: {0} ▼ ({1:.2f}, {2:.2f}%)".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)
+                                jisu_txt = "NASDAQ: {0} ▼ ({1:.2f}, {2:.2f}%)".format(NASDAQ_체결가격, NASDAQ_전일대비, NASDAQ_등락율)
 
                             self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
@@ -41625,9 +41627,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         elif NASDAQ_등락율 > 0:     
 
                             if max(대비리스트) < 0:
-                                jisu_txt = "NASDAQ: {0} ({1:.2f}, {2:.2f}%)⬊".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
+                                jisu_txt = "NASDAQ: {0} ({1:.2f}, {2:.2f}%)⬊".format(NASDAQ_체결가격, NASDAQ_전일대비, NASDAQ_등락율)                                    
                             else:
-                                jisu_txt = "NASDAQ: {0} ▼ ({1:.2f}, {2:.2f}%)".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)
+                                jisu_txt = "NASDAQ: {0} ▼ ({1:.2f}, {2:.2f}%)".format(NASDAQ_체결가격, NASDAQ_전일대비, NASDAQ_등락율)
 
                             self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
