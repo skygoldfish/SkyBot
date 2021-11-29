@@ -22769,7 +22769,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_68.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_68.setText(" 고가 ")
 
-        self.comboBox1.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', '수급종합', '외인수급'])
+        self.comboBox1.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '항셍', '수급종합', '외인수급'])
         self.comboBox1.insertSeparator(1)
         self.comboBox1.insertSeparator(5)
         self.comboBox1.insertSeparator(9)
@@ -22777,7 +22777,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.comboBox1.insertSeparator(19)
         self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-        self.comboBox2.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', '수급종합', '외인수급'])
+        self.comboBox2.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '항셍', '수급종합', '외인수급'])
         self.comboBox2.insertSeparator(1)
         self.comboBox2.insertSeparator(5)
         self.comboBox2.insertSeparator(9)
@@ -22785,7 +22785,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.comboBox2.insertSeparator(19)
         self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
-        self.comboBox3.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', '수급종합', '외인수급'])
+        self.comboBox3.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '항셍', '수급종합', '외인수급'])
         self.comboBox3.insertSeparator(1)
         self.comboBox3.insertSeparator(5)
         self.comboBox3.insertSeparator(9)
@@ -22793,7 +22793,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.comboBox3.insertSeparator(19)
         self.comboBox3.currentIndexChanged.connect(self.cb3_selectionChanged)
 
-        self.comboBox4.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', '수급종합', '외인수급'])
+        self.comboBox4.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '항셍', '수급종합', '외인수급'])
         self.comboBox4.insertSeparator(1)
         self.comboBox4.insertSeparator(5)
         self.comboBox4.insertSeparator(9)
@@ -22801,7 +22801,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.comboBox4.insertSeparator(19)
         self.comboBox4.currentIndexChanged.connect(self.cb4_selectionChanged)
 
-        self.comboBox5.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', '수급종합', '외인수급'])
+        self.comboBox5.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '항셍', '수급종합', '외인수급'])
         self.comboBox5.insertSeparator(1)
         self.comboBox5.insertSeparator(5)
         self.comboBox5.insertSeparator(9)
@@ -22809,7 +22809,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.comboBox5.insertSeparator(19)
         self.comboBox5.currentIndexChanged.connect(self.cb5_selectionChanged)
 
-        self.comboBox6.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'DOW', 'NASDAQ', 'WTI Oil', 'SP500', 'EUROFX', '항셍', 'GOLD', '수급종합', '외인수급'])
+        self.comboBox6.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '항셍', '수급종합', '외인수급'])
         self.comboBox6.insertSeparator(1)
         self.comboBox6.insertSeparator(5)
         self.comboBox6.insertSeparator(9)
@@ -23610,6 +23610,20 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex1 == 12:
 
+                if not np.isnan(df_sp500_graph.at[plot_x, 'price']):
+                    
+                    Open = df_sp500_graph.at[plot_x, 'open']                    
+                    High = df_sp500_graph.at[plot_x, 'high']
+                    Low = df_sp500_graph.at[plot_x, 'low']
+                    Close = df_sp500_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
+                else:
+                    pass
+
+            elif comboindex1 == 13:
+
                 if not np.isnan(df_dow_graph.at[plot_x, 'price']):
                     
                     Open = df_dow_graph.at[plot_x, 'open']                    
@@ -23622,7 +23636,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif comboindex1 == 13:
+            elif comboindex1 == 14:
 
                 if not np.isnan(df_nasdaq_graph.at[plot_x, 'price']):
                     
@@ -23636,7 +23650,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif comboindex1 == 14:
+            elif comboindex1 == 15:
 
                 if not np.isnan(df_wti_graph.at[plot_x, 'price']):
                     
@@ -23648,24 +23662,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p1_1.setText(txt)
                 else:
-                    pass
-            
-            elif comboindex1 == 15:
-
-                if not np.isnan(df_sp500_graph.at[plot_x, 'price']):
-                    
-                    Open = df_sp500_graph.at[plot_x, 'open']                    
-                    High = df_sp500_graph.at[plot_x, 'high']
-                    Low = df_sp500_graph.at[plot_x, 'low']
-                    Close = df_sp500_graph.at[plot_x, 'close']
-
-                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p1_1.setText(txt)
-                else:
-                    pass
-            
+                    pass            
             else:
-                pass           
+                pass
         else:
             pass
 
@@ -23718,6 +23717,20 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex2 == 12:
 
+                if not np.isnan(df_sp500_graph.at[plot_x, 'price']):
+                    
+                    Open = df_sp500_graph.at[plot_x, 'open']                    
+                    High = df_sp500_graph.at[plot_x, 'high']
+                    Low = df_sp500_graph.at[plot_x, 'low']
+                    Close = df_sp500_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p2_1.setText(txt)
+                else:
+                    pass
+            
+            elif comboindex2 == 13:
+
                 if not np.isnan(df_dow_graph.at[plot_x, 'price']):
                     
                     Open = df_dow_graph.at[plot_x, 'open']                    
@@ -23730,7 +23743,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif comboindex2 == 13:
+            elif comboindex2 == 14:
 
                 if not np.isnan(df_nasdaq_graph.at[plot_x, 'price']):
                     
@@ -23744,7 +23757,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif comboindex2 == 14:
+            elif comboindex2 == 15:
 
                 if not np.isnan(df_wti_graph.at[plot_x, 'price']):
                     
@@ -23756,24 +23769,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p2_1.setText(txt)
                 else:
-                    pass
-            
-            elif comboindex2 == 15:
-
-                if not np.isnan(df_sp500_graph.at[plot_x, 'price']):
-                    
-                    Open = df_sp500_graph.at[plot_x, 'open']                    
-                    High = df_sp500_graph.at[plot_x, 'high']
-                    Low = df_sp500_graph.at[plot_x, 'low']
-                    Close = df_sp500_graph.at[plot_x, 'close']
-
-                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p2_1.setText(txt)
-                else:
-                    pass
-            
+                    pass            
             else:
-                pass                
+                pass                           
         else:
             pass
 
@@ -23826,6 +23824,20 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex3 == 12:
 
+                if not np.isnan(df_sp500_graph.at[plot_x, 'price']):
+                    
+                    Open = df_sp500_graph.at[plot_x, 'open']                    
+                    High = df_sp500_graph.at[plot_x, 'high']
+                    Low = df_sp500_graph.at[plot_x, 'low']
+                    Close = df_sp500_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p3_1.setText(txt)
+                else:
+                    pass            
+            
+            elif comboindex3 == 13:
+
                 if not np.isnan(df_dow_graph.at[plot_x, 'price']):
                     
                     Open = df_dow_graph.at[plot_x, 'open']                    
@@ -23838,7 +23850,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif comboindex3 == 13:
+            elif comboindex3 == 14:
 
                 if not np.isnan(df_nasdaq_graph.at[plot_x, 'price']):
                     
@@ -23852,7 +23864,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif comboindex3 == 14:
+            elif comboindex3 == 15:
 
                 if not np.isnan(df_wti_graph.at[plot_x, 'price']):
                     
@@ -23864,24 +23876,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p3_1.setText(txt)
                 else:
-                    pass
-            
-            elif comboindex3 == 15:
-
-                if not np.isnan(df_sp500_graph.at[plot_x, 'price']):
-                    
-                    Open = df_sp500_graph.at[plot_x, 'open']                    
-                    High = df_sp500_graph.at[plot_x, 'high']
-                    Low = df_sp500_graph.at[plot_x, 'low']
-                    Close = df_sp500_graph.at[plot_x, 'close']
-
-                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p3_1.setText(txt)
-                else:
-                    pass
-            
+                    pass            
             else:
-                pass                
+                pass                            
         else:
             pass
 
@@ -23931,50 +23928,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p4_1.setText(txt)
                 else:
                     pass
-            
+
             elif comboindex4 == 12:
-
-                if not np.isnan(df_dow_graph.at[plot_x, 'price']):
-                    
-                    Open = df_dow_graph.at[plot_x, 'open']                    
-                    High = df_dow_graph.at[plot_x, 'high']
-                    Low = df_dow_graph.at[plot_x, 'low']
-                    Close = df_dow_graph.at[plot_x, 'close']
-
-                    txt = " X: {0:d}\n O: {1:.0f}\n H: {2:.0f}\n L: {3:.0f}\n C: {4:.0f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p4_1.setText(txt)
-                else:
-                    pass
-
-            elif comboindex4 == 13:
-
-                if not np.isnan(df_nasdaq_graph.at[plot_x, 'price']):
-                    
-                    Open = df_nasdaq_graph.at[plot_x, 'open']                    
-                    High = df_nasdaq_graph.at[plot_x, 'high']
-                    Low = df_nasdaq_graph.at[plot_x, 'low']
-                    Close = df_nasdaq_graph.at[plot_x, 'close']
-
-                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p4_1.setText(txt)
-                else:
-                    pass
-
-            elif comboindex4 == 14:
-
-                if not np.isnan(df_wti_graph.at[plot_x, 'price']):
-                    
-                    Open = df_wti_graph.at[plot_x, 'open']                    
-                    High = df_wti_graph.at[plot_x, 'high']
-                    Low = df_wti_graph.at[plot_x, 'low']
-                    Close = df_wti_graph.at[plot_x, 'close']
-
-                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p4_1.setText(txt)
-                else:
-                    pass
-            
-            elif comboindex4 == 15:
 
                 if not np.isnan(df_sp500_graph.at[plot_x, 'price']):
                     
@@ -23988,6 +23943,47 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
             
+            elif comboindex4 == 13:
+
+                if not np.isnan(df_dow_graph.at[plot_x, 'price']):
+                    
+                    Open = df_dow_graph.at[plot_x, 'open']                    
+                    High = df_dow_graph.at[plot_x, 'high']
+                    Low = df_dow_graph.at[plot_x, 'low']
+                    Close = df_dow_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.0f}\n H: {2:.0f}\n L: {3:.0f}\n C: {4:.0f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p4_1.setText(txt)
+                else:
+                    pass
+
+            elif comboindex4 == 14:
+
+                if not np.isnan(df_nasdaq_graph.at[plot_x, 'price']):
+                    
+                    Open = df_nasdaq_graph.at[plot_x, 'open']                    
+                    High = df_nasdaq_graph.at[plot_x, 'high']
+                    Low = df_nasdaq_graph.at[plot_x, 'low']
+                    Close = df_nasdaq_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p4_1.setText(txt)
+                else:
+                    pass
+
+            elif comboindex4 == 15:
+
+                if not np.isnan(df_wti_graph.at[plot_x, 'price']):
+                    
+                    Open = df_wti_graph.at[plot_x, 'open']                    
+                    High = df_wti_graph.at[plot_x, 'high']
+                    Low = df_wti_graph.at[plot_x, 'low']
+                    Close = df_wti_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p4_1.setText(txt)
+                else:
+                    pass            
             else:
                 pass
 
@@ -24040,6 +24036,20 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex5 == 12:
 
+                if not np.isnan(df_sp500_graph.at[plot_x, 'price']):
+                    
+                    Open = df_sp500_graph.at[plot_x, 'open']                    
+                    High = df_sp500_graph.at[plot_x, 'high']
+                    Low = df_sp500_graph.at[plot_x, 'low']
+                    Close = df_sp500_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p5_1.setText(txt)
+                else:
+                    pass
+
+            elif comboindex5 == 13:
+
                 if not np.isnan(df_dow_graph.at[plot_x, 'price']):
                     
                     Open = df_dow_graph.at[plot_x, 'open']                    
@@ -24052,7 +24062,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif comboindex5 == 13:
+            elif comboindex5 == 14:
 
                 if not np.isnan(df_nasdaq_graph.at[plot_x, 'price']):
                     
@@ -24066,7 +24076,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif comboindex5 == 14:
+            elif comboindex5 == 15:
 
                 if not np.isnan(df_wti_graph.at[plot_x, 'price']):
                     
@@ -24079,21 +24089,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p5_1.setText(txt)
                 else:
                     pass
-            
-            elif comboindex5 == 15:
-
-                if not np.isnan(df_sp500_graph.at[plot_x, 'price']):
-                    
-                    Open = df_sp500_graph.at[plot_x, 'open']                    
-                    High = df_sp500_graph.at[plot_x, 'high']
-                    Low = df_sp500_graph.at[plot_x, 'low']
-                    Close = df_sp500_graph.at[plot_x, 'close']
-
-                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p5_1.setText(txt)
-                else:
-                    pass
-            
             else:
                 pass                       
         else:
@@ -24145,50 +24140,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p6_1.setText(txt)
                 else:
                     pass
-            
+
             elif comboindex6 == 12:
-
-                if not np.isnan(df_dow_graph.at[plot_x, 'price']):
-                    
-                    Open = df_dow_graph.at[plot_x, 'open']                    
-                    High = df_dow_graph.at[plot_x, 'high']
-                    Low = df_dow_graph.at[plot_x, 'low']
-                    Close = df_dow_graph.at[plot_x, 'close']
-
-                    txt = " X: {0:d}\n O: {1:.0f}\n H: {2:.0f}\n L: {3:.0f}\n C: {4:.0f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p6_1.setText(txt)
-                else:
-                    pass
-
-            elif comboindex6 == 13:
-
-                if not np.isnan(df_nasdaq_graph.at[plot_x, 'price']):
-                    
-                    Open = df_nasdaq_graph.at[plot_x, 'open']                    
-                    High = df_nasdaq_graph.at[plot_x, 'high']
-                    Low = df_nasdaq_graph.at[plot_x, 'low']
-                    Close = df_nasdaq_graph.at[plot_x, 'close']
-
-                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p6_1.setText(txt)
-                else:
-                    pass
-
-            elif comboindex6 == 14:
-
-                if not np.isnan(df_wti_graph.at[plot_x, 'price']):
-                    
-                    Open = df_wti_graph.at[plot_x, 'open']                    
-                    High = df_wti_graph.at[plot_x, 'high']
-                    Low = df_wti_graph.at[plot_x, 'low']
-                    Close = df_wti_graph.at[plot_x, 'close']
-
-                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p6_1.setText(txt)
-                else:
-                    pass
-            
-            elif comboindex6 == 15:
 
                 if not np.isnan(df_sp500_graph.at[plot_x, 'price']):
                     
@@ -24202,6 +24155,47 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
             
+            elif comboindex6 == 13:
+
+                if not np.isnan(df_dow_graph.at[plot_x, 'price']):
+                    
+                    Open = df_dow_graph.at[plot_x, 'open']                    
+                    High = df_dow_graph.at[plot_x, 'high']
+                    Low = df_dow_graph.at[plot_x, 'low']
+                    Close = df_dow_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.0f}\n H: {2:.0f}\n L: {3:.0f}\n C: {4:.0f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p6_1.setText(txt)
+                else:
+                    pass
+
+            elif comboindex6 == 14:
+
+                if not np.isnan(df_nasdaq_graph.at[plot_x, 'price']):
+                    
+                    Open = df_nasdaq_graph.at[plot_x, 'open']                    
+                    High = df_nasdaq_graph.at[plot_x, 'high']
+                    Low = df_nasdaq_graph.at[plot_x, 'low']
+                    Close = df_nasdaq_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p6_1.setText(txt)
+                else:
+                    pass
+
+            elif comboindex6 == 15:
+
+                if not np.isnan(df_wti_graph.at[plot_x, 'price']):
+                    
+                    Open = df_wti_graph.at[plot_x, 'open']                    
+                    High = df_wti_graph.at[plot_x, 'high']
+                    Low = df_wti_graph.at[plot_x, 'low']
+                    Close = df_wti_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p6_1.setText(txt)
+                else:
+                    pass
             else:
                 pass                
         else:
@@ -24855,8 +24849,105 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p1_4.setText(" MAMA ")
         
-        # DOW   
+        # SP500
         elif comboindex1 == 12:
+
+            self.plot1_clear()
+
+            self.plot1_quote_remainder_ratio_base_line.setValue(SP500_종가)
+            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
+            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(SP500_종가)
+
+            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
+            self.plot1_option_quote_remainder_ratio_upper_line.setValue(SP500_종가)
+            
+            for i in range(10):
+                self.plot1_kp200_line[i].setValue(SP500_종가)
+
+            for i in range(9):
+                self.plot1_mv_line[i].setValue(SP500_종가)
+
+            self.plot1_center_val_lower_line.setValue(SP500_종가)
+            self.plot1_center_val_line.setValue(SP500_종가)
+            self.plot1_center_val_upper_line.setValue(SP500_종가)
+            
+            self.plot1_fut_jl_line.setValue(SP500_종가)
+            self.plot1_fut_jh_line.setValue(SP500_종가)
+            self.plot1_fut_close_line.setValue(SP500_종가)
+            self.plot1_fut_pivot_line.setValue(SP500_종가)
+            self.plot1_fut_open_line.setValue(SP500_종가)
+            self.plot1_fut_low_line.setValue(SP500_종가)
+            self.plot1_fut_high_line.setValue(SP500_종가)            
+            
+            if SP500_전저 == 0:
+                SP500_전저 = SP500_종가
+            else:
+                pass
+
+            if SP500_전고 == 0:
+                SP500_전고 = SP500_종가
+            else:
+                pass
+
+            if SP500_종가 == 0:
+                pass
+            else:
+                pass
+
+            if SP500_피봇 == 0:
+                SP500_피봇 = SP500_종가
+            else:
+                pass
+
+            if SP500_시가 == 0:
+                SP500_시가 = SP500_종가
+            else:
+                pass
+
+            if SP500_저가 == 0:
+                SP500_저가 = SP500_종가
+            else:
+                pass
+
+            if SP500_고가 == 0:
+                SP500_고가 = SP500_종가
+            else:
+                pass
+                
+            txt = ' {0} '.format(format(SP500_전저, ','))
+            self.label_11.setText(txt)
+            self.plot1_ovc_jl_line.setValue(SP500_전저)
+
+            txt = ' {0} '.format(format(SP500_전고, ','))
+            self.label_12.setText(txt)
+            self.plot1_ovc_jh_line.setValue(SP500_전고)
+            
+            txt = ' {0} '.format(format(SP500_종가, ','))
+            self.label_13.setText(txt)
+            self.plot1_ovc_close_line.setValue(SP500_종가)
+
+            txt = ' {0} '.format(format(SP500_피봇, ','))
+            self.label_14.setText(txt)
+            self.plot1_ovc_pivot_line.setValue(SP500_피봇)
+            
+            txt = ' {0} '.format(format(SP500_시가, ','))
+            self.label_15.setText(txt)
+            self.plot1_ovc_open_line.setValue(SP500_시가)
+
+            txt = ' {0} '.format(format(SP500_저가, ','))
+            self.label_16.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_16.setText(txt)
+            self.plot1_ovc_low_line.setValue(SP500_저가)
+
+            self.label_17.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(SP500_고가, ','))
+            self.label_18.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_18.setText(txt)
+            self.plot1_ovc_high_line.setValue(SP500_고가)
+
+        # DOW   
+        elif comboindex1 == 13:
 
             self.plot1_clear()
 
@@ -24953,7 +25044,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot1_ovc_high_line.setValue(DOW_고가)
 
         # NASDAQ
-        elif comboindex1 == 13:
+        elif comboindex1 == 14:
 
             self.plot1_clear()
 
@@ -25050,7 +25141,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot1_ovc_high_line.setValue(NASDAQ_고가)            
 
         # WTI   
-        elif comboindex1 == 14:
+        elif comboindex1 == 15:
 
             self.plot1_clear()
 
@@ -25145,104 +25236,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_18.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_18.setText(txt)
             self.plot1_ovc_high_line.setValue(WTI_고가)
-        
-        # SP500
-        elif comboindex1 == 15:
-
-            self.plot1_clear()
-
-            self.plot1_quote_remainder_ratio_base_line.setValue(SP500_종가)
-            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
-            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(SP500_종가)
-
-            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
-            self.plot1_option_quote_remainder_ratio_upper_line.setValue(SP500_종가)
-            
-            for i in range(10):
-                self.plot1_kp200_line[i].setValue(SP500_종가)
-
-            for i in range(9):
-                self.plot1_mv_line[i].setValue(SP500_종가)
-
-            self.plot1_center_val_lower_line.setValue(SP500_종가)
-            self.plot1_center_val_line.setValue(SP500_종가)
-            self.plot1_center_val_upper_line.setValue(SP500_종가)
-            
-            self.plot1_fut_jl_line.setValue(SP500_종가)
-            self.plot1_fut_jh_line.setValue(SP500_종가)
-            self.plot1_fut_close_line.setValue(SP500_종가)
-            self.plot1_fut_pivot_line.setValue(SP500_종가)
-            self.plot1_fut_open_line.setValue(SP500_종가)
-            self.plot1_fut_low_line.setValue(SP500_종가)
-            self.plot1_fut_high_line.setValue(SP500_종가)            
-            
-            if SP500_전저 == 0:
-                SP500_전저 = SP500_종가
-            else:
-                pass
-
-            if SP500_전고 == 0:
-                SP500_전고 = SP500_종가
-            else:
-                pass
-
-            if SP500_종가 == 0:
-                pass
-            else:
-                pass
-
-            if SP500_피봇 == 0:
-                SP500_피봇 = SP500_종가
-            else:
-                pass
-
-            if SP500_시가 == 0:
-                SP500_시가 = SP500_종가
-            else:
-                pass
-
-            if SP500_저가 == 0:
-                SP500_저가 = SP500_종가
-            else:
-                pass
-
-            if SP500_고가 == 0:
-                SP500_고가 = SP500_종가
-            else:
-                pass
                 
-            txt = ' {0} '.format(format(SP500_전저, ','))
-            self.label_11.setText(txt)
-            self.plot1_ovc_jl_line.setValue(SP500_전저)
-
-            txt = ' {0} '.format(format(SP500_전고, ','))
-            self.label_12.setText(txt)
-            self.plot1_ovc_jh_line.setValue(SP500_전고)
-            
-            txt = ' {0} '.format(format(SP500_종가, ','))
-            self.label_13.setText(txt)
-            self.plot1_ovc_close_line.setValue(SP500_종가)
-
-            txt = ' {0} '.format(format(SP500_피봇, ','))
-            self.label_14.setText(txt)
-            self.plot1_ovc_pivot_line.setValue(SP500_피봇)
-            
-            txt = ' {0} '.format(format(SP500_시가, ','))
-            self.label_15.setText(txt)
-            self.plot1_ovc_open_line.setValue(SP500_시가)
-
-            txt = ' {0} '.format(format(SP500_저가, ','))
-            self.label_16.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_16.setText(txt)
-            self.plot1_ovc_low_line.setValue(SP500_저가)
-
-            self.label_17.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
-
-            txt = ' {0} '.format(format(SP500_고가, ','))
-            self.label_18.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_18.setText(txt)
-            self.plot1_ovc_high_line.setValue(SP500_고가)
-
         # 수급종합
         elif comboindex1 == 20:
 
@@ -25694,8 +25688,109 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p2_4.setText(" MAMA ")
         
-        # DOW
+        # SP500
         elif comboindex2 == 12:
+
+            self.plot2_clear()
+
+            self.plot2_quote_remainder_ratio_base_line.setValue(SP500_종가)
+            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
+            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(SP500_종가)
+
+            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
+            self.plot2_option_quote_remainder_ratio_upper_line.setValue(SP500_종가)
+            
+            for i in range(10):
+                self.plot2_kp200_line[i].setValue(SP500_종가)
+
+            for i in range(9):
+                self.plot2_mv_line[i].setValue(SP500_종가)
+
+            self.plot2_center_val_lower_line.setValue(SP500_종가)
+            self.plot2_center_val_line.setValue(SP500_종가)
+            self.plot2_center_val_upper_line.setValue(SP500_종가)
+            
+            self.plot2_fut_jl_line.setValue(SP500_종가)
+            self.plot2_fut_jh_line.setValue(SP500_종가)
+            self.plot2_fut_close_line.setValue(SP500_종가)
+            self.plot2_fut_pivot_line.setValue(SP500_종가)
+            self.plot2_fut_open_line.setValue(SP500_종가)
+            self.plot2_fut_low_line.setValue(SP500_종가)
+            self.plot2_fut_high_line.setValue(SP500_종가)
+            
+            if SP500_전저 == 0:
+                SP500_전저 = SP500_종가
+            else:
+                pass
+
+            if SP500_전고 == 0:
+                SP500_전고 = SP500_종가
+            else:
+                pass
+
+            if SP500_종가 == 0:
+                pass
+            else:
+                pass
+
+            if SP500_피봇 == 0:
+                SP500_피봇 = SP500_종가
+            else:
+                pass
+
+            if SP500_시가 == 0:
+                SP500_시가 = SP500_종가
+            else:
+                pass
+
+            if SP500_저가 == 0:
+                SP500_저가 = SP500_종가
+            else:
+                pass
+
+            if SP500_고가 == 0:
+                SP500_고가 = SP500_종가
+            else:
+                pass
+            
+            self.plot2_center_val_lower_line.setValue(SP500_고가)
+            self.plot2_center_val_line.setValue(SP500_고가)
+            self.plot2_center_val_upper_line.setValue(SP500_고가)
+                
+            txt = ' {0} '.format(format(SP500_전저, ','))
+            self.label_21.setText(txt)
+            self.plot2_ovc_jl_line.setValue(SP500_전저)
+
+            txt = ' {0} '.format(format(SP500_전고, ','))
+            self.label_22.setText(txt)
+            self.plot2_ovc_jh_line.setValue(SP500_전고)
+            
+            txt = ' {0} '.format(format(SP500_종가, ','))
+            self.label_23.setText(txt)
+            self.plot2_ovc_close_line.setValue(SP500_종가)
+
+            txt = ' {0} '.format(format(SP500_피봇, ','))
+            self.label_24.setText(txt)
+            self.plot2_ovc_pivot_line.setValue(SP500_피봇)
+            
+            txt = ' {0} '.format(format(SP500_시가, ','))
+            self.label_25.setText(txt)
+            self.plot2_ovc_open_line.setValue(SP500_시가)
+
+            txt = ' {0} '.format(format(SP500_저가, ','))
+            self.label_26.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_26.setText(txt)
+            self.plot2_ovc_low_line.setValue(SP500_저가)
+
+            self.label_27.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(SP500_고가, ','))
+            self.label_28.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_28.setText(txt)
+            self.plot2_ovc_high_line.setValue(SP500_고가)
+   
+        # DOW
+        elif comboindex2 == 13:
 
             self.plot2_clear()
 
@@ -25796,7 +25891,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot2_ovc_high_line.setValue(DOW_고가)
 
         # NASDAQ
-        elif comboindex2 == 13:
+        elif comboindex2 == 14:
 
             self.plot2_clear()
 
@@ -25897,7 +25992,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot2_ovc_high_line.setValue(NASDAQ_고가)            
 
         # WTI  
-        elif comboindex2 == 14:
+        elif comboindex2 == 15:
 
             self.plot2_clear()
 
@@ -25996,107 +26091,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_28.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_28.setText(txt)
             self.plot2_ovc_high_line.setValue(WTI_고가)            
-        
-        # SP500
-        elif comboindex2 == 15:
-
-            self.plot2_clear()
-
-            self.plot2_quote_remainder_ratio_base_line.setValue(SP500_종가)
-            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
-            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(SP500_종가)
-
-            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
-            self.plot2_option_quote_remainder_ratio_upper_line.setValue(SP500_종가)
-            
-            for i in range(10):
-                self.plot2_kp200_line[i].setValue(SP500_종가)
-
-            for i in range(9):
-                self.plot2_mv_line[i].setValue(SP500_종가)
-
-            self.plot2_center_val_lower_line.setValue(SP500_종가)
-            self.plot2_center_val_line.setValue(SP500_종가)
-            self.plot2_center_val_upper_line.setValue(SP500_종가)
-            
-            self.plot2_fut_jl_line.setValue(SP500_종가)
-            self.plot2_fut_jh_line.setValue(SP500_종가)
-            self.plot2_fut_close_line.setValue(SP500_종가)
-            self.plot2_fut_pivot_line.setValue(SP500_종가)
-            self.plot2_fut_open_line.setValue(SP500_종가)
-            self.plot2_fut_low_line.setValue(SP500_종가)
-            self.plot2_fut_high_line.setValue(SP500_종가)
-            
-            if SP500_전저 == 0:
-                SP500_전저 = SP500_종가
-            else:
-                pass
-
-            if SP500_전고 == 0:
-                SP500_전고 = SP500_종가
-            else:
-                pass
-
-            if SP500_종가 == 0:
-                pass
-            else:
-                pass
-
-            if SP500_피봇 == 0:
-                SP500_피봇 = SP500_종가
-            else:
-                pass
-
-            if SP500_시가 == 0:
-                SP500_시가 = SP500_종가
-            else:
-                pass
-
-            if SP500_저가 == 0:
-                SP500_저가 = SP500_종가
-            else:
-                pass
-
-            if SP500_고가 == 0:
-                SP500_고가 = SP500_종가
-            else:
-                pass
-            
-            self.plot2_center_val_lower_line.setValue(SP500_고가)
-            self.plot2_center_val_line.setValue(SP500_고가)
-            self.plot2_center_val_upper_line.setValue(SP500_고가)
-                
-            txt = ' {0} '.format(format(SP500_전저, ','))
-            self.label_21.setText(txt)
-            self.plot2_ovc_jl_line.setValue(SP500_전저)
-
-            txt = ' {0} '.format(format(SP500_전고, ','))
-            self.label_22.setText(txt)
-            self.plot2_ovc_jh_line.setValue(SP500_전고)
-            
-            txt = ' {0} '.format(format(SP500_종가, ','))
-            self.label_23.setText(txt)
-            self.plot2_ovc_close_line.setValue(SP500_종가)
-
-            txt = ' {0} '.format(format(SP500_피봇, ','))
-            self.label_24.setText(txt)
-            self.plot2_ovc_pivot_line.setValue(SP500_피봇)
-            
-            txt = ' {0} '.format(format(SP500_시가, ','))
-            self.label_25.setText(txt)
-            self.plot2_ovc_open_line.setValue(SP500_시가)
-
-            txt = ' {0} '.format(format(SP500_저가, ','))
-            self.label_26.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_26.setText(txt)
-            self.plot2_ovc_low_line.setValue(SP500_저가)
-
-            self.label_27.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
-
-            txt = ' {0} '.format(format(SP500_고가, ','))
-            self.label_28.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_28.setText(txt)
-            self.plot2_ovc_high_line.setValue(SP500_고가)
         
         # 수급종합
         elif comboindex2 == 20:
@@ -26549,8 +26543,109 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p3_4.setText(" MAMA ")
         
-        # DOW
+        # SP500
         elif comboindex3 == 12:
+
+            self.plot3_clear()
+
+            self.plot3_quote_remainder_ratio_base_line.setValue(SP500_종가)
+            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
+            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(SP500_종가)
+
+            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
+            self.plot3_option_quote_remainder_ratio_upper_line.setValue(SP500_종가)
+            
+            for i in range(10):
+                self.plot3_kp200_line[i].setValue(SP500_종가)
+
+            for i in range(9):
+                self.plot3_mv_line[i].setValue(SP500_종가)
+
+            self.plot3_center_val_lower_line.setValue(SP500_종가)
+            self.plot3_center_val_line.setValue(SP500_종가)
+            self.plot3_center_val_upper_line.setValue(SP500_종가)
+            
+            self.plot3_fut_jl_line.setValue(SP500_종가)
+            self.plot3_fut_jh_line.setValue(SP500_종가)
+            self.plot3_fut_close_line.setValue(SP500_종가)
+            self.plot3_fut_pivot_line.setValue(SP500_종가)
+            self.plot3_fut_open_line.setValue(SP500_종가)
+            self.plot3_fut_low_line.setValue(SP500_종가)
+            self.plot3_fut_high_line.setValue(SP500_종가)
+            
+            if SP500_전저 == 0:
+                SP500_전저 = SP500_종가
+            else:
+                pass
+
+            if SP500_전고 == 0:
+                SP500_전고 = SP500_종가
+            else:
+                pass
+
+            if SP500_종가 == 0:
+                pass
+            else:
+                pass
+
+            if SP500_피봇 == 0:
+                SP500_피봇 = SP500_종가
+            else:
+                pass
+
+            if SP500_시가 == 0:
+                SP500_시가 = SP500_종가
+            else:
+                pass
+
+            if SP500_저가 == 0:
+                SP500_저가 = SP500_종가
+            else:
+                pass
+
+            if SP500_고가 == 0:
+                SP500_고가 = SP500_종가
+            else:
+                pass
+            
+            self.plot3_center_val_lower_line.setValue(SP500_고가)
+            self.plot3_center_val_line.setValue(SP500_고가)
+            self.plot3_center_val_upper_line.setValue(SP500_고가)
+                
+            txt = ' {0} '.format(format(SP500_전저, ','))
+            self.label_31.setText(txt)
+            self.plot3_ovc_jl_line.setValue(SP500_전저)
+
+            txt = ' {0} '.format(format(SP500_전고, ','))
+            self.label_32.setText(txt)
+            self.plot3_ovc_jh_line.setValue(SP500_전고)
+            
+            txt = ' {0} '.format(format(SP500_종가, ','))
+            self.label_33.setText(txt)
+            self.plot3_ovc_close_line.setValue(SP500_종가)
+
+            txt = ' {0} '.format(format(SP500_피봇, ','))
+            self.label_34.setText(txt)
+            self.plot3_ovc_pivot_line.setValue(SP500_피봇)
+            
+            txt = ' {0} '.format(format(SP500_시가, ','))
+            self.label_35.setText(txt)
+            self.plot3_ovc_open_line.setValue(SP500_시가)
+
+            txt = ' {0} '.format(format(SP500_저가, ','))
+            self.label_36.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_36.setText(txt)
+            self.plot3_ovc_low_line.setValue(SP500_저가)
+
+            self.label_37.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(SP500_고가, ','))
+            self.label_38.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_38.setText(txt)
+            self.plot3_ovc_high_line.setValue(SP500_고가)
+
+        # DOW
+        elif comboindex3 == 13:
 
             self.plot3_clear()
 
@@ -26651,7 +26746,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot3_ovc_high_line.setValue(DOW_고가)
 
         # NASDAQ
-        elif comboindex3 == 13:
+        elif comboindex3 == 14:
 
             self.plot3_clear()
 
@@ -26752,7 +26847,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot3_ovc_high_line.setValue(NASDAQ_고가)            
 
         # WTI
-        elif comboindex3 == 14:
+        elif comboindex3 == 15:
 
             self.plot3_clear()
 
@@ -26851,108 +26946,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_38.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_38.setText(txt)
             self.plot3_ovc_high_line.setValue(WTI_고가)            
-        
-        # SP500
-        elif comboindex3 == 15:
-
-            self.plot3_clear()
-
-            self.plot3_quote_remainder_ratio_base_line.setValue(SP500_종가)
-            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
-            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(SP500_종가)
-
-            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
-            self.plot3_option_quote_remainder_ratio_upper_line.setValue(SP500_종가)
-            
-            for i in range(10):
-                self.plot3_kp200_line[i].setValue(SP500_종가)
-
-            for i in range(9):
-                self.plot3_mv_line[i].setValue(SP500_종가)
-
-            self.plot3_center_val_lower_line.setValue(SP500_종가)
-            self.plot3_center_val_line.setValue(SP500_종가)
-            self.plot3_center_val_upper_line.setValue(SP500_종가)
-            
-            self.plot3_fut_jl_line.setValue(SP500_종가)
-            self.plot3_fut_jh_line.setValue(SP500_종가)
-            self.plot3_fut_close_line.setValue(SP500_종가)
-            self.plot3_fut_pivot_line.setValue(SP500_종가)
-            self.plot3_fut_open_line.setValue(SP500_종가)
-            self.plot3_fut_low_line.setValue(SP500_종가)
-            self.plot3_fut_high_line.setValue(SP500_종가)
-            
-            if SP500_전저 == 0:
-                SP500_전저 = SP500_종가
-            else:
-                pass
-
-            if SP500_전고 == 0:
-                SP500_전고 = SP500_종가
-            else:
-                pass
-
-            if SP500_종가 == 0:
-                pass
-            else:
-                pass
-
-            if SP500_피봇 == 0:
-                SP500_피봇 = SP500_종가
-            else:
-                pass
-
-            if SP500_시가 == 0:
-                SP500_시가 = SP500_종가
-            else:
-                pass
-
-            if SP500_저가 == 0:
-                SP500_저가 = SP500_종가
-            else:
-                pass
-
-            if SP500_고가 == 0:
-                SP500_고가 = SP500_종가
-            else:
-                pass
-            
-            self.plot3_center_val_lower_line.setValue(SP500_고가)
-            self.plot3_center_val_line.setValue(SP500_고가)
-            self.plot3_center_val_upper_line.setValue(SP500_고가)
                 
-            txt = ' {0} '.format(format(SP500_전저, ','))
-            self.label_31.setText(txt)
-            self.plot3_ovc_jl_line.setValue(SP500_전저)
-
-            txt = ' {0} '.format(format(SP500_전고, ','))
-            self.label_32.setText(txt)
-            self.plot3_ovc_jh_line.setValue(SP500_전고)
-            
-            txt = ' {0} '.format(format(SP500_종가, ','))
-            self.label_33.setText(txt)
-            self.plot3_ovc_close_line.setValue(SP500_종가)
-
-            txt = ' {0} '.format(format(SP500_피봇, ','))
-            self.label_34.setText(txt)
-            self.plot3_ovc_pivot_line.setValue(SP500_피봇)
-            
-            txt = ' {0} '.format(format(SP500_시가, ','))
-            self.label_35.setText(txt)
-            self.plot3_ovc_open_line.setValue(SP500_시가)
-
-            txt = ' {0} '.format(format(SP500_저가, ','))
-            self.label_36.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_36.setText(txt)
-            self.plot3_ovc_low_line.setValue(SP500_저가)
-
-            self.label_37.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
-
-            txt = ' {0} '.format(format(SP500_고가, ','))
-            self.label_38.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_38.setText(txt)
-            self.plot3_ovc_high_line.setValue(SP500_고가)
-
         # 수급종합
         elif comboindex3 == 20:
 
@@ -27403,9 +27397,106 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p4_4.setText(" MAMA ")
-                
-        # DOW    
+
+        # SP500
         elif comboindex4 == 12:
+
+            self.plot4_clear()
+
+            self.plot4_quote_remainder_ratio_base_line.setValue(SP500_종가)
+            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
+            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(SP500_종가)
+
+            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
+            self.plot4_option_quote_remainder_ratio_upper_line.setValue(SP500_종가)
+            
+            for i in range(10):
+                self.plot4_kp200_line[i].setValue(SP500_종가)
+
+            for i in range(9):
+                self.plot4_mv_line[i].setValue(SP500_종가)
+
+            self.plot4_center_val_lower_line.setValue(SP500_종가)
+            self.plot4_center_val_line.setValue(SP500_종가)
+            self.plot4_center_val_upper_line.setValue(SP500_종가)
+            
+            self.plot4_fut_jl_line.setValue(SP500_종가)
+            self.plot4_fut_jh_line.setValue(SP500_종가)
+            self.plot4_fut_close_line.setValue(SP500_종가)
+            self.plot4_fut_pivot_line.setValue(SP500_종가)
+            self.plot4_fut_open_line.setValue(SP500_종가)
+            self.plot4_fut_low_line.setValue(SP500_종가)
+            self.plot4_fut_high_line.setValue(SP500_종가)
+            
+            if SP500_전저 == 0:
+                SP500_전저 = SP500_종가
+            else:
+                pass
+
+            if SP500_전고 == 0:
+                SP500_전고 = SP500_종가
+            else:
+                pass
+
+            if SP500_종가 == 0:
+                pass
+            else:
+                pass
+
+            if SP500_피봇 == 0:
+                SP500_피봇 = SP500_종가
+            else:
+                pass
+
+            if SP500_시가 == 0:
+                SP500_시가 = SP500_종가
+            else:
+                pass
+
+            if SP500_저가 == 0:
+                SP500_저가 = SP500_종가
+            else:
+                pass
+
+            if SP500_고가 == 0:
+                SP500_고가 = SP500_종가
+            else:
+                pass
+                
+            txt = ' {0} '.format(format(SP500_전저, ','))
+            self.label_41.setText(txt)
+            self.plot4_ovc_jl_line.setValue(SP500_전저)
+
+            txt = ' {0} '.format(format(SP500_전고, ','))
+            self.label_42.setText(txt)
+            self.plot4_ovc_jh_line.setValue(SP500_전고)
+            
+            txt = ' {0} '.format(format(SP500_종가, ','))
+            self.label_43.setText(txt)
+            self.plot4_ovc_close_line.setValue(SP500_종가)
+
+            txt = ' {0} '.format(format(SP500_피봇, ','))
+            self.label_44.setText(txt)
+            self.plot4_ovc_pivot_line.setValue(SP500_피봇)
+            
+            txt = ' {0} '.format(format(SP500_시가, ','))
+            self.label_45.setText(txt)
+            self.plot4_ovc_open_line.setValue(SP500_시가)
+
+            txt = ' {0} '.format(format(SP500_저가, ','))
+            self.label_46.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_46.setText(txt)
+            self.plot4_ovc_low_line.setValue(SP500_저가)
+
+            self.label_47.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(SP500_고가, ','))
+            self.label_48.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_48.setText(txt)
+            self.plot4_ovc_high_line.setValue(SP500_고가)
+        
+        # DOW    
+        elif comboindex4 == 13:
 
             self.plot4_clear()
 
@@ -27502,7 +27593,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot4_ovc_high_line.setValue(DOW_고가)
 
         # NASDAQ
-        elif comboindex4 == 13:
+        elif comboindex4 == 14:
 
             self.plot4_clear()
 
@@ -27599,7 +27690,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot4_ovc_high_line.setValue(NASDAQ_고가)            
 
         # WTI    
-        elif comboindex4 == 14:
+        elif comboindex4 == 15:
 
             self.plot4_clear()
 
@@ -27694,103 +27785,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_48.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_48.setText(txt)
             self.plot4_ovc_high_line.setValue(WTI_고가)
-        
-        # SP500
-        elif comboindex4 == 15:
-
-            self.plot4_clear()
-
-            self.plot4_quote_remainder_ratio_base_line.setValue(SP500_종가)
-            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
-            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(SP500_종가)
-
-            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
-            self.plot4_option_quote_remainder_ratio_upper_line.setValue(SP500_종가)
-            
-            for i in range(10):
-                self.plot4_kp200_line[i].setValue(SP500_종가)
-
-            for i in range(9):
-                self.plot4_mv_line[i].setValue(SP500_종가)
-
-            self.plot4_center_val_lower_line.setValue(SP500_종가)
-            self.plot4_center_val_line.setValue(SP500_종가)
-            self.plot4_center_val_upper_line.setValue(SP500_종가)
-            
-            self.plot4_fut_jl_line.setValue(SP500_종가)
-            self.plot4_fut_jh_line.setValue(SP500_종가)
-            self.plot4_fut_close_line.setValue(SP500_종가)
-            self.plot4_fut_pivot_line.setValue(SP500_종가)
-            self.plot4_fut_open_line.setValue(SP500_종가)
-            self.plot4_fut_low_line.setValue(SP500_종가)
-            self.plot4_fut_high_line.setValue(SP500_종가)
-            
-            if SP500_전저 == 0:
-                SP500_전저 = SP500_종가
-            else:
-                pass
-
-            if SP500_전고 == 0:
-                SP500_전고 = SP500_종가
-            else:
-                pass
-
-            if SP500_종가 == 0:
-                pass
-            else:
-                pass
-
-            if SP500_피봇 == 0:
-                SP500_피봇 = SP500_종가
-            else:
-                pass
-
-            if SP500_시가 == 0:
-                SP500_시가 = SP500_종가
-            else:
-                pass
-
-            if SP500_저가 == 0:
-                SP500_저가 = SP500_종가
-            else:
-                pass
-
-            if SP500_고가 == 0:
-                SP500_고가 = SP500_종가
-            else:
-                pass
-                
-            txt = ' {0} '.format(format(SP500_전저, ','))
-            self.label_41.setText(txt)
-            self.plot4_ovc_jl_line.setValue(SP500_전저)
-
-            txt = ' {0} '.format(format(SP500_전고, ','))
-            self.label_42.setText(txt)
-            self.plot4_ovc_jh_line.setValue(SP500_전고)
-            
-            txt = ' {0} '.format(format(SP500_종가, ','))
-            self.label_43.setText(txt)
-            self.plot4_ovc_close_line.setValue(SP500_종가)
-
-            txt = ' {0} '.format(format(SP500_피봇, ','))
-            self.label_44.setText(txt)
-            self.plot4_ovc_pivot_line.setValue(SP500_피봇)
-            
-            txt = ' {0} '.format(format(SP500_시가, ','))
-            self.label_45.setText(txt)
-            self.plot4_ovc_open_line.setValue(SP500_시가)
-
-            txt = ' {0} '.format(format(SP500_저가, ','))
-            self.label_46.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_46.setText(txt)
-            self.plot4_ovc_low_line.setValue(SP500_저가)
-
-            self.label_47.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
-
-            txt = ' {0} '.format(format(SP500_고가, ','))
-            self.label_48.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_48.setText(txt)
-            self.plot4_ovc_high_line.setValue(SP500_고가)
         
         # 수급종합
         elif comboindex4 == 20:
@@ -28242,9 +28236,110 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p5_4.setText(" MAMA ")
-                
-        # DOW
+
+        # SP500
         elif comboindex5 == 12:
+
+            self.plot5_clear()
+
+            self.plot5_quote_remainder_ratio_base_line.setValue(SP500_종가)
+            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
+            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(SP500_종가)
+
+            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
+            self.plot5_option_quote_remainder_ratio_upper_line.setValue(SP500_종가)
+            
+            for i in range(10):
+                self.plot5_kp200_line[i].setValue(SP500_종가)
+
+            for i in range(9):
+                self.plot5_mv_line[i].setValue(SP500_종가)
+
+            self.plot5_center_val_lower_line.setValue(SP500_종가)
+            self.plot5_center_val_line.setValue(SP500_종가)
+            self.plot5_center_val_upper_line.setValue(SP500_종가)
+            
+            self.plot5_fut_jl_line.setValue(SP500_종가)
+            self.plot5_fut_jh_line.setValue(SP500_종가)
+            self.plot5_fut_close_line.setValue(SP500_종가)
+            self.plot5_fut_pivot_line.setValue(SP500_종가)
+            self.plot5_fut_open_line.setValue(SP500_종가)
+            self.plot5_fut_low_line.setValue(SP500_종가)
+            self.plot5_fut_high_line.setValue(SP500_종가)
+            
+            if SP500_전저 == 0:
+                SP500_전저 = SP500_종가
+            else:
+                pass
+
+            if SP500_전고 == 0:
+                SP500_전고 = SP500_종가
+            else:
+                pass
+
+            if SP500_종가 == 0:
+                pass
+            else:
+                pass
+
+            if SP500_피봇 == 0:
+                SP500_피봇 = SP500_종가
+            else:
+                pass
+
+            if SP500_시가 == 0:
+                SP500_시가 = SP500_종가
+            else:
+                pass
+
+            if SP500_저가 == 0:
+                SP500_저가 = SP500_종가
+            else:
+                pass
+
+            if SP500_고가 == 0:
+                SP500_고가 = SP500_종가
+            else:
+                pass
+            
+            self.plot5_center_val_lower_line.setValue(SP500_고가)
+            self.plot5_center_val_line.setValue(SP500_고가)
+            self.plot5_center_val_upper_line.setValue(SP500_고가)
+                
+            txt = ' {0} '.format(format(SP500_전저, ','))
+            self.label_51.setText(txt)
+            self.plot5_ovc_jl_line.setValue(SP500_전저)
+
+            txt = ' {0} '.format(format(SP500_전고, ','))
+            self.label_52.setText(txt)
+            self.plot5_ovc_jh_line.setValue(SP500_전고)
+            
+            txt = ' {0} '.format(format(SP500_종가, ','))
+            self.label_53.setText(txt)
+            self.plot5_ovc_close_line.setValue(SP500_종가)
+
+            txt = ' {0} '.format(format(SP500_피봇, ','))
+            self.label_54.setText(txt)
+            self.plot5_ovc_pivot_line.setValue(SP500_피봇)
+            
+            txt = ' {0} '.format(format(SP500_시가, ','))
+            self.label_55.setText(txt)
+            self.plot5_ovc_open_line.setValue(SP500_시가)
+
+            txt = ' {0} '.format(format(SP500_저가, ','))
+            self.label_56.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_56.setText(txt)
+            self.plot5_ovc_low_line.setValue(SP500_저가)
+
+            self.label_57.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(SP500_고가, ','))
+            self.label_58.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_58.setText(txt)
+            self.plot5_ovc_high_line.setValue(SP500_고가)
+              
+        # DOW
+        elif comboindex5 == 13:
 
             self.plot5_clear()
 
@@ -28345,7 +28440,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot5_ovc_high_line.setValue(DOW_고가)
 
         # NASDAQ
-        elif comboindex5 == 13:
+        elif comboindex5 == 14:
 
             self.plot5_clear()
 
@@ -28446,7 +28541,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot5_ovc_high_line.setValue(NASDAQ_고가)            
 
         # WTI
-        elif comboindex5 == 14:
+        elif comboindex5 == 15:
 
             self.plot5_clear()
 
@@ -28545,107 +28640,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_58.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_58.setText(txt)
             self.plot5_ovc_high_line.setValue(WTI_고가)            
-        
-        # SP500
-        elif comboindex5 == 15:
-
-            self.plot5_clear()
-
-            self.plot5_quote_remainder_ratio_base_line.setValue(SP500_종가)
-            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
-            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(SP500_종가)
-
-            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
-            self.plot5_option_quote_remainder_ratio_upper_line.setValue(SP500_종가)
-            
-            for i in range(10):
-                self.plot5_kp200_line[i].setValue(SP500_종가)
-
-            for i in range(9):
-                self.plot5_mv_line[i].setValue(SP500_종가)
-
-            self.plot5_center_val_lower_line.setValue(SP500_종가)
-            self.plot5_center_val_line.setValue(SP500_종가)
-            self.plot5_center_val_upper_line.setValue(SP500_종가)
-            
-            self.plot5_fut_jl_line.setValue(SP500_종가)
-            self.plot5_fut_jh_line.setValue(SP500_종가)
-            self.plot5_fut_close_line.setValue(SP500_종가)
-            self.plot5_fut_pivot_line.setValue(SP500_종가)
-            self.plot5_fut_open_line.setValue(SP500_종가)
-            self.plot5_fut_low_line.setValue(SP500_종가)
-            self.plot5_fut_high_line.setValue(SP500_종가)
-            
-            if SP500_전저 == 0:
-                SP500_전저 = SP500_종가
-            else:
-                pass
-
-            if SP500_전고 == 0:
-                SP500_전고 = SP500_종가
-            else:
-                pass
-
-            if SP500_종가 == 0:
-                pass
-            else:
-                pass
-
-            if SP500_피봇 == 0:
-                SP500_피봇 = SP500_종가
-            else:
-                pass
-
-            if SP500_시가 == 0:
-                SP500_시가 = SP500_종가
-            else:
-                pass
-
-            if SP500_저가 == 0:
-                SP500_저가 = SP500_종가
-            else:
-                pass
-
-            if SP500_고가 == 0:
-                SP500_고가 = SP500_종가
-            else:
-                pass
-            
-            self.plot5_center_val_lower_line.setValue(SP500_고가)
-            self.plot5_center_val_line.setValue(SP500_고가)
-            self.plot5_center_val_upper_line.setValue(SP500_고가)
-                
-            txt = ' {0} '.format(format(SP500_전저, ','))
-            self.label_51.setText(txt)
-            self.plot5_ovc_jl_line.setValue(SP500_전저)
-
-            txt = ' {0} '.format(format(SP500_전고, ','))
-            self.label_52.setText(txt)
-            self.plot5_ovc_jh_line.setValue(SP500_전고)
-            
-            txt = ' {0} '.format(format(SP500_종가, ','))
-            self.label_53.setText(txt)
-            self.plot5_ovc_close_line.setValue(SP500_종가)
-
-            txt = ' {0} '.format(format(SP500_피봇, ','))
-            self.label_54.setText(txt)
-            self.plot5_ovc_pivot_line.setValue(SP500_피봇)
-            
-            txt = ' {0} '.format(format(SP500_시가, ','))
-            self.label_55.setText(txt)
-            self.plot5_ovc_open_line.setValue(SP500_시가)
-
-            txt = ' {0} '.format(format(SP500_저가, ','))
-            self.label_56.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_56.setText(txt)
-            self.plot5_ovc_low_line.setValue(SP500_저가)
-
-            self.label_57.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
-
-            txt = ' {0} '.format(format(SP500_고가, ','))
-            self.label_58.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_58.setText(txt)
-            self.plot5_ovc_high_line.setValue(SP500_고가)
         
         # 수급종합
         elif comboindex5 == 20:
@@ -29098,8 +29092,109 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p6_4.setText(" MAMA ")
         
-        # DOW
+        # SP500
         elif comboindex6 == 12:
+
+            self.plot6_clear()
+
+            self.plot6_quote_remainder_ratio_base_line.setValue(SP500_종가)
+            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
+            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(SP500_종가)
+
+            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
+            self.plot6_option_quote_remainder_ratio_upper_line.setValue(SP500_종가)
+            
+            for i in range(10):
+                self.plot6_kp200_line[i].setValue(SP500_종가)
+
+            for i in range(9):
+                self.plot6_mv_line[i].setValue(SP500_종가)
+
+            self.plot6_center_val_lower_line.setValue(SP500_종가)
+            self.plot6_center_val_line.setValue(SP500_종가)
+            self.plot6_center_val_upper_line.setValue(SP500_종가)
+            
+            self.plot6_fut_jl_line.setValue(SP500_종가)
+            self.plot6_fut_jh_line.setValue(SP500_종가)
+            self.plot6_fut_close_line.setValue(SP500_종가)
+            self.plot6_fut_pivot_line.setValue(SP500_종가)
+            self.plot6_fut_open_line.setValue(SP500_종가)
+            self.plot6_fut_low_line.setValue(SP500_종가)
+            self.plot6_fut_high_line.setValue(SP500_종가)
+            
+            if SP500_전저 == 0:
+                SP500_전저 = SP500_종가
+            else:
+                pass
+
+            if SP500_전고 == 0:
+                SP500_전고 = SP500_종가
+            else:
+                pass
+
+            if SP500_종가 == 0:
+                pass
+            else:
+                pass
+
+            if SP500_피봇 == 0:
+                SP500_피봇 = SP500_종가
+            else:
+                pass
+
+            if SP500_시가 == 0:
+                SP500_시가 = SP500_종가
+            else:
+                pass
+
+            if SP500_저가 == 0:
+                SP500_저가 = SP500_종가
+            else:
+                pass
+
+            if SP500_고가 == 0:
+                SP500_고가 = SP500_종가
+            else:
+                pass
+            
+            self.plot6_center_val_lower_line.setValue(SP500_고가)
+            self.plot6_center_val_line.setValue(SP500_고가)
+            self.plot6_center_val_upper_line.setValue(SP500_고가)
+                
+            txt = ' {0} '.format(format(SP500_전저, ','))
+            self.label_61.setText(txt)
+            self.plot6_ovc_jl_line.setValue(SP500_전저)
+
+            txt = ' {0} '.format(format(SP500_전고, ','))
+            self.label_62.setText(txt)
+            self.plot6_ovc_jh_line.setValue(SP500_전고)
+            
+            txt = ' {0} '.format(format(SP500_종가, ','))
+            self.label_63.setText(txt)
+            self.plot6_ovc_close_line.setValue(SP500_종가)
+
+            txt = ' {0} '.format(format(SP500_피봇, ','))
+            self.label_64.setText(txt)
+            self.plot6_ovc_pivot_line.setValue(SP500_피봇)
+            
+            txt = ' {0} '.format(format(SP500_시가, ','))
+            self.label_65.setText(txt)
+            self.plot6_ovc_open_line.setValue(SP500_시가)
+
+            txt = ' {0} '.format(format(SP500_저가, ','))
+            self.label_66.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_66.setText(txt)
+            self.plot6_ovc_low_line.setValue(SP500_저가)
+
+            self.label_67.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(SP500_고가, ','))
+            self.label_68.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_68.setText(txt)
+            self.plot6_ovc_high_line.setValue(SP500_고가)
+
+        # DOW
+        elif comboindex6 == 13:
 
             self.plot6_clear()
 
@@ -29200,7 +29295,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot6_ovc_high_line.setValue(DOW_고가)
 
         # NASDAQ
-        elif comboindex6 == 13:
+        elif comboindex6 == 14:
 
             self.plot6_clear()
 
@@ -29301,7 +29396,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot6_ovc_high_line.setValue(NASDAQ_고가)            
 
         # WTI
-        elif comboindex6 == 14:
+        elif comboindex6 == 15:
 
             self.plot6_clear()
 
@@ -29400,108 +29495,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_68.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_68.setText(txt)
             self.plot6_ovc_high_line.setValue(WTI_고가)
-
-        # SP500
-        elif comboindex6 == 15:
-
-            self.plot6_clear()
-
-            self.plot6_quote_remainder_ratio_base_line.setValue(SP500_종가)
-            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
-            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(SP500_종가)
-
-            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(SP500_종가)
-            self.plot6_option_quote_remainder_ratio_upper_line.setValue(SP500_종가)
-            
-            for i in range(10):
-                self.plot6_kp200_line[i].setValue(SP500_종가)
-
-            for i in range(9):
-                self.plot6_mv_line[i].setValue(SP500_종가)
-
-            self.plot6_center_val_lower_line.setValue(SP500_종가)
-            self.plot6_center_val_line.setValue(SP500_종가)
-            self.plot6_center_val_upper_line.setValue(SP500_종가)
-            
-            self.plot6_fut_jl_line.setValue(SP500_종가)
-            self.plot6_fut_jh_line.setValue(SP500_종가)
-            self.plot6_fut_close_line.setValue(SP500_종가)
-            self.plot6_fut_pivot_line.setValue(SP500_종가)
-            self.plot6_fut_open_line.setValue(SP500_종가)
-            self.plot6_fut_low_line.setValue(SP500_종가)
-            self.plot6_fut_high_line.setValue(SP500_종가)
-            
-            if SP500_전저 == 0:
-                SP500_전저 = SP500_종가
-            else:
-                pass
-
-            if SP500_전고 == 0:
-                SP500_전고 = SP500_종가
-            else:
-                pass
-
-            if SP500_종가 == 0:
-                pass
-            else:
-                pass
-
-            if SP500_피봇 == 0:
-                SP500_피봇 = SP500_종가
-            else:
-                pass
-
-            if SP500_시가 == 0:
-                SP500_시가 = SP500_종가
-            else:
-                pass
-
-            if SP500_저가 == 0:
-                SP500_저가 = SP500_종가
-            else:
-                pass
-
-            if SP500_고가 == 0:
-                SP500_고가 = SP500_종가
-            else:
-                pass
-            
-            self.plot6_center_val_lower_line.setValue(SP500_고가)
-            self.plot6_center_val_line.setValue(SP500_고가)
-            self.plot6_center_val_upper_line.setValue(SP500_고가)
-                
-            txt = ' {0} '.format(format(SP500_전저, ','))
-            self.label_61.setText(txt)
-            self.plot6_ovc_jl_line.setValue(SP500_전저)
-
-            txt = ' {0} '.format(format(SP500_전고, ','))
-            self.label_62.setText(txt)
-            self.plot6_ovc_jh_line.setValue(SP500_전고)
-            
-            txt = ' {0} '.format(format(SP500_종가, ','))
-            self.label_63.setText(txt)
-            self.plot6_ovc_close_line.setValue(SP500_종가)
-
-            txt = ' {0} '.format(format(SP500_피봇, ','))
-            self.label_64.setText(txt)
-            self.plot6_ovc_pivot_line.setValue(SP500_피봇)
-            
-            txt = ' {0} '.format(format(SP500_시가, ','))
-            self.label_65.setText(txt)
-            self.plot6_ovc_open_line.setValue(SP500_시가)
-
-            txt = ' {0} '.format(format(SP500_저가, ','))
-            self.label_66.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_66.setText(txt)
-            self.plot6_ovc_low_line.setValue(SP500_저가)
-
-            self.label_67.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
-
-            txt = ' {0} '.format(format(SP500_고가, ','))
-            self.label_68.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_68.setText(txt)
-            self.plot6_ovc_high_line.setValue(SP500_고가)
-
+        
         # 수급종합
         elif comboindex6 == 20:
 
@@ -30160,6 +30154,136 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex1 == 12:
 
+                if df_sp500_graph.at[cme_time_index, 'BBMiddle'] == df_sp500_graph.at[cme_time_index, 'BBMiddle']:
+
+                    if df_sp500_graph.at[cme_time_index, 'BBMiddle'] >= df_sp500_graph.at[cme_time_index, 'price']:
+                        self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    pass                 
+
+                if df_sp500_graph.at[cme_time_index, 'PSAR'] == df_sp500_graph.at[cme_time_index, 'PSAR']:
+
+                    if df_sp500_graph.at[cme_time_index, 'PSAR'] >= df_sp500_graph.at[cme_time_index, 'price']:
+                        self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[cme_time_index, 'BBMiddle'], df_sp500_graph.at[cme_time_index, 'PSAR'], SP500_호가순매수)
+                    self.label_p1_2.setText(txt)
+                else:
+                    pass
+                
+                if df_sp500_graph.at[cme_time_index, 'OE_CONV'] == df_sp500_graph.at[cme_time_index, 'OE_CONV'] and df_sp500_graph.at[cme_time_index, 'OE_BASE'] == df_sp500_graph.at[cme_time_index, 'OE_BASE']:
+
+                    if df_sp500_graph.at[cme_time_index, 'OE_CONV'] < df_sp500_graph.at[cme_time_index, 'OE_BASE']:
+                        self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'OE_CONV'], df_sp500_graph.at[cme_time_index, 'OE_BASE'])
+                    self.label_p1_3.setText(txt)
+                else:
+                    pass
+
+                if df_sp500_graph.at[cme_time_index, 'MAMA'] == df_sp500_graph.at[cme_time_index, 'MAMA'] and df_sp500_graph.at[cme_time_index, 'FAMA'] == df_sp500_graph.at[cme_time_index, 'FAMA']:
+
+                    if df_sp500_graph.at[cme_time_index, 'FAMA'] >= df_sp500_graph.at[cme_time_index, 'BBLower']:
+
+                        if df_sp500_graph.at[cme_time_index, 'MAMA'] < df_sp500_graph.at[cme_time_index, 'FAMA']:
+                            self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'MAMA'], df_sp500_graph.at[cme_time_index, 'FAMA'])
+                    self.label_p1_4.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(SP500_저가, ','))
+                self.label_16.setText(txt)
+
+                tmp = self.label_17.text().split()[0]
+                value = tmp.replace(',', '')               
+
+                if SP500_현재가 > float(value):
+
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+
+                    if SP500_전일대비 > 0:
+                        self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif SP500_전일대비 < 0:
+                        self.label_17.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_17.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_17.setText(txt)
+
+                elif SP500_현재가 < float(value):
+
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+
+                    if SP500_전일대비 > 0:
+                        self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif SP500_전일대비 < 0:
+                        self.label_17.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_17.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_17.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(SP500_고가, ','))
+                self.label_18.setText(txt) 
+                
+                self.plot1_time_line.setValue(cme_time_index)
+
+                self.plot1_ovc_jl_line.setValue(SP500_전저)
+                self.plot1_ovc_jh_line.setValue(SP500_전고)
+                self.plot1_ovc_close_line.setValue(SP500_종가)
+                self.plot1_ovc_open_line.setValue(SP500_시가)
+                self.plot1_ovc_pivot_line.setValue(SP500_피봇)
+                self.plot1_ovc_low_line.setValue(SP500_저가)
+                self.plot1_ovc_high_line.setValue(SP500_고가)                  
+
+                self.plot1_sp500_curve.setData(df_sp500_graph['price'].to_numpy())
+
+                if flag_checkBox_plot1_bband:
+
+                    self.Calc_SAR_BBand('SP500')                    
+
+                    self.plot1_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].to_numpy())
+                    self.plot1_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].to_numpy())
+                    self.plot1_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot1_mama:
+
+                    self.Calc_MAMA('SP500')
+
+                    self.plot1_mama_curve.setData(df_sp500_graph['MAMA'].to_numpy())
+                    self.plot1_fama_curve.setData(df_sp500_graph['A_FAMA'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot1_oe:
+
+                    self.Calc_Ichimoku('SP500')
+
+                    self.plot1_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].to_numpy())
+                    self.plot1_oe_base_curve.setData(df_sp500_graph['OE_BASE'].to_numpy())
+                else:
+                    pass
+            
+            elif comboindex1 == 13:
+
                 if df_dow_graph.at[cme_time_index, 'BBMiddle'] == df_dow_graph.at[cme_time_index, 'BBMiddle']:
 
                     if df_dow_graph.at[cme_time_index, 'BBMiddle'] >= df_dow_graph.at[cme_time_index, 'price']:
@@ -30288,7 +30412,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif comboindex1 == 13:
+            elif comboindex1 == 14:
 
                 if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] == df_nasdaq_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -30418,7 +30542,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif comboindex1 == 14:
+            elif comboindex1 == 15:
 
                 if df_wti_graph.at[cme_time_index, 'BBMiddle'] == df_wti_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -30544,136 +30668,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.plot1_oe_conv_curve.setData(df_wti_graph['OE_CONV'].to_numpy())
                     self.plot1_oe_base_curve.setData(df_wti_graph['OE_BASE'].to_numpy())
-                else:
-                    pass
-            
-            elif comboindex1 == 15:
-
-                if df_sp500_graph.at[cme_time_index, 'BBMiddle'] == df_sp500_graph.at[cme_time_index, 'BBMiddle']:
-
-                    if df_sp500_graph.at[cme_time_index, 'BBMiddle'] >= df_sp500_graph.at[cme_time_index, 'price']:
-                        self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    pass                 
-
-                if df_sp500_graph.at[cme_time_index, 'PSAR'] == df_sp500_graph.at[cme_time_index, 'PSAR']:
-
-                    if df_sp500_graph.at[cme_time_index, 'PSAR'] >= df_sp500_graph.at[cme_time_index, 'price']:
-                        self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[cme_time_index, 'BBMiddle'], df_sp500_graph.at[cme_time_index, 'PSAR'], SP500_호가순매수)
-                    self.label_p1_2.setText(txt)
-                else:
-                    pass
-                
-                if df_sp500_graph.at[cme_time_index, 'OE_CONV'] == df_sp500_graph.at[cme_time_index, 'OE_CONV'] and df_sp500_graph.at[cme_time_index, 'OE_BASE'] == df_sp500_graph.at[cme_time_index, 'OE_BASE']:
-
-                    if df_sp500_graph.at[cme_time_index, 'OE_CONV'] < df_sp500_graph.at[cme_time_index, 'OE_BASE']:
-                        self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'OE_CONV'], df_sp500_graph.at[cme_time_index, 'OE_BASE'])
-                    self.label_p1_3.setText(txt)
-                else:
-                    pass
-
-                if df_sp500_graph.at[cme_time_index, 'MAMA'] == df_sp500_graph.at[cme_time_index, 'MAMA'] and df_sp500_graph.at[cme_time_index, 'FAMA'] == df_sp500_graph.at[cme_time_index, 'FAMA']:
-
-                    if df_sp500_graph.at[cme_time_index, 'FAMA'] >= df_sp500_graph.at[cme_time_index, 'BBLower']:
-
-                        if df_sp500_graph.at[cme_time_index, 'MAMA'] < df_sp500_graph.at[cme_time_index, 'FAMA']:
-                            self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'MAMA'], df_sp500_graph.at[cme_time_index, 'FAMA'])
-                    self.label_p1_4.setText(txt)
-                else:
-                    pass
-
-                txt = ' {0} '.format(format(SP500_저가, ','))
-                self.label_16.setText(txt)
-
-                tmp = self.label_17.text().split()[0]
-                value = tmp.replace(',', '')               
-
-                if SP500_현재가 > float(value):
-
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
-
-                    if SP500_전일대비 > 0:
-                        self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif SP500_전일대비 < 0:
-                        self.label_17.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_17.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_17.setText(txt)
-
-                elif SP500_현재가 < float(value):
-
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
-
-                    if SP500_전일대비 > 0:
-                        self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif SP500_전일대비 < 0:
-                        self.label_17.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_17.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_17.setText(txt)
-                else:
-                    pass
-
-                txt = ' {0} '.format(format(SP500_고가, ','))
-                self.label_18.setText(txt) 
-                
-                self.plot1_time_line.setValue(cme_time_index)
-
-                self.plot1_ovc_jl_line.setValue(SP500_전저)
-                self.plot1_ovc_jh_line.setValue(SP500_전고)
-                self.plot1_ovc_close_line.setValue(SP500_종가)
-                self.plot1_ovc_open_line.setValue(SP500_시가)
-                self.plot1_ovc_pivot_line.setValue(SP500_피봇)
-                self.plot1_ovc_low_line.setValue(SP500_저가)
-                self.plot1_ovc_high_line.setValue(SP500_고가)                  
-
-                self.plot1_sp500_curve.setData(df_sp500_graph['price'].to_numpy())
-
-                if flag_checkBox_plot1_bband:
-
-                    self.Calc_SAR_BBand('SP500')                    
-
-                    self.plot1_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].to_numpy())
-                    self.plot1_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].to_numpy())
-                    self.plot1_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].to_numpy())
-                else:
-                    pass
-
-                if flag_checkBox_plot1_mama:
-
-                    self.Calc_MAMA('SP500')
-
-                    self.plot1_mama_curve.setData(df_sp500_graph['MAMA'].to_numpy())
-                    self.plot1_fama_curve.setData(df_sp500_graph['A_FAMA'].to_numpy())
-                else:
-                    pass
-
-                if flag_checkBox_plot1_oe:
-
-                    self.Calc_Ichimoku('SP500')
-
-                    self.plot1_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].to_numpy())
-                    self.plot1_oe_base_curve.setData(df_sp500_graph['OE_BASE'].to_numpy())
                 else:
                     pass
             
@@ -31155,6 +31149,142 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex2 == 12:
 
+                if df_sp500_graph.at[cme_time_index, 'BBMiddle'] == df_sp500_graph.at[cme_time_index, 'BBMiddle']:
+
+                    if df_sp500_graph.at[cme_time_index, 'BBMiddle'] >= df_sp500_graph.at[cme_time_index, 'price']:
+                        self.label_p2_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p2_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    pass                 
+
+                if df_sp500_graph.at[cme_time_index, 'PSAR'] == df_sp500_graph.at[cme_time_index, 'PSAR']:
+
+                    if df_sp500_graph.at[cme_time_index, 'PSAR'] >= df_sp500_graph.at[cme_time_index, 'price']:
+                        self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p2_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[cme_time_index, 'BBMiddle'], df_sp500_graph.at[cme_time_index, 'PSAR'], SP500_호가순매수)
+                    self.label_p2_2.setText(txt)
+                else:
+                    pass
+                
+                if df_sp500_graph.at[cme_time_index, 'OE_CONV'] == df_sp500_graph.at[cme_time_index, 'OE_CONV'] and df_sp500_graph.at[cme_time_index, 'OE_BASE'] == df_sp500_graph.at[cme_time_index, 'OE_BASE']:
+
+                    if df_sp500_graph.at[cme_time_index, 'OE_CONV'] < df_sp500_graph.at[cme_time_index, 'OE_BASE']:
+                        self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p2_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'OE_CONV'], df_sp500_graph.at[cme_time_index, 'OE_BASE'])
+                    self.label_p2_3.setText(txt)
+                else:
+                    pass
+
+                if df_sp500_graph.at[cme_time_index, 'MAMA'] == df_sp500_graph.at[cme_time_index, 'MAMA'] and df_sp500_graph.at[cme_time_index, 'FAMA'] == df_sp500_graph.at[cme_time_index, 'FAMA']:
+
+                    if df_sp500_graph.at[cme_time_index, 'FAMA'] >= df_sp500_graph.at[cme_time_index, 'BBLower']:
+
+                        if df_sp500_graph.at[cme_time_index, 'MAMA'] < df_sp500_graph.at[cme_time_index, 'FAMA']:
+                            self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p2_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p2_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'MAMA'], df_sp500_graph.at[cme_time_index, 'FAMA'])
+                    self.label_p2_4.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(SP500_저가, ','))
+                self.label_26.setText(txt)
+
+                tmp = self.label_27.text().split()[0]
+                value = tmp.replace(',', '')                
+
+                if SP500_현재가 > float(value):
+
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+
+                    if SP500_전일대비 > 0:
+                        self.label_27.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif SP500_전일대비 < 0:
+                        self.label_27.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_27.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_27.setText(txt)
+
+                elif SP500_현재가 < float(value):
+
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+
+                    if SP500_전일대비 > 0:
+                        self.label_27.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif SP500_전일대비 < 0:
+                        self.label_27.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_27.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_27.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(SP500_고가, ','))
+                self.label_28.setText(txt) 
+                
+                self.plot2_time_line.setValue(cme_time_index)
+
+                self.plot2_ovc_jl_line.setValue(SP500_전저)
+                self.plot2_ovc_jh_line.setValue(SP500_전고)
+                self.plot2_ovc_close_line.setValue(SP500_종가)
+                self.plot2_ovc_open_line.setValue(SP500_시가)
+                self.plot2_ovc_pivot_line.setValue(SP500_피봇)
+                self.plot2_ovc_low_line.setValue(SP500_저가)
+                self.plot2_ovc_high_line.setValue(SP500_고가)
+
+                # 고가선 이동시 중심가 3개 선도 같이 이동해야됨(중요)
+                self.plot2_center_val_lower_line.setValue(SP500_고가)
+                self.plot2_center_val_line.setValue(SP500_고가)
+                self.plot2_center_val_upper_line.setValue(SP500_고가)
+                self.plot2_ovc_high_line.setValue(SP500_고가)                
+
+                self.plot2_sp500_curve.setData(df_sp500_graph['price'].to_numpy())
+
+                if flag_checkBox_plot2_bband:
+
+                    self.Calc_SAR_BBand('SP500')
+
+                    self.plot2_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].to_numpy())
+                    self.plot2_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].to_numpy())
+                    self.plot2_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot2_mama:
+
+                    self.Calc_MAMA('SP500')
+
+                    self.plot2_mama_curve.setData(df_sp500_graph['MAMA'].to_numpy())
+                    self.plot2_fama_curve.setData(df_sp500_graph['A_FAMA'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot2_oe:
+
+                    self.Calc_Ichimoku('SP500')
+
+                    self.plot2_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].to_numpy())
+                    self.plot2_oe_base_curve.setData(df_sp500_graph['OE_BASE'].to_numpy())
+                else:
+                    pass
+            
+            elif comboindex2 == 13:
+
                 if df_dow_graph.at[cme_time_index, 'BBMiddle'] == df_dow_graph.at[cme_time_index, 'BBMiddle']:
 
                     if df_dow_graph.at[cme_time_index, 'BBMiddle'] >= df_dow_graph.at[cme_time_index, 'price']:
@@ -31288,7 +31418,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass    
 
-            elif comboindex2 == 13:
+            elif comboindex2 == 14:
 
                 if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] == df_nasdaq_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -31423,7 +31553,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass 
 
-            elif comboindex2 == 14:
+            elif comboindex2 == 15:
 
                 if df_wti_graph.at[cme_time_index, 'BBMiddle'] == df_wti_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -31556,142 +31686,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.plot2_oe_base_curve.setData(df_wti_graph['OE_BASE'].to_numpy())
                 else:
                     pass  
-            
-            elif comboindex2 == 15:
-
-                if df_sp500_graph.at[cme_time_index, 'BBMiddle'] == df_sp500_graph.at[cme_time_index, 'BBMiddle']:
-
-                    if df_sp500_graph.at[cme_time_index, 'BBMiddle'] >= df_sp500_graph.at[cme_time_index, 'price']:
-                        self.label_p2_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p2_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    pass                 
-
-                if df_sp500_graph.at[cme_time_index, 'PSAR'] == df_sp500_graph.at[cme_time_index, 'PSAR']:
-
-                    if df_sp500_graph.at[cme_time_index, 'PSAR'] >= df_sp500_graph.at[cme_time_index, 'price']:
-                        self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p2_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[cme_time_index, 'BBMiddle'], df_sp500_graph.at[cme_time_index, 'PSAR'], SP500_호가순매수)
-                    self.label_p2_2.setText(txt)
-                else:
-                    pass
-                
-                if df_sp500_graph.at[cme_time_index, 'OE_CONV'] == df_sp500_graph.at[cme_time_index, 'OE_CONV'] and df_sp500_graph.at[cme_time_index, 'OE_BASE'] == df_sp500_graph.at[cme_time_index, 'OE_BASE']:
-
-                    if df_sp500_graph.at[cme_time_index, 'OE_CONV'] < df_sp500_graph.at[cme_time_index, 'OE_BASE']:
-                        self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p2_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'OE_CONV'], df_sp500_graph.at[cme_time_index, 'OE_BASE'])
-                    self.label_p2_3.setText(txt)
-                else:
-                    pass
-
-                if df_sp500_graph.at[cme_time_index, 'MAMA'] == df_sp500_graph.at[cme_time_index, 'MAMA'] and df_sp500_graph.at[cme_time_index, 'FAMA'] == df_sp500_graph.at[cme_time_index, 'FAMA']:
-
-                    if df_sp500_graph.at[cme_time_index, 'FAMA'] >= df_sp500_graph.at[cme_time_index, 'BBLower']:
-
-                        if df_sp500_graph.at[cme_time_index, 'MAMA'] < df_sp500_graph.at[cme_time_index, 'FAMA']:
-                            self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p2_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'MAMA'], df_sp500_graph.at[cme_time_index, 'FAMA'])
-                    self.label_p2_4.setText(txt)
-                else:
-                    pass
-
-                txt = ' {0} '.format(format(SP500_저가, ','))
-                self.label_26.setText(txt)
-
-                tmp = self.label_27.text().split()[0]
-                value = tmp.replace(',', '')                
-
-                if SP500_현재가 > float(value):
-
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
-
-                    if SP500_전일대비 > 0:
-                        self.label_27.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif SP500_전일대비 < 0:
-                        self.label_27.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_27.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_27.setText(txt)
-
-                elif SP500_현재가 < float(value):
-
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
-
-                    if SP500_전일대비 > 0:
-                        self.label_27.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif SP500_전일대비 < 0:
-                        self.label_27.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_27.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_27.setText(txt)
-                else:
-                    pass
-
-                txt = ' {0} '.format(format(SP500_고가, ','))
-                self.label_28.setText(txt) 
-                
-                self.plot2_time_line.setValue(cme_time_index)
-
-                self.plot2_ovc_jl_line.setValue(SP500_전저)
-                self.plot2_ovc_jh_line.setValue(SP500_전고)
-                self.plot2_ovc_close_line.setValue(SP500_종가)
-                self.plot2_ovc_open_line.setValue(SP500_시가)
-                self.plot2_ovc_pivot_line.setValue(SP500_피봇)
-                self.plot2_ovc_low_line.setValue(SP500_저가)
-                self.plot2_ovc_high_line.setValue(SP500_고가)
-
-                # 고가선 이동시 중심가 3개 선도 같이 이동해야됨(중요)
-                self.plot2_center_val_lower_line.setValue(SP500_고가)
-                self.plot2_center_val_line.setValue(SP500_고가)
-                self.plot2_center_val_upper_line.setValue(SP500_고가)
-                self.plot2_ovc_high_line.setValue(SP500_고가)                
-
-                self.plot2_sp500_curve.setData(df_sp500_graph['price'].to_numpy())
-
-                if flag_checkBox_plot2_bband:
-
-                    self.Calc_SAR_BBand('SP500')
-
-                    self.plot2_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].to_numpy())
-                    self.plot2_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].to_numpy())
-                    self.plot2_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].to_numpy())
-                else:
-                    pass
-
-                if flag_checkBox_plot2_mama:
-
-                    self.Calc_MAMA('SP500')
-
-                    self.plot2_mama_curve.setData(df_sp500_graph['MAMA'].to_numpy())
-                    self.plot2_fama_curve.setData(df_sp500_graph['A_FAMA'].to_numpy())
-                else:
-                    pass
-
-                if flag_checkBox_plot2_oe:
-
-                    self.Calc_Ichimoku('SP500')
-
-                    self.plot2_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].to_numpy())
-                    self.plot2_oe_base_curve.setData(df_sp500_graph['OE_BASE'].to_numpy())
-                else:
-                    pass
             
             elif comboindex2 == 20:
 
@@ -32169,6 +32163,141 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex3 == 12:
 
+                if df_sp500_graph.at[cme_time_index, 'BBMiddle'] == df_sp500_graph.at[cme_time_index, 'BBMiddle']:
+
+                    if df_sp500_graph.at[cme_time_index, 'BBMiddle'] >= df_sp500_graph.at[cme_time_index, 'price']:
+                        self.label_p3_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p3_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    pass                 
+
+                if df_sp500_graph.at[cme_time_index, 'PSAR'] == df_sp500_graph.at[cme_time_index, 'PSAR']:
+
+                    if df_sp500_graph.at[cme_time_index, 'PSAR'] >= df_sp500_graph.at[cme_time_index, 'price']:
+                        self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p3_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[cme_time_index, 'BBMiddle'], df_sp500_graph.at[cme_time_index, 'PSAR'], SP500_호가순매수)
+                    self.label_p3_2.setText(txt)
+                else:
+                    pass
+                
+                if df_sp500_graph.at[cme_time_index, 'OE_CONV'] == df_sp500_graph.at[cme_time_index, 'OE_CONV'] and df_sp500_graph.at[cme_time_index, 'OE_BASE'] == df_sp500_graph.at[cme_time_index, 'OE_BASE']:
+
+                    if df_sp500_graph.at[cme_time_index, 'OE_CONV'] < df_sp500_graph.at[cme_time_index, 'OE_BASE']:
+                        self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p3_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'OE_CONV'], df_sp500_graph.at[cme_time_index, 'OE_BASE'])
+                    self.label_p3_3.setText(txt)
+                else:
+                    pass
+
+                if df_sp500_graph.at[cme_time_index, 'MAMA'] == df_sp500_graph.at[cme_time_index, 'MAMA'] and df_sp500_graph.at[cme_time_index, 'FAMA'] == df_sp500_graph.at[cme_time_index, 'FAMA']:
+
+                    if df_sp500_graph.at[cme_time_index, 'FAMA'] >= df_sp500_graph.at[cme_time_index, 'BBLower']:
+
+                        if df_sp500_graph.at[cme_time_index, 'MAMA'] < df_sp500_graph.at[cme_time_index, 'FAMA']:
+                            self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p3_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p3_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'MAMA'], df_sp500_graph.at[cme_time_index, 'FAMA'])
+                    self.label_p3_4.setText(txt)
+                else:
+                    pass
+                
+                txt = ' {0} '.format(format(SP500_저가, ','))
+                self.label_36.setText(txt)
+
+                tmp = self.label_37.text().split()[0]
+                value = tmp.replace(',', '')                
+
+                if SP500_현재가 > float(value):
+
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+
+                    if SP500_전일대비 > 0:
+                        self.label_37.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif SP500_전일대비 < 0:
+                        self.label_37.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_37.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_37.setText(txt)
+
+                elif SP500_현재가 < float(value):
+
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+
+                    if SP500_전일대비 > 0:
+                        self.label_37.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif SP500_전일대비 < 0:
+                        self.label_37.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_37.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_37.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(SP500_고가, ','))
+                self.label_38.setText(txt)
+                
+                self.plot3_time_line.setValue(cme_time_index)
+
+                self.plot3_ovc_jl_line.setValue(SP500_전저)
+                self.plot3_ovc_jh_line.setValue(SP500_전고)
+                self.plot3_ovc_close_line.setValue(SP500_종가)
+                self.plot3_ovc_open_line.setValue(SP500_시가)
+                self.plot3_ovc_pivot_line.setValue(SP500_피봇)
+                self.plot3_ovc_low_line.setValue(SP500_저가)
+                self.plot3_ovc_high_line.setValue(SP500_고가)
+
+                # 고가선 이동시 중심가 3개 선도 같이 이동해야됨(중요)
+                self.plot3_center_val_lower_line.setValue(SP500_고가)
+                self.plot3_center_val_line.setValue(SP500_고가)
+                self.plot3_center_val_upper_line.setValue(SP500_고가)
+
+                self.plot3_sp500_curve.setData(df_sp500_graph['price'].to_numpy())
+
+                if flag_checkBox_plot3_bband:
+
+                    self.Calc_SAR_BBand('SP500')
+
+                    self.plot3_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].to_numpy())
+                    self.plot3_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].to_numpy())
+                    self.plot3_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot3_mama:
+
+                    self.Calc_MAMA('SP500')
+
+                    self.plot3_mama_curve.setData(df_sp500_graph['MAMA'].to_numpy())
+                    self.plot3_fama_curve.setData(df_sp500_graph['A_FAMA'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot3_oe:
+
+                    self.Calc_Ichimoku('SP500')
+
+                    self.plot3_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].to_numpy())
+                    self.plot3_oe_base_curve.setData(df_sp500_graph['OE_BASE'].to_numpy())
+                else:
+                    pass
+            
+            elif comboindex3 == 13:
+
                 if df_dow_graph.at[cme_time_index, 'BBMiddle'] == df_dow_graph.at[cme_time_index, 'BBMiddle']:
 
                     if df_dow_graph.at[cme_time_index, 'BBMiddle'] >= df_dow_graph.at[cme_time_index, 'price']:
@@ -32301,7 +32430,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass    
 
-            elif comboindex3 == 13:
+            elif comboindex3 == 14:
 
                 if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] == df_nasdaq_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -32435,7 +32564,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass   
 
-            elif comboindex3 == 14:
+            elif comboindex3 == 15:
 
                 if df_wti_graph.at[cme_time_index, 'BBMiddle'] == df_wti_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -32567,141 +32696,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.plot3_oe_base_curve.setData(df_wti_graph['OE_BASE'].to_numpy())
                 else:
                     pass 
-            
-            elif comboindex3 == 15:
-
-                if df_sp500_graph.at[cme_time_index, 'BBMiddle'] == df_sp500_graph.at[cme_time_index, 'BBMiddle']:
-
-                    if df_sp500_graph.at[cme_time_index, 'BBMiddle'] >= df_sp500_graph.at[cme_time_index, 'price']:
-                        self.label_p3_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p3_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    pass                 
-
-                if df_sp500_graph.at[cme_time_index, 'PSAR'] == df_sp500_graph.at[cme_time_index, 'PSAR']:
-
-                    if df_sp500_graph.at[cme_time_index, 'PSAR'] >= df_sp500_graph.at[cme_time_index, 'price']:
-                        self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p3_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[cme_time_index, 'BBMiddle'], df_sp500_graph.at[cme_time_index, 'PSAR'], SP500_호가순매수)
-                    self.label_p3_2.setText(txt)
-                else:
-                    pass
-                
-                if df_sp500_graph.at[cme_time_index, 'OE_CONV'] == df_sp500_graph.at[cme_time_index, 'OE_CONV'] and df_sp500_graph.at[cme_time_index, 'OE_BASE'] == df_sp500_graph.at[cme_time_index, 'OE_BASE']:
-
-                    if df_sp500_graph.at[cme_time_index, 'OE_CONV'] < df_sp500_graph.at[cme_time_index, 'OE_BASE']:
-                        self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p3_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'OE_CONV'], df_sp500_graph.at[cme_time_index, 'OE_BASE'])
-                    self.label_p3_3.setText(txt)
-                else:
-                    pass
-
-                if df_sp500_graph.at[cme_time_index, 'MAMA'] == df_sp500_graph.at[cme_time_index, 'MAMA'] and df_sp500_graph.at[cme_time_index, 'FAMA'] == df_sp500_graph.at[cme_time_index, 'FAMA']:
-
-                    if df_sp500_graph.at[cme_time_index, 'FAMA'] >= df_sp500_graph.at[cme_time_index, 'BBLower']:
-
-                        if df_sp500_graph.at[cme_time_index, 'MAMA'] < df_sp500_graph.at[cme_time_index, 'FAMA']:
-                            self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p3_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'MAMA'], df_sp500_graph.at[cme_time_index, 'FAMA'])
-                    self.label_p3_4.setText(txt)
-                else:
-                    pass
-                
-                txt = ' {0} '.format(format(SP500_저가, ','))
-                self.label_36.setText(txt)
-
-                tmp = self.label_37.text().split()[0]
-                value = tmp.replace(',', '')                
-
-                if SP500_현재가 > float(value):
-
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
-
-                    if SP500_전일대비 > 0:
-                        self.label_37.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif SP500_전일대비 < 0:
-                        self.label_37.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_37.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_37.setText(txt)
-
-                elif SP500_현재가 < float(value):
-
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
-
-                    if SP500_전일대비 > 0:
-                        self.label_37.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif SP500_전일대비 < 0:
-                        self.label_37.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_37.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_37.setText(txt)
-                else:
-                    pass
-
-                txt = ' {0} '.format(format(SP500_고가, ','))
-                self.label_38.setText(txt)
-                
-                self.plot3_time_line.setValue(cme_time_index)
-
-                self.plot3_ovc_jl_line.setValue(SP500_전저)
-                self.plot3_ovc_jh_line.setValue(SP500_전고)
-                self.plot3_ovc_close_line.setValue(SP500_종가)
-                self.plot3_ovc_open_line.setValue(SP500_시가)
-                self.plot3_ovc_pivot_line.setValue(SP500_피봇)
-                self.plot3_ovc_low_line.setValue(SP500_저가)
-                self.plot3_ovc_high_line.setValue(SP500_고가)
-
-                # 고가선 이동시 중심가 3개 선도 같이 이동해야됨(중요)
-                self.plot3_center_val_lower_line.setValue(SP500_고가)
-                self.plot3_center_val_line.setValue(SP500_고가)
-                self.plot3_center_val_upper_line.setValue(SP500_고가)
-
-                self.plot3_sp500_curve.setData(df_sp500_graph['price'].to_numpy())
-
-                if flag_checkBox_plot3_bband:
-
-                    self.Calc_SAR_BBand('SP500')
-
-                    self.plot3_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].to_numpy())
-                    self.plot3_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].to_numpy())
-                    self.plot3_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].to_numpy())
-                else:
-                    pass
-
-                if flag_checkBox_plot3_mama:
-
-                    self.Calc_MAMA('SP500')
-
-                    self.plot3_mama_curve.setData(df_sp500_graph['MAMA'].to_numpy())
-                    self.plot3_fama_curve.setData(df_sp500_graph['A_FAMA'].to_numpy())
-                else:
-                    pass
-
-                if flag_checkBox_plot3_oe:
-
-                    self.Calc_Ichimoku('SP500')
-
-                    self.plot3_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].to_numpy())
-                    self.plot3_oe_base_curve.setData(df_sp500_graph['OE_BASE'].to_numpy())
-                else:
-                    pass
             
             elif comboindex3 == 20:
 
@@ -33180,6 +33174,136 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex4 == 12:
 
+                if df_sp500_graph.at[cme_time_index, 'BBMiddle'] == df_sp500_graph.at[cme_time_index, 'BBMiddle']:
+
+                    if df_sp500_graph.at[cme_time_index, 'BBMiddle'] >= df_sp500_graph.at[cme_time_index, 'price']:
+                        self.label_p4_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p4_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    pass                 
+
+                if df_sp500_graph.at[cme_time_index, 'PSAR'] == df_sp500_graph.at[cme_time_index, 'PSAR']:
+
+                    if df_sp500_graph.at[cme_time_index, 'PSAR'] >= df_sp500_graph.at[cme_time_index, 'price']:
+                        self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p4_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[cme_time_index, 'BBMiddle'], df_sp500_graph.at[cme_time_index, 'PSAR'], SP500_호가순매수)
+                    self.label_p4_2.setText(txt)
+                else:
+                    pass
+                
+                if df_sp500_graph.at[cme_time_index, 'OE_CONV'] == df_sp500_graph.at[cme_time_index, 'OE_CONV'] and df_sp500_graph.at[cme_time_index, 'OE_BASE'] == df_sp500_graph.at[cme_time_index, 'OE_BASE']:
+
+                    if df_sp500_graph.at[cme_time_index, 'OE_CONV'] < df_sp500_graph.at[cme_time_index, 'OE_BASE']:
+                        self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p4_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'OE_CONV'], df_sp500_graph.at[cme_time_index, 'OE_BASE'])
+                    self.label_p4_3.setText(txt)
+                else:
+                    pass
+
+                if df_sp500_graph.at[cme_time_index, 'MAMA'] == df_sp500_graph.at[cme_time_index, 'MAMA'] and df_sp500_graph.at[cme_time_index, 'FAMA'] == df_sp500_graph.at[cme_time_index, 'FAMA']:
+
+                    if df_sp500_graph.at[cme_time_index, 'FAMA'] >= df_sp500_graph.at[cme_time_index, 'BBLower']:
+
+                        if df_sp500_graph.at[cme_time_index, 'MAMA'] < df_sp500_graph.at[cme_time_index, 'FAMA']:
+                            self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p4_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p4_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'MAMA'], df_sp500_graph.at[cme_time_index, 'FAMA'])
+                    self.label_p4_4.setText(txt)
+                else:
+                    pass
+                
+                txt = ' {0} '.format(format(SP500_저가, ','))
+                self.label_46.setText(txt)
+                
+                tmp = self.label_47.text().split()[0]
+                value = tmp.replace(',', '')               
+
+                if SP500_현재가 > float(value):
+
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+
+                    if SP500_전일대비 > 0:
+                        self.label_47.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif SP500_전일대비 < 0:
+                        self.label_47.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_47.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_47.setText(txt)
+
+                elif SP500_현재가 < float(value):
+
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+
+                    if SP500_전일대비 > 0:
+                        self.label_47.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif SP500_전일대비 < 0:
+                        self.label_47.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_47.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_47.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(SP500_고가, ','))
+                self.label_48.setText(txt) 
+                
+                self.plot4_time_line.setValue(cme_time_index)
+
+                self.plot4_ovc_jl_line.setValue(SP500_전저)
+                self.plot4_ovc_jh_line.setValue(SP500_전고)
+                self.plot4_ovc_close_line.setValue(SP500_종가)
+                self.plot4_ovc_open_line.setValue(SP500_시가)
+                self.plot4_ovc_pivot_line.setValue(SP500_피봇)
+                self.plot4_ovc_low_line.setValue(SP500_저가)
+                self.plot4_ovc_high_line.setValue(SP500_고가)  
+
+                self.plot4_sp500_curve.setData(df_sp500_graph['price'].to_numpy())
+
+                if flag_checkBox_plot4_bband:
+
+                    self.Calc_SAR_BBand('SP500')
+
+                    self.plot4_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].to_numpy())
+                    self.plot4_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].to_numpy())
+                    self.plot4_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot4_mama:
+
+                    self.Calc_MAMA('SP500')
+
+                    self.plot4_mama_curve.setData(df_sp500_graph['MAMA'].to_numpy())
+                    self.plot4_fama_curve.setData(df_sp500_graph['A_FAMA'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot4_oe:
+
+                    self.Calc_Ichimoku('SP500')
+
+                    self.plot4_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].to_numpy())
+                    self.plot4_oe_base_curve.setData(df_sp500_graph['OE_BASE'].to_numpy())
+                else:
+                    pass
+            
+            elif comboindex4 == 13:
+
                 if df_dow_graph.at[cme_time_index, 'BBMiddle'] == df_dow_graph.at[cme_time_index, 'BBMiddle']:
 
                     if df_dow_graph.at[cme_time_index, 'BBMiddle'] >= df_dow_graph.at[cme_time_index, 'price']:
@@ -33308,7 +33432,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif comboindex4 == 13:
+            elif comboindex4 == 14:
 
                 if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] == df_nasdaq_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -33438,7 +33562,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif comboindex4 == 14:
+            elif comboindex4 == 15:
 
                 if df_wti_graph.at[cme_time_index, 'BBMiddle'] == df_wti_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -33564,136 +33688,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.plot4_oe_conv_curve.setData(df_wti_graph['OE_CONV'].to_numpy())
                     self.plot4_oe_base_curve.setData(df_wti_graph['OE_BASE'].to_numpy())
-                else:
-                    pass
-            
-            elif comboindex4 == 15:
-
-                if df_sp500_graph.at[cme_time_index, 'BBMiddle'] == df_sp500_graph.at[cme_time_index, 'BBMiddle']:
-
-                    if df_sp500_graph.at[cme_time_index, 'BBMiddle'] >= df_sp500_graph.at[cme_time_index, 'price']:
-                        self.label_p4_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p4_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    pass                 
-
-                if df_sp500_graph.at[cme_time_index, 'PSAR'] == df_sp500_graph.at[cme_time_index, 'PSAR']:
-
-                    if df_sp500_graph.at[cme_time_index, 'PSAR'] >= df_sp500_graph.at[cme_time_index, 'price']:
-                        self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p4_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[cme_time_index, 'BBMiddle'], df_sp500_graph.at[cme_time_index, 'PSAR'], SP500_호가순매수)
-                    self.label_p4_2.setText(txt)
-                else:
-                    pass
-                
-                if df_sp500_graph.at[cme_time_index, 'OE_CONV'] == df_sp500_graph.at[cme_time_index, 'OE_CONV'] and df_sp500_graph.at[cme_time_index, 'OE_BASE'] == df_sp500_graph.at[cme_time_index, 'OE_BASE']:
-
-                    if df_sp500_graph.at[cme_time_index, 'OE_CONV'] < df_sp500_graph.at[cme_time_index, 'OE_BASE']:
-                        self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p4_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'OE_CONV'], df_sp500_graph.at[cme_time_index, 'OE_BASE'])
-                    self.label_p4_3.setText(txt)
-                else:
-                    pass
-
-                if df_sp500_graph.at[cme_time_index, 'MAMA'] == df_sp500_graph.at[cme_time_index, 'MAMA'] and df_sp500_graph.at[cme_time_index, 'FAMA'] == df_sp500_graph.at[cme_time_index, 'FAMA']:
-
-                    if df_sp500_graph.at[cme_time_index, 'FAMA'] >= df_sp500_graph.at[cme_time_index, 'BBLower']:
-
-                        if df_sp500_graph.at[cme_time_index, 'MAMA'] < df_sp500_graph.at[cme_time_index, 'FAMA']:
-                            self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p4_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'MAMA'], df_sp500_graph.at[cme_time_index, 'FAMA'])
-                    self.label_p4_4.setText(txt)
-                else:
-                    pass
-                
-                txt = ' {0} '.format(format(SP500_저가, ','))
-                self.label_46.setText(txt)
-                
-                tmp = self.label_47.text().split()[0]
-                value = tmp.replace(',', '')               
-
-                if SP500_현재가 > float(value):
-
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
-
-                    if SP500_전일대비 > 0:
-                        self.label_47.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif SP500_전일대비 < 0:
-                        self.label_47.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_47.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_47.setText(txt)
-
-                elif SP500_현재가 < float(value):
-
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
-
-                    if SP500_전일대비 > 0:
-                        self.label_47.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif SP500_전일대비 < 0:
-                        self.label_47.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_47.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_47.setText(txt)
-                else:
-                    pass
-
-                txt = ' {0} '.format(format(SP500_고가, ','))
-                self.label_48.setText(txt) 
-                
-                self.plot4_time_line.setValue(cme_time_index)
-
-                self.plot4_ovc_jl_line.setValue(SP500_전저)
-                self.plot4_ovc_jh_line.setValue(SP500_전고)
-                self.plot4_ovc_close_line.setValue(SP500_종가)
-                self.plot4_ovc_open_line.setValue(SP500_시가)
-                self.plot4_ovc_pivot_line.setValue(SP500_피봇)
-                self.plot4_ovc_low_line.setValue(SP500_저가)
-                self.plot4_ovc_high_line.setValue(SP500_고가)  
-
-                self.plot4_sp500_curve.setData(df_sp500_graph['price'].to_numpy())
-
-                if flag_checkBox_plot4_bband:
-
-                    self.Calc_SAR_BBand('SP500')
-
-                    self.plot4_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].to_numpy())
-                    self.plot4_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].to_numpy())
-                    self.plot4_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].to_numpy())
-                else:
-                    pass
-
-                if flag_checkBox_plot4_mama:
-
-                    self.Calc_MAMA('SP500')
-
-                    self.plot4_mama_curve.setData(df_sp500_graph['MAMA'].to_numpy())
-                    self.plot4_fama_curve.setData(df_sp500_graph['A_FAMA'].to_numpy())
-                else:
-                    pass
-
-                if flag_checkBox_plot4_oe:
-
-                    self.Calc_Ichimoku('SP500')
-
-                    self.plot4_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].to_numpy())
-                    self.plot4_oe_base_curve.setData(df_sp500_graph['OE_BASE'].to_numpy())
                 else:
                     pass
             
@@ -34172,6 +34166,141 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex5 == 12:
 
+                if df_sp500_graph.at[cme_time_index, 'BBMiddle'] == df_sp500_graph.at[cme_time_index, 'BBMiddle']:
+
+                    if df_sp500_graph.at[cme_time_index, 'BBMiddle'] >= df_sp500_graph.at[cme_time_index, 'price']:
+                        self.label_p5_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p5_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    pass                 
+
+                if df_sp500_graph.at[cme_time_index, 'PSAR'] == df_sp500_graph.at[cme_time_index, 'PSAR']:
+
+                    if df_sp500_graph.at[cme_time_index, 'PSAR'] >= df_sp500_graph.at[cme_time_index, 'price']:
+                        self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p5_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[cme_time_index, 'BBMiddle'], df_sp500_graph.at[cme_time_index, 'PSAR'], SP500_호가순매수)
+                    self.label_p5_2.setText(txt)
+                else:
+                    pass
+                
+                if df_sp500_graph.at[cme_time_index, 'OE_CONV'] == df_sp500_graph.at[cme_time_index, 'OE_CONV'] and df_sp500_graph.at[cme_time_index, 'OE_BASE'] == df_sp500_graph.at[cme_time_index, 'OE_BASE']:
+
+                    if df_sp500_graph.at[cme_time_index, 'OE_CONV'] < df_sp500_graph.at[cme_time_index, 'OE_BASE']:
+                        self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p5_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'OE_CONV'], df_sp500_graph.at[cme_time_index, 'OE_BASE'])
+                    self.label_p5_3.setText(txt)
+                else:
+                    pass
+
+                if df_sp500_graph.at[cme_time_index, 'MAMA'] == df_sp500_graph.at[cme_time_index, 'MAMA'] and df_sp500_graph.at[cme_time_index, 'FAMA'] == df_sp500_graph.at[cme_time_index, 'FAMA']:
+
+                    if df_sp500_graph.at[cme_time_index, 'FAMA'] >= df_sp500_graph.at[cme_time_index, 'BBLower']:
+
+                        if df_sp500_graph.at[cme_time_index, 'MAMA'] < df_sp500_graph.at[cme_time_index, 'FAMA']:
+                            self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p5_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p5_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'MAMA'], df_sp500_graph.at[cme_time_index, 'FAMA'])
+                    self.label_p5_4.setText(txt)
+                else:
+                    pass
+                
+                txt = ' {0} '.format(format(SP500_저가, ','))
+                self.label_56.setText(txt)
+
+                tmp = self.label_57.text().split()[0]
+                value = tmp.replace(',', '')                
+
+                if SP500_현재가 > float(value):
+
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+
+                    if SP500_전일대비 > 0:
+                        self.label_57.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif SP500_전일대비 < 0:
+                        self.label_57.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_57.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_57.setText(txt)
+
+                elif SP500_현재가 < float(value):
+
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+
+                    if SP500_전일대비 > 0:
+                        self.label_57.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif SP500_전일대비 < 0:
+                        self.label_57.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_57.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_57.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(SP500_고가, ','))
+                self.label_58.setText(txt)
+                
+                self.plot5_time_line.setValue(cme_time_index)
+
+                self.plot5_ovc_jl_line.setValue(SP500_전저)
+                self.plot5_ovc_jh_line.setValue(SP500_전고)
+                self.plot5_ovc_close_line.setValue(SP500_종가)
+                self.plot5_ovc_open_line.setValue(SP500_시가)
+                self.plot5_ovc_pivot_line.setValue(SP500_피봇)
+                self.plot5_ovc_low_line.setValue(SP500_저가)
+                self.plot5_ovc_high_line.setValue(SP500_고가)
+
+                # 고가선 이동시 중심가 3개 선도 같이 이동해야됨(중요)
+                self.plot5_center_val_lower_line.setValue(SP500_고가)
+                self.plot5_center_val_line.setValue(SP500_고가)
+                self.plot5_center_val_upper_line.setValue(SP500_고가) 
+
+                self.plot5_sp500_curve.setData(df_sp500_graph['price'].to_numpy())
+
+                if flag_checkBox_plot5_bband:
+
+                    self.Calc_SAR_BBand('SP500')
+
+                    self.plot5_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].to_numpy())
+                    self.plot5_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].to_numpy())
+                    self.plot5_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot5_mama:
+
+                    self.Calc_MAMA('SP500')
+
+                    self.plot5_mama_curve.setData(df_sp500_graph['MAMA'].to_numpy())
+                    self.plot5_fama_curve.setData(df_sp500_graph['A_FAMA'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot5_oe:
+
+                    self.Calc_Ichimoku('SP500')
+
+                    self.plot5_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].to_numpy())
+                    self.plot5_oe_base_curve.setData(df_sp500_graph['OE_BASE'].to_numpy())
+                else:
+                    pass
+            
+            elif comboindex5 == 13:
+
                 if df_dow_graph.at[cme_time_index, 'BBMiddle'] == df_dow_graph.at[cme_time_index, 'BBMiddle']:
 
                     if df_dow_graph.at[cme_time_index, 'BBMiddle'] >= df_dow_graph.at[cme_time_index, 'price']:
@@ -34304,7 +34433,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass  
 
-            elif comboindex5 == 13:
+            elif comboindex5 == 14:
 
                 if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] == df_nasdaq_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -34438,7 +34567,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass 
 
-            elif comboindex5 == 14:
+            elif comboindex5 == 15:
 
                 if df_wti_graph.at[cme_time_index, 'BBMiddle'] == df_wti_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -34570,141 +34699,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.plot5_oe_base_curve.setData(df_wti_graph['OE_BASE'].to_numpy())
                 else:
                     pass 
-            
-            elif comboindex5 == 15:
-
-                if df_sp500_graph.at[cme_time_index, 'BBMiddle'] == df_sp500_graph.at[cme_time_index, 'BBMiddle']:
-
-                    if df_sp500_graph.at[cme_time_index, 'BBMiddle'] >= df_sp500_graph.at[cme_time_index, 'price']:
-                        self.label_p5_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p5_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    pass                 
-
-                if df_sp500_graph.at[cme_time_index, 'PSAR'] == df_sp500_graph.at[cme_time_index, 'PSAR']:
-
-                    if df_sp500_graph.at[cme_time_index, 'PSAR'] >= df_sp500_graph.at[cme_time_index, 'price']:
-                        self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p5_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[cme_time_index, 'BBMiddle'], df_sp500_graph.at[cme_time_index, 'PSAR'], SP500_호가순매수)
-                    self.label_p5_2.setText(txt)
-                else:
-                    pass
-                
-                if df_sp500_graph.at[cme_time_index, 'OE_CONV'] == df_sp500_graph.at[cme_time_index, 'OE_CONV'] and df_sp500_graph.at[cme_time_index, 'OE_BASE'] == df_sp500_graph.at[cme_time_index, 'OE_BASE']:
-
-                    if df_sp500_graph.at[cme_time_index, 'OE_CONV'] < df_sp500_graph.at[cme_time_index, 'OE_BASE']:
-                        self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p5_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'OE_CONV'], df_sp500_graph.at[cme_time_index, 'OE_BASE'])
-                    self.label_p5_3.setText(txt)
-                else:
-                    pass
-
-                if df_sp500_graph.at[cme_time_index, 'MAMA'] == df_sp500_graph.at[cme_time_index, 'MAMA'] and df_sp500_graph.at[cme_time_index, 'FAMA'] == df_sp500_graph.at[cme_time_index, 'FAMA']:
-
-                    if df_sp500_graph.at[cme_time_index, 'FAMA'] >= df_sp500_graph.at[cme_time_index, 'BBLower']:
-
-                        if df_sp500_graph.at[cme_time_index, 'MAMA'] < df_sp500_graph.at[cme_time_index, 'FAMA']:
-                            self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p5_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'MAMA'], df_sp500_graph.at[cme_time_index, 'FAMA'])
-                    self.label_p5_4.setText(txt)
-                else:
-                    pass
-                
-                txt = ' {0} '.format(format(SP500_저가, ','))
-                self.label_56.setText(txt)
-
-                tmp = self.label_57.text().split()[0]
-                value = tmp.replace(',', '')                
-
-                if SP500_현재가 > float(value):
-
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
-
-                    if SP500_전일대비 > 0:
-                        self.label_57.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif SP500_전일대비 < 0:
-                        self.label_57.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_57.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_57.setText(txt)
-
-                elif SP500_현재가 < float(value):
-
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
-
-                    if SP500_전일대비 > 0:
-                        self.label_57.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif SP500_전일대비 < 0:
-                        self.label_57.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_57.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_57.setText(txt)
-                else:
-                    pass
-
-                txt = ' {0} '.format(format(SP500_고가, ','))
-                self.label_58.setText(txt)
-                
-                self.plot5_time_line.setValue(cme_time_index)
-
-                self.plot5_ovc_jl_line.setValue(SP500_전저)
-                self.plot5_ovc_jh_line.setValue(SP500_전고)
-                self.plot5_ovc_close_line.setValue(SP500_종가)
-                self.plot5_ovc_open_line.setValue(SP500_시가)
-                self.plot5_ovc_pivot_line.setValue(SP500_피봇)
-                self.plot5_ovc_low_line.setValue(SP500_저가)
-                self.plot5_ovc_high_line.setValue(SP500_고가)
-
-                # 고가선 이동시 중심가 3개 선도 같이 이동해야됨(중요)
-                self.plot5_center_val_lower_line.setValue(SP500_고가)
-                self.plot5_center_val_line.setValue(SP500_고가)
-                self.plot5_center_val_upper_line.setValue(SP500_고가) 
-
-                self.plot5_sp500_curve.setData(df_sp500_graph['price'].to_numpy())
-
-                if flag_checkBox_plot5_bband:
-
-                    self.Calc_SAR_BBand('SP500')
-
-                    self.plot5_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].to_numpy())
-                    self.plot5_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].to_numpy())
-                    self.plot5_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].to_numpy())
-                else:
-                    pass
-
-                if flag_checkBox_plot5_mama:
-
-                    self.Calc_MAMA('SP500')
-
-                    self.plot5_mama_curve.setData(df_sp500_graph['MAMA'].to_numpy())
-                    self.plot5_fama_curve.setData(df_sp500_graph['A_FAMA'].to_numpy())
-                else:
-                    pass
-
-                if flag_checkBox_plot5_oe:
-
-                    self.Calc_Ichimoku('SP500')
-
-                    self.plot5_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].to_numpy())
-                    self.plot5_oe_base_curve.setData(df_sp500_graph['OE_BASE'].to_numpy())
-                else:
-                    pass
             
             elif comboindex5 == 20:
 
@@ -35181,407 +35175,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             elif comboindex6 == 12:
 
-                if df_dow_graph.at[cme_time_index, 'BBMiddle'] == df_dow_graph.at[cme_time_index, 'BBMiddle']:
-
-                    if df_dow_graph.at[cme_time_index, 'BBMiddle'] >= df_dow_graph.at[cme_time_index, 'price']:
-                        self.label_p6_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p6_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    pass
-
-                if df_dow_graph.at[cme_time_index, 'PSAR'] == df_dow_graph.at[cme_time_index, 'PSAR']:
-
-                    if df_dow_graph.at[cme_time_index, 'PSAR'] >= df_dow_graph.at[cme_time_index, 'price']:
-                        self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p6_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_dow_graph.at[cme_time_index, 'BBMiddle'], df_dow_graph.at[cme_time_index, 'PSAR'], DOW_호가순매수)
-                    self.label_p6_2.setText(txt)
-                else:
-                    pass
-                
-                if df_dow_graph.at[cme_time_index, 'OE_CONV'] == df_dow_graph.at[cme_time_index, 'OE_CONV'] and df_dow_graph.at[cme_time_index, 'OE_BASE'] == df_dow_graph.at[cme_time_index, 'OE_BASE']:
-
-                    if df_dow_graph.at[cme_time_index, 'OE_CONV'] < df_dow_graph.at[cme_time_index, 'OE_BASE']:
-                        self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p6_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[cme_time_index, 'OE_CONV'], df_dow_graph.at[cme_time_index, 'OE_BASE'])
-                    self.label_p6_3.setText(txt)
-                else:
-                    pass
-
-                if df_dow_graph.at[cme_time_index, 'MAMA'] == df_dow_graph.at[cme_time_index, 'MAMA'] and df_dow_graph.at[cme_time_index, 'FAMA'] == df_dow_graph.at[cme_time_index, 'FAMA']:
-
-                    if df_dow_graph.at[cme_time_index, 'FAMA'] >= df_dow_graph.at[cme_time_index, 'BBLower']:
-
-                        if df_dow_graph.at[cme_time_index, 'MAMA'] < df_dow_graph.at[cme_time_index, 'FAMA']:
-                            self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[cme_time_index, 'MAMA'], df_dow_graph.at[cme_time_index, 'FAMA'])
-                    self.label_p6_4.setText(txt)
-                else:
-                    pass
-                
-                txt = ' {0} '.format(format(DOW_저가, ','))
-                self.label_66.setText(txt)
-
-                tmp = self.label_67.text().split()[0]
-                value = tmp.replace(',', '')               
-
-                if DOW_현재가 > float(value):
-
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
-
-                    if DOW_전일대비 > 0:
-                        self.label_67.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif DOW_전일대비 < 0:
-                        self.label_67.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_67.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_67.setText(txt)
-
-                elif DOW_현재가 < float(value):
-
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
-
-                    if DOW_전일대비 > 0:
-                        self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif DOW_전일대비 < 0:
-                        self.label_67.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_67.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_67.setText(txt)
-                else:
-                    pass
-
-                txt = ' {0} '.format(format(DOW_고가, ','))
-                self.label_68.setText(txt)  
-                
-                self.plot6_time_line.setValue(cme_time_index)
-
-                self.plot6_ovc_jl_line.setValue(DOW_전저)
-                self.plot6_ovc_jh_line.setValue(DOW_전고)
-                self.plot6_ovc_close_line.setValue(DOW_종가)
-                self.plot6_ovc_open_line.setValue(DOW_시가)
-                self.plot6_ovc_pivot_line.setValue(DOW_피봇)
-                self.plot6_ovc_low_line.setValue(DOW_저가)
-                self.plot6_ovc_high_line.setValue(DOW_고가) 
-
-                self.plot6_center_val_lower_line.setValue(DOW_고가)
-                self.plot6_center_val_line.setValue(DOW_고가)
-                self.plot6_center_val_upper_line.setValue(DOW_고가)                
-
-                self.plot6_dow_curve.setData(df_dow_graph['price'].to_numpy())
-
-                if flag_checkBox_plot6_bband:
-
-                    self.Calc_SAR_BBand('DOW')
-
-                    self.plot6_bollinger_upper_curve.setData(df_dow_graph['BBUpper'].to_numpy())
-                    self.plot6_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'].to_numpy())
-                    self.plot6_bollinger_lower_curve.setData(df_dow_graph['BBLower'].to_numpy())
-                else:
-                    pass
-
-                if flag_checkBox_plot6_mama:
-
-                    self.Calc_MAMA('DOW')
-
-                    self.plot6_mama_curve.setData(df_dow_graph['MAMA'].to_numpy())
-                    self.plot6_fama_curve.setData(df_dow_graph['A_FAMA'].to_numpy())
-                else:
-                    pass
-
-                if flag_checkBox_plot6_oe:
-
-                    self.Calc_Ichimoku('DOW')
-
-                    self.plot6_oe_conv_curve.setData(df_dow_graph['OE_CONV'].to_numpy())
-                    self.plot6_oe_base_curve.setData(df_dow_graph['OE_BASE'].to_numpy())
-                else:
-                    pass    
-
-            elif comboindex6 == 13:
-
-                if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] == df_nasdaq_graph.at[cme_time_index, 'BBMiddle']:
-
-                    if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] >= df_nasdaq_graph.at[cme_time_index, 'price']:
-                        self.label_p6_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p6_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    pass
-
-                if df_nasdaq_graph.at[cme_time_index, 'PSAR'] == df_nasdaq_graph.at[cme_time_index, 'PSAR']:
-
-                    if df_nasdaq_graph.at[cme_time_index, 'PSAR'] >= df_nasdaq_graph.at[cme_time_index, 'price']:
-                        self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p6_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_nasdaq_graph.at[cme_time_index, 'BBMiddle'], df_nasdaq_graph.at[cme_time_index, 'PSAR'], NASDAQ_호가순매수)
-                    self.label_p6_2.setText(txt)
-                else:
-                    pass
-                
-                if df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] == df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] and df_nasdaq_graph.at[cme_time_index, 'OE_BASE'] == df_nasdaq_graph.at[cme_time_index, 'OE_BASE']:
-
-                    if df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] < df_nasdaq_graph.at[cme_time_index, 'OE_BASE']:
-                        self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p6_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[cme_time_index, 'OE_CONV'], df_nasdaq_graph.at[cme_time_index, 'OE_BASE'])
-                    self.label_p6_3.setText(txt)
-                else:
-                    pass
-
-                if df_nasdaq_graph.at[cme_time_index, 'MAMA'] == df_nasdaq_graph.at[cme_time_index, 'MAMA'] and df_nasdaq_graph.at[cme_time_index, 'FAMA'] == df_nasdaq_graph.at[cme_time_index, 'FAMA']:
-
-                    if df_nasdaq_graph.at[cme_time_index, 'FAMA'] >= df_nasdaq_graph.at[cme_time_index, 'BBLower']:
-
-                        if df_nasdaq_graph.at[cme_time_index, 'MAMA'] < df_nasdaq_graph.at[cme_time_index, 'FAMA']:
-                            self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_graph.at[cme_time_index, 'MAMA'], df_nasdaq_graph.at[cme_time_index, 'FAMA'])
-                    self.label_p6_4.setText(txt)
-                else:
-                    pass
-                
-                txt = ' {0} '.format(format(NASDAQ_저가, ','))
-                self.label_66.setText(txt)
-
-                tmp = self.label_67.text().split()[0]
-                value = tmp.replace(',', '')                
-
-                if NASDAQ_현재가 > float(value):
-
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
-
-                    if NASDAQ_전일대비 > 0:
-                        self.label_67.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif NASDAQ_전일대비 < 0:
-                        self.label_67.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_67.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_67.setText(txt)
-
-                elif NASDAQ_현재가 < float(value):
-
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
-
-                    if NASDAQ_전일대비 > 0:
-                        self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif NASDAQ_전일대비 < 0:
-                        self.label_67.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_67.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_67.setText(txt)
-                else:
-                    pass
-
-                txt = ' {0} '.format(format(NASDAQ_고가, ','))
-                self.label_68.setText(txt)  
-                
-                self.plot6_time_line.setValue(cme_time_index)
-
-                self.plot6_ovc_jl_line.setValue(NASDAQ_전저)
-                self.plot6_ovc_jh_line.setValue(NASDAQ_전고)
-                self.plot6_ovc_close_line.setValue(NASDAQ_종가)
-                self.plot6_ovc_open_line.setValue(NASDAQ_시가)
-                self.plot6_ovc_pivot_line.setValue(NASDAQ_피봇)
-                self.plot6_ovc_low_line.setValue(NASDAQ_저가)
-                self.plot6_ovc_high_line.setValue(NASDAQ_고가)
-
-                self.plot6_center_val_lower_line.setValue(NASDAQ_고가)
-                self.plot6_center_val_line.setValue(NASDAQ_고가)
-                self.plot6_center_val_upper_line.setValue(NASDAQ_고가) 
-
-                self.plot6_nasdaq_curve.setData(df_nasdaq_graph['price'].to_numpy())
-
-                if flag_checkBox_plot6_bband:
-
-                    self.Calc_SAR_BBand('NASDAQ')
-
-                    self.plot6_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'].to_numpy())
-                    self.plot6_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'].to_numpy())
-                    self.plot6_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'].to_numpy())
-                else:
-                    pass
-
-                if flag_checkBox_plot6_mama:
-
-                    self.Calc_MAMA('NASDAQ')
-
-                    self.plot6_mama_curve.setData(df_nasdaq_graph['MAMA'].to_numpy())
-                    self.plot6_fama_curve.setData(df_nasdaq_graph['A_FAMA'].to_numpy())
-                else:
-                    pass
-
-                if flag_checkBox_plot6_oe:
-
-                    self.Calc_Ichimoku('NASDAQ')
-
-                    self.plot6_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'].to_numpy())
-                    self.plot6_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'].to_numpy())
-                else:
-                    pass  
-
-            elif comboindex6 == 14:
-
-                if df_wti_graph.at[cme_time_index, 'BBMiddle'] == df_wti_graph.at[cme_time_index, 'BBMiddle']:
-
-                    if df_wti_graph.at[cme_time_index, 'BBMiddle'] >= df_wti_graph.at[cme_time_index, 'price']:
-                        self.label_p6_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p6_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    pass
-
-                if df_wti_graph.at[cme_time_index, 'PSAR'] == df_wti_graph.at[cme_time_index, 'PSAR']:
-
-                    if df_wti_graph.at[cme_time_index, 'PSAR'] >= df_wti_graph.at[cme_time_index, 'price']:
-                        self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p6_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_wti_graph.at[cme_time_index, 'BBMiddle'], df_wti_graph.at[cme_time_index, 'PSAR'], WTI_호가순매수)
-                    self.label_p6_2.setText(txt)
-                else:
-                    pass
-                
-                if df_wti_graph.at[cme_time_index, 'OE_CONV'] == df_wti_graph.at[cme_time_index, 'OE_CONV'] and df_wti_graph.at[cme_time_index, 'OE_BASE'] == df_wti_graph.at[cme_time_index, 'OE_BASE']:
-
-                    if df_wti_graph.at[cme_time_index, 'OE_CONV'] < df_wti_graph.at[cme_time_index, 'OE_BASE']:
-                        self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p6_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[cme_time_index, 'OE_CONV'], df_wti_graph.at[cme_time_index, 'OE_BASE'])
-                    self.label_p6_3.setText(txt)
-                else:
-                    pass
-
-                if df_wti_graph.at[cme_time_index, 'MAMA'] == df_wti_graph.at[cme_time_index, 'MAMA'] and df_wti_graph.at[cme_time_index, 'FAMA'] == df_wti_graph.at[cme_time_index, 'FAMA']:
-
-                    if df_wti_graph.at[cme_time_index, 'FAMA'] >= df_wti_graph.at[cme_time_index, 'BBLower']:
-
-                        if df_wti_graph.at[cme_time_index, 'MAMA'] < df_wti_graph.at[cme_time_index, 'FAMA']:
-                            self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_graph.at[cme_time_index, 'MAMA'], df_wti_graph.at[cme_time_index, 'FAMA'])
-                    self.label_p6_4.setText(txt)
-                else:
-                    pass
-                
-                txt = ' {0} '.format(format(WTI_저가, ','))
-                self.label_66.setText(txt)
-
-                value = self.label_67.text().split()[0]             
-
-                if WTI_현재가 > float(value):
-
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
-
-                    if WTI_전일대비 > 0:
-                        self.label_67.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif WTI_전일대비 < 0:
-                        self.label_67.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_67.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_67.setText(txt)
-
-                elif WTI_현재가 < float(value):
-
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
-
-                    if WTI_전일대비 > 0:
-                        self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif WTI_전일대비 < 0:
-                        self.label_67.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_67.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_67.setText(txt)
-                else:
-                    pass
-
-                txt = ' {0} '.format(format(WTI_고가, ','))
-                self.label_68.setText(txt)  
-                
-                self.plot6_time_line.setValue(cme_time_index)
-
-                self.plot6_ovc_jl_line.setValue(WTI_전저)
-                self.plot6_ovc_jh_line.setValue(WTI_전고)
-                self.plot6_ovc_close_line.setValue(WTI_종가)
-                self.plot6_ovc_open_line.setValue(WTI_시가)
-                self.plot6_ovc_pivot_line.setValue(WTI_피봇)
-                self.plot6_ovc_low_line.setValue(WTI_저가)
-                self.plot6_ovc_high_line.setValue(WTI_고가)
-
-                self.plot6_center_val_lower_line.setValue(WTI_고가)
-                self.plot6_center_val_line.setValue(WTI_고가)
-                self.plot6_center_val_upper_line.setValue(WTI_고가) 
-
-                self.plot6_wti_curve.setData(df_wti_graph['price'].to_numpy())
-
-                if flag_checkBox_plot6_bband:
-
-                    self.Calc_SAR_BBand('WTI')
-
-                    self.plot6_bollinger_upper_curve.setData(df_wti_graph['BBUpper'].to_numpy())
-                    self.plot6_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'].to_numpy())
-                    self.plot6_bollinger_lower_curve.setData(df_wti_graph['BBLower'].to_numpy())
-                else:
-                    pass
-
-                if flag_checkBox_plot6_mama:
-
-                    self.Calc_MAMA('WTI')
-
-                    self.plot6_mama_curve.setData(df_wti_graph['MAMA'].to_numpy())
-                    self.plot6_fama_curve.setData(df_wti_graph['A_FAMA'].to_numpy())
-                else:
-                    pass
-
-                if flag_checkBox_plot6_oe:
-
-                    self.Calc_Ichimoku('WTI')
-
-                    self.plot6_oe_conv_curve.setData(df_wti_graph['OE_CONV'].to_numpy())
-                    self.plot6_oe_base_curve.setData(df_wti_graph['OE_BASE'].to_numpy())
-                else:
-                    pass  
-            
-            elif comboindex6 == 15:
-
                 if df_sp500_graph.at[cme_time_index, 'BBMiddle'] == df_sp500_graph.at[cme_time_index, 'BBMiddle']:
 
                     if df_sp500_graph.at[cme_time_index, 'BBMiddle'] >= df_sp500_graph.at[cme_time_index, 'price']:
@@ -35715,6 +35308,407 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
+            elif comboindex6 == 13:
+
+                if df_dow_graph.at[cme_time_index, 'BBMiddle'] == df_dow_graph.at[cme_time_index, 'BBMiddle']:
+
+                    if df_dow_graph.at[cme_time_index, 'BBMiddle'] >= df_dow_graph.at[cme_time_index, 'price']:
+                        self.label_p6_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    pass
+
+                if df_dow_graph.at[cme_time_index, 'PSAR'] == df_dow_graph.at[cme_time_index, 'PSAR']:
+
+                    if df_dow_graph.at[cme_time_index, 'PSAR'] >= df_dow_graph.at[cme_time_index, 'price']:
+                        self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_dow_graph.at[cme_time_index, 'BBMiddle'], df_dow_graph.at[cme_time_index, 'PSAR'], DOW_호가순매수)
+                    self.label_p6_2.setText(txt)
+                else:
+                    pass
+                
+                if df_dow_graph.at[cme_time_index, 'OE_CONV'] == df_dow_graph.at[cme_time_index, 'OE_CONV'] and df_dow_graph.at[cme_time_index, 'OE_BASE'] == df_dow_graph.at[cme_time_index, 'OE_BASE']:
+
+                    if df_dow_graph.at[cme_time_index, 'OE_CONV'] < df_dow_graph.at[cme_time_index, 'OE_BASE']:
+                        self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[cme_time_index, 'OE_CONV'], df_dow_graph.at[cme_time_index, 'OE_BASE'])
+                    self.label_p6_3.setText(txt)
+                else:
+                    pass
+
+                if df_dow_graph.at[cme_time_index, 'MAMA'] == df_dow_graph.at[cme_time_index, 'MAMA'] and df_dow_graph.at[cme_time_index, 'FAMA'] == df_dow_graph.at[cme_time_index, 'FAMA']:
+
+                    if df_dow_graph.at[cme_time_index, 'FAMA'] >= df_dow_graph.at[cme_time_index, 'BBLower']:
+
+                        if df_dow_graph.at[cme_time_index, 'MAMA'] < df_dow_graph.at[cme_time_index, 'FAMA']:
+                            self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p6_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[cme_time_index, 'MAMA'], df_dow_graph.at[cme_time_index, 'FAMA'])
+                    self.label_p6_4.setText(txt)
+                else:
+                    pass
+                
+                txt = ' {0} '.format(format(DOW_저가, ','))
+                self.label_66.setText(txt)
+
+                tmp = self.label_67.text().split()[0]
+                value = tmp.replace(',', '')               
+
+                if DOW_현재가 > float(value):
+
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+
+                    if DOW_전일대비 > 0:
+                        self.label_67.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif DOW_전일대비 < 0:
+                        self.label_67.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_67.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_67.setText(txt)
+
+                elif DOW_현재가 < float(value):
+
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+
+                    if DOW_전일대비 > 0:
+                        self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif DOW_전일대비 < 0:
+                        self.label_67.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_67.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_67.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(DOW_고가, ','))
+                self.label_68.setText(txt)  
+                
+                self.plot6_time_line.setValue(cme_time_index)
+
+                self.plot6_ovc_jl_line.setValue(DOW_전저)
+                self.plot6_ovc_jh_line.setValue(DOW_전고)
+                self.plot6_ovc_close_line.setValue(DOW_종가)
+                self.plot6_ovc_open_line.setValue(DOW_시가)
+                self.plot6_ovc_pivot_line.setValue(DOW_피봇)
+                self.plot6_ovc_low_line.setValue(DOW_저가)
+                self.plot6_ovc_high_line.setValue(DOW_고가) 
+
+                self.plot6_center_val_lower_line.setValue(DOW_고가)
+                self.plot6_center_val_line.setValue(DOW_고가)
+                self.plot6_center_val_upper_line.setValue(DOW_고가)                
+
+                self.plot6_dow_curve.setData(df_dow_graph['price'].to_numpy())
+
+                if flag_checkBox_plot6_bband:
+
+                    self.Calc_SAR_BBand('DOW')
+
+                    self.plot6_bollinger_upper_curve.setData(df_dow_graph['BBUpper'].to_numpy())
+                    self.plot6_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'].to_numpy())
+                    self.plot6_bollinger_lower_curve.setData(df_dow_graph['BBLower'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot6_mama:
+
+                    self.Calc_MAMA('DOW')
+
+                    self.plot6_mama_curve.setData(df_dow_graph['MAMA'].to_numpy())
+                    self.plot6_fama_curve.setData(df_dow_graph['A_FAMA'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot6_oe:
+
+                    self.Calc_Ichimoku('DOW')
+
+                    self.plot6_oe_conv_curve.setData(df_dow_graph['OE_CONV'].to_numpy())
+                    self.plot6_oe_base_curve.setData(df_dow_graph['OE_BASE'].to_numpy())
+                else:
+                    pass    
+
+            elif comboindex6 == 14:
+
+                if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] == df_nasdaq_graph.at[cme_time_index, 'BBMiddle']:
+
+                    if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] >= df_nasdaq_graph.at[cme_time_index, 'price']:
+                        self.label_p6_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    pass
+
+                if df_nasdaq_graph.at[cme_time_index, 'PSAR'] == df_nasdaq_graph.at[cme_time_index, 'PSAR']:
+
+                    if df_nasdaq_graph.at[cme_time_index, 'PSAR'] >= df_nasdaq_graph.at[cme_time_index, 'price']:
+                        self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_nasdaq_graph.at[cme_time_index, 'BBMiddle'], df_nasdaq_graph.at[cme_time_index, 'PSAR'], NASDAQ_호가순매수)
+                    self.label_p6_2.setText(txt)
+                else:
+                    pass
+                
+                if df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] == df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] and df_nasdaq_graph.at[cme_time_index, 'OE_BASE'] == df_nasdaq_graph.at[cme_time_index, 'OE_BASE']:
+
+                    if df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] < df_nasdaq_graph.at[cme_time_index, 'OE_BASE']:
+                        self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[cme_time_index, 'OE_CONV'], df_nasdaq_graph.at[cme_time_index, 'OE_BASE'])
+                    self.label_p6_3.setText(txt)
+                else:
+                    pass
+
+                if df_nasdaq_graph.at[cme_time_index, 'MAMA'] == df_nasdaq_graph.at[cme_time_index, 'MAMA'] and df_nasdaq_graph.at[cme_time_index, 'FAMA'] == df_nasdaq_graph.at[cme_time_index, 'FAMA']:
+
+                    if df_nasdaq_graph.at[cme_time_index, 'FAMA'] >= df_nasdaq_graph.at[cme_time_index, 'BBLower']:
+
+                        if df_nasdaq_graph.at[cme_time_index, 'MAMA'] < df_nasdaq_graph.at[cme_time_index, 'FAMA']:
+                            self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p6_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_graph.at[cme_time_index, 'MAMA'], df_nasdaq_graph.at[cme_time_index, 'FAMA'])
+                    self.label_p6_4.setText(txt)
+                else:
+                    pass
+                
+                txt = ' {0} '.format(format(NASDAQ_저가, ','))
+                self.label_66.setText(txt)
+
+                tmp = self.label_67.text().split()[0]
+                value = tmp.replace(',', '')                
+
+                if NASDAQ_현재가 > float(value):
+
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+
+                    if NASDAQ_전일대비 > 0:
+                        self.label_67.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif NASDAQ_전일대비 < 0:
+                        self.label_67.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_67.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_67.setText(txt)
+
+                elif NASDAQ_현재가 < float(value):
+
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+
+                    if NASDAQ_전일대비 > 0:
+                        self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif NASDAQ_전일대비 < 0:
+                        self.label_67.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_67.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_67.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(NASDAQ_고가, ','))
+                self.label_68.setText(txt)  
+                
+                self.plot6_time_line.setValue(cme_time_index)
+
+                self.plot6_ovc_jl_line.setValue(NASDAQ_전저)
+                self.plot6_ovc_jh_line.setValue(NASDAQ_전고)
+                self.plot6_ovc_close_line.setValue(NASDAQ_종가)
+                self.plot6_ovc_open_line.setValue(NASDAQ_시가)
+                self.plot6_ovc_pivot_line.setValue(NASDAQ_피봇)
+                self.plot6_ovc_low_line.setValue(NASDAQ_저가)
+                self.plot6_ovc_high_line.setValue(NASDAQ_고가)
+
+                self.plot6_center_val_lower_line.setValue(NASDAQ_고가)
+                self.plot6_center_val_line.setValue(NASDAQ_고가)
+                self.plot6_center_val_upper_line.setValue(NASDAQ_고가) 
+
+                self.plot6_nasdaq_curve.setData(df_nasdaq_graph['price'].to_numpy())
+
+                if flag_checkBox_plot6_bband:
+
+                    self.Calc_SAR_BBand('NASDAQ')
+
+                    self.plot6_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'].to_numpy())
+                    self.plot6_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'].to_numpy())
+                    self.plot6_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot6_mama:
+
+                    self.Calc_MAMA('NASDAQ')
+
+                    self.plot6_mama_curve.setData(df_nasdaq_graph['MAMA'].to_numpy())
+                    self.plot6_fama_curve.setData(df_nasdaq_graph['A_FAMA'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot6_oe:
+
+                    self.Calc_Ichimoku('NASDAQ')
+
+                    self.plot6_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'].to_numpy())
+                    self.plot6_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'].to_numpy())
+                else:
+                    pass  
+
+            elif comboindex6 == 15:
+
+                if df_wti_graph.at[cme_time_index, 'BBMiddle'] == df_wti_graph.at[cme_time_index, 'BBMiddle']:
+
+                    if df_wti_graph.at[cme_time_index, 'BBMiddle'] >= df_wti_graph.at[cme_time_index, 'price']:
+                        self.label_p6_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    pass
+
+                if df_wti_graph.at[cme_time_index, 'PSAR'] == df_wti_graph.at[cme_time_index, 'PSAR']:
+
+                    if df_wti_graph.at[cme_time_index, 'PSAR'] >= df_wti_graph.at[cme_time_index, 'price']:
+                        self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_wti_graph.at[cme_time_index, 'BBMiddle'], df_wti_graph.at[cme_time_index, 'PSAR'], WTI_호가순매수)
+                    self.label_p6_2.setText(txt)
+                else:
+                    pass
+                
+                if df_wti_graph.at[cme_time_index, 'OE_CONV'] == df_wti_graph.at[cme_time_index, 'OE_CONV'] and df_wti_graph.at[cme_time_index, 'OE_BASE'] == df_wti_graph.at[cme_time_index, 'OE_BASE']:
+
+                    if df_wti_graph.at[cme_time_index, 'OE_CONV'] < df_wti_graph.at[cme_time_index, 'OE_BASE']:
+                        self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[cme_time_index, 'OE_CONV'], df_wti_graph.at[cme_time_index, 'OE_BASE'])
+                    self.label_p6_3.setText(txt)
+                else:
+                    pass
+
+                if df_wti_graph.at[cme_time_index, 'MAMA'] == df_wti_graph.at[cme_time_index, 'MAMA'] and df_wti_graph.at[cme_time_index, 'FAMA'] == df_wti_graph.at[cme_time_index, 'FAMA']:
+
+                    if df_wti_graph.at[cme_time_index, 'FAMA'] >= df_wti_graph.at[cme_time_index, 'BBLower']:
+
+                        if df_wti_graph.at[cme_time_index, 'MAMA'] < df_wti_graph.at[cme_time_index, 'FAMA']:
+                            self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p6_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_graph.at[cme_time_index, 'MAMA'], df_wti_graph.at[cme_time_index, 'FAMA'])
+                    self.label_p6_4.setText(txt)
+                else:
+                    pass
+                
+                txt = ' {0} '.format(format(WTI_저가, ','))
+                self.label_66.setText(txt)
+
+                value = self.label_67.text().split()[0]             
+
+                if WTI_현재가 > float(value):
+
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+
+                    if WTI_전일대비 > 0:
+                        self.label_67.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif WTI_전일대비 < 0:
+                        self.label_67.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_67.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_67.setText(txt)
+
+                elif WTI_현재가 < float(value):
+
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+
+                    if WTI_전일대비 > 0:
+                        self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif WTI_전일대비 < 0:
+                        self.label_67.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_67.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_67.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(WTI_고가, ','))
+                self.label_68.setText(txt)  
+                
+                self.plot6_time_line.setValue(cme_time_index)
+
+                self.plot6_ovc_jl_line.setValue(WTI_전저)
+                self.plot6_ovc_jh_line.setValue(WTI_전고)
+                self.plot6_ovc_close_line.setValue(WTI_종가)
+                self.plot6_ovc_open_line.setValue(WTI_시가)
+                self.plot6_ovc_pivot_line.setValue(WTI_피봇)
+                self.plot6_ovc_low_line.setValue(WTI_저가)
+                self.plot6_ovc_high_line.setValue(WTI_고가)
+
+                self.plot6_center_val_lower_line.setValue(WTI_고가)
+                self.plot6_center_val_line.setValue(WTI_고가)
+                self.plot6_center_val_upper_line.setValue(WTI_고가) 
+
+                self.plot6_wti_curve.setData(df_wti_graph['price'].to_numpy())
+
+                if flag_checkBox_plot6_bband:
+
+                    self.Calc_SAR_BBand('WTI')
+
+                    self.plot6_bollinger_upper_curve.setData(df_wti_graph['BBUpper'].to_numpy())
+                    self.plot6_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'].to_numpy())
+                    self.plot6_bollinger_lower_curve.setData(df_wti_graph['BBLower'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot6_mama:
+
+                    self.Calc_MAMA('WTI')
+
+                    self.plot6_mama_curve.setData(df_wti_graph['MAMA'].to_numpy())
+                    self.plot6_fama_curve.setData(df_wti_graph['A_FAMA'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot6_oe:
+
+                    self.Calc_Ichimoku('WTI')
+
+                    self.plot6_oe_conv_curve.setData(df_wti_graph['OE_CONV'].to_numpy())
+                    self.plot6_oe_base_curve.setData(df_wti_graph['OE_BASE'].to_numpy())
+                else:
+                    pass  
+            
             elif comboindex6 == 20:
 
                 txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
