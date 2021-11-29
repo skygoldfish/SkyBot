@@ -769,6 +769,21 @@ if os.path.isfile('nighttime.txt'):
 
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
+        GOLD_전저 = float(temp[4])
+        print('GOLD 전저 =', GOLD_전저)
+
+        tmp = nighttime_file.readline().strip()
+        temp = tmp.split()
+        GOLD_전고 = float(temp[4])
+        print('GOLD 전고 =', GOLD_전고)
+        
+        tmp = nighttime_file.readline().strip()
+        temp = tmp.split()
+        GOLD_종가 = float(temp[4])
+        print('GOLD 종가 =', GOLD_종가)
+
+        tmp = nighttime_file.readline().strip()
+        temp = tmp.split()
         EUROFX_전저 = float(temp[4])
         print('EUROFX 전저 =', EUROFX_전저)
 
@@ -784,6 +799,21 @@ if os.path.isfile('nighttime.txt'):
 
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
+        YEN_전저 = float(temp[4])
+        print('YEN 전저 =', YEN_전저)
+
+        tmp = nighttime_file.readline().strip()
+        temp = tmp.split()
+        YEN_전고 = float(temp[4])
+        print('YEN 전고 =', YEN_전고)
+        
+        tmp = nighttime_file.readline().strip()
+        temp = tmp.split()
+        YEN_종가 = float(temp[4])
+        print('YEN 종가 =', YEN_종가)
+
+        tmp = nighttime_file.readline().strip()
+        temp = tmp.split()
         HANGSENG_전저 = float(temp[4])
         print('HANGSENG 전저 =', HANGSENG_전저)
 
@@ -795,22 +825,7 @@ if os.path.isfile('nighttime.txt'):
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         HANGSENG_종가 = float(temp[4])
-        print('HANGSENG 종가 =', HANGSENG_종가)
-
-        tmp = nighttime_file.readline().strip()
-        temp = tmp.split()
-        GOLD_전저 = float(temp[4])
-        print('GOLD 전저 =', GOLD_전저)
-
-        tmp = nighttime_file.readline().strip()
-        temp = tmp.split()
-        GOLD_전고 = float(temp[4])
-        print('GOLD 전고 =', GOLD_전고)
-        
-        tmp = nighttime_file.readline().strip()
-        temp = tmp.split()
-        GOLD_종가 = float(temp[4])
-        print('GOLD 종가 =', GOLD_종가)
+        print('HANGSENG 종가 =', HANGSENG_종가)        
 else:
     CME_종가 = 0
     SP500_전저 = 0
@@ -825,6 +840,9 @@ else:
     WTI_전저 = 0
     WTI_전고 = 0
     WTI_종가 = 0
+    GOLD_전저 = 0
+    GOLD_전고 = 0
+    GOLD_종가 = 0
     EUROFX_전저 = 0
     EUROFX_전고 = 0
     EUROFX_종가 = 0
@@ -833,10 +851,7 @@ else:
     YEN_종가 = 0
     HANGSENG_전저 = 0
     HANGSENG_전고 = 0
-    HANGSENG_종가 = 0
-    GOLD_전저 = 0
-    GOLD_전고 = 0
-    GOLD_종가 = 0
+    HANGSENG_종가 = 0    
 
 if os.path.isfile('daytime.txt'):
 
@@ -6267,24 +6282,31 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 nighttime_file.write(file_txt)
                                 file_txt = 'WTI Last Close = {0}\n'.format(WTI_당일종가)
                                 nighttime_file.write(file_txt)
-                                file_txt = 'EUROFX Last Low = {0}\n'.format(EUROFX_저가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'EUROFX Last High = {0}\n'.format(EUROFX_고가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'EUROFX Last Close = {0}\n'.format(EUROFX_당일종가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'HANGSENG Last Low = {0}\n'.format(HANGSENG_저가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'HANGSENG Last High = {0}\n'.format(HANGSENG_고가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'HANGSENG Last Close = {0}\n'.format(HANGSENG_당일종가)
-                                nighttime_file.write(file_txt)
                                 file_txt = 'GOLD Last Low = {0}\n'.format(GOLD_저가)
                                 nighttime_file.write(file_txt)
                                 file_txt = 'GOLD Last High = {0}\n'.format(GOLD_고가)
                                 nighttime_file.write(file_txt)
                                 file_txt = 'GOLD Last Close = {0}\n'.format(GOLD_당일종가)
                                 nighttime_file.write(file_txt)
+                                file_txt = 'EUROFX Last Low = {0}\n'.format(EUROFX_저가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'EUROFX Last High = {0}\n'.format(EUROFX_고가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'EUROFX Last Close = {0}\n'.format(EUROFX_당일종가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'EUROFX Last Low = {0}\n'.format(EUROFX_저가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'YEN Last High = {0}\n'.format(YEN_고가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'YEN Last Close = {0}\n'.format(YEN_당일종가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'YEN Last Low = {0}\n'.format(YEN_저가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'HANGSENG Last High = {0}\n'.format(HANGSENG_고가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'HANGSENG Last Close = {0}\n'.format(HANGSENG_당일종가)
+                                nighttime_file.write(file_txt)
+                                
                                 nighttime_file.close()
 
                                 if os.path.isdir("d:/SkyBot_NM"):
