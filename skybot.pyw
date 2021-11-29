@@ -23662,7 +23662,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p1_1.setText(txt)
                 else:
-                    pass            
+                    pass
+
+            elif comboindex1 == 16:
+                pass
+
+            elif comboindex1 == 17:
+                pass
+
+            elif comboindex1 == 18:
+                pass
+
+            elif comboindex1 == 19:
+                pass
             else:
                 pass
         else:
@@ -23769,7 +23781,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p2_1.setText(txt)
                 else:
-                    pass            
+                    pass
+
+            elif comboindex2 == 16:
+                pass
+
+            elif comboindex2 == 17:
+                pass
+
+            elif comboindex2 == 18:
+                pass
+
+            elif comboindex2 == 19:
+                pass            
             else:
                 pass                           
         else:
@@ -23876,7 +23900,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p3_1.setText(txt)
                 else:
-                    pass            
+                    pass
+
+            elif comboindex3 == 16:
+                pass
+
+            elif comboindex3 == 17:
+                pass
+
+            elif comboindex3 == 18:
+                pass
+
+            elif comboindex3 == 19:
+                pass            
             else:
                 pass                            
         else:
@@ -23983,7 +24019,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p4_1.setText(txt)
                 else:
-                    pass            
+                    pass
+
+            elif comboindex4 == 16:
+                pass
+
+            elif comboindex4 == 17:
+                pass
+
+            elif comboindex4 == 18:
+                pass
+
+            elif comboindex4 == 19:
+                pass            
             else:
                 pass
 
@@ -24089,6 +24137,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p5_1.setText(txt)
                 else:
                     pass
+
+            elif comboindex5 == 16:
+                pass
+
+            elif comboindex5 == 17:
+                pass
+
+            elif comboindex5 == 18:
+                pass
+
+            elif comboindex5 == 19:
+                pass
             else:
                 pass                       
         else:
@@ -24196,6 +24256,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p6_1.setText(txt)
                 else:
                     pass
+
+            elif comboindex6 == 16:
+                pass
+
+            elif comboindex6 == 17:
+                pass
+
+            elif comboindex6 == 18:
+                pass
+
+            elif comboindex6 == 19:
+                pass
             else:
                 pass                
         else:
@@ -25237,6 +25309,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_18.setText(txt)
             self.plot1_ovc_high_line.setValue(WTI_고가)
                 
+        elif comboindex1 == 16:
+            pass
+
+        elif comboindex1 == 17:
+            pass
+
+        elif comboindex1 == 18:
+            pass
+
+        elif comboindex1 == 19:
+            pass
+
         # 수급종합
         elif comboindex1 == 21:
 
@@ -26092,6 +26176,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_28.setText(txt)
             self.plot2_ovc_high_line.setValue(WTI_고가)            
         
+        elif comboindex2 == 16:
+            pass
+
+        elif comboindex2 == 17:
+            pass
+
+        elif comboindex2 == 18:
+            pass
+
+        elif comboindex2 == 19:
+            pass
+
         # 수급종합
         elif comboindex2 == 21:
 
@@ -26947,6 +27043,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_38.setText(txt)
             self.plot3_ovc_high_line.setValue(WTI_고가)            
                 
+        elif comboindex3 == 16:
+            pass
+
+        elif comboindex3 == 17:
+            pass
+
+        elif comboindex3 == 18:
+            pass
+
+        elif comboindex3 == 19:
+            pass
+
         # 수급종합
         elif comboindex3 == 21:
 
@@ -27786,6 +27894,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_48.setText(txt)
             self.plot4_ovc_high_line.setValue(WTI_고가)
         
+        elif comboindex4 == 16:
+            pass
+
+        elif comboindex4 == 17:
+            pass
+
+        elif comboindex4 == 18:
+            pass
+
+        elif comboindex4 == 19:
+            pass
+
         # 수급종합
         elif comboindex4 == 21:
 
@@ -28641,6 +28761,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_58.setText(txt)
             self.plot5_ovc_high_line.setValue(WTI_고가)            
         
+        elif comboindex5 == 16:
+            pass
+
+        elif comboindex5 == 17:
+            pass
+
+        elif comboindex5 == 18:
+            pass
+
+        elif comboindex5 == 19:
+            pass
+
         # 수급종합
         elif comboindex5 == 21:
 
@@ -29496,6 +29628,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_68.setText(txt)
             self.plot6_ovc_high_line.setValue(WTI_고가)
         
+        elif comboindex6 == 16:
+            pass
+
+        elif comboindex6 == 17:
+            pass
+
+        elif comboindex6 == 18:
+            pass
+
+        elif comboindex6 == 19:
+            pass
+
         # 수급종합
         elif comboindex6 == 21:
 
@@ -30671,6 +30815,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
             
+            elif comboindex1 == 16:
+                pass
+
+            elif comboindex1 == 17:
+                pass
+
+            elif comboindex1 == 18:
+                pass
+
+            elif comboindex1 == 19:
+                pass
+
             elif comboindex1 == 21:               
 
                 txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
@@ -31687,6 +31843,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass  
             
+            elif comboindex2 == 16:
+                pass
+
+            elif comboindex2 == 17:
+                pass
+
+            elif comboindex2 == 18:
+                pass
+
+            elif comboindex2 == 19:
+                pass
+
             elif comboindex2 == 21:
 
                 txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
@@ -32697,6 +32865,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass 
             
+            elif comboindex3 == 16:
+                pass
+
+            elif comboindex3 == 17:
+                pass
+
+            elif comboindex3 == 18:
+                pass
+
+            elif comboindex3 == 19:
+                pass
+
             elif comboindex3 == 21:
 
                 txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
@@ -33691,6 +33871,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
             
+            elif comboindex4 == 16:
+                pass
+
+            elif comboindex4 == 17:
+                pass
+
+            elif comboindex4 == 18:
+                pass
+
+            elif comboindex4 == 19:
+                pass
+
             elif comboindex4 == 21:
 
                 txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
@@ -34700,6 +34892,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass 
             
+            elif comboindex5 == 16:
+                pass
+
+            elif comboindex5 == 17:
+                pass
+
+            elif comboindex5 == 18:
+                pass
+
+            elif comboindex5 == 19:
+                pass
+
             elif comboindex5 == 21:
 
                 txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
@@ -35708,6 +35912,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.plot6_oe_base_curve.setData(df_wti_graph['OE_BASE'].to_numpy())
                 else:
                     pass  
+            
+            elif comboindex6 == 16:
+                pass
+
+            elif comboindex6 == 17:
+                pass
+
+            elif comboindex6 == 18:
+                pass
+
+            elif comboindex6 == 19:
+                pass
             
             elif comboindex6 == 21:
 
