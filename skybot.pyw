@@ -42118,9 +42118,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         if HANGSENG_등락율 < 0:
 
                             if min(대비리스트) > 0:
-                                jisu_txt = "HANGSENG: {0} ({1}, {2:.2f}%)⬈".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                                jisu_txt = "HSI: {0} ({1}, {2:.2f}%)⬈".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
                             else:
-                                jisu_txt = "HANGSENG: {0} ▲ ({1}, {2:.2f}%)".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+                                jisu_txt = "HSI: {0} ▲ ({1}, {2:.2f}%)".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)
 
                             self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
@@ -42130,9 +42130,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         elif HANGSENG_등락율 > 0:
 
                             if min(대비리스트) > 0:
-                                jisu_txt = "HANGSENG: {0} ▲ ({1}, {2:.2f}%)⬈".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                                jisu_txt = "HSI: {0} ▲ ({1}, {2:.2f}%)⬈".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
                             else:
-                                jisu_txt = "HANGSENG: {0} ▲ ({1}, {2:.2f}%)".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+                                jisu_txt = "HSI: {0} ▲ ({1}, {2:.2f}%)".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)
 
                             self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
@@ -42146,9 +42146,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         if HANGSENG_등락율 < 0:
 
                             if max(대비리스트) < 0:
-                                jisu_txt = "HANGSENG: {0} ({1}, {2:.2f}%)⬊".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                                jisu_txt = "HSI: {0} ({1}, {2:.2f}%)⬊".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
                             else:
-                                jisu_txt = "HANGSENG: {0} ▼ ({1}, {2:.2f}%)".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+                                jisu_txt = "HSI: {0} ▼ ({1}, {2:.2f}%)".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)
 
                             self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
@@ -42158,9 +42158,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         elif HANGSENG_등락율 > 0:
 
                             if max(대비리스트) < 0:
-                                jisu_txt = "HANGSENG: {0} ({1}, {2:.2f}%)⬊".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                                jisu_txt = "HSI: {0} ({1}, {2:.2f}%)⬊".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
                             else:
-                                jisu_txt = "HANGSENG: {0} ▼ ({1}, {2:.2f}%)".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+                                jisu_txt = "HSI: {0} ▼ ({1}, {2:.2f}%)".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)
 
                             self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
