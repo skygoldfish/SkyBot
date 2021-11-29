@@ -22774,7 +22774,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.comboBox1.insertSeparator(5)
         self.comboBox1.insertSeparator(9)
         self.comboBox1.insertSeparator(11)
-        self.comboBox1.insertSeparator(19)
+        self.comboBox1.insertSeparator(20)
         self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
         self.comboBox2.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '항셍', '수급종합', '외인수급'])
@@ -22782,7 +22782,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.comboBox2.insertSeparator(5)
         self.comboBox2.insertSeparator(9)
         self.comboBox2.insertSeparator(11)
-        self.comboBox2.insertSeparator(19)
+        self.comboBox2.insertSeparator(20)
         self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
         self.comboBox3.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '항셍', '수급종합', '외인수급'])
@@ -22790,7 +22790,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.comboBox3.insertSeparator(5)
         self.comboBox3.insertSeparator(9)
         self.comboBox3.insertSeparator(11)
-        self.comboBox3.insertSeparator(19)
+        self.comboBox3.insertSeparator(20)
         self.comboBox3.currentIndexChanged.connect(self.cb3_selectionChanged)
 
         self.comboBox4.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '항셍', '수급종합', '외인수급'])
@@ -22798,7 +22798,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.comboBox4.insertSeparator(5)
         self.comboBox4.insertSeparator(9)
         self.comboBox4.insertSeparator(11)
-        self.comboBox4.insertSeparator(19)
+        self.comboBox4.insertSeparator(20)
         self.comboBox4.currentIndexChanged.connect(self.cb4_selectionChanged)
 
         self.comboBox5.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '항셍', '수급종합', '외인수급'])
@@ -22806,7 +22806,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.comboBox5.insertSeparator(5)
         self.comboBox5.insertSeparator(9)
         self.comboBox5.insertSeparator(11)
-        self.comboBox5.insertSeparator(19)
+        self.comboBox5.insertSeparator(20)
         self.comboBox5.currentIndexChanged.connect(self.cb5_selectionChanged)
 
         self.comboBox6.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '항셍', '수급종합', '외인수급'])
@@ -22814,7 +22814,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.comboBox6.insertSeparator(5)
         self.comboBox6.insertSeparator(9)
         self.comboBox6.insertSeparator(11)
-        self.comboBox6.insertSeparator(19)
+        self.comboBox6.insertSeparator(20)
         self.comboBox6.currentIndexChanged.connect(self.cb6_selectionChanged)               
 
         # 그래프관련 초기화
@@ -25238,7 +25238,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot1_ovc_high_line.setValue(WTI_고가)
                 
         # 수급종합
-        elif comboindex1 == 20:
+        elif comboindex1 == 21:
 
             self.plot1_clear()
 
@@ -25257,7 +25257,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_18.setText(" 현물합 ")
 
         # 외인수급
-        elif comboindex1 == 21:
+        elif comboindex1 == 22:
 
             self.plot1_clear()
 
@@ -26093,7 +26093,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot2_ovc_high_line.setValue(WTI_고가)            
         
         # 수급종합
-        elif comboindex2 == 20:
+        elif comboindex2 == 21:
 
             self.plot2_clear()
 
@@ -26112,7 +26112,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_28.setText(" 현물합 ")
 
         # 외인수급
-        elif comboindex2 == 21:
+        elif comboindex2 == 22:
 
             self.plot2_clear()
 
@@ -26948,7 +26948,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot3_ovc_high_line.setValue(WTI_고가)            
                 
         # 수급종합
-        elif comboindex3 == 20:
+        elif comboindex3 == 21:
 
             self.plot3_clear()
 
@@ -26967,7 +26967,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_38.setText(" 현물합 ")
 
         # 외인수급
-        elif comboindex3 == 21:
+        elif comboindex3 == 22:
 
             self.plot3_clear()
 
@@ -27787,7 +27787,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot4_ovc_high_line.setValue(WTI_고가)
         
         # 수급종합
-        elif comboindex4 == 20:
+        elif comboindex4 == 21:
 
             self.plot4_clear()
 
@@ -27806,7 +27806,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_48.setText(" 현물합 ")
 
         # 외인수급
-        elif comboindex4 == 21:
+        elif comboindex4 == 22:
 
             self.plot4_clear()
 
@@ -28642,7 +28642,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot5_ovc_high_line.setValue(WTI_고가)            
         
         # 수급종합
-        elif comboindex5 == 20:
+        elif comboindex5 == 21:
 
             self.plot5_clear()
 
@@ -28661,7 +28661,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_58.setText(" 현물합 ")
 
         # 외인수급
-        elif comboindex5 == 21:
+        elif comboindex5 == 22:
 
             self.plot5_clear()
 
@@ -29497,7 +29497,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot6_ovc_high_line.setValue(WTI_고가)
         
         # 수급종합
-        elif comboindex6 == 20:
+        elif comboindex6 == 21:
 
             self.plot6_clear()
 
@@ -29516,7 +29516,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_68.setText(" 현물합 ")
 
         # 외인수급
-        elif comboindex6 == 21:
+        elif comboindex6 == 22:
 
             self.plot6_clear()
 
@@ -30671,7 +30671,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
             
-            elif comboindex1 == 20:               
+            elif comboindex1 == 21:               
 
                 txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
 
@@ -30709,7 +30709,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif comboindex1 == 21:
+            elif comboindex1 == 22:
 
                 txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
 
@@ -31687,7 +31687,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass  
             
-            elif comboindex2 == 20:
+            elif comboindex2 == 21:
 
                 txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
 
@@ -31725,7 +31725,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif comboindex2 == 21:
+            elif comboindex2 == 22:
 
                 txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
 
@@ -32697,7 +32697,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass 
             
-            elif comboindex3 == 20:
+            elif comboindex3 == 21:
 
                 txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
 
@@ -32735,7 +32735,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif comboindex3 == 21:
+            elif comboindex3 == 22:
 
                 txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
 
@@ -33691,7 +33691,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
             
-            elif comboindex4 == 20:
+            elif comboindex4 == 21:
 
                 txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
 
@@ -33729,7 +33729,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif comboindex4 == 21:
+            elif comboindex4 == 22:
 
                 txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
 
@@ -34700,7 +34700,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass 
             
-            elif comboindex5 == 20:
+            elif comboindex5 == 21:
 
                 txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
 
@@ -34738,7 +34738,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif comboindex5 == 21:
+            elif comboindex5 == 22:
 
                 txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
 
@@ -35709,7 +35709,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass  
             
-            elif comboindex6 == 20:
+            elif comboindex6 == 21:
 
                 txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
 
@@ -35747,7 +35747,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif comboindex6 == 21:
+            elif comboindex6 == 22:
 
                 txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
 
