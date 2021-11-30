@@ -33684,7 +33684,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if EUROFX_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
 
                     if EUROFX_전일대비 > 0:
                         self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33697,7 +33697,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif EUROFX_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
 
                     if EUROFX_전일대비 > 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35208,7 +35208,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if EUROFX_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
 
                     if EUROFX_전일대비 > 0:
                         self.label_27.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35221,7 +35221,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif EUROFX_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
 
                     if EUROFX_전일대비 > 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36480,7 +36480,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if EUROFX_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
 
                     if EUROFX_전일대비 > 0:
                         self.label_37.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36493,7 +36493,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif EUROFX_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
 
                     if EUROFX_전일대비 > 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37736,7 +37736,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if EUROFX_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
 
                     if EUROFX_전일대비 > 0:
                         self.label_47.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37749,7 +37749,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif EUROFX_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
 
                     if EUROFX_전일대비 > 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39007,7 +39007,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if EUROFX_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
 
                     if EUROFX_전일대비 > 0:
                         self.label_57.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39020,7 +39020,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif EUROFX_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
 
                     if EUROFX_전일대비 > 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40278,7 +40278,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if EUROFX_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
 
                     if EUROFX_전일대비 > 0:
                         self.label_67.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40291,7 +40291,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif EUROFX_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
 
                     if EUROFX_전일대비 > 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
