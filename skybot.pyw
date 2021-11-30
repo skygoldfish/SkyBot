@@ -42003,7 +42003,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 GOLD_진폭 = GOLD_고가 - GOLD_저가
 
                 if GOLD_전일종가 > 0 and DayTime:
-                    GOLD_등락율 = ((tickdata['체결가격'] - GOLD_전일종가) / GOLD_전일종가) * 100
+                    GOLD_등락율 = ((GOLD_현재가 - GOLD_전일종가) / GOLD_전일종가) * 100
                 else:
                     pass
 
@@ -42114,7 +42114,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 EUROFX_진폭 = round((EUROFX_고가 - EUROFX_저가), 2)
 
                 if EUROFX_전일종가 > 0 and DayTime:
-                    EUROFX_등락율 = ((tickdata['체결가격'] - EUROFX_전일종가) / EUROFX_전일종가) * 100
+                    EUROFX_등락율 = ((EUROFX_현재가 - EUROFX_전일종가) / EUROFX_전일종가) * 100
                 else:
                     pass
 
@@ -42228,7 +42228,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 YEN_진폭 = round((YEN_고가 - YEN_저가), 2)
                 
                 if YEN_전일종가 > 0 and DayTime:
-                    YEN_등락율 = ((tickdata['체결가격'] - YEN_전일종가) / YEN_전일종가) * 100
+                    YEN_등락율 = ((YEN_현재가 - YEN_전일종가) / YEN_전일종가) * 100
                 else:
                     pass
                 
@@ -42342,7 +42342,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 HANGSENG_진폭 = int(HANGSENG_고가 - HANGSENG_저가)
 
                 if HANGSENG_전일종가 > 0 and DayTime:
-                    HANGSENG_등락율 = ((float(tickdata['체결가격']) - HANGSENG_전일종가) / HANGSENG_전일종가) * 100
+                    HANGSENG_등락율 = ((HANGSENG_현재가 - HANGSENG_전일종가) / HANGSENG_전일종가) * 100
                 else:
                     pass
 
