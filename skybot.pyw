@@ -26161,6 +26161,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
         global NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가
         global WTI_전저, WTI_전고, WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_고가
+        global GOLD_전저, GOLD_전고, GOLD_종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_고가
+        global EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_고가
+        global YEN_전저, YEN_전고, YEN_종가, YEN_피봇, YEN_시가, YEN_저가, YEN_고가
+        global HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_고가
 
         txt = self.comboBox2.currentText()
         comboindex2 = self.comboBox2.currentIndex()
@@ -27421,6 +27425,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
         global NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가
         global WTI_전저, WTI_전고, WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_고가
+        global GOLD_전저, GOLD_전고, GOLD_종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_고가
+        global EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_고가
+        global YEN_전저, YEN_전고, YEN_종가, YEN_피봇, YEN_시가, YEN_저가, YEN_고가
+        global HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_고가
 
         txt = self.comboBox3.currentText()
         comboindex3 = self.comboBox3.currentIndex()
@@ -28681,6 +28689,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
         global NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가
         global WTI_전저, WTI_전고, WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_고가
+        global GOLD_전저, GOLD_전고, GOLD_종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_고가
+        global EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_고가
+        global YEN_전저, YEN_전고, YEN_종가, YEN_피봇, YEN_시가, YEN_저가, YEN_고가
+        global HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_고가
 
         txt = self.comboBox4.currentText()
         comboindex4 = self.comboBox4.currentIndex()
@@ -29909,6 +29921,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
         global NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가
         global WTI_전저, WTI_전고, WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_고가
+        global GOLD_전저, GOLD_전고, GOLD_종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_고가
+        global EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_고가
+        global YEN_전저, YEN_전고, YEN_종가, YEN_피봇, YEN_시가, YEN_저가, YEN_고가
+        global HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_고가
 
         txt = self.comboBox5.currentText()
         comboindex5 = self.comboBox5.currentIndex()
@@ -31169,6 +31185,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
         global NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가
         global WTI_전저, WTI_전고, WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_고가
+        global GOLD_전저, GOLD_전고, GOLD_종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_고가
+        global EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_고가
+        global YEN_전저, YEN_전고, YEN_종가, YEN_피봇, YEN_시가, YEN_저가, YEN_고가
+        global HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_고가
 
         txt = self.comboBox6.currentText()
         comboindex6 = self.comboBox6.currentIndex()
