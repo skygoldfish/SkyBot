@@ -33500,8 +33500,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if GOLD_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.1f}, {2:0.1f}%, {3}) ". \
-                        format(GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭)
+                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭)
 
                     if GOLD_전일대비 > 0:
                         self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33514,8 +33513,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif GOLD_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.1f}, {2:0.1f}%, {3}) ". \
-                        format(GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭)
+                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭)
 
                     if GOLD_전일대비 > 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33629,8 +33627,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if EUROFX_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
 
                     if EUROFX_전일대비 > 0:
                         self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33643,8 +33640,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif EUROFX_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
 
                     if EUROFX_전일대비 > 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33758,8 +33754,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if YEN_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭)
+                    txt = " {0:.1f} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭)
 
                     if YEN_전일대비 > 0:
                         self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33772,8 +33767,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif YEN_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭)
+                    txt = " {0:.1f} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭)
 
                     if YEN_전일대비 > 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33887,8 +33881,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if HANGSENG_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
 
                     if HANGSENG_전일대비 > 0:
                         self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33901,8 +33894,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif HANGSENG_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
 
                     if HANGSENG_전일대비 > 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
