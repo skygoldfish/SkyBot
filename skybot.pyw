@@ -25602,16 +25602,388 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot1_ovc_high_line.setValue(WTI_고가)
                 
         elif comboindex1 == 16:
-            pass
+
+            self.plot1_clear()
+
+            self.plot1_quote_remainder_ratio_base_line.setValue(GOLD_종가)
+            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(GOLD_종가)
+            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(GOLD_종가)
+
+            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(GOLD_종가)
+            self.plot1_option_quote_remainder_ratio_upper_line.setValue(GOLD_종가)
+            
+            for i in range(10):
+                self.plot1_kp200_line[i].setValue(GOLD_종가)
+
+            for i in range(9):
+                self.plot1_mv_line[i].setValue(GOLD_종가)
+
+            self.plot1_center_val_lower_line.setValue(GOLD_종가)
+            self.plot1_center_val_line.setValue(GOLD_종가)
+            self.plot1_center_val_upper_line.setValue(GOLD_종가)
+            
+            self.plot1_fut_jl_line.setValue(GOLD_종가)
+            self.plot1_fut_jh_line.setValue(GOLD_종가)
+            self.plot1_fut_close_line.setValue(GOLD_종가)
+            self.plot1_fut_pivot_line.setValue(GOLD_종가)
+            self.plot1_fut_open_line.setValue(GOLD_종가)
+            self.plot1_fut_low_line.setValue(GOLD_종가)
+            self.plot1_fut_high_line.setValue(GOLD_종가)
+            
+            if GOLD_전저 == 0:
+                GOLD_전저 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_전고 == 0:
+                GOLD_전고 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_종가 == 0:
+                pass
+            else:
+                pass
+
+            if GOLD_피봇 == 0:
+                GOLD_피봇 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_시가 == 0:
+                GOLD_시가 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_저가 == 0:
+                GOLD_저가 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_고가 == 0:
+                GOLD_고가 = GOLD_종가
+            else:
+                pass
+                
+            txt = ' {0} '.format(format(GOLD_전저, ','))
+            self.label_11.setText(txt)
+            self.plot1_ovc_jl_line.setValue(GOLD_전저)
+
+            txt = ' {0} '.format(format(GOLD_전고, ','))
+            self.label_12.setText(txt)
+            self.plot1_ovc_jh_line.setValue(GOLD_전고)
+            
+            txt = ' {0} '.format(format(GOLD_종가, ','))
+            self.label_13.setText(txt)
+            self.plot1_ovc_close_line.setValue(GOLD_종가)
+
+            txt = ' {0} '.format(format(GOLD_피봇, ','))
+            self.label_14.setText(txt)
+            self.plot1_ovc_pivot_line.setValue(GOLD_피봇)
+            
+            txt = ' {0} '.format(format(GOLD_시가, ','))
+            self.label_15.setText(txt)
+            self.plot1_ovc_open_line.setValue(GOLD_시가)
+
+            txt = ' {0} '.format(format(GOLD_저가, ','))
+            self.label_16.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_16.setText(txt)
+            self.plot1_ovc_low_line.setValue(GOLD_저가)
+
+            self.label_17.setText(" 00.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(GOLD_고가, ','))
+            self.label_18.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_18.setText(txt)
+            self.plot1_ovc_high_line.setValue(GOLD_고가)
 
         elif comboindex1 == 17:
-            pass
+
+            self.plot1_clear()
+
+            self.plot1_quote_remainder_ratio_base_line.setValue(EUROFX_종가)
+            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(EUROFX_종가)
+            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(EUROFX_종가)
+
+            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(EUROFX_종가)
+            self.plot1_option_quote_remainder_ratio_upper_line.setValue(EUROFX_종가)
+            
+            for i in range(10):
+                self.plot1_kp200_line[i].setValue(EUROFX_종가)
+
+            for i in range(9):
+                self.plot1_mv_line[i].setValue(EUROFX_종가)
+
+            self.plot1_center_val_lower_line.setValue(EUROFX_종가)
+            self.plot1_center_val_line.setValue(EUROFX_종가)
+            self.plot1_center_val_upper_line.setValue(EUROFX_종가)
+            
+            self.plot1_fut_jl_line.setValue(EUROFX_종가)
+            self.plot1_fut_jh_line.setValue(EUROFX_종가)
+            self.plot1_fut_close_line.setValue(EUROFX_종가)
+            self.plot1_fut_pivot_line.setValue(EUROFX_종가)
+            self.plot1_fut_open_line.setValue(EUROFX_종가)
+            self.plot1_fut_low_line.setValue(EUROFX_종가)
+            self.plot1_fut_high_line.setValue(EUROFX_종가)
+            
+            if EUROFX_전저 == 0:
+                EUROFX_전저 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_전고 == 0:
+                EUROFX_전고 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_종가 == 0:
+                pass
+            else:
+                pass
+
+            if EUROFX_피봇 == 0:
+                EUROFX_피봇 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_시가 == 0:
+                EUROFX_시가 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_저가 == 0:
+                EUROFX_저가 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_고가 == 0:
+                EUROFX_고가 = EUROFX_종가
+            else:
+                pass
+                
+            txt = ' {0} '.format(format(EUROFX_전저, ','))
+            self.label_11.setText(txt)
+            self.plot1_ovc_jl_line.setValue(EUROFX_전저)
+
+            txt = ' {0} '.format(format(EUROFX_전고, ','))
+            self.label_12.setText(txt)
+            self.plot1_ovc_jh_line.setValue(EUROFX_전고)
+            
+            txt = ' {0} '.format(format(EUROFX_종가, ','))
+            self.label_13.setText(txt)
+            self.plot1_ovc_close_line.setValue(EUROFX_종가)
+
+            txt = ' {0} '.format(format(EUROFX_피봇, ','))
+            self.label_14.setText(txt)
+            self.plot1_ovc_pivot_line.setValue(EUROFX_피봇)
+            
+            txt = ' {0} '.format(format(EUROFX_시가, ','))
+            self.label_15.setText(txt)
+            self.plot1_ovc_open_line.setValue(EUROFX_시가)
+
+            txt = ' {0} '.format(format(EUROFX_저가, ','))
+            self.label_16.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_16.setText(txt)
+            self.plot1_ovc_low_line.setValue(EUROFX_저가)
+
+            self.label_17.setText(" 00.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(EUROFX_고가, ','))
+            self.label_18.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_18.setText(txt)
+            self.plot1_ovc_high_line.setValue(EUROFX_고가)
 
         elif comboindex1 == 18:
-            pass
+
+            self.plot1_clear()
+
+            self.plot1_quote_remainder_ratio_base_line.setValue(YEN_종가)
+            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(YEN_종가)
+            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(YEN_종가)
+
+            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(YEN_종가)
+            self.plot1_option_quote_remainder_ratio_upper_line.setValue(YEN_종가)
+            
+            for i in range(10):
+                self.plot1_kp200_line[i].setValue(YEN_종가)
+
+            for i in range(9):
+                self.plot1_mv_line[i].setValue(YEN_종가)
+
+            self.plot1_center_val_lower_line.setValue(YEN_종가)
+            self.plot1_center_val_line.setValue(YEN_종가)
+            self.plot1_center_val_upper_line.setValue(YEN_종가)
+            
+            self.plot1_fut_jl_line.setValue(YEN_종가)
+            self.plot1_fut_jh_line.setValue(YEN_종가)
+            self.plot1_fut_close_line.setValue(YEN_종가)
+            self.plot1_fut_pivot_line.setValue(YEN_종가)
+            self.plot1_fut_open_line.setValue(YEN_종가)
+            self.plot1_fut_low_line.setValue(YEN_종가)
+            self.plot1_fut_high_line.setValue(YEN_종가)
+            
+            if YEN_전저 == 0:
+                YEN_전저 = YEN_종가
+            else:
+                pass
+
+            if YEN_전고 == 0:
+                YEN_전고 = YEN_종가
+            else:
+                pass
+
+            if YEN_종가 == 0:
+                pass
+            else:
+                pass
+
+            if YEN_피봇 == 0:
+                YEN_피봇 = YEN_종가
+            else:
+                pass
+
+            if YEN_시가 == 0:
+                YEN_시가 = YEN_종가
+            else:
+                pass
+
+            if YEN_저가 == 0:
+                YEN_저가 = YEN_종가
+            else:
+                pass
+
+            if YEN_고가 == 0:
+                YEN_고가 = YEN_종가
+            else:
+                pass
+                
+            txt = ' {0} '.format(format(YEN_전저, ','))
+            self.label_11.setText(txt)
+            self.plot1_ovc_jl_line.setValue(YEN_전저)
+
+            txt = ' {0} '.format(format(YEN_전고, ','))
+            self.label_12.setText(txt)
+            self.plot1_ovc_jh_line.setValue(YEN_전고)
+            
+            txt = ' {0} '.format(format(YEN_종가, ','))
+            self.label_13.setText(txt)
+            self.plot1_ovc_close_line.setValue(YEN_종가)
+
+            txt = ' {0} '.format(format(YEN_피봇, ','))
+            self.label_14.setText(txt)
+            self.plot1_ovc_pivot_line.setValue(YEN_피봇)
+            
+            txt = ' {0} '.format(format(YEN_시가, ','))
+            self.label_15.setText(txt)
+            self.plot1_ovc_open_line.setValue(YEN_시가)
+
+            txt = ' {0} '.format(format(YEN_저가, ','))
+            self.label_16.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_16.setText(txt)
+            self.plot1_ovc_low_line.setValue(YEN_저가)
+
+            self.label_17.setText(" 00.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(YEN_고가, ','))
+            self.label_18.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_18.setText(txt)
+            self.plot1_ovc_high_line.setValue(YEN_고가)
 
         elif comboindex1 == 19:
-            pass
+
+            self.plot1_clear()
+
+            self.plot1_quote_remainder_ratio_base_line.setValue(HANGSENG_종가)
+            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(HANGSENG_종가)
+            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(HANGSENG_종가)
+
+            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(HANGSENG_종가)
+            self.plot1_option_quote_remainder_ratio_upper_line.setValue(HANGSENG_종가)
+            
+            for i in range(10):
+                self.plot1_kp200_line[i].setValue(HANGSENG_종가)
+
+            for i in range(9):
+                self.plot1_mv_line[i].setValue(HANGSENG_종가)
+
+            self.plot1_center_val_lower_line.setValue(HANGSENG_종가)
+            self.plot1_center_val_line.setValue(HANGSENG_종가)
+            self.plot1_center_val_upper_line.setValue(HANGSENG_종가)
+            
+            self.plot1_fut_jl_line.setValue(HANGSENG_종가)
+            self.plot1_fut_jh_line.setValue(HANGSENG_종가)
+            self.plot1_fut_close_line.setValue(HANGSENG_종가)
+            self.plot1_fut_pivot_line.setValue(HANGSENG_종가)
+            self.plot1_fut_open_line.setValue(HANGSENG_종가)
+            self.plot1_fut_low_line.setValue(HANGSENG_종가)
+            self.plot1_fut_high_line.setValue(HANGSENG_종가)
+            
+            if HANGSENG_전저 == 0:
+                HANGSENG_전저 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_전고 == 0:
+                HANGSENG_전고 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_종가 == 0:
+                pass
+            else:
+                pass
+
+            if HANGSENG_피봇 == 0:
+                HANGSENG_피봇 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_시가 == 0:
+                HANGSENG_시가 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_저가 == 0:
+                HANGSENG_저가 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_고가 == 0:
+                HANGSENG_고가 = HANGSENG_종가
+            else:
+                pass
+                
+            txt = ' {0} '.format(format(HANGSENG_전저, ','))
+            self.label_11.setText(txt)
+            self.plot1_ovc_jl_line.setValue(HANGSENG_전저)
+
+            txt = ' {0} '.format(format(HANGSENG_전고, ','))
+            self.label_12.setText(txt)
+            self.plot1_ovc_jh_line.setValue(HANGSENG_전고)
+            
+            txt = ' {0} '.format(format(HANGSENG_종가, ','))
+            self.label_13.setText(txt)
+            self.plot1_ovc_close_line.setValue(HANGSENG_종가)
+
+            txt = ' {0} '.format(format(HANGSENG_피봇, ','))
+            self.label_14.setText(txt)
+            self.plot1_ovc_pivot_line.setValue(HANGSENG_피봇)
+            
+            txt = ' {0} '.format(format(HANGSENG_시가, ','))
+            self.label_15.setText(txt)
+            self.plot1_ovc_open_line.setValue(HANGSENG_시가)
+
+            txt = ' {0} '.format(format(HANGSENG_저가, ','))
+            self.label_16.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_16.setText(txt)
+            self.plot1_ovc_low_line.setValue(HANGSENG_저가)
+
+            self.label_17.setText(" 00.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(HANGSENG_고가, ','))
+            self.label_18.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_18.setText(txt)
+            self.plot1_ovc_high_line.setValue(HANGSENG_고가)
 
         # 수급종합
         elif comboindex1 == 21:
@@ -26469,16 +26841,404 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot2_ovc_high_line.setValue(WTI_고가)            
         
         elif comboindex2 == 16:
-            pass
+
+            self.plot2_clear()
+
+            self.plot2_quote_remainder_ratio_base_line.setValue(GOLD_종가)
+            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(GOLD_종가)
+            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(GOLD_종가)
+
+            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(GOLD_종가)
+            self.plot2_option_quote_remainder_ratio_upper_line.setValue(GOLD_종가)
+            
+            for i in range(10):
+                self.plot2_kp200_line[i].setValue(GOLD_종가)
+
+            for i in range(9):
+                self.plot2_mv_line[i].setValue(GOLD_종가)
+
+            self.plot2_center_val_lower_line.setValue(GOLD_종가)
+            self.plot2_center_val_line.setValue(GOLD_종가)
+            self.plot2_center_val_upper_line.setValue(GOLD_종가)
+            
+            self.plot2_fut_jl_line.setValue(GOLD_종가)
+            self.plot2_fut_jh_line.setValue(GOLD_종가)
+            self.plot2_fut_close_line.setValue(GOLD_종가)
+            self.plot2_fut_pivot_line.setValue(GOLD_종가)
+            self.plot2_fut_open_line.setValue(GOLD_종가)
+            self.plot2_fut_low_line.setValue(GOLD_종가)
+            self.plot2_fut_high_line.setValue(GOLD_종가)
+            
+            if GOLD_전저 == 0:
+                GOLD_전저 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_전고 == 0:
+                GOLD_전고 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_종가 == 0:
+                pass
+            else:
+                pass
+
+            if GOLD_피봇 == 0:
+                GOLD_피봇 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_시가 == 0:
+                GOLD_시가 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_저가 == 0:
+                GOLD_저가 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_고가 == 0:
+                GOLD_고가 = GOLD_종가
+            else:
+                pass
+            
+            self.plot2_center_val_lower_line.setValue(GOLD_고가)
+            self.plot2_center_val_line.setValue(GOLD_고가)
+            self.plot2_center_val_upper_line.setValue(GOLD_고가) 
+                
+            txt = ' {0} '.format(format(GOLD_전저, ','))
+            self.label_21.setText(txt)
+            self.plot2_ovc_jl_line.setValue(GOLD_전저)
+
+            txt = ' {0} '.format(format(GOLD_전고, ','))
+            self.label_22.setText(txt)
+            self.plot2_ovc_jh_line.setValue(GOLD_전고)
+            
+            txt = ' {0} '.format(format(GOLD_종가, ','))
+            self.label_23.setText(txt)
+            self.plot2_ovc_close_line.setValue(GOLD_종가)
+
+            txt = ' {0} '.format(format(GOLD_피봇, ','))
+            self.label_24.setText(txt)
+            self.plot2_ovc_pivot_line.setValue(GOLD_피봇)
+            
+            txt = ' {0} '.format(format(GOLD_시가, ','))
+            self.label_25.setText(txt)
+            self.plot2_ovc_open_line.setValue(GOLD_시가)
+
+            txt = ' {0} '.format(format(GOLD_저가, ','))
+            self.label_26.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_26.setText(txt)
+            self.plot2_ovc_low_line.setValue(GOLD_저가)
+
+            self.label_27.setText(" 00.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(GOLD_고가, ','))
+            self.label_28.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_28.setText(txt)
+            self.plot2_ovc_high_line.setValue(GOLD_고가)
 
         elif comboindex2 == 17:
-            pass
+
+            self.plot2_clear()
+
+            self.plot2_quote_remainder_ratio_base_line.setValue(EUROFX_종가)
+            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(EUROFX_종가)
+            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(EUROFX_종가)
+
+            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(EUROFX_종가)
+            self.plot2_option_quote_remainder_ratio_upper_line.setValue(EUROFX_종가)
+            
+            for i in range(10):
+                self.plot2_kp200_line[i].setValue(EUROFX_종가)
+
+            for i in range(9):
+                self.plot2_mv_line[i].setValue(EUROFX_종가)
+
+            self.plot2_center_val_lower_line.setValue(EUROFX_종가)
+            self.plot2_center_val_line.setValue(EUROFX_종가)
+            self.plot2_center_val_upper_line.setValue(EUROFX_종가)
+            
+            self.plot2_fut_jl_line.setValue(EUROFX_종가)
+            self.plot2_fut_jh_line.setValue(EUROFX_종가)
+            self.plot2_fut_close_line.setValue(EUROFX_종가)
+            self.plot2_fut_pivot_line.setValue(EUROFX_종가)
+            self.plot2_fut_open_line.setValue(EUROFX_종가)
+            self.plot2_fut_low_line.setValue(EUROFX_종가)
+            self.plot2_fut_high_line.setValue(EUROFX_종가)
+            
+            if EUROFX_전저 == 0:
+                EUROFX_전저 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_전고 == 0:
+                EUROFX_전고 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_종가 == 0:
+                pass
+            else:
+                pass
+
+            if EUROFX_피봇 == 0:
+                EUROFX_피봇 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_시가 == 0:
+                EUROFX_시가 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_저가 == 0:
+                EUROFX_저가 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_고가 == 0:
+                EUROFX_고가 = EUROFX_종가
+            else:
+                pass
+            
+            self.plot2_center_val_lower_line.setValue(EUROFX_고가)
+            self.plot2_center_val_line.setValue(EUROFX_고가)
+            self.plot2_center_val_upper_line.setValue(EUROFX_고가) 
+                
+            txt = ' {0} '.format(format(EUROFX_전저, ','))
+            self.label_21.setText(txt)
+            self.plot2_ovc_jl_line.setValue(EUROFX_전저)
+
+            txt = ' {0} '.format(format(EUROFX_전고, ','))
+            self.label_22.setText(txt)
+            self.plot2_ovc_jh_line.setValue(EUROFX_전고)
+            
+            txt = ' {0} '.format(format(EUROFX_종가, ','))
+            self.label_23.setText(txt)
+            self.plot2_ovc_close_line.setValue(EUROFX_종가)
+
+            txt = ' {0} '.format(format(EUROFX_피봇, ','))
+            self.label_24.setText(txt)
+            self.plot2_ovc_pivot_line.setValue(EUROFX_피봇)
+            
+            txt = ' {0} '.format(format(EUROFX_시가, ','))
+            self.label_25.setText(txt)
+            self.plot2_ovc_open_line.setValue(EUROFX_시가)
+
+            txt = ' {0} '.format(format(EUROFX_저가, ','))
+            self.label_26.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_26.setText(txt)
+            self.plot2_ovc_low_line.setValue(EUROFX_저가)
+
+            self.label_27.setText(" 00.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(EUROFX_고가, ','))
+            self.label_28.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_28.setText(txt)
+            self.plot2_ovc_high_line.setValue(EUROFX_고가)
 
         elif comboindex2 == 18:
-            pass
+
+            self.plot2_clear()
+
+            self.plot2_quote_remainder_ratio_base_line.setValue(YEN_종가)
+            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(YEN_종가)
+            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(YEN_종가)
+
+            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(YEN_종가)
+            self.plot2_option_quote_remainder_ratio_upper_line.setValue(YEN_종가)
+            
+            for i in range(10):
+                self.plot2_kp200_line[i].setValue(YEN_종가)
+
+            for i in range(9):
+                self.plot2_mv_line[i].setValue(YEN_종가)
+
+            self.plot2_center_val_lower_line.setValue(YEN_종가)
+            self.plot2_center_val_line.setValue(YEN_종가)
+            self.plot2_center_val_upper_line.setValue(YEN_종가)
+            
+            self.plot2_fut_jl_line.setValue(YEN_종가)
+            self.plot2_fut_jh_line.setValue(YEN_종가)
+            self.plot2_fut_close_line.setValue(YEN_종가)
+            self.plot2_fut_pivot_line.setValue(YEN_종가)
+            self.plot2_fut_open_line.setValue(YEN_종가)
+            self.plot2_fut_low_line.setValue(YEN_종가)
+            self.plot2_fut_high_line.setValue(YEN_종가)
+            
+            if YEN_전저 == 0:
+                YEN_전저 = YEN_종가
+            else:
+                pass
+
+            if YEN_전고 == 0:
+                YEN_전고 = YEN_종가
+            else:
+                pass
+
+            if YEN_종가 == 0:
+                pass
+            else:
+                pass
+
+            if YEN_피봇 == 0:
+                YEN_피봇 = YEN_종가
+            else:
+                pass
+
+            if YEN_시가 == 0:
+                YEN_시가 = YEN_종가
+            else:
+                pass
+
+            if YEN_저가 == 0:
+                YEN_저가 = YEN_종가
+            else:
+                pass
+
+            if YEN_고가 == 0:
+                YEN_고가 = YEN_종가
+            else:
+                pass
+            
+            self.plot2_center_val_lower_line.setValue(YEN_고가)
+            self.plot2_center_val_line.setValue(YEN_고가)
+            self.plot2_center_val_upper_line.setValue(YEN_고가) 
+                
+            txt = ' {0} '.format(format(YEN_전저, ','))
+            self.label_21.setText(txt)
+            self.plot2_ovc_jl_line.setValue(YEN_전저)
+
+            txt = ' {0} '.format(format(YEN_전고, ','))
+            self.label_22.setText(txt)
+            self.plot2_ovc_jh_line.setValue(YEN_전고)
+            
+            txt = ' {0} '.format(format(YEN_종가, ','))
+            self.label_23.setText(txt)
+            self.plot2_ovc_close_line.setValue(YEN_종가)
+
+            txt = ' {0} '.format(format(YEN_피봇, ','))
+            self.label_24.setText(txt)
+            self.plot2_ovc_pivot_line.setValue(YEN_피봇)
+            
+            txt = ' {0} '.format(format(YEN_시가, ','))
+            self.label_25.setText(txt)
+            self.plot2_ovc_open_line.setValue(YEN_시가)
+
+            txt = ' {0} '.format(format(YEN_저가, ','))
+            self.label_26.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_26.setText(txt)
+            self.plot2_ovc_low_line.setValue(YEN_저가)
+
+            self.label_27.setText(" 00.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(YEN_고가, ','))
+            self.label_28.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_28.setText(txt)
+            self.plot2_ovc_high_line.setValue(YEN_고가)
 
         elif comboindex2 == 19:
-            pass
+
+            self.plot2_clear()
+
+            self.plot2_quote_remainder_ratio_base_line.setValue(HANGSENG_종가)
+            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(HANGSENG_종가)
+            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(HANGSENG_종가)
+
+            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(HANGSENG_종가)
+            self.plot2_option_quote_remainder_ratio_upper_line.setValue(HANGSENG_종가)
+            
+            for i in range(10):
+                self.plot2_kp200_line[i].setValue(HANGSENG_종가)
+
+            for i in range(9):
+                self.plot2_mv_line[i].setValue(HANGSENG_종가)
+
+            self.plot2_center_val_lower_line.setValue(HANGSENG_종가)
+            self.plot2_center_val_line.setValue(HANGSENG_종가)
+            self.plot2_center_val_upper_line.setValue(HANGSENG_종가)
+            
+            self.plot2_fut_jl_line.setValue(HANGSENG_종가)
+            self.plot2_fut_jh_line.setValue(HANGSENG_종가)
+            self.plot2_fut_close_line.setValue(HANGSENG_종가)
+            self.plot2_fut_pivot_line.setValue(HANGSENG_종가)
+            self.plot2_fut_open_line.setValue(HANGSENG_종가)
+            self.plot2_fut_low_line.setValue(HANGSENG_종가)
+            self.plot2_fut_high_line.setValue(HANGSENG_종가)
+            
+            if HANGSENG_전저 == 0:
+                HANGSENG_전저 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_전고 == 0:
+                HANGSENG_전고 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_종가 == 0:
+                pass
+            else:
+                pass
+
+            if HANGSENG_피봇 == 0:
+                HANGSENG_피봇 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_시가 == 0:
+                HANGSENG_시가 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_저가 == 0:
+                HANGSENG_저가 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_고가 == 0:
+                HANGSENG_고가 = HANGSENG_종가
+            else:
+                pass
+            
+            self.plot2_center_val_lower_line.setValue(HANGSENG_고가)
+            self.plot2_center_val_line.setValue(HANGSENG_고가)
+            self.plot2_center_val_upper_line.setValue(HANGSENG_고가) 
+                
+            txt = ' {0} '.format(format(HANGSENG_전저, ','))
+            self.label_21.setText(txt)
+            self.plot2_ovc_jl_line.setValue(HANGSENG_전저)
+
+            txt = ' {0} '.format(format(HANGSENG_전고, ','))
+            self.label_22.setText(txt)
+            self.plot2_ovc_jh_line.setValue(HANGSENG_전고)
+            
+            txt = ' {0} '.format(format(HANGSENG_종가, ','))
+            self.label_23.setText(txt)
+            self.plot2_ovc_close_line.setValue(HANGSENG_종가)
+
+            txt = ' {0} '.format(format(HANGSENG_피봇, ','))
+            self.label_24.setText(txt)
+            self.plot2_ovc_pivot_line.setValue(HANGSENG_피봇)
+            
+            txt = ' {0} '.format(format(HANGSENG_시가, ','))
+            self.label_25.setText(txt)
+            self.plot2_ovc_open_line.setValue(HANGSENG_시가)
+
+            txt = ' {0} '.format(format(HANGSENG_저가, ','))
+            self.label_26.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_26.setText(txt)
+            self.plot2_ovc_low_line.setValue(HANGSENG_저가)
+
+            self.label_27.setText(" 00.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(HANGSENG_고가, ','))
+            self.label_28.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_28.setText(txt)
+            self.plot2_ovc_high_line.setValue(HANGSENG_고가)
 
         # 수급종합
         elif comboindex2 == 21:
@@ -27336,16 +28096,404 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot3_ovc_high_line.setValue(WTI_고가)            
                 
         elif comboindex3 == 16:
-            pass
+
+            self.plot3_clear()
+
+            self.plot3_quote_remainder_ratio_base_line.setValue(GOLD_종가)
+            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(GOLD_종가)
+            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(GOLD_종가)
+
+            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(GOLD_종가)
+            self.plot3_option_quote_remainder_ratio_upper_line.setValue(GOLD_종가)
+            
+            for i in range(10):
+                self.plot3_kp200_line[i].setValue(GOLD_종가)
+
+            for i in range(9):
+                self.plot3_mv_line[i].setValue(GOLD_종가)
+
+            self.plot3_center_val_lower_line.setValue(GOLD_종가)
+            self.plot3_center_val_line.setValue(GOLD_종가)
+            self.plot3_center_val_upper_line.setValue(GOLD_종가)
+            
+            self.plot3_fut_jl_line.setValue(GOLD_종가)
+            self.plot3_fut_jh_line.setValue(GOLD_종가)
+            self.plot3_fut_close_line.setValue(GOLD_종가)
+            self.plot3_fut_pivot_line.setValue(GOLD_종가)
+            self.plot3_fut_open_line.setValue(GOLD_종가)
+            self.plot3_fut_low_line.setValue(GOLD_종가)
+            self.plot3_fut_high_line.setValue(GOLD_종가)
+            
+            if GOLD_전저 == 0:
+                GOLD_전저 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_전고 == 0:
+                GOLD_전고 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_종가 == 0:
+                pass
+            else:
+                pass
+
+            if GOLD_피봇 == 0:
+                GOLD_피봇 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_시가 == 0:
+                GOLD_시가 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_저가 == 0:
+                GOLD_저가 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_고가 == 0:
+                GOLD_고가 = GOLD_종가
+            else:
+                pass
+            
+            self.plot3_center_val_lower_line.setValue(GOLD_고가)
+            self.plot3_center_val_line.setValue(GOLD_고가)
+            self.plot3_center_val_upper_line.setValue(GOLD_고가) 
+                
+            txt = ' {0} '.format(format(GOLD_전저, ','))
+            self.label_31.setText(txt)
+            self.plot3_ovc_jl_line.setValue(GOLD_전저)
+
+            txt = ' {0} '.format(format(GOLD_전고, ','))
+            self.label_32.setText(txt)
+            self.plot3_ovc_jh_line.setValue(GOLD_전고)
+            
+            txt = ' {0} '.format(format(GOLD_종가, ','))
+            self.label_33.setText(txt)
+            self.plot3_ovc_close_line.setValue(GOLD_종가)
+
+            txt = ' {0} '.format(format(GOLD_피봇, ','))
+            self.label_34.setText(txt)
+            self.plot3_ovc_pivot_line.setValue(GOLD_피봇)
+            
+            txt = ' {0} '.format(format(GOLD_시가, ','))
+            self.label_35.setText(txt)
+            self.plot3_ovc_open_line.setValue(GOLD_시가)
+
+            txt = ' {0} '.format(format(GOLD_저가, ','))
+            self.label_36.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_36.setText(txt)
+            self.plot3_ovc_low_line.setValue(GOLD_저가)
+
+            self.label_37.setText(" 00.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(GOLD_고가, ','))
+            self.label_38.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_38.setText(txt)
+            self.plot3_ovc_high_line.setValue(GOLD_고가)
 
         elif comboindex3 == 17:
-            pass
+
+            self.plot3_clear()
+
+            self.plot3_quote_remainder_ratio_base_line.setValue(EUROFX_종가)
+            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(EUROFX_종가)
+            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(EUROFX_종가)
+
+            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(EUROFX_종가)
+            self.plot3_option_quote_remainder_ratio_upper_line.setValue(EUROFX_종가)
+            
+            for i in range(10):
+                self.plot3_kp200_line[i].setValue(EUROFX_종가)
+
+            for i in range(9):
+                self.plot3_mv_line[i].setValue(EUROFX_종가)
+
+            self.plot3_center_val_lower_line.setValue(EUROFX_종가)
+            self.plot3_center_val_line.setValue(EUROFX_종가)
+            self.plot3_center_val_upper_line.setValue(EUROFX_종가)
+            
+            self.plot3_fut_jl_line.setValue(EUROFX_종가)
+            self.plot3_fut_jh_line.setValue(EUROFX_종가)
+            self.plot3_fut_close_line.setValue(EUROFX_종가)
+            self.plot3_fut_pivot_line.setValue(EUROFX_종가)
+            self.plot3_fut_open_line.setValue(EUROFX_종가)
+            self.plot3_fut_low_line.setValue(EUROFX_종가)
+            self.plot3_fut_high_line.setValue(EUROFX_종가)
+            
+            if EUROFX_전저 == 0:
+                EUROFX_전저 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_전고 == 0:
+                EUROFX_전고 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_종가 == 0:
+                pass
+            else:
+                pass
+
+            if EUROFX_피봇 == 0:
+                EUROFX_피봇 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_시가 == 0:
+                EUROFX_시가 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_저가 == 0:
+                EUROFX_저가 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_고가 == 0:
+                EUROFX_고가 = EUROFX_종가
+            else:
+                pass
+            
+            self.plot3_center_val_lower_line.setValue(EUROFX_고가)
+            self.plot3_center_val_line.setValue(EUROFX_고가)
+            self.plot3_center_val_upper_line.setValue(EUROFX_고가) 
+                
+            txt = ' {0} '.format(format(EUROFX_전저, ','))
+            self.label_31.setText(txt)
+            self.plot3_ovc_jl_line.setValue(EUROFX_전저)
+
+            txt = ' {0} '.format(format(EUROFX_전고, ','))
+            self.label_32.setText(txt)
+            self.plot3_ovc_jh_line.setValue(EUROFX_전고)
+            
+            txt = ' {0} '.format(format(EUROFX_종가, ','))
+            self.label_33.setText(txt)
+            self.plot3_ovc_close_line.setValue(EUROFX_종가)
+
+            txt = ' {0} '.format(format(EUROFX_피봇, ','))
+            self.label_34.setText(txt)
+            self.plot3_ovc_pivot_line.setValue(EUROFX_피봇)
+            
+            txt = ' {0} '.format(format(EUROFX_시가, ','))
+            self.label_35.setText(txt)
+            self.plot3_ovc_open_line.setValue(EUROFX_시가)
+
+            txt = ' {0} '.format(format(EUROFX_저가, ','))
+            self.label_36.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_36.setText(txt)
+            self.plot3_ovc_low_line.setValue(EUROFX_저가)
+
+            self.label_37.setText(" 00.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(EUROFX_고가, ','))
+            self.label_38.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_38.setText(txt)
+            self.plot3_ovc_high_line.setValue(EUROFX_고가)
 
         elif comboindex3 == 18:
-            pass
+
+            self.plot3_clear()
+
+            self.plot3_quote_remainder_ratio_base_line.setValue(YEN_종가)
+            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(YEN_종가)
+            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(YEN_종가)
+
+            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(YEN_종가)
+            self.plot3_option_quote_remainder_ratio_upper_line.setValue(YEN_종가)
+            
+            for i in range(10):
+                self.plot3_kp200_line[i].setValue(YEN_종가)
+
+            for i in range(9):
+                self.plot3_mv_line[i].setValue(YEN_종가)
+
+            self.plot3_center_val_lower_line.setValue(YEN_종가)
+            self.plot3_center_val_line.setValue(YEN_종가)
+            self.plot3_center_val_upper_line.setValue(YEN_종가)
+            
+            self.plot3_fut_jl_line.setValue(YEN_종가)
+            self.plot3_fut_jh_line.setValue(YEN_종가)
+            self.plot3_fut_close_line.setValue(YEN_종가)
+            self.plot3_fut_pivot_line.setValue(YEN_종가)
+            self.plot3_fut_open_line.setValue(YEN_종가)
+            self.plot3_fut_low_line.setValue(YEN_종가)
+            self.plot3_fut_high_line.setValue(YEN_종가)
+            
+            if YEN_전저 == 0:
+                YEN_전저 = YEN_종가
+            else:
+                pass
+
+            if YEN_전고 == 0:
+                YEN_전고 = YEN_종가
+            else:
+                pass
+
+            if YEN_종가 == 0:
+                pass
+            else:
+                pass
+
+            if YEN_피봇 == 0:
+                YEN_피봇 = YEN_종가
+            else:
+                pass
+
+            if YEN_시가 == 0:
+                YEN_시가 = YEN_종가
+            else:
+                pass
+
+            if YEN_저가 == 0:
+                YEN_저가 = YEN_종가
+            else:
+                pass
+
+            if YEN_고가 == 0:
+                YEN_고가 = YEN_종가
+            else:
+                pass
+            
+            self.plot3_center_val_lower_line.setValue(YEN_고가)
+            self.plot3_center_val_line.setValue(YEN_고가)
+            self.plot3_center_val_upper_line.setValue(YEN_고가) 
+                
+            txt = ' {0} '.format(format(YEN_전저, ','))
+            self.label_31.setText(txt)
+            self.plot3_ovc_jl_line.setValue(YEN_전저)
+
+            txt = ' {0} '.format(format(YEN_전고, ','))
+            self.label_32.setText(txt)
+            self.plot3_ovc_jh_line.setValue(YEN_전고)
+            
+            txt = ' {0} '.format(format(YEN_종가, ','))
+            self.label_33.setText(txt)
+            self.plot3_ovc_close_line.setValue(YEN_종가)
+
+            txt = ' {0} '.format(format(YEN_피봇, ','))
+            self.label_34.setText(txt)
+            self.plot3_ovc_pivot_line.setValue(YEN_피봇)
+            
+            txt = ' {0} '.format(format(YEN_시가, ','))
+            self.label_35.setText(txt)
+            self.plot3_ovc_open_line.setValue(YEN_시가)
+
+            txt = ' {0} '.format(format(YEN_저가, ','))
+            self.label_36.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_36.setText(txt)
+            self.plot3_ovc_low_line.setValue(YEN_저가)
+
+            self.label_37.setText(" 00.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(YEN_고가, ','))
+            self.label_38.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_38.setText(txt)
+            self.plot3_ovc_high_line.setValue(YEN_고가)
 
         elif comboindex3 == 19:
-            pass
+
+            self.plot3_clear()
+
+            self.plot3_quote_remainder_ratio_base_line.setValue(HANGSENG_종가)
+            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(HANGSENG_종가)
+            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(HANGSENG_종가)
+
+            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(HANGSENG_종가)
+            self.plot3_option_quote_remainder_ratio_upper_line.setValue(HANGSENG_종가)
+            
+            for i in range(10):
+                self.plot3_kp200_line[i].setValue(HANGSENG_종가)
+
+            for i in range(9):
+                self.plot3_mv_line[i].setValue(HANGSENG_종가)
+
+            self.plot3_center_val_lower_line.setValue(HANGSENG_종가)
+            self.plot3_center_val_line.setValue(HANGSENG_종가)
+            self.plot3_center_val_upper_line.setValue(HANGSENG_종가)
+            
+            self.plot3_fut_jl_line.setValue(HANGSENG_종가)
+            self.plot3_fut_jh_line.setValue(HANGSENG_종가)
+            self.plot3_fut_close_line.setValue(HANGSENG_종가)
+            self.plot3_fut_pivot_line.setValue(HANGSENG_종가)
+            self.plot3_fut_open_line.setValue(HANGSENG_종가)
+            self.plot3_fut_low_line.setValue(HANGSENG_종가)
+            self.plot3_fut_high_line.setValue(HANGSENG_종가)
+            
+            if HANGSENG_전저 == 0:
+                HANGSENG_전저 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_전고 == 0:
+                HANGSENG_전고 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_종가 == 0:
+                pass
+            else:
+                pass
+
+            if HANGSENG_피봇 == 0:
+                HANGSENG_피봇 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_시가 == 0:
+                HANGSENG_시가 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_저가 == 0:
+                HANGSENG_저가 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_고가 == 0:
+                HANGSENG_고가 = HANGSENG_종가
+            else:
+                pass
+            
+            self.plot3_center_val_lower_line.setValue(HANGSENG_고가)
+            self.plot3_center_val_line.setValue(HANGSENG_고가)
+            self.plot3_center_val_upper_line.setValue(HANGSENG_고가) 
+                
+            txt = ' {0} '.format(format(HANGSENG_전저, ','))
+            self.label_31.setText(txt)
+            self.plot3_ovc_jl_line.setValue(HANGSENG_전저)
+
+            txt = ' {0} '.format(format(HANGSENG_전고, ','))
+            self.label_32.setText(txt)
+            self.plot3_ovc_jh_line.setValue(HANGSENG_전고)
+            
+            txt = ' {0} '.format(format(HANGSENG_종가, ','))
+            self.label_33.setText(txt)
+            self.plot3_ovc_close_line.setValue(HANGSENG_종가)
+
+            txt = ' {0} '.format(format(HANGSENG_피봇, ','))
+            self.label_34.setText(txt)
+            self.plot3_ovc_pivot_line.setValue(HANGSENG_피봇)
+            
+            txt = ' {0} '.format(format(HANGSENG_시가, ','))
+            self.label_35.setText(txt)
+            self.plot3_ovc_open_line.setValue(HANGSENG_시가)
+
+            txt = ' {0} '.format(format(HANGSENG_저가, ','))
+            self.label_36.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_36.setText(txt)
+            self.plot3_ovc_low_line.setValue(HANGSENG_저가)
+
+            self.label_37.setText(" 00.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(HANGSENG_고가, ','))
+            self.label_38.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_38.setText(txt)
+            self.plot3_ovc_high_line.setValue(HANGSENG_고가)
 
         # 수급종합
         elif comboindex3 == 21:
@@ -28187,16 +29335,388 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot4_ovc_high_line.setValue(WTI_고가)
         
         elif comboindex4 == 16:
-            pass
+
+            self.plot4_clear()
+
+            self.plot4_quote_remainder_ratio_base_line.setValue(GOLD_종가)
+            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(GOLD_종가)
+            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(GOLD_종가)
+
+            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(GOLD_종가)
+            self.plot4_option_quote_remainder_ratio_upper_line.setValue(GOLD_종가)
+            
+            for i in range(10):
+                self.plot4_kp200_line[i].setValue(GOLD_종가)
+
+            for i in range(9):
+                self.plot4_mv_line[i].setValue(GOLD_종가)
+
+            self.plot4_center_val_lower_line.setValue(GOLD_종가)
+            self.plot4_center_val_line.setValue(GOLD_종가)
+            self.plot4_center_val_upper_line.setValue(GOLD_종가)
+            
+            self.plot4_fut_jl_line.setValue(GOLD_종가)
+            self.plot4_fut_jh_line.setValue(GOLD_종가)
+            self.plot4_fut_close_line.setValue(GOLD_종가)
+            self.plot4_fut_pivot_line.setValue(GOLD_종가)
+            self.plot4_fut_open_line.setValue(GOLD_종가)
+            self.plot4_fut_low_line.setValue(GOLD_종가)
+            self.plot4_fut_high_line.setValue(GOLD_종가)
+            
+            if GOLD_전저 == 0:
+                GOLD_전저 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_전고 == 0:
+                GOLD_전고 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_종가 == 0:
+                pass
+            else:
+                pass
+
+            if GOLD_피봇 == 0:
+                GOLD_피봇 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_시가 == 0:
+                GOLD_시가 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_저가 == 0:
+                GOLD_저가 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_고가 == 0:
+                GOLD_고가 = GOLD_종가
+            else:
+                pass
+                
+            txt = ' {0} '.format(format(GOLD_전저, ','))
+            self.label_41.setText(txt)
+            self.plot4_ovc_jl_line.setValue(GOLD_전저)
+
+            txt = ' {0} '.format(format(GOLD_전고, ','))
+            self.label_42.setText(txt)
+            self.plot4_ovc_jh_line.setValue(GOLD_전고)
+            
+            txt = ' {0} '.format(format(GOLD_종가, ','))
+            self.label_43.setText(txt)
+            self.plot4_ovc_close_line.setValue(GOLD_종가)
+
+            txt = ' {0} '.format(format(GOLD_피봇, ','))
+            self.label_44.setText(txt)
+            self.plot4_ovc_pivot_line.setValue(GOLD_피봇)
+            
+            txt = ' {0} '.format(format(GOLD_시가, ','))
+            self.label_45.setText(txt)
+            self.plot4_ovc_open_line.setValue(GOLD_시가)
+
+            txt = ' {0} '.format(format(GOLD_저가, ','))
+            self.label_46.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_46.setText(txt)
+            self.plot4_ovc_low_line.setValue(GOLD_저가)
+
+            self.label_47.setText(" 00.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(GOLD_고가, ','))
+            self.label_48.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_48.setText(txt)
+            self.plot4_ovc_high_line.setValue(GOLD_고가)
 
         elif comboindex4 == 17:
-            pass
+
+            self.plot4_clear()
+
+            self.plot4_quote_remainder_ratio_base_line.setValue(EUROFX_종가)
+            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(EUROFX_종가)
+            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(EUROFX_종가)
+
+            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(EUROFX_종가)
+            self.plot4_option_quote_remainder_ratio_upper_line.setValue(EUROFX_종가)
+            
+            for i in range(10):
+                self.plot4_kp200_line[i].setValue(EUROFX_종가)
+
+            for i in range(9):
+                self.plot4_mv_line[i].setValue(EUROFX_종가)
+
+            self.plot4_center_val_lower_line.setValue(EUROFX_종가)
+            self.plot4_center_val_line.setValue(EUROFX_종가)
+            self.plot4_center_val_upper_line.setValue(EUROFX_종가)
+            
+            self.plot4_fut_jl_line.setValue(EUROFX_종가)
+            self.plot4_fut_jh_line.setValue(EUROFX_종가)
+            self.plot4_fut_close_line.setValue(EUROFX_종가)
+            self.plot4_fut_pivot_line.setValue(EUROFX_종가)
+            self.plot4_fut_open_line.setValue(EUROFX_종가)
+            self.plot4_fut_low_line.setValue(EUROFX_종가)
+            self.plot4_fut_high_line.setValue(EUROFX_종가)
+            
+            if EUROFX_전저 == 0:
+                EUROFX_전저 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_전고 == 0:
+                EUROFX_전고 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_종가 == 0:
+                pass
+            else:
+                pass
+
+            if EUROFX_피봇 == 0:
+                EUROFX_피봇 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_시가 == 0:
+                EUROFX_시가 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_저가 == 0:
+                EUROFX_저가 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_고가 == 0:
+                EUROFX_고가 = EUROFX_종가
+            else:
+                pass
+                
+            txt = ' {0} '.format(format(EUROFX_전저, ','))
+            self.label_41.setText(txt)
+            self.plot4_ovc_jl_line.setValue(EUROFX_전저)
+
+            txt = ' {0} '.format(format(EUROFX_전고, ','))
+            self.label_42.setText(txt)
+            self.plot4_ovc_jh_line.setValue(EUROFX_전고)
+            
+            txt = ' {0} '.format(format(EUROFX_종가, ','))
+            self.label_43.setText(txt)
+            self.plot4_ovc_close_line.setValue(EUROFX_종가)
+
+            txt = ' {0} '.format(format(EUROFX_피봇, ','))
+            self.label_44.setText(txt)
+            self.plot4_ovc_pivot_line.setValue(EUROFX_피봇)
+            
+            txt = ' {0} '.format(format(EUROFX_시가, ','))
+            self.label_45.setText(txt)
+            self.plot4_ovc_open_line.setValue(EUROFX_시가)
+
+            txt = ' {0} '.format(format(EUROFX_저가, ','))
+            self.label_46.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_46.setText(txt)
+            self.plot4_ovc_low_line.setValue(EUROFX_저가)
+
+            self.label_47.setText(" 00.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(EUROFX_고가, ','))
+            self.label_48.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_48.setText(txt)
+            self.plot4_ovc_high_line.setValue(EUROFX_고가)
 
         elif comboindex4 == 18:
-            pass
+
+            self.plot4_clear()
+
+            self.plot4_quote_remainder_ratio_base_line.setValue(YEN_종가)
+            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(YEN_종가)
+            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(YEN_종가)
+
+            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(YEN_종가)
+            self.plot4_option_quote_remainder_ratio_upper_line.setValue(YEN_종가)
+            
+            for i in range(10):
+                self.plot4_kp200_line[i].setValue(YEN_종가)
+
+            for i in range(9):
+                self.plot4_mv_line[i].setValue(YEN_종가)
+
+            self.plot4_center_val_lower_line.setValue(YEN_종가)
+            self.plot4_center_val_line.setValue(YEN_종가)
+            self.plot4_center_val_upper_line.setValue(YEN_종가)
+            
+            self.plot4_fut_jl_line.setValue(YEN_종가)
+            self.plot4_fut_jh_line.setValue(YEN_종가)
+            self.plot4_fut_close_line.setValue(YEN_종가)
+            self.plot4_fut_pivot_line.setValue(YEN_종가)
+            self.plot4_fut_open_line.setValue(YEN_종가)
+            self.plot4_fut_low_line.setValue(YEN_종가)
+            self.plot4_fut_high_line.setValue(YEN_종가)
+            
+            if YEN_전저 == 0:
+                YEN_전저 = YEN_종가
+            else:
+                pass
+
+            if YEN_전고 == 0:
+                YEN_전고 = YEN_종가
+            else:
+                pass
+
+            if YEN_종가 == 0:
+                pass
+            else:
+                pass
+
+            if YEN_피봇 == 0:
+                YEN_피봇 = YEN_종가
+            else:
+                pass
+
+            if YEN_시가 == 0:
+                YEN_시가 = YEN_종가
+            else:
+                pass
+
+            if YEN_저가 == 0:
+                YEN_저가 = YEN_종가
+            else:
+                pass
+
+            if YEN_고가 == 0:
+                YEN_고가 = YEN_종가
+            else:
+                pass
+                
+            txt = ' {0} '.format(format(YEN_전저, ','))
+            self.label_41.setText(txt)
+            self.plot4_ovc_jl_line.setValue(YEN_전저)
+
+            txt = ' {0} '.format(format(YEN_전고, ','))
+            self.label_42.setText(txt)
+            self.plot4_ovc_jh_line.setValue(YEN_전고)
+            
+            txt = ' {0} '.format(format(YEN_종가, ','))
+            self.label_43.setText(txt)
+            self.plot4_ovc_close_line.setValue(YEN_종가)
+
+            txt = ' {0} '.format(format(YEN_피봇, ','))
+            self.label_44.setText(txt)
+            self.plot4_ovc_pivot_line.setValue(YEN_피봇)
+            
+            txt = ' {0} '.format(format(YEN_시가, ','))
+            self.label_45.setText(txt)
+            self.plot4_ovc_open_line.setValue(YEN_시가)
+
+            txt = ' {0} '.format(format(YEN_저가, ','))
+            self.label_46.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_46.setText(txt)
+            self.plot4_ovc_low_line.setValue(YEN_저가)
+
+            self.label_47.setText(" 00.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(YEN_고가, ','))
+            self.label_48.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_48.setText(txt)
+            self.plot4_ovc_high_line.setValue(YEN_고가)
 
         elif comboindex4 == 19:
-            pass
+
+            self.plot4_clear()
+
+            self.plot4_quote_remainder_ratio_base_line.setValue(HANGSENG_종가)
+            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(HANGSENG_종가)
+            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(HANGSENG_종가)
+
+            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(HANGSENG_종가)
+            self.plot4_option_quote_remainder_ratio_upper_line.setValue(HANGSENG_종가)
+            
+            for i in range(10):
+                self.plot4_kp200_line[i].setValue(HANGSENG_종가)
+
+            for i in range(9):
+                self.plot4_mv_line[i].setValue(HANGSENG_종가)
+
+            self.plot4_center_val_lower_line.setValue(HANGSENG_종가)
+            self.plot4_center_val_line.setValue(HANGSENG_종가)
+            self.plot4_center_val_upper_line.setValue(HANGSENG_종가)
+            
+            self.plot4_fut_jl_line.setValue(HANGSENG_종가)
+            self.plot4_fut_jh_line.setValue(HANGSENG_종가)
+            self.plot4_fut_close_line.setValue(HANGSENG_종가)
+            self.plot4_fut_pivot_line.setValue(HANGSENG_종가)
+            self.plot4_fut_open_line.setValue(HANGSENG_종가)
+            self.plot4_fut_low_line.setValue(HANGSENG_종가)
+            self.plot4_fut_high_line.setValue(HANGSENG_종가)
+            
+            if HANGSENG_전저 == 0:
+                HANGSENG_전저 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_전고 == 0:
+                HANGSENG_전고 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_종가 == 0:
+                pass
+            else:
+                pass
+
+            if HANGSENG_피봇 == 0:
+                HANGSENG_피봇 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_시가 == 0:
+                HANGSENG_시가 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_저가 == 0:
+                HANGSENG_저가 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_고가 == 0:
+                HANGSENG_고가 = HANGSENG_종가
+            else:
+                pass
+                
+            txt = ' {0} '.format(format(HANGSENG_전저, ','))
+            self.label_41.setText(txt)
+            self.plot4_ovc_jl_line.setValue(HANGSENG_전저)
+
+            txt = ' {0} '.format(format(HANGSENG_전고, ','))
+            self.label_42.setText(txt)
+            self.plot4_ovc_jh_line.setValue(HANGSENG_전고)
+            
+            txt = ' {0} '.format(format(HANGSENG_종가, ','))
+            self.label_43.setText(txt)
+            self.plot4_ovc_close_line.setValue(HANGSENG_종가)
+
+            txt = ' {0} '.format(format(HANGSENG_피봇, ','))
+            self.label_44.setText(txt)
+            self.plot4_ovc_pivot_line.setValue(HANGSENG_피봇)
+            
+            txt = ' {0} '.format(format(HANGSENG_시가, ','))
+            self.label_45.setText(txt)
+            self.plot4_ovc_open_line.setValue(HANGSENG_시가)
+
+            txt = ' {0} '.format(format(HANGSENG_저가, ','))
+            self.label_46.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_46.setText(txt)
+            self.plot4_ovc_low_line.setValue(HANGSENG_저가)
+
+            self.label_47.setText(" 00.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(HANGSENG_고가, ','))
+            self.label_48.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_48.setText(txt)
+            self.plot4_ovc_high_line.setValue(HANGSENG_고가)
 
         # 수급종합
         elif comboindex4 == 21:
@@ -29054,16 +30574,404 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot5_ovc_high_line.setValue(WTI_고가)            
         
         elif comboindex5 == 16:
-            pass
+
+            self.plot5_clear()
+
+            self.plot5_quote_remainder_ratio_base_line.setValue(GOLD_종가)
+            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(GOLD_종가)
+            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(GOLD_종가)
+
+            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(GOLD_종가)
+            self.plot5_option_quote_remainder_ratio_upper_line.setValue(GOLD_종가)
+            
+            for i in range(10):
+                self.plot5_kp200_line[i].setValue(GOLD_종가)
+
+            for i in range(9):
+                self.plot5_mv_line[i].setValue(GOLD_종가)
+
+            self.plot5_center_val_lower_line.setValue(GOLD_종가)
+            self.plot5_center_val_line.setValue(GOLD_종가)
+            self.plot5_center_val_upper_line.setValue(GOLD_종가)
+            
+            self.plot5_fut_jl_line.setValue(GOLD_종가)
+            self.plot5_fut_jh_line.setValue(GOLD_종가)
+            self.plot5_fut_close_line.setValue(GOLD_종가)
+            self.plot5_fut_pivot_line.setValue(GOLD_종가)
+            self.plot5_fut_open_line.setValue(GOLD_종가)
+            self.plot5_fut_low_line.setValue(GOLD_종가)
+            self.plot5_fut_high_line.setValue(GOLD_종가)
+            
+            if GOLD_전저 == 0:
+                GOLD_전저 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_전고 == 0:
+                GOLD_전고 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_종가 == 0:
+                pass
+            else:
+                pass
+
+            if GOLD_피봇 == 0:
+                GOLD_피봇 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_시가 == 0:
+                GOLD_시가 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_저가 == 0:
+                GOLD_저가 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_고가 == 0:
+                GOLD_고가 = GOLD_종가
+            else:
+                pass
+            
+            self.plot5_center_val_lower_line.setValue(GOLD_고가)
+            self.plot5_center_val_line.setValue(GOLD_고가)
+            self.plot5_center_val_upper_line.setValue(GOLD_고가) 
+                
+            txt = ' {0} '.format(format(GOLD_전저, ','))
+            self.label_51.setText(txt)
+            self.plot5_ovc_jl_line.setValue(GOLD_전저)
+
+            txt = ' {0} '.format(format(GOLD_전고, ','))
+            self.label_52.setText(txt)
+            self.plot5_ovc_jh_line.setValue(GOLD_전고)
+            
+            txt = ' {0} '.format(format(GOLD_종가, ','))
+            self.label_53.setText(txt)
+            self.plot5_ovc_close_line.setValue(GOLD_종가)
+
+            txt = ' {0} '.format(format(GOLD_피봇, ','))
+            self.label_54.setText(txt)
+            self.plot5_ovc_pivot_line.setValue(GOLD_피봇)
+            
+            txt = ' {0} '.format(format(GOLD_시가, ','))
+            self.label_55.setText(txt)
+            self.plot5_ovc_open_line.setValue(GOLD_시가)
+
+            txt = ' {0} '.format(format(GOLD_저가, ','))
+            self.label_56.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_56.setText(txt)
+            self.plot5_ovc_low_line.setValue(GOLD_저가)
+
+            self.label_57.setText(" 00.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(GOLD_고가, ','))
+            self.label_58.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_58.setText(txt)
+            self.plot5_ovc_high_line.setValue(GOLD_고가)
 
         elif comboindex5 == 17:
-            pass
+
+            self.plot5_clear()
+
+            self.plot5_quote_remainder_ratio_base_line.setValue(EUROFX_종가)
+            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(EUROFX_종가)
+            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(EUROFX_종가)
+
+            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(EUROFX_종가)
+            self.plot5_option_quote_remainder_ratio_upper_line.setValue(EUROFX_종가)
+            
+            for i in range(10):
+                self.plot5_kp200_line[i].setValue(EUROFX_종가)
+
+            for i in range(9):
+                self.plot5_mv_line[i].setValue(EUROFX_종가)
+
+            self.plot5_center_val_lower_line.setValue(EUROFX_종가)
+            self.plot5_center_val_line.setValue(EUROFX_종가)
+            self.plot5_center_val_upper_line.setValue(EUROFX_종가)
+            
+            self.plot5_fut_jl_line.setValue(EUROFX_종가)
+            self.plot5_fut_jh_line.setValue(EUROFX_종가)
+            self.plot5_fut_close_line.setValue(EUROFX_종가)
+            self.plot5_fut_pivot_line.setValue(EUROFX_종가)
+            self.plot5_fut_open_line.setValue(EUROFX_종가)
+            self.plot5_fut_low_line.setValue(EUROFX_종가)
+            self.plot5_fut_high_line.setValue(EUROFX_종가)
+            
+            if EUROFX_전저 == 0:
+                EUROFX_전저 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_전고 == 0:
+                EUROFX_전고 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_종가 == 0:
+                pass
+            else:
+                pass
+
+            if EUROFX_피봇 == 0:
+                EUROFX_피봇 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_시가 == 0:
+                EUROFX_시가 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_저가 == 0:
+                EUROFX_저가 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_고가 == 0:
+                EUROFX_고가 = EUROFX_종가
+            else:
+                pass
+            
+            self.plot5_center_val_lower_line.setValue(EUROFX_고가)
+            self.plot5_center_val_line.setValue(EUROFX_고가)
+            self.plot5_center_val_upper_line.setValue(EUROFX_고가) 
+                
+            txt = ' {0} '.format(format(EUROFX_전저, ','))
+            self.label_51.setText(txt)
+            self.plot5_ovc_jl_line.setValue(EUROFX_전저)
+
+            txt = ' {0} '.format(format(EUROFX_전고, ','))
+            self.label_52.setText(txt)
+            self.plot5_ovc_jh_line.setValue(EUROFX_전고)
+            
+            txt = ' {0} '.format(format(EUROFX_종가, ','))
+            self.label_53.setText(txt)
+            self.plot5_ovc_close_line.setValue(EUROFX_종가)
+
+            txt = ' {0} '.format(format(EUROFX_피봇, ','))
+            self.label_54.setText(txt)
+            self.plot5_ovc_pivot_line.setValue(EUROFX_피봇)
+            
+            txt = ' {0} '.format(format(EUROFX_시가, ','))
+            self.label_55.setText(txt)
+            self.plot5_ovc_open_line.setValue(EUROFX_시가)
+
+            txt = ' {0} '.format(format(EUROFX_저가, ','))
+            self.label_56.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_56.setText(txt)
+            self.plot5_ovc_low_line.setValue(EUROFX_저가)
+
+            self.label_57.setText(" 00.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(EUROFX_고가, ','))
+            self.label_58.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_58.setText(txt)
+            self.plot5_ovc_high_line.setValue(EUROFX_고가)
 
         elif comboindex5 == 18:
-            pass
+
+            self.plot5_clear()
+
+            self.plot5_quote_remainder_ratio_base_line.setValue(YEN_종가)
+            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(YEN_종가)
+            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(YEN_종가)
+
+            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(YEN_종가)
+            self.plot5_option_quote_remainder_ratio_upper_line.setValue(YEN_종가)
+            
+            for i in range(10):
+                self.plot5_kp200_line[i].setValue(YEN_종가)
+
+            for i in range(9):
+                self.plot5_mv_line[i].setValue(YEN_종가)
+
+            self.plot5_center_val_lower_line.setValue(YEN_종가)
+            self.plot5_center_val_line.setValue(YEN_종가)
+            self.plot5_center_val_upper_line.setValue(YEN_종가)
+            
+            self.plot5_fut_jl_line.setValue(YEN_종가)
+            self.plot5_fut_jh_line.setValue(YEN_종가)
+            self.plot5_fut_close_line.setValue(YEN_종가)
+            self.plot5_fut_pivot_line.setValue(YEN_종가)
+            self.plot5_fut_open_line.setValue(YEN_종가)
+            self.plot5_fut_low_line.setValue(YEN_종가)
+            self.plot5_fut_high_line.setValue(YEN_종가)
+            
+            if YEN_전저 == 0:
+                YEN_전저 = YEN_종가
+            else:
+                pass
+
+            if YEN_전고 == 0:
+                YEN_전고 = YEN_종가
+            else:
+                pass
+
+            if YEN_종가 == 0:
+                pass
+            else:
+                pass
+
+            if YEN_피봇 == 0:
+                YEN_피봇 = YEN_종가
+            else:
+                pass
+
+            if YEN_시가 == 0:
+                YEN_시가 = YEN_종가
+            else:
+                pass
+
+            if YEN_저가 == 0:
+                YEN_저가 = YEN_종가
+            else:
+                pass
+
+            if YEN_고가 == 0:
+                YEN_고가 = YEN_종가
+            else:
+                pass
+            
+            self.plot5_center_val_lower_line.setValue(YEN_고가)
+            self.plot5_center_val_line.setValue(YEN_고가)
+            self.plot5_center_val_upper_line.setValue(YEN_고가) 
+                
+            txt = ' {0} '.format(format(YEN_전저, ','))
+            self.label_51.setText(txt)
+            self.plot5_ovc_jl_line.setValue(YEN_전저)
+
+            txt = ' {0} '.format(format(YEN_전고, ','))
+            self.label_52.setText(txt)
+            self.plot5_ovc_jh_line.setValue(YEN_전고)
+            
+            txt = ' {0} '.format(format(YEN_종가, ','))
+            self.label_53.setText(txt)
+            self.plot5_ovc_close_line.setValue(YEN_종가)
+
+            txt = ' {0} '.format(format(YEN_피봇, ','))
+            self.label_54.setText(txt)
+            self.plot5_ovc_pivot_line.setValue(YEN_피봇)
+            
+            txt = ' {0} '.format(format(YEN_시가, ','))
+            self.label_55.setText(txt)
+            self.plot5_ovc_open_line.setValue(YEN_시가)
+
+            txt = ' {0} '.format(format(YEN_저가, ','))
+            self.label_56.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_56.setText(txt)
+            self.plot5_ovc_low_line.setValue(YEN_저가)
+
+            self.label_57.setText(" 00.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(YEN_고가, ','))
+            self.label_58.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_58.setText(txt)
+            self.plot5_ovc_high_line.setValue(YEN_고가)
 
         elif comboindex5 == 19:
-            pass
+
+            self.plot5_clear()
+
+            self.plot5_quote_remainder_ratio_base_line.setValue(HANGSENG_종가)
+            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(HANGSENG_종가)
+            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(HANGSENG_종가)
+
+            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(HANGSENG_종가)
+            self.plot5_option_quote_remainder_ratio_upper_line.setValue(HANGSENG_종가)
+            
+            for i in range(10):
+                self.plot5_kp200_line[i].setValue(HANGSENG_종가)
+
+            for i in range(9):
+                self.plot5_mv_line[i].setValue(HANGSENG_종가)
+
+            self.plot5_center_val_lower_line.setValue(HANGSENG_종가)
+            self.plot5_center_val_line.setValue(HANGSENG_종가)
+            self.plot5_center_val_upper_line.setValue(HANGSENG_종가)
+            
+            self.plot5_fut_jl_line.setValue(HANGSENG_종가)
+            self.plot5_fut_jh_line.setValue(HANGSENG_종가)
+            self.plot5_fut_close_line.setValue(HANGSENG_종가)
+            self.plot5_fut_pivot_line.setValue(HANGSENG_종가)
+            self.plot5_fut_open_line.setValue(HANGSENG_종가)
+            self.plot5_fut_low_line.setValue(HANGSENG_종가)
+            self.plot5_fut_high_line.setValue(HANGSENG_종가)
+            
+            if HANGSENG_전저 == 0:
+                HANGSENG_전저 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_전고 == 0:
+                HANGSENG_전고 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_종가 == 0:
+                pass
+            else:
+                pass
+
+            if HANGSENG_피봇 == 0:
+                HANGSENG_피봇 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_시가 == 0:
+                HANGSENG_시가 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_저가 == 0:
+                HANGSENG_저가 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_고가 == 0:
+                HANGSENG_고가 = HANGSENG_종가
+            else:
+                pass
+            
+            self.plot5_center_val_lower_line.setValue(HANGSENG_고가)
+            self.plot5_center_val_line.setValue(HANGSENG_고가)
+            self.plot5_center_val_upper_line.setValue(HANGSENG_고가) 
+                
+            txt = ' {0} '.format(format(HANGSENG_전저, ','))
+            self.label_51.setText(txt)
+            self.plot5_ovc_jl_line.setValue(HANGSENG_전저)
+
+            txt = ' {0} '.format(format(HANGSENG_전고, ','))
+            self.label_52.setText(txt)
+            self.plot5_ovc_jh_line.setValue(HANGSENG_전고)
+            
+            txt = ' {0} '.format(format(HANGSENG_종가, ','))
+            self.label_53.setText(txt)
+            self.plot5_ovc_close_line.setValue(HANGSENG_종가)
+
+            txt = ' {0} '.format(format(HANGSENG_피봇, ','))
+            self.label_54.setText(txt)
+            self.plot5_ovc_pivot_line.setValue(HANGSENG_피봇)
+            
+            txt = ' {0} '.format(format(HANGSENG_시가, ','))
+            self.label_55.setText(txt)
+            self.plot5_ovc_open_line.setValue(HANGSENG_시가)
+
+            txt = ' {0} '.format(format(HANGSENG_저가, ','))
+            self.label_56.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_56.setText(txt)
+            self.plot5_ovc_low_line.setValue(HANGSENG_저가)
+
+            self.label_57.setText(" 00.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(HANGSENG_고가, ','))
+            self.label_58.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_58.setText(txt)
+            self.plot5_ovc_high_line.setValue(HANGSENG_고가)
 
         # 수급종합
         elif comboindex5 == 21:
@@ -29921,16 +31829,404 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot6_ovc_high_line.setValue(WTI_고가)
         
         elif comboindex6 == 16:
-            pass
+
+            self.plot6_clear()
+
+            self.plot6_quote_remainder_ratio_base_line.setValue(GOLD_종가)
+            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(GOLD_종가)
+            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(GOLD_종가)
+
+            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(GOLD_종가)
+            self.plot6_option_quote_remainder_ratio_upper_line.setValue(GOLD_종가)
+            
+            for i in range(10):
+                self.plot6_kp200_line[i].setValue(GOLD_종가)
+
+            for i in range(9):
+                self.plot6_mv_line[i].setValue(GOLD_종가)
+
+            self.plot6_center_val_lower_line.setValue(GOLD_종가)
+            self.plot6_center_val_line.setValue(GOLD_종가)
+            self.plot6_center_val_upper_line.setValue(GOLD_종가)
+            
+            self.plot6_fut_jl_line.setValue(GOLD_종가)
+            self.plot6_fut_jh_line.setValue(GOLD_종가)
+            self.plot6_fut_close_line.setValue(GOLD_종가)
+            self.plot6_fut_pivot_line.setValue(GOLD_종가)
+            self.plot6_fut_open_line.setValue(GOLD_종가)
+            self.plot6_fut_low_line.setValue(GOLD_종가)
+            self.plot6_fut_high_line.setValue(GOLD_종가)
+            
+            if GOLD_전저 == 0:
+                GOLD_전저 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_전고 == 0:
+                GOLD_전고 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_종가 == 0:
+                pass
+            else:
+                pass
+
+            if GOLD_피봇 == 0:
+                GOLD_피봇 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_시가 == 0:
+                GOLD_시가 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_저가 == 0:
+                GOLD_저가 = GOLD_종가
+            else:
+                pass
+
+            if GOLD_고가 == 0:
+                GOLD_고가 = GOLD_종가
+            else:
+                pass
+            
+            self.plot6_center_val_lower_line.setValue(GOLD_고가)
+            self.plot6_center_val_line.setValue(GOLD_고가)
+            self.plot6_center_val_upper_line.setValue(GOLD_고가) 
+                
+            txt = ' {0} '.format(format(GOLD_전저, ','))
+            self.label_61.setText(txt)
+            self.plot6_ovc_jl_line.setValue(GOLD_전저)
+
+            txt = ' {0} '.format(format(GOLD_전고, ','))
+            self.label_62.setText(txt)
+            self.plot6_ovc_jh_line.setValue(GOLD_전고)
+            
+            txt = ' {0} '.format(format(GOLD_종가, ','))
+            self.label_63.setText(txt)
+            self.plot6_ovc_close_line.setValue(GOLD_종가)
+
+            txt = ' {0} '.format(format(GOLD_피봇, ','))
+            self.label_64.setText(txt)
+            self.plot6_ovc_pivot_line.setValue(GOLD_피봇)
+            
+            txt = ' {0} '.format(format(GOLD_시가, ','))
+            self.label_65.setText(txt)
+            self.plot6_ovc_open_line.setValue(GOLD_시가)
+
+            txt = ' {0} '.format(format(GOLD_저가, ','))
+            self.label_66.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_66.setText(txt)
+            self.plot6_ovc_low_line.setValue(GOLD_저가)
+
+            self.label_67.setText(" 00.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(GOLD_고가, ','))
+            self.label_68.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_68.setText(txt)
+            self.plot6_ovc_high_line.setValue(GOLD_고가)
 
         elif comboindex6 == 17:
-            pass
+
+            self.plot6_clear()
+
+            self.plot6_quote_remainder_ratio_base_line.setValue(EUROFX_종가)
+            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(EUROFX_종가)
+            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(EUROFX_종가)
+
+            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(EUROFX_종가)
+            self.plot6_option_quote_remainder_ratio_upper_line.setValue(EUROFX_종가)
+            
+            for i in range(10):
+                self.plot6_kp200_line[i].setValue(EUROFX_종가)
+
+            for i in range(9):
+                self.plot6_mv_line[i].setValue(EUROFX_종가)
+
+            self.plot6_center_val_lower_line.setValue(EUROFX_종가)
+            self.plot6_center_val_line.setValue(EUROFX_종가)
+            self.plot6_center_val_upper_line.setValue(EUROFX_종가)
+            
+            self.plot6_fut_jl_line.setValue(EUROFX_종가)
+            self.plot6_fut_jh_line.setValue(EUROFX_종가)
+            self.plot6_fut_close_line.setValue(EUROFX_종가)
+            self.plot6_fut_pivot_line.setValue(EUROFX_종가)
+            self.plot6_fut_open_line.setValue(EUROFX_종가)
+            self.plot6_fut_low_line.setValue(EUROFX_종가)
+            self.plot6_fut_high_line.setValue(EUROFX_종가)
+            
+            if EUROFX_전저 == 0:
+                EUROFX_전저 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_전고 == 0:
+                EUROFX_전고 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_종가 == 0:
+                pass
+            else:
+                pass
+
+            if EUROFX_피봇 == 0:
+                EUROFX_피봇 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_시가 == 0:
+                EUROFX_시가 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_저가 == 0:
+                EUROFX_저가 = EUROFX_종가
+            else:
+                pass
+
+            if EUROFX_고가 == 0:
+                EUROFX_고가 = EUROFX_종가
+            else:
+                pass
+            
+            self.plot6_center_val_lower_line.setValue(EUROFX_고가)
+            self.plot6_center_val_line.setValue(EUROFX_고가)
+            self.plot6_center_val_upper_line.setValue(EUROFX_고가) 
+                
+            txt = ' {0} '.format(format(EUROFX_전저, ','))
+            self.label_61.setText(txt)
+            self.plot6_ovc_jl_line.setValue(EUROFX_전저)
+
+            txt = ' {0} '.format(format(EUROFX_전고, ','))
+            self.label_62.setText(txt)
+            self.plot6_ovc_jh_line.setValue(EUROFX_전고)
+            
+            txt = ' {0} '.format(format(EUROFX_종가, ','))
+            self.label_63.setText(txt)
+            self.plot6_ovc_close_line.setValue(EUROFX_종가)
+
+            txt = ' {0} '.format(format(EUROFX_피봇, ','))
+            self.label_64.setText(txt)
+            self.plot6_ovc_pivot_line.setValue(EUROFX_피봇)
+            
+            txt = ' {0} '.format(format(EUROFX_시가, ','))
+            self.label_65.setText(txt)
+            self.plot6_ovc_open_line.setValue(EUROFX_시가)
+
+            txt = ' {0} '.format(format(EUROFX_저가, ','))
+            self.label_66.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_66.setText(txt)
+            self.plot6_ovc_low_line.setValue(EUROFX_저가)
+
+            self.label_67.setText(" 00.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(EUROFX_고가, ','))
+            self.label_68.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_68.setText(txt)
+            self.plot6_ovc_high_line.setValue(EUROFX_고가)
 
         elif comboindex6 == 18:
-            pass
+
+            self.plot6_clear()
+
+            self.plot6_quote_remainder_ratio_base_line.setValue(YEN_종가)
+            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(YEN_종가)
+            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(YEN_종가)
+
+            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(YEN_종가)
+            self.plot6_option_quote_remainder_ratio_upper_line.setValue(YEN_종가)
+            
+            for i in range(10):
+                self.plot6_kp200_line[i].setValue(YEN_종가)
+
+            for i in range(9):
+                self.plot6_mv_line[i].setValue(YEN_종가)
+
+            self.plot6_center_val_lower_line.setValue(YEN_종가)
+            self.plot6_center_val_line.setValue(YEN_종가)
+            self.plot6_center_val_upper_line.setValue(YEN_종가)
+            
+            self.plot6_fut_jl_line.setValue(YEN_종가)
+            self.plot6_fut_jh_line.setValue(YEN_종가)
+            self.plot6_fut_close_line.setValue(YEN_종가)
+            self.plot6_fut_pivot_line.setValue(YEN_종가)
+            self.plot6_fut_open_line.setValue(YEN_종가)
+            self.plot6_fut_low_line.setValue(YEN_종가)
+            self.plot6_fut_high_line.setValue(YEN_종가)
+            
+            if YEN_전저 == 0:
+                YEN_전저 = YEN_종가
+            else:
+                pass
+
+            if YEN_전고 == 0:
+                YEN_전고 = YEN_종가
+            else:
+                pass
+
+            if YEN_종가 == 0:
+                pass
+            else:
+                pass
+
+            if YEN_피봇 == 0:
+                YEN_피봇 = YEN_종가
+            else:
+                pass
+
+            if YEN_시가 == 0:
+                YEN_시가 = YEN_종가
+            else:
+                pass
+
+            if YEN_저가 == 0:
+                YEN_저가 = YEN_종가
+            else:
+                pass
+
+            if YEN_고가 == 0:
+                YEN_고가 = YEN_종가
+            else:
+                pass
+            
+            self.plot6_center_val_lower_line.setValue(YEN_고가)
+            self.plot6_center_val_line.setValue(YEN_고가)
+            self.plot6_center_val_upper_line.setValue(YEN_고가) 
+                
+            txt = ' {0} '.format(format(YEN_전저, ','))
+            self.label_61.setText(txt)
+            self.plot6_ovc_jl_line.setValue(YEN_전저)
+
+            txt = ' {0} '.format(format(YEN_전고, ','))
+            self.label_62.setText(txt)
+            self.plot6_ovc_jh_line.setValue(YEN_전고)
+            
+            txt = ' {0} '.format(format(YEN_종가, ','))
+            self.label_63.setText(txt)
+            self.plot6_ovc_close_line.setValue(YEN_종가)
+
+            txt = ' {0} '.format(format(YEN_피봇, ','))
+            self.label_64.setText(txt)
+            self.plot6_ovc_pivot_line.setValue(YEN_피봇)
+            
+            txt = ' {0} '.format(format(YEN_시가, ','))
+            self.label_65.setText(txt)
+            self.plot6_ovc_open_line.setValue(YEN_시가)
+
+            txt = ' {0} '.format(format(YEN_저가, ','))
+            self.label_66.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_66.setText(txt)
+            self.plot6_ovc_low_line.setValue(YEN_저가)
+
+            self.label_67.setText(" 00.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(YEN_고가, ','))
+            self.label_68.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_68.setText(txt)
+            self.plot6_ovc_high_line.setValue(YEN_고가)
 
         elif comboindex6 == 19:
-            pass
+
+            self.plot6_clear()
+
+            self.plot6_quote_remainder_ratio_base_line.setValue(HANGSENG_종가)
+            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(HANGSENG_종가)
+            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(HANGSENG_종가)
+
+            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(HANGSENG_종가)
+            self.plot6_option_quote_remainder_ratio_upper_line.setValue(HANGSENG_종가)
+            
+            for i in range(10):
+                self.plot6_kp200_line[i].setValue(HANGSENG_종가)
+
+            for i in range(9):
+                self.plot6_mv_line[i].setValue(HANGSENG_종가)
+
+            self.plot6_center_val_lower_line.setValue(HANGSENG_종가)
+            self.plot6_center_val_line.setValue(HANGSENG_종가)
+            self.plot6_center_val_upper_line.setValue(HANGSENG_종가)
+            
+            self.plot6_fut_jl_line.setValue(HANGSENG_종가)
+            self.plot6_fut_jh_line.setValue(HANGSENG_종가)
+            self.plot6_fut_close_line.setValue(HANGSENG_종가)
+            self.plot6_fut_pivot_line.setValue(HANGSENG_종가)
+            self.plot6_fut_open_line.setValue(HANGSENG_종가)
+            self.plot6_fut_low_line.setValue(HANGSENG_종가)
+            self.plot6_fut_high_line.setValue(HANGSENG_종가)
+            
+            if HANGSENG_전저 == 0:
+                HANGSENG_전저 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_전고 == 0:
+                HANGSENG_전고 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_종가 == 0:
+                pass
+            else:
+                pass
+
+            if HANGSENG_피봇 == 0:
+                HANGSENG_피봇 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_시가 == 0:
+                HANGSENG_시가 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_저가 == 0:
+                HANGSENG_저가 = HANGSENG_종가
+            else:
+                pass
+
+            if HANGSENG_고가 == 0:
+                HANGSENG_고가 = HANGSENG_종가
+            else:
+                pass
+            
+            self.plot6_center_val_lower_line.setValue(HANGSENG_고가)
+            self.plot6_center_val_line.setValue(HANGSENG_고가)
+            self.plot6_center_val_upper_line.setValue(HANGSENG_고가) 
+                
+            txt = ' {0} '.format(format(HANGSENG_전저, ','))
+            self.label_61.setText(txt)
+            self.plot6_ovc_jl_line.setValue(HANGSENG_전저)
+
+            txt = ' {0} '.format(format(HANGSENG_전고, ','))
+            self.label_62.setText(txt)
+            self.plot6_ovc_jh_line.setValue(HANGSENG_전고)
+            
+            txt = ' {0} '.format(format(HANGSENG_종가, ','))
+            self.label_63.setText(txt)
+            self.plot6_ovc_close_line.setValue(HANGSENG_종가)
+
+            txt = ' {0} '.format(format(HANGSENG_피봇, ','))
+            self.label_64.setText(txt)
+            self.plot6_ovc_pivot_line.setValue(HANGSENG_피봇)
+            
+            txt = ' {0} '.format(format(HANGSENG_시가, ','))
+            self.label_65.setText(txt)
+            self.plot6_ovc_open_line.setValue(HANGSENG_시가)
+
+            txt = ' {0} '.format(format(HANGSENG_저가, ','))
+            self.label_66.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_66.setText(txt)
+            self.plot6_ovc_low_line.setValue(HANGSENG_저가)
+
+            self.label_67.setText(" 00.00 (전일대비, 등락율, 진폭) ")
+
+            txt = ' {0} '.format(format(HANGSENG_고가, ','))
+            self.label_68.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_68.setText(txt)
+            self.plot6_ovc_high_line.setValue(HANGSENG_고가)
 
         # 수급종합
         elif comboindex6 == 21:
@@ -31108,16 +33404,520 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
             
             elif comboindex1 == 16:
-                pass
+
+                if df_gold_graph.at[cme_time_index, 'BBMiddle'] == df_gold_graph.at[cme_time_index, 'BBMiddle']:
+
+                    if df_gold_graph.at[cme_time_index, 'BBMiddle'] >= df_gold_graph.at[cme_time_index, 'price']:
+                        self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    pass                 
+
+                if df_gold_graph.at[cme_time_index, 'PSAR'] == df_gold_graph.at[cme_time_index, 'PSAR']:
+
+                    if df_gold_graph.at[cme_time_index, 'PSAR'] >= df_gold_graph.at[cme_time_index, 'price']:
+                        self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_gold_graph.at[cme_time_index, 'BBMiddle'], df_gold_graph.at[cme_time_index, 'PSAR'], GOLD_호가순매수)
+                    self.label_p1_2.setText(txt)
+                else:
+                    pass
+                
+                if df_gold_graph.at[cme_time_index, 'OE_CONV'] == df_gold_graph.at[cme_time_index, 'OE_CONV'] and df_gold_graph.at[cme_time_index, 'OE_BASE'] == df_gold_graph.at[cme_time_index, 'OE_BASE']:
+
+                    if df_gold_graph.at[cme_time_index, 'OE_CONV'] < df_gold_graph.at[cme_time_index, 'OE_BASE']:
+                        self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_gold_graph.at[cme_time_index, 'OE_CONV'], df_gold_graph.at[cme_time_index, 'OE_BASE'])
+                    self.label_p1_3.setText(txt)
+                else:
+                    pass
+
+                if df_gold_graph.at[cme_time_index, 'MAMA'] == df_gold_graph.at[cme_time_index, 'MAMA'] and df_gold_graph.at[cme_time_index, 'FAMA'] == df_gold_graph.at[cme_time_index, 'FAMA']:
+
+                    if df_gold_graph.at[cme_time_index, 'FAMA'] >= df_gold_graph.at[cme_time_index, 'BBLower']:
+
+                        if df_gold_graph.at[cme_time_index, 'MAMA'] < df_gold_graph.at[cme_time_index, 'FAMA']:
+                            self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_gold_graph.at[cme_time_index, 'MAMA'], df_gold_graph.at[cme_time_index, 'FAMA'])
+                    self.label_p1_4.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(GOLD_저가, ','))
+                self.label_16.setText(txt)
+
+                value = self.label_17.text().split()[0]     
+
+                if GOLD_현재가 > float(value):
+
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                        format(GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭)
+
+                    if GOLD_전일대비 > 0:
+                        self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif GOLD_전일대비 < 0:
+                        self.label_17.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_17.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_17.setText(txt)
+
+                elif GOLD_현재가 < float(value):
+
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                        format(GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭)
+
+                    if GOLD_전일대비 > 0:
+                        self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif GOLD_전일대비 < 0:
+                        self.label_17.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_17.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_17.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(GOLD_고가, ','))
+                self.label_18.setText(txt)
+                
+                self.plot1_time_line.setValue(cme_time_index)
+
+                self.plot1_ovc_jl_line.setValue(GOLD_전저)
+                self.plot1_ovc_jh_line.setValue(GOLD_전고)
+                self.plot1_ovc_close_line.setValue(GOLD_종가)
+                self.plot1_ovc_open_line.setValue(GOLD_시가)
+                self.plot1_ovc_pivot_line.setValue(GOLD_피봇)
+                self.plot1_ovc_low_line.setValue(GOLD_저가)
+                self.plot1_ovc_high_line.setValue(GOLD_고가)                 
+
+                self.plot1_gold_curve.setData(df_gold_graph['price'].to_numpy())
+
+                if flag_checkBox_plot1_bband:
+
+                    self.Calc_SAR_BBand('GOLD')
+
+                    self.plot1_bollinger_upper_curve.setData(df_gold_graph['BBUpper'].to_numpy())
+                    self.plot1_bollinger_middle_curve.setData(df_gold_graph['BBMiddle'].to_numpy())
+                    self.plot1_bollinger_lower_curve.setData(df_gold_graph['BBLower'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot1_mama:
+
+                    self.Calc_MAMA('GOLD')
+
+                    self.plot1_mama_curve.setData(df_gold_graph['MAMA'].to_numpy())
+                    self.plot1_fama_curve.setData(df_gold_graph['A_FAMA'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot1_oe:
+                    
+                    self.Calc_Ichimoku('GOLD')
+
+                    self.plot1_oe_conv_curve.setData(df_gold_graph['OE_CONV'].to_numpy())
+                    self.plot1_oe_base_curve.setData(df_gold_graph['OE_BASE'].to_numpy())
+                else:
+                    pass
 
             elif comboindex1 == 17:
-                pass
+
+                if df_eurofx_graph.at[cme_time_index, 'BBMiddle'] == df_eurofx_graph.at[cme_time_index, 'BBMiddle']:
+
+                    if df_eurofx_graph.at[cme_time_index, 'BBMiddle'] >= df_eurofx_graph.at[cme_time_index, 'price']:
+                        self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    pass                 
+
+                if df_eurofx_graph.at[cme_time_index, 'PSAR'] == df_eurofx_graph.at[cme_time_index, 'PSAR']:
+
+                    if df_eurofx_graph.at[cme_time_index, 'PSAR'] >= df_eurofx_graph.at[cme_time_index, 'price']:
+                        self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_eurofx_graph.at[cme_time_index, 'BBMiddle'], df_eurofx_graph.at[cme_time_index, 'PSAR'], EUEOFX_호가순매수)
+                    self.label_p1_2.setText(txt)
+                else:
+                    pass
+                
+                if df_eurofx_graph.at[cme_time_index, 'OE_CONV'] == df_eurofx_graph.at[cme_time_index, 'OE_CONV'] and df_eurofx_graph.at[cme_time_index, 'OE_BASE'] == df_eurofx_graph.at[cme_time_index, 'OE_BASE']:
+
+                    if df_eurofx_graph.at[cme_time_index, 'OE_CONV'] < df_eurofx_graph.at[cme_time_index, 'OE_BASE']:
+                        self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_eurofx_graph.at[cme_time_index, 'OE_CONV'], df_eurofx_graph.at[cme_time_index, 'OE_BASE'])
+                    self.label_p1_3.setText(txt)
+                else:
+                    pass
+
+                if df_eurofx_graph.at[cme_time_index, 'MAMA'] == df_eurofx_graph.at[cme_time_index, 'MAMA'] and df_eurofx_graph.at[cme_time_index, 'FAMA'] == df_eurofx_graph.at[cme_time_index, 'FAMA']:
+
+                    if df_eurofx_graph.at[cme_time_index, 'FAMA'] >= df_eurofx_graph.at[cme_time_index, 'BBLower']:
+
+                        if df_eurofx_graph.at[cme_time_index, 'MAMA'] < df_eurofx_graph.at[cme_time_index, 'FAMA']:
+                            self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_eurofx_graph.at[cme_time_index, 'MAMA'], df_eurofx_graph.at[cme_time_index, 'FAMA'])
+                    self.label_p1_4.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(EUEOFX_저가, ','))
+                self.label_16.setText(txt)
+
+                value = self.label_17.text().split()[0]     
+
+                if EUEOFX_현재가 > float(value):
+
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                        format(EUEOFX_현재가, EUEOFX_전일대비, EUEOFX_등락율, EUEOFX_진폭)
+
+                    if EUEOFX_전일대비 > 0:
+                        self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif EUEOFX_전일대비 < 0:
+                        self.label_17.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_17.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_17.setText(txt)
+
+                elif EUEOFX_현재가 < float(value):
+
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                        format(EUEOFX_현재가, EUEOFX_전일대비, EUEOFX_등락율, EUEOFX_진폭)
+
+                    if EUEOFX_전일대비 > 0:
+                        self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif EUEOFX_전일대비 < 0:
+                        self.label_17.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_17.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_17.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(EUEOFX_고가, ','))
+                self.label_18.setText(txt)
+                
+                self.plot1_time_line.setValue(cme_time_index)
+
+                self.plot1_ovc_jl_line.setValue(EUEOFX_전저)
+                self.plot1_ovc_jh_line.setValue(EUEOFX_전고)
+                self.plot1_ovc_close_line.setValue(EUEOFX_종가)
+                self.plot1_ovc_open_line.setValue(EUEOFX_시가)
+                self.plot1_ovc_pivot_line.setValue(EUEOFX_피봇)
+                self.plot1_ovc_low_line.setValue(EUEOFX_저가)
+                self.plot1_ovc_high_line.setValue(EUEOFX_고가)                 
+
+                self.plot1_eurofx_curve.setData(df_eurofx_graph['price'].to_numpy())
+
+                if flag_checkBox_plot1_bband:
+
+                    self.Calc_SAR_BBand('EURO')
+
+                    self.plot1_bollinger_upper_curve.setData(df_eurofx_graph['BBUpper'].to_numpy())
+                    self.plot1_bollinger_middle_curve.setData(df_eurofx_graph['BBMiddle'].to_numpy())
+                    self.plot1_bollinger_lower_curve.setData(df_eurofx_graph['BBLower'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot1_mama:
+
+                    self.Calc_MAMA('EURO')
+
+                    self.plot1_mama_curve.setData(df_eurofx_graph['MAMA'].to_numpy())
+                    self.plot1_fama_curve.setData(df_eurofx_graph['A_FAMA'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot1_oe:
+                    
+                    self.Calc_Ichimoku('EURO')
+
+                    self.plot1_oe_conv_curve.setData(df_eurofx_graph['OE_CONV'].to_numpy())
+                    self.plot1_oe_base_curve.setData(df_eurofx_graph['OE_BASE'].to_numpy())
+                else:
+                    pass
 
             elif comboindex1 == 18:
-                pass
+
+                if df_yen_graph.at[cme_time_index, 'BBMiddle'] == df_yen_graph.at[cme_time_index, 'BBMiddle']:
+
+                    if df_yen_graph.at[cme_time_index, 'BBMiddle'] >= df_yen_graph.at[cme_time_index, 'price']:
+                        self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    pass                 
+
+                if df_yen_graph.at[cme_time_index, 'PSAR'] == df_yen_graph.at[cme_time_index, 'PSAR']:
+
+                    if df_yen_graph.at[cme_time_index, 'PSAR'] >= df_yen_graph.at[cme_time_index, 'price']:
+                        self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_yen_graph.at[cme_time_index, 'BBMiddle'], df_yen_graph.at[cme_time_index, 'PSAR'], YEN_호가순매수)
+                    self.label_p1_2.setText(txt)
+                else:
+                    pass
+                
+                if df_yen_graph.at[cme_time_index, 'OE_CONV'] == df_yen_graph.at[cme_time_index, 'OE_CONV'] and df_yen_graph.at[cme_time_index, 'OE_BASE'] == df_yen_graph.at[cme_time_index, 'OE_BASE']:
+
+                    if df_yen_graph.at[cme_time_index, 'OE_CONV'] < df_yen_graph.at[cme_time_index, 'OE_BASE']:
+                        self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_yen_graph.at[cme_time_index, 'OE_CONV'], df_yen_graph.at[cme_time_index, 'OE_BASE'])
+                    self.label_p1_3.setText(txt)
+                else:
+                    pass
+
+                if df_yen_graph.at[cme_time_index, 'MAMA'] == df_yen_graph.at[cme_time_index, 'MAMA'] and df_yen_graph.at[cme_time_index, 'FAMA'] == df_yen_graph.at[cme_time_index, 'FAMA']:
+
+                    if df_yen_graph.at[cme_time_index, 'FAMA'] >= df_yen_graph.at[cme_time_index, 'BBLower']:
+
+                        if df_yen_graph.at[cme_time_index, 'MAMA'] < df_yen_graph.at[cme_time_index, 'FAMA']:
+                            self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_yen_graph.at[cme_time_index, 'MAMA'], df_yen_graph.at[cme_time_index, 'FAMA'])
+                    self.label_p1_4.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(YEN_저가, ','))
+                self.label_16.setText(txt)
+
+                value = self.label_17.text().split()[0]     
+
+                if YEN_현재가 > float(value):
+
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                        format(YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭)
+
+                    if YEN_전일대비 > 0:
+                        self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif YEN_전일대비 < 0:
+                        self.label_17.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_17.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_17.setText(txt)
+
+                elif YEN_현재가 < float(value):
+
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                        format(YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭)
+
+                    if YEN_전일대비 > 0:
+                        self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif YEN_전일대비 < 0:
+                        self.label_17.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_17.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_17.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(YEN_고가, ','))
+                self.label_18.setText(txt)
+                
+                self.plot1_time_line.setValue(cme_time_index)
+
+                self.plot1_ovc_jl_line.setValue(YEN_전저)
+                self.plot1_ovc_jh_line.setValue(YEN_전고)
+                self.plot1_ovc_close_line.setValue(YEN_종가)
+                self.plot1_ovc_open_line.setValue(YEN_시가)
+                self.plot1_ovc_pivot_line.setValue(YEN_피봇)
+                self.plot1_ovc_low_line.setValue(YEN_저가)
+                self.plot1_ovc_high_line.setValue(YEN_고가)                 
+
+                self.plot1_yen_curve.setData(df_yen_graph['price'].to_numpy())
+
+                if flag_checkBox_plot1_bband:
+
+                    self.Calc_SAR_BBand('YEN')
+
+                    self.plot1_bollinger_upper_curve.setData(df_yen_graph['BBUpper'].to_numpy())
+                    self.plot1_bollinger_middle_curve.setData(df_yen_graph['BBMiddle'].to_numpy())
+                    self.plot1_bollinger_lower_curve.setData(df_yen_graph['BBLower'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot1_mama:
+
+                    self.Calc_MAMA('YEN')
+
+                    self.plot1_mama_curve.setData(df_yen_graph['MAMA'].to_numpy())
+                    self.plot1_fama_curve.setData(df_yen_graph['A_FAMA'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot1_oe:
+                    
+                    self.Calc_Ichimoku('YEN')
+
+                    self.plot1_oe_conv_curve.setData(df_yen_graph['OE_CONV'].to_numpy())
+                    self.plot1_oe_base_curve.setData(df_yen_graph['OE_BASE'].to_numpy())
+                else:
+                    pass
 
             elif comboindex1 == 19:
-                pass
+
+                if df_hangseng_graph.at[cme_time_index, 'BBMiddle'] == df_hangseng_graph.at[cme_time_index, 'BBMiddle']:
+
+                    if df_hangseng_graph.at[cme_time_index, 'BBMiddle'] >= df_hangseng_graph.at[cme_time_index, 'price']:
+                        self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    pass                 
+
+                if df_hangseng_graph.at[cme_time_index, 'PSAR'] == df_hangseng_graph.at[cme_time_index, 'PSAR']:
+
+                    if df_hangseng_graph.at[cme_time_index, 'PSAR'] >= df_hangseng_graph.at[cme_time_index, 'price']:
+                        self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_hangseng_graph.at[cme_time_index, 'BBMiddle'], df_hangseng_graph.at[cme_time_index, 'PSAR'], HANGSENG_호가순매수)
+                    self.label_p1_2.setText(txt)
+                else:
+                    pass
+                
+                if df_hangseng_graph.at[cme_time_index, 'OE_CONV'] == df_hangseng_graph.at[cme_time_index, 'OE_CONV'] and df_hangseng_graph.at[cme_time_index, 'OE_BASE'] == df_hangseng_graph.at[cme_time_index, 'OE_BASE']:
+
+                    if df_hangseng_graph.at[cme_time_index, 'OE_CONV'] < df_hangseng_graph.at[cme_time_index, 'OE_BASE']:
+                        self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_hangseng_graph.at[cme_time_index, 'OE_CONV'], df_hangseng_graph.at[cme_time_index, 'OE_BASE'])
+                    self.label_p1_3.setText(txt)
+                else:
+                    pass
+
+                if df_hangseng_graph.at[cme_time_index, 'MAMA'] == df_hangseng_graph.at[cme_time_index, 'MAMA'] and df_hangseng_graph.at[cme_time_index, 'FAMA'] == df_hangseng_graph.at[cme_time_index, 'FAMA']:
+
+                    if df_hangseng_graph.at[cme_time_index, 'FAMA'] >= df_hangseng_graph.at[cme_time_index, 'BBLower']:
+
+                        if df_hangseng_graph.at[cme_time_index, 'MAMA'] < df_hangseng_graph.at[cme_time_index, 'FAMA']:
+                            self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_hangseng_graph.at[cme_time_index, 'MAMA'], df_hangseng_graph.at[cme_time_index, 'FAMA'])
+                    self.label_p1_4.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(HANGSENG_저가, ','))
+                self.label_16.setText(txt)
+
+                value = self.label_17.text().split()[0]     
+
+                if HANGSENG_현재가 > float(value):
+
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                        format(HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+
+                    if HANGSENG_전일대비 > 0:
+                        self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif HANGSENG_전일대비 < 0:
+                        self.label_17.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_17.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_17.setText(txt)
+
+                elif HANGSENG_현재가 < float(value):
+
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                        format(HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+
+                    if HANGSENG_전일대비 > 0:
+                        self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif HANGSENG_전일대비 < 0:
+                        self.label_17.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_17.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_17.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(HANGSENG_고가, ','))
+                self.label_18.setText(txt)
+                
+                self.plot1_time_line.setValue(cme_time_index)
+
+                self.plot1_ovc_jl_line.setValue(HANGSENG_전저)
+                self.plot1_ovc_jh_line.setValue(HANGSENG_전고)
+                self.plot1_ovc_close_line.setValue(HANGSENG_종가)
+                self.plot1_ovc_open_line.setValue(HANGSENG_시가)
+                self.plot1_ovc_pivot_line.setValue(HANGSENG_피봇)
+                self.plot1_ovc_low_line.setValue(HANGSENG_저가)
+                self.plot1_ovc_high_line.setValue(HANGSENG_고가)                 
+
+                self.plot1_hangseng_curve.setData(df_hangseng_graph['price'].to_numpy())
+
+                if flag_checkBox_plot1_bband:
+
+                    self.Calc_SAR_BBand('HSI')
+
+                    self.plot1_bollinger_upper_curve.setData(df_hangseng_graph['BBUpper'].to_numpy())
+                    self.plot1_bollinger_middle_curve.setData(df_hangseng_graph['BBMiddle'].to_numpy())
+                    self.plot1_bollinger_lower_curve.setData(df_hangseng_graph['BBLower'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot1_mama:
+
+                    self.Calc_MAMA('HSI')
+
+                    self.plot1_mama_curve.setData(df_hangseng_graph['MAMA'].to_numpy())
+                    self.plot1_fama_curve.setData(df_hangseng_graph['A_FAMA'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot1_oe:
+                    
+                    self.Calc_Ichimoku('HSI')
+
+                    self.plot1_oe_conv_curve.setData(df_hangseng_graph['OE_CONV'].to_numpy())
+                    self.plot1_oe_base_curve.setData(df_hangseng_graph['OE_BASE'].to_numpy())
+                else:
+                    pass
 
             elif comboindex1 == 21:               
 
