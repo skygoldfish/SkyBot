@@ -22942,6 +22942,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot1_nasdaq_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
         self.plot1_wti_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
+        self.plot1_gold_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_eurofx_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_yen_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_hangseng_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+
         self.plot1_bollinger_upper_curve = self.plot1.plot(pen=bb_upper_pen)
         self.plot1_bollinger_middle_curve = self.plot1.plot(pen=bb_middle_pen)
         self.plot1_bollinger_lower_curve = self.plot1.plot(pen=bb_lower_pen)
@@ -34936,15 +34941,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass  
             
             elif comboindex2 == 16:
+
                 pass
 
             elif comboindex2 == 17:
+
                 pass
 
             elif comboindex2 == 18:
+
                 pass
 
             elif comboindex2 == 19:
+
                 pass
 
             elif comboindex2 == 21:
@@ -35958,15 +35967,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass 
             
             elif comboindex3 == 16:
+
                 pass
 
             elif comboindex3 == 17:
+
                 pass
 
             elif comboindex3 == 18:
+
                 pass
 
             elif comboindex3 == 19:
+
                 pass
 
             elif comboindex3 == 21:
@@ -36964,15 +36977,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
             
             elif comboindex4 == 16:
+
                 pass
 
             elif comboindex4 == 17:
+
                 pass
 
             elif comboindex4 == 18:
+
                 pass
 
             elif comboindex4 == 19:
+
                 pass
 
             elif comboindex4 == 21:
@@ -37985,15 +38002,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass 
             
             elif comboindex5 == 16:
+
                 pass
 
             elif comboindex5 == 17:
+
                 pass
 
             elif comboindex5 == 18:
+
                 pass
 
             elif comboindex5 == 19:
+
                 pass
 
             elif comboindex5 == 21:
@@ -39006,15 +39027,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass  
             
             elif comboindex6 == 16:
+
                 pass
 
             elif comboindex6 == 17:
+
                 pass
 
             elif comboindex6 == 18:
+
                 pass
 
             elif comboindex6 == 19:
+
                 pass
             
             elif comboindex6 == 21:
