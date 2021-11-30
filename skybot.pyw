@@ -26132,6 +26132,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot2_nasdaq_curve.clear()
         self.plot2_wti_curve.clear()
 
+        self.plot2_gold_curve.clear()
+        self.plot2_eurofx_curve.clear()
+        self.plot2_yen_curve.clear()
+        self.plot2_hangseng_curve.clear()
+
         self.plot2_bollinger_upper_curve.clear()
         self.plot2_bollinger_middle_curve.clear()
         self.plot2_bollinger_lower_curve.clear()
@@ -27386,6 +27391,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot3_dow_curve.clear()
         self.plot3_nasdaq_curve.clear()
         self.plot3_wti_curve.clear()
+
+        self.plot3_gold_curve.clear()
+        self.plot3_eurofx_curve.clear()
+        self.plot3_yen_curve.clear()
+        self.plot3_hangseng_curve.clear()
 
         self.plot3_bollinger_upper_curve.clear()
         self.plot3_bollinger_middle_curve.clear()
@@ -28642,6 +28652,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot4_nasdaq_curve.clear()
         self.plot4_wti_curve.clear()
 
+        self.plot4_gold_curve.clear()
+        self.plot4_eurofx_curve.clear()
+        self.plot4_yen_curve.clear()
+        self.plot4_hangseng_curve.clear()
+
         self.plot4_bollinger_upper_curve.clear()
         self.plot4_bollinger_middle_curve.clear()
         self.plot4_bollinger_lower_curve.clear()
@@ -29864,6 +29879,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot5_dow_curve.clear()
         self.plot5_nasdaq_curve.clear()
         self.plot5_wti_curve.clear()
+
+        self.plot5_gold_curve.clear()
+        self.plot5_eurofx_curve.clear()
+        self.plot5_yen_curve.clear()
+        self.plot5_hangseng_curve.clear()
 
         self.plot5_bollinger_upper_curve.clear()
         self.plot5_bollinger_middle_curve.clear()
@@ -31119,6 +31139,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot6_dow_curve.clear()
         self.plot6_nasdaq_curve.clear()
         self.plot6_wti_curve.clear()
+
+        self.plot6_gold_curve.clear()
+        self.plot6_eurofx_curve.clear()
+        self.plot6_yen_curve.clear()
+        self.plot6_hangseng_curve.clear()
 
         self.plot6_bollinger_upper_curve.clear()
         self.plot6_bollinger_middle_curve.clear()
