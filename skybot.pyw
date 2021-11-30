@@ -35279,7 +35279,130 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex2 == 18:
 
-                pass
+                if df_yen_graph.at[cme_time_index, 'BBMiddle'] == df_yen_graph.at[cme_time_index, 'BBMiddle']:
+
+                    if df_yen_graph.at[cme_time_index, 'BBMiddle'] >= df_yen_graph.at[cme_time_index, 'price']:
+                        self.label_p2_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p2_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    pass                 
+
+                if df_yen_graph.at[cme_time_index, 'PSAR'] == df_yen_graph.at[cme_time_index, 'PSAR']:
+
+                    if df_yen_graph.at[cme_time_index, 'PSAR'] >= df_yen_graph.at[cme_time_index, 'price']:
+                        self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p2_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_yen_graph.at[cme_time_index, 'BBMiddle'], df_yen_graph.at[cme_time_index, 'PSAR'], YEN_호가순매수)
+                    self.label_p2_2.setText(txt)
+                else:
+                    pass
+                
+                if df_yen_graph.at[cme_time_index, 'OE_CONV'] == df_yen_graph.at[cme_time_index, 'OE_CONV'] and df_yen_graph.at[cme_time_index, 'OE_BASE'] == df_yen_graph.at[cme_time_index, 'OE_BASE']:
+
+                    if df_yen_graph.at[cme_time_index, 'OE_CONV'] < df_yen_graph.at[cme_time_index, 'OE_BASE']:
+                        self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p2_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_yen_graph.at[cme_time_index, 'OE_CONV'], df_yen_graph.at[cme_time_index, 'OE_BASE'])
+                    self.label_p2_3.setText(txt)
+                else:
+                    pass
+
+                if df_yen_graph.at[cme_time_index, 'MAMA'] == df_yen_graph.at[cme_time_index, 'MAMA'] and df_yen_graph.at[cme_time_index, 'FAMA'] == df_yen_graph.at[cme_time_index, 'FAMA']:
+
+                    if df_yen_graph.at[cme_time_index, 'FAMA'] >= df_yen_graph.at[cme_time_index, 'BBLower']:
+
+                        if df_yen_graph.at[cme_time_index, 'MAMA'] < df_yen_graph.at[cme_time_index, 'FAMA']:
+                            self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p2_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p2_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_yen_graph.at[cme_time_index, 'MAMA'], df_yen_graph.at[cme_time_index, 'FAMA'])
+                    self.label_p2_4.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(YEN_저가, ','))
+                self.label_26.setText(txt)
+
+                value = self.label_27.text().split()[0]     
+
+                if YEN_현재가 > float(value):
+
+                    txt = " {0:.1f} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭)
+
+                    if YEN_전일대비 > 0:
+                        self.label_27.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif YEN_전일대비 < 0:
+                        self.label_27.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_27.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_27.setText(txt)
+
+                elif YEN_현재가 < float(value):
+
+                    txt = " {0:.1f} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭)
+
+                    if YEN_전일대비 > 0:
+                        self.label_27.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif YEN_전일대비 < 0:
+                        self.label_27.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_27.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_27.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(YEN_고가, ','))
+                self.label_28.setText(txt)
+                
+                self.plot2_time_line.setValue(cme_time_index)
+
+                self.plot2_ovc_jl_line.setValue(YEN_전저)
+                self.plot2_ovc_jh_line.setValue(YEN_전고)
+                self.plot2_ovc_close_line.setValue(YEN_종가)
+                self.plot2_ovc_open_line.setValue(YEN_시가)
+                self.plot2_ovc_pivot_line.setValue(YEN_피봇)
+                self.plot2_ovc_low_line.setValue(YEN_저가)
+                self.plot2_ovc_high_line.setValue(YEN_고가)                 
+
+                self.plot2_yen_curve.setData(df_yen_graph['price'].to_numpy())
+
+                if flag_checkBox_plot2_bband:
+
+                    self.Calc_SAR_BBand('YEN')
+
+                    self.plot2_bollinger_upper_curve.setData(df_yen_graph['BBUpper'].to_numpy())
+                    self.plot2_bollinger_middle_curve.setData(df_yen_graph['BBMiddle'].to_numpy())
+                    self.plot2_bollinger_lower_curve.setData(df_yen_graph['BBLower'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot2_mama:
+
+                    self.Calc_MAMA('YEN')
+
+                    self.plot2_mama_curve.setData(df_yen_graph['MAMA'].to_numpy())
+                    self.plot2_fama_curve.setData(df_yen_graph['A_FAMA'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot2_oe:
+                    
+                    self.Calc_Ichimoku('YEN')
+
+                    self.plot2_oe_conv_curve.setData(df_yen_graph['OE_CONV'].to_numpy())
+                    self.plot2_oe_base_curve.setData(df_yen_graph['OE_BASE'].to_numpy())
+                else:
+                    pass
 
             elif comboindex2 == 19:
 
@@ -36551,7 +36674,130 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex3 == 18:
 
-                pass
+                if df_yen_graph.at[cme_time_index, 'BBMiddle'] == df_yen_graph.at[cme_time_index, 'BBMiddle']:
+
+                    if df_yen_graph.at[cme_time_index, 'BBMiddle'] >= df_yen_graph.at[cme_time_index, 'price']:
+                        self.label_p3_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p3_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    pass                 
+
+                if df_yen_graph.at[cme_time_index, 'PSAR'] == df_yen_graph.at[cme_time_index, 'PSAR']:
+
+                    if df_yen_graph.at[cme_time_index, 'PSAR'] >= df_yen_graph.at[cme_time_index, 'price']:
+                        self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p3_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_yen_graph.at[cme_time_index, 'BBMiddle'], df_yen_graph.at[cme_time_index, 'PSAR'], YEN_호가순매수)
+                    self.label_p3_2.setText(txt)
+                else:
+                    pass
+                
+                if df_yen_graph.at[cme_time_index, 'OE_CONV'] == df_yen_graph.at[cme_time_index, 'OE_CONV'] and df_yen_graph.at[cme_time_index, 'OE_BASE'] == df_yen_graph.at[cme_time_index, 'OE_BASE']:
+
+                    if df_yen_graph.at[cme_time_index, 'OE_CONV'] < df_yen_graph.at[cme_time_index, 'OE_BASE']:
+                        self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p3_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_yen_graph.at[cme_time_index, 'OE_CONV'], df_yen_graph.at[cme_time_index, 'OE_BASE'])
+                    self.label_p3_3.setText(txt)
+                else:
+                    pass
+
+                if df_yen_graph.at[cme_time_index, 'MAMA'] == df_yen_graph.at[cme_time_index, 'MAMA'] and df_yen_graph.at[cme_time_index, 'FAMA'] == df_yen_graph.at[cme_time_index, 'FAMA']:
+
+                    if df_yen_graph.at[cme_time_index, 'FAMA'] >= df_yen_graph.at[cme_time_index, 'BBLower']:
+
+                        if df_yen_graph.at[cme_time_index, 'MAMA'] < df_yen_graph.at[cme_time_index, 'FAMA']:
+                            self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p3_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p3_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_yen_graph.at[cme_time_index, 'MAMA'], df_yen_graph.at[cme_time_index, 'FAMA'])
+                    self.label_p3_4.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(YEN_저가, ','))
+                self.label_36.setText(txt)
+
+                value = self.label_37.text().split()[0]     
+
+                if YEN_현재가 > float(value):
+
+                    txt = " {0:.1f} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭)
+
+                    if YEN_전일대비 > 0:
+                        self.label_37.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif YEN_전일대비 < 0:
+                        self.label_37.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_37.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_37.setText(txt)
+
+                elif YEN_현재가 < float(value):
+
+                    txt = " {0:.1f} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭)
+
+                    if YEN_전일대비 > 0:
+                        self.label_37.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif YEN_전일대비 < 0:
+                        self.label_37.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_37.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_37.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(YEN_고가, ','))
+                self.label_38.setText(txt)
+                
+                self.plot3_time_line.setValue(cme_time_index)
+
+                self.plot3_ovc_jl_line.setValue(YEN_전저)
+                self.plot3_ovc_jh_line.setValue(YEN_전고)
+                self.plot3_ovc_close_line.setValue(YEN_종가)
+                self.plot3_ovc_open_line.setValue(YEN_시가)
+                self.plot3_ovc_pivot_line.setValue(YEN_피봇)
+                self.plot3_ovc_low_line.setValue(YEN_저가)
+                self.plot3_ovc_high_line.setValue(YEN_고가)                 
+
+                self.plot3_yen_curve.setData(df_yen_graph['price'].to_numpy())
+
+                if flag_checkBox_plot3_bband:
+
+                    self.Calc_SAR_BBand('YEN')
+
+                    self.plot3_bollinger_upper_curve.setData(df_yen_graph['BBUpper'].to_numpy())
+                    self.plot3_bollinger_middle_curve.setData(df_yen_graph['BBMiddle'].to_numpy())
+                    self.plot3_bollinger_lower_curve.setData(df_yen_graph['BBLower'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot3_mama:
+
+                    self.Calc_MAMA('YEN')
+
+                    self.plot3_mama_curve.setData(df_yen_graph['MAMA'].to_numpy())
+                    self.plot3_fama_curve.setData(df_yen_graph['A_FAMA'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot3_oe:
+                    
+                    self.Calc_Ichimoku('YEN')
+
+                    self.plot3_oe_conv_curve.setData(df_yen_graph['OE_CONV'].to_numpy())
+                    self.plot3_oe_base_curve.setData(df_yen_graph['OE_BASE'].to_numpy())
+                else:
+                    pass
 
             elif comboindex3 == 19:
 
@@ -37807,7 +38053,130 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex4 == 18:
 
-                pass
+                if df_yen_graph.at[cme_time_index, 'BBMiddle'] == df_yen_graph.at[cme_time_index, 'BBMiddle']:
+
+                    if df_yen_graph.at[cme_time_index, 'BBMiddle'] >= df_yen_graph.at[cme_time_index, 'price']:
+                        self.label_p4_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p4_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    pass                 
+
+                if df_yen_graph.at[cme_time_index, 'PSAR'] == df_yen_graph.at[cme_time_index, 'PSAR']:
+
+                    if df_yen_graph.at[cme_time_index, 'PSAR'] >= df_yen_graph.at[cme_time_index, 'price']:
+                        self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p4_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_yen_graph.at[cme_time_index, 'BBMiddle'], df_yen_graph.at[cme_time_index, 'PSAR'], YEN_호가순매수)
+                    self.label_p4_2.setText(txt)
+                else:
+                    pass
+                
+                if df_yen_graph.at[cme_time_index, 'OE_CONV'] == df_yen_graph.at[cme_time_index, 'OE_CONV'] and df_yen_graph.at[cme_time_index, 'OE_BASE'] == df_yen_graph.at[cme_time_index, 'OE_BASE']:
+
+                    if df_yen_graph.at[cme_time_index, 'OE_CONV'] < df_yen_graph.at[cme_time_index, 'OE_BASE']:
+                        self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p4_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_yen_graph.at[cme_time_index, 'OE_CONV'], df_yen_graph.at[cme_time_index, 'OE_BASE'])
+                    self.label_p4_3.setText(txt)
+                else:
+                    pass
+
+                if df_yen_graph.at[cme_time_index, 'MAMA'] == df_yen_graph.at[cme_time_index, 'MAMA'] and df_yen_graph.at[cme_time_index, 'FAMA'] == df_yen_graph.at[cme_time_index, 'FAMA']:
+
+                    if df_yen_graph.at[cme_time_index, 'FAMA'] >= df_yen_graph.at[cme_time_index, 'BBLower']:
+
+                        if df_yen_graph.at[cme_time_index, 'MAMA'] < df_yen_graph.at[cme_time_index, 'FAMA']:
+                            self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p4_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p4_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_yen_graph.at[cme_time_index, 'MAMA'], df_yen_graph.at[cme_time_index, 'FAMA'])
+                    self.label_p4_4.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(YEN_저가, ','))
+                self.label_46.setText(txt)
+
+                value = self.label_47.text().split()[0]     
+
+                if YEN_현재가 > float(value):
+
+                    txt = " {0:.1f} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭)
+
+                    if YEN_전일대비 > 0:
+                        self.label_47.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif YEN_전일대비 < 0:
+                        self.label_47.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_47.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_47.setText(txt)
+
+                elif YEN_현재가 < float(value):
+
+                    txt = " {0:.1f} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭)
+
+                    if YEN_전일대비 > 0:
+                        self.label_47.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif YEN_전일대비 < 0:
+                        self.label_47.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_47.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_47.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(YEN_고가, ','))
+                self.label_48.setText(txt)
+                
+                self.plot4_time_line.setValue(cme_time_index)
+
+                self.plot4_ovc_jl_line.setValue(YEN_전저)
+                self.plot4_ovc_jh_line.setValue(YEN_전고)
+                self.plot4_ovc_close_line.setValue(YEN_종가)
+                self.plot4_ovc_open_line.setValue(YEN_시가)
+                self.plot4_ovc_pivot_line.setValue(YEN_피봇)
+                self.plot4_ovc_low_line.setValue(YEN_저가)
+                self.plot4_ovc_high_line.setValue(YEN_고가)                 
+
+                self.plot4_yen_curve.setData(df_yen_graph['price'].to_numpy())
+
+                if flag_checkBox_plot4_bband:
+
+                    self.Calc_SAR_BBand('YEN')
+
+                    self.plot4_bollinger_upper_curve.setData(df_yen_graph['BBUpper'].to_numpy())
+                    self.plot4_bollinger_middle_curve.setData(df_yen_graph['BBMiddle'].to_numpy())
+                    self.plot4_bollinger_lower_curve.setData(df_yen_graph['BBLower'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot4_mama:
+
+                    self.Calc_MAMA('YEN')
+
+                    self.plot4_mama_curve.setData(df_yen_graph['MAMA'].to_numpy())
+                    self.plot4_fama_curve.setData(df_yen_graph['A_FAMA'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot4_oe:
+                    
+                    self.Calc_Ichimoku('YEN')
+
+                    self.plot4_oe_conv_curve.setData(df_yen_graph['OE_CONV'].to_numpy())
+                    self.plot4_oe_base_curve.setData(df_yen_graph['OE_BASE'].to_numpy())
+                else:
+                    pass
 
             elif comboindex4 == 19:
 
@@ -39078,7 +39447,130 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex5 == 18:
 
-                pass
+                if df_yen_graph.at[cme_time_index, 'BBMiddle'] == df_yen_graph.at[cme_time_index, 'BBMiddle']:
+
+                    if df_yen_graph.at[cme_time_index, 'BBMiddle'] >= df_yen_graph.at[cme_time_index, 'price']:
+                        self.label_p5_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p5_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    pass                 
+
+                if df_yen_graph.at[cme_time_index, 'PSAR'] == df_yen_graph.at[cme_time_index, 'PSAR']:
+
+                    if df_yen_graph.at[cme_time_index, 'PSAR'] >= df_yen_graph.at[cme_time_index, 'price']:
+                        self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p5_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_yen_graph.at[cme_time_index, 'BBMiddle'], df_yen_graph.at[cme_time_index, 'PSAR'], YEN_호가순매수)
+                    self.label_p5_2.setText(txt)
+                else:
+                    pass
+                
+                if df_yen_graph.at[cme_time_index, 'OE_CONV'] == df_yen_graph.at[cme_time_index, 'OE_CONV'] and df_yen_graph.at[cme_time_index, 'OE_BASE'] == df_yen_graph.at[cme_time_index, 'OE_BASE']:
+
+                    if df_yen_graph.at[cme_time_index, 'OE_CONV'] < df_yen_graph.at[cme_time_index, 'OE_BASE']:
+                        self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p5_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_yen_graph.at[cme_time_index, 'OE_CONV'], df_yen_graph.at[cme_time_index, 'OE_BASE'])
+                    self.label_p5_3.setText(txt)
+                else:
+                    pass
+
+                if df_yen_graph.at[cme_time_index, 'MAMA'] == df_yen_graph.at[cme_time_index, 'MAMA'] and df_yen_graph.at[cme_time_index, 'FAMA'] == df_yen_graph.at[cme_time_index, 'FAMA']:
+
+                    if df_yen_graph.at[cme_time_index, 'FAMA'] >= df_yen_graph.at[cme_time_index, 'BBLower']:
+
+                        if df_yen_graph.at[cme_time_index, 'MAMA'] < df_yen_graph.at[cme_time_index, 'FAMA']:
+                            self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p5_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p5_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_yen_graph.at[cme_time_index, 'MAMA'], df_yen_graph.at[cme_time_index, 'FAMA'])
+                    self.label_p5_4.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(YEN_저가, ','))
+                self.label_56.setText(txt)
+
+                value = self.label_57.text().split()[0]     
+
+                if YEN_현재가 > float(value):
+
+                    txt = " {0:.1f} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭)
+
+                    if YEN_전일대비 > 0:
+                        self.label_57.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif YEN_전일대비 < 0:
+                        self.label_57.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_57.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_57.setText(txt)
+
+                elif YEN_현재가 < float(value):
+
+                    txt = " {0:.1f} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭)
+
+                    if YEN_전일대비 > 0:
+                        self.label_57.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif YEN_전일대비 < 0:
+                        self.label_57.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_57.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_57.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(YEN_고가, ','))
+                self.label_58.setText(txt)
+                
+                self.plot5_time_line.setValue(cme_time_index)
+
+                self.plot5_ovc_jl_line.setValue(YEN_전저)
+                self.plot5_ovc_jh_line.setValue(YEN_전고)
+                self.plot5_ovc_close_line.setValue(YEN_종가)
+                self.plot5_ovc_open_line.setValue(YEN_시가)
+                self.plot5_ovc_pivot_line.setValue(YEN_피봇)
+                self.plot5_ovc_low_line.setValue(YEN_저가)
+                self.plot5_ovc_high_line.setValue(YEN_고가)                 
+
+                self.plot5_yen_curve.setData(df_yen_graph['price'].to_numpy())
+
+                if flag_checkBox_plot5_bband:
+
+                    self.Calc_SAR_BBand('YEN')
+
+                    self.plot5_bollinger_upper_curve.setData(df_yen_graph['BBUpper'].to_numpy())
+                    self.plot5_bollinger_middle_curve.setData(df_yen_graph['BBMiddle'].to_numpy())
+                    self.plot5_bollinger_lower_curve.setData(df_yen_graph['BBLower'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot5_mama:
+
+                    self.Calc_MAMA('YEN')
+
+                    self.plot5_mama_curve.setData(df_yen_graph['MAMA'].to_numpy())
+                    self.plot5_fama_curve.setData(df_yen_graph['A_FAMA'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot5_oe:
+                    
+                    self.Calc_Ichimoku('YEN')
+
+                    self.plot5_oe_conv_curve.setData(df_yen_graph['OE_CONV'].to_numpy())
+                    self.plot5_oe_base_curve.setData(df_yen_graph['OE_BASE'].to_numpy())
+                else:
+                    pass
 
             elif comboindex5 == 19:
 
@@ -40349,7 +40841,130 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex6 == 18:
 
-                pass
+                if df_yen_graph.at[cme_time_index, 'BBMiddle'] == df_yen_graph.at[cme_time_index, 'BBMiddle']:
+
+                    if df_yen_graph.at[cme_time_index, 'BBMiddle'] >= df_yen_graph.at[cme_time_index, 'price']:
+                        self.label_p6_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    pass                 
+
+                if df_yen_graph.at[cme_time_index, 'PSAR'] == df_yen_graph.at[cme_time_index, 'PSAR']:
+
+                    if df_yen_graph.at[cme_time_index, 'PSAR'] >= df_yen_graph.at[cme_time_index, 'price']:
+                        self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_yen_graph.at[cme_time_index, 'BBMiddle'], df_yen_graph.at[cme_time_index, 'PSAR'], YEN_호가순매수)
+                    self.label_p6_2.setText(txt)
+                else:
+                    pass
+                
+                if df_yen_graph.at[cme_time_index, 'OE_CONV'] == df_yen_graph.at[cme_time_index, 'OE_CONV'] and df_yen_graph.at[cme_time_index, 'OE_BASE'] == df_yen_graph.at[cme_time_index, 'OE_BASE']:
+
+                    if df_yen_graph.at[cme_time_index, 'OE_CONV'] < df_yen_graph.at[cme_time_index, 'OE_BASE']:
+                        self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_yen_graph.at[cme_time_index, 'OE_CONV'], df_yen_graph.at[cme_time_index, 'OE_BASE'])
+                    self.label_p6_3.setText(txt)
+                else:
+                    pass
+
+                if df_yen_graph.at[cme_time_index, 'MAMA'] == df_yen_graph.at[cme_time_index, 'MAMA'] and df_yen_graph.at[cme_time_index, 'FAMA'] == df_yen_graph.at[cme_time_index, 'FAMA']:
+
+                    if df_yen_graph.at[cme_time_index, 'FAMA'] >= df_yen_graph.at[cme_time_index, 'BBLower']:
+
+                        if df_yen_graph.at[cme_time_index, 'MAMA'] < df_yen_graph.at[cme_time_index, 'FAMA']:
+                            self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p6_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_yen_graph.at[cme_time_index, 'MAMA'], df_yen_graph.at[cme_time_index, 'FAMA'])
+                    self.label_p6_4.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(YEN_저가, ','))
+                self.label_66.setText(txt)
+
+                value = self.label_67.text().split()[0]     
+
+                if YEN_현재가 > float(value):
+
+                    txt = " {0:.1f} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭)
+
+                    if YEN_전일대비 > 0:
+                        self.label_67.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif YEN_전일대비 < 0:
+                        self.label_67.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_67.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_67.setText(txt)
+
+                elif YEN_현재가 < float(value):
+
+                    txt = " {0:.1f} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭)
+
+                    if YEN_전일대비 > 0:
+                        self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif YEN_전일대비 < 0:
+                        self.label_67.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_67.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_67.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(YEN_고가, ','))
+                self.label_68.setText(txt)
+                
+                self.plot6_time_line.setValue(cme_time_index)
+
+                self.plot6_ovc_jl_line.setValue(YEN_전저)
+                self.plot6_ovc_jh_line.setValue(YEN_전고)
+                self.plot6_ovc_close_line.setValue(YEN_종가)
+                self.plot6_ovc_open_line.setValue(YEN_시가)
+                self.plot6_ovc_pivot_line.setValue(YEN_피봇)
+                self.plot6_ovc_low_line.setValue(YEN_저가)
+                self.plot6_ovc_high_line.setValue(YEN_고가)                 
+
+                self.plot6_yen_curve.setData(df_yen_graph['price'].to_numpy())
+
+                if flag_checkBox_plot6_bband:
+
+                    self.Calc_SAR_BBand('YEN')
+
+                    self.plot6_bollinger_upper_curve.setData(df_yen_graph['BBUpper'].to_numpy())
+                    self.plot6_bollinger_middle_curve.setData(df_yen_graph['BBMiddle'].to_numpy())
+                    self.plot6_bollinger_lower_curve.setData(df_yen_graph['BBLower'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot6_mama:
+
+                    self.Calc_MAMA('YEN')
+
+                    self.plot6_mama_curve.setData(df_yen_graph['MAMA'].to_numpy())
+                    self.plot6_fama_curve.setData(df_yen_graph['A_FAMA'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot6_oe:
+                    
+                    self.Calc_Ichimoku('YEN')
+
+                    self.plot6_oe_conv_curve.setData(df_yen_graph['OE_CONV'].to_numpy())
+                    self.plot6_oe_base_curve.setData(df_yen_graph['OE_BASE'].to_numpy())
+                else:
+                    pass
 
             elif comboindex6 == 19:
 
