@@ -23036,6 +23036,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot2_nasdaq_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
         self.plot2_wti_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
+        self.plot2_gold_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_eurofx_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_yen_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_hangseng_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+
         self.plot2_bollinger_upper_curve = self.plot2.plot(pen=bb_upper_pen)
         self.plot2_bollinger_middle_curve = self.plot2.plot(pen=bb_middle_pen)
         self.plot2_bollinger_lower_curve = self.plot2.plot(pen=bb_lower_pen)
@@ -23124,6 +23129,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot3_dow_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_nasdaq_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
         self.plot3_wti_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+
+        self.plot3_gold_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_eurofx_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_yen_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_hangseng_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
         self.plot3_bollinger_upper_curve = self.plot3.plot(pen=bb_upper_pen)
         self.plot3_bollinger_middle_curve = self.plot3.plot(pen=bb_middle_pen)
@@ -23214,6 +23224,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot4_nasdaq_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
         self.plot4_wti_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
+        self.plot4_gold_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_eurofx_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_yen_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_hangseng_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+
         self.plot4_bollinger_upper_curve = self.plot4.plot(pen=bb_upper_pen)
         self.plot4_bollinger_middle_curve = self.plot4.plot(pen=bb_middle_pen)
         self.plot4_bollinger_lower_curve = self.plot4.plot(pen=bb_lower_pen)
@@ -23303,6 +23318,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot5_nasdaq_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
         self.plot5_wti_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
+        self.plot5_gold_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_eurofx_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_yen_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_hangseng_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+
         self.plot5_bollinger_upper_curve = self.plot5.plot(pen=bb_upper_pen)
         self.plot5_bollinger_middle_curve = self.plot5.plot(pen=bb_middle_pen)
         self.plot5_bollinger_lower_curve = self.plot5.plot(pen=bb_lower_pen)
@@ -23391,6 +23411,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot6_dow_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_nasdaq_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
         self.plot6_wti_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+
+        self.plot6_gold_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_eurofx_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_yen_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_hangseng_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
         self.plot6_bollinger_upper_curve = self.plot6.plot(pen=bb_upper_pen)
         self.plot6_bollinger_middle_curve = self.plot6.plot(pen=bb_middle_pen)
@@ -33555,7 +33580,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_eurofx_graph.at[cme_time_index, 'BBMiddle'], df_eurofx_graph.at[cme_time_index, 'PSAR'], EUEOFX_호가순매수)
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_eurofx_graph.at[cme_time_index, 'BBMiddle'], df_eurofx_graph.at[cme_time_index, 'PSAR'], EUROFX_호가순매수)
                     self.label_p1_2.setText(txt)
                 else:
                     pass
@@ -33588,33 +33613,33 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                txt = ' {0} '.format(format(EUEOFX_저가, ','))
+                txt = ' {0} '.format(format(EUROFX_저가, ','))
                 self.label_16.setText(txt)
 
                 value = self.label_17.text().split()[0]     
 
-                if EUEOFX_현재가 > float(value):
+                if EUROFX_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(EUEOFX_현재가, EUEOFX_전일대비, EUEOFX_등락율, EUEOFX_진폭)
+                        format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
 
-                    if EUEOFX_전일대비 > 0:
+                    if EUROFX_전일대비 > 0:
                         self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif EUEOFX_전일대비 < 0:
+                    elif EUROFX_전일대비 < 0:
                         self.label_17.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_17.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     self.label_17.setText(txt)
 
-                elif EUEOFX_현재가 < float(value):
+                elif EUROFX_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(EUEOFX_현재가, EUEOFX_전일대비, EUEOFX_등락율, EUEOFX_진폭)
+                        format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
 
-                    if EUEOFX_전일대비 > 0:
+                    if EUROFX_전일대비 > 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif EUEOFX_전일대비 < 0:
+                    elif EUROFX_전일대비 < 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_17.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33623,18 +33648,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                txt = ' {0} '.format(format(EUEOFX_고가, ','))
+                txt = ' {0} '.format(format(EUROFX_고가, ','))
                 self.label_18.setText(txt)
                 
                 self.plot1_time_line.setValue(cme_time_index)
 
-                self.plot1_ovc_jl_line.setValue(EUEOFX_전저)
-                self.plot1_ovc_jh_line.setValue(EUEOFX_전고)
-                self.plot1_ovc_close_line.setValue(EUEOFX_종가)
-                self.plot1_ovc_open_line.setValue(EUEOFX_시가)
-                self.plot1_ovc_pivot_line.setValue(EUEOFX_피봇)
-                self.plot1_ovc_low_line.setValue(EUEOFX_저가)
-                self.plot1_ovc_high_line.setValue(EUEOFX_고가)                 
+                self.plot1_ovc_jl_line.setValue(EUROFX_전저)
+                self.plot1_ovc_jh_line.setValue(EUROFX_전고)
+                self.plot1_ovc_close_line.setValue(EUROFX_종가)
+                self.plot1_ovc_open_line.setValue(EUROFX_시가)
+                self.plot1_ovc_pivot_line.setValue(EUROFX_피봇)
+                self.plot1_ovc_low_line.setValue(EUROFX_저가)
+                self.plot1_ovc_high_line.setValue(EUROFX_고가)                 
 
                 self.plot1_eurofx_curve.setData(df_eurofx_graph['price'].to_numpy())
 
