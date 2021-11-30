@@ -6201,9 +6201,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             DOW_당일종가 = DOW_현재가
                             NASDAQ_당일종가 = NASDAQ_현재가
                             WTI_당일종가 = WTI_현재가
-                            EUROFX_당일종가 = EUROFX_현재가
-                            HANGSENG_당일종가 = HANGSENG_현재가
                             GOLD_당일종가 = GOLD_현재가
+                            EUROFX_당일종가 = EUROFX_현재가
+                            YEN_당일종가 = YEN_현재가
+                            HANGSENG_당일종가 = HANGSENG_현재가                            
 
                             CME_당일종가 = self.fut_realdata['현재가']
 
@@ -6233,6 +6234,30 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             txt = '[{0:02d}:{1:02d}:{2:02d}] WTI Low = {3:.2f}, WTI High = {4:.2f}, WTI Close = {5:.2f}\r'.format \
                                 (t0167_server_hour, t0167_server_minute, t0167_server_second,
                                 WTI_저가, WTI_고가, WTI_당일종가)
+                            self.textBrowser.append(txt)
+                            print(txt)
+
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] GOLD Low = {3:.2f}, GOLD High = {4:.2f}, GOLD Close = {5:.2f}\r'.format \
+                                (t0167_server_hour, t0167_server_minute, t0167_server_second,
+                                GOLD_저가, GOLD_고가, GOLD_당일종가)
+                            self.textBrowser.append(txt)
+                            print(txt)
+
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] EURO Low = {3:.2f}, EURO High = {4:.2f}, EURO Close = {5:.2f}\r'.format \
+                                (t0167_server_hour, t0167_server_minute, t0167_server_second,
+                                EUROFX_저가, EUROFX_고가, EUROFX_당일종가)
+                            self.textBrowser.append(txt)
+                            print(txt)
+
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] YEN Low = {3:.2f}, YEN High = {4:.2f}, YEN Close = {5:.2f}\r'.format \
+                                (t0167_server_hour, t0167_server_minute, t0167_server_second,
+                                YEN_저가, YEN_고가, YEN_당일종가)
+                            self.textBrowser.append(txt)
+                            print(txt)
+
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] HANGSENG Low = {3:.2f}, HANGSENG High = {4:.2f}, HANGSENG Close = {5:.2f}\r'.format \
+                                (t0167_server_hour, t0167_server_minute, t0167_server_second,
+                                HANGSENG_저가, HANGSENG_고가, HANGSENG_당일종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
@@ -6294,13 +6319,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 nighttime_file.write(file_txt)
                                 file_txt = 'EUROFX Last Close = {0}\n'.format(EUROFX_당일종가)
                                 nighttime_file.write(file_txt)
-                                file_txt = 'EUROFX Last Low = {0}\n'.format(EUROFX_저가)
+                                file_txt = 'YEN Last Low = {0}\n'.format(YEN_저가)
                                 nighttime_file.write(file_txt)
                                 file_txt = 'YEN Last High = {0}\n'.format(YEN_고가)
                                 nighttime_file.write(file_txt)
                                 file_txt = 'YEN Last Close = {0}\n'.format(YEN_당일종가)
                                 nighttime_file.write(file_txt)
-                                file_txt = 'YEN Last Low = {0}\n'.format(YEN_저가)
+                                file_txt = 'HANGSENG Last Low = {0}\n'.format(HANGSENG_저가)
                                 nighttime_file.write(file_txt)
                                 file_txt = 'HANGSENG Last High = {0}\n'.format(HANGSENG_고가)
                                 nighttime_file.write(file_txt)
