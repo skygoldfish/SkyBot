@@ -42240,9 +42240,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
             elif tickdata['종목코드'] == YEN:
-
-                txt = 'YEN 가격 = {0}\r'.format(tickdata['체결가격'])
-                print(txt)
                 
                 # 그래프 가격갱신
                 df_yen_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])                    
