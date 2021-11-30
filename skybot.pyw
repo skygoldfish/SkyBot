@@ -33938,7 +33938,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if HANGSENG_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
 
                     if HANGSENG_전일대비 > 0:
                         self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33951,7 +33951,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif HANGSENG_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
 
                     if HANGSENG_전일대비 > 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35462,7 +35462,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if HANGSENG_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
 
                     if HANGSENG_전일대비 > 0:
                         self.label_27.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35475,7 +35475,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif HANGSENG_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
 
                     if HANGSENG_전일대비 > 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36980,7 +36980,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if HANGSENG_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
 
                     if HANGSENG_전일대비 > 0:
                         self.label_37.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36993,7 +36993,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif HANGSENG_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
 
                     if HANGSENG_전일대비 > 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38482,7 +38482,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if HANGSENG_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
 
                     if HANGSENG_전일대비 > 0:
                         self.label_47.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38495,7 +38495,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif HANGSENG_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
 
                     if HANGSENG_전일대비 > 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39999,7 +39999,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if HANGSENG_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
 
                     if HANGSENG_전일대비 > 0:
                         self.label_57.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40012,7 +40012,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif HANGSENG_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
 
                     if HANGSENG_전일대비 > 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41516,7 +41516,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if HANGSENG_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
 
                     if HANGSENG_전일대비 > 0:
                         self.label_67.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41529,7 +41529,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif HANGSENG_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
 
                     if HANGSENG_전일대비 > 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
