@@ -30,7 +30,7 @@ FUTURES = '900'
 SAMSUNG = '005930'
 HYUNDAI = '005380'
 
-MP_FUT_SLEEP_SWITCH_MODE = parser.getboolean('User Switch', 'MP FUT Sleep Switching Mode')
+#MP_FUT_SLEEP_SWITCH_MODE = parser.getboolean('User Switch', 'MP FUT Sleep Switching Mode')
 MP_SLEEP_SWITCHING_DELAY = parser.getfloat('Initial Value', 'MP Sleep Switching Delay')
 FEVER_TIME_DURATION = parser.getint('Initial Value', 'Fever Time Duration')
 
@@ -58,7 +58,7 @@ else:
     config = {"id": ID, "password": PWD, "cert_password": "0"}
 
 # 여기에서 JIF, IJ, OVC, BM, PM등을 함께 요청
-def futures_crawler(queue: Queue, index_futures_quote=True, index_futures_tick=True):
+def futures_crawler(queue: Queue, flag_high_speed=False, index_futures_quote=True, index_futures_tick=True):
 
     proc = mp.current_process()
     print(f'\r지수선물 Process Name = {proc.name}, Process ID = {proc.pid}')
@@ -153,7 +153,7 @@ def futures_crawler(queue: Queue, index_futures_quote=True, index_futures_tick=T
             if dt.hour == 9 and 0 <= dt.minute <= FEVER_TIME_DURATION:
                 pass
             else:
-                if MP_FUT_SLEEP_SWITCH_MODE:
+                if not flag_high_speed:
                     time.sleep(MP_SLEEP_SWITCHING_DELAY)
                 else:
                     pass          

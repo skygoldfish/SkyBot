@@ -21,7 +21,7 @@ parser = ConfigParser()
 parser.read('.\skybot.ini', encoding='UTF-8')
 
 REAL_SERVER = parser.getboolean('Server Type', 'Real Server')
-MP_OPTION_SLEEP_SWITCH_MODE = parser.getboolean('User Switch', 'MP Option Sleep Switching Mode')
+#MP_OPTION_SLEEP_SWITCH_MODE = parser.getboolean('User Switch', 'MP Option Sleep Switching Mode')
 MP_SLEEP_SWITCHING_DELAY = parser.getfloat('Initial Value', 'MP Sleep Switching Delay')
 YOC_REQUEST = parser.getboolean('User Switch', 'YOC Request')
 
@@ -49,7 +49,7 @@ else:
     config = {"id": ID, "password": PWD, "cert_password": "0"}
 
 #def option_tick_crawler(queue: Queue, tick_request_number=100, index_option_cm_tick=False, index_option_nm_tick=False):
-def option_tick_crawler(queue: Queue, call_itm_number=5, call_otm_number=15, put_itm_number=5, put_otm_number=15, index_option_cm_tick=False, index_option_nm_tick=False):
+def option_tick_crawler(queue: Queue, flag_high_speed=False, call_itm_number=5, call_otm_number=15, put_itm_number=5, put_otm_number=15, index_option_cm_tick=False, index_option_nm_tick=False):
 
     proc = mp.current_process()
     print(f'\r지수옵션 체결 Process Name = {proc.name}, Process ID = {proc.pid}')
@@ -155,7 +155,7 @@ def option_tick_crawler(queue: Queue, call_itm_number=5, call_otm_number=15, put
             if index_option_cm_tick:
 
                 if NightTime:
-                    if MP_OPTION_SLEEP_SWITCH_MODE:
+                    if not flag_high_speed:
                         time.sleep(MP_SLEEP_SWITCHING_DELAY)
                     else:
                         pass
@@ -164,7 +164,7 @@ def option_tick_crawler(queue: Queue, call_itm_number=5, call_otm_number=15, put
 
             if index_option_nm_tick:
 
-                if MP_OPTION_SLEEP_SWITCH_MODE:
+                if not flag_high_speed:
                     time.sleep(MP_SLEEP_SWITCHING_DELAY)
                 else:
                     pass

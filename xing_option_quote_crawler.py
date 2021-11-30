@@ -21,7 +21,7 @@ parser = ConfigParser()
 parser.read('.\skybot.ini', encoding='UTF-8')
 
 REAL_SERVER = parser.getboolean('Server Type', 'Real Server')
-MP_OPTION_SLEEP_SWITCH_MODE = parser.getboolean('User Switch', 'MP Option Sleep Switching Mode')
+#MP_OPTION_SLEEP_SWITCH_MODE = parser.getboolean('User Switch', 'MP Option Sleep Switching Mode')
 MP_SLEEP_SWITCHING_DELAY = parser.getfloat('Initial Value', 'MP Sleep Switching Delay')
 FEVER_TIME_DURATION = parser.getint('Initial Value', 'Fever Time Duration')
 
@@ -48,7 +48,7 @@ else:
     is_real_server = False
     config = {"id": ID, "password": PWD, "cert_password": "0"}
 
-def option_quote_crawler(queue: Queue, call_itm_number=5, call_otm_number=5, put_itm_number=5, put_otm_number=5, index_option_cm_quote=False, index_option_nm_quote=False):
+def option_quote_crawler(queue: Queue, flag_high_speed=False, call_itm_number=5, call_otm_number=5, put_itm_number=5, put_otm_number=5, index_option_cm_quote=False, index_option_nm_quote=False):
 
     proc = mp.current_process()
     print(f'\r지수옵션 호가 Process Name = {proc.name}, Process ID = {proc.pid}')
@@ -164,14 +164,14 @@ def option_quote_crawler(queue: Queue, call_itm_number=5, call_otm_number=5, put
                 if dt.hour == 9 and 0 <= dt.minute <= FEVER_TIME_DURATION:
                     pass
                 else:
-                    if MP_OPTION_SLEEP_SWITCH_MODE:
+                    if not flag_high_speed:
                         time.sleep(MP_SLEEP_SWITCHING_DELAY)
                     else:
                         pass
 
             if index_option_nm_quote:
 
-                if MP_OPTION_SLEEP_SWITCH_MODE:
+                if not flag_high_speed:
                     time.sleep(MP_SLEEP_SWITCHING_DELAY)
                 else:
                     pass

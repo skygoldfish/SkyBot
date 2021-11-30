@@ -31,7 +31,7 @@ GOLD = parser.get('Code of the Foreign Futures', 'GOLD')
 EUROFX = parser.get('Code of the Foreign Futures', 'EUROFX')
 YEN = parser.get('Code of the Foreign Futures', 'YEN')
 
-MP_OVC_SLEEP_SWITCH_MODE = parser.getboolean('User Switch', 'MP OVC Sleep Switching Mode')
+#MP_OVC_SLEEP_SWITCH_MODE = parser.getboolean('User Switch', 'MP OVC Sleep Switching Mode')
 MP_SLEEP_SWITCHING_DELAY = parser.getfloat('Initial Value', 'MP Sleep Switching Delay')
 DOW_START = parser.get('Initial Value', 'Dow Start Time')
 
@@ -58,7 +58,7 @@ else:
     is_real_server = False
     config = {"id": ID, "password": PWD, "cert_password": "0"}
 
-def ovc_crawler(queue: Queue):
+def ovc_crawler(queue: Queue, flag_high_speed=False):
 
     proc = mp.current_process()
     print(f'해외선물 Process Name = {proc.name}, Process ID = {proc.pid}')
@@ -87,7 +87,7 @@ def ovc_crawler(queue: Queue):
             pythoncom.PumpWaitingMessages()
 
             if DayTime:
-                if MP_OVC_SLEEP_SWITCH_MODE:
+                if not flag_high_speed:
                     time.sleep(MP_SLEEP_SWITCHING_DELAY)
                 else:
                     pass
