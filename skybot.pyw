@@ -47701,9 +47701,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         if YEN_등락율 < 0:
 
                             if min(대비리스트) > 0:
-                                jisu_txt = "YEN: {0:0.1f} ({1:0.2f}, {2:.2f}%)⬈".format(YEN_현재가, YEN_전일대비, YEN_등락율)                                    
+                                jisu_txt = "YEN: {0:0.1f} ({1:0.2f}, {2:.2f}%)⬈".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율)                                    
                             else:
-                                jisu_txt = "YEN: {0:0.1f} ▲ ({1:0.2f}, {2:.2f}%)".format(YEN_현재가, YEN_전일대비, YEN_등락율)
+                                jisu_txt = "YEN: {0:0.1f} ▲ ({1:0.2f}, {2:.2f}%)".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율)
 
                             if DayTime:
                                 self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
@@ -47717,9 +47717,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         elif YEN_등락율 > 0:
 
                             if min(대비리스트) > 0:
-                                jisu_txt = "YEN: {0:0.1f} ▲ ({1:0.2f}, {2:.2f}%)⬈".format(YEN_현재가, YEN_전일대비, YEN_등락율)                                    
+                                jisu_txt = "YEN: {0:0.1f} ▲ ({1:0.2f}, {2:.2f}%)⬈".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율)                                    
                             else:
-                                jisu_txt = "YEN: {0:0.1f} ▲ ({1:0.2f}, {2:.2f}%)".format(YEN_현재가, YEN_전일대비, YEN_등락율)
+                                jisu_txt = "YEN: {0:0.1f} ▲ ({1:0.2f}, {2:.2f}%)".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율)
 
                             if DayTime:
                                 self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
@@ -47737,9 +47737,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         if YEN_등락율 < 0:
 
                             if max(대비리스트) < 0:
-                                jisu_txt = "YEN: {0:0.1f} ({1:0.2f}, {2:.2f}%)⬊".format(YEN_현재가, YEN_전일대비, YEN_등락율)                                    
+                                jisu_txt = "YEN: {0:0.1f} ({1:0.2f}, {2:.2f}%)⬊".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율)                                    
                             else:
-                                jisu_txt = "YEN: {0:0.1f} ▼ ({1:0.2f}, {2:.2f}%)".format(YEN_현재가, YEN_전일대비, YEN_등락율)
+                                jisu_txt = "YEN: {0:0.1f} ▼ ({1:0.2f}, {2:.2f}%)".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율)
 
                             if DayTime:
                                 self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
@@ -47753,9 +47753,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         elif YEN_등락율 > 0:
 
                             if max(대비리스트) < 0:
-                                jisu_txt = "YEN: {0:0.1f} ({1:0.2f}, {2:.2f}%)⬊".format(YEN_현재가, YEN_전일대비, YEN_등락율)                                    
+                                jisu_txt = "YEN: {0:0.1f} ({1:0.2f}, {2:.2f}%)⬊".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율)                                    
                             else:
-                                jisu_txt = "YEN: {0:0.1f} ▼ ({1:0.2f}, {2:.2f}%)".format(YEN_현재가, YEN_전일대비, YEN_등락율)
+                                jisu_txt = "YEN: {0:0.1f} ▼ ({1:0.2f}, {2:.2f}%)".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율)
 
                             if DayTime:
                                 self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
@@ -47772,8 +47772,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     YEN_과거가 = YEN_현재가
                 else:
-                    pass
-                            
+                    pass                            
 
             elif tickdata['종목코드'] == HANGSENG:
 
@@ -47793,7 +47792,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                HANGSENG_체결가격 = locale.format('%d', float(tickdata['체결가격']), 1)
+                #HANGSENG_체결가격 = locale.format('%d', float(tickdata['체결가격']), 1)
 
                 if HANGSENG_시가 == 0:
 
@@ -47831,9 +47830,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         if HANGSENG_등락율 < 0:
 
                             if min(대비리스트) > 0:
-                                jisu_txt = "HSI: {0} ({1}, {2:.2f}%)⬈".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                                jisu_txt = "HSI: {0} ({1}, {2:.2f}%)⬈".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율)                                    
                             else:
-                                jisu_txt = "HSI: {0} ▲ ({1}, {2:.2f}%)".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+                                jisu_txt = "HSI: {0} ▲ ({1}, {2:.2f}%)".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율)
 
                             self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
@@ -47843,9 +47842,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         elif HANGSENG_등락율 > 0:
 
                             if min(대비리스트) > 0:
-                                jisu_txt = "HSI: {0} ▲ ({1}, {2:.2f}%)⬈".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                                jisu_txt = "HSI: {0} ▲ ({1}, {2:.2f}%)⬈".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율)                                    
                             else:
-                                jisu_txt = "HSI: {0} ▲ ({1}, {2:.2f}%)".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+                                jisu_txt = "HSI: {0} ▲ ({1}, {2:.2f}%)".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율)
 
                             self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
@@ -47859,9 +47858,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         if HANGSENG_등락율 < 0:
 
                             if max(대비리스트) < 0:
-                                jisu_txt = "HSI: {0} ({1}, {2:.2f}%)⬊".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                                jisu_txt = "HSI: {0} ({1}, {2:.2f}%)⬊".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율)                                    
                             else:
-                                jisu_txt = "HSI: {0} ▼ ({1}, {2:.2f}%)".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+                                jisu_txt = "HSI: {0} ▼ ({1}, {2:.2f}%)".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율)
 
                             self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
@@ -47871,9 +47870,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         elif HANGSENG_등락율 > 0:
 
                             if max(대비리스트) < 0:
-                                jisu_txt = "HSI: {0} ({1}, {2:.2f}%)⬊".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                                jisu_txt = "HSI: {0} ({1}, {2:.2f}%)⬊".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율)                                    
                             else:
-                                jisu_txt = "HSI: {0} ▼ ({1}, {2:.2f}%)".format(HANGSENG_체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+                                jisu_txt = "HSI: {0} ▼ ({1}, {2:.2f}%)".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율)
 
                             self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
