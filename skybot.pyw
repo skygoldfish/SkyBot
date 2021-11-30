@@ -46165,9 +46165,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     if tickdata['전일대비기호'] == '5':
 
-                        GOLD_종가 = GOLD_현재가 + float(tickdata['전일대비'])
+                        GOLD_종가 = round((GOLD_현재가 + float(tickdata['전일대비'])), 1)
                     else:
-                        GOLD_종가 = GOLD_현재가 - float(tickdata['전일대비'])
+                        GOLD_종가 = round((GOLD_현재가 - float(tickdata['전일대비'])), 1)
 
                     df_gold_graph.at[0, 'price'] = GOLD_종가
                     df_gold_graph.at[1, 'price'] = float(tickdata['시가'])
@@ -46387,9 +46387,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     if tickdata['전일대비기호'] == '5':
 
-                        YEN_종가 = round((YEN_현재가 + float(tickdata['전일대비'])), 5)
+                        YEN_종가 = round((YEN_현재가 + float(tickdata['전일대비'])), 1)
                     else:
-                        YEN_종가 = round((YEN_현재가 - float(tickdata['전일대비'])), 5)
+                        YEN_종가 = round((YEN_현재가 - float(tickdata['전일대비'])), 1)
 
                     df_yen_graph.at[0, 'price'] = YEN_종가
                     df_yen_graph.at[1, 'price'] = float(tickdata['시가'])
