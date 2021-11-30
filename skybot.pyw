@@ -3916,23 +3916,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.label_1st_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
             color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
-        self.label_1st_index.setText("DOW/SP500: 가격 (전일대비, 등락율, 진폭)")
+        self.label_1st_index.setText("SP500/DOW: 가격 (전일대비, 등락율, 진폭)")
         
         self.label_2nd_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
             color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
-        self.label_2nd_index.setText("NASDAQ/HANGSEN: 가격 (전일대비, 등락율)")
+        self.label_2nd_index.setText("NASDAQ/HANGSENG: 가격 (전일대비, 등락율)")
         
         self.label_3rd_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
             color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
-        self.label_3rd_index.setText("원자재: 가격 (전일대비, 등락율)")
+        self.label_3rd_index.setText("WTI/GOLD: 가격 (전일대비, 등락율)")
         
         self.label_4th_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
             color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
 
-        self.label_4th_index.setText("외환: 가격 (전일대비, 등락율)")
+        self.label_4th_index.setText("EURO/YEN: 가격 (전일대비, 등락율)")
         
         self.label_kospi.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
@@ -35406,7 +35406,130 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex2 == 19:
 
-                pass
+                if df_hangseng_graph.at[cme_time_index, 'BBMiddle'] == df_hangseng_graph.at[cme_time_index, 'BBMiddle']:
+
+                    if df_hangseng_graph.at[cme_time_index, 'BBMiddle'] >= df_hangseng_graph.at[cme_time_index, 'price']:
+                        self.label_p2_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p2_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    pass                 
+
+                if df_hangseng_graph.at[cme_time_index, 'PSAR'] == df_hangseng_graph.at[cme_time_index, 'PSAR']:
+
+                    if df_hangseng_graph.at[cme_time_index, 'PSAR'] >= df_hangseng_graph.at[cme_time_index, 'price']:
+                        self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p2_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_hangseng_graph.at[cme_time_index, 'BBMiddle'], df_hangseng_graph.at[cme_time_index, 'PSAR'], HANGSENG_호가순매수)
+                    self.label_p2_2.setText(txt)
+                else:
+                    pass
+                
+                if df_hangseng_graph.at[cme_time_index, 'OE_CONV'] == df_hangseng_graph.at[cme_time_index, 'OE_CONV'] and df_hangseng_graph.at[cme_time_index, 'OE_BASE'] == df_hangseng_graph.at[cme_time_index, 'OE_BASE']:
+
+                    if df_hangseng_graph.at[cme_time_index, 'OE_CONV'] < df_hangseng_graph.at[cme_time_index, 'OE_BASE']:
+                        self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p2_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_hangseng_graph.at[cme_time_index, 'OE_CONV'], df_hangseng_graph.at[cme_time_index, 'OE_BASE'])
+                    self.label_p2_3.setText(txt)
+                else:
+                    pass
+
+                if df_hangseng_graph.at[cme_time_index, 'MAMA'] == df_hangseng_graph.at[cme_time_index, 'MAMA'] and df_hangseng_graph.at[cme_time_index, 'FAMA'] == df_hangseng_graph.at[cme_time_index, 'FAMA']:
+
+                    if df_hangseng_graph.at[cme_time_index, 'FAMA'] >= df_hangseng_graph.at[cme_time_index, 'BBLower']:
+
+                        if df_hangseng_graph.at[cme_time_index, 'MAMA'] < df_hangseng_graph.at[cme_time_index, 'FAMA']:
+                            self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p2_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p2_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_hangseng_graph.at[cme_time_index, 'MAMA'], df_hangseng_graph.at[cme_time_index, 'FAMA'])
+                    self.label_p2_4.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(HANGSENG_저가, ','))
+                self.label_26.setText(txt)
+
+                value = self.label_27.text().split()[0]     
+
+                if HANGSENG_현재가 > float(value):
+
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+
+                    if HANGSENG_전일대비 > 0:
+                        self.label_27.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif HANGSENG_전일대비 < 0:
+                        self.label_27.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_27.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_27.setText(txt)
+
+                elif HANGSENG_현재가 < float(value):
+
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+
+                    if HANGSENG_전일대비 > 0:
+                        self.label_27.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif HANGSENG_전일대비 < 0:
+                        self.label_27.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_27.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_27.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(HANGSENG_고가, ','))
+                self.label_28.setText(txt)
+                
+                self.plot2_time_line.setValue(cme_time_index)
+
+                self.plot2_ovc_jl_line.setValue(HANGSENG_전저)
+                self.plot2_ovc_jh_line.setValue(HANGSENG_전고)
+                self.plot2_ovc_close_line.setValue(HANGSENG_종가)
+                self.plot2_ovc_open_line.setValue(HANGSENG_시가)
+                self.plot2_ovc_pivot_line.setValue(HANGSENG_피봇)
+                self.plot2_ovc_low_line.setValue(HANGSENG_저가)
+                self.plot2_ovc_high_line.setValue(HANGSENG_고가)                 
+
+                self.plot2_hangseng_curve.setData(df_hangseng_graph['price'].to_numpy())
+
+                if flag_checkBox_plot2_bband:
+
+                    self.Calc_SAR_BBand('HSI')
+
+                    self.plot2_bollinger_upper_curve.setData(df_hangseng_graph['BBUpper'].to_numpy())
+                    self.plot2_bollinger_middle_curve.setData(df_hangseng_graph['BBMiddle'].to_numpy())
+                    self.plot2_bollinger_lower_curve.setData(df_hangseng_graph['BBLower'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot2_mama:
+
+                    self.Calc_MAMA('HSI')
+
+                    self.plot2_mama_curve.setData(df_hangseng_graph['MAMA'].to_numpy())
+                    self.plot2_fama_curve.setData(df_hangseng_graph['A_FAMA'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot2_oe:
+                    
+                    self.Calc_Ichimoku('HSI')
+
+                    self.plot2_oe_conv_curve.setData(df_hangseng_graph['OE_CONV'].to_numpy())
+                    self.plot2_oe_base_curve.setData(df_hangseng_graph['OE_BASE'].to_numpy())
+                else:
+                    pass
 
             elif comboindex2 == 21:
 
@@ -36801,7 +36924,130 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex3 == 19:
 
-                pass
+                if df_hangseng_graph.at[cme_time_index, 'BBMiddle'] == df_hangseng_graph.at[cme_time_index, 'BBMiddle']:
+
+                    if df_hangseng_graph.at[cme_time_index, 'BBMiddle'] >= df_hangseng_graph.at[cme_time_index, 'price']:
+                        self.label_p3_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p3_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    pass                 
+
+                if df_hangseng_graph.at[cme_time_index, 'PSAR'] == df_hangseng_graph.at[cme_time_index, 'PSAR']:
+
+                    if df_hangseng_graph.at[cme_time_index, 'PSAR'] >= df_hangseng_graph.at[cme_time_index, 'price']:
+                        self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p3_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_hangseng_graph.at[cme_time_index, 'BBMiddle'], df_hangseng_graph.at[cme_time_index, 'PSAR'], HANGSENG_호가순매수)
+                    self.label_p3_2.setText(txt)
+                else:
+                    pass
+                
+                if df_hangseng_graph.at[cme_time_index, 'OE_CONV'] == df_hangseng_graph.at[cme_time_index, 'OE_CONV'] and df_hangseng_graph.at[cme_time_index, 'OE_BASE'] == df_hangseng_graph.at[cme_time_index, 'OE_BASE']:
+
+                    if df_hangseng_graph.at[cme_time_index, 'OE_CONV'] < df_hangseng_graph.at[cme_time_index, 'OE_BASE']:
+                        self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p3_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_hangseng_graph.at[cme_time_index, 'OE_CONV'], df_hangseng_graph.at[cme_time_index, 'OE_BASE'])
+                    self.label_p3_3.setText(txt)
+                else:
+                    pass
+
+                if df_hangseng_graph.at[cme_time_index, 'MAMA'] == df_hangseng_graph.at[cme_time_index, 'MAMA'] and df_hangseng_graph.at[cme_time_index, 'FAMA'] == df_hangseng_graph.at[cme_time_index, 'FAMA']:
+
+                    if df_hangseng_graph.at[cme_time_index, 'FAMA'] >= df_hangseng_graph.at[cme_time_index, 'BBLower']:
+
+                        if df_hangseng_graph.at[cme_time_index, 'MAMA'] < df_hangseng_graph.at[cme_time_index, 'FAMA']:
+                            self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p3_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p3_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_hangseng_graph.at[cme_time_index, 'MAMA'], df_hangseng_graph.at[cme_time_index, 'FAMA'])
+                    self.label_p3_4.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(HANGSENG_저가, ','))
+                self.label_36.setText(txt)
+
+                value = self.label_37.text().split()[0]     
+
+                if HANGSENG_현재가 > float(value):
+
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+
+                    if HANGSENG_전일대비 > 0:
+                        self.label_37.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif HANGSENG_전일대비 < 0:
+                        self.label_37.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_37.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_37.setText(txt)
+
+                elif HANGSENG_현재가 < float(value):
+
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+
+                    if HANGSENG_전일대비 > 0:
+                        self.label_37.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif HANGSENG_전일대비 < 0:
+                        self.label_37.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_37.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_37.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(HANGSENG_고가, ','))
+                self.label_38.setText(txt)
+                
+                self.plot3_time_line.setValue(cme_time_index)
+
+                self.plot3_ovc_jl_line.setValue(HANGSENG_전저)
+                self.plot3_ovc_jh_line.setValue(HANGSENG_전고)
+                self.plot3_ovc_close_line.setValue(HANGSENG_종가)
+                self.plot3_ovc_open_line.setValue(HANGSENG_시가)
+                self.plot3_ovc_pivot_line.setValue(HANGSENG_피봇)
+                self.plot3_ovc_low_line.setValue(HANGSENG_저가)
+                self.plot3_ovc_high_line.setValue(HANGSENG_고가)                 
+
+                self.plot3_hangseng_curve.setData(df_hangseng_graph['price'].to_numpy())
+
+                if flag_checkBox_plot3_bband:
+
+                    self.Calc_SAR_BBand('HSI')
+
+                    self.plot3_bollinger_upper_curve.setData(df_hangseng_graph['BBUpper'].to_numpy())
+                    self.plot3_bollinger_middle_curve.setData(df_hangseng_graph['BBMiddle'].to_numpy())
+                    self.plot3_bollinger_lower_curve.setData(df_hangseng_graph['BBLower'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot3_mama:
+
+                    self.Calc_MAMA('HSI')
+
+                    self.plot3_mama_curve.setData(df_hangseng_graph['MAMA'].to_numpy())
+                    self.plot3_fama_curve.setData(df_hangseng_graph['A_FAMA'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot3_oe:
+                    
+                    self.Calc_Ichimoku('HSI')
+
+                    self.plot3_oe_conv_curve.setData(df_hangseng_graph['OE_CONV'].to_numpy())
+                    self.plot3_oe_base_curve.setData(df_hangseng_graph['OE_BASE'].to_numpy())
+                else:
+                    pass
 
             elif comboindex3 == 21:
 
@@ -38180,7 +38426,130 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex4 == 19:
 
-                pass
+                if df_hangseng_graph.at[cme_time_index, 'BBMiddle'] == df_hangseng_graph.at[cme_time_index, 'BBMiddle']:
+
+                    if df_hangseng_graph.at[cme_time_index, 'BBMiddle'] >= df_hangseng_graph.at[cme_time_index, 'price']:
+                        self.label_p4_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p4_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    pass                 
+
+                if df_hangseng_graph.at[cme_time_index, 'PSAR'] == df_hangseng_graph.at[cme_time_index, 'PSAR']:
+
+                    if df_hangseng_graph.at[cme_time_index, 'PSAR'] >= df_hangseng_graph.at[cme_time_index, 'price']:
+                        self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p4_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_hangseng_graph.at[cme_time_index, 'BBMiddle'], df_hangseng_graph.at[cme_time_index, 'PSAR'], HANGSENG_호가순매수)
+                    self.label_p4_2.setText(txt)
+                else:
+                    pass
+                
+                if df_hangseng_graph.at[cme_time_index, 'OE_CONV'] == df_hangseng_graph.at[cme_time_index, 'OE_CONV'] and df_hangseng_graph.at[cme_time_index, 'OE_BASE'] == df_hangseng_graph.at[cme_time_index, 'OE_BASE']:
+
+                    if df_hangseng_graph.at[cme_time_index, 'OE_CONV'] < df_hangseng_graph.at[cme_time_index, 'OE_BASE']:
+                        self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p4_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_hangseng_graph.at[cme_time_index, 'OE_CONV'], df_hangseng_graph.at[cme_time_index, 'OE_BASE'])
+                    self.label_p4_3.setText(txt)
+                else:
+                    pass
+
+                if df_hangseng_graph.at[cme_time_index, 'MAMA'] == df_hangseng_graph.at[cme_time_index, 'MAMA'] and df_hangseng_graph.at[cme_time_index, 'FAMA'] == df_hangseng_graph.at[cme_time_index, 'FAMA']:
+
+                    if df_hangseng_graph.at[cme_time_index, 'FAMA'] >= df_hangseng_graph.at[cme_time_index, 'BBLower']:
+
+                        if df_hangseng_graph.at[cme_time_index, 'MAMA'] < df_hangseng_graph.at[cme_time_index, 'FAMA']:
+                            self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p4_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p4_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_hangseng_graph.at[cme_time_index, 'MAMA'], df_hangseng_graph.at[cme_time_index, 'FAMA'])
+                    self.label_p4_4.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(HANGSENG_저가, ','))
+                self.label_46.setText(txt)
+
+                value = self.label_47.text().split()[0]     
+
+                if HANGSENG_현재가 > float(value):
+
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+
+                    if HANGSENG_전일대비 > 0:
+                        self.label_47.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif HANGSENG_전일대비 < 0:
+                        self.label_47.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_47.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_47.setText(txt)
+
+                elif HANGSENG_현재가 < float(value):
+
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+
+                    if HANGSENG_전일대비 > 0:
+                        self.label_47.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif HANGSENG_전일대비 < 0:
+                        self.label_47.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_47.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_47.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(HANGSENG_고가, ','))
+                self.label_48.setText(txt)
+                
+                self.plot4_time_line.setValue(cme_time_index)
+
+                self.plot4_ovc_jl_line.setValue(HANGSENG_전저)
+                self.plot4_ovc_jh_line.setValue(HANGSENG_전고)
+                self.plot4_ovc_close_line.setValue(HANGSENG_종가)
+                self.plot4_ovc_open_line.setValue(HANGSENG_시가)
+                self.plot4_ovc_pivot_line.setValue(HANGSENG_피봇)
+                self.plot4_ovc_low_line.setValue(HANGSENG_저가)
+                self.plot4_ovc_high_line.setValue(HANGSENG_고가)                 
+
+                self.plot4_hangseng_curve.setData(df_hangseng_graph['price'].to_numpy())
+
+                if flag_checkBox_plot4_bband:
+
+                    self.Calc_SAR_BBand('HSI')
+
+                    self.plot4_bollinger_upper_curve.setData(df_hangseng_graph['BBUpper'].to_numpy())
+                    self.plot4_bollinger_middle_curve.setData(df_hangseng_graph['BBMiddle'].to_numpy())
+                    self.plot4_bollinger_lower_curve.setData(df_hangseng_graph['BBLower'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot4_mama:
+
+                    self.Calc_MAMA('HSI')
+
+                    self.plot4_mama_curve.setData(df_hangseng_graph['MAMA'].to_numpy())
+                    self.plot4_fama_curve.setData(df_hangseng_graph['A_FAMA'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot4_oe:
+                    
+                    self.Calc_Ichimoku('HSI')
+
+                    self.plot4_oe_conv_curve.setData(df_hangseng_graph['OE_CONV'].to_numpy())
+                    self.plot4_oe_base_curve.setData(df_hangseng_graph['OE_BASE'].to_numpy())
+                else:
+                    pass
 
             elif comboindex4 == 21:
 
@@ -39574,7 +39943,130 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex5 == 19:
 
-                pass
+                if df_hangseng_graph.at[cme_time_index, 'BBMiddle'] == df_hangseng_graph.at[cme_time_index, 'BBMiddle']:
+
+                    if df_hangseng_graph.at[cme_time_index, 'BBMiddle'] >= df_hangseng_graph.at[cme_time_index, 'price']:
+                        self.label_p5_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p5_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    pass                 
+
+                if df_hangseng_graph.at[cme_time_index, 'PSAR'] == df_hangseng_graph.at[cme_time_index, 'PSAR']:
+
+                    if df_hangseng_graph.at[cme_time_index, 'PSAR'] >= df_hangseng_graph.at[cme_time_index, 'price']:
+                        self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p5_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_hangseng_graph.at[cme_time_index, 'BBMiddle'], df_hangseng_graph.at[cme_time_index, 'PSAR'], HANGSENG_호가순매수)
+                    self.label_p5_2.setText(txt)
+                else:
+                    pass
+                
+                if df_hangseng_graph.at[cme_time_index, 'OE_CONV'] == df_hangseng_graph.at[cme_time_index, 'OE_CONV'] and df_hangseng_graph.at[cme_time_index, 'OE_BASE'] == df_hangseng_graph.at[cme_time_index, 'OE_BASE']:
+
+                    if df_hangseng_graph.at[cme_time_index, 'OE_CONV'] < df_hangseng_graph.at[cme_time_index, 'OE_BASE']:
+                        self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p5_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_hangseng_graph.at[cme_time_index, 'OE_CONV'], df_hangseng_graph.at[cme_time_index, 'OE_BASE'])
+                    self.label_p5_3.setText(txt)
+                else:
+                    pass
+
+                if df_hangseng_graph.at[cme_time_index, 'MAMA'] == df_hangseng_graph.at[cme_time_index, 'MAMA'] and df_hangseng_graph.at[cme_time_index, 'FAMA'] == df_hangseng_graph.at[cme_time_index, 'FAMA']:
+
+                    if df_hangseng_graph.at[cme_time_index, 'FAMA'] >= df_hangseng_graph.at[cme_time_index, 'BBLower']:
+
+                        if df_hangseng_graph.at[cme_time_index, 'MAMA'] < df_hangseng_graph.at[cme_time_index, 'FAMA']:
+                            self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p5_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p5_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_hangseng_graph.at[cme_time_index, 'MAMA'], df_hangseng_graph.at[cme_time_index, 'FAMA'])
+                    self.label_p5_4.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(HANGSENG_저가, ','))
+                self.label_56.setText(txt)
+
+                value = self.label_57.text().split()[0]     
+
+                if HANGSENG_현재가 > float(value):
+
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+
+                    if HANGSENG_전일대비 > 0:
+                        self.label_57.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif HANGSENG_전일대비 < 0:
+                        self.label_57.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_57.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_57.setText(txt)
+
+                elif HANGSENG_현재가 < float(value):
+
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+
+                    if HANGSENG_전일대비 > 0:
+                        self.label_57.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif HANGSENG_전일대비 < 0:
+                        self.label_57.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_57.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_57.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(HANGSENG_고가, ','))
+                self.label_58.setText(txt)
+                
+                self.plot5_time_line.setValue(cme_time_index)
+
+                self.plot5_ovc_jl_line.setValue(HANGSENG_전저)
+                self.plot5_ovc_jh_line.setValue(HANGSENG_전고)
+                self.plot5_ovc_close_line.setValue(HANGSENG_종가)
+                self.plot5_ovc_open_line.setValue(HANGSENG_시가)
+                self.plot5_ovc_pivot_line.setValue(HANGSENG_피봇)
+                self.plot5_ovc_low_line.setValue(HANGSENG_저가)
+                self.plot5_ovc_high_line.setValue(HANGSENG_고가)                 
+
+                self.plot5_hangseng_curve.setData(df_hangseng_graph['price'].to_numpy())
+
+                if flag_checkBox_plot5_bband:
+
+                    self.Calc_SAR_BBand('HSI')
+
+                    self.plot5_bollinger_upper_curve.setData(df_hangseng_graph['BBUpper'].to_numpy())
+                    self.plot5_bollinger_middle_curve.setData(df_hangseng_graph['BBMiddle'].to_numpy())
+                    self.plot5_bollinger_lower_curve.setData(df_hangseng_graph['BBLower'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot5_mama:
+
+                    self.Calc_MAMA('HSI')
+
+                    self.plot5_mama_curve.setData(df_hangseng_graph['MAMA'].to_numpy())
+                    self.plot5_fama_curve.setData(df_hangseng_graph['A_FAMA'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot5_oe:
+                    
+                    self.Calc_Ichimoku('HSI')
+
+                    self.plot5_oe_conv_curve.setData(df_hangseng_graph['OE_CONV'].to_numpy())
+                    self.plot5_oe_base_curve.setData(df_hangseng_graph['OE_BASE'].to_numpy())
+                else:
+                    pass
 
             elif comboindex5 == 21:
 
@@ -40968,7 +41460,130 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex6 == 19:
 
-                pass
+                if df_hangseng_graph.at[cme_time_index, 'BBMiddle'] == df_hangseng_graph.at[cme_time_index, 'BBMiddle']:
+
+                    if df_hangseng_graph.at[cme_time_index, 'BBMiddle'] >= df_hangseng_graph.at[cme_time_index, 'price']:
+                        self.label_p6_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    pass                 
+
+                if df_hangseng_graph.at[cme_time_index, 'PSAR'] == df_hangseng_graph.at[cme_time_index, 'PSAR']:
+
+                    if df_hangseng_graph.at[cme_time_index, 'PSAR'] >= df_hangseng_graph.at[cme_time_index, 'price']:
+                        self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_hangseng_graph.at[cme_time_index, 'BBMiddle'], df_hangseng_graph.at[cme_time_index, 'PSAR'], HANGSENG_호가순매수)
+                    self.label_p6_2.setText(txt)
+                else:
+                    pass
+                
+                if df_hangseng_graph.at[cme_time_index, 'OE_CONV'] == df_hangseng_graph.at[cme_time_index, 'OE_CONV'] and df_hangseng_graph.at[cme_time_index, 'OE_BASE'] == df_hangseng_graph.at[cme_time_index, 'OE_BASE']:
+
+                    if df_hangseng_graph.at[cme_time_index, 'OE_CONV'] < df_hangseng_graph.at[cme_time_index, 'OE_BASE']:
+                        self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_hangseng_graph.at[cme_time_index, 'OE_CONV'], df_hangseng_graph.at[cme_time_index, 'OE_BASE'])
+                    self.label_p6_3.setText(txt)
+                else:
+                    pass
+
+                if df_hangseng_graph.at[cme_time_index, 'MAMA'] == df_hangseng_graph.at[cme_time_index, 'MAMA'] and df_hangseng_graph.at[cme_time_index, 'FAMA'] == df_hangseng_graph.at[cme_time_index, 'FAMA']:
+
+                    if df_hangseng_graph.at[cme_time_index, 'FAMA'] >= df_hangseng_graph.at[cme_time_index, 'BBLower']:
+
+                        if df_hangseng_graph.at[cme_time_index, 'MAMA'] < df_hangseng_graph.at[cme_time_index, 'FAMA']:
+                            self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p6_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_hangseng_graph.at[cme_time_index, 'MAMA'], df_hangseng_graph.at[cme_time_index, 'FAMA'])
+                    self.label_p6_4.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(HANGSENG_저가, ','))
+                self.label_66.setText(txt)
+
+                value = self.label_67.text().split()[0]     
+
+                if HANGSENG_현재가 > float(value):
+
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+
+                    if HANGSENG_전일대비 > 0:
+                        self.label_67.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif HANGSENG_전일대비 < 0:
+                        self.label_67.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_67.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_67.setText(txt)
+
+                elif HANGSENG_현재가 < float(value):
+
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+
+                    if HANGSENG_전일대비 > 0:
+                        self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif HANGSENG_전일대비 < 0:
+                        self.label_67.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_67.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_67.setText(txt)
+                else:
+                    pass
+
+                txt = ' {0} '.format(format(HANGSENG_고가, ','))
+                self.label_68.setText(txt)
+                
+                self.plot6_time_line.setValue(cme_time_index)
+
+                self.plot6_ovc_jl_line.setValue(HANGSENG_전저)
+                self.plot6_ovc_jh_line.setValue(HANGSENG_전고)
+                self.plot6_ovc_close_line.setValue(HANGSENG_종가)
+                self.plot6_ovc_open_line.setValue(HANGSENG_시가)
+                self.plot6_ovc_pivot_line.setValue(HANGSENG_피봇)
+                self.plot6_ovc_low_line.setValue(HANGSENG_저가)
+                self.plot6_ovc_high_line.setValue(HANGSENG_고가)                 
+
+                self.plot6_hangseng_curve.setData(df_hangseng_graph['price'].to_numpy())
+
+                if flag_checkBox_plot6_bband:
+
+                    self.Calc_SAR_BBand('HSI')
+
+                    self.plot6_bollinger_upper_curve.setData(df_hangseng_graph['BBUpper'].to_numpy())
+                    self.plot6_bollinger_middle_curve.setData(df_hangseng_graph['BBMiddle'].to_numpy())
+                    self.plot6_bollinger_lower_curve.setData(df_hangseng_graph['BBLower'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot6_mama:
+
+                    self.Calc_MAMA('HSI')
+
+                    self.plot6_mama_curve.setData(df_hangseng_graph['MAMA'].to_numpy())
+                    self.plot6_fama_curve.setData(df_hangseng_graph['A_FAMA'].to_numpy())
+                else:
+                    pass
+
+                if flag_checkBox_plot6_oe:
+                    
+                    self.Calc_Ichimoku('HSI')
+
+                    self.plot6_oe_conv_curve.setData(df_hangseng_graph['OE_CONV'].to_numpy())
+                    self.plot6_oe_base_curve.setData(df_hangseng_graph['OE_BASE'].to_numpy())
+                else:
+                    pass
             
             elif comboindex6 == 21:
 
@@ -46828,8 +47443,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 jisu_txt = "GOLD: {0} ▲ ({1:.2f}, {2:.2f}%)".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율)
 
-                            self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
+                            if DayTime:
+                                self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
+                            else:
+                                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
 
                             gold_text_color = 'blue'                                           
 
@@ -46840,8 +47459,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 jisu_txt = "GOLD: {0} ▲ ({1:.2f}, {2:.2f}%)".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율)
 
-                            self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
+                            if DayTime:
+                                self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
+                            else:
+                                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
 
                             gold_text_color = 'red'                                                                             
                         else:
@@ -46856,8 +47479,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 jisu_txt = "GOLD: {0} ▼ ({1:.2f}, {2:.2f}%)".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율)
 
-                            self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
+                            if DayTime:
+                                self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
+                            else:
+                                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
 
                             gold_text_color = 'blue'
 
@@ -46868,8 +47495,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 jisu_txt = "GOLD: {0} ▼ ({1:.2f}, {2:.2f}%)".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율)
 
-                            self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
+                            if DayTime:
+                                self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
+                            else:
+                                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
 
                             gold_text_color = 'red'
                         else:
@@ -46939,8 +47570,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 jisu_txt = "EURO: {0:0.5f} ▲ ({1:0.5f}, {2:.2f}%)".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율)
 
-                            self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+                            if DayTime:
+                                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+                            else:
+                                self.dialog['선물옵션전광판'].label_kospi.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_kospi.setText(jisu_txt)
 
                             eurofx_text_color = 'blue'                                           
 
@@ -46951,8 +47586,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 jisu_txt = "EURO: {0:0.5f} ▲ ({1:0.5f}, {2:.2f}%)".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율)
 
-                            self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+                            if DayTime:
+                                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+                            else:
+                                self.dialog['선물옵션전광판'].label_kospi.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_kospi.setText(jisu_txt)
 
                             eurofx_text_color = 'red'                                                                             
                         else:
@@ -46967,8 +47606,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 jisu_txt = "EURO: {0:0.5f} ▼ ({1:0.5f}, {2:.2f}%)".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율)
 
-                            self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+                            if DayTime:
+                                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+                            else:
+                                self.dialog['선물옵션전광판'].label_kospi.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_kospi.setText(jisu_txt)
 
                             eurofx_text_color = 'blue'
 
@@ -46979,8 +47622,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 jisu_txt = "EURO: {0:0.5f} ▼ ({1:0.5f}, {2:.2f}%)".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율)
 
-                            self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+                            if DayTime:
+                                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+                            else:
+                                self.dialog['선물옵션전광판'].label_kospi.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_kospi.setText(jisu_txt)
 
                             eurofx_text_color = 'red'
                         else:
@@ -47052,8 +47699,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 jisu_txt = "YEN: {0:0.1f} ▲ ({1:0.2f}, {2:.2f}%)".format(YEN_현재가, YEN_전일대비, YEN_등락율)
 
-                            self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+                            if DayTime:
+                                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+                            else:
+                                self.dialog['선물옵션전광판'].label_kosdaq.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_kosdaq.setText(jisu_txt)
 
                             yen_text_color = 'blue'                                           
 
@@ -47064,8 +47715,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 jisu_txt = "YEN: {0:0.1f} ▲ ({1:0.2f}, {2:.2f}%)".format(YEN_현재가, YEN_전일대비, YEN_등락율)
 
-                            self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+                            if DayTime:
+                                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+                            else:
+                                self.dialog['선물옵션전광판'].label_kosdaq.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_kosdaq.setText(jisu_txt)
 
                             yen_text_color = 'red'                                                                             
                         else:
@@ -47080,8 +47735,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 jisu_txt = "YEN: {0:0.1f} ▼ ({1:0.2f}, {2:.2f}%)".format(YEN_현재가, YEN_전일대비, YEN_등락율)
 
-                            self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+                            if DayTime:
+                                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+                            else:
+                                self.dialog['선물옵션전광판'].label_kosdaq.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_kosdaq.setText(jisu_txt)
 
                             yen_text_color = 'blue'
 
@@ -47092,8 +47751,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 jisu_txt = "YEN: {0:0.1f} ▼ ({1:0.2f}, {2:.2f}%)".format(YEN_현재가, YEN_전일대비, YEN_등락율)
 
-                            self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+                            if DayTime:
+                                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+                            else:
+                                self.dialog['선물옵션전광판'].label_kosdaq.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_kosdaq.setText(jisu_txt)
 
                             yen_text_color = 'red'
                         else:
