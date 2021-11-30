@@ -24900,6 +24900,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot1_nasdaq_curve.clear()
         self.plot1_wti_curve.clear()
 
+        self.plot1_gold_curve.clear()
+        self.plot1_eurofx_curve.clear()
+        self.plot1_yen_curve.clear()
+        self.plot1_hangseng_curve.clear()
+
         self.plot1_bollinger_upper_curve.clear()
         self.plot1_bollinger_middle_curve.clear()
         self.plot1_bollinger_lower_curve.clear()
@@ -24924,6 +24929,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
         global NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가
         global WTI_전저, WTI_전고, WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_고가
+        global GOLD_전저, GOLD_전고, GOLD_종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_고가
+        global EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_고가
+        global YEN_전저, YEN_전고, YEN_종가, YEN_피봇, YEN_시가, YEN_저가, YEN_고가
+        global HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_고가
 
         txt = self.comboBox1.currentText()
         comboindex1 = self.comboBox1.currentIndex()
