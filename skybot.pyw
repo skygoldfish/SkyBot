@@ -33500,7 +33500,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if GOLD_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1:.1f}, {2:0.1f}%, {3}) ". \
                         format(GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭)
 
                     if GOLD_전일대비 > 0:
@@ -33514,7 +33514,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif GOLD_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1:.1f}, {2:0.1f}%, {3}) ". \
                         format(GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭)
 
                     if GOLD_전일대비 > 0:
