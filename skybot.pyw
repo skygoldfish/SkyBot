@@ -828,7 +828,11 @@ if os.path.isfile('nighttime.txt'):
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         HANGSENG_종가 = float(temp[4])
-        print('HANGSENG 종가 =', HANGSENG_종가)        
+        print('HANGSENG 종가 =', HANGSENG_종가)
+
+        print('***YEN_전저 =\r', YEN_전저)
+        print('***YEN_전고 =\r', YEN_전고)
+        print('***YEN_종가 =\r', YEN_종가)        
 else:
     CME_종가 = 0
     SP500_전저 = 0
@@ -25895,6 +25899,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 YEN_고가 = YEN_종가
             else:
                 pass
+
+            print('YEN_종가 =\r', YEN_종가)
+            print('YEN_전저 =\r', YEN_전저)
+            print('YEN_전고 =\r', YEN_전고)
+            print('YEN_피봇 =\r', YEN_피봇)
+            print('YEN_시가 =\r', YEN_시가)
+            print('YEN_저가 =\r', YEN_저가)
+            print('YEN_고가 =\r', YEN_고가)
                 
             txt = ' {0} '.format(format(YEN_전저, ','))
             self.label_11.setText(txt)
@@ -46290,7 +46302,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if EUROFX_피봇 == 0:
 
                     if EUROFX_전저 > 0 and EUROFX_전고 > 0:
-                        EUROFX_피봇 = calc_pivot(EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_시가)
+                        EUROFX_피봇 = round(calc_pivot(EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_시가), 5)
                     else:
                         pass
                 else:
@@ -46401,7 +46413,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if YEN_피봇 == 0:
 
                     if YEN_전저 > 0 and YEN_전고 > 0:
-                        YEN_피봇 = calc_pivot(YEN_전저, YEN_전고, YEN_종가, YEN_시가)
+                        YEN_피봇 = round(calc_pivot(YEN_전저, YEN_전고, YEN_종가, YEN_시가), 1)
                     else:
                         pass
                 else:
@@ -46517,7 +46529,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if HANGSENG_피봇 == 0:
 
                     if HANGSENG_전저 > 0 and HANGSENG_전고 > 0:
-                        HANGSENG_피봇 = calc_pivot(HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_시가)
+                        HANGSENG_피봇 = round(calc_pivot(HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_시가), 0)
                     else:
                         pass
                 else:
