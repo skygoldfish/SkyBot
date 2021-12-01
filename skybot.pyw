@@ -33625,11 +33625,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(GOLD_저가, ','))
                 self.label_16.setText(txt)
 
-                value = self.label_17.text().split()[0]     
+                tmp = self.label_17.text().split()[0]
+                value = tmp.replace(',', '')     
 
                 if GOLD_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭)
+                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율, GOLD_진폭)
 
                     if GOLD_전일대비 > 0:
                         self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33642,7 +33643,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif GOLD_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭)
+                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율, GOLD_진폭)
 
                     if GOLD_전일대비 > 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35151,11 +35152,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(GOLD_저가, ','))
                 self.label_26.setText(txt)
 
-                value = self.label_27.text().split()[0]     
+                tmp = self.label_27.text().split()[0]
+                value = tmp.replace(',', '')
 
                 if GOLD_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭)
+                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율, GOLD_진폭)
 
                     if GOLD_전일대비 > 0:
                         self.label_27.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35168,7 +35170,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif GOLD_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭)
+                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율, GOLD_진폭)
 
                     if GOLD_전일대비 > 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36671,11 +36673,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(GOLD_저가, ','))
                 self.label_36.setText(txt)
 
-                value = self.label_37.text().split()[0]     
+                tmp = self.label_37.text().split()[0]
+                value = tmp.replace(',', '')
 
                 if GOLD_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭)
+                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율, GOLD_진폭)
 
                     if GOLD_전일대비 > 0:
                         self.label_37.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36688,7 +36691,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif GOLD_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭)
+                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율, GOLD_진폭)
 
                     if GOLD_전일대비 > 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38175,11 +38178,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(GOLD_저가, ','))
                 self.label_46.setText(txt)
 
-                value = self.label_47.text().split()[0]     
+                tmp = self.label_47.text().split()[0]
+                value = tmp.replace(',', '')     
 
                 if GOLD_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭)
+                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율, GOLD_진폭)
 
                     if GOLD_전일대비 > 0:
                         self.label_47.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38192,7 +38196,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif GOLD_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭)
+                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율, GOLD_진폭)
 
                     if GOLD_전일대비 > 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39694,11 +39698,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(GOLD_저가, ','))
                 self.label_56.setText(txt)
 
-                value = self.label_57.text().split()[0]     
+                tmp = self.label_57.text().split()[0]
+                value = tmp.replace(',', '')     
 
                 if GOLD_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭)
+                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율, GOLD_진폭)
 
                     if GOLD_전일대비 > 0:
                         self.label_57.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39711,7 +39716,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif GOLD_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭)
+                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율, GOLD_진폭)
 
                     if GOLD_전일대비 > 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41213,11 +41218,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(GOLD_저가, ','))
                 self.label_66.setText(txt)
 
-                value = self.label_67.text().split()[0]     
+                tmp = self.label_67.text().split()[0]
+                value = tmp.replace(',', '')     
 
                 if GOLD_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭)
+                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율, GOLD_진폭)
 
                     if GOLD_전일대비 > 0:
                         self.label_67.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41230,7 +41236,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif GOLD_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭)
+                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율, GOLD_진폭)
 
                     if GOLD_전일대비 > 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
