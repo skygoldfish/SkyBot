@@ -2171,10 +2171,11 @@ else:
 #####################################################################################################################################################################
 def new_except_hook(etype, evalue, tb):
     QMessageBox.critical(None, "Error!", "".join(format_exception(etype, evalue, tb)))
+    sys.exit(1)
 
 def patch_excepthook():
     print('\r')
-    print('Call Excepthook...\r')
+    print('Excepthook...\r')
     print('\r')
     sys.excepthook = new_except_hook
 
@@ -41779,7 +41780,12 @@ class Xing(object):
         self.XQ_t2835 = t2835(parent=self) # 야간 옵션전광판 조회
         self.XQ_t8415 = t8415(parent=self) # 선물/옵션 차트(N분) 조회
         self.XQ_t8416 = t8416(parent=self) # 선물/옵션 차트(일,주,월) 조회
-        
+        '''
+        self.TIMER = QtCore.QTimer()
+        self.TIMER.setSingleShot(True)
+        self.TIMER.timeout.connect(patch_excepthook)
+        self.TIMER.start()
+        '''
         self.clock = QtCore.QTimer()
         self.clock.timeout.connect(self.OnClockTick)
         self.clock.start(scoreboard_update_interval)
@@ -42315,9 +42321,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.setupUi(self)
-
-        # 예외처리 표시
-        #patch_excepthook()
 
         self.mp_number = len(args)
         
