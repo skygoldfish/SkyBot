@@ -46333,6 +46333,32 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
+            if NightTime:
+
+                global flag_drate_scale_factor_set
+
+                if KP200_전일종가 > 0 and KP200_전일시가 > 0 and abs(콜_등가_시가등락율) > 0 and not flag_drate_scale_factor_set:
+
+                    kp200_시가등락율 = ((KP200_전일시가 - KP200_전일종가) / KP200_전일종가) * 100
+                    plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / kp200_시가등락율))
+
+                    if plot_drate_scale_factor < 10:
+                        plot_drate_scale_factor = 10                
+                    elif plot_drate_scale_factor > 100:
+                        plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
+                    else:
+                        pass
+
+                    item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
+
+                    flag_drate_scale_factor_set = True
+                else:
+                    pass
+            else:
+                pass
+
             if tickdata['단축코드'][0:3] == '201':
 
                 index = call_행사가.index(tickdata['단축코드'][5:8])
