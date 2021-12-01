@@ -22508,6 +22508,8 @@ else:
     Ui_BigChart, QtBaseClass_BigChart = uic.loadUiType(UI_DIR + bigchart_ui_type)
 #####################################################################################################################################################################
 class 화면_BigChart(QDialog, Ui_BigChart):
+
+    exceptionOccurred = pyqtSignal(Exception, str)
     
     def __init__(self, parent=None):
 
@@ -22893,7 +22895,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.comboBox6.insertSeparator(9)
         self.comboBox6.insertSeparator(11)
         self.comboBox6.insertSeparator(20)
-        self.comboBox6.currentIndexChanged.connect(self.cb6_selectionChanged)               
+        self.comboBox6.currentIndexChanged.connect(self.cb6_selectionChanged)
+
+        self.exceptionOccurred.connect(self.on_exceptionOccurred)
 
         # 그래프관련 초기화
         # Enable antialiasing for prettier plots
@@ -23682,6 +23686,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         txt = '[{0:02d}:{1:02d}:{2:02d}] Sky Chart 초기화완료, 시간 = {3} ms\r'.format(dt.hour, dt.minute, dt.second, processing_time)
         self.parent.textBrowser.append(txt)
         print(txt)
+
+    @pyqtSlot(Exception, str)
+    def on_exceptionOccurred(self, exception, slot_name):
+        QMessageBox.critical(self, "Uncaught exception in SkyChart!", f"In pyqtSlot: {slot_name}:\n" f"Caught exception: {exception.__repr__()}")
 
     #cross hair
     def plot1_mouseMoved(self, evt):
