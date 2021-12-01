@@ -2169,6 +2169,34 @@ else:
 #####################################################################################################################################################################
 # 전역함수 --> 클래스로 처리?
 #####################################################################################################################################################################
+def pyqtCatchExceptionSlot(*args, catch=Exception, on_exception_emit=None):
+    """This is a decorator for pyqtSlots where an exception
+    in user code is caught, printed and a optional pyqtSignal with
+    signature pyqtSignal(Exception, str) is emitted when that happens.
+
+    Arguments:
+    *args:  any valid types for the pyqtSlot
+    catch:  Type of the exception to catch, defaults to any exception
+    on_exception_emit:  name of a pyqtSignal to be emitted
+    """
+    if len(args) == 0 or isinstance(args[0], types.FunctionType):
+        args = []
+    @pyqtSlot(*args)
+    def slotdecorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            try:
+                func(*args)
+            except catch as e:
+                print(f"In pyqtSlot: {wrapper.__name__}:\n"
+                      f"Caught exception: {e.__repr__()}")
+                if on_exception_emit is not None:
+                    # args[0] is instance of bound signal
+                    pyqt_signal = getattr(args[0], on_exception_emit)
+                    pyqt_signal.emit(e, wrapper.__name__)
+        return wrapper
+    return slotdecorator
+
 def new_except_hook(etype, evalue, tb):
     QMessageBox.critical(None, "Error!", "".join(format_exception(etype, evalue, tb)))
     sys.exit(1)
@@ -41846,7 +41874,7 @@ class Xing(object):
         self.clocktick = not self.clocktick
 
         # 예외처리 표시
-        patch_excepthook()
+        #patch_excepthook()
         '''
         file = open('footprint.log', 'w', encoding='UTF-8')
         text = self.caller.textBrowser.toPlainText()
@@ -42313,6 +42341,8 @@ else:
 #####################################################################################################################################################################
 class MainWindow(QMainWindow, Ui_MainWindow):
 
+    exceptionOccurred = pyqtSignal(Exception, str)
+
     def __init__(self, *args):
         super(MainWindow, self).__init__()            
 
@@ -42428,6 +42458,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.pushButton_reset.setText(' Reset ')
         self.pushButton_reset.clicked.connect(self.reset_button_clicked)
+
+        self.exceptionOccurred.connect(self.on_exceptionOccurred)
                 
         self.start_time = datetime.now()
 
@@ -42580,6 +42612,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     #####################################################################################################################################################################
     # 멀티프로세스방식 처리관련 함수들
     #####################################################################################################################################################################
+    @pyqtSlot(Exception, str)
+    def on_exceptionOccurred(self, exception, slot_name):
+        QMessageBox.critical(self, "Uncaught exception in pyqtSlot!", f"In pyqtSlot: {slot_name}:\n" f"Caught exception: {exception.__repr__()}")
+
     @pyqtSlot(str, str)
     def transfer_mp_main_exception(self, str, error):
 
