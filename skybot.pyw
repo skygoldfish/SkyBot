@@ -2169,6 +2169,15 @@ else:
 #####################################################################################################################################################################
 # 전역함수 --> 클래스로 처리?
 #####################################################################################################################################################################
+def new_except_hook(etype, evalue, tb):
+    QMessageBox.critical(None, "Error!", "".join(format_exception(etype, evalue, tb)))
+
+def patch_excepthook():
+    print('\r')
+    print('Call Excepthook...\r')
+    print('\r')
+    sys.excepthook = new_except_hook
+
 def sqliteconn():
     conn = sqlite3.connect(DATABASE)
     return conn
@@ -33807,11 +33816,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(YEN_저가, ','))
                 self.label_16.setText(txt)
 
-                value = self.label_17.text().split()[0]     
+                tmp = self.label_17.text().split()[0]
+                value = tmp.replace(',', '')     
 
                 if YEN_현재가 > float(value):
 
-                    txt = " {0:.1f} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭)
+                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율, YEN_진폭)
 
                     if YEN_전일대비 > 0:
                         self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33824,7 +33834,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif YEN_현재가 < float(value):
 
-                    txt = " {0:.1f} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭)
+                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율, YEN_진폭)
 
                     if YEN_전일대비 > 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35332,11 +35342,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(YEN_저가, ','))
                 self.label_26.setText(txt)
 
-                value = self.label_27.text().split()[0]     
+                tmp = self.label_27.text().split()[0]
+                value = tmp.replace(',', '')     
 
                 if YEN_현재가 > float(value):
 
-                    txt = " {0:.1f} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭)
+                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율, YEN_진폭)
 
                     if YEN_전일대비 > 0:
                         self.label_27.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35349,7 +35360,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif YEN_현재가 < float(value):
 
-                    txt = " {0:.1f} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭)
+                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율, YEN_진폭)
 
                     if YEN_전일대비 > 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36851,11 +36862,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(YEN_저가, ','))
                 self.label_36.setText(txt)
 
-                value = self.label_37.text().split()[0]     
+                tmp = self.label_37.text().split()[0]
+                value = tmp.replace(',', '')     
 
                 if YEN_현재가 > float(value):
 
-                    txt = " {0:.1f} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭)
+                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율, YEN_진폭)
 
                     if YEN_전일대비 > 0:
                         self.label_37.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36868,7 +36880,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif YEN_현재가 < float(value):
 
-                    txt = " {0:.1f} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭)
+                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율, YEN_진폭)
 
                     if YEN_전일대비 > 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38354,11 +38366,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(YEN_저가, ','))
                 self.label_46.setText(txt)
 
-                value = self.label_47.text().split()[0]     
+                tmp = self.label_47.text().split()[0]
+                value = tmp.replace(',', '')     
 
                 if YEN_현재가 > float(value):
 
-                    txt = " {0:.1f} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭)
+                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율, YEN_진폭)
 
                     if YEN_전일대비 > 0:
                         self.label_47.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38371,7 +38384,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif YEN_현재가 < float(value):
 
-                    txt = " {0:.1f} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭)
+                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율, YEN_진폭)
 
                     if YEN_전일대비 > 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39872,11 +39885,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(YEN_저가, ','))
                 self.label_56.setText(txt)
 
-                value = self.label_57.text().split()[0]     
+                tmp = self.label_57.text().split()[0]
+                value = tmp.replace(',', '')     
 
                 if YEN_현재가 > float(value):
 
-                    txt = " {0:.1f} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭)
+                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율, YEN_진폭)
 
                     if YEN_전일대비 > 0:
                         self.label_57.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39889,7 +39903,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif YEN_현재가 < float(value):
 
-                    txt = " {0:.1f} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭)
+                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율, YEN_진폭)
 
                     if YEN_전일대비 > 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41390,11 +41404,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0} '.format(format(YEN_저가, ','))
                 self.label_66.setText(txt)
 
-                value = self.label_67.text().split()[0]     
+                tmp = self.label_67.text().split()[0]
+                value = tmp.replace(',', '')     
 
                 if YEN_현재가 > float(value):
 
-                    txt = " {0:.1f} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭)
+                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율, YEN_진폭)
 
                     if YEN_전일대비 > 0:
                         self.label_67.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41407,7 +41422,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif YEN_현재가 < float(value):
 
-                    txt = " {0:.1f} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭)
+                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율, YEN_진폭)
 
                     if YEN_전일대비 > 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41824,11 +41839,14 @@ class Xing(object):
 
         self.clocktick = not self.clocktick
 
+        # 예외처리 표시
+        patch_excepthook()
+        '''
         file = open('footprint.log', 'w', encoding='UTF-8')
         text = self.caller.textBrowser.toPlainText()
         file.write(text)
-        file.close()        
-
+        file.close()
+        '''
         if self.clocktick and dt.second == 30: # 매 30초 마다(1분 주기)
 
             if self.main_connection is not None:
@@ -42297,6 +42315,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.setupUi(self)
+
+        # 예외처리 표시
+        #patch_excepthook()
 
         self.mp_number = len(args)
         
@@ -48246,8 +48267,8 @@ if __name__ == "__main__":
         Speak('인터넷 연결을 확인해주세요.')
         sys.exit(0)
     else:
-        flag_internet = True        
-    
+        flag_internet = True    
+
     # 멀티프로세스
     if MULTIPROCESS and flag_internet:
 
@@ -48375,7 +48396,13 @@ if __name__ == "__main__":
     logger.setLevel(loggerLevel)
     logger.info("=============================================================================")
     logger.info("LOG START")
+    '''
+    def log_except_hook(*exc_info):
+        text = "".join(traceback.format_exception(*exc_info))
+        logging.error("Unhandled exception: %s", text)
 
+    sys.excepthook = log_except_hook
+    '''
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(True)
     
