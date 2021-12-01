@@ -3798,6 +3798,8 @@ else:
 #####################################################################################################################################################################
 class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
+    exceptionOccurred = pyqtSignal(Exception, str)
+
     def __init__(self, parent=None):
 
         super(화면_선물옵션전광판, self).__init__(parent, flags = Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
@@ -3935,6 +3937,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         #self.pushButton_telegram.setCheckable(True)
         #self.pushButton_telegram.toggle()
+
+        self.exceptionOccurred.connect(self.on_exceptionOccurred)
 
         self.pushButton_start.clicked.connect(self.start_button_clicked)
         self.pushButton_telegram.clicked.connect(self.telegram_button_clicked)
@@ -4500,6 +4504,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def __del__(self):
         
         print('Score Board Diaglog객체가 소멸됩니다.')
+
+    @pyqtSlot(Exception, str)
+    def on_exceptionOccurred(self, exception, slot_name):
+        QMessageBox.critical(self, "Uncaught exception in 선물옵션전광판!", f"In pyqtSlot: {slot_name}:\n" f"Caught exception: {exception.__repr__()}")
 
     @pyqtSlot()
     def start_button_clicked(self):
@@ -42614,7 +42622,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     #####################################################################################################################################################################
     @pyqtSlot(Exception, str)
     def on_exceptionOccurred(self, exception, slot_name):
-        QMessageBox.critical(self, "Uncaught exception in pyqtSlot!", f"In pyqtSlot: {slot_name}:\n" f"Caught exception: {exception.__repr__()}")
+        QMessageBox.critical(self, "Uncaught exception in MainWindow!", f"In pyqtSlot: {slot_name}:\n" f"Caught exception: {exception.__repr__()}")
 
     @pyqtSlot(str, str)
     def transfer_mp_main_exception(self, str, error):
