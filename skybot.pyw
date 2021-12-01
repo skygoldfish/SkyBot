@@ -10,6 +10,8 @@
 
 # 기본 모듈
 import sys, os
+import types
+from functools import wraps
 import traceback
 import atexit
 from datetime import *
@@ -42612,8 +42614,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if returnValue == QMessageBox.Ok:
             print("showSDBMsgBox OK Clicked...")
 
-    @pyqtSlot()
-    def reset_button_clicked(self):
+    #@pyqtSlot()
+    @pyqtCatchExceptionSlot("bool", on_exception_emit="exceptionOccurred")
+    def reset_button_clicked(self, checked):
 
         global flag_drop_reset1, flag_drop_reset2, flag_drop_reset3, flag_drop_reset4
 
@@ -42624,6 +42627,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         #playsound('Resources/click.wav')
         winsound.PlaySound('Resources/click.wav', winsound.SND_FILENAME)
+        raise Exception("ExceptionOccurr Test...")
     
     #####################################################################################################################################################################
     # 멀티프로세스방식 처리관련 함수들
