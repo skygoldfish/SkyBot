@@ -891,6 +891,10 @@ if os.path.isfile('daytime.txt'):
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
+        KP200_전일종가 = float(temp[4])
+
+        tmp = daytime_file.readline().strip()
+        temp = tmp.split()
         KP200_전일시가 = float(temp[3])
         
         tmp = daytime_file.readline().strip()
@@ -903,7 +907,7 @@ if os.path.isfile('daytime.txt'):
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        KP200_전일종가 = float(temp[3])
+        KP200_종가 = float(temp[3])
 
         tmp = daytime_file.readline().strip()
 
@@ -940,10 +944,11 @@ if os.path.isfile('daytime.txt'):
         HANGSENG_전일종가 = float(temp[4])        
 else:
     장시작_중심가 = 0
+    KP200_전일종가 = 0
     KP200_전일시가 = 0    
     KP200_전고 = 0
-    KP200_전저 = 0
-    KP200_전일종가 = 0
+    KP200_전저 = 0    
+    KP200_종가 = 0
     SP500_전일종가 = 0
     DOW_전일종가 = 0
     NASDAQ_전일종가 = 0
@@ -15609,6 +15614,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.fut_realdata['현재가'] = df['현재가']
                 self.fut_realdata['KP200'] = df['KOSPI200지수']
 
+                if DayTime:
+                    KP200_전일종가 = df['KOSPI200지수']
+                else:
+                    pass
+
                 atm_txt = self.get_atm_txt(self.fut_realdata['KP200'])
 
                 if atm_txt[-1] == '2' or atm_txt[-1] == '7':
@@ -20458,6 +20468,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_fut.setItem(2, Futures_column.시가.value, item)
                 else:
+                    item = QTableWidgetItem("{0:.2f}".format(KP200_전일종가))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_fut.setItem(2, Futures_column.종가.value, item)
+
                     item = QTableWidgetItem("{0:.2f}".format(KP200_전일시가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -20476,7 +20492,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_fut.setItem(2, Futures_column.고가.value, item)
 
-                    item = QTableWidgetItem("{0:.2f}".format(KP200_전일종가))
+                    item = QTableWidgetItem("{0:.2f}".format(KP200_종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -44042,6 +44058,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         file_txt = '################# < KP200 Index of the Last Day > ###################\n'                        
                         daytime_file.write(file_txt)
                         file_txt = 'Center Value = {0}\n'.format(CENTER_VAL)
+                        daytime_file.write(file_txt)
+                        file_txt = 'KP200 Last Close = {0}\n'.format(KP200_전일종가)
                         daytime_file.write(file_txt)
                         file_txt = 'KP200 Open = {0}\n'.format(kp200_시가)
                         daytime_file.write(file_txt)                            
