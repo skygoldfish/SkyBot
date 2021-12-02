@@ -958,6 +958,11 @@ else:
     HANGSENG_전일종가 = 0
     GOLD_전일종가 = 0
 
+if DayTime:
+    KP200_전일종가 = KP200_종가
+else:
+    pass
+
 print('KP200 전일시가 =', KP200_전일시가)
 print('KP200 전고 =', KP200_전고)
 print('KP200 전저 =', KP200_전저)
@@ -15614,11 +15619,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.fut_realdata['현재가'] = df['현재가']
                 self.fut_realdata['KP200'] = df['KOSPI200지수']
 
+                print('*************************** <<kp200 전일종가>> *************************** ==', df['KOSPI200지수'])
+                '''
                 if DayTime:
                     KP200_전일종가 = df['KOSPI200지수']
+                    item = QTableWidgetItem("{0:.2f}".format(KP200_전일종가)) 
+                        
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_fut.setItem(2, Futures_column.종가.value, item)
                 else:
                     pass
-
+                '''
                 atm_txt = self.get_atm_txt(self.fut_realdata['KP200'])
 
                 if atm_txt[-1] == '2' or atm_txt[-1] == '7':
@@ -15657,20 +15670,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_quote.setItem(0, Quote_column.미결종합.value - 1, item)
                 else:
                     print("atm값({0})이 리스트에 없습니다.".format(atm_txt))
-
-                if DayTime:
-
-                    if KP200_전일종가 > 0:
-                        item = QTableWidgetItem("{0:.2f}".format(KP200_전일종가))                        
-                    else:
-                        item = QTableWidgetItem("{0:.2f}".format(df['KOSPI200지수']))
-                        
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
-                    self.tableWidget_fut.setItem(2, Futures_column.종가.value, item)
-                else:
-                    pass
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 등가지수는 {3}(index = {4})입니다.\r'.format(dt.hour, dt.minute, dt.second, atm_txt, ATM_INDEX)
                 self.parent.textBrowser.append(txt)
@@ -20450,6 +20449,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if os.path.isfile('daytime.txt'):
 
                 if DayTime:
+                    item = QTableWidgetItem("{0:.2f}".format(KP200_종가))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_fut.setItem(2, Futures_column.종가.value, item)
+
                     item = QTableWidgetItem("{0:.2f}".format(KP200_전저))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -20461,12 +20466,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_fut.setItem(2, Futures_column.전고.value, item)
-
-                    item = QTableWidgetItem("{0:.2f}".format(KP200_전일시가))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
-                    self.tableWidget_fut.setItem(2, Futures_column.시가.value, item)
                 else:
                     item = QTableWidgetItem("{0:.2f}".format(KP200_전일종가))
                     item.setTextAlignment(Qt.AlignCenter)
