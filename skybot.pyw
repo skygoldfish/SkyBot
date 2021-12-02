@@ -998,7 +998,7 @@ else:
 if DayTime:
     KP200_전일종가 = KP200_종가
 else:
-    pass
+    KP200_당일시가 = KP200_전일시가
 
 total_packet_size = 0
 
@@ -1042,7 +1042,7 @@ t2301_month_info = ''
 t2835_month_info = ''
 
 kp200_피봇 = 0
-kp200_시가 = 0
+KP200_당일시가 = 0
 kp200_저가 = 0
 kp200_현재가 = 0
 kp200_고가 = 0
@@ -11360,10 +11360,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.tableWidget_fut.item(2, Futures_column.시가.value).setBackground(QBrush(흰색))
 
-        if kp200_시가 > 0 and KP200_전일종가 > 0:
-            if kp200_시가 > KP200_전일종가:
+        if KP200_당일시가 > 0 and KP200_전일종가 > 0:
+            if KP200_당일시가 > KP200_전일종가:
                 self.tableWidget_fut.item(2, Futures_column.시가.value).setForeground(QBrush(적색))
-            elif kp200_시가 < KP200_전일종가:
+            elif KP200_당일시가 < KP200_전일종가:
                 self.tableWidget_fut.item(2, Futures_column.시가.value).setForeground(QBrush(청색))
             else:
                 self.tableWidget_fut.item(2, Futures_column.시가.value).setForeground(QBrush(검정색))
@@ -15494,7 +15494,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         global call_itm_count, call_max_actval
         global put_itm_count, put_max_actval
-        global KP200_전일종가, kp200_시가, kp200_저가, kp200_현재가, kp200_고가, kp200_진폭
+        global KP200_전일종가, KP200_당일시가, kp200_저가, kp200_현재가, kp200_고가, kp200_진폭
         global t2835_month_info
         global server_date, server_time, system_server_timegap, server_x_idx
         global CM_OPTCODE, NM_OPTCODE
@@ -44066,7 +44066,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         daytime_file.write(file_txt)
                         file_txt = 'KP200 Last Close = {0}\n'.format(KP200_전일종가)
                         daytime_file.write(file_txt)
-                        file_txt = 'KP200 Open = {0}\n'.format(kp200_시가)
+                        file_txt = 'KP200 Open = {0}\n'.format(KP200_당일시가)
                         daytime_file.write(file_txt)                            
                         file_txt = 'KP200 High = {0}\n'.format(kp200_고가)
                         daytime_file.write(file_txt)
@@ -44271,7 +44271,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                #txt = '[{0:02d}:{1:02d}:{2:02d}] 선물/KOSPI200 예상시가 = {3}/{4}, 예상등가 = {5}\r'.format(t0167_hour, t0167_minute, t0167_second, 근월물_선물_시가, kp200_시가, atm_txt)
+                #txt = '[{0:02d}:{1:02d}:{2:02d}] 선물/KOSPI200 예상시가 = {3}/{4}, 예상등가 = {5}\r'.format(t0167_hour, t0167_minute, t0167_second, 근월물_선물_시가, KP200_당일시가, atm_txt)
                 #self.dialog['선물옵션전광판'].textBrowser.append(txt)
 
                 if atm_txt in opt_actval:
@@ -44844,7 +44844,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global df_fut, df_futures_cm_graph, df_kp200_graph
         global ATM_INDEX, call_atm_value, put_atm_value, KP200_COREVAL, 장시작_양합, 장시작_중심가
         global flag_kp200_low, flag_kp200_high, kospi_text_color, kosdaq_text_color
-        global kospi_price, kosdaq_price, kp200_시가, kp200_저가, kp200_현재가, kp200_고가, kp200_진폭
+        global kospi_price, kosdaq_price, KP200_당일시가, kp200_저가, kp200_현재가, kp200_고가, kp200_진폭
 
         try:
             #szTrCode = tickdata['tr_code']
@@ -44881,9 +44881,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         item = QTableWidgetItem(지수)
                         item.setBackground(QBrush(옅은회색))
 
-                    if kp200_현재가 > kp200_시가:
+                    if kp200_현재가 > KP200_당일시가:
                         item.setForeground(QBrush(적색))
-                    elif kp200_현재가 < kp200_시가:
+                    elif kp200_현재가 < KP200_당일시가:
                         item.setForeground(QBrush(청색))
                     else:
                         item.setForeground(QBrush(검정색))
@@ -44903,32 +44903,32 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if 시가지수 != self.dialog['선물옵션전광판'].tableWidget_fut.item(2, Futures_column.시가.value).text():
 
-                    kp200_시가 = float(tickdata['시가지수'])
+                    KP200_당일시가 = float(tickdata['시가지수'])
 
-                    self.dialog['선물옵션전광판'].kp200_realdata['시가'] = kp200_시가
-                    df_futures_cm_graph.at[cme_time_index, 'kp200'] = kp200_시가
-                    df_kp200_graph.at[cme_time_index, 'price'] = kp200_시가
+                    self.dialog['선물옵션전광판'].kp200_realdata['시가'] = KP200_당일시가
+                    df_futures_cm_graph.at[cme_time_index, 'kp200'] = KP200_당일시가
+                    df_kp200_graph.at[cme_time_index, 'price'] = KP200_당일시가
 
                     item = QTableWidgetItem(시가지수)
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
 
-                    if kp200_시가 > KP200_전일종가:
+                    if KP200_당일시가 > KP200_전일종가:
                         item.setForeground(QBrush(적색))
-                    elif kp200_시가 < KP200_전일종가:
+                    elif KP200_당일시가 < KP200_전일종가:
                         item.setForeground(QBrush(청색))
                     else:
                         item.setForeground(QBrush(검정색))
 
                     self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.시가.value, item)
 
-                    item = QTableWidgetItem("{0:.2f}".format(kp200_시가 - KP200_전일종가))
+                    item = QTableWidgetItem("{0:.2f}".format(KP200_당일시가 - KP200_전일종가))
                     item.setTextAlignment(Qt.AlignCenter)
 
-                    if kp200_시가 > KP200_전일종가:
+                    if KP200_당일시가 > KP200_전일종가:
                         item.setBackground(QBrush(콜기준가색))
                         item.setForeground(QBrush(검정색))
-                    elif kp200_시가 < KP200_전일종가:
+                    elif KP200_당일시가 < KP200_전일종가:
                         item.setBackground(QBrush(풋기준가색))
                         item.setForeground(QBrush(흰색))
                     else:
@@ -44936,12 +44936,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.시가갭.value, item)
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] KP200 시작가 {3:.2f}를 수신했습니다.\r'.format(t0167_hour, t0167_minute, t0167_second, kp200_시가)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] KP200 시작가 {3:.2f}를 수신했습니다.\r'.format(t0167_hour, t0167_minute, t0167_second, KP200_당일시가)
                     self.dialog['선물옵션전광판'].textBrowser.append(txt)
 
                     if KP200_전저 > 0 and KP200_전고 > 0:
 
-                        kp200_피봇 = calc_pivot(KP200_전저, KP200_전고, KP200_전일종가, kp200_시가)         
+                        kp200_피봇 = calc_pivot(KP200_전저, KP200_전고, KP200_전일종가, KP200_당일시가)         
 
                         item = QTableWidgetItem("{0:.2f}".format(kp200_피봇))
                         item.setTextAlignment(Qt.AlignCenter)
@@ -44949,7 +44949,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         pass
                     
-                    atm_txt = self.dialog['선물옵션전광판'].get_atm_txt(kp200_시가)
+                    atm_txt = self.dialog['선물옵션전광판'].get_atm_txt(KP200_당일시가)
                     ATM_INDEX = opt_actval.index(atm_txt)
 
                     if atm_txt[-1] == '2' or atm_txt[-1] == '7':
@@ -45817,9 +45817,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 근월물_선물_종가대비_등락율 = float(tickdata['등락율'])            
                 근월물_선물_시가대비_등락율 = ((float(tickdata['현재가']) - float(tickdata['시가'])) / float(tickdata['시가'])) * 100
 
-                if TARGET_MONTH == 'CM' and KP200_전일종가 > 0 and kp200_시가 > 0 and abs(콜_등가_시가등락율) > 0 and not flag_drate_scale_factor_set:
+                if TARGET_MONTH == 'CM' and KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(콜_등가_시가등락율) > 0 and not flag_drate_scale_factor_set:
 
-                    kp200_시가등락율 = ((kp200_시가 - KP200_전일종가) / KP200_전일종가) * 100
+                    kp200_시가등락율 = ((KP200_당일시가 - KP200_전일종가) / KP200_전일종가) * 100
                     plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / kp200_시가등락율))
 
                     if plot_drate_scale_factor < 10:
@@ -45856,9 +45856,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 차월물_선물_종가대비_등락율 = float(tickdata['등락율'])            
                 차월물_선물_시가대비_등락율 = ((float(tickdata['현재가']) - float(tickdata['시가'])) / float(tickdata['시가'])) * 100
 
-                if TARGET_MONTH == 'NM' and KP200_전일종가 > 0 and kp200_시가 > 0 and abs(콜_등가_시가등락율) > 0 and not flag_drate_scale_factor_set:
+                if TARGET_MONTH == 'NM' and KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(콜_등가_시가등락율) > 0 and not flag_drate_scale_factor_set:
 
-                    kp200_시가등락율 = ((kp200_시가 - KP200_전일종가) / KP200_전일종가) * 100
+                    kp200_시가등락율 = ((KP200_당일시가 - KP200_전일종가) / KP200_전일종가) * 100
                     plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / kp200_시가등락율))
 
                     if plot_drate_scale_factor < 10:
@@ -46360,9 +46360,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 global flag_drate_scale_factor_set
 
-                if KP200_전일종가 > 0 and KP200_전일시가 > 0 and abs(콜_등가_시가등락율) > 0 and not flag_drate_scale_factor_set:
+                if KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(콜_등가_시가등락율) > 0 and not flag_drate_scale_factor_set:
 
-                    kp200_시가등락율 = ((KP200_전일시가 - KP200_전일종가) / KP200_전일종가) * 100
+                    kp200_시가등락율 = ((KP200_당일시가 - KP200_전일종가) / KP200_전일종가) * 100
                     plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / kp200_시가등락율))
 
                     if plot_drate_scale_factor < 10:
