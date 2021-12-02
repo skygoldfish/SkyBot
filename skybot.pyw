@@ -958,11 +958,6 @@ else:
     HANGSENG_전일종가 = 0
     GOLD_전일종가 = 0
 
-if DayTime:
-    KP200_전일종가 = KP200_종가
-else:
-    pass
-
 print('KP200 전일시가 =', KP200_전일시가)
 print('KP200 전고 =', KP200_전고)
 print('KP200 전저 =', KP200_전저)
@@ -999,6 +994,11 @@ else:
     FUT_HO = 'FUT_HO_FH0'
     OPT_REAL = 'OPT_REAL_OC0'
     OPT_HO = 'OPT_HO_OH0'
+
+if DayTime:
+    KP200_전일종가 = KP200_종가
+else:
+    pass
 
 total_packet_size = 0
 
