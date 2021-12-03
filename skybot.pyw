@@ -32712,6 +32712,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             pass
 
         if not flag_screen_update_is_running and not flag_plot1_update_is_running:
+            self.label_time_1.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
             self.update_plot1()
         else:
             self.label_time_1.setStyleSheet('background-color: black; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
