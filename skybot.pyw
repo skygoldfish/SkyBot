@@ -47652,7 +47652,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 EUROFX_저가 =  float(tickdata['저가'])
                 EUROFX_고가 =  float(tickdata['고가'])                    
-                EUROFX_진폭 = round((EUROFX_고가 - EUROFX_저가), 2)
+                EUROFX_진폭 = round((EUROFX_고가 - EUROFX_저가), 5)
 
                 if EUROFX_전일종가 > 0 and DayTime:
                     EUROFX_등락율 = ((EUROFX_현재가 - EUROFX_전일종가) / EUROFX_전일종가) * 100
