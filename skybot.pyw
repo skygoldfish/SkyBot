@@ -6553,6 +6553,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
+        except Exception as e:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_screen 에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
+            self.parent.textBrowser.append(txt)
+
+        finally:            
             if not flag_offline:
 
                 item_txt = '{0:.2f}'.format(main_loop_processing_time)
@@ -6564,12 +6570,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-        except Exception as e:
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_screen 에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
-            self.parent.textBrowser.append(txt)
-
-        finally:
             flag_screen_update_is_running = False
 
     def heartbeat_check(self):
@@ -41907,7 +41907,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' {0:.2f} ms '.format(plot6_processing_time)
    
             self.label_time_6.setText(txt)
-            
+
             flag_plot6_update_is_running = False
 
     def closeEvent(self,event):
