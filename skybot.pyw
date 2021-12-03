@@ -32715,7 +32715,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_time_1.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
             self.update_plot1()
         else:
-            self.label_time_1.setStyleSheet('background-color: black; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_time_1.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
 
     @pyqtSlot()    
     def plot2_update(self):
@@ -32724,7 +32724,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_time_2.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
             self.update_plot2()
         else:
-            self.label_time_2.setStyleSheet('background-color: black; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_time_2.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
 
     @pyqtSlot()    
     def plot3_update(self):
@@ -32733,7 +32733,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_time_3.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
             self.update_plot3()
         else:
-            self.label_time_3.setStyleSheet('background-color: black; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_time_3.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
 
     @pyqtSlot()    
     def plot4_update(self):
@@ -32742,7 +32742,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_time_4.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
             self.update_plot4()
         else:
-            self.label_time_4.setStyleSheet('background-color: black; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_time_4.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
 
     @pyqtSlot()    
     def plot5_update(self):
@@ -32751,7 +32751,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_time_5.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
             self.update_plot5()
         else:
-            self.label_time_5.setStyleSheet('background-color: black; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_time_5.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
 
     @pyqtSlot()    
     def plot6_update(self):
@@ -32760,7 +32760,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_time_6.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
             self.update_plot6()
         else:
-            self.label_time_6.setStyleSheet('background-color: black; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_time_6.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
 
     @logging_time_plot1  
     #@pyqtSlot()    
