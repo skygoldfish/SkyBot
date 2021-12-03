@@ -32812,7 +32812,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed        
                 
         try:
-            QApplication.processEvents()
+            #QApplication.processEvents()
         
             dt = datetime.now()
 
@@ -34279,6 +34279,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
 
+            QApplication.processEvents()
+
         except Exception as e:
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot1 에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
@@ -34325,7 +34327,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed        
 
         try:
-            QApplication.processEvents()
+            #QApplication.processEvents()
         
             dt = datetime.now()
 
@@ -35812,7 +35814,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
             else:
-                pass            
+                pass
+
+            QApplication.processEvents()           
         
         except Exception as e:
 
@@ -35852,7 +35856,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed        
 
         try:
-            QApplication.processEvents()
+            #QApplication.processEvents()
         
             dt = datetime.now()
 
@@ -37335,6 +37339,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
 
+            QApplication.processEvents()
+
         except Exception as e:
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot3 에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
@@ -37373,7 +37379,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed        
 
         try:
-            QApplication.processEvents()
+            #QApplication.processEvents()
         
             dt = datetime.now()
 
@@ -38839,6 +38845,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
             else:
                 pass
+
+            QApplication.processEvents()
             
         except Exception as e:
 
@@ -38878,7 +38886,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed        
 
         try:
-            QApplication.processEvents()
+            #QApplication.processEvents()
         
             dt = datetime.now()
 
@@ -40360,6 +40368,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
 
+            QApplication.processEvents()
+
         except Exception as e:
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot5 에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
@@ -40398,7 +40408,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed        
 
         try:
-            QApplication.processEvents()
+            #QApplication.processEvents()
         
             dt = datetime.now()
 
@@ -41879,6 +41889,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass            
             else:
                 pass
+
+            QApplication.processEvents()
 
         except Exception as e:
 
