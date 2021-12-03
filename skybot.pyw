@@ -23681,6 +23681,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.plot6_time_line_jugan_start.setValue(GuardTime)
 
         # 그리기 쓰레드
+        '''
         self.plot_update_worker1 = PlotUpdateWorker1()
         self.plot_update_worker1.trigger.connect(self.update_plot1)
 
@@ -23698,6 +23699,31 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         self.plot_update_worker6 = PlotUpdateWorker6()
         self.plot_update_worker6.trigger.connect(self.update_plot6)
+        '''
+
+        self.timer1 = QtCore.QTimer()
+        self.timer1.setInterval(chart_update_interval)
+        self.timer1.timeout.connect(self.plot1_update)
+
+        self.timer2 = QtCore.QTimer()
+        self.timer2.setInterval(chart_update_interval)
+        self.timer2.timeout.connect(self.plot2_update)
+
+        self.timer3 = QtCore.QTimer()
+        self.timer3.setInterval(chart_update_interval)
+        self.timer3.timeout.connect(self.plot3_update)
+
+        self.timer4 = QtCore.QTimer()
+        self.timer4.setInterval(chart_update_interval)
+        self.timer4.timeout.connect(self.plot4_update)
+
+        self.timer5 = QtCore.QTimer()
+        self.timer5.setInterval(chart_update_interval)
+        self.timer5.timeout.connect(self.plot5_update)
+
+        self.timer6 = QtCore.QTimer()
+        self.timer6.setInterval(chart_update_interval)
+        self.timer6.timeout.connect(self.plot6_update)
 
         end_time = timeit.default_timer()
         processing_time = (end_time - start_time) * 1000
@@ -25025,9 +25051,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot1_oe_base_curve.clear()
 
         if comboindex1 == 0:
-            self.plot_update_worker1.terminate()
+            #self.plot_update_worker1.terminate()
+            self.timer1.stop()
         else:
-            self.plot_update_worker1.start()
+            #self.plot_update_worker1.start()
+            self.timer1.start()
 
         # All Plot Clear
         if comboindex1 == 0:
@@ -26265,9 +26293,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot2_oe_base_curve.clear()
 
         if comboindex2 == 0:
-            self.plot_update_worker2.terminate()
+            #self.plot_update_worker2.terminate()
+            self.timer2.stop()
         else:
-            self.plot_update_worker2.start()
+            #self.plot_update_worker2.start()
+            self.timer2.start()
 
         # All Plot Clear
         if comboindex2 == 0:
@@ -27529,9 +27559,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot3_oe_base_curve.clear()
 
         if comboindex3 == 0:
-            self.plot_update_worker3.terminate()
+            #self.plot_update_worker3.terminate()
+            self.timer3.stop()
         else:
-            self.plot_update_worker3.start()
+            #self.plot_update_worker3.start()
+            self.timer3.start()
 
         # All Plot Clear
         if comboindex3 == 0:
@@ -28793,9 +28825,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot4_oe_base_curve.clear()
 
         if comboindex4 == 0:
-            self.plot_update_worker4.terminate()
+            #self.plot_update_worker4.terminate()
+            self.timer4.stop()
         else:
-            self.plot_update_worker4.start()
+            #self.plot_update_worker4.start()
+            self.timer4.start()
 
         # All Plot Clear
         if comboindex4 == 0:
@@ -30025,9 +30059,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot5_oe_base_curve.clear()
 
         if comboindex5 == 0:
-            self.plot_update_worker5.terminate()
+            #self.plot_update_worker5.terminate()
+            self.timer5.stop()
         else:
-            self.plot_update_worker5.start()
+            #self.plot_update_worker5.start()
+            self.timer5.start()
 
         # All Plot Clear
         if comboindex5 == 0:
@@ -31289,9 +31325,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.plot6_oe_base_curve.clear()
 
         if comboindex6 == 0:
-            self.plot_update_worker6.terminate()
+            #self.plot_update_worker6.terminate()
+            self.timer6.stop()
         else:
-            self.plot_update_worker6.start()
+            #self.plot_update_worker6.start()
+            self.timer6.start()
 
         # All Plot Clear
         if comboindex6 == 0:
@@ -32656,8 +32694,56 @@ class 화면_BigChart(QDialog, Ui_BigChart):
     # Plot Update
     #####################################################################################################################################################################
 
-    @logging_time_plot1  
     @pyqtSlot()    
+    def plot1_update(self):
+
+        if not flag_screen_update_is_running and not flag_plot1_update_is_running:
+            self.update_plot1()
+        else:
+            pass
+
+    @pyqtSlot()    
+    def plot2_update(self):
+
+        if not flag_screen_update_is_running and not flag_plot2_update_is_running:
+            self.update_plot2()
+        else:
+            pass
+
+    @pyqtSlot()    
+    def plot3_update(self):
+
+        if not flag_screen_update_is_running and not flag_plot3_update_is_running:
+            self.update_plot3()
+        else:
+            pass
+
+    @pyqtSlot()    
+    def plot4_update(self):
+
+        if not flag_screen_update_is_running and not flag_plot4_update_is_running:
+            self.update_plot4()
+        else:
+            pass
+
+    @pyqtSlot()    
+    def plot5_update(self):
+
+        if not flag_screen_update_is_running and not flag_plot5_update_is_running:
+            self.update_plot5()
+        else:
+            pass
+
+    @pyqtSlot()    
+    def plot6_update(self):
+
+        if not flag_screen_update_is_running and not flag_plot6_update_is_running:
+            self.update_plot6()
+        else:
+            pass
+
+    @logging_time_plot1  
+    #@pyqtSlot()    
     def update_plot1(self):
 
         global flag_plot1_update_is_running        
@@ -34170,7 +34256,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             flag_plot1_update_is_running = False      
         
     @logging_time_plot2
-    @pyqtSlot()    
+    #@pyqtSlot()    
     def update_plot2(self):
 
         global flag_plot2_update_is_running        
@@ -35697,7 +35783,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             flag_plot2_update_is_running = False
 
     @logging_time_plot3
-    @pyqtSlot()    
+    #@pyqtSlot()    
     def update_plot3(self):
 
         global flag_plot3_update_is_running        
@@ -37218,7 +37304,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             flag_plot3_update_is_running = False
 
     @logging_time_plot4
-    @pyqtSlot()    
+    #@pyqtSlot()    
     def update_plot4(self):
 
         global flag_plot4_update_is_running        
@@ -38723,7 +38809,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             flag_plot4_update_is_running = False 
 
     @logging_time_plot5
-    @pyqtSlot()    
+    #@pyqtSlot()    
     def update_plot5(self):
 
         global flag_plot5_update_is_running        
@@ -40243,7 +40329,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             flag_plot5_update_is_running = False
 
     @logging_time_plot6
-    @pyqtSlot()    
+    #@pyqtSlot()    
     def update_plot6(self):
 
         global flag_plot6_update_is_running        
@@ -41774,7 +41860,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.comboBox4.setCurrentIndex(0)
         self.comboBox5.setCurrentIndex(0)
         self.comboBox6.setCurrentIndex(0)
+
+        self.timer1.stop()
+        self.timer2.stop()
+        self.timer3.stop()
+        self.timer4.stop()
+        self.timer5.stop()
+        self.timer6.stop()
         
+        '''
         if self.plot_update_worker1.isRunning():
             self.plot_update_worker1.terminate()
             print('plot1 thread is terminated...')
@@ -41810,6 +41904,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             print('plot6 thread is terminated...')
         else:
             pass
+        '''
 
         txt = '[{0:02d}:{1:02d}:{2:02d}] Sky Chart를 Close합니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.parent.textBrowser.append(txt)
@@ -48245,6 +48340,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if self.dialog['BigChart'].flag_big_chart_open:
 
+                    self.dialog['BigChart'].timer1.stop()
+                    self.dialog['BigChart'].timer2.stop()
+                    self.dialog['BigChart'].timer3.stop()
+                    self.dialog['BigChart'].timer4.stop()
+                    self.dialog['BigChart'].timer5.stop()
+                    self.dialog['BigChart'].timer6.stop()
+
+                    '''
                     if self.dialog['BigChart'].plot_update_worker1.isRunning():
                         self.dialog['BigChart'].plot_update_worker1.terminate()
                         print('plot1 thread is terminated...')
@@ -48280,6 +48383,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         print('plot6 thread is terminated...')
                     else:
                         pass
+                    '''
 
                     self.dialog['BigChart'].close()
                 else:
