@@ -32714,7 +32714,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if not flag_screen_update_is_running and not flag_plot1_update_is_running:
             self.update_plot1()
         else:
-            pass
+            self.label_time_1.setStyleSheet('background-color: black; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
     @pyqtSlot()    
     def plot2_update(self):
@@ -32722,7 +32722,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if not flag_screen_update_is_running and not flag_plot2_update_is_running:
             self.update_plot2()
         else:
-            pass
+            self.label_time_2.setStyleSheet('background-color: black; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
     @pyqtSlot()    
     def plot3_update(self):
@@ -32730,7 +32730,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if not flag_screen_update_is_running and not flag_plot3_update_is_running:
             self.update_plot3()
         else:
-            pass
+            self.label_time_3.setStyleSheet('background-color: black; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
     @pyqtSlot()    
     def plot4_update(self):
@@ -32738,7 +32738,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if not flag_screen_update_is_running and not flag_plot4_update_is_running:
             self.update_plot4()
         else:
-            pass
+            self.label_time_4.setStyleSheet('background-color: black; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
     @pyqtSlot()    
     def plot5_update(self):
@@ -32746,7 +32746,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if not flag_screen_update_is_running and not flag_plot5_update_is_running:
             self.update_plot5()
         else:
-            pass
+            self.label_time_5.setStyleSheet('background-color: black; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
     @pyqtSlot()    
     def plot6_update(self):
@@ -32754,7 +32754,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if not flag_screen_update_is_running and not flag_plot6_update_is_running:
             self.update_plot6()
         else:
-            pass
+            self.label_time_6.setStyleSheet('background-color: black; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
     @logging_time_plot1  
     #@pyqtSlot()    
