@@ -32816,37 +32816,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         
             dt = datetime.now()
 
-            flag_plot1_update_is_running = True
-
-            # 해외선물 한국시간 표시
-            if OVC_체결시간 == '000000':
-                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
-            else:
-                if t0167_second == self.plot_x_idx:
-                    self.plot_count += 1
-                else:
-                    self.plot_count = 0
-
-                self.plot_x_idx = t0167_second
-
-                if 수급방향 == 'Call1':
-                    self.label_time_1.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Call2':
-                    self.label_time_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Call3':
-                    self.label_time_1.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Put1':
-                    self.label_time_1.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Put2':
-                    self.label_time_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Put3':
-                    self.label_time_1.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_time_1.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                txt = ' [{0:d}], {1:.2f} ms '.format(cme_time_index, plot1_processing_time)            
-   
-            self.label_time_1.setText(txt)            
+            flag_plot1_update_is_running = True                        
 
             # Plot1 그래프 그리기
             if comboindex1 == 2:
@@ -34315,6 +34285,36 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.parent.textBrowser.append(txt)
 
         finally:
+            # 해외선물 한국시간 표시
+            if OVC_체결시간 == '000000':
+                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
+            else:
+                if t0167_second == self.plot_x_idx:
+                    self.plot_count += 1
+                else:
+                    self.plot_count = 0
+
+                self.plot_x_idx = t0167_second
+
+                if 수급방향 == 'Call1':
+                    self.label_time_1.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call2':
+                    self.label_time_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call3':
+                    self.label_time_1.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put1':
+                    self.label_time_1.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put2':
+                    self.label_time_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put3':
+                    self.label_time_1.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_time_1.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                txt = ' [{0:d}], {1:.2f} ms '.format(cme_time_index, plot1_processing_time)            
+   
+            self.label_time_1.setText(txt)
+
             flag_plot1_update_is_running = False      
         
     @logging_time_plot2
@@ -34329,29 +34329,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         
             dt = datetime.now()
 
-            flag_plot2_update_is_running = True
-
-            if OVC_체결시간 == '000000':
-                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
-            else:
-                if 수급방향 == 'Call1':
-                    self.label_time_2.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Call2':
-                    self.label_time_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Call3':
-                    self.label_time_2.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Put1':
-                    self.label_time_2.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Put2':
-                    self.label_time_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Put3':
-                    self.label_time_2.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_time_2.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                txt = ' {0:.2f} ms '.format(plot2_processing_time)                
-   
-            self.label_time_2.setText(txt)            
+            flag_plot2_update_is_running = True                        
 
             # Plot2 그래프 그리기
             # 선물가격
@@ -35842,6 +35820,28 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.parent.textBrowser.append(txt)
 
         finally:
+            if OVC_체결시간 == '000000':
+                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
+            else:
+                if 수급방향 == 'Call1':
+                    self.label_time_2.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call2':
+                    self.label_time_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call3':
+                    self.label_time_2.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put1':
+                    self.label_time_2.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put2':
+                    self.label_time_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put3':
+                    self.label_time_2.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_time_2.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                txt = ' {0:.2f} ms '.format(plot2_processing_time)                
+   
+            self.label_time_2.setText(txt)
+
             flag_plot2_update_is_running = False
 
     @logging_time_plot3
@@ -35856,29 +35856,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         
             dt = datetime.now()
 
-            flag_plot3_update_is_running = True
-
-            if OVC_체결시간 == '000000':
-                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
-            else:
-                if 수급방향 == 'Call1':
-                    self.label_time_3.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Call2':
-                    self.label_time_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Call3':
-                    self.label_time_3.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Put1':
-                    self.label_time_3.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Put2':
-                    self.label_time_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Put3':
-                    self.label_time_3.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_time_3.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                txt = ' {0:.2f} ms '.format(plot3_processing_time)
-   
-            self.label_time_3.setText(txt)            
+            flag_plot3_update_is_running = True                        
 
             # Plot3 그래프 그리기
             # 선물가격
@@ -37363,6 +37341,28 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.parent.textBrowser.append(txt)
 
         finally:
+            if OVC_체결시간 == '000000':
+                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
+            else:
+                if 수급방향 == 'Call1':
+                    self.label_time_3.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call2':
+                    self.label_time_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call3':
+                    self.label_time_3.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put1':
+                    self.label_time_3.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put2':
+                    self.label_time_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put3':
+                    self.label_time_3.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_time_3.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                txt = ' {0:.2f} ms '.format(plot3_processing_time)
+   
+            self.label_time_3.setText(txt)
+
             flag_plot3_update_is_running = False
 
     @logging_time_plot4
@@ -37377,29 +37377,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         
             dt = datetime.now()
 
-            flag_plot4_update_is_running = True
-
-            if OVC_체결시간 == '000000':
-                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
-            else:
-                if 수급방향 == 'Call1':
-                    self.label_time_4.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Call2':
-                    self.label_time_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Call3':
-                    self.label_time_4.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Put1':
-                    self.label_time_4.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Put2':
-                    self.label_time_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Put3':
-                    self.label_time_4.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_time_4.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                txt = ' {0:.2f} ms '.format(plot4_processing_time)
-   
-            self.label_time_4.setText(txt)            
+            flag_plot4_update_is_running = True                        
 
             # Plot4 그래프 그리기
             if comboindex4 == 2:
@@ -38868,6 +38846,28 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.parent.textBrowser.append(txt)
 
         finally:
+            if OVC_체결시간 == '000000':
+                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
+            else:
+                if 수급방향 == 'Call1':
+                    self.label_time_4.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call2':
+                    self.label_time_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call3':
+                    self.label_time_4.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put1':
+                    self.label_time_4.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put2':
+                    self.label_time_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put3':
+                    self.label_time_4.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_time_4.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                txt = ' {0:.2f} ms '.format(plot4_processing_time)
+   
+            self.label_time_4.setText(txt)
+
             flag_plot4_update_is_running = False 
 
     @logging_time_plot5
@@ -38882,29 +38882,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         
             dt = datetime.now()
 
-            flag_plot5_update_is_running = True
-
-            if OVC_체결시간 == '000000':
-                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
-            else:
-                if 수급방향 == 'Call1':
-                    self.label_time_5.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Call2':
-                    self.label_time_5.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Call3':
-                    self.label_time_5.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Put1':
-                    self.label_time_5.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Put2':
-                    self.label_time_5.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Put3':
-                    self.label_time_5.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_time_5.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                txt = ' {0:.2f} ms '.format(plot5_processing_time)
-   
-            self.label_time_5.setText(txt)            
+            flag_plot5_update_is_running = True                       
 
             # Plot5 그래프 그리기
             # 선물가격
@@ -40388,6 +40366,28 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.parent.textBrowser.append(txt)
 
         finally:
+            if OVC_체결시간 == '000000':
+                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
+            else:
+                if 수급방향 == 'Call1':
+                    self.label_time_5.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call2':
+                    self.label_time_5.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call3':
+                    self.label_time_5.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put1':
+                    self.label_time_5.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put2':
+                    self.label_time_5.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put3':
+                    self.label_time_5.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_time_5.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                txt = ' {0:.2f} ms '.format(plot5_processing_time)
+   
+            self.label_time_5.setText(txt)
+
             flag_plot5_update_is_running = False
 
     @logging_time_plot6
@@ -40402,29 +40402,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         
             dt = datetime.now()
 
-            flag_plot6_update_is_running = True
-
-            if OVC_체결시간 == '000000':
-                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
-            else:
-                if 수급방향 == 'Call1':
-                    self.label_time_6.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Call2':
-                    self.label_time_6.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Call3':
-                    self.label_time_6.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Put1':
-                    self.label_time_6.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Put2':
-                    self.label_time_6.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif 수급방향 == 'Put3':
-                    self.label_time_6.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_time_6.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                txt = ' {0:.2f} ms '.format(plot6_processing_time)
-   
-            self.label_time_6.setText(txt)            
+            flag_plot6_update_is_running = True                        
 
             # Plot6 그래프 그리기
             # 선물가격
@@ -41908,6 +41886,28 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.parent.textBrowser.append(txt)
 
         finally:
+            if OVC_체결시간 == '000000':
+                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
+            else:
+                if 수급방향 == 'Call1':
+                    self.label_time_6.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call2':
+                    self.label_time_6.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Call3':
+                    self.label_time_6.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put1':
+                    self.label_time_6.setStyleSheet('background-color: deepskyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put2':
+                    self.label_time_6.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif 수급방향 == 'Put3':
+                    self.label_time_6.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_time_6.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                txt = ' {0:.2f} ms '.format(plot6_processing_time)
+   
+            self.label_time_6.setText(txt)
+            
             flag_plot6_update_is_running = False
 
     def closeEvent(self,event):
