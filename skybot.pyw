@@ -3633,7 +3633,7 @@ class PlotUpdateWorker1(QThread):
 
     def run(self):
 
-        global flag_plot_update_interval_changed
+        flag_plot_update_interval_changed
 
         while True:            
 
@@ -32696,6 +32696,20 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
     @pyqtSlot()    
     def plot1_update(self):
+
+        global flag_plot_update_interval_changed
+
+        if flag_plot_update_interval_changed:
+            self.timer1.setInterval(chart_update_interval)
+            self.timer2.setInterval(chart_update_interval)
+            self.timer3.setInterval(chart_update_interval)
+            self.timer4.setInterval(chart_update_interval)
+            self.timer5.setInterval(chart_update_interval)
+            self.timer6.setInterval(chart_update_interval)
+            #print('chart_update_interval changed to {0}...\r'.format(chart_update_interval))
+            flag_plot_update_interval_changed = False
+        else:
+            pass
 
         if not flag_screen_update_is_running and not flag_plot1_update_is_running:
             self.update_plot1()
