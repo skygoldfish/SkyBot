@@ -2505,7 +2505,7 @@ class ScreenUpdateWorker(QThread):
                 pass
             
             QTest.qWait(scoreboard_update_interval)
-            QApplication.processEvents()
+            #QApplication.processEvents()
 #####################################################################################################################################################################
 # 텔레그램 송신 쓰레드
 #####################################################################################################################################################################
@@ -12069,12 +12069,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(근월물_선물_시가대비, 근월물_선물_종가대비_등락율))
                 item.setTextAlignment(Qt.AlignCenter)
 
-                if 근월물_선물_종가대비_등락율 > 0 and DOW_등락율 > 0 and flag_fut_vs_dow_drate_direction:
+                if 근월물_선물_종가대비_등락율 > 0 and SP500_등락율 > 0 and flag_fut_vs_dow_drate_direction:
 
                     item.setBackground(QBrush(pink))
                     item.setForeground(QBrush(검정색))
 
-                elif 근월물_선물_종가대비_등락율 < 0 and DOW_등락율 < 0 and flag_fut_vs_dow_drate_direction:
+                elif 근월물_선물_종가대비_등락율 < 0 and SP500_등락율 < 0 and flag_fut_vs_dow_drate_direction:
 
                     item.setBackground(QBrush(lightskyblue))
                     item.setForeground(QBrush(검정색))
@@ -42442,8 +42442,6 @@ class Xing(object):
                 self.caller.dialog['선물옵션전광판'] = 화면_선물옵션전광판(parent=self.caller)
                 self.caller.dialog['선물옵션전광판'].show()
 
-                QApplication.processEvents()
-
                 self.caller.dialog['선물옵션전광판'].RunCode()
             else:
                 pass                        
@@ -44659,12 +44657,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(근월물_선물_시가대비, 근월물_선물_종가대비_등락율))
                 item.setTextAlignment(Qt.AlignCenter)
 
-                if 근월물_선물_종가대비_등락율 > 0 and DOW_등락율 > 0 and flag_fut_vs_dow_drate_direction:
+                if 근월물_선물_종가대비_등락율 > 0 and SP500_등락율 > 0 and flag_fut_vs_dow_drate_direction:
 
                     item.setBackground(QBrush(pink))
                     item.setForeground(QBrush(검정색))
 
-                elif 근월물_선물_종가대비_등락율 < 0 and DOW_등락율 < 0 and flag_fut_vs_dow_drate_direction:
+                elif 근월물_선물_종가대비_등락율 < 0 and SP500_등락율 < 0 and flag_fut_vs_dow_drate_direction:
 
                     item.setBackground(QBrush(lightskyblue))
                     item.setForeground(QBrush(검정색))
@@ -46010,7 +46008,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass                
 
-                if abs(근월물_선물_종가대비_등락율) > abs(DOW_등락율):
+                if abs(근월물_선물_종가대비_등락율) > abs(SP500_등락율):
                     flag_fut_vs_dow_drate_direction = True
                 else:
                     flag_fut_vs_dow_drate_direction = False
