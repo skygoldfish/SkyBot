@@ -1204,7 +1204,7 @@ flag_kp200_high = False
 
 옵션잔존일 = 0
 
-OVC_체결시간 = '000000'
+CME_체결시간 = '000000'
 OVC_HOUR = 0
 OVC_MIN = 0
 OVC_SEC = 0
@@ -5723,7 +5723,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
         
         # SP500 OHLC 데이타프레임 생성        
-        time_txt = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
+        time_txt = CME_체결시간[0:2] + ':' + CME_체결시간[2:4] + ':' + CME_체결시간[4:6]
         chetime = nowDate + ' ' + time_txt
 
         sp500_tick_list.append(chetime)
@@ -5743,7 +5743,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #df_sp500_ohlc_15min = df.resample('15T').ohlc()        
 
         # DOW OHLC 데이타프레임 생성        
-        time_txt = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
+        time_txt = CME_체결시간[0:2] + ':' + CME_체결시간[2:4] + ':' + CME_체결시간[4:6]
         chetime = nowDate + ' ' + time_txt
 
         dow_tick_list.append(chetime)
@@ -5764,7 +5764,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #df_dow_ohlc_15min = df.resample('15T').ohlc()
         
         # NASDAQ OHLC 데이타프레임 생성        
-        time_txt = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
+        time_txt = CME_체결시간[0:2] + ':' + CME_체결시간[2:4] + ':' + CME_체결시간[4:6]
         chetime = nowDate + ' ' + time_txt
 
         nasdaq_tick_list.append(chetime)
@@ -5784,7 +5784,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #df_nasdaq_ohlc_15min = df.resample('15T').ohlc()
 
         # WTI OHLC 데이타프레임 생성        
-        time_txt = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
+        time_txt = CME_체결시간[0:2] + ':' + CME_체결시간[2:4] + ':' + CME_체결시간[4:6]
         chetime = nowDate + ' ' + time_txt
 
         wti_tick_list.append(chetime)
@@ -5804,7 +5804,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #df_wti_ohlc_15min = df.resample('15T').ohlc()
         
         # EUROFX OHLC 데이타프레임 생성        
-        time_txt = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
+        time_txt = CME_체결시간[0:2] + ':' + CME_체결시간[2:4] + ':' + CME_체결시간[4:6]
         chetime = nowDate + ' ' + time_txt
 
         eurofx_tick_list.append(chetime)
@@ -5824,7 +5824,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #df_eurofx_ohlc_15min = df.resample('15T').ohlc()
         
         # HANGSENG OHLC 데이타프레임 생성        
-        time_txt = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
+        time_txt = CME_체결시간[0:2] + ':' + CME_체결시간[2:4] + ':' + CME_체결시간[4:6]
         chetime = nowDate + ' ' + time_txt
 
         hangseng_tick_list.append(chetime)
@@ -5844,7 +5844,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #df_hangseng_ohlc_15min = df.resample('15T').ohlc()
 
         # GOLD OHLC 데이타프레임 생성        
-        time_txt = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
+        time_txt = CME_체결시간[0:2] + ':' + CME_체결시간[2:4] + ':' + CME_체결시간[4:6]
         chetime = nowDate + ' ' + time_txt
 
         gold_tick_list.append(chetime)
@@ -32714,13 +32714,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if True:
             if not flag_screen_update_is_running and not flag_plot1_update_is_running:
                 self.label_time_1.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
+                QApplication.processEvents()
                 self.update_plot1()
+                QApplication.processEvents()
             else:
                 self.label_time_1.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
         else:
             if not flag_plot1_update_is_running:
                 self.label_time_1.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
+                QApplication.processEvents()
                 self.update_plot1()
+                QApplication.processEvents()
             else:
                 self.label_time_1.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')            
 
@@ -32730,13 +32734,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if True:
             if not flag_screen_update_is_running and not flag_plot2_update_is_running:
                 self.label_time_2.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
+                QApplication.processEvents()
                 self.update_plot2()
+                QApplication.processEvents()
             else:
                 self.label_time_2.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
         else:
             if not flag_plot2_update_is_running:
                 self.label_time_2.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
+                QApplication.processEvents()
                 self.update_plot2()
+                QApplication.processEvents()
             else:
                 self.label_time_2.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -32746,13 +32754,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if True:
             if not flag_screen_update_is_running and not flag_plot3_update_is_running:
                 self.label_time_3.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
+                QApplication.processEvents()
                 self.update_plot3()
+                QApplication.processEvents()
             else:
                 self.label_time_3.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
         else:
             if not flag_plot3_update_is_running:
                 self.label_time_3.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
+                QApplication.processEvents()
                 self.update_plot3()
+                QApplication.processEvents()
             else:
                 self.label_time_3.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -32762,13 +32774,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if True:
             if not flag_screen_update_is_running and not flag_plot4_update_is_running:
                 self.label_time_4.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
+                QApplication.processEvents()
                 self.update_plot4()
+                QApplication.processEvents()
             else:
                 self.label_time_4.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
         else:
             if not flag_plot4_update_is_running:
                 self.label_time_4.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
+                QApplication.processEvents()
                 self.update_plot4()
+                QApplication.processEvents()
             else:
                 self.label_time_4.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -32778,13 +32794,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if True:
             if not flag_screen_update_is_running and not flag_plot5_update_is_running:
                 self.label_time_5.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
+                QApplication.processEvents()
                 self.update_plot5()
+                QApplication.processEvents()
             else:
                 self.label_time_5.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
         else:
             if not flag_plot5_update_is_running:
                 self.label_time_5.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
+                QApplication.processEvents()
                 self.update_plot5()
+                QApplication.processEvents()
             else:
                 self.label_time_5.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -32794,13 +32814,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if True:
             if not flag_screen_update_is_running and not flag_plot6_update_is_running:
                 self.label_time_6.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
+                QApplication.processEvents()
                 self.update_plot6()
+                QApplication.processEvents()
             else:
                 self.label_time_6.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
         else:
             if not flag_plot6_update_is_running:
                 self.label_time_6.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
+                QApplication.processEvents()
                 self.update_plot6()
+                QApplication.processEvents()
             else:
                 self.label_time_6.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -32811,9 +32835,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global flag_plot1_update_is_running        
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed        
                 
-        try:
-            #QApplication.processEvents()
-        
+        try:        
             dt = datetime.now()
 
             flag_plot1_update_is_running = True                        
@@ -34279,8 +34301,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
 
-            QApplication.processEvents()
-
         except Exception as e:
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot1 에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
@@ -34288,8 +34308,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         finally:
             # 해외선물 한국시간 표시
-            if OVC_체결시간 == '000000':
-                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
+            if CME_체결시간 == '000000':
+                txt = ' [{0:02d}:{1:02d}:{2:02d}] {3:.2f} ms '.format(dt.hour, dt.minute, dt.second, plot1_processing_time)
             else:
                 if t0167_second == self.plot_x_idx:
                     self.plot_count += 1
@@ -34326,9 +34346,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global flag_plot2_update_is_running        
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed        
 
-        try:
-            #QApplication.processEvents()
-        
+        try:        
             dt = datetime.now()
 
             flag_plot2_update_is_running = True                        
@@ -35814,9 +35832,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
             else:
-                pass
-
-            QApplication.processEvents()           
+                pass         
         
         except Exception as e:
 
@@ -35824,8 +35840,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.parent.textBrowser.append(txt)
 
         finally:
-            if OVC_체결시간 == '000000':
-                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
+            if CME_체결시간 == '000000':
+                txt = ' [{0:02d}:{1:02d}:{2:02d}] {3:.2f} ms '.format(dt.hour, dt.minute, dt.second, plot2_processing_time)
             else:
                 if 수급방향 == 'Call1':
                     self.label_time_2.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35855,9 +35871,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global flag_plot3_update_is_running        
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed        
 
-        try:
-            #QApplication.processEvents()
-        
+        try:        
             dt = datetime.now()
 
             flag_plot3_update_is_running = True                        
@@ -37339,16 +37353,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
 
-            QApplication.processEvents()
-
         except Exception as e:
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot3 에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
             self.parent.textBrowser.append(txt)
 
         finally:
-            if OVC_체결시간 == '000000':
-                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
+            if CME_체결시간 == '000000':
+                txt = ' [{0:02d}:{1:02d}:{2:02d}] {3:.2f} ms '.format(dt.hour, dt.minute, dt.second, plot3_processing_time)
             else:
                 if 수급방향 == 'Call1':
                     self.label_time_3.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37378,9 +37390,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global flag_plot4_update_is_running        
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed        
 
-        try:
-            #QApplication.processEvents()
-        
+        try:        
             dt = datetime.now()
 
             flag_plot4_update_is_running = True                        
@@ -38845,8 +38855,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
             else:
                 pass
-
-            QApplication.processEvents()
             
         except Exception as e:
 
@@ -38854,8 +38862,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.parent.textBrowser.append(txt)
 
         finally:
-            if OVC_체결시간 == '000000':
-                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
+            if CME_체결시간 == '000000':
+                txt = ' [{0:02d}:{1:02d}:{2:02d}] {3:.2f} ms '.format(dt.hour, dt.minute, dt.second, plot4_processing_time)
             else:
                 if 수급방향 == 'Call1':
                     self.label_time_4.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38885,9 +38893,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global flag_plot5_update_is_running        
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed        
 
-        try:
-            #QApplication.processEvents()
-        
+        try:        
             dt = datetime.now()
 
             flag_plot5_update_is_running = True                       
@@ -40368,16 +40374,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
 
-            QApplication.processEvents()
-
         except Exception as e:
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot5 에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
             self.parent.textBrowser.append(txt)
 
         finally:
-            if OVC_체결시간 == '000000':
-                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
+            if CME_체결시간 == '000000':
+                txt = ' [{0:02d}:{1:02d}:{2:02d}] {3:.2f} ms '.format(dt.hour, dt.minute, dt.second, plot5_processing_time)
             else:
                 if 수급방향 == 'Call1':
                     self.label_time_5.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40407,9 +40411,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global flag_plot6_update_is_running        
         global flag_calltable_checkstate_changed, flag_puttable_checkstate_changed        
 
-        try:
-            #QApplication.processEvents()
-        
+        try:        
             dt = datetime.now()
 
             flag_plot6_update_is_running = True                        
@@ -41890,16 +41892,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
 
-            QApplication.processEvents()
-
         except Exception as e:
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : update_plot6 에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
             self.parent.textBrowser.append(txt)
 
         finally:
-            if OVC_체결시간 == '000000':
-                txt = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
+            if CME_체결시간 == '000000':
+                txt = ' [{0:02d}:{1:02d}:{2:02d}] {3:.2f} ms '.format(dt.hour, dt.minute, dt.second, plot6_processing_time)
             else:
                 if 수급방향 == 'Call1':
                     self.label_time_6.setStyleSheet('background-color: chocolate; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -46905,7 +46905,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def ovc_update(self, tickdata):
 
-        global OVC_체결시간, OVC_HOUR, OVC_MIN, OVC_SEC, t0167_hour, t0167_minute, t0167_second
+        global CME_체결시간, OVC_HOUR, OVC_MIN, OVC_SEC, t0167_hour, t0167_minute, t0167_second
         global old_cme_time_index, cme_time_index
         global df_futures_cm_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_gold_graph, df_eurofx_graph, df_yen_graph, df_hangseng_graph
 
@@ -46939,10 +46939,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             #szTrCode = tickdata['tr_code']
             dt = datetime.now()
 
-            OVC_체결시간 = tickdata['수신시간']
-            OVC_HOUR = int(OVC_체결시간[0:2])
-            OVC_MIN = int(OVC_체결시간[2:4])
-            OVC_SEC = int(OVC_체결시간[4:6])
+            CME_체결시간 = tickdata['수신시간']
+            OVC_HOUR = int(CME_체결시간[0:2])
+            OVC_MIN = int(CME_체결시간[2:4])
+            OVC_SEC = int(CME_체결시간[4:6])
 
             t0167_hour = OVC_HOUR
             t0167_minute = OVC_MIN
@@ -47027,7 +47027,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_dow_graph.at[cme_time_index, 'drate'] = drate_temp
 
                 # 1T OHLC 생성
-                df_dow_graph.at[cme_time_index, 'ctime'] = OVC_체결시간                
+                df_dow_graph.at[cme_time_index, 'ctime'] = CME_체결시간                
 
                 if DOW_현재가 > 0:
 
@@ -47191,7 +47191,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
                 # 1T OHLC 생성
-                df_nasdaq_graph.at[cme_time_index, 'ctime'] = OVC_체결시간
+                df_nasdaq_graph.at[cme_time_index, 'ctime'] = CME_체결시간
 
                 NASDAQ_체결가격 = locale.format('%.2f', NASDAQ_현재가, 1)
 
@@ -47372,7 +47372,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 SP500_체결가격 = locale.format('%.2f', SP500_현재가, 1)
 
                 # 1T OHLC 생성
-                df_sp500_graph.at[cme_time_index, 'ctime'] = OVC_체결시간
+                df_sp500_graph.at[cme_time_index, 'ctime'] = CME_체결시간
 
                 if SP500_현재가 > 0:
 
@@ -47538,7 +47538,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 WTI_체결가격 = locale.format('%.2f', WTI_현재가, 1)
 
                 # 1T OHLC 생성
-                df_wti_graph.at[cme_time_index, 'ctime'] = OVC_체결시간
+                df_wti_graph.at[cme_time_index, 'ctime'] = CME_체결시간
 
                 if WTI_현재가 > 0:
 
