@@ -42350,7 +42350,9 @@ class Xing(object):
                     self.caller.dialog['선물옵션전광판'].market_type_display(self.clocktick)
                     
                     if not flag_screen_update_is_running:
+                        QApplication.processEvents()
                         self.caller.dialog['선물옵션전광판'].update_screen()
+                        QApplication.processEvents()
                     else:
                         pass
                 else:
