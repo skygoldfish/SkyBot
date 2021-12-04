@@ -2051,7 +2051,7 @@ flag_option_pair_full = False
 fut_avg_noise_ratio = 1
 k_value = 0
 
-flag_fut_vs_dow_drate_direction = False
+flag_fut_vs_sp500_drate_direction = False
 fut_quote_energy_direction = ''
 fut_volume_power_energy_direction = ''
 
@@ -7592,7 +7592,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if abs(call_otm_cdb_percent_mean/put_otm_cdb_percent_mean) >= ASYM_RATIO:
                 
-                if abs(call_otm_cdb_percent_mean/put_otm_cdb_percent_mean) >= ONEWAY_RATIO and flag_fut_vs_dow_drate_direction:
+                if abs(call_otm_cdb_percent_mean/put_otm_cdb_percent_mean) >= ONEWAY_RATIO and flag_fut_vs_sp500_drate_direction:
 
                     # 콜 원웨이(원웨이장은 플래그 세팅을 나중에 해줌 --> 발생시각 표시를 위해)
                     call_ms_oneway = True
@@ -7666,7 +7666,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
             elif abs(put_otm_cdb_percent_mean/call_otm_cdb_percent_mean) >= ASYM_RATIO:
 
-                if abs(put_otm_cdb_percent_mean/call_otm_cdb_percent_mean) >= ONEWAY_RATIO and flag_fut_vs_dow_drate_direction:
+                if abs(put_otm_cdb_percent_mean/call_otm_cdb_percent_mean) >= ONEWAY_RATIO and flag_fut_vs_sp500_drate_direction:
 
                     # 풋 원웨이(원웨이장은 플래그 세팅을 나중에 해줌 --> 발생시각 표시를 위해)
                     call_ms_oneway = False
@@ -11879,7 +11879,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global fut_tick_list, fut_value_list, df_fut_ohlc
         global flag_call_dominant, flag_put_dominant
         global plot_drate_scale_factor
-        global flag_fut_vs_dow_drate_direction
+        global flag_fut_vs_sp500_drate_direction
         global volatility_breakout_downward_point, volatility_breakout_upward_point
         global df_futures_cm_graph, flag_futures_cm_ohlc_open, 근월물_선물_현재가_버퍼
         global flag_telegram_send_start, flag_telegram_listen_start
@@ -12069,12 +12069,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(근월물_선물_시가대비, 근월물_선물_종가대비_등락율))
                 item.setTextAlignment(Qt.AlignCenter)
 
-                if 근월물_선물_종가대비_등락율 > 0 and SP500_등락율 > 0 and flag_fut_vs_dow_drate_direction:
+                if 근월물_선물_종가대비_등락율 > 0 and SP500_등락율 > 0 and flag_fut_vs_sp500_drate_direction:
 
                     item.setBackground(QBrush(pink))
                     item.setForeground(QBrush(검정색))
 
-                elif 근월물_선물_종가대비_등락율 < 0 and SP500_등락율 < 0 and flag_fut_vs_dow_drate_direction:
+                elif 근월물_선물_종가대비_등락율 < 0 and SP500_등락율 < 0 and flag_fut_vs_sp500_drate_direction:
 
                     item.setBackground(QBrush(lightskyblue))
                     item.setForeground(QBrush(검정색))
@@ -12484,13 +12484,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setTextAlignment(Qt.AlignCenter)
 
         # 종합 에너지방향 표시
-        if flag_fut_vs_dow_drate_direction and fut_quote_energy_direction == 'call' and fut_volume_power_energy_direction == 'call':
+        if flag_fut_vs_sp500_drate_direction and fut_quote_energy_direction == 'call' and fut_volume_power_energy_direction == 'call':
 
             item.setBackground(QBrush(적색))
             item.setForeground(QBrush(흰색))
             flag_call_dominant = True
 
-        elif flag_fut_vs_dow_drate_direction and fut_quote_energy_direction == 'put' and fut_volume_power_energy_direction == 'put':
+        elif flag_fut_vs_sp500_drate_direction and fut_quote_energy_direction == 'put' and fut_volume_power_energy_direction == 'put':
 
             item.setBackground(QBrush(청색))
             item.setForeground(QBrush(흰색))
@@ -42506,11 +42506,23 @@ class Xing(object):
                 # 해외선물 개장시간은 국내시장의 2시간 전
                 server_x_idx = (t0167_hour - DayTime_PreStart_Hour) * 60 + t0167_minute + 1
 
-            cme_time_index = server_x_idx
-            
-            txt = '[{0:02d}:{1:02d}:{2:02d}] HeartBeat 수신...\r'.format(t0167_hour, t0167_minute, t0167_second)
-            self.caller.textBrowser.append(txt)
-            print(txt)
+            cme_time_index = server_x_idx            
+
+            if self.caller.dialog['BigChart'] is not None and self.caller.dialog['BigChart'].flag_big_chart_open:
+
+                if self.caller.dialog['BigChart'].timer1.isActive() and self.caller.dialog['BigChart'].timer2.isActive() and self.caller.dialog['BigChart'].timer3.isActive() and \
+                    self.caller.dialog['BigChart'].timer4.isActive() and self.caller.dialog['BigChart'].timer5.isActive() and self.caller.dialog['BigChart'].timer6.isActive():
+
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] All Timers of the Chart are Active...\r'.format(t0167_hour, t0167_minute, t0167_second)
+                    self.caller.textBrowser.append(txt)                    
+                else:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] HeartBeat 수신...\r'.format(t0167_hour, t0167_minute, t0167_second)
+                    self.caller.textBrowser.append(txt)
+                    print(txt)
+            else:
+                txt = '[{0:02d}:{1:02d}:{2:02d}] HeartBeat 수신...\r'.format(t0167_hour, t0167_minute, t0167_second)
+                self.caller.textBrowser.append(txt)
+                print(txt)
 
         elif szTrCode == 't8432':
             pass                            
@@ -42681,7 +42693,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         all_screens = QApplication.screens()
 
-        txt = '총 {0}개의 모니터가 사용가능합니다.\r'.format(len(all_screens))
+        txt = '총 {0}개의 모니터가 이용가능합니다.\r'.format(len(all_screens))
         self.textBrowser.append(txt)
 
         for index, s in enumerate(all_screens):
@@ -44485,7 +44497,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def yfc_update(self, tickdata):
 
         global flag_market_service, 근월물_선물_종가대비_등락율, 선물_진폭비
-        global flag_fut_vs_dow_drate_direction, plot_drate_scale_factor, 근월물_선물_피봇
+        global flag_fut_vs_sp500_drate_direction, plot_drate_scale_factor, 근월물_선물_피봇
         global DOW_기준_예상시가
         global 근월물_선물_시가, 근월물_선물_현재가_버퍼, df_futures_cm_graph, flag_futures_cm_ohlc_open
         global 차월물_선물_시가, 차월물_선물_현재가_버퍼, df_futures_nm_graph, flag_futures_nm_ohlc_open
@@ -44657,12 +44669,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(근월물_선물_시가대비, 근월물_선물_종가대비_등락율))
                 item.setTextAlignment(Qt.AlignCenter)
 
-                if 근월물_선물_종가대비_등락율 > 0 and SP500_등락율 > 0 and flag_fut_vs_dow_drate_direction:
+                if 근월물_선물_종가대비_등락율 > 0 and SP500_등락율 > 0 and flag_fut_vs_sp500_drate_direction:
 
                     item.setBackground(QBrush(pink))
                     item.setForeground(QBrush(검정색))
 
-                elif 근월물_선물_종가대비_등락율 < 0 and SP500_등락율 < 0 and flag_fut_vs_dow_drate_direction:
+                elif 근월물_선물_종가대비_등락율 < 0 and SP500_등락율 < 0 and flag_fut_vs_sp500_drate_direction:
 
                     item.setBackground(QBrush(lightskyblue))
                     item.setForeground(QBrush(검정색))
@@ -45873,7 +45885,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
     def futures_tick_update(self, tickdata):
 
-        global pre_start, flag_fut_vs_dow_drate_direction, plot_drate_scale_factor, fut_volume_power_energy_direction
+        global pre_start, flag_fut_vs_sp500_drate_direction, plot_drate_scale_factor, fut_volume_power_energy_direction
         global fut_cm_volume_power, fut_nm_volume_power
         global 근월물_선물_종가대비_등락율, 근월물_선물_시가등락율, 근월물_선물_시가대비_등락율, kp200_시가등락율
         global df_futures_cm_graph, 근월물_선물_현재가, 근월물_선물_현재가_버퍼, flag_futures_cm_ohlc_open, fut_cm_result
@@ -46009,9 +46021,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass                
 
                 if abs(근월물_선물_종가대비_등락율) > abs(SP500_등락율):
-                    flag_fut_vs_dow_drate_direction = True
+                    flag_fut_vs_sp500_drate_direction = True
                 else:
-                    flag_fut_vs_dow_drate_direction = False
+                    flag_fut_vs_sp500_drate_direction = False
 
                 #df_futures_cm_graph.at[cme_time_index, 'drate'] = plot_drate_scale_factor * 근월물_선물_종가대비_등락율
                 df_futures_cm_graph.at[cme_time_index, 'drate'] = plot_drate_scale_factor * 근월물_선물_시가대비_등락율                
