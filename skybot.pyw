@@ -3977,7 +3977,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.label_2nd_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
             color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
-        self.label_2nd_index.setText("NASDAQ/HANGSENG: 가격 (전일대비, 등락율)")
+        self.label_2nd_index.setText("NASDAQ/HSI: 가격 (전일대비, 등락율)")
         
         self.label_3rd_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
@@ -22522,18 +22522,18 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 #####################################################################################################################################################################
 if UI_HIDE:
         import bigchart_ui
-        Ui_BigChart = bigchart_ui.Ui_Dialog   
+        Ui_SkyChart = bigchart_ui.Ui_Dialog   
 else:
-    Ui_BigChart, QtBaseClass_BigChart = uic.loadUiType(UI_DIR + bigchart_ui_type)
+    Ui_SkyChart, QtBaseClass_SkyChart = uic.loadUiType(UI_DIR + bigchart_ui_type)
 #####################################################################################################################################################################
-class 화면_BigChart(QDialog, Ui_BigChart):
+class 화면_SkyChart(QDialog, Ui_SkyChart):
 
     exceptionOccurred = pyqtSignal(Exception, str)
     
     def __init__(self, parent=None):
 
-        super(화면_BigChart, self).__init__(parent, flags = Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
-        #super(화면_BigChart, self).__init__()
+        super(화면_SkyChart, self).__init__(parent, flags = Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
+        #super(화면_SkyChart, self).__init__()
         #self.setWindowFlags(Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
         self.setAttribute(Qt.WA_DeleteOnClose)
         #self.setAttribute(Qt.WA_DeleteOnClose, True)
@@ -42508,10 +42508,10 @@ class Xing(object):
 
             cme_time_index = server_x_idx            
 
-            if self.caller.dialog['BigChart'] is not None and self.caller.dialog['BigChart'].flag_big_chart_open:
+            if self.caller.dialog['SkyChart'] is not None and self.caller.dialog['SkyChart'].flag_big_chart_open:
 
-                if self.caller.dialog['BigChart'].timer1.isActive() and self.caller.dialog['BigChart'].timer2.isActive() and self.caller.dialog['BigChart'].timer3.isActive() and \
-                    self.caller.dialog['BigChart'].timer4.isActive() and self.caller.dialog['BigChart'].timer5.isActive() and self.caller.dialog['BigChart'].timer6.isActive():
+                if self.caller.dialog['SkyChart'].timer1.isActive() and self.caller.dialog['SkyChart'].timer2.isActive() and self.caller.dialog['SkyChart'].timer3.isActive() and \
+                    self.caller.dialog['SkyChart'].timer4.isActive() and self.caller.dialog['SkyChart'].timer5.isActive() and self.caller.dialog['SkyChart'].timer6.isActive():
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] All Timers of the Chart are Active...\r'.format(t0167_hour, t0167_minute, t0167_second)
                     self.caller.textBrowser.append(txt)                    
@@ -42634,7 +42634,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.dialog = dict()
 
         self.dialog['선물옵션전광판'] = None
-        self.dialog['BigChart'] = None
+        self.dialog['SkyChart'] = None
         self.dialog['RealTimeItem'] = None
         self.dialog['Version'] = None        
 
@@ -48257,19 +48257,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Sky Chart
         if _action == "actionBigChart":
             
-            if self.dialog.get('BigChart') is not None:
+            if self.dialog.get('SkyChart') is not None:
 
                 try:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] Sky Chart를 Open합니다...\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
 
-                    self.dialog['BigChart'].show()
+                    self.dialog['SkyChart'].show()
                 except Exception as e:
-                    self.dialog['BigChart'] = 화면_BigChart(parent=self)
-                    self.dialog['BigChart'].show()
+                    self.dialog['SkyChart'] = 화면_SkyChart(parent=self)
+                    self.dialog['SkyChart'].show()
             else:
-                self.dialog['BigChart'] = 화면_BigChart(parent=self)
-                self.dialog['BigChart'].show()
+                self.dialog['SkyChart'] = 화면_SkyChart(parent=self)
+                self.dialog['SkyChart'].show()
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Sky Chart를 Open합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
@@ -48350,21 +48350,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Sky Chart
         if _action == "action_ToolBar_BigChart":
             
-            if self.dialog.get('BigChart') is not None:
+            if self.dialog.get('SkyChart') is not None:
 
                 try:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] Sky Chart를 표시합니다...\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
                     print(txt)
 
-                    self.dialog['BigChart'].show()
+                    self.dialog['SkyChart'].show()
                     
                 except Exception as e:
-                    self.dialog['BigChart'] = 화면_BigChart(parent=self)
-                    self.dialog['BigChart'].show()
+                    self.dialog['SkyChart'] = 화면_SkyChart(parent=self)
+                    self.dialog['SkyChart'].show()
             else:
-                self.dialog['BigChart'] = 화면_BigChart(parent=self)
-                self.dialog['BigChart'].show()
+                self.dialog['SkyChart'] = 화면_SkyChart(parent=self)
+                self.dialog['SkyChart'].show()
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Sky Chart를 Open합니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
@@ -48422,56 +48422,56 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-            if self.dialog['BigChart'] is not None:
+            if self.dialog['SkyChart'] is not None:
 
-                if self.dialog['BigChart'].flag_big_chart_open:
+                if self.dialog['SkyChart'].flag_big_chart_open:
 
-                    self.dialog['BigChart'].timer1.stop()
-                    self.dialog['BigChart'].timer2.stop()
-                    self.dialog['BigChart'].timer3.stop()
-                    self.dialog['BigChart'].timer4.stop()
-                    self.dialog['BigChart'].timer5.stop()
-                    self.dialog['BigChart'].timer6.stop()
+                    self.dialog['SkyChart'].timer1.stop()
+                    self.dialog['SkyChart'].timer2.stop()
+                    self.dialog['SkyChart'].timer3.stop()
+                    self.dialog['SkyChart'].timer4.stop()
+                    self.dialog['SkyChart'].timer5.stop()
+                    self.dialog['SkyChart'].timer6.stop()
 
                     '''
-                    if self.dialog['BigChart'].plot_update_worker1.isRunning():
-                        self.dialog['BigChart'].plot_update_worker1.terminate()
+                    if self.dialog['SkyChart'].plot_update_worker1.isRunning():
+                        self.dialog['SkyChart'].plot_update_worker1.terminate()
                         print('plot1 thread is terminated...')
                     else:
                         pass
 
-                    if self.dialog['BigChart'].plot_update_worker2.isRunning():
-                        self.dialog['BigChart'].plot_update_worker2.terminate()
+                    if self.dialog['SkyChart'].plot_update_worker2.isRunning():
+                        self.dialog['SkyChart'].plot_update_worker2.terminate()
                         print('plot2 thread is terminated...')
                     else:
                         pass
 
-                    if self.dialog['BigChart'].plot_update_worker3.isRunning():
-                        self.dialog['BigChart'].plot_update_worker3.terminate()
+                    if self.dialog['SkyChart'].plot_update_worker3.isRunning():
+                        self.dialog['SkyChart'].plot_update_worker3.terminate()
                         print('plot3 thread is terminated...')
                     else:
                         pass
 
-                    if self.dialog['BigChart'].plot_update_worker4.isRunning():
-                        self.dialog['BigChart'].plot_update_worker4.terminate()
+                    if self.dialog['SkyChart'].plot_update_worker4.isRunning():
+                        self.dialog['SkyChart'].plot_update_worker4.terminate()
                         print('plot4 thread is terminated...')
                     else:
                         pass
 
-                    if self.dialog['BigChart'].plot_update_worker5.isRunning():
-                        self.dialog['BigChart'].plot_update_worker5.terminate()
+                    if self.dialog['SkyChart'].plot_update_worker5.isRunning():
+                        self.dialog['SkyChart'].plot_update_worker5.terminate()
                         print('plot5 thread is terminated...')
                     else:
                         pass
 
-                    if self.dialog['BigChart'].plot_update_worker6.isRunning():
-                        self.dialog['BigChart'].plot_update_worker6.terminate()
+                    if self.dialog['SkyChart'].plot_update_worker6.isRunning():
+                        self.dialog['SkyChart'].plot_update_worker6.terminate()
                         print('plot6 thread is terminated...')
                     else:
                         pass
                     '''
 
-                    self.dialog['BigChart'].close()
+                    self.dialog['SkyChart'].close()
                 else:
                     pass
             else:
