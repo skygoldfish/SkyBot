@@ -208,6 +208,7 @@ kp200_시가등락율 = 0
 차월물_선물_시가대비_등락율 = 0
 
 DOW_기준_예상시가 = 0
+SP500_기준_예상시가 = 0
 
 SP500_전저 = 0
 SP500_전고 = 0
@@ -11998,7 +11999,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 시가갭 = 근월물_선물_시가 - 근월물_선물_종가
 
-                txt = '{0}\n({1:.2f})'.format(시가, DOW_기준_예상시가)
+                txt = '{0}\n({1:.2f})'.format(시가, SP500_기준_예상시가)
 
                 item = QTableWidgetItem(txt)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -15762,7 +15763,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.fut_realdata['시가'] = df['시가']
                 근월물_선물_시가 = df['시가']
 
-                txt = '{0:.2f}\n({1:.2f})'.format(df['시가'], DOW_기준_예상시가)
+                txt = '{0:.2f}\n({1:.2f})'.format(df['시가'], SP500_기준_예상시가)
 
                 item = QTableWidgetItem(txt)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -44498,7 +44499,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         global flag_market_service, 근월물_선물_종가대비_등락율, 선물_진폭비
         global flag_fut_vs_sp500_drate_direction, plot_drate_scale_factor, 근월물_선물_피봇
-        global DOW_기준_예상시가
+        global DOW_기준_예상시가, SP500_기준_예상시가
         global 근월물_선물_시가, 근월물_선물_현재가_버퍼, df_futures_cm_graph, flag_futures_cm_ohlc_open
         global 차월물_선물_시가, 차월물_선물_현재가_버퍼, df_futures_nm_graph, flag_futures_nm_ohlc_open
         
@@ -44571,7 +44572,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 self.dialog['선물옵션전광판'].fut_realdata['시가'] = 근월물_선물_시가
 
-                txt = '{0}\n({1:.2f})'.format(tickdata['예상체결가격'], DOW_기준_예상시가)
+                txt = '{0}\n({1:.2f})'.format(tickdata['예상체결가격'], SP500_기준_예상시가)
 
                 item = QTableWidgetItem(txt)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -44604,12 +44605,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
 
-                if DOW_전일종가 > 0:
-                    DOW_기준_예상시가 = (근월물_선물_전일종가 * DOW_현재가) / DOW_전일종가
+                if SP500_전일종가 > 0:
+                    SP500_기준_예상시가 = (근월물_선물_전일종가 * SP500_현재가) / SP500_전일종가
                 else:
                     pass            
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] DOW기준 예상 선물시가 = {3:.2f}\r'.format(dt.hour, dt.minute, dt.second, DOW_기준_예상시가)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] S&P500 기준 예상 선물시가 = {3:.2f}\r'.format(dt.hour, dt.minute, dt.second, SP500_기준_예상시가)
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
 
                 근월물_선물_피봇 = calc_pivot(근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_시가)
