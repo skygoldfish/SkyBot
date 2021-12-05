@@ -1206,9 +1206,9 @@ flag_kp200_high = False
 옵션잔존일 = 0
 
 CME_체결시간 = '000000'
-OVC_HOUR = 0
-OVC_MIN = 0
-OVC_SEC = 0
+CME_HOUR = 0
+CME_MIN = 0
+CME_SEC = 0
 
 night_time = 0
 
@@ -42113,6 +42113,103 @@ class Xing(object):
         if self.caller.dialog['선물옵션전광판'] is not None:
 
             try:
+                # 해외선물 저가, 고가 시그날 발생
+                if SP500_피봇 - 0.05 * 5 <= SP500_저가 <= SP500_피봇 + 0.05 * 5 or SP500_시가 - 0.05 * 5 <= SP500_저가 <= SP500_시가 + 0.05 * 5 or SP500_종가 - 0.05 * 5 <= SP500_저가 <= SP500_종가 + 0.05 * 5:
+                    self.caller.label_sp500_low.setStyleSheet("background-color: springgreen; color: red; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                else:
+                    self.caller.label_sp500_low.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+
+                if SP500_피봇 - 0.05 * 5 <= SP500_고가 <= SP500_피봇 + 0.05 * 5 or SP500_시가 - 0.05 * 5 <= SP500_고가 <= SP500_시가 + 0.05 * 5 or SP500_종가 - 0.05 * 5 <= SP500_고가 <= SP500_종가 + 0.05 * 5:
+                    self.caller.label_sp500_high.setStyleSheet("background-color: springgreen; color: red; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                else:
+                    self.caller.label_sp500_high.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+
+                if DOW_피봇 - 1 * 5 <= DOW_저가 <= DOW_피봇 + 1 * 5 or DOW_시가 - 1 * 5 <= DOW_저가 <= DOW_시가 + 1 * 5 or DOW_종가 - 1 * 5 <= DOW_저가 <= DOW_종가 + 1 * 5:
+                    self.caller.label_dow_low.setStyleSheet("background-color: springgreen; color: red; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                else:
+                    self.caller.label_dow_low.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+
+                if DOW_피봇 - 1 * 5 <= DOW_고가 <= DOW_피봇 + 1 * 5 or DOW_시가 - 1 * 5 <= DOW_고가 <= DOW_시가 + 1 * 5 or DOW_종가 - 1 * 5 <= DOW_고가 <= DOW_종가 + 1 * 5:
+                    self.caller.label_dow_high.setStyleSheet("background-color: springgreen; color: red; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                else:
+                    self.caller.label_dow_high.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+
+                if NASDAQ_피봇 - 0.05 * 5 <= NASDAQ_저가 <= NASDAQ_피봇 + 0.05 * 5 or NASDAQ_시가 - 0.05 * 5 <= NASDAQ_저가 <= NASDAQ_시가 + 0.05 * 5 or NASDAQ_종가 - 0.05 * 5 <= NASDAQ_저가 <= NASDAQ_종가 + 0.05 * 5:
+                    self.caller.label_nasdaq_low.setStyleSheet("background-color: springgreen; color: red; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                else:
+                    self.caller.label_nasdaq_low.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+
+                if NASDAQ_피봇 - 0.05 * 5 <= NASDAQ_고가 <= NASDAQ_피봇 + 0.05 * 5 or NASDAQ_시가 - 0.05 * 5 <= NASDAQ_고가 <= NASDAQ_시가 + 0.05 * 5 or NASDAQ_종가 - 0.05 * 5 <= NASDAQ_고가 <= NASDAQ_종가 + 0.05 * 5:
+                    self.caller.label_nasdaq_high.setStyleSheet("background-color: springgreen; color: red; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                else:
+                    self.caller.label_nasdaq_high.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+
+                if HANGSENG_피봇 - 1 * 5 <= HANGSENG_저가 <= HANGSENG_피봇 + 1 * 5 or HANGSENG_시가 - 1 * 5 <= HANGSENG_저가 <= HANGSENG_시가 + 1 * 5 or HANGSENG_종가 - 1 * 5 <= HANGSENG_저가 <= HANGSENG_종가 + 1 * 5:
+                    self.caller.label_hsi_low.setStyleSheet("background-color: springgreen; color: red; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                else:
+                    self.caller.label_hsi_low.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+
+                if HANGSENG_피봇 - 1 * 5 <= HANGSENG_고가 <= HANGSENG_피봇 + 1 * 5 or HANGSENG_시가 - 1 * 5 <= HANGSENG_고가 <= HANGSENG_시가 + 1 * 5 or HANGSENG_종가 - 1 * 5 <= HANGSENG_고가 <= HANGSENG_종가 + 1 * 5:
+                    self.caller.label_hsi_high.setStyleSheet("background-color: springgreen; color: red; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                else:
+                    self.caller.label_hsi_high.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+
+                if WTI_피봇 - 0.01 * 5 <= WTI_저가 <= WTI_피봇 + 0.01 * 5 or WTI_시가 - 0.01 * 5 <= WTI_저가 <= WTI_시가 + 0.01 * 5 or WTI_종가 - 0.01 * 5 <= WTI_저가 <= WTI_종가 + 0.01 * 5:
+                    self.caller.label_wti_low.setStyleSheet("background-color: springgreen; color: red; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                else:
+                    self.caller.label_wti_low.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+
+                if WTI_피봇 - 0.01 * 5 <= WTI_고가 <= WTI_피봇 + 0.01 * 5 or WTI_시가 - 0.01 * 5 <= WTI_고가 <= WTI_시가 + 0.01 * 5 or WTI_종가 - 0.01 * 5 <= WTI_고가 < WTI_종가 + 0.01 * 5:
+                    self.caller.label_wti_high.setStyleSheet("background-color: springgreen; color: red; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                else:
+                    self.caller.label_wti_high.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+
+                if GOLD_피봇 - 0.1 * 5 <= GOLD_저가 <= GOLD_피봇 + 0.1 * 5 or GOLD_시가 - 0.1 * 5 <= GOLD_저가 <= GOLD_시가 + 0.1 * 5 or GOLD_종가 - 0.1 * 5 <= GOLD_저가 <= GOLD_종가 + 0.1 * 5:
+                    self.caller.label_gold_low.setStyleSheet("background-color: springgreen; color: red; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                else:
+                    self.caller.label_gold_low.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+
+                if GOLD_피봇 - 0.1 * 5 <= GOLD_고가 <= GOLD_피봇 + 0.1 * 5 or GOLD_시가 - 0.1 * 5 <= GOLD_고가 <= GOLD_시가 + 0.1 * 5 or GOLD_종가 - 0.1 * 5 <= GOLD_고가 <= GOLD_종가 + 0.1 * 5:
+                    self.caller.label_gold_high.setStyleSheet("background-color: springgreen; color: red; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                else:
+                    self.caller.label_gold_high.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+
+                if EUROFX_피봇 - 0.00001 * 5 <= EUROFX_저가 <= EUROFX_피봇 + 0.00001 * 5 or EUROFX_시가 - 0.00001 * 5 <= EUROFX_저가 <= EUROFX_시가 + 0.00001 * 5 or EUROFX_종가 - 0.00001 * 5 <= EUROFX_저가 <= EUROFX_종가 + 0.00001 * 5:
+                    self.caller.label_euro_low.setStyleSheet("background-color: springgreen; color: red; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                else:
+                    self.caller.label_euro_low.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+
+                if EUROFX_피봇 - 0.00001 * 5 <= EUROFX_고가 <= EUROFX_피봇 + 0.00001 * 5 or EUROFX_시가 - 0.00001 * 5 <= EUROFX_고가 <= EUROFX_시가 + 0.00001 * 5 or EUROFX_종가 - 0.00001 * 5 <= EUROFX_고가 <= EUROFX_종가 + 0.00001 * 5:
+                    self.caller.label_euro_high.setStyleSheet("background-color: springgreen; color: red; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                else:
+                    self.caller.label_euro_high.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+
+                if YEN_피봇 - 0.1 * 5 <= YEN_저가 <= YEN_피봇 + 0.1 * 5 or YEN_시가 - 0.1 * 5 <= YEN_저가 <= YEN_시가 + 0.1 * 5 or YEN_종가 - 0.1 * 5 <= YEN_저가 <= YEN_종가 + 0.1 * 5:
+                    self.caller.label_yen_low.setStyleSheet("background-color: springgreen; color: red; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                else:
+                    self.caller.label_yen_low.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+
+                if YEN_피봇 - 0.1 * 5 <= YEN_고가 <= YEN_피봇 + 0.1 * 5 or YEN_시가 - 0.1 * 5 <= YEN_고가 <= YEN_시가 + 0.1 * 5 or YEN_종가 - 0.1 * 5 <= YEN_고가 <= YEN_종가 + 0.1 * 5:
+                    self.caller.label_yen_high.setStyleSheet("background-color: springgreen; color: red; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                else:
+                    self.caller.label_yen_high.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+
                 if flag_score_board_start:
 
                     if dt.hour == KSE_START_HOUR:
@@ -42678,6 +42775,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                             color: yellow; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px} \
                                             QPushButton:hover {background-color: black; color: white} \
                                             QPushButton:pressed {background-color: gold}')        
+
+        self.groupBox_2.setTitle('해외선물 시그날')
 
         if TARGET_MONTH == 'CM':
             self.groupBox_2.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
@@ -44602,7 +44701,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_futures_cm_graph.at[cme_time_index, 'ctime'] = tickdata['수신시간']
 
-                if OVC_SEC == 0:
+                if CME_SEC == 0:
 
                     if not flag_futures_cm_ohlc_open:
 
@@ -44802,7 +44901,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     # 1T OHLC 생성
                     df_futures_nm_graph.at[cme_time_index, 'ctime'] = tickdata['수신시간']
 
-                    if OVC_SEC == 0:
+                    if CME_SEC == 0:
 
                         if not flag_futures_nm_ohlc_open:
 
@@ -46005,7 +46104,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass                    
 
-                if OVC_SEC == 0:
+                if CME_SEC == 0:
 
                     if not flag_futures_cm_ohlc_open:
 
@@ -46161,7 +46260,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass                    
 
-                if OVC_SEC == 0:
+                if CME_SEC == 0:
 
                     if not flag_futures_nm_ohlc_open:
 
@@ -46996,7 +47095,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def ovc_update(self, tickdata):
 
-        global CME_체결시간, OVC_HOUR, OVC_MIN, OVC_SEC, t0167_hour, t0167_minute, t0167_second
+        global CME_체결시간, CME_HOUR, CME_MIN, CME_SEC, t0167_hour, t0167_minute, t0167_second
         global old_cme_time_index, cme_time_index
         global df_futures_cm_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_gold_graph, df_eurofx_graph, df_yen_graph, df_hangseng_graph
 
@@ -47031,13 +47130,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             dt = datetime.now()
 
             CME_체결시간 = tickdata['수신시간']
-            OVC_HOUR = int(CME_체결시간[0:2])
-            OVC_MIN = int(CME_체결시간[2:4])
-            OVC_SEC = int(CME_체결시간[4:6])
+            CME_HOUR = int(CME_체결시간[0:2])
+            CME_MIN = int(CME_체결시간[2:4])
+            CME_SEC = int(CME_체결시간[4:6])
 
-            t0167_hour = OVC_HOUR
-            t0167_minute = OVC_MIN
-            t0167_second = OVC_SEC
+            t0167_hour = CME_HOUR
+            t0167_minute = CME_MIN
+            t0167_second = CME_SEC
 
             # 과거값 저장
             old_cme_time_index = cme_time_index                       
@@ -47045,17 +47144,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # X축 시간좌표 계산, 해외선물 시간과 동기를 맞춤
             if NightTime:
 
-                night_time = OVC_HOUR
+                night_time = CME_HOUR
 
                 if 0 <= night_time <= 6:
                     night_time = night_time + 24
                 else:
                     pass
 
-                cme_time_index = (night_time - NightTime_PreStart_Hour) * 60 + OVC_MIN + 1         
+                cme_time_index = (night_time - NightTime_PreStart_Hour) * 60 + CME_MIN + 1         
             else:                    
                 # 해외선물 개장시간은 국내시장의 2시간 전
-                cme_time_index = (OVC_HOUR - DayTime_PreStart_Hour) * 60 + OVC_MIN + 1
+                cme_time_index = (CME_HOUR - DayTime_PreStart_Hour) * 60 + CME_MIN + 1
 
             # 갱신된 현재값을 과거값과 비교(NaN 방지를 위해)
             if cme_time_index != old_cme_time_index:
@@ -47122,7 +47221,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if DOW_현재가 > 0:
 
-                    if OVC_SEC == 0:
+                    if CME_SEC == 0:
 
                         if not flag_dow_ohlc_open:
 
@@ -47188,7 +47287,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if DOW_피봇 == 0:
 
                     if DOW_전저 > 0 and DOW_전고 > 0:
-                        DOW_피봇 = calc_pivot(DOW_전저, DOW_전고, DOW_종가, DOW_시가)
+                        DOW_피봇 = int(calc_pivot(DOW_전저, DOW_전고, DOW_종가, DOW_시가))
                     else:
                         pass
                 else:
@@ -47288,7 +47387,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if NASDAQ_현재가 > 0:
 
-                    if OVC_SEC == 0:
+                    if CME_SEC == 0:
 
                         if not flag_nasdaq_ohlc_open:
                         
@@ -47354,7 +47453,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if NASDAQ_피봇 == 0:
 
                     if NASDAQ_전저 > 0 and NASDAQ_전고 > 0:
-                        NASDAQ_피봇 = calc_pivot(NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_시가)
+                        NASDAQ_피봇 = round(calc_pivot(NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_시가), 2)
                     else:
                         pass
                 else:
@@ -47467,7 +47566,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if SP500_현재가 > 0:
 
-                    if OVC_SEC == 0:
+                    if CME_SEC == 0:
 
                         if not flag_sp500_ohlc_open:
 
@@ -47533,7 +47632,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if SP500_피봇 == 0:
 
                     if SP500_전저 > 0 and SP500_전고 > 0:
-                        SP500_피봇 = calc_pivot(SP500_전저, SP500_전고, SP500_종가, SP500_시가)
+                        SP500_피봇 = round(calc_pivot(SP500_전저, SP500_전고, SP500_종가, SP500_시가), 2)
                     else:
                         pass
                 else:
@@ -47633,7 +47732,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if WTI_현재가 > 0:
 
-                    if OVC_SEC == 0:
+                    if CME_SEC == 0:
 
                         if not flag_wti_ohlc_open:
                         
@@ -47699,7 +47798,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if WTI_피봇 == 0:
 
                     if WTI_전저 > 0 and WTI_전고 > 0:
-                        WTI_피봇 = calc_pivot(WTI_전저, WTI_전고, WTI_종가, WTI_시가)
+                        WTI_피봇 = round(calc_pivot(WTI_전저, WTI_전고, WTI_종가, WTI_시가), 2)
                     else:
                         pass
                 else:
@@ -47810,7 +47909,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if GOLD_피봇 == 0:
 
                     if GOLD_전저 > 0 and GOLD_전고 > 0:
-                        GOLD_피봇 = calc_pivot(GOLD_전저, GOLD_전고, GOLD_종가, GOLD_시가)
+                        GOLD_피봇 = round(calc_pivot(GOLD_전저, GOLD_전고, GOLD_종가, GOLD_시가), 1)
                     else:
                         pass
                 else:
