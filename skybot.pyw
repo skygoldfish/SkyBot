@@ -42679,6 +42679,81 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                             QPushButton:hover {background-color: black; color: white} \
                                             QPushButton:pressed {background-color: gold}')
 
+        self.groupBox_2.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
+
+        self.label_sp500.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
+        self.label_dow.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
+        self.label_nasdaq.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
+        self.label_hsi.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
+        self.label_wti.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
+        self.label_gold.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
+        self.label_euro.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
+        self.label_yen.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
+
+        self.label_sp500_low.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+        self.label_sp500_low.setText('저가')
+
+        self.label_sp500_high.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+        self.label_sp500_high.setText('고가')
+
+        self.label_dow_low.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+        self.label_dow_low.setText('저가')
+
+        self.label_dow_high.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+        self.label_dow_high.setText('고가')
+
+        self.label_nasdaq_low.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+        self.label_nasdaq_low.setText('저가')
+
+        self.label_nasdaq_high.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+        self.label_nasdaq_high.setText('고가')
+
+        self.label_hsi_low.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+        self.label_hsi_low.setText('저가')
+
+        self.label_hsi_high.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+        self.label_hsi_high.setText('고가')
+
+        self.label_wti_low.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+        self.label_wti_low.setText('저가')
+
+        self.label_wti_high.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+        self.label_wti_high.setText('고가')
+
+        self.label_gold_low.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+        self.label_gold_low.setText('저가')
+
+        self.label_gold_high.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+        self.label_gold_high.setText('고가')
+
+        self.label_euro_low.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+        self.label_euro_low.setText('저가')
+
+        self.label_euro_high.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+        self.label_euro_high.setText('고가')
+
+        self.label_yen_low.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+        self.label_yen_low.setText('저가')
+
+        self.label_yen_high.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
+                                    color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+        self.label_yen_high.setText('고가')
+
         self.pushButton_reset.setText(' Reset ')
         self.pushButton_reset.clicked.connect(self.reset_button_clicked)
 
