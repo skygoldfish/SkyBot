@@ -42677,18 +42677,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                             qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
                                             color: yellow; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px} \
                                             QPushButton:hover {background-color: black; color: white} \
-                                            QPushButton:pressed {background-color: gold}')
+                                            QPushButton:pressed {background-color: gold}')        
 
-        self.groupBox_2.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
+        if TARGET_MONTH == 'CM':
+            self.groupBox_2.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
 
-        self.label_sp500.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
-        self.label_dow.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
-        self.label_nasdaq.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
-        self.label_hsi.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
-        self.label_wti.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
-        self.label_gold.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
-        self.label_euro.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
-        self.label_yen.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
+            self.label_sp500.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
+            self.label_dow.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
+            self.label_nasdaq.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
+            self.label_hsi.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
+            self.label_wti.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
+            self.label_gold.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
+            self.label_euro.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
+            self.label_yen.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
+        else:
+            pass
 
         self.label_sp500_low.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
                                     color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
