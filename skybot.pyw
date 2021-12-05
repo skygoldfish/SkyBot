@@ -42117,7 +42117,7 @@ class Xing(object):
             try:
                 # 해외선물 저가, 고가 시그날 발생
                 if flag_cme_update:
-                    
+
                     if SP500_피봇 - 0.05 * 5 <= SP500_저가 <= SP500_피봇 + 0.05 * 5 or SP500_시가 - 0.05 * 5 <= SP500_저가 <= SP500_시가 + 0.05 * 5 or SP500_종가 - 0.05 * 5 <= SP500_저가 <= SP500_종가 + 0.05 * 5:
                         self.caller.label_sp500_low.setStyleSheet("background-color: springgreen; color: red; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
                     else:
@@ -43002,8 +43002,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if returnValue == QMessageBox.Ok:
             print("showSDBMsgBox OK Clicked...")
 
-    #@pyqtSlot()
-    @pyqtCatchExceptionSlot("bool", on_exception_emit="exceptionOccurred")
+    @pyqtSlot()
+    #@pyqtCatchExceptionSlot("bool", on_exception_emit="exceptionOccurred")
     def reset_button_clicked(self, checked):
 
         global flag_drop_reset1, flag_drop_reset2, flag_drop_reset3, flag_drop_reset4
@@ -43015,7 +43015,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         #playsound('Resources/click.wav')
         winsound.PlaySound('Resources/click.wav', winsound.SND_FILENAME)
-        raise Exception("ExceptionOccurr Test...")
+        #raise Exception("ExceptionOccurr Test...")
     
     #####################################################################################################################################################################
     # 멀티프로세스방식 처리관련 함수들
