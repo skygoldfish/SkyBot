@@ -15787,10 +15787,35 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_futures_cm_graph.at[0, 'kp200'] = self.fut_realdata['KP200']
                     df_futures_cm_graph.at[0, 'price'] = self.fut_realdata['종가']
                     df_kp200_graph.at[0, 'price'] = self.fut_realdata['KP200']
+                    
                     df_supply_demand_graph.at[0, 'program'] = 0
                     df_supply_demand_graph.at[0, 'kospi_total'] = 0
                     df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'] = 0
                     df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'] = 0
+
+                    if SP500_종가 > 0:
+                        df_sp500_graph.at[0, 'price'] = SP500_종가
+
+                    if DOW_종가 > 0:
+                        df_dow_graph.at[0, 'price'] = DOW_종가
+
+                    if NASDAQ_종가 > 0:
+                        df_nasdaq_graph.at[0, 'price'] = NASDAQ_종가
+
+                    if HANGSENG_종가 > 0:
+                        df_hangseng_graph.at[0, 'price'] = HANGSENG_종가
+
+                    if WTI_종가 > 0:
+                        df_wti_graph.at[0, 'price'] = WTI_종가
+
+                    if GOLD_종가 > 0:
+                        df_gold_graph.at[0, 'price'] = GOLD_종가
+
+                    if EUROFX_종가 > 0:
+                        df_eurofx_graph.at[0, 'price'] = EUROFX_종가
+
+                    if YEN_종가 > 0:
+                        df_yen_graph.at[0, 'price'] = YEN_종가
 
                     if self.fut_realdata['시가'] > 0:
                         df_futures_cm_graph.at[GuardTime + 1, 'open'] = self.fut_realdata['시가']
@@ -47203,6 +47228,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 DOW_전일대비 = int(DOW_현재가 - DOW_종가)
                 DOW_등락율 = float(tickdata['등락율'])                
 
+                DOW_시가 = int(float(tickdata['시가']))
                 DOW_저가 =  int(float(tickdata['저가']))
                 DOW_고가 =  int(float(tickdata['고가']))
                 DOW_진폭 = int(DOW_고가 - DOW_저가)
@@ -47278,20 +47304,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass                        
 
-                if DOW_시가 == 0:
-
-                    if tickdata['전일대비기호'] == '5':
-
-                        DOW_종가 = int(DOW_현재가 + float(tickdata['전일대비']))
-                    else:
-                        DOW_종가 = int(DOW_현재가 - float(tickdata['전일대비']))
-
-                    df_dow_graph.at[0, 'price'] = DOW_종가
-                    df_dow_graph.at[1, 'price'] = float(tickdata['시가'])
-
-                    DOW_시가 = int(float(tickdata['시가']))
+                if tickdata['전일대비기호'] == '5':
+                    DOW_종가 = int(DOW_현재가 + float(tickdata['전일대비']))
                 else:
-                    DOW_진폭비 = DOW_진폭 / DOW_시가                                    
+                    DOW_종가 = int(DOW_현재가 - float(tickdata['전일대비']))
+
+                df_dow_graph.at[0, 'price'] = DOW_종가
+                df_dow_graph.at[1, 'price'] = DOW_시가
+                
+                DOW_진폭비 = DOW_진폭 / DOW_시가                                    
 
                 if DOW_피봇 == 0:
 
@@ -47380,6 +47401,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 NASDAQ_전일대비 = NASDAQ_현재가 - NASDAQ_종가 
                 NASDAQ_등락율 = float(tickdata['등락율'])                 
 
+                NASDAQ_시가 = float(tickdata['시가'])
                 NASDAQ_저가 =  float(tickdata['저가'])
                 NASDAQ_고가 =  float(tickdata['고가'])                    
                 NASDAQ_진폭 = NASDAQ_고가 - NASDAQ_저가
@@ -47444,20 +47466,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass                
 
-                if NASDAQ_시가 == 0:
-
-                    if tickdata['전일대비기호'] == '5':
-
-                        NASDAQ_종가 = NASDAQ_현재가 + float(tickdata['전일대비'])
-                    else:
-                        NASDAQ_종가 = NASDAQ_현재가 - float(tickdata['전일대비'])
-
-                    df_nasdaq_graph.at[0, 'price'] = NASDAQ_종가
-                    df_nasdaq_graph.at[1, 'price'] = float(tickdata['시가'])
-
-                    NASDAQ_시가 = float(tickdata['시가'])
+                if tickdata['전일대비기호'] == '5':
+                    NASDAQ_종가 = NASDAQ_현재가 + float(tickdata['전일대비'])
                 else:
-                    pass
+                    NASDAQ_종가 = NASDAQ_현재가 - float(tickdata['전일대비'])
+
+                df_nasdaq_graph.at[0, 'price'] = NASDAQ_종가
+                df_nasdaq_graph.at[1, 'price'] = NASDAQ_시가
+
+                NASDAQ_진폭비 = NASDAQ_진폭 / NASDAQ_시가
                 
                 if NASDAQ_피봇 == 0:
 
@@ -47546,6 +47563,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 SP500_전일대비 = round((SP500_현재가 - SP500_종가), 2)
                 SP500_등락율 = float(tickdata['등락율'])
 
+                SP500_시가 = float(tickdata['시가'])
                 SP500_저가 =  float(tickdata['저가'])
                 SP500_고가 =  float(tickdata['고가'])
                 SP500_진폭 = SP500_고가 - SP500_저가
@@ -47623,20 +47641,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass              
 
-                if SP500_시가 == 0:
-
-                    if tickdata['전일대비기호'] == '5':
-
-                        SP500_종가 = SP500_현재가 + float(tickdata['전일대비'])
-                    else:
-                        SP500_종가 = SP500_현재가 - float(tickdata['전일대비'])
-
-                    df_sp500_graph.at[0, 'price'] = SP500_종가
-                    df_sp500_graph.at[1, 'price'] = float(tickdata['시가'])
-
-                    SP500_시가 = float(tickdata['시가'])
+                if tickdata['전일대비기호'] == '5':
+                    SP500_종가 = SP500_현재가 + float(tickdata['전일대비'])
                 else:
-                    SP500_진폭비 = SP500_진폭 / SP500_시가                                                  
+                    SP500_종가 = SP500_현재가 - float(tickdata['전일대비'])
+
+                df_sp500_graph.at[0, 'price'] = SP500_종가
+                df_sp500_graph.at[1, 'price'] = SP500_시가
+
+                SP500_진폭비 = SP500_진폭 / SP500_시가                                                 
 
                 if SP500_피봇 == 0:
 
@@ -47725,6 +47738,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 WTI_전일대비 = round((WTI_현재가 - WTI_종가), 2)
                 WTI_등락율 = float(tickdata['등락율'])
 
+                WTI_시가 = float(tickdata['시가'])
                 WTI_저가 =  float(tickdata['저가'])
                 WTI_고가 =  float(tickdata['고가'])
                 WTI_진폭 = round((WTI_고가 - WTI_저가), 2)
@@ -47789,20 +47803,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass     
 
-                if WTI_시가 == 0:
-
-                    if tickdata['전일대비기호'] == '5':
-
-                        WTI_종가 = round((WTI_현재가 + float(tickdata['전일대비'])), 2)
-                    else:
-                        WTI_종가 = round((WTI_현재가 - float(tickdata['전일대비'])), 2)
-
-                    df_wti_graph.at[0, 'price'] = WTI_종가
-                    df_wti_graph.at[1, 'price'] = float(tickdata['시가'])
-
-                    WTI_시가 = float(tickdata['시가'])
+                if tickdata['전일대비기호'] == '5':
+                    WTI_종가 = round((WTI_현재가 + float(tickdata['전일대비'])), 2)
                 else:
-                    pass                 
+                    WTI_종가 = round((WTI_현재가 - float(tickdata['전일대비'])), 2)
+
+                df_wti_graph.at[0, 'price'] = WTI_종가
+                df_wti_graph.at[1, 'price'] = WTI_시가
+
+                WTI_진폭비 = WTI_진폭 / WTI_시가               
 
                 if WTI_피봇 == 0:
 
@@ -47891,6 +47900,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 GOLD_전일대비 = GOLD_현재가 - GOLD_종가
                 GOLD_등락율 = float(tickdata['등락율'])
 
+                GOLD_시가 = float(tickdata['시가'])
                 GOLD_저가 =  float(tickdata['저가'])
                 GOLD_고가 =  float(tickdata['고가'])                    
                 GOLD_진폭 = GOLD_고가 - GOLD_저가
@@ -47900,20 +47910,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if GOLD_시가 == 0:
-
-                    if tickdata['전일대비기호'] == '5':
-
-                        GOLD_종가 = round((GOLD_현재가 + float(tickdata['전일대비'])), 1)
-                    else:
-                        GOLD_종가 = round((GOLD_현재가 - float(tickdata['전일대비'])), 1)
-
-                    df_gold_graph.at[0, 'price'] = GOLD_종가
-                    df_gold_graph.at[1, 'price'] = float(tickdata['시가'])
-
-                    GOLD_시가 = float(tickdata['시가'])
+                if tickdata['전일대비기호'] == '5':
+                    GOLD_종가 = round((GOLD_현재가 + float(tickdata['전일대비'])), 1)
                 else:
-                    pass                    
+                    GOLD_종가 = round((GOLD_현재가 - float(tickdata['전일대비'])), 1)
+
+                df_gold_graph.at[0, 'price'] = GOLD_종가
+                df_gold_graph.at[1, 'price'] = GOLD_시가
+
+                GOLD_진폭비 = GOLD_진폭 / GOLD_시가                   
 
                 if GOLD_피봇 == 0:
 
@@ -48018,6 +48023,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 EUROFX_전일대비 = round((EUROFX_현재가 - EUROFX_종가), 5)
                 EUROFX_등락율 = float(tickdata['등락율'])
 
+                EUROFX_시가 = float(tickdata['시가'])
                 EUROFX_저가 =  float(tickdata['저가'])
                 EUROFX_고가 =  float(tickdata['고가'])                    
                 EUROFX_진폭 = round((EUROFX_고가 - EUROFX_저가), 5)
@@ -48027,20 +48033,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if EUROFX_시가 == 0:
-
-                    if tickdata['전일대비기호'] == '5':
-
-                        EUROFX_종가 = round((EUROFX_현재가 + float(tickdata['전일대비'])), 5)
-                    else:
-                        EUROFX_종가 = round((EUROFX_현재가 - float(tickdata['전일대비'])), 5)
-
-                    df_eurofx_graph.at[0, 'price'] = EUROFX_종가
-                    df_eurofx_graph.at[1, 'price'] = float(tickdata['시가'])
-
-                    EUROFX_시가 = float(tickdata['시가'])
+                if tickdata['전일대비기호'] == '5':
+                    EUROFX_종가 = round((EUROFX_현재가 + float(tickdata['전일대비'])), 5)
                 else:
-                    pass                    
+                    EUROFX_종가 = round((EUROFX_현재가 - float(tickdata['전일대비'])), 5)
+
+                df_eurofx_graph.at[0, 'price'] = EUROFX_종가
+                df_eurofx_graph.at[1, 'price'] = EUROFX_시가
+
+                EUROFX_진폭비 = EUROFX_진폭 / EUROFX_시가                    
                 
                 if EUROFX_피봇 == 0:
 
@@ -48145,6 +48146,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 YEN_전일대비 = round((YEN_현재가 - YEN_종가), 5)
                 YEN_등락율 = float(tickdata['등락율'])
 
+                YEN_시가 = float(tickdata['시가'])
                 YEN_저가 =  float(tickdata['저가'])
                 YEN_고가 =  float(tickdata['고가'])                    
                 YEN_진폭 = round((YEN_고가 - YEN_저가), 2)
@@ -48154,20 +48156,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
                 
-                if YEN_시가 == 0:
-
-                    if tickdata['전일대비기호'] == '5':
-
-                        YEN_종가 = round((YEN_현재가 + float(tickdata['전일대비'])), 1)
-                    else:
-                        YEN_종가 = round((YEN_현재가 - float(tickdata['전일대비'])), 1)
-
-                    df_yen_graph.at[0, 'price'] = YEN_종가
-                    df_yen_graph.at[1, 'price'] = float(tickdata['시가'])
-
-                    YEN_시가 = float(tickdata['시가'])
+                if tickdata['전일대비기호'] == '5':
+                    YEN_종가 = round((YEN_현재가 + float(tickdata['전일대비'])), 1)
                 else:
-                    pass                    
+                    YEN_종가 = round((YEN_현재가 - float(tickdata['전일대비'])), 1)
+
+                df_yen_graph.at[0, 'price'] = YEN_종가
+                df_yen_graph.at[1, 'price'] = YEN_시가
+
+                YEN_진폭비 = YEN_진폭 / YEN_시가              
                 
                 if YEN_피봇 == 0:
 
@@ -48274,6 +48271,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 HANGSENG_전일대비 = int(float(tickdata['체결가격']) - HANGSENG_종가)                    
                 HANGSENG_등락율 = float(tickdata['등락율'])
 
+                HANGSENG_시가 = int(float(tickdata['시가']))
                 HANGSENG_저가 =  int(float(tickdata['저가']))
                 HANGSENG_고가 =  int(float(tickdata['고가']))                    
                 HANGSENG_진폭 = int(HANGSENG_고가 - HANGSENG_저가)
@@ -48285,20 +48283,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 #HANGSENG_체결가격 = locale.format('%d', float(tickdata['체결가격']), 1)
 
-                if HANGSENG_시가 == 0:
-
-                    if tickdata['전일대비기호'] == '5':
-
-                        HANGSENG_종가 = int(float(tickdata['체결가격']) + float(tickdata['전일대비']))
-                    else:
-                        HANGSENG_종가 = int(float(tickdata['체결가격']) - float(tickdata['전일대비']))
-
-                    df_hangseng_graph.at[0, 'price'] = HANGSENG_종가
-                    df_hangseng_graph.at[1, 'price'] = float(tickdata['시가'])
-
-                    HANGSENG_시가 = int(float(tickdata['시가']))
+                if tickdata['전일대비기호'] == '5':
+                    HANGSENG_종가 = int(float(tickdata['체결가격']) + float(tickdata['전일대비']))
                 else:
-                    pass                    
+                    HANGSENG_종가 = int(float(tickdata['체결가격']) - float(tickdata['전일대비']))
+
+                df_hangseng_graph.at[0, 'price'] = HANGSENG_종가
+                df_hangseng_graph.at[1, 'price'] = HANGSENG_시가
+
+                HANGSENG_진폭비 = HANGSENG_진폭 / HANGSENG_시가                  
 
                 if HANGSENG_피봇 == 0:
 
