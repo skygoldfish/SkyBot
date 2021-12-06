@@ -2235,10 +2235,10 @@ def sqliteconn():
     conn = sqlite3.connect(DATABASE)
     return conn
 
-def calc_pivot(jl, jh, jc, do):
+def calc_pivot(jl, jh, jc, do, float_index):
     if jl > 0 and jh > 0 and jc > 0 and do > 0:
         tmp = (jl + jh + jc)/3 + (do - jc)
-        pivot = round(tmp, 2)
+        pivot = round(tmp, float_index)
         return pivot
     else:
         return 0
@@ -12004,7 +12004,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_futures_cm_graph.at[GuardTime + 1, 'open'] = 근월물_선물_시가
 
-                근월물_선물_피봇 = calc_pivot(근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_시가)
+                근월물_선물_피봇 = calc_pivot(근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_시가, 2)
 
                 시가갭 = 근월물_선물_시가 - 근월물_선물_종가
 
@@ -12305,7 +12305,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if 시가 != self.tableWidget_fut.item(0, Futures_column.시가.value).text():
 
-                차월물_선물_피봇 = calc_pivot(차월물_선물_전저, 차월물_선물_전고, 차월물_선물_종가, 차월물_선물_시가)
+                차월물_선물_피봇 = calc_pivot(차월물_선물_전저, 차월물_선물_전고, 차월물_선물_종가, 차월물_선물_시가, 2)
 
                 시가갭 = 차월물_선물_시가 - 차월물_선물_종가
 
@@ -12896,7 +12896,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 call_시가 = df_call['시가'].values.tolist()
                 call_시가_node_list = self.make_node_list(call_시가)
 
-                피봇 = calc_pivot(콜전저, 콜전고, 콜종가, 콜시가)
+                피봇 = calc_pivot(콜전저, 콜전고, 콜종가, 콜시가, 2)
                 df_call.at[index, '피봇'] = 피봇
 
                 if 피봇 >= 100:
@@ -13975,7 +13975,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_시가 = df_put['시가'].values.tolist()
                 put_시가_node_list = self.make_node_list(put_시가)
 
-                피봇 = calc_pivot(풋전저, 풋전고, 풋종가, 풋시가)
+                피봇 = calc_pivot(풋전저, 풋전고, 풋종가, 풋시가, 2)
                 df_put.at[index, '피봇'] = 피봇
 
                 if 피봇 >= 100:
@@ -15834,7 +15834,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 if self.fut_realdata['전저'] > 0 and self.fut_realdata['전고'] > 0:
-                    self.fut_realdata['피봇'] = calc_pivot(self.fut_realdata['전저'], self.fut_realdata['전고'], self.fut_realdata['종가'], df['시가'])
+                    self.fut_realdata['피봇'] = calc_pivot(self.fut_realdata['전저'], self.fut_realdata['전고'], self.fut_realdata['종가'], df['시가'], 2)
                     근월물_선물_피봇 = self.fut_realdata['피봇']
 
                     item = QTableWidgetItem("{0:.2f}".format(self.fut_realdata['피봇']))
@@ -16026,7 +16026,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.setItem(0, Futures_column.시가.value, item)
 
                 if 차월물_선물_전저 > 0 and 차월물_선물_전고 > 0:
-                    차월물_선물_피봇 = calc_pivot(차월물_선물_전저, 차월물_선물_전고, 차월물_선물_종가, 차월물_선물_시가)
+                    차월물_선물_피봇 = calc_pivot(차월물_선물_전저, 차월물_선물_전고, 차월물_선물_종가, 차월물_선물_시가, 2)
 
                     item = QTableWidgetItem("{0:.2f}".format(차월물_선물_피봇))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -17075,7 +17075,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if df_call.at[i, '피봇'] == 0:
 
-                                피봇 = calc_pivot(df_call.at[i, '전저'], df_call.at[i, '전고'], 종가, 시가)
+                                피봇 = calc_pivot(df_call.at[i, '전저'], df_call.at[i, '전고'], 종가, 시가, 2)
 
                                 df_call.at[i, '피봇'] = 피봇
 
@@ -17213,7 +17213,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if df_put.at[i, '피봇'] == 0:
 
-                                피봇 = calc_pivot(df_put.at[i, '전저'], df_put.at[i, '전고'], 종가, 시가)
+                                피봇 = calc_pivot(df_put.at[i, '전저'], df_put.at[i, '전고'], 종가, 시가, 2)
 
                                 df_put.at[i, '피봇'] = 피봇                                         
 
@@ -17727,8 +17727,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if self.cme_realdata['전저'] > 0 and self.cme_realdata['전고'] > 0:
 
-                    self.cme_realdata['피봇'] = calc_pivot(self.cme_realdata['전저'], self.cme_realdata['전고'], 
-                                            df['전일종가'], self.cme_realdata['시가'])
+                    self.cme_realdata['피봇'] = calc_pivot(self.cme_realdata['전저'], self.cme_realdata['전고'], df['전일종가'], self.cme_realdata['시가'], 2)
 
                     item = QTableWidgetItem("{0:.2f}".format(self.cme_realdata['피봇']))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -18222,7 +18221,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             item.setForeground(QBrush(검정색))
                             self.tableWidget_call.setItem(i, Option_column.대비.value, item)
 
-                        피봇 = calc_pivot(전저, 전고, 종가, 시가)
+                        피봇 = calc_pivot(전저, 전고, 종가, 시가, 2)
 
                         item = QTableWidgetItem("{0:.2f}".format(피봇))
                         item.setTextAlignment(Qt.AlignCenter)
@@ -18527,7 +18526,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             item.setForeground(QBrush(검정색))
                             self.tableWidget_put.setItem(i, Option_column.대비.value, item)
 
-                        피봇 = calc_pivot(전저, 전고, 종가, 시가)
+                        피봇 = calc_pivot(전저, 전고, 종가, 시가, 2)
 
                         item = QTableWidgetItem("{0:.2f}".format(피봇))
                         item.setTextAlignment(Qt.AlignCenter)
@@ -18975,7 +18974,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         시가갭 = 시가 - 종가
                         df_call.at[i, '시가갭'] = 시가갭
 
-                        피봇 = calc_pivot(df_call.at[i, '전저'], df_call.at[i, '전고'], 종가, 시가)
+                        피봇 = calc_pivot(df_call.at[i, '전저'], df_call.at[i, '전고'], 종가, 시가, 2)
                         df_call.at[i, '피봇'] = 피봇
 
                         item = QTableWidgetItem("{0:.2f}".format(피봇))
@@ -19065,7 +19064,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         시가갭 = 시가 - 종가
                         df_put.at[i, '시가갭'] = 시가갭
 
-                        피봇 = calc_pivot(df_put.at[i, '전저'], df_put.at[i, '전고'], 종가, 시가)
+                        피봇 = calc_pivot(df_put.at[i, '전저'], df_put.at[i, '전고'], 종가, 시가, 2)
                         df_put.at[i, '피봇'] = 피봇
 
                         item = QTableWidgetItem("{0:.2f}".format(피봇))
@@ -19656,7 +19655,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if 시가 > 0: 
 
-                        피봇 = calc_pivot(전저, 전고, 종가, 시가)
+                        피봇 = calc_pivot(전저, 전고, 종가, 시가, 2)
                         df_call.at[t8416_call_count, '피봇'] = 피봇
 
                         item = QTableWidgetItem("{0:.2f}".format(피봇))
@@ -19905,7 +19904,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if 시가 > 0:
 
-                        피봇 = calc_pivot(전저, 전고, 종가, 시가)
+                        피봇 = calc_pivot(전저, 전고, 종가, 시가, 2)
                         df_put.at[t8416_put_count, '피봇'] = 피봇
 
                         item = QTableWidgetItem("{0:.2f}".format(피봇))
@@ -44687,7 +44686,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] S&P500 기준 예상 선물시가 = {3:.2f}\r'.format(dt.hour, dt.minute, dt.second, SP500_기준_예상시가)
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
 
-                근월물_선물_피봇 = calc_pivot(근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_시가)
+                근월물_선물_피봇 = calc_pivot(근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_시가, 2)
 
                 item = QTableWidgetItem("{0:.2f}".format(근월물_선물_피봇))
                 item.setTextAlignment(Qt.AlignCenter)
@@ -45199,7 +45198,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     if KP200_전저 > 0 and KP200_전고 > 0:
 
-                        kp200_피봇 = calc_pivot(KP200_전저, KP200_전고, KP200_전일종가, KP200_당일시가)         
+                        kp200_피봇 = calc_pivot(KP200_전저, KP200_전고, KP200_전일종가, KP200_당일시가, 2)         
 
                         item = QTableWidgetItem("{0:.2f}".format(kp200_피봇))
                         item.setTextAlignment(Qt.AlignCenter)
@@ -47178,7 +47177,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if SP500_피봇 == 0:
 
                     if SP500_전저 > 0 and SP500_전고 > 0:
-                        SP500_피봇 = round(calc_pivot(SP500_전저, SP500_전고, SP500_종가, SP500_시가), 2)
+                        SP500_피봇 = calc_pivot(SP500_전저, SP500_전고, SP500_종가, SP500_시가, 2)
                     else:
                         pass
                 else:
@@ -47346,7 +47345,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if DOW_피봇 == 0:
 
                     if DOW_전저 > 0 and DOW_전고 > 0:
-                        DOW_피봇 = int(calc_pivot(DOW_전저, DOW_전고, DOW_종가, DOW_시가))
+                        DOW_피봇 = int(calc_pivot(DOW_전저, DOW_전고, DOW_종가, DOW_시가, 0))
                     else:
                         pass
                 else:
@@ -47503,7 +47502,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if NASDAQ_피봇 == 0:
 
                     if NASDAQ_전저 > 0 and NASDAQ_전고 > 0:
-                        NASDAQ_피봇 = round(calc_pivot(NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_시가), 2)
+                        NASDAQ_피봇 = calc_pivot(NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_시가, 2)
                     else:
                         pass
                 else:
@@ -47607,7 +47606,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if HANGSENG_피봇 == 0:
 
                     if HANGSENG_전저 > 0 and HANGSENG_전고 > 0:
-                        HANGSENG_피봇 = round(calc_pivot(HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_시가), 0)
+                        HANGSENG_피봇 = int(calc_pivot(HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_시가, 0))
                     else:
                         pass
                 else:
@@ -47764,7 +47763,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if WTI_피봇 == 0:
 
                     if WTI_전저 > 0 and WTI_전고 > 0:
-                        WTI_피봇 = round(calc_pivot(WTI_전저, WTI_전고, WTI_종가, WTI_시가), 2)
+                        WTI_피봇 = calc_pivot(WTI_전저, WTI_전고, WTI_종가, WTI_시가, 2)
                     else:
                         pass
                 else:
@@ -47866,7 +47865,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if GOLD_피봇 == 0:
 
                     if GOLD_전저 > 0 and GOLD_전고 > 0:
-                        GOLD_피봇 = round(calc_pivot(GOLD_전저, GOLD_전고, GOLD_종가, GOLD_시가), 1)
+                        GOLD_피봇 = calc_pivot(GOLD_전저, GOLD_전고, GOLD_종가, GOLD_시가, 1)
                     else:
                         pass
                 else:
@@ -47984,7 +47983,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if EUROFX_피봇 == 0:
 
                     if EUROFX_전저 > 0 and EUROFX_전고 > 0:
-                        EUROFX_피봇 = round(calc_pivot(EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_시가), 5)
+                        EUROFX_피봇 = calc_pivot(EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_시가, 5)
                     else:
                         pass
                 else:
@@ -48102,7 +48101,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if YEN_피봇 == 0:
 
                     if YEN_전저 > 0 and YEN_전고 > 0:
-                        YEN_피봇 = round(calc_pivot(YEN_전저, YEN_전고, YEN_종가, YEN_시가), 1)
+                        YEN_피봇 = calc_pivot(YEN_전저, YEN_전고, YEN_종가, YEN_시가, 1)
                     else:
                         pass
                 else:
