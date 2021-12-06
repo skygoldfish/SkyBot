@@ -25054,7 +25054,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
     def cb1_selectionChanged(self):
 
         global comboindex1
-        
+        '''
         global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_피봇, 근월물_선물_시가, 근월물_선물_저가, 근월물_선물_고가
         global SP500_전저, SP500_전고, SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가
         global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
@@ -25064,7 +25064,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         global EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_고가
         global YEN_전저, YEN_전고, YEN_종가, YEN_피봇, YEN_시가, YEN_저가, YEN_고가
         global HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_고가
-
+        '''
         txt = self.comboBox1.currentText()
         comboindex1 = self.comboBox1.currentIndex()
 
@@ -26296,7 +26296,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
     def cb2_selectionChanged(self):
 
         global comboindex2
-        
+        '''
         global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_피봇, 근월물_선물_시가, 근월물_선물_저가, 근월물_선물_고가
         global SP500_전저, SP500_전고, SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가
         global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
@@ -26306,7 +26306,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         global EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_고가
         global YEN_전저, YEN_전고, YEN_종가, YEN_피봇, YEN_시가, YEN_저가, YEN_고가
         global HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_고가
-
+        '''
         txt = self.comboBox2.currentText()
         comboindex2 = self.comboBox2.currentIndex()
 
@@ -27562,7 +27562,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
     def cb3_selectionChanged(self):
 
         global comboindex3
-        
+        '''
         global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_피봇, 근월물_선물_시가, 근월물_선물_저가, 근월물_선물_고가
         global SP500_전저, SP500_전고, SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가
         global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
@@ -27572,7 +27572,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         global EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_고가
         global YEN_전저, YEN_전고, YEN_종가, YEN_피봇, YEN_시가, YEN_저가, YEN_고가
         global HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_고가
-
+        '''
         txt = self.comboBox3.currentText()
         comboindex3 = self.comboBox3.currentIndex()
 
@@ -28828,7 +28828,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
     def cb4_selectionChanged(self):
 
         global comboindex4
-        
+        '''
         global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_피봇, 근월물_선물_시가, 근월물_선물_저가, 근월물_선물_고가
         global SP500_전저, SP500_전고, SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가
         global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
@@ -28838,7 +28838,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         global EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_고가
         global YEN_전저, YEN_전고, YEN_종가, YEN_피봇, YEN_시가, YEN_저가, YEN_고가
         global HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_고가
-
+        '''
         txt = self.comboBox4.currentText()
         comboindex4 = self.comboBox4.currentIndex()
 
@@ -30062,7 +30062,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
     def cb5_selectionChanged(self):
 
         global comboindex5
-        
+        '''
         global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_피봇, 근월물_선물_시가, 근월물_선물_저가, 근월물_선물_고가
         global SP500_전저, SP500_전고, SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가
         global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
@@ -30072,7 +30072,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         global EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_고가
         global YEN_전저, YEN_전고, YEN_종가, YEN_피봇, YEN_시가, YEN_저가, YEN_고가
         global HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_고가
-
+        '''
         txt = self.comboBox5.currentText()
         comboindex5 = self.comboBox5.currentIndex()
 
@@ -31328,7 +31328,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
     def cb6_selectionChanged(self):
 
         global comboindex6
-        
+        '''
         global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_피봇, 근월물_선물_시가, 근월물_선물_저가, 근월물_선물_고가
         global SP500_전저, SP500_전고, SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가
         global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
@@ -31338,7 +31338,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         global EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_고가
         global YEN_전저, YEN_전고, YEN_종가, YEN_피봇, YEN_시가, YEN_저가, YEN_고가
         global HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_고가
-
+        '''
         txt = self.comboBox6.currentText()
         comboindex6 = self.comboBox6.currentIndex()
 
