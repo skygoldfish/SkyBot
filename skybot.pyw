@@ -730,17 +730,17 @@ if os.path.isfile('nighttime.txt'):
 
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
-        DOW_전저 = float(temp[4])
+        DOW_전저 = int(temp[4])
         print('DOW 전저 =', DOW_전저)
 
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
-        DOW_전고 = float(temp[4])
+        DOW_전고 = int(temp[4])
         print('DOW 전고 =', DOW_전고)
         
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
-        DOW_종가 = float(temp[4])
+        DOW_종가 = int(temp[4])
         print('DOW 종가 =', DOW_종가)
 
         tmp = nighttime_file.readline().strip()
@@ -820,17 +820,17 @@ if os.path.isfile('nighttime.txt'):
 
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
-        HANGSENG_전저 = float(temp[4])
+        HANGSENG_전저 = int(temp[4])
         print('HANGSENG 전저 =', HANGSENG_전저)
 
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
-        HANGSENG_전고 = float(temp[4])
+        HANGSENG_전고 = int(temp[4])
         print('HANGSENG 전고 =', HANGSENG_전고)
         
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
-        HANGSENG_종가 = float(temp[4])
+        HANGSENG_종가 = int(temp[4])
         print('HANGSENG 종가 =', HANGSENG_종가)
 
         print('***YEN_전저 =\r', YEN_전저)
@@ -41999,6 +41999,7 @@ class Xing(object):
             pass
 
         # 해외선물 저가, 고가 시그날 발생
+        '''
         if flag_cme_update:
 
             if SP500_피봇 - 0.05 * 5 <= SP500_저가 <= SP500_피봇 + 0.05 * 5 or SP500_시가 - 0.05 * 5 <= SP500_저가 <= SP500_시가 + 0.05 * 5 or SP500_종가 - 0.05 * 5 <= SP500_저가 <= SP500_종가 + 0.05 * 5:
@@ -42098,6 +42099,7 @@ class Xing(object):
                                 color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
         else:
             pass
+        '''
 
         # 여기에서 주기적인 갱신을 진행
         if self.caller.dialog['선물옵션전광판'] is not None:
@@ -42669,8 +42671,74 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                             QPushButton:hover {background-color: black; color: white} \
                                             QPushButton:pressed {background-color: gold}')        
 
-        self.groupBox_2.setTitle('해외선물 시그날')
+        self.groupBox_2.setTitle('해외선물')
 
+        if TARGET_MONTH == 'CM':
+            self.groupBox_2.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
+        else:
+            pass
+
+        cme_header_stylesheet = '::section{Background-color: black; color: lightgreen; font-family: Consolas; font-size: 9pt; font: Normal; border-style: solid; border-width: 1px; border-color: gray}'
+
+        self.tableWidget_cme.setRowCount(8)
+        self.tableWidget_cme.setColumnCount(11)
+        self.tableWidget_cme.horizontalHeader().setStyleSheet(cme_header_stylesheet)
+
+        self.tableWidget_cme.setHorizontalHeaderLabels(['', '전저', '전고', '종가', '피봇', '시가', '저가', '현재가', '고가', '대비', '진폭'])
+        self.tableWidget_cme.verticalHeader().setVisible(False)
+        self.tableWidget_cme.setAlternatingRowColors(True)
+
+        item = QTableWidgetItem("{0}".format('S&P 500'))
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(녹색))
+        self.tableWidget_cme.setItem(0, 0, item)
+
+        item = QTableWidgetItem("{0}".format('DOW'))        
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(녹색))
+        self.tableWidget_cme.setItem(1, 0, item)
+
+        item = QTableWidgetItem("{0}".format('NASDAQ'))
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(녹색))
+        self.tableWidget_cme.setItem(2, 0, item)
+
+        item = QTableWidgetItem("{0}".format('HSI'))
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(녹색))
+        self.tableWidget_cme.setItem(3, 0, item)
+
+        item = QTableWidgetItem("{0}".format('WTI'))
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(녹색))
+        self.tableWidget_cme.setItem(4, 0, item)
+
+        item = QTableWidgetItem("{0}".format('GOLD'))
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(녹색))
+        self.tableWidget_cme.setItem(5, 0, item)
+
+        item = QTableWidgetItem("{0}".format('EURO'))
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(녹색))
+        self.tableWidget_cme.setItem(6, 0, item)
+
+        item = QTableWidgetItem("{0}".format('YEN'))
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(녹색))
+        self.tableWidget_cme.setItem(7, 0, item)
+
+        self.tableWidget_cme.resizeColumnsToContents()
+
+        '''
         if TARGET_MONTH == 'CM':
             self.groupBox_2.setStyleSheet("color: springgreen; font-family: Consolas; font-size: 10pt; font: Normal")
 
@@ -42748,6 +42816,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.label_yen_high.setStyleSheet('background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255)); \
                                     color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
         self.label_yen_high.setText('고가')
+        '''
 
         self.pushButton_reset.setText(' Reset ')
         self.pushButton_reset.clicked.connect(self.reset_button_clicked)
@@ -47183,6 +47252,48 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
+                item = QTableWidgetItem("{0:.2f}".format(SP500_전저))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(0, 1, item)
+
+                item = QTableWidgetItem("{0:.2f}".format(SP500_전고))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(0, 2, item)
+
+                item = QTableWidgetItem("{0:.2f}".format(SP500_종가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(0, 3, item)
+
+                item = QTableWidgetItem("{0:.2f}".format(SP500_피봇))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(0, 4, item)
+
+                item = QTableWidgetItem("{0:.2f}".format(SP500_시가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(0, 5, item)
+
+                item = QTableWidgetItem("{0:.2f}".format(SP500_저가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(0, 6, item)
+
+                item = QTableWidgetItem("{0:.2f}".format(SP500_고가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(0, 8, item)
+
                 if SP500_현재가 != SP500_과거가:
                 
                     old_sp500_delta = sp500_delta
@@ -47191,6 +47302,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     대비리스트 = list(sp500_직전대비)
 
                     if SP500_현재가 > SP500_과거가:
+
+                        item = QTableWidgetItem(tickdata['체결가격'] + '\n' + '▲')
+                        item.setBackground(QBrush(pink))
+
+                        if SP500_시가 < SP500_현재가:
+                            item.setForeground(QBrush(적색))
+                        elif SP500_시가 > SP500_현재가:
+                            item.setForeground(QBrush(청색))
+                        else:
+                            item.setForeground(QBrush(검정색))
+
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(0, 7, item)
 
                         if SP500_등락율 < 0:
 
@@ -47202,7 +47326,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             self.dialog['선물옵션전광판'].label_1st_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_1st_index.setText(jisu_txt)
 
-                            sp500_text_color = 'blue'                           
+                            sp500_text_color = 'blue'                                                       
 
                         elif SP500_등락율 > 0:  
 
@@ -47219,6 +47343,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             pass
 
                     elif SP500_현재가 < SP500_과거가:
+
+                        item = QTableWidgetItem(tickdata['체결가격'] + '\n' + '▼')
+                        item.setBackground(QBrush(lightskyblue))
+
+                        if SP500_시가 < SP500_현재가:
+                            item.setForeground(QBrush(적색))
+                        elif SP500_시가 > SP500_현재가:
+                            item.setForeground(QBrush(청색))
+                        else:
+                            item.setForeground(QBrush(검정색))
+
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(0, 7, item)
 
                         if SP500_등락율 < 0: 
 
@@ -47247,6 +47384,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             pass
                     else:
                         pass
+
+                    self.tableWidget_cme.resizeRowToContents(0)
 
                     SP500_과거가 = SP500_현재가
                 else:
@@ -47349,7 +47488,49 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         pass
                 else:
-                    pass                                   
+                    pass
+
+                item = QTableWidgetItem("{0}".format(DOW_전저))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(1, 1, item)
+
+                item = QTableWidgetItem("{0}".format(DOW_전고))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(1, 2, item)
+
+                item = QTableWidgetItem("{0}".format(DOW_종가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(1, 3, item)
+
+                item = QTableWidgetItem("{0}".format(DOW_피봇))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(1, 4, item)
+
+                item = QTableWidgetItem("{0}".format(DOW_시가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(1, 5, item)
+
+                item = QTableWidgetItem("{0}".format(DOW_저가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(1, 6, item)
+
+                item = QTableWidgetItem("{0}".format(DOW_고가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(1, 8, item)                                   
 
                 if DOW_현재가 != DOW_과거가:
                 
@@ -47359,6 +47540,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     대비리스트 = list(dow_직전대비)                       
 
                     if DOW_현재가 > DOW_과거가:
+
+                        item = QTableWidgetItem(str(DOW_현재가) + '\n' + '▲')
+                        item.setBackground(QBrush(pink))
+
+                        if DOW_시가 < DOW_현재가:
+                            item.setForeground(QBrush(적색))
+                        elif DOW_시가 > DOW_현재가:
+                            item.setForeground(QBrush(청색))
+                        else:
+                            item.setForeground(QBrush(검정색))
+
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(1, 7, item)
 
                         if DOW_등락율 < 0:                                                             
 
@@ -47388,6 +47582,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     elif DOW_현재가 < DOW_과거가:
 
+                        item = QTableWidgetItem(str(DOW_현재가) + '\n' + '▼')
+                        item.setBackground(QBrush(lightskyblue))
+
+                        if DOW_시가 < DOW_현재가:
+                            item.setForeground(QBrush(적색))
+                        elif DOW_시가 > DOW_현재가:
+                            item.setForeground(QBrush(청색))
+                        else:
+                            item.setForeground(QBrush(검정색))
+
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(1, 7, item)
+
                         if DOW_등락율 < 0:        
 
                             if max(대비리스트) < 0:
@@ -47415,6 +47622,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             pass
                     else:
                         pass
+
+                    self.tableWidget_cme.resizeRowToContents(1)
 
                     DOW_과거가 = DOW_현재가                        
                 else:
@@ -47506,7 +47715,51 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         pass
                 else:
-                    pass                                             
+                    pass
+
+                item = QTableWidgetItem("{0:.2f}".format(NASDAQ_전저))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(2, 1, item)
+
+                item = QTableWidgetItem("{0:.2f}".format(NASDAQ_전고))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(2, 2, item)
+
+                item = QTableWidgetItem("{0:.2f}".format(NASDAQ_종가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(2, 3, item)
+
+                item = QTableWidgetItem("{0:.2f}".format(NASDAQ_피봇))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(2, 4, item)
+
+                item = QTableWidgetItem("{0:.2f}".format(NASDAQ_시가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(2, 5, item)
+
+                item = QTableWidgetItem("{0:.2f}".format(NASDAQ_저가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(2, 6, item)
+
+                item = QTableWidgetItem("{0:.2f}".format(NASDAQ_고가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(2, 8, item)
+
+                self.tableWidget_cme.resizeColumnsToContents()
 
                 if NASDAQ_현재가 != NASDAQ_과거가:
                 
@@ -47516,6 +47769,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     대비리스트 = list(nasdaq_직전대비)
 
                     if NASDAQ_현재가 > NASDAQ_과거가:
+
+                        item = QTableWidgetItem(tickdata['체결가격'] + '\n' + '▲')
+                        item.setBackground(QBrush(pink))
+
+                        if NASDAQ_시가 < NASDAQ_현재가:
+                            item.setForeground(QBrush(적색))
+                        elif NASDAQ_시가 > NASDAQ_현재가:
+                            item.setForeground(QBrush(청색))
+                        else:
+                            item.setForeground(QBrush(검정색))
+
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(2, 7, item)
 
                         if NASDAQ_등락율 < 0:
 
@@ -47545,6 +47811,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     elif NASDAQ_현재가 < NASDAQ_과거가:
 
+                        item = QTableWidgetItem(tickdata['체결가격'] + '\n' + '▼')
+                        item.setBackground(QBrush(lightskyblue))
+
+                        if NASDAQ_시가 < NASDAQ_현재가:
+                            item.setForeground(QBrush(적색))
+                        elif NASDAQ_시가 > NASDAQ_현재가:
+                            item.setForeground(QBrush(청색))
+                        else:
+                            item.setForeground(QBrush(검정색))
+
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(2, 7, item)
+
                         if NASDAQ_등락율 < 0:     
 
                             if max(대비리스트) < 0:
@@ -47572,6 +47851,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             pass
                     else:
                         pass
+
+                    self.tableWidget_cme.resizeRowToContents(2)
                     
                     NASDAQ_과거가 = NASDAQ_현재가
                 else:
@@ -47612,6 +47893,48 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
+                item = QTableWidgetItem("{0}".format(HANGSENG_전저))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(3, 1, item)
+
+                item = QTableWidgetItem("{0}".format(HANGSENG_전고))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(3, 2, item)
+
+                item = QTableWidgetItem("{0}".format(HANGSENG_종가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(3, 3, item)
+
+                item = QTableWidgetItem("{0}".format(HANGSENG_피봇))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(3, 4, item)
+
+                item = QTableWidgetItem("{0}".format(HANGSENG_시가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(3, 5, item)
+
+                item = QTableWidgetItem("{0}".format(HANGSENG_저가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(3, 6, item)
+
+                item = QTableWidgetItem("{0}".format(HANGSENG_고가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(3, 8, item)
+
                 if HANGSENG_현재가 != HANGSENG_과거가:
 
                     old_hangseng_delta = hangseng_delta
@@ -47620,6 +47943,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     대비리스트 = list(hangseng_직전대비)
 
                     if HANGSENG_현재가 > HANGSENG_과거가:
+
+                        item = QTableWidgetItem(str(HANGSENG_현재가) + '\n' + '▲')
+                        item.setBackground(QBrush(pink))
+
+                        if HANGSENG_시가 < HANGSENG_현재가:
+                            item.setForeground(QBrush(적색))
+                        elif HANGSENG_시가 > HANGSENG_현재가:
+                            item.setForeground(QBrush(청색))
+                        else:
+                            item.setForeground(QBrush(검정색))
+
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(3, 7, item)
 
                         if HANGSENG_등락율 < 0:
 
@@ -47649,6 +47985,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     elif HANGSENG_현재가 < HANGSENG_과거가:
 
+                        item = QTableWidgetItem(str(HANGSENG_현재가) + '\n' + '▼')
+                        item.setBackground(QBrush(lightskyblue))
+
+                        if HANGSENG_시가 < HANGSENG_현재가:
+                            item.setForeground(QBrush(적색))
+                        elif HANGSENG_시가 > HANGSENG_현재가:
+                            item.setForeground(QBrush(청색))
+                        else:
+                            item.setForeground(QBrush(검정색))
+
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(3, 7, item)
+
                         if HANGSENG_등락율 < 0:
 
                             if max(대비리스트) < 0:
@@ -47676,6 +48025,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             pass                            
                     else:
                         pass
+
+                    self.tableWidget_cme.resizeRowToContents(3)
 
                     HANGSENG_과거가 = HANGSENG_현재가
                 else:
@@ -47769,6 +48120,48 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
+                item = QTableWidgetItem("{0:.2f}".format(WTI_전저))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(4, 1, item)
+
+                item = QTableWidgetItem("{0:.2f}".format(WTI_전고))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(4, 2, item)
+
+                item = QTableWidgetItem("{0:.2f}".format(WTI_종가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(4, 3, item)
+
+                item = QTableWidgetItem("{0:.2f}".format(WTI_피봇))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(4, 4, item)
+
+                item = QTableWidgetItem("{0:.2f}".format(WTI_시가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(4, 5, item)
+
+                item = QTableWidgetItem("{0:.2f}".format(WTI_저가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(4, 6, item)
+
+                item = QTableWidgetItem("{0:.2f}".format(WTI_고가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(4, 8, item)
+
                 if WTI_현재가 != WTI_과거가:
                 
                     old_wti_delta = wti_delta
@@ -47777,6 +48170,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     대비리스트 = list(wti_직전대비)
 
                     if WTI_현재가 > WTI_과거가:
+
+                        item = QTableWidgetItem(tickdata['체결가격'] + '\n' + '▲')
+                        item.setBackground(QBrush(pink))
+
+                        if WTI_시가 < WTI_현재가:
+                            item.setForeground(QBrush(적색))
+                        elif WTI_시가 > WTI_현재가:
+                            item.setForeground(QBrush(청색))
+                        else:
+                            item.setForeground(QBrush(검정색))
+
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(4, 7, item)
 
                         if WTI_등락율 < 0:
 
@@ -47806,6 +48212,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         
                     elif WTI_현재가 < WTI_과거가:
 
+                        item = QTableWidgetItem(tickdata['체결가격'] + '\n' + '▼')
+                        item.setBackground(QBrush(lightskyblue))
+
+                        if WTI_시가 < WTI_현재가:
+                            item.setForeground(QBrush(적색))
+                        elif WTI_시가 > WTI_현재가:
+                            item.setForeground(QBrush(청색))
+                        else:
+                            item.setForeground(QBrush(검정색))
+
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(4, 7, item)
+
                         if WTI_등락율 < 0:
 
                             if max(대비리스트) < 0:
@@ -47833,6 +48252,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             pass                            
                     else:
                         pass
+
+                    self.tableWidget_cme.resizeRowToContents(4)
 
                     WTI_과거가 = WTI_현재가
                 else:
@@ -47871,6 +48292,48 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
+                item = QTableWidgetItem("{0:.1f}".format(GOLD_전저))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(5, 1, item)
+
+                item = QTableWidgetItem("{0:.1f}".format(GOLD_전고))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(5, 2, item)
+
+                item = QTableWidgetItem("{0:.1f}".format(GOLD_종가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(5, 3, item)
+
+                item = QTableWidgetItem("{0:.1f}".format(GOLD_피봇))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(5, 4, item)
+
+                item = QTableWidgetItem("{0:.1f}".format(GOLD_시가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(5, 5, item)
+
+                item = QTableWidgetItem("{0:.1f}".format(GOLD_저가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(5, 6, item)
+
+                item = QTableWidgetItem("{0:.1f}".format(GOLD_고가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(5, 8, item)
+
                 if GOLD_현재가 != GOLD_과거가:
 
                     old_gold_delta = gold_delta
@@ -47879,6 +48342,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     대비리스트 = list(gold_직전대비)
 
                     if GOLD_현재가 > GOLD_과거가:
+
+                        item = QTableWidgetItem(tickdata['체결가격'] + '\n' + '▲')
+                        item.setBackground(QBrush(pink))
+
+                        if GOLD_시가 < GOLD_현재가:
+                            item.setForeground(QBrush(적색))
+                        elif GOLD_시가 > GOLD_현재가:
+                            item.setForeground(QBrush(청색))
+                        else:
+                            item.setForeground(QBrush(검정색))
+
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(5, 7, item)
 
                         if GOLD_등락율 < 0:
 
@@ -47916,6 +48392,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     elif GOLD_현재가 < GOLD_과거가:
 
+                        item = QTableWidgetItem(tickdata['체결가격'] + '\n' + '▼')
+                        item.setBackground(QBrush(lightskyblue))
+
+                        if GOLD_시가 < GOLD_현재가:
+                            item.setForeground(QBrush(적색))
+                        elif GOLD_시가 > GOLD_현재가:
+                            item.setForeground(QBrush(청색))
+                        else:
+                            item.setForeground(QBrush(검정색))
+
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(5, 7, item)
+
                         if GOLD_등락율 < 0:
 
                             if max(대비리스트) < 0:
@@ -47951,6 +48440,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             pass                            
                     else:
                         pass
+
+                    self.tableWidget_cme.resizeRowToContents(5)
 
                     GOLD_과거가 = GOLD_현재가
                 else:
@@ -47988,6 +48479,48 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         pass
                 else:
                     pass
+
+                item = QTableWidgetItem("{0:.5f}".format(EUROFX_전저))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(6, 1, item)
+
+                item = QTableWidgetItem("{0:.5f}".format(EUROFX_전고))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(6, 2, item)
+
+                item = QTableWidgetItem("{0:.5f}".format(EUROFX_종가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(6, 3, item)
+
+                item = QTableWidgetItem("{0:.5f}".format(EUROFX_피봇))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(6, 4, item)
+
+                item = QTableWidgetItem("{0:.5f}".format(EUROFX_시가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(6, 5, item)
+
+                item = QTableWidgetItem("{0:.5f}".format(EUROFX_저가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(6, 6, item)
+
+                item = QTableWidgetItem("{0:.5f}".format(EUROFX_고가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(6, 8, item)                
                 
                 if EUROFX_현재가 != EUROFX_과거가:
                 
@@ -47997,6 +48530,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     대비리스트 = list(eurofx_직전대비)                         
 
                     if EUROFX_현재가 > EUROFX_과거가:
+
+                        item = QTableWidgetItem(tickdata['체결가격'] + '\n' + '▲')
+                        item.setBackground(QBrush(pink))
+
+                        if EUROFX_시가 < EUROFX_현재가:
+                            item.setForeground(QBrush(적색))
+                        elif EUROFX_시가 > EUROFX_현재가:
+                            item.setForeground(QBrush(청색))
+                        else:
+                            item.setForeground(QBrush(검정색))
+
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(6, 7, item)
 
                         if EUROFX_등락율 < 0:
 
@@ -48034,6 +48580,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     elif EUROFX_현재가 < EUROFX_과거가:
 
+                        item = QTableWidgetItem(tickdata['체결가격'] + '\n' + '▼')
+                        item.setBackground(QBrush(lightskyblue))
+
+                        if EUROFX_시가 < EUROFX_현재가:
+                            item.setForeground(QBrush(적색))
+                        elif EUROFX_시가 > EUROFX_현재가:
+                            item.setForeground(QBrush(청색))
+                        else:
+                            item.setForeground(QBrush(검정색))
+
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(6, 7, item)
+
                         if EUROFX_등락율 < 0:
 
                             if max(대비리스트) < 0:
@@ -48070,6 +48629,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         pass
 
+                    self.tableWidget_cme.resizeRowToContents(6)
+
                     EUROFX_과거가 = EUROFX_현재가
                 else:
                     pass
@@ -48080,7 +48641,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_yen_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])                    
 
                 YEN_현재가 = float(tickdata['체결가격'])
-                YEN_전일대비 = round((YEN_현재가 - YEN_종가), 5)
+                YEN_전일대비 = round((YEN_현재가 - YEN_종가), 1)
                 YEN_등락율 = float(tickdata['등락율'])
 
                 YEN_시가 = float(tickdata['시가'])
@@ -48107,7 +48668,47 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                #YEN_체결가격 = locale.format('%.2f', YEN_현재가, 1)
+                item = QTableWidgetItem("{0:.1f}".format(YEN_전저))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(7, 1, item)
+
+                item = QTableWidgetItem("{0:.1f}".format(YEN_전고))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(7, 2, item)
+
+                item = QTableWidgetItem("{0:.1f}".format(YEN_종가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(7, 3, item)
+
+                item = QTableWidgetItem("{0:.1f}".format(YEN_피봇))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(7, 4, item)
+
+                item = QTableWidgetItem("{0:.1f}".format(YEN_시가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(7, 5, item)
+
+                item = QTableWidgetItem("{0:.1f}".format(YEN_저가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(7, 6, item)
+
+                item = QTableWidgetItem("{0:.1f}".format(YEN_고가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_cme.setItem(7, 8, item)
                 
                 if YEN_현재가 != YEN_과거가:
                 
@@ -48117,6 +48718,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     대비리스트 = list(yen_직전대비)                         
 
                     if YEN_현재가 > YEN_과거가:
+
+                        item = QTableWidgetItem(tickdata['체결가격'] + '\n' + '▲')
+                        item.setBackground(QBrush(pink))
+
+                        if YEN_시가 < YEN_현재가:
+                            item.setForeground(QBrush(적색))
+                        elif YEN_시가 > YEN_현재가:
+                            item.setForeground(QBrush(청색))
+                        else:
+                            item.setForeground(QBrush(검정색))
+
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(7, 7, item)
 
                         if YEN_등락율 < 0:
 
@@ -48154,6 +48768,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     elif YEN_현재가 < YEN_과거가:
 
+                        item = QTableWidgetItem(tickdata['체결가격'] + '\n' + '▼')
+                        item.setBackground(QBrush(lightskyblue))
+
+                        if YEN_시가 < YEN_현재가:
+                            item.setForeground(QBrush(적색))
+                        elif YEN_시가 > YEN_현재가:
+                            item.setForeground(QBrush(청색))
+                        else:
+                            item.setForeground(QBrush(검정색))
+
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(7, 7, item)
+
                         if YEN_등락율 < 0:
 
                             if max(대비리스트) < 0:
@@ -48189,6 +48816,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             pass                            
                     else:
                         pass
+
+                    self.tableWidget_cme.resizeRowToContents(7)
 
                     YEN_과거가 = YEN_현재가
                 else:
