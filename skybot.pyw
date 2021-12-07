@@ -3982,33 +3982,32 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.label_1st_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
             color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
-        self.label_1st_index.setText("SP500/DOW: 가격 (전일대비, 등락율, 진폭)")
+        self.label_1st_index.setText("KOSPI: 가격 (전일대비, 등락율)")
         
         self.label_2nd_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
             color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
-        self.label_2nd_index.setText("NASDAQ/HSI: 가격 (전일대비, 등락율)")
+        self.label_2nd_index.setText("KOSDAQ: 가격 (전일대비, 등락율)")
         
         self.label_3rd_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
             color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
-        self.label_3rd_index.setText("WTI/GOLD: 가격 (전일대비, 등락율)")
+        self.label_3rd_index.setText("SAMSUNG: 가격 (전일대비, 등락율)")
         
         self.label_4th_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
             color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
-
-        self.label_4th_index.setText("EURO/YEN: 가격 (전일대비, 등락율)")
+        self.label_4th_index.setText("Reserved")
         
-        self.label_kospi.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
+        self.label_5th_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
             color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
-        self.label_kospi.setText("KOSPI: 가격 (전일대비, 등락율)")
+        self.label_5th_index.setText("Reserved")
         
-        self.label_kosdaq.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
+        self.label_6th_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
             color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
-        self.label_kosdaq.setText("KOSDAQ: 가격 (전일대비, 등락율)")        
+        self.label_6th_index.setText("Reserved")        
 
         header_stylesheet = '::section{Background-color: black; color: white; border-style: solid; border-width: 1px; border-color: gray}'
         call_header_stylesheet = '::section{Background-color: black; color: lightgreen; font-family: Consolas; font-size: 9pt; font: Normal; border-style: solid; border-width: 1px; border-color: gray}'
@@ -7815,22 +7814,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if kospi_text_color != '':
 
             if kospi_text_color == 'red':
-                self.label_kospi.setStyleSheet('background-color: white; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                self.label_5th_index.setStyleSheet('background-color: white; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
             elif kospi_text_color == 'blue':
-                self.label_kospi.setStyleSheet('background-color: white; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                self.label_5th_index.setStyleSheet('background-color: white; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
             else:
-                self.label_kospi.setStyleSheet('background-color: white; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+                self.label_5th_index.setStyleSheet('background-color: white; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
         else:
             pass        
 
         if kosdaq_text_color != '':
 
             if kosdaq_text_color == 'red':
-                self.label_kosdaq.setStyleSheet('background-color: white; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                self.label_6th_index.setStyleSheet('background-color: white; color: red; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
             elif kosdaq_text_color == 'blue':
-                self.label_kosdaq.setStyleSheet('background-color: white; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                self.label_6th_index.setStyleSheet('background-color: white; color: blue; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
             else:
-                self.label_kosdaq.setStyleSheet('background-color: white; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+                self.label_6th_index.setStyleSheet('background-color: white; color: black; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
         else:
             pass 
 
@@ -14959,17 +14958,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if pre_start:
             jisu_txt = "KOSPI: {0}".format(KOSPI_PRICE)
                     
-            self.label_kospi.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
+            self.label_5th_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
                                             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
                                             color: lightskyblue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: lightskyblue; border-radius: 5px')
-            self.label_kospi.setText(jisu_txt)
+            self.label_5th_index.setText(jisu_txt)
 
             jisu_txt = "KOSDAQ: {0}".format(KOSDAQ_PRICE)
                     
-            self.label_kosdaq.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
+            self.label_6th_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
                                             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
                                             color: lightskyblue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: lightskyblue; border-radius: 5px')
-            self.label_kosdaq.setText(jisu_txt)
+            self.label_6th_index.setText(jisu_txt)
         else:
             pass
         '''
@@ -15580,19 +15579,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     jisu_txt = "KOSPI: {0} (-{1:.2f}, {2:0.1f}%)".format(format(df.at[0, '지수'], ','), df.at[0, '전일대비'], df.at[0, '등락율'])
                     
-                    self.label_kospi.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
+                    self.label_1st_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
                                                     rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
                                                     color: lightskyblue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: lightskyblue; border-radius: 5px')
-                    self.label_kospi.setText(jisu_txt)
+                    self.label_1st_index.setText(jisu_txt)
 
                 elif df.at[0, '전일대비구분'] == '2':
 
                     jisu_txt = "KOSPI: {0} ({1:.2f}, {2:0.1f}%)".format(format(df.at[0, '지수'], ','), df.at[0, '전일대비'], df.at[0, '등락율'])
                     
-                    self.label_kospi.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
+                    self.label_1st_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
                                                     rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
                                                     color: pink; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: lightskyblue; border-radius: 5px')
-                    self.label_kospi.setText(jisu_txt)
+                    self.label_1st_index.setText(jisu_txt)
                 else:
                     pass
 
@@ -15602,19 +15601,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     jisu_txt = "KOSDAQ: {0} (-{1:.2f}, {2:0.1f}%)".format(format(df.at[0, '지수'], ','), df.at[0, '전일대비'], df.at[0, '등락율'])
                     
-                    self.label_kosdaq.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
+                    self.label_2nd_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
                                                     rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
                                                     color: lightskyblue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: lightskyblue; border-radius: 5px')
-                    self.label_kosdaq.setText(jisu_txt)
+                    self.label_2nd_index.setText(jisu_txt)
 
                 elif df.at[0, '전일대비구분'] == '2':
 
                     jisu_txt = "KOSDAQ: {0} ({1:.2f}, {2:0.1f}%)".format(format(df.at[0, '지수'], ','), df.at[0, '전일대비'], df.at[0, '등락율'])
                     
-                    self.label_kosdaq.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
+                    self.label_2nd_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
                                                     rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
                                                     color: pink; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: lightskyblue; border-radius: 5px')
-                    self.label_kosdaq.setText(jisu_txt)
+                    self.label_2nd_index.setText(jisu_txt)
                 else:
                     pass
             else:
@@ -17503,15 +17502,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     jisu_txt = "KOSPI: {0} (-{1:.2f}, {2:0.1f}%)".format(format(df['종합지수'], ','), df['종합지수전일대비'], df['종합지수등락율'])
                     
-                    self.label_kospi.setStyleSheet('background-color: black; color: lightskyblue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: lightskyblue; border-radius: 5px')
-                    self.label_kospi.setText(jisu_txt)
+                    self.label_5th_index.setStyleSheet('background-color: black; color: lightskyblue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: lightskyblue; border-radius: 5px')
+                    self.label_5th_index.setText(jisu_txt)
 
                 elif df['종합지수전일대비구분'] == '2':
 
                     jisu_txt = "KOSPI: {0} ({1:.2f}, {2:0.1f}%)".format(format(df['종합지수'], ','), df['종합지수전일대비'], df['종합지수등락율'])
                     
-                    self.label_kospi.setStyleSheet('background-color: black; color: pink; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: pink; border-radius: 5px')
-                    self.label_kospi.setText(jisu_txt)
+                    self.label_5th_index.setStyleSheet('background-color: black; color: pink; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: pink; border-radius: 5px')
+                    self.label_5th_index.setText(jisu_txt)
                 else:
                     pass
             else:
@@ -44236,13 +44235,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
                 self.textBrowser.append(txt)
 
+                SP500_야간_시작가 = SP500_현재가
                 DOW_야간_시작가 = DOW_현재가
                 WTI_야간_시작가 = WTI_현재가
 
+                jisu_txt = "SP500 야간시작가: {0}".format(SP500_야간_시작가)
+
+                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] SP500 야간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, SP500_야간_시작가)
+                self.dialog['선물옵션전광판'].textBrowser.append(txt)
+                self.textBrowser.append(txt)
+
                 jisu_txt = "DOW 야간시작가: {0}".format(DOW_야간_시작가)
 
-                self.dialog['선물옵션전광판'].label_kospi.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
-                self.dialog['선물옵션전광판'].label_kospi.setText(jisu_txt)
+                self.dialog['선물옵션전광판'].label_5th_index.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                self.dialog['선물옵션전광판'].label_5th_index.setText(jisu_txt)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] DOW 야간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, DOW_야간_시작가)
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
@@ -44250,8 +44259,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 jisu_txt = "WTI 야간시작가: {0}".format(WTI_야간_시작가)
 
-                self.dialog['선물옵션전광판'].label_kosdaq.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
-                self.dialog['선물옵션전광판'].label_kosdaq.setText(jisu_txt)
+                self.dialog['선물옵션전광판'].label_6th_index.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                self.dialog['선물옵션전광판'].label_6th_index.setText(jisu_txt)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] WTI 야간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, WTI_야간_시작가)
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
@@ -44271,8 +44280,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 jisu_txt = "DOW 야간시작가: {0}".format(DOW_야간_시작가)
 
-                self.dialog['선물옵션전광판'].label_kospi.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
-                self.dialog['선물옵션전광판'].label_kospi.setText(jisu_txt)
+                self.dialog['선물옵션전광판'].label_5th_index.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                self.dialog['선물옵션전광판'].label_5th_index.setText(jisu_txt)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] DOW 야간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, DOW_야간_시작가)
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
@@ -44280,8 +44289,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 jisu_txt = "WTI 야간시작가: {0}".format(WTI_야간_시작가)
 
-                self.dialog['선물옵션전광판'].label_kosdaq.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
-                self.dialog['선물옵션전광판'].label_kosdaq.setText(jisu_txt)
+                self.dialog['선물옵션전광판'].label_6th_index.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                self.dialog['선물옵션전광판'].label_6th_index.setText(jisu_txt)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] WTI 야간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, WTI_야간_시작가)
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
@@ -44611,15 +44620,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     jisu_txt = "KOSPI: {0} (-{1:.2f}, {2:0.1f}%)".format(tickdata['예상지수'], float(tickdata['예상전일비']), float(tickdata['예상등락율']))
 
-                    self.dialog['선물옵션전광판'].label_kospi.setStyleSheet('background-color: black; color: cyan; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                    self.dialog['선물옵션전광판'].label_kospi.setText(jisu_txt)
+                    self.dialog['선물옵션전광판'].label_1st_index.setStyleSheet('background-color: black; color: cyan; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                    self.dialog['선물옵션전광판'].label_1st_index.setText(jisu_txt)
 
                 elif tickdata['예상전일대비구분'] == '2':
 
                     jisu_txt = "KOSPI: {0} ({1:.2f}, {2:0.1f}%)".format(tickdata['예상지수'], float(tickdata['예상전일비']), float(tickdata['예상등락율']))
 
-                    self.dialog['선물옵션전광판'].label_kospi.setStyleSheet('background-color: black; color: magenta; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                    self.dialog['선물옵션전광판'].label_kospi.setText(jisu_txt)
+                    self.dialog['선물옵션전광판'].label_1st_index.setStyleSheet('background-color: black; color: magenta; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                    self.dialog['선물옵션전광판'].label_1st_index.setText(jisu_txt)
                 else:
                     pass
 
@@ -44969,21 +44978,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     jisu_txt = "SAMSUNG: {0}({1}, {2:0.1f}%)".format(현재가, format(-int(tickdata['예상체결가전일종가대비']), ','), float(tickdata['예상체결가전일종가등락율']))
 
-                    self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
-                    self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+                    self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
+                    self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
 
                 elif tickdata['예상체결가전일종가대비구분'] == '2':
 
                     jisu_txt = "SAMSUNG: {0}({1}, {2:0.1f}%)".format(현재가, format(int(tickdata['예상체결가전일종가대비']), ','), float(tickdata['예상체결가전일종가등락율']))
 
-                    self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
-                    self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+                    self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
+                    self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
 
                 else:
                     jisu_txt = "SAMSUNG: {0}({1})".format(현재가, format(int(tickdata['예상체결가전일종가대비']), ','))
 
-                    self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
-                    self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+                    self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+                    self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
 
             elif tickdata['단축코드'] == HYUNDAI:
 
@@ -44991,21 +45000,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     jisu_txt = "HYUNDAI: {0}({1}, {2:0.1f}%)".format(현재가, format(-int(tickdata['예상체결가전일종가대비']), ','), float(tickdata['예상체결가전일종가등락율']))
 
-                    self.dialog['선물옵션전광판'].label_kosdaq.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
-                    self.dialog['선물옵션전광판'].label_kosdaq.setText(jisu_txt)
+                    self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
+                    self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
 
                 elif tickdata['예상체결가전일종가대비구분'] == '2':
 
                     jisu_txt = "HYUNDAI: {0}({1}, {2:0.1f}%)".format(현재가, format(int(tickdata['예상체결가전일종가대비']), ','), float(tickdata['예상체결가전일종가등락율']))
 
-                    self.dialog['선물옵션전광판'].label_kosdaq.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
-                    self.dialog['선물옵션전광판'].label_kosdaq.setText(jisu_txt)
+                    self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
+                    self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
 
                 else:
                     jisu_txt = "HYUNDAI: {0}({1})".format(현재가, format(int(tickdata['예상체결가전일종가대비']), ','))
 
-                    self.dialog['선물옵션전광판'].label_kosdaq.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
-                    self.dialog['선물옵션전광판'].label_kosdaq.setText(jisu_txt)
+                    self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px')
+                    self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
             else:
                 pass
 
@@ -45112,8 +45121,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                             jisu_txt = "SS: {0} ▲ (-{1}, {2:0.1f}%)".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']))
 
-                            self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+                            self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
 
                             samsung_text_color = 'blue'
 
@@ -45121,8 +45130,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                             jisu_txt = "SS: {0} ▲ ({1}, {2:0.1f}%)".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']))
 
-                            self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+                            self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
 
                             samsung_text_color = 'red'
                         else:
@@ -45136,8 +45145,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                             jisu_txt = "SS: {0} ▼ (-{1}, {2:0.1f}%)".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']))
 
-                            self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+                            self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
 
                             samsung_text_color = 'blue'
 
@@ -45145,8 +45154,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                             jisu_txt = "SS: {0} ▼ ({1}, {2:0.1f}%)".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']))
 
-                            self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+                            self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
 
                             samsung_text_color = 'red'
                         else:
@@ -45395,8 +45404,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                             jisu_txt = "KOSPI: {0} ▲ (-{1:.2f}, {2:0.1f}%)".format(kospi_txt, float(tickdata['전일비']), float(tickdata['등락율']))
 
-                            self.dialog['선물옵션전광판'].label_kospi.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_kospi.setText(jisu_txt)
+                            self.dialog['선물옵션전광판'].label_1st_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_1st_index.setText(jisu_txt)
 
                             kospi_text_color = 'blue'
 
@@ -45404,8 +45413,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                             jisu_txt = "KOSPI: {0} ▲ ({1:.2f}, {2:0.1f}%)".format(kospi_txt, float(tickdata['전일비']), float(tickdata['등락율']))
 
-                            self.dialog['선물옵션전광판'].label_kospi.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_kospi.setText(jisu_txt)
+                            self.dialog['선물옵션전광판'].label_1st_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_1st_index.setText(jisu_txt)
 
                             kospi_text_color = 'red'
                         else:
@@ -45417,8 +45426,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                             jisu_txt = "KOSPI: {0} ▼ (-{1:.2f}, {2:0.1f}%)".format(kospi_txt, float(tickdata['전일비']), float(tickdata['등락율']))
 
-                            self.dialog['선물옵션전광판'].label_kospi.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_kospi.setText(jisu_txt)
+                            self.dialog['선물옵션전광판'].label_1st_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_1st_index.setText(jisu_txt)
 
                             kospi_text_color = 'blue'
 
@@ -45426,8 +45435,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                             jisu_txt = "KOSPI: {0} ▼ ({1:.2f}, {2:0.1f}%)".format(kospi_txt, float(tickdata['전일비']), float(tickdata['등락율']))
 
-                            self.dialog['선물옵션전광판'].label_kospi.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_kospi.setText(jisu_txt)
+                            self.dialog['선물옵션전광판'].label_1st_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_1st_index.setText(jisu_txt)
 
                             kospi_text_color = 'red'
                         else:
@@ -45453,8 +45462,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                             jisu_txt = "KOSDAQ: {0} ▲ (-{1:.2f}, {2:0.1f}%)".format(kosdaq_txt, float(tickdata['전일비']), float(tickdata['등락율']))
 
-                            self.dialog['선물옵션전광판'].label_kosdaq.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_kosdaq.setText(jisu_txt)
+                            self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
 
                             kosdaq_text_color = 'blue'
 
@@ -45462,8 +45471,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                             jisu_txt = "KOSDAQ: {0} ▲ ({1:.2f}, {2:0.1f}%)".format(kosdaq_txt, float(tickdata['전일비']), float(tickdata['등락율']))
 
-                            self.dialog['선물옵션전광판'].label_kosdaq.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_kosdaq.setText(jisu_txt)
+                            self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
 
                             kosdaq_text_color = 'red'
                         else:
@@ -45475,8 +45484,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                             jisu_txt = "KOSDAQ: {0} ▼ (-{1:.2f}, {2:0.1f}%)".format(kosdaq_txt, float(tickdata['전일비']), float(tickdata['등락율']))
 
-                            self.dialog['선물옵션전광판'].label_kosdaq.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_kosdaq.setText(jisu_txt)
+                            self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
 
                             kosdaq_text_color = 'blue'
 
@@ -45484,8 +45493,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                             jisu_txt = "KOSDAQ: {0} ▼ ({1:.2f}, {2:0.1f}%)".format(kosdaq_txt, float(tickdata['전일비']), float(tickdata['등락율']))
 
-                            self.dialog['선물옵션전광판'].label_kosdaq.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_kosdaq.setText(jisu_txt)
+                            self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                            self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
 
                             kosdaq_text_color = 'red'
                         else:
@@ -47303,7 +47312,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     if SP500_현재가 > SP500_과거가:
 
-                        item = QTableWidgetItem(format(SP500_현재가, ',') + '\n' + '▲')
+                        item = QTableWidgetItem(SP500_체결가격 + '\n' + '▲')
                         item.setBackground(QBrush(pink))
 
                         if SP500_시가 < SP500_현재가:
@@ -47315,7 +47324,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_cme.setItem(0, 7, item)
-
+                        '''
                         if SP500_등락율 < 0:
 
                             if min(대비리스트) > 0:
@@ -47341,10 +47350,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             sp500_text_color = 'red'
                         else:
                             pass
+                        '''
 
                     elif SP500_현재가 < SP500_과거가:
 
-                        item = QTableWidgetItem(format(SP500_현재가, ',') + '\n' + '▼')
+                        item = QTableWidgetItem(SP500_체결가격 + '\n' + '▼')
                         item.setBackground(QBrush(lightskyblue))
 
                         if SP500_시가 < SP500_현재가:
@@ -47356,7 +47366,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_cme.setItem(0, 7, item)
-
+                        '''
                         if SP500_등락율 < 0: 
 
                             if max(대비리스트) < 0:
@@ -47382,8 +47392,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             sp500_text_color = 'red'                                
                         else:
                             pass
+                        '''
                     else:
                         pass
+
+                    대비 = SP500_현재가 - SP500_시가
+                    진폭 = SP500_고가 - SP500_저가
+
+                    item = QTableWidgetItem('{0:.2f}'.format(대비))
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_cme.setItem(0, 9, item)
+
+                    item = QTableWidgetItem('{0:.2f}'.format(진폭))
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_cme.setItem(0, 10, item)
 
                     self.tableWidget_cme.resizeRowToContents(0)
 
@@ -47553,7 +47579,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_cme.setItem(1, 7, item)
-
+                        '''
                         if DOW_등락율 < 0:                                                             
 
                             if min(대비리스트) > 0:
@@ -47579,6 +47605,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             dow_text_color = 'red'
                         else:
                             pass
+                        '''
 
                     elif DOW_현재가 < DOW_과거가:
 
@@ -47594,7 +47621,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_cme.setItem(1, 7, item)
-
+                        '''
                         if DOW_등락율 < 0:        
 
                             if max(대비리스트) < 0:
@@ -47620,8 +47647,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             dow_text_color = 'red'
                         else:
                             pass
+                        '''
                     else:
                         pass
+
+                    대비 = DOW_현재가 - DOW_시가
+                    진폭 = DOW_고가 - DOW_저가
+
+                    item = QTableWidgetItem('{0}'.format(대비))
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_cme.setItem(1, 9, item)
+
+                    item = QTableWidgetItem('{0}'.format(진폭))
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_cme.setItem(1, 10, item)
 
                     self.tableWidget_cme.resizeRowToContents(1)
 
@@ -47768,7 +47811,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     if NASDAQ_현재가 > NASDAQ_과거가:
 
-                        item = QTableWidgetItem(format(NASDAQ_현재가, ',') + '\n' + '▲')
+                        item = QTableWidgetItem(NASDAQ_체결가격 + '\n' + '▲')
                         item.setBackground(QBrush(pink))
 
                         if NASDAQ_시가 < NASDAQ_현재가:
@@ -47780,7 +47823,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_cme.setItem(2, 7, item)
-
+                        '''
                         if NASDAQ_등락율 < 0:
 
                             if min(대비리스트) > 0:
@@ -47806,10 +47849,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             nasdaq_text_color = 'red'
                         else:
                             pass
+                        '''
 
                     elif NASDAQ_현재가 < NASDAQ_과거가:
 
-                        item = QTableWidgetItem(format(NASDAQ_현재가, ',') + '\n' + '▼')
+                        item = QTableWidgetItem(NASDAQ_체결가격 + '\n' + '▼')
                         item.setBackground(QBrush(lightskyblue))
 
                         if NASDAQ_시가 < NASDAQ_현재가:
@@ -47821,7 +47865,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_cme.setItem(2, 7, item)
-
+                        '''
                         if NASDAQ_등락율 < 0:     
 
                             if max(대비리스트) < 0:
@@ -47847,8 +47891,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             nasdaq_text_color = 'red'
                         else:
                             pass
+                        '''
                     else:
                         pass
+
+                    대비 = NASDAQ_현재가 - NASDAQ_시가
+                    진폭 = NASDAQ_고가 - NASDAQ_저가
+
+                    item = QTableWidgetItem('{0:.2f}'.format(대비))
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_cme.setItem(2, 9, item)
+
+                    item = QTableWidgetItem('{0:.2f}'.format(진폭))
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_cme.setItem(2, 10, item)
 
                     self.tableWidget_cme.resizeColumnsToContents()
                     self.tableWidget_cme.resizeRowToContents(2)
@@ -47955,7 +48015,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_cme.setItem(3, 7, item)
-
+                        '''
                         if HANGSENG_등락율 < 0:
 
                             if min(대비리스트) > 0:
@@ -47981,6 +48041,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             hangseng_text_color = 'red'                                                                             
                         else:
                             pass
+                        '''
 
                     elif HANGSENG_현재가 < HANGSENG_과거가:
 
@@ -47996,7 +48057,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_cme.setItem(3, 7, item)
-
+                        '''
                         if HANGSENG_등락율 < 0:
 
                             if max(대비리스트) < 0:
@@ -48021,9 +48082,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                             hangseng_text_color = 'red'
                         else:
-                            pass                            
+                            pass
+                        '''                            
                     else:
                         pass
+
+                    대비 = HANGSENG_현재가 - HANGSENG_시가
+                    진폭 = HANGSENG_고가 - HANGSENG_저가
+
+                    item = QTableWidgetItem('{0}'.format(대비))
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_cme.setItem(3, 9, item)
+
+                    item = QTableWidgetItem('{0}'.format(진폭))
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_cme.setItem(3, 10, item)
 
                     self.tableWidget_cme.resizeRowToContents(3)
 
@@ -48182,7 +48259,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_cme.setItem(4, 7, item)
-
+                        '''
                         if WTI_등락율 < 0:
 
                             if min(대비리스트) > 0:
@@ -48208,6 +48285,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             wti_text_color = 'red'                                    
                         else:
                             pass
+                        '''
                         
                     elif WTI_현재가 < WTI_과거가:
 
@@ -48223,7 +48301,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_cme.setItem(4, 7, item)
-
+                        '''
                         if WTI_등락율 < 0:
 
                             if max(대비리스트) < 0:
@@ -48248,9 +48326,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                             wti_text_color = 'red' 
                         else:
-                            pass                            
+                            pass
+                        '''                            
                     else:
                         pass
+
+                    대비 = WTI_현재가 - WTI_시가
+                    진폭 = WTI_고가 - WTI_저가
+
+                    item = QTableWidgetItem('{0:.2f}'.format(대비))
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_cme.setItem(4, 9, item)
+
+                    item = QTableWidgetItem('{0:.2f}'.format(진폭))
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_cme.setItem(4, 10, item)
 
                     self.tableWidget_cme.resizeRowToContents(4)
 
@@ -48354,7 +48448,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_cme.setItem(5, 7, item)
-
+                        '''
                         if GOLD_등락율 < 0:
 
                             if min(대비리스트) > 0:
@@ -48388,6 +48482,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             gold_text_color = 'red'                                                                             
                         else:
                             pass
+                        '''
 
                     elif GOLD_현재가 < GOLD_과거가:
 
@@ -48403,7 +48498,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_cme.setItem(5, 7, item)
-
+                        '''
                         if GOLD_등락율 < 0:
 
                             if max(대비리스트) < 0:
@@ -48436,9 +48531,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                             gold_text_color = 'red'
                         else:
-                            pass                            
+                            pass
+                        '''                            
                     else:
                         pass
+
+                    대비 = GOLD_현재가 - GOLD_시가
+                    진폭 = GOLD_고가 - GOLD_저가
+
+                    item = QTableWidgetItem('{0:.1f}'.format(대비))
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_cme.setItem(5, 9, item)
+
+                    item = QTableWidgetItem('{0:.1f}'.format(진폭))
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_cme.setItem(5, 10, item)
 
                     self.tableWidget_cme.resizeRowToContents(5)
 
@@ -48542,7 +48653,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_cme.setItem(6, 7, item)
-
+                        '''
                         if EUROFX_등락율 < 0:
 
                             if min(대비리스트) > 0:
@@ -48554,8 +48665,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                 self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                                 self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
                             else:
-                                self.dialog['선물옵션전광판'].label_kospi.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_kospi.setText(jisu_txt)
+                                self.dialog['선물옵션전광판'].label_5th_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_5th_index.setText(jisu_txt)
 
                             eurofx_text_color = 'blue'                                           
 
@@ -48570,12 +48681,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                 self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                                 self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
                             else:
-                                self.dialog['선물옵션전광판'].label_kospi.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_kospi.setText(jisu_txt)
+                                self.dialog['선물옵션전광판'].label_5th_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_5th_index.setText(jisu_txt)
 
                             eurofx_text_color = 'red'                                                                             
                         else:
                             pass
+                        '''
 
                     elif EUROFX_현재가 < EUROFX_과거가:
 
@@ -48591,7 +48703,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_cme.setItem(6, 7, item)
-
+                        '''
                         if EUROFX_등락율 < 0:
 
                             if max(대비리스트) < 0:
@@ -48603,8 +48715,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                 self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                                 self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
                             else:
-                                self.dialog['선물옵션전광판'].label_kospi.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_kospi.setText(jisu_txt)
+                                self.dialog['선물옵션전광판'].label_5th_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_5th_index.setText(jisu_txt)
 
                             eurofx_text_color = 'blue'
 
@@ -48619,14 +48731,30 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                 self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                                 self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
                             else:
-                                self.dialog['선물옵션전광판'].label_kospi.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_kospi.setText(jisu_txt)
+                                self.dialog['선물옵션전광판'].label_5th_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_5th_index.setText(jisu_txt)
 
                             eurofx_text_color = 'red'
                         else:
-                            pass                            
+                            pass
+                        '''                            
                     else:
                         pass
+
+                    대비 = EUROFX_현재가 - EUROFX_시가
+                    진폭 = EUROFX_고가 - EUROFX_저가
+
+                    item = QTableWidgetItem('{0:.5f}'.format(대비))
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_cme.setItem(6, 9, item)
+
+                    item = QTableWidgetItem('{0:.5f}'.format(진폭))
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_cme.setItem(6, 10, item)
 
                     self.tableWidget_cme.resizeRowToContents(6)
 
@@ -48730,7 +48858,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_cme.setItem(7, 7, item)
-
+                        '''
                         if YEN_등락율 < 0:
 
                             if min(대비리스트) > 0:
@@ -48742,8 +48870,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                 self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                                 self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
                             else:
-                                self.dialog['선물옵션전광판'].label_kosdaq.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_kosdaq.setText(jisu_txt)
+                                self.dialog['선물옵션전광판'].label_6th_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_6th_index.setText(jisu_txt)
 
                             yen_text_color = 'blue'                                           
 
@@ -48758,12 +48886,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                 self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                                 self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
                             else:
-                                self.dialog['선물옵션전광판'].label_kosdaq.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_kosdaq.setText(jisu_txt)
+                                self.dialog['선물옵션전광판'].label_6th_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_6th_index.setText(jisu_txt)
 
                             yen_text_color = 'red'                                                                             
                         else:
                             pass
+                        '''
 
                     elif YEN_현재가 < YEN_과거가:
 
@@ -48779,7 +48908,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_cme.setItem(7, 7, item)
-
+                        '''
                         if YEN_등락율 < 0:
 
                             if max(대비리스트) < 0:
@@ -48791,8 +48920,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                 self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                                 self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
                             else:
-                                self.dialog['선물옵션전광판'].label_kosdaq.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_kosdaq.setText(jisu_txt)
+                                self.dialog['선물옵션전광판'].label_6th_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_6th_index.setText(jisu_txt)
 
                             yen_text_color = 'blue'
 
@@ -48807,14 +48936,30 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                 self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                                 self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
                             else:
-                                self.dialog['선물옵션전광판'].label_kosdaq.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_kosdaq.setText(jisu_txt)
+                                self.dialog['선물옵션전광판'].label_6th_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
+                                self.dialog['선물옵션전광판'].label_6th_index.setText(jisu_txt)
 
                             yen_text_color = 'red'
                         else:
-                            pass                            
+                            pass
+                        '''                            
                     else:
                         pass
+
+                    대비 = YEN_현재가 - YEN_시가
+                    진폭 = YEN_고가 - YEN_저가
+
+                    item = QTableWidgetItem('{0:.1f}'.format(대비))
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_cme.setItem(7, 9, item)
+
+                    item = QTableWidgetItem('{0:.1f}'.format(진폭))
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_cme.setItem(7, 10, item)
 
                     self.tableWidget_cme.resizeRowToContents(7)
 

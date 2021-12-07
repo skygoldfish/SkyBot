@@ -334,7 +334,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QLabel" name="label_kospi">
+     <widget class="QLabel" name="label_5th_index">
       <property name="font">
        <font>
         <family>Consolas</family>
@@ -355,7 +355,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QLabel" name="label_kosdaq">
+     <widget class="QLabel" name="label_6th_index">
       <property name="font">
        <font>
         <family>Consolas</family>

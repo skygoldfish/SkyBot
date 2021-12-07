@@ -2,13 +2,11 @@
 
 # Form implementation generated from reading ui file 'score_board.ui'
 #
-# Created by: PyQt5 UI code generator 5.12.3
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -171,28 +169,28 @@ class Ui_Dialog(object):
         self.label_4th_index.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.label_4th_index.setObjectName("label_4th_index")
         self.horizontalLayout.addWidget(self.label_4th_index)
-        self.label_kospi = QtWidgets.QLabel(self.layoutWidget)
+        self.label_5th_index = QtWidgets.QLabel(self.layoutWidget)
         font = QtGui.QFont()
         font.setFamily("Consolas")
         font.setBold(True)
         font.setItalic(False)
         font.setWeight(75)
-        self.label_kospi.setFont(font)
-        self.label_kospi.setFrameShape(QtWidgets.QFrame.WinPanel)
-        self.label_kospi.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.label_kospi.setObjectName("label_kospi")
-        self.horizontalLayout.addWidget(self.label_kospi)
-        self.label_kosdaq = QtWidgets.QLabel(self.layoutWidget)
+        self.label_5th_index.setFont(font)
+        self.label_5th_index.setFrameShape(QtWidgets.QFrame.WinPanel)
+        self.label_5th_index.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.label_5th_index.setObjectName("label_5th_index")
+        self.horizontalLayout.addWidget(self.label_5th_index)
+        self.label_6th_index = QtWidgets.QLabel(self.layoutWidget)
         font = QtGui.QFont()
         font.setFamily("Consolas")
         font.setBold(True)
         font.setItalic(False)
         font.setWeight(75)
-        self.label_kosdaq.setFont(font)
-        self.label_kosdaq.setFrameShape(QtWidgets.QFrame.WinPanel)
-        self.label_kosdaq.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.label_kosdaq.setObjectName("label_kosdaq")
-        self.horizontalLayout.addWidget(self.label_kosdaq)
+        self.label_6th_index.setFont(font)
+        self.label_6th_index.setFrameShape(QtWidgets.QFrame.WinPanel)
+        self.label_6th_index.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.label_6th_index.setObjectName("label_6th_index")
+        self.horizontalLayout.addWidget(self.label_6th_index)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem)
         self.pushButton_start = QtWidgets.QPushButton(self.layoutWidget)
@@ -229,8 +227,8 @@ class Ui_Dialog(object):
         self.label_2nd_index.setText(_translate("Dialog", "2nd index"))
         self.label_3rd_index.setText(_translate("Dialog", "3rd index"))
         self.label_4th_index.setText(_translate("Dialog", "4th index"))
-        self.label_kospi.setText(_translate("Dialog", "KOSPI"))
-        self.label_kosdaq.setText(_translate("Dialog", "KOSDAQ"))
+        self.label_5th_index.setText(_translate("Dialog", "KOSPI"))
+        self.label_6th_index.setText(_translate("Dialog", "KOSDAQ"))
         self.pushButton_start.setText(_translate("Dialog", "Start"))
         self.pushButton_telegram.setText(_translate("Dialog", "Telegram"))
 
@@ -243,3 +241,4 @@ if __name__ == "__main__":
     ui.setupUi(Dialog)
     Dialog.show()
     sys.exit(app.exec_())
+
