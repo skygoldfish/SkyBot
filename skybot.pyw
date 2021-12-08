@@ -374,6 +374,7 @@ NTP_Server = parser.get('Server Type', 'NTP Server')
 
 # [2]. << Month Info >>
 KSE_START_HOUR = parser.getint('Month Info', 'KSE Start Hour')
+FOREIGN_FUTURES_CLOSE_HOUR = parser.getint('Month Info', 'Foreign Futures Close Hour')
 CURRENT_MONTH = parser.get('Month Info', 'Current Month')
 MONTH_FIRSTDAY = parser.get('Month Info', 'First Day of the Current Month')
 
@@ -6269,7 +6270,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if NightTime:
 
                     # 미국 주식장 종료 1분후에 프로그램을 오프라인으로 전환시킴
-                    if yagan_service_terminate or 시스템시간_분 == (6 * 3600 + 1 * 60):
+                    if yagan_service_terminate or 시스템시간_분 == (FOREIGN_FUTURES_CLOSE_HOUR * 3600 + 1 * 60):
                         
                         if online_state:
 
