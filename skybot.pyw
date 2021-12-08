@@ -33540,7 +33540,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if WTI_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3:.2f}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -33554,7 +33554,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif WTI_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3:.2f}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -33797,7 +33797,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if EUROFX_현재가 > float(value):
 
-                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
 
                     if EUROFX_전일대비 > 0:
                         self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33810,7 +33810,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif EUROFX_현재가 < float(value):
 
-                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
 
                     if EUROFX_전일대비 > 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35068,7 +35068,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if WTI_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3:.2f}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -35082,7 +35082,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif WTI_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3:.2f}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -35330,7 +35330,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if EUROFX_현재가 > float(value):
 
-                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
 
                     if EUROFX_전일대비 > 0:
                         self.label_27.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35343,7 +35343,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif EUROFX_현재가 < float(value):
 
-                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
 
                     if EUROFX_전일대비 > 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36588,7 +36588,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if WTI_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3:.2f}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -36602,7 +36602,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif WTI_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3:.2f}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -36849,7 +36849,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if EUROFX_현재가 > float(value):
 
-                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
 
                     if EUROFX_전일대비 > 0:
                         self.label_37.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36862,7 +36862,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif EUROFX_현재가 < float(value):
 
-                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
 
                     if EUROFX_전일대비 > 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38095,7 +38095,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if WTI_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3:.2f}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -38109,7 +38109,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif WTI_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3:.2f}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -38352,7 +38352,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if EUROFX_현재가 > float(value):
 
-                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
 
                     if EUROFX_전일대비 > 0:
                         self.label_47.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38365,7 +38365,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif EUROFX_현재가 < float(value):
 
-                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
 
                     if EUROFX_전일대비 > 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39609,7 +39609,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if WTI_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3:.2f}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -39623,7 +39623,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif WTI_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3:.2f}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -39870,7 +39870,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if EUROFX_현재가 > float(value):
 
-                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
 
                     if EUROFX_전일대비 > 0:
                         self.label_57.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39883,7 +39883,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif EUROFX_현재가 < float(value):
 
-                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
 
                     if EUROFX_전일대비 > 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41127,7 +41127,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if WTI_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3:.2f}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -41141,7 +41141,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif WTI_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3:.2f}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -41388,7 +41388,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if EUROFX_현재가 > float(value):
 
-                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
 
                     if EUROFX_전일대비 > 0:
                         self.label_67.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41401,7 +41401,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif EUROFX_현재가 < float(value):
 
-                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
 
                     if EUROFX_전일대비 > 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
