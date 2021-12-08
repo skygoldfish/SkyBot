@@ -47381,17 +47381,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     대비 = SP500_현재가 - SP500_시가
                     진폭 = SP500_고가 - SP500_저가
 
-                    item = QTableWidgetItem('{0:.2f}'.format(대비))
-                    item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_cme.setItem(0, 9, item)
+                    if "{0:.2f}".format(대비) != self.tableWidget_cme.item(0, 9).text():
+                        item = QTableWidgetItem('{0:.2f}'.format(대비))
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(0, 9, item)
+                    else:
+                        pass
 
-                    item = QTableWidgetItem('{0:.2f}'.format(진폭))
-                    item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_cme.setItem(0, 10, item)
+                    if "{0:.2f}".format(진폭) != self.tableWidget_cme.item(0, 10).text():
+                        item = QTableWidgetItem('{0:.2f}'.format(진폭))
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(0, 10, item)
+                    else:
+                        pass
 
                     self.tableWidget_cme.resizeRowToContents(0)
 
@@ -47603,17 +47609,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     대비 = DOW_현재가 - DOW_시가
                     진폭 = DOW_고가 - DOW_저가
 
-                    item = QTableWidgetItem('{0}'.format(대비))
-                    item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_cme.setItem(1, 9, item)
+                    if "{0}".format(대비) != self.tableWidget_cme.item(1, 9).text():
+                        item = QTableWidgetItem('{0}'.format(대비))
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(1, 9, item)
+                    else:
+                        pass
 
-                    item = QTableWidgetItem('{0}'.format(진폭))
-                    item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_cme.setItem(1, 10, item)
+                    if "{0}".format(진폭) != self.tableWidget_cme.item(1, 10).text():
+                        item = QTableWidgetItem('{0}'.format(진폭))
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(1, 10, item)
+                    else:
+                        pass
 
                     self.tableWidget_cme.resizeRowToContents(1)
 
@@ -47814,17 +47826,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     대비 = NASDAQ_현재가 - NASDAQ_시가
                     진폭 = NASDAQ_고가 - NASDAQ_저가
 
-                    item = QTableWidgetItem('{0:.2f}'.format(대비))
-                    item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_cme.setItem(2, 9, item)
+                    if "{0:.2f}".format(대비) != self.tableWidget_cme.item(2, 9).text():
+                        item = QTableWidgetItem('{0:.2f}'.format(대비))
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(2, 9, item)
+                    else:
+                        pass
 
-                    item = QTableWidgetItem('{0:.2f}'.format(진폭))
-                    item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_cme.setItem(2, 10, item)
+                    if "{0:.2f}".format(진폭) != self.tableWidget_cme.item(2, 10).text():
+                        item = QTableWidgetItem('{0:.2f}'.format(진폭))
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(2, 10, item)
+                    else:
+                        pass
 
                     self.tableWidget_cme.resizeColumnsToContents()
                     self.tableWidget_cme.resizeRowToContents(2)
@@ -47973,17 +47991,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     대비 = HANGSENG_현재가 - HANGSENG_시가
                     진폭 = HANGSENG_고가 - HANGSENG_저가
 
-                    item = QTableWidgetItem('{0}'.format(대비))
-                    item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_cme.setItem(3, 9, item)
+                    if "{0}".format(대비) != self.tableWidget_cme.item(3, 9).text():
+                        item = QTableWidgetItem('{0}'.format(대비))
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(3, 9, item)
+                    else:
+                        pass
 
-                    item = QTableWidgetItem('{0}'.format(진폭))
-                    item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_cme.setItem(3, 10, item)
+                    if "{0}".format(진폭) != self.tableWidget_cme.item(3, 10).text():
+                        item = QTableWidgetItem('{0}'.format(진폭))
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(3, 10, item)
+                    else:
+                        pass
 
                     self.tableWidget_cme.resizeRowToContents(3)
 
@@ -48184,17 +48208,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     대비 = WTI_현재가 - WTI_시가
                     진폭 = WTI_고가 - WTI_저가
 
-                    item = QTableWidgetItem('{0:.2f}'.format(대비))
-                    item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_cme.setItem(4, 9, item)
+                    if "{0:.2f}".format(대비) != self.tableWidget_cme.item(4, 9).text():
+                        item = QTableWidgetItem('{0:.2f}'.format(대비))
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(4, 9, item)
+                    else:
+                        pass
 
-                    item = QTableWidgetItem('{0:.2f}'.format(진폭))
-                    item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_cme.setItem(4, 10, item)
+                    if "{0:.2f}".format(진폭) != self.tableWidget_cme.item(4, 10).text():
+                        item = QTableWidgetItem('{0:.2f}'.format(진폭))
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(4, 10, item)
+                    else:
+                        pass
 
                     self.tableWidget_cme.resizeRowToContents(4)
 
@@ -48235,8 +48265,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if "{0}".format(GOLD_전저) != self.tableWidget_cme.item(5, 1).text():
-                    item = QTableWidgetItem("{0}".format(GOLD_전저))
+                if "{0:.1f}".format(GOLD_전저) != self.tableWidget_cme.item(5, 1).text():
+                    item = QTableWidgetItem("{0:.1f}".format(GOLD_전저))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -48244,8 +48274,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if "{0}".format(GOLD_전고) != self.tableWidget_cme.item(5, 2).text():
-                    item = QTableWidgetItem("{0}".format(GOLD_전고))
+                if "{0:.1f}".format(GOLD_전고) != self.tableWidget_cme.item(5, 2).text():
+                    item = QTableWidgetItem("{0:.1f}".format(GOLD_전고))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -48253,8 +48283,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if "{0}".format(GOLD_종가) != self.tableWidget_cme.item(5, 3).text():
-                    item = QTableWidgetItem("{0}".format(GOLD_종가))
+                if "{0:.1f}".format(GOLD_종가) != self.tableWidget_cme.item(5, 3).text():
+                    item = QTableWidgetItem("{0:.1f}".format(GOLD_종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -48262,8 +48292,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if "{0}".format(GOLD_피봇) != self.tableWidget_cme.item(5, 4).text():
-                    item = QTableWidgetItem("{0}".format(GOLD_피봇))
+                if "{0:.1f}".format(GOLD_피봇) != self.tableWidget_cme.item(5, 4).text():
+                    item = QTableWidgetItem("{0:.1f}".format(GOLD_피봇))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -48271,8 +48301,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if "{0}".format(GOLD_시가) != self.tableWidget_cme.item(5, 5).text():
-                    item = QTableWidgetItem("{0}".format(GOLD_시가))
+                if "{0:.1f}".format(GOLD_시가) != self.tableWidget_cme.item(5, 5).text():
+                    item = QTableWidgetItem("{0:.1f}".format(GOLD_시가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -48280,8 +48310,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if "{0}".format(GOLD_저가) != self.tableWidget_cme.item(5, 6).text():
-                    item = QTableWidgetItem("{0}".format(GOLD_저가))
+                if "{0:.1f}".format(GOLD_저가) != self.tableWidget_cme.item(5, 6).text():
+                    item = QTableWidgetItem("{0:.1f}".format(GOLD_저가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -48289,8 +48319,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if "{0}".format(GOLD_고가) != self.tableWidget_cme.item(5, 8).text():
-                    item = QTableWidgetItem("{0}".format(GOLD_고가))
+                if "{0:.1f}".format(GOLD_고가) != self.tableWidget_cme.item(5, 8).text():
+                    item = QTableWidgetItem("{0:.1f}".format(GOLD_고가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -48340,17 +48370,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     대비 = GOLD_현재가 - GOLD_시가
                     진폭 = GOLD_고가 - GOLD_저가
 
-                    item = QTableWidgetItem('{0:.1f}'.format(대비))
-                    item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_cme.setItem(5, 9, item)
+                    if "{0:.1f}".format(대비) != self.tableWidget_cme.item(5, 9).text():
+                        item = QTableWidgetItem('{0:.1f}'.format(대비))
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(5, 9, item)
+                    else:
+                        pass
 
-                    item = QTableWidgetItem('{0:.1f}'.format(진폭))
-                    item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_cme.setItem(5, 10, item)
+                    if "{0:.1f}".format(진폭) != self.tableWidget_cme.item(5, 10).text():
+                        item = QTableWidgetItem('{0:.1f}'.format(진폭))
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(5, 10, item)
+                    else:
+                        pass
 
                     self.tableWidget_cme.resizeRowToContents(5)
 
@@ -48496,17 +48532,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     대비 = EUROFX_현재가 - EUROFX_시가
                     진폭 = EUROFX_고가 - EUROFX_저가
 
-                    item = QTableWidgetItem('{0:.5f}'.format(대비))
-                    item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_cme.setItem(6, 9, item)
+                    if '{0:.5f}'.format(대비) != self.tableWidget_cme.item(6, 9).text():
+                        item = QTableWidgetItem('{0:.5f}'.format(대비))
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(6, 9, item)
+                    else:
+                        pass
 
-                    item = QTableWidgetItem('{0:.5f}'.format(진폭))
-                    item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_cme.setItem(6, 10, item)
+                    if '{0:.5f}'.format(진폭) != self.tableWidget_cme.item(6, 10).text():
+                        item = QTableWidgetItem('{0:.5f}'.format(진폭))
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(6, 10, item)
+                    else:
+                        pass
 
                     self.tableWidget_cme.resizeRowToContents(6)
 
@@ -48652,17 +48694,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     대비 = YEN_현재가 - YEN_시가
                     진폭 = YEN_고가 - YEN_저가
 
-                    item = QTableWidgetItem('{0:.1f}'.format(대비))
-                    item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_cme.setItem(7, 9, item)
+                    if '{0:.1f}'.format(대비) != self.tableWidget_cme.item(7, 9).text():
+                        item = QTableWidgetItem('{0:.1f}'.format(대비))
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(7, 9, item)
+                    else:
+                        pass
 
-                    item = QTableWidgetItem('{0:.1f}'.format(진폭))
-                    item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_cme.setItem(7, 10, item)
+                    if '{0:.1f}'.format(진폭) != self.tableWidget_cme.item(7, 10).text():
+                        item = QTableWidgetItem('{0:.1f}'.format(진폭))
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(7, 10, item)
+                    else:
+                        pass
 
                     self.tableWidget_cme.resizeRowToContents(7)
 
