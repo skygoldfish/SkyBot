@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>332</width>
-    <height>910</height>
+    <height>836</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>20</x>
      <y>10</y>
      <width>293</width>
-     <height>641</height>
+     <height>571</height>
     </rect>
    </property>
    <property name="font">
@@ -35,13 +35,13 @@
    <property name="flat">
     <bool>false</bool>
    </property>
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>30</y>
-      <width>271</width>
-      <height>601</height>
+      <y>34</y>
+      <width>281</width>
+      <height>529</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -242,104 +242,6 @@
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="checkBox_dow">
-       <property name="font">
-        <font>
-         <family>Consolas</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>DOW</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_sp500">
-       <property name="font">
-        <font>
-         <family>Consolas</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>SP500</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_nasdaq">
-       <property name="font">
-        <font>
-         <family>Consolas</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>NASDAQ</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_oil">
-       <property name="font">
-        <font>
-         <family>Consolas</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>WTI OIL</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_eurofx">
-       <property name="font">
-        <font>
-         <family>Consolas</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>EUROFX</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_hangseng">
-       <property name="font">
-        <font>
-         <family>Consolas</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>HANGSENG</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_gold">
-       <property name="font">
-        <font>
-         <family>Consolas</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>GOLD</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QCheckBox" name="checkBox_news">
        <property name="font">
         <font>
@@ -353,6 +255,134 @@
        </property>
       </widget>
      </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <item>
+        <widget class="QCheckBox" name="checkBox_sp500">
+         <property name="font">
+          <font>
+           <family>Consolas</family>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>S&amp;&amp;P 500</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_dow">
+         <property name="font">
+          <font>
+           <family>Consolas</family>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>DOW</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <item>
+        <widget class="QCheckBox" name="checkBox_nasdaq">
+         <property name="font">
+          <font>
+           <family>Consolas</family>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>NASDAQ</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_hangseng">
+         <property name="font">
+          <font>
+           <family>Consolas</family>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>HANGSENG</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_7">
+       <item>
+        <widget class="QCheckBox" name="checkBox_oil">
+         <property name="font">
+          <font>
+           <family>Consolas</family>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>WTI OIL</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_gold">
+         <property name="font">
+          <font>
+           <family>Consolas</family>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>GOLD</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_8">
+       <item>
+        <widget class="QCheckBox" name="checkBox_eurofx">
+         <property name="font">
+          <font>
+           <family>Consolas</family>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>EUROFX</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_yen">
+         <property name="font">
+          <font>
+           <family>Consolas</family>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>YEN</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
     </layout>
    </widget>
   </widget>
@@ -360,7 +390,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>830</y>
+     <y>762</y>
      <width>293</width>
      <height>61</height>
     </rect>
@@ -443,7 +473,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>760</y>
+     <y>692</y>
      <width>291</width>
      <height>61</height>
     </rect>
@@ -458,7 +488,7 @@
    <property name="title">
     <string>실시간 갱신주기/허용오차</string>
    </property>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -522,7 +552,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>660</y>
+     <y>592</y>
      <width>293</width>
      <height>91</height>
     </rect>

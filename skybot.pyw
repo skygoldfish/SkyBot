@@ -421,14 +421,15 @@ NM_OPT_QUOTE = parser.getboolean('RealTime Request Item Switch', 'Next Month Opt
 NM_OPT_QUOTE1 = parser.getboolean('RealTime Request Item Switch', 'Next Month Option Quote1')
 KOSPI_KOSDAQ = parser.getboolean('RealTime Request Item Switch', 'KOSPI & KOSDAQ')
 SUPPLY_DEMAND = parser.getboolean('RealTime Request Item Switch', 'Supply & Demand')
-DOW_CHK = parser.getboolean('RealTime Request Item Switch', 'DOW')
+
 SP500_CHK = parser.getboolean('RealTime Request Item Switch', 'S&P 500')
+DOW_CHK = parser.getboolean('RealTime Request Item Switch', 'DOW')
 NASDAQ_CHK = parser.getboolean('RealTime Request Item Switch', 'NASDAQ')
+HANGSENG_CHK = parser.getboolean('RealTime Request Item Switch', 'HANGSENG')
 WTI_CHK = parser.getboolean('RealTime Request Item Switch', 'WTI OIL')
 GOLD_CHK = parser.getboolean('RealTime Request Item Switch', 'GOLD')
 EUROFX_CHK = parser.getboolean('RealTime Request Item Switch', 'EUROFX')
 YEN_CHK = parser.getboolean('RealTime Request Item Switch', 'YEN')
-HANGSENG_CHK = parser.getboolean('RealTime Request Item Switch', 'HANGSENG')
 NEWS_CHK = parser.getboolean('RealTime Request Item Switch', 'NEWS')
 
 # [7]. << Moving Average Type >>
@@ -21440,14 +21441,17 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_nm_opt_quote_1.setChecked(NM_OPT_QUOTE1)
         self.checkBox_kospi_kosdaq.setChecked(KOSPI_KOSDAQ)
         self.checkBox_supply_demand.setChecked(SUPPLY_DEMAND)
-        self.checkBox_dow.setChecked(DOW_CHK)
-        self.checkBox_sp500.setChecked(SP500_CHK)
-        self.checkBox_nasdaq.setChecked(NASDAQ_CHK)
-        self.checkBox_oil.setChecked(WTI_CHK)
-        self.checkBox_eurofx.setChecked(EUROFX_CHK)
-        self.checkBox_hangseng.setChecked(HANGSENG_CHK)
-        self.checkBox_gold.setChecked(GOLD_CHK)
+
         self.checkBox_news.setChecked(NEWS_CHK)
+        
+        self.checkBox_sp500.setChecked(SP500_CHK)
+        self.checkBox_dow.setChecked(DOW_CHK)
+        self.checkBox_nasdaq.setChecked(NASDAQ_CHK)
+        self.checkBox_hangseng.setChecked(HANGSENG_CHK)
+        self.checkBox_oil.setChecked(WTI_CHK)
+        self.checkBox_gold.setChecked(GOLD_CHK)
+        self.checkBox_eurofx.setChecked(EUROFX_CHK)
+        self.checkBox_yen.setChecked(YEN_CHK)        
 
         self.checkBox_periodic_plot.setChecked(flag_option_periodic_update_mode)
         self.checkBox_plot_first.setChecked(flag_plot_first_mode)
@@ -21494,6 +21498,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_nasdaq.stateChanged.connect(self.checkBox_nasdaq_checkState)
         self.checkBox_oil.stateChanged.connect(self.checkBox_oil_checkState)
         self.checkBox_eurofx.stateChanged.connect(self.checkBox_eurofx_checkState)
+        self.checkBox_yen.stateChanged.connect(self.checkBox_yen_checkState)
         self.checkBox_hangseng.stateChanged.connect(self.checkBox_hangseng_checkState)
         self.checkBox_gold.stateChanged.connect(self.checkBox_gold_checkState)
         self.checkBox_news.stateChanged.connect(self.checkBox_news_checkState)
@@ -22370,6 +22375,10 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 self.parent.textBrowser.append(txt)
             else:
                 pass
+
+    def checkBox_yen_checkState(self):
+
+        pass
 
     def checkBox_hangseng_checkState(self):
 
