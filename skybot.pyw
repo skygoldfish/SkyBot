@@ -47192,11 +47192,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_sp500_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])
 
                 SP500_현재가 = float(tickdata['체결가격'])
+                SP500_전일대비 = float(tickdata['전일대비'])
 
                 if tickdata['전일대비기호'] == '5':
-                    SP500_종가 = SP500_현재가 + float(tickdata['전일대비'])
+                    SP500_종가 = SP500_현재가 + SP500_전일대비
                 else:
-                    SP500_종가 = SP500_현재가 - float(tickdata['전일대비'])
+                    SP500_종가 = SP500_현재가 - SP500_전일대비
 
                 SP500_등락율 = float(tickdata['등락율'])
 
@@ -47420,11 +47421,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_dow_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])              
 
                 DOW_현재가 = int(float(tickdata['체결가격']))
+                DOW_전일대비 = float(tickdata['전일대비'])
 
                 if tickdata['전일대비기호'] == '5':
-                    DOW_종가 = int(DOW_현재가 + float(tickdata['전일대비']))
+                    DOW_종가 = int(DOW_현재가 + DOW_전일대비)
                 else:
-                    DOW_종가 = int(DOW_현재가 - float(tickdata['전일대비']))
+                    DOW_종가 = int(DOW_현재가 - DOW_전일대비)
 
                 DOW_등락율 = float(tickdata['등락율'])                
 
@@ -47646,11 +47648,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_nasdaq_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])
 
                 NASDAQ_현재가 = float(tickdata['체결가격'])
+                NASDAQ_전일대비 = float(tickdata['전일대비'])
 
                 if tickdata['전일대비기호'] == '5':
-                    NASDAQ_종가 = NASDAQ_현재가 + float(tickdata['전일대비'])
+                    NASDAQ_종가 = NASDAQ_현재가 + NASDAQ_전일대비
                 else:
-                    NASDAQ_종가 = NASDAQ_현재가 - float(tickdata['전일대비'])
+                    NASDAQ_종가 = NASDAQ_현재가 - NASDAQ_전일대비
 
                 NASDAQ_등락율 = float(tickdata['등락율'])                 
 
@@ -47862,11 +47865,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_hangseng_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])
 
                 HANGSENG_현재가 = int(float(tickdata['체결가격']))
+                HANGSENG_전일대비 = float(tickdata['전일대비'])
 
                 if tickdata['전일대비기호'] == '5':
-                    HANGSENG_종가 = int(HANGSENG_현재가 + float(tickdata['전일대비']))
+                    HANGSENG_종가 = int(HANGSENG_현재가 + HANGSENG_전일대비)
                 else:
-                    HANGSENG_종가 = int(HANGSENG_현재가 - float(tickdata['전일대비']))
+                    HANGSENG_종가 = int(HANGSENG_현재가 - HANGSENG_전일대비)
               
                 HANGSENG_등락율 = float(tickdata['등락율'])
 
@@ -48024,11 +48028,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_wti_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])
 
                 WTI_현재가 = float(tickdata['체결가격'])
+                WTI_전일대비 = float(tickdata['전일대비'])
 
                 if tickdata['전일대비기호'] == '5':
-                    WTI_종가 = round((WTI_현재가 + float(tickdata['전일대비'])), 2)
+                    WTI_종가 = round((WTI_현재가 + WTI_전일대비), 2)
                 else:
-                    WTI_종가 = round((WTI_현재가 - float(tickdata['전일대비'])), 2)
+                    WTI_종가 = round((WTI_현재가 - WTI_전일대비), 2)
                 
                 WTI_등락율 = float(tickdata['등락율'])
 
@@ -48239,11 +48244,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_gold_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])
 
                 GOLD_현재가 = float(tickdata['체결가격'])
+                GOLD_전일대비 = float(tickdata['전일대비'])
 
                 if tickdata['전일대비기호'] == '5':
-                    GOLD_종가 = round((GOLD_현재가 + float(tickdata['전일대비'])), 1)
+                    GOLD_종가 = round((GOLD_현재가 + GOLD_전일대비), 1)
                 else:
-                    GOLD_종가 = round((GOLD_현재가 - float(tickdata['전일대비'])), 1)
+                    GOLD_종가 = round((GOLD_현재가 - GOLD_전일대비), 1)
 
                 GOLD_등락율 = float(tickdata['등락율'])
 
@@ -48399,11 +48405,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_eurofx_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])                    
 
                 EUROFX_현재가 = float(tickdata['체결가격'])
+                EUROFX_전일대비 = float(tickdata['전일대비'])
 
                 if tickdata['전일대비기호'] == '5':
-                    EUROFX_종가 = round((EUROFX_현재가 + float(tickdata['전일대비'])), 5)
+                    EUROFX_종가 = round((EUROFX_현재가 + EUROFX_전일대비), 5)
                 else:
-                    EUROFX_종가 = round((EUROFX_현재가 - float(tickdata['전일대비'])), 5)
+                    EUROFX_종가 = round((EUROFX_현재가 - EUROFX_전일대비), 5)
 
                 EUROFX_등락율 = float(tickdata['등락율'])
 
@@ -48559,11 +48566,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_yen_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])                    
 
                 YEN_현재가 = float(tickdata['체결가격'])
+                YEN_전일대비 = float(tickdata['전일대비'])
 
                 if tickdata['전일대비기호'] == '5':
-                    YEN_종가 = round((YEN_현재가 + float(tickdata['전일대비'])), 1)
+                    YEN_종가 = round((YEN_현재가 + YEN_전일대비), 1)
                 else:
-                    YEN_종가 = round((YEN_현재가 - float(tickdata['전일대비'])), 1)
+                    YEN_종가 = round((YEN_현재가 - YEN_전일대비), 1)
 
                 YEN_등락율 = float(tickdata['등락율'])
 
