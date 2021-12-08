@@ -47276,7 +47276,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(SP500_전저) != self.tableWidget_cme.item(0, 1).text():
+                if "{0:.2f}".format(SP500_전저) != self.tableWidget_cme.item(0, 1).text():
                     item = QTableWidgetItem("{0:.2f}".format(SP500_전저))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -47285,7 +47285,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(SP500_전고) != self.tableWidget_cme.item(0, 2).text():
+                if "{0:.2f}".format(SP500_전고) != self.tableWidget_cme.item(0, 2).text():
                     item = QTableWidgetItem("{0:.2f}".format(SP500_전고))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -47294,7 +47294,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(SP500_종가) != self.tableWidget_cme.item(0, 3).text():
+                if "{0:.2f}".format(SP500_종가) != self.tableWidget_cme.item(0, 3).text():
                     item = QTableWidgetItem("{0:.2f}".format(SP500_종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -47303,7 +47303,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(SP500_피봇) != self.tableWidget_cme.item(0, 4).text():
+                if "{0:.2f}".format(SP500_피봇) != self.tableWidget_cme.item(0, 4).text():
                     item = QTableWidgetItem("{0:.2f}".format(SP500_피봇))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -47312,7 +47312,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(SP500_시가) != self.tableWidget_cme.item(0, 5).text():
+                if "{0:.2f}".format(SP500_시가) != self.tableWidget_cme.item(0, 5).text():
                     item = QTableWidgetItem("{0:.2f}".format(SP500_시가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -47321,7 +47321,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(SP500_저가) != self.tableWidget_cme.item(0, 6).text():
+                if "{0:.2f}".format(SP500_저가) != self.tableWidget_cme.item(0, 6).text():
                     item = QTableWidgetItem("{0:.2f}".format(SP500_저가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -47330,7 +47330,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(SP500_고가) != self.tableWidget_cme.item(0, 8).text():
+                if "{0:.2f}".format(SP500_고가) != self.tableWidget_cme.item(0, 8).text():
                     item = QTableWidgetItem("{0:.2f}".format(SP500_고가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -47360,34 +47360,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_cme.setItem(0, 7, item)
-                        '''
-                        if SP500_등락율 < 0:
-
-                            if min(대비리스트) > 0:
-                                jisu_txt = "SP500: {0} ({1:.2f}, {2:.2f}%)⬈".format(SP500_체결가격, SP500_전일대비, SP500_등락율)                                    
-                            else:
-                                jisu_txt = "SP500: {0} ▲ ({1:.2f}, {2:.2f}%)".format(SP500_체결가격, SP500_전일대비, SP500_등락율)
-
-                            self.dialog['선물옵션전광판'].label_1st_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_1st_index.setText(jisu_txt)
-
-                            sp500_text_color = 'blue'                                                       
-
-                        elif SP500_등락율 > 0:  
-
-                            if min(대비리스트) > 0:
-                                jisu_txt = "SP500: {0} ▲ ({1:.2f}, {2:.2f}%)⬈".format(SP500_체결가격, SP500_전일대비, SP500_등락율)                                    
-                            else:
-                                jisu_txt = "SP500: {0} ▲ ({1:.2f}, {2:.2f}%)".format(SP500_체결가격, SP500_전일대비, SP500_등락율)
-
-                            self.dialog['선물옵션전광판'].label_1st_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_1st_index.setText(jisu_txt)
-
-                            sp500_text_color = 'red'
-                        else:
-                            pass
-                        '''
-
+                        
                     elif SP500_현재가 < SP500_과거가:
 
                         item = QTableWidgetItem(SP500_체결가격 + '\n' + '▼')
@@ -47401,34 +47374,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             item.setForeground(QBrush(검정색))
 
                         item.setTextAlignment(Qt.AlignCenter)
-                        self.tableWidget_cme.setItem(0, 7, item)
-                        '''
-                        if SP500_등락율 < 0: 
-
-                            if max(대비리스트) < 0:
-                                jisu_txt = "SP500: {0} ({1:.2f}, {2:.2f}%)⬊".format(SP500_체결가격, SP500_전일대비, SP500_등락율)                                    
-                            else:
-                                jisu_txt = "SP500: {0} ▼ ({1:.2f}, {2:.2f}%)".format(SP500_체결가격, SP500_전일대비, SP500_등락율)
-
-                            self.dialog['선물옵션전광판'].label_1st_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_1st_index.setText(jisu_txt)
-
-                            sp500_text_color = 'blue'                                
-
-                        elif SP500_등락율 > 0:
-
-                            if max(대비리스트) < 0:
-                                jisu_txt = "SP500: {0} ({1:.2f}, {2:.2f}%)⬊".format(SP500_체결가격, SP500_전일대비, SP500_등락율)                                    
-                            else:
-                                jisu_txt = "SP500: {0} ▼ ({1:.2f}, {2:.2f}%)".format(SP500_체결가격, SP500_전일대비, SP500_등락율)
-
-                            self.dialog['선물옵션전광판'].label_1st_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_1st_index.setText(jisu_txt)
-
-                            sp500_text_color = 'red'                                
-                        else:
-                            pass
-                        '''
+                        self.tableWidget_cme.setItem(0, 7, item)                        
                     else:
                         pass
 
@@ -47552,7 +47498,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(DOW_전저) != self.tableWidget_cme.item(1, 1).text():
+                if "{0}".format(DOW_전저) != self.tableWidget_cme.item(1, 1).text():
                     item = QTableWidgetItem("{0}".format(DOW_전저))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -47561,7 +47507,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(DOW_전고) != self.tableWidget_cme.item(1, 2).text():
+                if "{0}".format(DOW_전고) != self.tableWidget_cme.item(1, 2).text():
                     item = QTableWidgetItem("{0}".format(DOW_전고))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -47570,7 +47516,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(DOW_종가) != self.tableWidget_cme.item(1, 3).text():
+                if "{0}".format(DOW_종가) != self.tableWidget_cme.item(1, 3).text():
                     item = QTableWidgetItem("{0}".format(DOW_종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -47579,7 +47525,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(DOW_피봇) != self.tableWidget_cme.item(1, 4).text():
+                if "{0}".format(DOW_피봇) != self.tableWidget_cme.item(1, 4).text():
                     item = QTableWidgetItem("{0}".format(DOW_피봇))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -47588,7 +47534,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(DOW_시가) != self.tableWidget_cme.item(1, 5).text():
+                if "{0}".format(DOW_시가) != self.tableWidget_cme.item(1, 5).text():
                     item = QTableWidgetItem("{0}".format(DOW_시가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -47597,7 +47543,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(DOW_저가) != self.tableWidget_cme.item(1, 6).text():
+                if "{0}".format(DOW_저가) != self.tableWidget_cme.item(1, 6).text():
                     item = QTableWidgetItem("{0}".format(DOW_저가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -47606,7 +47552,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(DOW_고가) != self.tableWidget_cme.item(1, 8).text():
+                if "{0}".format(DOW_고가) != self.tableWidget_cme.item(1, 8).text():
                     item = QTableWidgetItem("{0}".format(DOW_고가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -47636,34 +47582,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_cme.setItem(1, 7, item)
-                        '''
-                        if DOW_등락율 < 0:                                                             
-
-                            if min(대비리스트) > 0:
-                                jisu_txt = "DOW: {0} ({1}, {2:.2f}%, {3})⬈".format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))                                    
-                            else:
-                                jisu_txt = "DOW: {0} ▲ ({1}, {2:.2f}%, {3})".format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
-
-                            self.dialog['선물옵션전광판'].label_1st_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_1st_index.setText(jisu_txt)
-
-                            dow_text_color = 'blue'
-
-                        elif DOW_등락율 > 0:       
-
-                            if min(대비리스트) > 0:
-                                jisu_txt = "DOW: {0} ({1}, {2:.2f}%, {3})⬈".format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))                                    
-                            else:
-                                jisu_txt = "DOW: {0} ▲ ({1}, {2:.2f}%, {3})".format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
-
-                            self.dialog['선물옵션전광판'].label_1st_index.setStyleSheet('background-color: pink; color: red;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_1st_index.setText(jisu_txt)
-
-                            dow_text_color = 'red'
-                        else:
-                            pass
-                        '''
-
+                        
                     elif DOW_현재가 < DOW_과거가:
 
                         item = QTableWidgetItem(format(DOW_현재가, ',') + '\n' + '▼')
@@ -47677,34 +47596,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             item.setForeground(QBrush(검정색))
 
                         item.setTextAlignment(Qt.AlignCenter)
-                        self.tableWidget_cme.setItem(1, 7, item)
-                        '''
-                        if DOW_등락율 < 0:        
-
-                            if max(대비리스트) < 0:
-                                jisu_txt = "DOW: {0} ({1}, {2:.2f}%, {3})⬊".format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))                                    
-                            else:
-                                jisu_txt = "DOW: {0} ▼ ({1}, {2:.2f}%, {3})".format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
-
-                            self.dialog['선물옵션전광판'].label_1st_index.setStyleSheet('background-color: lightskyblue; color: blue;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_1st_index.setText(jisu_txt)
-
-                            dow_text_color = 'blue'
-
-                        elif DOW_등락율 > 0:      
-
-                            if max(대비리스트) < 0:
-                                jisu_txt = "DOW: {0} ({1}, {2:.2f}%, {3})⬊".format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))                                    
-                            else:
-                                jisu_txt = "DOW: {0} ▼ ({1}, {2:.2f}%, {3})".format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
-
-                            self.dialog['선물옵션전광판'].label_1st_index.setStyleSheet('background-color: lightskyblue; color: red;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_1st_index.setText(jisu_txt)
-
-                            dow_text_color = 'red'
-                        else:
-                            pass
-                        '''
+                        self.tableWidget_cme.setItem(1, 7, item)                        
                     else:
                         pass
 
@@ -47817,7 +47709,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(NASDAQ_전저) != self.tableWidget_cme.item(2, 1).text():
+                if "{0:.2f}".format(NASDAQ_전저) != self.tableWidget_cme.item(2, 1).text():
                     item = QTableWidgetItem("{0:.2f}".format(NASDAQ_전저))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -47826,7 +47718,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(NASDAQ_전고) != self.tableWidget_cme.item(2, 2).text():
+                if "{0:.2f}".format(NASDAQ_전고) != self.tableWidget_cme.item(2, 2).text():
                     item = QTableWidgetItem("{0:.2f}".format(NASDAQ_전고))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -47835,7 +47727,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(NASDAQ_종가) != self.tableWidget_cme.item(2, 3).text():
+                if "{0:.2f}".format(NASDAQ_종가) != self.tableWidget_cme.item(2, 3).text():
                     item = QTableWidgetItem("{0:.2f}".format(NASDAQ_종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -47844,7 +47736,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(NASDAQ_피봇) != self.tableWidget_cme.item(2, 4).text():
+                if "{0:.2f}".format(NASDAQ_피봇) != self.tableWidget_cme.item(2, 4).text():
                     item = QTableWidgetItem("{0:.2f}".format(NASDAQ_피봇))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -47853,7 +47745,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(NASDAQ_시가) != self.tableWidget_cme.item(2, 5).text():
+                if "{0:.2f}".format(NASDAQ_시가) != self.tableWidget_cme.item(2, 5).text():
                     item = QTableWidgetItem("{0:.2f}".format(NASDAQ_시가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -47862,7 +47754,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(NASDAQ_저가) != self.tableWidget_cme.item(2, 6).text():
+                if "{0:.2f}".format(NASDAQ_저가) != self.tableWidget_cme.item(2, 6).text():
                     item = QTableWidgetItem("{0:.2f}".format(NASDAQ_저가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -47871,7 +47763,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(NASDAQ_고가) != self.tableWidget_cme.item(2, 8).text():
+                if "{0:.2f}".format(NASDAQ_고가) != self.tableWidget_cme.item(2, 8).text():
                     item = QTableWidgetItem("{0:.2f}".format(NASDAQ_고가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -47901,34 +47793,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_cme.setItem(2, 7, item)
-                        '''
-                        if NASDAQ_등락율 < 0:
-
-                            if min(대비리스트) > 0:
-                                jisu_txt = "NASDAQ: {0} ({1:.2f}, {2:.2f}%)⬈".format(NASDAQ_체결가격, NASDAQ_전일대비, NASDAQ_등락율)                                    
-                            else:
-                                jisu_txt = "NASDAQ: {0} ▲ ({1:.2f}, {2:.2f}%)".format(NASDAQ_체결가격, NASDAQ_전일대비, NASDAQ_등락율)
-
-                            self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: pink; color: blue;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
-
-                            nasdaq_text_color = 'blue'
-
-                        elif NASDAQ_등락율 > 0:                            
-
-                            if min(대비리스트) > 0:
-                                jisu_txt = "NASDAQ: {0} ({1:.2f}, {2:.2f}%)⬈".format(NASDAQ_체결가격, NASDAQ_전일대비, NASDAQ_등락율)                                    
-                            else:
-                                jisu_txt = "NASDAQ: {0} ▲ ({1:.2f}, {2:.2f}%)".format(NASDAQ_체결가격, NASDAQ_전일대비, NASDAQ_등락율)
-
-                            self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: pink; color: red;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
-
-                            nasdaq_text_color = 'red'
-                        else:
-                            pass
-                        '''
-
+                        
                     elif NASDAQ_현재가 < NASDAQ_과거가:
 
                         item = QTableWidgetItem(NASDAQ_체결가격 + '\n' + '▼')
@@ -47942,34 +47807,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             item.setForeground(QBrush(검정색))
 
                         item.setTextAlignment(Qt.AlignCenter)
-                        self.tableWidget_cme.setItem(2, 7, item)
-                        '''
-                        if NASDAQ_등락율 < 0:     
-
-                            if max(대비리스트) < 0:
-                                jisu_txt = "NASDAQ: {0} ({1:.2f}, {2:.2f}%)⬊".format(NASDAQ_체결가격, NASDAQ_전일대비, NASDAQ_등락율)                                    
-                            else:
-                                jisu_txt = "NASDAQ: {0} ▼ ({1:.2f}, {2:.2f}%)".format(NASDAQ_체결가격, NASDAQ_전일대비, NASDAQ_등락율)
-
-                            self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
-
-                            nasdaq_text_color = 'blue'
-
-                        elif NASDAQ_등락율 > 0:     
-
-                            if max(대비리스트) < 0:
-                                jisu_txt = "NASDAQ: {0} ({1:.2f}, {2:.2f}%)⬊".format(NASDAQ_체결가격, NASDAQ_전일대비, NASDAQ_등락율)                                    
-                            else:
-                                jisu_txt = "NASDAQ: {0} ▼ ({1:.2f}, {2:.2f}%)".format(NASDAQ_체결가격, NASDAQ_전일대비, NASDAQ_등락율)
-
-                            self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red;  font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
-
-                            nasdaq_text_color = 'red'
-                        else:
-                            pass
-                        '''
+                        self.tableWidget_cme.setItem(2, 7, item)                        
                     else:
                         pass
 
@@ -48030,7 +47868,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(HANGSENG_전저) != self.tableWidget_cme.item(3, 1).text():
+                if "{0}".format(HANGSENG_전저) != self.tableWidget_cme.item(3, 1).text():
                     item = QTableWidgetItem("{0}".format(HANGSENG_전저))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48039,7 +47877,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(HANGSENG_전고) != self.tableWidget_cme.item(3, 2).text():
+                if "{0}".format(HANGSENG_전고) != self.tableWidget_cme.item(3, 2).text():
                     item = QTableWidgetItem("{0}".format(HANGSENG_전고))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48048,7 +47886,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(HANGSENG_종가) != self.tableWidget_cme.item(3, 3).text():
+                if "{0}".format(HANGSENG_종가) != self.tableWidget_cme.item(3, 3).text():
                     item = QTableWidgetItem("{0}".format(HANGSENG_종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48057,7 +47895,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(HANGSENG_피봇) != self.tableWidget_cme.item(3, 4).text():
+                if "{0}".format(HANGSENG_피봇) != self.tableWidget_cme.item(3, 4).text():
                     item = QTableWidgetItem("{0}".format(HANGSENG_피봇))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48066,7 +47904,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(HANGSENG_시가) != self.tableWidget_cme.item(3, 5).text():
+                if "{0}".format(HANGSENG_시가) != self.tableWidget_cme.item(3, 5).text():
                     item = QTableWidgetItem("{0}".format(HANGSENG_시가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48075,7 +47913,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(HANGSENG_저가) != self.tableWidget_cme.item(3, 6).text():
+                if "{0}".format(HANGSENG_저가) != self.tableWidget_cme.item(3, 6).text():
                     item = QTableWidgetItem("{0}".format(HANGSENG_저가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48084,7 +47922,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(HANGSENG_고가) != self.tableWidget_cme.item(3, 8).text():
+                if "{0}".format(HANGSENG_고가) != self.tableWidget_cme.item(3, 8).text():
                     item = QTableWidgetItem("{0}".format(HANGSENG_고가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48114,34 +47952,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_cme.setItem(3, 7, item)
-                        '''
-                        if HANGSENG_등락율 < 0:
-
-                            if min(대비리스트) > 0:
-                                jisu_txt = "HSI: {0} ({1}, {2:.2f}%)⬈".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율)                                    
-                            else:
-                                jisu_txt = "HSI: {0} ▲ ({1}, {2:.2f}%)".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율)
-
-                            self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
-
-                            hangseng_text_color = 'blue'                                           
-
-                        elif HANGSENG_등락율 > 0:
-
-                            if min(대비리스트) > 0:
-                                jisu_txt = "HSI: {0} ▲ ({1}, {2:.2f}%)⬈".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율)                                    
-                            else:
-                                jisu_txt = "HSI: {0} ▲ ({1}, {2:.2f}%)".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율)
-
-                            self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
-
-                            hangseng_text_color = 'red'                                                                             
-                        else:
-                            pass
-                        '''
-
+                        
                     elif HANGSENG_현재가 < HANGSENG_과거가:
 
                         item = QTableWidgetItem(format(HANGSENG_현재가, ',') + '\n' + '▼')
@@ -48155,34 +47966,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             item.setForeground(QBrush(검정색))
 
                         item.setTextAlignment(Qt.AlignCenter)
-                        self.tableWidget_cme.setItem(3, 7, item)
-                        '''
-                        if HANGSENG_등락율 < 0:
-
-                            if max(대비리스트) < 0:
-                                jisu_txt = "HSI: {0} ({1}, {2:.2f}%)⬊".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율)                                    
-                            else:
-                                jisu_txt = "HSI: {0} ▼ ({1}, {2:.2f}%)".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율)
-
-                            self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
-
-                            hangseng_text_color = 'blue'
-
-                        elif HANGSENG_등락율 > 0:
-
-                            if max(대비리스트) < 0:
-                                jisu_txt = "HSI: {0} ({1}, {2:.2f}%)⬊".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율)                                    
-                            else:
-                                jisu_txt = "HSI: {0} ▼ ({1}, {2:.2f}%)".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율)
-
-                            self.dialog['선물옵션전광판'].label_2nd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_2nd_index.setText(jisu_txt)
-
-                            hangseng_text_color = 'red'
-                        else:
-                            pass
-                        '''                            
+                        self.tableWidget_cme.setItem(3, 7, item)                                            
                     else:
                         pass
 
@@ -48295,7 +48079,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(WTI_전저) != self.tableWidget_cme.item(4, 1).text():
+                if "{0:.2f}".format(WTI_전저) != self.tableWidget_cme.item(4, 1).text():
                     item = QTableWidgetItem("{0:.2f}".format(WTI_전저))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48304,7 +48088,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(WTI_전고) != self.tableWidget_cme.item(4, 2).text():
+                if "{0:.2f}".format(WTI_전고) != self.tableWidget_cme.item(4, 2).text():
                     item = QTableWidgetItem("{0:.2f}".format(WTI_전고))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48313,7 +48097,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(WTI_종가) != self.tableWidget_cme.item(4, 3).text():
+                if "{0:.2f}".format(WTI_종가) != self.tableWidget_cme.item(4, 3).text():
                     item = QTableWidgetItem("{0:.2f}".format(WTI_종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48322,7 +48106,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(WTI_피봇) != self.tableWidget_cme.item(4, 4).text():
+                if "{0:.2f}".format(WTI_피봇) != self.tableWidget_cme.item(4, 4).text():
                     item = QTableWidgetItem("{0:.2f}".format(WTI_피봇))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48331,7 +48115,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(WTI_시가) != self.tableWidget_cme.item(4, 5).text():
+                if "{0:.2f}".format(WTI_시가) != self.tableWidget_cme.item(4, 5).text():
                     item = QTableWidgetItem("{0:.2f}".format(WTI_시가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48340,7 +48124,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(WTI_저가) != self.tableWidget_cme.item(4, 6).text():
+                if "{0:.2f}".format(WTI_저가) != self.tableWidget_cme.item(4, 6).text():
                     item = QTableWidgetItem("{0:.2f}".format(WTI_저가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48349,7 +48133,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(WTI_고가) != self.tableWidget_cme.item(4, 8).text():
+                if "{0:.2f}".format(WTI_고가) != self.tableWidget_cme.item(4, 8).text():
                     item = QTableWidgetItem("{0:.2f}".format(WTI_고가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48379,34 +48163,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_cme.setItem(4, 7, item)
-                        '''
-                        if WTI_등락율 < 0:
-
-                            if min(대비리스트) > 0:
-                                jisu_txt = "WTI: {0} ({1:.2f}, {2:.2f}%)⬈".format(WTI_체결가격, WTI_전일대비, WTI_등락율)                                    
-                            else:
-                                jisu_txt = "WTI: {0} ▲ ({1:.2f}, {2:.2f}%)".format(WTI_체결가격, WTI_전일대비, WTI_등락율)
-
-                            self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
-
-                            wti_text_color = 'blue'  
-
-                        elif WTI_등락율 > 0:
-
-                            if min(대비리스트) > 0:
-                                jisu_txt = "WTI: {0} ▲ ({1:.2f}, {2:.2f}%)⬈".format(WTI_체결가격, WTI_전일대비, WTI_등락율)                                    
-                            else:
-                                jisu_txt = "WTI: {0} ▲ ({1:.2f}, {2:.2f}%)".format(WTI_체결가격, WTI_전일대비, WTI_등락율)
-
-                            self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
-
-                            wti_text_color = 'red'                                    
-                        else:
-                            pass
-                        '''
-                        
+                                                
                     elif WTI_현재가 < WTI_과거가:
 
                         item = QTableWidgetItem(tickdata['체결가격'] + '\n' + '▼')
@@ -48420,34 +48177,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             item.setForeground(QBrush(검정색))
 
                         item.setTextAlignment(Qt.AlignCenter)
-                        self.tableWidget_cme.setItem(4, 7, item)
-                        '''
-                        if WTI_등락율 < 0:
-
-                            if max(대비리스트) < 0:
-                                jisu_txt = "WTI: {0} ({1:.2f}, {2:.2f}%)⬊".format(WTI_체결가격, WTI_전일대비, WTI_등락율)                                    
-                            else:
-                                jisu_txt = "WTI: {0} ▼ ({1:.2f}, {2:.2f}%)".format(WTI_체결가격, WTI_전일대비, WTI_등락율)
-
-                            self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
-
-                            wti_text_color = 'blue'                                    
-
-                        elif WTI_등락율 > 0:
-
-                            if max(대비리스트) < 0:
-                                jisu_txt = "WTI: {0} ({1:.2f}, {2:.2f}%)⬊".format(WTI_체결가격, WTI_전일대비, WTI_등락율)                                    
-                            else:
-                                jisu_txt = "WTI: {0} ▼ ({1:.2f}, {2:.2f}%)".format(WTI_체결가격, WTI_전일대비, WTI_등락율)
-
-                            self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                            self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
-
-                            wti_text_color = 'red' 
-                        else:
-                            pass
-                        '''                            
+                        self.tableWidget_cme.setItem(4, 7, item)                                             
                     else:
                         pass
 
@@ -48505,7 +48235,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(GOLD_전저) != self.tableWidget_cme.item(5, 1).text():
+                if "{0}".format(GOLD_전저) != self.tableWidget_cme.item(5, 1).text():
                     item = QTableWidgetItem("{0}".format(GOLD_전저))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48514,7 +48244,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(GOLD_전고) != self.tableWidget_cme.item(5, 2).text():
+                if "{0}".format(GOLD_전고) != self.tableWidget_cme.item(5, 2).text():
                     item = QTableWidgetItem("{0}".format(GOLD_전고))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48523,7 +48253,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(GOLD_종가) != self.tableWidget_cme.item(5, 3).text():
+                if "{0}".format(GOLD_종가) != self.tableWidget_cme.item(5, 3).text():
                     item = QTableWidgetItem("{0}".format(GOLD_종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48532,7 +48262,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(GOLD_피봇) != self.tableWidget_cme.item(5, 4).text():
+                if "{0}".format(GOLD_피봇) != self.tableWidget_cme.item(5, 4).text():
                     item = QTableWidgetItem("{0}".format(GOLD_피봇))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48541,7 +48271,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(GOLD_시가) != self.tableWidget_cme.item(5, 5).text():
+                if "{0}".format(GOLD_시가) != self.tableWidget_cme.item(5, 5).text():
                     item = QTableWidgetItem("{0}".format(GOLD_시가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48550,7 +48280,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(GOLD_저가) != self.tableWidget_cme.item(5, 6).text():
+                if "{0}".format(GOLD_저가) != self.tableWidget_cme.item(5, 6).text():
                     item = QTableWidgetItem("{0}".format(GOLD_저가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48559,7 +48289,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(GOLD_고가) != self.tableWidget_cme.item(5, 8).text():
+                if "{0}".format(GOLD_고가) != self.tableWidget_cme.item(5, 8).text():
                     item = QTableWidgetItem("{0}".format(GOLD_고가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48589,42 +48319,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_cme.setItem(5, 7, item)
-                        '''
-                        if GOLD_등락율 < 0:
-
-                            if min(대비리스트) > 0:
-                                jisu_txt = "GOLD: {0} ({1:.2f}, {2:.2f}%)⬈".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율)                                    
-                            else:
-                                jisu_txt = "GOLD: {0} ▲ ({1:.2f}, {2:.2f}%)".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율)
-
-                            if DayTime:
-                                self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
-                            else:
-                                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
-
-                            gold_text_color = 'blue'                                           
-
-                        elif GOLD_등락율 > 0:
-
-                            if min(대비리스트) > 0:
-                                jisu_txt = "GOLD: {0} ▲ ({1:.2f}, {2:.2f}%)⬈".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율)                                    
-                            else:
-                                jisu_txt = "GOLD: {0} ▲ ({1:.2f}, {2:.2f}%)".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율)
-
-                            if DayTime:
-                                self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
-                            else:
-                                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
-
-                            gold_text_color = 'red'                                                                             
-                        else:
-                            pass
-                        '''
-
+                        
                     elif GOLD_현재가 < GOLD_과거가:
 
                         item = QTableWidgetItem(format(GOLD_현재가, ',') + '\n' + '▼')
@@ -48638,42 +48333,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             item.setForeground(QBrush(검정색))
 
                         item.setTextAlignment(Qt.AlignCenter)
-                        self.tableWidget_cme.setItem(5, 7, item)
-                        '''
-                        if GOLD_등락율 < 0:
-
-                            if max(대비리스트) < 0:
-                                jisu_txt = "GOLD: {0} ({1:.2f}, {2:.2f}%)⬊".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율)                                    
-                            else:
-                                jisu_txt = "GOLD: {0} ▼ ({1:.2f}, {2:.2f}%)".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율)
-
-                            if DayTime:
-                                self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
-                            else:
-                                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
-
-                            gold_text_color = 'blue'
-
-                        elif GOLD_등락율 > 0:
-
-                            if max(대비리스트) < 0:
-                                jisu_txt = "GOLD: {0} ({1:.2f}, {2:.2f}%)⬊".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율)                                    
-                            else:
-                                jisu_txt = "GOLD: {0} ▼ ({1:.2f}, {2:.2f}%)".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율)
-
-                            if DayTime:
-                                self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
-                            else:
-                                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
-
-                            gold_text_color = 'red'
-                        else:
-                            pass
-                        '''                            
+                        self.tableWidget_cme.setItem(5, 7, item)                                               
                     else:
                         pass
 
@@ -48731,7 +48391,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(EUROFX_전저) != self.tableWidget_cme.item(6, 1).text():
+                if "{0:.5f}".format(EUROFX_전저) != self.tableWidget_cme.item(6, 1).text():
                     item = QTableWidgetItem("{0:.5f}".format(EUROFX_전저))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48740,7 +48400,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(EUROFX_전고) != self.tableWidget_cme.item(6, 2).text():
+                if "{0:.5f}".format(EUROFX_전고) != self.tableWidget_cme.item(6, 2).text():
                     item = QTableWidgetItem("{0:.5f}".format(EUROFX_전고))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48749,7 +48409,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(EUROFX_종가) != self.tableWidget_cme.item(6, 3).text():
+                if "{0:.5f}".format(EUROFX_종가) != self.tableWidget_cme.item(6, 3).text():
                     item = QTableWidgetItem("{0:.5f}".format(EUROFX_종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48758,7 +48418,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(EUROFX_피봇) != self.tableWidget_cme.item(6, 4).text():
+                if "{0:.5f}".format(EUROFX_피봇) != self.tableWidget_cme.item(6, 4).text():
                     item = QTableWidgetItem("{0:.5f}".format(EUROFX_피봇))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48767,7 +48427,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(EUROFX_시가) != self.tableWidget_cme.item(6, 5).text():
+                if "{0:.5f}".format(EUROFX_시가) != self.tableWidget_cme.item(6, 5).text():
                     item = QTableWidgetItem("{0:.5f}".format(EUROFX_시가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48776,7 +48436,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(EUROFX_저가) != self.tableWidget_cme.item(6, 6).text():
+                if "{0:.5f}".format(EUROFX_저가) != self.tableWidget_cme.item(6, 6).text():
                     item = QTableWidgetItem("{0:.5f}".format(EUROFX_저가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48785,7 +48445,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(EUROFX_고가) != self.tableWidget_cme.item(6, 8).text():
+                if "{0:.5f}".format(EUROFX_고가) != self.tableWidget_cme.item(6, 8).text():
                     item = QTableWidgetItem("{0:.5f}".format(EUROFX_고가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48815,42 +48475,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_cme.setItem(6, 7, item)
-                        '''
-                        if EUROFX_등락율 < 0:
-
-                            if min(대비리스트) > 0:
-                                jisu_txt = "EURO: {0:0.5f} ({1:0.5f}, {2:.2f}%)⬈".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율)                                    
-                            else:
-                                jisu_txt = "EURO: {0:0.5f} ▲ ({1:0.5f}, {2:.2f}%)".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율)
-
-                            if DayTime:
-                                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
-                            else:
-                                self.dialog['선물옵션전광판'].label_5th_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_5th_index.setText(jisu_txt)
-
-                            eurofx_text_color = 'blue'                                           
-
-                        elif EUROFX_등락율 > 0:
-
-                            if min(대비리스트) > 0:
-                                jisu_txt = "EURO: {0:0.5f} ▲ ({1:0.5f}, {2:.2f}%)⬈".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율)                                    
-                            else:
-                                jisu_txt = "EURO: {0:0.5f} ▲ ({1:0.5f}, {2:.2f}%)".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율)
-
-                            if DayTime:
-                                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
-                            else:
-                                self.dialog['선물옵션전광판'].label_5th_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_5th_index.setText(jisu_txt)
-
-                            eurofx_text_color = 'red'                                                                             
-                        else:
-                            pass
-                        '''
-
+                        
                     elif EUROFX_현재가 < EUROFX_과거가:
 
                         item = QTableWidgetItem(tickdata['체결가격'] + '\n' + '▼')
@@ -48864,42 +48489,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             item.setForeground(QBrush(검정색))
 
                         item.setTextAlignment(Qt.AlignCenter)
-                        self.tableWidget_cme.setItem(6, 7, item)
-                        '''
-                        if EUROFX_등락율 < 0:
-
-                            if max(대비리스트) < 0:
-                                jisu_txt = "EURO: {0:0.5f} ({1:0.5f}, {2:.2f}%)⬊".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율)                                    
-                            else:
-                                jisu_txt = "EURO: {0:0.5f} ▼ ({1:0.5f}, {2:.2f}%)".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율)
-
-                            if DayTime:
-                                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
-                            else:
-                                self.dialog['선물옵션전광판'].label_5th_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_5th_index.setText(jisu_txt)
-
-                            eurofx_text_color = 'blue'
-
-                        elif EUROFX_등락율 > 0:
-
-                            if max(대비리스트) < 0:
-                                jisu_txt = "EURO: {0:0.5f} ({1:0.5f}, {2:.2f}%)⬊".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율)                                    
-                            else:
-                                jisu_txt = "EURO: {0:0.5f} ▼ ({1:0.5f}, {2:.2f}%)".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율)
-
-                            if DayTime:
-                                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
-                            else:
-                                self.dialog['선물옵션전광판'].label_5th_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_5th_index.setText(jisu_txt)
-
-                            eurofx_text_color = 'red'
-                        else:
-                            pass
-                        '''                            
+                        self.tableWidget_cme.setItem(6, 7, item)                                                
                     else:
                         pass
 
@@ -48957,7 +48547,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(YEN_전저) != self.tableWidget_cme.item(7, 1).text():
+                if "{0}".format(YEN_전저) != self.tableWidget_cme.item(7, 1).text():
                     item = QTableWidgetItem("{0}".format(YEN_전저))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48966,7 +48556,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(YEN_전고) != self.tableWidget_cme.item(7, 2).text():
+                if "{0}".format(YEN_전고) != self.tableWidget_cme.item(7, 2).text():
                     item = QTableWidgetItem("{0}".format(YEN_전고))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48975,7 +48565,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(YEN_종가) != self.tableWidget_cme.item(7, 3).text():
+                if "{0}".format(YEN_종가) != self.tableWidget_cme.item(7, 3).text():
                     item = QTableWidgetItem("{0}".format(YEN_종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48984,7 +48574,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(YEN_피봇) != self.tableWidget_cme.item(7, 4).text():
+                if "{0}".format(YEN_피봇) != self.tableWidget_cme.item(7, 4).text():
                     item = QTableWidgetItem("{0}".format(YEN_피봇))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48993,7 +48583,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(YEN_시가) != self.tableWidget_cme.item(7, 5).text():
+                if "{0}".format(YEN_시가) != self.tableWidget_cme.item(7, 5).text():
                     item = QTableWidgetItem("{0}".format(YEN_시가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -49002,7 +48592,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(YEN_저가) != self.tableWidget_cme.item(7, 6).text():
+                if "{0}".format(YEN_저가) != self.tableWidget_cme.item(7, 6).text():
                     item = QTableWidgetItem("{0}".format(YEN_저가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -49011,7 +48601,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if str(YEN_고가) != self.tableWidget_cme.item(7, 8).text():
+                if "{0}".format(YEN_고가) != self.tableWidget_cme.item(7, 8).text():
                     item = QTableWidgetItem("{0}".format(YEN_고가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -49041,42 +48631,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_cme.setItem(7, 7, item)
-                        '''
-                        if YEN_등락율 < 0:
-
-                            if min(대비리스트) > 0:
-                                jisu_txt = "YEN: {0} ({1:0.2f}, {2:.2f}%)⬈".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율)                                    
-                            else:
-                                jisu_txt = "YEN: {0} ▲ ({1:0.2f}, {2:.2f}%)".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율)
-
-                            if DayTime:
-                                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
-                            else:
-                                self.dialog['선물옵션전광판'].label_6th_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_6th_index.setText(jisu_txt)
-
-                            yen_text_color = 'blue'                                           
-
-                        elif YEN_등락율 > 0:
-
-                            if min(대비리스트) > 0:
-                                jisu_txt = "YEN: {0} ▲ ({1:0.2f}, {2:.2f}%)⬈".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율)                                    
-                            else:
-                                jisu_txt = "YEN: {0} ▲ ({1:0.2f}, {2:.2f}%)".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율)
-
-                            if DayTime:
-                                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
-                            else:
-                                self.dialog['선물옵션전광판'].label_6th_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_6th_index.setText(jisu_txt)
-
-                            yen_text_color = 'red'                                                                             
-                        else:
-                            pass
-                        '''
-
+                        
                     elif YEN_현재가 < YEN_과거가:
 
                         item = QTableWidgetItem(format(YEN_현재가, ',') + '\n' + '▼')
@@ -49090,42 +48645,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             item.setForeground(QBrush(검정색))
 
                         item.setTextAlignment(Qt.AlignCenter)
-                        self.tableWidget_cme.setItem(7, 7, item)
-                        '''
-                        if YEN_등락율 < 0:
-
-                            if max(대비리스트) < 0:
-                                jisu_txt = "YEN: {0} ({1:0.2f}, {2:.2f}%)⬊".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율)                                    
-                            else:
-                                jisu_txt = "YEN: {0} ▼ ({1:0.2f}, {2:.2f}%)".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율)
-
-                            if DayTime:
-                                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
-                            else:
-                                self.dialog['선물옵션전광판'].label_6th_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_6th_index.setText(jisu_txt)
-
-                            yen_text_color = 'blue'
-
-                        elif YEN_등락율 > 0:
-
-                            if max(대비리스트) < 0:
-                                jisu_txt = "YEN: {0} ({1:0.2f}, {2:.2f}%)⬊".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율)                                    
-                            else:
-                                jisu_txt = "YEN: {0} ▼ ({1:0.2f}, {2:.2f}%)".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율)
-
-                            if DayTime:
-                                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
-                            else:
-                                self.dialog['선물옵션전광판'].label_6th_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
-                                self.dialog['선물옵션전광판'].label_6th_index.setText(jisu_txt)
-
-                            yen_text_color = 'red'
-                        else:
-                            pass
-                        '''                            
+                        self.tableWidget_cme.setItem(7, 7, item)                                            
                     else:
                         pass
 
