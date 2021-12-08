@@ -47428,9 +47428,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 DOW_등락율 = float(tickdata['등락율'])                
 
-                DOW_시가 = float(tickdata['시가'])
-                DOW_저가 =  float(tickdata['저가'])
-                DOW_고가 =  float(tickdata['고가'])
+                DOW_시가 = int(float(tickdata['시가']))
+                DOW_저가 =  int(float(tickdata['저가']))
+                DOW_고가 =  int(float(tickdata['고가']))
                 DOW_진폭 = DOW_고가 - DOW_저가
                 
                 대비 = DOW_현재가 - DOW_시가
@@ -47870,9 +47870,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
               
                 HANGSENG_등락율 = float(tickdata['등락율'])
 
-                HANGSENG_시가 = float(tickdata['시가'])
-                HANGSENG_저가 =  float(tickdata['저가'])
-                HANGSENG_고가 =  float(tickdata['고가'])                  
+                HANGSENG_시가 = int(float(tickdata['시가']))
+                HANGSENG_저가 =  int(float(tickdata['저가']))
+                HANGSENG_고가 =  int(float(tickdata['고가']))                 
                 HANGSENG_진폭 = HANGSENG_고가 - HANGSENG_저가
                 
                 대비 = HANGSENG_현재가 - HANGSENG_시가                
