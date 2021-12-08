@@ -47335,6 +47335,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if "{0:.2f}".format(SP500_저가) != self.tableWidget_cme.item(0, 6).text():
                     item = QTableWidgetItem("{0:.2f}".format(SP500_저가))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(청색))
+                    item.setForeground(QBrush(흰색))
                     self.tableWidget_cme.setItem(0, 6, item)
 
                     self.sp500_node_coloring()
@@ -47344,6 +47346,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if "{0:.2f}".format(SP500_고가) != self.tableWidget_cme.item(0, 8).text():
                     item = QTableWidgetItem("{0:.2f}".format(SP500_고가))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(적색))
+                    item.setForeground(QBrush(흰색))
                     self.tableWidget_cme.setItem(0, 8, item)
 
                     self.sp500_node_coloring()
@@ -47563,6 +47567,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if "{0}".format(DOW_저가) != self.tableWidget_cme.item(1, 6).text():
                     item = QTableWidgetItem("{0}".format(DOW_저가))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(청색))
+                    item.setForeground(QBrush(흰색))
                     self.tableWidget_cme.setItem(1, 6, item)
 
                     self.dow_node_coloring()
@@ -47572,6 +47578,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if "{0}".format(DOW_고가) != self.tableWidget_cme.item(1, 8).text():
                     item = QTableWidgetItem("{0}".format(DOW_고가))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(적색))
+                    item.setForeground(QBrush(흰색))
                     self.tableWidget_cme.setItem(1, 8, item)
 
                     self.dow_node_coloring()
@@ -47780,6 +47788,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if "{0:.2f}".format(NASDAQ_저가) != self.tableWidget_cme.item(2, 6).text():
                     item = QTableWidgetItem("{0:.2f}".format(NASDAQ_저가))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(청색))
+                    item.setForeground(QBrush(흰색))
                     self.tableWidget_cme.setItem(2, 6, item)
 
                     self.nasdaq_node_coloring()
@@ -47789,6 +47799,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if "{0:.2f}".format(NASDAQ_고가) != self.tableWidget_cme.item(2, 8).text():
                     item = QTableWidgetItem("{0:.2f}".format(NASDAQ_고가))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(적색))
+                    item.setForeground(QBrush(흰색))
                     self.tableWidget_cme.setItem(2, 8, item)
 
                     self.nasdaq_node_coloring()
@@ -47945,6 +47957,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if "{0}".format(HANGSENG_저가) != self.tableWidget_cme.item(3, 6).text():
                     item = QTableWidgetItem("{0}".format(HANGSENG_저가))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(청색))
+                    item.setForeground(QBrush(흰색))
                     self.tableWidget_cme.setItem(3, 6, item)
 
                     self.hsi_node_coloring()
@@ -47954,6 +47968,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if "{0}".format(HANGSENG_고가) != self.tableWidget_cme.item(3, 8).text():
                     item = QTableWidgetItem("{0}".format(HANGSENG_고가))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(적색))
+                    item.setForeground(QBrush(흰색))
                     self.tableWidget_cme.setItem(3, 8, item)
 
                     self.hsi_node_coloring()
@@ -48162,6 +48178,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if "{0:.2f}".format(WTI_저가) != self.tableWidget_cme.item(4, 6).text():
                     item = QTableWidgetItem("{0:.2f}".format(WTI_저가))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(청색))
+                    item.setForeground(QBrush(흰색))
                     self.tableWidget_cme.setItem(4, 6, item)
 
                     self.wti_node_coloring()
@@ -48171,6 +48189,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if "{0:.2f}".format(WTI_고가) != self.tableWidget_cme.item(4, 8).text():
                     item = QTableWidgetItem("{0:.2f}".format(WTI_고가))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(적색))
+                    item.setForeground(QBrush(흰색))
                     self.tableWidget_cme.setItem(4, 8, item)
 
                     self.wti_node_coloring()
@@ -48324,6 +48344,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if "{0:.1f}".format(GOLD_저가) != self.tableWidget_cme.item(5, 6).text():
                     item = QTableWidgetItem("{0:.1f}".format(GOLD_저가))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(청색))
+                    item.setForeground(QBrush(흰색))
                     self.tableWidget_cme.setItem(5, 6, item)
 
                     self.gold_node_coloring()
@@ -48333,6 +48355,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if "{0:.1f}".format(GOLD_고가) != self.tableWidget_cme.item(5, 8).text():
                     item = QTableWidgetItem("{0:.1f}".format(GOLD_고가))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(적색))
+                    item.setForeground(QBrush(흰색))
                     self.tableWidget_cme.setItem(5, 8, item)
 
                     self.gold_node_coloring()
@@ -48486,6 +48510,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if "{0:.5f}".format(EUROFX_저가) != self.tableWidget_cme.item(6, 6).text():
                     item = QTableWidgetItem("{0:.5f}".format(EUROFX_저가))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(청색))
+                    item.setForeground(QBrush(흰색))
                     self.tableWidget_cme.setItem(6, 6, item)
 
                     self.euro_node_coloring()
@@ -48494,7 +48520,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if "{0:.5f}".format(EUROFX_고가) != self.tableWidget_cme.item(6, 8).text():
                     item = QTableWidgetItem("{0:.5f}".format(EUROFX_고가))
-                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setTextAlignment(Qt.AlignCenter)                    
+                    item.setBackground(QBrush(적색))
+                    item.setForeground(QBrush(흰색))
                     self.tableWidget_cme.setItem(6, 8, item)
 
                     self.euro_node_coloring()
@@ -48648,6 +48676,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if "{0}".format(YEN_저가) != self.tableWidget_cme.item(7, 6).text():
                     item = QTableWidgetItem("{0}".format(YEN_저가))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(청색))
+                    item.setForeground(QBrush(흰색))
                     self.tableWidget_cme.setItem(7, 6, item)
 
                     self.yen_node_coloring()
@@ -48657,6 +48687,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if "{0}".format(YEN_고가) != self.tableWidget_cme.item(7, 8).text():
                     item = QTableWidgetItem("{0}".format(YEN_고가))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(적색))
+                    item.setForeground(QBrush(흰색))
                     self.tableWidget_cme.setItem(7, 8, item)
 
                     self.yen_node_coloring()
