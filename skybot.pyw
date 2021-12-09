@@ -12888,15 +12888,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                if 콜시가 in COREVAL:
-                    self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
-                    self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
-                else:
-                    pass
-                
-                call_시가 = df_call['시가'].values.tolist()
-                call_시가_node_list = self.make_node_list(call_시가)
-
                 피봇 = calc_pivot(콜전저, 콜전고, 콜종가, 콜시가, 2)
                 df_call.at[index, '피봇'] = 피봇
 
@@ -12907,7 +12898,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     item = QTableWidgetItem("{0:.2f}".format(피봇))
                     item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setItem(index, Option_column.피봇.value, item)                
+                    self.tableWidget_call.setItem(index, Option_column.피봇.value, item)
+
+                if 콜시가 in COREVAL:
+                    self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
+                    self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
+                else:
+                    pass
+                
+                call_시가 = df_call['시가'].values.tolist()
+                call_시가_node_list = self.make_node_list(call_시가)                                
 
                 call_피봇 = df_call['피봇'].values.tolist()
                 call_피봇_node_list = self.make_node_list(call_피봇)
@@ -12929,16 +12929,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if call_scroll_begin_position <= index <= call_scroll_end_position:
 
                 # 현재가 갱신
-                콜_현재가 = self.tableWidget_call.item(index, Option_column.현재가.value).text().split('\n')[0]
+                콜_과거가 = self.tableWidget_call.item(index, Option_column.현재가.value).text().split('\n')[0]
 
-                if 현재가 != 콜_현재가:
+                if 현재가 != 콜_과거가:
 
                     df_call.at[index, '현재가'] = 콜현재가
 
-                    if 콜현재가 < float(콜_현재가):
+                    if 콜현재가 < float(콜_과거가):
                         item = QTableWidgetItem(현재가 + '\n' + '▼')
                         item.setBackground(QBrush(lightskyblue))
-                    elif 콜현재가 > float(콜_현재가):
+                    elif 콜현재가 > float(콜_과거가):
                         item = QTableWidgetItem(현재가 + '\n' + '▲')
                         item.setBackground(QBrush(pink))
                     else:    
@@ -13967,15 +13967,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                if 풋시가 in COREVAL:
-                    self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
-                    self.tableWidget_put.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
-                else:
-                    pass
-                
-                put_시가 = df_put['시가'].values.tolist()
-                put_시가_node_list = self.make_node_list(put_시가)
-
                 피봇 = calc_pivot(풋전저, 풋전고, 풋종가, 풋시가, 2)
                 df_put.at[index, '피봇'] = 피봇
 
@@ -13987,6 +13978,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item = QTableWidgetItem("{0:.2f}".format(피봇))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(index, Option_column.피봇.value, item)
+
+                if 풋시가 in COREVAL:
+                    self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
+                    self.tableWidget_put.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
+                else:
+                    pass
+                
+                put_시가 = df_put['시가'].values.tolist()
+                put_시가_node_list = self.make_node_list(put_시가)                
 
                 put_피봇 = df_put['피봇'].values.tolist()
                 put_피봇_node_list = self.make_node_list(put_피봇)
@@ -14008,16 +14008,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if put_scroll_begin_position <= index <= put_scroll_end_position:
 
                 # 현재가 갱신
-                풋_현재가 = self.tableWidget_put.item(index, Option_column.현재가.value).text().split('\n')[0]
+                풋_과거가 = self.tableWidget_put.item(index, Option_column.현재가.value).text().split('\n')[0]
 
-                if 현재가 != 풋_현재가:
+                if 현재가 != 풋_과거가:
 
                     df_put.at[index, '현재가'] = 풋현재가
 
-                    if 풋현재가 < float(풋_현재가):
+                    if 풋현재가 < float(풋_과거가):
                         item = QTableWidgetItem(현재가 + '\n' + '▼')
                         item.setBackground(QBrush(lightskyblue))
-                    elif 풋현재가 > float(풋_현재가):
+                    elif 풋현재가 > float(풋_과거가):
                         item = QTableWidgetItem(현재가 + '\n' + '▲')
                         item.setBackground(QBrush(pink))
                     else:    
@@ -25185,7 +25185,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             
             txt = ' {0} '.format(선물_전고)
             self.label_12.setText(txt)
-            self.plot1_fut_jh_line.setValue(선물_전고) 
+            self.plot1_fut_jh_line.setValue(선물_전고)
+            
+            txt = ' {0} '.format(선물_종가)
+            self.label_13.setText(txt)
+            self.plot1_fut_close_line.setValue(선물_종가)
             
             txt = ' {0} '.format(선물_피봇)
             self.label_14.setText(txt)
@@ -25207,10 +25211,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_18.setText(txt)
             self.plot1_fut_high_line.setValue(선물_고가)
             
-            txt = ' {0} '.format(선물_종가)
-            self.label_13.setText(txt)
-            self.plot1_fut_close_line.setValue(선물_종가)
-
         # 선옵잔량비
         elif comboindex1 == 3:
 
@@ -26403,7 +26403,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             
             txt = ' {0} '.format(선물_전고)
             self.label_22.setText(txt)
-            self.plot2_fut_jh_line.setValue(선물_전고) 
+            self.plot2_fut_jh_line.setValue(선물_전고)
+            
+            txt = ' {0} '.format(선물_종가)
+            self.label_23.setText(txt)
+            self.plot2_fut_close_line.setValue(선물_종가)
             
             txt = ' {0} '.format(선물_피봇)
             self.label_24.setText(txt)
@@ -26424,11 +26428,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_28.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_28.setText(txt)
             self.plot2_fut_high_line.setValue(선물_고가)
-            
-            txt = ' {0} '.format(선물_종가)
-            self.label_23.setText(txt)
-            self.plot2_fut_close_line.setValue(선물_종가)
-        
+                    
         # 선옵잔량비
         elif comboindex2 == 3:
 
@@ -27645,7 +27645,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             
             txt = ' {0} '.format(선물_전고)
             self.label_32.setText(txt)
-            self.plot3_fut_jh_line.setValue(선물_전고) 
+            self.plot3_fut_jh_line.setValue(선물_전고)
+            
+            txt = ' {0} '.format(선물_종가)
+            self.label_33.setText(txt)
+            self.plot3_fut_close_line.setValue(선물_종가) 
             
             txt = ' {0} '.format(선물_피봇)
             self.label_34.setText(txt)
@@ -27666,11 +27670,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_38.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_38.setText(txt)
             self.plot3_fut_high_line.setValue(선물_고가)
-            
-            txt = ' {0} '.format(선물_종가)
-            self.label_33.setText(txt)
-            self.plot3_fut_close_line.setValue(선물_종가)
-        
+                    
         # 선옵잔량비
         elif comboindex3 == 3:
 
@@ -44679,6 +44679,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global DOW_기준_예상시가, SP500_기준_예상시가
         global 근월물_선물_시가, 근월물_선물_현재가_버퍼, df_futures_cm_graph, flag_futures_cm_ohlc_open
         global 차월물_선물_시가, 차월물_선물_현재가_버퍼, df_futures_nm_graph, flag_futures_nm_ohlc_open
+        global 근월물_선물_저가, 근월물_선물_고가, 차월물_선물_저가, 차월물_선물_고가
         
         try:
             #szTrCode = tickdata['tr_code']
@@ -44694,6 +44695,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 예상체결가격 = tickdata['예상체결가격']
                 근월물_선물_시가 = float(tickdata['예상체결가격'])
+                근월물_선물_저가 = float(tickdata['예상체결가격'])
+                근월물_선물_고가 = float(tickdata['예상체결가격'])
 
                 # 그래프 가격갱신
                 df_futures_cm_graph.at[cme_time_index, 'price'] = 근월물_선물_시가
@@ -44892,6 +44895,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif tickdata['단축코드'] == CMSHCODE:
 
                 차월물_선물_시가 = float(tickdata['예상체결가격'])
+                차월물_선물_저가 = float(tickdata['예상체결가격'])
+                차월물_선물_고가 = float(tickdata['예상체결가격'])
 
                 # 그래프 가격갱신
                 if 차월물_선물_시가 > 0:
@@ -46697,6 +46702,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global df_call, call_result, df_call_graph, df_call_information_graph, df_call_volume, call_volume_power, 콜_등가_등락율
         global df_put, put_result, df_put_graph, df_put_information_graph, df_put_volume, put_volume_power, 풋_등가_등락율
         global 콜_수정미결합, 풋_수정미결합, 콜_수정미결퍼센트, 풋_수정미결퍼센트, 콜잔량비, 풋잔량비
+        global 콜_현재가, 풋_현재가
 
         try:
             #szTrCode = tickdata['tr_code']
