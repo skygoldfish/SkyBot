@@ -12051,17 +12051,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item) 
 
             # 현재가 갱신
-            fut_price = self.tableWidget_fut.item(1, Futures_column.현재가.value).text().split('\n')[0]            
+            선물_과거가 = self.tableWidget_fut.item(1, Futures_column.현재가.value).text().split('\n')[0]            
 
-            if 현재가 != fut_price:
+            if 현재가 != 선물_과거가:
 
                 df_fut.at[1, '현재가'] = 근월물_선물_현재가
                 self.fut_realdata['현재가'] = 근월물_선물_현재가 
 
-                if 근월물_선물_현재가 < float(fut_price):
+                if 근월물_선물_현재가 < float(선물_과거가):
                     item = QTableWidgetItem(현재가 + '\n' + '▼')
                     item.setBackground(QBrush(lightskyblue))
-                elif 근월물_선물_현재가 > float(fut_price):
+                elif 근월물_선물_현재가 > float(선물_과거가):
                     item = QTableWidgetItem(현재가 + '\n' + '▲')
                     item.setBackground(QBrush(pink))
                 else:    
@@ -12346,15 +12346,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
             
             # 현재가 갱신
-            fut_price = self.tableWidget_fut.item(0, Futures_column.현재가.value).text().split('\n')[0]
+            선물_과거가 = self.tableWidget_fut.item(0, Futures_column.현재가.value).text().split('\n')[0]
 
-            if 현재가 != fut_price:
+            if 현재가 != 선물_과거가:
 
-                if 차월물_선물_현재가 < float(fut_price):
+                if 차월물_선물_현재가 < float(선물_과거가):
                     txt = '{0}'.format(현재가) + '\n▼'
                     item = QTableWidgetItem(txt)
                     item.setBackground(QBrush(lightskyblue))
-                elif 차월물_선물_현재가 > float(fut_price):
+                elif 차월물_선물_현재가 > float(선물_과거가):
                     txt = '{0}'.format(현재가) + '\n▲'
                     item = QTableWidgetItem(txt)
                     item.setBackground(QBrush(pink))
@@ -12753,6 +12753,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             등락율 = result['등락율']
 
             콜종가 = df_call.at[index, '종가']
+            콜전저 = df_call.at[index, '전저']
+            콜전고 = df_call.at[index, '전고']
             콜시가 = float(result['시가'])
             콜현재가 = float(result['현재가'])
             콜저가 = float(result['저가'])
@@ -12818,11 +12820,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 시가 갱신
             if 시가 != self.tableWidget_call.item(index, Option_column.시가.value).text():
 
-                df_call.at[index, '시가'] = 콜시가
-
-                콜종가 = df_call.at[index, '종가']
-                콜전저 = df_call.at[index, '전저']
-                콜전고 = df_call.at[index, '전고']
+                df_call.at[index, '시가'] = 콜시가                
 
                 df_call_graph[index].at[GuardTime + 1, 'open'] = 콜시가
                 df_call_graph[index].at[GuardTime + 1, 'price'] = 콜시가
@@ -12888,18 +12886,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                피봇 = calc_pivot(콜전저, 콜전고, 콜종가, 콜시가, 2)
-                df_call.at[index, '피봇'] = 피봇
-
-                if 피봇 >= 100:
-                    item = QTableWidgetItem("{0:0.1f}".format(피봇))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setItem(index, Option_column.피봇.value, item)   
-                else:
-                    item = QTableWidgetItem("{0:.2f}".format(피봇))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setItem(index, Option_column.피봇.value, item)
-
                 if 콜시가 in COREVAL:
                     self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
@@ -12907,10 +12893,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
                 
                 call_시가 = df_call['시가'].values.tolist()
-                call_시가_node_list = self.make_node_list(call_시가)                                
-
-                call_피봇 = df_call['피봇'].values.tolist()
-                call_피봇_node_list = self.make_node_list(call_피봇)
+                call_시가_node_list = self.make_node_list(call_시가)                
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Call {3:.2f} Open Update !!!\r'.format \
                     (t0167_hour, t0167_minute, t0167_second, 콜시가)
@@ -12923,6 +12906,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.textBrowser.append(txt)
                 else:
                     pass
+            else:
+                pass
+
+            피봇 = calc_pivot(콜전저, 콜전고, 콜종가, 콜시가, 2)
+            피봇_과거가 = self.tableWidget_call.item(index, Option_column.피봇.value).text()
+
+            if 피봇 != float(피봇_과거가):
+
+                df_call.at[index, '피봇'] = 피봇
+
+                if 피봇 >= 100:
+                    item = QTableWidgetItem("{0:0.1f}".format(피봇))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setItem(index, Option_column.피봇.value, item)   
+                else:
+                    item = QTableWidgetItem("{0:.2f}".format(피봇))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setItem(index, Option_column.피봇.value, item)
+
+                call_피봇 = df_call['피봇'].values.tolist()
+                call_피봇_node_list = self.make_node_list(call_피봇)
             else:
                 pass
 
@@ -13839,6 +13843,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             등락율 = result['등락율']        
 
             풋종가 = df_put.at[index, '종가']
+            풋전저 = df_put.at[index, '전저']
+            풋전고 = df_put.at[index, '전고']
             풋시가 = float(result['시가'])
             풋현재가 = float(result['현재가'])
             풋저가 = float(result['저가'])
@@ -13899,11 +13905,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 시가 갱신
             if 시가 != self.tableWidget_put.item(index, Option_column.시가.value).text():
 
-                df_put.at[index, '시가'] = 풋시가
-
-                풋종가 = df_put.at[index, '종가']
-                풋전저 = df_put.at[index, '전저']
-                풋전고 = df_put.at[index, '전고']
+                df_put.at[index, '시가'] = 풋시가                
 
                 df_put_graph[index].at[GuardTime + 1, 'open'] = 풋시가
                 df_put_graph[index].at[GuardTime + 1, 'price'] = 풋시가
@@ -13965,19 +13967,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
                     self.tableWidget_put.resizeColumnToContents(Option_column.시가갭.value)
                 else:
-                    pass
-
-                피봇 = calc_pivot(풋전저, 풋전고, 풋종가, 풋시가, 2)
-                df_put.at[index, '피봇'] = 피봇
-
-                if 피봇 >= 100:
-                    item = QTableWidgetItem("{0:0.1f}".format(피봇))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setItem(index, Option_column.피봇.value, item)
-                else:
-                    item = QTableWidgetItem("{0:.2f}".format(피봇))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setItem(index, Option_column.피봇.value, item)
+                    pass                
 
                 if 풋시가 in COREVAL:
                     self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
@@ -13987,9 +13977,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 put_시가 = df_put['시가'].values.tolist()
                 put_시가_node_list = self.make_node_list(put_시가)                
-
-                put_피봇 = df_put['피봇'].values.tolist()
-                put_피봇_node_list = self.make_node_list(put_피봇)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Put {3:.2f} Open Update !!!\r'.format \
                     (t0167_hour, t0167_minute, t0167_second, 풋시가)
@@ -14002,6 +13989,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.textBrowser.append(txt)
                 else:
                     pass  
+            else:
+                pass
+
+            피봇 = calc_pivot(풋전저, 풋전고, 풋종가, 풋시가, 2)
+            피봇_과거가 = self.tableWidget_put.item(index, Option_column.피봇.value).text()
+
+            if 피봇 != float(피봇_과거가):
+
+                df_put.at[index, '피봇'] = 피봇
+
+                if 피봇 >= 100:
+                    item = QTableWidgetItem("{0:0.1f}".format(피봇))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setItem(index, Option_column.피봇.value, item)
+                else:
+                    item = QTableWidgetItem("{0:.2f}".format(피봇))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setItem(index, Option_column.피봇.value, item)
+                
+                put_피봇 = df_put['피봇'].values.tolist()
+                put_피봇_node_list = self.make_node_list(put_피봇)
             else:
                 pass
             
