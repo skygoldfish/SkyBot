@@ -22846,7 +22846,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_68.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_68.setText(" 고가 ")
 
-        self.comboBox1.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'SP500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '수급종합', '외인수급'])
+        self.comboBox1.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '수급종합', '외인수급'])
         self.comboBox1.insertSeparator(1)
         self.comboBox1.insertSeparator(5)
         self.comboBox1.insertSeparator(9)
@@ -22854,7 +22854,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.comboBox1.insertSeparator(20)
         self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-        self.comboBox2.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'SP500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '수급종합', '외인수급'])
+        self.comboBox2.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '수급종합', '외인수급'])
         self.comboBox2.insertSeparator(1)
         self.comboBox2.insertSeparator(5)
         self.comboBox2.insertSeparator(9)
@@ -22862,7 +22862,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.comboBox2.insertSeparator(20)
         self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
-        self.comboBox3.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'SP500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '수급종합', '외인수급'])
+        self.comboBox3.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '수급종합', '외인수급'])
         self.comboBox3.insertSeparator(1)
         self.comboBox3.insertSeparator(5)
         self.comboBox3.insertSeparator(9)
@@ -22870,7 +22870,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.comboBox3.insertSeparator(20)
         self.comboBox3.currentIndexChanged.connect(self.cb3_selectionChanged)
 
-        self.comboBox4.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'SP500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '수급종합', '외인수급'])
+        self.comboBox4.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '수급종합', '외인수급'])
         self.comboBox4.insertSeparator(1)
         self.comboBox4.insertSeparator(5)
         self.comboBox4.insertSeparator(9)
@@ -22878,7 +22878,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.comboBox4.insertSeparator(20)
         self.comboBox4.currentIndexChanged.connect(self.cb4_selectionChanged)
 
-        self.comboBox5.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'SP500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '수급종합', '외인수급'])
+        self.comboBox5.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '수급종합', '외인수급'])
         self.comboBox5.insertSeparator(1)
         self.comboBox5.insertSeparator(5)
         self.comboBox5.insertSeparator(9)
@@ -22886,7 +22886,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.comboBox5.insertSeparator(20)
         self.comboBox5.currentIndexChanged.connect(self.cb5_selectionChanged)
 
-        self.comboBox6.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'SP500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '수급종합', '외인수급'])
+        self.comboBox6.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '수급종합', '외인수급'])
         self.comboBox6.insertSeparator(1)
         self.comboBox6.insertSeparator(5)
         self.comboBox6.insertSeparator(9)
