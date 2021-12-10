@@ -346,7 +346,7 @@ GOLD_등락율 = 0
 GOLD_고가 = 0
 GOLD_진폭 = 0
 
-CME_당일종가 = 0
+FUT_당일종가 = 0
 DOW_당일종가 = 0
 SP500_당일종가 = 0
 NASDAQ_당일종가 = 0
@@ -762,6 +762,21 @@ if os.path.isfile('nighttime.txt'):
 
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
+        HANGSENG_전저 = int(temp[4])
+        print('HANGSENG 전저 =', HANGSENG_전저)
+
+        tmp = nighttime_file.readline().strip()
+        temp = tmp.split()
+        HANGSENG_전고 = int(temp[4])
+        print('HANGSENG 전고 =', HANGSENG_전고)
+        
+        tmp = nighttime_file.readline().strip()
+        temp = tmp.split()
+        HANGSENG_종가 = int(temp[4])
+        print('HANGSENG 종가 =', HANGSENG_종가)
+
+        tmp = nighttime_file.readline().strip()
+        temp = tmp.split()
         WTI_전저 = float(temp[4])
         print('WTI 전저 =', WTI_전저)
 
@@ -818,22 +833,7 @@ if os.path.isfile('nighttime.txt'):
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         YEN_종가 = float(temp[4])
-        print('YEN 종가 =', YEN_종가)
-
-        tmp = nighttime_file.readline().strip()
-        temp = tmp.split()
-        HANGSENG_전저 = int(temp[4])
-        print('HANGSENG 전저 =', HANGSENG_전저)
-
-        tmp = nighttime_file.readline().strip()
-        temp = tmp.split()
-        HANGSENG_전고 = int(temp[4])
-        print('HANGSENG 전고 =', HANGSENG_전고)
-        
-        tmp = nighttime_file.readline().strip()
-        temp = tmp.split()
-        HANGSENG_종가 = int(temp[4])
-        print('HANGSENG 종가 =', HANGSENG_종가)
+        print('YEN 종가 =', YEN_종가)        
 
         print('***YEN_전저 =\r', YEN_전저)
         print('***YEN_전고 =\r', YEN_전고)
@@ -6266,64 +6266,56 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             SP500_당일종가 = SP500_현재가
                             DOW_당일종가 = DOW_현재가
                             NASDAQ_당일종가 = NASDAQ_현재가
+                            HANGSENG_당일종가 = HANGSENG_현재가
                             WTI_당일종가 = WTI_현재가
                             GOLD_당일종가 = GOLD_현재가
                             EUROFX_당일종가 = EUROFX_현재가
-                            YEN_당일종가 = YEN_현재가
-                            HANGSENG_당일종가 = HANGSENG_현재가                            
+                            YEN_당일종가 = YEN_현재가                                                      
 
-                            CME_당일종가 = self.fut_realdata['현재가']
+                            FUT_당일종가 = self.fut_realdata['현재가']
 
-                            # 다음날 해외선물 피봇계산을 위해 종료시(오전 6시) 마지막 값 저장
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] CME 종가 = {3:.2f}\r'.format(t0167_server_hour, t0167_server_minute, t0167_server_second, CME_당일종가)
+                            # 다음날 해외선물 피봇계산을 위해 종료시(오전 6시 or 7시) 마지막 값 저장
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] FUT 종가 = {3:.2f}\r'.format(t0167_server_hour, t0167_server_minute, t0167_server_second, FUT_당일종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] SP500 Low = {3:.2f}, SP500 High = {4:.2f}, SP500 Close = {5:.2f}\r'.format \
-                                (t0167_server_hour, t0167_server_minute, t0167_server_second,
-                                SP500_저가, SP500_고가, SP500_당일종가)
+                                (t0167_server_hour, t0167_server_minute, t0167_server_second, SP500_저가, SP500_고가, SP500_당일종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] DOW Low = {3:0.1f}, DOW High = {4:0.1f}, DOW Close = {5:0.1f}\r'.format \
-                                (t0167_server_hour, t0167_server_minute, t0167_server_second,
-                                DOW_저가, DOW_고가, DOW_당일종가)
+                                (t0167_server_hour, t0167_server_minute, t0167_server_second, DOW_저가, DOW_고가, DOW_당일종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ Low = {3:.2f}, NASDAQ High = {4:.2f}, NASDAQ Close = {5:.2f}\r'.format \
-                                (t0167_server_hour, t0167_server_minute, t0167_server_second,
-                                NASDAQ_저가, NASDAQ_고가, NASDAQ_당일종가)
+                                (t0167_server_hour, t0167_server_minute, t0167_server_second, NASDAQ_저가, NASDAQ_고가, NASDAQ_당일종가)
+                            self.textBrowser.append(txt)
+                            print(txt)
+                            
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] HANGSENG Low = {3:.2f}, HANGSENG High = {4:.2f}, HANGSENG Close = {5:.2f}\r'.format \
+                                (t0167_server_hour, t0167_server_minute, t0167_server_second, HANGSENG_저가, HANGSENG_고가, HANGSENG_당일종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] WTI Low = {3:.2f}, WTI High = {4:.2f}, WTI Close = {5:.2f}\r'.format \
-                                (t0167_server_hour, t0167_server_minute, t0167_server_second,
-                                WTI_저가, WTI_고가, WTI_당일종가)
+                                (t0167_server_hour, t0167_server_minute, t0167_server_second, WTI_저가, WTI_고가, WTI_당일종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] GOLD Low = {3:.2f}, GOLD High = {4:.2f}, GOLD Close = {5:.2f}\r'.format \
-                                (t0167_server_hour, t0167_server_minute, t0167_server_second,
-                                GOLD_저가, GOLD_고가, GOLD_당일종가)
+                                (t0167_server_hour, t0167_server_minute, t0167_server_second, GOLD_저가, GOLD_고가, GOLD_당일종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] EURO Low = {3:.2f}, EURO High = {4:.2f}, EURO Close = {5:.2f}\r'.format \
-                                (t0167_server_hour, t0167_server_minute, t0167_server_second,
-                                EUROFX_저가, EUROFX_고가, EUROFX_당일종가)
+                                (t0167_server_hour, t0167_server_minute, t0167_server_second, EUROFX_저가, EUROFX_고가, EUROFX_당일종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] YEN Low = {3:.2f}, YEN High = {4:.2f}, YEN Close = {5:.2f}\r'.format \
-                                (t0167_server_hour, t0167_server_minute, t0167_server_second,
-                                YEN_저가, YEN_고가, YEN_당일종가)
-                            self.textBrowser.append(txt)
-                            print(txt)
-
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] HANGSENG Low = {3:.2f}, HANGSENG High = {4:.2f}, HANGSENG Close = {5:.2f}\r'.format \
-                                (t0167_server_hour, t0167_server_minute, t0167_server_second,
-                                HANGSENG_저가, HANGSENG_고가, HANGSENG_당일종가)
+                                (t0167_server_hour, t0167_server_minute, t0167_server_second, YEN_저가, YEN_고가, YEN_당일종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
@@ -6345,7 +6337,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 nighttime_file.write(file_txt)
                                 file_txt = '################# < Futures Index of the Last Night > ###################\n'
                                 nighttime_file.write(file_txt)                            
-                                file_txt = 'CME FUT Last Close = {0}\n'.format(CME_당일종가)
+                                file_txt = 'CME FUT Last Close = {0}\n'.format(FUT_당일종가)
                                 nighttime_file.write(file_txt)
                                 file_txt = '##################### < Foreign Futures Index of the Last Night > ####################\n'
                                 nighttime_file.write(file_txt)
@@ -6402,6 +6394,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 if os.path.isdir("d:/SkyBot_NM"):
                                     shutil.copyfile("./nighttime.txt", "d:/SkyBot_NM/nighttime.txt")
+                            
+                            if CSV_FILE:
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 데이타를 CSV파일로 저장합니다...\r'.format(t0167_server_hour, t0167_server_minute, t0167_server_second)
+                                self.textBrowser.append(txt)
+                                print(txt)
+
+                                close_all_writer()
+                            else:
+                                pass
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(t0167_server_hour, t0167_server_minute, t0167_server_second)
                             self.textBrowser.append(txt)
@@ -6412,11 +6413,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 flag_offline = True
 
                                 self.KillScoreBoardAllThread()
-
-                                if CSV_FILE:
-                                    close_all_writer()
-                                else:
-                                    pass
 
                                 if MULTIPROCESS:
                                     
@@ -6453,8 +6449,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if not flag_logfile:
 
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] 수신된 OVC 틱 데이타 크기 : {3}\r'.format(t0167_server_hour, t0167_server_minute, t0167_server_second, ovc_tick_total_size)
-                                self.textBrowser.append(txt)
+                                #txt = '[{0:02d}:{1:02d}:{2:02d}] 수신된 OVC 틱 데이타 크기 : {3}\r'.format(t0167_server_hour, t0167_server_minute, t0167_server_second, ovc_tick_total_size)
+                                #self.textBrowser.append(txt)
 
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간데이타 통계 : {3}\r'.format(t0167_server_hour, t0167_server_minute, t0167_server_second, drop_txt)
                                 self.textBrowser.append(txt)
@@ -6477,7 +6473,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
                 else:
                     # 장종료 1분후에 프로그램을 오프라인으로 전환시킴
-                    if jugan_service_terminate or 시스템시간_분 == (15 * 3600 + 46 * 60):
+                    if jugan_service_terminate or 시스템시간_분 == ((KSE_START_HOUR + 6) * 3600 + 46 * 60):
                         
                         if online_state:
 
@@ -44488,7 +44484,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
                 self.textBrowser.append(txt)
 
-                #CME_당일종가 = self.cme_realdata['현재가']
+                #FUT_당일종가 = self.cme_realdata['현재가']
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 S&P 500 지수 = {3}\r'.format(t0167_hour, t0167_minute, t0167_second, SP500_현재가)
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
@@ -44525,7 +44521,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     flag_telegram_send_start = False
                     flag_telegram_listen_start = False
 
-                    self.dialog['선물옵션전광판'].SaveResult()
+                    #self.dialog['선물옵션전광판'].SaveResult()
                 else:
                     pass                    
 
@@ -44538,9 +44534,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if flag_market_service:
 
-                    flag_market_service = False
-                    service_terminate = True
-                    receive_quote = False
+                    #flag_market_service = False
+                    #service_terminate = True
+                    #receive_quote = False
 
                     if SEARCH_MOVING_NODE:
                         self.dialog['선물옵션전광판'].pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
@@ -44559,11 +44555,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     flag_telegram_send_start = False
                     flag_telegram_listen_start = False
 
-                    self.dialog['선물옵션전광판'].SaveResult()
+                    #self.dialog['선물옵션전광판'].SaveResult()
                 else:
                     pass
 
-            # 아침 6경 발생 --> 미국주식 장마감
+            # 아침 6경/7경 발생 --> 미국주식 장마감
             elif tickdata['장구분'] == '9' and tickdata['장상태'] == '41':
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 미국주식장 마감합니다.\r'.format(dt.hour, dt.minute, dt.second)
