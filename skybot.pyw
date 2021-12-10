@@ -19323,9 +19323,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
                     self.tableWidget_put.resizeColumnsToContents()
                 else:
-
-                    if not flag_t8416_put_done:
-
+                    
+                    if not flag_t8416_put_done and new_actval_up_count == 0:
+                        
                         new_actval_down_count = t8416_option_pairs_count - t8416_call_count
 
                         txt = '[{0:02d}:{1:02d}:{2:02d}] 새로운 하방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_down_count)
@@ -19624,8 +19624,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     count = option_pairs_count
                 else:
                     pass
-
-                #print('t8416 call count =', t8416_call_count, count)
                 
                 # to be checked !!!
                 if t8416_call_count == count - 1:
@@ -19665,7 +19663,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.scrollToItem(call_positionCell)
 
                     if not flag_t8416_re_request_start:
-                        print('t8416 put 요청시작...')
+                        print('* t8416 put 요청시작......')
                         QTest.qWait(1000)
 
                         # 10분내에 200회 전송제약으로 인해 콜, 풋 각각 99개씩 만 요청함
