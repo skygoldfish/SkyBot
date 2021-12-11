@@ -6447,25 +6447,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 pass
 
-                            if not flag_logfile:
+                            #txt = '[{0:02d}:{1:02d}:{2:02d}] 수신된 OVC 틱 데이타 크기 : {3}\r'.format(t0167_server_hour, t0167_server_minute, t0167_server_second, ovc_tick_total_size)
+                            #self.textBrowser.append(txt)
 
-                                #txt = '[{0:02d}:{1:02d}:{2:02d}] 수신된 OVC 틱 데이타 크기 : {3}\r'.format(t0167_server_hour, t0167_server_minute, t0167_server_second, ovc_tick_total_size)
-                                #self.textBrowser.append(txt)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간데이타 통계 : {3}\r'.format(dt.hour, dt.minute, dt.second, drop_txt)
+                            self.textBrowser.append(txt)
 
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간데이타 통계 : {3}\r'.format(dt.hour, dt.minute, dt.second, drop_txt)
-                                self.textBrowser.append(txt)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                            self.textBrowser.append(txt)
 
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                                self.textBrowser.append(txt)
+                            self.pushButton_start.setText(' ScrShot ')
 
-                                file = open('lastnight.log', 'w', encoding='UTF-8')
-                                text = self.textBrowser.toPlainText()
-                                file.write(text)
-                                file.close()
-
-                                flag_logfile = True
-                            else:
-                                pass
+                            self.SaveResult()
                         else:
                             txt = '오프라인 : {0}'.format(drop_txt)
                             self.parent.statusbar.showMessage(txt)                           
@@ -15069,36 +15062,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         txt = '[{0:02d}:{1:02d}:{2:02d}] High-Low 리스트파일을 갱신했습니다.\r'.format(t0167_hour, t0167_minute, t0167_second)
         self.textBrowser.append(txt)
-        '''
-        if CSV_FILE:
-
-            if DayTime:
-
-                futures_graph_csv = "Futures {}{}".format(times, '.csv')
-                df_futures_cm_graph.to_csv(futures_graph_csv, encoding='ms949')
-
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 국내선물 Graph 파일을 저장했습니다.\r'.format(t0167_hour, t0167_minute, t0167_second)
-                self.textBrowser.append(txt)
-            else:
-                pass  
-
-            dow_graph_csv = "DOW {}{}".format(times, '.csv')
-            df_dow_graph.to_csv(dow_graph_csv, encoding='ms949')
-
-            sp500_graph_csv = "SP500 {}{}".format(times, '.csv')
-            df_sp500_graph.to_csv(sp500_graph_csv, encoding='ms949')
-
-            nasdaq_graph_csv = "NASDAQ {}{}".format(times, '.csv')
-            df_nasdaq_graph.to_csv(nasdaq_graph_csv, encoding='ms949')
-
-            wti_graph_csv = "WTI {}{}".format(times, '.csv')
-            df_wti_graph.to_csv(wti_graph_csv, encoding='ms949')
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 Graph 파일을 저장했습니다.\r'.format(t0167_hour, t0167_minute, t0167_second)
-            self.textBrowser.append(txt)
-        else:
-            pass
-        '''
+        
         if not flag_logfile:
 
             realdata_info_txt = '수신된 실시간데이타 통계 : ' + drop_txt + '\r'
@@ -15118,8 +15082,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             flag_logfile = True
         else:
-            pass
-              
+            pass              
 
     def RunTelegram(self):
 
