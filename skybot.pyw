@@ -1015,6 +1015,11 @@ print('* KP200 전저 =', KP200_전저)
 print('* KP200 전일종가 =', KP200_전일종가)
 print('\r')
 
+Option_column = Enum('Option_column', '행사가 OLOH 기준가 월저 월고 전저 전고 종가 피봇 시가 저가 현재가 고가 시가갭 대비 진폭 VP OI OID')
+Futures_column = Enum('Futures_column', 'OLOH 매수건수 매도건수 매수잔량 매도잔량 건수비 잔량비 전저 전고 종가 피봇 시가 저가 현재가 고가 시가갭 대비 진폭 거래량 OI OID')
+Supply_column = Enum('Supply_column', '외인선물 외인현물 기관선물 기관현물 개인선물 개인현물 프로그램 종합')
+Quote_column = Enum('Quote_column', 'C-MSCC C-MDCC C-MSCR C-MDCR P-MSCC P-MDCC P-MSCR P-MDCR 콜건수비 콜잔량비 풋건수비 풋잔량비 호가종합 미결종합')
+
 total_packet_size = 0
 
 server_date = ''
@@ -1029,11 +1034,6 @@ telegram_toggle = True
 서버시간 = 0
 서버시간_분 = 0
 system_server_time_gap = 0
-
-Option_column = Enum('Option_column', '행사가 OLOH 기준가 월저 월고 전저 전고 종가 피봇 시가 저가 현재가 고가 시가갭 대비 진폭 VP OI OID')
-Futures_column = Enum('Futures_column', 'OLOH 매수건수 매도건수 매수잔량 매도잔량 건수비 잔량비 전저 전고 종가 피봇 시가 저가 현재가 고가 시가갭 대비 진폭 거래량 OI OID')
-Supply_column = Enum('Supply_column', '외인선물 외인현물 기관선물 기관현물 개인선물 개인현물 프로그램 종합')
-Quote_column = Enum('Quote_column', 'C-MSCC C-MDCC C-MSCR C-MDCR P-MSCC P-MDCC P-MSCR P-MDCR 콜건수비 콜잔량비 풋건수비 풋잔량비 호가종합 미결종합')
 
 flag_offline = False
 
@@ -1157,9 +1157,6 @@ opt_search_end_value = 10
 
 start_time_txt = ''
 end_time_txt = ''
-
-콜_체결_초 = 0
-풋_체결_초 = 0
 
 call_ol_count = 0
 call_oh_count = 0
@@ -1337,18 +1334,8 @@ FUT_RETAIL_직전대비 = collections.deque([0, 0, 0], 3)
 FUT_INSTITUTIONAL_직전대비 = collections.deque([0, 0, 0], 3)
 KOSPI_FOREIGNER_직전대비 = collections.deque([0, 0, 0], 3)
 PROGRAM_직전대비 = collections.deque([0, 0, 0], 3)
-수정미결_직전대비 = collections.deque([0, 0, 0], 3)
 콜순매수_직전대비 = collections.deque([0, 0, 0], 3)
 풋순매수_직전대비 = collections.deque([0, 0, 0], 3)
-
-sp500_직전대비 = collections.deque([0, 0, 0], 5)
-dow_직전대비 = collections.deque([0, 0, 0], 5)
-nasdaq_직전대비 = collections.deque([0, 0, 0], 5)
-wti_직전대비 = collections.deque([0, 0, 0], 5)
-gold_직전대비 = collections.deque([0, 0, 0], 5)
-eurofx_직전대비 = collections.deque([0, 0, 0], 5)
-yen_직전대비 = collections.deque([0, 0, 0], 5)
-hangseng_직전대비 = collections.deque([0, 0, 0], 5)
 
 actval_increased = False
 
@@ -1394,25 +1381,25 @@ df_nm_call = pd.DataFrame()
 df_nm_put = pd.DataFrame()
 
 # 그래프를 위한 데이타프레임
-df_kp200_graph = pd.DataFrame()
-df_futures_cm_graph = pd.DataFrame()
-df_futures_nm_graph = pd.DataFrame()
-df_supply_demand_graph = pd.DataFrame()
-
 df_call_graph = [pd.DataFrame()] * ActvalCount
 df_call_information_graph = pd.DataFrame()
 
 df_put_graph = [pd.DataFrame()] * ActvalCount
 df_put_information_graph = pd.DataFrame()
 
+df_kp200_graph = pd.DataFrame()
+df_futures_cm_graph = pd.DataFrame()
+df_futures_nm_graph = pd.DataFrame()
+df_supply_demand_graph = pd.DataFrame()
+
 df_sp500_graph = pd.DataFrame()
 df_dow_graph = pd.DataFrame()
 df_nasdaq_graph = pd.DataFrame()
+df_hangseng_graph = pd.DataFrame()
 df_wti_graph = pd.DataFrame()
 df_gold_graph = pd.DataFrame()
 df_eurofx_graph = pd.DataFrame()
 df_yen_graph = pd.DataFrame()
-df_hangseng_graph = pd.DataFrame()
 
 call_quote = pd.Series()
 put_quote = pd.Series()
@@ -1433,7 +1420,6 @@ yj_atm_index = 0
 jgubun = ''
 
 start_time = 0
-start_time1 = 0
 
 COREVAL = []
 KP200_COREVAL = []
@@ -1555,36 +1541,6 @@ opt_callreal_update_counter = 0
 opt_putreal_update_counter = 0
 opt_call_ho_update_counter = 0
 opt_put_ho_update_counter = 0
-
-oi_delta = 0
-old_oi_delta = 0
-
-volume_delta = 0
-old_volume_delta = 0
-
-sp500_delta = 0
-old_sp500_delta = 0
-
-dow_delta = 0
-old_dow_delta = 0
-
-nasdaq_delta = 0
-old_nasdaq_delta = 0
-
-wti_delta = 0
-old_wti_delta = 0
-
-gold_delta = 0
-old_gold_delta = 0
-
-eurofx_delta = 0
-old_eurofx_delta = 0
-
-yen_delta = 0
-old_yen_delta = 0
-
-hangseng_delta = 0
-old_hangseng_delta = 0
 
 comboindex1 = 0
 comboindex2 = 0
@@ -1837,9 +1793,11 @@ YEN_진폭비 = 0
 
 flag_first_search = False
 
+SP500_주간_시작가 = 0
 DOW_주간_시작가 = 0
 WTI_주간_시작가 = 0
 
+SP500_야간_시작가 = 0
 DOW_야간_시작가 = 0
 WTI_야간_시작가 = 0
 
@@ -1847,29 +1805,29 @@ WTI_야간_시작가 = 0
 
 선물_호가순매수 = 0
 
-NASDAQ_호가순매수 = 0
-NASDAQ_호가잔량비 = 0
-
 SP500_호가순매수 = 0
 SP500_호가잔량비 = 0
 
 DOW_호가순매수 = 0
 DOW_호가잔량비 = 0
 
-WTI_호가순매수 = 0
-WTI_호가잔량비 = 0
-
-EUROFX_호가순매수 = 0
-EUROFX_호가잔량비 = 0
+NASDAQ_호가순매수 = 0
+NASDAQ_호가잔량비 = 0
 
 HANGSENG_호가순매수 = 0
 HANGSENG_호가잔량비 = 0
 
+WTI_호가순매수 = 0
+WTI_호가잔량비 = 0
+
 GOLD_호가순매수 = 0
 GOLD_호가잔량비 = 0
 
-NASDAQ_체결순매수 = 0
-NASDAQ_체결잔량비 = 0
+EUROFX_호가순매수 = 0
+EUROFX_호가잔량비 = 0
+
+YEN_호가순매수 = 0
+YEN_호가잔량비 = 0
 
 SP500_체결순매수 = 0
 SP500_체결잔량비 = 0
@@ -1877,17 +1835,23 @@ SP500_체결잔량비 = 0
 DOW_체결순매수 = 0
 DOW_체결잔량비 = 0
 
-WTI_체결순매수 = 0
-WTI_체결잔량비 = 0
-
-EUROFX_체결순매수 = 0
-EUROFX_체결잔량비 = 0
+NASDAQ_체결순매수 = 0
+NASDAQ_체결잔량비 = 0
 
 HANGSENG_체결순매수 = 0
 HANGSENG_체결잔량비 = 0
 
+WTI_체결순매수 = 0
+WTI_체결잔량비 = 0
+
 GOLD_체결순매수 = 0
 GOLD_체결잔량비 = 0
+
+EUROFX_체결순매수 = 0
+EUROFX_체결잔량비 = 0
+
+YEN_체결순매수 = 0
+YEN_체결잔량비 = 0
 
 # 선물 OHLC 연산
 fut_tick_list = []
@@ -1921,6 +1885,14 @@ df_nasdaq_ohlc_1min = pd.DataFrame()
 df_nasdaq_ohlc_5min = pd.DataFrame()
 df_nasdaq_ohlc_15min = pd.DataFrame()
 
+# HANGSENG OHLC 연산
+hangseng_tick_list = []
+hangseng_value_list = []
+df_hangseng_ohlc = pd.DataFrame()
+df_hangseng_ohlc_1min = pd.DataFrame()
+df_hangseng_ohlc_5min = pd.DataFrame()
+df_hangseng_ohlc_15min = pd.DataFrame()
+
 # WTI OHLC 연산
 wti_tick_list = []
 wti_value_list = []
@@ -1953,22 +1925,19 @@ df_yen_ohlc_1min = pd.DataFrame()
 df_yen_ohlc_5min = pd.DataFrame()
 df_yen_ohlc_15min = pd.DataFrame()
 
-# HANGSENG OHLC 연산
-hangseng_tick_list = []
-hangseng_value_list = []
-df_hangseng_ohlc = pd.DataFrame()
-df_hangseng_ohlc_1min = pd.DataFrame()
-df_hangseng_ohlc_5min = pd.DataFrame()
-df_hangseng_ohlc_15min = pd.DataFrame()
-
 선물_체결시간 = ''
 
 근월물_선물_현재가_버퍼 = []
 차월물_선물_현재가_버퍼 = []
-DOW_현재가_버퍼 = []
+
 SP500_현재가_버퍼 = []
+DOW_현재가_버퍼 = []
 NASDAQ_현재가_버퍼 = []
+HANGSENG_현재가_버퍼 = []
 WTI_현재가_버퍼 = []
+GOLD_현재가_버퍼 = []
+EUROFX_현재가_버퍼 = []
+YEN_현재가_버퍼 = []
 
 flag_futures_cm_ohlc_open = False
 flag_futures_nm_ohlc_open = False
@@ -14864,7 +14833,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def oi_total_update(self):
         
         global 콜_수정미결합, 풋_수정미결합
-        global oi_delta, old_oi_delta, 수정미결_직전대비
         global df_call_information_graph, df_put_information_graph
 
         oi_txt = '{0}:{1}'.format(format(int(콜_수정미결합), ','), format(int(풋_수정미결합), ','))
@@ -47061,16 +47029,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         global CME_체결시간, CME_HOUR, CME_MIN, CME_SEC, t0167_hour, t0167_minute, t0167_second
         global old_cme_time_index, cme_time_index
-        global df_futures_cm_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_gold_graph, df_eurofx_graph, df_yen_graph, df_hangseng_graph
-
-        global sp500_delta, old_sp500_delta, sp500_직전대비
-        global dow_delta, old_dow_delta, dow_직전대비
-        global nasdaq_delta, old_nasdaq_delta, nasdaq_직전대비
-        global wti_delta, old_wti_delta, wti_직전대비
-        global gold_delta, old_gold_delta, gold_직전대비
-        global eurofx_delta, old_eurofx_delta, eurofx_직전대비
-        global yen_delta, old_yen_delta, yen_직전대비
-        global hangseng_delta, old_hangseng_delta, hangseng_직전대비
+        global df_futures_cm_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_gold_graph, df_eurofx_graph, df_yen_graph, df_hangseng_graph        
 
         global SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_현재가, SP500_전일대비, SP500_등락율, SP500_진폭, SP500_고가        
         global DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_현재가, DOW_전일대비, DOW_등락율, DOW_진폭, DOW_고가
