@@ -6272,7 +6272,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             EUROFX_당일종가 = EUROFX_현재가
                             YEN_당일종가 = YEN_현재가                                                      
 
-                            FUT_당일종가 = self.fut_realdata['현재가']
+                            FUT_당일종가 = 근월물_선물_현재가
 
                             # 다음날 해외선물 피봇계산을 위해 종료시(오전 6시 or 7시) 마지막 값 저장
                             txt = '[{0:02d}:{1:02d}:{2:02d}] FUT 종가 = {3:.2f}\r'.format(dt.hour, dt.minute, dt.second, FUT_당일종가)
