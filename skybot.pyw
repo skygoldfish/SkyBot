@@ -2161,7 +2161,7 @@ else:
 
 print('\r')
 print('*************************************************************************************************************************')
-print('전역변수 로딩종료...')
+print('전역변수 로딩완료...')
 print('*************************************************************************************************************************')
 print('\r')
 
@@ -4695,9 +4695,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         col_text = self.tableWidget_call.horizontalHeaderItem(idx).text()
 
-        title = 'Call Header Information'
-        txt = "({0}) = {1}".format(idx, col_text)
-        self.showCustomMsgBox(title, txt)
+        #title = 'Call Header Information'
+        #txt = "({0}) = {1}".format(idx, col_text)
+        #self.showCustomMsgBox(title, txt)
 
         if idx == Option_column.OLOH.value or idx == Option_column.기준가.value or idx == Option_column.월저.value or idx == Option_column.월고.value or \
             idx == Option_column.전저.value or idx == Option_column.전고.value or idx == Option_column.종가.value or \
@@ -4838,9 +4838,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         col_text = self.tableWidget_put.horizontalHeaderItem(idx).text()
 
-        title = 'Put Header Information'
-        txt = "({0}) = {1}".format(idx, col_text)
-        self.showCustomMsgBox(title, txt)
+        #title = 'Put Header Information'
+        #txt = "({0}) = {1}".format(idx, col_text)
+        #self.showCustomMsgBox(title, txt)
 
         if idx == Option_column.OLOH.value or idx == Option_column.기준가.value or idx == Option_column.월저.value or idx == Option_column.월고.value or \
             idx == Option_column.전저.value or idx == Option_column.전고.value or idx == Option_column.종가.value or \
@@ -5008,9 +5008,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if cell is not None:
 
-            title = 'Call Cell Information'
-            txt = "({0}, {1}) = {2}".format(row, col, cell.text())
-            self.showCustomMsgBox(title, txt)
+            #title = 'Call Cell Information'
+            #txt = "({0}, {1}) = {2}".format(row, col, cell.text())
+            #self.showCustomMsgBox(title, txt)
 
             if atm_txt != '':
 
@@ -5043,9 +5043,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if cell is not None:
 
-            title = 'Put Cell Information'
-            txt = "({0}, {1}) = {2}".format(row, col, cell.text())
-            self.showCustomMsgBox(title, txt)
+            #title = 'Put Cell Information'
+            #txt = "({0}, {1}) = {2}".format(row, col, cell.text())
+            #self.showCustomMsgBox(title, txt)
 
             if atm_txt != '':
 
@@ -5214,9 +5214,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         cell = self.tableWidget_supply.item(row, col)
 
-        title = 'Supply & Demand Cell Information'
-        txt = "({0}, {1}) = {2}".format(row, col, cell.text())
-        self.showCustomMsgBox(title, txt)
+        #title = 'Supply & Demand Cell Information'
+        #txt = "({0}, {1}) = {2}".format(row, col, cell.text())
+        #self.showCustomMsgBox(title, txt)
 
         if cell is not None:
 
@@ -5233,9 +5233,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         cell = self.tableWidget_quote.item(row, col)
 
-        title = 'Quote Cell Information'
-        txt = "({0}, {1}) = {2}".format(row, col, cell.text())
-        self.showCustomMsgBox(title, txt)
+        #title = 'Quote Cell Information'
+        #txt = "({0}, {1}) = {2}".format(row, col, cell.text())
+        #self.showCustomMsgBox(title, txt)
 
         if cell is not None:
 
@@ -11420,19 +11420,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_fut.item(1, Futures_column.고가.value).setForeground(QBrush(검정색))
 
         # Scale Factor 계산
-        kp200_시가등락율 = ((KP200_당일시가 - KP200_전일종가) / KP200_전일종가) * 100
-        plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / kp200_시가등락율))
+        if KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(콜_등가_시가등락율) > 0:
+            kp200_시가등락율 = ((KP200_당일시가 - KP200_전일종가) / KP200_전일종가) * 100
+            plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / kp200_시가등락율))
+              
+            if plot_drate_scale_factor > 100:
+                plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
+            else:
+                pass
 
-        if plot_drate_scale_factor < 10:
-            plot_drate_scale_factor = 10                
-        elif plot_drate_scale_factor > 100:
-            plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
+            item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
         else:
-            pass
-
-        item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
-        item.setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)               
+            pass            
     
     def fut_nm_oloh_check(self):
 
@@ -11513,19 +11514,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_fut.item(0, Futures_column.고가.value).setForeground(QBrush(검정색))
         
         # Scale Factor 계산
-        kp200_시가등락율 = ((KP200_당일시가 - KP200_전일종가) / KP200_전일종가) * 100
-        plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / kp200_시가등락율))
+        if KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(콜_등가_시가등락율) > 0:
+            kp200_시가등락율 = ((KP200_당일시가 - KP200_전일종가) / KP200_전일종가) * 100
+            plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / kp200_시가등락율))
+           
+            if plot_drate_scale_factor > 100:
+                plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
+            else:
+                pass
 
-        if plot_drate_scale_factor < 10:
-            plot_drate_scale_factor = 10                
-        elif plot_drate_scale_factor > 100:
-            plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
+            item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
         else:
             pass
-
-        item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
-        item.setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
         
     def kp200_node_coloring(self):
 
@@ -12750,8 +12752,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if True:
                     call_gap_percent[index] = (콜시가 / 콜종가 - 1) * 100
 
-                    #콜_등가_시가등락율 = call_gap_percent[ATM_INDEX]
-
                     gap_txt = "{0:.2f}\n{1:.1f}%".format(시가갭, call_gap_percent[index])
 
                     item = QTableWidgetItem(gap_txt)
@@ -13420,7 +13420,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         #if 시가 > OTM_SEARCH_START_VAL:
                         if True:
                             call_gap_percent[index] = (시가 / 종가 - 1) * 100
-
                             콜_등가_시가등락율 = call_gap_percent[ATM_INDEX]
                         else:
                             pass
@@ -15842,6 +15841,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     근월물_선물_고가 = df['고가']
                 else:
                     pass
+
+                item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
 
                 # 선물 맥점 컬러 체크(실시간에서만 표시됨)
                 #if flag_market_service:
@@ -46113,10 +46116,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     kp200_시가등락율 = ((KP200_당일시가 - KP200_전일종가) / KP200_전일종가) * 100
                     plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / kp200_시가등락율))
-
-                    if plot_drate_scale_factor < 10:
-                        plot_drate_scale_factor = 10                
-                    elif plot_drate_scale_factor > 100:
+              
+                    if plot_drate_scale_factor > 100:
                         plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
                     else:
                         pass
@@ -46152,10 +46153,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     kp200_시가등락율 = ((KP200_당일시가 - KP200_전일종가) / KP200_전일종가) * 100
                     plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / kp200_시가등락율))
-
-                    if plot_drate_scale_factor < 10:
-                        plot_drate_scale_factor = 10                
-                    elif plot_drate_scale_factor > 100:
+             
+                    if plot_drate_scale_factor > 100:
                         plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
                     else:
                         pass
@@ -46657,10 +46656,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     kp200_시가등락율 = ((KP200_당일시가 - KP200_전일종가) / KP200_전일종가) * 100
                     plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / kp200_시가등락율))
-
-                    if plot_drate_scale_factor < 10:
-                        plot_drate_scale_factor = 10                
-                    elif plot_drate_scale_factor > 100:
+               
+                    if plot_drate_scale_factor > 100:
                         plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
                     else:
                         pass
