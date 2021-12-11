@@ -4255,17 +4255,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.cme_realdata['미결증감'] = 0              
         
         fut_h_header = self.tableWidget_fut.horizontalHeader()
-        fut_h_header.sectionClicked.connect(self.fut_horizontal_header_clicked)
+        fut_h_header.sectionClicked.connect(self.futures_horizontal_header_clicked)
 
         supply_h_header = self.tableWidget_supply.horizontalHeader()
-        supply_h_header.sectionClicked.connect(self.supply_horizontal_header_clicked)
+        supply_h_header.sectionClicked.connect(self.supply_demand_horizontal_header_clicked)
 
         quote_h_header = self.tableWidget_quote.horizontalHeader()
         quote_h_header.sectionClicked.connect(self.quote_horizontal_header_clicked)
 
-        self.tableWidget_fut.cellClicked.connect(self.futtable_cell_clicked)
-        self.tableWidget_supply.cellClicked.connect(self.supplytable_cell_clicked)
-        self.tableWidget_quote.cellClicked.connect(self.quotetable_cell_clicked)        
+        self.tableWidget_fut.cellClicked.connect(self.futures_table_cell_clicked)
+        self.tableWidget_supply.cellClicked.connect(self.supply_demand_table_cell_clicked)
+        self.tableWidget_quote.cellClicked.connect(self.quote_table_cell_clicked)        
 
         # 컬럼 헤더 click시 Event 처리용.
         call_h_header = self.tableWidget_call.horizontalHeader()
@@ -4274,11 +4274,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         put_h_header = self.tableWidget_put.horizontalHeader()
         put_h_header.sectionClicked.connect(self.put_horizontal_header_clicked)
 
-        self.tableWidget_call.cellClicked.connect(self.calltable_cell_clicked)
-        self.tableWidget_put.cellClicked.connect(self.puttable_cell_clicked)
+        self.tableWidget_call.cellClicked.connect(self.call_table_cell_clicked)
+        self.tableWidget_put.cellClicked.connect(self.put_table_cell_clicked)
         
-        self.tableWidget_call.verticalScrollBar().valueChanged.connect(self.calltable_vertical_scroll_position)
-        self.tableWidget_put.verticalScrollBar().valueChanged.connect(self.puttable_vertical_scroll_position)        
+        self.tableWidget_call.verticalScrollBar().valueChanged.connect(self.call_table_vertical_scroll_position)
+        self.tableWidget_put.verticalScrollBar().valueChanged.connect(self.put_table_vertical_scroll_position)        
         
         #self.checkBox_NM.stateChanged.connect(self.checkBox_NM_checkState)        
 
@@ -4975,7 +4975,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_put.resizeColumnsToContents()
 
     @pyqtSlot(int)
-    def fut_horizontal_header_clicked(self, idx):
+    def futures_horizontal_header_clicked(self, idx):
 
         # cell focus 이동
         self.tableWidget_fut.setCurrentCell(3, Futures_column.OID.value)
@@ -4984,7 +4984,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_fut.resizeColumnsToContents()
 
     @pyqtSlot(int)
-    def supply_horizontal_header_clicked(self, idx):
+    def supply_demand_horizontal_header_clicked(self, idx):
 
         # cell focus 이동
         self.tableWidget_supply.setCurrentCell(1, Supply_column.종합.value)
@@ -5002,7 +5002,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_quote.resizeColumnsToContents()
 
     @pyqtSlot(int, int)
-    def calltable_cell_clicked(self, row, col):
+    def call_table_cell_clicked(self, row, col):
 
         cell = self.tableWidget_call.item(row, col)
 
@@ -5037,7 +5037,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_call.resizeColumnsToContents()
 
     @pyqtSlot(int, int)
-    def puttable_cell_clicked(self, row, col):
+    def put_table_cell_clicked(self, row, col):
 
         cell = self.tableWidget_put.item(row, col)
 
@@ -5071,7 +5071,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_put.resizeColumnsToContents()
 
     @pyqtSlot(int, int)
-    def futtable_cell_clicked(self, row, col):
+    def futures_table_cell_clicked(self, row, col):
 
         dt = datetime.now()
         
@@ -5210,7 +5210,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
     @pyqtSlot(int, int)
-    def supplytable_cell_clicked(self, row, col):
+    def supply_demand_table_cell_clicked(self, row, col):
 
         cell = self.tableWidget_supply.item(row, col)
 
@@ -5229,7 +5229,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
     @pyqtSlot(int, int)
-    def quotetable_cell_clicked(self, row, col):
+    def quote_table_cell_clicked(self, row, col):
 
         cell = self.tableWidget_quote.item(row, col)
 
@@ -5248,7 +5248,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
     
     @pyqtSlot(int)
-    def calltable_vertical_scroll_position(self, row):
+    def call_table_vertical_scroll_position(self, row):
 
         global call_scroll_begin_position, call_scroll_end_position
 
@@ -5272,7 +5272,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_call.resizeColumnsToContents()
 
     @pyqtSlot(int)
-    def puttable_vertical_scroll_position(self, row):
+    def put_table_vertical_scroll_position(self, row):
 
         global put_scroll_begin_position, put_scroll_end_position
 
