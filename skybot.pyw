@@ -46749,6 +46749,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     SP500_종가 = SP500_현재가 - SP500_전일대비
 
                 SP500_등락율 = float(tickdata['등락율'])
+                SP500_시가대비_등락율 = ((float(tickdata['체결가격']) - float(tickdata['시가'])) / float(tickdata['시가'])) * 100
 
                 SP500_시가 = float(tickdata['시가'])
                 SP500_저가 =  float(tickdata['저가'])
@@ -46762,7 +46763,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 SP500_진폭비 = SP500_진폭 / SP500_시가           
 
-                drate_temp = plot_drate_scale_factor * SP500_등락율
+                drate_temp = plot_drate_scale_factor * SP500_시가대비_등락율
 
                 # 등락율에 스파이크 발생하는 문제 임시해결
                 if drate_temp > 50:
@@ -46990,19 +46991,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_dow_graph.at[1, 'price'] = DOW_시가
                 
                 DOW_진폭비 = DOW_진폭 / DOW_시가
-
-                drate_temp = plot_drate_scale_factor * DOW_등락율
-
-                # 등락율에 스파이크 발생하는 문제 임시해결
-                if drate_temp > 50:
-                    drate_temp = 50.0
-                elif drate_temp < -50:
-                    drate_temp = -50.0
-                else:
-                    pass
                 
                 # 그래프 등락율 가격갱신
-                df_dow_graph.at[cme_time_index, 'drate'] = drate_temp
+                df_dow_graph.at[cme_time_index, 'drate'] = DOW_등락율
 
                 # 1T OHLC 생성
                 df_dow_graph.at[cme_time_index, 'ctime'] = CME_체결시간                
