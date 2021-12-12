@@ -48146,7 +48146,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
                 if "{0:.1f}".format(YEN_전저) != self.tableWidget_cme.item(7, 1).text():
-                    item = QTableWidgetItem("{0}".format(YEN_전저))
+                    item = QTableWidgetItem("{0:.1f}".format(YEN_전저))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -48155,7 +48155,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
                 if "{0:.1f}".format(YEN_전고) != self.tableWidget_cme.item(7, 2).text():
-                    item = QTableWidgetItem("{0}".format(YEN_전고))
+                    item = QTableWidgetItem("{0:.1f}".format(YEN_전고))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -48164,7 +48164,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
                 if "{0:.1f}".format(YEN_종가) != self.tableWidget_cme.item(7, 3).text():
-                    item = QTableWidgetItem("{0}".format(YEN_종가))
+                    item = QTableWidgetItem("{0:.1f}".format(YEN_종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -48173,7 +48173,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
                 if "{0:.1f}".format(YEN_피봇) != self.tableWidget_cme.item(7, 4).text():
-                    item = QTableWidgetItem("{0}".format(YEN_피봇))
+                    item = QTableWidgetItem("{0:.1f}".format(YEN_피봇))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -48182,7 +48182,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
                 if "{0:.1f}".format(YEN_시가) != self.tableWidget_cme.item(7, 5).text():
-                    item = QTableWidgetItem("{0}".format(YEN_시가))
+                    item = QTableWidgetItem("{0:.1f}".format(YEN_시가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -48191,7 +48191,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
                 if "{0:.1f}".format(YEN_저가) != self.tableWidget_cme.item(7, 6).text():
-                    item = QTableWidgetItem("{0}".format(YEN_저가))
+                    item = QTableWidgetItem("{0:.1f}".format(YEN_저가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(청색))
                     item.setForeground(QBrush(흰색))
@@ -48208,7 +48208,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
                 if "{0:.1f}".format(YEN_고가) != self.tableWidget_cme.item(7, 8).text():
-                    item = QTableWidgetItem("{0}".format(YEN_고가))
+                    item = QTableWidgetItem("{0:.1f}".format(YEN_고가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(적색))
                     item.setForeground(QBrush(흰색))
