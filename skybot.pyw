@@ -15545,13 +15545,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.fut_realdata['현재가'] - self.fut_realdata['KP200'],
                         call_atm_value + put_atm_value,
                         abs(call_atm_value - put_atm_value))
-                    self.label_atm.setText(txt) 
-
-                    df_futures_cm_graph.at[0, 'drate'] = 0
-                    df_dow_graph.at[0, 'drate'] = 0
-
-                    df_call_information_graph.at[0, 'drate'] = 0
-                    df_put_information_graph.at[0, 'drate'] = 0
+                    self.label_atm.setText(txt)                    
 
                     item_txt = '{0:0.2f}% \n {1:0.2f}% '.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
@@ -15668,6 +15662,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.setItem(1, Futures_column.시가.value, item)
 
                 if DayTime:
+
+                    df_futures_cm_graph.at[0, 'drate'] = 0
+                    df_sp500_graph.at[0, 'drate'] = 0
+                    df_dow_graph.at[0, 'drate'] = 0
+                    df_nasdaw_graph.at[0, 'drate'] = 0
+                    df_hangseng_graph.at[0, 'drate'] = 0
+                    df_wti_graph.at[0, 'drate'] = 0
+                    df_gold_graph.at[0, 'drate'] = 0
+                    df_eurofx_graph.at[0, 'drate'] = 0
+                    df_yen_graph.at[0, 'drate'] = 0
+
+                    df_call_information_graph.at[0, 'drate'] = 0
+                    df_put_information_graph.at[0, 'drate'] = 0
 
                     df_call_information_graph.at[0, 'centerval'] = 장시작_중심가
 
