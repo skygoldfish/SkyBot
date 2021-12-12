@@ -1065,7 +1065,7 @@ kp200_진폭 = 0
 
 kp200_yj_시가 = 0
 
-CENTER_VAL = 0
+옵션_중심가 = 0
 
 CENTER_VAL_PLUS5 = 0
 CENTER_VAL_PLUS4 = 0
@@ -7133,7 +7133,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global atm_zero_sum, atm_zero_cha
         global selected_call, selected_put, flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
         
-        global CENTER_VAL, df_call_information_graph 
+        global 옵션_중심가, df_call_information_graph 
 
         dt = datetime.now()
         
@@ -7218,18 +7218,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 예상 중심가 표시
         if call_atm_value > put_atm_value:
 
-            CENTER_VAL = round((put_atm_value + atm_zero_cha / 2), 2)
+            옵션_중심가 = round((put_atm_value + atm_zero_cha / 2), 2)
 
         elif put_atm_value > call_atm_value:
 
-            CENTER_VAL = round((call_atm_value + atm_zero_cha / 2), 2)
+            옵션_중심가 = round((call_atm_value + atm_zero_cha / 2), 2)
         else:
-            CENTER_VAL = call_atm_value
+            옵션_중심가 = call_atm_value
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 등가 {3}에서 교차 중심가 {4} 발생 !!!\r'.format(t0167_hour, t0167_minute, t0167_second, atm_txt, CENTER_VAL)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 등가 {3}에서 교차 중심가 {4} 발생 !!!\r'.format(t0167_hour, t0167_minute, t0167_second, atm_txt, 옵션_중심가)
             self.textBrowser.append(txt)
         
-        df_call_information_graph.at[cme_time_index, 'centerval'] = CENTER_VAL
+        df_call_information_graph.at[cme_time_index, 'centerval'] = 옵션_중심가
 
         atm_list = []
         atm_list.append(atm_minus_5)
@@ -7296,7 +7296,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_call.setItem(ATM_INDEX - 1, Option_column.기준가.value, item)            
 
         val = df_call.at[ATM_INDEX, '기준가']
-        item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL))
+        item = QTableWidgetItem("{0:.2f}\n({1})".format(val, 옵션_중심가))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(노란색))
         item.setForeground(QBrush(검정색))
@@ -15393,7 +15393,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_otm_cdb_percent_mean, put_otm_cdb_percent_mean
         global atm_zero_sum, atm_zero_cha
         global 근월물_선물_전일종가
-        global CENTER_VAL, CENTER_VAL_PLUS5, CENTER_VAL_PLUS4, CENTER_VAL_PLUS3, CENTER_VAL_PLUS2, CENTER_VAL_PLUS1, CENTER_VAL_MINUS1, CENTER_VAL_MINUS2, CENTER_VAL_MINUS3, CENTER_VAL_MINUS4, CENTER_VAL_MINUS5
+        global 옵션_중심가, CENTER_VAL_PLUS5, CENTER_VAL_PLUS4, CENTER_VAL_PLUS3, CENTER_VAL_PLUS2, CENTER_VAL_PLUS1, CENTER_VAL_MINUS1, CENTER_VAL_MINUS2, CENTER_VAL_MINUS3, CENTER_VAL_MINUS4, CENTER_VAL_MINUS5
 
         global df_futures_cm_graph, df_futures_nm_graph, df_kp200_graph, df_supply_demand_graph
         global t8416_call_count, t8416_put_count
@@ -15669,7 +15669,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if DayTime:
 
-                    df_call_information_graph.at[0, 'centerval'] = CENTER_VAL
+                    df_call_information_graph.at[0, 'centerval'] = 장시작_중심가
 
                     df_futures_cm_graph.at[0, 'kp200'] = self.fut_realdata['KP200']
                     df_futures_cm_graph.at[0, 'price'] = self.fut_realdata['종가']
@@ -18584,7 +18584,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 CENTER_VAL_PLUS3 = round((df_call.at[ATM_INDEX - 3, '종가'] + df_put.at[ATM_INDEX - 3, '종가'])/2, 2)
                 CENTER_VAL_PLUS2 = round((df_call.at[ATM_INDEX - 2, '종가'] + df_put.at[ATM_INDEX - 2, '종가'])/2, 2)
                 CENTER_VAL_PLUS1 = round((df_call.at[ATM_INDEX - 1, '종가'] + df_put.at[ATM_INDEX - 1, '종가'])/2 , 2)
-                CENTER_VAL = round((df_call.at[ATM_INDEX, '종가'] + df_put.at[ATM_INDEX, '종가'])/2 , 2)
+                옵션_중심가 = round((df_call.at[ATM_INDEX, '종가'] + df_put.at[ATM_INDEX, '종가'])/2 , 2)
                 CENTER_VAL_MINUS1 = round((df_call.at[ATM_INDEX + 1, '종가'] + df_put.at[ATM_INDEX + 1, '종가'])/2 , 2)
                 CENTER_VAL_MINUS2 = round((df_call.at[ATM_INDEX + 2, '종가'] + df_put.at[ATM_INDEX + 2, '종가'])/2 , 2)
                 CENTER_VAL_MINUS3 = round((df_call.at[ATM_INDEX + 3, '종가'] + df_put.at[ATM_INDEX + 3, '종가'])/2 , 2)
@@ -18657,7 +18657,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.setItem(ATM_INDEX - 1, Option_column.기준가.value, item)            
 
                 val = df_call.at[ATM_INDEX, '기준가']
-                item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL))
+                item = QTableWidgetItem("{0:.2f}\n({1})".format(val, 옵션_중심가))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(노란색))
                 item.setForeground(QBrush(검정색))
@@ -19968,7 +19968,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     CENTER_VAL_PLUS3 = round((df_call.at[ATM_INDEX - 3, '종가'] + df_put.at[ATM_INDEX - 3, '종가'])/2, 2)
                     CENTER_VAL_PLUS2 = round((df_call.at[ATM_INDEX - 2, '종가'] + df_put.at[ATM_INDEX - 2, '종가'])/2, 2)
                     CENTER_VAL_PLUS1 = round((df_call.at[ATM_INDEX - 1, '종가'] + df_put.at[ATM_INDEX - 1, '종가'])/2 , 2)
-                    CENTER_VAL = round((df_call.at[ATM_INDEX, '종가'] + df_put.at[ATM_INDEX, '종가'])/2 , 2)
+                    옵션_중심가 = round((df_call.at[ATM_INDEX, '종가'] + df_put.at[ATM_INDEX, '종가'])/2 , 2)
                     CENTER_VAL_MINUS1 = round((df_call.at[ATM_INDEX + 1, '종가'] + df_put.at[ATM_INDEX + 1, '종가'])/2 , 2)
                     CENTER_VAL_MINUS2 = round((df_call.at[ATM_INDEX + 2, '종가'] + df_put.at[ATM_INDEX + 2, '종가'])/2 , 2)
                     CENTER_VAL_MINUS3 = round((df_call.at[ATM_INDEX + 3, '종가'] + df_put.at[ATM_INDEX + 3, '종가'])/2 , 2)
@@ -20041,7 +20041,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.setItem(ATM_INDEX - 1, Option_column.기준가.value, item)            
 
                     val = df_call.at[ATM_INDEX, '기준가']
-                    item = QTableWidgetItem("{0:.2f}\n({1})".format(val, CENTER_VAL))
+                    item = QTableWidgetItem("{0:.2f}\n({1})".format(val, 옵션_중심가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(노란색))
                     item.setForeground(QBrush(검정색))
@@ -25183,9 +25183,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_mv_line[2].setValue(3.5)
             self.plot1_mv_line[3].setValue(4.85)
             
-            self.plot1_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
-            self.plot1_center_val_line.setValue(CENTER_VAL)
-            self.plot1_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
+            self.plot1_center_val_lower_line.setValue(옵션_중심가 - GOLDEN_RATIO)
+            self.plot1_center_val_line.setValue(옵션_중심가)
+            self.plot1_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
 
         # 옵션잔량비
         elif comboindex1 == 7:
@@ -26401,9 +26401,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_mv_line[2].setValue(3.5)
             self.plot2_mv_line[3].setValue(4.85)
             
-            self.plot2_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
-            self.plot2_center_val_line.setValue(CENTER_VAL)
-            self.plot2_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
+            self.plot2_center_val_lower_line.setValue(옵션_중심가 - GOLDEN_RATIO)
+            self.plot2_center_val_line.setValue(옵션_중심가)
+            self.plot2_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
 
         # 옵션잔량비   
         elif comboindex2 == 7:
@@ -27643,9 +27643,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_mv_line[2].setValue(3.5)
             self.plot3_mv_line[3].setValue(4.85)
 
-            self.plot3_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
-            self.plot3_center_val_line.setValue(CENTER_VAL)
-            self.plot3_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
+            self.plot3_center_val_lower_line.setValue(옵션_중심가 - GOLDEN_RATIO)
+            self.plot3_center_val_line.setValue(옵션_중심가)
+            self.plot3_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
 
         # 옵션잔량비   
         elif comboindex3 == 7:
@@ -28885,9 +28885,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_mv_line[2].setValue(3.5)
             self.plot4_mv_line[3].setValue(4.85)
 
-            self.plot4_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
-            self.plot4_center_val_line.setValue(CENTER_VAL)
-            self.plot4_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)       
+            self.plot4_center_val_lower_line.setValue(옵션_중심가 - GOLDEN_RATIO)
+            self.plot4_center_val_line.setValue(옵션_중심가)
+            self.plot4_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)       
 
         # 옵션잔량비
         elif comboindex4 == 7:
@@ -30095,9 +30095,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_mv_line[2].setValue(3.5)
             self.plot5_mv_line[3].setValue(4.85)
 
-            self.plot5_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
-            self.plot5_center_val_line.setValue(CENTER_VAL)
-            self.plot5_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
+            self.plot5_center_val_lower_line.setValue(옵션_중심가 - GOLDEN_RATIO)
+            self.plot5_center_val_line.setValue(옵션_중심가)
+            self.plot5_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
 
         # 옵션잔량비    
         elif comboindex5 == 7:
@@ -31337,9 +31337,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_mv_line[2].setValue(3.5)
             self.plot6_mv_line[3].setValue(4.85)
 
-            self.plot6_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
-            self.plot6_center_val_line.setValue(CENTER_VAL)
-            self.plot6_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
+            self.plot6_center_val_lower_line.setValue(옵션_중심가 - GOLDEN_RATIO)
+            self.plot6_center_val_line.setValue(옵션_중심가)
+            self.plot6_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
 
         # 옵션잔량비    
         elif comboindex6 == 7:
@@ -32854,20 +32854,20 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
                     self.label_12.setText(txt)
 
-                    if CENTER_VAL < 1.0:
-                        txt = ' 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                    if 옵션_중심가 < 1.0:
+                        txt = ' 하단: {0:.2f} '.format(옵션_중심가 - GOLDEN_RATIO)
                     else:
-                        txt = ' 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                        txt = ' 하단: {0:.2f} '.format(옵션_중심가 - GOLDEN_RATIO)
 
                     self.label_13.setText(txt)
 
-                    txt = ' 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
+                    txt = ' 상단: {0:.2f} '.format(옵션_중심가 + GOLDEN_RATIO)
                     self.label_14.setText(txt)
 
                     txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[ATM_INDEX, '대비'], (put_atm_value / df_put.at[ATM_INDEX, '시가'] - 1) * 100)
                     self.label_16.setText(txt)
 
-                    txt = ' 중심가: {0:.2f} '.format(CENTER_VAL)
+                    txt = ' 중심가: {0:.2f} '.format(옵션_중심가)
                     self.label_17.setText(txt)
 
                     txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[ATM_INDEX, '대비'], (call_atm_value / df_call.at[ATM_INDEX, '시가'] - 1) * 100)
@@ -32906,9 +32906,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 if DayTime:
-                    self.plot1_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
-                    self.plot1_center_val_line.setValue(CENTER_VAL)
-                    self.plot1_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
+                    self.plot1_center_val_lower_line.setValue(옵션_중심가 - GOLDEN_RATIO)
+                    self.plot1_center_val_line.setValue(옵션_중심가)
+                    self.plot1_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
 
                     # 중심가 그리기, 모든 값이 NaN인지 체크?
                     #nan_lst = np.isnan(df_call_information_graph['centerval'].values)
@@ -34378,20 +34378,20 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
                     self.label_22.setText(txt)
 
-                    if CENTER_VAL < 1.0:
-                        txt = ' 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                    if 옵션_중심가 < 1.0:
+                        txt = ' 하단: {0:.2f} '.format(옵션_중심가 - GOLDEN_RATIO)
                     else:
-                        txt = ' 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                        txt = ' 하단: {0:.2f} '.format(옵션_중심가 - GOLDEN_RATIO)
 
                     self.label_23.setText(txt)
 
-                    txt = ' 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
+                    txt = ' 상단: {0:.2f} '.format(옵션_중심가 + GOLDEN_RATIO)
                     self.label_24.setText(txt)
 
                     txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[ATM_INDEX, '대비'], (put_atm_value / df_put.at[ATM_INDEX, '시가'] - 1) * 100)
                     self.label_26.setText(txt)
 
-                    txt = ' 중심가: {0:.2f} '.format(CENTER_VAL)
+                    txt = ' 중심가: {0:.2f} '.format(옵션_중심가)
                     self.label_27.setText(txt)
 
                     txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[ATM_INDEX, '대비'], (call_atm_value / df_call.at[ATM_INDEX, '시가'] - 1) * 100)
@@ -34430,9 +34430,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 if DayTime:
-                    self.plot2_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
-                    self.plot2_center_val_line.setValue(CENTER_VAL)
-                    self.plot2_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
+                    self.plot2_center_val_lower_line.setValue(옵션_중심가 - GOLDEN_RATIO)
+                    self.plot2_center_val_line.setValue(옵션_중심가)
+                    self.plot2_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
 
                     # 중심가 그리기, 모든 값이 NaN인지 체크?
                     #nan_lst = np.isnan(df_call_information_graph['centerval'].values)
@@ -35915,20 +35915,20 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
                     self.label_32.setText(txt)
 
-                    if CENTER_VAL < 1.0:
-                        txt = ' 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                    if 옵션_중심가 < 1.0:
+                        txt = ' 하단: {0:.2f} '.format(옵션_중심가 - GOLDEN_RATIO)
                     else:
-                        txt = ' 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                        txt = ' 하단: {0:.2f} '.format(옵션_중심가 - GOLDEN_RATIO)
 
                     self.label_33.setText(txt)
 
-                    txt = ' 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
+                    txt = ' 상단: {0:.2f} '.format(옵션_중심가 + GOLDEN_RATIO)
                     self.label_34.setText(txt)
 
                     txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[ATM_INDEX, '대비'], (put_atm_value / df_put.at[ATM_INDEX, '시가'] - 1) * 100)
                     self.label_36.setText(txt)
 
-                    txt = ' 중심가: {0:.2f} '.format(CENTER_VAL)
+                    txt = ' 중심가: {0:.2f} '.format(옵션_중심가)
                     self.label_37.setText(txt)
 
                     txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[ATM_INDEX, '대비'], (call_atm_value / df_call.at[ATM_INDEX, '시가'] - 1) * 100)
@@ -35967,9 +35967,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 if DayTime:        
-                    self.plot3_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
-                    self.plot3_center_val_line.setValue(CENTER_VAL)
-                    self.plot3_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
+                    self.plot3_center_val_lower_line.setValue(옵션_중심가 - GOLDEN_RATIO)
+                    self.plot3_center_val_line.setValue(옵션_중심가)
+                    self.plot3_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
 
                     # 중심가 그리기
                     self.plot3_center_val_curve.setData(df_call_information_graph['centerval'].to_numpy())
@@ -37445,20 +37445,20 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
                     self.label_42.setText(txt)
 
-                    if CENTER_VAL < 1.0:
-                        txt = ' 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                    if 옵션_중심가 < 1.0:
+                        txt = ' 하단: {0:.2f} '.format(옵션_중심가 - GOLDEN_RATIO)
                     else:
-                        txt = ' 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                        txt = ' 하단: {0:.2f} '.format(옵션_중심가 - GOLDEN_RATIO)
 
                     self.label_43.setText(txt)
 
-                    txt = ' 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
+                    txt = ' 상단: {0:.2f} '.format(옵션_중심가 + GOLDEN_RATIO)
                     self.label_44.setText(txt)
 
                     txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[ATM_INDEX, '대비'], (put_atm_value / df_put.at[ATM_INDEX, '시가'] - 1) * 100)
                     self.label_46.setText(txt)
 
-                    txt = ' 중심가: {0:.2f} '.format(CENTER_VAL)
+                    txt = ' 중심가: {0:.2f} '.format(옵션_중심가)
                     self.label_47.setText(txt)
 
                     txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[ATM_INDEX, '대비'], (call_atm_value / df_call.at[ATM_INDEX, '시가'] - 1) * 100)
@@ -37497,9 +37497,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 if DayTime:
-                    self.plot4_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
-                    self.plot4_center_val_line.setValue(CENTER_VAL)
-                    self.plot4_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
+                    self.plot4_center_val_lower_line.setValue(옵션_중심가 - GOLDEN_RATIO)
+                    self.plot4_center_val_line.setValue(옵션_중심가)
+                    self.plot4_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
 
                     # 중심가 그리기, 모든 값이 NaN인지 체크?
                     #nan_lst = np.isnan(df_call_information_graph['centerval'].values)
@@ -38961,20 +38961,20 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
                     self.label_52.setText(txt)
 
-                    if CENTER_VAL < 1.0:
-                        txt = ' 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                    if 옵션_중심가 < 1.0:
+                        txt = ' 하단: {0:.2f} '.format(옵션_중심가 - GOLDEN_RATIO)
                     else:
-                        txt = ' 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                        txt = ' 하단: {0:.2f} '.format(옵션_중심가 - GOLDEN_RATIO)
 
                     self.label_53.setText(txt)
 
-                    txt = ' 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
+                    txt = ' 상단: {0:.2f} '.format(옵션_중심가 + GOLDEN_RATIO)
                     self.label_54.setText(txt)
 
                     txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[ATM_INDEX, '대비'], (put_atm_value / df_put.at[ATM_INDEX, '시가'] - 1) * 100)
                     self.label_56.setText(txt)
 
-                    txt = ' 중심가: {0:.2f} '.format(CENTER_VAL)
+                    txt = ' 중심가: {0:.2f} '.format(옵션_중심가)
                     self.label_57.setText(txt)
 
                     txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[ATM_INDEX, '대비'], (call_atm_value / df_call.at[ATM_INDEX, '시가'] - 1) * 100)
@@ -39013,9 +39013,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass                
                 
                 if DayTime:        
-                    self.plot5_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
-                    self.plot5_center_val_line.setValue(CENTER_VAL)
-                    self.plot5_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
+                    self.plot5_center_val_lower_line.setValue(옵션_중심가 - GOLDEN_RATIO)
+                    self.plot5_center_val_line.setValue(옵션_중심가)
+                    self.plot5_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
                     # 중심가 그리기
                     self.plot5_center_val_curve.setData(df_call_information_graph['centerval'].to_numpy())
                 else:
@@ -40491,20 +40491,20 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
                     self.label_62.setText(txt)
 
-                    if CENTER_VAL < 1.0:
-                        txt = ' 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                    if 옵션_중심가 < 1.0:
+                        txt = ' 하단: {0:.2f} '.format(옵션_중심가 - GOLDEN_RATIO)
                     else:
-                        txt = ' 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                        txt = ' 하단: {0:.2f} '.format(옵션_중심가 - GOLDEN_RATIO)
 
                     self.label_63.setText(txt)
 
-                    txt = ' 상단: {0:.2f} '.format(CENTER_VAL + GOLDEN_RATIO)
+                    txt = ' 상단: {0:.2f} '.format(옵션_중심가 + GOLDEN_RATIO)
                     self.label_64.setText(txt)
 
                     txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[ATM_INDEX, '대비'], (put_atm_value / df_put.at[ATM_INDEX, '시가'] - 1) * 100)
                     self.label_66.setText(txt)
 
-                    txt = ' 중심가: {0:.2f} '.format(CENTER_VAL)
+                    txt = ' 중심가: {0:.2f} '.format(옵션_중심가)
                     self.label_67.setText(txt)
 
                     txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[ATM_INDEX, '대비'], (call_atm_value / df_call.at[ATM_INDEX, '시가'] - 1) * 100)
@@ -40543,9 +40543,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass                
                 
                 if DayTime:     
-                    self.plot6_center_val_lower_line.setValue(CENTER_VAL - GOLDEN_RATIO)
-                    self.plot6_center_val_line.setValue(CENTER_VAL)
-                    self.plot6_center_val_upper_line.setValue(CENTER_VAL + GOLDEN_RATIO)
+                    self.plot6_center_val_lower_line.setValue(옵션_중심가 - GOLDEN_RATIO)
+                    self.plot6_center_val_line.setValue(옵션_중심가)
+                    self.plot6_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
                     # 중심가 그리기
                     self.plot6_center_val_curve.setData(df_call_information_graph['centerval'].to_numpy())
                 else:
@@ -44353,13 +44353,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     if call_atm_value > put_atm_value:
 
-                        CENTER_VAL = round((put_atm_value + atm_zero_cha / 2), 2)
+                        옵션_중심가 = round((put_atm_value + atm_zero_cha / 2), 2)
 
                     elif put_atm_value > call_atm_value:
 
-                        CENTER_VAL = round((call_atm_value + atm_zero_cha / 2), 2)
+                        옵션_중심가 = round((call_atm_value + atm_zero_cha / 2), 2)
                     else:
-                        CENTER_VAL = call_atm_value
+                        옵션_중심가 = call_atm_value
 
                     # KP200의 주요정보를 저장
                     with open('daytime.txt', mode='w') as daytime_file:
@@ -44376,7 +44376,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         file_txt = '################# < KP200 Index of the Last Day > ###################\n'                        
                         daytime_file.write(file_txt)
-                        file_txt = 'Center Value = {0}\n'.format(CENTER_VAL)
+                        file_txt = 'Center Value = {0}\n'.format(옵션_중심가)
                         daytime_file.write(file_txt)
                         file_txt = 'KP200 Last Close = {0}\n'.format(KP200_전일종가)
                         daytime_file.write(file_txt)
