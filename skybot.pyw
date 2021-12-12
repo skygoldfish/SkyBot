@@ -5080,114 +5080,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global 콜매수, 콜매도, 풋매수, 풋매도, 손절, 익절
             global plot_drate_scale_factor
             
-            fut_txt = cell.text()
+            fut_txt = cell.text()            
             
-            '''
-            if row == 2 and col == Futures_column.OLOH.value:
-
-                if self.telegram_flag:
-
-                    콜매수 = self.tableWidget_fut.item(2, Futures_column.매수건수.value).text()
-                    콜매도 = self.tableWidget_fut.item(2, Futures_column.매도건수.value).text()
-                    풋매수 = self.tableWidget_fut.item(2, Futures_column.매수잔량.value).text()
-                    풋매도 = self.tableWidget_fut.item(2, Futures_column.매도잔량.value).text()
-                    손절 = self.tableWidget_fut.item(2, Futures_column.건수비.value).text()
-                    익절 = self.tableWidget_fut.item(2, Futures_column.잔량비.value).text()
-
-                    if 콜매수 != '콜매수':
-
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 콜매수 {3} 진입...\r'.format(t0167_hour, t0167_minute, t0167_second, 콜매수)
-                        self.textBrowser.append(txt)
-                    else:
-                        pass
-
-                    if 콜매도 != '콜매도':
-
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 콜매도 {3} 진입...\r'.format(t0167_hour, t0167_minute, t0167_second, 콜매도)
-                        self.textBrowser.append(txt)
-                    else:
-                        pass
-
-                    if 풋매수 != '풋매수':
-
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 풋매수 {3} 진입...\r'.format(t0167_hour, t0167_minute, t0167_second, 풋매수)
-                        self.textBrowser.append(txt)
-                    else:
-                        pass
-
-                    if 풋매도 != '풋매도':
-
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 풋매도 {3} 진입...\r'.format(t0167_hour, t0167_minute, t0167_second, 풋매도)
-                        self.textBrowser.append(txt)
-                    else:
-                        pass
-
-                    if 손절 != '손절':
-
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 손절 {3}틱 설정됨\r'.format(t0167_hour, t0167_minute, t0167_second, 손절)
-                        self.textBrowser.append(txt)
-                    else:
-                        pass
-
-                    if 익절 != '익절':
-
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] 익절 {3}틱 설정됨\r'.format(t0167_hour, t0167_minute, t0167_second, 익절)
-                        self.textBrowser.append(txt)
-                    else:
-                        pass
-
-                    item = QTableWidgetItem("{0}".format('R'))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 전송이 예약되었습니다.\r'.format(t0167_hour, t0167_minute, t0167_second)
-                    self.textBrowser.append(txt)
-                else:
-                    item = QTableWidgetItem("{0}".format('T'))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(검정색))
-                    item.setForeground(QBrush(흰색))
-                    self.tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
-
-                    item = QTableWidgetItem("{0}".format('콜매수'))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(검정색))
-                    item.setForeground(QBrush(흰색))
-                    self.tableWidget_fut.setItem(2, Futures_column.매수건수.value, item)
-
-                    item = QTableWidgetItem("{0}".format('콜매도'))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(검정색))
-                    item.setForeground(QBrush(흰색))
-                    self.tableWidget_fut.setItem(2, Futures_column.매도건수.value, item)
-
-                    item = QTableWidgetItem("{0}".format('풋매수'))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(검정색))
-                    item.setForeground(QBrush(흰색))
-                    self.tableWidget_fut.setItem(2, Futures_column.매수잔량.value, item)
-
-                    item = QTableWidgetItem("{0}".format('풋매도'))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(검정색))
-                    item.setForeground(QBrush(흰색))
-                    self.tableWidget_fut.setItem(2, Futures_column.매도잔량.value, item)
-
-                    item = QTableWidgetItem("{0}".format('손절'))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(검정색))
-                    item.setForeground(QBrush(흰색))
-                    self.tableWidget_fut.setItem(2, Futures_column.건수비.value, item)
-
-                    item = QTableWidgetItem("{0}".format('익절'))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(검정색))
-                    item.setForeground(QBrush(흰색))
-                    self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 전송예약이 취소되었습니다.\r'.format(t0167_hour, t0167_minute, t0167_second)
-                    self.textBrowser.append(txt)
-            '''
             if row == 2 and col == Futures_column.OLOH.value:
                 
                 if float(fut_txt) != plot_drate_scale_factor:
@@ -41775,50 +41669,23 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.comboBox5.setCurrentIndex(0)
         self.comboBox6.setCurrentIndex(0)
 
-        self.timer1.stop()
-        self.timer2.stop()
-        self.timer3.stop()
-        self.timer4.stop()
-        self.timer5.stop()
-        self.timer6.stop()
-        
-        '''
-        if self.plot_update_worker1.isRunning():
-            self.plot_update_worker1.terminate()
-            print('plot1 thread is terminated...')
-        else:
-            pass
+        if self.timer1.isActive():
+            self.timer1.stop()
 
-        if self.plot_update_worker2.isRunning():
-            self.plot_update_worker2.terminate()
-            print('plot2 thread is terminated...')
-        else:
-            pass
+        if self.timer2.isActive():
+            self.timer2.stop()
 
-        if self.plot_update_worker3.isRunning():
-            self.plot_update_worker3.terminate()
-            print('plot3 thread is terminated...')
-        else:
-            pass
+        if self.timer3.isActive():
+            self.timer3.stop()
 
-        if self.plot_update_worker4.isRunning():
-            self.plot_update_worker4.terminate()
-            print('plot4 thread is terminated...')
-        else:
-            pass
+        if self.timer4.isActive():
+            self.timer4.stop()
 
-        if self.plot_update_worker5.isRunning():
-            self.plot_update_worker5.terminate()
-            print('plot5 thread is terminated...')
-        else:
-            pass
+        if self.timer5.isActive():
+            self.timer5.stop()
 
-        if self.plot_update_worker6.isRunning():
-            self.plot_update_worker6.terminate()
-            print('plot6 thread is terminated...')
-        else:
-            pass
-        '''
+        if self.timer6.isActive():
+            self.timer6.stop()        
 
         txt = '[{0:02d}:{1:02d}:{2:02d}] Sky Chart를 Close합니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.parent.textBrowser.append(txt)
@@ -42117,22 +41984,22 @@ class Xing(object):
                         if flag_call_low_in_fixed_coreval or flag_call_high_in_fixed_coreval or flag_put_low_in_fixed_coreval or flag_put_high_in_fixed_coreval or flag_kp200_low_node or flag_kp200_high_node:
 
                             if flag_call_low_in_fixed_coreval:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 콜저가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♦ 콜저가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
                                 self.caller.textBrowser.append(send_txt)
                                 self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
                             if flag_call_high_in_fixed_coreval:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 콜고가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♦ 콜고가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
                                 self.caller.textBrowser.append(send_txt)
                                 self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
                             if flag_put_low_in_fixed_coreval:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 풋저가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♠ 풋저가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
                                 self.caller.textBrowser.append(send_txt)
                                 self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
                             if flag_put_high_in_fixed_coreval:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 풋고가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♠ 풋고가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
                                 self.caller.textBrowser.append(send_txt)
                                 self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
@@ -49415,50 +49282,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if self.dialog['SkyChart'].flag_big_chart_open:
 
-                    self.dialog['SkyChart'].timer1.stop()
-                    self.dialog['SkyChart'].timer2.stop()
-                    self.dialog['SkyChart'].timer3.stop()
-                    self.dialog['SkyChart'].timer4.stop()
-                    self.dialog['SkyChart'].timer5.stop()
-                    self.dialog['SkyChart'].timer6.stop()
+                    if self.dialog['SkyChart'].timer1.isActive():
+                        self.dialog['SkyChart'].timer1.stop()
 
-                    '''
-                    if self.dialog['SkyChart'].plot_update_worker1.isRunning():
-                        self.dialog['SkyChart'].plot_update_worker1.terminate()
-                        print('plot1 thread is terminated...')
-                    else:
-                        pass
+                    if self.dialog['SkyChart'].timer2.isActive():
+                        self.dialog['SkyChart'].timer2.stop()
 
-                    if self.dialog['SkyChart'].plot_update_worker2.isRunning():
-                        self.dialog['SkyChart'].plot_update_worker2.terminate()
-                        print('plot2 thread is terminated...')
-                    else:
-                        pass
+                    if self.dialog['SkyChart'].timer3.isActive():
+                        self.dialog['SkyChart'].timer3.stop()
 
-                    if self.dialog['SkyChart'].plot_update_worker3.isRunning():
-                        self.dialog['SkyChart'].plot_update_worker3.terminate()
-                        print('plot3 thread is terminated...')
-                    else:
-                        pass
+                    if self.dialog['SkyChart'].timer4.isActive():
+                        self.dialog['SkyChart'].timer4.stop()
 
-                    if self.dialog['SkyChart'].plot_update_worker4.isRunning():
-                        self.dialog['SkyChart'].plot_update_worker4.terminate()
-                        print('plot4 thread is terminated...')
-                    else:
-                        pass
+                    if self.dialog['SkyChart'].timer5.isActive():
+                        self.dialog['SkyChart'].timer5.stop()
 
-                    if self.dialog['SkyChart'].plot_update_worker5.isRunning():
-                        self.dialog['SkyChart'].plot_update_worker5.terminate()
-                        print('plot5 thread is terminated...')
-                    else:
-                        pass
-
-                    if self.dialog['SkyChart'].plot_update_worker6.isRunning():
-                        self.dialog['SkyChart'].plot_update_worker6.terminate()
-                        print('plot6 thread is terminated...')
-                    else:
-                        pass
-                    '''
+                    if self.dialog['SkyChart'].timer6.isActive():
+                        self.dialog['SkyChart'].timer6.stop()
 
                     self.dialog['SkyChart'].close()
                 else:
