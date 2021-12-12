@@ -15666,7 +15666,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_futures_cm_graph.at[0, 'drate'] = 0
                     df_sp500_graph.at[0, 'drate'] = 0
                     df_dow_graph.at[0, 'drate'] = 0
-                    df_nasdaw_graph.at[0, 'drate'] = 0
+                    df_nasdaq_graph.at[0, 'drate'] = 0
                     df_hangseng_graph.at[0, 'drate'] = 0
                     df_wti_graph.at[0, 'drate'] = 0
                     df_gold_graph.at[0, 'drate'] = 0
