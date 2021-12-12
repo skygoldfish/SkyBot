@@ -2011,8 +2011,6 @@ flag_option_tick_update_is_running = False
 flag_option_quote_update_is_running = False
 flag_ovc_update_is_running = False
 
-flag_cme_update = False
-
 flag_screen_update_is_running = False
 flag_plot_update_is_running = False
 
@@ -5978,22 +5976,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 self.display_atm(self.alternate_flag)
                 
-                #if flag_market_service:
-                if True:
-                    self.option_quote_periodic_update()
-                    '''
-                    if DayTime and fut_cm_result:                    
-                        self.fut_cm_etc_update(fut_cm_result)
-                    else:
-                        pass
-
-                    if DayTime and fut_nm_result:
-                        self.fut_nm_etc_update(fut_nm_result)
-                    else:
-                        pass
-                    '''
-                else:
-                    pass
+                self.option_quote_periodic_update()
                 
                 if flag_market_service and flag_option_start:
                     
@@ -6230,11 +6213,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if not dongsi_quote and abs(call_otm_cdb_percent_mean) > 0 and abs(put_otm_cdb_percent_mean) > 0:
                         self.asym_detect(self.alternate_flag)
                     else:
-                        pass
-                                                                  
+                        pass                                                                  
                 else:
-                    pass
-                          
+                    pass                          
             else:
                 pass
             
@@ -42541,16 +42522,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         cme_header_stylesheet = '::section{Background-color: black; color: lightgreen; font-family: Consolas; font-size: 9pt; font: Normal; border-style: solid; border-width: 1px; border-color: gray}'
 
-        self.tableWidget_cme.setRowCount(8)
-        self.tableWidget_cme.setColumnCount(11)
+        cme_table_row_count = 8
+        cme_table_column_count = 11
+
+        self.tableWidget_cme.setRowCount(cme_table_row_count)
+        self.tableWidget_cme.setColumnCount(cme_table_column_count)
         self.tableWidget_cme.horizontalHeader().setStyleSheet(cme_header_stylesheet)
 
         self.tableWidget_cme.setHorizontalHeaderLabels(['', '전저', '전고', '종가', '피봇', '시가', '저가', '현재가', '고가', '대비', '진폭'])
         self.tableWidget_cme.verticalHeader().setVisible(False)
         self.tableWidget_cme.setAlternatingRowColors(True)
         
-        for i in range(8):
-            for j in range(11):
+        for i in range(cme_table_row_count):
+            for j in range(cme_table_column_count):
                 item = QTableWidgetItem("{0}".format('0'))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(검정색))
@@ -43486,11 +43470,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         global drop_txt, drop_percent, time_gap, main_totalsize, option_tick_total_size, ovc_tick_total_size
         global total_packet_size
-        global flag_cme_update
         
-        dt = datetime.now()
-
-        flag_cme_update = True        
+        dt = datetime.now()        
 
         # 수신된 실시간데이타 정보표시(누락된 패킷수, 큐의 크기, 수신된 총 패킷수, 수신된 총 패킷크기)            
         szTrCode = tickdata['tr_code']
@@ -43664,17 +43645,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif szTrCode == 'YOC':
 
                 pass
-                '''
-                if len(tickdata['수신시간']) == 5:
-                    realtime_hour = int(tickdata['수신시간'][0:1])
-                else:
-                    realtime_hour = int(tickdata['수신시간'][0:2])
-
-                if realtime_hour < 15:
-                    self.yoc_update(tickdata)
-                else:
-                    pass
-                '''
             
             elif szTrCode == 'S3_':
 
@@ -43901,14 +43871,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif szTrCode == 'OVC':
                 self.ovc_update(data)
             else:
-                pass
-            '''
-            elif szTrCode == 'OC0' or szTrCode == 'EC0':
-                self.option_tick_update(data)
-            elif szTrCode == 'OH0' or szTrCode == 'EH0':
-                self.option_quote_update(data)
-            '''
-            
+                pass            
         else:
             pass
 
@@ -44442,12 +44405,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         try:
             #szTrCode = tickdata['tr_code']
             dt = datetime.now()
-
-            if not flag_market_service:
-                pass
-                #flag_market_service = True
-            else:
-                pass
 
             if tickdata['단축코드'] == GMSHCODE:            
 
@@ -47578,9 +47535,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setForeground(QBrush(검정색))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(2, 9, item)
-
-                    self.tableWidget_cme.resizeColumnsToContents()
+                    
                     self.tableWidget_cme.resizeRowToContents(2)
+                    self.tableWidget_cme.resizeColumnsToContents()
                 else:
                     pass
             
