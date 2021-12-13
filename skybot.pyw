@@ -540,6 +540,11 @@ flag_call_high_in_fixed_coreval = False
 flag_put_low_in_fixed_coreval = False
 flag_put_high_in_fixed_coreval = False
 
+call_low_val_in_fixed_coreval = 0
+call_high_val_in_fixed_coreval = 0
+put_low_val_in_fixed_coreval = 0
+put_high_val_in_fixed_coreval = 0
+
 if os.path.exists('HL-List.txt'):
 
     # 저가, 고가 리스트에서 맥점 추출
@@ -7954,7 +7959,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global call_low_node_count, call_low_node_list, call_low_node_txt
         global telegram_send_txt_call_low
-        global flag_call_low_in_fixed_coreval
+        global flag_call_low_in_fixed_coreval, call_low_val_in_fixed_coreval
 
         dt = datetime.now()
 
@@ -8000,6 +8005,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if 저가 in FIXED_COREVAL:
 
                 flag_call_low_in_fixed_coreval = True
+                call_low_val_in_fixed_coreval = 저가
 
                 if blink:
                     self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(노란색))
@@ -8109,7 +8115,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global call_high_node_count, call_high_node_list, call_high_node_txt
         global telegram_send_txt_call_high
-        global flag_call_high_in_fixed_coreval
+        global flag_call_high_in_fixed_coreval, call_high_val_in_fixed_coreval
 
         dt = datetime.now()
 
@@ -8155,6 +8161,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if 고가 in FIXED_COREVAL:
 
                 flag_call_high_in_fixed_coreval = True
+                call_high_val_in_fixed_coreval = 고가
                     
                 if blink:
                     self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(노란색))
@@ -10525,7 +10532,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global put_low_node_count, put_low_node_list, put_low_node_txt
         global telegram_send_txt_put_low
-        global flag_put_low_in_fixed_coreval
+        global flag_put_low_in_fixed_coreval, put_low_val_in_fixed_coreval
 
         dt = datetime.now()
 
@@ -10571,6 +10578,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if 저가 in FIXED_COREVAL:
 
                 flag_put_low_in_fixed_coreval = True
+                put_low_val_in_fixed_coreval = 저가
 
                 if blink:
                     self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(노란색))
@@ -10680,7 +10688,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global put_high_node_count, put_high_node_list, put_high_node_txt
         global telegram_send_txt_put_high
-        global flag_put_high_in_fixed_coreval
+        global flag_put_high_in_fixed_coreval, put_high_val_in_fixed_coreval
 
         dt = datetime.now()
 
@@ -10726,6 +10734,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if 고가 in FIXED_COREVAL:
 
                 flag_put_high_in_fixed_coreval = True
+                put_high_val_in_fixed_coreval = 고가
 
                 if blink:
                     self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(노란색))
@@ -33995,7 +34004,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:                
                 if flag_call_low_in_fixed_coreval:
                     self.label_time_1.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold')
-                    txt = ' [{0:d}], ♦ CL {1:.2f} ms '.format(cme_time_index, plot1_processing_time)
+                    txt = ' [{0:d}], ♦ CL({1}) {2:.2f} ms '.format(cme_time_index, call_low_val_in_fixed_coreval, plot1_processing_time)
                 else:
                     self.label_time_1.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     txt = ' [{0:d}], {1:.2f} ms '.format(cme_time_index, plot1_processing_time)    
@@ -35522,7 +35531,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 if flag_put_low_in_fixed_coreval:
                     self.label_time_2.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold')
-                    txt = ' ♠ PL {0:.2f} ms '.format(plot2_processing_time)
+                    txt = ' ♠ PL({0}) {1:.2f} ms '.format(put_low_val_in_fixed_coreval, plot2_processing_time)
                 else:
                     self.label_time_2.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     txt = ' {0:.2f} ms '.format(plot2_processing_time)           
@@ -38548,7 +38557,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 if flag_call_high_in_fixed_coreval:
                     self.label_time_4.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold')
-                    txt = ' ♦ CH {0:.2f} ms '.format(plot4_processing_time)
+                    txt = ' ♦ CH({0}) {1:.2f} ms '.format(call_high_val_in_fixed_coreval, plot4_processing_time)
                 else:
                     self.label_time_4.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     txt = ' {0:.2f} ms '.format(plot4_processing_time)
@@ -40068,7 +40077,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 if flag_put_high_in_fixed_coreval:
                     self.label_time_5.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold')
-                    txt = ' ♠ PH {0:.2f} ms '.format(plot5_processing_time)
+                    txt = ' ♠ PH({0}) {1:.2f} ms '.format(put_high_val_in_fixed_coreval, plot5_processing_time)
                 else:
                     self.label_time_5.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     txt = ' {0:.2f} ms '.format(plot5_processing_time)
