@@ -22835,6 +22835,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot1_oe_conv_curve = self.plot1.plot(pen=mama_pen)
         self.plot1_oe_base_curve = self.plot1.plot(pen=fama_pen)
+
+        # 수급종합
+        self.plot1_program_curve = self.plot1.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_kospi_total_curve = self.plot1.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+
+        # 외인수급
+        self.plot1_futures_foreigner_curve = self.plot1.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_kospi_foreigner_curve = self.plot1.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
         
         #cross hair
         if CROSS_HAIR_LINE:
@@ -22930,6 +22938,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_oe_conv_curve = self.plot2.plot(pen=mama_pen)
         self.plot2_oe_base_curve = self.plot2.plot(pen=fama_pen)
 
+        # 수급종합
+        self.plot2_program_curve = self.plot2.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_kospi_total_curve = self.plot2.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+
+        # 외인수급
+        self.plot2_futures_foreigner_curve = self.plot2.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_kospi_foreigner_curve = self.plot2.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+
         #cross hair
         if CROSS_HAIR_LINE:
             self.plot2_vLine = pg.InfiniteLine(angle=90, movable=False)
@@ -23024,6 +23040,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_oe_conv_curve = self.plot3.plot(pen=mama_pen)
         self.plot3_oe_base_curve = self.plot3.plot(pen=fama_pen)
 
+        # 수급종합
+        self.plot3_program_curve = self.plot3.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_kospi_total_curve = self.plot3.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+
+        # 외인수급
+        self.plot3_futures_foreigner_curve = self.plot3.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_kospi_foreigner_curve = self.plot3.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+
         #cross hair
         if CROSS_HAIR_LINE:
             self.plot3_vLine = pg.InfiniteLine(angle=90, movable=False)
@@ -23117,6 +23141,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot4_oe_conv_curve = self.plot4.plot(pen=mama_pen)
         self.plot4_oe_base_curve = self.plot4.plot(pen=fama_pen)
+
+        # 수급종합
+        self.plot4_program_curve = self.plot4.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_kospi_total_curve = self.plot4.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+
+        # 외인수급
+        self.plot4_futures_foreigner_curve = self.plot4.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_kospi_foreigner_curve = self.plot4.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
         
         #cross hair
         if CROSS_HAIR_LINE:
@@ -23212,6 +23244,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_oe_conv_curve = self.plot5.plot(pen=mama_pen)
         self.plot5_oe_base_curve = self.plot5.plot(pen=fama_pen)
 
+        # 수급종합
+        self.plot5_program_curve = self.plot5.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_kospi_total_curve = self.plot5.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+
+        # 외인수급
+        self.plot5_futures_foreigner_curve = self.plot5.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_kospi_foreigner_curve = self.plot5.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+
         #cross hair
         if CROSS_HAIR_LINE:
             self.plot5_vLine = pg.InfiniteLine(angle=90, movable=False)
@@ -23306,6 +23346,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_oe_conv_curve = self.plot6.plot(pen=mama_pen)
         self.plot6_oe_base_curve = self.plot6.plot(pen=fama_pen)
 
+        # 수급종합
+        self.plot6_program_curve = self.plot6.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_kospi_total_curve = self.plot6.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+
+        # 외인수급
+        self.plot6_futures_foreigner_curve = self.plot6.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_kospi_foreigner_curve = self.plot6.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3) 
+
         #cross hair
         if CROSS_HAIR_LINE:
             self.plot6_vLine = pg.InfiniteLine(angle=90, movable=False)
@@ -23316,45 +23364,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             #self.plot6.scene().sigMouseMoved.connect(self.plot6_mouseMoved)
             self.plot6.scene().sigMouseClicked.connect(self.plot6_mouseClicked)
         else:
-            pass
-
-        # 수급종합
-        self.plot1_program_curve = self.plot1.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_kospi_total_curve = self.plot1.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
-
-        self.plot2_program_curve = self.plot2.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_kospi_total_curve = self.plot2.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
-
-        self.plot3_program_curve = self.plot3.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_kospi_total_curve = self.plot3.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
-
-        self.plot4_program_curve = self.plot4.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_kospi_total_curve = self.plot4.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
-
-        self.plot5_program_curve = self.plot5.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_kospi_total_curve = self.plot5.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
-
-        self.plot6_program_curve = self.plot6.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_kospi_total_curve = self.plot6.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
-
-        # 외인수급
-        self.plot1_futures_foreigner_curve = self.plot1.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_kospi_foreigner_curve = self.plot1.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
-
-        self.plot2_futures_foreigner_curve = self.plot2.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_kospi_foreigner_curve = self.plot2.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
-
-        self.plot3_futures_foreigner_curve = self.plot3.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_kospi_foreigner_curve = self.plot3.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
-
-        self.plot4_futures_foreigner_curve = self.plot4.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_kospi_foreigner_curve = self.plot4.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
-
-        self.plot5_futures_foreigner_curve = self.plot5.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_kospi_foreigner_curve = self.plot5.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
-
-        self.plot6_futures_foreigner_curve = self.plot6.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_kospi_foreigner_curve = self.plot6.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3) 
+            pass        
 
         # 선물관련 그래프 초기화(시간을 줄이기위해 for문 일괄처리)
         self.plot1_kp200_line = []
@@ -34007,7 +34017,20 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_time_1.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                txt = ' [{0:d}], {1:.2f} ms '.format(cme_time_index, plot1_processing_time)            
+                txt = ' [{0:d}], {1:.2f} ms '.format(cme_time_index, plot1_processing_time)
+
+                if flag_call_low_in_fixed_coreval:
+                    txt = ' [{0:d}], ♦ CL {1:.2f} ms '.format(cme_time_index, plot1_processing_time)
+                if flag_call_high_in_fixed_coreval:
+                    txt = ' [{0:d}], ♦ CH {1:.2f} ms '.format(cme_time_index, plot1_processing_time)
+                if flag_put_low_in_fixed_coreval:
+                    txt = ' [{0:d}], ♠ PL {1:.2f} ms '.format(cme_time_index, plot1_processing_time)
+                if flag_put_high_in_fixed_coreval:
+                    txt = ' [{0:d}], ♠ PH {1:.2f} ms '.format(cme_time_index, plot1_processing_time)
+                if flag_kp200_low_node:
+                    txt = ' [{0:d}], ★ KL {1:.2f} ms '.format(cme_time_index, plot1_processing_time)
+                if flag_kp200_high_node:
+                    txt = ' [{0:d}], ★ KH {1:.2f} ms '.format(cme_time_index, plot1_processing_time)        
    
             self.label_time_1.setText(txt)
 
@@ -35544,7 +35567,20 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_time_2.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                txt = ' {0:.2f} ms '.format(plot2_processing_time)                
+                txt = ' {0:.2f} ms '.format(plot2_processing_time)
+
+                if flag_call_low_in_fixed_coreval:
+                    txt = ' ♦ CL {0:.2f} ms '.format(plot2_processing_time)
+                if flag_call_high_in_fixed_coreval:
+                    txt = ' ♦ CH {0:.2f} ms '.format(plot2_processing_time)
+                if flag_put_low_in_fixed_coreval:
+                    txt = ' ♠ PL {0:.2f} ms '.format(plot2_processing_time)
+                if flag_put_high_in_fixed_coreval:
+                    txt = ' ♠ PH {0:.2f} ms '.format(plot2_processing_time)
+                if flag_kp200_low_node:
+                    txt = ' ★ KL {0:.2f} ms '.format(plot2_processing_time)
+                if flag_kp200_high_node:
+                    txt = ' ★ KH {0:.2f} ms '.format(plot2_processing_time)                
    
             self.label_time_2.setText(txt)
 
@@ -37076,6 +37112,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_time_3.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
 
                 txt = ' {0:.2f} ms '.format(plot3_processing_time)
+
+                if flag_call_low_in_fixed_coreval:
+                    txt = ' ♦ CL {0:.2f} ms '.format(plot3_processing_time)
+                if flag_call_high_in_fixed_coreval:
+                    txt = ' ♦ CH {0:.2f} ms '.format(plot3_processing_time)
+                if flag_put_low_in_fixed_coreval:
+                    txt = ' ♠ PL {0:.2f} ms '.format(plot3_processing_time)
+                if flag_put_high_in_fixed_coreval:
+                    txt = ' ♠ PH {0:.2f} ms '.format(plot3_processing_time)
+                if flag_kp200_low_node:
+                    txt = ' ★ KL {0:.2f} ms '.format(plot3_processing_time)
+                if flag_kp200_high_node:
+                    txt = ' ★ KH {0:.2f} ms '.format(plot3_processing_time)
    
             self.label_time_3.setText(txt)
 
@@ -38591,6 +38640,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_time_4.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
 
                 txt = ' {0:.2f} ms '.format(plot4_processing_time)
+
+                if flag_call_low_in_fixed_coreval:
+                    txt = ' ♦ CL {0:.2f} ms '.format(plot4_processing_time)
+                if flag_call_high_in_fixed_coreval:
+                    txt = ' ♦ CH {0:.2f} ms '.format(plot4_processing_time)
+                if flag_put_low_in_fixed_coreval:
+                    txt = ' ♠ PL {0:.2f} ms '.format(plot4_processing_time)
+                if flag_put_high_in_fixed_coreval:
+                    txt = ' ♠ PH {0:.2f} ms '.format(plot4_processing_time)
+                if flag_kp200_low_node:
+                    txt = ' ★ KL {0:.2f} ms '.format(plot4_processing_time)
+                if flag_kp200_high_node:
+                    txt = ' ★ KH {0:.2f} ms '.format(plot4_processing_time)
    
             self.label_time_4.setText(txt)
 
@@ -40121,6 +40183,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_time_5.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
 
                 txt = ' {0:.2f} ms '.format(plot5_processing_time)
+
+                if flag_call_low_in_fixed_coreval:
+                    txt = ' ♦ CL {0:.2f} ms '.format(plot5_processing_time)
+                if flag_call_high_in_fixed_coreval:
+                    txt = ' ♦ CH {0:.2f} ms '.format(plot5_processing_time)
+                if flag_put_low_in_fixed_coreval:
+                    txt = ' ♠ PL {0:.2f} ms '.format(plot5_processing_time)
+                if flag_put_high_in_fixed_coreval:
+                    txt = ' ♠ PH {0:.2f} ms '.format(plot5_processing_time)
+                if flag_kp200_low_node:
+                    txt = ' ★ KL {0:.2f} ms '.format(plot5_processing_time)
+                if flag_kp200_high_node:
+                    txt = ' ★ KH {0:.2f} ms '.format(plot5_processing_time)
    
             self.label_time_5.setText(txt)
 
@@ -41651,6 +41726,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_time_6.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
 
                 txt = ' {0:.2f} ms '.format(plot6_processing_time)
+
+                if flag_call_low_in_fixed_coreval:
+                    txt = ' ♦ CL {0:.2f} ms '.format(plot6_processing_time)
+                if flag_call_high_in_fixed_coreval:
+                    txt = ' ♦ CH {0:.2f} ms '.format(plot6_processing_time)
+                if flag_put_low_in_fixed_coreval:
+                    txt = ' ♠ PL {0:.2f} ms '.format(plot6_processing_time)
+                if flag_put_high_in_fixed_coreval:
+                    txt = ' ♠ PH {0:.2f} ms '.format(plot6_processing_time)
+                if flag_kp200_low_node:
+                    txt = ' ★ KL {0:.2f} ms '.format(plot6_processing_time)
+                if flag_kp200_high_node:
+                    txt = ' ★ KH {0:.2f} ms '.format(plot6_processing_time)
    
             self.label_time_6.setText(txt)
 
