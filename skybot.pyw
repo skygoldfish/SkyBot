@@ -22353,8 +22353,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.flag_big_chart_open = True
 
         self.bc_ui_update_time = 0
-        self.plot_x_idx = 0
-        self.plot_count = 0
 
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
         atexit.register(self.__del__) 
@@ -33994,16 +33992,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             # 해외선물 한국시간 표시
             if CME_체결시간 == '000000':
                 txt = ' [{0:02d}:{1:02d}:{2:02d}] {3:.2f} ms '.format(dt.hour, dt.minute, dt.second, plot1_processing_time)
-            else:
-                if t0167_second == self.plot_x_idx:
-                    self.plot_count += 1
-                else:
-                    self.plot_count = 0
-
-                self.plot_x_idx = t0167_second
-
+            else:                
                 if flag_call_low_in_fixed_coreval:
-                    self.label_time_1.setStyleSheet('background-color: lawngreen; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_time_1.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold')
                     txt = ' [{0:d}], ♦ CL {1:.2f} ms '.format(cme_time_index, plot1_processing_time)
                 else:
                     self.label_time_1.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35530,7 +35521,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' [{0:02d}:{1:02d}:{2:02d}] {3:.2f} ms '.format(dt.hour, dt.minute, dt.second, plot2_processing_time)
             else:
                 if flag_put_low_in_fixed_coreval:
-                    self.label_time_2.setStyleSheet('background-color: lawngreen; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_time_2.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold')
                     txt = ' ♠ PL {0:.2f} ms '.format(plot2_processing_time)
                 else:
                     self.label_time_2.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37051,7 +37042,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' [{0:02d}:{1:02d}:{2:02d}] {3:.2f} ms '.format(dt.hour, dt.minute, dt.second, plot3_processing_time)
             else:
                 if flag_kp200_low_node:
-                    self.label_time_3.setStyleSheet('background-color: lawngreen; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_time_3.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold')
                     txt = ' ★ KL {0:.2f} ms '.format(plot3_processing_time)
                 else:
                     self.label_time_3.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38556,7 +38547,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' [{0:02d}:{1:02d}:{2:02d}] {3:.2f} ms '.format(dt.hour, dt.minute, dt.second, plot4_processing_time)
             else:
                 if flag_call_high_in_fixed_coreval:
-                    self.label_time_4.setStyleSheet('background-color: lawngreen; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_time_4.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold')
                     txt = ' ♦ CH {0:.2f} ms '.format(plot4_processing_time)
                 else:
                     self.label_time_4.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40076,7 +40067,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' [{0:02d}:{1:02d}:{2:02d}] {3:.2f} ms '.format(dt.hour, dt.minute, dt.second, plot5_processing_time)
             else:
                 if flag_put_high_in_fixed_coreval:
-                    self.label_time_5.setStyleSheet('background-color: lawngreen; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_time_5.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold')
                     txt = ' ♠ PH {0:.2f} ms '.format(plot5_processing_time)
                 else:
                     self.label_time_5.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41596,7 +41587,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' [{0:02d}:{1:02d}:{2:02d}] {3:.2f} ms '.format(dt.hour, dt.minute, dt.second, plot6_processing_time)
             else:
                 if flag_kp200_high_node:
-                    self.label_time_6.setStyleSheet('background-color: lawngreen; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_time_6.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold')
                     txt = ' ★ KH {0:.2f} ms '.format(plot6_processing_time)
                 else:
                     self.label_time_6.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
