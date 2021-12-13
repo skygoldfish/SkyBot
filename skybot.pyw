@@ -42466,7 +42466,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.textBrowser.append(txt)
 
                 if system_server_time_gap > 0:
-                    txt = 'PC와 NTP 써버간 시간차는 {0}초 입니다'.format(system_server_time_gap)
+                    txt = 'PC와 타임 써버간 시간차는 {0}초 입니다'.format(system_server_time_gap)
                     self.speaker.setText(txt)
                 else:
                     pass
