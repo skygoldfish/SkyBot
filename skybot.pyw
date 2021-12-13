@@ -34020,17 +34020,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' [{0:d}], {1:.2f} ms '.format(cme_time_index, plot1_processing_time)
 
                 if flag_call_low_in_fixed_coreval:
-                    txt = ' [{0:d}], ♦ CL {1:.2f} ms '.format(cme_time_index, plot1_processing_time)
-                if flag_call_high_in_fixed_coreval:
-                    txt = ' [{0:d}], ♦ CH {1:.2f} ms '.format(cme_time_index, plot1_processing_time)
-                if flag_put_low_in_fixed_coreval:
-                    txt = ' [{0:d}], ♠ PL {1:.2f} ms '.format(cme_time_index, plot1_processing_time)
-                if flag_put_high_in_fixed_coreval:
-                    txt = ' [{0:d}], ♠ PH {1:.2f} ms '.format(cme_time_index, plot1_processing_time)
-                if flag_kp200_low_node:
-                    txt = ' [{0:d}], ★ KL {1:.2f} ms '.format(cme_time_index, plot1_processing_time)
-                if flag_kp200_high_node:
-                    txt = ' [{0:d}], ★ KH {1:.2f} ms '.format(cme_time_index, plot1_processing_time)        
+                    txt = ' [{0:d}], ♦ CL {1:.2f} ms '.format(cme_time_index, plot1_processing_time)      
    
             self.label_time_1.setText(txt)
 
@@ -35569,18 +35559,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0:.2f} ms '.format(plot2_processing_time)
 
-                if flag_call_low_in_fixed_coreval:
-                    txt = ' ♦ CL {0:.2f} ms '.format(plot2_processing_time)
-                if flag_call_high_in_fixed_coreval:
-                    txt = ' ♦ CH {0:.2f} ms '.format(plot2_processing_time)
                 if flag_put_low_in_fixed_coreval:
-                    txt = ' ♠ PL {0:.2f} ms '.format(plot2_processing_time)
-                if flag_put_high_in_fixed_coreval:
-                    txt = ' ♠ PH {0:.2f} ms '.format(plot2_processing_time)
-                if flag_kp200_low_node:
-                    txt = ' ★ KL {0:.2f} ms '.format(plot2_processing_time)
-                if flag_kp200_high_node:
-                    txt = ' ★ KH {0:.2f} ms '.format(plot2_processing_time)                
+                    txt = ' ♠ PL {0:.2f} ms '.format(plot2_processing_time)             
    
             self.label_time_2.setText(txt)
 
@@ -37113,18 +37093,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0:.2f} ms '.format(plot3_processing_time)
 
-                if flag_call_low_in_fixed_coreval:
-                    txt = ' ♦ CL {0:.2f} ms '.format(plot3_processing_time)
-                if flag_call_high_in_fixed_coreval:
-                    txt = ' ♦ CH {0:.2f} ms '.format(plot3_processing_time)
-                if flag_put_low_in_fixed_coreval:
-                    txt = ' ♠ PL {0:.2f} ms '.format(plot3_processing_time)
-                if flag_put_high_in_fixed_coreval:
-                    txt = ' ♠ PH {0:.2f} ms '.format(plot3_processing_time)
                 if flag_kp200_low_node:
                     txt = ' ★ KL {0:.2f} ms '.format(plot3_processing_time)
-                if flag_kp200_high_node:
-                    txt = ' ★ KH {0:.2f} ms '.format(plot3_processing_time)
    
             self.label_time_3.setText(txt)
 
@@ -38641,18 +38611,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0:.2f} ms '.format(plot4_processing_time)
 
-                if flag_call_low_in_fixed_coreval:
-                    txt = ' ♦ CL {0:.2f} ms '.format(plot4_processing_time)
                 if flag_call_high_in_fixed_coreval:
                     txt = ' ♦ CH {0:.2f} ms '.format(plot4_processing_time)
-                if flag_put_low_in_fixed_coreval:
-                    txt = ' ♠ PL {0:.2f} ms '.format(plot4_processing_time)
-                if flag_put_high_in_fixed_coreval:
-                    txt = ' ♠ PH {0:.2f} ms '.format(plot4_processing_time)
-                if flag_kp200_low_node:
-                    txt = ' ★ KL {0:.2f} ms '.format(plot4_processing_time)
-                if flag_kp200_high_node:
-                    txt = ' ★ KH {0:.2f} ms '.format(plot4_processing_time)
    
             self.label_time_4.setText(txt)
 
@@ -40184,19 +40144,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0:.2f} ms '.format(plot5_processing_time)
 
-                if flag_call_low_in_fixed_coreval:
-                    txt = ' ♦ CL {0:.2f} ms '.format(plot5_processing_time)
-                if flag_call_high_in_fixed_coreval:
-                    txt = ' ♦ CH {0:.2f} ms '.format(plot5_processing_time)
-                if flag_put_low_in_fixed_coreval:
-                    txt = ' ♠ PL {0:.2f} ms '.format(plot5_processing_time)
                 if flag_put_high_in_fixed_coreval:
                     txt = ' ♠ PH {0:.2f} ms '.format(plot5_processing_time)
-                if flag_kp200_low_node:
-                    txt = ' ★ KL {0:.2f} ms '.format(plot5_processing_time)
-                if flag_kp200_high_node:
-                    txt = ' ★ KH {0:.2f} ms '.format(plot5_processing_time)
-   
+
             self.label_time_5.setText(txt)
 
             flag_plot5_update_is_running = False
@@ -41727,16 +41677,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0:.2f} ms '.format(plot6_processing_time)
 
-                if flag_call_low_in_fixed_coreval:
-                    txt = ' ♦ CL {0:.2f} ms '.format(plot6_processing_time)
-                if flag_call_high_in_fixed_coreval:
-                    txt = ' ♦ CH {0:.2f} ms '.format(plot6_processing_time)
-                if flag_put_low_in_fixed_coreval:
-                    txt = ' ♠ PL {0:.2f} ms '.format(plot6_processing_time)
-                if flag_put_high_in_fixed_coreval:
-                    txt = ' ♠ PH {0:.2f} ms '.format(plot6_processing_time)
-                if flag_kp200_low_node:
-                    txt = ' ★ KL {0:.2f} ms '.format(plot6_processing_time)
                 if flag_kp200_high_node:
                     txt = ' ★ KH {0:.2f} ms '.format(plot6_processing_time)
    
