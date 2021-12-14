@@ -4122,7 +4122,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         self.tableWidget_call.horizontalHeader().setStyleSheet(call_header_stylesheet)
 
-        self.tableWidget_call.setHorizontalHeaderLabels(['콜', '행사가', '▲:▼\n✓', '기준가', '월저', '월고', '전저', '전고', 
+        self.tableWidget_call.setHorizontalHeaderLabels(['콜', '행사가', '▲:▼', '기준가', '월저', '월고', '전저', '전고', 
         '종가\n✓', '피봇\n✓', '시가\n✓', '저가', '현재가', '고가', '시가갭\n%', '시가대비\n%', '진폭', '체결', '∑OI', 'OI↕'])
         self.tableWidget_call.verticalHeader().setVisible(False)
         self.tableWidget_call.setAlternatingRowColors(True)
@@ -4133,7 +4133,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.tableWidget_put.horizontalHeader().setStyleSheet(put_header_stylesheet)
 
-        self.tableWidget_put.setHorizontalHeaderLabels(['풋', '행사가', '▲:▼\n✓', '기준가', '월저', '월고', '전저', '전고', 
+        self.tableWidget_put.setHorizontalHeaderLabels(['풋', '행사가', '▲:▼', '기준가', '월저', '월고', '전저', '전고', 
         '종가\n✓', '피봇\n✓', '시가\n✓', '저가', '현재가', '고가', '시가갭\n%', '시가대비\n%', '진폭', '체결', '∑OI', 'OI↕'])
         self.tableWidget_put.verticalHeader().setVisible(False)
         self.tableWidget_put.setAlternatingRowColors(True)
@@ -4702,7 +4702,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #txt = "({0}) = {1}".format(idx, col_text)
         #self.showCustomMsgBox(title, txt)
 
-        if idx == Option_column.OLOH.value or idx == Option_column.기준가.value or idx == Option_column.월저.value or idx == Option_column.월고.value or \
+        if idx == Option_column.기준가.value or idx == Option_column.월저.value or idx == Option_column.월고.value or \
             idx == Option_column.전저.value or idx == Option_column.전고.value or idx == Option_column.종가.value or \
                 idx == Option_column.피봇.value or idx == Option_column.시가.value:
 
@@ -4713,9 +4713,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.setHorizontalHeaderItem(idx, item)
                 print("call header column.. ", idx, col_text)
 
-                if idx == Option_column.OLOH.value:
-                    call_node_state['OLOH'] = True
-                elif idx == Option_column.기준가.value:
+                if idx == Option_column.기준가.value:
                     call_node_state['기준가'] = True
                 elif idx == Option_column.월저.value:
                     call_node_state['월저'] = True
@@ -4746,11 +4744,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                if idx == Option_column.OLOH.value:
-
-                    call_node_state['OLOH'] = False
-
-                elif idx == Option_column.기준가.value:
+                if idx == Option_column.기준가.value:
 
                     call_node_state['기준가'] = False
 
@@ -4845,7 +4839,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #txt = "({0}) = {1}".format(idx, col_text)
         #self.showCustomMsgBox(title, txt)
 
-        if idx == Option_column.OLOH.value or idx == Option_column.기준가.value or idx == Option_column.월저.value or idx == Option_column.월고.value or \
+        if idx == Option_column.기준가.value or idx == Option_column.월저.value or idx == Option_column.월고.value or \
             idx == Option_column.전저.value or idx == Option_column.전고.value or idx == Option_column.종가.value or \
                 idx == Option_column.피봇.value or idx == Option_column.시가.value:
 
@@ -4856,9 +4850,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.setHorizontalHeaderItem(idx, item)
                 print("put header column.. ", idx, col_text)
 
-                if idx == Option_column.OLOH.value:
-                    put_node_state['OLOH'] = True
-                elif idx == Option_column.기준가.value:
+                if idx == Option_column.기준가.value:
                     put_node_state['기준가'] = True
                 elif idx == Option_column.월저.value:
                     put_node_state['월저'] = True
@@ -4889,11 +4881,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                if idx == Option_column.OLOH.value:
-
-                    put_node_state['OLOH'] = False
-
-                elif idx == Option_column.기준가.value:
+                if idx == Option_column.기준가.value:
 
                     put_node_state['기준가'] = False
 
@@ -12510,7 +12498,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         call_ol_count = call_ol.count(True)
         call_oh_count = call_oh.count(True)
 
-        new_oloh = repr(call_ol_count) + ':' + repr(call_oh_count) + '\n✓'
+        new_oloh = repr(call_ol_count) + ':' + repr(call_oh_count)
 
         if new_oloh != self.tableWidget_call.horizontalHeaderItem(2).text():
             item = QTableWidgetItem(new_oloh)
@@ -13366,7 +13354,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 oloh_threshold = 5   
 
                             # call OL/OH count
-                            if call_node_state['OLOH'] and self.is_within_n_tick(시가, 저가, oloh_threshold) and not self.is_within_n_tick(시가, 고가, oloh_threshold):
+                            if self.is_within_n_tick(시가, 저가, oloh_threshold) and not self.is_within_n_tick(시가, 고가, oloh_threshold):
 
                                 oloh_txt = '▲'
 
@@ -13384,7 +13372,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 call_ol[index] = True
 
-                            elif call_node_state['OLOH'] and self.is_within_n_tick(시가, 고가, oloh_threshold) and not self.is_within_n_tick(시가, 저가, oloh_threshold):
+                            elif self.is_within_n_tick(시가, 고가, oloh_threshold) and not self.is_within_n_tick(시가, 저가, oloh_threshold):
 
                                 oloh_txt = '▼'
 
@@ -13464,28 +13452,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            if call_node_state['OLOH']:
-                
-                call_ol_count = call_ol.count(True)
-                call_oh_count = call_oh.count(True)
+            call_ol_count = call_ol.count(True)
+            call_oh_count = call_oh.count(True)
 
-                new_oloh = repr(call_ol_count) + ':' + repr(call_oh_count) + '\n✓'
-                item = QTableWidgetItem(new_oloh)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setHorizontalHeaderItem(2, item)
+            new_oloh = repr(call_ol_count) + ':' + repr(call_oh_count)
+            item = QTableWidgetItem(new_oloh)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_call.setHorizontalHeaderItem(2, item)
 
-                if TARGET_MONTH == 'NM':
+            if TARGET_MONTH == 'NM':
 
-                    if call_ol_count > 0 or call_oh_count > 0:
-                        nm_call_oloh_txt = '▲:▼ = ' + repr(call_ol_count) + ':' + repr(call_oh_count)
-                    else:
-                        nm_call_oloh_txt = ''                        
+                if call_ol_count > 0 or call_oh_count > 0:
+                    nm_call_oloh_txt = '▲:▼ = ' + repr(call_ol_count) + ':' + repr(call_oh_count)
                 else:
-                    pass
+                    nm_call_oloh_txt = ''                        
             else:
-                item = QTableWidgetItem('▲:▼')
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setHorizontalHeaderItem(2, item)
+                pass
 
             #remove_set = {0, nan, NaN}
 
@@ -13598,7 +13580,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         put_ol_count = put_ol.count(True)
         put_oh_count = put_oh.count(True)
 
-        new_oloh = repr(put_ol_count) + ':' + repr(put_oh_count) + '\n✓'
+        new_oloh = repr(put_ol_count) + ':' + repr(put_oh_count)
 
         if new_oloh != self.tableWidget_put.horizontalHeaderItem(2).text():
             item = QTableWidgetItem(new_oloh)
@@ -14454,7 +14436,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 oloh_threshold = 5   
 
                             # put OL/OH count
-                            if put_node_state['OLOH'] and self.is_within_n_tick(시가, 저가, oloh_threshold) and not self.is_within_n_tick(시가, 고가, oloh_threshold):
+                            if self.is_within_n_tick(시가, 저가, oloh_threshold) and not self.is_within_n_tick(시가, 고가, oloh_threshold):
 
                                 oloh_txt = '▲'
 
@@ -14477,7 +14459,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     pass
 
-                            elif put_node_state['OLOH'] and self.is_within_n_tick(시가, 고가, oloh_threshold) and not self.is_within_n_tick(시가, 저가, oloh_threshold):
+                            elif self.is_within_n_tick(시가, 고가, oloh_threshold) and not self.is_within_n_tick(시가, 저가, oloh_threshold):
 
                                 oloh_txt = '▼'
 
@@ -14568,28 +14550,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            if put_node_state['OLOH']:
-                
-                put_ol_count = put_ol.count(True)
-                put_oh_count = put_oh.count(True)
+            put_ol_count = put_ol.count(True)
+            put_oh_count = put_oh.count(True)
 
-                new_oloh = repr(put_ol_count) + ':' + repr(put_oh_count) + '\n✓'
-                item = QTableWidgetItem(new_oloh)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setHorizontalHeaderItem(2, item)
+            new_oloh = repr(put_ol_count) + ':' + repr(put_oh_count)
+            item = QTableWidgetItem(new_oloh)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_put.setHorizontalHeaderItem(2, item)
 
-                if TARGET_MONTH == 'NM':                     
+            if TARGET_MONTH == 'NM':                     
 
-                    if put_ol_count > 0 or put_oh_count > 0:
-                        nm_put_oloh_txt = '▲:▼ = ' + repr(put_ol_count) + ':' + repr(put_oh_count)
-                    else:
-                        nm_put_oloh_txt = ''                            
+                if put_ol_count > 0 or put_oh_count > 0:
+                    nm_put_oloh_txt = '▲:▼ = ' + repr(put_ol_count) + ':' + repr(put_oh_count)
                 else:
-                    pass
+                    nm_put_oloh_txt = ''                            
             else:
-                item = QTableWidgetItem('▲:▼')
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setHorizontalHeaderItem(2, item)
+                pass
 
             #remove_set = {0, nan, NaN}
 
@@ -17747,7 +17723,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem('행사가')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.행사가.value, item)
 
-                item = QTableWidgetItem('▲:▼\n✓')
+                item = QTableWidgetItem('▲:▼')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.OLOH.value, item)
 
                 item = QTableWidgetItem('시가갭\n%')
@@ -17765,7 +17741,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem('행사가')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.행사가.value, item)
 
-                item = QTableWidgetItem('▲:▼\n✓')
+                item = QTableWidgetItem('▲:▼')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.OLOH.value, item)
 
                 item = QTableWidgetItem('시가갭\n%')
@@ -43812,7 +43788,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 DOW_야간_시작가 = DOW_현재가
                 WTI_야간_시작가 = WTI_현재가
 
-                jisu_txt = "SP500 야간시작가: {0}".format(SP500_야간_시작가)
+                jisu_txt = "S&P 500 야간시작가: {0}".format(SP500_야간_시작가)
 
                 self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
                 self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
