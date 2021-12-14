@@ -24864,13 +24864,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             #self.plot_update_worker1.start()
 
-            while True:
+            if not self.timer1.isActive():
+                while True:
 
-                if not flag_screen_update_is_running:
-                    self.timer1.start()
-                    txt = 'Plot1 Timer Setting Done...\r'
-                    self.parent.textBrowser.append(txt)
-                    break
+                    if not flag_screen_update_is_running:
+                        self.timer1.start()
+                        txt = 'Plot1 Timer Setting Done...\r'
+                        self.parent.textBrowser.append(txt)
+                        break
+            else:
+                pass
 
         # All Plot Clear
         if comboindex1 == 0:
@@ -26089,13 +26092,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             #self.plot_update_worker2.start()
 
-            while True:
+            if not self.timer2.isActive():
+                while True:
 
-                if not flag_screen_update_is_running:
-                    self.timer2.start()
-                    txt = 'Plot2 Timer Setting Done...\r'
-                    self.parent.textBrowser.append(txt)
-                    break
+                    if not flag_screen_update_is_running:
+                        self.timer2.start()
+                        txt = 'Plot2 Timer Setting Done...\r'
+                        self.parent.textBrowser.append(txt)
+                        break
+            else:
+                pass
 
         # All Plot Clear
         if comboindex2 == 0:
@@ -27338,13 +27344,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             #self.plot_update_worker3.start()
 
-            while True:
+            if not self.timer3.isActive():
+                while True:
 
-                if not flag_screen_update_is_running:
-                    self.timer3.start()
-                    txt = 'Plot3 Timer Setting Done...\r'
-                    self.parent.textBrowser.append(txt)
-                    break
+                    if not flag_screen_update_is_running:
+                        self.timer3.start()
+                        txt = 'Plot3 Timer Setting Done...\r'
+                        self.parent.textBrowser.append(txt)
+                        break
+            else:
+                pass
 
         # All Plot Clear
         if comboindex3 == 0:
@@ -28587,13 +28596,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             #self.plot_update_worker4.start()
             
-            while True:
+            if not self.timer4.isActive():
+                while True:
 
-                if not flag_screen_update_is_running:
-                    self.timer4.start()
-                    txt = 'Plot4 Timer Setting Done...\r'
-                    self.parent.textBrowser.append(txt)
-                    break
+                    if not flag_screen_update_is_running:
+                        self.timer4.start()
+                        txt = 'Plot4 Timer Setting Done...\r'
+                        self.parent.textBrowser.append(txt)
+                        break
+            else:
+                pass
 
         # All Plot Clear
         if comboindex4 == 0:
@@ -29804,13 +29816,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             #self.plot_update_worker5.start()
             
-            while True:
+            if not self.timer5.isActive():
+                while True:
 
-                if not flag_screen_update_is_running:
-                    self.timer5.start()
-                    txt = 'Plot5 Timer Setting Done...\r'
-                    self.parent.textBrowser.append(txt)
-                    break
+                    if not flag_screen_update_is_running:
+                        self.timer5.start()
+                        txt = 'Plot5 Timer Setting Done...\r'
+                        self.parent.textBrowser.append(txt)
+                        break
+            else:
+                pass
 
         # All Plot Clear
         if comboindex5 == 0:
@@ -31053,13 +31068,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             #self.plot_update_worker6.start()
             
-            while True:
+            if not self.timer6.isActive():
+                while True:
 
-                if not flag_screen_update_is_running:
-                    self.timer6.start()
-                    txt = 'Plot6 Timer Setting Done...\r'
-                    self.parent.textBrowser.append(txt)
-                    break
+                    if not flag_screen_update_is_running:
+                        self.timer6.start()
+                        txt = 'Plot6 Timer Setting Done...\r'
+                        self.parent.textBrowser.append(txt)
+                        break
+            else:
+                pass
 
         # All Plot Clear
         if comboindex6 == 0:
