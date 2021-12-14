@@ -540,10 +540,10 @@ flag_call_high_in_fixed_coreval = False
 flag_put_low_in_fixed_coreval = False
 flag_put_high_in_fixed_coreval = False
 
-call_low_val_in_fixed_coreval = 0
-call_high_val_in_fixed_coreval = 0
-put_low_val_in_fixed_coreval = 0
-put_high_val_in_fixed_coreval = 0
+call_low_val_in_fixed_coreval = []
+call_high_val_in_fixed_coreval = []
+put_low_val_in_fixed_coreval = []
+put_high_val_in_fixed_coreval = []
 
 if os.path.exists('HL-List.txt'):
 
@@ -7969,6 +7969,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.now()
 
         flag_call_low_in_fixed_coreval = False
+        call_low_val_in_fixed_coreval.clear()
         
         if self.call_open_list:
             loop_list = self.call_open_list
@@ -7980,7 +7981,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         call_low_node_old_count = call_low_node_count
 
-        i_count = 0       
+        i_count = 0              
 
         for i in loop_list:
 
@@ -8010,7 +8011,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if 저가 in FIXED_COREVAL:
 
                 flag_call_low_in_fixed_coreval = True
-                call_low_val_in_fixed_coreval = 저가
+                call_low_val_in_fixed_coreval.append(저가)
 
                 if blink:
                     self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(노란색))
@@ -8125,6 +8126,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.now()
 
         flag_call_high_in_fixed_coreval = False
+        call_high_val_in_fixed_coreval.clear()
         
         if self.call_open_list:
             loop_list = self.call_open_list
@@ -8136,7 +8138,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         call_high_node_old_count = call_high_node_count
 
-        i_count = 0    
+        i_count = 0        
 
         for i in loop_list:
 
@@ -8166,7 +8168,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if 고가 in FIXED_COREVAL:
 
                 flag_call_high_in_fixed_coreval = True
-                call_high_val_in_fixed_coreval = 고가
+                call_high_val_in_fixed_coreval.append(고가)
                     
                 if blink:
                     self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(노란색))
@@ -10542,6 +10544,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.now()
 
         flag_put_low_in_fixed_coreval = False
+        put_low_val_in_fixed_coreval.clear()
         
         if self.put_open_list:
             loop_list = self.put_open_list
@@ -10553,7 +10556,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         put_low_node_old_count = put_low_node_count
 
-        i_count = 0
+        i_count = 0        
 
         for i in loop_list:
 
@@ -10583,7 +10586,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if 저가 in FIXED_COREVAL:
 
                 flag_put_low_in_fixed_coreval = True
-                put_low_val_in_fixed_coreval = 저가
+                put_low_val_in_fixed_coreval.append(저가)
 
                 if blink:
                     self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(노란색))
@@ -10698,6 +10701,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.now()
 
         flag_put_high_in_fixed_coreval = False
+        put_high_val_in_fixed_coreval.clear()
 
         if self.put_open_list:
             loop_list = self.put_open_list
@@ -10709,7 +10713,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         put_high_node_old_count = put_high_node_count
 
-        i_count = 0   
+        i_count = 0        
 
         for i in loop_list:
 
@@ -10739,7 +10743,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if 고가 in FIXED_COREVAL:
 
                 flag_put_high_in_fixed_coreval = True
-                put_high_val_in_fixed_coreval = 고가
+                put_high_val_in_fixed_coreval.append(고가)
 
                 if blink:
                     self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(노란색))
