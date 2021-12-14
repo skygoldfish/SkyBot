@@ -6321,6 +6321,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(txt)
 
+                            if TARGET_MONTH == 'CM':
+                                self.capture_screenshot()
+                            else:
+                                pass
+
                             self.pushButton_start.setText(' ScrShot ')
 
                             self.SaveResult()
