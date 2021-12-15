@@ -43939,7 +43939,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.textBrowser.append(txt)
 
                 SP500_야간_시작가 = SP500_현재가
-                DOW_야간_시작가 = DOW_현재가
+                NASDAQ_야간_시작가 = NASDAQ_현재가
                 WTI_야간_시작가 = WTI_현재가
 
                 jisu_txt = "S&P 500 야간시작가: {0}".format(SP500_야간_시작가)
@@ -43951,12 +43951,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
                 self.textBrowser.append(txt)
 
-                jisu_txt = "DOW 야간시작가: {0}".format(DOW_야간_시작가)
+                jisu_txt = "NASDAQ 야간시작가: {0}".format(NASDAQ_야간_시작가)
 
                 self.dialog['선물옵션전광판'].label_5th_index.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
                 self.dialog['선물옵션전광판'].label_5th_index.setText(jisu_txt)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] DOW 야간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, DOW_야간_시작가)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ 야간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, NASDAQ_야간_시작가)
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
                 self.textBrowser.append(txt)
 
