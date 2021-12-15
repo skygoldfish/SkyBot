@@ -15274,7 +15274,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_score_board_start, flag_telegram_send_start, flag_telegram_listen_start
         global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_피봇, 근월물_선물_시가, 근월물_선물_저가, 근월물_선물_현재가, 근월물_선물_고가
         global 차월물_선물_전저, 차월물_선물_전고, 차월물_선물_종가, 차월물_선물_피봇, 차월물_선물_시가, 차월물_선물_저가, 차월물_선물_현재가, 차월물_선물_고가
-        global FUT_당일종가
+        global FUT_전일종가, FUT_당일종가
 
         dt = datetime.now()
 
@@ -15504,6 +15504,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.fut_realdata['종가'] = df['전일종가']
                 근월물_선물_전일종가 = df['전일종가']
+                FUT_전일종가 = df['전일종가']
 
                 item = QTableWidgetItem("{0:.2f}".format(df['전일종가']))
                 item.setTextAlignment(Qt.AlignCenter)
