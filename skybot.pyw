@@ -1800,6 +1800,7 @@ flag_first_search = False
 
 SP500_주간_시작가 = 0
 DOW_주간_시작가 = 0
+NASDAQ_주간_시작가 = 0
 WTI_주간_시작가 = 0
 
 SP500_야간_시작가 = 0
@@ -43824,9 +43825,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def jif_update(self, tickdata):
 
-        global flag_market_service, DOW_주간_시작가, WTI_주간_시작가, SP500_야간_시작가, DOW_야간_시작가, NASDAQ_야간_시작가, WTI_야간_시작가, dongsi_quote
-        global service_terminate, jugan_service_terminate, flag_option_start, receive_quote
-        global flag_score_board_start, flag_telegram_send_start, flag_telegram_listen_start
+        global SP500_주간_시작가, DOW_주간_시작가, NASDAQ_주간_시작가, WTI_주간_시작가
+        global SP500_야간_시작가, DOW_야간_시작가, NASDAQ_야간_시작가, WTI_야간_시작가
+        global flag_market_service, service_terminate, jugan_service_terminate, flag_option_start, receive_quote
+        global flag_score_board_start, flag_telegram_send_start, flag_telegram_listen_start, dongsi_quote
 
         try:
             #szTrCode = tickdata['tr_code']
@@ -43869,14 +43871,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 flag_market_service = True
 
+                SP500_주간_시작가 = SP500_현재가
                 DOW_주간_시작가 = DOW_현재가
+                NASDAQ_주간_시작가 = NASDAQ_현재가
                 WTI_주간_시작가 = WTI_현재가
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
                 self.textBrowser.append(txt)
 
+                txt = '[{0:02d}:{1:02d}:{2:02d}] S&P 500 주간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, SP500_주간_시작가)
+                self.dialog['선물옵션전광판'].textBrowser.append(txt)
+                self.textBrowser.append(txt)
+
                 txt = '[{0:02d}:{1:02d}:{2:02d}] DOW 주간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, DOW_주간_시작가)
+                self.dialog['선물옵션전광판'].textBrowser.append(txt)
+                self.textBrowser.append(txt)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ 주간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, NASDAQ_주간_시작가)
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
                 self.textBrowser.append(txt)
 
@@ -43940,6 +43952,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.textBrowser.append(txt)
 
                 SP500_야간_시작가 = SP500_현재가
+                DOW_야간_시작가 = DOW_현재가
                 NASDAQ_야간_시작가 = NASDAQ_현재가
                 WTI_야간_시작가 = WTI_현재가
 
