@@ -24854,9 +24854,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             #self.plot_update_worker1.start()
 
-            num = 0
-
             if not self.timer1.isActive():
+
+                start_time = timeit.default_timer()
 
                 while True:
 
@@ -24866,13 +24866,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.parent.textBrowser.append(txt)
                         break
 
-                    if num == 10:
+                    end_time = timeit.default_timer()
+
+                    time_gap = (end_time - start_time) * 1000
+
+                    if time_gap > 100:
                         self.timer1.start()
                         txt = 'Plot1 Timer Forced Setting Done...\r'
                         self.parent.textBrowser.append(txt)
-                        break
-
-                    num += 1
+                        break                    
             else:
                 pass
 
@@ -26093,9 +26095,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             #self.plot_update_worker2.start()
 
-            num = 0
-
             if not self.timer2.isActive():
+
+                start_time = timeit.default_timer()
 
                 while True:
 
@@ -26105,13 +26107,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.parent.textBrowser.append(txt)
                         break
 
-                    if num == 10:
+                    end_time = timeit.default_timer()
+
+                    time_gap = (end_time - start_time) * 1000
+
+                    if time_gap > 100:
                         self.timer2.start()
                         txt = 'Plot2 Timer Forced Setting Done...\r'
                         self.parent.textBrowser.append(txt)
                         break
-
-                    num += 1
             else:
                 pass
 
@@ -27356,9 +27360,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             #self.plot_update_worker3.start()
 
-            num = 0
-
             if not self.timer3.isActive():
+
+                start_time = timeit.default_timer()
 
                 while True:
 
@@ -27368,13 +27372,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.parent.textBrowser.append(txt)
                         break
 
-                    if num == 10:
+                    end_time = timeit.default_timer()
+
+                    time_gap = (end_time - start_time) * 1000
+
+                    if time_gap > 100:
                         self.timer3.start()
                         txt = 'Plot3 Timer Forced Setting Done...\r'
                         self.parent.textBrowser.append(txt)
                         break
-
-                    num += 1
             else:
                 pass
 
@@ -28618,10 +28624,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.timer4.stop()
         else:
             #self.plot_update_worker4.start()
-            
-            num = 0
 
             if not self.timer4.isActive():
+
+                start_time = timeit.default_timer()
 
                 while True:
 
@@ -28631,13 +28637,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.parent.textBrowser.append(txt)
                         break
 
-                    if num == 10:
+                    end_time = timeit.default_timer()
+
+                    time_gap = (end_time - start_time) * 1000
+
+                    if time_gap > 100:
                         self.timer4.start()
                         txt = 'Plot4 Timer Forced Setting Done...\r'
                         self.parent.textBrowser.append(txt)
                         break
-
-                    num += 1
             else:
                 pass
 
@@ -29849,10 +29857,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.timer5.stop()
         else:
             #self.plot_update_worker5.start()
-            
-            num = 0
 
             if not self.timer5.isActive():
+
+                start_time = timeit.default_timer()
 
                 while True:
 
@@ -29862,13 +29870,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.parent.textBrowser.append(txt)
                         break
 
-                    if num == 10:
+                    end_time = timeit.default_timer()
+
+                    time_gap = (end_time - start_time) * 1000
+
+                    if time_gap > 100:
                         self.timer5.start()
                         txt = 'Plot5 Timer Forced Setting Done...\r'
                         self.parent.textBrowser.append(txt)
                         break
-
-                    num += 1
             else:
                 pass
 
@@ -31112,10 +31122,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.timer6.stop()
         else:
             #self.plot_update_worker6.start()
-            
-            num = 0
 
             if not self.timer6.isActive():
+
+                start_time = timeit.default_timer()
 
                 while True:
 
@@ -31125,13 +31135,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.parent.textBrowser.append(txt)
                         break
 
-                    if num == 10:
+                    end_time = timeit.default_timer()
+
+                    time_gap = (end_time - start_time) * 1000
+
+                    if time_gap > 100:
                         self.timer6.start()
                         txt = 'Plot6 Timer Forced Setting Done...\r'
                         self.parent.textBrowser.append(txt)
                         break
-
-                    num += 1
             else:
                 pass
 
@@ -43831,7 +43843,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global flag_score_board_start, flag_telegram_send_start, flag_telegram_listen_start, dongsi_quote
 
         try:
-            #szTrCode = tickdata['tr_code']
             dt = datetime.now()
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 장구분[{3}], 장상태[{4}]\r'.format(dt.hour, dt.minute, dt.second, tickdata['장구분'], tickdata['장상태'])
@@ -44236,7 +44247,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global df_futures_cm_graph, df_kp200_graph, yj_atm_index, kp200_yj_시가
 
         try:
-            #szTrCode = tickdata['tr_code']
             dt = datetime.now()
 
             if tickdata['업종코드'] == KOSPI200:
@@ -44341,7 +44351,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 근월물_선물_저가, 근월물_선물_고가, 차월물_선물_저가, 차월물_선물_고가
         
         try:
-            #szTrCode = tickdata['tr_code']
             dt = datetime.now()
 
             if tickdata['단축코드'] == GMSHCODE:            
@@ -44651,7 +44660,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def ys3_update(self, tickdata):
 
         try:
-            #szTrCode = tickdata['tr_code']
             dt = datetime.now()
 
             현재가 = format(int(tickdata['예상체결가격']), ',')
@@ -44710,7 +44718,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def yoc_update(self, tickdata):
 
         try:
-            #szTrCode = tickdata['tr_code']
             dt = datetime.now()
 
             if tickdata['단축코드'][0:3] == '201':
@@ -44787,7 +44794,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global samsung_price
 
         try:
-            #szTrCode = tickdata['tr_code']
             dt = datetime.now()
         
             # S3 데이타표시
@@ -44858,7 +44864,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global kospi_price, kosdaq_price, KP200_당일시가, kp200_저가, kp200_현재가, kp200_고가, kp200_진폭
 
         try:
-            #szTrCode = tickdata['tr_code']
             dt = datetime.now()
         
             if tickdata['업종코드'] == KOSPI200:
@@ -45204,7 +45209,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 선물_총순매수, 선물_총순매수_직전대비, 현물_총순매수, 현물_총순매수_직전대비
 
         try:
-            #szTrCode = tickdata['tr_code']
             dt = datetime.now()
 
             매수거래대금 = int(tickdata['매수거래대금'])
@@ -45544,7 +45548,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global df_supply_demand_graph
 
         try:
-            #szTrCode = tickdata['tr_code']
             dt = datetime.now()
 
             if tickdata['전체순매수금액합계'] == '-':
@@ -45706,7 +45709,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 차월물_선물_종가대비_등락율, 차월물_선물_시가대비_등락율
 
         try:
-            #szTrCode = tickdata['tr_code']
             dt = datetime.now()
 
             if pre_start:
@@ -45988,7 +45990,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대
 
         try:
-            #szTrCode = tickdata['tr_code']
             dt = datetime.now()
         
             if not flag_market_service:
@@ -46330,7 +46331,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 콜_현재가, 풋_현재가
 
         try:
-            #szTrCode = tickdata['tr_code']
             dt = datetime.now()
 
             if not flag_option_start:
@@ -46536,7 +46536,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 옵션_잔량비_최소, 옵션_잔량비_최대
 
         try:
-            #szTrCode = tickdata['tr_code']
             dt = datetime.now()
 
             if not receive_quote:
@@ -46747,7 +46746,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global flag_eurofx_ohlc_open, flag_yen_ohlc_open, flag_hangseng_ohlc_open, flag_gold_ohlc_open        
 
         try:
-            #szTrCode = tickdata['tr_code']
             dt = datetime.now()
 
             CME_체결시간 = tickdata['수신시간']
