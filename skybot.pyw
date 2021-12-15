@@ -1804,6 +1804,7 @@ WTI_주간_시작가 = 0
 
 SP500_야간_시작가 = 0
 DOW_야간_시작가 = 0
+NASDAQ_야간_시작가 = 0
 WTI_야간_시작가 = 0
 
 장시작_양합 = 0
@@ -43823,7 +43824,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def jif_update(self, tickdata):
 
-        global flag_market_service, DOW_주간_시작가, WTI_주간_시작가, DOW_야간_시작가, WTI_야간_시작가, dongsi_quote
+        global flag_market_service, DOW_주간_시작가, WTI_주간_시작가, SP500_야간_시작가, DOW_야간_시작가, NASDAQ_야간_시작가, WTI_야간_시작가, dongsi_quote
         global service_terminate, jugan_service_terminate, flag_option_start, receive_quote
         global flag_score_board_start, flag_telegram_send_start, flag_telegram_listen_start
 
