@@ -24864,7 +24864,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             #self.plot_update_worker1.start()
 
+            num = 0
+
             if not self.timer1.isActive():
+
                 while True:
 
                     if not flag_screen_update_is_running:
@@ -24872,6 +24875,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         txt = 'Plot1 Timer Setting Done...\r'
                         self.parent.textBrowser.append(txt)
                         break
+
+                    if num == 10:
+                        self.timer1.start()
+                        txt = 'Plot1 Timer Forced Setting Done...\r'
+                        self.parent.textBrowser.append(txt)
+                        break
+
+                    num += 1
             else:
                 pass
 
@@ -26092,7 +26103,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             #self.plot_update_worker2.start()
 
+            num = 0
+
             if not self.timer2.isActive():
+
                 while True:
 
                     if not flag_screen_update_is_running:
@@ -26100,6 +26114,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         txt = 'Plot2 Timer Setting Done...\r'
                         self.parent.textBrowser.append(txt)
                         break
+
+                    if num == 10:
+                        self.timer2.start()
+                        txt = 'Plot2 Timer Forced Setting Done...\r'
+                        self.parent.textBrowser.append(txt)
+                        break
+
+                    num += 1
             else:
                 pass
 
@@ -27344,7 +27366,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             #self.plot_update_worker3.start()
 
+            num = 0
+
             if not self.timer3.isActive():
+
                 while True:
 
                     if not flag_screen_update_is_running:
@@ -27352,6 +27377,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         txt = 'Plot3 Timer Setting Done...\r'
                         self.parent.textBrowser.append(txt)
                         break
+
+                    if num == 10:
+                        self.timer3.start()
+                        txt = 'Plot3 Timer Forced Setting Done...\r'
+                        self.parent.textBrowser.append(txt)
+                        break
+
+                    num += 1
             else:
                 pass
 
@@ -28596,7 +28629,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             #self.plot_update_worker4.start()
             
+            num = 0
+
             if not self.timer4.isActive():
+
                 while True:
 
                     if not flag_screen_update_is_running:
@@ -28604,6 +28640,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         txt = 'Plot4 Timer Setting Done...\r'
                         self.parent.textBrowser.append(txt)
                         break
+
+                    if num == 10:
+                        self.timer4.start()
+                        txt = 'Plot4 Timer Forced Setting Done...\r'
+                        self.parent.textBrowser.append(txt)
+                        break
+
+                    num += 1
             else:
                 pass
 
@@ -29816,7 +29860,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             #self.plot_update_worker5.start()
             
+            num = 0
+
             if not self.timer5.isActive():
+                
                 while True:
 
                     if not flag_screen_update_is_running:
@@ -29824,6 +29871,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         txt = 'Plot5 Timer Setting Done...\r'
                         self.parent.textBrowser.append(txt)
                         break
+
+                    if num == 10:
+                        self.timer5.start()
+                        txt = 'Plot5 Timer Forced Setting Done...\r'
+                        self.parent.textBrowser.append(txt)
+                        break
+
+                    num += 1
             else:
                 pass
 
@@ -31068,7 +31123,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             #self.plot_update_worker6.start()
             
+            num = 0
+
             if not self.timer6.isActive():
+
                 while True:
 
                     if not flag_screen_update_is_running:
@@ -31076,6 +31134,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         txt = 'Plot6 Timer Setting Done...\r'
                         self.parent.textBrowser.append(txt)
                         break
+
+                    if num == 10:
+                        self.timer6.start()
+                        txt = 'Plot6 Timer Forced Setting Done...\r'
+                        self.parent.textBrowser.append(txt)
+                        break
+
+                    num += 1
             else:
                 pass
 
