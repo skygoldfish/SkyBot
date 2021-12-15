@@ -225,6 +225,8 @@ SP500_현재가 = 0
 SP500_과거가 = 0
 SP500_대비 = 0
 SP500_전일대비 = 0
+SP500_종가대비 = 0
+SP500_시가대비 = 0
 SP500_등락율 = 0
 
 SP500_고가 = 0
@@ -242,6 +244,8 @@ DOW_현재가 = 0
 DOW_과거가 = 0
 DOW_대비 = 0
 DOW_전일대비 = 0
+DOW_종가대비 = 0
+DOW_시가대비 = 0
 DOW_등락율 = 0
 
 DOW_고가 = 0
@@ -259,6 +263,8 @@ NASDAQ_현재가 = 0
 NASDAQ_과거가 = 0
 NASDAQ_대비 = 0
 NASDAQ_전일대비 = 0
+NASDAQ_종가대비 = 0
+NASDAQ_시가대비 = 0
 NASDAQ_등락율 = 0
 
 NASDAQ_고가 = 0
@@ -276,6 +282,8 @@ WTI_현재가 = 0
 WTI_과거가 = 0
 WTI_대비 = 0
 WTI_전일대비 = 0
+WTI_종가대비 = 0
+WTI_시가대비 = 0
 WTI_등락율 = 0
 
 WTI_고가 = 0
@@ -293,6 +301,8 @@ EUROFX_현재가 = 0
 EUROFX_과거가 = 0
 EUROFX_대비 = 0
 EUROFX_전일대비 = 0
+EUROFX_종가대비 = 0
+EUROFX_시가대비 = 0
 EUROFX_등락율 = 0
 
 EUROFX_고가 = 0
@@ -310,6 +320,8 @@ YEN_현재가 = 0
 YEN_과거가 = 0
 YEN_대비 = 0
 YEN_전일대비 = 0
+YEN_종가대비 = 0
+YEN_시가대비 = 0
 YEN_등락율 = 0
 
 YEN_고가 = 0
@@ -327,6 +339,8 @@ HANGSENG_현재가 = 0
 HANGSENG_과거가 = 0
 HANGSENG_대비 = 0
 HANGSENG_전일대비 = 0
+HANGSENG_종가대비 = 0
+HANGSENG_시가대비 = 0
 HANGSENG_등락율 = 0
 
 HANGSENG_고가 = 0
@@ -344,6 +358,8 @@ GOLD_현재가 = 0
 GOLD_과거가 = 0
 GOLD_대비 = 0
 GOLD_전일대비 = 0
+GOLD_종가대비 = 0
+GOLD_시가대비 = 0
 GOLD_등락율 = 0
 
 GOLD_고가 = 0
@@ -32976,11 +32992,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if SP500_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
 
-                    if SP500_전일대비 > 0:
+                    if SP500_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif SP500_전일대비 < 0:
+                    elif SP500_종가대비 < 0:
                         self.label_17.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_17.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -32990,11 +33006,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif SP500_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
 
-                    if SP500_전일대비 > 0:
+                    if SP500_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif SP500_전일대비 < 0:
+                    elif SP500_종가대비 < 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_17.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33106,11 +33122,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if DOW_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+                        format(format(DOW_현재가, ','), format(DOW_종가대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
-                    if DOW_전일대비 > 0:
+                    if DOW_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif DOW_전일대비 < 0:
+                    elif DOW_종가대비 < 0:
                         self.label_17.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_17.setStyleSheet('background-color: pink; color: black')
@@ -33120,11 +33136,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif DOW_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+                        format(format(DOW_현재가, ','), format(DOW_종가대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
-                    if DOW_전일대비 > 0:
+                    if DOW_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif DOW_전일대비 < 0:
+                    elif DOW_종가대비 < 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_17.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33236,11 +33252,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if NASDAQ_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+                        format(format(NASDAQ_현재가, ','), format(NASDAQ_종가대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
-                    if NASDAQ_전일대비 > 0:
+                    if NASDAQ_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif NASDAQ_전일대비 < 0:
+                    elif NASDAQ_종가대비 < 0:
                         self.label_17.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_17.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33250,11 +33266,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif NASDAQ_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+                        format(format(NASDAQ_현재가, ','), format(NASDAQ_종가대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
-                    if NASDAQ_전일대비 > 0:
+                    if NASDAQ_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif NASDAQ_전일대비 < 0:
+                    elif NASDAQ_종가대비 < 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_17.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33365,11 +33381,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if HANGSENG_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_종가대비, HANGSENG_등락율, HANGSENG_진폭)
 
-                    if HANGSENG_전일대비 > 0:
+                    if HANGSENG_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif HANGSENG_전일대비 < 0:
+                    elif HANGSENG_종가대비 < 0:
                         self.label_17.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_17.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33378,11 +33394,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif HANGSENG_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_종가대비, HANGSENG_등락율, HANGSENG_진폭)
 
-                    if HANGSENG_전일대비 > 0:
+                    if HANGSENG_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif HANGSENG_전일대비 < 0:
+                    elif HANGSENG_종가대비 < 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_17.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33493,11 +33509,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if WTI_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3:.2f}) ". \
-                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+                        format(WTI_현재가, WTI_종가대비, WTI_등락율, WTI_진폭)
 
-                    if WTI_전일대비 > 0:
+                    if WTI_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif WTI_전일대비 < 0:
+                    elif WTI_종가대비 < 0:
                         self.label_17.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_17.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33507,11 +33523,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif WTI_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3:.2f}) ". \
-                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+                        format(WTI_현재가, WTI_종가대비, WTI_등락율, WTI_진폭)
 
-                    if WTI_전일대비 > 0:
+                    if WTI_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif WTI_전일대비 < 0:
+                    elif WTI_종가대비 < 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_17.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33622,11 +33638,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if GOLD_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율, GOLD_진폭)
+                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_종가대비, GOLD_등락율, GOLD_진폭)
 
-                    if GOLD_전일대비 > 0:
+                    if GOLD_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif GOLD_전일대비 < 0:
+                    elif GOLD_종가대비 < 0:
                         self.label_17.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_17.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33635,11 +33651,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif GOLD_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율, GOLD_진폭)
+                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_종가대비, GOLD_등락율, GOLD_진폭)
 
-                    if GOLD_전일대비 > 0:
+                    if GOLD_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif GOLD_전일대비 < 0:
+                    elif GOLD_종가대비 < 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_17.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33749,11 +33765,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if EUROFX_현재가 > float(value):
 
-                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭)
 
-                    if EUROFX_전일대비 > 0:
+                    if EUROFX_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif EUROFX_전일대비 < 0:
+                    elif EUROFX_종가대비 < 0:
                         self.label_17.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_17.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33762,11 +33778,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif EUROFX_현재가 < float(value):
 
-                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭)
 
-                    if EUROFX_전일대비 > 0:
+                    if EUROFX_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif EUROFX_전일대비 < 0:
+                    elif EUROFX_종가대비 < 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_17.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33877,11 +33893,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if YEN_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율, YEN_진폭)
+                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_종가대비, YEN_등락율, YEN_진폭)
 
-                    if YEN_전일대비 > 0:
+                    if YEN_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif YEN_전일대비 < 0:
+                    elif YEN_종가대비 < 0:
                         self.label_17.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_17.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33890,11 +33906,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif YEN_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율, YEN_진폭)
+                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_종가대비, YEN_등락율, YEN_진폭)
 
-                    if YEN_전일대비 > 0:
+                    if YEN_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif YEN_전일대비 < 0:
+                    elif YEN_종가대비 < 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_17.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34483,11 +34499,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if SP500_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
 
-                    if SP500_전일대비 > 0:
+                    if SP500_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif SP500_전일대비 < 0:
+                    elif SP500_종가대비 < 0:
                         self.label_27.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_27.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34497,11 +34513,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif SP500_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
 
-                    if SP500_전일대비 > 0:
+                    if SP500_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif SP500_전일대비 < 0:
+                    elif SP500_종가대비 < 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_27.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34619,11 +34635,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if DOW_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+                        format(format(DOW_현재가, ','), format(DOW_종가대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
-                    if DOW_전일대비 > 0:
+                    if DOW_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif DOW_전일대비 < 0:
+                    elif DOW_종가대비 < 0:
                         self.label_27.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_27.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34633,11 +34649,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif DOW_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+                        format(format(DOW_현재가, ','), format(DOW_종가대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
-                    if DOW_전일대비 > 0:
+                    if DOW_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif DOW_전일대비 < 0:
+                    elif DOW_종가대비 < 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_27.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34754,11 +34770,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if NASDAQ_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+                        format(format(NASDAQ_현재가, ','), format(NASDAQ_종가대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
-                    if NASDAQ_전일대비 > 0:
+                    if NASDAQ_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif NASDAQ_전일대비 < 0:
+                    elif NASDAQ_종가대비 < 0:
                         self.label_27.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_27.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34768,11 +34784,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif NASDAQ_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+                        format(format(NASDAQ_현재가, ','), format(NASDAQ_종가대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
-                    if NASDAQ_전일대비 > 0:
+                    if NASDAQ_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif NASDAQ_전일대비 < 0:
+                    elif NASDAQ_종가대비 < 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_27.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34888,11 +34904,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if HANGSENG_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_종가대비, HANGSENG_등락율, HANGSENG_진폭)
 
-                    if HANGSENG_전일대비 > 0:
+                    if HANGSENG_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif HANGSENG_전일대비 < 0:
+                    elif HANGSENG_종가대비 < 0:
                         self.label_27.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_27.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34901,11 +34917,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif HANGSENG_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_종가대비, HANGSENG_등락율, HANGSENG_진폭)
 
-                    if HANGSENG_전일대비 > 0:
+                    if HANGSENG_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif HANGSENG_전일대비 < 0:
+                    elif HANGSENG_종가대비 < 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_27.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35016,11 +35032,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if WTI_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3:.2f}) ". \
-                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+                        format(WTI_현재가, WTI_종가대비, WTI_등락율, WTI_진폭)
 
-                    if WTI_전일대비 > 0:
+                    if WTI_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif WTI_전일대비 < 0:
+                    elif WTI_종가대비 < 0:
                         self.label_27.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_27.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35030,11 +35046,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif WTI_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3:.2f}) ". \
-                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+                        format(WTI_현재가, WTI_종가대비, WTI_등락율, WTI_진폭)
 
-                    if WTI_전일대비 > 0:
+                    if WTI_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif WTI_전일대비 < 0:
+                    elif WTI_종가대비 < 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_27.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35150,11 +35166,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if GOLD_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율, GOLD_진폭)
+                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_종가대비, GOLD_등락율, GOLD_진폭)
 
-                    if GOLD_전일대비 > 0:
+                    if GOLD_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif GOLD_전일대비 < 0:
+                    elif GOLD_종가대비 < 0:
                         self.label_27.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_27.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35163,11 +35179,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif GOLD_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율, GOLD_진폭)
+                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_종가대비, GOLD_등락율, GOLD_진폭)
 
-                    if GOLD_전일대비 > 0:
+                    if GOLD_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif GOLD_전일대비 < 0:
+                    elif GOLD_종가대비 < 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_27.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35277,11 +35293,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if EUROFX_현재가 > float(value):
 
-                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭)
 
-                    if EUROFX_전일대비 > 0:
+                    if EUROFX_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif EUROFX_전일대비 < 0:
+                    elif EUROFX_종가대비 < 0:
                         self.label_27.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_27.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35290,11 +35306,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif EUROFX_현재가 < float(value):
 
-                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭)
 
-                    if EUROFX_전일대비 > 0:
+                    if EUROFX_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif EUROFX_전일대비 < 0:
+                    elif EUROFX_종가대비 < 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_27.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35405,11 +35421,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if YEN_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율, YEN_진폭)
+                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_종가대비, YEN_등락율, YEN_진폭)
 
-                    if YEN_전일대비 > 0:
+                    if YEN_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif YEN_전일대비 < 0:
+                    elif YEN_종가대비 < 0:
                         self.label_27.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_27.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35418,11 +35434,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif YEN_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율, YEN_진폭)
+                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_종가대비, YEN_등락율, YEN_진폭)
 
-                    if YEN_전일대비 > 0:
+                    if YEN_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif YEN_전일대비 < 0:
+                    elif YEN_종가대비 < 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_27.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36008,11 +36024,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if SP500_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
 
-                    if SP500_전일대비 > 0:
+                    if SP500_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif SP500_전일대비 < 0:
+                    elif SP500_종가대비 < 0:
                         self.label_37.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_37.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36022,11 +36038,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif SP500_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
 
-                    if SP500_전일대비 > 0:
+                    if SP500_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif SP500_전일대비 < 0:
+                    elif SP500_종가대비 < 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_37.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36143,11 +36159,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if DOW_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+                        format(format(DOW_현재가, ','), format(DOW_종가대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
-                    if DOW_전일대비 > 0:
+                    if DOW_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif DOW_전일대비 < 0:
+                    elif DOW_종가대비 < 0:
                         self.label_37.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_37.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36157,11 +36173,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif DOW_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+                        format(format(DOW_현재가, ','), format(DOW_종가대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
-                    if DOW_전일대비 > 0:
+                    if DOW_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif DOW_전일대비 < 0:
+                    elif DOW_종가대비 < 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_37.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36277,11 +36293,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if NASDAQ_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+                        format(format(NASDAQ_현재가, ','), format(NASDAQ_종가대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
-                    if NASDAQ_전일대비 > 0:
+                    if NASDAQ_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif NASDAQ_전일대비 < 0:
+                    elif NASDAQ_종가대비 < 0:
                         self.label_37.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_37.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36291,11 +36307,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif NASDAQ_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+                        format(format(NASDAQ_현재가, ','), format(NASDAQ_종가대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
-                    if NASDAQ_전일대비 > 0:
+                    if NASDAQ_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif NASDAQ_전일대비 < 0:
+                    elif NASDAQ_종가대비 < 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_37.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36410,11 +36426,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if HANGSENG_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_종가대비, HANGSENG_등락율, HANGSENG_진폭)
 
-                    if HANGSENG_전일대비 > 0:
+                    if HANGSENG_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif HANGSENG_전일대비 < 0:
+                    elif HANGSENG_종가대비 < 0:
                         self.label_37.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_37.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36423,11 +36439,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif HANGSENG_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_종가대비, HANGSENG_등락율, HANGSENG_진폭)
 
-                    if HANGSENG_전일대비 > 0:
+                    if HANGSENG_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif HANGSENG_전일대비 < 0:
+                    elif HANGSENG_종가대비 < 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_37.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36538,11 +36554,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if WTI_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3:.2f}) ". \
-                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+                        format(WTI_현재가, WTI_종가대비, WTI_등락율, WTI_진폭)
 
-                    if WTI_전일대비 > 0:
+                    if WTI_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif WTI_전일대비 < 0:
+                    elif WTI_종가대비 < 0:
                         self.label_37.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_37.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36552,11 +36568,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif WTI_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3:.2f}) ". \
-                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+                        format(WTI_현재가, WTI_종가대비, WTI_등락율, WTI_진폭)
 
-                    if WTI_전일대비 > 0:
+                    if WTI_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif WTI_전일대비 < 0:
+                    elif WTI_종가대비 < 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_37.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36671,11 +36687,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if GOLD_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율, GOLD_진폭)
+                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_종가대비, GOLD_등락율, GOLD_진폭)
 
-                    if GOLD_전일대비 > 0:
+                    if GOLD_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif GOLD_전일대비 < 0:
+                    elif GOLD_종가대비 < 0:
                         self.label_37.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_37.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36684,11 +36700,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif GOLD_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율, GOLD_진폭)
+                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_종가대비, GOLD_등락율, GOLD_진폭)
 
-                    if GOLD_전일대비 > 0:
+                    if GOLD_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif GOLD_전일대비 < 0:
+                    elif GOLD_종가대비 < 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_37.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36798,11 +36814,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if EUROFX_현재가 > float(value):
 
-                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭)
 
-                    if EUROFX_전일대비 > 0:
+                    if EUROFX_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif EUROFX_전일대비 < 0:
+                    elif EUROFX_종가대비 < 0:
                         self.label_37.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_37.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36811,11 +36827,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif EUROFX_현재가 < float(value):
 
-                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭)
 
-                    if EUROFX_전일대비 > 0:
+                    if EUROFX_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif EUROFX_전일대비 < 0:
+                    elif EUROFX_종가대비 < 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_37.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36926,11 +36942,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if YEN_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율, YEN_진폭)
+                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_종가대비, YEN_등락율, YEN_진폭)
 
-                    if YEN_전일대비 > 0:
+                    if YEN_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif YEN_전일대비 < 0:
+                    elif YEN_종가대비 < 0:
                         self.label_37.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_37.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36939,11 +36955,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif YEN_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율, YEN_진폭)
+                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_종가대비, YEN_등락율, YEN_진폭)
 
-                    if YEN_전일대비 > 0:
+                    if YEN_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif YEN_전일대비 < 0:
+                    elif YEN_종가대비 < 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_37.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37530,11 +37546,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if SP500_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
 
-                    if SP500_전일대비 > 0:
+                    if SP500_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif SP500_전일대비 < 0:
+                    elif SP500_종가대비 < 0:
                         self.label_47.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_47.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37544,11 +37560,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif SP500_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
 
-                    if SP500_전일대비 > 0:
+                    if SP500_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif SP500_전일대비 < 0:
+                    elif SP500_종가대비 < 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_47.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37660,11 +37676,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if DOW_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+                        format(format(DOW_현재가, ','), format(DOW_종가대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
-                    if DOW_전일대비 > 0:
+                    if DOW_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif DOW_전일대비 < 0:
+                    elif DOW_종가대비 < 0:
                         self.label_47.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_47.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37674,11 +37690,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif DOW_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+                        format(format(DOW_현재가, ','), format(DOW_종가대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
-                    if DOW_전일대비 > 0:
+                    if DOW_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif DOW_전일대비 < 0:
+                    elif DOW_종가대비 < 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_47.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37790,11 +37806,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if NASDAQ_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+                        format(format(NASDAQ_현재가, ','), format(NASDAQ_종가대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
-                    if NASDAQ_전일대비 > 0:
+                    if NASDAQ_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif NASDAQ_전일대비 < 0:
+                    elif NASDAQ_종가대비 < 0:
                         self.label_47.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_47.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37804,11 +37820,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif NASDAQ_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+                        format(format(NASDAQ_현재가, ','), format(NASDAQ_종가대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
-                    if NASDAQ_전일대비 > 0:
+                    if NASDAQ_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif NASDAQ_전일대비 < 0:
+                    elif NASDAQ_종가대비 < 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_47.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37919,11 +37935,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if HANGSENG_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_종가대비, HANGSENG_등락율, HANGSENG_진폭)
 
-                    if HANGSENG_전일대비 > 0:
+                    if HANGSENG_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif HANGSENG_전일대비 < 0:
+                    elif HANGSENG_종가대비 < 0:
                         self.label_47.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_47.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37932,11 +37948,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif HANGSENG_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_종가대비, HANGSENG_등락율, HANGSENG_진폭)
 
-                    if HANGSENG_전일대비 > 0:
+                    if HANGSENG_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif HANGSENG_전일대비 < 0:
+                    elif HANGSENG_종가대비 < 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_47.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38047,11 +38063,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if WTI_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3:.2f}) ". \
-                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+                        format(WTI_현재가, WTI_종가대비, WTI_등락율, WTI_진폭)
 
-                    if WTI_전일대비 > 0:
+                    if WTI_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif WTI_전일대비 < 0:
+                    elif WTI_종가대비 < 0:
                         self.label_47.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_47.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38061,11 +38077,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif WTI_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3:.2f}) ". \
-                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+                        format(WTI_현재가, WTI_종가대비, WTI_등락율, WTI_진폭)
 
-                    if WTI_전일대비 > 0:
+                    if WTI_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif WTI_전일대비 < 0:
+                    elif WTI_종가대비 < 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_47.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38176,11 +38192,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if GOLD_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율, GOLD_진폭)
+                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_종가대비, GOLD_등락율, GOLD_진폭)
 
-                    if GOLD_전일대비 > 0:
+                    if GOLD_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif GOLD_전일대비 < 0:
+                    elif GOLD_종가대비 < 0:
                         self.label_47.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_47.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38189,11 +38205,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif GOLD_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율, GOLD_진폭)
+                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_종가대비, GOLD_등락율, GOLD_진폭)
 
-                    if GOLD_전일대비 > 0:
+                    if GOLD_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif GOLD_전일대비 < 0:
+                    elif GOLD_종가대비 < 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_47.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38303,11 +38319,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if EUROFX_현재가 > float(value):
 
-                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭)
 
-                    if EUROFX_전일대비 > 0:
+                    if EUROFX_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif EUROFX_전일대비 < 0:
+                    elif EUROFX_종가대비 < 0:
                         self.label_47.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_47.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38316,11 +38332,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif EUROFX_현재가 < float(value):
 
-                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭)
 
-                    if EUROFX_전일대비 > 0:
+                    if EUROFX_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif EUROFX_전일대비 < 0:
+                    elif EUROFX_종가대비 < 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_47.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38431,11 +38447,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if YEN_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율, YEN_진폭)
+                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_종가대비, YEN_등락율, YEN_진폭)
 
-                    if YEN_전일대비 > 0:
+                    if YEN_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif YEN_전일대비 < 0:
+                    elif YEN_종가대비 < 0:
                         self.label_47.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_47.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38444,11 +38460,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif YEN_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율, YEN_진폭)
+                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_종가대비, YEN_등락율, YEN_진폭)
 
-                    if YEN_전일대비 > 0:
+                    if YEN_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif YEN_전일대비 < 0:
+                    elif YEN_종가대비 < 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_47.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39033,11 +39049,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if SP500_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
 
-                    if SP500_전일대비 > 0:
+                    if SP500_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif SP500_전일대비 < 0:
+                    elif SP500_종가대비 < 0:
                         self.label_57.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_57.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39047,11 +39063,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif SP500_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
 
-                    if SP500_전일대비 > 0:
+                    if SP500_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif SP500_전일대비 < 0:
+                    elif SP500_종가대비 < 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_57.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39168,11 +39184,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if DOW_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+                        format(format(DOW_현재가, ','), format(DOW_종가대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
-                    if DOW_전일대비 > 0:
+                    if DOW_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif DOW_전일대비 < 0:
+                    elif DOW_종가대비 < 0:
                         self.label_57.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_57.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39182,11 +39198,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif DOW_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+                        format(format(DOW_현재가, ','), format(DOW_종가대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
-                    if DOW_전일대비 > 0:
+                    if DOW_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif DOW_전일대비 < 0:
+                    elif DOW_종가대비 < 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_57.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39302,11 +39318,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if NASDAQ_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+                        format(format(NASDAQ_현재가, ','), format(NASDAQ_종가대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
-                    if NASDAQ_전일대비 > 0:
+                    if NASDAQ_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif NASDAQ_전일대비 < 0:
+                    elif NASDAQ_종가대비 < 0:
                         self.label_57.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_57.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39316,11 +39332,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif NASDAQ_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+                        format(format(NASDAQ_현재가, ','), format(NASDAQ_종가대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
-                    if NASDAQ_전일대비 > 0:
+                    if NASDAQ_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif NASDAQ_전일대비 < 0:
+                    elif NASDAQ_종가대비 < 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_57.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39435,11 +39451,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if HANGSENG_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_종가대비, HANGSENG_등락율, HANGSENG_진폭)
 
-                    if HANGSENG_전일대비 > 0:
+                    if HANGSENG_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif HANGSENG_전일대비 < 0:
+                    elif HANGSENG_종가대비 < 0:
                         self.label_57.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_57.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39448,11 +39464,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif HANGSENG_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_종가대비, HANGSENG_등락율, HANGSENG_진폭)
 
-                    if HANGSENG_전일대비 > 0:
+                    if HANGSENG_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif HANGSENG_전일대비 < 0:
+                    elif HANGSENG_종가대비 < 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_57.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39563,11 +39579,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if WTI_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3:.2f}) ". \
-                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+                        format(WTI_현재가, WTI_종가대비, WTI_등락율, WTI_진폭)
 
-                    if WTI_전일대비 > 0:
+                    if WTI_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif WTI_전일대비 < 0:
+                    elif WTI_종가대비 < 0:
                         self.label_57.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_57.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39577,11 +39593,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif WTI_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3:.2f}) ". \
-                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+                        format(WTI_현재가, WTI_종가대비, WTI_등락율, WTI_진폭)
 
-                    if WTI_전일대비 > 0:
+                    if WTI_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif WTI_전일대비 < 0:
+                    elif WTI_종가대비 < 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_57.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39696,11 +39712,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if GOLD_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율, GOLD_진폭)
+                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_종가대비, GOLD_등락율, GOLD_진폭)
 
-                    if GOLD_전일대비 > 0:
+                    if GOLD_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif GOLD_전일대비 < 0:
+                    elif GOLD_종가대비 < 0:
                         self.label_57.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_57.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39709,11 +39725,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif GOLD_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율, GOLD_진폭)
+                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_종가대비, GOLD_등락율, GOLD_진폭)
 
-                    if GOLD_전일대비 > 0:
+                    if GOLD_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif GOLD_전일대비 < 0:
+                    elif GOLD_종가대비 < 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_57.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39823,11 +39839,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if EUROFX_현재가 > float(value):
 
-                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭)
 
-                    if EUROFX_전일대비 > 0:
+                    if EUROFX_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif EUROFX_전일대비 < 0:
+                    elif EUROFX_종가대비 < 0:
                         self.label_57.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_57.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39836,11 +39852,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif EUROFX_현재가 < float(value):
 
-                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭)
 
-                    if EUROFX_전일대비 > 0:
+                    if EUROFX_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif EUROFX_전일대비 < 0:
+                    elif EUROFX_종가대비 < 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_57.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39951,11 +39967,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if YEN_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율, YEN_진폭)
+                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_종가대비, YEN_등락율, YEN_진폭)
 
-                    if YEN_전일대비 > 0:
+                    if YEN_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif YEN_전일대비 < 0:
+                    elif YEN_종가대비 < 0:
                         self.label_57.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_57.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39964,11 +39980,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif YEN_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율, YEN_진폭)
+                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_종가대비, YEN_등락율, YEN_진폭)
 
-                    if YEN_전일대비 > 0:
+                    if YEN_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif YEN_전일대비 < 0:
+                    elif YEN_종가대비 < 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_57.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40553,11 +40569,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if SP500_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
 
-                    if SP500_전일대비 > 0:
+                    if SP500_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif SP500_전일대비 < 0:
+                    elif SP500_종가대비 < 0:
                         self.label_67.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_67.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40567,11 +40583,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif SP500_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
 
-                    if SP500_전일대비 > 0:
+                    if SP500_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif SP500_전일대비 < 0:
+                    elif SP500_종가대비 < 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_67.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40688,11 +40704,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if DOW_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+                        format(format(DOW_현재가, ','), format(DOW_종가대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
-                    if DOW_전일대비 > 0:
+                    if DOW_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif DOW_전일대비 < 0:
+                    elif DOW_종가대비 < 0:
                         self.label_67.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_67.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40702,11 +40718,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif DOW_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+                        format(format(DOW_현재가, ','), format(DOW_종가대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
-                    if DOW_전일대비 > 0:
+                    if DOW_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif DOW_전일대비 < 0:
+                    elif DOW_종가대비 < 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_67.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40822,11 +40838,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if NASDAQ_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+                        format(format(NASDAQ_현재가, ','), format(NASDAQ_종가대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
-                    if NASDAQ_전일대비 > 0:
+                    if NASDAQ_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif NASDAQ_전일대비 < 0:
+                    elif NASDAQ_종가대비 < 0:
                         self.label_67.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_67.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40836,11 +40852,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif NASDAQ_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+                        format(format(NASDAQ_현재가, ','), format(NASDAQ_종가대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
-                    if NASDAQ_전일대비 > 0:
+                    if NASDAQ_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif NASDAQ_전일대비 < 0:
+                    elif NASDAQ_종가대비 < 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_67.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40955,11 +40971,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if HANGSENG_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+                    txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_종가대비, HANGSENG_등락율, HANGSENG_진폭)
 
-                    if HANGSENG_전일대비 > 0:
+                    if HANGSENG_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif HANGSENG_전일대비 < 0:
+                    elif HANGSENG_종가대비 < 0:
                         self.label_67.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_67.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40968,11 +40984,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif HANGSENG_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭)
+                    txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_종가대비, HANGSENG_등락율, HANGSENG_진폭)
 
-                    if HANGSENG_전일대비 > 0:
+                    if HANGSENG_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif HANGSENG_전일대비 < 0:
+                    elif HANGSENG_종가대비 < 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_67.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41083,11 +41099,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if WTI_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3:.2f}) ". \
-                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+                        format(WTI_현재가, WTI_종가대비, WTI_등락율, WTI_진폭)
 
-                    if WTI_전일대비 > 0:
+                    if WTI_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif WTI_전일대비 < 0:
+                    elif WTI_종가대비 < 0:
                         self.label_67.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_67.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41097,11 +41113,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif WTI_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3:.2f}) ". \
-                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+                        format(WTI_현재가, WTI_종가대비, WTI_등락율, WTI_진폭)
 
-                    if WTI_전일대비 > 0:
+                    if WTI_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif WTI_전일대비 < 0:
+                    elif WTI_종가대비 < 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_67.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41216,11 +41232,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if GOLD_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율, GOLD_진폭)
+                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_종가대비, GOLD_등락율, GOLD_진폭)
 
-                    if GOLD_전일대비 > 0:
+                    if GOLD_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif GOLD_전일대비 < 0:
+                    elif GOLD_종가대비 < 0:
                         self.label_67.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_67.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41229,11 +41245,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif GOLD_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_전일대비, GOLD_등락율, GOLD_진폭)
+                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_종가대비, GOLD_등락율, GOLD_진폭)
 
-                    if GOLD_전일대비 > 0:
+                    if GOLD_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif GOLD_전일대비 < 0:
+                    elif GOLD_종가대비 < 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_67.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41343,11 +41359,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if EUROFX_현재가 > float(value):
 
-                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭)
 
-                    if EUROFX_전일대비 > 0:
+                    if EUROFX_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif EUROFX_전일대비 < 0:
+                    elif EUROFX_종가대비 < 0:
                         self.label_67.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_67.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41356,11 +41372,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif EUROFX_현재가 < float(value):
 
-                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭)
 
-                    if EUROFX_전일대비 > 0:
+                    if EUROFX_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif EUROFX_전일대비 < 0:
+                    elif EUROFX_종가대비 < 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_67.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41471,11 +41487,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if YEN_현재가 > float(value):
 
-                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율, YEN_진폭)
+                    txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_종가대비, YEN_등락율, YEN_진폭)
 
-                    if YEN_전일대비 > 0:
+                    if YEN_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif YEN_전일대비 < 0:
+                    elif YEN_종가대비 < 0:
                         self.label_67.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_67.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41484,11 +41500,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif YEN_현재가 < float(value):
 
-                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_전일대비, YEN_등락율, YEN_진폭)
+                    txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_종가대비, YEN_등락율, YEN_진폭)
 
-                    if YEN_전일대비 > 0:
+                    if YEN_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif YEN_전일대비 < 0:
+                    elif YEN_종가대비 < 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_67.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -46674,7 +46690,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global DOW_주간_시작가, WTI_주간_시작가, DOW_야간_시작가, WTI_야간_시작가
         
         global flag_dow_ohlc_open, flag_sp500_ohlc_open, flag_nasdaq_ohlc_open, flag_wti_ohlc_open
-        global flag_eurofx_ohlc_open, flag_yen_ohlc_open, flag_hangseng_ohlc_open, flag_gold_ohlc_open        
+        global flag_eurofx_ohlc_open, flag_yen_ohlc_open, flag_hangseng_ohlc_open, flag_gold_ohlc_open
+
+        global SP500_종가대비, DOW_종가대비, NASDAQ_종가대비, HANGSENG_종가대비, WTI_종가대비, GOLD_종가대비, EUROFX_종가대비, YEN_종가대비
+        global SP500_시가대비, DOW_시가대비, NASDAQ_시가대비, HANGSENG_시가대비, WTI_시가대비, GOLD_시가대비, EUROFX_시가대비, YEN_시가대비
 
         try:
             dt = datetime.now()
@@ -46745,8 +46764,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if tickdata['전일대비기호'] == '5':
                     SP500_종가 = SP500_현재가 + SP500_전일대비
+                    SP500_종가대비 = -SP500_전일대비
                 else:
                     SP500_종가 = SP500_현재가 - SP500_전일대비
+                    SP500_종가대비 = SP500_전일대비
 
                 SP500_등락율 = float(tickdata['등락율'])
                 SP500_시가대비_등락율 = ((float(tickdata['체결가격']) - float(tickdata['시가'])) / float(tickdata['시가'])) * 100
@@ -46756,7 +46777,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 SP500_고가 =  float(tickdata['고가'])
                 SP500_진폭 = SP500_고가 - SP500_저가
                 
-                대비 = SP500_현재가 - SP500_시가
+                SP500_시가대비 = SP500_현재가 - SP500_시가
 
                 df_sp500_graph.at[0, 'price'] = SP500_종가
                 df_sp500_graph.at[1, 'price'] = SP500_시가
@@ -46955,7 +46976,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         pass
 
-                    item = QTableWidgetItem('{0:.2f}'.format(대비))
+                    item = QTableWidgetItem('{0:.2f}'.format(SP500_시가대비))
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -46975,8 +46996,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if tickdata['전일대비기호'] == '5':
                     DOW_종가 = int(DOW_현재가 + DOW_전일대비)
+                    DOW_종가대비 = -DOW_전일대비
                 else:
                     DOW_종가 = int(DOW_현재가 - DOW_전일대비)
+                    DOW_종가대비 = DOW_전일대비
 
                 DOW_등락율 = float(tickdata['등락율'])                
 
@@ -46985,7 +47008,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 DOW_고가 =  int(float(tickdata['고가']))
                 DOW_진폭 = DOW_고가 - DOW_저가
                 
-                대비 = DOW_현재가 - DOW_시가
+                DOW_시가대비 = DOW_현재가 - DOW_시가
 
                 df_dow_graph.at[0, 'price'] = DOW_종가
                 df_dow_graph.at[1, 'price'] = DOW_시가
@@ -47172,7 +47195,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         pass
 
-                    item = QTableWidgetItem('{0}'.format(대비))
+                    item = QTableWidgetItem('{0}'.format(DOW_시가대비))
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -47192,8 +47215,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if tickdata['전일대비기호'] == '5':
                     NASDAQ_종가 = NASDAQ_현재가 + NASDAQ_전일대비
+                    NASDAQ_종가대비 = -NASDAQ_전일대비
                 else:
                     NASDAQ_종가 = NASDAQ_현재가 - NASDAQ_전일대비
+                    NASDAQ_종가대비 = NASDAQ_전일대비
 
                 NASDAQ_등락율 = float(tickdata['등락율'])                 
 
@@ -47202,7 +47227,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 NASDAQ_고가 =  float(tickdata['고가'])                    
                 NASDAQ_진폭 = NASDAQ_고가 - NASDAQ_저가
                 
-                대비 = NASDAQ_현재가 - NASDAQ_시가                
+                NASDAQ_시가대비 = NASDAQ_현재가 - NASDAQ_시가                
 
                 df_nasdaq_graph.at[0, 'price'] = NASDAQ_종가
                 df_nasdaq_graph.at[1, 'price'] = NASDAQ_시가
@@ -47388,7 +47413,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         pass
 
-                    item = QTableWidgetItem('{0:.2f}'.format(대비))
+                    item = QTableWidgetItem('{0:.2f}'.format(NASDAQ_시가대비))
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -47409,8 +47434,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if tickdata['전일대비기호'] == '5':
                     HANGSENG_종가 = int(HANGSENG_현재가 + HANGSENG_전일대비)
+                    HANGSENG_종가대비 = -HANGSENG_전일대비
                 else:
                     HANGSENG_종가 = int(HANGSENG_현재가 - HANGSENG_전일대비)
+                    HANGSENG_종가대비 = -HANGSENG_전일대비
               
                 HANGSENG_등락율 = float(tickdata['등락율'])
 
@@ -47419,7 +47446,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 HANGSENG_고가 =  int(float(tickdata['고가']))                 
                 HANGSENG_진폭 = HANGSENG_고가 - HANGSENG_저가
                 
-                대비 = HANGSENG_현재가 - HANGSENG_시가                
+                HANGSENG_시가대비 = HANGSENG_현재가 - HANGSENG_시가                
 
                 df_hangseng_graph.at[0, 'price'] = HANGSENG_종가
                 df_hangseng_graph.at[1, 'price'] = HANGSENG_시가
@@ -47552,7 +47579,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         pass
 
-                    item = QTableWidgetItem('{0}'.format(대비))
+                    item = QTableWidgetItem('{0}'.format(HANGSENG_시가대비))
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -47572,8 +47599,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if tickdata['전일대비기호'] == '5':
                     WTI_종가 = round((WTI_현재가 + WTI_전일대비), 2)
+                    WTI_종가대비 = -WTI_전일대비
                 else:
                     WTI_종가 = round((WTI_현재가 - WTI_전일대비), 2)
+                    WTI_종가대비 = WTI_전일대비
                 
                 WTI_등락율 = float(tickdata['등락율'])
 
@@ -47582,7 +47611,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 WTI_고가 =  float(tickdata['고가'])
                 WTI_진폭 = WTI_고가 - WTI_저가
                 
-                대비 = WTI_현재가 - WTI_시가                
+                WTI_시가대비 = WTI_현재가 - WTI_시가                
 
                 df_wti_graph.at[0, 'price'] = WTI_종가
                 df_wti_graph.at[1, 'price'] = WTI_시가
@@ -47768,7 +47797,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         pass
 
-                    item = QTableWidgetItem('{0:.2f}'.format(대비))
+                    item = QTableWidgetItem('{0:.2f}'.format(WTI_시가대비))
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -47788,8 +47817,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if tickdata['전일대비기호'] == '5':
                     GOLD_종가 = round((GOLD_현재가 + GOLD_전일대비), 1)
+                    GOLD_종가대비 = -GOLD_전일대비
                 else:
                     GOLD_종가 = round((GOLD_현재가 - GOLD_전일대비), 1)
+                    GOLD_종가대비 = GOLD_전일대비
 
                 GOLD_등락율 = float(tickdata['등락율'])
 
@@ -47798,7 +47829,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 GOLD_고가 =  float(tickdata['고가'])                    
                 GOLD_진폭 = GOLD_고가 - GOLD_저가
                 
-                대비 = GOLD_현재가 - GOLD_시가                
+                GOLD_시가대비 = GOLD_현재가 - GOLD_시가                
 
                 df_gold_graph.at[0, 'price'] = GOLD_종가
                 df_gold_graph.at[1, 'price'] = GOLD_시가
@@ -47929,7 +47960,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         pass
 
-                    item = QTableWidgetItem('{0:.1f}'.format(대비))
+                    item = QTableWidgetItem('{0:.1f}'.format(GOLD_시가대비))
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -47949,8 +47980,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if tickdata['전일대비기호'] == '5':
                     EUROFX_종가 = round((EUROFX_현재가 + EUROFX_전일대비), 5)
+                    EUROFX_종가대비 = -EUROFX_전일대비
                 else:
                     EUROFX_종가 = round((EUROFX_현재가 - EUROFX_전일대비), 5)
+                    EUROFX_종가대비 = EUROFX_전일대비
 
                 EUROFX_등락율 = float(tickdata['등락율'])
 
@@ -47959,7 +47992,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 EUROFX_고가 =  float(tickdata['고가'])                    
                 EUROFX_진폭 = EUROFX_고가 - EUROFX_저가
 
-                대비 = EUROFX_현재가 - EUROFX_시가                
+                EUROFX_시가대비 = EUROFX_현재가 - EUROFX_시가                
 
                 df_eurofx_graph.at[0, 'price'] = EUROFX_종가
                 df_eurofx_graph.at[1, 'price'] = EUROFX_시가
@@ -48090,7 +48123,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         pass                    
 
-                    item = QTableWidgetItem('{0:.5f}'.format(대비))
+                    item = QTableWidgetItem('{0:.5f}'.format(EUROFX_시가대비))
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -48110,8 +48143,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if tickdata['전일대비기호'] == '5':
                     YEN_종가 = round((YEN_현재가 + YEN_전일대비), 1)
+                    YEN_종가대비 = -YEN_전일대비
                 else:
                     YEN_종가 = round((YEN_현재가 - YEN_전일대비), 1)
+                    YEN_종가대비 = YEN_전일대비
 
                 YEN_등락율 = float(tickdata['등락율'])
 
@@ -48120,7 +48155,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 YEN_고가 =  float(tickdata['고가'])                    
                 YEN_진폭 = YEN_고가 - YEN_저가
 
-                대비 = YEN_현재가 - YEN_시가
+                YEN_시가대비 = YEN_현재가 - YEN_시가
 
                 df_yen_graph.at[0, 'price'] = YEN_종가
                 df_yen_graph.at[1, 'price'] = YEN_시가
@@ -48251,7 +48286,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         pass                    
 
-                    item = QTableWidgetItem('{0:.1f}'.format(대비))
+                    item = QTableWidgetItem('{0:.1f}'.format(YEN_시가대비))
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     item.setTextAlignment(Qt.AlignCenter)
