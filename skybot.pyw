@@ -2458,44 +2458,23 @@ class RealDataTableModel(QAbstractTableModel):
 #####################################################################################################################################################################
 class ScreenUpdateWorker(QThread):
 
-    trigger = pyqtSignal(int, int, int, int)
+    trigger = pyqtSignal()
 
     def __init__(self):
         super().__init__()
 
-        self.daemon = True        
-        self.ntpclient = ntplib.NTPClient()
-
-        self.t0167_hour = 0
-        self.server_minute = 0
-        self.server_second = 0        
+        self.daemon = True      
 
     def run(self):
 
         while True:            
 
             if not flag_futures_update_is_running:
-
-                try:
-                    response = self.ntpclient.request(NTP_Server, version=3)
-
-                    time_str = time.ctime(response.tx_time).split(' ')
-                    srever_time = time_str[-2]
-
-                    self.t0167_hour = int(srever_time[0:2])
-                    self.server_minute = int(srever_time[3:5])
-                    self.server_second = int(srever_time[6:8])
-
-                    timegap = round(-response.offset)
-
-                    self.trigger.emit(self.t0167_hour, self.server_minute, self.server_second, timegap)
-                except Exception as e:
-                    print('NTP Server Time Get Error...', str(e))                   
+                self.trigger.emit()                                  
             else:
                 pass
             
             QTest.qWait(scoreboard_update_interval)
-            #QApplication.processEvents()
 #####################################################################################################################################################################
 # 텔레그램 송신 쓰레드
 #####################################################################################################################################################################
@@ -24824,17 +24803,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
     def cb1_selectionChanged(self):
 
         global comboindex1
-        '''
-        global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_피봇, 근월물_선물_시가, 근월물_선물_저가, 근월물_선물_고가
-        global SP500_전저, SP500_전고, SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가
-        global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
-        global NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가
-        global WTI_전저, WTI_전고, WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_고가
-        global GOLD_전저, GOLD_전고, GOLD_종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_고가
-        global EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_고가
-        global YEN_전저, YEN_전고, YEN_종가, YEN_피봇, YEN_시가, YEN_저가, YEN_고가
-        global HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_고가
-        '''
+        
         txt = self.comboBox1.currentText()
         comboindex1 = self.comboBox1.currentIndex()
 
@@ -24849,11 +24818,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_oe_base_curve.clear()
 
         if comboindex1 == 0:
-            #self.plot_update_worker1.terminate()
             self.timer1.stop()
         else:
-            #self.plot_update_worker1.start()
-
             if not self.timer1.isActive():
 
                 start_time = timeit.default_timer()
@@ -24865,16 +24831,21 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         txt = 'Plot1 Timer Setting Done...\r'
                         self.parent.textBrowser.append(txt)
                         break
-
+                    
                     end_time = timeit.default_timer()
 
                     time_gap = (end_time - start_time) * 1000
 
-                    if time_gap > 100:
+                    if DayTime:
+                        time_limit = 200
+                    else:
+                        time_limit = 100
+
+                    if time_gap > time_limit:
                         self.timer1.start()
                         txt = 'Plot1 Timer Forced Setting Done...\r'
                         self.parent.textBrowser.append(txt)
-                        break                    
+                        break                                 
             else:
                 pass
 
@@ -26065,17 +26036,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
     def cb2_selectionChanged(self):
 
         global comboindex2
-        '''
-        global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_피봇, 근월물_선물_시가, 근월물_선물_저가, 근월물_선물_고가
-        global SP500_전저, SP500_전고, SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가
-        global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
-        global NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가
-        global WTI_전저, WTI_전고, WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_고가
-        global GOLD_전저, GOLD_전고, GOLD_종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_고가
-        global EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_고가
-        global YEN_전저, YEN_전고, YEN_종가, YEN_피봇, YEN_시가, YEN_저가, YEN_고가
-        global HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_고가
-        '''
+        
         txt = self.comboBox2.currentText()
         comboindex2 = self.comboBox2.currentIndex()
 
@@ -26090,11 +26051,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_oe_base_curve.clear()
 
         if comboindex2 == 0:
-            #self.plot_update_worker2.terminate()
             self.timer2.stop()
         else:
-            #self.plot_update_worker2.start()
-
             if not self.timer2.isActive():
 
                 start_time = timeit.default_timer()
@@ -26111,7 +26069,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     time_gap = (end_time - start_time) * 1000
 
-                    if time_gap > 100:
+                    if DayTime:
+                        time_limit = 200
+                    else:
+                        time_limit = 100
+
+                    if time_gap > time_limit:
                         self.timer2.start()
                         txt = 'Plot2 Timer Forced Setting Done...\r'
                         self.parent.textBrowser.append(txt)
@@ -27330,17 +27293,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
     def cb3_selectionChanged(self):
 
         global comboindex3
-        '''
-        global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_피봇, 근월물_선물_시가, 근월물_선물_저가, 근월물_선물_고가
-        global SP500_전저, SP500_전고, SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가
-        global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
-        global NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가
-        global WTI_전저, WTI_전고, WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_고가
-        global GOLD_전저, GOLD_전고, GOLD_종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_고가
-        global EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_고가
-        global YEN_전저, YEN_전고, YEN_종가, YEN_피봇, YEN_시가, YEN_저가, YEN_고가
-        global HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_고가
-        '''
+        
         txt = self.comboBox3.currentText()
         comboindex3 = self.comboBox3.currentIndex()
 
@@ -27355,11 +27308,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_oe_base_curve.clear()
 
         if comboindex3 == 0:
-            #self.plot_update_worker3.terminate()
             self.timer3.stop()
         else:
-            #self.plot_update_worker3.start()
-
             if not self.timer3.isActive():
 
                 start_time = timeit.default_timer()
@@ -27376,7 +27326,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     time_gap = (end_time - start_time) * 1000
 
-                    if time_gap > 100:
+                    if DayTime:
+                        time_limit = 200
+                    else:
+                        time_limit = 100
+
+                    if time_gap > time_limit:
                         self.timer3.start()
                         txt = 'Plot3 Timer Forced Setting Done...\r'
                         self.parent.textBrowser.append(txt)
@@ -28595,17 +28550,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
     def cb4_selectionChanged(self):
 
         global comboindex4
-        '''
-        global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_피봇, 근월물_선물_시가, 근월물_선물_저가, 근월물_선물_고가
-        global SP500_전저, SP500_전고, SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가
-        global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
-        global NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가
-        global WTI_전저, WTI_전고, WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_고가
-        global GOLD_전저, GOLD_전고, GOLD_종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_고가
-        global EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_고가
-        global YEN_전저, YEN_전고, YEN_종가, YEN_피봇, YEN_시가, YEN_저가, YEN_고가
-        global HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_고가
-        '''
+        
         txt = self.comboBox4.currentText()
         comboindex4 = self.comboBox4.currentIndex()
 
@@ -28620,11 +28565,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_oe_base_curve.clear()
 
         if comboindex4 == 0:
-            #self.plot_update_worker4.terminate()
             self.timer4.stop()
         else:
-            #self.plot_update_worker4.start()
-
             if not self.timer4.isActive():
 
                 start_time = timeit.default_timer()
@@ -28641,7 +28583,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     time_gap = (end_time - start_time) * 1000
 
-                    if time_gap > 100:
+                    if DayTime:
+                        time_limit = 200
+                    else:
+                        time_limit = 100
+
+                    if time_gap > time_limit:
                         self.timer4.start()
                         txt = 'Plot4 Timer Forced Setting Done...\r'
                         self.parent.textBrowser.append(txt)
@@ -29828,17 +29775,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
     def cb5_selectionChanged(self):
 
         global comboindex5
-        '''
-        global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_피봇, 근월물_선물_시가, 근월물_선물_저가, 근월물_선물_고가
-        global SP500_전저, SP500_전고, SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가
-        global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
-        global NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가
-        global WTI_전저, WTI_전고, WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_고가
-        global GOLD_전저, GOLD_전고, GOLD_종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_고가
-        global EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_고가
-        global YEN_전저, YEN_전고, YEN_종가, YEN_피봇, YEN_시가, YEN_저가, YEN_고가
-        global HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_고가
-        '''
+        
         txt = self.comboBox5.currentText()
         comboindex5 = self.comboBox5.currentIndex()
 
@@ -29853,11 +29790,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_oe_base_curve.clear()
 
         if comboindex5 == 0:
-            #self.plot_update_worker5.terminate()
             self.timer5.stop()
         else:
-            #self.plot_update_worker5.start()
-
             if not self.timer5.isActive():
 
                 start_time = timeit.default_timer()
@@ -29874,7 +29808,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     time_gap = (end_time - start_time) * 1000
 
-                    if time_gap > 100:
+                    if DayTime:
+                        time_limit = 200
+                    else:
+                        time_limit = 100
+
+                    if time_gap > time_limit:
                         self.timer5.start()
                         txt = 'Plot5 Timer Forced Setting Done...\r'
                         self.parent.textBrowser.append(txt)
@@ -31093,17 +31032,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
     def cb6_selectionChanged(self):
 
         global comboindex6
-        '''
-        global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_피봇, 근월물_선물_시가, 근월물_선물_저가, 근월물_선물_고가
-        global SP500_전저, SP500_전고, SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가
-        global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
-        global NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가
-        global WTI_전저, WTI_전고, WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_고가
-        global GOLD_전저, GOLD_전고, GOLD_종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_고가
-        global EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_고가
-        global YEN_전저, YEN_전고, YEN_종가, YEN_피봇, YEN_시가, YEN_저가, YEN_고가
-        global HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_고가
-        '''
+        
         txt = self.comboBox6.currentText()
         comboindex6 = self.comboBox6.currentIndex()
 
@@ -31118,11 +31047,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_oe_base_curve.clear()
 
         if comboindex6 == 0:
-            #self.plot_update_worker6.terminate()
             self.timer6.stop()
         else:
-            #self.plot_update_worker6.start()
-
             if not self.timer6.isActive():
 
                 start_time = timeit.default_timer()
@@ -31139,7 +31065,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     time_gap = (end_time - start_time) * 1000
 
-                    if time_gap > 100:
+                    if DayTime:
+                        time_limit = 200
+                    else:
+                        time_limit = 100
+
+                    if time_gap > time_limit:
                         self.timer6.start()
                         txt = 'Plot6 Timer Forced Setting Done...\r'
                         self.parent.textBrowser.append(txt)
