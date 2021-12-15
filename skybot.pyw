@@ -43897,7 +43897,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
                 self.textBrowser.append(txt)
-
+                '''
                 SP500_야간_시작가 = SP500_현재가
                 DOW_야간_시작가 = DOW_현재가
                 WTI_야간_시작가 = WTI_현재가
@@ -43928,7 +43928,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] WTI 야간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, WTI_야간_시작가)
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
                 self.textBrowser.append(txt)
-
+                '''
             # 야간 옵션장 시작
             elif tickdata['장구분'] == '8' and tickdata['장상태'] == '21':
 
@@ -43938,8 +43938,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
                 self.textBrowser.append(txt)
 
+                SP500_야간_시작가 = SP500_현재가
                 DOW_야간_시작가 = DOW_현재가
                 WTI_야간_시작가 = WTI_현재가
+
+                jisu_txt = "S&P 500 야간시작가: {0}".format(SP500_야간_시작가)
+
+                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] SP500 야간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, SP500_야간_시작가)
+                self.dialog['선물옵션전광판'].textBrowser.append(txt)
+                self.textBrowser.append(txt)
 
                 jisu_txt = "DOW 야간시작가: {0}".format(DOW_야간_시작가)
 
