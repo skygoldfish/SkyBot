@@ -718,8 +718,8 @@ if os.path.isfile('nighttime.txt'):
         
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
-        FUT_종가 = float(temp[5])
-        print('FUT 종가 =', FUT_종가)
+        FUT_전일종가 = float(temp[5])
+        print('FUT 종가 =', FUT_전일종가)
 
         tmp = nighttime_file.readline().strip()
 
@@ -847,7 +847,7 @@ if os.path.isfile('nighttime.txt'):
         print('***YEN_전고 =\r', YEN_전고)
         print('***YEN_종가 =\r', YEN_종가)        
 else:
-    FUT_종가 = 0
+    FUT_전일종가 = 0
     SP500_전저 = 0
     SP500_전고 = 0
     SP500_종가 = 0
@@ -6123,9 +6123,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             WTI_당일종가 = WTI_현재가
                             GOLD_당일종가 = GOLD_현재가
                             EUROFX_당일종가 = EUROFX_현재가
-                            YEN_당일종가 = YEN_현재가                                                      
-
-                            FUT_당일종가 = 근월물_선물_현재가
+                            YEN_당일종가 = YEN_현재가
 
                             # 다음날 해외선물 피봇계산을 위해 종료시(오전 6시 or 7시) 마지막 값 저장
                             txt = '[{0:02d}:{1:02d}:{2:02d}] FUT 종가 = {3:.2f}\r'.format(dt.hour, dt.minute, dt.second, FUT_당일종가)
@@ -15276,6 +15274,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_score_board_start, flag_telegram_send_start, flag_telegram_listen_start
         global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_피봇, 근월물_선물_시가, 근월물_선물_저가, 근월물_선물_현재가, 근월물_선물_고가
         global 차월물_선물_전저, 차월물_선물_전고, 차월물_선물_종가, 차월물_선물_피봇, 차월물_선물_시가, 차월물_선물_저가, 차월물_선물_현재가, 차월물_선물_고가
+        global FUT_당일종가
 
         dt = datetime.now()
 
@@ -15587,7 +15586,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     df_futures_cm_graph.at[0, 'volume'] = 0
                 else:
-                    pass
+                    FUT_당일종가 = df['현재가']
 
                 if self.fut_realdata['전저'] > 0 and self.fut_realdata['전고'] > 0:
                     self.fut_realdata['피봇'] = calc_pivot(self.fut_realdata['전저'], self.fut_realdata['전고'], self.fut_realdata['종가'], df['시가'], 2)
@@ -24896,37 +24895,37 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_kp200_line[9].setValue(KP200_COREVAL[6])
                         
             if 근월물_선물_전저 == 0:
-                선물_전저 = FUT_종가
+                선물_전저 = FUT_전일종가
             else:
                 선물_전저 = 근월물_선물_전저
 
             if 근월물_선물_전고 == 0:
-                선물_전고 = FUT_종가
+                선물_전고 = FUT_전일종가
             else:
                 선물_전고 = 근월물_선물_전고
 
             if 근월물_선물_종가 == 0:
-                선물_종가 = FUT_종가
+                선물_종가 = FUT_전일종가
             else:
                 선물_종가 = 근월물_선물_종가
 
             if 근월물_선물_피봇 == 0:
-                선물_피봇 = FUT_종가
+                선물_피봇 = FUT_전일종가
             else:
                 선물_피봇 = 근월물_선물_피봇
 
             if 근월물_선물_시가 == 0:
-                선물_시가 = FUT_종가
+                선물_시가 = FUT_전일종가
             else:
                 선물_시가 = 근월물_선물_시가
 
             if 근월물_선물_저가 == 0:
-                선물_저가 = FUT_종가
+                선물_저가 = FUT_전일종가
             else:
                 선물_저가 = 근월물_선물_저가
 
             if 근월물_선물_고가 == 0:
-                선물_고가 = FUT_종가
+                선물_고가 = FUT_전일종가
             else:
                 선물_고가 = 근월물_선물_고가
             
@@ -26135,37 +26134,37 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_kp200_line[9].setValue(KP200_COREVAL[6])
                         
             if 근월물_선물_전저 == 0:
-                선물_전저 = FUT_종가
+                선물_전저 = FUT_전일종가
             else:
                 선물_전저 = 근월물_선물_전저
 
             if 근월물_선물_전고 == 0:
-                선물_전고 = FUT_종가
+                선물_전고 = FUT_전일종가
             else:
                 선물_전고 = 근월물_선물_전고
 
             if 근월물_선물_종가 == 0:
-                선물_종가 = FUT_종가
+                선물_종가 = FUT_전일종가
             else:
                 선물_종가 = 근월물_선물_종가
 
             if 근월물_선물_피봇 == 0:
-                선물_피봇 = FUT_종가
+                선물_피봇 = FUT_전일종가
             else:
                 선물_피봇 = 근월물_선물_피봇
 
             if 근월물_선물_시가 == 0:
-                선물_시가 = FUT_종가
+                선물_시가 = FUT_전일종가
             else:
                 선물_시가 = 근월물_선물_시가
 
             if 근월물_선물_저가 == 0:
-                선물_저가 = FUT_종가
+                선물_저가 = FUT_전일종가
             else:
                 선물_저가 = 근월물_선물_저가
 
             if 근월물_선물_고가 == 0:
-                선물_고가 = FUT_종가
+                선물_고가 = FUT_전일종가
             else:
                 선물_고가 = 근월물_선물_고가
             
@@ -27387,37 +27386,37 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_clear()
 
             if 근월물_선물_전저 == 0:
-                선물_전저 = FUT_종가
+                선물_전저 = FUT_전일종가
             else:
                 선물_전저 = 근월물_선물_전저
 
             if 근월물_선물_전고 == 0:
-                선물_전고 = FUT_종가
+                선물_전고 = FUT_전일종가
             else:
                 선물_전고 = 근월물_선물_전고
 
             if 근월물_선물_종가 == 0:
-                선물_종가 = FUT_종가
+                선물_종가 = FUT_전일종가
             else:
                 선물_종가 = 근월물_선물_종가
 
             if 근월물_선물_피봇 == 0:
-                선물_피봇 = FUT_종가
+                선물_피봇 = FUT_전일종가
             else:
                 선물_피봇 = 근월물_선물_피봇
 
             if 근월물_선물_시가 == 0:
-                선물_시가 = FUT_종가
+                선물_시가 = FUT_전일종가
             else:
                 선물_시가 = 근월물_선물_시가
 
             if 근월물_선물_저가 == 0:
-                선물_저가 = FUT_종가
+                선물_저가 = FUT_전일종가
             else:
                 선물_저가 = 근월물_선물_저가
 
             if 근월물_선물_고가 == 0:
-                선물_고가 = FUT_종가
+                선물_고가 = FUT_전일종가
             else:
                 선물_고가 = 근월물_선물_고가
             
@@ -28661,37 +28660,37 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_kp200_line[9].setValue(KP200_COREVAL[6])
                         
             if 근월물_선물_전저 == 0:
-                선물_전저 = FUT_종가
+                선물_전저 = FUT_전일종가
             else:
                 선물_전저 = 근월물_선물_전저
 
             if 근월물_선물_전고 == 0:
-                선물_전고 = FUT_종가
+                선물_전고 = FUT_전일종가
             else:
                 선물_전고 = 근월물_선물_전고
 
             if 근월물_선물_종가 == 0:
-                선물_종가 = FUT_종가
+                선물_종가 = FUT_전일종가
             else:
                 선물_종가 = 근월물_선물_종가
 
             if 근월물_선물_피봇 == 0:
-                선물_피봇 = FUT_종가
+                선물_피봇 = FUT_전일종가
             else:
                 선물_피봇 = 근월물_선물_피봇
 
             if 근월물_선물_시가 == 0:
-                선물_시가 = FUT_종가
+                선물_시가 = FUT_전일종가
             else:
                 선물_시가 = 근월물_선물_시가
 
             if 근월물_선물_저가 == 0:
-                선물_저가 = FUT_종가
+                선물_저가 = FUT_전일종가
             else:
                 선물_저가 = 근월물_선물_저가
 
             if 근월물_선물_고가 == 0:
-                선물_고가 = FUT_종가
+                선물_고가 = FUT_전일종가
             else:
                 선물_고가 = 근월물_선물_고가
             
@@ -29892,37 +29891,37 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_kp200_line[9].setValue(KP200_COREVAL[6])
                         
             if 근월물_선물_전저 == 0:
-                선물_전저 = FUT_종가
+                선물_전저 = FUT_전일종가
             else:
                 선물_전저 = 근월물_선물_전저
 
             if 근월물_선물_전고 == 0:
-                선물_전고 = FUT_종가
+                선물_전고 = FUT_전일종가
             else:
                 선물_전고 = 근월물_선물_전고
 
             if 근월물_선물_종가 == 0:
-                선물_종가 = FUT_종가
+                선물_종가 = FUT_전일종가
             else:
                 선물_종가 = 근월물_선물_종가
 
             if 근월물_선물_피봇 == 0:
-                선물_피봇 = FUT_종가
+                선물_피봇 = FUT_전일종가
             else:
                 선물_피봇 = 근월물_선물_피봇
 
             if 근월물_선물_시가 == 0:
-                선물_시가 = FUT_종가
+                선물_시가 = FUT_전일종가
             else:
                 선물_시가 = 근월물_선물_시가
 
             if 근월물_선물_저가 == 0:
-                선물_저가 = FUT_종가
+                선물_저가 = FUT_전일종가
             else:
                 선물_저가 = 근월물_선물_저가
 
             if 근월물_선물_고가 == 0:
-                선물_고가 = FUT_종가
+                선물_고가 = FUT_전일종가
             else:
                 선물_고가 = 근월물_선물_고가
             
@@ -31155,37 +31154,37 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_kp200_line[9].setValue(KP200_COREVAL[6])
                         
             if 근월물_선물_전저 == 0:
-                선물_전저 = FUT_종가
+                선물_전저 = FUT_전일종가
             else:
                 선물_전저 = 근월물_선물_전저
 
             if 근월물_선물_전고 == 0:
-                선물_전고 = FUT_종가
+                선물_전고 = FUT_전일종가
             else:
                 선물_전고 = 근월물_선물_전고
 
             if 근월물_선물_종가 == 0:
-                선물_종가 = FUT_종가
+                선물_종가 = FUT_전일종가
             else:
                 선물_종가 = 근월물_선물_종가
 
             if 근월물_선물_피봇 == 0:
-                선물_피봇 = FUT_종가
+                선물_피봇 = FUT_전일종가
             else:
                 선물_피봇 = 근월물_선물_피봇
 
             if 근월물_선물_시가 == 0:
-                선물_시가 = FUT_종가
+                선물_시가 = FUT_전일종가
             else:
                 선물_시가 = 근월물_선물_시가
 
             if 근월물_선물_저가 == 0:
-                선물_저가 = FUT_종가
+                선물_저가 = FUT_전일종가
             else:
                 선물_저가 = 근월물_선물_저가
 
             if 근월물_선물_고가 == 0:
-                선물_고가 = FUT_종가
+                선물_고가 = FUT_전일종가
             else:
                 선물_고가 = 근월물_선물_고가
             
@@ -44117,8 +44116,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 종료되었습니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
                 self.textBrowser.append(txt)
-
-                #FUT_당일종가 = self.cme_realdata['현재가']
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 S&P 500 지수 = {3}\r'.format(t0167_hour, t0167_minute, t0167_second, SP500_현재가)
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
