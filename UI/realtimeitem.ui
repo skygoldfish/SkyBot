@@ -35,7 +35,7 @@
    <property name="flat">
     <bool>false</bool>
    </property>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -403,7 +403,7 @@
     </font>
    </property>
    <property name="title">
-    <string>Plot 우선모드 및 갱신주기</string>
+    <string>Plot Sync 및 Plot 갱신주기</string>
    </property>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
@@ -418,7 +418,7 @@
      <item>
       <widget class="QCheckBox" name="checkBox_plot_first">
        <property name="text">
-        <string>Plot First</string>
+        <string>Plot Sync</string>
        </property>
       </widget>
      </item>
@@ -486,7 +486,7 @@
     </font>
    </property>
    <property name="title">
-    <string>실시간 갱신주기/허용오차</string>
+    <string>Main Loop 주기 및 실시간입력 허용오차</string>
    </property>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
@@ -501,7 +501,7 @@
      <item>
       <widget class="QCheckBox" name="checkBox_periodic_plot">
        <property name="text">
-        <string>P-Plot</string>
+        <string>ML Period</string>
        </property>
       </widget>
      </item>

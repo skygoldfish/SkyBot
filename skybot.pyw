@@ -389,13 +389,13 @@ DARK_STYLESHEET = parser.getboolean('Window Style', 'Dark Style')
 
 # [5]. << User Switch = 'ON or OFF' >>
 MULTIPROCESS = parser.getboolean('User Switch', 'Multiprocess')
-PLOT_FIRST = parser.getboolean('User Switch', 'Plot First')
+OPTION_PERIODIC_UPDATE = parser.getboolean('User Switch', 'Option Table Periodic Update')
 TELEGRAM_SERVICE = parser.getboolean('User Switch', 'Telegram service')
 MANGI_YAGAN = parser.getboolean('User Switch', 'Mangi Yagan')
 AUTO_START = parser.getboolean('User Switch', 'Auto Start')
 ResizeRowsToContents = parser.getboolean('User Switch', 'Resize Rows To Contents')
 CROSS_HAIR_LINE = parser.getboolean('User Switch', 'Cross Hair Line')
-SECOND_PLOT_SYNC = parser.getboolean('User Switch', 'Second Plot Sync')
+PLOT_SYNC_MODE = parser.getboolean('User Switch', 'Plot Sync Mode')
 CSV_FILE = parser.getboolean('User Switch', 'CSV Data File')
 TTS = parser.getboolean('User Switch', 'Text To Speach')
 SEARCH_MOVING_NODE = parser.getboolean('User Switch', 'Search Moving Node')
@@ -2113,8 +2113,8 @@ schedule_hour = 0
 schedule_min = 0
 schedule_sec = 0
 
-flag_plot_first_mode = PLOT_FIRST
-flag_option_periodic_update_mode = PLOT_FIRST
+flag_option_periodic_update_mode = OPTION_PERIODIC_UPDATE
+flag_plot_sync_mode = PLOT_SYNC_MODE
 
 flag_drop_reset1 = False
 flag_drop_reset2 = False
@@ -18665,14 +18665,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.textBrowser.append(txt)
                 print(txt)
 
-                #self.screen_update_worker.start()
-
-                '''
-                if not flag_plot_first_mode:
-                    self.screen_update_worker.start()
-                else:
-                    pass
-                '''
                 ui_start_time = dt.hour * 3600 + dt.minute * 60 + dt.second
                 print('야간 ui_start_time =', ui_start_time)
 
@@ -21211,7 +21203,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_yen.setChecked(YEN_CHK)        
 
         self.checkBox_periodic_plot.setChecked(flag_option_periodic_update_mode)
-        self.checkBox_plot_first.setChecked(flag_plot_first_mode)
+        self.checkBox_plot_first.setChecked(flag_plot_sync_mode)
 
         self.spinBox_call_itm.setValue(call_itm_number)
         self.spinBox_call_otm.setValue(call_otm_number)
@@ -22243,13 +22235,13 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
             flag_option_periodic_update_mode = True
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Plot을 주기적 갱신모드로 설정합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션전관판을 주기적 갱신모드로 설정합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.parent.textBrowser.append(txt)
             print(txt)
         else:
             flag_option_periodic_update_mode = False
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Plot의 주기적 갱신모드를 해지합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션전관판의 주기적 갱신모드를 해지합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.parent.textBrowser.append(txt)
             print(txt)
 
@@ -22258,53 +22250,49 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.now()
 
-        global flag_plot_first_mode
-        global flag_score_board_start, flag_telegram_send_start, flag_telegram_listen_start
+        global flag_plot_sync_mode
+        #global flag_score_board_start, flag_telegram_send_start, flag_telegram_listen_start
 
         if self.checkBox_plot_first.isChecked() == True:
 
-            flag_plot_first_mode = True
+            flag_plot_sync_mode = True
 
-            flag_score_board_start = False
-            flag_telegram_send_start = False
-            flag_telegram_listen_start = False
+            #flag_score_board_start = False
+            #flag_telegram_send_start = False
+            #flag_telegram_listen_start = False
 
-            '''
-            if self.parent.dialog['선물옵션전광판'].screen_update_worker.isRunning():
-                self.parent.dialog['선물옵션전광판'].screen_update_worker.terminate()
+            if self.parent.dialog['SkyChart'] is not None:
+                self.parent.dialog['SkyChart'].plot2.setXLink(self.parent.dialog['SkyChart'].plot1)
+                self.parent.dialog['SkyChart'].plot3.setXLink(self.parent.dialog['SkyChart'].plot1)
+                self.parent.dialog['SkyChart'].plot5.setXLink(self.parent.dialog['SkyChart'].plot4)
+                self.parent.dialog['SkyChart'].plot6.setXLink(self.parent.dialog['SkyChart'].plot4)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Plot Sync 모드로 설정합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+                print(txt)
             else:
-                pass
-
-            if self.parent.dialog['선물옵션전광판'].telegram_send_worker.isRunning():
-                self.parent.dialog['선물옵션전광판'].telegram_send_worker.terminate()
-            else:
-                pass
-
-            if self.parent.dialog['선물옵션전광판'].telegram_listen_worker.isRunning():
-                self.parent.dialog['선물옵션전광판'].telegram_listen_worker.terminate()
-            else:
-                pass
-            '''
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Plot 우선모드로 설정합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Sky Chart를 열어주세요.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+                print(txt)            
         else:
-            flag_plot_first_mode = False
+            flag_plot_sync_mode = False
 
-            flag_score_board_start = True
-            flag_telegram_send_start = True
-            flag_telegram_listen_start = True
+            #flag_score_board_start = True
+            #flag_telegram_send_start = True
+            #flag_telegram_listen_start = True
 
-            '''
-            self.parent.dialog['선물옵션전광판'].screen_update_worker.start()
-            self.parent.dialog['선물옵션전광판'].telegram_send_worker.start()
-            self.parent.dialog['선물옵션전광판'].telegram_listen_worker.start()
-            '''
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Plot 우선모드를 해지합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-            print(txt)
+            if self.parent.dialog['SkyChart'] is not None:
+                self.parent.dialog['SkyChart'].plot2.setXLink(self.parent.dialog['SkyChart'].plot2)
+                self.parent.dialog['SkyChart'].plot3.setXLink(self.parent.dialog['SkyChart'].plot3)
+                self.parent.dialog['SkyChart'].plot5.setXLink(self.parent.dialog['SkyChart'].plot5)
+                self.parent.dialog['SkyChart'].plot6.setXLink(self.parent.dialog['SkyChart'].plot6)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Plot Sync 모드를 해지합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+                print(txt)
+            else:
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Sky Chart를 열어주세요.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
+                print(txt)            
 
     def closeEvent(self,event):
 
@@ -22724,12 +22712,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1.plotItem.showGrid(True, True, 0.5)
 
         self.plot2.enableAutoRange('y', True)
-        self.plot2.plotItem.showGrid(True, True, 0.5)
-        self.plot2.setXLink(self.plot1)
+        self.plot2.plotItem.showGrid(True, True, 0.5)        
 
         self.plot3.enableAutoRange('y', True)
-        self.plot3.plotItem.showGrid(True, True, 0.5)
-        self.plot3.setXLink(self.plot1)
+        self.plot3.plotItem.showGrid(True, True, 0.5)        
 
         self.plot4.enableAutoRange('y', True)
         self.plot4.plotItem.showGrid(True, True, 0.5)       
@@ -22740,7 +22726,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6.enableAutoRange('y', True)
         self.plot6.plotItem.showGrid(True, True, 0.5)
 
-        if SECOND_PLOT_SYNC: 
+        if flag_plot_sync_mode:
+            self.plot2.setXLink(self.plot1)
+            self.plot3.setXLink(self.plot1)
             self.plot5.setXLink(self.plot4)
             self.plot6.setXLink(self.plot4)
         else:
@@ -29863,7 +29851,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             num = 0
 
             if not self.timer5.isActive():
-                
+
                 while True:
 
                     if not flag_screen_update_is_running:
