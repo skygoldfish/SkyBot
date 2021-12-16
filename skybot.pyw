@@ -1264,11 +1264,11 @@ option_pairs_count = 0
 t8416_option_pairs_count = 0
 real_option_pairs_count = 0
 
-fut_cm_result = dict()
-fut_nm_result = dict()
+fut_cm_tickdata = dict()
+fut_nm_tickdata = dict()
 
-call_result = dict()
-put_result = dict()
+call_tickdata = dict()
+put_tickdata = dict()
 
 call_oi_init_percent = 0
 put_oi_init_percent = 0
@@ -5868,27 +5868,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         if self.alternate_flag:
                             # 콜 테이블 데이타 갱신 
-                            if call_result:                        
-                                self.call_db_update()
+                            if call_tickdata:                        
+                                #self.call_db_update()
                                 self.call_volume_power_update()                                
                             else:
                                 pass
                         else:
                             # 풋 테이블 데이타 갱신
-                            if put_result:                      
-                                self.put_db_update()
+                            if put_tickdata:                      
+                                #self.put_db_update()
                                 self.put_volume_power_update()
                             else:
                                 pass
 
                         # 수정미결 표시
                         if DayTime:
-                            if call_result:
+                            if call_tickdata:
                                 self.call_oi_update()
                             else:
                                 pass
 
-                            if put_result:
+                            if put_tickdata:
                                 self.put_oi_update()
                             else:
                                 pass
@@ -13013,7 +13013,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
     def call_oi_update(self):
 	
-        index = call_행사가.index(call_result['단축코드'][5:8])
+        index = call_행사가.index(call_tickdata['단축코드'][5:8])
 
         수정미결 = format(df_call.at[index, '수정미결'], ',')
 
@@ -13032,7 +13032,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem(수정미결증감)
             item.setTextAlignment(Qt.AlignCenter)
 
-            if int(call_result['미결제약정증감']) < 0:
+            if int(call_tickdata['미결제약정증감']) < 0:
                 item.setBackground(QBrush(라임))
             else:
                 item.setBackground(QBrush(흰색))
@@ -13059,35 +13059,35 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global df_call, df_call_volume, call_volume_power, call_volume, df_call_information_graph   
         global 콜_순매수_체결량
 
-        index = call_행사가.index(call_result['단축코드'][5:8])
+        index = call_행사가.index(call_tickdata['단축코드'][5:8])
 
         콜현재가 = df_call.at[index, '현재가']
         콜시가갭 = df_call.at[index, '시가갭']
 
         if 콜현재가 <= 콜시가갭:
 
-            수정거래량 = (int(call_result['매수누적체결량']) - int(call_result['매도누적체결량'])) * 콜현재가
+            수정거래량 = (int(call_tickdata['매수누적체결량']) - int(call_tickdata['매도누적체결량'])) * 콜현재가
 
             if DayTime:
 
-                매도누적체결건수 = int(call_result['매도누적체결건수']) * 콜현재가
-                매수누적체결건수 = int(call_result['매수누적체결건수']) * 콜현재가
+                매도누적체결건수 = int(call_tickdata['매도누적체결건수']) * 콜현재가
+                매수누적체결건수 = int(call_tickdata['매수누적체결건수']) * 콜현재가
             else:
                 pass
         else:
 
-            수정거래량 = (int(call_result['매수누적체결량']) - int(call_result['매도누적체결량'])) * (콜현재가 - 콜시가갭)
+            수정거래량 = (int(call_tickdata['매수누적체결량']) - int(call_tickdata['매도누적체결량'])) * (콜현재가 - 콜시가갭)
 
             if DayTime:
 
-                매도누적체결건수 = int(call_result['매도누적체결건수']) * (콜현재가 - 콜시가갭)
-                매수누적체결건수 = int(call_result['매수누적체결건수']) * (콜현재가 - 콜시가갭)
+                매도누적체결건수 = int(call_tickdata['매도누적체결건수']) * (콜현재가 - 콜시가갭)
+                매수누적체결건수 = int(call_tickdata['매수누적체결건수']) * (콜현재가 - 콜시가갭)
             else:
                 pass
 
         콜수정거래량 = int(수정거래량)
         df_call.at[index, '수정거래량'] = 콜수정거래량
-        df_call.at[index, '거래량'] = int(call_result['누적거래량'])
+        df_call.at[index, '거래량'] = int(call_tickdata['누적거래량'])
 
         if DayTime:
 
@@ -14090,7 +14090,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
     def put_oi_update(self):
 		
-        index = put_행사가.index(put_result['단축코드'][5:8])
+        index = put_행사가.index(put_tickdata['단축코드'][5:8])
 
         수정미결 = format(df_put.at[index, '수정미결'], ',')
 
@@ -14109,7 +14109,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem(미결증감)
             item.setTextAlignment(Qt.AlignCenter)
 
-            if int(put_result['미결제약정증감']) < 0:
+            if int(put_tickdata['미결제약정증감']) < 0:
                 item.setBackground(QBrush(라임))
             else:
                 item.setBackground(QBrush(흰색))
@@ -14136,35 +14136,35 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global df_put, df_put_volume, put_volume_power, put_volume, df_put_information_graph
         global 풋_순매수_체결량, option_volume_power
 
-        index = put_행사가.index(put_result['단축코드'][5:8])
+        index = put_행사가.index(put_tickdata['단축코드'][5:8])
 
         풋현재가 = df_put.at[index, '현재가']
         풋시가갭 = df_put.at[index, '시가갭']
 
         if 풋현재가 <= 풋시가갭:
 
-            수정거래량 = (int(put_result['매수누적체결량']) - int(put_result['매도누적체결량'])) * 풋현재가
+            수정거래량 = (int(put_tickdata['매수누적체결량']) - int(put_tickdata['매도누적체결량'])) * 풋현재가
 
             if DayTime:
 
-                매도누적체결건수 = int(put_result['매도누적체결건수']) * 풋현재가
-                매수누적체결건수 = int(put_result['매수누적체결건수']) * 풋현재가
+                매도누적체결건수 = int(put_tickdata['매도누적체결건수']) * 풋현재가
+                매수누적체결건수 = int(put_tickdata['매수누적체결건수']) * 풋현재가
             else:
                 pass
         else:
 
-            수정거래량 = (int(put_result['매수누적체결량']) - int(put_result['매도누적체결량'])) * (풋현재가 - 풋시가갭)
+            수정거래량 = (int(put_tickdata['매수누적체결량']) - int(put_tickdata['매도누적체결량'])) * (풋현재가 - 풋시가갭)
 
             if DayTime:
 
-                매도누적체결건수 = int(put_result['매도누적체결건수']) * (풋현재가 - 풋시가갭)
-                매수누적체결건수 = int(put_result['매수누적체결건수']) * (풋현재가 - 풋시가갭)
+                매도누적체결건수 = int(put_tickdata['매도누적체결건수']) * (풋현재가 - 풋시가갭)
+                매수누적체결건수 = int(put_tickdata['매수누적체결건수']) * (풋현재가 - 풋시가갭)
             else:
                 pass
 
         풋수정거래량 = int(수정거래량)
         df_put.at[index, '수정거래량'] = 풋수정거래량
-        df_put.at[index, '거래량'] = int(put_result['누적거래량'])
+        df_put.at[index, '거래량'] = int(put_tickdata['누적거래량'])
 
         if DayTime:
             
@@ -45659,8 +45659,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global pre_start, flag_fut_vs_sp500_drate_direction, plot_drate_scale_factor, fut_volume_power_energy_direction
         global fut_cm_volume_power, fut_nm_volume_power
         global 근월물_선물_종가대비_등락율, 근월물_선물_시가등락율, 근월물_선물_시가대비_등락율, kp200_시가등락율
-        global df_futures_cm_graph, 근월물_선물_현재가, 근월물_선물_현재가_버퍼, flag_futures_cm_ohlc_open, fut_cm_result
-        global df_futures_nm_graph, 차월물_선물_현재가, 차월물_선물_현재가_버퍼, flag_futures_nm_ohlc_open, fut_nm_result
+        global df_futures_cm_graph, 근월물_선물_현재가, 근월물_선물_현재가_버퍼, flag_futures_cm_ohlc_open, fut_cm_tickdata
+        global df_futures_nm_graph, 차월물_선물_현재가, 차월물_선물_현재가_버퍼, flag_futures_nm_ohlc_open, fut_nm_tickdata
         global flag_drate_scale_factor_set
         global 차월물_선물_종가대비_등락율, 차월물_선물_시가대비_등락율
 
@@ -45796,7 +45796,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 #df_futures_cm_graph.at[cme_time_index, 'drate'] = plot_drate_scale_factor * 근월물_선물_종가대비_등락율
                 df_futures_cm_graph.at[cme_time_index, 'drate'] = plot_drate_scale_factor * 근월물_선물_시가대비_등락율                
 
-                fut_cm_result = copy.deepcopy(tickdata)
+                fut_cm_tickdata = copy.deepcopy(tickdata)
 
                 self.dialog['선물옵션전광판'].fut_cm_update(tickdata)
                 self.dialog['선물옵션전광판'].fut_cm_etc_update(tickdata)
@@ -45923,7 +45923,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     fut_volume_power_energy_direction = ''
 
-                fut_nm_result = copy.deepcopy(tickdata)
+                fut_nm_tickdata = copy.deepcopy(tickdata)
 
                 self.dialog['선물옵션전광판'].fut_nm_update(tickdata)
                 self.dialog['선물옵션전광판'].fut_nm_etc_update(tickdata)    
@@ -46281,8 +46281,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def option_tick_update(self, tickdata):
         
         global flag_option_start, pre_start, receive_quote, flag_market_service
-        global df_call, call_result, df_call_graph, df_call_information_graph, df_call_volume, call_volume_power, 콜_등가_등락율
-        global df_put, put_result, df_put_graph, df_put_information_graph, df_put_volume, put_volume_power, 풋_등가_등락율
+        global df_call, call_tickdata, df_call_graph, df_call_information_graph, df_call_volume, call_volume_power, 콜_등가_등락율
+        global df_put, put_tickdata, df_put_graph, df_put_information_graph, df_put_volume, put_volume_power, 풋_등가_등락율
         global 콜_수정미결합, 풋_수정미결합, 콜_수정미결퍼센트, 풋_수정미결퍼센트, 콜잔량비, 풋잔량비
         global 콜_현재가, 풋_현재가
 
@@ -46380,10 +46380,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     # 테이블 갱신
                     self.dialog['선물옵션전광판'].call_update(tickdata)
-                    call_result = copy.deepcopy(tickdata)                
+                    self.dialog['선물옵션전광판'].call_db_update()
+                    call_tickdata = copy.deepcopy(tickdata)                
 
                     if not flag_option_periodic_update_mode:                       
-                        self.dialog['선물옵션전광판'].call_db_update()
+                        #self.dialog['선물옵션전광판'].call_db_update()
                         self.dialog['선물옵션전광판'].call_volume_power_update()
                         self.dialog['선물옵션전광판'].call_oi_update()
                     else:
@@ -46441,10 +46442,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 # 테이블 갱신
                 self.dialog['선물옵션전광판'].put_update(tickdata)
-                put_result = copy.deepcopy(tickdata)                                                                              
+                self.dialog['선물옵션전광판'].put_db_update()
+                put_tickdata = copy.deepcopy(tickdata)                                                                              
 
                 if not flag_option_periodic_update_mode:                    
-                    self.dialog['선물옵션전광판'].put_db_update()
+                    #self.dialog['선물옵션전광판'].put_db_update()
                     self.dialog['선물옵션전광판'].put_volume_power_update()
                     self.dialog['선물옵션전광판'].put_oi_update()
                 else:
