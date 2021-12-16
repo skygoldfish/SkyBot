@@ -32661,7 +32661,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     if 근월물_선물_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    if 근월물_선물_종가대비 < 0:
+                    elif 근월물_선물_종가대비 < 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_17.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -32707,17 +32707,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_close_line.setValue(근월물_선물_고가)
                 self.plot1_fut_high_line.setValue(근월물_선물_고가)   
 
-                self.plot1_kp200_curve.setData(df_kp200_graph['price'].to_numpy())
-                self.plot1_fut_cm_price_curve.setData(df_futures_cm_graph['price'].to_numpy())
-                self.plot1_fut_nm_price_curve.setData(df_futures_nm_graph['price'].to_numpy())
+                self.plot1_kp200_curve.setData(df_kp200_graph['price'])
+                self.plot1_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
+                self.plot1_fut_nm_price_curve.setData(df_futures_nm_graph['price'])
 
                 if flag_checkBox_plot1_bband:
 
                     self.Calc_SAR_BBand('FUT')
 
-                    self.plot1_bollinger_upper_curve.setData(df_futures_cm_graph['BBUpper'].to_numpy())
-                    self.plot1_bollinger_middle_curve.setData(df_futures_cm_graph['BBMiddle'].to_numpy())
-                    self.plot1_bollinger_lower_curve.setData(df_futures_cm_graph['BBLower'].to_numpy())
+                    self.plot1_bollinger_upper_curve.setData(df_futures_cm_graph['BBUpper'])
+                    self.plot1_bollinger_middle_curve.setData(df_futures_cm_graph['BBMiddle'])
+                    self.plot1_bollinger_lower_curve.setData(df_futures_cm_graph['BBLower'])
                 else:
                     pass
 
@@ -32725,8 +32725,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('FUT')
 
-                    self.plot1_mama_curve.setData(df_futures_cm_graph['MAMA'].to_numpy())
-                    self.plot1_fama_curve.setData(df_futures_cm_graph['A_FAMA'].to_numpy())
+                    self.plot1_mama_curve.setData(df_futures_cm_graph['MAMA'])
+                    self.plot1_fama_curve.setData(df_futures_cm_graph['A_FAMA'])
                 else:
                     pass
 
@@ -32734,8 +32734,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('FUT')
 
-                    self.plot1_oe_conv_curve.setData(df_futures_cm_graph['OE_CONV'].to_numpy())
-                    self.plot1_oe_base_curve.setData(df_futures_cm_graph['OE_BASE'].to_numpy())
+                    self.plot1_oe_conv_curve.setData(df_futures_cm_graph['OE_CONV'])
+                    self.plot1_oe_base_curve.setData(df_futures_cm_graph['OE_BASE'])
                 else:
                     pass
             
@@ -32763,12 +32763,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot1_time_line.setValue(cme_time_index)
 
-                self.plot1_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
-                self.plot1_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
+                self.plot1_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
+                self.plot1_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'])
 
                 if DayTime:
-                    self.plot1_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
-                    self.plot1_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
+                    self.plot1_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'])
+                    self.plot1_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'])
                     self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(차월물_선물_호가잔량비_최소)
                     self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(차월물_선물_호가잔량비_최대)
                 else:
@@ -32794,12 +32794,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_18.setText(txt)
 
                 if DayTime:
-                    self.plot1_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
+                    self.plot1_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                 else:
                     pass
                                 
-                self.plot1_call_volume_curve.setData(df_call_information_graph['volume'].to_numpy())
-                self.plot1_put_volume_curve.setData(df_put_information_graph['volume'].to_numpy())
+                self.plot1_call_volume_curve.setData(df_call_information_graph['volume'])
+                self.plot1_put_volume_curve.setData(df_put_information_graph['volume'])
 
             # 옵션가격
             elif comboindex1 == 6:
@@ -32853,14 +32853,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 # 선택된 콜그래프 그리기
                 if selected_call:
                     for i in range(len(selected_call)):
-                        self.plot1_call_curve[i].setData(df_call_graph[selected_call[i]]['price'].to_numpy())
+                        self.plot1_call_curve[i].setData(df_call_graph[selected_call[i]]['price'])
                 else:
                     pass                 
 
                 # 선택된 풋그래프 그리기
                 if selected_put:
                     for i in range(len(selected_put)):
-                        self.plot1_put_curve[i].setData(df_put_graph[selected_put[i]]['price'].to_numpy())
+                        self.plot1_put_curve[i].setData(df_put_graph[selected_put[i]]['price'])
                 else:
                     pass
 
@@ -32872,7 +32872,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     # 중심가 그리기, 모든 값이 NaN인지 체크?
                     #nan_lst = np.isnan(df_call_information_graph['centerval'].values)
                     #print(np.all(nan_lst))                
-                    self.plot1_center_val_curve.setData(df_call_information_graph['centerval'].to_numpy())
+                    self.plot1_center_val_curve.setData(df_call_information_graph['centerval'])
                 else:
                     pass
             
@@ -32886,8 +32886,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot1_time_line.setValue(cme_time_index)
 
-                self.plot1_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
-                self.plot1_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
+                self.plot1_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
+                self.plot1_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'])
                 
                 self.plot1_option_quote_remainder_ratio_bottom_line.setValue(옵션_잔량비_최소)
                 self.plot1_option_quote_remainder_ratio_upper_line.setValue(옵션_잔량비_최대)
@@ -32902,8 +32902,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot1_time_line.setValue(cme_time_index)
 
-                self.plot1_call_oi_curve.setData(df_call_information_graph['open_interest'].to_numpy())
-                self.plot1_put_oi_curve.setData(df_put_information_graph['open_interest'].to_numpy())
+                self.plot1_call_oi_curve.setData(df_call_information_graph['open_interest'])
+                self.plot1_put_oi_curve.setData(df_put_information_graph['open_interest'])
                         
             elif comboindex1 == 10:
 
@@ -32918,19 +32918,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot1_time_line.setValue(cme_time_index)                
                                
-                self.plot1_call_drate_curve.setData(df_call_information_graph['drate'].to_numpy())
-                self.plot1_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy())
+                self.plot1_call_drate_curve.setData(df_call_information_graph['drate'])
+                self.plot1_put_drate_curve.setData(df_put_information_graph['drate'])
                 
                 if DayTime:
 
                     txt = " {0:.2f}({1}) ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_17.setText(txt)
 
-                    self.plot1_fut_drate_curve.setData(df_futures_cm_graph['drate'].to_numpy())
+                    self.plot1_fut_drate_curve.setData(df_futures_cm_graph['drate'])
                 else:
                     pass
 
-                self.plot1_cme_drate_curve.setData(df_sp500_graph['drate'].to_numpy())              
+                self.plot1_cme_drate_curve.setData(df_sp500_graph['drate'])              
             
             elif comboindex1 == 12:
 
@@ -33032,15 +33032,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_low_line.setValue(SP500_저가)
                 self.plot1_ovc_high_line.setValue(SP500_고가)                  
 
-                self.plot1_sp500_curve.setData(df_sp500_graph['price'].to_numpy())
+                self.plot1_sp500_curve.setData(df_sp500_graph['price'])
 
                 if flag_checkBox_plot1_bband:
 
                     self.Calc_SAR_BBand('SP500')                    
 
-                    self.plot1_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].to_numpy())
-                    self.plot1_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].to_numpy())
-                    self.plot1_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].to_numpy())
+                    self.plot1_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'])
+                    self.plot1_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'])
+                    self.plot1_bollinger_lower_curve.setData(df_sp500_graph['BBLower'])
                 else:
                     pass
 
@@ -33048,8 +33048,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('SP500')
 
-                    self.plot1_mama_curve.setData(df_sp500_graph['MAMA'].to_numpy())
-                    self.plot1_fama_curve.setData(df_sp500_graph['A_FAMA'].to_numpy())
+                    self.plot1_mama_curve.setData(df_sp500_graph['MAMA'])
+                    self.plot1_fama_curve.setData(df_sp500_graph['A_FAMA'])
                 else:
                     pass
 
@@ -33057,8 +33057,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('SP500')
 
-                    self.plot1_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].to_numpy())
-                    self.plot1_oe_base_curve.setData(df_sp500_graph['OE_BASE'].to_numpy())
+                    self.plot1_oe_conv_curve.setData(df_sp500_graph['OE_CONV'])
+                    self.plot1_oe_base_curve.setData(df_sp500_graph['OE_BASE'])
                 else:
                     pass
             
@@ -33162,15 +33162,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_low_line.setValue(DOW_저가)
                 self.plot1_ovc_high_line.setValue(DOW_고가)                                      
 
-                self.plot1_dow_curve.setData(df_dow_graph['price'].to_numpy())
+                self.plot1_dow_curve.setData(df_dow_graph['price'])
 
                 if flag_checkBox_plot1_bband:
 
                     self.Calc_SAR_BBand('DOW')
 
-                    self.plot1_bollinger_upper_curve.setData(df_dow_graph['BBUpper'].to_numpy())
-                    self.plot1_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'].to_numpy())
-                    self.plot1_bollinger_lower_curve.setData(df_dow_graph['BBLower'].to_numpy())
+                    self.plot1_bollinger_upper_curve.setData(df_dow_graph['BBUpper'])
+                    self.plot1_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'])
+                    self.plot1_bollinger_lower_curve.setData(df_dow_graph['BBLower'])
                 else:
                     pass
 
@@ -33178,8 +33178,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('DOW')
 
-                    self.plot1_mama_curve.setData(df_dow_graph['MAMA'].to_numpy())
-                    self.plot1_fama_curve.setData(df_dow_graph['A_FAMA'].to_numpy())
+                    self.plot1_mama_curve.setData(df_dow_graph['MAMA'])
+                    self.plot1_fama_curve.setData(df_dow_graph['A_FAMA'])
                 else:
                     pass
 
@@ -33187,8 +33187,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('DOW')
 
-                    self.plot1_oe_conv_curve.setData(df_dow_graph['OE_CONV'].to_numpy())
-                    self.plot1_oe_base_curve.setData(df_dow_graph['OE_BASE'].to_numpy())
+                    self.plot1_oe_conv_curve.setData(df_dow_graph['OE_CONV'])
+                    self.plot1_oe_base_curve.setData(df_dow_graph['OE_BASE'])
                 else:
                     pass
 
@@ -33292,15 +33292,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_low_line.setValue(NASDAQ_저가)
                 self.plot1_ovc_high_line.setValue(NASDAQ_고가)                 
 
-                self.plot1_nasdaq_curve.setData(df_nasdaq_graph['price'].to_numpy())
+                self.plot1_nasdaq_curve.setData(df_nasdaq_graph['price'])
 
                 if flag_checkBox_plot1_bband:
 
                     self.Calc_SAR_BBand('NASDAQ')                    
 
-                    self.plot1_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'].to_numpy())
-                    self.plot1_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'].to_numpy())
-                    self.plot1_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'].to_numpy())
+                    self.plot1_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'])
+                    self.plot1_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'])
+                    self.plot1_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'])
                 else:
                     pass
 
@@ -33308,8 +33308,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('NASDAQ')
 
-                    self.plot1_mama_curve.setData(df_nasdaq_graph['MAMA'].to_numpy())
-                    self.plot1_fama_curve.setData(df_nasdaq_graph['A_FAMA'].to_numpy())
+                    self.plot1_mama_curve.setData(df_nasdaq_graph['MAMA'])
+                    self.plot1_fama_curve.setData(df_nasdaq_graph['A_FAMA'])
                 else:
                     pass
 
@@ -33317,8 +33317,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('NASDAQ')
 
-                    self.plot1_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'].to_numpy())
-                    self.plot1_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'].to_numpy())
+                    self.plot1_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'])
+                    self.plot1_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'])
                 else:
                     pass
 
@@ -33420,15 +33420,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_low_line.setValue(HANGSENG_저가)
                 self.plot1_ovc_high_line.setValue(HANGSENG_고가)                 
 
-                self.plot1_hangseng_curve.setData(df_hangseng_graph['price'].to_numpy())
+                self.plot1_hangseng_curve.setData(df_hangseng_graph['price'])
 
                 if flag_checkBox_plot1_bband:
 
                     self.Calc_SAR_BBand('HSI')
 
-                    self.plot1_bollinger_upper_curve.setData(df_hangseng_graph['BBUpper'].to_numpy())
-                    self.plot1_bollinger_middle_curve.setData(df_hangseng_graph['BBMiddle'].to_numpy())
-                    self.plot1_bollinger_lower_curve.setData(df_hangseng_graph['BBLower'].to_numpy())
+                    self.plot1_bollinger_upper_curve.setData(df_hangseng_graph['BBUpper'])
+                    self.plot1_bollinger_middle_curve.setData(df_hangseng_graph['BBMiddle'])
+                    self.plot1_bollinger_lower_curve.setData(df_hangseng_graph['BBLower'])
                 else:
                     pass
 
@@ -33436,8 +33436,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('HSI')
 
-                    self.plot1_mama_curve.setData(df_hangseng_graph['MAMA'].to_numpy())
-                    self.plot1_fama_curve.setData(df_hangseng_graph['A_FAMA'].to_numpy())
+                    self.plot1_mama_curve.setData(df_hangseng_graph['MAMA'])
+                    self.plot1_fama_curve.setData(df_hangseng_graph['A_FAMA'])
                 else:
                     pass
 
@@ -33445,8 +33445,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('HSI')
 
-                    self.plot1_oe_conv_curve.setData(df_hangseng_graph['OE_CONV'].to_numpy())
-                    self.plot1_oe_base_curve.setData(df_hangseng_graph['OE_BASE'].to_numpy())
+                    self.plot1_oe_conv_curve.setData(df_hangseng_graph['OE_CONV'])
+                    self.plot1_oe_base_curve.setData(df_hangseng_graph['OE_BASE'])
                 else:
                     pass
 
@@ -33549,15 +33549,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_low_line.setValue(WTI_저가)
                 self.plot1_ovc_high_line.setValue(WTI_고가)                 
 
-                self.plot1_wti_curve.setData(df_wti_graph['price'].to_numpy())
+                self.plot1_wti_curve.setData(df_wti_graph['price'])
 
                 if flag_checkBox_plot1_bband:
 
                     self.Calc_SAR_BBand('WTI')
 
-                    self.plot1_bollinger_upper_curve.setData(df_wti_graph['BBUpper'].to_numpy())
-                    self.plot1_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'].to_numpy())
-                    self.plot1_bollinger_lower_curve.setData(df_wti_graph['BBLower'].to_numpy())
+                    self.plot1_bollinger_upper_curve.setData(df_wti_graph['BBUpper'])
+                    self.plot1_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'])
+                    self.plot1_bollinger_lower_curve.setData(df_wti_graph['BBLower'])
                 else:
                     pass
 
@@ -33565,8 +33565,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('WTI')
 
-                    self.plot1_mama_curve.setData(df_wti_graph['MAMA'].to_numpy())
-                    self.plot1_fama_curve.setData(df_wti_graph['A_FAMA'].to_numpy())
+                    self.plot1_mama_curve.setData(df_wti_graph['MAMA'])
+                    self.plot1_fama_curve.setData(df_wti_graph['A_FAMA'])
                 else:
                     pass
 
@@ -33574,8 +33574,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('WTI')
 
-                    self.plot1_oe_conv_curve.setData(df_wti_graph['OE_CONV'].to_numpy())
-                    self.plot1_oe_base_curve.setData(df_wti_graph['OE_BASE'].to_numpy())
+                    self.plot1_oe_conv_curve.setData(df_wti_graph['OE_CONV'])
+                    self.plot1_oe_base_curve.setData(df_wti_graph['OE_BASE'])
                 else:
                     pass
             
@@ -33677,15 +33677,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_low_line.setValue(GOLD_저가)
                 self.plot1_ovc_high_line.setValue(GOLD_고가)                 
 
-                self.plot1_gold_curve.setData(df_gold_graph['price'].to_numpy())
+                self.plot1_gold_curve.setData(df_gold_graph['price'])
 
                 if flag_checkBox_plot1_bband:
 
                     self.Calc_SAR_BBand('GOLD')
 
-                    self.plot1_bollinger_upper_curve.setData(df_gold_graph['BBUpper'].to_numpy())
-                    self.plot1_bollinger_middle_curve.setData(df_gold_graph['BBMiddle'].to_numpy())
-                    self.plot1_bollinger_lower_curve.setData(df_gold_graph['BBLower'].to_numpy())
+                    self.plot1_bollinger_upper_curve.setData(df_gold_graph['BBUpper'])
+                    self.plot1_bollinger_middle_curve.setData(df_gold_graph['BBMiddle'])
+                    self.plot1_bollinger_lower_curve.setData(df_gold_graph['BBLower'])
                 else:
                     pass
 
@@ -33693,8 +33693,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('GOLD')
 
-                    self.plot1_mama_curve.setData(df_gold_graph['MAMA'].to_numpy())
-                    self.plot1_fama_curve.setData(df_gold_graph['A_FAMA'].to_numpy())
+                    self.plot1_mama_curve.setData(df_gold_graph['MAMA'])
+                    self.plot1_fama_curve.setData(df_gold_graph['A_FAMA'])
                 else:
                     pass
 
@@ -33702,8 +33702,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('GOLD')
 
-                    self.plot1_oe_conv_curve.setData(df_gold_graph['OE_CONV'].to_numpy())
-                    self.plot1_oe_base_curve.setData(df_gold_graph['OE_BASE'].to_numpy())
+                    self.plot1_oe_conv_curve.setData(df_gold_graph['OE_CONV'])
+                    self.plot1_oe_base_curve.setData(df_gold_graph['OE_BASE'])
                 else:
                     pass
 
@@ -33804,15 +33804,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_low_line.setValue(EUROFX_저가)
                 self.plot1_ovc_high_line.setValue(EUROFX_고가)                 
 
-                self.plot1_eurofx_curve.setData(df_eurofx_graph['price'].to_numpy())
+                self.plot1_eurofx_curve.setData(df_eurofx_graph['price'])
 
                 if flag_checkBox_plot1_bband:
 
                     self.Calc_SAR_BBand('EURO')
 
-                    self.plot1_bollinger_upper_curve.setData(df_eurofx_graph['BBUpper'].to_numpy())
-                    self.plot1_bollinger_middle_curve.setData(df_eurofx_graph['BBMiddle'].to_numpy())
-                    self.plot1_bollinger_lower_curve.setData(df_eurofx_graph['BBLower'].to_numpy())
+                    self.plot1_bollinger_upper_curve.setData(df_eurofx_graph['BBUpper'])
+                    self.plot1_bollinger_middle_curve.setData(df_eurofx_graph['BBMiddle'])
+                    self.plot1_bollinger_lower_curve.setData(df_eurofx_graph['BBLower'])
                 else:
                     pass
 
@@ -33820,8 +33820,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('EURO')
 
-                    self.plot1_mama_curve.setData(df_eurofx_graph['MAMA'].to_numpy())
-                    self.plot1_fama_curve.setData(df_eurofx_graph['A_FAMA'].to_numpy())
+                    self.plot1_mama_curve.setData(df_eurofx_graph['MAMA'])
+                    self.plot1_fama_curve.setData(df_eurofx_graph['A_FAMA'])
                 else:
                     pass
 
@@ -33829,8 +33829,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('EURO')
 
-                    self.plot1_oe_conv_curve.setData(df_eurofx_graph['OE_CONV'].to_numpy())
-                    self.plot1_oe_base_curve.setData(df_eurofx_graph['OE_BASE'].to_numpy())
+                    self.plot1_oe_conv_curve.setData(df_eurofx_graph['OE_CONV'])
+                    self.plot1_oe_base_curve.setData(df_eurofx_graph['OE_BASE'])
                 else:
                     pass
 
@@ -33932,15 +33932,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_low_line.setValue(YEN_저가)
                 self.plot1_ovc_high_line.setValue(YEN_고가)                 
 
-                self.plot1_yen_curve.setData(df_yen_graph['price'].to_numpy())
+                self.plot1_yen_curve.setData(df_yen_graph['price'])
 
                 if flag_checkBox_plot1_bband:
 
                     self.Calc_SAR_BBand('YEN')
 
-                    self.plot1_bollinger_upper_curve.setData(df_yen_graph['BBUpper'].to_numpy())
-                    self.plot1_bollinger_middle_curve.setData(df_yen_graph['BBMiddle'].to_numpy())
-                    self.plot1_bollinger_lower_curve.setData(df_yen_graph['BBLower'].to_numpy())
+                    self.plot1_bollinger_upper_curve.setData(df_yen_graph['BBUpper'])
+                    self.plot1_bollinger_middle_curve.setData(df_yen_graph['BBMiddle'])
+                    self.plot1_bollinger_lower_curve.setData(df_yen_graph['BBLower'])
                 else:
                     pass
 
@@ -33948,8 +33948,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('YEN')
 
-                    self.plot1_mama_curve.setData(df_yen_graph['MAMA'].to_numpy())
-                    self.plot1_fama_curve.setData(df_yen_graph['A_FAMA'].to_numpy())
+                    self.plot1_mama_curve.setData(df_yen_graph['MAMA'])
+                    self.plot1_fama_curve.setData(df_yen_graph['A_FAMA'])
                 else:
                     pass
 
@@ -33957,8 +33957,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('YEN')
 
-                    self.plot1_oe_conv_curve.setData(df_yen_graph['OE_CONV'].to_numpy())
-                    self.plot1_oe_base_curve.setData(df_yen_graph['OE_BASE'].to_numpy())
+                    self.plot1_oe_conv_curve.setData(df_yen_graph['OE_CONV'])
+                    self.plot1_oe_base_curve.setData(df_yen_graph['OE_BASE'])
                 else:
                     pass
             
@@ -34000,9 +34000,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_time_line.setValue(cme_time_index)
 
                 if DayTime:
-                    self.plot1_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
-                    self.plot1_program_curve.setData(df_supply_demand_graph['program'].to_numpy())
-                    self.plot1_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'].to_numpy())
+                    self.plot1_fut_volume_curve.setData(df_futures_cm_graph['volume'])
+                    self.plot1_program_curve.setData(df_supply_demand_graph['program'])
+                    self.plot1_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
                 else:
                     pass
 
@@ -34044,9 +34044,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_time_line.setValue(cme_time_index)
 
                 if DayTime:
-                    self.plot1_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
-                    self.plot1_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'].to_numpy())
-                    self.plot1_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'].to_numpy())                    
+                    self.plot1_fut_volume_curve.setData(df_futures_cm_graph['volume'])
+                    self.plot1_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
+                    self.plot1_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
                 else:
                     pass
             else:
@@ -34168,7 +34168,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     if 근월물_선물_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    if 근월물_선물_종가대비 < 0:
+                    elif 근월물_선물_종가대비 < 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_27.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34214,17 +34214,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_close_line.setValue(근월물_선물_고가)
                 self.plot2_fut_high_line.setValue(근월물_선물_고가)                  
 
-                self.plot2_kp200_curve.setData(df_kp200_graph['price'].to_numpy())
-                self.plot2_fut_cm_price_curve.setData(df_futures_cm_graph['price'].to_numpy())
-                self.plot2_fut_nm_price_curve.setData(df_futures_nm_graph['price'].to_numpy())
+                self.plot2_kp200_curve.setData(df_kp200_graph['price'])
+                self.plot2_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
+                self.plot2_fut_nm_price_curve.setData(df_futures_nm_graph['price'])
 
                 if flag_checkBox_plot2_bband:
 
                     self.Calc_SAR_BBand('FUT')
 
-                    self.plot2_bollinger_upper_curve.setData(df_futures_cm_graph['BBUpper'].to_numpy())
-                    self.plot2_bollinger_middle_curve.setData(df_futures_cm_graph['BBMiddle'].to_numpy())
-                    self.plot2_bollinger_lower_curve.setData(df_futures_cm_graph['BBLower'].to_numpy())
+                    self.plot2_bollinger_upper_curve.setData(df_futures_cm_graph['BBUpper'])
+                    self.plot2_bollinger_middle_curve.setData(df_futures_cm_graph['BBMiddle'])
+                    self.plot2_bollinger_lower_curve.setData(df_futures_cm_graph['BBLower'])
                 else:
                     pass
 
@@ -34232,8 +34232,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('FUT')
 
-                    self.plot2_mama_curve.setData(df_futures_cm_graph['MAMA'].to_numpy())
-                    self.plot2_fama_curve.setData(df_futures_cm_graph['A_FAMA'].to_numpy())
+                    self.plot2_mama_curve.setData(df_futures_cm_graph['MAMA'])
+                    self.plot2_fama_curve.setData(df_futures_cm_graph['A_FAMA'])
                 else:
                     pass
 
@@ -34241,8 +34241,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('FUT')
 
-                    self.plot2_oe_conv_curve.setData(df_futures_cm_graph['OE_CONV'].to_numpy())
-                    self.plot2_oe_base_curve.setData(df_futures_cm_graph['OE_BASE'].to_numpy())
+                    self.plot2_oe_conv_curve.setData(df_futures_cm_graph['OE_CONV'])
+                    self.plot2_oe_base_curve.setData(df_futures_cm_graph['OE_BASE'])
                 else:
                     pass
 
@@ -34270,12 +34270,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot2_time_line.setValue(cme_time_index)
 
-                self.plot2_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
-                self.plot2_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
+                self.plot2_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
+                self.plot2_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'])
 
                 if DayTime:
-                    self.plot2_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
-                    self.plot2_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
+                    self.plot2_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'])
+                    self.plot2_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'])
                     self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(차월물_선물_호가잔량비_최소)
                     self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(차월물_선물_호가잔량비_최대)
                 else:
@@ -34301,12 +34301,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_28.setText(txt)
 
                 if DayTime:
-                    self.plot2_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
+                    self.plot2_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                 else:
                     pass
                                 
-                self.plot2_call_volume_curve.setData(df_call_information_graph['volume'].to_numpy())
-                self.plot2_put_volume_curve.setData(df_put_information_graph['volume'].to_numpy())
+                self.plot2_call_volume_curve.setData(df_call_information_graph['volume'])
+                self.plot2_put_volume_curve.setData(df_put_information_graph['volume'])
 
             # 옵션가격
             elif comboindex2 == 6:
@@ -34360,14 +34360,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 # 선택된 콜그래프 그리기
                 if selected_call:
                     for i in range(len(selected_call)):
-                        self.plot2_call_curve[i].setData(df_call_graph[selected_call[i]]['price'].to_numpy())
+                        self.plot2_call_curve[i].setData(df_call_graph[selected_call[i]]['price'])
                 else:
                     pass                 
 
                 # 선택된 풋그래프 그리기
                 if selected_put:
                     for i in range(len(selected_put)):
-                        self.plot2_put_curve[i].setData(df_put_graph[selected_put[i]]['price'].to_numpy())
+                        self.plot2_put_curve[i].setData(df_put_graph[selected_put[i]]['price'])
                 else:
                     pass
 
@@ -34379,7 +34379,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     # 중심가 그리기, 모든 값이 NaN인지 체크?
                     #nan_lst = np.isnan(df_call_information_graph['centerval'].values)
                     #print(np.all(nan_lst))                
-                    self.plot2_center_val_curve.setData(df_call_information_graph['centerval'].to_numpy())
+                    self.plot2_center_val_curve.setData(df_call_information_graph['centerval'])
                 else:
                     pass
 
@@ -34393,8 +34393,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot2_time_line.setValue(cme_time_index)
 
-                self.plot2_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
-                self.plot2_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
+                self.plot2_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
+                self.plot2_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'])
 
                 self.plot2_option_quote_remainder_ratio_bottom_line.setValue(옵션_잔량비_최소)
                 self.plot2_option_quote_remainder_ratio_upper_line.setValue(옵션_잔량비_최대)        
@@ -34409,8 +34409,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot2_time_line.setValue(cme_time_index)
 
-                self.plot2_call_oi_curve.setData(df_call_information_graph['open_interest'].to_numpy())
-                self.plot2_put_oi_curve.setData(df_put_information_graph['open_interest'].to_numpy())
+                self.plot2_call_oi_curve.setData(df_call_information_graph['open_interest'])
+                self.plot2_put_oi_curve.setData(df_put_information_graph['open_interest'])
             
             elif comboindex2 == 10:
 
@@ -34425,19 +34425,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot2_time_line.setValue(cme_time_index)
                 
-                self.plot2_call_drate_curve.setData(df_call_information_graph['drate'].to_numpy())
-                self.plot2_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy())
+                self.plot2_call_drate_curve.setData(df_call_information_graph['drate'])
+                self.plot2_put_drate_curve.setData(df_put_information_graph['drate'])
                 
                 if DayTime:
 
                     txt = " {0:.2f}({1}) ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_27.setText(txt)
 
-                    self.plot2_fut_drate_curve.setData(df_futures_cm_graph['drate'].to_numpy())
+                    self.plot2_fut_drate_curve.setData(df_futures_cm_graph['drate'])
                 else:
                     pass
 
-                self.plot2_cme_drate_curve.setData(df_sp500_graph['drate'].to_numpy())
+                self.plot2_cme_drate_curve.setData(df_sp500_graph['drate'])
             
             elif comboindex2 == 12:
 
@@ -34545,15 +34545,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_center_val_upper_line.setValue(SP500_고가)
                 self.plot2_ovc_high_line.setValue(SP500_고가)                
 
-                self.plot2_sp500_curve.setData(df_sp500_graph['price'].to_numpy())
+                self.plot2_sp500_curve.setData(df_sp500_graph['price'])
 
                 if flag_checkBox_plot2_bband:
 
                     self.Calc_SAR_BBand('SP500')
 
-                    self.plot2_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].to_numpy())
-                    self.plot2_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].to_numpy())
-                    self.plot2_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].to_numpy())
+                    self.plot2_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'])
+                    self.plot2_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'])
+                    self.plot2_bollinger_lower_curve.setData(df_sp500_graph['BBLower'])
                 else:
                     pass
 
@@ -34561,8 +34561,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('SP500')
 
-                    self.plot2_mama_curve.setData(df_sp500_graph['MAMA'].to_numpy())
-                    self.plot2_fama_curve.setData(df_sp500_graph['A_FAMA'].to_numpy())
+                    self.plot2_mama_curve.setData(df_sp500_graph['MAMA'])
+                    self.plot2_fama_curve.setData(df_sp500_graph['A_FAMA'])
                 else:
                     pass
 
@@ -34570,8 +34570,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('SP500')
 
-                    self.plot2_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].to_numpy())
-                    self.plot2_oe_base_curve.setData(df_sp500_graph['OE_BASE'].to_numpy())
+                    self.plot2_oe_conv_curve.setData(df_sp500_graph['OE_CONV'])
+                    self.plot2_oe_base_curve.setData(df_sp500_graph['OE_BASE'])
                 else:
                     pass
             
@@ -34680,15 +34680,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_center_val_upper_line.setValue(DOW_고가)
                 self.plot2_ovc_high_line.setValue(DOW_고가)                                  
 
-                self.plot2_dow_curve.setData(df_dow_graph['price'].to_numpy())
+                self.plot2_dow_curve.setData(df_dow_graph['price'])
 
                 if flag_checkBox_plot2_bband:
 
                     self.Calc_SAR_BBand('DOW')
 
-                    self.plot2_bollinger_upper_curve.setData(df_dow_graph['BBUpper'].to_numpy())
-                    self.plot2_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'].to_numpy())
-                    self.plot2_bollinger_lower_curve.setData(df_dow_graph['BBLower'].to_numpy())
+                    self.plot2_bollinger_upper_curve.setData(df_dow_graph['BBUpper'])
+                    self.plot2_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'])
+                    self.plot2_bollinger_lower_curve.setData(df_dow_graph['BBLower'])
                 else:
                     pass
 
@@ -34696,8 +34696,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('DOW')
 
-                    self.plot2_mama_curve.setData(df_dow_graph['MAMA'].to_numpy())
-                    self.plot2_fama_curve.setData(df_dow_graph['A_FAMA'].to_numpy())
+                    self.plot2_mama_curve.setData(df_dow_graph['MAMA'])
+                    self.plot2_fama_curve.setData(df_dow_graph['A_FAMA'])
                 else:
                     pass
 
@@ -34705,8 +34705,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('DOW')
 
-                    self.plot2_oe_conv_curve.setData(df_dow_graph['OE_CONV'].to_numpy())
-                    self.plot2_oe_base_curve.setData(df_dow_graph['OE_BASE'].to_numpy())
+                    self.plot2_oe_conv_curve.setData(df_dow_graph['OE_CONV'])
+                    self.plot2_oe_base_curve.setData(df_dow_graph['OE_BASE'])
                 else:
                     pass    
 
@@ -34815,15 +34815,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_center_val_upper_line.setValue(NASDAQ_고가)
                 self.plot2_ovc_high_line.setValue(NASDAQ_고가)  
 
-                self.plot2_nasdaq_curve.setData(df_nasdaq_graph['price'].to_numpy())
+                self.plot2_nasdaq_curve.setData(df_nasdaq_graph['price'])
 
                 if flag_checkBox_plot2_bband:
 
                     self.Calc_SAR_BBand('NASDAQ')
 
-                    self.plot2_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'].to_numpy())
-                    self.plot2_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'].to_numpy())
-                    self.plot2_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'].to_numpy())
+                    self.plot2_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'])
+                    self.plot2_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'])
+                    self.plot2_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'])
                 else:
                     pass
 
@@ -34831,8 +34831,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('NASDAQ')
 
-                    self.plot2_mama_curve.setData(df_nasdaq_graph['MAMA'].to_numpy())
-                    self.plot2_fama_curve.setData(df_nasdaq_graph['A_FAMA'].to_numpy())
+                    self.plot2_mama_curve.setData(df_nasdaq_graph['MAMA'])
+                    self.plot2_fama_curve.setData(df_nasdaq_graph['A_FAMA'])
                 else:
                     pass
 
@@ -34840,8 +34840,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('NASDAQ')
 
-                    self.plot2_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'].to_numpy())
-                    self.plot2_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'].to_numpy())
+                    self.plot2_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'])
+                    self.plot2_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'])
                 else:
                     pass
 
@@ -34943,15 +34943,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_low_line.setValue(HANGSENG_저가)
                 self.plot2_ovc_high_line.setValue(HANGSENG_고가)                 
 
-                self.plot2_hangseng_curve.setData(df_hangseng_graph['price'].to_numpy())
+                self.plot2_hangseng_curve.setData(df_hangseng_graph['price'])
 
                 if flag_checkBox_plot2_bband:
 
                     self.Calc_SAR_BBand('HSI')
 
-                    self.plot2_bollinger_upper_curve.setData(df_hangseng_graph['BBUpper'].to_numpy())
-                    self.plot2_bollinger_middle_curve.setData(df_hangseng_graph['BBMiddle'].to_numpy())
-                    self.plot2_bollinger_lower_curve.setData(df_hangseng_graph['BBLower'].to_numpy())
+                    self.plot2_bollinger_upper_curve.setData(df_hangseng_graph['BBUpper'])
+                    self.plot2_bollinger_middle_curve.setData(df_hangseng_graph['BBMiddle'])
+                    self.plot2_bollinger_lower_curve.setData(df_hangseng_graph['BBLower'])
                 else:
                     pass
 
@@ -34959,8 +34959,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('HSI')
 
-                    self.plot2_mama_curve.setData(df_hangseng_graph['MAMA'].to_numpy())
-                    self.plot2_fama_curve.setData(df_hangseng_graph['A_FAMA'].to_numpy())
+                    self.plot2_mama_curve.setData(df_hangseng_graph['MAMA'])
+                    self.plot2_fama_curve.setData(df_hangseng_graph['A_FAMA'])
                 else:
                     pass
 
@@ -34968,8 +34968,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('HSI')
 
-                    self.plot2_oe_conv_curve.setData(df_hangseng_graph['OE_CONV'].to_numpy())
-                    self.plot2_oe_base_curve.setData(df_hangseng_graph['OE_BASE'].to_numpy())
+                    self.plot2_oe_conv_curve.setData(df_hangseng_graph['OE_CONV'])
+                    self.plot2_oe_base_curve.setData(df_hangseng_graph['OE_BASE'])
                 else:
                     pass
 
@@ -35077,15 +35077,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_center_val_upper_line.setValue(WTI_고가)
                 self.plot2_ovc_high_line.setValue(WTI_고가)  
 
-                self.plot2_wti_curve.setData(df_wti_graph['price'].to_numpy())
+                self.plot2_wti_curve.setData(df_wti_graph['price'])
 
                 if flag_checkBox_plot2_bband:
 
                     self.Calc_SAR_BBand('WTI')
 
-                    self.plot2_bollinger_upper_curve.setData(df_wti_graph['BBUpper'].to_numpy())
-                    self.plot2_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'].to_numpy())
-                    self.plot2_bollinger_lower_curve.setData(df_wti_graph['BBLower'].to_numpy())
+                    self.plot2_bollinger_upper_curve.setData(df_wti_graph['BBUpper'])
+                    self.plot2_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'])
+                    self.plot2_bollinger_lower_curve.setData(df_wti_graph['BBLower'])
                 else:
                     pass
 
@@ -35093,8 +35093,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('WTI')
 
-                    self.plot2_mama_curve.setData(df_wti_graph['MAMA'].to_numpy())
-                    self.plot2_fama_curve.setData(df_wti_graph['A_FAMA'].to_numpy())
+                    self.plot2_mama_curve.setData(df_wti_graph['MAMA'])
+                    self.plot2_fama_curve.setData(df_wti_graph['A_FAMA'])
                 else:
                     pass
 
@@ -35102,8 +35102,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('WTI')
 
-                    self.plot2_oe_conv_curve.setData(df_wti_graph['OE_CONV'].to_numpy())
-                    self.plot2_oe_base_curve.setData(df_wti_graph['OE_BASE'].to_numpy())
+                    self.plot2_oe_conv_curve.setData(df_wti_graph['OE_CONV'])
+                    self.plot2_oe_base_curve.setData(df_wti_graph['OE_BASE'])
                 else:
                     pass  
             
@@ -35205,15 +35205,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_low_line.setValue(GOLD_저가)
                 self.plot2_ovc_high_line.setValue(GOLD_고가)                 
 
-                self.plot2_gold_curve.setData(df_gold_graph['price'].to_numpy())
+                self.plot2_gold_curve.setData(df_gold_graph['price'])
 
                 if flag_checkBox_plot2_bband:
 
                     self.Calc_SAR_BBand('GOLD')
 
-                    self.plot2_bollinger_upper_curve.setData(df_gold_graph['BBUpper'].to_numpy())
-                    self.plot2_bollinger_middle_curve.setData(df_gold_graph['BBMiddle'].to_numpy())
-                    self.plot2_bollinger_lower_curve.setData(df_gold_graph['BBLower'].to_numpy())
+                    self.plot2_bollinger_upper_curve.setData(df_gold_graph['BBUpper'])
+                    self.plot2_bollinger_middle_curve.setData(df_gold_graph['BBMiddle'])
+                    self.plot2_bollinger_lower_curve.setData(df_gold_graph['BBLower'])
                 else:
                     pass
 
@@ -35221,8 +35221,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('GOLD')
 
-                    self.plot2_mama_curve.setData(df_gold_graph['MAMA'].to_numpy())
-                    self.plot2_fama_curve.setData(df_gold_graph['A_FAMA'].to_numpy())
+                    self.plot2_mama_curve.setData(df_gold_graph['MAMA'])
+                    self.plot2_fama_curve.setData(df_gold_graph['A_FAMA'])
                 else:
                     pass
 
@@ -35230,8 +35230,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('GOLD')
 
-                    self.plot2_oe_conv_curve.setData(df_gold_graph['OE_CONV'].to_numpy())
-                    self.plot2_oe_base_curve.setData(df_gold_graph['OE_BASE'].to_numpy())
+                    self.plot2_oe_conv_curve.setData(df_gold_graph['OE_CONV'])
+                    self.plot2_oe_base_curve.setData(df_gold_graph['OE_BASE'])
                 else:
                     pass
 
@@ -35332,15 +35332,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_low_line.setValue(EUROFX_저가)
                 self.plot2_ovc_high_line.setValue(EUROFX_고가)                 
 
-                self.plot2_eurofx_curve.setData(df_eurofx_graph['price'].to_numpy())
+                self.plot2_eurofx_curve.setData(df_eurofx_graph['price'])
 
                 if flag_checkBox_plot2_bband:
 
                     self.Calc_SAR_BBand('EURO')
 
-                    self.plot2_bollinger_upper_curve.setData(df_eurofx_graph['BBUpper'].to_numpy())
-                    self.plot2_bollinger_middle_curve.setData(df_eurofx_graph['BBMiddle'].to_numpy())
-                    self.plot2_bollinger_lower_curve.setData(df_eurofx_graph['BBLower'].to_numpy())
+                    self.plot2_bollinger_upper_curve.setData(df_eurofx_graph['BBUpper'])
+                    self.plot2_bollinger_middle_curve.setData(df_eurofx_graph['BBMiddle'])
+                    self.plot2_bollinger_lower_curve.setData(df_eurofx_graph['BBLower'])
                 else:
                     pass
 
@@ -35348,8 +35348,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('EURO')
 
-                    self.plot2_mama_curve.setData(df_eurofx_graph['MAMA'].to_numpy())
-                    self.plot2_fama_curve.setData(df_eurofx_graph['A_FAMA'].to_numpy())
+                    self.plot2_mama_curve.setData(df_eurofx_graph['MAMA'])
+                    self.plot2_fama_curve.setData(df_eurofx_graph['A_FAMA'])
                 else:
                     pass
 
@@ -35357,8 +35357,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('EURO')
 
-                    self.plot2_oe_conv_curve.setData(df_eurofx_graph['OE_CONV'].to_numpy())
-                    self.plot2_oe_base_curve.setData(df_eurofx_graph['OE_BASE'].to_numpy())
+                    self.plot2_oe_conv_curve.setData(df_eurofx_graph['OE_CONV'])
+                    self.plot2_oe_base_curve.setData(df_eurofx_graph['OE_BASE'])
                 else:
                     pass
 
@@ -35460,15 +35460,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_low_line.setValue(YEN_저가)
                 self.plot2_ovc_high_line.setValue(YEN_고가)                 
 
-                self.plot2_yen_curve.setData(df_yen_graph['price'].to_numpy())
+                self.plot2_yen_curve.setData(df_yen_graph['price'])
 
                 if flag_checkBox_plot2_bband:
 
                     self.Calc_SAR_BBand('YEN')
 
-                    self.plot2_bollinger_upper_curve.setData(df_yen_graph['BBUpper'].to_numpy())
-                    self.plot2_bollinger_middle_curve.setData(df_yen_graph['BBMiddle'].to_numpy())
-                    self.plot2_bollinger_lower_curve.setData(df_yen_graph['BBLower'].to_numpy())
+                    self.plot2_bollinger_upper_curve.setData(df_yen_graph['BBUpper'])
+                    self.plot2_bollinger_middle_curve.setData(df_yen_graph['BBMiddle'])
+                    self.plot2_bollinger_lower_curve.setData(df_yen_graph['BBLower'])
                 else:
                     pass
 
@@ -35476,8 +35476,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('YEN')
 
-                    self.plot2_mama_curve.setData(df_yen_graph['MAMA'].to_numpy())
-                    self.plot2_fama_curve.setData(df_yen_graph['A_FAMA'].to_numpy())
+                    self.plot2_mama_curve.setData(df_yen_graph['MAMA'])
+                    self.plot2_fama_curve.setData(df_yen_graph['A_FAMA'])
                 else:
                     pass
 
@@ -35485,8 +35485,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('YEN')
 
-                    self.plot2_oe_conv_curve.setData(df_yen_graph['OE_CONV'].to_numpy())
-                    self.plot2_oe_base_curve.setData(df_yen_graph['OE_BASE'].to_numpy())
+                    self.plot2_oe_conv_curve.setData(df_yen_graph['OE_CONV'])
+                    self.plot2_oe_base_curve.setData(df_yen_graph['OE_BASE'])
                 else:
                     pass
             
@@ -35528,9 +35528,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_time_line.setValue(cme_time_index)
 
                 if DayTime:
-                    self.plot2_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
-                    self.plot2_program_curve.setData(df_supply_demand_graph['program'].to_numpy())
-                    self.plot2_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'].to_numpy())
+                    self.plot2_fut_volume_curve.setData(df_futures_cm_graph['volume'])
+                    self.plot2_program_curve.setData(df_supply_demand_graph['program'])
+                    self.plot2_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
                 else:
                     pass
 
@@ -35572,9 +35572,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_time_line.setValue(cme_time_index)
 
                 if DayTime:
-                    self.plot2_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
-                    self.plot2_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'].to_numpy())
-                    self.plot2_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'].to_numpy())                    
+                    self.plot2_fut_volume_curve.setData(df_futures_cm_graph['volume'])
+                    self.plot2_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
+                    self.plot2_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
                 else:
                     pass
             else:
@@ -35695,7 +35695,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     if 근월물_선물_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    if 근월물_선물_종가대비 < 0:
+                    elif 근월물_선물_종가대비 < 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_37.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35741,17 +35741,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_close_line.setValue(근월물_선물_고가)
                 self.plot3_fut_high_line.setValue(근월물_선물_고가) 
 
-                self.plot3_kp200_curve.setData(df_kp200_graph['price'].to_numpy())
-                self.plot3_fut_cm_price_curve.setData(df_futures_cm_graph['price'].to_numpy())
-                self.plot3_fut_nm_price_curve.setData(df_futures_nm_graph['price'].to_numpy())
+                self.plot3_kp200_curve.setData(df_kp200_graph['price'])
+                self.plot3_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
+                self.plot3_fut_nm_price_curve.setData(df_futures_nm_graph['price'])
 
                 if flag_checkBox_plot3_bband:
 
                     self.Calc_SAR_BBand('FUT')
 
-                    self.plot3_bollinger_upper_curve.setData(df_futures_cm_graph['BBUpper'].to_numpy())
-                    self.plot3_bollinger_middle_curve.setData(df_futures_cm_graph['BBMiddle'].to_numpy())
-                    self.plot3_bollinger_lower_curve.setData(df_futures_cm_graph['BBLower'].to_numpy())
+                    self.plot3_bollinger_upper_curve.setData(df_futures_cm_graph['BBUpper'])
+                    self.plot3_bollinger_middle_curve.setData(df_futures_cm_graph['BBMiddle'])
+                    self.plot3_bollinger_lower_curve.setData(df_futures_cm_graph['BBLower'])
                 else:
                     pass
 
@@ -35759,8 +35759,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('FUT')
 
-                    self.plot3_mama_curve.setData(df_futures_cm_graph['MAMA'].to_numpy())
-                    self.plot3_fama_curve.setData(df_futures_cm_graph['A_FAMA'].to_numpy())
+                    self.plot3_mama_curve.setData(df_futures_cm_graph['MAMA'])
+                    self.plot3_fama_curve.setData(df_futures_cm_graph['A_FAMA'])
                 else:
                     pass
 
@@ -35768,8 +35768,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('FUT')
 
-                    self.plot3_oe_conv_curve.setData(df_futures_cm_graph['OE_CONV'].to_numpy())
-                    self.plot3_oe_base_curve.setData(df_futures_cm_graph['OE_BASE'].to_numpy())
+                    self.plot3_oe_conv_curve.setData(df_futures_cm_graph['OE_CONV'])
+                    self.plot3_oe_base_curve.setData(df_futures_cm_graph['OE_BASE'])
                 else:
                     pass
 
@@ -35797,12 +35797,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot3_time_line.setValue(cme_time_index)
 
-                self.plot3_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
-                self.plot3_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
+                self.plot3_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
+                self.plot3_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'])
 
                 if DayTime:
-                    self.plot3_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
-                    self.plot3_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
+                    self.plot3_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'])
+                    self.plot3_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'])
                     self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(차월물_선물_호가잔량비_최소)
                     self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(차월물_선물_호가잔량비_최대)
                 else:
@@ -35828,12 +35828,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_time_line.setValue(cme_time_index)
 
                 if DayTime:
-                    self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
+                    self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                 else:
                     pass
                                 
-                self.plot3_call_volume_curve.setData(df_call_information_graph['volume'].to_numpy())
-                self.plot3_put_volume_curve.setData(df_put_information_graph['volume'].to_numpy())
+                self.plot3_call_volume_curve.setData(df_call_information_graph['volume'])
+                self.plot3_put_volume_curve.setData(df_put_information_graph['volume'])
 
             # 옵션가격
             elif comboindex3 == 6:
@@ -35887,14 +35887,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 # 선택된 콜그래프 그리기
                 if selected_call:
                     for i in range(len(selected_call)):
-                        self.plot3_call_curve[i].setData(df_call_graph[selected_call[i]]['price'].to_numpy())
+                        self.plot3_call_curve[i].setData(df_call_graph[selected_call[i]]['price'])
                 else:
                     pass                 
 
                 # 선택된 풋그래프 그리기
                 if selected_put:
                     for i in range(len(selected_put)):
-                        self.plot3_put_curve[i].setData(df_put_graph[selected_put[i]]['price'].to_numpy())
+                        self.plot3_put_curve[i].setData(df_put_graph[selected_put[i]]['price'])
                 else:
                     pass
 
@@ -35904,7 +35904,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
 
                     # 중심가 그리기
-                    self.plot3_center_val_curve.setData(df_call_information_graph['centerval'].to_numpy())
+                    self.plot3_center_val_curve.setData(df_call_information_graph['centerval'])
                 else:
                     pass
 
@@ -35918,8 +35918,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot3_time_line.setValue(cme_time_index)
 
-                self.plot3_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
-                self.plot3_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
+                self.plot3_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
+                self.plot3_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'])
 
                 self.plot3_option_quote_remainder_ratio_bottom_line.setValue(옵션_잔량비_최소)
                 self.plot3_option_quote_remainder_ratio_upper_line.setValue(옵션_잔량비_최대)        
@@ -35934,8 +35934,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot3_time_line.setValue(cme_time_index)
 
-                self.plot3_call_oi_curve.setData(df_call_information_graph['open_interest'].to_numpy())
-                self.plot3_put_oi_curve.setData(df_put_information_graph['open_interest'].to_numpy())
+                self.plot3_call_oi_curve.setData(df_call_information_graph['open_interest'])
+                self.plot3_put_oi_curve.setData(df_put_information_graph['open_interest'])
             
             elif comboindex3 == 10:
 
@@ -35950,19 +35950,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot3_time_line.setValue(cme_time_index)
                 
-                self.plot3_call_drate_curve.setData(df_call_information_graph['drate'].to_numpy())
-                self.plot3_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy())
+                self.plot3_call_drate_curve.setData(df_call_information_graph['drate'])
+                self.plot3_put_drate_curve.setData(df_put_information_graph['drate'])
                 
                 if DayTime:
 
                     txt = " {0:.2f}({1}) ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_37.setText(txt)
 
-                    self.plot3_fut_drate_curve.setData(df_futures_cm_graph['drate'].to_numpy())
+                    self.plot3_fut_drate_curve.setData(df_futures_cm_graph['drate'])
                 else:
                     pass
 
-                self.plot3_cme_drate_curve.setData(df_sp500_graph['drate'].to_numpy())
+                self.plot3_cme_drate_curve.setData(df_sp500_graph['drate'])
             
             elif comboindex3 == 12:
 
@@ -36069,15 +36069,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_center_val_line.setValue(SP500_고가)
                 self.plot3_center_val_upper_line.setValue(SP500_고가)
 
-                self.plot3_sp500_curve.setData(df_sp500_graph['price'].to_numpy())
+                self.plot3_sp500_curve.setData(df_sp500_graph['price'])
 
                 if flag_checkBox_plot3_bband:
 
                     self.Calc_SAR_BBand('SP500')
 
-                    self.plot3_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].to_numpy())
-                    self.plot3_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].to_numpy())
-                    self.plot3_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].to_numpy())
+                    self.plot3_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'])
+                    self.plot3_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'])
+                    self.plot3_bollinger_lower_curve.setData(df_sp500_graph['BBLower'])
                 else:
                     pass
 
@@ -36085,8 +36085,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('SP500')
 
-                    self.plot3_mama_curve.setData(df_sp500_graph['MAMA'].to_numpy())
-                    self.plot3_fama_curve.setData(df_sp500_graph['A_FAMA'].to_numpy())
+                    self.plot3_mama_curve.setData(df_sp500_graph['MAMA'])
+                    self.plot3_fama_curve.setData(df_sp500_graph['A_FAMA'])
                 else:
                     pass
 
@@ -36094,8 +36094,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('SP500')
 
-                    self.plot3_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].to_numpy())
-                    self.plot3_oe_base_curve.setData(df_sp500_graph['OE_BASE'].to_numpy())
+                    self.plot3_oe_conv_curve.setData(df_sp500_graph['OE_CONV'])
+                    self.plot3_oe_base_curve.setData(df_sp500_graph['OE_BASE'])
                 else:
                     pass
             
@@ -36203,15 +36203,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_center_val_line.setValue(DOW_고가)
                 self.plot3_center_val_upper_line.setValue(DOW_고가)                  
 
-                self.plot3_dow_curve.setData(df_dow_graph['price'].to_numpy())
+                self.plot3_dow_curve.setData(df_dow_graph['price'])
 
                 if flag_checkBox_plot3_bband:
 
                     self.Calc_SAR_BBand('DOW')
 
-                    self.plot3_bollinger_upper_curve.setData(df_dow_graph['BBUpper'].to_numpy())
-                    self.plot3_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'].to_numpy())
-                    self.plot3_bollinger_lower_curve.setData(df_dow_graph['BBLower'].to_numpy())
+                    self.plot3_bollinger_upper_curve.setData(df_dow_graph['BBUpper'])
+                    self.plot3_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'])
+                    self.plot3_bollinger_lower_curve.setData(df_dow_graph['BBLower'])
                 else:
                     pass
 
@@ -36219,8 +36219,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('DOW')
 
-                    self.plot3_mama_curve.setData(df_dow_graph['MAMA'].to_numpy())
-                    self.plot3_fama_curve.setData(df_dow_graph['A_FAMA'].to_numpy())
+                    self.plot3_mama_curve.setData(df_dow_graph['MAMA'])
+                    self.plot3_fama_curve.setData(df_dow_graph['A_FAMA'])
                 else:
                     pass
 
@@ -36228,8 +36228,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('DOW')
 
-                    self.plot3_oe_conv_curve.setData(df_dow_graph['OE_CONV'].to_numpy())
-                    self.plot3_oe_base_curve.setData(df_dow_graph['OE_BASE'].to_numpy())
+                    self.plot3_oe_conv_curve.setData(df_dow_graph['OE_CONV'])
+                    self.plot3_oe_base_curve.setData(df_dow_graph['OE_BASE'])
                 else:
                     pass    
 
@@ -36337,15 +36337,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_center_val_line.setValue(NASDAQ_고가)
                 self.plot3_center_val_upper_line.setValue(NASDAQ_고가)  
 
-                self.plot3_nasdaq_curve.setData(df_nasdaq_graph['price'].to_numpy())
+                self.plot3_nasdaq_curve.setData(df_nasdaq_graph['price'])
 
                 if flag_checkBox_plot3_bband:
 
                     self.Calc_SAR_BBand('NASDAQ')
 
-                    self.plot3_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'].to_numpy())
-                    self.plot3_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'].to_numpy())
-                    self.plot3_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'].to_numpy())
+                    self.plot3_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'])
+                    self.plot3_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'])
+                    self.plot3_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'])
                 else:
                     pass
 
@@ -36353,8 +36353,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('NASDAQ')
 
-                    self.plot3_mama_curve.setData(df_nasdaq_graph['MAMA'].to_numpy())
-                    self.plot3_fama_curve.setData(df_nasdaq_graph['A_FAMA'].to_numpy())
+                    self.plot3_mama_curve.setData(df_nasdaq_graph['MAMA'])
+                    self.plot3_fama_curve.setData(df_nasdaq_graph['A_FAMA'])
                 else:
                     pass
 
@@ -36362,8 +36362,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('NASDAQ')
 
-                    self.plot3_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'].to_numpy())
-                    self.plot3_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'].to_numpy())
+                    self.plot3_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'])
+                    self.plot3_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'])
                 else:
                     pass
 
@@ -36465,15 +36465,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_low_line.setValue(HANGSENG_저가)
                 self.plot3_ovc_high_line.setValue(HANGSENG_고가)                 
 
-                self.plot3_hangseng_curve.setData(df_hangseng_graph['price'].to_numpy())
+                self.plot3_hangseng_curve.setData(df_hangseng_graph['price'])
 
                 if flag_checkBox_plot3_bband:
 
                     self.Calc_SAR_BBand('HSI')
 
-                    self.plot3_bollinger_upper_curve.setData(df_hangseng_graph['BBUpper'].to_numpy())
-                    self.plot3_bollinger_middle_curve.setData(df_hangseng_graph['BBMiddle'].to_numpy())
-                    self.plot3_bollinger_lower_curve.setData(df_hangseng_graph['BBLower'].to_numpy())
+                    self.plot3_bollinger_upper_curve.setData(df_hangseng_graph['BBUpper'])
+                    self.plot3_bollinger_middle_curve.setData(df_hangseng_graph['BBMiddle'])
+                    self.plot3_bollinger_lower_curve.setData(df_hangseng_graph['BBLower'])
                 else:
                     pass
 
@@ -36481,8 +36481,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('HSI')
 
-                    self.plot3_mama_curve.setData(df_hangseng_graph['MAMA'].to_numpy())
-                    self.plot3_fama_curve.setData(df_hangseng_graph['A_FAMA'].to_numpy())
+                    self.plot3_mama_curve.setData(df_hangseng_graph['MAMA'])
+                    self.plot3_fama_curve.setData(df_hangseng_graph['A_FAMA'])
                 else:
                     pass
 
@@ -36490,8 +36490,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('HSI')
 
-                    self.plot3_oe_conv_curve.setData(df_hangseng_graph['OE_CONV'].to_numpy())
-                    self.plot3_oe_base_curve.setData(df_hangseng_graph['OE_BASE'].to_numpy())
+                    self.plot3_oe_conv_curve.setData(df_hangseng_graph['OE_CONV'])
+                    self.plot3_oe_base_curve.setData(df_hangseng_graph['OE_BASE'])
                 else:
                     pass
 
@@ -36598,15 +36598,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_center_val_line.setValue(WTI_고가)
                 self.plot3_center_val_upper_line.setValue(WTI_고가)  
 
-                self.plot3_wti_curve.setData(df_wti_graph['price'].to_numpy())
+                self.plot3_wti_curve.setData(df_wti_graph['price'])
 
                 if flag_checkBox_plot3_bband:
 
                     self.Calc_SAR_BBand('WTI')
 
-                    self.plot3_bollinger_upper_curve.setData(df_wti_graph['BBUpper'].to_numpy())
-                    self.plot3_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'].to_numpy())
-                    self.plot3_bollinger_lower_curve.setData(df_wti_graph['BBLower'].to_numpy())
+                    self.plot3_bollinger_upper_curve.setData(df_wti_graph['BBUpper'])
+                    self.plot3_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'])
+                    self.plot3_bollinger_lower_curve.setData(df_wti_graph['BBLower'])
                 else:
                     pass
 
@@ -36614,8 +36614,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('WTI')
 
-                    self.plot3_mama_curve.setData(df_wti_graph['MAMA'].to_numpy())
-                    self.plot3_fama_curve.setData(df_wti_graph['A_FAMA'].to_numpy())
+                    self.plot3_mama_curve.setData(df_wti_graph['MAMA'])
+                    self.plot3_fama_curve.setData(df_wti_graph['A_FAMA'])
                 else:
                     pass
 
@@ -36623,8 +36623,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('WTI')
 
-                    self.plot3_oe_conv_curve.setData(df_wti_graph['OE_CONV'].to_numpy())
-                    self.plot3_oe_base_curve.setData(df_wti_graph['OE_BASE'].to_numpy())
+                    self.plot3_oe_conv_curve.setData(df_wti_graph['OE_CONV'])
+                    self.plot3_oe_base_curve.setData(df_wti_graph['OE_BASE'])
                 else:
                     pass 
             
@@ -36726,15 +36726,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_low_line.setValue(GOLD_저가)
                 self.plot3_ovc_high_line.setValue(GOLD_고가)                 
 
-                self.plot3_gold_curve.setData(df_gold_graph['price'].to_numpy())
+                self.plot3_gold_curve.setData(df_gold_graph['price'])
 
                 if flag_checkBox_plot3_bband:
 
                     self.Calc_SAR_BBand('GOLD')
 
-                    self.plot3_bollinger_upper_curve.setData(df_gold_graph['BBUpper'].to_numpy())
-                    self.plot3_bollinger_middle_curve.setData(df_gold_graph['BBMiddle'].to_numpy())
-                    self.plot3_bollinger_lower_curve.setData(df_gold_graph['BBLower'].to_numpy())
+                    self.plot3_bollinger_upper_curve.setData(df_gold_graph['BBUpper'])
+                    self.plot3_bollinger_middle_curve.setData(df_gold_graph['BBMiddle'])
+                    self.plot3_bollinger_lower_curve.setData(df_gold_graph['BBLower'])
                 else:
                     pass
 
@@ -36742,8 +36742,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('GOLD')
 
-                    self.plot3_mama_curve.setData(df_gold_graph['MAMA'].to_numpy())
-                    self.plot3_fama_curve.setData(df_gold_graph['A_FAMA'].to_numpy())
+                    self.plot3_mama_curve.setData(df_gold_graph['MAMA'])
+                    self.plot3_fama_curve.setData(df_gold_graph['A_FAMA'])
                 else:
                     pass
 
@@ -36751,8 +36751,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('GOLD')
 
-                    self.plot3_oe_conv_curve.setData(df_gold_graph['OE_CONV'].to_numpy())
-                    self.plot3_oe_base_curve.setData(df_gold_graph['OE_BASE'].to_numpy())
+                    self.plot3_oe_conv_curve.setData(df_gold_graph['OE_CONV'])
+                    self.plot3_oe_base_curve.setData(df_gold_graph['OE_BASE'])
                 else:
                     pass
 
@@ -36853,15 +36853,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_low_line.setValue(EUROFX_저가)
                 self.plot3_ovc_high_line.setValue(EUROFX_고가)                 
 
-                self.plot3_eurofx_curve.setData(df_eurofx_graph['price'].to_numpy())
+                self.plot3_eurofx_curve.setData(df_eurofx_graph['price'])
 
                 if flag_checkBox_plot3_bband:
 
                     self.Calc_SAR_BBand('EURO')
 
-                    self.plot3_bollinger_upper_curve.setData(df_eurofx_graph['BBUpper'].to_numpy())
-                    self.plot3_bollinger_middle_curve.setData(df_eurofx_graph['BBMiddle'].to_numpy())
-                    self.plot3_bollinger_lower_curve.setData(df_eurofx_graph['BBLower'].to_numpy())
+                    self.plot3_bollinger_upper_curve.setData(df_eurofx_graph['BBUpper'])
+                    self.plot3_bollinger_middle_curve.setData(df_eurofx_graph['BBMiddle'])
+                    self.plot3_bollinger_lower_curve.setData(df_eurofx_graph['BBLower'])
                 else:
                     pass
 
@@ -36869,8 +36869,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('EURO')
 
-                    self.plot3_mama_curve.setData(df_eurofx_graph['MAMA'].to_numpy())
-                    self.plot3_fama_curve.setData(df_eurofx_graph['A_FAMA'].to_numpy())
+                    self.plot3_mama_curve.setData(df_eurofx_graph['MAMA'])
+                    self.plot3_fama_curve.setData(df_eurofx_graph['A_FAMA'])
                 else:
                     pass
 
@@ -36878,8 +36878,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('EURO')
 
-                    self.plot3_oe_conv_curve.setData(df_eurofx_graph['OE_CONV'].to_numpy())
-                    self.plot3_oe_base_curve.setData(df_eurofx_graph['OE_BASE'].to_numpy())
+                    self.plot3_oe_conv_curve.setData(df_eurofx_graph['OE_CONV'])
+                    self.plot3_oe_base_curve.setData(df_eurofx_graph['OE_BASE'])
                 else:
                     pass
 
@@ -36981,15 +36981,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_low_line.setValue(YEN_저가)
                 self.plot3_ovc_high_line.setValue(YEN_고가)                 
 
-                self.plot3_yen_curve.setData(df_yen_graph['price'].to_numpy())
+                self.plot3_yen_curve.setData(df_yen_graph['price'])
 
                 if flag_checkBox_plot3_bband:
 
                     self.Calc_SAR_BBand('YEN')
 
-                    self.plot3_bollinger_upper_curve.setData(df_yen_graph['BBUpper'].to_numpy())
-                    self.plot3_bollinger_middle_curve.setData(df_yen_graph['BBMiddle'].to_numpy())
-                    self.plot3_bollinger_lower_curve.setData(df_yen_graph['BBLower'].to_numpy())
+                    self.plot3_bollinger_upper_curve.setData(df_yen_graph['BBUpper'])
+                    self.plot3_bollinger_middle_curve.setData(df_yen_graph['BBMiddle'])
+                    self.plot3_bollinger_lower_curve.setData(df_yen_graph['BBLower'])
                 else:
                     pass
 
@@ -36997,8 +36997,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('YEN')
 
-                    self.plot3_mama_curve.setData(df_yen_graph['MAMA'].to_numpy())
-                    self.plot3_fama_curve.setData(df_yen_graph['A_FAMA'].to_numpy())
+                    self.plot3_mama_curve.setData(df_yen_graph['MAMA'])
+                    self.plot3_fama_curve.setData(df_yen_graph['A_FAMA'])
                 else:
                     pass
 
@@ -37006,8 +37006,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('YEN')
 
-                    self.plot3_oe_conv_curve.setData(df_yen_graph['OE_CONV'].to_numpy())
-                    self.plot3_oe_base_curve.setData(df_yen_graph['OE_BASE'].to_numpy())
+                    self.plot3_oe_conv_curve.setData(df_yen_graph['OE_CONV'])
+                    self.plot3_oe_base_curve.setData(df_yen_graph['OE_BASE'])
                 else:
                     pass
             
@@ -37049,9 +37049,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_time_line.setValue(cme_time_index)
 
                 if DayTime:
-                    self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
-                    self.plot3_program_curve.setData(df_supply_demand_graph['program'].to_numpy())
-                    self.plot3_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'].to_numpy())
+                    self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'])
+                    self.plot3_program_curve.setData(df_supply_demand_graph['program'])
+                    self.plot3_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
                 else:
                     pass
 
@@ -37093,9 +37093,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_time_line.setValue(cme_time_index)
 
                 if DayTime:
-                    self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
-                    self.plot3_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'].to_numpy())
-                    self.plot3_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'].to_numpy())                    
+                    self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'])
+                    self.plot3_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
+                    self.plot3_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
                 else:
                     pass
             else:
@@ -37215,7 +37215,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     if 근월물_선물_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    if 근월물_선물_종가대비 < 0:
+                    elif 근월물_선물_종가대비 < 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_47.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37261,17 +37261,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_close_line.setValue(근월물_선물_고가)
                 self.plot4_fut_high_line.setValue(근월물_선물_고가)  
 
-                self.plot4_kp200_curve.setData(df_kp200_graph['price'].to_numpy())
-                self.plot4_fut_cm_price_curve.setData(df_futures_cm_graph['price'].to_numpy())
-                self.plot4_fut_nm_price_curve.setData(df_futures_nm_graph['price'].to_numpy())
+                self.plot4_kp200_curve.setData(df_kp200_graph['price'])
+                self.plot4_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
+                self.plot4_fut_nm_price_curve.setData(df_futures_nm_graph['price'])
 
                 if flag_checkBox_plot4_bband:
 
                     self.Calc_SAR_BBand('FUT')
 
-                    self.plot4_bollinger_upper_curve.setData(df_futures_cm_graph['BBUpper'].to_numpy())
-                    self.plot4_bollinger_middle_curve.setData(df_futures_cm_graph['BBMiddle'].to_numpy())
-                    self.plot4_bollinger_lower_curve.setData(df_futures_cm_graph['BBLower'].to_numpy())
+                    self.plot4_bollinger_upper_curve.setData(df_futures_cm_graph['BBUpper'])
+                    self.plot4_bollinger_middle_curve.setData(df_futures_cm_graph['BBMiddle'])
+                    self.plot4_bollinger_lower_curve.setData(df_futures_cm_graph['BBLower'])
                 else:
                     pass
 
@@ -37279,8 +37279,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('FUT')
 
-                    self.plot4_mama_curve.setData(df_futures_cm_graph['MAMA'].to_numpy())
-                    self.plot4_fama_curve.setData(df_futures_cm_graph['A_FAMA'].to_numpy())
+                    self.plot4_mama_curve.setData(df_futures_cm_graph['MAMA'])
+                    self.plot4_fama_curve.setData(df_futures_cm_graph['A_FAMA'])
                 else:
                     pass
 
@@ -37288,8 +37288,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('FUT')
 
-                    self.plot4_oe_conv_curve.setData(df_futures_cm_graph['OE_CONV'].to_numpy())
-                    self.plot4_oe_base_curve.setData(df_futures_cm_graph['OE_BASE'].to_numpy())
+                    self.plot4_oe_conv_curve.setData(df_futures_cm_graph['OE_CONV'])
+                    self.plot4_oe_base_curve.setData(df_futures_cm_graph['OE_BASE'])
                 else:
                     pass
 
@@ -37317,12 +37317,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot4_time_line.setValue(cme_time_index)
 
-                self.plot4_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
-                self.plot4_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
+                self.plot4_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
+                self.plot4_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'])
 
                 if DayTime:
-                    self.plot4_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
-                    self.plot4_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
+                    self.plot4_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'])
+                    self.plot4_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'])
                     self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(차월물_선물_호가잔량비_최소)
                     self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(차월물_선물_호가잔량비_최대)
                 else:
@@ -37348,12 +37348,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_time_line.setValue(cme_time_index)                      
 
                 if DayTime:
-                    self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
+                    self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                 else:
                     pass
                                 
-                self.plot4_call_volume_curve.setData(df_call_information_graph['volume'].to_numpy())
-                self.plot4_put_volume_curve.setData(df_put_information_graph['volume'].to_numpy())
+                self.plot4_call_volume_curve.setData(df_call_information_graph['volume'])
+                self.plot4_put_volume_curve.setData(df_put_information_graph['volume'])
 
             # 옵션가격
             elif comboindex4 == 6:
@@ -37407,14 +37407,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 # 선택된 콜그래프 그리기
                 if selected_call:
                     for i in range(len(selected_call)):
-                        self.plot4_call_curve[i].setData(df_call_graph[selected_call[i]]['price'].to_numpy())
+                        self.plot4_call_curve[i].setData(df_call_graph[selected_call[i]]['price'])
                 else:
                     pass                 
 
                 # 선택된 풋그래프 그리기
                 if selected_put:
                     for i in range(len(selected_put)):
-                        self.plot4_put_curve[i].setData(df_put_graph[selected_put[i]]['price'].to_numpy())
+                        self.plot4_put_curve[i].setData(df_put_graph[selected_put[i]]['price'])
                 else:
                     pass
 
@@ -37426,7 +37426,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     # 중심가 그리기, 모든 값이 NaN인지 체크?
                     #nan_lst = np.isnan(df_call_information_graph['centerval'].values)
                     #print(np.all(nan_lst))                
-                    self.plot4_center_val_curve.setData(df_call_information_graph['centerval'].to_numpy())
+                    self.plot4_center_val_curve.setData(df_call_information_graph['centerval'])
                 else:
                     pass
             
@@ -37440,8 +37440,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot4_time_line.setValue(cme_time_index)
 
-                self.plot4_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
-                self.plot4_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
+                self.plot4_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
+                self.plot4_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'])
 
                 self.plot4_option_quote_remainder_ratio_bottom_line.setValue(옵션_잔량비_최소)
                 self.plot4_option_quote_remainder_ratio_upper_line.setValue(옵션_잔량비_최대)
@@ -37456,8 +37456,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot4_time_line.setValue(cme_time_index)
 
-                self.plot4_call_oi_curve.setData(df_call_information_graph['open_interest'].to_numpy())
-                self.plot4_put_oi_curve.setData(df_put_information_graph['open_interest'].to_numpy())
+                self.plot4_call_oi_curve.setData(df_call_information_graph['open_interest'])
+                self.plot4_put_oi_curve.setData(df_put_information_graph['open_interest'])
             
             elif comboindex4 == 10:
 
@@ -37472,19 +37472,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot4_time_line.setValue(cme_time_index)
                 
-                self.plot4_call_drate_curve.setData(df_call_information_graph['drate'].to_numpy())
-                self.plot4_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy())
+                self.plot4_call_drate_curve.setData(df_call_information_graph['drate'])
+                self.plot4_put_drate_curve.setData(df_put_information_graph['drate'])
                 
                 if DayTime:
 
                     txt = " {0:.2f}({1}) ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_47.setText(txt)
 
-                    self.plot4_fut_drate_curve.setData(df_futures_cm_graph['drate'].to_numpy())
+                    self.plot4_fut_drate_curve.setData(df_futures_cm_graph['drate'])
                 else:
                     pass 
 
-                self.plot4_cme_drate_curve.setData(df_sp500_graph['drate'].to_numpy())
+                self.plot4_cme_drate_curve.setData(df_sp500_graph['drate'])
             
             elif comboindex4 == 12:
 
@@ -37586,15 +37586,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_low_line.setValue(SP500_저가)
                 self.plot4_ovc_high_line.setValue(SP500_고가)  
 
-                self.plot4_sp500_curve.setData(df_sp500_graph['price'].to_numpy())
+                self.plot4_sp500_curve.setData(df_sp500_graph['price'])
 
                 if flag_checkBox_plot4_bband:
 
                     self.Calc_SAR_BBand('SP500')
 
-                    self.plot4_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].to_numpy())
-                    self.plot4_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].to_numpy())
-                    self.plot4_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].to_numpy())
+                    self.plot4_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'])
+                    self.plot4_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'])
+                    self.plot4_bollinger_lower_curve.setData(df_sp500_graph['BBLower'])
                 else:
                     pass
 
@@ -37602,8 +37602,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('SP500')
 
-                    self.plot4_mama_curve.setData(df_sp500_graph['MAMA'].to_numpy())
-                    self.plot4_fama_curve.setData(df_sp500_graph['A_FAMA'].to_numpy())
+                    self.plot4_mama_curve.setData(df_sp500_graph['MAMA'])
+                    self.plot4_fama_curve.setData(df_sp500_graph['A_FAMA'])
                 else:
                     pass
 
@@ -37611,8 +37611,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('SP500')
 
-                    self.plot4_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].to_numpy())
-                    self.plot4_oe_base_curve.setData(df_sp500_graph['OE_BASE'].to_numpy())
+                    self.plot4_oe_conv_curve.setData(df_sp500_graph['OE_CONV'])
+                    self.plot4_oe_base_curve.setData(df_sp500_graph['OE_BASE'])
                 else:
                     pass
             
@@ -37716,15 +37716,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_low_line.setValue(DOW_저가)
                 self.plot4_ovc_high_line.setValue(DOW_고가)                     
 
-                self.plot4_dow_curve.setData(df_dow_graph['price'].to_numpy())
+                self.plot4_dow_curve.setData(df_dow_graph['price'])
 
                 if flag_checkBox_plot4_bband:
 
                     self.Calc_SAR_BBand('DOW')
 
-                    self.plot4_bollinger_upper_curve.setData(df_dow_graph['BBUpper'].to_numpy())
-                    self.plot4_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'].to_numpy())
-                    self.plot4_bollinger_lower_curve.setData(df_dow_graph['BBLower'].to_numpy())
+                    self.plot4_bollinger_upper_curve.setData(df_dow_graph['BBUpper'])
+                    self.plot4_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'])
+                    self.plot4_bollinger_lower_curve.setData(df_dow_graph['BBLower'])
                 else:
                     pass
 
@@ -37732,8 +37732,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('DOW')
 
-                    self.plot4_mama_curve.setData(df_dow_graph['MAMA'].to_numpy())
-                    self.plot4_fama_curve.setData(df_dow_graph['A_FAMA'].to_numpy())
+                    self.plot4_mama_curve.setData(df_dow_graph['MAMA'])
+                    self.plot4_fama_curve.setData(df_dow_graph['A_FAMA'])
                 else:
                     pass
 
@@ -37741,8 +37741,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('DOW')
 
-                    self.plot4_oe_conv_curve.setData(df_dow_graph['OE_CONV'].to_numpy())
-                    self.plot4_oe_base_curve.setData(df_dow_graph['OE_BASE'].to_numpy())
+                    self.plot4_oe_conv_curve.setData(df_dow_graph['OE_CONV'])
+                    self.plot4_oe_base_curve.setData(df_dow_graph['OE_BASE'])
                 else:
                     pass
 
@@ -37846,15 +37846,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_low_line.setValue(NASDAQ_저가)
                 self.plot4_ovc_high_line.setValue(NASDAQ_고가) 
 
-                self.plot4_nasdaq_curve.setData(df_nasdaq_graph['price'].to_numpy())
+                self.plot4_nasdaq_curve.setData(df_nasdaq_graph['price'])
 
                 if flag_checkBox_plot4_bband:
 
                     self.Calc_SAR_BBand('NASDAQ')
 
-                    self.plot4_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'].to_numpy())
-                    self.plot4_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'].to_numpy())
-                    self.plot4_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'].to_numpy())
+                    self.plot4_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'])
+                    self.plot4_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'])
+                    self.plot4_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'])
                 else:
                     pass
 
@@ -37862,8 +37862,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('NASDAQ')
 
-                    self.plot4_mama_curve.setData(df_nasdaq_graph['MAMA'].to_numpy())
-                    self.plot4_fama_curve.setData(df_nasdaq_graph['A_FAMA'].to_numpy())
+                    self.plot4_mama_curve.setData(df_nasdaq_graph['MAMA'])
+                    self.plot4_fama_curve.setData(df_nasdaq_graph['A_FAMA'])
                 else:
                     pass
 
@@ -37871,8 +37871,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('NASDAQ')
 
-                    self.plot4_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'].to_numpy())
-                    self.plot4_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'].to_numpy())
+                    self.plot4_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'])
+                    self.plot4_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'])
                 else:
                     pass
 
@@ -37974,15 +37974,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_low_line.setValue(HANGSENG_저가)
                 self.plot4_ovc_high_line.setValue(HANGSENG_고가)                 
 
-                self.plot4_hangseng_curve.setData(df_hangseng_graph['price'].to_numpy())
+                self.plot4_hangseng_curve.setData(df_hangseng_graph['price'])
 
                 if flag_checkBox_plot4_bband:
 
                     self.Calc_SAR_BBand('HSI')
 
-                    self.plot4_bollinger_upper_curve.setData(df_hangseng_graph['BBUpper'].to_numpy())
-                    self.plot4_bollinger_middle_curve.setData(df_hangseng_graph['BBMiddle'].to_numpy())
-                    self.plot4_bollinger_lower_curve.setData(df_hangseng_graph['BBLower'].to_numpy())
+                    self.plot4_bollinger_upper_curve.setData(df_hangseng_graph['BBUpper'])
+                    self.plot4_bollinger_middle_curve.setData(df_hangseng_graph['BBMiddle'])
+                    self.plot4_bollinger_lower_curve.setData(df_hangseng_graph['BBLower'])
                 else:
                     pass
 
@@ -37990,8 +37990,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('HSI')
 
-                    self.plot4_mama_curve.setData(df_hangseng_graph['MAMA'].to_numpy())
-                    self.plot4_fama_curve.setData(df_hangseng_graph['A_FAMA'].to_numpy())
+                    self.plot4_mama_curve.setData(df_hangseng_graph['MAMA'])
+                    self.plot4_fama_curve.setData(df_hangseng_graph['A_FAMA'])
                 else:
                     pass
 
@@ -37999,8 +37999,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('HSI')
 
-                    self.plot4_oe_conv_curve.setData(df_hangseng_graph['OE_CONV'].to_numpy())
-                    self.plot4_oe_base_curve.setData(df_hangseng_graph['OE_BASE'].to_numpy())
+                    self.plot4_oe_conv_curve.setData(df_hangseng_graph['OE_CONV'])
+                    self.plot4_oe_base_curve.setData(df_hangseng_graph['OE_BASE'])
                 else:
                     pass
 
@@ -38103,15 +38103,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_low_line.setValue(WTI_저가)
                 self.plot4_ovc_high_line.setValue(WTI_고가) 
 
-                self.plot4_wti_curve.setData(df_wti_graph['price'].to_numpy())
+                self.plot4_wti_curve.setData(df_wti_graph['price'])
 
                 if flag_checkBox_plot4_bband:
 
                     self.Calc_SAR_BBand('WTI')
 
-                    self.plot4_bollinger_upper_curve.setData(df_wti_graph['BBUpper'].to_numpy())
-                    self.plot4_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'].to_numpy())
-                    self.plot4_bollinger_lower_curve.setData(df_wti_graph['BBLower'].to_numpy())
+                    self.plot4_bollinger_upper_curve.setData(df_wti_graph['BBUpper'])
+                    self.plot4_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'])
+                    self.plot4_bollinger_lower_curve.setData(df_wti_graph['BBLower'])
                 else:
                     pass
 
@@ -38119,8 +38119,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('WTI')
 
-                    self.plot4_mama_curve.setData(df_wti_graph['MAMA'].to_numpy())
-                    self.plot4_fama_curve.setData(df_wti_graph['A_FAMA'].to_numpy())
+                    self.plot4_mama_curve.setData(df_wti_graph['MAMA'])
+                    self.plot4_fama_curve.setData(df_wti_graph['A_FAMA'])
                 else:
                     pass
 
@@ -38128,8 +38128,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('WTI')
 
-                    self.plot4_oe_conv_curve.setData(df_wti_graph['OE_CONV'].to_numpy())
-                    self.plot4_oe_base_curve.setData(df_wti_graph['OE_BASE'].to_numpy())
+                    self.plot4_oe_conv_curve.setData(df_wti_graph['OE_CONV'])
+                    self.plot4_oe_base_curve.setData(df_wti_graph['OE_BASE'])
                 else:
                     pass
             
@@ -38231,15 +38231,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_low_line.setValue(GOLD_저가)
                 self.plot4_ovc_high_line.setValue(GOLD_고가)                 
 
-                self.plot4_gold_curve.setData(df_gold_graph['price'].to_numpy())
+                self.plot4_gold_curve.setData(df_gold_graph['price'])
 
                 if flag_checkBox_plot4_bband:
 
                     self.Calc_SAR_BBand('GOLD')
 
-                    self.plot4_bollinger_upper_curve.setData(df_gold_graph['BBUpper'].to_numpy())
-                    self.plot4_bollinger_middle_curve.setData(df_gold_graph['BBMiddle'].to_numpy())
-                    self.plot4_bollinger_lower_curve.setData(df_gold_graph['BBLower'].to_numpy())
+                    self.plot4_bollinger_upper_curve.setData(df_gold_graph['BBUpper'])
+                    self.plot4_bollinger_middle_curve.setData(df_gold_graph['BBMiddle'])
+                    self.plot4_bollinger_lower_curve.setData(df_gold_graph['BBLower'])
                 else:
                     pass
 
@@ -38247,8 +38247,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('GOLD')
 
-                    self.plot4_mama_curve.setData(df_gold_graph['MAMA'].to_numpy())
-                    self.plot4_fama_curve.setData(df_gold_graph['A_FAMA'].to_numpy())
+                    self.plot4_mama_curve.setData(df_gold_graph['MAMA'])
+                    self.plot4_fama_curve.setData(df_gold_graph['A_FAMA'])
                 else:
                     pass
 
@@ -38256,8 +38256,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('GOLD')
 
-                    self.plot4_oe_conv_curve.setData(df_gold_graph['OE_CONV'].to_numpy())
-                    self.plot4_oe_base_curve.setData(df_gold_graph['OE_BASE'].to_numpy())
+                    self.plot4_oe_conv_curve.setData(df_gold_graph['OE_CONV'])
+                    self.plot4_oe_base_curve.setData(df_gold_graph['OE_BASE'])
                 else:
                     pass
 
@@ -38358,15 +38358,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_low_line.setValue(EUROFX_저가)
                 self.plot4_ovc_high_line.setValue(EUROFX_고가)                 
 
-                self.plot4_eurofx_curve.setData(df_eurofx_graph['price'].to_numpy())
+                self.plot4_eurofx_curve.setData(df_eurofx_graph['price'])
 
                 if flag_checkBox_plot4_bband:
 
                     self.Calc_SAR_BBand('EURO')
 
-                    self.plot4_bollinger_upper_curve.setData(df_eurofx_graph['BBUpper'].to_numpy())
-                    self.plot4_bollinger_middle_curve.setData(df_eurofx_graph['BBMiddle'].to_numpy())
-                    self.plot4_bollinger_lower_curve.setData(df_eurofx_graph['BBLower'].to_numpy())
+                    self.plot4_bollinger_upper_curve.setData(df_eurofx_graph['BBUpper'])
+                    self.plot4_bollinger_middle_curve.setData(df_eurofx_graph['BBMiddle'])
+                    self.plot4_bollinger_lower_curve.setData(df_eurofx_graph['BBLower'])
                 else:
                     pass
 
@@ -38374,8 +38374,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('EURO')
 
-                    self.plot4_mama_curve.setData(df_eurofx_graph['MAMA'].to_numpy())
-                    self.plot4_fama_curve.setData(df_eurofx_graph['A_FAMA'].to_numpy())
+                    self.plot4_mama_curve.setData(df_eurofx_graph['MAMA'])
+                    self.plot4_fama_curve.setData(df_eurofx_graph['A_FAMA'])
                 else:
                     pass
 
@@ -38383,8 +38383,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('EURO')
 
-                    self.plot4_oe_conv_curve.setData(df_eurofx_graph['OE_CONV'].to_numpy())
-                    self.plot4_oe_base_curve.setData(df_eurofx_graph['OE_BASE'].to_numpy())
+                    self.plot4_oe_conv_curve.setData(df_eurofx_graph['OE_CONV'])
+                    self.plot4_oe_base_curve.setData(df_eurofx_graph['OE_BASE'])
                 else:
                     pass
 
@@ -38486,15 +38486,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_low_line.setValue(YEN_저가)
                 self.plot4_ovc_high_line.setValue(YEN_고가)                 
 
-                self.plot4_yen_curve.setData(df_yen_graph['price'].to_numpy())
+                self.plot4_yen_curve.setData(df_yen_graph['price'])
 
                 if flag_checkBox_plot4_bband:
 
                     self.Calc_SAR_BBand('YEN')
 
-                    self.plot4_bollinger_upper_curve.setData(df_yen_graph['BBUpper'].to_numpy())
-                    self.plot4_bollinger_middle_curve.setData(df_yen_graph['BBMiddle'].to_numpy())
-                    self.plot4_bollinger_lower_curve.setData(df_yen_graph['BBLower'].to_numpy())
+                    self.plot4_bollinger_upper_curve.setData(df_yen_graph['BBUpper'])
+                    self.plot4_bollinger_middle_curve.setData(df_yen_graph['BBMiddle'])
+                    self.plot4_bollinger_lower_curve.setData(df_yen_graph['BBLower'])
                 else:
                     pass
 
@@ -38502,8 +38502,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('YEN')
 
-                    self.plot4_mama_curve.setData(df_yen_graph['MAMA'].to_numpy())
-                    self.plot4_fama_curve.setData(df_yen_graph['A_FAMA'].to_numpy())
+                    self.plot4_mama_curve.setData(df_yen_graph['MAMA'])
+                    self.plot4_fama_curve.setData(df_yen_graph['A_FAMA'])
                 else:
                     pass
 
@@ -38511,8 +38511,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('YEN')
 
-                    self.plot4_oe_conv_curve.setData(df_yen_graph['OE_CONV'].to_numpy())
-                    self.plot4_oe_base_curve.setData(df_yen_graph['OE_BASE'].to_numpy())
+                    self.plot4_oe_conv_curve.setData(df_yen_graph['OE_CONV'])
+                    self.plot4_oe_base_curve.setData(df_yen_graph['OE_BASE'])
                 else:
                     pass
             
@@ -38554,9 +38554,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_time_line.setValue(cme_time_index)
 
                 if DayTime:
-                    self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
-                    self.plot4_program_curve.setData(df_supply_demand_graph['program'].to_numpy())
-                    self.plot4_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'].to_numpy())
+                    self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'])
+                    self.plot4_program_curve.setData(df_supply_demand_graph['program'])
+                    self.plot4_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
                 else:
                     pass
 
@@ -38598,9 +38598,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_time_line.setValue(cme_time_index)
 
                 if DayTime:
-                    self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
-                    self.plot4_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'].to_numpy())
-                    self.plot4_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'].to_numpy())                    
+                    self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'])
+                    self.plot4_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
+                    self.plot4_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
                 else:
                     pass
             else:
@@ -38721,7 +38721,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     if 근월물_선물_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    if 근월물_선물_종가대비 < 0:
+                    elif 근월물_선물_종가대비 < 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_57.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38767,17 +38767,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_close_line.setValue(근월물_선물_고가)
                 self.plot5_fut_high_line.setValue(근월물_선물_고가) 
 
-                self.plot5_kp200_curve.setData(df_kp200_graph['price'].to_numpy())
-                self.plot5_fut_cm_price_curve.setData(df_futures_cm_graph['price'].to_numpy())
-                self.plot5_fut_nm_price_curve.setData(df_futures_nm_graph['price'].to_numpy())
+                self.plot5_kp200_curve.setData(df_kp200_graph['price'])
+                self.plot5_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
+                self.plot5_fut_nm_price_curve.setData(df_futures_nm_graph['price'])
 
                 if flag_checkBox_plot5_bband:
 
                     self.Calc_SAR_BBand('FUT')
 
-                    self.plot5_bollinger_upper_curve.setData(df_futures_cm_graph['BBUpper'].to_numpy())
-                    self.plot5_bollinger_middle_curve.setData(df_futures_cm_graph['BBMiddle'].to_numpy())
-                    self.plot5_bollinger_lower_curve.setData(df_futures_cm_graph['BBLower'].to_numpy())
+                    self.plot5_bollinger_upper_curve.setData(df_futures_cm_graph['BBUpper'])
+                    self.plot5_bollinger_middle_curve.setData(df_futures_cm_graph['BBMiddle'])
+                    self.plot5_bollinger_lower_curve.setData(df_futures_cm_graph['BBLower'])
                 else:
                     pass
 
@@ -38785,8 +38785,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('FUT')
 
-                    self.plot5_mama_curve.setData(df_futures_cm_graph['MAMA'].to_numpy())
-                    self.plot5_fama_curve.setData(df_futures_cm_graph['A_FAMA'].to_numpy())
+                    self.plot5_mama_curve.setData(df_futures_cm_graph['MAMA'])
+                    self.plot5_fama_curve.setData(df_futures_cm_graph['A_FAMA'])
                 else:
                     pass
 
@@ -38794,8 +38794,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('FUT')
 
-                    self.plot5_oe_conv_curve.setData(df_futures_cm_graph['OE_CONV'].to_numpy())
-                    self.plot5_oe_base_curve.setData(df_futures_cm_graph['OE_BASE'].to_numpy())
+                    self.plot5_oe_conv_curve.setData(df_futures_cm_graph['OE_CONV'])
+                    self.plot5_oe_base_curve.setData(df_futures_cm_graph['OE_BASE'])
                 else:
                     pass
 
@@ -38823,12 +38823,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot5_time_line.setValue(cme_time_index)
 
-                self.plot5_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
-                self.plot5_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
+                self.plot5_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
+                self.plot5_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'])
 
                 if DayTime:
-                    self.plot5_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
-                    self.plot5_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
+                    self.plot5_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'])
+                    self.plot5_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'])
                     self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(차월물_선물_호가잔량비_최소)
                     self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(차월물_선물_호가잔량비_최대)
                 else:
@@ -38854,12 +38854,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_time_line.setValue(cme_time_index)
 
                 if DayTime:
-                    self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
+                    self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                 else:
                     pass
                                 
-                self.plot5_call_volume_curve.setData(df_call_information_graph['volume'].to_numpy())
-                self.plot5_put_volume_curve.setData(df_put_information_graph['volume'].to_numpy())
+                self.plot5_call_volume_curve.setData(df_call_information_graph['volume'])
+                self.plot5_put_volume_curve.setData(df_put_information_graph['volume'])
 
             # 옵션가격
             elif comboindex5 == 6:
@@ -38913,14 +38913,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 # 선택된 콜그래프 그리기
                 if selected_call:
                     for i in range(len(selected_call)):
-                        self.plot5_call_curve[i].setData(df_call_graph[selected_call[i]]['price'].to_numpy())
+                        self.plot5_call_curve[i].setData(df_call_graph[selected_call[i]]['price'])
                 else:
                     pass                 
 
                 # 선택된 풋그래프 그리기
                 if selected_put:
                     for i in range(len(selected_put)):
-                        self.plot5_put_curve[i].setData(df_put_graph[selected_put[i]]['price'].to_numpy())
+                        self.plot5_put_curve[i].setData(df_put_graph[selected_put[i]]['price'])
                 else:
                     pass                
                 
@@ -38929,7 +38929,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_center_val_line.setValue(옵션_중심가)
                     self.plot5_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
                     # 중심가 그리기
-                    self.plot5_center_val_curve.setData(df_call_information_graph['centerval'].to_numpy())
+                    self.plot5_center_val_curve.setData(df_call_information_graph['centerval'])
                 else:
                     pass
 
@@ -38943,8 +38943,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot5_time_line.setValue(cme_time_index)
 
-                self.plot5_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
-                self.plot5_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
+                self.plot5_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
+                self.plot5_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'])
 
                 self.plot5_option_quote_remainder_ratio_bottom_line.setValue(옵션_잔량비_최소)
                 self.plot5_option_quote_remainder_ratio_upper_line.setValue(옵션_잔량비_최대)       
@@ -38959,8 +38959,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot5_time_line.setValue(cme_time_index)
 
-                self.plot5_call_oi_curve.setData(df_call_information_graph['open_interest'].to_numpy())
-                self.plot5_put_oi_curve.setData(df_put_information_graph['open_interest'].to_numpy())
+                self.plot5_call_oi_curve.setData(df_call_information_graph['open_interest'])
+                self.plot5_put_oi_curve.setData(df_put_information_graph['open_interest'])
             
             elif comboindex5 == 10:
 
@@ -38975,19 +38975,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot5_time_line.setValue(cme_time_index)
                 
-                self.plot5_call_drate_curve.setData(df_call_information_graph['drate'].to_numpy())
-                self.plot5_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy())
+                self.plot5_call_drate_curve.setData(df_call_information_graph['drate'])
+                self.plot5_put_drate_curve.setData(df_put_information_graph['drate'])
                 
                 if DayTime:
 
                     txt = " {0:.2f}({1}) ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_57.setText(txt)
 
-                    self.plot5_fut_drate_curve.setData(df_futures_cm_graph['drate'].to_numpy())
+                    self.plot5_fut_drate_curve.setData(df_futures_cm_graph['drate'])
                 else:
                     pass
 
-                self.plot5_cme_drate_curve.setData(df_sp500_graph['drate'].to_numpy())
+                self.plot5_cme_drate_curve.setData(df_sp500_graph['drate'])
             
             elif comboindex5 == 12:
 
@@ -39094,15 +39094,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_center_val_line.setValue(SP500_고가)
                 self.plot5_center_val_upper_line.setValue(SP500_고가) 
 
-                self.plot5_sp500_curve.setData(df_sp500_graph['price'].to_numpy())
+                self.plot5_sp500_curve.setData(df_sp500_graph['price'])
 
                 if flag_checkBox_plot5_bband:
 
                     self.Calc_SAR_BBand('SP500')
 
-                    self.plot5_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].to_numpy())
-                    self.plot5_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].to_numpy())
-                    self.plot5_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].to_numpy())
+                    self.plot5_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'])
+                    self.plot5_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'])
+                    self.plot5_bollinger_lower_curve.setData(df_sp500_graph['BBLower'])
                 else:
                     pass
 
@@ -39110,8 +39110,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('SP500')
 
-                    self.plot5_mama_curve.setData(df_sp500_graph['MAMA'].to_numpy())
-                    self.plot5_fama_curve.setData(df_sp500_graph['A_FAMA'].to_numpy())
+                    self.plot5_mama_curve.setData(df_sp500_graph['MAMA'])
+                    self.plot5_fama_curve.setData(df_sp500_graph['A_FAMA'])
                 else:
                     pass
 
@@ -39119,8 +39119,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('SP500')
 
-                    self.plot5_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].to_numpy())
-                    self.plot5_oe_base_curve.setData(df_sp500_graph['OE_BASE'].to_numpy())
+                    self.plot5_oe_conv_curve.setData(df_sp500_graph['OE_CONV'])
+                    self.plot5_oe_base_curve.setData(df_sp500_graph['OE_BASE'])
                 else:
                     pass
             
@@ -39228,15 +39228,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_center_val_line.setValue(DOW_고가)
                 self.plot5_center_val_upper_line.setValue(DOW_고가)                  
 
-                self.plot5_dow_curve.setData(df_dow_graph['price'].to_numpy())
+                self.plot5_dow_curve.setData(df_dow_graph['price'])
 
                 if flag_checkBox_plot5_bband:
 
                     self.Calc_SAR_BBand('DOW')
 
-                    self.plot5_bollinger_upper_curve.setData(df_dow_graph['BBUpper'].to_numpy())
-                    self.plot5_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'].to_numpy())
-                    self.plot5_bollinger_lower_curve.setData(df_dow_graph['BBLower'].to_numpy())
+                    self.plot5_bollinger_upper_curve.setData(df_dow_graph['BBUpper'])
+                    self.plot5_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'])
+                    self.plot5_bollinger_lower_curve.setData(df_dow_graph['BBLower'])
                 else:
                     pass
 
@@ -39244,8 +39244,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('DOW')
 
-                    self.plot5_mama_curve.setData(df_dow_graph['MAMA'].to_numpy())
-                    self.plot5_fama_curve.setData(df_dow_graph['A_FAMA'].to_numpy())
+                    self.plot5_mama_curve.setData(df_dow_graph['MAMA'])
+                    self.plot5_fama_curve.setData(df_dow_graph['A_FAMA'])
                 else:
                     pass
 
@@ -39253,8 +39253,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('DOW')
 
-                    self.plot5_oe_conv_curve.setData(df_dow_graph['OE_CONV'].to_numpy())
-                    self.plot5_oe_base_curve.setData(df_dow_graph['OE_BASE'].to_numpy())
+                    self.plot5_oe_conv_curve.setData(df_dow_graph['OE_CONV'])
+                    self.plot5_oe_base_curve.setData(df_dow_graph['OE_BASE'])
                 else:
                     pass  
 
@@ -39362,15 +39362,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_center_val_line.setValue(NASDAQ_고가)
                 self.plot5_center_val_upper_line.setValue(NASDAQ_고가)   
 
-                self.plot5_nasdaq_curve.setData(df_nasdaq_graph['price'].to_numpy())
+                self.plot5_nasdaq_curve.setData(df_nasdaq_graph['price'])
 
                 if flag_checkBox_plot5_bband:
 
                     self.Calc_SAR_BBand('NASDAQ')
 
-                    self.plot5_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'].to_numpy())
-                    self.plot5_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'].to_numpy())
-                    self.plot5_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'].to_numpy())
+                    self.plot5_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'])
+                    self.plot5_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'])
+                    self.plot5_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'])
                 else:
                     pass
 
@@ -39378,8 +39378,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('NASDAQ')
 
-                    self.plot5_mama_curve.setData(df_nasdaq_graph['MAMA'].to_numpy())
-                    self.plot5_fama_curve.setData(df_nasdaq_graph['A_FAMA'].to_numpy())
+                    self.plot5_mama_curve.setData(df_nasdaq_graph['MAMA'])
+                    self.plot5_fama_curve.setData(df_nasdaq_graph['A_FAMA'])
                 else:
                     pass
 
@@ -39387,8 +39387,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('NASDAQ')
 
-                    self.plot5_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'].to_numpy())
-                    self.plot5_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'].to_numpy())
+                    self.plot5_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'])
+                    self.plot5_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'])
                 else:
                     pass
 
@@ -39490,15 +39490,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_low_line.setValue(HANGSENG_저가)
                 self.plot5_ovc_high_line.setValue(HANGSENG_고가)                 
 
-                self.plot5_hangseng_curve.setData(df_hangseng_graph['price'].to_numpy())
+                self.plot5_hangseng_curve.setData(df_hangseng_graph['price'])
 
                 if flag_checkBox_plot5_bband:
 
                     self.Calc_SAR_BBand('HSI')
 
-                    self.plot5_bollinger_upper_curve.setData(df_hangseng_graph['BBUpper'].to_numpy())
-                    self.plot5_bollinger_middle_curve.setData(df_hangseng_graph['BBMiddle'].to_numpy())
-                    self.plot5_bollinger_lower_curve.setData(df_hangseng_graph['BBLower'].to_numpy())
+                    self.plot5_bollinger_upper_curve.setData(df_hangseng_graph['BBUpper'])
+                    self.plot5_bollinger_middle_curve.setData(df_hangseng_graph['BBMiddle'])
+                    self.plot5_bollinger_lower_curve.setData(df_hangseng_graph['BBLower'])
                 else:
                     pass
 
@@ -39506,8 +39506,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('HSI')
 
-                    self.plot5_mama_curve.setData(df_hangseng_graph['MAMA'].to_numpy())
-                    self.plot5_fama_curve.setData(df_hangseng_graph['A_FAMA'].to_numpy())
+                    self.plot5_mama_curve.setData(df_hangseng_graph['MAMA'])
+                    self.plot5_fama_curve.setData(df_hangseng_graph['A_FAMA'])
                 else:
                     pass
 
@@ -39515,8 +39515,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('HSI')
 
-                    self.plot5_oe_conv_curve.setData(df_hangseng_graph['OE_CONV'].to_numpy())
-                    self.plot5_oe_base_curve.setData(df_hangseng_graph['OE_BASE'].to_numpy())
+                    self.plot5_oe_conv_curve.setData(df_hangseng_graph['OE_CONV'])
+                    self.plot5_oe_base_curve.setData(df_hangseng_graph['OE_BASE'])
                 else:
                     pass
 
@@ -39623,15 +39623,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_center_val_line.setValue(WTI_고가)
                 self.plot5_center_val_upper_line.setValue(WTI_고가)  
 
-                self.plot5_wti_curve.setData(df_wti_graph['price'].to_numpy())
+                self.plot5_wti_curve.setData(df_wti_graph['price'])
 
                 if flag_checkBox_plot5_bband:
 
                     self.Calc_SAR_BBand('WTI')
 
-                    self.plot5_bollinger_upper_curve.setData(df_wti_graph['BBUpper'].to_numpy())
-                    self.plot5_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'].to_numpy())
-                    self.plot5_bollinger_lower_curve.setData(df_wti_graph['BBLower'].to_numpy())
+                    self.plot5_bollinger_upper_curve.setData(df_wti_graph['BBUpper'])
+                    self.plot5_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'])
+                    self.plot5_bollinger_lower_curve.setData(df_wti_graph['BBLower'])
                 else:
                     pass
 
@@ -39639,8 +39639,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('WTI')
 
-                    self.plot5_mama_curve.setData(df_wti_graph['MAMA'].to_numpy())
-                    self.plot5_fama_curve.setData(df_wti_graph['A_FAMA'].to_numpy())
+                    self.plot5_mama_curve.setData(df_wti_graph['MAMA'])
+                    self.plot5_fama_curve.setData(df_wti_graph['A_FAMA'])
                 else:
                     pass
 
@@ -39648,8 +39648,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('WTI')
 
-                    self.plot5_oe_conv_curve.setData(df_wti_graph['OE_CONV'].to_numpy())
-                    self.plot5_oe_base_curve.setData(df_wti_graph['OE_BASE'].to_numpy())
+                    self.plot5_oe_conv_curve.setData(df_wti_graph['OE_CONV'])
+                    self.plot5_oe_base_curve.setData(df_wti_graph['OE_BASE'])
                 else:
                     pass 
             
@@ -39751,15 +39751,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_low_line.setValue(GOLD_저가)
                 self.plot5_ovc_high_line.setValue(GOLD_고가)                 
 
-                self.plot5_gold_curve.setData(df_gold_graph['price'].to_numpy())
+                self.plot5_gold_curve.setData(df_gold_graph['price'])
 
                 if flag_checkBox_plot5_bband:
 
                     self.Calc_SAR_BBand('GOLD')
 
-                    self.plot5_bollinger_upper_curve.setData(df_gold_graph['BBUpper'].to_numpy())
-                    self.plot5_bollinger_middle_curve.setData(df_gold_graph['BBMiddle'].to_numpy())
-                    self.plot5_bollinger_lower_curve.setData(df_gold_graph['BBLower'].to_numpy())
+                    self.plot5_bollinger_upper_curve.setData(df_gold_graph['BBUpper'])
+                    self.plot5_bollinger_middle_curve.setData(df_gold_graph['BBMiddle'])
+                    self.plot5_bollinger_lower_curve.setData(df_gold_graph['BBLower'])
                 else:
                     pass
 
@@ -39767,8 +39767,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('GOLD')
 
-                    self.plot5_mama_curve.setData(df_gold_graph['MAMA'].to_numpy())
-                    self.plot5_fama_curve.setData(df_gold_graph['A_FAMA'].to_numpy())
+                    self.plot5_mama_curve.setData(df_gold_graph['MAMA'])
+                    self.plot5_fama_curve.setData(df_gold_graph['A_FAMA'])
                 else:
                     pass
 
@@ -39776,8 +39776,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('GOLD')
 
-                    self.plot5_oe_conv_curve.setData(df_gold_graph['OE_CONV'].to_numpy())
-                    self.plot5_oe_base_curve.setData(df_gold_graph['OE_BASE'].to_numpy())
+                    self.plot5_oe_conv_curve.setData(df_gold_graph['OE_CONV'])
+                    self.plot5_oe_base_curve.setData(df_gold_graph['OE_BASE'])
                 else:
                     pass
 
@@ -39878,15 +39878,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_low_line.setValue(EUROFX_저가)
                 self.plot5_ovc_high_line.setValue(EUROFX_고가)                 
 
-                self.plot5_eurofx_curve.setData(df_eurofx_graph['price'].to_numpy())
+                self.plot5_eurofx_curve.setData(df_eurofx_graph['price'])
 
                 if flag_checkBox_plot5_bband:
 
                     self.Calc_SAR_BBand('EURO')
 
-                    self.plot5_bollinger_upper_curve.setData(df_eurofx_graph['BBUpper'].to_numpy())
-                    self.plot5_bollinger_middle_curve.setData(df_eurofx_graph['BBMiddle'].to_numpy())
-                    self.plot5_bollinger_lower_curve.setData(df_eurofx_graph['BBLower'].to_numpy())
+                    self.plot5_bollinger_upper_curve.setData(df_eurofx_graph['BBUpper'])
+                    self.plot5_bollinger_middle_curve.setData(df_eurofx_graph['BBMiddle'])
+                    self.plot5_bollinger_lower_curve.setData(df_eurofx_graph['BBLower'])
                 else:
                     pass
 
@@ -39894,8 +39894,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('EURO')
 
-                    self.plot5_mama_curve.setData(df_eurofx_graph['MAMA'].to_numpy())
-                    self.plot5_fama_curve.setData(df_eurofx_graph['A_FAMA'].to_numpy())
+                    self.plot5_mama_curve.setData(df_eurofx_graph['MAMA'])
+                    self.plot5_fama_curve.setData(df_eurofx_graph['A_FAMA'])
                 else:
                     pass
 
@@ -39903,8 +39903,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('EURO')
 
-                    self.plot5_oe_conv_curve.setData(df_eurofx_graph['OE_CONV'].to_numpy())
-                    self.plot5_oe_base_curve.setData(df_eurofx_graph['OE_BASE'].to_numpy())
+                    self.plot5_oe_conv_curve.setData(df_eurofx_graph['OE_CONV'])
+                    self.plot5_oe_base_curve.setData(df_eurofx_graph['OE_BASE'])
                 else:
                     pass
 
@@ -40006,15 +40006,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_low_line.setValue(YEN_저가)
                 self.plot5_ovc_high_line.setValue(YEN_고가)                 
 
-                self.plot5_yen_curve.setData(df_yen_graph['price'].to_numpy())
+                self.plot5_yen_curve.setData(df_yen_graph['price'])
 
                 if flag_checkBox_plot5_bband:
 
                     self.Calc_SAR_BBand('YEN')
 
-                    self.plot5_bollinger_upper_curve.setData(df_yen_graph['BBUpper'].to_numpy())
-                    self.plot5_bollinger_middle_curve.setData(df_yen_graph['BBMiddle'].to_numpy())
-                    self.plot5_bollinger_lower_curve.setData(df_yen_graph['BBLower'].to_numpy())
+                    self.plot5_bollinger_upper_curve.setData(df_yen_graph['BBUpper'])
+                    self.plot5_bollinger_middle_curve.setData(df_yen_graph['BBMiddle'])
+                    self.plot5_bollinger_lower_curve.setData(df_yen_graph['BBLower'])
                 else:
                     pass
 
@@ -40022,8 +40022,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('YEN')
 
-                    self.plot5_mama_curve.setData(df_yen_graph['MAMA'].to_numpy())
-                    self.plot5_fama_curve.setData(df_yen_graph['A_FAMA'].to_numpy())
+                    self.plot5_mama_curve.setData(df_yen_graph['MAMA'])
+                    self.plot5_fama_curve.setData(df_yen_graph['A_FAMA'])
                 else:
                     pass
 
@@ -40031,8 +40031,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('YEN')
 
-                    self.plot5_oe_conv_curve.setData(df_yen_graph['OE_CONV'].to_numpy())
-                    self.plot5_oe_base_curve.setData(df_yen_graph['OE_BASE'].to_numpy())
+                    self.plot5_oe_conv_curve.setData(df_yen_graph['OE_CONV'])
+                    self.plot5_oe_base_curve.setData(df_yen_graph['OE_BASE'])
                 else:
                     pass
             
@@ -40074,9 +40074,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_time_line.setValue(cme_time_index)
 
                 if DayTime:
-                    self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
-                    self.plot5_program_curve.setData(df_supply_demand_graph['program'].to_numpy())
-                    self.plot5_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'].to_numpy())
+                    self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'])
+                    self.plot5_program_curve.setData(df_supply_demand_graph['program'])
+                    self.plot5_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
                 else:
                     pass
 
@@ -40118,9 +40118,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_time_line.setValue(cme_time_index)
 
                 if DayTime:
-                    self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
-                    self.plot5_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'].to_numpy())
-                    self.plot5_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'].to_numpy())                    
+                    self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'])
+                    self.plot5_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
+                    self.plot5_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
                 else:
                     pass
             else:
@@ -40241,7 +40241,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     if 근월물_선물_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    if 근월물_선물_종가대비 < 0:
+                    elif 근월물_선물_종가대비 < 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_67.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40287,17 +40287,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_close_line.setValue(근월물_선물_고가)
                 self.plot6_fut_high_line.setValue(근월물_선물_고가) 
 
-                self.plot6_kp200_curve.setData(df_kp200_graph['price'].to_numpy())
-                self.plot6_fut_cm_price_curve.setData(df_futures_cm_graph['price'].to_numpy())
-                self.plot6_fut_nm_price_curve.setData(df_futures_nm_graph['price'].to_numpy())
+                self.plot6_kp200_curve.setData(df_kp200_graph['price'])
+                self.plot6_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
+                self.plot6_fut_nm_price_curve.setData(df_futures_nm_graph['price'])
 
                 if flag_checkBox_plot6_bband:
 
                     self.Calc_SAR_BBand('FUT')
 
-                    self.plot6_bollinger_upper_curve.setData(df_futures_cm_graph['BBUpper'].to_numpy())
-                    self.plot6_bollinger_middle_curve.setData(df_futures_cm_graph['BBMiddle'].to_numpy())
-                    self.plot6_bollinger_lower_curve.setData(df_futures_cm_graph['BBLower'].to_numpy())
+                    self.plot6_bollinger_upper_curve.setData(df_futures_cm_graph['BBUpper'])
+                    self.plot6_bollinger_middle_curve.setData(df_futures_cm_graph['BBMiddle'])
+                    self.plot6_bollinger_lower_curve.setData(df_futures_cm_graph['BBLower'])
                 else:
                     pass
 
@@ -40305,8 +40305,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('FUT')
 
-                    self.plot6_mama_curve.setData(df_futures_cm_graph['MAMA'].to_numpy())
-                    self.plot6_fama_curve.setData(df_futures_cm_graph['A_FAMA'].to_numpy())
+                    self.plot6_mama_curve.setData(df_futures_cm_graph['MAMA'])
+                    self.plot6_fama_curve.setData(df_futures_cm_graph['A_FAMA'])
                 else:
                     pass
 
@@ -40314,8 +40314,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('FUT')
 
-                    self.plot6_oe_conv_curve.setData(df_futures_cm_graph['OE_CONV'].to_numpy())
-                    self.plot6_oe_base_curve.setData(df_futures_cm_graph['OE_BASE'].to_numpy())
+                    self.plot6_oe_conv_curve.setData(df_futures_cm_graph['OE_CONV'])
+                    self.plot6_oe_base_curve.setData(df_futures_cm_graph['OE_BASE'])
                 else:
                     pass
 
@@ -40343,12 +40343,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot6_time_line.setValue(cme_time_index)
 
-                self.plot6_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
-                self.plot6_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
+                self.plot6_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
+                self.plot6_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'])
 
                 if DayTime:
-                    self.plot6_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'].to_numpy())
-                    self.plot6_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'].to_numpy())
+                    self.plot6_fut_cm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['c_quote_remainder_ratio'])
+                    self.plot6_fut_nm_quote_remainder_ratio_curve.setData(df_futures_cm_graph['n_quote_remainder_ratio'])
                     self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(차월물_선물_호가잔량비_최소)
                     self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(차월물_선물_호가잔량비_최대)
                 else:
@@ -40374,12 +40374,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_time_line.setValue(cme_time_index)
 
                 if DayTime:
-                    self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
+                    self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                 else:
                     pass
                                 
-                self.plot6_call_volume_curve.setData(df_call_information_graph['volume'].to_numpy())
-                self.plot6_put_volume_curve.setData(df_put_information_graph['volume'].to_numpy())
+                self.plot6_call_volume_curve.setData(df_call_information_graph['volume'])
+                self.plot6_put_volume_curve.setData(df_put_information_graph['volume'])
 
             # 옵션가격
             elif comboindex6 == 6:
@@ -40433,14 +40433,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 # 선택된 콜그래프 그리기
                 if selected_call:
                     for i in range(len(selected_call)):
-                        self.plot6_call_curve[i].setData(df_call_graph[selected_call[i]]['price'].to_numpy())
+                        self.plot6_call_curve[i].setData(df_call_graph[selected_call[i]]['price'])
                 else:
                     pass                 
 
                 # 선택된 풋그래프 그리기
                 if selected_put:
                     for i in range(len(selected_put)):
-                        self.plot6_put_curve[i].setData(df_put_graph[selected_put[i]]['price'].to_numpy())
+                        self.plot6_put_curve[i].setData(df_put_graph[selected_put[i]]['price'])
                 else:
                     pass                
                 
@@ -40449,7 +40449,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_center_val_line.setValue(옵션_중심가)
                     self.plot6_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
                     # 중심가 그리기
-                    self.plot6_center_val_curve.setData(df_call_information_graph['centerval'].to_numpy())
+                    self.plot6_center_val_curve.setData(df_call_information_graph['centerval'])
                 else:
                     pass
 
@@ -40463,8 +40463,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot6_time_line.setValue(cme_time_index)
 
-                self.plot6_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'].to_numpy())
-                self.plot6_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'].to_numpy())
+                self.plot6_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
+                self.plot6_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'])
 
                 self.plot6_option_quote_remainder_ratio_bottom_line.setValue(옵션_잔량비_최소)
                 self.plot6_option_quote_remainder_ratio_upper_line.setValue(옵션_잔량비_최대)        
@@ -40479,8 +40479,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot6_time_line.setValue(cme_time_index)
 
-                self.plot6_call_oi_curve.setData(df_call_information_graph['open_interest'].to_numpy())
-                self.plot6_put_oi_curve.setData(df_put_information_graph['open_interest'].to_numpy())
+                self.plot6_call_oi_curve.setData(df_call_information_graph['open_interest'])
+                self.plot6_put_oi_curve.setData(df_put_information_graph['open_interest'])
                                     
             elif comboindex6 == 10:
 
@@ -40495,19 +40495,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot6_time_line.setValue(cme_time_index)
                 
-                self.plot6_call_drate_curve.setData(df_call_information_graph['drate'].to_numpy())
-                self.plot6_put_drate_curve.setData(df_put_information_graph['drate'].to_numpy())
+                self.plot6_call_drate_curve.setData(df_call_information_graph['drate'])
+                self.plot6_put_drate_curve.setData(df_put_information_graph['drate'])
                 
                 if DayTime:
 
                     txt = " {0:.2f}({1}) ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_67.setText(txt)
 
-                    self.plot6_fut_drate_curve.setData(df_futures_cm_graph['drate'].to_numpy())
+                    self.plot6_fut_drate_curve.setData(df_futures_cm_graph['drate'])
                 else:
                     pass 
 
-                self.plot6_cme_drate_curve.setData(df_sp500_graph['drate'].to_numpy())
+                self.plot6_cme_drate_curve.setData(df_sp500_graph['drate'])
             
             elif comboindex6 == 12:
 
@@ -40614,15 +40614,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_center_val_line.setValue(SP500_고가)
                 self.plot6_center_val_upper_line.setValue(SP500_고가)
 
-                self.plot6_sp500_curve.setData(df_sp500_graph['price'].to_numpy())
+                self.plot6_sp500_curve.setData(df_sp500_graph['price'])
 
                 if flag_checkBox_plot6_bband:
 
                     self.Calc_SAR_BBand('SP500')
 
-                    self.plot6_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].to_numpy())
-                    self.plot6_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].to_numpy())
-                    self.plot6_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].to_numpy())
+                    self.plot6_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'])
+                    self.plot6_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'])
+                    self.plot6_bollinger_lower_curve.setData(df_sp500_graph['BBLower'])
                 else:
                     pass
 
@@ -40630,8 +40630,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('SP500')
 
-                    self.plot6_mama_curve.setData(df_sp500_graph['MAMA'].to_numpy())
-                    self.plot6_fama_curve.setData(df_sp500_graph['A_FAMA'].to_numpy())
+                    self.plot6_mama_curve.setData(df_sp500_graph['MAMA'])
+                    self.plot6_fama_curve.setData(df_sp500_graph['A_FAMA'])
                 else:
                     pass
 
@@ -40639,8 +40639,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('SP500')
 
-                    self.plot6_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].to_numpy())
-                    self.plot6_oe_base_curve.setData(df_sp500_graph['OE_BASE'].to_numpy())
+                    self.plot6_oe_conv_curve.setData(df_sp500_graph['OE_CONV'])
+                    self.plot6_oe_base_curve.setData(df_sp500_graph['OE_BASE'])
                 else:
                     pass
 
@@ -40748,15 +40748,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_center_val_line.setValue(DOW_고가)
                 self.plot6_center_val_upper_line.setValue(DOW_고가)                
 
-                self.plot6_dow_curve.setData(df_dow_graph['price'].to_numpy())
+                self.plot6_dow_curve.setData(df_dow_graph['price'])
 
                 if flag_checkBox_plot6_bband:
 
                     self.Calc_SAR_BBand('DOW')
 
-                    self.plot6_bollinger_upper_curve.setData(df_dow_graph['BBUpper'].to_numpy())
-                    self.plot6_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'].to_numpy())
-                    self.plot6_bollinger_lower_curve.setData(df_dow_graph['BBLower'].to_numpy())
+                    self.plot6_bollinger_upper_curve.setData(df_dow_graph['BBUpper'])
+                    self.plot6_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'])
+                    self.plot6_bollinger_lower_curve.setData(df_dow_graph['BBLower'])
                 else:
                     pass
 
@@ -40764,8 +40764,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('DOW')
 
-                    self.plot6_mama_curve.setData(df_dow_graph['MAMA'].to_numpy())
-                    self.plot6_fama_curve.setData(df_dow_graph['A_FAMA'].to_numpy())
+                    self.plot6_mama_curve.setData(df_dow_graph['MAMA'])
+                    self.plot6_fama_curve.setData(df_dow_graph['A_FAMA'])
                 else:
                     pass
 
@@ -40773,8 +40773,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('DOW')
 
-                    self.plot6_oe_conv_curve.setData(df_dow_graph['OE_CONV'].to_numpy())
-                    self.plot6_oe_base_curve.setData(df_dow_graph['OE_BASE'].to_numpy())
+                    self.plot6_oe_conv_curve.setData(df_dow_graph['OE_CONV'])
+                    self.plot6_oe_base_curve.setData(df_dow_graph['OE_BASE'])
                 else:
                     pass    
 
@@ -40882,15 +40882,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_center_val_line.setValue(NASDAQ_고가)
                 self.plot6_center_val_upper_line.setValue(NASDAQ_고가) 
 
-                self.plot6_nasdaq_curve.setData(df_nasdaq_graph['price'].to_numpy())
+                self.plot6_nasdaq_curve.setData(df_nasdaq_graph['price'])
 
                 if flag_checkBox_plot6_bband:
 
                     self.Calc_SAR_BBand('NASDAQ')
 
-                    self.plot6_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'].to_numpy())
-                    self.plot6_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'].to_numpy())
-                    self.plot6_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'].to_numpy())
+                    self.plot6_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'])
+                    self.plot6_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'])
+                    self.plot6_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'])
                 else:
                     pass
 
@@ -40898,8 +40898,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('NASDAQ')
 
-                    self.plot6_mama_curve.setData(df_nasdaq_graph['MAMA'].to_numpy())
-                    self.plot6_fama_curve.setData(df_nasdaq_graph['A_FAMA'].to_numpy())
+                    self.plot6_mama_curve.setData(df_nasdaq_graph['MAMA'])
+                    self.plot6_fama_curve.setData(df_nasdaq_graph['A_FAMA'])
                 else:
                     pass
 
@@ -40907,8 +40907,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('NASDAQ')
 
-                    self.plot6_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'].to_numpy())
-                    self.plot6_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'].to_numpy())
+                    self.plot6_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'])
+                    self.plot6_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'])
                 else:
                     pass
 
@@ -41010,15 +41010,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_low_line.setValue(HANGSENG_저가)
                 self.plot6_ovc_high_line.setValue(HANGSENG_고가)                 
 
-                self.plot6_hangseng_curve.setData(df_hangseng_graph['price'].to_numpy())
+                self.plot6_hangseng_curve.setData(df_hangseng_graph['price'])
 
                 if flag_checkBox_plot6_bband:
 
                     self.Calc_SAR_BBand('HSI')
 
-                    self.plot6_bollinger_upper_curve.setData(df_hangseng_graph['BBUpper'].to_numpy())
-                    self.plot6_bollinger_middle_curve.setData(df_hangseng_graph['BBMiddle'].to_numpy())
-                    self.plot6_bollinger_lower_curve.setData(df_hangseng_graph['BBLower'].to_numpy())
+                    self.plot6_bollinger_upper_curve.setData(df_hangseng_graph['BBUpper'])
+                    self.plot6_bollinger_middle_curve.setData(df_hangseng_graph['BBMiddle'])
+                    self.plot6_bollinger_lower_curve.setData(df_hangseng_graph['BBLower'])
                 else:
                     pass
 
@@ -41026,8 +41026,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('HSI')
 
-                    self.plot6_mama_curve.setData(df_hangseng_graph['MAMA'].to_numpy())
-                    self.plot6_fama_curve.setData(df_hangseng_graph['A_FAMA'].to_numpy())
+                    self.plot6_mama_curve.setData(df_hangseng_graph['MAMA'])
+                    self.plot6_fama_curve.setData(df_hangseng_graph['A_FAMA'])
                 else:
                     pass
 
@@ -41035,8 +41035,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('HSI')
 
-                    self.plot6_oe_conv_curve.setData(df_hangseng_graph['OE_CONV'].to_numpy())
-                    self.plot6_oe_base_curve.setData(df_hangseng_graph['OE_BASE'].to_numpy())
+                    self.plot6_oe_conv_curve.setData(df_hangseng_graph['OE_CONV'])
+                    self.plot6_oe_base_curve.setData(df_hangseng_graph['OE_BASE'])
                 else:
                     pass            
 
@@ -41143,15 +41143,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_center_val_line.setValue(WTI_고가)
                 self.plot6_center_val_upper_line.setValue(WTI_고가) 
 
-                self.plot6_wti_curve.setData(df_wti_graph['price'].to_numpy())
+                self.plot6_wti_curve.setData(df_wti_graph['price'])
 
                 if flag_checkBox_plot6_bband:
 
                     self.Calc_SAR_BBand('WTI')
 
-                    self.plot6_bollinger_upper_curve.setData(df_wti_graph['BBUpper'].to_numpy())
-                    self.plot6_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'].to_numpy())
-                    self.plot6_bollinger_lower_curve.setData(df_wti_graph['BBLower'].to_numpy())
+                    self.plot6_bollinger_upper_curve.setData(df_wti_graph['BBUpper'])
+                    self.plot6_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'])
+                    self.plot6_bollinger_lower_curve.setData(df_wti_graph['BBLower'])
                 else:
                     pass
 
@@ -41159,8 +41159,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('WTI')
 
-                    self.plot6_mama_curve.setData(df_wti_graph['MAMA'].to_numpy())
-                    self.plot6_fama_curve.setData(df_wti_graph['A_FAMA'].to_numpy())
+                    self.plot6_mama_curve.setData(df_wti_graph['MAMA'])
+                    self.plot6_fama_curve.setData(df_wti_graph['A_FAMA'])
                 else:
                     pass
 
@@ -41168,8 +41168,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Ichimoku('WTI')
 
-                    self.plot6_oe_conv_curve.setData(df_wti_graph['OE_CONV'].to_numpy())
-                    self.plot6_oe_base_curve.setData(df_wti_graph['OE_BASE'].to_numpy())
+                    self.plot6_oe_conv_curve.setData(df_wti_graph['OE_CONV'])
+                    self.plot6_oe_base_curve.setData(df_wti_graph['OE_BASE'])
                 else:
                     pass  
             
@@ -41271,15 +41271,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_low_line.setValue(GOLD_저가)
                 self.plot6_ovc_high_line.setValue(GOLD_고가)                 
 
-                self.plot6_gold_curve.setData(df_gold_graph['price'].to_numpy())
+                self.plot6_gold_curve.setData(df_gold_graph['price'])
 
                 if flag_checkBox_plot6_bband:
 
                     self.Calc_SAR_BBand('GOLD')
 
-                    self.plot6_bollinger_upper_curve.setData(df_gold_graph['BBUpper'].to_numpy())
-                    self.plot6_bollinger_middle_curve.setData(df_gold_graph['BBMiddle'].to_numpy())
-                    self.plot6_bollinger_lower_curve.setData(df_gold_graph['BBLower'].to_numpy())
+                    self.plot6_bollinger_upper_curve.setData(df_gold_graph['BBUpper'])
+                    self.plot6_bollinger_middle_curve.setData(df_gold_graph['BBMiddle'])
+                    self.plot6_bollinger_lower_curve.setData(df_gold_graph['BBLower'])
                 else:
                     pass
 
@@ -41287,8 +41287,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('GOLD')
 
-                    self.plot6_mama_curve.setData(df_gold_graph['MAMA'].to_numpy())
-                    self.plot6_fama_curve.setData(df_gold_graph['A_FAMA'].to_numpy())
+                    self.plot6_mama_curve.setData(df_gold_graph['MAMA'])
+                    self.plot6_fama_curve.setData(df_gold_graph['A_FAMA'])
                 else:
                     pass
 
@@ -41296,8 +41296,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('GOLD')
 
-                    self.plot6_oe_conv_curve.setData(df_gold_graph['OE_CONV'].to_numpy())
-                    self.plot6_oe_base_curve.setData(df_gold_graph['OE_BASE'].to_numpy())
+                    self.plot6_oe_conv_curve.setData(df_gold_graph['OE_CONV'])
+                    self.plot6_oe_base_curve.setData(df_gold_graph['OE_BASE'])
                 else:
                     pass
 
@@ -41398,15 +41398,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_low_line.setValue(EUROFX_저가)
                 self.plot6_ovc_high_line.setValue(EUROFX_고가)                 
 
-                self.plot6_eurofx_curve.setData(df_eurofx_graph['price'].to_numpy())
+                self.plot6_eurofx_curve.setData(df_eurofx_graph['price'])
 
                 if flag_checkBox_plot6_bband:
 
                     self.Calc_SAR_BBand('EURO')
 
-                    self.plot6_bollinger_upper_curve.setData(df_eurofx_graph['BBUpper'].to_numpy())
-                    self.plot6_bollinger_middle_curve.setData(df_eurofx_graph['BBMiddle'].to_numpy())
-                    self.plot6_bollinger_lower_curve.setData(df_eurofx_graph['BBLower'].to_numpy())
+                    self.plot6_bollinger_upper_curve.setData(df_eurofx_graph['BBUpper'])
+                    self.plot6_bollinger_middle_curve.setData(df_eurofx_graph['BBMiddle'])
+                    self.plot6_bollinger_lower_curve.setData(df_eurofx_graph['BBLower'])
                 else:
                     pass
 
@@ -41414,8 +41414,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('EURO')
 
-                    self.plot6_mama_curve.setData(df_eurofx_graph['MAMA'].to_numpy())
-                    self.plot6_fama_curve.setData(df_eurofx_graph['A_FAMA'].to_numpy())
+                    self.plot6_mama_curve.setData(df_eurofx_graph['MAMA'])
+                    self.plot6_fama_curve.setData(df_eurofx_graph['A_FAMA'])
                 else:
                     pass
 
@@ -41423,8 +41423,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('EURO')
 
-                    self.plot6_oe_conv_curve.setData(df_eurofx_graph['OE_CONV'].to_numpy())
-                    self.plot6_oe_base_curve.setData(df_eurofx_graph['OE_BASE'].to_numpy())
+                    self.plot6_oe_conv_curve.setData(df_eurofx_graph['OE_CONV'])
+                    self.plot6_oe_base_curve.setData(df_eurofx_graph['OE_BASE'])
                 else:
                     pass
 
@@ -41526,15 +41526,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_low_line.setValue(YEN_저가)
                 self.plot6_ovc_high_line.setValue(YEN_고가)                 
 
-                self.plot6_yen_curve.setData(df_yen_graph['price'].to_numpy())
+                self.plot6_yen_curve.setData(df_yen_graph['price'])
 
                 if flag_checkBox_plot6_bband:
 
                     self.Calc_SAR_BBand('YEN')
 
-                    self.plot6_bollinger_upper_curve.setData(df_yen_graph['BBUpper'].to_numpy())
-                    self.plot6_bollinger_middle_curve.setData(df_yen_graph['BBMiddle'].to_numpy())
-                    self.plot6_bollinger_lower_curve.setData(df_yen_graph['BBLower'].to_numpy())
+                    self.plot6_bollinger_upper_curve.setData(df_yen_graph['BBUpper'])
+                    self.plot6_bollinger_middle_curve.setData(df_yen_graph['BBMiddle'])
+                    self.plot6_bollinger_lower_curve.setData(df_yen_graph['BBLower'])
                 else:
                     pass
 
@@ -41542,8 +41542,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('YEN')
 
-                    self.plot6_mama_curve.setData(df_yen_graph['MAMA'].to_numpy())
-                    self.plot6_fama_curve.setData(df_yen_graph['A_FAMA'].to_numpy())
+                    self.plot6_mama_curve.setData(df_yen_graph['MAMA'])
+                    self.plot6_fama_curve.setData(df_yen_graph['A_FAMA'])
                 else:
                     pass
 
@@ -41551,8 +41551,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('YEN')
 
-                    self.plot6_oe_conv_curve.setData(df_yen_graph['OE_CONV'].to_numpy())
-                    self.plot6_oe_base_curve.setData(df_yen_graph['OE_BASE'].to_numpy())
+                    self.plot6_oe_conv_curve.setData(df_yen_graph['OE_CONV'])
+                    self.plot6_oe_base_curve.setData(df_yen_graph['OE_BASE'])
                 else:
                     pass
 
@@ -41594,9 +41594,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_time_line.setValue(cme_time_index)
 
                 if DayTime:
-                    self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
-                    self.plot6_program_curve.setData(df_supply_demand_graph['program'].to_numpy())
-                    self.plot6_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'].to_numpy())
+                    self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'])
+                    self.plot6_program_curve.setData(df_supply_demand_graph['program'])
+                    self.plot6_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
                 else:
                     pass
 
@@ -41638,9 +41638,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_time_line.setValue(cme_time_index)
 
                 if DayTime:
-                    self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'].to_numpy())
-                    self.plot6_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'].to_numpy())
-                    self.plot6_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'].to_numpy())                    
+                    self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'])
+                    self.plot6_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
+                    self.plot6_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
                 else:
                     pass            
             else:
