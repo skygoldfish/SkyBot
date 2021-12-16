@@ -14875,8 +14875,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             self.XQ_t2301.Query(월물=t2301_month_info)
-            self.t2301_event_loop.exec_()
-           
+            self.t2301_event_loop.exec_()           
 
     def SaveResult(self):
 
@@ -32439,7 +32438,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         if True:
             if not flag_screen_update_is_running and not flag_plot1_update_is_running:
-                self.label_time_1.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
+                self.label_time_1.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 QApplication.processEvents()
                 self.update_plot1()
                 QApplication.processEvents()
@@ -32447,7 +32446,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_time_1.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
         else:
             if not flag_plot1_update_is_running:
-                self.label_time_1.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
+                self.label_time_1.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 QApplication.processEvents()
                 self.update_plot1()
                 QApplication.processEvents()
@@ -32459,7 +32458,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         if True:
             if not flag_screen_update_is_running and not flag_plot2_update_is_running:
-                self.label_time_2.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
+                self.label_time_2.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 QApplication.processEvents()
                 self.update_plot2()
                 QApplication.processEvents()
@@ -32467,7 +32466,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_time_2.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
         else:
             if not flag_plot2_update_is_running:
-                self.label_time_2.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
+                self.label_time_2.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 QApplication.processEvents()
                 self.update_plot2()
                 QApplication.processEvents()
@@ -32479,7 +32478,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         if True:
             if not flag_screen_update_is_running and not flag_plot3_update_is_running:
-                self.label_time_3.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
+                self.label_time_3.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 QApplication.processEvents()
                 self.update_plot3()
                 QApplication.processEvents()
@@ -32487,7 +32486,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_time_3.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
         else:
             if not flag_plot3_update_is_running:
-                self.label_time_3.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
+                self.label_time_3.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 QApplication.processEvents()
                 self.update_plot3()
                 QApplication.processEvents()
@@ -32499,7 +32498,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         if True:
             if not flag_screen_update_is_running and not flag_plot4_update_is_running:
-                self.label_time_4.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
+                self.label_time_4.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 QApplication.processEvents()
                 self.update_plot4()
                 QApplication.processEvents()
@@ -32507,7 +32506,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_time_4.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
         else:
             if not flag_plot4_update_is_running:
-                self.label_time_4.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
+                self.label_time_4.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 QApplication.processEvents()
                 self.update_plot4()
                 QApplication.processEvents()
@@ -32519,7 +32518,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         if True:
             if not flag_screen_update_is_running and not flag_plot5_update_is_running:
-                self.label_time_5.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
+                self.label_time_5.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 QApplication.processEvents()
                 self.update_plot5()
                 QApplication.processEvents()
@@ -32527,7 +32526,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_time_5.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
         else:
             if not flag_plot5_update_is_running:
-                self.label_time_5.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
+                self.label_time_5.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 QApplication.processEvents()
                 self.update_plot5()
                 QApplication.processEvents()
@@ -32539,7 +32538,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         if True:
             if not flag_screen_update_is_running and not flag_plot6_update_is_running:
-                self.label_time_6.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
+                self.label_time_6.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 QApplication.processEvents()
                 self.update_plot6()
                 QApplication.processEvents()
@@ -32547,7 +32546,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_time_6.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
         else:
             if not flag_plot6_update_is_running:
-                self.label_time_6.setStyleSheet('background-color: black; color: lime; font-family: Consolas; font-size: 9pt; font: Bold')
+                self.label_time_6.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 QApplication.processEvents()
                 self.update_plot6()
                 QApplication.processEvents()
