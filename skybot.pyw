@@ -32660,12 +32660,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(근월물_선물_고가)
                 self.label_18.setText(txt)
-                                
+
+                              
                 self.plot1_kp200_line[3].setValue(KP200_COREVAL[3])
                 self.plot1_kp200_line[4].setValue(KP200_COREVAL[4])
                 self.plot1_kp200_line[5].setValue(KP200_COREVAL[5])
                 self.plot1_kp200_line[6].setValue(KP200_COREVAL[6])
                 
+
                 if kp200_저가 < KP200_COREVAL[3]:
                     self.plot1_kp200_line[2].setValue(KP200_COREVAL[2])
                 else:
@@ -32674,7 +32676,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if kp200_고가 > KP200_COREVAL[6]:
                     self.plot1_kp200_line[7].setValue(KP200_COREVAL[7])
                 else:
-                    pass
+                    pass                
                 
                 self.plot1_fut_jl_line.setValue(근월물_선물_전저)
                 self.plot1_fut_jh_line.setValue(근월물_선물_전고)
@@ -32682,7 +32684,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_fut_open_line.setValue(근월물_선물_시가)
                 self.plot1_fut_low_line.setValue(근월물_선물_저가)
                 self.plot1_fut_pivot_line.setValue(근월물_선물_피봇)
-
+                self.plot1_fut_high_line.setValue(근월물_선물_고가)
+                
+                '''
                 # 종가선 컬러를 살리기위한 임시방편
                 self.plot1_ovc_open_line.setValue(근월물_선물_고가)
                 self.plot1_ovc_jl_line.setValue(근월물_선물_고가)
@@ -32691,7 +32695,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_low_line.setValue(근월물_선물_고가)
                 self.plot1_ovc_high_line.setValue(근월물_선물_고가)
                 self.plot1_ovc_close_line.setValue(근월물_선물_고가)
-                self.plot1_fut_high_line.setValue(근월물_선물_고가)   
+                '''   
 
                 self.plot1_kp200_curve.setData(df_kp200_graph['price'])
                 self.plot1_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
@@ -34168,10 +34172,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(근월물_선물_고가)
                 self.label_28.setText(txt)
                 
+                
                 self.plot2_kp200_line[3].setValue(KP200_COREVAL[3])
                 self.plot2_kp200_line[4].setValue(KP200_COREVAL[4])
                 self.plot2_kp200_line[5].setValue(KP200_COREVAL[5])
                 self.plot2_kp200_line[6].setValue(KP200_COREVAL[6])
+                
                 
                 if kp200_저가 < KP200_COREVAL[3]:
                     self.plot2_kp200_line[2].setValue(KP200_COREVAL[2])
@@ -34181,7 +34187,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if kp200_고가 > KP200_COREVAL[6]:
                     self.plot2_kp200_line[7].setValue(KP200_COREVAL[7])
                 else:
-                    pass
+                    pass                
                 
                 self.plot2_fut_jl_line.setValue(근월물_선물_전저)
                 self.plot2_fut_jh_line.setValue(근월물_선물_전고)
@@ -34189,7 +34195,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_fut_open_line.setValue(근월물_선물_시가)
                 self.plot2_fut_low_line.setValue(근월물_선물_저가)
                 self.plot2_fut_pivot_line.setValue(근월물_선물_피봇)
+                self.plot2_fut_high_line.setValue(근월물_선물_고가)
 
+                '''
                 # 종가선 컬러를 살리기위한 임시방편
                 self.plot2_ovc_open_line.setValue(근월물_선물_고가)
                 self.plot2_ovc_jl_line.setValue(근월물_선물_고가)
@@ -34198,7 +34206,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_low_line.setValue(근월물_선물_고가)
                 self.plot2_ovc_high_line.setValue(근월물_선물_고가)
                 self.plot2_ovc_close_line.setValue(근월물_선물_고가)
-                self.plot2_fut_high_line.setValue(근월물_선물_고가)                  
+                '''                  
 
                 self.plot2_kp200_curve.setData(df_kp200_graph['price'])
                 self.plot2_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
@@ -34526,10 +34534,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_high_line.setValue(SP500_고가)
 
                 # 고가선 이동시 중심가 3개 선도 같이 이동해야됨(중요)
-                self.plot2_center_val_lower_line.setValue(SP500_고가)
-                self.plot2_center_val_line.setValue(SP500_고가)
-                self.plot2_center_val_upper_line.setValue(SP500_고가)
-                self.plot2_ovc_high_line.setValue(SP500_고가)                
+                #self.plot2_center_val_lower_line.setValue(SP500_고가)
+                #self.plot2_center_val_line.setValue(SP500_고가)
+                #self.plot2_center_val_upper_line.setValue(SP500_고가)                               
 
                 self.plot2_sp500_curve.setData(df_sp500_graph['price'])
 
@@ -35695,11 +35702,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(근월물_선물_고가)
                 self.label_38.setText(txt)
                 
+                
                 self.plot3_kp200_line[3].setValue(KP200_COREVAL[3])
                 self.plot3_kp200_line[4].setValue(KP200_COREVAL[4])
                 self.plot3_kp200_line[5].setValue(KP200_COREVAL[5])
                 self.plot3_kp200_line[6].setValue(KP200_COREVAL[6])
                 
+
                 if kp200_저가 < KP200_COREVAL[3]:
                     self.plot3_kp200_line[2].setValue(KP200_COREVAL[2])
                 else:
@@ -35708,7 +35717,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if kp200_고가 > KP200_COREVAL[6]:
                     self.plot3_kp200_line[7].setValue(KP200_COREVAL[7])
                 else:
-                    pass
+                    pass                
                 
                 self.plot3_fut_jl_line.setValue(근월물_선물_전저)
                 self.plot3_fut_jh_line.setValue(근월물_선물_전고)
@@ -35716,7 +35725,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_fut_open_line.setValue(근월물_선물_시가)
                 self.plot3_fut_low_line.setValue(근월물_선물_저가)
                 self.plot3_fut_pivot_line.setValue(근월물_선물_피봇)
+                self.plot3_fut_high_line.setValue(근월물_선물_고가)
 
+                '''
                 # 종가선 컬러를 살리기위한 임시방편
                 self.plot3_ovc_open_line.setValue(근월물_선물_고가)
                 self.plot3_ovc_jl_line.setValue(근월물_선물_고가)
@@ -35725,7 +35736,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_low_line.setValue(근월물_선물_고가)
                 self.plot3_ovc_high_line.setValue(근월물_선물_고가)
                 self.plot3_ovc_close_line.setValue(근월물_선물_고가)
-                self.plot3_fut_high_line.setValue(근월물_선물_고가) 
+                ''' 
 
                 self.plot3_kp200_curve.setData(df_kp200_graph['price'])
                 self.plot3_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
@@ -36051,9 +36062,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_high_line.setValue(SP500_고가)
 
                 # 고가선 이동시 중심가 3개 선도 같이 이동해야됨(중요)
-                self.plot3_center_val_lower_line.setValue(SP500_고가)
-                self.plot3_center_val_line.setValue(SP500_고가)
-                self.plot3_center_val_upper_line.setValue(SP500_고가)
+                #self.plot3_center_val_lower_line.setValue(SP500_고가)
+                #self.plot3_center_val_line.setValue(SP500_고가)
+                #self.plot3_center_val_upper_line.setValue(SP500_고가)
 
                 self.plot3_sp500_curve.setData(df_sp500_graph['price'])
 
@@ -37215,11 +37226,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(근월물_선물_고가)
                 self.label_48.setText(txt)
                 
+                
                 self.plot4_kp200_line[3].setValue(KP200_COREVAL[3])
                 self.plot4_kp200_line[4].setValue(KP200_COREVAL[4])
                 self.plot4_kp200_line[5].setValue(KP200_COREVAL[5])
                 self.plot4_kp200_line[6].setValue(KP200_COREVAL[6])
                 
+
                 if kp200_저가 < KP200_COREVAL[3]:
                     self.plot4_kp200_line[2].setValue(KP200_COREVAL[2])
                 else:
@@ -37228,7 +37241,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if kp200_고가 > KP200_COREVAL[6]:
                     self.plot4_kp200_line[7].setValue(KP200_COREVAL[7])
                 else:
-                    pass
+                    pass                
                 
                 self.plot4_fut_jl_line.setValue(근월물_선물_전저)
                 self.plot4_fut_jh_line.setValue(근월물_선물_전고)
@@ -37236,7 +37249,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_fut_open_line.setValue(근월물_선물_시가)
                 self.plot4_fut_low_line.setValue(근월물_선물_저가)
                 self.plot4_fut_pivot_line.setValue(근월물_선물_피봇)
+                self.plot4_fut_high_line.setValue(근월물_선물_고가)
 
+                '''
                 # 종가선 컬러를 살리기위한 임시방편
                 self.plot4_ovc_open_line.setValue(근월물_선물_고가)
                 self.plot4_ovc_jl_line.setValue(근월물_선물_고가)
@@ -37245,7 +37260,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_low_line.setValue(근월물_선물_고가)
                 self.plot4_ovc_high_line.setValue(근월물_선물_고가)
                 self.plot4_ovc_close_line.setValue(근월물_선물_고가)
-                self.plot4_fut_high_line.setValue(근월물_선물_고가)  
+                '''  
 
                 self.plot4_kp200_curve.setData(df_kp200_graph['price'])
                 self.plot4_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
@@ -37570,7 +37585,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_open_line.setValue(SP500_시가)
                 self.plot4_ovc_pivot_line.setValue(SP500_피봇)
                 self.plot4_ovc_low_line.setValue(SP500_저가)
-                self.plot4_ovc_high_line.setValue(SP500_고가)  
+                self.plot4_ovc_high_line.setValue(SP500_고가)
 
                 self.plot4_sp500_curve.setData(df_sp500_graph['price'])
 
@@ -38721,11 +38736,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(근월물_선물_고가)
                 self.label_58.setText(txt)
                 
+                
                 self.plot5_kp200_line[3].setValue(KP200_COREVAL[3])
                 self.plot5_kp200_line[4].setValue(KP200_COREVAL[4])
                 self.plot5_kp200_line[5].setValue(KP200_COREVAL[5])
                 self.plot5_kp200_line[6].setValue(KP200_COREVAL[6])
                 
+
                 if kp200_저가 < KP200_COREVAL[3]:
                     self.plot5_kp200_line[2].setValue(KP200_COREVAL[2])
                 else:
@@ -38734,7 +38751,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if kp200_고가 > KP200_COREVAL[6]:
                     self.plot5_kp200_line[7].setValue(KP200_COREVAL[7])
                 else:
-                    pass
+                    pass                
                 
                 self.plot5_fut_jl_line.setValue(근월물_선물_전저)
                 self.plot5_fut_jh_line.setValue(근월물_선물_전고)
@@ -38742,7 +38759,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_fut_open_line.setValue(근월물_선물_시가)
                 self.plot5_fut_low_line.setValue(근월물_선물_저가)
                 self.plot5_fut_pivot_line.setValue(근월물_선물_피봇)
+                self.plot5_fut_high_line.setValue(근월물_선물_고가)
 
+                '''
                 # 종가선 컬러를 살리기위한 임시방편
                 self.plot5_ovc_open_line.setValue(근월물_선물_고가)
                 self.plot5_ovc_jl_line.setValue(근월물_선물_고가)
@@ -38751,7 +38770,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_low_line.setValue(근월물_선물_고가)
                 self.plot5_ovc_high_line.setValue(근월물_선물_고가)
                 self.plot5_ovc_close_line.setValue(근월물_선물_고가)
-                self.plot5_fut_high_line.setValue(근월물_선물_고가) 
+                ''' 
 
                 self.plot5_kp200_curve.setData(df_kp200_graph['price'])
                 self.plot5_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
@@ -39076,9 +39095,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_high_line.setValue(SP500_고가)
 
                 # 고가선 이동시 중심가 3개 선도 같이 이동해야됨(중요)
-                self.plot5_center_val_lower_line.setValue(SP500_고가)
-                self.plot5_center_val_line.setValue(SP500_고가)
-                self.plot5_center_val_upper_line.setValue(SP500_고가) 
+                #self.plot5_center_val_lower_line.setValue(SP500_고가)
+                #self.plot5_center_val_line.setValue(SP500_고가)
+                #self.plot5_center_val_upper_line.setValue(SP500_고가) 
 
                 self.plot5_sp500_curve.setData(df_sp500_graph['price'])
 
@@ -40241,10 +40260,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(근월물_선물_고가)
                 self.label_68.setText(txt)
                 
+                
                 self.plot6_kp200_line[3].setValue(KP200_COREVAL[3])
                 self.plot6_kp200_line[4].setValue(KP200_COREVAL[4])
                 self.plot6_kp200_line[5].setValue(KP200_COREVAL[5])
                 self.plot6_kp200_line[6].setValue(KP200_COREVAL[6])
+                
                 
                 if kp200_저가 < KP200_COREVAL[3]:
                     self.plot6_kp200_line[2].setValue(KP200_COREVAL[2])
@@ -40254,7 +40275,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if kp200_고가 > KP200_COREVAL[6]:
                     self.plot6_kp200_line[7].setValue(KP200_COREVAL[7])
                 else:
-                    pass
+                    pass                
                 
                 self.plot6_fut_jl_line.setValue(근월물_선물_전저)
                 self.plot6_fut_jh_line.setValue(근월물_선물_전고)
@@ -40262,7 +40283,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_fut_open_line.setValue(근월물_선물_시가)
                 self.plot6_fut_low_line.setValue(근월물_선물_저가)
                 self.plot6_fut_pivot_line.setValue(근월물_선물_피봇)
+                self.plot6_fut_high_line.setValue(근월물_선물_고가)
 
+                '''
                 # 종가선 컬러를 살리기위한 임시방편
                 self.plot6_ovc_open_line.setValue(근월물_선물_고가)
                 self.plot6_ovc_jl_line.setValue(근월물_선물_고가)
@@ -40271,7 +40294,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_low_line.setValue(근월물_선물_고가)
                 self.plot6_ovc_high_line.setValue(근월물_선물_고가)
                 self.plot6_ovc_close_line.setValue(근월물_선물_고가)
-                self.plot6_fut_high_line.setValue(근월물_선물_고가) 
+                ''' 
 
                 self.plot6_kp200_curve.setData(df_kp200_graph['price'])
                 self.plot6_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
@@ -40596,9 +40619,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_high_line.setValue(SP500_고가)
 
                 # 고가선 이동시 중심가 3개 선도 같이 이동해야됨(중요)
-                self.plot6_center_val_lower_line.setValue(SP500_고가)
-                self.plot6_center_val_line.setValue(SP500_고가)
-                self.plot6_center_val_upper_line.setValue(SP500_고가)
+                #self.plot6_center_val_lower_line.setValue(SP500_고가)
+                #self.plot6_center_val_line.setValue(SP500_고가)
+                #self.plot6_center_val_upper_line.setValue(SP500_고가)
 
                 self.plot6_sp500_curve.setData(df_sp500_graph['price'])
 
