@@ -32581,6 +32581,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             # Plot1 그래프 그리기
             if comboindex1 == 2:
+                
+                self.plot1_time_line.setValue(cme_time_index)
 
                 if df_futures_cm_graph.at[cme_time_index, 'BBMiddle'] == df_futures_cm_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -32672,9 +32674,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(근월물_선물_고가)
                 self.label_18.setText(txt)
-                
-                self.plot1_time_line.setValue(cme_time_index)
-                
+                                
                 self.plot1_kp200_line[3].setValue(KP200_COREVAL[3])
                 self.plot1_kp200_line[4].setValue(KP200_COREVAL[4])
                 self.plot1_kp200_line[5].setValue(KP200_COREVAL[5])
@@ -32739,7 +32739,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
             
-            elif comboindex1 == 3:                
+            elif comboindex1 == 3:
+                
+                self.plot1_time_line.setValue(cme_time_index)                
 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[cme_time_index, 'ms_quote'], df_put_information_graph.at[cme_time_index, 'md_quote'])
                 self.label_16.setText(txt)
@@ -32760,8 +32762,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[cme_time_index, 'ms_quote'], df_call_information_graph.at[cme_time_index, 'md_quote'])
                 self.label_18.setText(txt)
-                
-                self.plot1_time_line.setValue(cme_time_index)
 
                 self.plot1_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
                 self.plot1_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'])
@@ -32803,6 +32803,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             # 옵션가격
             elif comboindex1 == 6:
+                
+                self.plot1_time_line.setValue(cme_time_index)
 
                 if DayTime:
 
@@ -32833,8 +32835,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_18.setText(txt)
                 else:
                     pass
-
-                self.plot1_time_line.setValue(cme_time_index)
 
                 if flag_calltable_checkstate_changed:
                     flag_calltable_checkstate_changed = False
@@ -32877,14 +32877,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
             
             elif comboindex1 == 7:
+                
+                self.plot1_time_line.setValue(cme_time_index)
 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[cme_time_index, 'ms_quote'], df_put_information_graph.at[cme_time_index, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_16.setText(txt)
                 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[cme_time_index, 'ms_quote'], df_call_information_graph.at[cme_time_index, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_18.setText(txt)
-                
-                self.plot1_time_line.setValue(cme_time_index)
 
                 self.plot1_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
                 self.plot1_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'])
@@ -32893,19 +32893,21 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_option_quote_remainder_ratio_upper_line.setValue(옵션_잔량비_최대)
 
             elif comboindex1 == 8:
+                
+                self.plot1_time_line.setValue(cme_time_index)
 
                 txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[cme_time_index, 'open_interest'], put_oi_init_percent)
                 self.label_16.setText(txt)
                 
                 txt = " {0:.2f}({1:.2f}) ".format(df_call_information_graph.at[cme_time_index, 'open_interest'], call_oi_init_percent)
                 self.label_18.setText(txt)
-                
-                self.plot1_time_line.setValue(cme_time_index)
 
                 self.plot1_call_oi_curve.setData(df_call_information_graph['open_interest'])
                 self.plot1_put_oi_curve.setData(df_put_information_graph['open_interest'])
                         
             elif comboindex1 == 10:
+                
+                self.plot1_time_line.setValue(cme_time_index)
 
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_15.setText(txt)
@@ -32914,9 +32916,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_16.setText(txt)
 
                 txt = " {0:.2f}({1}) ".format(call_otm_cdb_percent_mean, call_atm_value)
-                self.label_18.setText(txt)
-                
-                self.plot1_time_line.setValue(cme_time_index)                
+                self.label_18.setText(txt)              
                                
                 self.plot1_call_drate_curve.setData(df_call_information_graph['drate'])
                 self.plot1_put_drate_curve.setData(df_put_information_graph['drate'])
@@ -32933,6 +32933,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_cme_drate_curve.setData(df_sp500_graph['drate'])              
             
             elif comboindex1 == 12:
+                
+                self.plot1_time_line.setValue(cme_time_index)
 
                 if df_sp500_graph.at[cme_time_index, 'BBMiddle'] == df_sp500_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -33020,9 +33022,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 txt = ' {0} '.format(format(SP500_고가, ','))
-                self.label_18.setText(txt) 
-                
-                self.plot1_time_line.setValue(cme_time_index)
+                self.label_18.setText(txt)
 
                 self.plot1_ovc_jl_line.setValue(SP500_전저)
                 self.plot1_ovc_jh_line.setValue(SP500_전고)
@@ -33063,6 +33063,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
             
             elif comboindex1 == 13:
+                
+                self.plot1_time_line.setValue(cme_time_index)
 
                 if df_dow_graph.at[cme_time_index, 'BBMiddle'] == df_dow_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -33151,8 +33153,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 txt = ' {0} '.format(format(DOW_고가, ','))
                 self.label_18.setText(txt)
-                
-                self.plot1_time_line.setValue(cme_time_index)
 
                 self.plot1_ovc_jl_line.setValue(DOW_전저)
                 self.plot1_ovc_jh_line.setValue(DOW_전고)
@@ -33193,6 +33193,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex1 == 14:
+                
+                self.plot1_time_line.setValue(cme_time_index)
 
                 if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] == df_nasdaq_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -33281,8 +33283,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(NASDAQ_고가, ','))
                 self.label_18.setText(txt)
-                
-                self.plot1_time_line.setValue(cme_time_index)
 
                 self.plot1_ovc_jl_line.setValue(NASDAQ_전저)
                 self.plot1_ovc_jh_line.setValue(NASDAQ_전고)
@@ -33323,6 +33323,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex1 == 15:
+                
+                self.plot1_time_line.setValue(cme_time_index)
 
                 if df_hangseng_graph.at[cme_time_index, 'BBMiddle'] == df_hangseng_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -33409,8 +33411,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(HANGSENG_고가, ','))
                 self.label_18.setText(txt)
-                
-                self.plot1_time_line.setValue(cme_time_index)
 
                 self.plot1_ovc_jl_line.setValue(HANGSENG_전저)
                 self.plot1_ovc_jh_line.setValue(HANGSENG_전고)
@@ -33451,6 +33451,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex1 == 16:
+                
+                self.plot1_time_line.setValue(cme_time_index)
 
                 if df_wti_graph.at[cme_time_index, 'BBMiddle'] == df_wti_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -33538,8 +33540,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(WTI_고가, ','))
                 self.label_18.setText(txt)
-                
-                self.plot1_time_line.setValue(cme_time_index)
 
                 self.plot1_ovc_jl_line.setValue(WTI_전저)
                 self.plot1_ovc_jh_line.setValue(WTI_전고)
@@ -33580,6 +33580,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
             
             elif comboindex1 == 17:
+                
+                self.plot1_time_line.setValue(cme_time_index)
 
                 if df_gold_graph.at[cme_time_index, 'BBMiddle'] == df_gold_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -33666,8 +33668,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(GOLD_고가, ','))
                 self.label_18.setText(txt)
-                
-                self.plot1_time_line.setValue(cme_time_index)
 
                 self.plot1_ovc_jl_line.setValue(GOLD_전저)
                 self.plot1_ovc_jh_line.setValue(GOLD_전고)
@@ -33708,6 +33708,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex1 == 18:
+                
+                self.plot1_time_line.setValue(cme_time_index)
 
                 if df_eurofx_graph.at[cme_time_index, 'BBMiddle'] == df_eurofx_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -33793,8 +33795,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(EUROFX_고가, ','))
                 self.label_18.setText(txt)
-                
-                self.plot1_time_line.setValue(cme_time_index)
 
                 self.plot1_ovc_jl_line.setValue(EUROFX_전저)
                 self.plot1_ovc_jh_line.setValue(EUROFX_전고)
@@ -33835,6 +33835,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex1 == 19:
+                
+                self.plot1_time_line.setValue(cme_time_index)
 
                 if df_yen_graph.at[cme_time_index, 'BBMiddle'] == df_yen_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -33921,8 +33923,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(YEN_고가, ','))
                 self.label_18.setText(txt)
-                
-                self.plot1_time_line.setValue(cme_time_index)
 
                 self.plot1_ovc_jl_line.setValue(YEN_전저)
                 self.plot1_ovc_jh_line.setValue(YEN_전고)
@@ -33962,7 +33962,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
             
-            elif comboindex1 == 21:               
+            elif comboindex1 == 21:
+                
+                self.plot1_time_line.setValue(cme_time_index)               
 
                 if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'program']):
                     txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
@@ -33996,8 +33998,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_18.setText(txt)
                 else:
                     pass
-                
-                self.plot1_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot1_fut_volume_curve.setData(df_futures_cm_graph['volume'])
@@ -34007,6 +34007,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex1 == 22:
+                
+                self.plot1_time_line.setValue(cme_time_index)
 
                 if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner']):
                     txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
@@ -34040,8 +34042,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_18.setText(txt)
                 else:
                     pass
-                
-                self.plot1_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot1_fut_volume_curve.setData(df_futures_cm_graph['volume'])
@@ -34088,6 +34088,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             # Plot2 그래프 그리기
             # 선물가격
             if comboindex2 == 2:
+                
+                self.plot2_time_line.setValue(cme_time_index)
 
                 if df_futures_cm_graph.at[cme_time_index, 'BBMiddle'] == df_futures_cm_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -34180,8 +34182,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(근월물_선물_고가)
                 self.label_28.setText(txt)
                 
-                self.plot2_time_line.setValue(cme_time_index)
-                
                 self.plot2_kp200_line[3].setValue(KP200_COREVAL[3])
                 self.plot2_kp200_line[4].setValue(KP200_COREVAL[4])
                 self.plot2_kp200_line[5].setValue(KP200_COREVAL[5])
@@ -34247,6 +34247,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex2 == 3:
+                
+                self.plot2_time_line.setValue(cme_time_index)
 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[cme_time_index, 'ms_quote'], df_put_information_graph.at[cme_time_index, 'md_quote'])
                 self.label_26.setText(txt)
@@ -34267,8 +34269,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[cme_time_index, 'ms_quote'], df_call_information_graph.at[cme_time_index, 'md_quote'])
                 self.label_28.setText(txt)
-                
-                self.plot2_time_line.setValue(cme_time_index)
 
                 self.plot2_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
                 self.plot2_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'])
@@ -34310,6 +34310,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             # 옵션가격
             elif comboindex2 == 6:
+                
+                self.plot2_time_line.setValue(cme_time_index)
 
                 if DayTime:
 
@@ -34339,9 +34341,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[ATM_INDEX, '대비'], (call_atm_value / df_call.at[ATM_INDEX, '시가'] - 1) * 100)
                     self.label_28.setText(txt)
                 else:
-                    pass 
-
-                self.plot2_time_line.setValue(cme_time_index)
+                    pass
 
                 if flag_calltable_checkstate_changed:
                     flag_calltable_checkstate_changed = False
@@ -34384,6 +34384,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex2 == 7:
+                
+                self.plot2_time_line.setValue(cme_time_index)
 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[cme_time_index, 'ms_quote'], df_put_information_graph.at[cme_time_index, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_26.setText(txt)
@@ -34391,8 +34393,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[cme_time_index, 'ms_quote'], df_call_information_graph.at[cme_time_index, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_28.setText(txt)
                 
-                self.plot2_time_line.setValue(cme_time_index)
-
                 self.plot2_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
                 self.plot2_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'])
 
@@ -34400,19 +34400,21 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_option_quote_remainder_ratio_upper_line.setValue(옵션_잔량비_최대)        
 
             elif comboindex2 == 8:
+                
+                self.plot2_time_line.setValue(cme_time_index)
 
                 txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[cme_time_index, 'open_interest'], put_oi_init_percent)
                 self.label_26.setText(txt)
                 
                 txt = " {0:.2f}({1:.2f}) ".format(df_call_information_graph.at[cme_time_index, 'open_interest'], call_oi_init_percent)
                 self.label_28.setText(txt)
-                
-                self.plot2_time_line.setValue(cme_time_index)
 
                 self.plot2_call_oi_curve.setData(df_call_information_graph['open_interest'])
                 self.plot2_put_oi_curve.setData(df_put_information_graph['open_interest'])
             
             elif comboindex2 == 10:
+                
+                self.plot2_time_line.setValue(cme_time_index)
 
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_25.setText(txt)
@@ -34422,8 +34424,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = " {0:.2f}({1}) ".format(call_otm_cdb_percent_mean, call_atm_value)
                 self.label_28.setText(txt)
-                
-                self.plot2_time_line.setValue(cme_time_index)
                 
                 self.plot2_call_drate_curve.setData(df_call_information_graph['drate'])
                 self.plot2_put_drate_curve.setData(df_put_information_graph['drate'])
@@ -34440,6 +34440,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_cme_drate_curve.setData(df_sp500_graph['drate'])
             
             elif comboindex2 == 12:
+                
+                self.plot2_time_line.setValue(cme_time_index)
 
                 if df_sp500_graph.at[cme_time_index, 'BBMiddle'] == df_sp500_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -34527,9 +34529,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 txt = ' {0} '.format(format(SP500_고가, ','))
-                self.label_28.setText(txt) 
-                
-                self.plot2_time_line.setValue(cme_time_index)
+                self.label_28.setText(txt)
 
                 self.plot2_ovc_jl_line.setValue(SP500_전저)
                 self.plot2_ovc_jh_line.setValue(SP500_전고)
@@ -34576,6 +34576,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
             
             elif comboindex2 == 13:
+                
+                self.plot2_time_line.setValue(cme_time_index)
 
                 if df_dow_graph.at[cme_time_index, 'BBMiddle'] == df_dow_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -34664,8 +34666,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(DOW_고가, ','))
                 self.label_28.setText(txt)
-                
-                self.plot2_time_line.setValue(cme_time_index)
 
                 self.plot2_ovc_jl_line.setValue(DOW_전저)
                 self.plot2_ovc_jh_line.setValue(DOW_전고)
@@ -34711,6 +34711,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass    
 
             elif comboindex2 == 14:
+                
+                self.plot2_time_line.setValue(cme_time_index)
 
                 if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] == df_nasdaq_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -34798,9 +34800,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 txt = ' {0} '.format(format(NASDAQ_고가, ','))
-                self.label_28.setText(txt) 
-                
-                self.plot2_time_line.setValue(cme_time_index)
+                self.label_28.setText(txt)
 
                 self.plot2_ovc_jl_line.setValue(NASDAQ_전저)
                 self.plot2_ovc_jh_line.setValue(NASDAQ_전고)
@@ -34846,6 +34846,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex2 == 15:
+                
+                self.plot2_time_line.setValue(cme_time_index)
 
                 if df_hangseng_graph.at[cme_time_index, 'BBMiddle'] == df_hangseng_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -34932,8 +34934,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(HANGSENG_고가, ','))
                 self.label_28.setText(txt)
-                
-                self.plot2_time_line.setValue(cme_time_index)
 
                 self.plot2_ovc_jl_line.setValue(HANGSENG_전저)
                 self.plot2_ovc_jh_line.setValue(HANGSENG_전고)
@@ -34974,6 +34974,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex2 == 16:
+                
+                self.plot2_time_line.setValue(cme_time_index)
 
                 if df_wti_graph.at[cme_time_index, 'BBMiddle'] == df_wti_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -35060,9 +35062,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 txt = ' {0} '.format(format(WTI_고가, ','))
-                self.label_28.setText(txt) 
-                
-                self.plot2_time_line.setValue(cme_time_index)
+                self.label_28.setText(txt)
 
                 self.plot2_ovc_jl_line.setValue(WTI_전저)
                 self.plot2_ovc_jh_line.setValue(WTI_전고)
@@ -35108,6 +35108,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass  
             
             elif comboindex2 == 17:
+                
+                self.plot2_time_line.setValue(cme_time_index)
 
                 if df_gold_graph.at[cme_time_index, 'BBMiddle'] == df_gold_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -35194,8 +35196,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(GOLD_고가, ','))
                 self.label_28.setText(txt)
-                
-                self.plot2_time_line.setValue(cme_time_index)
 
                 self.plot2_ovc_jl_line.setValue(GOLD_전저)
                 self.plot2_ovc_jh_line.setValue(GOLD_전고)
@@ -35236,6 +35236,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex2 == 18:
+                
+                self.plot2_time_line.setValue(cme_time_index)
 
                 if df_eurofx_graph.at[cme_time_index, 'BBMiddle'] == df_eurofx_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -35321,8 +35323,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(EUROFX_고가, ','))
                 self.label_28.setText(txt)
-                
-                self.plot2_time_line.setValue(cme_time_index)
 
                 self.plot2_ovc_jl_line.setValue(EUROFX_전저)
                 self.plot2_ovc_jh_line.setValue(EUROFX_전고)
@@ -35363,6 +35363,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex2 == 19:
+                
+                self.plot2_time_line.setValue(cme_time_index)
 
                 if df_yen_graph.at[cme_time_index, 'BBMiddle'] == df_yen_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -35449,8 +35451,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(YEN_고가, ','))
                 self.label_28.setText(txt)
-                
-                self.plot2_time_line.setValue(cme_time_index)
 
                 self.plot2_ovc_jl_line.setValue(YEN_전저)
                 self.plot2_ovc_jh_line.setValue(YEN_전고)
@@ -35491,6 +35491,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
             
             elif comboindex2 == 21:
+                
+                self.plot2_time_line.setValue(cme_time_index)
 
                 if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'program']):
                     txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
@@ -35524,8 +35526,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_28.setText(txt)
                 else:
                     pass
-                
-                self.plot2_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot2_fut_volume_curve.setData(df_futures_cm_graph['volume'])
@@ -35535,6 +35535,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex2 == 22:
+                
+                self.plot2_time_line.setValue(cme_time_index)
 
                 if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner']):
                     txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
@@ -35568,8 +35570,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_28.setText(txt)
                 else:
                     pass
-                
-                self.plot2_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot2_fut_volume_curve.setData(df_futures_cm_graph['volume'])
@@ -35615,6 +35615,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             # Plot3 그래프 그리기
             # 선물가격
             if comboindex3 == 2:
+                
+                self.plot3_time_line.setValue(cme_time_index)
 
                 if df_futures_cm_graph.at[cme_time_index, 'BBMiddle'] == df_futures_cm_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -35705,9 +35707,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 txt = ' {0} '.format(근월물_선물_고가)
-                self.label_38.setText(txt) 
-                
-                self.plot3_time_line.setValue(cme_time_index)
+                self.label_38.setText(txt)
                 
                 self.plot3_kp200_line[3].setValue(KP200_COREVAL[3])
                 self.plot3_kp200_line[4].setValue(KP200_COREVAL[4])
@@ -35774,6 +35774,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex3 == 3:
+                
+                self.plot3_time_line.setValue(cme_time_index)
 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[cme_time_index, 'ms_quote'], df_put_information_graph.at[cme_time_index, 'md_quote'])
                 self.label_36.setText(txt)
@@ -35794,8 +35796,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[cme_time_index, 'ms_quote'], df_call_information_graph.at[cme_time_index, 'md_quote'])
                 self.label_38.setText(txt)
-                
-                self.plot3_time_line.setValue(cme_time_index)
 
                 self.plot3_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
                 self.plot3_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'])
@@ -35809,6 +35809,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex3 == 4:
+                
+                self.plot3_time_line.setValue(cme_time_index)
 
                 txt = " {0:.0f} ".format(df_put_information_graph.at[cme_time_index, 'volume'])
                 self.label_36.setText(txt)
@@ -35824,8 +35826,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 txt = " {0:.0f} ".format(df_call_information_graph.at[cme_time_index, 'volume'])
                 self.label_38.setText(txt)
-                
-                self.plot3_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'])
@@ -35837,6 +35837,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             # 옵션가격
             elif comboindex3 == 6:
+                
+                self.plot3_time_line.setValue(cme_time_index)
 
                 if DayTime:
 
@@ -35867,8 +35869,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_38.setText(txt)
                 else:
                     pass
-
-                self.plot3_time_line.setValue(cme_time_index)
 
                 if flag_calltable_checkstate_changed:
                     flag_calltable_checkstate_changed = False
@@ -35909,14 +35909,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex3 == 7:
+                
+                self.plot3_time_line.setValue(cme_time_index)
 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[cme_time_index, 'ms_quote'], df_put_information_graph.at[cme_time_index, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_36.setText(txt)
                 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[cme_time_index, 'ms_quote'], df_call_information_graph.at[cme_time_index, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_38.setText(txt)
-                
-                self.plot3_time_line.setValue(cme_time_index)
 
                 self.plot3_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
                 self.plot3_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'])
@@ -35925,19 +35925,21 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_option_quote_remainder_ratio_upper_line.setValue(옵션_잔량비_최대)        
 
             elif comboindex3 == 8:
+                
+                self.plot3_time_line.setValue(cme_time_index)
 
                 txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[cme_time_index, 'open_interest'], put_oi_init_percent)
                 self.label_36.setText(txt)
                 
                 txt = " {0:.2f}({1:.2f}) ".format(df_call_information_graph.at[cme_time_index, 'open_interest'], call_oi_init_percent)
                 self.label_38.setText(txt)
-                
-                self.plot3_time_line.setValue(cme_time_index)
 
                 self.plot3_call_oi_curve.setData(df_call_information_graph['open_interest'])
                 self.plot3_put_oi_curve.setData(df_put_information_graph['open_interest'])
             
             elif comboindex3 == 10:
+                
+                self.plot3_time_line.setValue(cme_time_index)
 
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_35.setText(txt)
@@ -35947,8 +35949,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = " {0:.2f}({1}) ".format(call_otm_cdb_percent_mean, call_atm_value)
                 self.label_38.setText(txt)
-                
-                self.plot3_time_line.setValue(cme_time_index)
                 
                 self.plot3_call_drate_curve.setData(df_call_information_graph['drate'])
                 self.plot3_put_drate_curve.setData(df_put_information_graph['drate'])
@@ -35965,6 +35965,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_cme_drate_curve.setData(df_sp500_graph['drate'])
             
             elif comboindex3 == 12:
+                
+                self.plot3_time_line.setValue(cme_time_index)
 
                 if df_sp500_graph.at[cme_time_index, 'BBMiddle'] == df_sp500_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -36053,8 +36055,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(SP500_고가, ','))
                 self.label_38.setText(txt)
-                
-                self.plot3_time_line.setValue(cme_time_index)
 
                 self.plot3_ovc_jl_line.setValue(SP500_전저)
                 self.plot3_ovc_jh_line.setValue(SP500_전고)
@@ -36100,6 +36100,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
             
             elif comboindex3 == 13:
+                
+                self.plot3_time_line.setValue(cme_time_index)
 
                 if df_dow_graph.at[cme_time_index, 'BBMiddle'] == df_dow_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -36188,8 +36190,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(DOW_고가, ','))
                 self.label_38.setText(txt)
-                
-                self.plot3_time_line.setValue(cme_time_index)
 
                 self.plot3_ovc_jl_line.setValue(DOW_전저)
                 self.plot3_ovc_jh_line.setValue(DOW_전고)
@@ -36234,6 +36234,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass    
 
             elif comboindex3 == 14:
+                
+                self.plot3_time_line.setValue(cme_time_index)
 
                 if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] == df_nasdaq_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -36321,9 +36323,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 txt = ' {0} '.format(format(NASDAQ_고가, ','))
-                self.label_38.setText(txt) 
-                
-                self.plot3_time_line.setValue(cme_time_index)
+                self.label_38.setText(txt)
 
                 self.plot3_ovc_jl_line.setValue(NASDAQ_전저)
                 self.plot3_ovc_jh_line.setValue(NASDAQ_전고)
@@ -36368,6 +36368,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex3 == 15:
+                
+                self.plot3_time_line.setValue(cme_time_index)
 
                 if df_hangseng_graph.at[cme_time_index, 'BBMiddle'] == df_hangseng_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -36454,8 +36456,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(HANGSENG_고가, ','))
                 self.label_38.setText(txt)
-                
-                self.plot3_time_line.setValue(cme_time_index)
 
                 self.plot3_ovc_jl_line.setValue(HANGSENG_전저)
                 self.plot3_ovc_jh_line.setValue(HANGSENG_전고)
@@ -36496,6 +36496,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex3 == 16:
+                
+                self.plot3_time_line.setValue(cme_time_index)
 
                 if df_wti_graph.at[cme_time_index, 'BBMiddle'] == df_wti_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -36582,9 +36584,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 txt = ' {0} '.format(format(WTI_고가, ','))
-                self.label_38.setText(txt) 
-                
-                self.plot3_time_line.setValue(cme_time_index)
+                self.label_38.setText(txt)
 
                 self.plot3_ovc_jl_line.setValue(WTI_전저)
                 self.plot3_ovc_jh_line.setValue(WTI_전고)
@@ -36629,6 +36629,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass 
             
             elif comboindex3 == 17:
+                
+                self.plot3_time_line.setValue(cme_time_index)
 
                 if df_gold_graph.at[cme_time_index, 'BBMiddle'] == df_gold_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -36715,8 +36717,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(GOLD_고가, ','))
                 self.label_38.setText(txt)
-                
-                self.plot3_time_line.setValue(cme_time_index)
 
                 self.plot3_ovc_jl_line.setValue(GOLD_전저)
                 self.plot3_ovc_jh_line.setValue(GOLD_전고)
@@ -36757,6 +36757,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex3 == 18:
+                
+                self.plot3_time_line.setValue(cme_time_index)
 
                 if df_eurofx_graph.at[cme_time_index, 'BBMiddle'] == df_eurofx_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -36842,8 +36844,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(EUROFX_고가, ','))
                 self.label_38.setText(txt)
-                
-                self.plot3_time_line.setValue(cme_time_index)
 
                 self.plot3_ovc_jl_line.setValue(EUROFX_전저)
                 self.plot3_ovc_jh_line.setValue(EUROFX_전고)
@@ -36884,6 +36884,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex3 == 19:
+                
+                self.plot3_time_line.setValue(cme_time_index)
 
                 if df_yen_graph.at[cme_time_index, 'BBMiddle'] == df_yen_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -36970,8 +36972,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(YEN_고가, ','))
                 self.label_38.setText(txt)
-                
-                self.plot3_time_line.setValue(cme_time_index)
 
                 self.plot3_ovc_jl_line.setValue(YEN_전저)
                 self.plot3_ovc_jh_line.setValue(YEN_전고)
@@ -37012,6 +37012,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
             
             elif comboindex3 == 21:
+                
+                self.plot3_time_line.setValue(cme_time_index)
 
                 if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'program']):
                     txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
@@ -37045,8 +37047,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_38.setText(txt)
                 else:
                     pass
-                
-                self.plot3_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'])
@@ -37056,6 +37056,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex3 == 22:
+                
+                self.plot3_time_line.setValue(cme_time_index)
 
                 if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner']):
                     txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
@@ -37089,8 +37091,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_38.setText(txt)
                 else:
                     pass
-                
-                self.plot3_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'])
@@ -37135,6 +37135,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             # Plot4 그래프 그리기
             if comboindex4 == 2:
+                
+                self.plot4_time_line.setValue(cme_time_index)
 
                 if df_futures_cm_graph.at[cme_time_index, 'BBMiddle'] == df_futures_cm_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -37225,9 +37227,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 txt = ' {0} '.format(근월물_선물_고가)
-                self.label_48.setText(txt) 
-                
-                self.plot4_time_line.setValue(cme_time_index)
+                self.label_48.setText(txt)
                 
                 self.plot4_kp200_line[3].setValue(KP200_COREVAL[3])
                 self.plot4_kp200_line[4].setValue(KP200_COREVAL[4])
@@ -37294,6 +37294,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex4 == 3:
+                
+                self.plot4_time_line.setValue(cme_time_index)
 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[cme_time_index, 'ms_quote'], df_put_information_graph.at[cme_time_index, 'md_quote'])
                 self.label_46.setText(txt)
@@ -37314,8 +37316,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[cme_time_index, 'ms_quote'], df_call_information_graph.at[cme_time_index, 'md_quote'])
                 self.label_48.setText(txt)
-                
-                self.plot4_time_line.setValue(cme_time_index)
 
                 self.plot4_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
                 self.plot4_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'])
@@ -37329,6 +37329,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex4 == 4:
+                
+                self.plot4_time_line.setValue(cme_time_index)
 
                 txt = " {0:.0f} ".format(df_put_information_graph.at[cme_time_index, 'volume'])
                 self.label_46.setText(txt)
@@ -37343,9 +37345,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_47.setText(txt)
                 
                 txt = " {0:.0f} ".format(df_call_information_graph.at[cme_time_index, 'volume'])
-                self.label_48.setText(txt)
-                
-                self.plot4_time_line.setValue(cme_time_index)                      
+                self.label_48.setText(txt)                      
 
                 if DayTime:
                     self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'])
@@ -37357,6 +37357,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             # 옵션가격
             elif comboindex4 == 6:
+                
+                self.plot4_time_line.setValue(cme_time_index)
 
                 if DayTime:
 
@@ -37387,8 +37389,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_48.setText(txt)
                 else:
                     pass
-
-                self.plot4_time_line.setValue(cme_time_index)
 
                 if flag_calltable_checkstate_changed:
                     flag_calltable_checkstate_changed = False
@@ -37431,14 +37431,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
             
             elif comboindex4 == 7:
+                
+                self.plot4_time_line.setValue(cme_time_index)
 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[cme_time_index, 'ms_quote'], df_put_information_graph.at[cme_time_index, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_46.setText(txt)
                 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[cme_time_index, 'ms_quote'], df_call_information_graph.at[cme_time_index, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_48.setText(txt)
-                
-                self.plot4_time_line.setValue(cme_time_index)
 
                 self.plot4_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
                 self.plot4_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'])
@@ -37447,19 +37447,21 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_option_quote_remainder_ratio_upper_line.setValue(옵션_잔량비_최대)
 
             elif comboindex4 == 8:
+                
+                self.plot4_time_line.setValue(cme_time_index)
 
                 txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[cme_time_index, 'open_interest'], put_oi_init_percent)
                 self.label_46.setText(txt)
                 
                 txt = " {0:.2f}({1:.2f}) ".format(df_call_information_graph.at[cme_time_index, 'open_interest'], call_oi_init_percent)
                 self.label_48.setText(txt)
-                
-                self.plot4_time_line.setValue(cme_time_index)
 
                 self.plot4_call_oi_curve.setData(df_call_information_graph['open_interest'])
                 self.plot4_put_oi_curve.setData(df_put_information_graph['open_interest'])
             
             elif comboindex4 == 10:
+                
+                self.plot4_time_line.setValue(cme_time_index)
 
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_45.setText(txt)
@@ -37469,8 +37471,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = " {0:.2f}({1}) ".format(call_otm_cdb_percent_mean, call_atm_value)
                 self.label_48.setText(txt)
-                
-                self.plot4_time_line.setValue(cme_time_index)
                 
                 self.plot4_call_drate_curve.setData(df_call_information_graph['drate'])
                 self.plot4_put_drate_curve.setData(df_put_information_graph['drate'])
@@ -37487,6 +37487,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_cme_drate_curve.setData(df_sp500_graph['drate'])
             
             elif comboindex4 == 12:
+                
+                self.plot4_time_line.setValue(cme_time_index)
 
                 if df_sp500_graph.at[cme_time_index, 'BBMiddle'] == df_sp500_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -37574,9 +37576,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 txt = ' {0} '.format(format(SP500_고가, ','))
-                self.label_48.setText(txt) 
-                
-                self.plot4_time_line.setValue(cme_time_index)
+                self.label_48.setText(txt)
 
                 self.plot4_ovc_jl_line.setValue(SP500_전저)
                 self.plot4_ovc_jh_line.setValue(SP500_전고)
@@ -37617,6 +37617,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
             
             elif comboindex4 == 13:
+                
+                self.plot4_time_line.setValue(cme_time_index)
 
                 if df_dow_graph.at[cme_time_index, 'BBMiddle'] == df_dow_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -37704,9 +37706,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
                 
                 txt = ' {0} '.format(format(DOW_고가, ','))
-                self.label_48.setText(txt) 
-                
-                self.plot4_time_line.setValue(cme_time_index)
+                self.label_48.setText(txt)
 
                 self.plot4_ovc_jl_line.setValue(DOW_전저)
                 self.plot4_ovc_jh_line.setValue(DOW_전고)
@@ -37747,6 +37747,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex4 == 14:
+                
+                self.plot4_time_line.setValue(cme_time_index)
 
                 if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] == df_nasdaq_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -37835,8 +37837,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(NASDAQ_고가, ','))
                 self.label_48.setText(txt)
-                
-                self.plot4_time_line.setValue(cme_time_index)
 
                 self.plot4_ovc_jl_line.setValue(NASDAQ_전저)
                 self.plot4_ovc_jh_line.setValue(NASDAQ_전고)
@@ -37877,6 +37877,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex4 == 15:
+                
+                self.plot4_time_line.setValue(cme_time_index)
 
                 if df_hangseng_graph.at[cme_time_index, 'BBMiddle'] == df_hangseng_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -37963,8 +37965,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(HANGSENG_고가, ','))
                 self.label_48.setText(txt)
-                
-                self.plot4_time_line.setValue(cme_time_index)
 
                 self.plot4_ovc_jl_line.setValue(HANGSENG_전저)
                 self.plot4_ovc_jh_line.setValue(HANGSENG_전고)
@@ -38005,6 +38005,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex4 == 16:
+                
+                self.plot4_time_line.setValue(cme_time_index)
 
                 if df_wti_graph.at[cme_time_index, 'BBMiddle'] == df_wti_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -38092,8 +38094,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(WTI_고가, ','))
                 self.label_48.setText(txt)
-                
-                self.plot4_time_line.setValue(cme_time_index)
 
                 self.plot4_ovc_jl_line.setValue(WTI_전저)
                 self.plot4_ovc_jh_line.setValue(WTI_전고)
@@ -38134,6 +38134,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
             
             elif comboindex4 == 17:
+                
+                self.plot4_time_line.setValue(cme_time_index)
 
                 if df_gold_graph.at[cme_time_index, 'BBMiddle'] == df_gold_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -38220,8 +38222,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(GOLD_고가, ','))
                 self.label_48.setText(txt)
-                
-                self.plot4_time_line.setValue(cme_time_index)
 
                 self.plot4_ovc_jl_line.setValue(GOLD_전저)
                 self.plot4_ovc_jh_line.setValue(GOLD_전고)
@@ -38262,6 +38262,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex4 == 18:
+                
+                self.plot4_time_line.setValue(cme_time_index)
 
                 if df_eurofx_graph.at[cme_time_index, 'BBMiddle'] == df_eurofx_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -38347,8 +38349,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(EUROFX_고가, ','))
                 self.label_48.setText(txt)
-                
-                self.plot4_time_line.setValue(cme_time_index)
 
                 self.plot4_ovc_jl_line.setValue(EUROFX_전저)
                 self.plot4_ovc_jh_line.setValue(EUROFX_전고)
@@ -38389,6 +38389,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex4 == 19:
+                
+                self.plot4_time_line.setValue(cme_time_index)
 
                 if df_yen_graph.at[cme_time_index, 'BBMiddle'] == df_yen_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -38475,8 +38477,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(YEN_고가, ','))
                 self.label_48.setText(txt)
-                
-                self.plot4_time_line.setValue(cme_time_index)
 
                 self.plot4_ovc_jl_line.setValue(YEN_전저)
                 self.plot4_ovc_jh_line.setValue(YEN_전고)
@@ -38517,6 +38517,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
             
             elif comboindex4 == 21:
+                
+                self.plot4_time_line.setValue(cme_time_index)
 
                 if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'program']):
                     txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
@@ -38550,8 +38552,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_48.setText(txt)
                 else:
                     pass
-                
-                self.plot4_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'])
@@ -38561,6 +38561,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex4 == 22:
+                
+                self.plot4_time_line.setValue(cme_time_index)
 
                 if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner']):
                     txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
@@ -38594,8 +38596,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_48.setText(txt)
                 else:
                     pass
-                
-                self.plot4_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'])
@@ -38641,6 +38641,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             # Plot5 그래프 그리기
             # 선물가격
             if comboindex5 == 2:
+                
+                self.plot5_time_line.setValue(cme_time_index)
 
                 if df_futures_cm_graph.at[cme_time_index, 'BBMiddle'] == df_futures_cm_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -38731,9 +38733,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 txt = ' {0} '.format(근월물_선물_고가)
-                self.label_58.setText(txt)  
-                
-                self.plot5_time_line.setValue(cme_time_index)
+                self.label_58.setText(txt)
                 
                 self.plot5_kp200_line[3].setValue(KP200_COREVAL[3])
                 self.plot5_kp200_line[4].setValue(KP200_COREVAL[4])
@@ -38800,6 +38800,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex5 == 3:
+                
+                self.plot5_time_line.setValue(cme_time_index)
 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[cme_time_index, 'ms_quote'], df_put_information_graph.at[cme_time_index, 'md_quote'])
                 self.label_56.setText(txt)
@@ -38820,8 +38822,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[cme_time_index, 'ms_quote'], df_call_information_graph.at[cme_time_index, 'md_quote'])
                 self.label_58.setText(txt)
-                
-                self.plot5_time_line.setValue(cme_time_index)
 
                 self.plot5_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
                 self.plot5_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'])
@@ -38835,6 +38835,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex5 == 4:
+                
+                self.plot5_time_line.setValue(cme_time_index)
 
                 txt = " {0:.0f} ".format(df_put_information_graph.at[cme_time_index, 'volume'])
                 self.label_56.setText(txt)
@@ -38850,8 +38852,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 txt = " {0:.0f} ".format(df_call_information_graph.at[cme_time_index, 'volume'])
                 self.label_58.setText(txt)
-                
-                self.plot5_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'])
@@ -38863,6 +38863,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             # 옵션가격
             elif comboindex5 == 6:
+                
+                self.plot5_time_line.setValue(cme_time_index)
 
                 if DayTime: 
                     
@@ -38893,8 +38895,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_58.setText(txt)
                 else:
                     pass
-
-                self.plot5_time_line.setValue(cme_time_index)
 
                 if flag_calltable_checkstate_changed:
                     flag_calltable_checkstate_changed = False
@@ -38934,14 +38934,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex5 == 7:
+                
+                self.plot5_time_line.setValue(cme_time_index)
 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[cme_time_index, 'ms_quote'], df_put_information_graph.at[cme_time_index, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_56.setText(txt)
                 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[cme_time_index, 'ms_quote'], df_call_information_graph.at[cme_time_index, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_58.setText(txt)
-                
-                self.plot5_time_line.setValue(cme_time_index)
 
                 self.plot5_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
                 self.plot5_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'])
@@ -38950,19 +38950,21 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_option_quote_remainder_ratio_upper_line.setValue(옵션_잔량비_최대)       
 
             elif comboindex5 == 8:
+                
+                self.plot5_time_line.setValue(cme_time_index)
 
                 txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[cme_time_index, 'open_interest'], put_oi_init_percent)
                 self.label_56.setText(txt)
                 
                 txt = " {0:.2f}({1:.2f}) ".format(df_call_information_graph.at[cme_time_index, 'open_interest'], call_oi_init_percent)
                 self.label_58.setText(txt)
-                
-                self.plot5_time_line.setValue(cme_time_index)
 
                 self.plot5_call_oi_curve.setData(df_call_information_graph['open_interest'])
                 self.plot5_put_oi_curve.setData(df_put_information_graph['open_interest'])
             
             elif comboindex5 == 10:
+                
+                self.plot5_time_line.setValue(cme_time_index)
 
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_55.setText(txt)
@@ -38972,8 +38974,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = " {0:.2f}({1}) ".format(call_otm_cdb_percent_mean, call_atm_value)
                 self.label_58.setText(txt)
-                
-                self.plot5_time_line.setValue(cme_time_index)
                 
                 self.plot5_call_drate_curve.setData(df_call_information_graph['drate'])
                 self.plot5_put_drate_curve.setData(df_put_information_graph['drate'])
@@ -38990,6 +38990,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_cme_drate_curve.setData(df_sp500_graph['drate'])
             
             elif comboindex5 == 12:
+                
+                self.plot5_time_line.setValue(cme_time_index)
 
                 if df_sp500_graph.at[cme_time_index, 'BBMiddle'] == df_sp500_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -39078,8 +39080,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(SP500_고가, ','))
                 self.label_58.setText(txt)
-                
-                self.plot5_time_line.setValue(cme_time_index)
 
                 self.plot5_ovc_jl_line.setValue(SP500_전저)
                 self.plot5_ovc_jh_line.setValue(SP500_전고)
@@ -39125,6 +39125,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
             
             elif comboindex5 == 13:
+                
+                self.plot5_time_line.setValue(cme_time_index)
 
                 if df_dow_graph.at[cme_time_index, 'BBMiddle'] == df_dow_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -39213,8 +39215,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(DOW_고가, ','))
                 self.label_58.setText(txt)
-                
-                self.plot5_time_line.setValue(cme_time_index)
 
                 self.plot5_ovc_jl_line.setValue(DOW_전저)
                 self.plot5_ovc_jh_line.setValue(DOW_전고)
@@ -39259,6 +39259,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass  
 
             elif comboindex5 == 14:
+                
+                self.plot5_time_line.setValue(cme_time_index)
 
                 if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] == df_nasdaq_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -39346,9 +39348,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 txt = ' {0} '.format(format(NASDAQ_고가, ','))
-                self.label_58.setText(txt) 
-                
-                self.plot5_time_line.setValue(cme_time_index)
+                self.label_58.setText(txt)
 
                 self.plot5_ovc_jl_line.setValue(NASDAQ_전저)
                 self.plot5_ovc_jh_line.setValue(NASDAQ_전고)
@@ -39393,6 +39393,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex5 == 15:
+                
+                self.plot5_time_line.setValue(cme_time_index)
 
                 if df_hangseng_graph.at[cme_time_index, 'BBMiddle'] == df_hangseng_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -39479,8 +39481,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(HANGSENG_고가, ','))
                 self.label_58.setText(txt)
-                
-                self.plot5_time_line.setValue(cme_time_index)
 
                 self.plot5_ovc_jl_line.setValue(HANGSENG_전저)
                 self.plot5_ovc_jh_line.setValue(HANGSENG_전고)
@@ -39521,6 +39521,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex5 == 16:
+                
+                self.plot5_time_line.setValue(cme_time_index)
 
                 if df_wti_graph.at[cme_time_index, 'BBMiddle'] == df_wti_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -39607,9 +39609,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 txt = ' {0} '.format(format(WTI_고가, ','))
-                self.label_58.setText(txt)  
-                
-                self.plot5_time_line.setValue(cme_time_index)
+                self.label_58.setText(txt) 
 
                 self.plot5_ovc_jl_line.setValue(WTI_전저)
                 self.plot5_ovc_jh_line.setValue(WTI_전고)
@@ -39654,6 +39654,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass 
             
             elif comboindex5 == 17:
+                
+                self.plot5_time_line.setValue(cme_time_index)
 
                 if df_gold_graph.at[cme_time_index, 'BBMiddle'] == df_gold_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -39740,8 +39742,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(GOLD_고가, ','))
                 self.label_58.setText(txt)
-                
-                self.plot5_time_line.setValue(cme_time_index)
 
                 self.plot5_ovc_jl_line.setValue(GOLD_전저)
                 self.plot5_ovc_jh_line.setValue(GOLD_전고)
@@ -39782,6 +39782,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex5 == 18:
+                
+                self.plot5_time_line.setValue(cme_time_index)
 
                 if df_eurofx_graph.at[cme_time_index, 'BBMiddle'] == df_eurofx_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -39867,8 +39869,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(EUROFX_고가, ','))
                 self.label_58.setText(txt)
-                
-                self.plot5_time_line.setValue(cme_time_index)
 
                 self.plot5_ovc_jl_line.setValue(EUROFX_전저)
                 self.plot5_ovc_jh_line.setValue(EUROFX_전고)
@@ -39909,6 +39909,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex5 == 19:
+                
+                self.plot5_time_line.setValue(cme_time_index)
 
                 if df_yen_graph.at[cme_time_index, 'BBMiddle'] == df_yen_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -39995,8 +39997,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(YEN_고가, ','))
                 self.label_58.setText(txt)
-                
-                self.plot5_time_line.setValue(cme_time_index)
 
                 self.plot5_ovc_jl_line.setValue(YEN_전저)
                 self.plot5_ovc_jh_line.setValue(YEN_전고)
@@ -40037,6 +40037,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
             
             elif comboindex5 == 21:
+                
+                self.plot5_time_line.setValue(cme_time_index)
 
                 if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'program']):
                     txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
@@ -40070,8 +40072,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_58.setText(txt)
                 else:
                     pass
-                
-                self.plot5_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'])
@@ -40081,6 +40081,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex5 == 22:
+                
+                self.plot5_time_line.setValue(cme_time_index)
 
                 if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner']):
                     txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
@@ -40114,8 +40116,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_58.setText(txt)
                 else:
                     pass
-                
-                self.plot5_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'])
@@ -40161,6 +40161,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             # Plot6 그래프 그리기
             # 선물가격
             if comboindex6 == 2:
+                
+                self.plot6_time_line.setValue(cme_time_index)
 
                 if df_futures_cm_graph.at[cme_time_index, 'BBMiddle'] == df_futures_cm_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -40251,9 +40253,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 txt = ' {0} '.format(근월물_선물_고가)
-                self.label_68.setText(txt)  
-                
-                self.plot6_time_line.setValue(cme_time_index)
+                self.label_68.setText(txt)
                 
                 self.plot6_kp200_line[3].setValue(KP200_COREVAL[3])
                 self.plot6_kp200_line[4].setValue(KP200_COREVAL[4])
@@ -40320,6 +40320,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex6 == 3:
+                
+                self.plot6_time_line.setValue(cme_time_index)
 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[cme_time_index, 'ms_quote'], df_put_information_graph.at[cme_time_index, 'md_quote'])
                 self.label_66.setText(txt)
@@ -40340,8 +40342,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[cme_time_index, 'ms_quote'], df_call_information_graph.at[cme_time_index, 'md_quote'])
                 self.label_68.setText(txt)
-                
-                self.plot6_time_line.setValue(cme_time_index)
 
                 self.plot6_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
                 self.plot6_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'])
@@ -40355,6 +40355,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex6 == 4:
+                
+                self.plot6_time_line.setValue(cme_time_index)
                 
                 txt = " {0:.0f} ".format(df_put_information_graph.at[cme_time_index, 'volume'])
                 self.label_66.setText(txt)
@@ -40370,8 +40372,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 txt = " {0:.0f} ".format(df_call_information_graph.at[cme_time_index, 'volume'])
                 self.label_68.setText(txt)
-                
-                self.plot6_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'])
@@ -40383,6 +40383,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             # 옵션가격
             elif comboindex6 == 6:
+                
+                self.plot6_time_line.setValue(cme_time_index)
 
                 if DayTime:
 
@@ -40413,8 +40415,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_68.setText(txt)
                 else:
                     pass 
-
-                self.plot6_time_line.setValue(cme_time_index)
 
                 if flag_calltable_checkstate_changed:
                     flag_calltable_checkstate_changed = False
@@ -40454,14 +40454,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex6 == 7:
+                
+                self.plot6_time_line.setValue(cme_time_index)
 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[cme_time_index, 'ms_quote'], df_put_information_graph.at[cme_time_index, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_66.setText(txt)
                 
                 txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[cme_time_index, 'ms_quote'], df_call_information_graph.at[cme_time_index, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_68.setText(txt)
-                
-                self.plot6_time_line.setValue(cme_time_index)
 
                 self.plot6_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
                 self.plot6_put_quote_curve.setData(df_put_information_graph['quote_remainder_ratio'])
@@ -40470,19 +40470,21 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_option_quote_remainder_ratio_upper_line.setValue(옵션_잔량비_최대)        
 
             elif comboindex6 == 8:
+                
+                self.plot6_time_line.setValue(cme_time_index)
 
                 txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[cme_time_index, 'open_interest'], put_oi_init_percent)
                 self.label_66.setText(txt)
                 
                 txt = " {0:.2f}({1:.2f}) ".format(df_call_information_graph.at[cme_time_index, 'open_interest'], call_oi_init_percent)
                 self.label_68.setText(txt)
-                
-                self.plot6_time_line.setValue(cme_time_index)
 
                 self.plot6_call_oi_curve.setData(df_call_information_graph['open_interest'])
                 self.plot6_put_oi_curve.setData(df_put_information_graph['open_interest'])
                                     
             elif comboindex6 == 10:
+                
+                self.plot6_time_line.setValue(cme_time_index)
 
                 txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
                 self.label_65.setText(txt)
@@ -40492,8 +40494,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = " {0:.2f}({1}) ".format(call_otm_cdb_percent_mean, call_atm_value)
                 self.label_68.setText(txt)
-                
-                self.plot6_time_line.setValue(cme_time_index)
                 
                 self.plot6_call_drate_curve.setData(df_call_information_graph['drate'])
                 self.plot6_put_drate_curve.setData(df_put_information_graph['drate'])
@@ -40510,6 +40510,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_cme_drate_curve.setData(df_sp500_graph['drate'])
             
             elif comboindex6 == 12:
+                
+                self.plot6_time_line.setValue(cme_time_index)
 
                 if df_sp500_graph.at[cme_time_index, 'BBMiddle'] == df_sp500_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -40597,9 +40599,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 txt = ' {0} '.format(format(SP500_고가, ','))
-                self.label_68.setText(txt) 
-                
-                self.plot6_time_line.setValue(cme_time_index)
+                self.label_68.setText(txt)
 
                 self.plot6_ovc_jl_line.setValue(SP500_전저)
                 self.plot6_ovc_jh_line.setValue(SP500_전고)
@@ -40645,6 +40645,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex6 == 13:
+                
+                self.plot6_time_line.setValue(cme_time_index)
 
                 if df_dow_graph.at[cme_time_index, 'BBMiddle'] == df_dow_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -40732,9 +40734,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 txt = ' {0} '.format(format(DOW_고가, ','))
-                self.label_68.setText(txt)  
-                
-                self.plot6_time_line.setValue(cme_time_index)
+                self.label_68.setText(txt)
 
                 self.plot6_ovc_jl_line.setValue(DOW_전저)
                 self.plot6_ovc_jh_line.setValue(DOW_전고)
@@ -40779,6 +40779,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass    
 
             elif comboindex6 == 14:
+                
+                self.plot6_time_line.setValue(cme_time_index)
 
                 if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] == df_nasdaq_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -40866,9 +40868,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 txt = ' {0} '.format(format(NASDAQ_고가, ','))
-                self.label_68.setText(txt)  
-                
-                self.plot6_time_line.setValue(cme_time_index)
+                self.label_68.setText(txt)
 
                 self.plot6_ovc_jl_line.setValue(NASDAQ_전저)
                 self.plot6_ovc_jh_line.setValue(NASDAQ_전고)
@@ -40913,6 +40913,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex6 == 15:
+                
+                self.plot6_time_line.setValue(cme_time_index)
 
                 if df_hangseng_graph.at[cme_time_index, 'BBMiddle'] == df_hangseng_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -40999,8 +41001,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(HANGSENG_고가, ','))
                 self.label_68.setText(txt)
-                
-                self.plot6_time_line.setValue(cme_time_index)
 
                 self.plot6_ovc_jl_line.setValue(HANGSENG_전저)
                 self.plot6_ovc_jh_line.setValue(HANGSENG_전고)
@@ -41041,6 +41041,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass            
 
             elif comboindex6 == 16:
+                
+                self.plot6_time_line.setValue(cme_time_index)
 
                 if df_wti_graph.at[cme_time_index, 'BBMiddle'] == df_wti_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -41127,9 +41129,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 txt = ' {0} '.format(format(WTI_고가, ','))
-                self.label_68.setText(txt)  
-                
-                self.plot6_time_line.setValue(cme_time_index)
+                self.label_68.setText(txt)
 
                 self.plot6_ovc_jl_line.setValue(WTI_전저)
                 self.plot6_ovc_jh_line.setValue(WTI_전고)
@@ -41174,6 +41174,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass  
             
             elif comboindex6 == 17:
+                
+                self.plot6_time_line.setValue(cme_time_index)
 
                 if df_gold_graph.at[cme_time_index, 'BBMiddle'] == df_gold_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -41260,8 +41262,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(GOLD_고가, ','))
                 self.label_68.setText(txt)
-                
-                self.plot6_time_line.setValue(cme_time_index)
 
                 self.plot6_ovc_jl_line.setValue(GOLD_전저)
                 self.plot6_ovc_jh_line.setValue(GOLD_전고)
@@ -41302,6 +41302,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex6 == 18:
+                
+                self.plot6_time_line.setValue(cme_time_index)
 
                 if df_eurofx_graph.at[cme_time_index, 'BBMiddle'] == df_eurofx_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -41387,8 +41389,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(EUROFX_고가, ','))
                 self.label_68.setText(txt)
-                
-                self.plot6_time_line.setValue(cme_time_index)
 
                 self.plot6_ovc_jl_line.setValue(EUROFX_전저)
                 self.plot6_ovc_jh_line.setValue(EUROFX_전고)
@@ -41429,6 +41429,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex6 == 19:
+                
+                self.plot6_time_line.setValue(cme_time_index)
 
                 if df_yen_graph.at[cme_time_index, 'BBMiddle'] == df_yen_graph.at[cme_time_index, 'BBMiddle']:
 
@@ -41515,8 +41517,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(format(YEN_고가, ','))
                 self.label_68.setText(txt)
-                
-                self.plot6_time_line.setValue(cme_time_index)
 
                 self.plot6_ovc_jl_line.setValue(YEN_전저)
                 self.plot6_ovc_jh_line.setValue(YEN_전고)
@@ -41557,6 +41557,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex6 == 21:
+                
+                self.plot6_time_line.setValue(cme_time_index)
 
                 if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'program']):
                     txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
@@ -41590,8 +41592,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_68.setText(txt)
                 else:
                     pass
-                
-                self.plot6_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'])
@@ -41601,6 +41601,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex6 == 22:
+                
+                self.plot6_time_line.setValue(cme_time_index)
 
                 if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner']):
                     txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
@@ -41634,8 +41636,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_68.setText(txt)
                 else:
                     pass
-                
-                self.plot6_time_line.setValue(cme_time_index)
 
                 if DayTime:
                     self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'])
