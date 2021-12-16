@@ -6106,10 +6106,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 증권사 서버초기화(오전 7시 10분경)전에 프로그램을 미리 오프라인으로 전환하여야 Crash 발생안함
             if (not flag_internet_connection_broken and not flag_service_provider_broken):
                 
-                if NightTime:
+                if NightTime:                    
 
                     # 미국 주식장 종료 1분후에 프로그램을 오프라인으로 전환시킴
                     if yagan_service_terminate or 시스템시간_분 == (FOREIGN_FUTURES_CLOSE_HOUR * 3600 + 1 * 60):
+
+                        global service_terminate
                         
                         if online_state:
 
@@ -6250,7 +6252,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 close_all_writer()
                             else:
-                                pass
+                                pass                            
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(txt)
@@ -6291,27 +6293,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     pass
 
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간데이타 통계 : {3}\r'.format(dt.hour, dt.minute, dt.second, drop_txt)
+                                self.textBrowser.append(txt)
+
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                                self.textBrowser.append(txt)
+
+                                service_terminate = True
+
+                                self.SaveResult()
+
                                 self.parent.xing.main_connection.disconnect()
                             else:
-                                pass
+                                pass                            
 
-                            #txt = '[{0:02d}:{1:02d}:{2:02d}] 수신된 OVC 틱 데이타 크기 : {3}\r'.format(t0167_server_hour, t0167_server_minute, t0167_server_second, ovc_tick_total_size)
-                            #self.textBrowser.append(txt)
-
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간데이타 통계 : {3}\r'.format(dt.hour, dt.minute, dt.second, drop_txt)
-                            self.textBrowser.append(txt)
-
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                            self.textBrowser.append(txt)
-
-                            if TARGET_MONTH == 'CM':
-                                self.capture_screenshot()
-                            else:
-                                pass
-
-                            self.pushButton_start.setText(' ScrShot ')
-
-                            self.SaveResult()
+                            self.pushButton_start.setText(' ScrShot ')                            
                         else:
                             txt = '오프라인 : {0}'.format(drop_txt)
                             self.parent.statusbar.showMessage(txt)                           
@@ -6363,12 +6359,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     pass
 
-                                self.parent.xing.main_connection.disconnect()                                    
-                            else:
-                                pass
-
-                            if not flag_logfile:
-
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] 수신된 옵션 틱 데이타 크기 : {3}\r'.format(dt.hour, dt.minute, dt.second, option_tick_total_size)
                                 self.textBrowser.append(txt)
                                 
@@ -6378,12 +6368,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(dt.hour, dt.minute, dt.second)
                                 self.textBrowser.append(txt)
 
-                                file = open('today.log', 'w', encoding='UTF-8')
-                                text = self.textBrowser.toPlainText()
-                                file.write(text)
-                                file.close()
+                                self.SaveResult()
 
-                                flag_logfile = True
+                                self.parent.xing.main_connection.disconnect()                                    
                             else:
                                 pass
                         else:
