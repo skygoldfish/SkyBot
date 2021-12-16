@@ -5989,7 +5989,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             flag_call_cross_coloring = True
 
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] Call 교차컬러링을 수행합니다.\r'.format(t0167_server_hour, t0167_server_minute, t0167_server_second)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] Call 교차컬러링을 수행합니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(txt)
                             print(txt)
 
@@ -6015,7 +6015,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             flag_put_cross_coloring = True
 
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] Put 교차컬러링을 수행합니다.\r'.format(t0167_server_hour, t0167_server_minute, t0167_server_second)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] Put 교차컬러링을 수행합니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(txt)
                             print(txt)                                        
                             
