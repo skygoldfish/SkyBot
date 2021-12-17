@@ -32561,55 +32561,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot1_time_line.setValue(cme_time_index)
 
-                if df_futures_cm_graph.at[cme_time_index, 'BBMiddle'] == df_futures_cm_graph.at[cme_time_index, 'BBMiddle']:
-
-                    if df_futures_cm_graph.at[cme_time_index, 'BBMiddle'] >= df_futures_cm_graph.at[cme_time_index, 'price']:
-                        self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    pass               
-
-                if df_futures_cm_graph.at[cme_time_index, 'PSAR'] == df_futures_cm_graph.at[cme_time_index, 'PSAR']:
-
-                    if df_futures_cm_graph.at[cme_time_index, 'PSAR'] >= df_futures_cm_graph.at[cme_time_index, 'price']:
-                        self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_cm_graph.at[cme_time_index, 'BBMiddle'], df_futures_cm_graph.at[cme_time_index, 'PSAR'], 선물_호가순매수)
-                    self.label_p1_2.setText(txt)
-                else:
-                    pass
-                
-                if df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] == df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] and df_futures_cm_graph.at[cme_time_index, 'OE_BASE'] == df_futures_cm_graph.at[cme_time_index, 'OE_BASE']:
-
-                    if df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] < df_futures_cm_graph.at[cme_time_index, 'OE_BASE']:
-                        self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_graph.at[cme_time_index, 'OE_CONV'], df_futures_cm_graph.at[cme_time_index, 'OE_BASE'])
-                    self.label_p1_3.setText(txt)
-                else:
-                    pass
-
-                if df_futures_cm_graph.at[cme_time_index, 'MAMA'] == df_futures_cm_graph.at[cme_time_index, 'MAMA'] and df_futures_cm_graph.at[cme_time_index, 'FAMA'] == df_futures_cm_graph.at[cme_time_index, 'FAMA']:
-
-                    if df_futures_cm_graph.at[cme_time_index, 'FAMA'] >= df_futures_cm_graph.at[cme_time_index, 'BBLower']:
-
-                        if df_futures_cm_graph.at[cme_time_index, 'MAMA'] < df_futures_cm_graph.at[cme_time_index, 'FAMA']:                        
-                            self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_graph.at[cme_time_index, 'MAMA'], df_futures_cm_graph.at[cme_time_index, 'FAMA'])
-                    self.label_p1_4.setText(txt)
-                else:
-                    pass
-
                 txt = ' {0} '.format(근월물_선물_피봇)
                 self.label_14.setText(txt)
 
@@ -32651,13 +32602,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(근월물_선물_고가)
                 self.label_18.setText(txt)
-
                               
                 self.plot1_kp200_line[3].setValue(KP200_COREVAL[3])
                 self.plot1_kp200_line[4].setValue(KP200_COREVAL[4])
                 self.plot1_kp200_line[5].setValue(KP200_COREVAL[5])
-                self.plot1_kp200_line[6].setValue(KP200_COREVAL[6])
-                
+                self.plot1_kp200_line[6].setValue(KP200_COREVAL[6])                
 
                 if kp200_저가 < KP200_COREVAL[3]:
                     self.plot1_kp200_line[2].setValue(KP200_COREVAL[2])
@@ -32688,6 +32637,27 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_bollinger_upper_curve.setData(df_futures_cm_graph['BBUpper'])
                     self.plot1_bollinger_middle_curve.setData(df_futures_cm_graph['BBMiddle'])
                     self.plot1_bollinger_lower_curve.setData(df_futures_cm_graph['BBLower'])
+
+                    if df_futures_cm_graph.at[cme_time_index, 'BBMiddle'] == df_futures_cm_graph.at[cme_time_index, 'BBMiddle']:
+
+                        if df_futures_cm_graph.at[cme_time_index, 'BBMiddle'] >= df_futures_cm_graph.at[cme_time_index, 'price']:
+                            self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        pass               
+
+                    if df_futures_cm_graph.at[cme_time_index, 'PSAR'] == df_futures_cm_graph.at[cme_time_index, 'PSAR']:
+
+                        if df_futures_cm_graph.at[cme_time_index, 'PSAR'] >= df_futures_cm_graph.at[cme_time_index, 'price']:
+                            self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_cm_graph.at[cme_time_index, 'BBMiddle'], df_futures_cm_graph.at[cme_time_index, 'PSAR'], 선물_호가순매수)
+                        self.label_p1_2.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
 
@@ -32697,6 +32667,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_mama_curve.setData(df_futures_cm_graph['MAMA'])
                     self.plot1_fama_curve.setData(df_futures_cm_graph['A_FAMA'])
+
+                    if df_futures_cm_graph.at[cme_time_index, 'MAMA'] == df_futures_cm_graph.at[cme_time_index, 'MAMA'] and df_futures_cm_graph.at[cme_time_index, 'FAMA'] == df_futures_cm_graph.at[cme_time_index, 'FAMA']:
+
+                        if df_futures_cm_graph.at[cme_time_index, 'FAMA'] >= df_futures_cm_graph.at[cme_time_index, 'BBLower']:
+
+                            if df_futures_cm_graph.at[cme_time_index, 'MAMA'] < df_futures_cm_graph.at[cme_time_index, 'FAMA']:                        
+                                self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            else:
+                                self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_graph.at[cme_time_index, 'MAMA'], df_futures_cm_graph.at[cme_time_index, 'FAMA'])
+                        self.label_p1_4.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
 
@@ -32706,6 +32692,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_oe_conv_curve.setData(df_futures_cm_graph['OE_CONV'])
                     self.plot1_oe_base_curve.setData(df_futures_cm_graph['OE_BASE'])
+
+                    if df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] == df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] and df_futures_cm_graph.at[cme_time_index, 'OE_BASE'] == df_futures_cm_graph.at[cme_time_index, 'OE_BASE']:
+
+                        if df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] < df_futures_cm_graph.at[cme_time_index, 'OE_BASE']:
+                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_graph.at[cme_time_index, 'OE_CONV'], df_futures_cm_graph.at[cme_time_index, 'OE_BASE'])
+                        self.label_p1_3.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
             
@@ -32906,55 +32904,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot1_time_line.setValue(cme_time_index)
 
-                if df_sp500_graph.at[cme_time_index, 'BBMiddle'] == df_sp500_graph.at[cme_time_index, 'BBMiddle']:
-
-                    if df_sp500_graph.at[cme_time_index, 'BBMiddle'] >= df_sp500_graph.at[cme_time_index, 'price']:
-                        self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    pass                 
-
-                if df_sp500_graph.at[cme_time_index, 'PSAR'] == df_sp500_graph.at[cme_time_index, 'PSAR']:
-
-                    if df_sp500_graph.at[cme_time_index, 'PSAR'] >= df_sp500_graph.at[cme_time_index, 'price']:
-                        self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[cme_time_index, 'BBMiddle'], df_sp500_graph.at[cme_time_index, 'PSAR'], SP500_호가순매수)
-                    self.label_p1_2.setText(txt)
-                else:
-                    pass
-                
-                if df_sp500_graph.at[cme_time_index, 'OE_CONV'] == df_sp500_graph.at[cme_time_index, 'OE_CONV'] and df_sp500_graph.at[cme_time_index, 'OE_BASE'] == df_sp500_graph.at[cme_time_index, 'OE_BASE']:
-
-                    if df_sp500_graph.at[cme_time_index, 'OE_CONV'] < df_sp500_graph.at[cme_time_index, 'OE_BASE']:
-                        self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'OE_CONV'], df_sp500_graph.at[cme_time_index, 'OE_BASE'])
-                    self.label_p1_3.setText(txt)
-                else:
-                    pass
-
-                if df_sp500_graph.at[cme_time_index, 'MAMA'] == df_sp500_graph.at[cme_time_index, 'MAMA'] and df_sp500_graph.at[cme_time_index, 'FAMA'] == df_sp500_graph.at[cme_time_index, 'FAMA']:
-
-                    if df_sp500_graph.at[cme_time_index, 'FAMA'] >= df_sp500_graph.at[cme_time_index, 'BBLower']:
-
-                        if df_sp500_graph.at[cme_time_index, 'MAMA'] < df_sp500_graph.at[cme_time_index, 'FAMA']:
-                            self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'MAMA'], df_sp500_graph.at[cme_time_index, 'FAMA'])
-                    self.label_p1_4.setText(txt)
-                else:
-                    pass
-
                 txt = ' {0} '.format(format(SP500_저가, ','))
                 self.label_16.setText(txt)
 
@@ -32964,7 +32913,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if SP500_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
+                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_시가대비_등락율, format(SP500_진폭, ','))
 
                     if SP500_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -32978,7 +32927,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif SP500_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
+                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_시가대비_등락율, format(SP500_진폭, ','))
 
                     if SP500_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33011,6 +32960,27 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'])
                     self.plot1_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'])
                     self.plot1_bollinger_lower_curve.setData(df_sp500_graph['BBLower'])
+
+                    if df_sp500_graph.at[cme_time_index, 'BBMiddle'] == df_sp500_graph.at[cme_time_index, 'BBMiddle']:
+
+                        if df_sp500_graph.at[cme_time_index, 'BBMiddle'] >= df_sp500_graph.at[cme_time_index, 'price']:
+                            self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        pass                 
+
+                    if df_sp500_graph.at[cme_time_index, 'PSAR'] == df_sp500_graph.at[cme_time_index, 'PSAR']:
+
+                        if df_sp500_graph.at[cme_time_index, 'PSAR'] >= df_sp500_graph.at[cme_time_index, 'price']:
+                            self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[cme_time_index, 'BBMiddle'], df_sp500_graph.at[cme_time_index, 'PSAR'], SP500_호가순매수)
+                        self.label_p1_2.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
 
@@ -33020,6 +32990,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_mama_curve.setData(df_sp500_graph['MAMA'])
                     self.plot1_fama_curve.setData(df_sp500_graph['A_FAMA'])
+
+                    if df_sp500_graph.at[cme_time_index, 'MAMA'] == df_sp500_graph.at[cme_time_index, 'MAMA'] and df_sp500_graph.at[cme_time_index, 'FAMA'] == df_sp500_graph.at[cme_time_index, 'FAMA']:
+
+                        if df_sp500_graph.at[cme_time_index, 'FAMA'] >= df_sp500_graph.at[cme_time_index, 'BBLower']:
+
+                            if df_sp500_graph.at[cme_time_index, 'MAMA'] < df_sp500_graph.at[cme_time_index, 'FAMA']:
+                                self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            else:
+                                self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'MAMA'], df_sp500_graph.at[cme_time_index, 'FAMA'])
+                        self.label_p1_4.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
 
@@ -33029,61 +33015,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_oe_conv_curve.setData(df_sp500_graph['OE_CONV'])
                     self.plot1_oe_base_curve.setData(df_sp500_graph['OE_BASE'])
+
+                    if df_sp500_graph.at[cme_time_index, 'OE_CONV'] == df_sp500_graph.at[cme_time_index, 'OE_CONV'] and df_sp500_graph.at[cme_time_index, 'OE_BASE'] == df_sp500_graph.at[cme_time_index, 'OE_BASE']:
+
+                        if df_sp500_graph.at[cme_time_index, 'OE_CONV'] < df_sp500_graph.at[cme_time_index, 'OE_BASE']:
+                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'OE_CONV'], df_sp500_graph.at[cme_time_index, 'OE_BASE'])
+                        self.label_p1_3.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
             
             elif comboindex1 == 13:
                 
                 self.plot1_time_line.setValue(cme_time_index)
-
-                if df_dow_graph.at[cme_time_index, 'BBMiddle'] == df_dow_graph.at[cme_time_index, 'BBMiddle']:
-
-                    if df_dow_graph.at[cme_time_index, 'BBMiddle'] >= df_dow_graph.at[cme_time_index, 'price']:
-                        self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    pass                 
-
-                if df_dow_graph.at[cme_time_index, 'PSAR'] == df_dow_graph.at[cme_time_index, 'PSAR']:
-
-                    if df_dow_graph.at[cme_time_index, 'PSAR'] >= df_dow_graph.at[cme_time_index, 'price']:
-                        self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_dow_graph.at[cme_time_index, 'BBMiddle'], df_dow_graph.at[cme_time_index, 'PSAR'], DOW_호가순매수)
-                    self.label_p1_2.setText(txt)
-                else:
-                    pass
-                
-                if df_dow_graph.at[cme_time_index, 'OE_CONV'] == df_dow_graph.at[cme_time_index, 'OE_CONV'] and df_dow_graph.at[cme_time_index, 'OE_BASE'] == df_dow_graph.at[cme_time_index, 'OE_BASE']:
-
-                    if df_dow_graph.at[cme_time_index, 'OE_CONV'] < df_dow_graph.at[cme_time_index, 'OE_BASE']:
-                        self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[cme_time_index, 'OE_CONV'], df_dow_graph.at[cme_time_index, 'OE_BASE'])
-                    self.label_p1_3.setText(txt)
-                else:
-                    pass
-
-                if df_dow_graph.at[cme_time_index, 'MAMA'] == df_dow_graph.at[cme_time_index, 'MAMA'] and df_dow_graph.at[cme_time_index, 'FAMA'] == df_dow_graph.at[cme_time_index, 'FAMA']:
-
-                    if df_dow_graph.at[cme_time_index, 'FAMA'] >= df_dow_graph.at[cme_time_index, 'BBLower']:
-
-                        if df_dow_graph.at[cme_time_index, 'MAMA'] < df_dow_graph.at[cme_time_index, 'FAMA']:
-                            self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[cme_time_index, 'MAMA'], df_dow_graph.at[cme_time_index, 'FAMA'])
-                    self.label_p1_4.setText(txt)
-                else:
-                    pass
 
                 txt = ' {0} '.format(format(DOW_저가, ','))
                 self.label_16.setText(txt)
@@ -33141,6 +33090,27 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_bollinger_upper_curve.setData(df_dow_graph['BBUpper'])
                     self.plot1_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'])
                     self.plot1_bollinger_lower_curve.setData(df_dow_graph['BBLower'])
+
+                    if df_dow_graph.at[cme_time_index, 'BBMiddle'] == df_dow_graph.at[cme_time_index, 'BBMiddle']:
+
+                        if df_dow_graph.at[cme_time_index, 'BBMiddle'] >= df_dow_graph.at[cme_time_index, 'price']:
+                            self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        pass                 
+
+                    if df_dow_graph.at[cme_time_index, 'PSAR'] == df_dow_graph.at[cme_time_index, 'PSAR']:
+
+                        if df_dow_graph.at[cme_time_index, 'PSAR'] >= df_dow_graph.at[cme_time_index, 'price']:
+                            self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_dow_graph.at[cme_time_index, 'BBMiddle'], df_dow_graph.at[cme_time_index, 'PSAR'], DOW_호가순매수)
+                        self.label_p1_2.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
 
@@ -33150,6 +33120,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_mama_curve.setData(df_dow_graph['MAMA'])
                     self.plot1_fama_curve.setData(df_dow_graph['A_FAMA'])
+
+                    if df_dow_graph.at[cme_time_index, 'MAMA'] == df_dow_graph.at[cme_time_index, 'MAMA'] and df_dow_graph.at[cme_time_index, 'FAMA'] == df_dow_graph.at[cme_time_index, 'FAMA']:
+
+                        if df_dow_graph.at[cme_time_index, 'FAMA'] >= df_dow_graph.at[cme_time_index, 'BBLower']:
+
+                            if df_dow_graph.at[cme_time_index, 'MAMA'] < df_dow_graph.at[cme_time_index, 'FAMA']:
+                                self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            else:
+                                self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[cme_time_index, 'MAMA'], df_dow_graph.at[cme_time_index, 'FAMA'])
+                        self.label_p1_4.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
 
@@ -33159,61 +33145,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_oe_conv_curve.setData(df_dow_graph['OE_CONV'])
                     self.plot1_oe_base_curve.setData(df_dow_graph['OE_BASE'])
+
+                    if df_dow_graph.at[cme_time_index, 'OE_CONV'] == df_dow_graph.at[cme_time_index, 'OE_CONV'] and df_dow_graph.at[cme_time_index, 'OE_BASE'] == df_dow_graph.at[cme_time_index, 'OE_BASE']:
+
+                        if df_dow_graph.at[cme_time_index, 'OE_CONV'] < df_dow_graph.at[cme_time_index, 'OE_BASE']:
+                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[cme_time_index, 'OE_CONV'], df_dow_graph.at[cme_time_index, 'OE_BASE'])
+                        self.label_p1_3.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
 
             elif comboindex1 == 14:
                 
                 self.plot1_time_line.setValue(cme_time_index)
-
-                if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] == df_nasdaq_graph.at[cme_time_index, 'BBMiddle']:
-
-                    if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] >= df_nasdaq_graph.at[cme_time_index, 'price']:
-                        self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    pass                
-
-                if df_nasdaq_graph.at[cme_time_index, 'PSAR'] == df_nasdaq_graph.at[cme_time_index, 'PSAR']:
-
-                    if df_nasdaq_graph.at[cme_time_index, 'PSAR'] >= df_nasdaq_graph.at[cme_time_index, 'price']:
-                        self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_nasdaq_graph.at[cme_time_index, 'BBMiddle'], df_nasdaq_graph.at[cme_time_index, 'PSAR'], NASDAQ_호가순매수)
-                    self.label_p1_2.setText(txt)
-                else:
-                    pass
-                
-                if df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] == df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] and df_nasdaq_graph.at[cme_time_index, 'OE_BASE'] == df_nasdaq_graph.at[cme_time_index, 'OE_BASE']:
-
-                    if df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] < df_nasdaq_graph.at[cme_time_index, 'OE_BASE']:
-                        self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[cme_time_index, 'OE_CONV'], df_nasdaq_graph.at[cme_time_index, 'OE_BASE'])
-                    self.label_p1_3.setText(txt)
-                else:
-                    pass
-
-                if df_nasdaq_graph.at[cme_time_index, 'MAMA'] == df_nasdaq_graph.at[cme_time_index, 'MAMA'] and df_nasdaq_graph.at[cme_time_index, 'FAMA'] == df_nasdaq_graph.at[cme_time_index, 'FAMA']:
-
-                    if df_nasdaq_graph.at[cme_time_index, 'FAMA'] >= df_nasdaq_graph.at[cme_time_index, 'BBLower']:
-
-                        if df_nasdaq_graph.at[cme_time_index, 'MAMA'] < df_nasdaq_graph.at[cme_time_index, 'FAMA']:
-                            self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_graph.at[cme_time_index, 'MAMA'], df_nasdaq_graph.at[cme_time_index, 'FAMA'])
-                    self.label_p1_4.setText(txt)
-                else:
-                    pass
 
                 txt = ' {0} '.format(format(NASDAQ_저가, ','))
                 self.label_16.setText(txt)
@@ -33271,6 +33220,27 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'])
                     self.plot1_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'])
                     self.plot1_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'])
+
+                    if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] == df_nasdaq_graph.at[cme_time_index, 'BBMiddle']:
+
+                        if df_nasdaq_graph.at[cme_time_index, 'BBMiddle'] >= df_nasdaq_graph.at[cme_time_index, 'price']:
+                            self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        pass                
+
+                    if df_nasdaq_graph.at[cme_time_index, 'PSAR'] == df_nasdaq_graph.at[cme_time_index, 'PSAR']:
+
+                        if df_nasdaq_graph.at[cme_time_index, 'PSAR'] >= df_nasdaq_graph.at[cme_time_index, 'price']:
+                            self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_nasdaq_graph.at[cme_time_index, 'BBMiddle'], df_nasdaq_graph.at[cme_time_index, 'PSAR'], NASDAQ_호가순매수)
+                        self.label_p1_2.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
 
@@ -33280,6 +33250,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_mama_curve.setData(df_nasdaq_graph['MAMA'])
                     self.plot1_fama_curve.setData(df_nasdaq_graph['A_FAMA'])
+
+                    if df_nasdaq_graph.at[cme_time_index, 'MAMA'] == df_nasdaq_graph.at[cme_time_index, 'MAMA'] and df_nasdaq_graph.at[cme_time_index, 'FAMA'] == df_nasdaq_graph.at[cme_time_index, 'FAMA']:
+
+                        if df_nasdaq_graph.at[cme_time_index, 'FAMA'] >= df_nasdaq_graph.at[cme_time_index, 'BBLower']:
+
+                            if df_nasdaq_graph.at[cme_time_index, 'MAMA'] < df_nasdaq_graph.at[cme_time_index, 'FAMA']:
+                                self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            else:
+                                self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_graph.at[cme_time_index, 'MAMA'], df_nasdaq_graph.at[cme_time_index, 'FAMA'])
+                        self.label_p1_4.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
 
@@ -33289,61 +33275,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'])
                     self.plot1_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'])
+
+                    if df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] == df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] and df_nasdaq_graph.at[cme_time_index, 'OE_BASE'] == df_nasdaq_graph.at[cme_time_index, 'OE_BASE']:
+
+                        if df_nasdaq_graph.at[cme_time_index, 'OE_CONV'] < df_nasdaq_graph.at[cme_time_index, 'OE_BASE']:
+                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[cme_time_index, 'OE_CONV'], df_nasdaq_graph.at[cme_time_index, 'OE_BASE'])
+                        self.label_p1_3.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
 
             elif comboindex1 == 15:
                 
                 self.plot1_time_line.setValue(cme_time_index)
-
-                if df_hangseng_graph.at[cme_time_index, 'BBMiddle'] == df_hangseng_graph.at[cme_time_index, 'BBMiddle']:
-
-                    if df_hangseng_graph.at[cme_time_index, 'BBMiddle'] >= df_hangseng_graph.at[cme_time_index, 'price']:
-                        self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    pass                 
-
-                if df_hangseng_graph.at[cme_time_index, 'PSAR'] == df_hangseng_graph.at[cme_time_index, 'PSAR']:
-
-                    if df_hangseng_graph.at[cme_time_index, 'PSAR'] >= df_hangseng_graph.at[cme_time_index, 'price']:
-                        self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_hangseng_graph.at[cme_time_index, 'BBMiddle'], df_hangseng_graph.at[cme_time_index, 'PSAR'], HANGSENG_호가순매수)
-                    self.label_p1_2.setText(txt)
-                else:
-                    pass
-                
-                if df_hangseng_graph.at[cme_time_index, 'OE_CONV'] == df_hangseng_graph.at[cme_time_index, 'OE_CONV'] and df_hangseng_graph.at[cme_time_index, 'OE_BASE'] == df_hangseng_graph.at[cme_time_index, 'OE_BASE']:
-
-                    if df_hangseng_graph.at[cme_time_index, 'OE_CONV'] < df_hangseng_graph.at[cme_time_index, 'OE_BASE']:
-                        self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_hangseng_graph.at[cme_time_index, 'OE_CONV'], df_hangseng_graph.at[cme_time_index, 'OE_BASE'])
-                    self.label_p1_3.setText(txt)
-                else:
-                    pass
-
-                if df_hangseng_graph.at[cme_time_index, 'MAMA'] == df_hangseng_graph.at[cme_time_index, 'MAMA'] and df_hangseng_graph.at[cme_time_index, 'FAMA'] == df_hangseng_graph.at[cme_time_index, 'FAMA']:
-
-                    if df_hangseng_graph.at[cme_time_index, 'FAMA'] >= df_hangseng_graph.at[cme_time_index, 'BBLower']:
-
-                        if df_hangseng_graph.at[cme_time_index, 'MAMA'] < df_hangseng_graph.at[cme_time_index, 'FAMA']:
-                            self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_hangseng_graph.at[cme_time_index, 'MAMA'], df_hangseng_graph.at[cme_time_index, 'FAMA'])
-                    self.label_p1_4.setText(txt)
-                else:
-                    pass
 
                 txt = ' {0} '.format(format(HANGSENG_저가, ','))
                 self.label_16.setText(txt)
@@ -33399,6 +33348,27 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_bollinger_upper_curve.setData(df_hangseng_graph['BBUpper'])
                     self.plot1_bollinger_middle_curve.setData(df_hangseng_graph['BBMiddle'])
                     self.plot1_bollinger_lower_curve.setData(df_hangseng_graph['BBLower'])
+
+                    if df_hangseng_graph.at[cme_time_index, 'BBMiddle'] == df_hangseng_graph.at[cme_time_index, 'BBMiddle']:
+
+                        if df_hangseng_graph.at[cme_time_index, 'BBMiddle'] >= df_hangseng_graph.at[cme_time_index, 'price']:
+                            self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        pass                 
+
+                    if df_hangseng_graph.at[cme_time_index, 'PSAR'] == df_hangseng_graph.at[cme_time_index, 'PSAR']:
+
+                        if df_hangseng_graph.at[cme_time_index, 'PSAR'] >= df_hangseng_graph.at[cme_time_index, 'price']:
+                            self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_hangseng_graph.at[cme_time_index, 'BBMiddle'], df_hangseng_graph.at[cme_time_index, 'PSAR'], HANGSENG_호가순매수)
+                        self.label_p1_2.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
 
@@ -33408,6 +33378,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_mama_curve.setData(df_hangseng_graph['MAMA'])
                     self.plot1_fama_curve.setData(df_hangseng_graph['A_FAMA'])
+
+                    if df_hangseng_graph.at[cme_time_index, 'MAMA'] == df_hangseng_graph.at[cme_time_index, 'MAMA'] and df_hangseng_graph.at[cme_time_index, 'FAMA'] == df_hangseng_graph.at[cme_time_index, 'FAMA']:
+
+                        if df_hangseng_graph.at[cme_time_index, 'FAMA'] >= df_hangseng_graph.at[cme_time_index, 'BBLower']:
+
+                            if df_hangseng_graph.at[cme_time_index, 'MAMA'] < df_hangseng_graph.at[cme_time_index, 'FAMA']:
+                                self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            else:
+                                self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_hangseng_graph.at[cme_time_index, 'MAMA'], df_hangseng_graph.at[cme_time_index, 'FAMA'])
+                        self.label_p1_4.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
 
@@ -33417,61 +33403,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_oe_conv_curve.setData(df_hangseng_graph['OE_CONV'])
                     self.plot1_oe_base_curve.setData(df_hangseng_graph['OE_BASE'])
+
+                    if df_hangseng_graph.at[cme_time_index, 'OE_CONV'] == df_hangseng_graph.at[cme_time_index, 'OE_CONV'] and df_hangseng_graph.at[cme_time_index, 'OE_BASE'] == df_hangseng_graph.at[cme_time_index, 'OE_BASE']:
+
+                        if df_hangseng_graph.at[cme_time_index, 'OE_CONV'] < df_hangseng_graph.at[cme_time_index, 'OE_BASE']:
+                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_hangseng_graph.at[cme_time_index, 'OE_CONV'], df_hangseng_graph.at[cme_time_index, 'OE_BASE'])
+                        self.label_p1_3.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
 
             elif comboindex1 == 16:
                 
                 self.plot1_time_line.setValue(cme_time_index)
-
-                if df_wti_graph.at[cme_time_index, 'BBMiddle'] == df_wti_graph.at[cme_time_index, 'BBMiddle']:
-
-                    if df_wti_graph.at[cme_time_index, 'BBMiddle'] >= df_wti_graph.at[cme_time_index, 'price']:
-                        self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    pass                 
-
-                if df_wti_graph.at[cme_time_index, 'PSAR'] == df_wti_graph.at[cme_time_index, 'PSAR']:
-
-                    if df_wti_graph.at[cme_time_index, 'PSAR'] >= df_wti_graph.at[cme_time_index, 'price']:
-                        self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_wti_graph.at[cme_time_index, 'BBMiddle'], df_wti_graph.at[cme_time_index, 'PSAR'], WTI_호가순매수)
-                    self.label_p1_2.setText(txt)
-                else:
-                    pass
-                
-                if df_wti_graph.at[cme_time_index, 'OE_CONV'] == df_wti_graph.at[cme_time_index, 'OE_CONV'] and df_wti_graph.at[cme_time_index, 'OE_BASE'] == df_wti_graph.at[cme_time_index, 'OE_BASE']:
-
-                    if df_wti_graph.at[cme_time_index, 'OE_CONV'] < df_wti_graph.at[cme_time_index, 'OE_BASE']:
-                        self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[cme_time_index, 'OE_CONV'], df_wti_graph.at[cme_time_index, 'OE_BASE'])
-                    self.label_p1_3.setText(txt)
-                else:
-                    pass
-
-                if df_wti_graph.at[cme_time_index, 'MAMA'] == df_wti_graph.at[cme_time_index, 'MAMA'] and df_wti_graph.at[cme_time_index, 'FAMA'] == df_wti_graph.at[cme_time_index, 'FAMA']:
-
-                    if df_wti_graph.at[cme_time_index, 'FAMA'] >= df_wti_graph.at[cme_time_index, 'BBLower']:
-
-                        if df_wti_graph.at[cme_time_index, 'MAMA'] < df_wti_graph.at[cme_time_index, 'FAMA']:
-                            self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_graph.at[cme_time_index, 'MAMA'], df_wti_graph.at[cme_time_index, 'FAMA'])
-                    self.label_p1_4.setText(txt)
-                else:
-                    pass
 
                 txt = ' {0} '.format(format(WTI_저가, ','))
                 self.label_16.setText(txt)
@@ -33528,6 +33477,27 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_bollinger_upper_curve.setData(df_wti_graph['BBUpper'])
                     self.plot1_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'])
                     self.plot1_bollinger_lower_curve.setData(df_wti_graph['BBLower'])
+
+                    if df_wti_graph.at[cme_time_index, 'BBMiddle'] == df_wti_graph.at[cme_time_index, 'BBMiddle']:
+
+                        if df_wti_graph.at[cme_time_index, 'BBMiddle'] >= df_wti_graph.at[cme_time_index, 'price']:
+                            self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        pass                 
+
+                    if df_wti_graph.at[cme_time_index, 'PSAR'] == df_wti_graph.at[cme_time_index, 'PSAR']:
+
+                        if df_wti_graph.at[cme_time_index, 'PSAR'] >= df_wti_graph.at[cme_time_index, 'price']:
+                            self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_wti_graph.at[cme_time_index, 'BBMiddle'], df_wti_graph.at[cme_time_index, 'PSAR'], WTI_호가순매수)
+                        self.label_p1_2.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
 
@@ -33537,6 +33507,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_mama_curve.setData(df_wti_graph['MAMA'])
                     self.plot1_fama_curve.setData(df_wti_graph['A_FAMA'])
+
+                    if df_wti_graph.at[cme_time_index, 'MAMA'] == df_wti_graph.at[cme_time_index, 'MAMA'] and df_wti_graph.at[cme_time_index, 'FAMA'] == df_wti_graph.at[cme_time_index, 'FAMA']:
+
+                        if df_wti_graph.at[cme_time_index, 'FAMA'] >= df_wti_graph.at[cme_time_index, 'BBLower']:
+
+                            if df_wti_graph.at[cme_time_index, 'MAMA'] < df_wti_graph.at[cme_time_index, 'FAMA']:
+                                self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            else:
+                                self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_graph.at[cme_time_index, 'MAMA'], df_wti_graph.at[cme_time_index, 'FAMA'])
+                        self.label_p1_4.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
 
@@ -33546,61 +33532,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_oe_conv_curve.setData(df_wti_graph['OE_CONV'])
                     self.plot1_oe_base_curve.setData(df_wti_graph['OE_BASE'])
+
+                    if df_wti_graph.at[cme_time_index, 'OE_CONV'] == df_wti_graph.at[cme_time_index, 'OE_CONV'] and df_wti_graph.at[cme_time_index, 'OE_BASE'] == df_wti_graph.at[cme_time_index, 'OE_BASE']:
+
+                        if df_wti_graph.at[cme_time_index, 'OE_CONV'] < df_wti_graph.at[cme_time_index, 'OE_BASE']:
+                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[cme_time_index, 'OE_CONV'], df_wti_graph.at[cme_time_index, 'OE_BASE'])
+                        self.label_p1_3.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
             
             elif comboindex1 == 17:
                 
                 self.plot1_time_line.setValue(cme_time_index)
-
-                if df_gold_graph.at[cme_time_index, 'BBMiddle'] == df_gold_graph.at[cme_time_index, 'BBMiddle']:
-
-                    if df_gold_graph.at[cme_time_index, 'BBMiddle'] >= df_gold_graph.at[cme_time_index, 'price']:
-                        self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    pass                 
-
-                if df_gold_graph.at[cme_time_index, 'PSAR'] == df_gold_graph.at[cme_time_index, 'PSAR']:
-
-                    if df_gold_graph.at[cme_time_index, 'PSAR'] >= df_gold_graph.at[cme_time_index, 'price']:
-                        self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_gold_graph.at[cme_time_index, 'BBMiddle'], df_gold_graph.at[cme_time_index, 'PSAR'], GOLD_호가순매수)
-                    self.label_p1_2.setText(txt)
-                else:
-                    pass
-                
-                if df_gold_graph.at[cme_time_index, 'OE_CONV'] == df_gold_graph.at[cme_time_index, 'OE_CONV'] and df_gold_graph.at[cme_time_index, 'OE_BASE'] == df_gold_graph.at[cme_time_index, 'OE_BASE']:
-
-                    if df_gold_graph.at[cme_time_index, 'OE_CONV'] < df_gold_graph.at[cme_time_index, 'OE_BASE']:
-                        self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_gold_graph.at[cme_time_index, 'OE_CONV'], df_gold_graph.at[cme_time_index, 'OE_BASE'])
-                    self.label_p1_3.setText(txt)
-                else:
-                    pass
-
-                if df_gold_graph.at[cme_time_index, 'MAMA'] == df_gold_graph.at[cme_time_index, 'MAMA'] and df_gold_graph.at[cme_time_index, 'FAMA'] == df_gold_graph.at[cme_time_index, 'FAMA']:
-
-                    if df_gold_graph.at[cme_time_index, 'FAMA'] >= df_gold_graph.at[cme_time_index, 'BBLower']:
-
-                        if df_gold_graph.at[cme_time_index, 'MAMA'] < df_gold_graph.at[cme_time_index, 'FAMA']:
-                            self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_gold_graph.at[cme_time_index, 'MAMA'], df_gold_graph.at[cme_time_index, 'FAMA'])
-                    self.label_p1_4.setText(txt)
-                else:
-                    pass
 
                 txt = ' {0} '.format(format(GOLD_저가, ','))
                 self.label_16.setText(txt)
@@ -33656,6 +33605,27 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_bollinger_upper_curve.setData(df_gold_graph['BBUpper'])
                     self.plot1_bollinger_middle_curve.setData(df_gold_graph['BBMiddle'])
                     self.plot1_bollinger_lower_curve.setData(df_gold_graph['BBLower'])
+
+                    if df_gold_graph.at[cme_time_index, 'BBMiddle'] == df_gold_graph.at[cme_time_index, 'BBMiddle']:
+
+                        if df_gold_graph.at[cme_time_index, 'BBMiddle'] >= df_gold_graph.at[cme_time_index, 'price']:
+                            self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        pass                 
+
+                    if df_gold_graph.at[cme_time_index, 'PSAR'] == df_gold_graph.at[cme_time_index, 'PSAR']:
+
+                        if df_gold_graph.at[cme_time_index, 'PSAR'] >= df_gold_graph.at[cme_time_index, 'price']:
+                            self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_gold_graph.at[cme_time_index, 'BBMiddle'], df_gold_graph.at[cme_time_index, 'PSAR'], GOLD_호가순매수)
+                        self.label_p1_2.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
 
@@ -33665,6 +33635,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_mama_curve.setData(df_gold_graph['MAMA'])
                     self.plot1_fama_curve.setData(df_gold_graph['A_FAMA'])
+
+                    if df_gold_graph.at[cme_time_index, 'MAMA'] == df_gold_graph.at[cme_time_index, 'MAMA'] and df_gold_graph.at[cme_time_index, 'FAMA'] == df_gold_graph.at[cme_time_index, 'FAMA']:
+
+                        if df_gold_graph.at[cme_time_index, 'FAMA'] >= df_gold_graph.at[cme_time_index, 'BBLower']:
+
+                            if df_gold_graph.at[cme_time_index, 'MAMA'] < df_gold_graph.at[cme_time_index, 'FAMA']:
+                                self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            else:
+                                self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_gold_graph.at[cme_time_index, 'MAMA'], df_gold_graph.at[cme_time_index, 'FAMA'])
+                        self.label_p1_4.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
 
@@ -33674,61 +33660,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_oe_conv_curve.setData(df_gold_graph['OE_CONV'])
                     self.plot1_oe_base_curve.setData(df_gold_graph['OE_BASE'])
+
+                    if df_gold_graph.at[cme_time_index, 'OE_CONV'] == df_gold_graph.at[cme_time_index, 'OE_CONV'] and df_gold_graph.at[cme_time_index, 'OE_BASE'] == df_gold_graph.at[cme_time_index, 'OE_BASE']:
+
+                        if df_gold_graph.at[cme_time_index, 'OE_CONV'] < df_gold_graph.at[cme_time_index, 'OE_BASE']:
+                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_gold_graph.at[cme_time_index, 'OE_CONV'], df_gold_graph.at[cme_time_index, 'OE_BASE'])
+                        self.label_p1_3.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
 
             elif comboindex1 == 18:
                 
                 self.plot1_time_line.setValue(cme_time_index)
-
-                if df_eurofx_graph.at[cme_time_index, 'BBMiddle'] == df_eurofx_graph.at[cme_time_index, 'BBMiddle']:
-
-                    if df_eurofx_graph.at[cme_time_index, 'BBMiddle'] >= df_eurofx_graph.at[cme_time_index, 'price']:
-                        self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    pass                 
-
-                if df_eurofx_graph.at[cme_time_index, 'PSAR'] == df_eurofx_graph.at[cme_time_index, 'PSAR']:
-
-                    if df_eurofx_graph.at[cme_time_index, 'PSAR'] >= df_eurofx_graph.at[cme_time_index, 'price']:
-                        self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_eurofx_graph.at[cme_time_index, 'BBMiddle'], df_eurofx_graph.at[cme_time_index, 'PSAR'], EUROFX_호가순매수)
-                    self.label_p1_2.setText(txt)
-                else:
-                    pass
-                
-                if df_eurofx_graph.at[cme_time_index, 'OE_CONV'] == df_eurofx_graph.at[cme_time_index, 'OE_CONV'] and df_eurofx_graph.at[cme_time_index, 'OE_BASE'] == df_eurofx_graph.at[cme_time_index, 'OE_BASE']:
-
-                    if df_eurofx_graph.at[cme_time_index, 'OE_CONV'] < df_eurofx_graph.at[cme_time_index, 'OE_BASE']:
-                        self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_eurofx_graph.at[cme_time_index, 'OE_CONV'], df_eurofx_graph.at[cme_time_index, 'OE_BASE'])
-                    self.label_p1_3.setText(txt)
-                else:
-                    pass
-
-                if df_eurofx_graph.at[cme_time_index, 'MAMA'] == df_eurofx_graph.at[cme_time_index, 'MAMA'] and df_eurofx_graph.at[cme_time_index, 'FAMA'] == df_eurofx_graph.at[cme_time_index, 'FAMA']:
-
-                    if df_eurofx_graph.at[cme_time_index, 'FAMA'] >= df_eurofx_graph.at[cme_time_index, 'BBLower']:
-
-                        if df_eurofx_graph.at[cme_time_index, 'MAMA'] < df_eurofx_graph.at[cme_time_index, 'FAMA']:
-                            self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_eurofx_graph.at[cme_time_index, 'MAMA'], df_eurofx_graph.at[cme_time_index, 'FAMA'])
-                    self.label_p1_4.setText(txt)
-                else:
-                    pass
 
                 txt = ' {0} '.format(format(EUROFX_저가, ','))
                 self.label_16.setText(txt)
@@ -33783,6 +33732,27 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_bollinger_upper_curve.setData(df_eurofx_graph['BBUpper'])
                     self.plot1_bollinger_middle_curve.setData(df_eurofx_graph['BBMiddle'])
                     self.plot1_bollinger_lower_curve.setData(df_eurofx_graph['BBLower'])
+
+                    if df_eurofx_graph.at[cme_time_index, 'BBMiddle'] == df_eurofx_graph.at[cme_time_index, 'BBMiddle']:
+
+                        if df_eurofx_graph.at[cme_time_index, 'BBMiddle'] >= df_eurofx_graph.at[cme_time_index, 'price']:
+                            self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        pass                 
+
+                    if df_eurofx_graph.at[cme_time_index, 'PSAR'] == df_eurofx_graph.at[cme_time_index, 'PSAR']:
+
+                        if df_eurofx_graph.at[cme_time_index, 'PSAR'] >= df_eurofx_graph.at[cme_time_index, 'price']:
+                            self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_eurofx_graph.at[cme_time_index, 'BBMiddle'], df_eurofx_graph.at[cme_time_index, 'PSAR'], EUROFX_호가순매수)
+                        self.label_p1_2.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
 
@@ -33792,6 +33762,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_mama_curve.setData(df_eurofx_graph['MAMA'])
                     self.plot1_fama_curve.setData(df_eurofx_graph['A_FAMA'])
+
+                    if df_eurofx_graph.at[cme_time_index, 'MAMA'] == df_eurofx_graph.at[cme_time_index, 'MAMA'] and df_eurofx_graph.at[cme_time_index, 'FAMA'] == df_eurofx_graph.at[cme_time_index, 'FAMA']:
+
+                        if df_eurofx_graph.at[cme_time_index, 'FAMA'] >= df_eurofx_graph.at[cme_time_index, 'BBLower']:
+
+                            if df_eurofx_graph.at[cme_time_index, 'MAMA'] < df_eurofx_graph.at[cme_time_index, 'FAMA']:
+                                self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            else:
+                                self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_eurofx_graph.at[cme_time_index, 'MAMA'], df_eurofx_graph.at[cme_time_index, 'FAMA'])
+                        self.label_p1_4.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
 
@@ -33801,61 +33787,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_oe_conv_curve.setData(df_eurofx_graph['OE_CONV'])
                     self.plot1_oe_base_curve.setData(df_eurofx_graph['OE_BASE'])
+
+                    if df_eurofx_graph.at[cme_time_index, 'OE_CONV'] == df_eurofx_graph.at[cme_time_index, 'OE_CONV'] and df_eurofx_graph.at[cme_time_index, 'OE_BASE'] == df_eurofx_graph.at[cme_time_index, 'OE_BASE']:
+
+                        if df_eurofx_graph.at[cme_time_index, 'OE_CONV'] < df_eurofx_graph.at[cme_time_index, 'OE_BASE']:
+                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_eurofx_graph.at[cme_time_index, 'OE_CONV'], df_eurofx_graph.at[cme_time_index, 'OE_BASE'])
+                        self.label_p1_3.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
 
             elif comboindex1 == 19:
                 
                 self.plot1_time_line.setValue(cme_time_index)
-
-                if df_yen_graph.at[cme_time_index, 'BBMiddle'] == df_yen_graph.at[cme_time_index, 'BBMiddle']:
-
-                    if df_yen_graph.at[cme_time_index, 'BBMiddle'] >= df_yen_graph.at[cme_time_index, 'price']:
-                        self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    pass                 
-
-                if df_yen_graph.at[cme_time_index, 'PSAR'] == df_yen_graph.at[cme_time_index, 'PSAR']:
-
-                    if df_yen_graph.at[cme_time_index, 'PSAR'] >= df_yen_graph.at[cme_time_index, 'price']:
-                        self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_yen_graph.at[cme_time_index, 'BBMiddle'], df_yen_graph.at[cme_time_index, 'PSAR'], YEN_호가순매수)
-                    self.label_p1_2.setText(txt)
-                else:
-                    pass
-                
-                if df_yen_graph.at[cme_time_index, 'OE_CONV'] == df_yen_graph.at[cme_time_index, 'OE_CONV'] and df_yen_graph.at[cme_time_index, 'OE_BASE'] == df_yen_graph.at[cme_time_index, 'OE_BASE']:
-
-                    if df_yen_graph.at[cme_time_index, 'OE_CONV'] < df_yen_graph.at[cme_time_index, 'OE_BASE']:
-                        self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_yen_graph.at[cme_time_index, 'OE_CONV'], df_yen_graph.at[cme_time_index, 'OE_BASE'])
-                    self.label_p1_3.setText(txt)
-                else:
-                    pass
-
-                if df_yen_graph.at[cme_time_index, 'MAMA'] == df_yen_graph.at[cme_time_index, 'MAMA'] and df_yen_graph.at[cme_time_index, 'FAMA'] == df_yen_graph.at[cme_time_index, 'FAMA']:
-
-                    if df_yen_graph.at[cme_time_index, 'FAMA'] >= df_yen_graph.at[cme_time_index, 'BBLower']:
-
-                        if df_yen_graph.at[cme_time_index, 'MAMA'] < df_yen_graph.at[cme_time_index, 'FAMA']:
-                            self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_yen_graph.at[cme_time_index, 'MAMA'], df_yen_graph.at[cme_time_index, 'FAMA'])
-                    self.label_p1_4.setText(txt)
-                else:
-                    pass
 
                 txt = ' {0} '.format(format(YEN_저가, ','))
                 self.label_16.setText(txt)
@@ -33911,6 +33860,27 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_bollinger_upper_curve.setData(df_yen_graph['BBUpper'])
                     self.plot1_bollinger_middle_curve.setData(df_yen_graph['BBMiddle'])
                     self.plot1_bollinger_lower_curve.setData(df_yen_graph['BBLower'])
+
+                    if df_yen_graph.at[cme_time_index, 'BBMiddle'] == df_yen_graph.at[cme_time_index, 'BBMiddle']:
+
+                        if df_yen_graph.at[cme_time_index, 'BBMiddle'] >= df_yen_graph.at[cme_time_index, 'price']:
+                            self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        pass                 
+
+                    if df_yen_graph.at[cme_time_index, 'PSAR'] == df_yen_graph.at[cme_time_index, 'PSAR']:
+
+                        if df_yen_graph.at[cme_time_index, 'PSAR'] >= df_yen_graph.at[cme_time_index, 'price']:
+                            self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_yen_graph.at[cme_time_index, 'BBMiddle'], df_yen_graph.at[cme_time_index, 'PSAR'], YEN_호가순매수)
+                        self.label_p1_2.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
 
@@ -33920,6 +33890,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_mama_curve.setData(df_yen_graph['MAMA'])
                     self.plot1_fama_curve.setData(df_yen_graph['A_FAMA'])
+
+                    if df_yen_graph.at[cme_time_index, 'MAMA'] == df_yen_graph.at[cme_time_index, 'MAMA'] and df_yen_graph.at[cme_time_index, 'FAMA'] == df_yen_graph.at[cme_time_index, 'FAMA']:
+
+                        if df_yen_graph.at[cme_time_index, 'FAMA'] >= df_yen_graph.at[cme_time_index, 'BBLower']:
+
+                            if df_yen_graph.at[cme_time_index, 'MAMA'] < df_yen_graph.at[cme_time_index, 'FAMA']:
+                                self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            else:
+                                self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_yen_graph.at[cme_time_index, 'MAMA'], df_yen_graph.at[cme_time_index, 'FAMA'])
+                        self.label_p1_4.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
 
@@ -33929,6 +33915,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_oe_conv_curve.setData(df_yen_graph['OE_CONV'])
                     self.plot1_oe_base_curve.setData(df_yen_graph['OE_BASE'])
+
+                    if df_yen_graph.at[cme_time_index, 'OE_CONV'] == df_yen_graph.at[cme_time_index, 'OE_CONV'] and df_yen_graph.at[cme_time_index, 'OE_BASE'] == df_yen_graph.at[cme_time_index, 'OE_BASE']:
+
+                        if df_yen_graph.at[cme_time_index, 'OE_CONV'] < df_yen_graph.at[cme_time_index, 'OE_BASE']:
+                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_yen_graph.at[cme_time_index, 'OE_CONV'], df_yen_graph.at[cme_time_index, 'OE_BASE'])
+                        self.label_p1_3.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
             
@@ -34085,55 +34083,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot2_time_line.setValue(cme_time_index)
 
-                if df_futures_cm_graph.at[cme_time_index, 'BBMiddle'] == df_futures_cm_graph.at[cme_time_index, 'BBMiddle']:
-
-                    if df_futures_cm_graph.at[cme_time_index, 'BBMiddle'] >= df_futures_cm_graph.at[cme_time_index, 'price']:
-                        self.label_p2_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p2_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    pass               
-
-                if df_futures_cm_graph.at[cme_time_index, 'PSAR'] == df_futures_cm_graph.at[cme_time_index, 'PSAR']:
-
-                    if df_futures_cm_graph.at[cme_time_index, 'PSAR'] >= df_futures_cm_graph.at[cme_time_index, 'price']:
-                        self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p2_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_cm_graph.at[cme_time_index, 'BBMiddle'], df_futures_cm_graph.at[cme_time_index, 'PSAR'], 선물_호가순매수)
-                    self.label_p2_2.setText(txt)
-                else:
-                    pass
-                
-                if df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] == df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] and df_futures_cm_graph.at[cme_time_index, 'OE_BASE'] == df_futures_cm_graph.at[cme_time_index, 'OE_BASE']:
-
-                    if df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] < df_futures_cm_graph.at[cme_time_index, 'OE_BASE']:
-                        self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p2_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_graph.at[cme_time_index, 'OE_CONV'], df_futures_cm_graph.at[cme_time_index, 'OE_BASE'])
-                    self.label_p2_3.setText(txt)
-                else:
-                    pass
-
-                if df_futures_cm_graph.at[cme_time_index, 'MAMA'] == df_futures_cm_graph.at[cme_time_index, 'MAMA'] and df_futures_cm_graph.at[cme_time_index, 'FAMA'] == df_futures_cm_graph.at[cme_time_index, 'FAMA']:
-
-                    if df_futures_cm_graph.at[cme_time_index, 'FAMA'] >= df_futures_cm_graph.at[cme_time_index, 'BBLower']:
-
-                        if df_futures_cm_graph.at[cme_time_index, 'MAMA'] < df_futures_cm_graph.at[cme_time_index, 'FAMA']:                        
-                            self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p2_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_graph.at[cme_time_index, 'MAMA'], df_futures_cm_graph.at[cme_time_index, 'FAMA'])
-                    self.label_p2_4.setText(txt)
-                else:
-                    pass
-
                 txt = ' {0} '.format(근월물_선물_피봇)
                 self.label_24.setText(txt)
 
@@ -34174,14 +34123,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 txt = ' {0} '.format(근월물_선물_고가)
-                self.label_28.setText(txt)
-                
+                self.label_28.setText(txt)                
                 
                 self.plot2_kp200_line[3].setValue(KP200_COREVAL[3])
                 self.plot2_kp200_line[4].setValue(KP200_COREVAL[4])
                 self.plot2_kp200_line[5].setValue(KP200_COREVAL[5])
-                self.plot2_kp200_line[6].setValue(KP200_COREVAL[6])
-                
+                self.plot2_kp200_line[6].setValue(KP200_COREVAL[6])                
                 
                 if kp200_저가 < KP200_COREVAL[3]:
                     self.plot2_kp200_line[2].setValue(KP200_COREVAL[2])
@@ -34212,6 +34159,27 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_bollinger_upper_curve.setData(df_futures_cm_graph['BBUpper'])
                     self.plot2_bollinger_middle_curve.setData(df_futures_cm_graph['BBMiddle'])
                     self.plot2_bollinger_lower_curve.setData(df_futures_cm_graph['BBLower'])
+
+                    if df_futures_cm_graph.at[cme_time_index, 'BBMiddle'] == df_futures_cm_graph.at[cme_time_index, 'BBMiddle']:
+
+                        if df_futures_cm_graph.at[cme_time_index, 'BBMiddle'] >= df_futures_cm_graph.at[cme_time_index, 'price']:
+                            self.label_p2_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p2_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        pass               
+
+                    if df_futures_cm_graph.at[cme_time_index, 'PSAR'] == df_futures_cm_graph.at[cme_time_index, 'PSAR']:
+
+                        if df_futures_cm_graph.at[cme_time_index, 'PSAR'] >= df_futures_cm_graph.at[cme_time_index, 'price']:
+                            self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p2_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_cm_graph.at[cme_time_index, 'BBMiddle'], df_futures_cm_graph.at[cme_time_index, 'PSAR'], 선물_호가순매수)
+                        self.label_p2_2.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
 
@@ -34221,6 +34189,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot2_mama_curve.setData(df_futures_cm_graph['MAMA'])
                     self.plot2_fama_curve.setData(df_futures_cm_graph['A_FAMA'])
+
+                    if df_futures_cm_graph.at[cme_time_index, 'MAMA'] == df_futures_cm_graph.at[cme_time_index, 'MAMA'] and df_futures_cm_graph.at[cme_time_index, 'FAMA'] == df_futures_cm_graph.at[cme_time_index, 'FAMA']:
+
+                        if df_futures_cm_graph.at[cme_time_index, 'FAMA'] >= df_futures_cm_graph.at[cme_time_index, 'BBLower']:
+
+                            if df_futures_cm_graph.at[cme_time_index, 'MAMA'] < df_futures_cm_graph.at[cme_time_index, 'FAMA']:                        
+                                self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            else:
+                                self.label_p2_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p2_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_graph.at[cme_time_index, 'MAMA'], df_futures_cm_graph.at[cme_time_index, 'FAMA'])
+                        self.label_p2_4.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
 
@@ -34230,6 +34214,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot2_oe_conv_curve.setData(df_futures_cm_graph['OE_CONV'])
                     self.plot2_oe_base_curve.setData(df_futures_cm_graph['OE_BASE'])
+
+                    if df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] == df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] and df_futures_cm_graph.at[cme_time_index, 'OE_BASE'] == df_futures_cm_graph.at[cme_time_index, 'OE_BASE']:
+
+                        if df_futures_cm_graph.at[cme_time_index, 'OE_CONV'] < df_futures_cm_graph.at[cme_time_index, 'OE_BASE']:
+                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p2_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_graph.at[cme_time_index, 'OE_CONV'], df_futures_cm_graph.at[cme_time_index, 'OE_BASE'])
+                        self.label_p2_3.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
 
@@ -34430,55 +34426,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot2_time_line.setValue(cme_time_index)
 
-                if df_sp500_graph.at[cme_time_index, 'BBMiddle'] == df_sp500_graph.at[cme_time_index, 'BBMiddle']:
-
-                    if df_sp500_graph.at[cme_time_index, 'BBMiddle'] >= df_sp500_graph.at[cme_time_index, 'price']:
-                        self.label_p2_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p2_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    pass                 
-
-                if df_sp500_graph.at[cme_time_index, 'PSAR'] == df_sp500_graph.at[cme_time_index, 'PSAR']:
-
-                    if df_sp500_graph.at[cme_time_index, 'PSAR'] >= df_sp500_graph.at[cme_time_index, 'price']:
-                        self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p2_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[cme_time_index, 'BBMiddle'], df_sp500_graph.at[cme_time_index, 'PSAR'], SP500_호가순매수)
-                    self.label_p2_2.setText(txt)
-                else:
-                    pass
-                
-                if df_sp500_graph.at[cme_time_index, 'OE_CONV'] == df_sp500_graph.at[cme_time_index, 'OE_CONV'] and df_sp500_graph.at[cme_time_index, 'OE_BASE'] == df_sp500_graph.at[cme_time_index, 'OE_BASE']:
-
-                    if df_sp500_graph.at[cme_time_index, 'OE_CONV'] < df_sp500_graph.at[cme_time_index, 'OE_BASE']:
-                        self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p2_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'OE_CONV'], df_sp500_graph.at[cme_time_index, 'OE_BASE'])
-                    self.label_p2_3.setText(txt)
-                else:
-                    pass
-
-                if df_sp500_graph.at[cme_time_index, 'MAMA'] == df_sp500_graph.at[cme_time_index, 'MAMA'] and df_sp500_graph.at[cme_time_index, 'FAMA'] == df_sp500_graph.at[cme_time_index, 'FAMA']:
-
-                    if df_sp500_graph.at[cme_time_index, 'FAMA'] >= df_sp500_graph.at[cme_time_index, 'BBLower']:
-
-                        if df_sp500_graph.at[cme_time_index, 'MAMA'] < df_sp500_graph.at[cme_time_index, 'FAMA']:
-                            self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p2_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'MAMA'], df_sp500_graph.at[cme_time_index, 'FAMA'])
-                    self.label_p2_4.setText(txt)
-                else:
-                    pass
-
                 txt = ' {0} '.format(format(SP500_저가, ','))
                 self.label_26.setText(txt)
 
@@ -34488,7 +34435,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if SP500_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
+                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_시가대비_등락율, format(SP500_진폭, ','))
 
                     if SP500_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34502,7 +34449,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif SP500_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
+                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_시가대비_등락율, format(SP500_진폭, ','))
 
                     if SP500_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34535,6 +34482,27 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'])
                     self.plot2_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'])
                     self.plot2_bollinger_lower_curve.setData(df_sp500_graph['BBLower'])
+
+                    if df_sp500_graph.at[cme_time_index, 'BBMiddle'] == df_sp500_graph.at[cme_time_index, 'BBMiddle']:
+
+                        if df_sp500_graph.at[cme_time_index, 'BBMiddle'] >= df_sp500_graph.at[cme_time_index, 'price']:
+                            self.label_p2_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p2_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        pass                 
+
+                    if df_sp500_graph.at[cme_time_index, 'PSAR'] == df_sp500_graph.at[cme_time_index, 'PSAR']:
+
+                        if df_sp500_graph.at[cme_time_index, 'PSAR'] >= df_sp500_graph.at[cme_time_index, 'price']:
+                            self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p2_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_sp500_graph.at[cme_time_index, 'BBMiddle'], df_sp500_graph.at[cme_time_index, 'PSAR'], SP500_호가순매수)
+                        self.label_p2_2.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
 
@@ -34544,6 +34512,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot2_mama_curve.setData(df_sp500_graph['MAMA'])
                     self.plot2_fama_curve.setData(df_sp500_graph['A_FAMA'])
+
+                    if df_sp500_graph.at[cme_time_index, 'MAMA'] == df_sp500_graph.at[cme_time_index, 'MAMA'] and df_sp500_graph.at[cme_time_index, 'FAMA'] == df_sp500_graph.at[cme_time_index, 'FAMA']:
+
+                        if df_sp500_graph.at[cme_time_index, 'FAMA'] >= df_sp500_graph.at[cme_time_index, 'BBLower']:
+
+                            if df_sp500_graph.at[cme_time_index, 'MAMA'] < df_sp500_graph.at[cme_time_index, 'FAMA']:
+                                self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            else:
+                                self.label_p2_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p2_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'MAMA'], df_sp500_graph.at[cme_time_index, 'FAMA'])
+                        self.label_p2_4.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
 
@@ -34553,6 +34537,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot2_oe_conv_curve.setData(df_sp500_graph['OE_CONV'])
                     self.plot2_oe_base_curve.setData(df_sp500_graph['OE_BASE'])
+
+                    if df_sp500_graph.at[cme_time_index, 'OE_CONV'] == df_sp500_graph.at[cme_time_index, 'OE_CONV'] and df_sp500_graph.at[cme_time_index, 'OE_BASE'] == df_sp500_graph.at[cme_time_index, 'OE_BASE']:
+
+                        if df_sp500_graph.at[cme_time_index, 'OE_CONV'] < df_sp500_graph.at[cme_time_index, 'OE_BASE']:
+                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p2_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[cme_time_index, 'OE_CONV'], df_sp500_graph.at[cme_time_index, 'OE_BASE'])
+                        self.label_p2_3.setText(txt)
+                    else:
+                        pass
                 else:
                     pass
             
@@ -36009,7 +36005,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if SP500_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
+                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_시가대비_등락율, format(SP500_진폭, ','))
 
                     if SP500_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36023,7 +36019,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif SP500_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
+                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_시가대비_등락율, format(SP500_진폭, ','))
 
                     if SP500_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37531,7 +37527,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if SP500_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
+                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_시가대비_등락율, format(SP500_진폭, ','))
 
                     if SP500_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37545,7 +37541,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif SP500_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
+                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_시가대비_등락율, format(SP500_진폭, ','))
 
                     if SP500_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39051,7 +39047,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if SP500_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
+                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_시가대비_등락율, format(SP500_진폭, ','))
 
                     if SP500_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39065,7 +39061,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif SP500_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
+                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_시가대비_등락율, format(SP500_진폭, ','))
 
                     if SP500_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40571,7 +40567,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if SP500_현재가 > float(value):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
+                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_시가대비_등락율, format(SP500_진폭, ','))
 
                     if SP500_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40585,7 +40581,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 elif SP500_현재가 < float(value):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
+                        format(format(SP500_현재가, ','), SP500_종가대비, SP500_시가대비_등락율, format(SP500_진폭, ','))
 
                     if SP500_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -46815,7 +46811,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 SP500_진폭비 = SP500_진폭 / SP500_시가           
 
-                drate_temp = plot_drate_scale_factor * SP500_시가대비_등락율
+                if NightTime:
+                    drate_temp = (call_otm_cdb_percent_mean/SP500_시가대비_등락율) * SP500_시가대비_등락율
+                else:
+                    drate_temp = plot_drate_scale_factor * SP500_시가대비_등락율
 
                 # 등락율에 스파이크 발생하는 문제 임시해결
                 if drate_temp > 50:
