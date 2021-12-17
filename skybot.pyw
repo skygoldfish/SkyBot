@@ -15542,8 +15542,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                     df_supply_demand_graph.at[0, 'program'] = 0
                     df_supply_demand_graph.at[0, 'kospi_total'] = 0
-                    df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'] = 0
-                    df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'] = 0
+                    df_supply_demand_graph.at[0, 'kospi_foreigner'] = 0
+                    df_supply_demand_graph.at[0, 'futures_foreigner'] = 0
 
                     if SP500_종가 > 0:
                         df_sp500_graph.at[0, 'price'] = SP500_종가
@@ -17399,8 +17399,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_kp200_graph.at[0, 'price'] = KP200_전일종가
                 df_supply_demand_graph.at[0, 'program'] = 0
                 df_supply_demand_graph.at[0, 'kospi_total'] = 0
-                df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'] = 0
-                df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'] = 0
+                df_supply_demand_graph.at[0, 'kospi_foreigner'] = 0
+                df_supply_demand_graph.at[0, 'futures_foreigner'] = 0
 
                 # 주간 현재가가 야간 종가임
                 df_futures_cm_graph.at[0, 'price'] = self.fut_realdata['현재가']
