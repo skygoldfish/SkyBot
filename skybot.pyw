@@ -405,6 +405,7 @@ DARK_STYLESHEET = parser.getboolean('Window Style', 'Dark Style')
 
 # [5]. << User Switch = 'ON or OFF' >>
 MULTIPROCESS = parser.getboolean('User Switch', 'Multiprocess')
+DRATE_REFERENCE = parser.get('User Switch', 'Reference of Plot Drate')
 OPTION_PERIODIC_UPDATE = parser.getboolean('User Switch', 'Option Table Periodic Update')
 TELEGRAM_SERVICE = parser.getboolean('User Switch', 'Telegram service')
 MANGI_YAGAN = parser.getboolean('User Switch', 'Mangi Yagan')
@@ -5868,15 +5869,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         if self.alternate_flag:
                             # 콜 테이블 데이타 갱신 
-                            if call_tickdata:                        
-                                #self.call_db_update()
+                            if call_tickdata:
                                 self.call_volume_power_update()                                
                             else:
                                 pass
                         else:
                             # 풋 테이블 데이타 갱신
-                            if put_tickdata:                      
-                                #self.put_db_update()
+                            if put_tickdata:
                                 self.put_volume_power_update()
                             else:
                                 pass
@@ -5892,13 +5891,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 self.put_oi_update()
                             else:
                                 pass
+
+                            self.oi_total_update()
                         else:
                             pass                        
-                    else:
-                        pass
-                    
-                    if DayTime:
-                        self.oi_total_update()
                     else:
                         pass
 
@@ -11283,9 +11279,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_fut.item(1, Futures_column.고가.value).setForeground(QBrush(검정색))
 
         # Scale Factor 계산
-        if KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(call_otm_cdb_percent_mean) > 0:
+        if DRATE_REFERENCE == 'ATM':
+            drate_reference = 콜_등가_시가등락율
+        else:
+            drate_reference = call_otm_cdb_percent_mean
+
+        if KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(drate_reference) > 0:
             kp200_시가등락율 = ((KP200_당일시가 - KP200_전일종가) / KP200_전일종가) * 100
-            plot_drate_scale_factor = int(abs(call_otm_cdb_percent_mean / kp200_시가등락율))
+            plot_drate_scale_factor = int(abs(drate_reference / kp200_시가등락율))
               
             if plot_drate_scale_factor > 100:
                 plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
@@ -11377,9 +11378,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_fut.item(0, Futures_column.고가.value).setForeground(QBrush(검정색))
         
         # Scale Factor 계산
-        if KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(call_otm_cdb_percent_mean) > 0:
+        if DRATE_REFERENCE == 'ATM':
+            drate_reference = 콜_등가_시가등락율
+        else:
+            drate_reference = call_otm_cdb_percent_mean
+
+        if KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(drate_reference) > 0:
             kp200_시가등락율 = ((KP200_당일시가 - KP200_전일종가) / KP200_전일종가) * 100
-            plot_drate_scale_factor = int(abs(call_otm_cdb_percent_mean / kp200_시가등락율))
+            plot_drate_scale_factor = int(abs(drate_reference / kp200_시가등락율))
            
             if plot_drate_scale_factor > 100:
                 plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
@@ -22804,8 +22810,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_kospi_total_curve = self.plot1.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
         # 외인수급
-        self.plot1_futures_foreigner_curve = self.plot1.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_kospi_foreigner_curve = self.plot1.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot1_futures_foreigner_curve = self.plot1.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot1_kospi_foreigner_curve = self.plot1.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         
         #cross hair
         if CROSS_HAIR_LINE:
@@ -22906,8 +22912,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_kospi_total_curve = self.plot2.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
         # 외인수급
-        self.plot2_futures_foreigner_curve = self.plot2.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_kospi_foreigner_curve = self.plot2.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot2_futures_foreigner_curve = self.plot2.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot2_kospi_foreigner_curve = self.plot2.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
         #cross hair
         if CROSS_HAIR_LINE:
@@ -23008,8 +23014,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_kospi_total_curve = self.plot3.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
         # 외인수급
-        self.plot3_futures_foreigner_curve = self.plot3.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_kospi_foreigner_curve = self.plot3.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot3_futures_foreigner_curve = self.plot3.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot3_kospi_foreigner_curve = self.plot3.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
         #cross hair
         if CROSS_HAIR_LINE:
@@ -23110,8 +23116,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_kospi_total_curve = self.plot4.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
         # 외인수급
-        self.plot4_futures_foreigner_curve = self.plot4.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_kospi_foreigner_curve = self.plot4.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot4_futures_foreigner_curve = self.plot4.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot4_kospi_foreigner_curve = self.plot4.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         
         #cross hair
         if CROSS_HAIR_LINE:
@@ -23212,8 +23218,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_kospi_total_curve = self.plot5.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
         # 외인수급
-        self.plot5_futures_foreigner_curve = self.plot5.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_kospi_foreigner_curve = self.plot5.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot5_futures_foreigner_curve = self.plot5.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot5_kospi_foreigner_curve = self.plot5.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
         #cross hair
         if CROSS_HAIR_LINE:
@@ -23314,8 +23320,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_kospi_total_curve = self.plot6.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
         # 외인수급
-        self.plot6_futures_foreigner_curve = self.plot6.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_kospi_foreigner_curve = self.plot6.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3) 
+        self.plot6_futures_foreigner_curve = self.plot6.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot6_kospi_foreigner_curve = self.plot6.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
         #cross hair
         if CROSS_HAIR_LINE:
@@ -45770,10 +45776,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 근월물_선물_종가대비_등락율 = float(tickdata['등락율'])            
                 근월물_선물_시가대비_등락율 = ((float(tickdata['현재가']) - float(tickdata['시가'])) / float(tickdata['시가'])) * 100
 
-                if TARGET_MONTH == 'CM' and KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(call_otm_cdb_percent_mean) > 0 and not flag_drate_scale_factor_set:
+                if DRATE_REFERENCE == 'ATM':
+                    drate_reference = 콜_등가_시가등락율
+                else:
+                    drate_reference = call_otm_cdb_percent_mean
+
+                if TARGET_MONTH == 'CM' and KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(drate_reference) > 0 and not flag_drate_scale_factor_set:                    
 
                     kp200_시가등락율 = ((KP200_당일시가 - KP200_전일종가) / KP200_전일종가) * 100
-                    plot_drate_scale_factor = int(abs(call_otm_cdb_percent_mean / kp200_시가등락율))
+                    plot_drate_scale_factor = int(abs(drate_reference / kp200_시가등락율))
               
                     if plot_drate_scale_factor > 100:
                         plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
@@ -45807,10 +45818,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 차월물_선물_종가대비_등락율 = float(tickdata['등락율'])            
                 차월물_선물_시가대비_등락율 = ((float(tickdata['현재가']) - float(tickdata['시가'])) / float(tickdata['시가'])) * 100
 
-                if TARGET_MONTH == 'NM' and KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(call_otm_cdb_percent_mean) > 0 and not flag_drate_scale_factor_set:
+                if DRATE_REFERENCE == 'ATM':
+                    drate_reference = 콜_등가_시가등락율
+                else:
+                    drate_reference = call_otm_cdb_percent_mean
+
+                if TARGET_MONTH == 'NM' and KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(drate_reference) > 0 and not flag_drate_scale_factor_set:
 
                     kp200_시가등락율 = ((KP200_당일시가 - KP200_전일종가) / KP200_전일종가) * 100
-                    plot_drate_scale_factor = int(abs(call_otm_cdb_percent_mean / kp200_시가등락율))
+                    plot_drate_scale_factor = int(abs(drate_reference / kp200_시가등락율))
              
                     if plot_drate_scale_factor > 100:
                         plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
@@ -46308,10 +46324,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 global flag_drate_scale_factor_set
 
-                if KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(call_otm_cdb_percent_mean) > 0 and not flag_drate_scale_factor_set:
+                if DRATE_REFERENCE == 'ATM':
+                    drate_reference = 콜_등가_시가등락율
+                else:
+                    drate_reference = call_otm_cdb_percent_mean
+
+                if KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(drate_reference) > 0 and not flag_drate_scale_factor_set:
 
                     kp200_시가등락율 = ((KP200_당일시가 - KP200_전일종가) / KP200_전일종가) * 100
-                    plot_drate_scale_factor = int(abs(call_otm_cdb_percent_mean / kp200_시가등락율))
+                    plot_drate_scale_factor = int(abs(drate_reference / kp200_시가등락율))
                
                     if plot_drate_scale_factor > 100:
                         plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
@@ -46383,10 +46404,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.dialog['선물옵션전광판'].call_db_update()
                     call_tickdata = copy.deepcopy(tickdata)                
 
-                    if not flag_option_periodic_update_mode:                       
-                        #self.dialog['선물옵션전광판'].call_db_update()
+                    if not flag_option_periodic_update_mode:
                         self.dialog['선물옵션전광판'].call_volume_power_update()
-                        self.dialog['선물옵션전광판'].call_oi_update()
+
+                        if DayTime:
+                            self.dialog['선물옵션전광판'].call_oi_update()
+                        else:
+                            pass                       
                     else:
                         pass
                 else:
@@ -46445,10 +46469,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].put_db_update()
                 put_tickdata = copy.deepcopy(tickdata)                                                                              
 
-                if not flag_option_periodic_update_mode:                    
-                    #self.dialog['선물옵션전광판'].put_db_update()
+                if not flag_option_periodic_update_mode:
                     self.dialog['선물옵션전광판'].put_volume_power_update()
-                    self.dialog['선물옵션전광판'].put_oi_update()
+
+                    if DayTime:
+                        self.dialog['선물옵션전광판'].put_oi_update()
+                        self.dialog['선물옵션전광판'].oi_total_update()
+                    else:
+                        pass
                 else:
                     pass                                 
             else:
