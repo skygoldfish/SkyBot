@@ -15635,6 +15635,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
 
                 self.fut_realdata['저가'] = df['저가']
+                근월물_선물_저가 = df['저가']
 
                 txt = '{0:.2f}'.format(self.fut_realdata['저가']) + '\n' + '({0:.2f})'.format(df['시가'] - k_value)
 
@@ -15645,6 +15646,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.setItem(1, Futures_column.저가.value, item)
 
                 self.fut_realdata['고가'] = df['고가']
+                근월물_선물_고가 = df['고가']
 
                 txt = '{0:.2f}'.format(self.fut_realdata['고가']) + '\n' + '({0:.2f})'.format(df['시가'] + k_value)
 
@@ -15694,44 +15696,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setBackground(QBrush(흰색))
 
                 item.setForeground(QBrush(검정색))
-
                 self.tableWidget_fut.setItem(1, Futures_column.OID.value, item)
-
-                if DayTime:
-
-                    근월물_선물_피봇 = self.fut_realdata['피봇']
-                    근월물_선물_시가 = df['시가']
-                    근월물_선물_저가 = df['저가']
-                    근월물_선물_현재가 = df['현재가']
-                    근월물_선물_고가 = df['고가']
-                else:
-                    pass
-
+                
                 item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
 
-                # 선물 맥점 컬러 체크(실시간에서만 표시됨)
-                #if flag_market_service:
-                if True:
-                    self.fut_cm_node_color_clear()
-                    self.fut_cm_oloh_check()
-                    self.fut_cm_node_coloring()
+                self.fut_cm_node_color_clear()
+                self.fut_cm_oloh_check()
+                self.fut_cm_node_coloring()
 
-                    self.kp200_node_color_clear()
-                    self.kp200_node_coloring()
+                self.kp200_node_color_clear()
+                self.kp200_node_coloring()
 
-                    self.kp200_low_node_coloring()
-                    self.kp200_high_node_coloring()
-                else:
-                    pass
+                self.kp200_low_node_coloring()
+                self.kp200_high_node_coloring()
                 
                 if ResizeRowsToContents:  
                     self.tableWidget_fut.resizeRowsToContents()
                 else:
                     pass
-
-                #self.tableWidget_fut.resizeColumnsToContents()
 
                 if self.flag_refresh:
             
@@ -17566,7 +17550,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     근월물_선물_고가 = df['고가']
                 else:
                     #근월물_선물_고가 = self.cme_realdata['종가']
-                    pass
+                    pass                
             else:
                 pass    
             
@@ -19031,6 +19015,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.resizeRowsToContents()
             else:
                 pass
+            
             self.tableWidget_put.resizeColumnsToContents()
 
             # 야간 근월물 선물전광판 데이타 요청
