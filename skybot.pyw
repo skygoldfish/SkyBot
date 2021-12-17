@@ -32692,17 +32692,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_fut_pivot_line.setValue(근월물_선물_피봇)
                 self.plot1_fut_high_line.setValue(근월물_선물_고가)
                 
-                '''
-                # 종가선 컬러를 살리기위한 임시방편
-                self.plot1_ovc_open_line.setValue(근월물_선물_고가)
-                self.plot1_ovc_jl_line.setValue(근월물_선물_고가)
-                self.plot1_ovc_jh_line.setValue(근월물_선물_고가)
-                self.plot1_ovc_pivot_line.setValue(근월물_선물_고가)
-                self.plot1_ovc_low_line.setValue(근월물_선물_고가)
-                self.plot1_ovc_high_line.setValue(근월물_선물_고가)
-                self.plot1_ovc_close_line.setValue(근월물_선물_고가)
-                '''   
-
                 self.plot1_kp200_curve.setData(df_kp200_graph['price'])
                 self.plot1_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
                 self.plot1_fut_nm_price_curve.setData(df_futures_nm_graph['price'])
@@ -34225,18 +34214,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_fut_open_line.setValue(근월물_선물_시가)
                 self.plot2_fut_low_line.setValue(근월물_선물_저가)
                 self.plot2_fut_pivot_line.setValue(근월물_선물_피봇)
-                self.plot2_fut_high_line.setValue(근월물_선물_고가)
-
-                '''
-                # 종가선 컬러를 살리기위한 임시방편
-                self.plot2_ovc_open_line.setValue(근월물_선물_고가)
-                self.plot2_ovc_jl_line.setValue(근월물_선물_고가)
-                self.plot2_ovc_jh_line.setValue(근월물_선물_고가)
-                self.plot2_ovc_pivot_line.setValue(근월물_선물_고가)
-                self.plot2_ovc_low_line.setValue(근월물_선물_고가)
-                self.plot2_ovc_high_line.setValue(근월물_선물_고가)
-                self.plot2_ovc_close_line.setValue(근월물_선물_고가)
-                '''                  
+                self.plot2_fut_high_line.setValue(근월물_선물_고가)                             
 
                 self.plot2_kp200_curve.setData(df_kp200_graph['price'])
                 self.plot2_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
@@ -34561,12 +34539,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_open_line.setValue(SP500_시가)
                 self.plot2_ovc_pivot_line.setValue(SP500_피봇)
                 self.plot2_ovc_low_line.setValue(SP500_저가)
-                self.plot2_ovc_high_line.setValue(SP500_고가)
-
-                # 고가선 이동시 중심가 3개 선도 같이 이동해야됨(중요)
-                #self.plot2_center_val_lower_line.setValue(SP500_고가)
-                #self.plot2_center_val_line.setValue(SP500_고가)
-                #self.plot2_center_val_upper_line.setValue(SP500_고가)                               
+                self.plot2_ovc_high_line.setValue(SP500_고가)                             
 
                 self.plot2_sp500_curve.setData(df_sp500_graph['price'])
 
@@ -34696,12 +34669,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_open_line.setValue(DOW_시가)
                 self.plot2_ovc_pivot_line.setValue(DOW_피봇)
                 self.plot2_ovc_low_line.setValue(DOW_저가)
-                self.plot2_ovc_high_line.setValue(DOW_고가)
-
-                self.plot2_center_val_lower_line.setValue(DOW_고가)
-                self.plot2_center_val_line.setValue(DOW_고가)
-                self.plot2_center_val_upper_line.setValue(DOW_고가)
-                self.plot2_ovc_high_line.setValue(DOW_고가)                                  
+                self.plot2_ovc_high_line.setValue(DOW_고가)                                 
 
                 self.plot2_dow_curve.setData(df_dow_graph['price'])
 
@@ -34832,11 +34800,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_pivot_line.setValue(NASDAQ_피봇)
                 self.plot2_ovc_low_line.setValue(NASDAQ_저가)
                 self.plot2_ovc_high_line.setValue(NASDAQ_고가)
-
-                self.plot2_center_val_lower_line.setValue(NASDAQ_고가)
-                self.plot2_center_val_line.setValue(NASDAQ_고가)
-                self.plot2_center_val_upper_line.setValue(NASDAQ_고가)
-                self.plot2_ovc_high_line.setValue(NASDAQ_고가)  
 
                 self.plot2_nasdaq_curve.setData(df_nasdaq_graph['price'])
 
@@ -35093,12 +35056,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_open_line.setValue(WTI_시가)
                 self.plot2_ovc_pivot_line.setValue(WTI_피봇)
                 self.plot2_ovc_low_line.setValue(WTI_저가)
-                self.plot2_ovc_high_line.setValue(WTI_고가)
-
-                self.plot2_center_val_lower_line.setValue(WTI_고가)
-                self.plot2_center_val_line.setValue(WTI_고가)
-                self.plot2_center_val_upper_line.setValue(WTI_고가)
-                self.plot2_ovc_high_line.setValue(WTI_고가)  
+                self.plot2_ovc_high_line.setValue(WTI_고가) 
 
                 self.plot2_wti_curve.setData(df_wti_graph['price'])
 
@@ -35779,18 +35737,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_fut_open_line.setValue(근월물_선물_시가)
                 self.plot3_fut_low_line.setValue(근월물_선물_저가)
                 self.plot3_fut_pivot_line.setValue(근월물_선물_피봇)
-                self.plot3_fut_high_line.setValue(근월물_선물_고가)
-
-                '''
-                # 종가선 컬러를 살리기위한 임시방편
-                self.plot3_ovc_open_line.setValue(근월물_선물_고가)
-                self.plot3_ovc_jl_line.setValue(근월물_선물_고가)
-                self.plot3_ovc_jh_line.setValue(근월물_선물_고가)
-                self.plot3_ovc_pivot_line.setValue(근월물_선물_고가)
-                self.plot3_ovc_low_line.setValue(근월물_선물_고가)
-                self.plot3_ovc_high_line.setValue(근월물_선물_고가)
-                self.plot3_ovc_close_line.setValue(근월물_선물_고가)
-                ''' 
+                self.plot3_fut_high_line.setValue(근월물_선물_고가)                
 
                 self.plot3_kp200_curve.setData(df_kp200_graph['price'])
                 self.plot3_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
@@ -36115,11 +36062,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_low_line.setValue(SP500_저가)
                 self.plot3_ovc_high_line.setValue(SP500_고가)
 
-                # 고가선 이동시 중심가 3개 선도 같이 이동해야됨(중요)
-                #self.plot3_center_val_lower_line.setValue(SP500_고가)
-                #self.plot3_center_val_line.setValue(SP500_고가)
-                #self.plot3_center_val_upper_line.setValue(SP500_고가)
-
                 self.plot3_sp500_curve.setData(df_sp500_graph['price'])
 
                 if flag_checkBox_plot3_bband:
@@ -36248,11 +36190,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_open_line.setValue(DOW_시가)
                 self.plot3_ovc_pivot_line.setValue(DOW_피봇)
                 self.plot3_ovc_low_line.setValue(DOW_저가)
-                self.plot3_ovc_high_line.setValue(DOW_고가) 
-
-                self.plot3_center_val_lower_line.setValue(DOW_고가)
-                self.plot3_center_val_line.setValue(DOW_고가)
-                self.plot3_center_val_upper_line.setValue(DOW_고가)                  
+                self.plot3_ovc_high_line.setValue(DOW_고가)               
 
                 self.plot3_dow_curve.setData(df_dow_graph['price'])
 
@@ -36383,10 +36321,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_pivot_line.setValue(NASDAQ_피봇)
                 self.plot3_ovc_low_line.setValue(NASDAQ_저가)
                 self.plot3_ovc_high_line.setValue(NASDAQ_고가)
-
-                self.plot3_center_val_lower_line.setValue(NASDAQ_고가)
-                self.plot3_center_val_line.setValue(NASDAQ_고가)
-                self.plot3_center_val_upper_line.setValue(NASDAQ_고가)  
 
                 self.plot3_nasdaq_curve.setData(df_nasdaq_graph['price'])
 
@@ -36643,11 +36577,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_open_line.setValue(WTI_시가)
                 self.plot3_ovc_pivot_line.setValue(WTI_피봇)
                 self.plot3_ovc_low_line.setValue(WTI_저가)
-                self.plot3_ovc_high_line.setValue(WTI_고가)
-
-                self.plot3_center_val_lower_line.setValue(WTI_고가)
-                self.plot3_center_val_line.setValue(WTI_고가)
-                self.plot3_center_val_upper_line.setValue(WTI_고가)  
+                self.plot3_ovc_high_line.setValue(WTI_고가) 
 
                 self.plot3_wti_curve.setData(df_wti_graph['price'])
 
@@ -37327,18 +37257,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_fut_open_line.setValue(근월물_선물_시가)
                 self.plot4_fut_low_line.setValue(근월물_선물_저가)
                 self.plot4_fut_pivot_line.setValue(근월물_선물_피봇)
-                self.plot4_fut_high_line.setValue(근월물_선물_고가)
-
-                '''
-                # 종가선 컬러를 살리기위한 임시방편
-                self.plot4_ovc_open_line.setValue(근월물_선물_고가)
-                self.plot4_ovc_jl_line.setValue(근월물_선물_고가)
-                self.plot4_ovc_jh_line.setValue(근월물_선물_고가)
-                self.plot4_ovc_pivot_line.setValue(근월물_선물_고가)
-                self.plot4_ovc_low_line.setValue(근월물_선물_고가)
-                self.plot4_ovc_high_line.setValue(근월물_선물_고가)
-                self.plot4_ovc_close_line.setValue(근월물_선물_고가)
-                '''  
+                self.plot4_fut_high_line.setValue(근월물_선물_고가)                
 
                 self.plot4_kp200_curve.setData(df_kp200_graph['price'])
                 self.plot4_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
@@ -38863,17 +38782,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_fut_pivot_line.setValue(근월물_선물_피봇)
                 self.plot5_fut_high_line.setValue(근월물_선물_고가)
 
-                '''
-                # 종가선 컬러를 살리기위한 임시방편
-                self.plot5_ovc_open_line.setValue(근월물_선물_고가)
-                self.plot5_ovc_jl_line.setValue(근월물_선물_고가)
-                self.plot5_ovc_jh_line.setValue(근월물_선물_고가)
-                self.plot5_ovc_pivot_line.setValue(근월물_선물_고가)
-                self.plot5_ovc_low_line.setValue(근월물_선물_고가)
-                self.plot5_ovc_high_line.setValue(근월물_선물_고가)
-                self.plot5_ovc_close_line.setValue(근월물_선물_고가)
-                ''' 
-
                 self.plot5_kp200_curve.setData(df_kp200_graph['price'])
                 self.plot5_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
                 self.plot5_fut_nm_price_curve.setData(df_futures_nm_graph['price'])
@@ -39196,11 +39104,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_low_line.setValue(SP500_저가)
                 self.plot5_ovc_high_line.setValue(SP500_고가)
 
-                # 고가선 이동시 중심가 3개 선도 같이 이동해야됨(중요)
-                #self.plot5_center_val_lower_line.setValue(SP500_고가)
-                #self.plot5_center_val_line.setValue(SP500_고가)
-                #self.plot5_center_val_upper_line.setValue(SP500_고가) 
-
                 self.plot5_sp500_curve.setData(df_sp500_graph['price'])
 
                 if flag_checkBox_plot5_bband:
@@ -39329,11 +39232,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_open_line.setValue(DOW_시가)
                 self.plot5_ovc_pivot_line.setValue(DOW_피봇)
                 self.plot5_ovc_low_line.setValue(DOW_저가)
-                self.plot5_ovc_high_line.setValue(DOW_고가)
-
-                self.plot5_center_val_lower_line.setValue(DOW_고가)
-                self.plot5_center_val_line.setValue(DOW_고가)
-                self.plot5_center_val_upper_line.setValue(DOW_고가)                  
+                self.plot5_ovc_high_line.setValue(DOW_고가)                 
 
                 self.plot5_dow_curve.setData(df_dow_graph['price'])
 
@@ -39464,10 +39363,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_pivot_line.setValue(NASDAQ_피봇)
                 self.plot5_ovc_low_line.setValue(NASDAQ_저가)
                 self.plot5_ovc_high_line.setValue(NASDAQ_고가)
-
-                self.plot5_center_val_lower_line.setValue(NASDAQ_고가)
-                self.plot5_center_val_line.setValue(NASDAQ_고가)
-                self.plot5_center_val_upper_line.setValue(NASDAQ_고가)   
 
                 self.plot5_nasdaq_curve.setData(df_nasdaq_graph['price'])
 
@@ -39725,10 +39620,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_pivot_line.setValue(WTI_피봇)
                 self.plot5_ovc_low_line.setValue(WTI_저가)
                 self.plot5_ovc_high_line.setValue(WTI_고가)
-
-                self.plot5_center_val_lower_line.setValue(WTI_고가)
-                self.plot5_center_val_line.setValue(WTI_고가)
-                self.plot5_center_val_upper_line.setValue(WTI_고가)  
 
                 self.plot5_wti_curve.setData(df_wti_graph['price'])
 
@@ -40411,17 +40302,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_fut_pivot_line.setValue(근월물_선물_피봇)
                 self.plot6_fut_high_line.setValue(근월물_선물_고가)
 
-                '''
-                # 종가선 컬러를 살리기위한 임시방편
-                self.plot6_ovc_open_line.setValue(근월물_선물_고가)
-                self.plot6_ovc_jl_line.setValue(근월물_선물_고가)
-                self.plot6_ovc_jh_line.setValue(근월물_선물_고가)
-                self.plot6_ovc_pivot_line.setValue(근월물_선물_고가)
-                self.plot6_ovc_low_line.setValue(근월물_선물_고가)
-                self.plot6_ovc_high_line.setValue(근월물_선물_고가)
-                self.plot6_ovc_close_line.setValue(근월물_선물_고가)
-                ''' 
-
                 self.plot6_kp200_curve.setData(df_kp200_graph['price'])
                 self.plot6_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
                 self.plot6_fut_nm_price_curve.setData(df_futures_nm_graph['price'])
@@ -40744,11 +40624,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_low_line.setValue(SP500_저가)
                 self.plot6_ovc_high_line.setValue(SP500_고가)
 
-                # 고가선 이동시 중심가 3개 선도 같이 이동해야됨(중요)
-                #self.plot6_center_val_lower_line.setValue(SP500_고가)
-                #self.plot6_center_val_line.setValue(SP500_고가)
-                #self.plot6_center_val_upper_line.setValue(SP500_고가)
-
                 self.plot6_sp500_curve.setData(df_sp500_graph['price'])
 
                 if flag_checkBox_plot6_bband:
@@ -40877,11 +40752,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_open_line.setValue(DOW_시가)
                 self.plot6_ovc_pivot_line.setValue(DOW_피봇)
                 self.plot6_ovc_low_line.setValue(DOW_저가)
-                self.plot6_ovc_high_line.setValue(DOW_고가) 
-
-                self.plot6_center_val_lower_line.setValue(DOW_고가)
-                self.plot6_center_val_line.setValue(DOW_고가)
-                self.plot6_center_val_upper_line.setValue(DOW_고가)                
+                self.plot6_ovc_high_line.setValue(DOW_고가)              
 
                 self.plot6_dow_curve.setData(df_dow_graph['price'])
 
@@ -41011,11 +40882,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_open_line.setValue(NASDAQ_시가)
                 self.plot6_ovc_pivot_line.setValue(NASDAQ_피봇)
                 self.plot6_ovc_low_line.setValue(NASDAQ_저가)
-                self.plot6_ovc_high_line.setValue(NASDAQ_고가)
-
-                self.plot6_center_val_lower_line.setValue(NASDAQ_고가)
-                self.plot6_center_val_line.setValue(NASDAQ_고가)
-                self.plot6_center_val_upper_line.setValue(NASDAQ_고가) 
+                self.plot6_ovc_high_line.setValue(NASDAQ_고가) 
 
                 self.plot6_nasdaq_curve.setData(df_nasdaq_graph['price'])
 
@@ -41273,10 +41140,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_pivot_line.setValue(WTI_피봇)
                 self.plot6_ovc_low_line.setValue(WTI_저가)
                 self.plot6_ovc_high_line.setValue(WTI_고가)
-
-                self.plot6_center_val_lower_line.setValue(WTI_고가)
-                self.plot6_center_val_line.setValue(WTI_고가)
-                self.plot6_center_val_upper_line.setValue(WTI_고가) 
 
                 self.plot6_wti_curve.setData(df_wti_graph['price'])
 
