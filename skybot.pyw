@@ -25918,10 +25918,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.plot1_clear()
 
-            self.label_11.setText(" - ")
-            self.label_12.setText(" - ")
-            self.label_13.setText(" - ")
-            self.label_14.setText(" - ")
+            self.label_11.setText(" 기관현물 ")
+            self.label_12.setText(" 기관선물 ")
+            self.label_13.setText(" 개인현물 ")
+            self.label_14.setText(" 개인선물 ")
             self.label_15.setText(" - ")
 
             self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -25937,10 +25937,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.plot1_clear()
 
-            self.label_11.setText(" - ")
-            self.label_12.setText(" - ")
-            self.label_13.setText(" - ")
-            self.label_14.setText(" - ")
+            self.label_11.setText(" 기관현물 ")
+            self.label_12.setText(" 기관선물 ")
+            self.label_13.setText(" 개인현물 ")
+            self.label_14.setText(" 개인선물 ")
             self.label_15.setText(" - ")
 
             self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33996,6 +33996,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 if DayTime:
+                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    self.label_11.setText(txt)
+
+                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    self.label_12.setText(txt)
+
+                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    self.label_13.setText(txt)
+
+                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    self.label_14.setText(txt)
+
                     self.plot1_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                     self.plot1_program_curve.setData(df_supply_demand_graph['program'])
                     self.plot1_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
@@ -34040,6 +34052,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 if DayTime:
+                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    self.label_11.setText(txt)
+
+                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    self.label_12.setText(txt)
+
+                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    self.label_13.setText(txt)
+
+                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    self.label_14.setText(txt)
+
                     self.plot1_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                     self.plot1_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
                     self.plot1_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
@@ -35527,6 +35551,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 if DayTime:
+                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    self.label_21.setText(txt)
+
+                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    self.label_22.setText(txt)
+
+                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    self.label_23.setText(txt)
+
+                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    self.label_24.setText(txt)
+
                     self.plot2_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                     self.plot2_program_curve.setData(df_supply_demand_graph['program'])
                     self.plot2_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
@@ -35571,6 +35607,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 if DayTime:
+                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    self.label_21.setText(txt)
+
+                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    self.label_22.setText(txt)
+
+                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    self.label_23.setText(txt)
+
+                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    self.label_24.setText(txt)
+
                     self.plot2_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                     self.plot2_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
                     self.plot2_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
@@ -37052,6 +37100,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 if DayTime:
+                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    self.label_31.setText(txt)
+
+                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    self.label_32.setText(txt)
+
+                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    self.label_33.setText(txt)
+
+                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    self.label_34.setText(txt)
+
                     self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                     self.plot3_program_curve.setData(df_supply_demand_graph['program'])
                     self.plot3_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
@@ -37096,6 +37156,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 if DayTime:
+                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    self.label_31.setText(txt)
+
+                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    self.label_32.setText(txt)
+
+                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    self.label_33.setText(txt)
+
+                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    self.label_34.setText(txt)
+
                     self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                     self.plot3_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
                     self.plot3_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
@@ -38561,6 +38633,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 if DayTime:
+                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    self.label_41.setText(txt)
+
+                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    self.label_42.setText(txt)
+
+                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    self.label_43.setText(txt)
+
+                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    self.label_44.setText(txt)
+
                     self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                     self.plot4_program_curve.setData(df_supply_demand_graph['program'])
                     self.plot4_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
@@ -38605,6 +38689,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 if DayTime:
+                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    self.label_41.setText(txt)
+
+                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    self.label_42.setText(txt)
+
+                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    self.label_43.setText(txt)
+
+                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    self.label_44.setText(txt)
+
                     self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                     self.plot4_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
                     self.plot4_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
@@ -40085,6 +40181,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 if DayTime:
+                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    self.label_51.setText(txt)
+
+                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    self.label_52.setText(txt)
+
+                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    self.label_53.setText(txt)
+
+                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    self.label_54.setText(txt)
+
                     self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                     self.plot5_program_curve.setData(df_supply_demand_graph['program'])
                     self.plot5_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
@@ -40129,6 +40237,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 if DayTime:
+                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    self.label_51.setText(txt)
+
+                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    self.label_52.setText(txt)
+
+                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    self.label_53.setText(txt)
+
+                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    self.label_54.setText(txt)
+
                     self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                     self.plot5_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
                     self.plot5_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
@@ -41609,6 +41729,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 if DayTime:
+                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    self.label_61.setText(txt)
+
+                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    self.label_62.setText(txt)
+
+                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    self.label_63.setText(txt)
+
+                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    self.label_64.setText(txt)
+
                     self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                     self.plot6_program_curve.setData(df_supply_demand_graph['program'])
                     self.plot6_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
@@ -41653,6 +41785,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 if DayTime:
+                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    self.label_61.setText(txt)
+
+                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    self.label_62.setText(txt)
+
+                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    self.label_63.setText(txt)
+
+                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    self.label_64.setText(txt)
+                    
                     self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                     self.plot6_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
                     self.plot6_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
