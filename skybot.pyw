@@ -405,7 +405,7 @@ DARK_STYLESHEET = parser.getboolean('Window Style', 'Dark Style')
 
 # [5]. << User Switch = 'ON or OFF' >>
 MULTIPROCESS = parser.getboolean('User Switch', 'Multiprocess')
-DRATE_REFERENCE = parser.get('User Switch', 'Reference of Plot Drate')
+ATM_DRATE_REFERENCE = parser.getboolean('User Switch', 'ATM Reference of Plot Drate')
 OPTION_PERIODIC_UPDATE = parser.getboolean('User Switch', 'Option Table Periodic Update')
 TELEGRAM_SERVICE = parser.getboolean('User Switch', 'Telegram service')
 MANGI_YAGAN = parser.getboolean('User Switch', 'Mangi Yagan')
@@ -11279,7 +11279,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_fut.item(1, Futures_column.고가.value).setForeground(QBrush(검정색))
 
         # Scale Factor 계산
-        if DRATE_REFERENCE == 'ATM':
+        if ATM_DRATE_REFERENCE:
             drate_reference = 콜_등가_시가등락율
         else:
             drate_reference = call_otm_cdb_percent_mean
@@ -11378,7 +11378,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_fut.item(0, Futures_column.고가.value).setForeground(QBrush(검정색))
         
         # Scale Factor 계산
-        if DRATE_REFERENCE == 'ATM':
+        if ATM_DRATE_REFERENCE:
             drate_reference = 콜_등가_시가등락율
         else:
             drate_reference = call_otm_cdb_percent_mean
@@ -45776,7 +45776,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 근월물_선물_종가대비_등락율 = float(tickdata['등락율'])            
                 근월물_선물_시가대비_등락율 = ((float(tickdata['현재가']) - float(tickdata['시가'])) / float(tickdata['시가'])) * 100
 
-                if DRATE_REFERENCE == 'ATM':
+                if ATM_DRATE_REFERENCE:
                     drate_reference = 콜_등가_시가등락율
                 else:
                     drate_reference = call_otm_cdb_percent_mean
@@ -45818,7 +45818,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 차월물_선물_종가대비_등락율 = float(tickdata['등락율'])            
                 차월물_선물_시가대비_등락율 = ((float(tickdata['현재가']) - float(tickdata['시가'])) / float(tickdata['시가'])) * 100
 
-                if DRATE_REFERENCE == 'ATM':
+                if ATM_DRATE_REFERENCE:
                     drate_reference = 콜_등가_시가등락율
                 else:
                     drate_reference = call_otm_cdb_percent_mean
@@ -46324,7 +46324,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 global flag_drate_scale_factor_set
 
-                if DRATE_REFERENCE == 'ATM':
+                if ATM_DRATE_REFERENCE:
                     drate_reference = 콜_등가_시가등락율
                 else:
                     drate_reference = call_otm_cdb_percent_mean
