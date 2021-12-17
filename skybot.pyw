@@ -11283,9 +11283,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_fut.item(1, Futures_column.고가.value).setForeground(QBrush(검정색))
 
         # Scale Factor 계산
-        if KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(콜_등가_시가등락율) > 0:
+        if KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(call_otm_cdb_percent_mean) > 0:
             kp200_시가등락율 = ((KP200_당일시가 - KP200_전일종가) / KP200_전일종가) * 100
-            plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / kp200_시가등락율))
+            plot_drate_scale_factor = int(abs(call_otm_cdb_percent_mean / kp200_시가등락율))
               
             if plot_drate_scale_factor > 100:
                 plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
@@ -11377,9 +11377,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_fut.item(0, Futures_column.고가.value).setForeground(QBrush(검정색))
         
         # Scale Factor 계산
-        if KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(콜_등가_시가등락율) > 0:
+        if KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(call_otm_cdb_percent_mean) > 0:
             kp200_시가등락율 = ((KP200_당일시가 - KP200_전일종가) / KP200_전일종가) * 100
-            plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / kp200_시가등락율))
+            plot_drate_scale_factor = int(abs(call_otm_cdb_percent_mean / kp200_시가등락율))
            
             if plot_drate_scale_factor > 100:
                 plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
@@ -45770,10 +45770,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 근월물_선물_종가대비_등락율 = float(tickdata['등락율'])            
                 근월물_선물_시가대비_등락율 = ((float(tickdata['현재가']) - float(tickdata['시가'])) / float(tickdata['시가'])) * 100
 
-                if TARGET_MONTH == 'CM' and KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(콜_등가_시가등락율) > 0 and not flag_drate_scale_factor_set:
+                if TARGET_MONTH == 'CM' and KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(call_otm_cdb_percent_mean) > 0 and not flag_drate_scale_factor_set:
 
                     kp200_시가등락율 = ((KP200_당일시가 - KP200_전일종가) / KP200_전일종가) * 100
-                    plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / kp200_시가등락율))
+                    plot_drate_scale_factor = int(abs(call_otm_cdb_percent_mean / kp200_시가등락율))
               
                     if plot_drate_scale_factor > 100:
                         plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
@@ -45807,10 +45807,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 차월물_선물_종가대비_등락율 = float(tickdata['등락율'])            
                 차월물_선물_시가대비_등락율 = ((float(tickdata['현재가']) - float(tickdata['시가'])) / float(tickdata['시가'])) * 100
 
-                if TARGET_MONTH == 'NM' and KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(콜_등가_시가등락율) > 0 and not flag_drate_scale_factor_set:
+                if TARGET_MONTH == 'NM' and KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(call_otm_cdb_percent_mean) > 0 and not flag_drate_scale_factor_set:
 
                     kp200_시가등락율 = ((KP200_당일시가 - KP200_전일종가) / KP200_전일종가) * 100
-                    plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / kp200_시가등락율))
+                    plot_drate_scale_factor = int(abs(call_otm_cdb_percent_mean / kp200_시가등락율))
              
                     if plot_drate_scale_factor > 100:
                         plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
@@ -46308,10 +46308,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 global flag_drate_scale_factor_set
 
-                if KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(콜_등가_시가등락율) > 0 and not flag_drate_scale_factor_set:
+                if KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(call_otm_cdb_percent_mean) > 0 and not flag_drate_scale_factor_set:
 
                     kp200_시가등락율 = ((KP200_당일시가 - KP200_전일종가) / KP200_전일종가) * 100
-                    plot_drate_scale_factor = int(abs(콜_등가_시가등락율 / kp200_시가등락율))
+                    plot_drate_scale_factor = int(abs(call_otm_cdb_percent_mean / kp200_시가등락율))
                
                     if plot_drate_scale_factor > 100:
                         plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
