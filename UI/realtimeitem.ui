@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>332</width>
-    <height>836</height>
+    <height>868</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -390,7 +390,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>762</y>
+     <y>794</y>
      <width>293</width>
      <height>61</height>
     </rect>
@@ -475,7 +475,7 @@
      <x>20</x>
      <y>692</y>
      <width>291</width>
-     <height>61</height>
+     <height>93</height>
     </rect>
    </property>
    <property name="font">
@@ -486,25 +486,31 @@
     </font>
    </property>
    <property name="title">
-    <string>Main Loop 주기 및 실시간입력 허용오차</string>
+    <string>Main Loop 갱신주기 및 실시간 허용오차</string>
    </property>
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QCheckBox" name="checkBox_periodic_plot">
+    <property name="geometry">
+     <rect>
+      <x>11</x>
+      <y>28</y>
+      <width>227</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Option Table Periodic Update</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>30</y>
-      <width>271</width>
+      <y>56</y>
+      <width>269</width>
       <height>22</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="QCheckBox" name="checkBox_periodic_plot">
-       <property name="text">
-        <string>ML Period</string>
-       </property>
-      </widget>
-     </item>
      <item>
       <widget class="QLineEdit" name="lineEdit_mp">
        <property name="alignment">
