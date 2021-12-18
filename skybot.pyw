@@ -42460,7 +42460,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         cme_header_stylesheet = '::section{Background-color: black; color: lightgreen; font-family: Consolas; font-size: 9pt; font: Normal; border-style: solid; border-width: 1px; border-color: gray}'
 
-        cme_table_row_count = 8
+        cme_table_row_count = 9
         cme_table_column_count = 11
 
         self.tableWidget_cme.setRowCount(cme_table_row_count)
@@ -42526,6 +42526,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         item.setBackground(QBrush(검정색))
         item.setForeground(QBrush(녹색))
         self.tableWidget_cme.setItem(7, 0, item)
+
+        item = QTableWidgetItem("{0}".format('ADI'))
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(녹색))
+        self.tableWidget_cme.setItem(8, 0, item)
         
         self.tableWidget_cme.resizeColumnsToContents()
 
@@ -48385,14 +48391,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             elif tickdata['종목코드'] == ADI:
 
-                # 그래프 가격갱신
-                df_adi_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])  
-
                 ADI_현재가 = float(tickdata['체결가격'])
                 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] ADI_현재가 = {3}\r'.format(CME_HOUR, CME_MIN, CME_SEC, ADI_현재가)
                 self.textBrowser.append(txt)
                 print(txt)
+
+                # 그래프 가격갱신
+                '''
+                df_adi_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])                
 
                 ADI_전일대비 = float(tickdata['전일대비'])
 
@@ -48425,6 +48432,132 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         pass
                 else:
                     pass
+
+                if "{0:.1f}".format(ADI_전저) != self.tableWidget_cme.item(8, 1).text():
+                    item = QTableWidgetItem("{0:.1f}".format(ADI_전저))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_cme.setItem(8, 1, item)
+                else:
+                    pass
+
+                if "{0:.1f}".format(ADI_전고) != self.tableWidget_cme.item(8, 2).text():
+                    item = QTableWidgetItem("{0:.1f}".format(ADI_전고))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_cme.setItem(8, 2, item)
+                else:
+                    pass
+
+                if "{0:.1f}".format(ADI_종가) != self.tableWidget_cme.item(8, 3).text():
+                    item = QTableWidgetItem("{0:.1f}".format(ADI_종가))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_cme.setItem(8, 3, item)
+                else:
+                    pass
+
+                if "{0:.1f}".format(ADI_피봇) != self.tableWidget_cme.item(8, 4).text():
+                    item = QTableWidgetItem("{0:.1f}".format(ADI_피봇))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_cme.setItem(8, 4, item)
+                else:
+                    pass
+
+                if "{0:.1f}".format(ADI_시가) != self.tableWidget_cme.item(8, 5).text():
+                    item = QTableWidgetItem("{0:.1f}".format(ADI_시가))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_cme.setItem(8, 5, item)
+                else:
+                    pass
+
+                if "{0:.1f}".format(ADI_저가) != self.tableWidget_cme.item(8, 6).text():
+                    item = QTableWidgetItem("{0:.1f}".format(ADI_저가))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(청색))
+                    item.setForeground(QBrush(흰색))
+                    self.tableWidget_cme.setItem(8, 6, item)
+
+                    item = QTableWidgetItem('{0:.1f}'.format(ADI_진폭))
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_cme.setItem(8, 10, item)
+
+                    self.adi_node_coloring()
+                else:
+                    pass
+
+                if "{0:.1f}".format(ADI_고가) != self.tableWidget_cme.item(8, 8).text():
+                    item = QTableWidgetItem("{0:.1f}".format(ADI_고가))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(적색))
+                    item.setForeground(QBrush(흰색))
+                    self.tableWidget_cme.setItem(8, 8, item)
+
+                    item = QTableWidgetItem('{0:.1f}'.format(ADI_진폭))
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_cme.setItem(8, 10, item)
+
+                    self.adi_node_coloring()
+                else:
+                    pass
+
+                ADI_과거가 = float(self.tableWidget_cme.item(8, 7).text().split('\n')[0])
+                
+                if ADI_현재가 != ADI_과거가:                                        
+
+                    if ADI_현재가 > ADI_과거가:
+
+                        item = QTableWidgetItem(tickdata['체결가격'] + '\n' + '▲')
+                        item.setBackground(QBrush(pink))
+
+                        if ADI_시가 < ADI_현재가:
+                            item.setForeground(QBrush(적색))
+                        elif ADI_시가 > ADI_현재가:
+                            item.setForeground(QBrush(청색))
+                        else:
+                            item.setForeground(QBrush(검정색))
+
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(8, 7, item)
+                        
+                    elif ADI_현재가 < ADI_과거가:
+
+                        item = QTableWidgetItem(tickdata['체결가격'] + '\n' + '▼')
+                        item.setBackground(QBrush(lightskyblue))
+
+                        if ADI_시가 < ADI_현재가:
+                            item.setForeground(QBrush(적색))
+                        elif ADI_시가 > ADI_현재가:
+                            item.setForeground(QBrush(청색))
+                        else:
+                            item.setForeground(QBrush(검정색))
+
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_cme.setItem(8, 7, item)                                            
+                    else:
+                        pass                    
+
+                    item = QTableWidgetItem('{0:.1f}'.format(ADI_시가대비))
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_cme.setItem(8, 9, item)                   
+
+                    self.tableWidget_cme.resizeRowToContents(8)
+                else:
+                    pass
+                '''
             else:
                 pass
 
@@ -49207,6 +49340,103 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.tableWidget_cme.item(7, 5).setForeground(QBrush(적색))
             self.tableWidget_cme.item(7, 8).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(7, 8).setForeground(QBrush(적색))
+        else:
+            pass
+    
+    def adi_node_coloring(self):
+
+        self.tableWidget_cme.item(8, 1).setBackground(QBrush(흰색))
+        self.tableWidget_cme.item(8, 1).setForeground(QBrush(검정색))
+        self.tableWidget_cme.item(8, 2).setBackground(QBrush(흰색))
+        self.tableWidget_cme.item(8, 2).setForeground(QBrush(검정색))
+        self.tableWidget_cme.item(8, 3).setBackground(QBrush(흰색))
+        self.tableWidget_cme.item(8, 3).setForeground(QBrush(검정색))
+        self.tableWidget_cme.item(8, 4).setBackground(QBrush(흰색))
+        self.tableWidget_cme.item(8, 4).setForeground(QBrush(검정색))
+        self.tableWidget_cme.item(8, 5).setBackground(QBrush(흰색))
+        self.tableWidget_cme.item(8, 5).setForeground(QBrush(검정색))
+        self.tableWidget_cme.item(8, 6).setBackground(QBrush(흰색))
+        self.tableWidget_cme.item(8, 6).setForeground(QBrush(검정색))
+        self.tableWidget_cme.item(8, 8).setBackground(QBrush(흰색))
+        self.tableWidget_cme.item(8, 8).setForeground(QBrush(검정색))
+
+        if ADI_전저 - 0.00005 * 5 <= ADI_저가 <= ADI_전저 + 0.00005 * 5:
+            self.tableWidget_cme.item(8, 1).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(8, 1).setForeground(QBrush(적색))
+            self.tableWidget_cme.item(8, 6).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(8, 6).setForeground(QBrush(적색))
+        else:
+            pass
+
+        if ADI_전고 - 0.00005 * 5 <= ADI_저가 <= ADI_전고 + 0.00005 * 5:
+            self.tableWidget_cme.item(8, 2).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(8, 2).setForeground(QBrush(적색))
+            self.tableWidget_cme.item(8, 6).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(8, 6).setForeground(QBrush(적색))
+        else:
+            pass
+
+        if ADI_종가 - 0.00005 * 5 <= ADI_저가 <= ADI_종가 + 0.00005 * 5:
+            self.tableWidget_cme.item(8, 3).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(8, 3).setForeground(QBrush(적색))
+            self.tableWidget_cme.item(8, 6).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(8, 6).setForeground(QBrush(적색))
+        else:
+            pass
+
+        if ADI_피봇 - 0.00005 * 5 <= ADI_저가 <= ADI_피봇 + 0.00005 * 5:
+            self.tableWidget_cme.item(8, 4).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(8, 4).setForeground(QBrush(적색))
+            self.tableWidget_cme.item(8, 6).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(8, 6).setForeground(QBrush(적색))
+        else:
+            pass
+
+        if ADI_시가 - 0.00005 * 5 <= ADI_저가 <= ADI_시가 + 0.00005 * 5:
+            self.tableWidget_cme.item(8, 5).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(8, 5).setForeground(QBrush(적색))
+            self.tableWidget_cme.item(8, 6).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(8, 6).setForeground(QBrush(적색))
+        else:
+            pass
+
+        if ADI_전저 - 0.00005 * 5 <= ADI_고가 <= ADI_전저 + 0.00005 * 5:
+            self.tableWidget_cme.item(8, 1).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(8, 1).setForeground(QBrush(적색))
+            self.tableWidget_cme.item(8, 8).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(8, 8).setForeground(QBrush(적색))
+        else:
+            pass
+
+        if ADI_전고 - 0.00005 * 5 <= ADI_고가 <= ADI_전고 + 0.00005 * 5:
+            self.tableWidget_cme.item(8, 2).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(8, 2).setForeground(QBrush(적색))
+            self.tableWidget_cme.item(8, 8).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(8, 8).setForeground(QBrush(적색))
+        else:
+            pass
+
+        if ADI_종가 - 0.00005 * 5 <= ADI_고가 <= ADI_종가 + 0.00005 * 5:
+            self.tableWidget_cme.item(8, 3).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(8, 3).setForeground(QBrush(적색))
+            self.tableWidget_cme.item(8, 8).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(8, 8).setForeground(QBrush(적색))
+        else:
+            pass
+
+        if ADI_피봇 - 0.00005 * 5 <= ADI_고가 <= ADI_피봇 + 0.00005 * 5:
+            self.tableWidget_cme.item(8, 4).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(8, 4).setForeground(QBrush(적색))
+            self.tableWidget_cme.item(8, 8).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(8, 8).setForeground(QBrush(적색))
+        else:
+            pass
+
+        if ADI_시가 - 0.00005 * 5 <= ADI_고가 <= ADI_시가 + 0.00005 * 5:
+            self.tableWidget_cme.item(8, 5).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(8, 5).setForeground(QBrush(적색))
+            self.tableWidget_cme.item(8, 8).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(8, 8).setForeground(QBrush(적색))
         else:
             pass
     

@@ -2,18 +2,16 @@
 
 # Form implementation generated from reading ui file 'skybot.ui'
 #
-# Created by: PyQt5 UI code generator 5.12.3
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(640, 863)
+        MainWindow.resize(640, 880)
         font = QtGui.QFont()
         font.setFamily("Consolas")
         font.setPointSize(10)
@@ -63,14 +61,14 @@ class Ui_MainWindow(object):
         self.verticalLayout.addWidget(self.pushButton_reset)
         self.horizontalLayout.addLayout(self.verticalLayout)
         self.groupBox_2 = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBox_2.setGeometry(QtCore.QRect(8, 428, 623, 347))
+        self.groupBox_2.setGeometry(QtCore.QRect(8, 428, 623, 369))
         font = QtGui.QFont()
         font.setBold(True)
         font.setWeight(75)
         self.groupBox_2.setFont(font)
         self.groupBox_2.setObjectName("groupBox_2")
         self.tableWidget_cme = QtWidgets.QTableWidget(self.groupBox_2)
-        self.tableWidget_cme.setGeometry(QtCore.QRect(13, 30, 597, 306))
+        self.tableWidget_cme.setGeometry(QtCore.QRect(13, 30, 597, 327))
         self.tableWidget_cme.setObjectName("tableWidget_cme")
         self.tableWidget_cme.setColumnCount(0)
         self.tableWidget_cme.setRowCount(0)
@@ -220,3 +218,4 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
+
