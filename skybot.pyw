@@ -975,6 +975,10 @@ if os.path.isfile('daytime.txt'):
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
+        HANGSENG_전일종가 = float(temp[4])
+
+        tmp = daytime_file.readline().strip()
+        temp = tmp.split()
         WTI_전일종가 = float(temp[4])
 
         tmp = daytime_file.readline().strip()
@@ -991,7 +995,7 @@ if os.path.isfile('daytime.txt'):
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        HANGSENG_전일종가 = float(temp[4])        
+        ADI_전일종가 = float(temp[4])                
 else:
     장시작_중심가 = 0
     KP200_전일종가 = 0
@@ -1002,11 +1006,12 @@ else:
     SP500_전일종가 = 0
     DOW_전일종가 = 0
     NASDAQ_전일종가 = 0
+    HANGSENG_전일종가 = 0
     WTI_전일종가 = 0
+    GOLD_전일종가 = 0
     EUROFX_전일종가 = 0
     YEN_전일종가 = 0
-    HANGSENG_전일종가 = 0
-    GOLD_전일종가 = 0
+    ADI_전일종가 = 0    
 
 if 근월물_선물_종가 > 0:
     plot_drate_scale_factor = int(SP500_전일종가 / 근월물_선물_종가)
@@ -44119,6 +44124,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         daytime_file.write(file_txt)
                         file_txt = 'NASDAQ Day Close = {0}\n'.format(NASDAQ_현재가)
                         daytime_file.write(file_txt)
+                        file_txt = 'HANGSENG Day Close = {0}\n'.format(HANGSENG_현재가)
+                        daytime_file.write(file_txt)
                         file_txt = 'WTI Day Close = {0}\n'.format(WTI_현재가)
                         daytime_file.write(file_txt)
                         file_txt = 'GOLD Day Close = {0}\n'.format(GOLD_현재가)
@@ -44127,8 +44134,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         daytime_file.write(file_txt)
                         file_txt = 'YEN Day Close = {0}\n'.format(YEN_현재가)
                         daytime_file.write(file_txt)
-                        file_txt = 'HANGSENG Day Close = {0}\n'.format(HANGSENG_현재가)
-                        daytime_file.write(file_txt)                        
+                        file_txt = 'ADI Day Close = {0}\n'.format(ADI_현재가)
+                        daytime_file.write(file_txt)                       
 
                         daytime_file.close()
 
