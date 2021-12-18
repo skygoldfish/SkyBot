@@ -270,6 +270,25 @@ NASDAQ_등락율 = 0
 NASDAQ_고가 = 0
 NASDAQ_진폭 = 0
 
+HANGSENG_전저 = 0
+HANGSENG_전고 = 0
+HANGSENG_종가 = 0
+HANGSENG_피봇 = 0
+HANGSENG_시가 = 0
+
+HANGSENG_저가 = 0
+
+HANGSENG_현재가 = 0
+HANGSENG_과거가 = 0
+HANGSENG_대비 = 0
+HANGSENG_전일대비 = 0
+HANGSENG_종가대비 = 0
+HANGSENG_시가대비 = 0
+HANGSENG_등락율 = 0
+
+HANGSENG_고가 = 0
+HANGSENG_진폭 = 0
+
 WTI_전저 = 0
 WTI_전고 = 0
 WTI_종가 = 0
@@ -288,6 +307,25 @@ WTI_등락율 = 0
 
 WTI_고가 = 0
 WTI_진폭 = 0
+
+GOLD_전저 = 0
+GOLD_전고 = 0
+GOLD_종가 = 0
+GOLD_피봇 = 0
+GOLD_시가 = 0
+
+GOLD_저가 = 0
+
+GOLD_현재가 = 0
+GOLD_과거가 = 0
+GOLD_대비 = 0
+GOLD_전일대비 = 0
+GOLD_종가대비 = 0
+GOLD_시가대비 = 0
+GOLD_등락율 = 0
+
+GOLD_고가 = 0
+GOLD_진폭 = 0
 
 EUROFX_전저 = 0
 EUROFX_전고 = 0
@@ -327,53 +365,36 @@ YEN_등락율 = 0
 YEN_고가 = 0
 YEN_진폭 = 0
 
-HANGSENG_전저 = 0
-HANGSENG_전고 = 0
-HANGSENG_종가 = 0
-HANGSENG_피봇 = 0
-HANGSENG_시가 = 0
+ADI_전저 = 0
+ADI_전고 = 0
+ADI_종가 = 0
+ADI_피봇 = 0
+ADI_시가 = 0
 
-HANGSENG_저가 = 0
+ADI_저가 = 0
 
-HANGSENG_현재가 = 0
-HANGSENG_과거가 = 0
-HANGSENG_대비 = 0
-HANGSENG_전일대비 = 0
-HANGSENG_종가대비 = 0
-HANGSENG_시가대비 = 0
-HANGSENG_등락율 = 0
+ADI_현재가 = 0
+ADI_과거가 = 0
+ADI_대비 = 0
+ADI_전일대비 = 0
+ADI_종가대비 = 0
+ADI_시가대비 = 0
+ADI_등락율 = 0
 
-HANGSENG_고가 = 0
-HANGSENG_진폭 = 0
-
-GOLD_전저 = 0
-GOLD_전고 = 0
-GOLD_종가 = 0
-GOLD_피봇 = 0
-GOLD_시가 = 0
-
-GOLD_저가 = 0
-
-GOLD_현재가 = 0
-GOLD_과거가 = 0
-GOLD_대비 = 0
-GOLD_전일대비 = 0
-GOLD_종가대비 = 0
-GOLD_시가대비 = 0
-GOLD_등락율 = 0
-
-GOLD_고가 = 0
-GOLD_진폭 = 0
+ADI_고가 = 0
+ADI_진폭 = 0
 
 FUT_당일종가 = 0
-DOW_당일종가 = 0
+
 SP500_당일종가 = 0
+DOW_당일종가 = 0
 NASDAQ_당일종가 = 0
+HANGSENG_당일종가 = 0
 WTI_당일종가 = 0
+GOLD_당일종가 = 0
 EUROFX_당일종가 = 0
 YEN_당일종가 = 0
-HANGSENG_당일종가 = 0
-GOLD_당일종가 = 0
+ADI_당일종가 = 0
 
 FILE_HIGH_LOW_LIST = []
 
@@ -492,6 +513,7 @@ WTI = parser.get('Code of the Foreign Futures', 'WTI')
 GOLD = parser.get('Code of the Foreign Futures', 'GOLD')
 EUROFX = parser.get('Code of the Foreign Futures', 'EUROFX')
 YEN = parser.get('Code of the Foreign Futures', 'YEN')
+ADI = parser.get('Code of the Foreign Futures', 'ADI')
 
 # [10]. << Telegram >>
 TELEGRAM_START_TIME = parser.getint('Telegram', 'Telegram polling start time(minute) after service')
@@ -1422,6 +1444,7 @@ df_wti_graph = pd.DataFrame()
 df_gold_graph = pd.DataFrame()
 df_eurofx_graph = pd.DataFrame()
 df_yen_graph = pd.DataFrame()
+df_adi_graph = pd.DataFrame()
 
 call_quote = pd.Series()
 put_quote = pd.Series()
@@ -1965,14 +1988,16 @@ YEN_현재가_버퍼 = []
 
 flag_futures_cm_ohlc_open = False
 flag_futures_nm_ohlc_open = False
-flag_dow_ohlc_open = False
+
 flag_sp500_ohlc_open = False
+flag_dow_ohlc_open = False
 flag_nasdaq_ohlc_open = False
+flag_hangseng_ohlc_open = False
 flag_wti_ohlc_open = False
 flag_gold_ohlc_open = False
 flag_eurofx_ohlc_open = False
 flag_yen_ohlc_open = False
-flag_hangseng_ohlc_open = False
+flag_adi_ohlc_open = False
 
 flag_checkBox_plot1_bband = False
 flag_checkBox_plot2_bband = False
@@ -6119,6 +6144,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             GOLD_당일종가 = GOLD_현재가
                             EUROFX_당일종가 = EUROFX_현재가
                             YEN_당일종가 = YEN_현재가
+                            ADI_당일종가 = ADI_현재가
 
                             # 다음날 해외선물 피봇계산을 위해 종료시(오전 6시 or 7시) 마지막 값 저장
                             txt = '[{0:02d}:{1:02d}:{2:02d}] FUT 종가 = {3:.2f}\r'.format(dt.hour, dt.minute, dt.second, FUT_당일종가)
@@ -6162,6 +6188,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] YEN Low = {3:.2f}, YEN High = {4:.2f}, YEN Close = {5:.2f}\r'.format \
                                 (dt.hour, dt.minute, dt.second, YEN_저가, YEN_고가, YEN_당일종가)
+                            self.textBrowser.append(txt)
+                            print(txt)
+
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] ADI Low = {3:.2f}, ADI High = {4:.2f}, ADI Close = {5:.2f}\r'.format \
+                                (dt.hour, dt.minute, dt.second, ADI_저가, ADI_고가, ADI_당일종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
@@ -6234,7 +6265,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 file_txt = 'YEN Last High = {0}\n'.format(YEN_고가)
                                 nighttime_file.write(file_txt)
                                 file_txt = 'YEN Last Close = {0}\n'.format(YEN_당일종가)
-                                nighttime_file.write(file_txt)                                
+                                nighttime_file.write(file_txt)
+                                file_txt = 'ADI Last Low = {0}\n'.format(ADI_저가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'ADI Last High = {0}\n'.format(ADI_고가)
+                                nighttime_file.write(file_txt)
+                                file_txt = 'ADI Last Close = {0}\n'.format(ADI_당일종가)
+                                nighttime_file.write(file_txt)                              
                                 
                                 nighttime_file.close()
 
@@ -15235,7 +15272,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global start_time_txt, end_time_txt
 
-        global df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_wti_graph, df_gold_graph, df_eurofx_graph, df_yen_graph, df_hangseng_graph
+        global df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_wti_graph, df_gold_graph, df_eurofx_graph, df_yen_graph, df_adi_graph, df_hangseng_graph
         global view_actval
         
         global call_itm_count, call_max_actval
@@ -15534,6 +15571,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_gold_graph.at[0, 'drate'] = 0
                     df_eurofx_graph.at[0, 'drate'] = 0
                     df_yen_graph.at[0, 'drate'] = 0
+                    df_adi_graph.at[0, 'drate'] = 0
 
                     df_call_information_graph.at[0, 'drate'] = 0
                     df_put_information_graph.at[0, 'drate'] = 0
@@ -15572,6 +15610,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if YEN_종가 > 0:
                         df_yen_graph.at[0, 'price'] = YEN_종가
+
+                    if ADI_종가 > 0:
+                        df_adi_graph.at[0, 'price'] = ADI_종가
 
                     if self.fut_realdata['시가'] > 0:
                         df_futures_cm_graph.at[GuardTime + 1, 'open'] = self.fut_realdata['시가']
@@ -16655,6 +16696,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_gold_graph.at[0, 'quote_remainder_ratio'] = 1.0
                 df_eurofx_graph.at[0, 'quote_remainder_ratio'] = 1.0
                 df_yen_graph.at[0, 'quote_remainder_ratio'] = 1.0
+                df_adi_graph.at[0, 'quote_remainder_ratio'] = 1.0
                 df_hangseng_graph.at[0, 'quote_remainder_ratio'] = 1.0                
 
                 df_sp500_graph.at[0, 'drate'] = 0
@@ -20429,6 +20471,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
             df_nasdaq_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate', \
                 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
+            df_hangseng_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate', \
+                'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
             df_wti_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate', \
                 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
             df_gold_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate', \
@@ -20437,8 +20481,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
             df_yen_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate', \
                 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
-            df_hangseng_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate', \
-                'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])            
+            df_adi_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate', \
+                'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])           
 
             flag_t8433_response_ok = True
         else:
@@ -46715,20 +46759,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭, WTI_고가
         global EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭, EUROFX_고가
         global YEN_종가, YEN_피봇, YEN_시가, YEN_저가, YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭, YEN_고가
+        global ADI_종가, ADI_피봇, ADI_시가, ADI_저가, ADI_현재가, ADI_전일대비, ADI_등락율, ADI_진폭, ADI_고가
         global HANGSENG_종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭, HANGSENG_고가
         global GOLD_종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭, GOLD_고가
         global DOW_현재가_버퍼, SP500_현재가_버퍼, NASDAQ_현재가_버퍼, WTI_현재가_버퍼
-        global SP500_과거가, DOW_과거가, NASDAQ_과거가, WTI_과거가, EUROFX_과거가, YEN_과거가, HANGSENG_과거가, GOLD_과거가
-        global SP500_진폭비, DOW_진폭비, NASDAQ_진폭비, HANGSENG_진폭비, WTI_진폭비, GOLD_진폭비, EUROFX_진폭비, YEN_진폭비
+        global SP500_과거가, DOW_과거가, NASDAQ_과거가, WTI_과거가, EUROFX_과거가, YEN_과거가, ADI_과거가, HANGSENG_과거가, GOLD_과거가
+        global SP500_진폭비, DOW_진폭비, NASDAQ_진폭비, HANGSENG_진폭비, WTI_진폭비, GOLD_진폭비, EUROFX_진폭비, YEN_진폭비, ADI_진폭비
 
-        global DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, YEN_당일종가, HANGSENG_당일종가, GOLD_당일종가
+        global DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, YEN_당일종가, ADI_당일종가, HANGSENG_당일종가, GOLD_당일종가
         global DOW_주간_시작가, WTI_주간_시작가, DOW_야간_시작가, WTI_야간_시작가
         
         global flag_dow_ohlc_open, flag_sp500_ohlc_open, flag_nasdaq_ohlc_open, flag_wti_ohlc_open
-        global flag_eurofx_ohlc_open, flag_yen_ohlc_open, flag_hangseng_ohlc_open, flag_gold_ohlc_open
+        global flag_eurofx_ohlc_open, flag_yen_ohlc_open, flag_hangseng_ohlc_open, flag_gold_ohlc_open, flag_adi_ohlc_open
 
-        global SP500_종가대비, DOW_종가대비, NASDAQ_종가대비, HANGSENG_종가대비, WTI_종가대비, GOLD_종가대비, EUROFX_종가대비, YEN_종가대비
-        global SP500_시가대비, DOW_시가대비, NASDAQ_시가대비, HANGSENG_시가대비, WTI_시가대비, GOLD_시가대비, EUROFX_시가대비, YEN_시가대비
+        global SP500_종가대비, DOW_종가대비, NASDAQ_종가대비, HANGSENG_종가대비, WTI_종가대비, GOLD_종가대비, EUROFX_종가대비, YEN_종가대비, ADI_종가대비
+        global SP500_시가대비, DOW_시가대비, NASDAQ_시가대비, HANGSENG_시가대비, WTI_시가대비, GOLD_시가대비, EUROFX_시가대비, YEN_시가대비, ADI_시가대비
 
         try:
             dt = datetime.now()
@@ -48328,6 +48373,49 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.tableWidget_cme.setItem(7, 9, item)                   
 
                     self.tableWidget_cme.resizeRowToContents(7)
+                else:
+                    pass
+
+            elif tickdata['종목코드'] == ADI:
+
+                # 그래프 가격갱신
+                df_adi_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])  
+
+                ADI_현재가 = float(tickdata['체결가격'])
+                
+                txt = '[{0:02d}:{1:02d}:{2:02d}] ADI_현재가 = {3}\r'.format(CME_HOUR, CME_MIN, CME_SEC, ADI_현재가)
+                self.textBrowser.append(txt)
+                print(txt)
+
+                ADI_전일대비 = float(tickdata['전일대비'])
+
+                if tickdata['전일대비기호'] == '5':
+                    ADI_종가 = round((ADI_현재가 + ADI_전일대비), 1)
+                    ADI_종가대비 = -ADI_전일대비
+                else:
+                    ADI_종가 = round((ADI_현재가 - ADI_전일대비), 1)
+                    ADI_종가대비 = ADI_전일대비
+
+                ADI_등락율 = float(tickdata['등락율'])
+
+                ADI_시가 = float(tickdata['시가'])
+                ADI_저가 =  float(tickdata['저가'])
+                ADI_고가 =  float(tickdata['고가'])                    
+                ADI_진폭 = ADI_고가 - ADI_저가
+
+                ADI_시가대비 = ADI_현재가 - ADI_시가
+
+                df_adi_graph.at[0, 'price'] = YEN_종가
+                df_adi_graph.at[1, 'price'] = YEN_시가
+
+                ADI_진폭비 = ADI_진폭 / ADI_시가
+
+                if ADI_피봇 == 0:
+
+                    if ADI_전저 > 0 and ADI_전고 > 0:
+                        ADI_피봇 = calc_pivot(ADI_전저, ADI_전고, ADI_종가, ADI_시가, 1)
+                    else:
+                        pass
                 else:
                     pass
             else:

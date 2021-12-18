@@ -30,6 +30,7 @@ WTI = parser.get('Code of the Foreign Futures', 'WTI')
 GOLD = parser.get('Code of the Foreign Futures', 'GOLD')
 EUROFX = parser.get('Code of the Foreign Futures', 'EUROFX')
 YEN = parser.get('Code of the Foreign Futures', 'YEN')
+ADI = parser.get('Code of the Foreign Futures', 'ADI')
 
 #MP_OVC_SLEEP_SWITCH_MODE = parser.getboolean('User Switch', 'MP OVC Sleep Switching Mode')
 MP_SLEEP_SWITCHING_DELAY = parser.getfloat('Initial Value', 'MP Sleep Switching Delay')
@@ -72,16 +73,17 @@ def ovc_crawler(queue: Queue, flag_high_speed=False):
 
         # ################################### OVC ####################################################################        
 
-        real_time_ovc_tick = RealTimeOVCTick(queue=queue)
+        real_time_ovc_tick = RealTimeOVCTick(queue=queue)        
         
-        real_time_ovc_tick.set_ovc_code(DOW)
         real_time_ovc_tick.set_ovc_code(SP500)
+        real_time_ovc_tick.set_ovc_code(DOW)
         real_time_ovc_tick.set_ovc_code(NASDAQ)
+        real_time_ovc_tick.set_ovc_code(HANGSENG)
         real_time_ovc_tick.set_ovc_code(WTI)
         real_time_ovc_tick.set_ovc_code(GOLD)
         real_time_ovc_tick.set_ovc_code(EUROFX)
         real_time_ovc_tick.set_ovc_code(YEN)
-        real_time_ovc_tick.set_ovc_code(HANGSENG)        
+        real_time_ovc_tick.set_ovc_code(ADI)        
 
         while True:
             pythoncom.PumpWaitingMessages()
