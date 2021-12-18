@@ -13286,12 +13286,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         시가갭 = 시가 - 종가
                         df_call.at[index, '시가갭'] = 시가갭
 
-                        #if 시가 > OTM_SEARCH_START_VAL:
-                        if True:
-                            call_gap_percent[index] = (시가 / 종가 - 1) * 100
-                            콜_등가_시가등락율 = call_gap_percent[ATM_INDEX]
-                        else:
-                            pass
+                        call_gap_percent[index] = (시가 / 종가 - 1) * 100
+                        콜_등가_시가등락율 = call_gap_percent[ATM_INDEX]
 
                         gap_txt = "{0:.2f}\n{1:.1f}%".format(시가갭, call_gap_percent[index])
 
@@ -14308,7 +14304,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global put_open_count
         global 풋시가갭합, 풋시가갭합_퍼센트평균, 풋시가갭합_단위평균, put_otm_cdb_percent_mean
         global put_otm_cdb, put_otm_cdb_percent
-        global nm_put_oloh_txt
+        global nm_put_oloh_txt, 풋_등가_시가등락율, plot_drate_scale_factor 
         
         dt = datetime.now()
 
@@ -14374,11 +14370,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         df_put.at[index, '시가갭'] = 시가갭
 
-                        #if 시가 > OTM_SEARCH_START_VAL:
-                        if True:
-                            put_gap_percent[index] = (시가 / 종가 - 1) * 100
-                        else:
-                            pass
+                        put_gap_percent[index] = (시가 / 종가 - 1) * 100
+                        풋_등가_시가등락율 = put_gap_percent[ATM_INDEX]
 
                         gap_txt = "{0:.2f}\n{1:.1f}%".format(시가갭, put_gap_percent[index])
 
