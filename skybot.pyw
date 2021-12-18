@@ -405,7 +405,7 @@ DARK_STYLESHEET = parser.getboolean('Window Style', 'Dark Style')
 
 # [5]. << User Switch = 'ON or OFF' >>
 MULTIPROCESS = parser.getboolean('User Switch', 'Multiprocess')
-ATM_DRATE_REFERENCE = parser.getboolean('User Switch', 'ATM Reference of Plot Drate')
+CALL_ATM_DRATE_REFERENCE = parser.getboolean('User Switch', 'Call ATM Reference of Plot Drate')
 OPTION_PERIODIC_UPDATE = parser.getboolean('User Switch', 'Option Table Periodic Update')
 TELEGRAM_SERVICE = parser.getboolean('User Switch', 'Telegram service')
 MANGI_YAGAN = parser.getboolean('User Switch', 'Mangi Yagan')
@@ -986,8 +986,8 @@ else:
     HANGSENG_전일종가 = 0
     GOLD_전일종가 = 0
 
-if KP200_종가 > 0:
-    plot_drate_scale_factor = int(SP500_전일종가 / KP200_종가)
+if 근월물_선물_종가 > 0:
+    plot_drate_scale_factor = int(SP500_전일종가 / 근월물_선물_종가)
 else:
     plot_drate_scale_factor = 12
 
@@ -11279,14 +11279,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_fut.item(1, Futures_column.고가.value).setForeground(QBrush(검정색))
 
         # Scale Factor 계산
-        if ATM_DRATE_REFERENCE:
+        if CALL_ATM_DRATE_REFERENCE:
             drate_reference = 콜_등가_시가등락율
         else:
-            drate_reference = call_otm_cdb_percent_mean
+            drate_reference = 풋_등가_시가등락율
 
-        if KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(drate_reference) > 0:
-            kp200_시가등락율 = ((KP200_당일시가 - KP200_전일종가) / KP200_전일종가) * 100
-            plot_drate_scale_factor = int(abs(drate_reference / kp200_시가등락율))
+        if abs(근월물_선물_시가등락율) > 0 and abs(drate_reference) > 0:
+
+            plot_drate_scale_factor = int(abs(drate_reference / 근월물_선물_시가등락율))
               
             if plot_drate_scale_factor > 100:
                 plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
@@ -11378,14 +11378,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_fut.item(0, Futures_column.고가.value).setForeground(QBrush(검정색))
         
         # Scale Factor 계산
-        if ATM_DRATE_REFERENCE:
+        if CALL_ATM_DRATE_REFERENCE:
             drate_reference = 콜_등가_시가등락율
         else:
-            drate_reference = call_otm_cdb_percent_mean
+            drate_reference = 풋_등가_시가등락율
 
-        if KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(drate_reference) > 0:
-            kp200_시가등락율 = ((KP200_당일시가 - KP200_전일종가) / KP200_전일종가) * 100
-            plot_drate_scale_factor = int(abs(drate_reference / kp200_시가등락율))
+        if abs(근월물_선물_시가등락율) > 0 and abs(drate_reference) > 0:
+
+            plot_drate_scale_factor = int(abs(drate_reference / 근월물_선물_시가등락율))
            
             if plot_drate_scale_factor > 100:
                 plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
@@ -13593,7 +13593,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_put_low_update, flag_put_high_update
         global put_gap_percent, put_db_percent, put_otm_cdb, put_otm_cdb_percent, put_otm_jdb, put_otm_jdb_percent
         global put_otm_cdb_percent_mean
-        global 풋_등가_등락율
+        global 풋_등가_등락율, 풋_등가_시가등락율, plot_drate_scale_factor 
 
         try:
             dt = datetime.now()
@@ -13615,6 +13615,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             풋저가 = float(result['저가'])
             풋고가 = float(result['고가'])
             풋등락율 = float(result['등락율'])
+
+            if index == ATM_INDEX:
+                풋_등가_시가등락율 = (풋시가 / 풋종가 - 1) * 100
+            else:
+                pass
 
             # 풋 외가(등가포함) 대비 저장
             if index >= ATM_INDEX and 풋시가 > OTM_SEARCH_START_VAL and 풋저가 < 풋고가:
@@ -15263,7 +15268,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_score_board_start, flag_telegram_send_start, flag_telegram_listen_start
         global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_피봇, 근월물_선물_시가, 근월물_선물_저가, 근월물_선물_현재가, 근월물_선물_고가
         global 차월물_선물_전저, 차월물_선물_전고, 차월물_선물_종가, 차월물_선물_피봇, 차월물_선물_시가, 차월물_선물_저가, 차월물_선물_현재가, 차월물_선물_고가
-        global FUT_전일종가, FUT_당일종가
+        global FUT_전일종가
+        global 근월물_선물_시가등락율, 차월물_선물_시가등락율
 
         dt = datetime.now()
 
@@ -15503,6 +15509,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.fut_realdata['시가'] = df['시가']
                 근월물_선물_시가 = df['시가']
+                근월물_선물_시가등락율 = ((근월물_선물_시가 - 근월물_선물_종가) / 근월물_선물_종가) * 100
+
+                print('\r')
+                print('<근월물_선물_시가등락율> =', 근월물_선물_시가등락율)
+                print('\r')
 
                 txt = '{0:.2f}\n({1:.2f})'.format(df['시가'], SP500_기준_예상시가)
 
@@ -15742,6 +15753,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.setItem(0, Futures_column.종가.value, item)
 
                 차월물_선물_시가 = df['시가']
+                차월물_선물_시가등락율 = ((차월물_선물_시가 - 차월물_선물_종가) / 차월물_선물_종가) * 100
+
+                print('\r')
+                print('<차월물_선물_시가등락율> =', 차월물_선물_시가등락율)
+                print('\r')
 
                 df_futures_nm_graph.at[GuardTime + 1, 'open'] = 차월물_선물_시가
 
@@ -45656,7 +45672,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global df_futures_cm_graph, 근월물_선물_현재가, 근월물_선물_현재가_버퍼, flag_futures_cm_ohlc_open, fut_cm_tickdata
         global df_futures_nm_graph, 차월물_선물_현재가, 차월물_선물_현재가_버퍼, flag_futures_nm_ohlc_open, fut_nm_tickdata
         global flag_drate_scale_factor_set
-        global 차월물_선물_종가대비_등락율, 차월물_선물_시가대비_등락율
+        global 차월물_선물_종가대비_등락율, 차월물_선물_시가대비_등락율, 차월물_선물_시가등락율
 
         try:
             dt = datetime.now()
@@ -45761,18 +45777,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.거래량.value, item)                
 
                 # 그래프관련 처리 먼저...                    
-                근월물_선물_종가대비_등락율 = float(tickdata['등락율'])            
+                근월물_선물_종가대비_등락율 = float(tickdata['등락율'])
+                근월물_선물_시가등락율 = ((float(tickdata['시가']) - 근월물_선물_종가) / 근월물_선물_종가) * 100           
                 근월물_선물_시가대비_등락율 = ((float(tickdata['현재가']) - float(tickdata['시가'])) / float(tickdata['시가'])) * 100
 
-                if ATM_DRATE_REFERENCE:
+                if CALL_ATM_DRATE_REFERENCE:
                     drate_reference = 콜_등가_시가등락율
                 else:
-                    drate_reference = call_otm_cdb_percent_mean
+                    drate_reference = 풋_등가_시가등락율
 
-                if TARGET_MONTH == 'CM' and KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(drate_reference) > 0 and not flag_drate_scale_factor_set:                    
+                if TARGET_MONTH == 'CM' and abs(근월물_선물_시가등락율) > 0 and abs(drate_reference) > 0 and not flag_drate_scale_factor_set:                    
 
-                    kp200_시가등락율 = ((KP200_당일시가 - KP200_전일종가) / KP200_전일종가) * 100
-                    plot_drate_scale_factor = int(abs(drate_reference / kp200_시가등락율))
+                    plot_drate_scale_factor = int(abs(drate_reference / 근월물_선물_시가등락율))
               
                     if plot_drate_scale_factor > 100:
                         plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
@@ -45803,18 +45819,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif tickdata['단축코드'] == CMSHCODE:
 
                 # 그래프관련 처리 먼저...
-                차월물_선물_종가대비_등락율 = float(tickdata['등락율'])            
+                차월물_선물_종가대비_등락율 = float(tickdata['등락율'])
+                차월물_선물_시가등락율 = ((float(tickdata['시가']) - 차월물_선물_종가) / 차월물_선물_종가) * 100            
                 차월물_선물_시가대비_등락율 = ((float(tickdata['현재가']) - float(tickdata['시가'])) / float(tickdata['시가'])) * 100
 
-                if ATM_DRATE_REFERENCE:
+                if CALL_ATM_DRATE_REFERENCE:
                     drate_reference = 콜_등가_시가등락율
                 else:
-                    drate_reference = call_otm_cdb_percent_mean
+                    drate_reference = 풋_등가_시가등락율
 
-                if TARGET_MONTH == 'NM' and KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(drate_reference) > 0 and not flag_drate_scale_factor_set:
+                if TARGET_MONTH == 'NM' and abs(차월물_선물_시가등락율) > 0 and abs(drate_reference) > 0 and not flag_drate_scale_factor_set:
 
-                    kp200_시가등락율 = ((KP200_당일시가 - KP200_전일종가) / KP200_전일종가) * 100
-                    plot_drate_scale_factor = int(abs(drate_reference / kp200_시가등락율))
+                    plot_drate_scale_factor = int(abs(drate_reference / 차월물_선물_시가등락율))
              
                     if plot_drate_scale_factor > 100:
                         plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
@@ -46312,15 +46328,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 global flag_drate_scale_factor_set
 
-                if ATM_DRATE_REFERENCE:
+                if CALL_ATM_DRATE_REFERENCE:
                     drate_reference = 콜_등가_시가등락율
                 else:
-                    drate_reference = call_otm_cdb_percent_mean
+                    drate_reference = 풋_등가_시가등락율
 
-                if KP200_전일종가 > 0 and KP200_당일시가 > 0 and abs(drate_reference) > 0 and not flag_drate_scale_factor_set:
+                if abs(근월물_선물_시가등락율) > 0 and abs(drate_reference) > 0 and not flag_drate_scale_factor_set:
 
-                    kp200_시가등락율 = ((KP200_당일시가 - KP200_전일종가) / KP200_전일종가) * 100
-                    plot_drate_scale_factor = int(abs(drate_reference / kp200_시가등락율))
+                    plot_drate_scale_factor = int(abs(drate_reference / 근월물_선물_시가등락율))
                
                     if plot_drate_scale_factor > 100:
                         plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
