@@ -24597,6 +24597,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             pass
     '''
+    
     def plot6_mouseClicked(self, evt):
 
         if self.plot6.sceneBoundingRect().contains(evt._scenePos):
@@ -49828,7 +49829,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
                 if "{0:.5f}".format(ADI_종가) != self.tableWidget_cme.item(8, 3).text():
-                    item = QTableWidgetItem("{0:.1f}".format(ADI_종가))
+                    item = QTableWidgetItem("{0:.5f}".format(ADI_종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -49837,7 +49838,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
                 if "{0:.5f}".format(ADI_피봇) != self.tableWidget_cme.item(8, 4).text():
-                    item = QTableWidgetItem("{0:.1f}".format(ADI_피봇))
+                    item = QTableWidgetItem("{0:.5f}".format(ADI_피봇))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -49846,7 +49847,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
                 if "{0:.5f}".format(ADI_시가) != self.tableWidget_cme.item(8, 5).text():
-                    item = QTableWidgetItem("{0:.1f}".format(ADI_시가))
+                    item = QTableWidgetItem("{0:.5f}".format(ADI_시가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
