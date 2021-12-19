@@ -49770,10 +49770,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif tickdata['종목코드'] == ADI:
 
                 ADI_현재가 = float(tickdata['체결가격'])
-                
-                #txt = '[{0:02d}:{1:02d}:{2:02d}] ADI_현재가 = {3}\r'.format(CME_HOUR, CME_MIN, CME_SEC, ADI_현재가)
-                #self.textBrowser.append(txt)
-                #print(txt)
 
                 # 그래프 가격갱신                
                 df_adi_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])                
@@ -49811,7 +49807,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
                 if "{0:.5f}".format(ADI_전저) != self.tableWidget_cme.item(8, 1).text():
-                    item = QTableWidgetItem("{0:.1f}".format(ADI_전저))
+                    item = QTableWidgetItem("{0:.5f}".format(ADI_전저))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -49820,7 +49816,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
                 if "{0:.5f}".format(ADI_전고) != self.tableWidget_cme.item(8, 2).text():
-                    item = QTableWidgetItem("{0:.1f}".format(ADI_전고))
+                    item = QTableWidgetItem("{0:.5f}".format(ADI_전고))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
