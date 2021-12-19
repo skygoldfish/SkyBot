@@ -22844,8 +22844,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1.addItem(self.plot1_vLine, ignoreBounds=True)
             self.plot1.addItem(self.plot1_hLine, ignoreBounds=True)
             self.plot1.setMouseTracking(True)
-            #self.plot1.scene().sigMouseMoved.connect(self.plot1_mouseMoved)
             self.plot1.scene().sigMouseClicked.connect(self.plot1_mouseClicked)
+            #self.plot1.scene().sigMouseMoved.connect(self.plot1_mouseMoved)            
         else:
             pass
 
@@ -22945,9 +22945,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_hLine = pg.InfiniteLine(angle=0, movable=False)
             self.plot2.addItem(self.plot2_vLine, ignoreBounds=True)
             self.plot2.addItem(self.plot2_hLine, ignoreBounds=True)
-            self.plot2.setMouseTracking(True)
-            #self.plot2.scene().sigMouseMoved.connect(self.plot2_mouseMoved)
+            self.plot2.setMouseTracking(True)            
             self.plot2.scene().sigMouseClicked.connect(self.plot2_mouseClicked)
+            #self.plot2.scene().sigMouseMoved.connect(self.plot2_mouseMoved)
         else:
             pass 
 
@@ -23047,9 +23047,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_hLine = pg.InfiniteLine(angle=0, movable=False)
             self.plot3.addItem(self.plot3_vLine, ignoreBounds=True)
             self.plot3.addItem(self.plot3_hLine, ignoreBounds=True)
-            self.plot3.setMouseTracking(True)
-            #self.plot3.scene().sigMouseMoved.connect(self.plot3_mouseMoved)
+            self.plot3.setMouseTracking(True)            
             self.plot3.scene().sigMouseClicked.connect(self.plot3_mouseClicked)
+            #self.plot3.scene().sigMouseMoved.connect(self.plot3_mouseMoved)
         else:
             pass
 
@@ -23149,9 +23149,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_hLine = pg.InfiniteLine(angle=0, movable=False)
             self.plot4.addItem(self.plot4_vLine, ignoreBounds=True)
             self.plot4.addItem(self.plot4_hLine, ignoreBounds=True)
-            self.plot4.setMouseTracking(True)
-            #self.plot4.scene().sigMouseMoved.connect(self.plot4_mouseMoved)
+            self.plot4.setMouseTracking(True)            
             self.plot4.scene().sigMouseClicked.connect(self.plot4_mouseClicked)
+            #self.plot4.scene().sigMouseMoved.connect(self.plot4_mouseMoved)
         else:
             pass  
 
@@ -23251,9 +23251,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_hLine = pg.InfiniteLine(angle=0, movable=False)
             self.plot5.addItem(self.plot5_vLine, ignoreBounds=True)
             self.plot5.addItem(self.plot5_hLine, ignoreBounds=True)
-            self.plot5.setMouseTracking(True)
-            #self.plot5.scene().sigMouseMoved.connect(self.plot5_mouseMoved)
+            self.plot5.setMouseTracking(True)            
             self.plot5.scene().sigMouseClicked.connect(self.plot5_mouseClicked)
+            #self.plot5.scene().sigMouseMoved.connect(self.plot5_mouseMoved)
         else:
             pass 
 
@@ -23353,9 +23353,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_hLine = pg.InfiniteLine(angle=0, movable=False)
             self.plot6.addItem(self.plot6_vLine, ignoreBounds=True)
             self.plot6.addItem(self.plot6_hLine, ignoreBounds=True)
-            self.plot6.setMouseTracking(True)
-            #self.plot6.scene().sigMouseMoved.connect(self.plot6_mouseMoved)
+            self.plot6.setMouseTracking(True)            
             self.plot6.scene().sigMouseClicked.connect(self.plot6_mouseClicked)
+            #self.plot6.scene().sigMouseMoved.connect(self.plot6_mouseMoved)
         else:
             pass        
 
@@ -23546,6 +23546,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         QMessageBox.critical(self, "Uncaught exception in SkyChart!", f"In pyqtSlot: {slot_name}:\n" f"Caught exception: {exception.__repr__()}")
 
     #cross hair
+    '''
     def plot1_mouseMoved(self, evt):
 
         global plot1_x, plot1_y
@@ -23707,6 +23708,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 pass
         else:
             pass
+    '''
 
     def plot1_mouseClicked(self, evt):
 
@@ -23722,7 +23724,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             txt = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
             self.label_p1_1.setText(txt)
-
+    '''
     def plot2_mouseMoved(self, evt):
 
         global plot2_x, plot2_y
@@ -23884,6 +23886,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 pass                           
         else:
             pass
+    '''
 
     def plot2_mouseClicked(self, evt):
 
@@ -23899,7 +23902,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             txt = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
             self.label_p2_1.setText(txt)
-
+    '''
     def plot3_mouseMoved(self, evt):
 
         global plot3_x, plot3_y
@@ -24061,6 +24064,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 pass                            
         else:
             pass
+    '''
 
     def plot3_mouseClicked(self, evt):
 
@@ -24076,7 +24080,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             txt = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
             self.label_p3_1.setText(txt)
-
+    '''
     def plot4_mouseMoved(self, evt):
         
         global plot4_x, plot4_y
@@ -24236,6 +24240,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass        
             else:
                 pass
+    '''
 
     def plot4_mouseClicked(self, evt):
 
@@ -24251,7 +24256,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             txt = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
             self.label_p4_1.setText(txt)                    
-
+    '''
     def plot5_mouseMoved(self, evt):
 
         global plot5_x, plot5_y
@@ -24413,6 +24418,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 pass                       
         else:
             pass
+    '''
 
     def plot5_mouseClicked(self, evt):
 
@@ -24428,7 +24434,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             txt = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
             self.label_p5_1.setText(txt)
-
+    '''
     def plot6_mouseMoved(self, evt):
 
         global plot6_x, plot6_y
@@ -24590,7 +24596,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 pass                
         else:
             pass
-
+    '''
     def plot6_mouseClicked(self, evt):
 
         if self.plot6.sceneBoundingRect().contains(evt._scenePos):
