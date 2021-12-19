@@ -881,9 +881,20 @@ if os.path.isfile('nighttime.txt'):
         YEN_종가 = float(temp[4])
         print('YEN 종가 =', YEN_종가)        
 
-        print('***YEN_전저 =\r', YEN_전저)
-        print('***YEN_전고 =\r', YEN_전고)
-        print('***YEN_종가 =\r', YEN_종가)        
+        tmp = nighttime_file.readline().strip()
+        temp = tmp.split()
+        ADI_전저 = float(temp[4])
+        print('ADI 전저 =', ADI_전저)
+
+        tmp = nighttime_file.readline().strip()
+        temp = tmp.split()
+        ADI_전고 = float(temp[4])
+        print('ADI 전고 =', ADI_전고)
+        
+        tmp = nighttime_file.readline().strip()
+        temp = tmp.split()
+        ADI_종가 = float(temp[4])
+        print('ADI 종가 =', ADI_종가)       
 else:
     FUT_전일종가 = 0
     SP500_전저 = 0
@@ -895,6 +906,9 @@ else:
     NASDAQ_전저 = 0
     NASDAQ_전고 = 0
     NASDAQ_종가 = 0
+    HANGSENG_전저 = 0
+    HANGSENG_전고 = 0
+    HANGSENG_종가 = 0
     WTI_전저 = 0
     WTI_전고 = 0
     WTI_종가 = 0
@@ -907,9 +921,9 @@ else:
     YEN_전저 = 0
     YEN_전고 = 0
     YEN_종가 = 0
-    HANGSENG_전저 = 0
-    HANGSENG_전고 = 0
-    HANGSENG_종가 = 0    
+    ADI_전저 = 0
+    ADI_전고 = 0
+    ADI_종가 = 0        
 
 if os.path.isfile('daytime.txt'):
 
