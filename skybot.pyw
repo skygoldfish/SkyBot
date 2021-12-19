@@ -471,6 +471,7 @@ WTI_CHK = parser.getboolean('RealTime Request Item Switch', 'WTI OIL')
 GOLD_CHK = parser.getboolean('RealTime Request Item Switch', 'GOLD')
 EUROFX_CHK = parser.getboolean('RealTime Request Item Switch', 'EUROFX')
 YEN_CHK = parser.getboolean('RealTime Request Item Switch', 'YEN')
+ADI_CHK = parser.getboolean('RealTime Request Item Switch', 'ADI')
 NEWS_CHK = parser.getboolean('RealTime Request Item Switch', 'NEWS')
 
 # [7]. << Moving Average Type >>
@@ -21232,7 +21233,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_oil.setChecked(WTI_CHK)
         self.checkBox_gold.setChecked(GOLD_CHK)
         self.checkBox_eurofx.setChecked(EUROFX_CHK)
-        self.checkBox_yen.setChecked(YEN_CHK)        
+        self.checkBox_yen.setChecked(YEN_CHK)
+        self.checkBox_adi.setChecked(ADI_CHK)        
 
         self.checkBox_periodic_plot.setChecked(flag_option_periodic_update_mode)
         self.checkBox_plot_first.setChecked(flag_plot_sync_mode)
@@ -21277,11 +21279,13 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_dow.stateChanged.connect(self.checkBox_dow_checkState)
         self.checkBox_sp500.stateChanged.connect(self.checkBox_sp500_checkState)
         self.checkBox_nasdaq.stateChanged.connect(self.checkBox_nasdaq_checkState)
+        self.checkBox_hangseng.stateChanged.connect(self.checkBox_hangseng_checkState)
         self.checkBox_oil.stateChanged.connect(self.checkBox_oil_checkState)
+        self.checkBox_gold.stateChanged.connect(self.checkBox_gold_checkState)
         self.checkBox_eurofx.stateChanged.connect(self.checkBox_eurofx_checkState)
         self.checkBox_yen.stateChanged.connect(self.checkBox_yen_checkState)
-        self.checkBox_hangseng.stateChanged.connect(self.checkBox_hangseng_checkState)
-        self.checkBox_gold.stateChanged.connect(self.checkBox_gold_checkState)
+        self.checkBox_adi.stateChanged.connect(self.checkBox_adi_checkState)
+        
         self.checkBox_news.stateChanged.connect(self.checkBox_news_checkState)
 
         self.checkBox_periodic_plot.stateChanged.connect(self.checkBox_periodic_plot_state_change)
@@ -22158,6 +22162,10 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
                 pass
 
     def checkBox_yen_checkState(self):
+
+        pass
+
+    def checkBox_adi_checkState(self):
 
         pass
 
