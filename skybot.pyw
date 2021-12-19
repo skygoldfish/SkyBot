@@ -48393,21 +48393,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 ADI_현재가 = float(tickdata['체결가격'])
                 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] ADI_현재가 = {3}\r'.format(CME_HOUR, CME_MIN, CME_SEC, ADI_현재가)
-                self.textBrowser.append(txt)
-                print(txt)
+                #txt = '[{0:02d}:{1:02d}:{2:02d}] ADI_현재가 = {3}\r'.format(CME_HOUR, CME_MIN, CME_SEC, ADI_현재가)
+                #self.textBrowser.append(txt)
+                #print(txt)
 
-                # 그래프 가격갱신
-                '''
+                # 그래프 가격갱신                
                 df_adi_graph.at[cme_time_index, 'price'] = float(tickdata['체결가격'])                
 
                 ADI_전일대비 = float(tickdata['전일대비'])
 
                 if tickdata['전일대비기호'] == '5':
-                    ADI_종가 = round((ADI_현재가 + ADI_전일대비), 1)
+                    ADI_종가 = round((ADI_현재가 + ADI_전일대비), 5)
                     ADI_종가대비 = -ADI_전일대비
                 else:
-                    ADI_종가 = round((ADI_현재가 - ADI_전일대비), 1)
+                    ADI_종가 = round((ADI_현재가 - ADI_전일대비), 5)
                     ADI_종가대비 = ADI_전일대비
 
                 ADI_등락율 = float(tickdata['등락율'])
@@ -48427,13 +48426,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if ADI_피봇 == 0:
 
                     if ADI_전저 > 0 and ADI_전고 > 0:
-                        ADI_피봇 = calc_pivot(ADI_전저, ADI_전고, ADI_종가, ADI_시가, 1)
+                        ADI_피봇 = calc_pivot(ADI_전저, ADI_전고, ADI_종가, ADI_시가, 5)
                     else:
                         pass
                 else:
                     pass
 
-                if "{0:.1f}".format(ADI_전저) != self.tableWidget_cme.item(8, 1).text():
+                if "{0:.5f}".format(ADI_전저) != self.tableWidget_cme.item(8, 1).text():
                     item = QTableWidgetItem("{0:.1f}".format(ADI_전저))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48442,7 +48441,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if "{0:.1f}".format(ADI_전고) != self.tableWidget_cme.item(8, 2).text():
+                if "{0:.5f}".format(ADI_전고) != self.tableWidget_cme.item(8, 2).text():
                     item = QTableWidgetItem("{0:.1f}".format(ADI_전고))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48451,7 +48450,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if "{0:.1f}".format(ADI_종가) != self.tableWidget_cme.item(8, 3).text():
+                if "{0:.5f}".format(ADI_종가) != self.tableWidget_cme.item(8, 3).text():
                     item = QTableWidgetItem("{0:.1f}".format(ADI_종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48460,7 +48459,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if "{0:.1f}".format(ADI_피봇) != self.tableWidget_cme.item(8, 4).text():
+                if "{0:.5f}".format(ADI_피봇) != self.tableWidget_cme.item(8, 4).text():
                     item = QTableWidgetItem("{0:.1f}".format(ADI_피봇))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48469,7 +48468,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if "{0:.1f}".format(ADI_시가) != self.tableWidget_cme.item(8, 5).text():
+                if "{0:.5f}".format(ADI_시가) != self.tableWidget_cme.item(8, 5).text():
                     item = QTableWidgetItem("{0:.1f}".format(ADI_시가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -48478,14 +48477,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if "{0:.1f}".format(ADI_저가) != self.tableWidget_cme.item(8, 6).text():
-                    item = QTableWidgetItem("{0:.1f}".format(ADI_저가))
+                if "{0:.5f}".format(ADI_저가) != self.tableWidget_cme.item(8, 6).text():
+                    item = QTableWidgetItem("{0:.5f}".format(ADI_저가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(청색))
                     item.setForeground(QBrush(흰색))
                     self.tableWidget_cme.setItem(8, 6, item)
 
-                    item = QTableWidgetItem('{0:.1f}'.format(ADI_진폭))
+                    item = QTableWidgetItem('{0:.5f}'.format(ADI_진폭))
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -48495,14 +48494,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if "{0:.1f}".format(ADI_고가) != self.tableWidget_cme.item(8, 8).text():
-                    item = QTableWidgetItem("{0:.1f}".format(ADI_고가))
+                if "{0:.5f}".format(ADI_고가) != self.tableWidget_cme.item(8, 8).text():
+                    item = QTableWidgetItem("{0:.5f}".format(ADI_고가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(적색))
                     item.setForeground(QBrush(흰색))
                     self.tableWidget_cme.setItem(8, 8, item)
 
-                    item = QTableWidgetItem('{0:.1f}'.format(ADI_진폭))
+                    item = QTableWidgetItem('{0:.5f}'.format(ADI_진폭))
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -48511,7 +48510,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.adi_node_coloring()
                 else:
                     pass
-
+                
                 ADI_과거가 = float(self.tableWidget_cme.item(8, 7).text().split('\n')[0])
                 
                 if ADI_현재가 != ADI_과거가:                                        
@@ -48546,9 +48545,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_cme.setItem(8, 7, item)                                            
                     else:
-                        pass                    
+                        pass
 
-                    item = QTableWidgetItem('{0:.1f}'.format(ADI_시가대비))
+                    ADI_시가대비 = ADI_현재가 - ADI_시가                   
+
+                    item = QTableWidgetItem('{0:.5f}'.format(ADI_시가대비))
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -48556,8 +48557,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     self.tableWidget_cme.resizeRowToContents(8)
                 else:
-                    pass
-                '''
+                    pass                
             else:
                 pass
 
