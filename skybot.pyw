@@ -22694,52 +22694,40 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_68.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_68.setText(" 고가 ")
 
-        self.comboBox1.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '수급종합', '외인수급'])
+        self.comboBox1.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', 'ADI'])
         self.comboBox1.insertSeparator(1)
-        self.comboBox1.insertSeparator(5)
         self.comboBox1.insertSeparator(9)
-        self.comboBox1.insertSeparator(11)
-        self.comboBox1.insertSeparator(20)
+        self.comboBox1.insertSeparator(12)
         self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-        self.comboBox2.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '수급종합', '외인수급'])
+        self.comboBox2.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', 'ADI'])
         self.comboBox2.insertSeparator(1)
-        self.comboBox2.insertSeparator(5)
         self.comboBox2.insertSeparator(9)
-        self.comboBox2.insertSeparator(11)
-        self.comboBox2.insertSeparator(20)
+        self.comboBox2.insertSeparator(12)
         self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
-        self.comboBox3.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '수급종합', '외인수급'])
+        self.comboBox3.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', 'ADI'])
         self.comboBox3.insertSeparator(1)
-        self.comboBox3.insertSeparator(5)
         self.comboBox3.insertSeparator(9)
-        self.comboBox3.insertSeparator(11)
-        self.comboBox3.insertSeparator(20)
+        self.comboBox3.insertSeparator(12)
         self.comboBox3.currentIndexChanged.connect(self.cb3_selectionChanged)
 
-        self.comboBox4.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '수급종합', '외인수급'])
+        self.comboBox4.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', 'ADI'])
         self.comboBox4.insertSeparator(1)
-        self.comboBox4.insertSeparator(5)
         self.comboBox4.insertSeparator(9)
-        self.comboBox4.insertSeparator(11)
-        self.comboBox4.insertSeparator(20)
+        self.comboBox4.insertSeparator(12)
         self.comboBox4.currentIndexChanged.connect(self.cb4_selectionChanged)
 
-        self.comboBox5.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '수급종합', '외인수급'])
+        self.comboBox5.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', 'ADI'])
         self.comboBox5.insertSeparator(1)
-        self.comboBox5.insertSeparator(5)
         self.comboBox5.insertSeparator(9)
-        self.comboBox5.insertSeparator(11)
-        self.comboBox5.insertSeparator(20)
+        self.comboBox5.insertSeparator(12)
         self.comboBox5.currentIndexChanged.connect(self.cb5_selectionChanged)
 
-        self.comboBox6.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', '수급종합', '외인수급'])
+        self.comboBox6.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', 'ADI'])
         self.comboBox6.insertSeparator(1)
-        self.comboBox6.insertSeparator(5)
         self.comboBox6.insertSeparator(9)
-        self.comboBox6.insertSeparator(11)
-        self.comboBox6.insertSeparator(20)
+        self.comboBox6.insertSeparator(12)
         self.comboBox6.currentIndexChanged.connect(self.cb6_selectionChanged)
 
         self.exceptionOccurred.connect(self.on_exceptionOccurred)
@@ -22838,13 +22826,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot1_sp500_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_dow_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_nasdaq_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
+        self.plot1_nasdaq_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_hangseng_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_wti_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-
         self.plot1_gold_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_eurofx_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_yen_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_hangseng_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_adi_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
         self.plot1_bollinger_upper_curve = self.plot1.plot(pen=bb_upper_pen)
         self.plot1_bollinger_middle_curve = self.plot1.plot(pen=bb_middle_pen)
@@ -22940,13 +22928,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot2_sp500_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_dow_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_nasdaq_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
+        self.plot2_nasdaq_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_hangseng_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_wti_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-
         self.plot2_gold_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_eurofx_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_yen_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_hangseng_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_adi_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
         self.plot2_bollinger_upper_curve = self.plot2.plot(pen=bb_upper_pen)
         self.plot2_bollinger_middle_curve = self.plot2.plot(pen=bb_middle_pen)
@@ -23042,13 +23030,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot3_sp500_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_dow_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_nasdaq_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
+        self.plot3_nasdaq_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_hangseng_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_wti_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-
         self.plot3_gold_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_eurofx_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_yen_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_hangseng_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_adi_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
         self.plot3_bollinger_upper_curve = self.plot3.plot(pen=bb_upper_pen)
         self.plot3_bollinger_middle_curve = self.plot3.plot(pen=bb_middle_pen)
@@ -23144,13 +23132,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot4_sp500_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_dow_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_nasdaq_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
+        self.plot4_nasdaq_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_hangseng_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
         self.plot4_wti_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-
         self.plot4_gold_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_eurofx_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_yen_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_hangseng_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_adi_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
         self.plot4_bollinger_upper_curve = self.plot4.plot(pen=bb_upper_pen)
         self.plot4_bollinger_middle_curve = self.plot4.plot(pen=bb_middle_pen)
@@ -23246,13 +23234,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot5_sp500_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_dow_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_nasdaq_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
+        self.plot5_nasdaq_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_hangseng_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_wti_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-
         self.plot5_gold_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_eurofx_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_yen_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_hangseng_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_adi_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
         self.plot5_bollinger_upper_curve = self.plot5.plot(pen=bb_upper_pen)
         self.plot5_bollinger_middle_curve = self.plot5.plot(pen=bb_middle_pen)
@@ -23348,13 +23336,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot6_sp500_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_dow_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_nasdaq_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
+        self.plot6_nasdaq_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_hangseng_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
         self.plot6_wti_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-
         self.plot6_gold_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_eurofx_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_yen_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_hangseng_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_adi_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
         self.plot6_bollinger_upper_curve = self.plot6.plot(pen=bb_upper_pen)
         self.plot6_bollinger_middle_curve = self.plot6.plot(pen=bb_middle_pen)
@@ -23605,7 +23593,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex1 == 12:
+            elif comboindex1 == 13:
 
                 if not np.isnan(df_sp500_graph.at[plot_x, 'price']):
                     
@@ -23619,7 +23607,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex1 == 13:
+            elif comboindex1 == 14:
 
                 if not np.isnan(df_dow_graph.at[plot_x, 'price']):
                     
@@ -23633,7 +23621,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex1 == 14:
+            elif comboindex1 == 15:
 
                 if not np.isnan(df_nasdaq_graph.at[plot_x, 'price']):
                     
@@ -23647,7 +23635,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex1 == 15:
+            elif comboindex1 == 16:
                 
                 if not np.isnan(df_hangseng_graph.at[plot_x, 'price']):
                     
@@ -23661,7 +23649,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex1 == 16:
+            elif comboindex1 == 17:
 
                 if not np.isnan(df_wti_graph.at[plot_x, 'price']):
                     
@@ -23675,7 +23663,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex1 == 17:
+            elif comboindex1 == 18:
                 
                 if not np.isnan(df_gold_graph.at[plot_x, 'price']):
                     
@@ -23689,7 +23677,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex1 == 18:
+            elif comboindex1 == 19:
                 
                 if not np.isnan(df_eurofx_graph.at[plot_x, 'price']):
                     
@@ -23703,7 +23691,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex1 == 19:
+            elif comboindex1 == 20:
                 
                 if not np.isnan(df_yen_graph.at[plot_x, 'price']):
                     
@@ -23711,6 +23699,20 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     High = df_yen_graph.at[plot_x, 'high']
                     Low = df_yen_graph.at[plot_x, 'low']
                     Close = df_yen_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p1_1.setText(txt)
+                else:
+                    pass
+
+            elif comboindex1 == 21:
+                
+                if not np.isnan(df_adi_graph.at[plot_x, 'price']):
+                    
+                    Open = df_adi_graph.at[plot_x, 'open']                    
+                    High = df_adi_graph.at[plot_x, 'high']
+                    Low = df_adi_graph.at[plot_x, 'low']
+                    Close = df_adi_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p1_1.setText(txt)
@@ -23768,7 +23770,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
             
-            elif comboindex2 == 12:
+            elif comboindex2 == 13:
 
                 if not np.isnan(df_sp500_graph.at[plot_x, 'price']):
                     
@@ -23782,7 +23784,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
             
-            elif comboindex2 == 13:
+            elif comboindex2 == 14:
 
                 if not np.isnan(df_dow_graph.at[plot_x, 'price']):
                     
@@ -23796,7 +23798,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex2 == 14:
+            elif comboindex2 == 15:
 
                 if not np.isnan(df_nasdaq_graph.at[plot_x, 'price']):
                     
@@ -23810,7 +23812,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
             
-            elif comboindex2 == 15:
+            elif comboindex2 == 16:
                 
                 if not np.isnan(df_hangseng_graph.at[plot_x, 'price']):
                     
@@ -23820,11 +23822,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     Close = df_hangseng_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p1_1.setText(txt)
+                    self.label_p2_1.setText(txt)
                 else:
                     pass
 
-            elif comboindex2 == 16:
+            elif comboindex2 == 17:
 
                 if not np.isnan(df_wti_graph.at[plot_x, 'price']):
                     
@@ -23838,7 +23840,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex2 == 17:
+            elif comboindex2 == 18:
                 
                 if not np.isnan(df_gold_graph.at[plot_x, 'price']):
                     
@@ -23848,11 +23850,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     Close = df_gold_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p1_1.setText(txt)
+                    self.label_p2_1.setText(txt)
                 else:
                     pass
 
-            elif comboindex2 == 18:
+            elif comboindex2 == 19:
                 
                 if not np.isnan(df_eurofx_graph.at[plot_x, 'price']):
                     
@@ -23862,11 +23864,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     Close = df_eurofx_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p1_1.setText(txt)
+                    self.label_p2_1.setText(txt)
                 else:
                     pass
 
-            elif comboindex2 == 19:
+            elif comboindex2 == 20:
                 
                 if not np.isnan(df_yen_graph.at[plot_x, 'price']):
                     
@@ -23876,9 +23878,23 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     Close = df_yen_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p1_1.setText(txt)
+                    self.label_p2_1.setText(txt)
                 else:
-                    pass            
+                    pass     
+
+            elif comboindex2 == 21:
+                
+                if not np.isnan(df_adi_graph.at[plot_x, 'price']):
+                    
+                    Open = df_adi_graph.at[plot_x, 'open']                    
+                    High = df_adi_graph.at[plot_x, 'high']
+                    Low = df_adi_graph.at[plot_x, 'low']
+                    Close = df_adi_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p2_1.setText(txt)
+                else:
+                    pass       
             else:
                 pass                           
         else:
@@ -23931,7 +23947,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
             
-            elif comboindex3 == 12:
+            elif comboindex3 == 13:
 
                 if not np.isnan(df_sp500_graph.at[plot_x, 'price']):
                     
@@ -23945,7 +23961,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass            
             
-            elif comboindex3 == 13:
+            elif comboindex3 == 14:
 
                 if not np.isnan(df_dow_graph.at[plot_x, 'price']):
                     
@@ -23959,7 +23975,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex3 == 14:
+            elif comboindex3 == 15:
 
                 if not np.isnan(df_nasdaq_graph.at[plot_x, 'price']):
                     
@@ -23973,7 +23989,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
             
-            elif comboindex3 == 15:
+            elif comboindex3 == 16:
                 
                 if not np.isnan(df_hangseng_graph.at[plot_x, 'price']):
                     
@@ -23983,11 +23999,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     Close = df_hangseng_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p1_1.setText(txt)
+                    self.label_p3_1.setText(txt)
                 else:
                     pass
 
-            elif comboindex3 == 16:
+            elif comboindex3 == 17:
 
                 if not np.isnan(df_wti_graph.at[plot_x, 'price']):
                     
@@ -24001,7 +24017,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex3 == 17:
+            elif comboindex3 == 18:
                 
                 if not np.isnan(df_gold_graph.at[plot_x, 'price']):
                     
@@ -24011,11 +24027,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     Close = df_gold_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p1_1.setText(txt)
+                    self.label_p3_1.setText(txt)
                 else:
                     pass
 
-            elif comboindex3 == 18:
+            elif comboindex3 == 19:
                 
                 if not np.isnan(df_eurofx_graph.at[plot_x, 'price']):
                     
@@ -24025,11 +24041,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     Close = df_eurofx_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p1_1.setText(txt)
+                    self.label_p3_1.setText(txt)
                 else:
                     pass
 
-            elif comboindex3 == 19:
+            elif comboindex3 == 20:
                 
                 if not np.isnan(df_yen_graph.at[plot_x, 'price']):
                     
@@ -24039,9 +24055,23 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     Close = df_yen_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p1_1.setText(txt)
+                    self.label_p3_1.setText(txt)
                 else:
-                    pass            
+                    pass
+
+            elif comboindex3 == 21:
+                
+                if not np.isnan(df_adi_graph.at[plot_x, 'price']):
+                    
+                    Open = df_adi_graph.at[plot_x, 'open']                    
+                    High = df_adi_graph.at[plot_x, 'high']
+                    Low = df_adi_graph.at[plot_x, 'low']
+                    Close = df_adi_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p3_1.setText(txt)
+                else:
+                    pass             
             else:
                 pass                            
         else:
@@ -24094,7 +24124,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex4 == 12:
+            elif comboindex4 == 13:
 
                 if not np.isnan(df_sp500_graph.at[plot_x, 'price']):
                     
@@ -24108,7 +24138,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
             
-            elif comboindex4 == 13:
+            elif comboindex4 == 14:
 
                 if not np.isnan(df_dow_graph.at[plot_x, 'price']):
                     
@@ -24122,7 +24152,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex4 == 14:
+            elif comboindex4 == 15:
 
                 if not np.isnan(df_nasdaq_graph.at[plot_x, 'price']):
                     
@@ -24136,7 +24166,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
             
-            elif comboindex4 == 15:
+            elif comboindex4 == 16:
                 
                 if not np.isnan(df_hangseng_graph.at[plot_x, 'price']):
                     
@@ -24146,11 +24176,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     Close = df_hangseng_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p1_1.setText(txt)
+                    self.label_p4_1.setText(txt)
                 else:
                     pass
 
-            elif comboindex4 == 16:
+            elif comboindex4 == 17:
 
                 if not np.isnan(df_wti_graph.at[plot_x, 'price']):
                     
@@ -24164,7 +24194,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex4 == 17:
+            elif comboindex4 == 18:
                 
                 if not np.isnan(df_gold_graph.at[plot_x, 'price']):
                     
@@ -24174,11 +24204,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     Close = df_gold_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p1_1.setText(txt)
+                    self.label_p4_1.setText(txt)
                 else:
                     pass
 
-            elif comboindex4 == 18:
+            elif comboindex4 == 19:
                 
                 if not np.isnan(df_eurofx_graph.at[plot_x, 'price']):
                     
@@ -24188,11 +24218,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     Close = df_eurofx_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p1_1.setText(txt)
+                    self.label_p4_1.setText(txt)
                 else:
                     pass
 
-            elif comboindex4 == 19:
+            elif comboindex4 == 20:
                 
                 if not np.isnan(df_yen_graph.at[plot_x, 'price']):
                     
@@ -24202,9 +24232,23 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     Close = df_yen_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p1_1.setText(txt)
+                    self.label_p4_1.setText(txt)
                 else:
-                    pass            
+                    pass    
+
+            elif comboindex4 == 21:
+                
+                if not np.isnan(df_adi_graph.at[plot_x, 'price']):
+                    
+                    Open = df_adi_graph.at[plot_x, 'open']                    
+                    High = df_adi_graph.at[plot_x, 'high']
+                    Low = df_adi_graph.at[plot_x, 'low']
+                    Close = df_adi_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p4_1.setText(txt)
+                else:
+                    pass        
             else:
                 pass
 
@@ -24255,7 +24299,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex5 == 12:
+            elif comboindex5 == 13:
 
                 if not np.isnan(df_sp500_graph.at[plot_x, 'price']):
                     
@@ -24269,7 +24313,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex5 == 13:
+            elif comboindex5 == 14:
 
                 if not np.isnan(df_dow_graph.at[plot_x, 'price']):
                     
@@ -24283,7 +24327,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex5 == 14:
+            elif comboindex5 == 15:
 
                 if not np.isnan(df_nasdaq_graph.at[plot_x, 'price']):
                     
@@ -24297,7 +24341,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex5 == 15:
+            elif comboindex5 == 16:
                 
                 if not np.isnan(df_hangseng_graph.at[plot_x, 'price']):
                     
@@ -24307,11 +24351,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     Close = df_hangseng_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p1_1.setText(txt)
+                    self.label_p5_1.setText(txt)
                 else:
                     pass
 
-            elif comboindex5 == 16:
+            elif comboindex5 == 17:
 
                 if not np.isnan(df_wti_graph.at[plot_x, 'price']):
                     
@@ -24325,7 +24369,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex5 == 17:
+            elif comboindex5 == 18:
                 
                 if not np.isnan(df_gold_graph.at[plot_x, 'price']):
                     
@@ -24335,11 +24379,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     Close = df_gold_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p1_1.setText(txt)
+                    self.label_p5_1.setText(txt)
                 else:
                     pass
 
-            elif comboindex5 == 18:
+            elif comboindex5 == 19:
                 
                 if not np.isnan(df_eurofx_graph.at[plot_x, 'price']):
                     
@@ -24349,11 +24393,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     Close = df_eurofx_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p1_1.setText(txt)
+                    self.label_p5_1.setText(txt)
                 else:
                     pass
 
-            elif comboindex5 == 19:
+            elif comboindex5 == 20:
                 
                 if not np.isnan(df_yen_graph.at[plot_x, 'price']):
                     
@@ -24363,7 +24407,21 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     Close = df_yen_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p1_1.setText(txt)
+                    self.label_p5_1.setText(txt)
+                else:
+                    pass
+
+            elif comboindex5 == 21:
+                
+                if not np.isnan(df_adi_graph.at[plot_x, 'price']):
+                    
+                    Open = df_adi_graph.at[plot_x, 'open']                    
+                    High = df_adi_graph.at[plot_x, 'high']
+                    Low = df_adi_graph.at[plot_x, 'low']
+                    Close = df_adi_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p5_1.setText(txt)
                 else:
                     pass
             else:
@@ -24418,7 +24476,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex6 == 12:
+            elif comboindex6 == 13:
 
                 if not np.isnan(df_sp500_graph.at[plot_x, 'price']):
                     
@@ -24432,7 +24490,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
             
-            elif comboindex6 == 13:
+            elif comboindex6 == 14:
 
                 if not np.isnan(df_dow_graph.at[plot_x, 'price']):
                     
@@ -24446,7 +24504,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex6 == 14:
+            elif comboindex6 == 15:
 
                 if not np.isnan(df_nasdaq_graph.at[plot_x, 'price']):
                     
@@ -24460,7 +24518,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex6 == 15:
+            elif comboindex6 == 16:
                 
                 if not np.isnan(df_hangseng_graph.at[plot_x, 'price']):
                     
@@ -24470,11 +24528,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     Close = df_hangseng_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p1_1.setText(txt)
+                    self.label_p6_1.setText(txt)
                 else:
                     pass
 
-            elif comboindex6 == 16:
+            elif comboindex6 == 17:
 
                 if not np.isnan(df_wti_graph.at[plot_x, 'price']):
                     
@@ -24488,7 +24546,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex6 == 17:
+            elif comboindex6 == 18:
                 
                 if not np.isnan(df_gold_graph.at[plot_x, 'price']):
                     
@@ -24498,11 +24556,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     Close = df_gold_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p1_1.setText(txt)
+                    self.label_p6_1.setText(txt)
                 else:
                     pass
 
-            elif comboindex6 == 18:
+            elif comboindex6 == 19:
                 
                 if not np.isnan(df_eurofx_graph.at[plot_x, 'price']):
                     
@@ -24512,11 +24570,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     Close = df_eurofx_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p1_1.setText(txt)
+                    self.label_p6_1.setText(txt)
                 else:
                     pass
 
-            elif comboindex6 == 19:
+            elif comboindex6 == 20:
                 
                 if not np.isnan(df_yen_graph.at[plot_x, 'price']):
                     
@@ -24526,9 +24584,23 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     Close = df_yen_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
-                    self.label_p1_1.setText(txt)
+                    self.label_p6_1.setText(txt)
                 else:
-                    pass            
+                    pass    
+
+            elif comboindex6 == 21:
+                
+                if not np.isnan(df_adi_graph.at[plot_x, 'price']):
+                    
+                    Open = df_adi_graph.at[plot_x, 'open']                    
+                    High = df_adi_graph.at[plot_x, 'high']
+                    Low = df_adi_graph.at[plot_x, 'low']
+                    Close = df_adi_graph.at[plot_x, 'close']
+
+                    txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
+                    self.label_p6_1.setText(txt)
+                else:
+                    pass        
             else:
                 pass                
         else:
@@ -24837,12 +24909,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_sp500_curve.clear()
         self.plot1_dow_curve.clear()
         self.plot1_nasdaq_curve.clear()
-        self.plot1_wti_curve.clear()
+        self.plot1_hangseng_curve.clear()
 
+        self.plot1_wti_curve.clear()
         self.plot1_gold_curve.clear()
+
         self.plot1_eurofx_curve.clear()
         self.plot1_yen_curve.clear()
-        self.plot1_hangseng_curve.clear()
+        self.plot1_adi_curve.clear()
 
         self.plot1_bollinger_upper_curve.clear()
         self.plot1_bollinger_middle_curve.clear()
@@ -25083,7 +25157,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p1_4.setText(" MAMA ")
         
         # 옵션가격
-        elif comboindex1 == 6:
+        elif comboindex1 == 5:
 
             self.plot1_clear()
 
@@ -25115,7 +25189,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
 
         # 옵션잔량비
-        elif comboindex1 == 7:
+        elif comboindex1 == 6:
 
             self.plot1_clear()
 
@@ -25150,7 +25224,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_option_quote_remainder_ratio_upper_line.setValue(1.0)
         
         # 옵션미결
-        elif comboindex1 == 8:
+        elif comboindex1 == 7:
 
             self.plot1_clear()
 
@@ -25178,7 +25252,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p1_4.setText(" MAMA ")
 
         # 등락율비
-        elif comboindex1 == 10:
+        elif comboindex1 == 8:
 
             self.plot1_clear()
 
@@ -25208,8 +25282,46 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p1_4.setText(" MAMA ")
         
+        # 수급종합
+        elif comboindex1 == 10:
+
+            self.plot1_clear()
+
+            self.label_11.setText(" 기관현물 ")
+            self.label_12.setText(" 기관선물 ")
+            self.label_13.setText(" 개인현물 ")
+            self.label_14.setText(" 개인선물 ")
+            self.label_15.setText(" - ")
+
+            self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_16.setText(" 프로그램 ")
+
+            self.label_17.setText(" 선물체결량 ")
+
+            self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_18.setText(" 현물합 ")
+
+        # 외인수급
+        elif comboindex1 == 11:
+
+            self.plot1_clear()
+
+            self.label_11.setText(" 기관현물 ")
+            self.label_12.setText(" 기관선물 ")
+            self.label_13.setText(" 개인현물 ")
+            self.label_14.setText(" 개인선물 ")
+            self.label_15.setText(" - ")
+
+            self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_16.setText(" 외인현물 ")
+
+            self.label_17.setText(" 선물체결량 ")
+
+            self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_18.setText(" 외인선물 ")
+
         # SP500
-        elif comboindex1 == 12:
+        elif comboindex1 == 13:
 
             self.plot1_clear()
 
@@ -25303,7 +25415,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_ovc_high_line.setValue(sp500_고가)
 
         # DOW   
-        elif comboindex1 == 13:
+        elif comboindex1 == 14:
 
             self.plot1_clear()
             
@@ -25397,7 +25509,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_ovc_high_line.setValue(dow_고가)
 
         # NASDAQ
-        elif comboindex1 == 14:
+        elif comboindex1 == 15:
 
             self.plot1_clear()
 
@@ -25490,7 +25602,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_18.setText(txt)
             self.plot1_ovc_high_line.setValue(nasdaq_고가)
         
-        elif comboindex1 == 15:
+        elif comboindex1 == 16:
 
             self.plot1_clear()
             
@@ -25584,7 +25696,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_ovc_high_line.setValue(hangseng_고가)
 
         # WTI   
-        elif comboindex1 == 16:
+        elif comboindex1 == 17:
 
             self.plot1_clear()
 
@@ -25677,7 +25789,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_18.setText(txt)
             self.plot1_ovc_high_line.setValue(wti_고가)
                 
-        elif comboindex1 == 17:
+        elif comboindex1 == 18:
 
             self.plot1_clear()
 
@@ -25770,7 +25882,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_18.setText(txt)
             self.plot1_ovc_high_line.setValue(gold_고가)
 
-        elif comboindex1 == 18:
+        elif comboindex1 == 19:
 
             self.plot1_clear()
             
@@ -25863,7 +25975,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_18.setText(txt)
             self.plot1_ovc_high_line.setValue(eurofx_고가)
 
-        elif comboindex1 == 19:
+        elif comboindex1 == 20:
 
             self.plot1_clear()
             
@@ -25964,43 +26076,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_18.setText(txt)
             self.plot1_ovc_high_line.setValue(yen_고가)
 
-        # 수급종합
         elif comboindex1 == 21:
-
-            self.plot1_clear()
-
-            self.label_11.setText(" 기관현물 ")
-            self.label_12.setText(" 기관선물 ")
-            self.label_13.setText(" 개인현물 ")
-            self.label_14.setText(" 개인선물 ")
-            self.label_15.setText(" - ")
-
-            self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_16.setText(" 프로그램 ")
-
-            self.label_17.setText(" 선물체결량 ")
-
-            self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_18.setText(" 현물합 ")
-
-        # 외인수급
-        elif comboindex1 == 22:
-
-            self.plot1_clear()
-
-            self.label_11.setText(" 기관현물 ")
-            self.label_12.setText(" 기관선물 ")
-            self.label_13.setText(" 개인현물 ")
-            self.label_14.setText(" 개인선물 ")
-            self.label_15.setText(" - ")
-
-            self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_16.setText(" 외인현물 ")
-
-            self.label_17.setText(" 선물체결량 ")
-
-            self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_18.setText(" 외인선물 ")
+            pass        
         else:
             pass
 
@@ -26070,12 +26147,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_sp500_curve.clear()
         self.plot2_dow_curve.clear()
         self.plot2_nasdaq_curve.clear()
-        self.plot2_wti_curve.clear()
+        self.plot2_hangseng_curve.clear()
 
+        self.plot2_wti_curve.clear()
         self.plot2_gold_curve.clear()
+
         self.plot2_eurofx_curve.clear()
         self.plot2_yen_curve.clear()
-        self.plot2_hangseng_curve.clear()
+        self.plot2_adi_curve.clear()
 
         self.plot2_bollinger_upper_curve.clear()
         self.plot2_bollinger_middle_curve.clear()
@@ -26316,7 +26395,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p2_4.setText(" MAMA ")
 
         # 옵션가격
-        elif comboindex2 == 6:
+        elif comboindex2 == 5:
 
             self.plot2_clear()
 
@@ -26348,7 +26427,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
 
         # 옵션잔량비   
-        elif comboindex2 == 7:
+        elif comboindex2 == 6:
 
             self.plot2_clear()
 
@@ -26383,7 +26462,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_option_quote_remainder_ratio_upper_line.setValue(1.0)     
         
         # 옵션미결
-        elif comboindex2 == 8:
+        elif comboindex2 == 7:
 
             self.plot2_clear()
 
@@ -26411,7 +26490,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p2_4.setText(" MAMA ")
            
         # 등락율비
-        elif comboindex2 == 10:
+        elif comboindex2 == 8:
 
             self.plot2_clear()
 
@@ -26441,8 +26520,46 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p2_4.setText(" MAMA ")
         
+        # 수급종합
+        elif comboindex2 == 10:
+
+            self.plot2_clear()
+
+            self.label_21.setText(" - ")
+            self.label_22.setText(" - ")
+            self.label_23.setText(" - ")
+            self.label_24.setText(" - ")
+            self.label_25.setText(" - ")
+
+            self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_26.setText(" 프로그램 ")
+
+            self.label_27.setText(" 선물체결량 ")
+
+            self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_28.setText(" 현물합 ")
+
+        # 외인수급
+        elif comboindex2 == 11:
+
+            self.plot2_clear()
+
+            self.label_21.setText(" - ")
+            self.label_22.setText(" - ")
+            self.label_23.setText(" - ")
+            self.label_24.setText(" - ")
+            self.label_25.setText(" - ")
+
+            self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_26.setText(" 외인현물 ")
+
+            self.label_27.setText(" 선물체결량 ")
+
+            self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_28.setText(" 외인선물 ")
+
         # SP500
-        elif comboindex2 == 12:
+        elif comboindex2 == 13:
 
             self.plot2_clear()
 
@@ -26540,7 +26657,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_ovc_high_line.setValue(sp500_고가)
    
         # DOW
-        elif comboindex2 == 13:
+        elif comboindex2 == 14:
 
             self.plot2_clear()
 
@@ -26638,7 +26755,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_ovc_high_line.setValue(dow_고가)
 
         # NASDAQ
-        elif comboindex2 == 14:
+        elif comboindex2 == 15:
 
             self.plot2_clear()
 
@@ -26735,7 +26852,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_28.setText(txt)
             self.plot2_ovc_high_line.setValue(nasdaq_고가)            
 
-        elif comboindex2 == 15:
+        elif comboindex2 == 16:
 
             self.plot2_clear()
 
@@ -26833,7 +26950,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_ovc_high_line.setValue(hangseng_고가)
 
         # WTI  
-        elif comboindex2 == 16:
+        elif comboindex2 == 17:
 
             self.plot2_clear()
 
@@ -26930,7 +27047,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_28.setText(txt)
             self.plot2_ovc_high_line.setValue(wti_고가)            
         
-        elif comboindex2 == 17:
+        elif comboindex2 == 18:
 
             self.plot2_clear()
 
@@ -27027,7 +27144,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_28.setText(txt)
             self.plot2_ovc_high_line.setValue(gold_고가)
 
-        elif comboindex2 == 18:
+        elif comboindex2 == 19:
 
             self.plot2_clear()
 
@@ -27124,7 +27241,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_28.setText(txt)
             self.plot2_ovc_high_line.setValue(eurofx_고가)
 
-        elif comboindex2 == 19:
+        elif comboindex2 == 20:
 
             self.plot2_clear()
 
@@ -27221,43 +27338,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_28.setText(txt)
             self.plot2_ovc_high_line.setValue(yen_고가)
         
-        # 수급종합
         elif comboindex2 == 21:
-
-            self.plot2_clear()
-
-            self.label_21.setText(" - ")
-            self.label_22.setText(" - ")
-            self.label_23.setText(" - ")
-            self.label_24.setText(" - ")
-            self.label_25.setText(" - ")
-
-            self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_26.setText(" 프로그램 ")
-
-            self.label_27.setText(" 선물체결량 ")
-
-            self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_28.setText(" 현물합 ")
-
-        # 외인수급
-        elif comboindex2 == 22:
-
-            self.plot2_clear()
-
-            self.label_21.setText(" - ")
-            self.label_22.setText(" - ")
-            self.label_23.setText(" - ")
-            self.label_24.setText(" - ")
-            self.label_25.setText(" - ")
-
-            self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_26.setText(" 외인현물 ")
-
-            self.label_27.setText(" 선물체결량 ")
-
-            self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_28.setText(" 외인선물 ")
+            pass
         else:
             pass
 
@@ -27327,12 +27409,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_sp500_curve.clear()
         self.plot3_dow_curve.clear()
         self.plot3_nasdaq_curve.clear()
-        self.plot3_wti_curve.clear()
+        self.plot3_hangseng_curve.clear()
 
+        self.plot3_wti_curve.clear()
         self.plot3_gold_curve.clear()
+
         self.plot3_eurofx_curve.clear()
         self.plot3_yen_curve.clear()
-        self.plot3_hangseng_curve.clear()
+        self.plot3_adi_curve.clear()
 
         self.plot3_bollinger_upper_curve.clear()
         self.plot3_bollinger_middle_curve.clear()
@@ -27573,7 +27657,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p3_4.setText(" MAMA ")
         
         # 옵션가격
-        elif comboindex3 == 6:
+        elif comboindex3 == 5:
 
             self.plot3_clear()
 
@@ -27605,7 +27689,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
 
         # 옵션잔량비   
-        elif comboindex3 == 7:
+        elif comboindex3 == 6:
 
             self.plot3_clear()
 
@@ -27640,7 +27724,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_option_quote_remainder_ratio_upper_line.setValue(1.0)       
         
         # 옵션미결
-        elif comboindex3 == 8:
+        elif comboindex3 == 7:
 
             self.plot3_clear()
 
@@ -27668,7 +27752,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p3_4.setText(" MAMA ")
         
         # 등락율비
-        elif comboindex3 == 10:
+        elif comboindex3 == 8:
 
             self.plot3_clear()
 
@@ -27698,8 +27782,46 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p3_4.setText(" MAMA ")
         
+        # 수급종합
+        elif comboindex3 == 10:
+
+            self.plot3_clear()
+
+            self.label_31.setText(" - ")
+            self.label_32.setText(" - ")
+            self.label_33.setText(" - ")
+            self.label_34.setText(" - ")
+            self.label_35.setText(" - ")
+
+            self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_36.setText(" 프로그램 ")
+
+            self.label_37.setText(" 선물체결량 ")
+
+            self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_38.setText(" 현물합 ")
+
+        # 외인수급
+        elif comboindex3 == 11:
+
+            self.plot3_clear()
+
+            self.label_31.setText(" - ")
+            self.label_32.setText(" - ")
+            self.label_33.setText(" - ")
+            self.label_34.setText(" - ")
+            self.label_35.setText(" - ")
+
+            self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_36.setText(" 외인현물 ")
+
+            self.label_37.setText(" 선물체결량 ")
+
+            self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_38.setText(" 외인선물 ")
+
         # SP500
-        elif comboindex3 == 12:
+        elif comboindex3 == 13:
 
             self.plot3_clear()
 
@@ -27797,7 +27919,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_ovc_high_line.setValue(sp500_고가)
 
         # DOW
-        elif comboindex3 == 13:
+        elif comboindex3 == 14:
 
             self.plot3_clear()
 
@@ -27895,7 +28017,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_ovc_high_line.setValue(dow_고가)
 
         # NASDAQ
-        elif comboindex3 == 14:
+        elif comboindex3 == 15:
 
             self.plot3_clear()
 
@@ -27992,7 +28114,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_38.setText(txt)
             self.plot3_ovc_high_line.setValue(nasdaq_고가)            
 
-        elif comboindex3 == 15:
+        elif comboindex3 == 16:
 
             self.plot3_clear()
 
@@ -28090,7 +28212,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_ovc_high_line.setValue(hangseng_고가)
 
         # WTI
-        elif comboindex3 == 16:
+        elif comboindex3 == 17:
 
             self.plot3_clear()
 
@@ -28187,7 +28309,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_38.setText(txt)
             self.plot3_ovc_high_line.setValue(wti_고가)            
                 
-        elif comboindex3 == 17:
+        elif comboindex3 == 18:
 
             self.plot3_clear()
 
@@ -28284,7 +28406,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_38.setText(txt)
             self.plot3_ovc_high_line.setValue(gold_고가)
 
-        elif comboindex3 == 18:
+        elif comboindex3 == 19:
 
             self.plot3_clear()
 
@@ -28381,7 +28503,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_38.setText(txt)
             self.plot3_ovc_high_line.setValu(eurofx_고가)
 
-        elif comboindex3 == 19:
+        elif comboindex3 == 20:
 
             self.plot3_clear()
 
@@ -28478,43 +28600,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_38.setText(txt)
             self.plot3_ovc_high_line.setValue(yen_고가)
         
-        # 수급종합
         elif comboindex3 == 21:
-
-            self.plot3_clear()
-
-            self.label_31.setText(" - ")
-            self.label_32.setText(" - ")
-            self.label_33.setText(" - ")
-            self.label_34.setText(" - ")
-            self.label_35.setText(" - ")
-
-            self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_36.setText(" 프로그램 ")
-
-            self.label_37.setText(" 선물체결량 ")
-
-            self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_38.setText(" 현물합 ")
-
-        # 외인수급
-        elif comboindex3 == 22:
-
-            self.plot3_clear()
-
-            self.label_31.setText(" - ")
-            self.label_32.setText(" - ")
-            self.label_33.setText(" - ")
-            self.label_34.setText(" - ")
-            self.label_35.setText(" - ")
-
-            self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_36.setText(" 외인현물 ")
-
-            self.label_37.setText(" 선물체결량 ")
-
-            self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_38.setText(" 외인선물 ")
+            pass
         else:
             pass
 
@@ -28584,12 +28671,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_sp500_curve.clear()
         self.plot4_dow_curve.clear()
         self.plot4_nasdaq_curve.clear()
-        self.plot4_wti_curve.clear()
+        self.plot4_hangseng_curve.clear()
 
+        self.plot4_wti_curve.clear()
         self.plot4_gold_curve.clear()
+
         self.plot4_eurofx_curve.clear()
         self.plot4_yen_curve.clear()
-        self.plot4_hangseng_curve.clear()
+        self.plot4_adi_curve.clear()
 
         self.plot4_bollinger_upper_curve.clear()
         self.plot4_bollinger_middle_curve.clear()
@@ -28830,7 +28919,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p4_4.setText(" MAMA ")
         
         # 옵션가격
-        elif comboindex4 == 6:
+        elif comboindex4 == 5:
 
             self.plot4_clear()
 
@@ -28862,7 +28951,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)       
 
         # 옵션잔량비
-        elif comboindex4 == 7:
+        elif comboindex4 == 6:
 
             self.plot4_clear()
 
@@ -28897,7 +28986,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_option_quote_remainder_ratio_upper_line.setValue(1.0)
         
         # 옵션미결
-        elif comboindex4 == 8:
+        elif comboindex4 == 7:
 
             self.plot4_clear()
 
@@ -28925,7 +29014,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p4_4.setText(" MAMA ")         
  
         # 등락율비
-        elif comboindex4 == 10:
+        elif comboindex4 == 8:
 
             self.plot4_clear()
 
@@ -28955,8 +29044,46 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p4_4.setText(" MAMA ")
 
+        # 수급종합
+        elif comboindex4 == 10:
+
+            self.plot4_clear()
+
+            self.label_41.setText(" - ")
+            self.label_42.setText(" - ")
+            self.label_43.setText(" - ")
+            self.label_44.setText(" - ")
+            self.label_45.setText(" - ")
+
+            self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_46.setText(" 프로그램 ")
+
+            self.label_47.setText(" 선물체결량 ")
+
+            self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_48.setText(" 현물합 ")
+
+        # 외인수급
+        elif comboindex4 == 11:
+
+            self.plot4_clear()
+
+            self.label_41.setText(" - ")
+            self.label_42.setText(" - ")
+            self.label_43.setText(" - ")
+            self.label_44.setText(" - ")
+            self.label_45.setText(" - ")
+
+            self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_46.setText(" 외인현물 ")
+
+            self.label_47.setText(" 선물체결량 ")
+
+            self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_48.setText(" 외인선물 ")
+
         # SP500
-        elif comboindex4 == 12:
+        elif comboindex4 == 13:
 
             self.plot4_clear()
 
@@ -29050,7 +29177,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_ovc_high_line.setValue(sp500_고가)
         
         # DOW    
-        elif comboindex4 == 13:
+        elif comboindex4 == 14:
 
             self.plot4_clear()
 
@@ -29144,7 +29271,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_ovc_high_line.setValue(dow_고가)
 
         # NASDAQ
-        elif comboindex4 == 14:
+        elif comboindex4 == 15:
 
             self.plot4_clear()
 
@@ -29237,7 +29364,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_48.setText(txt)
             self.plot4_ovc_high_line.setValue(nasdaq_고가)            
 
-        elif comboindex4 == 15:
+        elif comboindex4 == 16:
 
             self.plot4_clear()
 
@@ -29331,7 +29458,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_ovc_high_line.setValue(hangseng_고가)
 
         # WTI    
-        elif comboindex4 == 16:
+        elif comboindex4 == 17:
 
             self.plot4_clear()
 
@@ -29424,7 +29551,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_48.setText(txt)
             self.plot4_ovc_high_line.setValue(wti_고가)
         
-        elif comboindex4 == 17:
+        elif comboindex4 == 18:
 
             self.plot4_clear()
 
@@ -29517,7 +29644,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_48.setText(txt)
             self.plot4_ovc_high_line.setValue(gold_고가)
 
-        elif comboindex4 == 18:
+        elif comboindex4 == 19:
 
             self.plot4_clear()
 
@@ -29610,7 +29737,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_48.setText(txt)
             self.plot4_ovc_high_line.setValue(eurofx_고가)
 
-        elif comboindex4 == 19:
+        elif comboindex4 == 20:
 
             self.plot4_clear()
 
@@ -29703,43 +29830,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_48.setText(txt)
             self.plot4_ovc_high_line.setValue(yen_고가)
         
-        # 수급종합
         elif comboindex4 == 21:
-
-            self.plot4_clear()
-
-            self.label_41.setText(" - ")
-            self.label_42.setText(" - ")
-            self.label_43.setText(" - ")
-            self.label_44.setText(" - ")
-            self.label_45.setText(" - ")
-
-            self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_46.setText(" 프로그램 ")
-
-            self.label_47.setText(" 선물체결량 ")
-
-            self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_48.setText(" 현물합 ")
-
-        # 외인수급
-        elif comboindex4 == 22:
-
-            self.plot4_clear()
-
-            self.label_41.setText(" - ")
-            self.label_42.setText(" - ")
-            self.label_43.setText(" - ")
-            self.label_44.setText(" - ")
-            self.label_45.setText(" - ")
-
-            self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_46.setText(" 외인현물 ")
-
-            self.label_47.setText(" 선물체결량 ")
-
-            self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_48.setText(" 외인선물 ")
+            pass
         else:
             pass
 
@@ -29809,12 +29901,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_sp500_curve.clear()
         self.plot5_dow_curve.clear()
         self.plot5_nasdaq_curve.clear()
-        self.plot5_wti_curve.clear()
+        self.plot5_hangseng_curve.clear()
 
+        self.plot5_wti_curve.clear()
         self.plot5_gold_curve.clear()
+
         self.plot5_eurofx_curve.clear()
         self.plot5_yen_curve.clear()
-        self.plot5_hangseng_curve.clear()
+        self.plot5_adi_curve.clear()
 
         self.plot5_bollinger_upper_curve.clear()
         self.plot5_bollinger_middle_curve.clear()
@@ -30055,7 +30149,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p5_4.setText(" MAMA ")
 
         # 옵션가격
-        elif comboindex5 == 6:
+        elif comboindex5 == 5:
 
             self.plot5_clear()
 
@@ -30087,7 +30181,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
 
         # 옵션잔량비    
-        elif comboindex5 == 7:
+        elif comboindex5 == 6:
 
             self.plot5_clear()
 
@@ -30122,7 +30216,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_option_quote_remainder_ratio_upper_line.setValue(1.0)     
 
         # 옵션미결
-        elif comboindex5 == 8:
+        elif comboindex5 == 7:
 
             self.plot5_clear()
 
@@ -30150,7 +30244,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p5_4.setText(" MAMA ")
         
         # 등락율비
-        elif comboindex5 == 10:
+        elif comboindex5 == 8:
 
             self.plot5_clear()
 
@@ -30180,8 +30274,46 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p5_4.setText(" MAMA ")
 
+        # 수급종합
+        elif comboindex5 == 10:
+
+            self.plot5_clear()
+
+            self.label_51.setText(" - ")
+            self.label_52.setText(" - ")
+            self.label_53.setText(" - ")
+            self.label_54.setText(" - ")
+            self.label_55.setText(" - ")
+
+            self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_56.setText(" 프로그램 ")
+
+            self.label_57.setText(" 선물체결량 ")
+
+            self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_58.setText(" 현물합 ")
+
+        # 외인수급
+        elif comboindex5 == 11:
+
+            self.plot5_clear()
+
+            self.label_51.setText(" - ")
+            self.label_52.setText(" - ")
+            self.label_53.setText(" - ")
+            self.label_54.setText(" - ")
+            self.label_55.setText(" - ")
+
+            self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_56.setText(" 외인현물 ")
+
+            self.label_57.setText(" 선물체결량 ")
+
+            self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_58.setText(" 외인선물 ")
+
         # SP500
-        elif comboindex5 == 12:
+        elif comboindex5 == 13:
 
             self.plot5_clear()
 
@@ -30279,7 +30411,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_ovc_high_line.setValue(sp500_고가)
               
         # DOW
-        elif comboindex5 == 13:
+        elif comboindex5 == 14:
 
             self.plot5_clear()
 
@@ -30377,7 +30509,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_ovc_high_line.setValue(dow_고가)
 
         # NASDAQ
-        elif comboindex5 == 14:
+        elif comboindex5 == 15:
 
             self.plot5_clear()
 
@@ -30474,7 +30606,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_58.setText(txt)
             self.plot5_ovc_high_line.setValue(nasdaq_고가)            
 
-        elif comboindex5 == 15:
+        elif comboindex5 == 16:
 
             self.plot5_clear()
 
@@ -30572,7 +30704,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_ovc_high_line.setValue(hangseng_고가)
 
         # WTI
-        elif comboindex5 == 16:
+        elif comboindex5 == 17:
 
             self.plot5_clear()
 
@@ -30669,7 +30801,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_58.setText(txt)
             self.plot5_ovc_high_line.setValue(wti_고가)            
         
-        elif comboindex5 == 17:
+        elif comboindex5 == 18:
 
             self.plot5_clear()
 
@@ -30766,7 +30898,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_58.setText(txt)
             self.plot5_ovc_high_line.setValue(gold_고가)
 
-        elif comboindex5 == 18:
+        elif comboindex5 == 19:
 
             self.plot5_clear()
 
@@ -30863,7 +30995,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_58.setText(txt)
             self.plot5_ovc_high_line.setValue(eurofx_고가)
 
-        elif comboindex5 == 19:
+        elif comboindex5 == 20:
 
             self.plot5_clear()
 
@@ -30960,43 +31092,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_58.setText(txt)
             self.plot5_ovc_high_line.setValue(yen_고가)
         
-        # 수급종합
         elif comboindex5 == 21:
-
-            self.plot5_clear()
-
-            self.label_51.setText(" - ")
-            self.label_52.setText(" - ")
-            self.label_53.setText(" - ")
-            self.label_54.setText(" - ")
-            self.label_55.setText(" - ")
-
-            self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_56.setText(" 프로그램 ")
-
-            self.label_57.setText(" 선물체결량 ")
-
-            self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_58.setText(" 현물합 ")
-
-        # 외인수급
-        elif comboindex5 == 22:
-
-            self.plot5_clear()
-
-            self.label_51.setText(" - ")
-            self.label_52.setText(" - ")
-            self.label_53.setText(" - ")
-            self.label_54.setText(" - ")
-            self.label_55.setText(" - ")
-
-            self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_56.setText(" 외인현물 ")
-
-            self.label_57.setText(" 선물체결량 ")
-
-            self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_58.setText(" 외인선물 ")
+            pass
         else:
             pass
 
@@ -31066,12 +31163,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_sp500_curve.clear()
         self.plot6_dow_curve.clear()
         self.plot6_nasdaq_curve.clear()
-        self.plot6_wti_curve.clear()
+        self.plot6_hangseng_curve.clear()
 
+        self.plot6_wti_curve.clear()
         self.plot6_gold_curve.clear()
+
         self.plot6_eurofx_curve.clear()
         self.plot6_yen_curve.clear()
-        self.plot6_hangseng_curve.clear()
+        self.plot6_adi_curve.clear()
 
         self.plot6_bollinger_upper_curve.clear()
         self.plot6_bollinger_middle_curve.clear()
@@ -31312,7 +31411,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p6_4.setText(" MAMA ")
         
         # 옵션가격
-        elif comboindex6 == 6:
+        elif comboindex6 == 5:
 
             self.plot6_clear()
 
@@ -31344,7 +31443,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
 
         # 옵션잔량비    
-        elif comboindex6 == 7:
+        elif comboindex6 == 6:
 
             self.plot6_clear()
 
@@ -31379,7 +31478,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_option_quote_remainder_ratio_upper_line.setValue(1.0)     
 
         # 옵션미결
-        elif comboindex6 == 8:
+        elif comboindex6 == 7:
 
             self.plot6_clear()
 
@@ -31407,7 +31506,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p6_4.setText(" MAMA ")
         
         # 등락율비
-        elif comboindex6 == 10:
+        elif comboindex6 == 8:
 
             self.plot6_clear()
 
@@ -31437,8 +31536,46 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p6_4.setText(" MAMA ")
         
+        # 수급종합
+        elif comboindex6 == 10:
+
+            self.plot6_clear()
+
+            self.label_61.setText(" - ")
+            self.label_62.setText(" - ")
+            self.label_63.setText(" - ")
+            self.label_64.setText(" - ")
+            self.label_65.setText(" - ")
+
+            self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_66.setText(" 프로그램 ")
+
+            self.label_67.setText(" 선물체결량 ")
+
+            self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_68.setText(" 현물합 ")
+
+        # 외인수급
+        elif comboindex6 == 11:
+
+            self.plot6_clear()
+
+            self.label_61.setText(" - ")
+            self.label_62.setText(" - ")
+            self.label_63.setText(" - ")
+            self.label_64.setText(" - ")
+            self.label_65.setText(" - ")
+
+            self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_66.setText(" 외인현물 ")
+
+            self.label_67.setText(" 선물체결량 ")
+
+            self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_68.setText(" 외인선물 ")
+
         # SP500
-        elif comboindex6 == 12:
+        elif comboindex6 == 13:
 
             self.plot6_clear()
 
@@ -31536,7 +31673,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_ovc_high_line.setValue(sp500_고가)
 
         # DOW
-        elif comboindex6 == 13:
+        elif comboindex6 == 14:
 
             self.plot6_clear()
 
@@ -31634,7 +31771,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_ovc_high_line.setValue(dow_고가)
 
         # NASDAQ
-        elif comboindex6 == 14:
+        elif comboindex6 == 15:
 
             self.plot6_clear()
 
@@ -31731,7 +31868,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_68.setText(txt)
             self.plot6_ovc_high_line.setValue(nasdaq_고가)            
 
-        elif comboindex6 == 15:
+        elif comboindex6 == 16:
 
             self.plot6_clear()
 
@@ -31829,7 +31966,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_ovc_high_line.setValue(hangseng_고가)
 
         # WTI
-        elif comboindex6 == 16:
+        elif comboindex6 == 17:
 
             self.plot6_clear()
 
@@ -31926,7 +32063,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_68.setText(txt)
             self.plot6_ovc_high_line.setValue(wti_고가)
         
-        elif comboindex6 == 17:
+        elif comboindex6 == 18:
 
             self.plot6_clear()
 
@@ -32023,7 +32160,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_68.setText(txt)
             self.plot6_ovc_high_line.setValue(gold_고가)
 
-        elif comboindex6 == 18:
+        elif comboindex6 == 19:
 
             self.plot6_clear()
 
@@ -32120,7 +32257,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_68.setText(txt)
             self.plot6_ovc_high_line.setValue(eurofx_고가)
 
-        elif comboindex6 == 19:
+        elif comboindex6 == 20:
 
             self.plot6_clear()
 
@@ -32217,43 +32354,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_68.setText(txt)
             self.plot6_ovc_high_line.setValue(yen_고가)
         
-        # 수급종합
         elif comboindex6 == 21:
-
-            self.plot6_clear()
-
-            self.label_61.setText(" - ")
-            self.label_62.setText(" - ")
-            self.label_63.setText(" - ")
-            self.label_64.setText(" - ")
-            self.label_65.setText(" - ")
-
-            self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_66.setText(" 프로그램 ")
-
-            self.label_67.setText(" 선물체결량 ")
-
-            self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_68.setText(" 현물합 ")
-
-        # 외인수급
-        elif comboindex6 == 22:
-
-            self.plot6_clear()
-
-            self.label_61.setText(" - ")
-            self.label_62.setText(" - ")
-            self.label_63.setText(" - ")
-            self.label_64.setText(" - ")
-            self.label_65.setText(" - ")
-
-            self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_66.setText(" 외인현물 ")
-
-            self.label_67.setText(" 선물체결량 ")
-
-            self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_68.setText(" 외인선물 ")
+            pass
         else:
             pass 
 
@@ -32836,7 +32938,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_put_volume_curve.setData(df_put_information_graph['volume'])
 
             # 옵션가격
-            elif comboindex1 == 6:
+            elif comboindex1 == 5:
                 
                 self.plot1_time_line.setValue(cme_time_index)
 
@@ -32910,7 +33012,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
             
-            elif comboindex1 == 7:
+            elif comboindex1 == 6:
                 
                 self.plot1_time_line.setValue(cme_time_index)
 
@@ -32926,7 +33028,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_option_quote_remainder_ratio_bottom_line.setValue(옵션_잔량비_최소)
                 self.plot1_option_quote_remainder_ratio_upper_line.setValue(옵션_잔량비_최대)
 
-            elif comboindex1 == 8:
+            elif comboindex1 == 7:
                 
                 self.plot1_time_line.setValue(cme_time_index)
 
@@ -32939,7 +33041,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_call_oi_curve.setData(df_call_information_graph['open_interest'])
                 self.plot1_put_oi_curve.setData(df_put_information_graph['open_interest'])
                         
-            elif comboindex1 == 10:
+            elif comboindex1 == 8:
                 
                 self.plot1_time_line.setValue(cme_time_index)
 
@@ -32966,7 +33068,119 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot1_cme_drate_curve.setData(df_sp500_graph['drate'])              
             
-            elif comboindex1 == 12:
+            elif comboindex1 == 10:
+                
+                self.plot1_time_line.setValue(cme_time_index)               
+
+                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'program']):
+                    txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
+                
+                    if df_supply_demand_graph.at[cme_time_index, 'program'] <= 0:
+                        self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_16.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_16.setText(txt)
+                else:
+                    pass
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_17.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_17.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_17.setText(txt)
+                
+                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_total']):
+                    txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_total'])
+
+                    if df_supply_demand_graph.at[cme_time_index, 'kospi_total'] <= 0:
+                        self.label_18.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_18.setText(txt)
+                else:
+                    pass
+
+                if DayTime:
+                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    self.label_11.setText(txt)
+
+                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    self.label_12.setText(txt)
+
+                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    self.label_13.setText(txt)
+
+                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    self.label_14.setText(txt)
+
+                    self.plot1_fut_volume_curve.setData(df_futures_cm_graph['volume'])
+                    self.plot1_program_curve.setData(df_supply_demand_graph['program'])
+                    self.plot1_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
+                else:
+                    pass
+
+            elif comboindex1 == 11:
+                
+                self.plot1_time_line.setValue(cme_time_index)
+
+                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner']):
+                    txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
+
+                    if df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'] <= 0:
+                        self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_16.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_16.setText(txt)
+                else:
+                    pass
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_17.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_17.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_17.setText(txt)
+                
+                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner']):
+                    txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'])
+
+                    if df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'] <= 0:
+                        self.label_18.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_18.setText(txt)
+                else:
+                    pass
+
+                if DayTime:
+                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    self.label_11.setText(txt)
+
+                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    self.label_12.setText(txt)
+
+                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    self.label_13.setText(txt)
+
+                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    self.label_14.setText(txt)
+
+                    self.plot1_fut_volume_curve.setData(df_futures_cm_graph['volume'])
+                    self.plot1_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
+                    self.plot1_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
+                else:
+                    pass
+
+            elif comboindex1 == 13:
                 
                 self.plot1_time_line.setValue(cme_time_index)
 
@@ -33096,7 +33310,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
             
-            elif comboindex1 == 13:
+            elif comboindex1 == 14:
                 
                 self.plot1_time_line.setValue(cme_time_index)
 
@@ -33226,7 +33440,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex1 == 14:
+            elif comboindex1 == 15:
                 
                 self.plot1_time_line.setValue(cme_time_index)
 
@@ -33356,7 +33570,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex1 == 15:
+            elif comboindex1 == 16:
                 
                 self.plot1_time_line.setValue(cme_time_index)
 
@@ -33484,7 +33698,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex1 == 16:
+            elif comboindex1 == 17:
                 
                 self.plot1_time_line.setValue(cme_time_index)
 
@@ -33613,7 +33827,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
             
-            elif comboindex1 == 17:
+            elif comboindex1 == 18:
                 
                 self.plot1_time_line.setValue(cme_time_index)
 
@@ -33741,7 +33955,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex1 == 18:
+            elif comboindex1 == 19:
                 
                 self.plot1_time_line.setValue(cme_time_index)
 
@@ -33868,7 +34082,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex1 == 19:
+            elif comboindex1 == 20:
                 
                 self.plot1_time_line.setValue(cme_time_index)
 
@@ -33997,116 +34211,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
             
             elif comboindex1 == 21:
-                
-                self.plot1_time_line.setValue(cme_time_index)               
-
-                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'program']):
-                    txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
-                
-                    if df_supply_demand_graph.at[cme_time_index, 'program'] <= 0:
-                        self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_16.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_16.setText(txt)
-                else:
-                    pass
-
-                txt = " {0:.0f} ".format(fut_cm_volume_power)
-
-                if fut_cm_volume_power > 0:
-                    self.label_17.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_17.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_17.setText(txt)
-                
-                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_total']):
-                    txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_total'])
-
-                    if df_supply_demand_graph.at[cme_time_index, 'kospi_total'] <= 0:
-                        self.label_18.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_18.setText(txt)
-                else:
-                    pass
-
-                if DayTime:
-                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
-                    self.label_11.setText(txt)
-
-                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
-                    self.label_12.setText(txt)
-
-                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
-                    self.label_13.setText(txt)
-
-                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
-                    self.label_14.setText(txt)
-
-                    self.plot1_fut_volume_curve.setData(df_futures_cm_graph['volume'])
-                    self.plot1_program_curve.setData(df_supply_demand_graph['program'])
-                    self.plot1_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
-                else:
-                    pass
-
-            elif comboindex1 == 22:
-                
-                self.plot1_time_line.setValue(cme_time_index)
-
-                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner']):
-                    txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
-
-                    if df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'] <= 0:
-                        self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_16.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_16.setText(txt)
-                else:
-                    pass
-
-                txt = " {0:.0f} ".format(fut_cm_volume_power)
-
-                if fut_cm_volume_power > 0:
-                    self.label_17.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_17.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_17.setText(txt)
-                
-                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner']):
-                    txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'])
-
-                    if df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'] <= 0:
-                        self.label_18.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_18.setText(txt)
-                else:
-                    pass
-
-                if DayTime:
-                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
-                    self.label_11.setText(txt)
-
-                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
-                    self.label_12.setText(txt)
-
-                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
-                    self.label_13.setText(txt)
-
-                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
-                    self.label_14.setText(txt)
-
-                    self.plot1_fut_volume_curve.setData(df_futures_cm_graph['volume'])
-                    self.plot1_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
-                    self.plot1_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
-                else:
-                    pass
+                pass
             else:
                 pass
 
@@ -34358,7 +34463,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_put_volume_curve.setData(df_put_information_graph['volume'])
 
             # 옵션가격
-            elif comboindex2 == 6:
+            elif comboindex2 == 5:
                 
                 self.plot2_time_line.setValue(cme_time_index)
 
@@ -34432,7 +34537,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex2 == 7:
+            elif comboindex2 == 6:
                 
                 self.plot2_time_line.setValue(cme_time_index)
 
@@ -34448,7 +34553,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_option_quote_remainder_ratio_bottom_line.setValue(옵션_잔량비_최소)
                 self.plot2_option_quote_remainder_ratio_upper_line.setValue(옵션_잔량비_최대)        
 
-            elif comboindex2 == 8:
+            elif comboindex2 == 7:
                 
                 self.plot2_time_line.setValue(cme_time_index)
 
@@ -34461,7 +34566,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_call_oi_curve.setData(df_call_information_graph['open_interest'])
                 self.plot2_put_oi_curve.setData(df_put_information_graph['open_interest'])
             
-            elif comboindex2 == 10:
+            elif comboindex2 == 8:
                 
                 self.plot2_time_line.setValue(cme_time_index)
 
@@ -34488,7 +34593,119 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot2_cme_drate_curve.setData(df_sp500_graph['drate'])
             
-            elif comboindex2 == 12:
+            elif comboindex2 == 10:
+                
+                self.plot2_time_line.setValue(cme_time_index)
+
+                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'program']):
+                    txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
+
+                    if df_supply_demand_graph.at[cme_time_index, 'program'] <= 0:
+                        self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_26.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_26.setText(txt)
+                else:
+                    pass
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_27.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_27.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_27.setText(txt)
+                
+                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_total']):
+                    txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_total'])
+
+                    if df_supply_demand_graph.at[cme_time_index, 'kospi_total'] <= 0:
+                        self.label_28.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_28.setText(txt)
+                else:
+                    pass
+
+                if DayTime:
+                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    self.label_21.setText(txt)
+
+                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    self.label_22.setText(txt)
+
+                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    self.label_23.setText(txt)
+
+                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    self.label_24.setText(txt)
+
+                    self.plot2_fut_volume_curve.setData(df_futures_cm_graph['volume'])
+                    self.plot2_program_curve.setData(df_supply_demand_graph['program'])
+                    self.plot2_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
+                else:
+                    pass
+
+            elif comboindex2 == 11:
+                
+                self.plot2_time_line.setValue(cme_time_index)
+
+                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner']):
+                    txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
+
+                    if df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'] <= 0:
+                        self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_26.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_26.setText(txt)
+                else:
+                    pass
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_27.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_27.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_27.setText(txt)
+                
+                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner']):
+                    txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'])
+
+                    if df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'] <= 0:
+                        self.label_28.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_28.setText(txt)
+                else:
+                    pass
+
+                if DayTime:
+                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    self.label_21.setText(txt)
+
+                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    self.label_22.setText(txt)
+
+                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    self.label_23.setText(txt)
+
+                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    self.label_24.setText(txt)
+
+                    self.plot2_fut_volume_curve.setData(df_futures_cm_graph['volume'])
+                    self.plot2_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
+                    self.plot2_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
+                else:
+                    pass
+
+            elif comboindex2 == 13:
                 
                 self.plot2_time_line.setValue(cme_time_index)
 
@@ -34618,7 +34835,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
             
-            elif comboindex2 == 13:
+            elif comboindex2 == 14:
                 
                 self.plot2_time_line.setValue(cme_time_index)
 
@@ -34748,7 +34965,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass    
 
-            elif comboindex2 == 14:
+            elif comboindex2 == 15:
                 
                 self.plot2_time_line.setValue(cme_time_index)
                 
@@ -34878,7 +35095,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex2 == 15:
+            elif comboindex2 == 16:
                 
                 self.plot2_time_line.setValue(cme_time_index)
 
@@ -35006,7 +35223,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex2 == 16:
+            elif comboindex2 == 17:
                 
                 self.plot2_time_line.setValue(cme_time_index)
                 
@@ -35135,7 +35352,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass  
             
-            elif comboindex2 == 17:
+            elif comboindex2 == 18:
                 
                 self.plot2_time_line.setValue(cme_time_index)
 
@@ -35263,7 +35480,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex2 == 18:
+            elif comboindex2 == 19:
                 
                 self.plot2_time_line.setValue(cme_time_index)
 
@@ -35390,7 +35607,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex2 == 19:
+            elif comboindex2 == 20:
                 
                 self.plot2_time_line.setValue(cme_time_index)
 
@@ -35519,116 +35736,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
             
             elif comboindex2 == 21:
-                
-                self.plot2_time_line.setValue(cme_time_index)
-
-                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'program']):
-                    txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
-
-                    if df_supply_demand_graph.at[cme_time_index, 'program'] <= 0:
-                        self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_26.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_26.setText(txt)
-                else:
-                    pass
-
-                txt = " {0:.0f} ".format(fut_cm_volume_power)
-
-                if fut_cm_volume_power > 0:
-                    self.label_27.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_27.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_27.setText(txt)
-                
-                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_total']):
-                    txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_total'])
-
-                    if df_supply_demand_graph.at[cme_time_index, 'kospi_total'] <= 0:
-                        self.label_28.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_28.setText(txt)
-                else:
-                    pass
-
-                if DayTime:
-                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
-                    self.label_21.setText(txt)
-
-                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
-                    self.label_22.setText(txt)
-
-                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
-                    self.label_23.setText(txt)
-
-                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
-                    self.label_24.setText(txt)
-
-                    self.plot2_fut_volume_curve.setData(df_futures_cm_graph['volume'])
-                    self.plot2_program_curve.setData(df_supply_demand_graph['program'])
-                    self.plot2_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
-                else:
-                    pass
-
-            elif comboindex2 == 22:
-                
-                self.plot2_time_line.setValue(cme_time_index)
-
-                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner']):
-                    txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
-
-                    if df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'] <= 0:
-                        self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_26.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_26.setText(txt)
-                else:
-                    pass
-
-                txt = " {0:.0f} ".format(fut_cm_volume_power)
-
-                if fut_cm_volume_power > 0:
-                    self.label_27.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_27.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_27.setText(txt)
-                
-                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner']):
-                    txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'])
-
-                    if df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'] <= 0:
-                        self.label_28.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_28.setText(txt)
-                else:
-                    pass
-
-                if DayTime:
-                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
-                    self.label_21.setText(txt)
-
-                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
-                    self.label_22.setText(txt)
-
-                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
-                    self.label_23.setText(txt)
-
-                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
-                    self.label_24.setText(txt)
-
-                    self.plot2_fut_volume_curve.setData(df_futures_cm_graph['volume'])
-                    self.plot2_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
-                    self.plot2_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
-                else:
-                    pass
+                pass
             else:
                 pass         
         
@@ -35881,7 +35989,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_put_volume_curve.setData(df_put_information_graph['volume'])
 
             # 옵션가격
-            elif comboindex3 == 6:
+            elif comboindex3 == 5:
                 
                 self.plot3_time_line.setValue(cme_time_index)
 
@@ -35953,7 +36061,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex3 == 7:
+            elif comboindex3 == 6:
                 
                 self.plot3_time_line.setValue(cme_time_index)
 
@@ -35969,7 +36077,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_option_quote_remainder_ratio_bottom_line.setValue(옵션_잔량비_최소)
                 self.plot3_option_quote_remainder_ratio_upper_line.setValue(옵션_잔량비_최대)        
 
-            elif comboindex3 == 8:
+            elif comboindex3 == 7:
                 
                 self.plot3_time_line.setValue(cme_time_index)
 
@@ -35982,7 +36090,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_call_oi_curve.setData(df_call_information_graph['open_interest'])
                 self.plot3_put_oi_curve.setData(df_put_information_graph['open_interest'])
             
-            elif comboindex3 == 10:
+            elif comboindex3 == 8:
                 
                 self.plot3_time_line.setValue(cme_time_index)
 
@@ -36009,7 +36117,119 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot3_cme_drate_curve.setData(df_sp500_graph['drate'])
             
-            elif comboindex3 == 12:
+            elif comboindex3 == 10:
+                
+                self.plot3_time_line.setValue(cme_time_index)
+
+                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'program']):
+                    txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
+
+                    if df_supply_demand_graph.at[cme_time_index, 'program'] <= 0:
+                        self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_36.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_36.setText(txt)
+                else:
+                    pass
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_37.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_37.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_37.setText(txt)
+                
+                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_total']):
+                    txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_total'])
+
+                    if df_supply_demand_graph.at[cme_time_index, 'kospi_total'] <= 0:
+                        self.label_38.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_38.setText(txt)
+                else:
+                    pass
+
+                if DayTime:
+                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    self.label_31.setText(txt)
+
+                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    self.label_32.setText(txt)
+
+                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    self.label_33.setText(txt)
+
+                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    self.label_34.setText(txt)
+
+                    self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'])
+                    self.plot3_program_curve.setData(df_supply_demand_graph['program'])
+                    self.plot3_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
+                else:
+                    pass
+
+            elif comboindex3 == 11:
+                
+                self.plot3_time_line.setValue(cme_time_index)
+
+                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner']):
+                    txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
+
+                    if df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'] <= 0:
+                        self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_36.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_36.setText(txt)
+                else:
+                    pass
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_37.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_37.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_37.setText(txt)
+                
+                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner']):
+                    txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'])
+
+                    if df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'] <= 0:
+                        self.label_38.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_38.setText(txt)
+                else:
+                    pass
+
+                if DayTime:
+                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    self.label_31.setText(txt)
+
+                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    self.label_32.setText(txt)
+
+                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    self.label_33.setText(txt)
+
+                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    self.label_34.setText(txt)
+
+                    self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'])
+                    self.plot3_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
+                    self.plot3_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
+                else:
+                    pass
+
+            elif comboindex3 == 13:
                 
                 self.plot3_time_line.setValue(cme_time_index)
                 
@@ -36139,7 +36359,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
             
-            elif comboindex3 == 13:
+            elif comboindex3 == 14:
                 
                 self.plot3_time_line.setValue(cme_time_index)
                 
@@ -36269,7 +36489,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass    
 
-            elif comboindex3 == 14:
+            elif comboindex3 == 15:
                 
                 self.plot3_time_line.setValue(cme_time_index)
                 
@@ -36399,7 +36619,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex3 == 15:
+            elif comboindex3 == 16:
                 
                 self.plot3_time_line.setValue(cme_time_index)
 
@@ -36527,7 +36747,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex3 == 16:
+            elif comboindex3 == 17:
                 
                 self.plot3_time_line.setValue(cme_time_index)
                 
@@ -36656,7 +36876,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass 
             
-            elif comboindex3 == 17:
+            elif comboindex3 == 18:
                 
                 self.plot3_time_line.setValue(cme_time_index)
 
@@ -36784,7 +37004,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex3 == 18:
+            elif comboindex3 == 19:
                 
                 self.plot3_time_line.setValue(cme_time_index)
 
@@ -36911,7 +37131,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex3 == 19:
+            elif comboindex3 == 20:
                 
                 self.plot3_time_line.setValue(cme_time_index)
 
@@ -37040,116 +37260,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
             
             elif comboindex3 == 21:
-                
-                self.plot3_time_line.setValue(cme_time_index)
-
-                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'program']):
-                    txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
-
-                    if df_supply_demand_graph.at[cme_time_index, 'program'] <= 0:
-                        self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_36.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_36.setText(txt)
-                else:
-                    pass
-
-                txt = " {0:.0f} ".format(fut_cm_volume_power)
-
-                if fut_cm_volume_power > 0:
-                    self.label_37.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_37.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_37.setText(txt)
-                
-                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_total']):
-                    txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_total'])
-
-                    if df_supply_demand_graph.at[cme_time_index, 'kospi_total'] <= 0:
-                        self.label_38.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_38.setText(txt)
-                else:
-                    pass
-
-                if DayTime:
-                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
-                    self.label_31.setText(txt)
-
-                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
-                    self.label_32.setText(txt)
-
-                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
-                    self.label_33.setText(txt)
-
-                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
-                    self.label_34.setText(txt)
-
-                    self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'])
-                    self.plot3_program_curve.setData(df_supply_demand_graph['program'])
-                    self.plot3_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
-                else:
-                    pass
-
-            elif comboindex3 == 22:
-                
-                self.plot3_time_line.setValue(cme_time_index)
-
-                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner']):
-                    txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
-
-                    if df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'] <= 0:
-                        self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_36.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_36.setText(txt)
-                else:
-                    pass
-
-                txt = " {0:.0f} ".format(fut_cm_volume_power)
-
-                if fut_cm_volume_power > 0:
-                    self.label_37.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_37.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_37.setText(txt)
-                
-                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner']):
-                    txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'])
-
-                    if df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'] <= 0:
-                        self.label_38.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_38.setText(txt)
-                else:
-                    pass
-
-                if DayTime:
-                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
-                    self.label_31.setText(txt)
-
-                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
-                    self.label_32.setText(txt)
-
-                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
-                    self.label_33.setText(txt)
-
-                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
-                    self.label_34.setText(txt)
-
-                    self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'])
-                    self.plot3_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
-                    self.plot3_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
-                else:
-                    pass
+                pass
             else:
                 pass
 
@@ -37401,7 +37512,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_put_volume_curve.setData(df_put_information_graph['volume'])
 
             # 옵션가격
-            elif comboindex4 == 6:
+            elif comboindex4 == 5:
                 
                 self.plot4_time_line.setValue(cme_time_index)
 
@@ -37475,7 +37586,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
             
-            elif comboindex4 == 7:
+            elif comboindex4 == 6:
                 
                 self.plot4_time_line.setValue(cme_time_index)
 
@@ -37491,7 +37602,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_option_quote_remainder_ratio_bottom_line.setValue(옵션_잔량비_최소)
                 self.plot4_option_quote_remainder_ratio_upper_line.setValue(옵션_잔량비_최대)
 
-            elif comboindex4 == 8:
+            elif comboindex4 == 7:
                 
                 self.plot4_time_line.setValue(cme_time_index)
 
@@ -37504,7 +37615,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_call_oi_curve.setData(df_call_information_graph['open_interest'])
                 self.plot4_put_oi_curve.setData(df_put_information_graph['open_interest'])
             
-            elif comboindex4 == 10:
+            elif comboindex4 == 8:
                 
                 self.plot4_time_line.setValue(cme_time_index)
 
@@ -37531,7 +37642,119 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot4_cme_drate_curve.setData(df_sp500_graph['drate'])
             
-            elif comboindex4 == 12:
+            elif comboindex4 == 10:
+                
+                self.plot4_time_line.setValue(cme_time_index)
+
+                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'program']):
+                    txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
+
+                    if df_supply_demand_graph.at[cme_time_index, 'program'] <= 0:
+                        self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_46.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_46.setText(txt)
+                else:
+                    pass
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_47.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_47.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_47.setText(txt)
+                
+                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_total']):
+                    txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_total'])
+
+                    if df_supply_demand_graph.at[cme_time_index, 'kospi_total'] <= 0:
+                        self.label_48.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_48.setText(txt)
+                else:
+                    pass
+
+                if DayTime:
+                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    self.label_41.setText(txt)
+
+                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    self.label_42.setText(txt)
+
+                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    self.label_43.setText(txt)
+
+                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    self.label_44.setText(txt)
+
+                    self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'])
+                    self.plot4_program_curve.setData(df_supply_demand_graph['program'])
+                    self.plot4_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
+                else:
+                    pass
+
+            elif comboindex4 == 11:
+                
+                self.plot4_time_line.setValue(cme_time_index)
+
+                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner']):
+                    txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
+
+                    if df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'] <= 0:
+                        self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_46.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_46.setText(txt)
+                else:
+                    pass
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_47.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_47.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_47.setText(txt)
+                
+                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner']):
+                    txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'])
+
+                    if df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'] <= 0:
+                        self.label_48.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_48.setText(txt)
+                else:
+                    pass
+
+                if DayTime:
+                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    self.label_41.setText(txt)
+
+                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    self.label_42.setText(txt)
+
+                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    self.label_43.setText(txt)
+
+                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    self.label_44.setText(txt)
+
+                    self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'])
+                    self.plot4_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
+                    self.plot4_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
+                else:
+                    pass
+
+            elif comboindex4 == 13:
                 
                 self.plot4_time_line.setValue(cme_time_index)
                 
@@ -37661,7 +37884,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
             
-            elif comboindex4 == 13:
+            elif comboindex4 == 14:
                 
                 self.plot4_time_line.setValue(cme_time_index)
                 
@@ -37791,7 +38014,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex4 == 14:
+            elif comboindex4 == 15:
                 
                 self.plot4_time_line.setValue(cme_time_index)
                 
@@ -37921,7 +38144,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex4 == 15:
+            elif comboindex4 == 16:
                 
                 self.plot4_time_line.setValue(cme_time_index)
 
@@ -38049,7 +38272,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex4 == 16:
+            elif comboindex4 == 17:
                 
                 self.plot4_time_line.setValue(cme_time_index)
                 
@@ -38178,7 +38401,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
             
-            elif comboindex4 == 17:
+            elif comboindex4 == 18:
                 
                 self.plot4_time_line.setValue(cme_time_index)
 
@@ -38306,7 +38529,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex4 == 18:
+            elif comboindex4 == 19:
                 
                 self.plot4_time_line.setValue(cme_time_index)
 
@@ -38433,7 +38656,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex4 == 19:
+            elif comboindex4 == 20:
                 
                 self.plot4_time_line.setValue(cme_time_index)
 
@@ -38562,116 +38785,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
             
             elif comboindex4 == 21:
-                
-                self.plot4_time_line.setValue(cme_time_index)
-
-                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'program']):
-                    txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
-
-                    if df_supply_demand_graph.at[cme_time_index, 'program'] <= 0:
-                        self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_46.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_46.setText(txt)
-                else:
-                    pass
-
-                txt = " {0:.0f} ".format(fut_cm_volume_power)
-
-                if fut_cm_volume_power > 0:
-                    self.label_47.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_47.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_47.setText(txt)
-                
-                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_total']):
-                    txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_total'])
-
-                    if df_supply_demand_graph.at[cme_time_index, 'kospi_total'] <= 0:
-                        self.label_48.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_48.setText(txt)
-                else:
-                    pass
-
-                if DayTime:
-                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
-                    self.label_41.setText(txt)
-
-                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
-                    self.label_42.setText(txt)
-
-                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
-                    self.label_43.setText(txt)
-
-                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
-                    self.label_44.setText(txt)
-
-                    self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'])
-                    self.plot4_program_curve.setData(df_supply_demand_graph['program'])
-                    self.plot4_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
-                else:
-                    pass
-
-            elif comboindex4 == 22:
-                
-                self.plot4_time_line.setValue(cme_time_index)
-
-                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner']):
-                    txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
-
-                    if df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'] <= 0:
-                        self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_46.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_46.setText(txt)
-                else:
-                    pass
-
-                txt = " {0:.0f} ".format(fut_cm_volume_power)
-
-                if fut_cm_volume_power > 0:
-                    self.label_47.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_47.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_47.setText(txt)
-                
-                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner']):
-                    txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'])
-
-                    if df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'] <= 0:
-                        self.label_48.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_48.setText(txt)
-                else:
-                    pass
-
-                if DayTime:
-                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
-                    self.label_41.setText(txt)
-
-                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
-                    self.label_42.setText(txt)
-
-                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
-                    self.label_43.setText(txt)
-
-                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
-                    self.label_44.setText(txt)
-
-                    self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'])
-                    self.plot4_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
-                    self.plot4_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
-                else:
-                    pass
+                pass
             else:
                 pass
             
@@ -38924,7 +39038,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_put_volume_curve.setData(df_put_information_graph['volume'])
 
             # 옵션가격
-            elif comboindex5 == 6:
+            elif comboindex5 == 5:
                 
                 self.plot5_time_line.setValue(cme_time_index)
 
@@ -38995,7 +39109,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex5 == 7:
+            elif comboindex5 == 6:
                 
                 self.plot5_time_line.setValue(cme_time_index)
 
@@ -39011,7 +39125,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_option_quote_remainder_ratio_bottom_line.setValue(옵션_잔량비_최소)
                 self.plot5_option_quote_remainder_ratio_upper_line.setValue(옵션_잔량비_최대)       
 
-            elif comboindex5 == 8:
+            elif comboindex5 == 7:
                 
                 self.plot5_time_line.setValue(cme_time_index)
 
@@ -39024,7 +39138,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_call_oi_curve.setData(df_call_information_graph['open_interest'])
                 self.plot5_put_oi_curve.setData(df_put_information_graph['open_interest'])
             
-            elif comboindex5 == 10:
+            elif comboindex5 == 8:
                 
                 self.plot5_time_line.setValue(cme_time_index)
 
@@ -39051,7 +39165,119 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot5_cme_drate_curve.setData(df_sp500_graph['drate'])
             
-            elif comboindex5 == 12:
+            elif comboindex5 == 10:
+                
+                self.plot5_time_line.setValue(cme_time_index)
+
+                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'program']):
+                    txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
+
+                    if df_supply_demand_graph.at[cme_time_index, 'program'] <= 0:
+                        self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_56.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_56.setText(txt)
+                else:
+                    pass
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_57.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_57.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_57.setText(txt)
+                
+                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_total']):
+                    txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_total'])
+
+                    if df_supply_demand_graph.at[cme_time_index, 'kospi_total'] <= 0:
+                        self.label_58.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_58.setText(txt)
+                else:
+                    pass
+
+                if DayTime:
+                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    self.label_51.setText(txt)
+
+                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    self.label_52.setText(txt)
+
+                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    self.label_53.setText(txt)
+
+                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    self.label_54.setText(txt)
+
+                    self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'])
+                    self.plot5_program_curve.setData(df_supply_demand_graph['program'])
+                    self.plot5_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
+                else:
+                    pass
+
+            elif comboindex5 == 11:
+                
+                self.plot5_time_line.setValue(cme_time_index)
+
+                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner']):
+                    txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
+
+                    if df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'] <= 0:
+                        self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_56.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_56.setText(txt)
+                else:
+                    pass
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_57.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_57.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_57.setText(txt)
+                
+                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner']):
+                    txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'])
+
+                    if df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'] <= 0:
+                        self.label_58.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_58.setText(txt)
+                else:
+                    pass
+
+                if DayTime:
+                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    self.label_51.setText(txt)
+
+                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    self.label_52.setText(txt)
+
+                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    self.label_53.setText(txt)
+
+                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    self.label_54.setText(txt)
+
+                    self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'])
+                    self.plot5_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
+                    self.plot5_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
+                else:
+                    pass
+
+            elif comboindex5 == 13:
                 
                 self.plot5_time_line.setValue(cme_time_index)
                 
@@ -39181,7 +39407,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
             
-            elif comboindex5 == 13:
+            elif comboindex5 == 14:
                 
                 self.plot5_time_line.setValue(cme_time_index)
                 
@@ -39311,7 +39537,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass  
 
-            elif comboindex5 == 14:
+            elif comboindex5 == 15:
                 
                 self.plot5_time_line.setValue(cme_time_index)
                 
@@ -39441,7 +39667,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex5 == 15:
+            elif comboindex5 == 16:
                 
                 self.plot5_time_line.setValue(cme_time_index)
 
@@ -39569,7 +39795,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex5 == 16:
+            elif comboindex5 == 17:
                 
                 self.plot5_time_line.setValue(cme_time_index)
                 
@@ -39698,7 +39924,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass 
             
-            elif comboindex5 == 17:
+            elif comboindex5 == 18:
                 
                 self.plot5_time_line.setValue(cme_time_index)
 
@@ -39826,7 +40052,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex5 == 18:
+            elif comboindex5 == 19:
                 
                 self.plot5_time_line.setValue(cme_time_index)
 
@@ -39953,7 +40179,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex5 == 19:
+            elif comboindex5 == 20:
                 
                 self.plot5_time_line.setValue(cme_time_index)
 
@@ -40082,116 +40308,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
             
             elif comboindex5 == 21:
-                
-                self.plot5_time_line.setValue(cme_time_index)
-
-                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'program']):
-                    txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
-
-                    if df_supply_demand_graph.at[cme_time_index, 'program'] <= 0:
-                        self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_56.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_56.setText(txt)
-                else:
-                    pass
-
-                txt = " {0:.0f} ".format(fut_cm_volume_power)
-
-                if fut_cm_volume_power > 0:
-                    self.label_57.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_57.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_57.setText(txt)
-                
-                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_total']):
-                    txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_total'])
-
-                    if df_supply_demand_graph.at[cme_time_index, 'kospi_total'] <= 0:
-                        self.label_58.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_58.setText(txt)
-                else:
-                    pass
-
-                if DayTime:
-                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
-                    self.label_51.setText(txt)
-
-                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
-                    self.label_52.setText(txt)
-
-                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
-                    self.label_53.setText(txt)
-
-                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
-                    self.label_54.setText(txt)
-
-                    self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'])
-                    self.plot5_program_curve.setData(df_supply_demand_graph['program'])
-                    self.plot5_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
-                else:
-                    pass
-
-            elif comboindex5 == 22:
-                
-                self.plot5_time_line.setValue(cme_time_index)
-
-                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner']):
-                    txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
-
-                    if df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'] <= 0:
-                        self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_56.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_56.setText(txt)
-                else:
-                    pass
-
-                txt = " {0:.0f} ".format(fut_cm_volume_power)
-
-                if fut_cm_volume_power > 0:
-                    self.label_57.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_57.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_57.setText(txt)
-                
-                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner']):
-                    txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'])
-
-                    if df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'] <= 0:
-                        self.label_58.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_58.setText(txt)
-                else:
-                    pass
-
-                if DayTime:
-                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
-                    self.label_51.setText(txt)
-
-                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
-                    self.label_52.setText(txt)
-
-                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
-                    self.label_53.setText(txt)
-
-                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
-                    self.label_54.setText(txt)
-
-                    self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'])
-                    self.plot5_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
-                    self.plot5_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
-                else:
-                    pass
+                pass
             else:
                 pass
 
@@ -40444,7 +40561,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_put_volume_curve.setData(df_put_information_graph['volume'])
 
             # 옵션가격
-            elif comboindex6 == 6:
+            elif comboindex6 == 5:
                 
                 self.plot6_time_line.setValue(cme_time_index)
 
@@ -40515,7 +40632,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex6 == 7:
+            elif comboindex6 == 6:
                 
                 self.plot6_time_line.setValue(cme_time_index)
 
@@ -40531,7 +40648,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_option_quote_remainder_ratio_bottom_line.setValue(옵션_잔량비_최소)
                 self.plot6_option_quote_remainder_ratio_upper_line.setValue(옵션_잔량비_최대)        
 
-            elif comboindex6 == 8:
+            elif comboindex6 == 7:
                 
                 self.plot6_time_line.setValue(cme_time_index)
 
@@ -40544,7 +40661,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_call_oi_curve.setData(df_call_information_graph['open_interest'])
                 self.plot6_put_oi_curve.setData(df_put_information_graph['open_interest'])
                                     
-            elif comboindex6 == 10:
+            elif comboindex6 == 8:
                 
                 self.plot6_time_line.setValue(cme_time_index)
 
@@ -40571,7 +40688,119 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot6_cme_drate_curve.setData(df_sp500_graph['drate'])
             
-            elif comboindex6 == 12:
+            elif comboindex6 == 10:
+                
+                self.plot6_time_line.setValue(cme_time_index)
+
+                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'program']):
+                    txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
+
+                    if df_supply_demand_graph.at[cme_time_index, 'program'] <= 0:
+                        self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_66.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_66.setText(txt)
+                else:
+                    pass
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_67.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_67.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_67.setText(txt)
+                
+                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_total']):
+                    txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_total'])
+
+                    if df_supply_demand_graph.at[cme_time_index, 'kospi_total'] <= 0:
+                        self.label_68.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_68.setText(txt)
+                else:
+                    pass
+
+                if DayTime:
+                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    self.label_61.setText(txt)
+
+                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    self.label_62.setText(txt)
+
+                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    self.label_63.setText(txt)
+
+                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    self.label_64.setText(txt)
+
+                    self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'])
+                    self.plot6_program_curve.setData(df_supply_demand_graph['program'])
+                    self.plot6_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
+                else:
+                    pass
+
+            elif comboindex6 == 11:
+                
+                self.plot6_time_line.setValue(cme_time_index)
+
+                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner']):
+                    txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
+
+                    if df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'] <= 0:
+                        self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_66.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_66.setText(txt)
+                else:
+                    pass
+
+                txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                if fut_cm_volume_power > 0:
+                    self.label_67.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_67.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_67.setText(txt)
+                
+                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner']):
+                    txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'])
+
+                    if df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'] <= 0:
+                        self.label_68.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_68.setText(txt)
+                else:
+                    pass
+
+                if DayTime:
+                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    self.label_61.setText(txt)
+
+                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    self.label_62.setText(txt)
+
+                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    self.label_63.setText(txt)
+
+                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    self.label_64.setText(txt)
+                    
+                    self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'])
+                    self.plot6_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
+                    self.plot6_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
+                else:
+                    pass
+
+            elif comboindex6 == 13:
                 
                 self.plot6_time_line.setValue(cme_time_index)
                 
@@ -40701,7 +40930,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex6 == 13:
+            elif comboindex6 == 14:
                 
                 self.plot6_time_line.setValue(cme_time_index)
                 
@@ -40831,7 +41060,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass    
 
-            elif comboindex6 == 14:
+            elif comboindex6 == 15:
                 
                 self.plot6_time_line.setValue(cme_time_index)
                 
@@ -40961,7 +41190,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex6 == 15:
+            elif comboindex6 == 16:
                 
                 self.plot6_time_line.setValue(cme_time_index)
 
@@ -41089,7 +41318,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass            
 
-            elif comboindex6 == 16:
+            elif comboindex6 == 17:
                 
                 self.plot6_time_line.setValue(cme_time_index)
                 
@@ -41218,7 +41447,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass  
             
-            elif comboindex6 == 17:
+            elif comboindex6 == 18:
                 
                 self.plot6_time_line.setValue(cme_time_index)
 
@@ -41346,7 +41575,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex6 == 18:
+            elif comboindex6 == 19:
                 
                 self.plot6_time_line.setValue(cme_time_index)
 
@@ -41473,7 +41702,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-            elif comboindex6 == 19:
+            elif comboindex6 == 20:
                 
                 self.plot6_time_line.setValue(cme_time_index)
 
@@ -41602,116 +41831,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
             elif comboindex6 == 21:
-                
-                self.plot6_time_line.setValue(cme_time_index)
-
-                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'program']):
-                    txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'program'])
-
-                    if df_supply_demand_graph.at[cme_time_index, 'program'] <= 0:
-                        self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_66.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_66.setText(txt)
-                else:
-                    pass
-
-                txt = " {0:.0f} ".format(fut_cm_volume_power)
-
-                if fut_cm_volume_power > 0:
-                    self.label_67.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_67.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_67.setText(txt)
-                
-                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_total']):
-                    txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_total'])
-
-                    if df_supply_demand_graph.at[cme_time_index, 'kospi_total'] <= 0:
-                        self.label_68.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_68.setText(txt)
-                else:
-                    pass
-
-                if DayTime:
-                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
-                    self.label_61.setText(txt)
-
-                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
-                    self.label_62.setText(txt)
-
-                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
-                    self.label_63.setText(txt)
-
-                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
-                    self.label_64.setText(txt)
-
-                    self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'])
-                    self.plot6_program_curve.setData(df_supply_demand_graph['program'])
-                    self.plot6_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
-                else:
-                    pass
-
-            elif comboindex6 == 22:
-                
-                self.plot6_time_line.setValue(cme_time_index)
-
-                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner']):
-                    txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'])
-
-                    if df_supply_demand_graph.at[cme_time_index, 'kospi_foreigner'] <= 0:
-                        self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_66.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_66.setText(txt)
-                else:
-                    pass
-
-                txt = " {0:.0f} ".format(fut_cm_volume_power)
-
-                if fut_cm_volume_power > 0:
-                    self.label_67.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_67.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_67.setText(txt)
-                
-                if not np.isnan(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner']):
-                    txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'])
-
-                    if df_supply_demand_graph.at[cme_time_index, 'futures_foreigner'] <= 0:
-                        self.label_68.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_68.setText(txt)
-                else:
-                    pass
-
-                if DayTime:
-                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
-                    self.label_61.setText(txt)
-
-                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
-                    self.label_62.setText(txt)
-
-                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
-                    self.label_63.setText(txt)
-
-                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
-                    self.label_64.setText(txt)
-                    
-                    self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'])
-                    self.plot6_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
-                    self.plot6_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
-                else:
-                    pass            
+               pass             
             else:
                 pass
 
