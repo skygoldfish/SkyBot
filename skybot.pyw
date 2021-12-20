@@ -26124,9 +26124,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_fut_low_line.setValue(adi_종가)
             self.plot1_fut_high_line.setValue(adi_종가)
                         
-            self.plot1_center_val_lower_line.setValue(adi_고가)
-            self.plot1_center_val_line.setValue(adi_고가)
-            self.plot1_center_val_upper_line.setValue(adi_고가)            
+            self.plot1_center_val_lower_line.setValue(adi_종가)
+            self.plot1_center_val_line.setValue(adi_종가)
+            self.plot1_center_val_upper_line.setValue(adi_종가)            
                 
             txt = ' {0} '.format(format(adi_전저, ','))
             self.label_11.setText(txt)
@@ -27476,9 +27476,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_fut_low_line.setValue(adi_종가)
             self.plot2_fut_high_line.setValue(adi_종가)
                         
-            self.plot2_center_val_lower_line.setValue(adi_고가)
-            self.plot2_center_val_line.setValue(adi_고가)
-            self.plot2_center_val_upper_line.setValue(adi_고가) 
+            self.plot2_center_val_lower_line.setValue(adi_종가)
+            self.plot2_center_val_line.setValue(adi_종가)
+            self.plot2_center_val_upper_line.setValue(adi_종가) 
                 
             txt = ' {0} '.format(format(adi_전저, ','))
             self.label_21.setText(txt)
@@ -28828,9 +28828,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_fut_low_line.setValue(adi_종가)
             self.plot3_fut_high_line.setValue(adi_종가)
                         
-            self.plot3_center_val_lower_line.setValue(adi_고가)
-            self.plot3_center_val_line.setValue(adi_고가)
-            self.plot3_center_val_upper_line.setValue(adi_고가) 
+            self.plot3_center_val_lower_line.setValue(adi_종가)
+            self.plot3_center_val_line.setValue(adi_종가)
+            self.plot3_center_val_upper_line.setValue(adi_종가) 
                 
             txt = ' {0} '.format(format(adi_전저, ','))
             self.label_31.setText(txt)
@@ -30148,9 +30148,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_fut_low_line.setValue(adi_종가)
             self.plot4_fut_high_line.setValue(adi_종가)
                         
-            self.plot4_center_val_lower_line.setValue(adi_고가)
-            self.plot4_center_val_line.setValue(adi_고가)
-            self.plot4_center_val_upper_line.setValue(adi_고가)
+            self.plot4_center_val_lower_line.setValue(adi_종가)
+            self.plot4_center_val_line.setValue(adi_종가)
+            self.plot4_center_val_upper_line.setValue(adi_종가)
                             
             txt = ' {0} '.format(format(adi_전저, ','))
             self.label_41.setText(txt)
@@ -31500,9 +31500,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_fut_low_line.setValue(adi_종가)
             self.plot5_fut_high_line.setValue(adi_종가)
                         
-            self.plot5_center_val_lower_line.setValue(adi_고가)
-            self.plot5_center_val_line.setValue(adi_고가)
-            self.plot5_center_val_upper_line.setValue(adi_고가)
+            self.plot5_center_val_lower_line.setValue(adi_종가)
+            self.plot5_center_val_line.setValue(adi_종가)
+            self.plot5_center_val_upper_line.setValue(adi_종가)
                 
             txt = ' {0} '.format(format(adi_전저, ','))
             self.label_51.setText(txt)
@@ -32852,9 +32852,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_fut_low_line.setValue(adi_종가)
             self.plot6_fut_high_line.setValue(adi_종가)
                         
-            self.plot6_center_val_lower_line.setValue(adi_고가)
-            self.plot6_center_val_line.setValue(adi_고가)
-            self.plot6_center_val_upper_line.setValue(adi_고가) 
+            self.plot6_center_val_lower_line.setValue(adi_종가)
+            self.plot6_center_val_line.setValue(adi_종가)
+            self.plot6_center_val_upper_line.setValue(adi_종가) 
                 
             txt = ' {0} '.format(format(adi_전저, ','))
             self.label_61.setText(txt)
@@ -33307,13 +33307,23 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_kp200_line[5].setValue(KP200_COREVAL[5])
                 self.plot1_kp200_line[6].setValue(KP200_COREVAL[6])                
 
-                if kp200_저가 < KP200_COREVAL[3]:
+                if 근월물_선물_저가 < KP200_COREVAL[3]:
                     self.plot1_kp200_line[2].setValue(KP200_COREVAL[2])
                 else:
                     pass
+
+                if 근월물_선물_저가 < KP200_COREVAL[2]:
+                    self.plot1_kp200_line[1].setValue(KP200_COREVAL[1])
+                else:
+                    pass
                 
-                if kp200_고가 > KP200_COREVAL[6]:
+                if 근월물_선물_고가 > KP200_COREVAL[6]:
                     self.plot1_kp200_line[7].setValue(KP200_COREVAL[7])
+                else:
+                    pass
+
+                if 근월물_선물_고가 > KP200_COREVAL[7]:
+                    self.plot1_kp200_line[8].setValue(KP200_COREVAL[8])
                 else:
                     pass                
                 
@@ -34773,11 +34783,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(format(ADI_고가, ','))
                 self.label_18.setText(txt)
 
-                self.plot1_ovc_jl_line.setValue(ADI_전저)
-                self.plot1_ovc_jh_line.setValue(ADI_전고)
+                if ADI_전저 > 0:
+                    self.plot1_ovc_jl_line.setValue(ADI_전저)
+
+                if ADI_전고 > 0:
+                    self.plot1_ovc_jh_line.setValue(ADI_전고)
+
                 self.plot1_ovc_close_line.setValue(ADI_종가)
                 self.plot1_ovc_open_line.setValue(ADI_시가)
-                self.plot1_ovc_pivot_line.setValue(ADI_피봇)
+
+                if ADI_피봇 > 0:
+                    self.plot1_ovc_pivot_line.setValue(ADI_피봇)
+
                 self.plot1_ovc_low_line.setValue(ADI_저가)
                 self.plot1_ovc_high_line.setValue(ADI_고가)                 
 
@@ -34948,13 +34965,23 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_kp200_line[5].setValue(KP200_COREVAL[5])
                 self.plot2_kp200_line[6].setValue(KP200_COREVAL[6])                
                 
-                if kp200_저가 < KP200_COREVAL[3]:
+                if 근월물_선물_저가 < KP200_COREVAL[3]:
                     self.plot2_kp200_line[2].setValue(KP200_COREVAL[2])
                 else:
                     pass
+
+                if 근월물_선물_저가 < KP200_COREVAL[2]:
+                    self.plot2_kp200_line[1].setValue(KP200_COREVAL[1])
+                else:
+                    pass
                 
-                if kp200_고가 > KP200_COREVAL[6]:
+                if 근월물_선물_고가 > KP200_COREVAL[6]:
                     self.plot2_kp200_line[7].setValue(KP200_COREVAL[7])
+                else:
+                    pass
+
+                if 근월물_선물_고가 > KP200_COREVAL[7]:
+                    self.plot2_kp200_line[8].setValue(KP200_COREVAL[8])
                 else:
                     pass                
                 
@@ -36414,15 +36441,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(format(ADI_고가, ','))
                 self.label_28.setText(txt)
 
-                self.plot2_ovc_jl_line.setValue(ADI_전저)
-                self.plot2_ovc_jh_line.setValue(ADI_전고)
+                if ADI_전저 > 0:
+                    self.plot2_ovc_jl_line.setValue(ADI_전저)
+
+                if ADI_전고 > 0:
+                    self.plot2_ovc_jh_line.setValue(ADI_전고)
+
                 self.plot2_ovc_close_line.setValue(ADI_종가)
                 self.plot2_ovc_open_line.setValue(ADI_시가)
-                self.plot2_ovc_pivot_line.setValue(ADI_피봇)
+
+                if ADI_피봇 > 0:
+                    self.plot2_ovc_pivot_line.setValue(ADI_피봇)
+                    
                 self.plot2_ovc_low_line.setValue(ADI_저가)
                 self.plot2_ovc_high_line.setValue(ADI_고가)                 
 
-                self.plot2_yen_curve.setData(df_adi_graph['price'])
+                self.plot2_adi_curve.setData(df_adi_graph['price'])
 
                 if flag_checkBox_plot2_bband:
 
@@ -36581,22 +36615,30 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 txt = ' {0} '.format(근월물_선물_고가)
-                self.label_38.setText(txt)
-                
+                self.label_38.setText(txt)                
                 
                 self.plot3_kp200_line[3].setValue(KP200_COREVAL[3])
                 self.plot3_kp200_line[4].setValue(KP200_COREVAL[4])
                 self.plot3_kp200_line[5].setValue(KP200_COREVAL[5])
-                self.plot3_kp200_line[6].setValue(KP200_COREVAL[6])
-                
+                self.plot3_kp200_line[6].setValue(KP200_COREVAL[6])                
 
-                if kp200_저가 < KP200_COREVAL[3]:
+                if 근월물_선물_저가 < KP200_COREVAL[3]:
                     self.plot3_kp200_line[2].setValue(KP200_COREVAL[2])
                 else:
                     pass
+
+                if 근월물_선물_저가 < KP200_COREVAL[2]:
+                    self.plot3_kp200_line[1].setValue(KP200_COREVAL[1])
+                else:
+                    pass
                 
-                if kp200_고가 > KP200_COREVAL[6]:
+                if 근월물_선물_고가 > KP200_COREVAL[6]:
                     self.plot3_kp200_line[7].setValue(KP200_COREVAL[7])
+                else:
+                    pass
+
+                if 근월물_선물_고가 > KP200_COREVAL[7]:
+                    self.plot3_kp200_line[8].setValue(KP200_COREVAL[8])
                 else:
                     pass                
                 
@@ -38054,15 +38096,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(format(ADI_고가, ','))
                 self.label_38.setText(txt)
 
-                self.plot3_ovc_jl_line.setValue(ADI_전저)
-                self.plot3_ovc_jh_line.setValue(ADI_전고)
+                if ADI_전저 > 0:
+                    self.plot3_ovc_jl_line.setValue(ADI_전저)
+
+                if ADI_전고 > 0:
+                    self.plot3_ovc_jh_line.setValue(ADI_전고)
+
                 self.plot3_ovc_close_line.setValue(ADI_종가)
                 self.plot3_ovc_open_line.setValue(ADI_시가)
-                self.plot3_ovc_pivot_line.setValue(ADI_피봇)
+
+                if ADI_피봇 > 0:
+                    self.plot3_ovc_pivot_line.setValue(ADI_피봇)
+                    
                 self.plot3_ovc_low_line.setValue(ADI_저가)
                 self.plot3_ovc_high_line.setValue(ADI_고가)                 
 
-                self.plot3_yen_curve.setData(df_adi_graph['price'])
+                self.plot3_adi_curve.setData(df_adi_graph['price'])
 
                 if flag_checkBox_plot3_bband:
 
@@ -38220,22 +38269,30 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 txt = ' {0} '.format(근월물_선물_고가)
-                self.label_48.setText(txt)
-                
+                self.label_48.setText(txt)                
                 
                 self.plot4_kp200_line[3].setValue(KP200_COREVAL[3])
                 self.plot4_kp200_line[4].setValue(KP200_COREVAL[4])
                 self.plot4_kp200_line[5].setValue(KP200_COREVAL[5])
-                self.plot4_kp200_line[6].setValue(KP200_COREVAL[6])
-                
+                self.plot4_kp200_line[6].setValue(KP200_COREVAL[6])                
 
-                if kp200_저가 < KP200_COREVAL[3]:
+                if 근월물_선물_저가 < KP200_COREVAL[3]:
                     self.plot4_kp200_line[2].setValue(KP200_COREVAL[2])
                 else:
                     pass
+
+                if 근월물_선물_저가 < KP200_COREVAL[2]:
+                    self.plot4_kp200_line[1].setValue(KP200_COREVAL[1])
+                else:
+                    pass
                 
-                if kp200_고가 > KP200_COREVAL[6]:
+                if 근월물_선물_고가 > KP200_COREVAL[6]:
                     self.plot4_kp200_line[7].setValue(KP200_COREVAL[7])
+                else:
+                    pass
+
+                if 근월물_선물_고가 > KP200_COREVAL[7]:
+                    self.plot4_kp200_line[8].setValue(KP200_COREVAL[8])
                 else:
                     pass                
                 
@@ -39695,15 +39752,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(format(ADI_고가, ','))
                 self.label_48.setText(txt)
 
-                self.plot4_ovc_jl_line.setValue(ADI_전저)
-                self.plot4_ovc_jh_line.setValue(ADI_전고)
+                if ADI_전저 > 0:
+                    self.plot4_ovc_jl_line.setValue(ADI_전저)
+
+                if ADI_전고 > 0:
+                    self.plot4_ovc_jh_line.setValue(ADI_전고)
+
                 self.plot4_ovc_close_line.setValue(ADI_종가)
                 self.plot4_ovc_open_line.setValue(ADI_시가)
-                self.plot4_ovc_pivot_line.setValue(ADI_피봇)
+
+                if ADI_피봇 > 0:
+                    self.plot4_ovc_pivot_line.setValue(ADI_피봇)
+                    
                 self.plot4_ovc_low_line.setValue(ADI_저가)
                 self.plot4_ovc_high_line.setValue(ADI_고가)                 
 
-                self.plot4_yen_curve.setData(df_adi_graph['price'])
+                self.plot4_adi_curve.setData(df_adi_graph['price'])
 
                 if flag_checkBox_plot4_bband:
 
@@ -39862,22 +39926,30 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 txt = ' {0} '.format(근월물_선물_고가)
-                self.label_58.setText(txt)
-                
+                self.label_58.setText(txt)                
                 
                 self.plot5_kp200_line[3].setValue(KP200_COREVAL[3])
                 self.plot5_kp200_line[4].setValue(KP200_COREVAL[4])
                 self.plot5_kp200_line[5].setValue(KP200_COREVAL[5])
-                self.plot5_kp200_line[6].setValue(KP200_COREVAL[6])
-                
+                self.plot5_kp200_line[6].setValue(KP200_COREVAL[6])                
 
-                if kp200_저가 < KP200_COREVAL[3]:
+                if 근월물_선물_저가 < KP200_COREVAL[3]:
                     self.plot5_kp200_line[2].setValue(KP200_COREVAL[2])
                 else:
                     pass
+
+                if 근월물_선물_저가 < KP200_COREVAL[2]:
+                    self.plot5_kp200_line[1].setValue(KP200_COREVAL[1])
+                else:
+                    pass
                 
-                if kp200_고가 > KP200_COREVAL[6]:
+                if 근월물_선물_고가 > KP200_COREVAL[6]:
                     self.plot5_kp200_line[7].setValue(KP200_COREVAL[7])
+                else:
+                    pass
+
+                if 근월물_선물_고가 > KP200_COREVAL[7]:
+                    self.plot5_kp200_line[8].setValue(KP200_COREVAL[8])
                 else:
                     pass                
                 
@@ -41334,15 +41406,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(format(ADI_고가, ','))
                 self.label_58.setText(txt)
 
-                self.plot5_ovc_jl_line.setValue(ADI_전저)
-                self.plot5_ovc_jh_line.setValue(ADI_전고)
+                if ADI_전저 > 0:
+                    self.plot5_ovc_jl_line.setValue(ADI_전저)
+
+                if ADI_전고 > 0:
+                    self.plot5_ovc_jh_line.setValue(ADI_전고)
+
                 self.plot5_ovc_close_line.setValue(ADI_종가)
                 self.plot5_ovc_open_line.setValue(ADI_시가)
-                self.plot5_ovc_pivot_line.setValue(ADI_피봇)
+
+                if ADI_피봇 > 0:
+                    self.plot5_ovc_pivot_line.setValue(ADI_피봇)
+                    
                 self.plot5_ovc_low_line.setValue(ADI_저가)
                 self.plot5_ovc_high_line.setValue(ADI_고가)                 
 
-                self.plot5_yen_curve.setData(df_adi_graph['price'])
+                self.plot5_adi_curve.setData(df_adi_graph['price'])
 
                 if flag_checkBox_plot5_bband:
 
@@ -41501,24 +41580,32 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 txt = ' {0} '.format(근월물_선물_고가)
-                self.label_68.setText(txt)
-                
+                self.label_68.setText(txt)                
                 
                 self.plot6_kp200_line[3].setValue(KP200_COREVAL[3])
                 self.plot6_kp200_line[4].setValue(KP200_COREVAL[4])
                 self.plot6_kp200_line[5].setValue(KP200_COREVAL[5])
-                self.plot6_kp200_line[6].setValue(KP200_COREVAL[6])
+                self.plot6_kp200_line[6].setValue(KP200_COREVAL[6])                
                 
-                
-                if kp200_저가 < KP200_COREVAL[3]:
+                if 근월물_선물_저가 < KP200_COREVAL[3]:
                     self.plot6_kp200_line[2].setValue(KP200_COREVAL[2])
                 else:
                     pass
+
+                if 근월물_선물_저가 < KP200_COREVAL[2]:
+                    self.plot6_kp200_line[1].setValue(KP200_COREVAL[1])
+                else:
+                    pass
                 
-                if kp200_고가 > KP200_COREVAL[6]:
+                if 근월물_선물_고가 > KP200_COREVAL[6]:
                     self.plot6_kp200_line[7].setValue(KP200_COREVAL[7])
                 else:
-                    pass                
+                    pass
+
+                if 근월물_선물_고가 > KP200_COREVAL[7]:
+                    self.plot6_kp200_line[8].setValue(KP200_COREVAL[8])
+                else:
+                    pass               
                 
                 self.plot6_fut_jl_line.setValue(근월물_선물_전저)
                 self.plot6_fut_jh_line.setValue(근월물_선물_전고)
@@ -42973,15 +43060,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(format(ADI_고가, ','))
                 self.label_68.setText(txt)
 
-                self.plot6_ovc_jl_line.setValue(ADI_전저)
-                self.plot6_ovc_jh_line.setValue(ADI_전고)
+                if ADI_전저 > 0:
+                    self.plot6_ovc_jl_line.setValue(ADI_전저)
+
+                if ADI_전고 > 0:
+                    self.plot6_ovc_jh_line.setValue(ADI_전고)
+
                 self.plot6_ovc_close_line.setValue(ADI_종가)
                 self.plot6_ovc_open_line.setValue(ADI_시가)
-                self.plot6_ovc_pivot_line.setValue(ADI_피봇)
+
+                if ADI_피봇 > 0:
+                    self.plot6_ovc_pivot_line.setValue(ADI_피봇)
+                    
                 self.plot6_ovc_low_line.setValue(ADI_저가)
                 self.plot6_ovc_high_line.setValue(ADI_고가)                 
 
-                self.plot6_yen_curve.setData(df_adi_graph['price'])
+                self.plot6_adi_curve.setData(df_adi_graph['price'])
 
                 if flag_checkBox_plot6_bband:
 
