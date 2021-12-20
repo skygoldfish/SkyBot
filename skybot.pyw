@@ -34154,7 +34154,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_low_line.setValue(HANGSENG_저가)
                 self.plot1_ovc_high_line.setValue(HANGSENG_고가)                 
 
-                if not np.isnan(df_hangseng_graph['price']):
+                if not np.isnan(df_hangseng_graph.at[cme_time_index, 'price']):
                     self.plot1_hangseng_curve.setData(df_hangseng_graph['price'])
 
                 if flag_checkBox_plot1_bband:
@@ -35813,7 +35813,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_low_line.setValue(HANGSENG_저가)
                 self.plot2_ovc_high_line.setValue(HANGSENG_고가)                 
 
-                if not np.isnan(df_hangseng_graph['price']):
+                if not np.isnan(df_hangseng_graph.at[cme_time_index, 'price']):
                     self.plot2_hangseng_curve.setData(df_hangseng_graph['price'])
 
                 if flag_checkBox_plot2_bband:
@@ -37469,7 +37469,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_low_line.setValue(HANGSENG_저가)
                 self.plot3_ovc_high_line.setValue(HANGSENG_고가)                 
 
-                if not np.isnan(df_hangseng_graph['price']):
+                if not np.isnan(df_hangseng_graph.at[cme_time_index, 'price']):
                     self.plot3_hangseng_curve.setData(df_hangseng_graph['price'])
 
                 if flag_checkBox_plot3_bband:
@@ -39126,7 +39126,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_low_line.setValue(HANGSENG_저가)
                 self.plot4_ovc_high_line.setValue(HANGSENG_고가)                 
 
-                if not np.isnan(df_hangseng_graph['price']):
+                if not np.isnan(df_hangseng_graph.at[cme_time_index, 'price']):
                     self.plot4_hangseng_curve.setData(df_hangseng_graph['price'])
 
                 if flag_checkBox_plot4_bband:
@@ -40781,7 +40781,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_low_line.setValue(HANGSENG_저가)
                 self.plot5_ovc_high_line.setValue(HANGSENG_고가)                 
 
-                if not np.isnan(df_hangseng_graph['price']):
+                if not np.isnan(df_hangseng_graph.at[cme_time_index, 'price']):
                     self.plot5_hangseng_curve.setData(df_hangseng_graph['price'])
 
                 if flag_checkBox_plot5_bband:
@@ -42436,7 +42436,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_low_line.setValue(HANGSENG_저가)
                 self.plot6_ovc_high_line.setValue(HANGSENG_고가)                 
 
-                if not np.isnan(df_hangseng_graph['price']):
+                if not np.isnan(df_hangseng_graph.at[cme_time_index, 'price']):
                     self.plot6_hangseng_curve.setData(df_hangseng_graph['price'])
 
                 if flag_checkBox_plot6_bband:
