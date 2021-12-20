@@ -26064,10 +26064,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex1 == 21:
 
             self.plot1_clear()
-
-            print('****************************************************************************\r')
-            print('*** ADI_종가, ADI_고가 = {0}, {1}\r'.format(ADI_종가, ADI_고가))
-            print('****************************************************************************\r')
             
             if ADI_전저 == 0:
                 adi_전저 = ADI_종가
@@ -26113,6 +26109,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             for i in range(9):
                 self.plot1_mv_line[i].setValue(adi_종가)
+
+            self.plot1_center_val_lower_line.setValue(adi_종가)
+            self.plot1_center_val_line.setValue(adi_종가)
+            self.plot1_center_val_upper_line.setValue(adi_종가)
             
             self.plot1_fut_jl_line.setValue(adi_종가)
             self.plot1_fut_jh_line.setValue(adi_종가)
@@ -26120,11 +26120,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_fut_pivot_line.setValue(adi_종가)
             self.plot1_fut_open_line.setValue(adi_종가)
             self.plot1_fut_low_line.setValue(adi_종가)
-            self.plot1_fut_high_line.setValue(adi_종가)
-                        
-            self.plot1_center_val_lower_line.setValue(adi_종가)
-            self.plot1_center_val_line.setValue(adi_종가)
-            self.plot1_center_val_upper_line.setValue(adi_종가)            
+            self.plot1_fut_high_line.setValue(adi_종가)                        
                 
             txt = ' {0} '.format(format(adi_전저, ','))
             self.label_11.setText(txt)
@@ -26697,10 +26693,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_fut_open_line.setValue(sp500_종가)
             self.plot2_fut_low_line.setValue(sp500_종가)
             self.plot2_fut_high_line.setValue(sp500_종가)
-                        
-            self.plot2_center_val_lower_line.setValue(sp500_고가)
-            self.plot2_center_val_line.setValue(sp500_고가)
-            self.plot2_center_val_upper_line.setValue(sp500_고가)
                 
             txt = ' {0} '.format(format(sp500_전저, ','))
             self.label_21.setText(txt)
@@ -26795,10 +26787,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_fut_open_line.setValue(dow_종가)
             self.plot2_fut_low_line.setValue(dow_종가)
             self.plot2_fut_high_line.setValue(dow_종가)
-                        
-            self.plot2_center_val_lower_line.setValue(dow_고가)
-            self.plot2_center_val_line.setValue(dow_고가)
-            self.plot2_center_val_upper_line.setValue(dow_고가)
                 
             txt = ' {0} '.format(format(dow_전저, ','))
             self.label_21.setText(txt)
@@ -26893,10 +26881,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_fut_open_line.setValue(nasdaq_종가)
             self.plot2_fut_low_line.setValue(nasdaq_종가)
             self.plot2_fut_high_line.setValue(nasdaq_종가)
-                        
-            self.plot2_center_val_lower_line.setValue(nasdaq_고가)
-            self.plot2_center_val_line.setValue(nasdaq_고가)
-            self.plot2_center_val_upper_line.setValue(nasdaq_고가)
             
             txt = ' {0} '.format(format(nasdaq_전저, ','))
             self.label_21.setText(txt)
@@ -27084,10 +27068,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_fut_open_line.setValue(wti_종가)
             self.plot2_fut_low_line.setValue(wti_종가)
             self.plot2_fut_high_line.setValue(wti_종가)
-                        
-            self.plot2_center_val_lower_line.setValue(wti_고가)
-            self.plot2_center_val_line.setValue(wti_고가)
-            self.plot2_center_val_upper_line.setValue(wti_고가) 
                 
             txt = ' {0} '.format(format(wti_전저, ','))
             self.label_21.setText(txt)
@@ -27180,11 +27160,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_fut_pivot_line.setValue(gold_종가)
             self.plot2_fut_open_line.setValue(gold_종가)
             self.plot2_fut_low_line.setValue(gold_종가)
-            self.plot2_fut_high_line.setValue(gold_종가)
-                        
-            self.plot2_center_val_lower_line.setValue(gold_고가)
-            self.plot2_center_val_line.setValue(gold_고가)
-            self.plot2_center_val_upper_line.setValue(gold_고가) 
+            self.plot2_fut_high_line.setValue(gold_종가) 
                 
             txt = ' {0} '.format(format(gold_전저, ','))
             self.label_21.setText(txt)
@@ -27278,10 +27254,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_fut_open_line.setValue(eurofx_종가)
             self.plot2_fut_low_line.setValue(eurofx_종가)
             self.plot2_fut_high_line.setValue(eurofx_종가)
-                        
-            self.plot2_center_val_lower_line.setValue(eurofx_고가)
-            self.plot2_center_val_line.setValue(eurofx_고가)
-            self.plot2_center_val_upper_line.setValue(eurofx_고가) 
                 
             txt = ' {0} '.format(format(eurofx_전저, ','))
             self.label_21.setText(txt)
@@ -27374,11 +27346,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_fut_pivot_line.setValue(yen_종가)
             self.plot2_fut_open_line.setValue(yen_종가)
             self.plot2_fut_low_line.setValue(yen_종가)
-            self.plot2_fut_high_line.setValue(yen_종가)
-                        
-            self.plot2_center_val_lower_line.setValue(yen_고가)
-            self.plot2_center_val_line.setValue(yen_고가)
-            self.plot2_center_val_upper_line.setValue(yen_고가) 
+            self.plot2_fut_high_line.setValue(yen_종가) 
                 
             txt = ' {0} '.format(format(yen_전저, ','))
             self.label_21.setText(txt)
@@ -27460,6 +27428,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             for i in range(9):
                 self.plot2_mv_line[i].setValue(adi_종가)
+
+            self.plot2_center_val_lower_line.setValue(adi_종가)
+            self.plot2_center_val_line.setValue(adi_종가)
+            self.plot2_center_val_upper_line.setValue(adi_종가)
             
             self.plot2_fut_jl_line.setValue(adi_종가)
             self.plot2_fut_jh_line.setValue(adi_종가)
@@ -27467,11 +27439,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_fut_pivot_line.setValue(adi_종가)
             self.plot2_fut_open_line.setValue(adi_종가)
             self.plot2_fut_low_line.setValue(adi_종가)
-            self.plot2_fut_high_line.setValue(adi_종가)
-                        
-            self.plot2_center_val_lower_line.setValue(adi_종가)
-            self.plot2_center_val_line.setValue(adi_종가)
-            self.plot2_center_val_upper_line.setValue(adi_종가) 
+            self.plot2_fut_high_line.setValue(adi_종가)             
                 
             txt = ' {0} '.format(format(adi_전저, ','))
             self.label_21.setText(txt)
@@ -28044,10 +28012,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_fut_open_line.setValue(sp500_종가)
             self.plot3_fut_low_line.setValue(sp500_종가)
             self.plot3_fut_high_line.setValue(sp500_종가)
-                        
-            self.plot3_center_val_lower_line.setValue(sp500_고가)
-            self.plot3_center_val_line.setValue(sp500_고가)
-            self.plot3_center_val_upper_line.setValue(sp500_고가)
                 
             txt = ' {0} '.format(format(sp500_전저, ','))
             self.label_31.setText(txt)
@@ -28142,10 +28106,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_fut_open_line.setValue(dow_종가)
             self.plot3_fut_low_line.setValue(dow_종가)
             self.plot3_fut_high_line.setValue(dow_종가)
-                        
-            self.plot3_center_val_lower_line.setValue(dow_고가)
-            self.plot3_center_val_line.setValue(dow_고가)
-            self.plot3_center_val_upper_line.setValue(dow_고가)
                 
             txt = ' {0} '.format(format(dow_전저, ','))
             self.label_31.setText(txt)
@@ -28240,10 +28200,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_fut_open_line.setValue(nasdaq_종가)
             self.plot3_fut_low_line.setValue(nasdaq_종가)
             self.plot3_fut_high_line.setValue(nasdaq_종가)
-                        
-            self.plot3_center_val_lower_line.setValue(nasdaq_고가)
-            self.plot3_center_val_line.setValue(nasdaq_고가)
-            self.plot3_center_val_upper_line.setValue(nasdaq_고가)
                 
             txt = ' {0} '.format(format(nasdaq_전저, ','))
             self.label_31.setText(txt)
@@ -28431,10 +28387,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_fut_open_line.setValue(wti_종가)
             self.plot3_fut_low_line.setValue(wti_종가)
             self.plot3_fut_high_line.setValue(wti_종가)
-                        
-            self.plot3_center_val_lower_line.setValue(wti_고가)
-            self.plot3_center_val_line.setValue(wti_고가)
-            self.plot3_center_val_upper_line.setValue(wti_고가) 
                 
             txt = ' {0} '.format(format(wti_전저, ','))
             self.label_31.setText(txt)
@@ -28527,11 +28479,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_fut_pivot_line.setValue(gold_종가)
             self.plot3_fut_open_line.setValue(gold_종가)
             self.plot3_fut_low_line.setValue(gold_종가)
-            self.plot3_fut_high_line.setValue(gold_종가)
-                        
-            self.plot3_center_val_lower_line.setValue(gold_고가)
-            self.plot3_center_val_line.setValue(gold_고가)
-            self.plot3_center_val_upper_line.setValue(gold_고가) 
+            self.plot3_fut_high_line.setValue(gold_종가) 
                 
             txt = ' {0} '.format(format(gold_전저, ','))
             self.label_31.setText(txt)
@@ -28624,11 +28572,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_fut_pivot_line.setValue(eurofx_종가)
             self.plot3_fut_open_line.setValue(eurofx_종가)
             self.plot3_fut_low_line.setValue(eurofx_종가)
-            self.plot3_fut_high_line.setValue(eurofx_종가)
-                        
-            self.plot3_center_val_lower_line.setValue(eurofx_고가)
-            self.plot3_center_val_line.setValue(eurofx_고가)
-            self.plot3_center_val_upper_line.setValue(eurofx_고가) 
+            self.plot3_fut_high_line.setValue(eurofx_종가) 
                 
             txt = ' {0} '.format(format(eurofx_전저, ','))
             self.label_31.setText(txt)
@@ -28722,10 +28666,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_fut_open_line.setValue(yen_종가)
             self.plot3_fut_low_line.setValue(yen_종가)
             self.plot3_fut_high_line.setValue(yen_종가)
-                        
-            self.plot3_center_val_lower_line.setValue(yen_고가)
-            self.plot3_center_val_line.setValue(yen_고가)
-            self.plot3_center_val_upper_line.setValue(yen_고가) 
                 
             txt = ' {0} '.format(format(yen_전저, ','))
             self.label_31.setText(txt)
@@ -28807,6 +28747,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             for i in range(9):
                 self.plot3_mv_line[i].setValue(adi_종가)
+
+            self.plot3_center_val_lower_line.setValue(adi_종가)
+            self.plot3_center_val_line.setValue(adi_종가)
+            self.plot3_center_val_upper_line.setValue(adi_종가)
             
             self.plot3_fut_jl_line.setValue(adi_종가)
             self.plot3_fut_jh_line.setValue(adi_종가)
@@ -28814,11 +28758,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_fut_pivot_line.setValue(adi_종가)
             self.plot3_fut_open_line.setValue(adi_종가)
             self.plot3_fut_low_line.setValue(adi_종가)
-            self.plot3_fut_high_line.setValue(adi_종가)
-                        
-            self.plot3_center_val_lower_line.setValue(adi_종가)
-            self.plot3_center_val_line.setValue(adi_종가)
-            self.plot3_center_val_upper_line.setValue(adi_종가) 
+            self.plot3_fut_high_line.setValue(adi_종가)             
                 
             txt = ' {0} '.format(format(adi_전저, ','))
             self.label_31.setText(txt)
@@ -30126,6 +30066,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             for i in range(9):
                 self.plot4_mv_line[i].setValue(adi_종가)
+
+            self.plot4_center_val_lower_line.setValue(adi_종가)
+            self.plot4_center_val_line.setValue(adi_종가)
+            self.plot4_center_val_upper_line.setValue(adi_종가)
             
             self.plot4_fut_jl_line.setValue(adi_종가)
             self.plot4_fut_jh_line.setValue(adi_종가)
@@ -30134,10 +30078,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_fut_open_line.setValue(adi_종가)
             self.plot4_fut_low_line.setValue(adi_종가)
             self.plot4_fut_high_line.setValue(adi_종가)
-                        
-            self.plot4_center_val_lower_line.setValue(adi_종가)
-            self.plot4_center_val_line.setValue(adi_종가)
-            self.plot4_center_val_upper_line.setValue(adi_종가)
                             
             txt = ' {0} '.format(format(adi_전저, ','))
             self.label_41.setText(txt)
@@ -30710,10 +30650,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_fut_open_line.setValue(sp500_종가)
             self.plot5_fut_low_line.setValue(sp500_종가)
             self.plot5_fut_high_line.setValue(sp500_종가)
-                        
-            self.plot5_center_val_lower_line.setValue(sp500_고가)
-            self.plot5_center_val_line.setValue(sp500_고가)
-            self.plot5_center_val_upper_line.setValue(sp500_고가)
                 
             txt = ' {0} '.format(format(sp500_전저, ','))
             self.label_51.setText(txt)
@@ -30808,10 +30744,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_fut_open_line.setValue(dow_종가)
             self.plot5_fut_low_line.setValue(dow_종가)
             self.plot5_fut_high_line.setValue(dow_종가)
-                        
-            self.plot5_center_val_lower_line.setValue(dow_고가)
-            self.plot5_center_val_line.setValue(dow_고가)
-            self.plot5_center_val_upper_line.setValue(dow_고가)
                 
             txt = ' {0} '.format(format(dow_전저, ','))
             self.label_51.setText(txt)
@@ -30906,10 +30838,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_fut_open_line.setValue(nasdaq_종가)
             self.plot5_fut_low_line.setValue(nasdaq_종가)
             self.plot5_fut_high_line.setValue(nasdaq_종가)
-                        
-            self.plot5_center_val_lower_line.setValue(nasdaq_고가)
-            self.plot5_center_val_line.setValue(nasdaq_고가)
-            self.plot5_center_val_upper_line.setValue(nasdaq_고가)
                 
             txt = ' {0} '.format(format(nasdaq_전저, ','))
             self.label_51.setText(txt)
@@ -31097,10 +31025,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_fut_open_line.setValue(wti_종가)
             self.plot5_fut_low_line.setValue(wti_종가)
             self.plot5_fut_high_line.setValue(wti_종가)
-                        
-            self.plot5_center_val_lower_line.setValue(wti_고가)
-            self.plot5_center_val_line.setValue(wti_고가)
-            self.plot5_center_val_upper_line.setValue(wti_고가) 
                 
             txt = ' {0} '.format(format(wti_전저, ','))
             self.label_51.setText(txt)
@@ -31193,11 +31117,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_fut_pivot_line.setValue(gold_종가)
             self.plot5_fut_open_line.setValue(gold_종가)
             self.plot5_fut_low_line.setValue(gold_종가)
-            self.plot5_fut_high_line.setValue(gold_종가)
-                        
-            self.plot5_center_val_lower_line.setValue(gold_고가)
-            self.plot5_center_val_line.setValue(gold_고가)
-            self.plot5_center_val_upper_line.setValue(gold_고가) 
+            self.plot5_fut_high_line.setValue(gold_종가) 
                 
             txt = ' {0} '.format(format(gold_전저, ','))
             self.label_51.setText(txt)
@@ -31291,10 +31211,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_fut_open_line.setValue(eurofx_종가)
             self.plot5_fut_low_line.setValue(eurofx_종가)
             self.plot5_fut_high_line.setValue(eurofx_종가)
-                        
-            self.plot5_center_val_lower_line.setValue(eurofx_고가)
-            self.plot5_center_val_line.setValue(eurofx_고가)
-            self.plot5_center_val_upper_line.setValue(eurofx_고가) 
                 
             txt = ' {0} '.format(format(eurofx_전저, ','))
             self.label_51.setText(txt)
@@ -31387,11 +31303,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_fut_pivot_line.setValue(yen_종가)
             self.plot5_fut_open_line.setValue(yen_종가)
             self.plot5_fut_low_line.setValue(yen_종가)
-            self.plot5_fut_high_line.setValue(yen_종가)
-                        
-            self.plot5_center_val_lower_line.setValue(yen_고가)
-            self.plot5_center_val_line.setValue(yen_고가)
-            self.plot5_center_val_upper_line.setValue(yen_고가) 
+            self.plot5_fut_high_line.setValue(yen_종가) 
                 
             txt = ' {0} '.format(format(yen_전저, ','))
             self.label_51.setText(txt)
@@ -31473,6 +31385,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             for i in range(9):
                 self.plot5_mv_line[i].setValue(adi_종가)
+
+            self.plot5_center_val_lower_line.setValue(adi_종가)
+            self.plot5_center_val_line.setValue(adi_종가)
+            self.plot5_center_val_upper_line.setValue(adi_종가)
             
             self.plot5_fut_jl_line.setValue(adi_종가)
             self.plot5_fut_jh_line.setValue(adi_종가)
@@ -31480,11 +31396,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_fut_pivot_line.setValue(adi_종가)
             self.plot5_fut_open_line.setValue(adi_종가)
             self.plot5_fut_low_line.setValue(adi_종가)
-            self.plot5_fut_high_line.setValue(adi_종가)
-                        
-            self.plot5_center_val_lower_line.setValue(adi_종가)
-            self.plot5_center_val_line.setValue(adi_종가)
-            self.plot5_center_val_upper_line.setValue(adi_종가)
+            self.plot5_fut_high_line.setValue(adi_종가)            
                 
             txt = ' {0} '.format(format(adi_전저, ','))
             self.label_51.setText(txt)
@@ -32057,10 +31969,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_fut_open_line.setValue(sp500_종가)
             self.plot6_fut_low_line.setValue(sp500_종가)
             self.plot6_fut_high_line.setValue(sp500_종가)
-                        
-            self.plot6_center_val_lower_line.setValue(sp500_고가)
-            self.plot6_center_val_line.setValue(sp500_고가)
-            self.plot6_center_val_upper_line.setValue(sp500_고가)
                 
             txt = ' {0} '.format(format(sp500_전저, ','))
             self.label_61.setText(txt)
@@ -32155,10 +32063,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_fut_open_line.setValue(dow_종가)
             self.plot6_fut_low_line.setValue(dow_종가)
             self.plot6_fut_high_line.setValue(dow_종가)
-                        
-            self.plot6_center_val_lower_line.setValue(dow_고가)
-            self.plot6_center_val_line.setValue(dow_고가)
-            self.plot6_center_val_upper_line.setValue(dow_고가)
                 
             txt = ' {0} '.format(format(dow_전저, ','))
             self.label_61.setText(txt)
@@ -32253,10 +32157,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_fut_open_line.setValue(nasdaq_종가)
             self.plot6_fut_low_line.setValue(nasdaq_종가)
             self.plot6_fut_high_line.setValue(nasdaq_종가)
-                        
-            self.plot6_center_val_lower_line.setValue(nasdaq_고가)
-            self.plot6_center_val_line.setValue(nasdaq_고가)
-            self.plot6_center_val_upper_line.setValue(nasdaq_고가)
                 
             txt = ' {0} '.format(format(nasdaq_전저, ','))
             self.label_61.setText(txt)
@@ -32443,11 +32343,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_fut_pivot_line.setValue(wti_종가)
             self.plot6_fut_open_line.setValue(wti_종가)
             self.plot6_fut_low_line.setValue(wti_종가)
-            self.plot6_fut_high_line.setValue(wti_종가)
-                        
-            self.plot6_center_val_lower_line.setValue(wti_고가)
-            self.plot6_center_val_line.setValue(wti_고가)
-            self.plot6_center_val_upper_line.setValue(wti_고가) 
+            self.plot6_fut_high_line.setValue(wti_종가) 
                 
             txt = ' {0} '.format(format(wti_전저, ','))
             self.label_61.setText(txt)
@@ -32540,11 +32436,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_fut_pivot_line.setValue(gold_종가)
             self.plot6_fut_open_line.setValue(gold_종가)
             self.plot6_fut_low_line.setValue(gold_종가)
-            self.plot6_fut_high_line.setValue(gold_종가)
-                        
-            self.plot6_center_val_lower_line.setValue(gold_고가)
-            self.plot6_center_val_line.setValue(gold_고가)
-            self.plot6_center_val_upper_line.setValue(gold_고가) 
+            self.plot6_fut_high_line.setValue(gold_종가) 
                 
             txt = ' {0} '.format(format(gold_전저, ','))
             self.label_61.setText(txt)
@@ -32637,11 +32529,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_fut_pivot_line.setValue(eurofx_종가)
             self.plot6_fut_open_line.setValue(eurofx_종가)
             self.plot6_fut_low_line.setValue(eurofx_종가)
-            self.plot6_fut_high_line.setValue(eurofx_종가)
-                        
-            self.plot6_center_val_lower_line.setValue(eurofx_고가)
-            self.plot6_center_val_line.setValue(eurofx_고가)
-            self.plot6_center_val_upper_line.setValue(eurofx_고가) 
+            self.plot6_fut_high_line.setValue(eurofx_종가) 
                 
             txt = ' {0} '.format(format(eurofx_전저, ','))
             self.label_61.setText(txt)
@@ -32734,11 +32622,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_fut_pivot_line.setValue(yen_종가)
             self.plot6_fut_open_line.setValue(yen_종가)
             self.plot6_fut_low_line.setValue(yen_종가)
-            self.plot6_fut_high_line.setValue(yen_종가)
-                        
-            self.plot6_center_val_lower_line.setValue(yen_고가)
-            self.plot6_center_val_line.setValue(yen_고가)
-            self.plot6_center_val_upper_line.setValue(yen_고가) 
+            self.plot6_fut_high_line.setValue(yen_종가) 
                 
             txt = ' {0} '.format(format(yen_전저, ','))
             self.label_61.setText(txt)
@@ -32820,6 +32704,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             for i in range(9):
                 self.plot6_mv_line[i].setValue(adi_종가)
+
+            self.plot6_center_val_lower_line.setValue(adi_종가)
+            self.plot6_center_val_line.setValue(adi_종가)
+            self.plot6_center_val_upper_line.setValue(adi_종가) 
             
             self.plot6_fut_jl_line.setValue(adi_종가)
             self.plot6_fut_jh_line.setValue(adi_종가)
@@ -32827,11 +32715,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_fut_pivot_line.setValue(adi_종가)
             self.plot6_fut_open_line.setValue(adi_종가)
             self.plot6_fut_low_line.setValue(adi_종가)
-            self.plot6_fut_high_line.setValue(adi_종가)
-                        
-            self.plot6_center_val_lower_line.setValue(adi_종가)
-            self.plot6_center_val_line.setValue(adi_종가)
-            self.plot6_center_val_upper_line.setValue(adi_종가) 
+            self.plot6_fut_high_line.setValue(adi_종가)            
                 
             txt = ' {0} '.format(format(adi_전저, ','))
             self.label_61.setText(txt)
