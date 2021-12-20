@@ -45513,7 +45513,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     self.dialog['선물옵션전광판'].pushButton_start.setText(' ScrShot ')
 
-                    self.dialog['선물옵션전광판'].SaveResult()                                        
+                    #self.dialog['선물옵션전광판'].SaveResult()                                        
                 else:
                     pass                                               
 
