@@ -15645,6 +15645,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
 
                 self.fut_realdata['현재가'] = df['현재가']
+                근월물_선물_현재가 = df['현재가']
 
                 item = QTableWidgetItem("{0:.2f}".format(self.fut_realdata['현재가']))
                 item.setTextAlignment(Qt.AlignCenter)
@@ -24901,6 +24902,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_call_drate_curve.clear()
         self.plot1_put_drate_curve.clear()
 
+        self.plot1_program_curve.clear()
+        self.plot1_kospi_total_curve.clear()
+        self.plot1_futures_foreigner_curve.clear()
+        self.plot1_kospi_foreigner_curve.clear()
+
         self.plot1_sp500_curve.clear()
         self.plot1_dow_curve.clear()
         self.plot1_nasdaq_curve.clear()
@@ -24921,12 +24927,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_fama_curve.clear()
 
         self.plot1_oe_conv_curve.clear()
-        self.plot1_oe_base_curve.clear()
-
-        self.plot1_program_curve.clear()
-        self.plot1_kospi_total_curve.clear()
-        self.plot1_futures_foreigner_curve.clear()
-        self.plot1_kospi_foreigner_curve.clear()
+        self.plot1_oe_base_curve.clear()        
     
     def cb1_selectionChanged(self):
 
@@ -24986,18 +24987,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex1 == 2:
 
             self.plot1_clear()
-            
-            self.plot1_kp200_line[0].setValue(KP200_COREVAL[3])
-            self.plot1_kp200_line[1].setValue(KP200_COREVAL[3])
-            self.plot1_kp200_line[2].setValue(KP200_COREVAL[3])
-            self.plot1_kp200_line[3].setValue(KP200_COREVAL[3])
-            self.plot1_kp200_line[4].setValue(KP200_COREVAL[4])
-            self.plot1_kp200_line[5].setValue(KP200_COREVAL[5])
-            self.plot1_kp200_line[6].setValue(KP200_COREVAL[6])
-            self.plot1_kp200_line[7].setValue(KP200_COREVAL[6])
-            self.plot1_kp200_line[8].setValue(KP200_COREVAL[6])
-            self.plot1_kp200_line[9].setValue(KP200_COREVAL[6])
-                        
+                                    
             if 근월물_선물_전저 == 0:
                 선물_전저 = 근월물_선물_종가
             else:
@@ -25008,10 +24998,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 선물_전고 = 근월물_선물_전고
 
-            if 근월물_선물_종가 == 0:
-                선물_종가 = 근월물_선물_종가
-            else:
-                선물_종가 = 근월물_선물_종가
+            선물_종가 = 근월물_선물_종가                
 
             if 근월물_선물_피봇 == 0:
                 선물_피봇 = 근월물_선물_종가
@@ -25033,28 +25020,39 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 선물_고가 = 근월물_선물_고가
             
+            self.plot1_kp200_line[0].setValue(KP200_COREVAL[3])
+            self.plot1_kp200_line[1].setValue(KP200_COREVAL[3])
+            self.plot1_kp200_line[2].setValue(KP200_COREVAL[3])
+            self.plot1_kp200_line[3].setValue(KP200_COREVAL[3])
+            self.plot1_kp200_line[4].setValue(KP200_COREVAL[4])
+            self.plot1_kp200_line[5].setValue(KP200_COREVAL[5])
+            self.plot1_kp200_line[6].setValue(KP200_COREVAL[6])
+            self.plot1_kp200_line[7].setValue(KP200_COREVAL[6])
+            self.plot1_kp200_line[8].setValue(KP200_COREVAL[6])
+            self.plot1_kp200_line[9].setValue(KP200_COREVAL[6])
+            
             # 종가선 컬러를 살리기위한 임시방편            
-            self.plot1_quote_remainder_ratio_base_line.setValue(선물_고가)
-            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(선물_고가)
-            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(선물_고가)
+            self.plot1_quote_remainder_ratio_base_line.setValue(선물_종가)
+            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(선물_종가)
+            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(선물_종가)
 
-            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(선물_고가)
-            self.plot1_option_quote_remainder_ratio_upper_line.setValue(선물_고가)
+            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(선물_종가)
+            self.plot1_option_quote_remainder_ratio_upper_line.setValue(선물_종가)
 
             for i in range(9):
-                self.plot1_mv_line[i].setValue(선물_고가)
+                self.plot1_mv_line[i].setValue(선물_종가)
 
-            self.plot1_center_val_lower_line.setValue(선물_고가)
-            self.plot1_center_val_line.setValue(선물_고가)
-            self.plot1_center_val_upper_line.setValue(선물_고가)
+            self.plot1_center_val_lower_line.setValue(선물_종가)
+            self.plot1_center_val_line.setValue(선물_종가)
+            self.plot1_center_val_upper_line.setValue(선물_종가)
 
-            self.plot1_ovc_open_line.setValue(선물_고가)
-            self.plot1_ovc_jl_line.setValue(선물_고가)
-            self.plot1_ovc_jh_line.setValue(선물_고가)
-            self.plot1_ovc_pivot_line.setValue(선물_고가)
-            self.plot1_ovc_low_line.setValue(선물_고가)
-            self.plot1_ovc_high_line.setValue(선물_고가)
-            self.plot1_ovc_close_line.setValue(선물_고가)
+            self.plot1_ovc_open_line.setValue(선물_종가)
+            self.plot1_ovc_jl_line.setValue(선물_종가)
+            self.plot1_ovc_jh_line.setValue(선물_종가)
+            self.plot1_ovc_pivot_line.setValue(선물_종가)
+            self.plot1_ovc_low_line.setValue(선물_종가)
+            self.plot1_ovc_high_line.setValue(선물_종가)
+            self.plot1_ovc_close_line.setValue(선물_종가)
 
             txt = ' {0} '.format(선물_전저)
             self.label_11.setText(txt) 
@@ -26164,6 +26162,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
     def plot2_clear(self):
 
+        # Line Clear
         self.plot2_fut_jl_line.setValue(0)
         self.plot2_fut_jh_line.setValue(0)
         self.plot2_fut_open_line.setValue(0)
@@ -26172,12 +26171,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_fut_low_line.setValue(0)
         self.plot2_fut_high_line.setValue(0)
 
+        self.plot2_ovc_jl_line.setValue(0)
+        self.plot2_ovc_jh_line.setValue(0)
+        self.plot2_ovc_close_line.setValue(0)
+        self.plot2_ovc_open_line.setValue(0)
+        self.plot2_ovc_pivot_line.setValue(0)
+        self.plot2_ovc_low_line.setValue(0)
+        self.plot2_ovc_high_line.setValue(0)
+
         for i in range(10):
             self.plot2_kp200_line[i].setValue(0)
 
-        self.plot2_fut_cm_price_curve.clear()
-        self.plot2_fut_nm_price_curve.clear()
-        self.plot2_kp200_curve.clear()
+        for i in range(9):
+            self.plot2_mv_line[i].setValue(0)        
 
         self.plot2_quote_remainder_ratio_base_line.setValue(0)
         self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(0)
@@ -26186,19 +26192,21 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_option_quote_remainder_ratio_bottom_line.setValue(0)
         self.plot2_option_quote_remainder_ratio_upper_line.setValue(0)
 
+        self.plot2_center_val_lower_line.setValue(0)
+        self.plot2_center_val_line.setValue(0)
+        self.plot2_center_val_upper_line.setValue(0)
+
+        # Curve Clear
+        self.plot2_fut_cm_price_curve.clear()
+        self.plot2_fut_nm_price_curve.clear()
+        self.plot2_kp200_curve.clear()
+
         self.plot2_fut_cm_quote_remainder_ratio_curve.clear()
         self.plot2_fut_nm_quote_remainder_ratio_curve.clear()
 
         self.plot2_fut_volume_curve.clear()
         self.plot2_call_volume_curve.clear()
-        self.plot2_put_volume_curve.clear()
-
-        for i in range(9):
-            self.plot2_mv_line[i].setValue(0)
-
-        self.plot2_center_val_lower_line.setValue(0)
-        self.plot2_center_val_line.setValue(0)
-        self.plot2_center_val_upper_line.setValue(0)
+        self.plot2_put_volume_curve.clear()        
 
         self.plot2_center_val_curve.clear()
 
@@ -26217,13 +26225,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_call_drate_curve.clear()
         self.plot2_put_drate_curve.clear()
 
-        self.plot2_ovc_jl_line.setValue(0)
-        self.plot2_ovc_jh_line.setValue(0)
-        self.plot2_ovc_close_line.setValue(0)
-        self.plot2_ovc_open_line.setValue(0)
-        self.plot2_ovc_pivot_line.setValue(0)
-        self.plot2_ovc_low_line.setValue(0)
-        self.plot2_ovc_high_line.setValue(0)
+        self.plot2_program_curve.clear()
+        self.plot2_kospi_total_curve.clear()
+        self.plot2_futures_foreigner_curve.clear()
+        self.plot2_kospi_foreigner_curve.clear()
 
         self.plot2_sp500_curve.clear()
         self.plot2_dow_curve.clear()
@@ -26246,11 +26251,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot2_oe_conv_curve.clear()
         self.plot2_oe_base_curve.clear()
-
-        self.plot2_program_curve.clear()
-        self.plot2_kospi_total_curve.clear()
-        self.plot2_futures_foreigner_curve.clear()
-        self.plot2_kospi_foreigner_curve.clear()
 
     def cb2_selectionChanged(self):
 
@@ -26310,17 +26310,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex2 == 2:
 
             self.plot2_clear()
-            
-            self.plot2_kp200_line[0].setValue(KP200_COREVAL[3])
-            self.plot2_kp200_line[1].setValue(KP200_COREVAL[3])
-            self.plot2_kp200_line[2].setValue(KP200_COREVAL[3])
-            self.plot2_kp200_line[3].setValue(KP200_COREVAL[3])
-            self.plot2_kp200_line[4].setValue(KP200_COREVAL[4])
-            self.plot2_kp200_line[5].setValue(KP200_COREVAL[5])
-            self.plot2_kp200_line[6].setValue(KP200_COREVAL[6])
-            self.plot2_kp200_line[7].setValue(KP200_COREVAL[6])
-            self.plot2_kp200_line[8].setValue(KP200_COREVAL[6])
-            self.plot2_kp200_line[9].setValue(KP200_COREVAL[6])
                         
             if 근월물_선물_전저 == 0:
                 선물_전저 = 근월물_선물_종가
@@ -26332,10 +26321,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 선물_전고 = 근월물_선물_전고
 
-            if 근월물_선물_종가 == 0:
-                선물_종가 = 근월물_선물_종가
-            else:
-                선물_종가 = 근월물_선물_종가                
+            선물_종가 = 근월물_선물_종가                               
 
             if 근월물_선물_피봇 == 0:
                 선물_피봇 = 근월물_선물_종가
@@ -26356,29 +26342,40 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 선물_고가 = 근월물_선물_종가
             else:
                 선물_고가 = 근월물_선물_고가
+
+            self.plot2_kp200_line[0].setValue(KP200_COREVAL[3])
+            self.plot2_kp200_line[1].setValue(KP200_COREVAL[3])
+            self.plot2_kp200_line[2].setValue(KP200_COREVAL[3])
+            self.plot2_kp200_line[3].setValue(KP200_COREVAL[3])
+            self.plot2_kp200_line[4].setValue(KP200_COREVAL[4])
+            self.plot2_kp200_line[5].setValue(KP200_COREVAL[5])
+            self.plot2_kp200_line[6].setValue(KP200_COREVAL[6])
+            self.plot2_kp200_line[7].setValue(KP200_COREVAL[6])
+            self.plot2_kp200_line[8].setValue(KP200_COREVAL[6])
+            self.plot2_kp200_line[9].setValue(KP200_COREVAL[6])
             
             # 종가선 컬러를 살리기위한 임시방편            
-            self.plot2_quote_remainder_ratio_base_line.setValue(선물_고가)
-            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(선물_고가)
-            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(선물_고가)
+            self.plot2_quote_remainder_ratio_base_line.setValue(선물_종가)
+            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(선물_종가)
+            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(선물_종가)
 
-            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(선물_고가)
-            self.plot2_option_quote_remainder_ratio_upper_line.setValue(선물_고가)
+            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(선물_종가)
+            self.plot2_option_quote_remainder_ratio_upper_line.setValue(선물_종가)
 
             for i in range(9):
-                self.plot2_mv_line[i].setValue(선물_고가)
+                self.plot2_mv_line[i].setValue(선물_종가)
 
-            self.plot2_center_val_lower_line.setValue(선물_고가)
-            self.plot2_center_val_line.setValue(선물_고가)
-            self.plot2_center_val_upper_line.setValue(선물_고가)
+            self.plot2_center_val_lower_line.setValue(선물_종가)
+            self.plot2_center_val_line.setValue(선물_종가)
+            self.plot2_center_val_upper_line.setValue(선물_종가)
 
-            self.plot2_ovc_open_line.setValue(선물_고가)
-            self.plot2_ovc_jl_line.setValue(선물_고가)
-            self.plot2_ovc_jh_line.setValue(선물_고가)
-            self.plot2_ovc_pivot_line.setValue(선물_고가)
-            self.plot2_ovc_low_line.setValue(선물_고가)
-            self.plot2_ovc_high_line.setValue(선물_고가)
-            self.plot2_ovc_close_line.setValue(선물_고가)
+            self.plot2_ovc_open_line.setValue(선물_종가)
+            self.plot2_ovc_jl_line.setValue(선물_종가)
+            self.plot2_ovc_jh_line.setValue(선물_종가)
+            self.plot2_ovc_pivot_line.setValue(선물_종가)
+            self.plot2_ovc_low_line.setValue(선물_종가)
+            self.plot2_ovc_high_line.setValue(선물_종가)
+            self.plot2_ovc_close_line.setValue(선물_종가)
 
             txt = ' {0} '.format(선물_전저)
             self.label_21.setText(txt) 
@@ -27516,6 +27513,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
     def plot3_clear(self):
 
+        # Line Clear
         self.plot3_fut_jl_line.setValue(0)
         self.plot3_fut_jh_line.setValue(0)
         self.plot3_fut_open_line.setValue(0)
@@ -27524,12 +27522,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_fut_low_line.setValue(0)
         self.plot3_fut_high_line.setValue(0)
 
+        self.plot3_ovc_jl_line.setValue(0)
+        self.plot3_ovc_jh_line.setValue(0)
+        self.plot3_ovc_close_line.setValue(0)
+        self.plot3_ovc_open_line.setValue(0)
+        self.plot3_ovc_pivot_line.setValue(0)
+        self.plot3_ovc_low_line.setValue(0)
+        self.plot3_ovc_high_line.setValue(0)
+
         for i in range(10):
             self.plot3_kp200_line[i].setValue(0)
 
-        self.plot3_fut_cm_price_curve.clear()
-        self.plot3_fut_nm_price_curve.clear()
-        self.plot3_kp200_curve.clear()
+        for i in range(9):
+            self.plot3_mv_line[i].setValue(0)        
 
         self.plot3_quote_remainder_ratio_base_line.setValue(0)
         self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(0)
@@ -27538,19 +27543,21 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_option_quote_remainder_ratio_bottom_line.setValue(0)
         self.plot3_option_quote_remainder_ratio_upper_line.setValue(0)
 
+        self.plot3_center_val_lower_line.setValue(0)
+        self.plot3_center_val_line.setValue(0)
+        self.plot3_center_val_upper_line.setValue(0)
+
+        # Curve Clear
+        self.plot3_fut_cm_price_curve.clear()
+        self.plot3_fut_nm_price_curve.clear()
+        self.plot3_kp200_curve.clear()
+
         self.plot3_fut_cm_quote_remainder_ratio_curve.clear()
         self.plot3_fut_nm_quote_remainder_ratio_curve.clear()
 
         self.plot3_fut_volume_curve.clear()
         self.plot3_call_volume_curve.clear()
-        self.plot3_put_volume_curve.clear()
-
-        for i in range(9):
-            self.plot3_mv_line[i].setValue(0)
-
-        self.plot3_center_val_lower_line.setValue(0)
-        self.plot3_center_val_line.setValue(0)
-        self.plot3_center_val_upper_line.setValue(0)
+        self.plot3_put_volume_curve.clear()        
 
         self.plot3_center_val_curve.clear()
 
@@ -27569,13 +27576,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_call_drate_curve.clear()
         self.plot3_put_drate_curve.clear()
 
-        self.plot3_ovc_jl_line.setValue(0)
-        self.plot3_ovc_jh_line.setValue(0)
-        self.plot3_ovc_close_line.setValue(0)
-        self.plot3_ovc_open_line.setValue(0)
-        self.plot3_ovc_pivot_line.setValue(0)
-        self.plot3_ovc_low_line.setValue(0)
-        self.plot3_ovc_high_line.setValue(0)
+        self.plot3_program_curve.clear()
+        self.plot3_kospi_total_curve.clear()
+        self.plot3_futures_foreigner_curve.clear()
+        self.plot3_kospi_foreigner_curve.clear()
 
         self.plot3_sp500_curve.clear()
         self.plot3_dow_curve.clear()
@@ -27598,11 +27602,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot3_oe_conv_curve.clear()
         self.plot3_oe_base_curve.clear()
-
-        self.plot3_program_curve.clear()
-        self.plot3_kospi_total_curve.clear()
-        self.plot3_futures_foreigner_curve.clear()
-        self.plot3_kospi_foreigner_curve.clear()
     
     def cb3_selectionChanged(self):
 
@@ -27673,10 +27672,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 선물_전고 = 근월물_선물_전고
 
-            if 근월물_선물_종가 == 0:
-                선물_종가 = 근월물_선물_종가
-            else:
-                선물_종가 = 근월물_선물_종가
+            선물_종가 = 근월물_선물_종가                
 
             if 근월물_선물_피봇 == 0:
                 선물_피봇 = 근월물_선물_종가
@@ -27710,27 +27706,27 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_kp200_line[9].setValue(KP200_COREVAL[6])
                         
             # 종가선 컬러를 살리기위한 임시방편            
-            self.plot3_quote_remainder_ratio_base_line.setValue(선물_고가)
-            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(선물_고가)
-            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(선물_고가)
+            self.plot3_quote_remainder_ratio_base_line.setValue(선물_종가)
+            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(선물_종가)
+            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(선물_종가)
 
-            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(선물_고가)
-            self.plot3_option_quote_remainder_ratio_upper_line.setValue(선물_고가)
+            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(선물_종가)
+            self.plot3_option_quote_remainder_ratio_upper_line.setValue(선물_종가)
 
             for i in range(9):
-                self.plot3_mv_line[i].setValue(선물_고가)
+                self.plot3_mv_line[i].setValue(선물_종가)
 
-            self.plot3_center_val_lower_line.setValue(선물_고가)
-            self.plot3_center_val_line.setValue(선물_고가)
-            self.plot3_center_val_upper_line.setValue(선물_고가)
+            self.plot3_center_val_lower_line.setValue(선물_종가)
+            self.plot3_center_val_line.setValue(선물_종가)
+            self.plot3_center_val_upper_line.setValue(선물_종가)
 
-            self.plot3_ovc_open_line.setValue(선물_고가)
-            self.plot3_ovc_jl_line.setValue(선물_고가)
-            self.plot3_ovc_jh_line.setValue(선물_고가)
-            self.plot3_ovc_pivot_line.setValue(선물_고가)
-            self.plot3_ovc_low_line.setValue(선물_고가)
-            self.plot3_ovc_high_line.setValue(선물_고가)
-            self.plot3_ovc_close_line.setValue(선물_고가)
+            self.plot3_ovc_open_line.setValue(선물_종가)
+            self.plot3_ovc_jl_line.setValue(선물_종가)
+            self.plot3_ovc_jh_line.setValue(선물_종가)
+            self.plot3_ovc_pivot_line.setValue(선물_종가)
+            self.plot3_ovc_low_line.setValue(선물_종가)
+            self.plot3_ovc_high_line.setValue(선물_종가)
+            self.plot3_ovc_close_line.setValue(선물_종가)
 
             txt = ' {0} '.format(선물_전저)
             self.label_31.setText(txt) 
@@ -28868,6 +28864,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
     def plot4_clear(self):
 
+        # Line Clear
         self.plot4_fut_jl_line.setValue(0)
         self.plot4_fut_jh_line.setValue(0)
         self.plot4_fut_open_line.setValue(0)
@@ -28876,12 +28873,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_fut_low_line.setValue(0)
         self.plot4_fut_high_line.setValue(0)
 
+        self.plot4_ovc_jl_line.setValue(0)
+        self.plot4_ovc_jh_line.setValue(0)
+        self.plot4_ovc_close_line.setValue(0)
+        self.plot4_ovc_open_line.setValue(0)
+        self.plot4_ovc_pivot_line.setValue(0)
+        self.plot4_ovc_low_line.setValue(0)
+        self.plot4_ovc_high_line.setValue(0)
+
         for i in range(10):
             self.plot4_kp200_line[i].setValue(0)
 
-        self.plot4_fut_cm_price_curve.clear()
-        self.plot4_fut_nm_price_curve.clear()
-        self.plot4_kp200_curve.clear()
+        for i in range(9):
+            self.plot4_mv_line[i].setValue(0)        
 
         self.plot4_quote_remainder_ratio_base_line.setValue(0)
         self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(0)
@@ -28890,19 +28894,21 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_option_quote_remainder_ratio_bottom_line.setValue(0)
         self.plot4_option_quote_remainder_ratio_upper_line.setValue(0)
 
+        self.plot4_center_val_lower_line.setValue(0)
+        self.plot4_center_val_line.setValue(0)
+        self.plot4_center_val_upper_line.setValue(0)
+
+        # Curve Clear
+        self.plot4_fut_cm_price_curve.clear()
+        self.plot4_fut_nm_price_curve.clear()
+        self.plot4_kp200_curve.clear()
+
         self.plot4_fut_cm_quote_remainder_ratio_curve.clear()
         self.plot4_fut_nm_quote_remainder_ratio_curve.clear()
 
         self.plot4_fut_volume_curve.clear()
         self.plot4_call_volume_curve.clear()
-        self.plot4_put_volume_curve.clear()
-
-        for i in range(9):
-            self.plot4_mv_line[i].setValue(0)
-
-        self.plot4_center_val_lower_line.setValue(0)
-        self.plot4_center_val_line.setValue(0)
-        self.plot4_center_val_upper_line.setValue(0)
+        self.plot4_put_volume_curve.clear()        
 
         self.plot4_center_val_curve.clear()
 
@@ -28921,13 +28927,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_call_drate_curve.clear()
         self.plot4_put_drate_curve.clear()
 
-        self.plot4_ovc_jl_line.setValue(0)
-        self.plot4_ovc_jh_line.setValue(0)
-        self.plot4_ovc_close_line.setValue(0)
-        self.plot4_ovc_open_line.setValue(0)
-        self.plot4_ovc_pivot_line.setValue(0)
-        self.plot4_ovc_low_line.setValue(0)
-        self.plot4_ovc_high_line.setValue(0)
+        self.plot4_program_curve.clear()
+        self.plot4_kospi_total_curve.clear()
+        self.plot4_futures_foreigner_curve.clear()
+        self.plot4_kospi_foreigner_curve.clear()
 
         self.plot4_sp500_curve.clear()
         self.plot4_dow_curve.clear()
@@ -28950,11 +28953,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot4_oe_conv_curve.clear()
         self.plot4_oe_base_curve.clear()
-
-        self.plot4_program_curve.clear()
-        self.plot4_kospi_total_curve.clear()
-        self.plot4_futures_foreigner_curve.clear()
-        self.plot4_kospi_foreigner_curve.clear()
 
     def cb4_selectionChanged(self):
 
@@ -29013,18 +29011,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 선물가격
         elif comboindex4 == 2:
 
-            self.plot4_clear()
-            
-            self.plot4_kp200_line[0].setValue(KP200_COREVAL[3])
-            self.plot4_kp200_line[1].setValue(KP200_COREVAL[3])
-            self.plot4_kp200_line[2].setValue(KP200_COREVAL[3])
-            self.plot4_kp200_line[3].setValue(KP200_COREVAL[3])
-            self.plot4_kp200_line[4].setValue(KP200_COREVAL[4])
-            self.plot4_kp200_line[5].setValue(KP200_COREVAL[5])
-            self.plot4_kp200_line[6].setValue(KP200_COREVAL[6])
-            self.plot4_kp200_line[7].setValue(KP200_COREVAL[6])
-            self.plot4_kp200_line[8].setValue(KP200_COREVAL[6])
-            self.plot4_kp200_line[9].setValue(KP200_COREVAL[6])
+            self.plot4_clear()            
                         
             if 근월물_선물_전저 == 0:
                 선물_전저 = 근월물_선물_종가
@@ -29036,10 +29023,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 선물_전고 = 근월물_선물_전고
 
-            if 근월물_선물_종가 == 0:
-                선물_종가 = 근월물_선물_종가
-            else:
-                선물_종가 = 근월물_선물_종가
+            선물_종가 = 근월물_선물_종가                
 
             if 근월물_선물_피봇 == 0:
                 선물_피봇 = 근월물_선물_종가
@@ -29060,29 +29044,40 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 선물_고가 = 근월물_선물_종가
             else:
                 선물_고가 = 근월물_선물_고가
+
+            self.plot4_kp200_line[0].setValue(KP200_COREVAL[3])
+            self.plot4_kp200_line[1].setValue(KP200_COREVAL[3])
+            self.plot4_kp200_line[2].setValue(KP200_COREVAL[3])
+            self.plot4_kp200_line[3].setValue(KP200_COREVAL[3])
+            self.plot4_kp200_line[4].setValue(KP200_COREVAL[4])
+            self.plot4_kp200_line[5].setValue(KP200_COREVAL[5])
+            self.plot4_kp200_line[6].setValue(KP200_COREVAL[6])
+            self.plot4_kp200_line[7].setValue(KP200_COREVAL[6])
+            self.plot4_kp200_line[8].setValue(KP200_COREVAL[6])
+            self.plot4_kp200_line[9].setValue(KP200_COREVAL[6])
             
             # 종가선 컬러를 살리기위한 임시방편            
-            self.plot4_quote_remainder_ratio_base_line.setValue(선물_고가)
-            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(선물_고가)
-            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(선물_고가)
+            self.plot4_quote_remainder_ratio_base_line.setValue(선물_종가)
+            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(선물_종가)
+            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(선물_종가)
 
-            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(선물_고가)
-            self.plot4_option_quote_remainder_ratio_upper_line.setValue(선물_고가)
+            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(선물_종가)
+            self.plot4_option_quote_remainder_ratio_upper_line.setValue(선물_종가)
 
             for i in range(9):
-                self.plot4_mv_line[i].setValue(선물_고가)
+                self.plot4_mv_line[i].setValue(선물_종가)
 
-            self.plot4_center_val_lower_line.setValue(선물_고가)
-            self.plot4_center_val_line.setValue(선물_고가)
-            self.plot4_center_val_upper_line.setValue(선물_고가)
+            self.plot4_center_val_lower_line.setValue(선물_종가)
+            self.plot4_center_val_line.setValue(선물_종가)
+            self.plot4_center_val_upper_line.setValue(선물_종가)
 
-            self.plot4_ovc_open_line.setValue(선물_고가)
-            self.plot4_ovc_jl_line.setValue(선물_고가)
-            self.plot4_ovc_jh_line.setValue(선물_고가)
-            self.plot4_ovc_pivot_line.setValue(선물_고가)
-            self.plot4_ovc_low_line.setValue(선물_고가)
-            self.plot4_ovc_high_line.setValue(선물_고가)
-            self.plot4_ovc_close_line.setValue(선물_고가)
+            self.plot4_ovc_open_line.setValue(선물_종가)
+            self.plot4_ovc_jl_line.setValue(선물_종가)
+            self.plot4_ovc_jh_line.setValue(선물_종가)
+            self.plot4_ovc_pivot_line.setValue(선물_종가)
+            self.plot4_ovc_low_line.setValue(선물_종가)
+            self.plot4_ovc_high_line.setValue(선물_종가)
+            self.plot4_ovc_close_line.setValue(선물_종가)
 
             txt = ' {0} '.format(선물_전저)
             self.label_41.setText(txt) 
@@ -30188,6 +30183,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
     def plot5_clear(self):
 
+        # Line Clear
         self.plot5_fut_jl_line.setValue(0)
         self.plot5_fut_jh_line.setValue(0)
         self.plot5_fut_open_line.setValue(0)
@@ -30196,12 +30192,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_fut_low_line.setValue(0)
         self.plot5_fut_high_line.setValue(0)
 
+        self.plot5_ovc_jl_line.setValue(0)
+        self.plot5_ovc_jh_line.setValue(0)
+        self.plot5_ovc_close_line.setValue(0)
+        self.plot5_ovc_open_line.setValue(0)
+        self.plot5_ovc_pivot_line.setValue(0)
+        self.plot5_ovc_low_line.setValue(0)
+        self.plot5_ovc_high_line.setValue(0)
+
         for i in range(10):
             self.plot5_kp200_line[i].setValue(0)
 
-        self.plot5_fut_cm_price_curve.clear()
-        self.plot5_fut_nm_price_curve.clear()
-        self.plot5_kp200_curve.clear()
+        for i in range(9):
+            self.plot5_mv_line[i].setValue(0)        
 
         self.plot5_quote_remainder_ratio_base_line.setValue(0)
         self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(0)
@@ -30210,19 +30213,21 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_option_quote_remainder_ratio_bottom_line.setValue(0)
         self.plot5_option_quote_remainder_ratio_upper_line.setValue(0)
 
+        self.plot5_center_val_lower_line.setValue(0)
+        self.plot5_center_val_line.setValue(0)
+        self.plot5_center_val_upper_line.setValue(0)
+
+        # Curve Clear
+        self.plot5_fut_cm_price_curve.clear()
+        self.plot5_fut_nm_price_curve.clear()
+        self.plot5_kp200_curve.clear()
+
         self.plot5_fut_cm_quote_remainder_ratio_curve.clear()
         self.plot5_fut_nm_quote_remainder_ratio_curve.clear()
 
         self.plot5_fut_volume_curve.clear()
         self.plot5_call_volume_curve.clear()
-        self.plot5_put_volume_curve.clear()
-
-        for i in range(9):
-            self.plot5_mv_line[i].setValue(0)
-
-        self.plot5_center_val_lower_line.setValue(0)
-        self.plot5_center_val_line.setValue(0)
-        self.plot5_center_val_upper_line.setValue(0)
+        self.plot5_put_volume_curve.clear()        
 
         self.plot5_center_val_curve.clear()
 
@@ -30241,13 +30246,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_call_drate_curve.clear()
         self.plot5_put_drate_curve.clear()
 
-        self.plot5_ovc_jl_line.setValue(0)
-        self.plot5_ovc_jh_line.setValue(0)
-        self.plot5_ovc_close_line.setValue(0)
-        self.plot5_ovc_open_line.setValue(0)
-        self.plot5_ovc_pivot_line.setValue(0)
-        self.plot5_ovc_low_line.setValue(0)
-        self.plot5_ovc_high_line.setValue(0)
+        self.plot5_program_curve.clear()
+        self.plot5_kospi_total_curve.clear()
+        self.plot5_futures_foreigner_curve.clear()
+        self.plot5_kospi_foreigner_curve.clear()
 
         self.plot5_sp500_curve.clear()
         self.plot5_dow_curve.clear()
@@ -30270,11 +30272,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot5_oe_conv_curve.clear()
         self.plot5_oe_base_curve.clear()
-
-        self.plot5_program_curve.clear()
-        self.plot5_kospi_total_curve.clear()
-        self.plot5_futures_foreigner_curve.clear()
-        self.plot5_kospi_foreigner_curve.clear()
 
     def cb5_selectionChanged(self):
 
@@ -30334,17 +30331,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex5 == 2:
 
             self.plot5_clear()
-            
-            self.plot5_kp200_line[0].setValue(KP200_COREVAL[3])
-            self.plot5_kp200_line[1].setValue(KP200_COREVAL[3])
-            self.plot5_kp200_line[2].setValue(KP200_COREVAL[3])
-            self.plot5_kp200_line[3].setValue(KP200_COREVAL[3])
-            self.plot5_kp200_line[4].setValue(KP200_COREVAL[4])
-            self.plot5_kp200_line[5].setValue(KP200_COREVAL[5])
-            self.plot5_kp200_line[6].setValue(KP200_COREVAL[6])
-            self.plot5_kp200_line[7].setValue(KP200_COREVAL[6])
-            self.plot5_kp200_line[8].setValue(KP200_COREVAL[6])
-            self.plot5_kp200_line[9].setValue(KP200_COREVAL[6])
                         
             if 근월물_선물_전저 == 0:
                 선물_전저 = 근월물_선물_종가
@@ -30356,10 +30342,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 선물_전고 = 근월물_선물_전고
 
-            if 근월물_선물_종가 == 0:
-                선물_종가 = 근월물_선물_종가
-            else:
-                선물_종가 = 근월물_선물_종가
+            선물_종가 = 근월물_선물_종가                
 
             if 근월물_선물_피봇 == 0:
                 선물_피봇 = 근월물_선물_종가
@@ -30380,29 +30363,40 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 선물_고가 = 근월물_선물_종가
             else:
                 선물_고가 = 근월물_선물_고가
+
+            self.plot5_kp200_line[0].setValue(KP200_COREVAL[3])
+            self.plot5_kp200_line[1].setValue(KP200_COREVAL[3])
+            self.plot5_kp200_line[2].setValue(KP200_COREVAL[3])
+            self.plot5_kp200_line[3].setValue(KP200_COREVAL[3])
+            self.plot5_kp200_line[4].setValue(KP200_COREVAL[4])
+            self.plot5_kp200_line[5].setValue(KP200_COREVAL[5])
+            self.plot5_kp200_line[6].setValue(KP200_COREVAL[6])
+            self.plot5_kp200_line[7].setValue(KP200_COREVAL[6])
+            self.plot5_kp200_line[8].setValue(KP200_COREVAL[6])
+            self.plot5_kp200_line[9].setValue(KP200_COREVAL[6])
             
             # 종가선 컬러를 살리기위한 임시방편            
-            self.plot5_quote_remainder_ratio_base_line.setValue(선물_고가)
-            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(선물_고가)
-            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(선물_고가)
+            self.plot5_quote_remainder_ratio_base_line.setValue(선물_종가)
+            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(선물_종가)
+            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(선물_종가)
 
-            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(선물_고가)
-            self.plot5_option_quote_remainder_ratio_upper_line.setValue(선물_고가)
+            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(선물_종가)
+            self.plot5_option_quote_remainder_ratio_upper_line.setValue(선물_종가)
 
             for i in range(9):
-                self.plot5_mv_line[i].setValue(선물_고가)
+                self.plot5_mv_line[i].setValue(선물_종가)
 
-            self.plot5_center_val_lower_line.setValue(선물_고가)
-            self.plot5_center_val_line.setValue(선물_고가)
-            self.plot5_center_val_upper_line.setValue(선물_고가)
+            self.plot5_center_val_lower_line.setValue(선물_종가)
+            self.plot5_center_val_line.setValue(선물_종가)
+            self.plot5_center_val_upper_line.setValue(선물_종가)
 
-            self.plot5_ovc_open_line.setValue(선물_고가)
-            self.plot5_ovc_jl_line.setValue(선물_고가)
-            self.plot5_ovc_jh_line.setValue(선물_고가)
-            self.plot5_ovc_pivot_line.setValue(선물_고가)
-            self.plot5_ovc_low_line.setValue(선물_고가)
-            self.plot5_ovc_high_line.setValue(선물_고가)
-            self.plot5_ovc_close_line.setValue(선물_고가)
+            self.plot5_ovc_open_line.setValue(선물_종가)
+            self.plot5_ovc_jl_line.setValue(선물_종가)
+            self.plot5_ovc_jh_line.setValue(선물_종가)
+            self.plot5_ovc_pivot_line.setValue(선물_종가)
+            self.plot5_ovc_low_line.setValue(선물_종가)
+            self.plot5_ovc_high_line.setValue(선물_종가)
+            self.plot5_ovc_close_line.setValue(선물_종가)
 
             txt = ' {0} '.format(선물_전저)
             self.label_51.setText(txt) 
@@ -31540,6 +31534,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
     def plot6_clear(self):
 
+        # Line Clear
         self.plot6_fut_jl_line.setValue(0)
         self.plot6_fut_jh_line.setValue(0)
         self.plot6_fut_open_line.setValue(0)
@@ -31556,6 +31551,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_ovc_low_line.setValue(0)
         self.plot6_ovc_high_line.setValue(0)
 
+        for i in range(10):
+            self.plot6_kp200_line[i].setValue(0)
+
+        for i in range(9):
+            self.plot6_mv_line[i].setValue(0)        
+
         self.plot6_quote_remainder_ratio_base_line.setValue(0)
         self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(0)
         self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(0)
@@ -31567,15 +31568,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_center_val_line.setValue(0)
         self.plot6_center_val_upper_line.setValue(0)
 
-        for i in range(10):
-            self.plot6_kp200_line[i].setValue(0)
-
-        for i in range(9):
-            self.plot6_mv_line[i].setValue(0)
-
+        # Curve Clear
         self.plot6_fut_cm_price_curve.clear()
         self.plot6_fut_nm_price_curve.clear()
-        self.plot6_kp200_curve.clear()        
+        self.plot6_kp200_curve.clear()
 
         self.plot6_fut_cm_quote_remainder_ratio_curve.clear()
         self.plot6_fut_nm_quote_remainder_ratio_curve.clear()
@@ -31599,7 +31595,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_fut_drate_curve.clear()
         self.plot6_cme_drate_curve.clear()
         self.plot6_call_drate_curve.clear()
-        self.plot6_put_drate_curve.clear()        
+        self.plot6_put_drate_curve.clear()
+
+        self.plot6_program_curve.clear()
+        self.plot6_kospi_total_curve.clear()
+        self.plot6_futures_foreigner_curve.clear()
+        self.plot6_kospi_foreigner_curve.clear()
 
         self.plot6_sp500_curve.clear()
         self.plot6_dow_curve.clear()
@@ -31622,11 +31623,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot6_oe_conv_curve.clear()
         self.plot6_oe_base_curve.clear()
-
-        self.plot6_program_curve.clear()
-        self.plot6_kospi_total_curve.clear()
-        self.plot6_futures_foreigner_curve.clear()
-        self.plot6_kospi_foreigner_curve.clear()
 
     def cb6_selectionChanged(self):
 
@@ -31686,17 +31682,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex6 == 2:
 
             self.plot6_clear()
-            
-            self.plot6_kp200_line[0].setValue(KP200_COREVAL[3])
-            self.plot6_kp200_line[1].setValue(KP200_COREVAL[3])
-            self.plot6_kp200_line[2].setValue(KP200_COREVAL[3])
-            self.plot6_kp200_line[3].setValue(KP200_COREVAL[3])
-            self.plot6_kp200_line[4].setValue(KP200_COREVAL[4])
-            self.plot6_kp200_line[5].setValue(KP200_COREVAL[5])
-            self.plot6_kp200_line[6].setValue(KP200_COREVAL[6])
-            self.plot6_kp200_line[7].setValue(KP200_COREVAL[6])
-            self.plot6_kp200_line[8].setValue(KP200_COREVAL[6])
-            self.plot6_kp200_line[9].setValue(KP200_COREVAL[6])
                         
             if 근월물_선물_전저 == 0:
                 선물_전저 = 근월물_선물_종가
@@ -31708,10 +31693,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 선물_전고 = 근월물_선물_전고
 
-            if 근월물_선물_종가 == 0:
-                선물_종가 = 근월물_선물_종가
-            else:
-                선물_종가 = 근월물_선물_종가
+            선물_종가 = 근월물_선물_종가                
 
             if 근월물_선물_피봇 == 0:
                 선물_피봇 = 근월물_선물_종가
@@ -31732,29 +31714,40 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 선물_고가 = 근월물_선물_종가
             else:
                 선물_고가 = 근월물_선물_고가
+
+            self.plot6_kp200_line[0].setValue(KP200_COREVAL[3])
+            self.plot6_kp200_line[1].setValue(KP200_COREVAL[3])
+            self.plot6_kp200_line[2].setValue(KP200_COREVAL[3])
+            self.plot6_kp200_line[3].setValue(KP200_COREVAL[3])
+            self.plot6_kp200_line[4].setValue(KP200_COREVAL[4])
+            self.plot6_kp200_line[5].setValue(KP200_COREVAL[5])
+            self.plot6_kp200_line[6].setValue(KP200_COREVAL[6])
+            self.plot6_kp200_line[7].setValue(KP200_COREVAL[6])
+            self.plot6_kp200_line[8].setValue(KP200_COREVAL[6])
+            self.plot6_kp200_line[9].setValue(KP200_COREVAL[6])
             
             # 종가선 컬러를 살리기위한 임시방편            
-            self.plot6_quote_remainder_ratio_base_line.setValue(선물_고가)
-            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(선물_고가)
-            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(선물_고가)
+            self.plot6_quote_remainder_ratio_base_line.setValue(선물_종가)
+            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(선물_종가)
+            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(선물_종가)
 
-            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(선물_고가)
-            self.plot6_option_quote_remainder_ratio_upper_line.setValue(선물_고가)
+            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(선물_종가)
+            self.plot6_option_quote_remainder_ratio_upper_line.setValue(선물_종가)
 
             for i in range(9):
-                self.plot6_mv_line[i].setValue(선물_고가)
+                self.plot6_mv_line[i].setValue(선물_종가)
 
-            self.plot6_center_val_lower_line.setValue(선물_고가)
-            self.plot6_center_val_line.setValue(선물_고가)
-            self.plot6_center_val_upper_line.setValue(선물_고가)
+            self.plot6_center_val_lower_line.setValue(선물_종가)
+            self.plot6_center_val_line.setValue(선물_종가)
+            self.plot6_center_val_upper_line.setValue(선물_종가)
 
-            self.plot6_ovc_open_line.setValue(선물_고가)
-            self.plot6_ovc_jl_line.setValue(선물_고가)
-            self.plot6_ovc_jh_line.setValue(선물_고가)
-            self.plot6_ovc_pivot_line.setValue(선물_고가)
-            self.plot6_ovc_low_line.setValue(선물_고가)
-            self.plot6_ovc_high_line.setValue(선물_고가)
-            self.plot6_ovc_close_line.setValue(선물_고가)
+            self.plot6_ovc_open_line.setValue(선물_종가)
+            self.plot6_ovc_jl_line.setValue(선물_종가)
+            self.plot6_ovc_jh_line.setValue(선물_종가)
+            self.plot6_ovc_pivot_line.setValue(선물_종가)
+            self.plot6_ovc_low_line.setValue(선물_종가)
+            self.plot6_ovc_high_line.setValue(선물_종가)
+            self.plot6_ovc_close_line.setValue(선물_종가)
 
             txt = ' {0} '.format(선물_전저)
             self.label_61.setText(txt) 
@@ -33335,9 +33328,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_fut_pivot_line.setValue(근월물_선물_피봇)
                 self.plot1_fut_high_line.setValue(근월물_선물_고가)
                 
-                self.plot1_kp200_curve.setData(df_kp200_graph['price'])
-                self.plot1_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
-                self.plot1_fut_nm_price_curve.setData(df_futures_nm_graph['price'])
+                if DayTime:
+                    self.plot1_kp200_curve.setData(df_kp200_graph['price'])
+                    self.plot1_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
+                    self.plot1_fut_nm_price_curve.setData(df_futures_nm_graph['price'])
+                else:
+                    pass                    
 
                 if flag_checkBox_plot1_bband:
 
@@ -34994,9 +34990,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_fut_pivot_line.setValue(근월물_선물_피봇)
                 self.plot2_fut_high_line.setValue(근월물_선물_고가)                             
 
-                self.plot2_kp200_curve.setData(df_kp200_graph['price'])
-                self.plot2_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
-                self.plot2_fut_nm_price_curve.setData(df_futures_nm_graph['price'])
+                if DayTime:
+                    self.plot2_kp200_curve.setData(df_kp200_graph['price'])
+                    self.plot2_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
+                    self.plot2_fut_nm_price_curve.setData(df_futures_nm_graph['price'])
+                else:
+                    pass
 
                 if flag_checkBox_plot2_bband:
 
@@ -36652,9 +36651,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_fut_pivot_line.setValue(근월물_선물_피봇)
                 self.plot3_fut_high_line.setValue(근월물_선물_고가)                
 
-                self.plot3_kp200_curve.setData(df_kp200_graph['price'])
-                self.plot3_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
-                self.plot3_fut_nm_price_curve.setData(df_futures_nm_graph['price'])
+                if DayTime:
+                    self.plot3_kp200_curve.setData(df_kp200_graph['price'])
+                    self.plot3_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
+                    self.plot3_fut_nm_price_curve.setData(df_futures_nm_graph['price'])
+                else:
+                    pass
 
                 if flag_checkBox_plot3_bband:
 
@@ -38307,9 +38309,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_fut_pivot_line.setValue(근월물_선물_피봇)
                 self.plot4_fut_high_line.setValue(근월물_선물_고가)                
 
-                self.plot4_kp200_curve.setData(df_kp200_graph['price'])
-                self.plot4_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
-                self.plot4_fut_nm_price_curve.setData(df_futures_nm_graph['price'])
+                if DayTime:
+                    self.plot4_kp200_curve.setData(df_kp200_graph['price'])
+                    self.plot4_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
+                    self.plot4_fut_nm_price_curve.setData(df_futures_nm_graph['price'])
+                else:
+                    pass
 
                 if flag_checkBox_plot4_bband:
 
@@ -39965,9 +39970,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_fut_pivot_line.setValue(근월물_선물_피봇)
                 self.plot5_fut_high_line.setValue(근월물_선물_고가)
 
-                self.plot5_kp200_curve.setData(df_kp200_graph['price'])
-                self.plot5_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
-                self.plot5_fut_nm_price_curve.setData(df_futures_nm_graph['price'])
+                if DayTime:
+                    self.plot5_kp200_curve.setData(df_kp200_graph['price'])
+                    self.plot5_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
+                    self.plot5_fut_nm_price_curve.setData(df_futures_nm_graph['price'])
+                else:
+                    pass
 
                 if flag_checkBox_plot5_bband:
 
@@ -41620,9 +41628,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_fut_pivot_line.setValue(근월물_선물_피봇)
                 self.plot6_fut_high_line.setValue(근월물_선물_고가)
 
-                self.plot6_kp200_curve.setData(df_kp200_graph['price'])
-                self.plot6_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
-                self.plot6_fut_nm_price_curve.setData(df_futures_nm_graph['price'])
+                if DayTime:
+                    self.plot6_kp200_curve.setData(df_kp200_graph['price'])
+                    self.plot6_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
+                    self.plot6_fut_nm_price_curve.setData(df_futures_nm_graph['price'])
+                else:
+                    pass
 
                 if flag_checkBox_plot6_bband:
 
