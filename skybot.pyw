@@ -165,7 +165,8 @@ screen_info = None
 풋_등가_시가등락율 = 0
 
 drate_scale_factor = 1
-flag_drate_scale_factor_set = False
+flag_cm_drate_scale_factor_set = False
+flag_nm_drate_scale_factor_set = False
 
 call_scroll_depth = 19
 put_scroll_depth = 30
@@ -47099,7 +47100,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 근월물_선물_종가대비_등락율, 근월물_선물_시가등락율, 근월물_선물_시가대비_등락율, kp200_시가등락율
         global df_futures_cm_graph, 근월물_선물_현재가, 근월물_선물_현재가_버퍼, flag_futures_cm_ohlc_open, fut_cm_tickdata
         global df_futures_nm_graph, 차월물_선물_현재가, 차월물_선물_현재가_버퍼, flag_futures_nm_ohlc_open, fut_nm_tickdata
-        global flag_drate_scale_factor_set
+        global flag_cm_drate_scale_factor_set, flag_nm_drate_scale_factor_set
         global 차월물_선물_종가대비_등락율, 차월물_선물_시가대비_등락율, 차월물_선물_시가등락율
 
         try:
@@ -47214,7 +47215,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     drate_reference = 풋_등가_시가등락율
 
-                if TARGET_MONTH == 'CM' and abs(근월물_선물_시가등락율) > 0 and abs(drate_reference) > 0 and not flag_drate_scale_factor_set:                    
+                if TARGET_MONTH == 'CM' and abs(근월물_선물_시가등락율) > 0 and abs(drate_reference) > 0 and not flag_cm_drate_scale_factor_set:                    
 
                     plot_drate_scale_factor = int(abs(drate_reference / 근월물_선물_시가등락율))
               
@@ -47227,7 +47228,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
 
-                    flag_drate_scale_factor_set = True
+                    flag_cm_drate_scale_factor_set = True
                 else:
                     pass                
 
@@ -47256,7 +47257,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     drate_reference = 풋_등가_시가등락율
 
-                if TARGET_MONTH == 'NM' and abs(차월물_선물_시가등락율) > 0 and abs(drate_reference) > 0 and not flag_drate_scale_factor_set:
+                if TARGET_MONTH == 'NM' and abs(차월물_선물_시가등락율) > 0 and abs(drate_reference) > 0 and not flag_nm_drate_scale_factor_set:
 
                     plot_drate_scale_factor = int(abs(drate_reference / 차월물_선물_시가등락율))
              
@@ -47269,7 +47270,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
 
-                    flag_drate_scale_factor_set = True
+                    flag_nm_drate_scale_factor_set = True
                 else:
                     pass
 
@@ -47733,6 +47734,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global df_put, put_tickdata, df_put_graph, df_put_information_graph, df_put_volume, put_volume_power, 풋_등가_등락율
         global 콜_수정미결합, 풋_수정미결합, 콜_수정미결퍼센트, 풋_수정미결퍼센트, 콜잔량비, 풋잔량비
         global 콜_현재가, 풋_현재가
+        global flag_cm_drate_scale_factor_set
 
         try:
             dt = datetime.now()
@@ -47752,16 +47754,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-            if NightTime:
-
-                global flag_drate_scale_factor_set
+            if NightTime:                
 
                 if CALL_ATM_DRATE_REFERENCE:
                     drate_reference = 콜_등가_시가등락율
                 else:
                     drate_reference = 풋_등가_시가등락율
 
-                if abs(근월물_선물_시가등락율) > 0 and abs(drate_reference) > 0 and not flag_drate_scale_factor_set:
+                if abs(근월물_선물_시가등락율) > 0 and abs(drate_reference) > 0 and not flag_cm_drate_scale_factor_set:
 
                     plot_drate_scale_factor = int(abs(drate_reference / 근월물_선물_시가등락율))
                
@@ -47774,7 +47774,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
 
-                    flag_drate_scale_factor_set = True
+                    flag_cm_drate_scale_factor_set = True
                 else:
                     pass
             else:
