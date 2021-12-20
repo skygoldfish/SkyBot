@@ -26990,10 +26990,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_fut_open_line.setValue(hangseng_종가)
             self.plot2_fut_low_line.setValue(hangseng_종가)
             self.plot2_fut_high_line.setValue(hangseng_종가)
-                        
-            self.plot2_center_val_lower_line.setValue(hangseng_고가)
-            self.plot2_center_val_line.setValue(hangseng_고가)
-            self.plot2_center_val_upper_line.setValue(hangseng_고가) 
                 
             txt = ' {0} '.format(format(hangseng_전저, ','))
             self.label_21.setText(txt)
@@ -28341,10 +28337,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_fut_open_line.setValue(hangseng_종가)
             self.plot3_fut_low_line.setValue(hangseng_종가)
             self.plot3_fut_high_line.setValue(hangseng_종가)
-                        
-            self.plot3_center_val_lower_line.setValue(hangseng_고가)
-            self.plot3_center_val_line.setValue(hangseng_고가)
-            self.plot3_center_val_upper_line.setValue(hangseng_고가) 
                 
             txt = ' {0} '.format(format(hangseng_전저, ','))
             self.label_31.setText(txt)
@@ -31011,10 +31003,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_fut_open_line.setValue(hangseng_종가)
             self.plot5_fut_low_line.setValue(hangseng_종가)
             self.plot5_fut_high_line.setValue(hangseng_종가)
-                        
-            self.plot5_center_val_lower_line.setValue(hangseng_고가)
-            self.plot5_center_val_line.setValue(hangseng_고가)
-            self.plot5_center_val_upper_line.setValue(hangseng_고가) 
                 
             txt = ' {0} '.format(format(hangseng_전저, ','))
             self.label_51.setText(txt)
@@ -32362,10 +32350,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_fut_open_line.setValue(hangseng_종가)
             self.plot6_fut_low_line.setValue(hangseng_종가)
             self.plot6_fut_high_line.setValue(hangseng_종가)
-                        
-            self.plot6_center_val_lower_line.setValue(hangseng_고가)
-            self.plot6_center_val_line.setValue(hangseng_고가)
-            self.plot6_center_val_upper_line.setValue(hangseng_고가) 
                 
             txt = ' {0} '.format(format(hangseng_전저, ','))
             self.label_61.setText(txt)
