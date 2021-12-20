@@ -33307,22 +33307,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_kp200_line[5].setValue(KP200_COREVAL[5])
                 self.plot1_kp200_line[6].setValue(KP200_COREVAL[6])                
 
-                if 근월물_선물_저가 < KP200_COREVAL[3]:
+                if 근월물_선물_저가 < KP200_COREVAL[3] or kp200_저가 < KP200_COREVAL[3]:
                     self.plot1_kp200_line[2].setValue(KP200_COREVAL[2])
                 else:
                     pass
 
-                if 근월물_선물_저가 < KP200_COREVAL[2]:
+                if 근월물_선물_저가 < KP200_COREVAL[2] or kp200_저가 < KP200_COREVAL[2]:
                     self.plot1_kp200_line[1].setValue(KP200_COREVAL[1])
                 else:
                     pass
                 
-                if 근월물_선물_고가 > KP200_COREVAL[6]:
+                if 근월물_선물_고가 > KP200_COREVAL[6] or kp200_고가 > KP200_COREVAL[6]:
                     self.plot1_kp200_line[7].setValue(KP200_COREVAL[7])
                 else:
                     pass
 
-                if 근월물_선물_고가 > KP200_COREVAL[7]:
+                if 근월물_선물_고가 > KP200_COREVAL[7] or kp200_고가 > KP200_COREVAL[7]:
                     self.plot1_kp200_line[8].setValue(KP200_COREVAL[8])
                 else:
                     pass                
@@ -34966,22 +34966,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_kp200_line[5].setValue(KP200_COREVAL[5])
                 self.plot2_kp200_line[6].setValue(KP200_COREVAL[6])                
                 
-                if 근월물_선물_저가 < KP200_COREVAL[3]:
+                if 근월물_선물_저가 < KP200_COREVAL[3] or kp200_저가 < KP200_COREVAL[3]:
                     self.plot2_kp200_line[2].setValue(KP200_COREVAL[2])
                 else:
                     pass
 
-                if 근월물_선물_저가 < KP200_COREVAL[2]:
+                if 근월물_선물_저가 < KP200_COREVAL[2] or kp200_저가 < KP200_COREVAL[2]:
                     self.plot2_kp200_line[1].setValue(KP200_COREVAL[1])
                 else:
                     pass
                 
-                if 근월물_선물_고가 > KP200_COREVAL[6]:
+                if 근월물_선물_고가 > KP200_COREVAL[6] or kp200_고가 > KP200_COREVAL[6]:
                     self.plot2_kp200_line[7].setValue(KP200_COREVAL[7])
                 else:
                     pass
 
-                if 근월물_선물_고가 > KP200_COREVAL[7]:
+                if 근월물_선물_고가 > KP200_COREVAL[7] or kp200_고가 > KP200_COREVAL[7]:
                     self.plot2_kp200_line[8].setValue(KP200_COREVAL[8])
                 else:
                     pass                
@@ -36624,22 +36624,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_kp200_line[5].setValue(KP200_COREVAL[5])
                 self.plot3_kp200_line[6].setValue(KP200_COREVAL[6])                
 
-                if 근월물_선물_저가 < KP200_COREVAL[3]:
+                if 근월물_선물_저가 < KP200_COREVAL[3] or kp200_저가 < KP200_COREVAL[3]:
                     self.plot3_kp200_line[2].setValue(KP200_COREVAL[2])
                 else:
                     pass
 
-                if 근월물_선물_저가 < KP200_COREVAL[2]:
+                if 근월물_선물_저가 < KP200_COREVAL[2] or kp200_저가 < KP200_COREVAL[2]:
                     self.plot3_kp200_line[1].setValue(KP200_COREVAL[1])
                 else:
                     pass
                 
-                if 근월물_선물_고가 > KP200_COREVAL[6]:
+                if 근월물_선물_고가 > KP200_COREVAL[6] or kp200_고가 > KP200_COREVAL[6]:
                     self.plot3_kp200_line[7].setValue(KP200_COREVAL[7])
                 else:
                     pass
 
-                if 근월물_선물_고가 > KP200_COREVAL[7]:
+                if 근월물_선물_고가 > KP200_COREVAL[7] or kp200_고가 > KP200_COREVAL[7]:
                     self.plot3_kp200_line[8].setValue(KP200_COREVAL[8])
                 else:
                     pass                
@@ -38279,22 +38279,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_kp200_line[5].setValue(KP200_COREVAL[5])
                 self.plot4_kp200_line[6].setValue(KP200_COREVAL[6])                
 
-                if 근월물_선물_저가 < KP200_COREVAL[3]:
+                if 근월물_선물_저가 < KP200_COREVAL[3] or kp200_저가 < KP200_COREVAL[3]:
                     self.plot4_kp200_line[2].setValue(KP200_COREVAL[2])
                 else:
                     pass
 
-                if 근월물_선물_저가 < KP200_COREVAL[2]:
+                if 근월물_선물_저가 < KP200_COREVAL[2] or kp200_저가 < KP200_COREVAL[2]:
                     self.plot4_kp200_line[1].setValue(KP200_COREVAL[1])
                 else:
                     pass
                 
-                if 근월물_선물_고가 > KP200_COREVAL[6]:
+                if 근월물_선물_고가 > KP200_COREVAL[6] or kp200_고가 > KP200_COREVAL[6]:
                     self.plot4_kp200_line[7].setValue(KP200_COREVAL[7])
                 else:
                     pass
 
-                if 근월물_선물_고가 > KP200_COREVAL[7]:
+                if 근월물_선물_고가 > KP200_COREVAL[7] or kp200_고가 > KP200_COREVAL[7]:
                     self.plot4_kp200_line[8].setValue(KP200_COREVAL[8])
                 else:
                     pass                
@@ -39937,22 +39937,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_kp200_line[5].setValue(KP200_COREVAL[5])
                 self.plot5_kp200_line[6].setValue(KP200_COREVAL[6])                
 
-                if 근월물_선물_저가 < KP200_COREVAL[3]:
+                if 근월물_선물_저가 < KP200_COREVAL[3] or kp200_저가 < KP200_COREVAL[3]:
                     self.plot5_kp200_line[2].setValue(KP200_COREVAL[2])
                 else:
                     pass
 
-                if 근월물_선물_저가 < KP200_COREVAL[2]:
+                if 근월물_선물_저가 < KP200_COREVAL[2] or kp200_저가 < KP200_COREVAL[2]:
                     self.plot5_kp200_line[1].setValue(KP200_COREVAL[1])
                 else:
                     pass
                 
-                if 근월물_선물_고가 > KP200_COREVAL[6]:
+                if 근월물_선물_고가 > KP200_COREVAL[6] or kp200_고가 > KP200_COREVAL[6]:
                     self.plot5_kp200_line[7].setValue(KP200_COREVAL[7])
                 else:
                     pass
 
-                if 근월물_선물_고가 > KP200_COREVAL[7]:
+                if 근월물_선물_고가 > KP200_COREVAL[7] or kp200_고가 > KP200_COREVAL[7]:
                     self.plot5_kp200_line[8].setValue(KP200_COREVAL[8])
                 else:
                     pass                
@@ -41592,25 +41592,25 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_kp200_line[5].setValue(KP200_COREVAL[5])
                 self.plot6_kp200_line[6].setValue(KP200_COREVAL[6])                
                 
-                if 근월물_선물_저가 < KP200_COREVAL[3]:
+                if 근월물_선물_저가 < KP200_COREVAL[3] or kp200_저가 < KP200_COREVAL[3]:
                     self.plot6_kp200_line[2].setValue(KP200_COREVAL[2])
                 else:
                     pass
 
-                if 근월물_선물_저가 < KP200_COREVAL[2]:
+                if 근월물_선물_저가 < KP200_COREVAL[2] or kp200_저가 < KP200_COREVAL[2]:
                     self.plot6_kp200_line[1].setValue(KP200_COREVAL[1])
                 else:
                     pass
                 
-                if 근월물_선물_고가 > KP200_COREVAL[6]:
+                if 근월물_선물_고가 > KP200_COREVAL[6] or kp200_고가 > KP200_COREVAL[6]:
                     self.plot6_kp200_line[7].setValue(KP200_COREVAL[7])
                 else:
                     pass
 
-                if 근월물_선물_고가 > KP200_COREVAL[7]:
+                if 근월물_선물_고가 > KP200_COREVAL[7] or kp200_고가 > KP200_COREVAL[7]:
                     self.plot6_kp200_line[8].setValue(KP200_COREVAL[8])
                 else:
-                    pass               
+                    pass              
                 
                 self.plot6_fut_jl_line.setValue(근월물_선물_전저)
                 self.plot6_fut_jh_line.setValue(근월물_선물_전고)
