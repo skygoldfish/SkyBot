@@ -12737,7 +12737,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                if 시가 in FIXED_COREVAL:
+                if 콜시가 in FIXED_COREVAL:
                     self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(검정색))
                     self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(노란색))
                 else:
