@@ -25146,7 +25146,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_16.setText(txt)
             self.plot1_fut_low_line.setValue(선물_저가)
             
-            self.label_17.setText(" 000.00 (전일대비, 등락율, 진폭) ")
+            self.label_17.setText(" 000.00 (전일대비, 등락율, 진폭), kp200 : 000.00 ")
 
             txt = ' {0} '.format(선물_고가)
             self.label_18.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -26465,7 +26465,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_26.setText(txt)
             self.plot2_fut_low_line.setValue(선물_저가)
             
-            self.label_27.setText(" 000.00 (전일대비, 등락율, 진폭) ")
+            self.label_27.setText(" 000.00 (전일대비, 등락율, 진폭), kp200 : 000.00 ")
 
             txt = ' {0} '.format(선물_고가)
             self.label_28.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -27784,7 +27784,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_36.setText(txt)
             self.plot3_fut_low_line.setValue(선물_저가)
             
-            self.label_37.setText(" 000.00 (전일대비, 등락율, 진폭) ")
+            self.label_37.setText(" 000.00 (전일대비, 등락율, 진폭), kp200 : 000.00 ")
 
             txt = ' {0} '.format(선물_고가)
             self.label_38.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -29103,7 +29103,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_46.setText(txt)
             self.plot4_fut_low_line.setValue(선물_저가)
             
-            self.label_47.setText(" 000.00 (전일대비, 등락율, 진폭) ")
+            self.label_47.setText(" 000.00 (전일대비, 등락율, 진폭), kp200 : 000.00 ")
 
             txt = ' {0} '.format(선물_고가)
             self.label_48.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -30422,7 +30422,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_56.setText(txt)
             self.plot5_fut_low_line.setValue(선물_저가)
             
-            self.label_57.setText(" 000.00 (전일대비, 등락율, 진폭) ")
+            self.label_57.setText(" 000.00 (전일대비, 등락율, 진폭), kp200 : 000.00 ")
 
             txt = ' {0} '.format(선물_고가)
             self.label_58.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -31741,7 +31741,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_66.setText(txt)
             self.plot6_fut_low_line.setValue(선물_저가)
             
-            self.label_67.setText(" 000.00 (전일대비, 등락율, 진폭) ")
+            self.label_67.setText(" 000.00 (전일대비, 등락율, 진폭), kp200 : 000.00 ")
 
             txt = ' {0} '.format(선물_고가)
             self.label_68.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33197,11 +33197,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(근월물_선물_저가)
                 self.label_16.setText(txt)
 
-                value = self.label_17.text().split()[0]
+                과거가 =  self.label_17.text().split()[0]
 
-                if 근월물_선물_현재가 > float(value):
+                if 근월물_선물_현재가 > float(과거가):
 
-                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭)
+                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}), kp200 : {4:.2f} ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭, kp200_현재가)
 
                     if 근월물_선물_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33212,9 +33212,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_17.setText(txt)
 
-                elif 근월물_선물_현재가 < float(value):
+                elif 근월물_선물_현재가 < float(과거가):
 
-                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭)
+                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}), kp200 : {4:.2f} ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭, kp200_현재가)
 
                     if 근월물_선물_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33660,9 +33660,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_16.setText(txt)
 
                 tmp = self.label_17.text().split()[0]
-                value = tmp.replace(',', '')               
+                과거가 =  tmp.replace(',', '')               
 
-                if SP500_현재가 > float(value):
+                if SP500_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
 
@@ -33675,7 +33675,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_17.setText(txt)
 
-                elif SP500_현재가 < float(value):
+                elif SP500_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
 
@@ -33788,9 +33788,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_16.setText(txt)
 
                 tmp = self.label_17.text().split()[0]
-                value = tmp.replace(',', '')
+                과거가 =  tmp.replace(',', '')
 
-                if DOW_현재가 > float(value):
+                if DOW_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(DOW_현재가, ','), format(DOW_종가대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
@@ -33803,7 +33803,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_17.setText(txt)
 
-                elif DOW_현재가 < float(value):
+                elif DOW_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(DOW_현재가, ','), format(DOW_종가대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
@@ -33916,9 +33916,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_16.setText(txt)
 
                 tmp = self.label_17.text().split()[0]
-                value = tmp.replace(',', '')                
+                과거가 =  tmp.replace(',', '')                
 
-                if NASDAQ_현재가 > float(value):
+                if NASDAQ_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(NASDAQ_현재가, ','), format(NASDAQ_종가대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
@@ -33931,7 +33931,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_17.setText(txt)
 
-                elif NASDAQ_현재가 < float(value):
+                elif NASDAQ_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(NASDAQ_현재가, ','), format(NASDAQ_종가대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
@@ -34044,9 +34044,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_16.setText(txt)
 
                 tmp = self.label_17.text().split()[0]
-                value = tmp.replace(',', '')     
+                과거가 =  tmp.replace(',', '')     
 
-                if HANGSENG_현재가 > float(value):
+                if HANGSENG_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_종가대비, HANGSENG_등락율, HANGSENG_진폭)
 
@@ -34059,7 +34059,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_17.setText(txt)
 
-                elif HANGSENG_현재가 < float(value):
+                elif HANGSENG_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_종가대비, HANGSENG_등락율, HANGSENG_진폭)
 
@@ -34172,9 +34172,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(format(WTI_저가, ','))
                 self.label_16.setText(txt)
 
-                value = self.label_17.text().split()[0]     
+                과거가 =  self.label_17.text().split()[0]     
 
-                if WTI_현재가 > float(value):
+                if WTI_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3:.2f}) ".format(WTI_현재가, WTI_종가대비, WTI_등락율, WTI_진폭)
 
@@ -34187,7 +34187,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_17.setText(txt)
 
-                elif WTI_현재가 < float(value):
+                elif WTI_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3:.2f}) ".format(WTI_현재가, WTI_종가대비, WTI_등락율, WTI_진폭)
 
@@ -34300,9 +34300,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_16.setText(txt)
 
                 tmp = self.label_17.text().split()[0]
-                value = tmp.replace(',', '')     
+                과거가 =  tmp.replace(',', '')     
 
-                if GOLD_현재가 > float(value):
+                if GOLD_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_종가대비, GOLD_등락율, GOLD_진폭)
 
@@ -34315,7 +34315,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_17.setText(txt)
 
-                elif GOLD_현재가 < float(value):
+                elif GOLD_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_종가대비, GOLD_등락율, GOLD_진폭)
 
@@ -34427,9 +34427,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(format(EUROFX_저가, ','))
                 self.label_16.setText(txt)
 
-                value = self.label_17.text().split()[0]     
+                과거가 =  self.label_17.text().split()[0]     
 
-                if EUROFX_현재가 > float(value):
+                if EUROFX_현재가 > float(과거가):
 
                     txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭)
 
@@ -34442,7 +34442,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_17.setText(txt)
 
-                elif EUROFX_현재가 < float(value):
+                elif EUROFX_현재가 < float(과거가):
 
                     txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭)
 
@@ -34555,9 +34555,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_16.setText(txt)
 
                 tmp = self.label_17.text().split()[0]
-                value = tmp.replace(',', '')     
+                과거가 =  tmp.replace(',', '')     
 
-                if YEN_현재가 > float(value):
+                if YEN_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_종가대비, YEN_등락율, YEN_진폭)
 
@@ -34570,7 +34570,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_17.setText(txt)
 
-                elif YEN_현재가 < float(value):
+                elif YEN_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_종가대비, YEN_등락율, YEN_진폭)
 
@@ -34682,9 +34682,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(format(ADI_저가, ','))
                 self.label_16.setText(txt)
 
-                value = self.label_17.text().split()[0]    
+                과거가 =  self.label_17.text().split()[0]    
 
-                if ADI_현재가 > float(value):
+                if ADI_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1:.5f}, {2:.1f}%, {3:.5f}) ".format(format(ADI_현재가, ','), ADI_종가대비, ADI_등락율, ADI_진폭)
 
@@ -34697,7 +34697,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_17.setText(txt)
 
-                elif ADI_현재가 < float(value):
+                elif ADI_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1:.5f}, {2:.1f}%, {3:.5f}) ".format(format(ADI_현재가, ','), ADI_종가대비, ADI_등락율, ADI_진폭)
 
@@ -34859,11 +34859,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(근월물_선물_저가)
                 self.label_26.setText(txt)       
 
-                value = self.label_27.text().split()[0]
+                과거가 =  self.label_27.text().split()[0]
 
-                if 근월물_선물_현재가 > float(value):
+                if 근월물_선물_현재가 > float(과거가):
 
-                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭)
+                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}), kp200 : {4:.2f} ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭, kp200_현재가)
+
 
                     if 근월물_선물_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34874,9 +34875,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_27.setText(txt)
 
-                elif 근월물_선물_현재가 < float(value):
+                elif 근월물_선물_현재가 < float(과거가):
 
-                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭)
+                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}), kp200 : {4:.2f} ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭, kp200_현재가)
 
                     if 근월물_선물_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35322,9 +35323,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_26.setText(txt)
 
                 tmp = self.label_27.text().split()[0]
-                value = tmp.replace(',', '')                
+                과거가 =  tmp.replace(',', '')                
 
-                if SP500_현재가 > float(value):
+                if SP500_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
 
@@ -35337,7 +35338,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_27.setText(txt)
 
-                elif SP500_현재가 < float(value):
+                elif SP500_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
 
@@ -35450,9 +35451,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_26.setText(txt)
 
                 tmp = self.label_27.text().split()[0]
-                value = tmp.replace(',', '')               
+                과거가 =  tmp.replace(',', '')               
 
-                if DOW_현재가 > float(value):
+                if DOW_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(DOW_현재가, ','), format(DOW_종가대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
@@ -35465,7 +35466,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_27.setText(txt)
 
-                elif DOW_현재가 < float(value):
+                elif DOW_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(DOW_현재가, ','), format(DOW_종가대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
@@ -35578,9 +35579,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_26.setText(txt)
 
                 tmp = self.label_27.text().split()[0]
-                value = tmp.replace(',', '')                
+                과거가 =  tmp.replace(',', '')                
 
-                if NASDAQ_현재가 > float(value):
+                if NASDAQ_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(NASDAQ_현재가, ','), format(NASDAQ_종가대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
@@ -35593,7 +35594,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_27.setText(txt)
 
-                elif NASDAQ_현재가 < float(value):
+                elif NASDAQ_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(NASDAQ_현재가, ','), format(NASDAQ_종가대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
@@ -35706,9 +35707,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_26.setText(txt)
 
                 tmp = self.label_27.text().split()[0]
-                value = tmp.replace(',', '')    
+                과거가 =  tmp.replace(',', '')    
 
-                if HANGSENG_현재가 > float(value):
+                if HANGSENG_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_종가대비, HANGSENG_등락율, HANGSENG_진폭)
 
@@ -35721,7 +35722,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_27.setText(txt)
 
-                elif HANGSENG_현재가 < float(value):
+                elif HANGSENG_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_종가대비, HANGSENG_등락율, HANGSENG_진폭)
 
@@ -35834,9 +35835,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(format(WTI_저가, ','))
                 self.label_26.setText(txt)
 
-                value = self.label_27.text().split()[0]             
+                과거가 =  self.label_27.text().split()[0]             
 
-                if WTI_현재가 > float(value):
+                if WTI_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3:.2f}) ".format(WTI_현재가, WTI_종가대비, WTI_등락율, WTI_진폭)
 
@@ -35849,7 +35850,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_27.setText(txt)
 
-                elif WTI_현재가 < float(value):
+                elif WTI_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3:.2f}) ".format(WTI_현재가, WTI_종가대비, WTI_등락율, WTI_진폭)
 
@@ -35962,9 +35963,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_26.setText(txt)
 
                 tmp = self.label_27.text().split()[0]
-                value = tmp.replace(',', '')
+                과거가 =  tmp.replace(',', '')
 
-                if GOLD_현재가 > float(value):
+                if GOLD_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_종가대비, GOLD_등락율, GOLD_진폭)
 
@@ -35977,7 +35978,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_27.setText(txt)
 
-                elif GOLD_현재가 < float(value):
+                elif GOLD_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_종가대비, GOLD_등락율, GOLD_진폭)
 
@@ -36089,9 +36090,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(format(EUROFX_저가, ','))
                 self.label_26.setText(txt)
 
-                value = self.label_27.text().split()[0]     
+                과거가 =  self.label_27.text().split()[0]     
 
-                if EUROFX_현재가 > float(value):
+                if EUROFX_현재가 > float(과거가):
 
                     txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭)
 
@@ -36104,7 +36105,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_27.setText(txt)
 
-                elif EUROFX_현재가 < float(value):
+                elif EUROFX_현재가 < float(과거가):
 
                     txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭)
 
@@ -36217,9 +36218,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_26.setText(txt)
 
                 tmp = self.label_27.text().split()[0]
-                value = tmp.replace(',', '')     
+                과거가 =  tmp.replace(',', '')     
 
-                if YEN_현재가 > float(value):
+                if YEN_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_종가대비, YEN_등락율, YEN_진폭)
 
@@ -36232,7 +36233,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_27.setText(txt)
 
-                elif YEN_현재가 < float(value):
+                elif YEN_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_종가대비, YEN_등락율, YEN_진폭)
 
@@ -36344,9 +36345,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(format(ADI_저가, ','))
                 self.label_26.setText(txt)
  
-                value = self.label_27.text().split()[0]    
+                과거가 =  self.label_27.text().split()[0]    
 
-                if ADI_현재가 > float(value):
+                if ADI_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1:.5f}, {2:.1f}%, {3:.5f}) ".format(format(ADI_현재가, ','), ADI_종가대비, ADI_등락율, ADI_진폭)
 
@@ -36359,7 +36360,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_27.setText(txt)
 
-                elif ADI_현재가 < float(value):
+                elif ADI_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1:.5f}, {2:.1f}%, {3:.5f}) ".format(format(ADI_현재가, ','), ADI_종가대비, ADI_등락율, ADI_진폭)
 
@@ -36520,11 +36521,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(근월물_선물_저가)
                 self.label_36.setText(txt)       
 
-                value = self.label_37.text().split()[0]
+                과거가 =  self.label_37.text().split()[0]
 
-                if 근월물_선물_현재가 > float(value):
+                if 근월물_선물_현재가 > float(과거가):
 
-                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭)
+                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}), kp200 : {4:.2f} ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭, kp200_현재가)
 
                     if 근월물_선물_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36535,9 +36536,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_37.setText(txt)
 
-                elif 근월물_선물_현재가 < float(value):
+                elif 근월물_선물_현재가 < float(과거가):
 
-                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭)
+                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}), kp200 : {4:.2f} ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭, kp200_현재가)
 
                     if 근월물_선물_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36981,9 +36982,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_36.setText(txt)
 
                 tmp = self.label_37.text().split()[0]
-                value = tmp.replace(',', '')                
+                과거가 =  tmp.replace(',', '')                
 
-                if SP500_현재가 > float(value):
+                if SP500_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
 
@@ -36996,7 +36997,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_37.setText(txt)
 
-                elif SP500_현재가 < float(value):
+                elif SP500_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
 
@@ -37109,9 +37110,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_36.setText(txt)
 
                 tmp = self.label_37.text().split()[0]
-                value = tmp.replace(',', '')               
+                과거가 =  tmp.replace(',', '')               
 
-                if DOW_현재가 > float(value):
+                if DOW_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(DOW_현재가, ','), format(DOW_종가대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
@@ -37124,7 +37125,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_37.setText(txt)
 
-                elif DOW_현재가 < float(value):
+                elif DOW_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(DOW_현재가, ','), format(DOW_종가대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
@@ -37237,9 +37238,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_36.setText(txt)
 
                 tmp = self.label_37.text().split()[0]
-                value = tmp.replace(',', '')                
+                과거가 =  tmp.replace(',', '')                
 
-                if NASDAQ_현재가 > float(value):
+                if NASDAQ_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(NASDAQ_현재가, ','), format(NASDAQ_종가대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
@@ -37252,7 +37253,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_37.setText(txt)
 
-                elif NASDAQ_현재가 < float(value):
+                elif NASDAQ_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(NASDAQ_현재가, ','), format(NASDAQ_종가대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
@@ -37365,9 +37366,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_36.setText(txt)
 
                 tmp = self.label_37.text().split()[0]
-                value = tmp.replace(',', '')     
+                과거가 =  tmp.replace(',', '')     
 
-                if HANGSENG_현재가 > float(value):
+                if HANGSENG_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_종가대비, HANGSENG_등락율, HANGSENG_진폭)
 
@@ -37380,7 +37381,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_37.setText(txt)
 
-                elif HANGSENG_현재가 < float(value):
+                elif HANGSENG_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_종가대비, HANGSENG_등락율, HANGSENG_진폭)
 
@@ -37493,9 +37494,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(format(WTI_저가, ','))
                 self.label_36.setText(txt)
 
-                value = self.label_37.text().split()[0]             
+                과거가 =  self.label_37.text().split()[0]             
 
-                if WTI_현재가 > float(value):
+                if WTI_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3:.2f}) ".format(WTI_현재가, WTI_종가대비, WTI_등락율, WTI_진폭)
 
@@ -37508,7 +37509,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_37.setText(txt)
 
-                elif WTI_현재가 < float(value):
+                elif WTI_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3:.2f}) ".format(WTI_현재가, WTI_종가대비, WTI_등락율, WTI_진폭)
 
@@ -37621,9 +37622,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_36.setText(txt)
 
                 tmp = self.label_37.text().split()[0]
-                value = tmp.replace(',', '')
+                과거가 =  tmp.replace(',', '')
 
-                if GOLD_현재가 > float(value):
+                if GOLD_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_종가대비, GOLD_등락율, GOLD_진폭)
 
@@ -37636,7 +37637,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_37.setText(txt)
 
-                elif GOLD_현재가 < float(value):
+                elif GOLD_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_종가대비, GOLD_등락율, GOLD_진폭)
 
@@ -37748,9 +37749,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(format(EUROFX_저가, ','))
                 self.label_36.setText(txt)
 
-                value = self.label_37.text().split()[0]     
+                과거가 =  self.label_37.text().split()[0]     
 
-                if EUROFX_현재가 > float(value):
+                if EUROFX_현재가 > float(과거가):
 
                     txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭)
 
@@ -37763,7 +37764,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_37.setText(txt)
 
-                elif EUROFX_현재가 < float(value):
+                elif EUROFX_현재가 < float(과거가):
 
                     txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭)
 
@@ -37876,9 +37877,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_36.setText(txt)
 
                 tmp = self.label_37.text().split()[0]
-                value = tmp.replace(',', '')     
+                과거가 =  tmp.replace(',', '')     
 
-                if YEN_현재가 > float(value):
+                if YEN_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_종가대비, YEN_등락율, YEN_진폭)
 
@@ -37891,7 +37892,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_37.setText(txt)
 
-                elif YEN_현재가 < float(value):
+                elif YEN_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_종가대비, YEN_등락율, YEN_진폭)
 
@@ -38003,9 +38004,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(format(ADI_저가, ','))
                 self.label_36.setText(txt)
 
-                value = self.label_37.text().split()[0]     
+                과거가 =  self.label_37.text().split()[0]     
 
-                if ADI_현재가 > float(value):
+                if ADI_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1:.5f}, {2:.1f}%, {3:.5f}) ".format(format(ADI_현재가, ','), ADI_종가대비, ADI_등락율, ADI_진폭)
 
@@ -38018,7 +38019,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_37.setText(txt)
 
-                elif ADI_현재가 < float(value):
+                elif ADI_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1:.5f}, {2:.1f}%, {3:.5f}) ".format(format(ADI_현재가, ','), ADI_종가대비, ADI_등락율, ADI_진폭)
 
@@ -38178,11 +38179,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(근월물_선물_저가)
                 self.label_46.setText(txt)    
 
-                value = self.label_47.text().split()[0]
+                과거가 =  self.label_47.text().split()[0]
 
-                if 근월물_선물_현재가 > float(value):
+                if 근월물_선물_현재가 > float(과거가):
 
-                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭)
+                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}), kp200 : {4:.2f} ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭, kp200_현재가)
 
                     if 근월물_선물_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38193,9 +38194,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_47.setText(txt)
 
-                elif 근월물_선물_현재가 < float(value):
+                elif 근월물_선물_현재가 < float(과거가):
 
-                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭)
+                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}), kp200 : {4:.2f} ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭, kp200_현재가)
 
                     if 근월물_선물_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38641,9 +38642,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_46.setText(txt)
                 
                 tmp = self.label_47.text().split()[0]
-                value = tmp.replace(',', '')               
+                과거가 =  tmp.replace(',', '')               
 
-                if SP500_현재가 > float(value):
+                if SP500_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
 
@@ -38656,7 +38657,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_47.setText(txt)
 
-                elif SP500_현재가 < float(value):
+                elif SP500_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
 
@@ -38769,9 +38770,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_46.setText(txt)
 
                 tmp = self.label_47.text().split()[0]
-                value = tmp.replace(',', '')
+                과거가 =  tmp.replace(',', '')
 
-                if DOW_현재가 > float(value):
+                if DOW_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(DOW_현재가, ','), format(DOW_종가대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
@@ -38784,7 +38785,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_47.setText(txt)
 
-                elif DOW_현재가 < float(value):
+                elif DOW_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(DOW_현재가, ','), format(DOW_종가대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
@@ -38897,9 +38898,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_46.setText(txt)
 
                 tmp = self.label_47.text().split()[0]
-                value = tmp.replace(',', '')                
+                과거가 =  tmp.replace(',', '')                
 
-                if NASDAQ_현재가 > float(value):
+                if NASDAQ_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(NASDAQ_현재가, ','), format(NASDAQ_종가대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
@@ -38912,7 +38913,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_47.setText(txt)
 
-                elif NASDAQ_현재가 < float(value):
+                elif NASDAQ_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(NASDAQ_현재가, ','), format(NASDAQ_종가대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
@@ -39025,9 +39026,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_46.setText(txt)
 
                 tmp = self.label_47.text().split()[0]
-                value = tmp.replace(',', '')    
+                과거가 =  tmp.replace(',', '')    
 
-                if HANGSENG_현재가 > float(value):
+                if HANGSENG_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_종가대비, HANGSENG_등락율, HANGSENG_진폭)
 
@@ -39040,7 +39041,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_47.setText(txt)
 
-                elif HANGSENG_현재가 < float(value):
+                elif HANGSENG_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_종가대비, HANGSENG_등락율, HANGSENG_진폭)
 
@@ -39153,9 +39154,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(format(WTI_저가, ','))
                 self.label_46.setText(txt)
 
-                value = self.label_47.text().split()[0]     
+                과거가 =  self.label_47.text().split()[0]     
 
-                if WTI_현재가 > float(value):
+                if WTI_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3:.2f}) ".format(WTI_현재가, WTI_종가대비, WTI_등락율, WTI_진폭)
 
@@ -39168,7 +39169,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_47.setText(txt)
 
-                elif WTI_현재가 < float(value):
+                elif WTI_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3:.2f}) ".format(WTI_현재가, WTI_종가대비, WTI_등락율, WTI_진폭)
 
@@ -39281,9 +39282,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_46.setText(txt)
 
                 tmp = self.label_47.text().split()[0]
-                value = tmp.replace(',', '')     
+                과거가 =  tmp.replace(',', '')     
 
-                if GOLD_현재가 > float(value):
+                if GOLD_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_종가대비, GOLD_등락율, GOLD_진폭)
 
@@ -39296,7 +39297,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_47.setText(txt)
 
-                elif GOLD_현재가 < float(value):
+                elif GOLD_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_종가대비, GOLD_등락율, GOLD_진폭)
 
@@ -39408,9 +39409,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(format(EUROFX_저가, ','))
                 self.label_46.setText(txt)
 
-                value = self.label_47.text().split()[0]     
+                과거가 =  self.label_47.text().split()[0]     
 
-                if EUROFX_현재가 > float(value):
+                if EUROFX_현재가 > float(과거가):
 
                     txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭)
 
@@ -39423,7 +39424,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_47.setText(txt)
 
-                elif EUROFX_현재가 < float(value):
+                elif EUROFX_현재가 < float(과거가):
 
                     txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭)
 
@@ -39536,9 +39537,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_46.setText(txt)
 
                 tmp = self.label_47.text().split()[0]
-                value = tmp.replace(',', '')     
+                과거가 =  tmp.replace(',', '')     
 
-                if YEN_현재가 > float(value):
+                if YEN_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_종가대비, YEN_등락율, YEN_진폭)
 
@@ -39551,7 +39552,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_47.setText(txt)
 
-                elif YEN_현재가 < float(value):
+                elif YEN_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_종가대비, YEN_등락율, YEN_진폭)
 
@@ -39663,9 +39664,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(format(ADI_저가, ','))
                 self.label_46.setText(txt)
 
-                value = self.label_47.text().split()[0]    
+                과거가 =  self.label_47.text().split()[0]    
 
-                if ADI_현재가 > float(value):
+                if ADI_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1:.5f}, {2:.1f}%, {3:.5f}) ".format(format(ADI_현재가, ','), ADI_종가대비, ADI_등락율, ADI_진폭)
 
@@ -39678,7 +39679,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_47.setText(txt)
 
-                elif ADI_현재가 < float(value):
+                elif ADI_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1:.5f}, {2:.1f}%, {3:.5f}) ".format(format(ADI_현재가, ','), ADI_종가대비, ADI_등락율, ADI_진폭)
 
@@ -39839,11 +39840,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(근월물_선물_저가)
                 self.label_56.setText(txt)       
 
-                value = self.label_57.text().split()[0]
+                과거가 =  self.label_57.text().split()[0]
 
-                if 근월물_선물_현재가 > float(value):
+                if 근월물_선물_현재가 > float(과거가):
 
-                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭)
+                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}), kp200 : {4:.2f} ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭, kp200_현재가)
 
                     if 근월물_선물_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39854,9 +39855,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_57.setText(txt)
 
-                elif 근월물_선물_현재가 < float(value):
+                elif 근월물_선물_현재가 < float(과거가):
 
-                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭)
+                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}), kp200 : {4:.2f} ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭, kp200_현재가)
 
                     if 근월물_선물_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40299,9 +40300,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_56.setText(txt)
 
                 tmp = self.label_57.text().split()[0]
-                value = tmp.replace(',', '')                
+                과거가 =  tmp.replace(',', '')                
 
-                if SP500_현재가 > float(value):
+                if SP500_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
 
@@ -40314,7 +40315,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_57.setText(txt)
 
-                elif SP500_현재가 < float(value):
+                elif SP500_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
 
@@ -40427,9 +40428,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_56.setText(txt)
 
                 tmp = self.label_57.text().split()[0]
-                value = tmp.replace(',', '')               
+                과거가 =  tmp.replace(',', '')               
 
-                if DOW_현재가 > float(value):
+                if DOW_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(DOW_현재가, ','), format(DOW_종가대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
@@ -40442,7 +40443,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_57.setText(txt)
 
-                elif DOW_현재가 < float(value):
+                elif DOW_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(DOW_현재가, ','), format(DOW_종가대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
@@ -40555,9 +40556,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_56.setText(txt)
 
                 tmp = self.label_57.text().split()[0]
-                value = tmp.replace(',', '')                
+                과거가 =  tmp.replace(',', '')                
 
-                if NASDAQ_현재가 > float(value):
+                if NASDAQ_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(NASDAQ_현재가, ','), format(NASDAQ_종가대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
@@ -40570,7 +40571,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_57.setText(txt)
 
-                elif NASDAQ_현재가 < float(value):
+                elif NASDAQ_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(NASDAQ_현재가, ','), format(NASDAQ_종가대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
@@ -40683,9 +40684,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_56.setText(txt)
 
                 tmp = self.label_57.text().split()[0]
-                value = tmp.replace(',', '')     
+                과거가 =  tmp.replace(',', '')     
 
-                if HANGSENG_현재가 > float(value):
+                if HANGSENG_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_종가대비, HANGSENG_등락율, HANGSENG_진폭)
 
@@ -40698,7 +40699,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_57.setText(txt)
 
-                elif HANGSENG_현재가 < float(value):
+                elif HANGSENG_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_종가대비, HANGSENG_등락율, HANGSENG_진폭)
 
@@ -40811,9 +40812,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(format(WTI_저가, ','))
                 self.label_56.setText(txt)
 
-                value = self.label_57.text().split()[0]             
+                과거가 =  self.label_57.text().split()[0]             
 
-                if WTI_현재가 > float(value):
+                if WTI_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3:.2f}) ".format(WTI_현재가, WTI_종가대비, WTI_등락율, WTI_진폭)
 
@@ -40826,7 +40827,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_57.setText(txt)
 
-                elif WTI_현재가 < float(value):
+                elif WTI_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3:.2f}) ".format(WTI_현재가, WTI_종가대비, WTI_등락율, WTI_진폭)
 
@@ -40939,9 +40940,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_56.setText(txt)
 
                 tmp = self.label_57.text().split()[0]
-                value = tmp.replace(',', '')     
+                과거가 =  tmp.replace(',', '')     
 
-                if GOLD_현재가 > float(value):
+                if GOLD_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_종가대비, GOLD_등락율, GOLD_진폭)
 
@@ -40954,7 +40955,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_57.setText(txt)
 
-                elif GOLD_현재가 < float(value):
+                elif GOLD_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_종가대비, GOLD_등락율, GOLD_진폭)
 
@@ -41066,9 +41067,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(format(EUROFX_저가, ','))
                 self.label_56.setText(txt)
 
-                value = self.label_57.text().split()[0]     
+                과거가 =  self.label_57.text().split()[0]     
 
-                if EUROFX_현재가 > float(value):
+                if EUROFX_현재가 > float(과거가):
 
                     txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭)
 
@@ -41081,7 +41082,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_57.setText(txt)
 
-                elif EUROFX_현재가 < float(value):
+                elif EUROFX_현재가 < float(과거가):
 
                     txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭)
 
@@ -41194,9 +41195,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_56.setText(txt)
 
                 tmp = self.label_57.text().split()[0]
-                value = tmp.replace(',', '')     
+                과거가 =  tmp.replace(',', '')     
 
-                if YEN_현재가 > float(value):
+                if YEN_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_종가대비, YEN_등락율, YEN_진폭)
 
@@ -41209,7 +41210,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_57.setText(txt)
 
-                elif YEN_현재가 < float(value):
+                elif YEN_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_종가대비, YEN_등락율, YEN_진폭)
 
@@ -41321,9 +41322,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(format(ADI_저가, ','))
                 self.label_56.setText(txt)
 
-                value = self.label_57.text().split()[0] 
+                과거가 =  self.label_57.text().split()[0] 
 
-                if ADI_현재가 > float(value):
+                if ADI_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1:.5f}, {2:.1f}%, {3:.5f}) ".format(format(ADI_현재가, ','), ADI_종가대비, ADI_등락율, ADI_진폭)
 
@@ -41336,7 +41337,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_57.setText(txt)
 
-                elif ADI_현재가 < float(value):
+                elif ADI_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1:.5f}, {2:.1f}%, {3:.5f}) ".format(format(ADI_현재가, ','), ADI_종가대비, ADI_등락율, ADI_진폭)
 
@@ -41497,11 +41498,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(근월물_선물_저가)
                 self.label_66.setText(txt)       
 
-                value = self.label_67.text().split()[0]
+                과거가 =  self.label_67.text().split()[0]
 
-                if 근월물_선물_현재가 > float(value):
+                if 근월물_선물_현재가 > float(과거가):
 
-                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭)
+                    txt = " {0} ▲ ({1:.2f}, {2:0.1f}%, {3:.2f}), kp200 : {4:.2f} ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭, kp200_현재가)
 
                     if 근월물_선물_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41512,9 +41513,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_67.setText(txt)
 
-                elif 근월물_선물_현재가 < float(value):
+                elif 근월물_선물_현재가 < float(과거가):
 
-                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}) ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭)
+                    txt = " {0} ▼ ({1:.2f}, {2:0.1f}%, {3:.2f}), kp200 : {4:.2f} ".format(근월물_선물_현재가, 근월물_선물_종가대비, 근월물_선물_종가대비_등락율, 근월물_선물_진폭, kp200_현재가)
 
                     if 근월물_선물_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41957,9 +41958,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_66.setText(txt)
 
                 tmp = self.label_67.text().split()[0]
-                value = tmp.replace(',', '')                
+                과거가 =  tmp.replace(',', '')                
 
-                if SP500_현재가 > float(value):
+                if SP500_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
 
@@ -41972,7 +41973,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_67.setText(txt)
 
-                elif SP500_현재가 < float(value):
+                elif SP500_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(SP500_현재가, ','), SP500_종가대비, SP500_등락율, format(SP500_진폭, ','))
 
@@ -42085,9 +42086,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_66.setText(txt)
 
                 tmp = self.label_67.text().split()[0]
-                value = tmp.replace(',', '')               
+                과거가 =  tmp.replace(',', '')               
 
-                if DOW_현재가 > float(value):
+                if DOW_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(DOW_현재가, ','), format(DOW_종가대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
@@ -42100,7 +42101,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_67.setText(txt)
 
-                elif DOW_현재가 < float(value):
+                elif DOW_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(DOW_현재가, ','), format(DOW_종가대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
@@ -42213,9 +42214,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_66.setText(txt)
 
                 tmp = self.label_67.text().split()[0]
-                value = tmp.replace(',', '')                
+                과거가 =  tmp.replace(',', '')                
 
-                if NASDAQ_현재가 > float(value):
+                if NASDAQ_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(NASDAQ_현재가, ','), format(NASDAQ_종가대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
@@ -42228,7 +42229,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_67.setText(txt)
 
-                elif NASDAQ_현재가 < float(value):
+                elif NASDAQ_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(NASDAQ_현재가, ','), format(NASDAQ_종가대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
@@ -42341,9 +42342,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_66.setText(txt)
 
                 tmp = self.label_67.text().split()[0]
-                value = tmp.replace(',', '')     
+                과거가 =  tmp.replace(',', '')     
 
-                if HANGSENG_현재가 > float(value):
+                if HANGSENG_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_종가대비, HANGSENG_등락율, HANGSENG_진폭)
 
@@ -42356,7 +42357,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_67.setText(txt)
 
-                elif HANGSENG_현재가 < float(value):
+                elif HANGSENG_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3}) ".format(format(HANGSENG_현재가, ','), HANGSENG_종가대비, HANGSENG_등락율, HANGSENG_진폭)
 
@@ -42469,9 +42470,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(format(WTI_저가, ','))
                 self.label_66.setText(txt)
 
-                value = self.label_67.text().split()[0]             
+                과거가 =  self.label_67.text().split()[0]             
 
-                if WTI_현재가 > float(value):
+                if WTI_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1}, {2:0.1f}%, {3:.2f}) ".format(WTI_현재가, WTI_종가대비, WTI_등락율, WTI_진폭)
 
@@ -42484,7 +42485,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_67.setText(txt)
 
-                elif WTI_현재가 < float(value):
+                elif WTI_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1}, {2:0.1f}%, {3:.2f}) ".format(WTI_현재가, WTI_종가대비, WTI_등락율, WTI_진폭)
 
@@ -42597,9 +42598,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_66.setText(txt)
 
                 tmp = self.label_67.text().split()[0]
-                value = tmp.replace(',', '')     
+                과거가 =  tmp.replace(',', '')     
 
-                if GOLD_현재가 > float(value):
+                if GOLD_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_종가대비, GOLD_등락율, GOLD_진폭)
 
@@ -42612,7 +42613,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_67.setText(txt)
 
-                elif GOLD_현재가 < float(value):
+                elif GOLD_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(GOLD_현재가, ','), GOLD_종가대비, GOLD_등락율, GOLD_진폭)
 
@@ -42724,9 +42725,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(format(EUROFX_저가, ','))
                 self.label_66.setText(txt)
 
-                value = self.label_67.text().split()[0]     
+                과거가 =  self.label_67.text().split()[0]     
 
-                if EUROFX_현재가 > float(value):
+                if EUROFX_현재가 > float(과거가):
 
                     txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭)
 
@@ -42739,7 +42740,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_67.setText(txt)
 
-                elif EUROFX_현재가 < float(value):
+                elif EUROFX_현재가 < float(과거가):
 
                     txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3:.5f}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭)
 
@@ -42852,9 +42853,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_66.setText(txt)
 
                 tmp = self.label_67.text().split()[0]
-                value = tmp.replace(',', '')     
+                과거가 =  tmp.replace(',', '')     
 
-                if YEN_현재가 > float(value):
+                if YEN_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_종가대비, YEN_등락율, YEN_진폭)
 
@@ -42867,7 +42868,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_67.setText(txt)
 
-                elif YEN_현재가 < float(value):
+                elif YEN_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1:.1f}, {2:.1f}%, {3:.1f}) ".format(format(YEN_현재가, ','), YEN_종가대비, YEN_등락율, YEN_진폭)
 
@@ -42979,9 +42980,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(format(ADI_저가, ','))
                 self.label_66.setText(txt)
 
-                value = self.label_67.text().split()[0]     
+                과거가 =  self.label_67.text().split()[0]     
 
-                if ADI_현재가 > float(value):
+                if ADI_현재가 > float(과거가):
 
                     txt = " {0} ▲ ({1:.5f}, {2:.1f}%, {3:.5f}) ".format(format(ADI_현재가, ','), ADI_종가대비, ADI_등락율, ADI_진폭)
 
@@ -42994,7 +42995,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_67.setText(txt)
 
-                elif ADI_현재가 < float(value):
+                elif ADI_현재가 < float(과거가):
 
                     txt = " {0} ▼ ({1:.5f}, {2:.1f}%, {3:.5f}) ".format(format(ADI_현재가, ','), ADI_종가대비, ADI_등락율, ADI_진폭)
 
