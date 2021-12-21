@@ -15346,6 +15346,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_피봇, 근월물_선물_시가, 근월물_선물_저가, 근월물_선물_현재가, 근월물_선물_고가
         global 차월물_선물_전저, 차월물_선물_전고, 차월물_선물_종가, 차월물_선물_피봇, 차월물_선물_시가, 차월물_선물_저가, 차월물_선물_현재가, 차월물_선물_고가
         global 근월물_선물_시가등락율, 차월물_선물_시가등락율
+        global FUT_당일종가
 
         dt = datetime.now()
 
@@ -15448,21 +15449,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print('근월물 선물 현재가 = {0}\r'.format(df['현재가']))
 
                 self.fut_realdata['현재가'] = df['현재가']
-                self.fut_realdata['KP200'] = df['KOSPI200지수']
 
-                print('*************************** <<kp200 전일종가>> *************************** ==', df['KOSPI200지수'])
-                '''
-                if DayTime:
-                    KP200_전일종가 = df['KOSPI200지수']
-                    item = QTableWidgetItem("{0:.2f}".format(KP200_전일종가)) 
-                        
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
-                    self.tableWidget_fut.setItem(2, Futures_column.종가.value, item)
+                if NightTime:
+                   FUT_당일종가 = df['현재가']
                 else:
                     pass
-                '''
+
+                self.fut_realdata['KP200'] = df['KOSPI200지수']
+
                 atm_txt = self.get_atm_txt(self.fut_realdata['KP200'])
 
                 if atm_txt[-1] == '2' or atm_txt[-1] == '7':
