@@ -1027,8 +1027,8 @@ else:
     YEN_전일종가 = 0
     ADI_전일종가 = 0    
 
-if 근월물_선물_종가 > 0:
-    plot_drate_scale_factor = int(SP500_전일종가 / 근월물_선물_종가)
+if FUT_전일종가 > 0:
+    plot_drate_scale_factor = int(SP500_전일종가 / FUT_전일종가)
 else:
     plot_drate_scale_factor = 12
 
