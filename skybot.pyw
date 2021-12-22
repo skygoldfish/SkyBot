@@ -24994,7 +24994,31 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_fama_curve.clear()
 
         self.plot1_oe_conv_curve.clear()
-        self.plot1_oe_base_curve.clear()        
+        self.plot1_oe_base_curve.clear()
+
+        self.label_11.setText(" - ")
+        self.label_12.setText(" - ")
+        self.label_13.setText(" - ")
+        self.label_14.setText(" - ")
+        self.label_15.setText(" - ")
+        self.label_16.setText(" - ")
+        self.label_17.setText(" - ")
+        self.label_18.setText(" - ")
+
+        self.label_p1_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_p1_1.setText(" 좌표 ")
+
+        self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_p1_2.setText(" BB Middle\n PSAR ")
+
+        self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_p1_3.setText(" OneEye ")
+
+        self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_p1_4.setText(" MAMA ")
+
+        txt = 'Plot1 Clear...\r'
+        self.parent.textBrowser.append(txt)
     
     def cb1_selectionChanged(self):
 
@@ -25003,18 +25027,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         txt = self.comboBox1.currentText()
         comboindex1 = self.comboBox1.currentIndex()
 
-        self.plot1_bollinger_upper_curve.clear()
-        self.plot1_bollinger_middle_curve.clear()
-        self.plot1_bollinger_lower_curve.clear()
-
-        self.plot1_mama_curve.clear()
-        self.plot1_fama_curve.clear()
-
-        self.plot1_oe_conv_curve.clear()
-        self.plot1_oe_base_curve.clear()
+        self.plot1_clear()
 
         if comboindex1 == 0:
             self.timer1.stop()
+
+            txt = 'Plot1 Timer Stop...\r'
+            self.parent.textBrowser.append(txt)
         else:
             if not self.timer1.isActive():
 
@@ -25043,17 +25062,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.parent.textBrowser.append(txt)
                         break                                 
             else:
-                pass
-
-        # All Plot Clear
-        if comboindex1 == 0:
-
-            self.plot1_clear()
+                pass                   
         
         # 선물가격
-        elif comboindex1 == 2:
-
-            self.plot1_clear()
+        if comboindex1 == 2:
                                     
             if 근월물_선물_전저 == 0:
                 선물_전저 = 근월물_선물_종가
@@ -25156,8 +25168,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 선옵잔량비
         elif comboindex1 == 3:
 
-            self.plot1_clear()
-
             self.label_11.setText(" - ")
             self.label_12.setText(" - ")
             self.label_13.setText(" - ")
@@ -25191,8 +25201,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 선옵체결 --> 수급
         elif comboindex1 == 4:
 
-            self.plot1_clear()
-
             self.label_11.setText(" - ")
             self.label_12.setText(" - ")
             self.label_13.setText(" - ")
@@ -25218,8 +25226,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         
         # 옵션가격
         elif comboindex1 == 5:
-
-            self.plot1_clear()
 
             self.label_11.setText(" 등가: 행사가 ")
             self.label_12.setText(" 시작 중심가 ")
@@ -25250,8 +25256,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         # 옵션잔량비
         elif comboindex1 == 6:
-
-            self.plot1_clear()
 
             self.label_11.setText(" - ")
             self.label_12.setText(" - ")
@@ -25286,8 +25290,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 옵션미결
         elif comboindex1 == 7:
 
-            self.plot1_clear()
-
             self.label_11.setText(" - ")
             self.label_12.setText(" - ")
             self.label_13.setText(" - ")
@@ -25313,8 +25315,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         # 등락율비
         elif comboindex1 == 8:
-
-            self.plot1_clear()
 
             self.label_11.setText(" - ")
             self.label_12.setText(" - ")
@@ -25345,8 +25345,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 수급종합
         elif comboindex1 == 10:
 
-            self.plot1_clear()
-
             self.label_11.setText(" 기관현물 ")
             self.label_12.setText(" 기관선물 ")
             self.label_13.setText(" 개인현물 ")
@@ -25364,8 +25362,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 외인수급
         elif comboindex1 == 11:
 
-            self.plot1_clear()
-
             self.label_11.setText(" 기관현물 ")
             self.label_12.setText(" 기관선물 ")
             self.label_13.setText(" 개인현물 ")
@@ -25382,8 +25378,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         # SP500
         elif comboindex1 == 13:
-
-            self.plot1_clear()
 
             if SP500_전저 == 0:
                 sp500_전저 = SP500_종가
@@ -25476,8 +25470,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         # DOW   
         elif comboindex1 == 14:
-
-            self.plot1_clear()
             
             if DOW_전저 == 0:
                 dow_전저 = DOW_종가
@@ -25571,8 +25563,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # NASDAQ
         elif comboindex1 == 15:
 
-            self.plot1_clear()
-
             if NASDAQ_전저 == 0:
                 nasdaq_전저 = NASDAQ_종가
             else:
@@ -25663,8 +25653,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_ovc_high_line.setValue(nasdaq_고가)
         
         elif comboindex1 == 16:
-
-            self.plot1_clear()
             
             if HANGSENG_전저 == 0:
                 hangseng_전저 = HANGSENG_종가
@@ -25758,8 +25746,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # WTI   
         elif comboindex1 == 17:
 
-            self.plot1_clear()
-
             if WTI_전저 == 0:
                 wti_전저 = WTI_종가
             else:
@@ -25851,8 +25837,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
         elif comboindex1 == 18:
 
-            self.plot1_clear()
-
             if GOLD_전저 == 0:
                 gold_전저 = GOLD_종가
             else:
@@ -25943,8 +25927,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_ovc_high_line.setValue(gold_고가)
 
         elif comboindex1 == 19:
-
-            self.plot1_clear()
             
             if EUROFX_전저 == 0:
                 eurofx_전저 = EUROFX_종가
@@ -26036,8 +26018,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_ovc_high_line.setValue(eurofx_고가)
 
         elif comboindex1 == 20:
-
-            self.plot1_clear()
             
             if YEN_전저 == 0:
                 yen_전저 = YEN_종가
@@ -26129,8 +26109,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_ovc_high_line.setValue(yen_고가)
 
         elif comboindex1 == 21:
-
-            self.plot1_clear()
             
             if ADI_전저 == 0:
                 adi_전저 = ADI_종가
@@ -26315,6 +26293,30 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_oe_conv_curve.clear()
         self.plot2_oe_base_curve.clear()
 
+        self.label_21.setText(" - ")
+        self.label_22.setText(" - ")
+        self.label_23.setText(" - ")
+        self.label_24.setText(" - ")
+        self.label_25.setText(" - ")
+        self.label_26.setText(" - ")
+        self.label_27.setText(" - ")
+        self.label_28.setText(" - ")
+
+        self.label_p2_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_p2_1.setText(" 좌표 ")
+
+        self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_p2_2.setText(" BB Middle\n PSAR ")
+
+        self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_p2_3.setText(" OneEye ")
+
+        self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_p2_4.setText(" MAMA ")
+
+        txt = 'Plot2 Clear...\r'
+        self.parent.textBrowser.append(txt)
+
     def cb2_selectionChanged(self):
 
         global comboindex2
@@ -26322,18 +26324,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         txt = self.comboBox2.currentText()
         comboindex2 = self.comboBox2.currentIndex()
 
-        self.plot2_bollinger_upper_curve.clear()
-        self.plot2_bollinger_middle_curve.clear()
-        self.plot2_bollinger_lower_curve.clear()
-
-        self.plot2_mama_curve.clear()
-        self.plot2_fama_curve.clear()
-
-        self.plot2_oe_conv_curve.clear()
-        self.plot2_oe_base_curve.clear()
+        self.plot2_clear()
 
         if comboindex2 == 0:
             self.timer2.stop()
+
+            txt = 'Plot2 Timer Stop...\r'
+            self.parent.textBrowser.append(txt)
         else:
             if not self.timer2.isActive():
 
@@ -26362,17 +26359,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.parent.textBrowser.append(txt)
                         break
             else:
-                pass
-
-        # All Plot Clear
-        if comboindex2 == 0:
-
-            self.plot2_clear()
+                pass            
 
         # 선물가격
-        elif comboindex2 == 2:
-
-            self.plot2_clear()
+        if comboindex2 == 2:
                         
             if 근월물_선물_전저 == 0:
                 선물_전저 = 근월물_선물_종가
@@ -26475,8 +26465,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 선옵잔량비
         elif comboindex2 == 3:
 
-            self.plot2_clear()
-
             self.label_21.setText(" - ")
             self.label_22.setText(" - ")
             self.label_23.setText(" - ")
@@ -26510,8 +26498,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 선옵체결
         elif comboindex2 == 4:
 
-            self.plot2_clear()
-
             self.label_21.setText(" - ")
             self.label_22.setText(" - ")
             self.label_23.setText(" - ")
@@ -26537,8 +26523,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         # 옵션가격
         elif comboindex2 == 5:
-
-            self.plot2_clear()
 
             self.label_21.setText(" 등가: 행사가 ")
             self.label_22.setText(" 시작 중심가 ")
@@ -26569,8 +26553,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         # 옵션잔량비   
         elif comboindex2 == 6:
-
-            self.plot2_clear()
 
             self.label_21.setText(" - ")
             self.label_22.setText(" - ")
@@ -26605,8 +26587,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 옵션미결
         elif comboindex2 == 7:
 
-            self.plot2_clear()
-
             self.label_21.setText(" - ")
             self.label_22.setText(" - ")
             self.label_23.setText(" - ")
@@ -26632,8 +26612,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
            
         # 등락율비
         elif comboindex2 == 8:
-
-            self.plot2_clear()
 
             self.label_21.setText(" - ")
             self.label_22.setText(" - ")
@@ -26664,8 +26642,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 수급종합
         elif comboindex2 == 10:
 
-            self.plot2_clear()
-
             self.label_21.setText(" - ")
             self.label_22.setText(" - ")
             self.label_23.setText(" - ")
@@ -26683,8 +26659,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 외인수급
         elif comboindex2 == 11:
 
-            self.plot2_clear()
-
             self.label_21.setText(" - ")
             self.label_22.setText(" - ")
             self.label_23.setText(" - ")
@@ -26701,8 +26675,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         # SP500
         elif comboindex2 == 13:
-
-            self.plot2_clear()
 
             if SP500_전저 == 0:
                 sp500_전저 = SP500_종가
@@ -26796,8 +26768,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # DOW
         elif comboindex2 == 14:
 
-            self.plot2_clear()
-
             if DOW_전저 == 0:
                 dow_전저 = DOW_종가
             else:
@@ -26890,8 +26860,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # NASDAQ
         elif comboindex2 == 15:
 
-            self.plot2_clear()
-
             if NASDAQ_전저 == 0:
                 nasdaq_전저 = NASDAQ_종가
             else:
@@ -26982,8 +26950,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_ovc_high_line.setValue(nasdaq_고가)            
 
         elif comboindex2 == 16:
-
-            self.plot2_clear()
 
             if HANGSENG_전저 == 0:
                 hangseng_전저 = HANGSENG_종가
@@ -27077,8 +27043,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # WTI  
         elif comboindex2 == 17:
 
-            self.plot2_clear()
-
             if WTI_전저 == 0:
                 wti_전저 = WTI_종가
             else:
@@ -27169,8 +27133,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_ovc_high_line.setValue(wti_고가)            
         
         elif comboindex2 == 18:
-
-            self.plot2_clear()
 
             if GOLD_전저 == 0:
                 gold_전저 = GOLD_종가
@@ -27263,8 +27225,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         elif comboindex2 == 19:
 
-            self.plot2_clear()
-
             if EUROFX_전저 == 0:
                 eurofx_전저 = EUROFX_종가
             else:
@@ -27356,8 +27316,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         elif comboindex2 == 20:
 
-            self.plot2_clear()
-
             if YEN_전저 == 0:
                 yen_전저 = YEN_종가
             else:
@@ -27448,8 +27406,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_ovc_high_line.setValue(yen_고가)
         
         elif comboindex2 == 21:
-
-            self.plot2_clear()
 
             if ADI_전저 == 0:
                 adi_전저 = ADI_종가
@@ -27633,6 +27589,30 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot3_oe_conv_curve.clear()
         self.plot3_oe_base_curve.clear()
+
+        self.label_31.setText(" - ")
+        self.label_32.setText(" - ")
+        self.label_33.setText(" - ")
+        self.label_34.setText(" - ")
+        self.label_35.setText(" - ")
+        self.label_36.setText(" - ")
+        self.label_37.setText(" - ")
+        self.label_38.setText(" - ")
+
+        self.label_p3_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_p3_1.setText(" 좌표 ")
+
+        self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_p3_2.setText(" BB Middle\n PSAR ")
+
+        self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_p3_3.setText(" OneEye ")
+
+        self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_p3_4.setText(" MAMA ")
+
+        txt = 'Plot3 Clear...\r'
+        self.parent.textBrowser.append(txt)
     
     def cb3_selectionChanged(self):
 
@@ -27641,18 +27621,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         txt = self.comboBox3.currentText()
         comboindex3 = self.comboBox3.currentIndex()
 
-        self.plot3_bollinger_upper_curve.clear()
-        self.plot3_bollinger_middle_curve.clear()
-        self.plot3_bollinger_lower_curve.clear()
-
-        self.plot3_mama_curve.clear()
-        self.plot3_fama_curve.clear()
-
-        self.plot3_oe_conv_curve.clear()
-        self.plot3_oe_base_curve.clear()
+        self.plot3_clear()
 
         if comboindex3 == 0:
             self.timer3.stop()
+
+            txt = 'Plot3 Timer Stop...\r'
+            self.parent.textBrowser.append(txt)
         else:
             if not self.timer3.isActive():
 
@@ -27683,15 +27658,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 pass
 
-        # All Plot Clear
-        if comboindex3 == 0:
-
-            self.plot3_clear()
-
         # 선물가격
-        elif comboindex3 == 2:
-
-            self.plot3_clear()
+        if comboindex3 == 2:
 
             if 근월물_선물_전저 == 0:
                 선물_전저 = 근월물_선물_종가
@@ -27794,8 +27762,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 선옵잔량비
         elif comboindex3 == 3:
 
-            self.plot3_clear()
-
             self.label_31.setText(" - ")
             self.label_32.setText(" - ")
             self.label_33.setText(" - ")
@@ -27829,8 +27795,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 선옵체결
         elif comboindex3 == 4:
 
-            self.plot3_clear()
-
             self.label_31.setText(" - ")
             self.label_32.setText(" - ")
             self.label_33.setText(" - ")
@@ -27856,8 +27820,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         
         # 옵션가격
         elif comboindex3 == 5:
-
-            self.plot3_clear()
 
             self.label_31.setText(" 등가: 행사가 ")
             self.label_32.setText(" 시작 중심가 ")
@@ -27888,8 +27850,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         # 옵션잔량비   
         elif comboindex3 == 6:
-
-            self.plot3_clear()
 
             self.label_31.setText(" - ")
             self.label_32.setText(" - ")
@@ -27924,8 +27884,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 옵션미결
         elif comboindex3 == 7:
 
-            self.plot3_clear()
-
             self.label_31.setText(" - ")
             self.label_32.setText(" - ")
             self.label_33.setText(" - ")
@@ -27951,8 +27909,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         
         # 등락율비
         elif comboindex3 == 8:
-
-            self.plot3_clear()
 
             self.label_31.setText(" - ")
             self.label_32.setText(" - ")
@@ -27983,8 +27939,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 수급종합
         elif comboindex3 == 10:
 
-            self.plot3_clear()
-
             self.label_31.setText(" - ")
             self.label_32.setText(" - ")
             self.label_33.setText(" - ")
@@ -28002,8 +27956,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 외인수급
         elif comboindex3 == 11:
 
-            self.plot3_clear()
-
             self.label_31.setText(" - ")
             self.label_32.setText(" - ")
             self.label_33.setText(" - ")
@@ -28020,8 +27972,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         # SP500
         elif comboindex3 == 13:
-
-            self.plot3_clear()
 
             if SP500_전저 == 0:
                 sp500_전저 = SP500_종가
@@ -28115,8 +28065,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # DOW
         elif comboindex3 == 14:
 
-            self.plot3_clear()
-
             if DOW_전저 == 0:
                 dow_전저 = DOW_종가
             else:
@@ -28209,8 +28157,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # NASDAQ
         elif comboindex3 == 15:
 
-            self.plot3_clear()
-
             if NASDAQ_전저 == 0:
                 nasdaq_전저 = NASDAQ_종가
             else:
@@ -28301,8 +28247,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_ovc_high_line.setValue(nasdaq_고가)            
 
         elif comboindex3 == 16:
-
-            self.plot3_clear()
 
             if HANGSENG_전저 == 0:
                 hangseng_전저 = HANGSENG_종가
@@ -28396,8 +28340,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # WTI
         elif comboindex3 == 17:
 
-            self.plot3_clear()
-
             if WTI_전저 == 0:
                 wti_전저 = WTI_종가
             else:
@@ -28488,8 +28430,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_ovc_high_line.setValue(wti_고가)            
                 
         elif comboindex3 == 18:
-
-            self.plot3_clear()
 
             if GOLD_전저 == 0:
                 gold_전저 = GOLD_종가
@@ -28582,8 +28522,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         elif comboindex3 == 19:
 
-            self.plot3_clear()
-
             if EUROFX_전저 == 0:
                 eurofx_전저 = EUROFX_종가
             else:
@@ -28675,8 +28613,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         elif comboindex3 == 20:
 
-            self.plot3_clear()
-
             if YEN_전저 == 0:
                 yen_전저 = YEN_종가
             else:
@@ -28767,8 +28703,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_ovc_high_line.setValue(yen_고가)
         
         elif comboindex3 == 21:
-
-            self.plot3_clear()
 
             if ADI_전저 == 0:
                 adi_전저 = ADI_종가
@@ -28953,6 +28887,30 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_oe_conv_curve.clear()
         self.plot4_oe_base_curve.clear()
 
+        self.label_41.setText(" - ")
+        self.label_42.setText(" - ")
+        self.label_43.setText(" - ")
+        self.label_44.setText(" - ")
+        self.label_45.setText(" - ")
+        self.label_46.setText(" - ")
+        self.label_47.setText(" - ")
+        self.label_48.setText(" - ")
+
+        self.label_p4_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_p4_1.setText(" 좌표 ")
+
+        self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_p4_2.setText(" BB Middle\n PSAR ")
+
+        self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_p4_3.setText(" OneEye ")
+
+        self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_p4_4.setText(" MAMA ")
+
+        txt = 'Plot4 Clear...\r'
+        self.parent.textBrowser.append(txt)
+
     def cb4_selectionChanged(self):
 
         global comboindex4
@@ -28960,18 +28918,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         txt = self.comboBox4.currentText()
         comboindex4 = self.comboBox4.currentIndex()
 
-        self.plot4_bollinger_upper_curve.clear()
-        self.plot4_bollinger_middle_curve.clear()
-        self.plot4_bollinger_lower_curve.clear()
-
-        self.plot4_mama_curve.clear()
-        self.plot4_fama_curve.clear() 
-
-        self.plot4_oe_conv_curve.clear()
-        self.plot4_oe_base_curve.clear()
+        self.plot4_clear()
 
         if comboindex4 == 0:
             self.timer4.stop()
+
+            txt = 'Plot4 Timer Stop...\r'
+            self.parent.textBrowser.append(txt)
         else:
             if not self.timer4.isActive():
 
@@ -29002,15 +28955,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 pass
 
-        # All Plot Clear
-        if comboindex4 == 0:
-
-            self.plot4_clear()
-
         # 선물가격
-        elif comboindex4 == 2:
-
-            self.plot4_clear()            
+        if comboindex4 == 2:           
                         
             if 근월물_선물_전저 == 0:
                 선물_전저 = 근월물_선물_종가
@@ -29113,8 +29059,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 선옵잔량비
         elif comboindex4 == 3:
 
-            self.plot4_clear()
-
             self.label_41.setText(" - ")
             self.label_42.setText(" - ")
             self.label_43.setText(" - ")
@@ -29148,8 +29092,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 선옵체결
         elif comboindex4 == 4:
 
-            self.plot4_clear()
-
             self.label_41.setText(" - ")
             self.label_42.setText(" - ")
             self.label_43.setText(" - ")
@@ -29175,8 +29117,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         
         # 옵션가격
         elif comboindex4 == 5:
-
-            self.plot4_clear()
 
             self.label_41.setText(" 등가: 행사가 ")
             self.label_42.setText(" 시작 중심가 ")
@@ -29207,8 +29147,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         # 옵션잔량비
         elif comboindex4 == 6:
-
-            self.plot4_clear()
 
             self.label_41.setText(" - ")
             self.label_42.setText(" - ")
@@ -29243,8 +29181,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 옵션미결
         elif comboindex4 == 7:
 
-            self.plot4_clear()
-
             self.label_41.setText(" - ")
             self.label_42.setText(" - ")
             self.label_43.setText(" - ")
@@ -29270,8 +29206,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
  
         # 등락율비
         elif comboindex4 == 8:
-
-            self.plot4_clear()
 
             self.label_41.setText(" - ")
             self.label_42.setText(" - ")
@@ -29302,8 +29236,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 수급종합
         elif comboindex4 == 10:
 
-            self.plot4_clear()
-
             self.label_41.setText(" - ")
             self.label_42.setText(" - ")
             self.label_43.setText(" - ")
@@ -29321,8 +29253,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 외인수급
         elif comboindex4 == 11:
 
-            self.plot4_clear()
-
             self.label_41.setText(" - ")
             self.label_42.setText(" - ")
             self.label_43.setText(" - ")
@@ -29339,8 +29269,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         # SP500
         elif comboindex4 == 13:
-
-            self.plot4_clear()
 
             if SP500_전저 == 0:
                 sp500_전저 = SP500_종가
@@ -29434,8 +29362,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # DOW    
         elif comboindex4 == 14:
 
-            self.plot4_clear()
-
             if DOW_전저 == 0:
                 dow_전저 = DOW_종가
             else:
@@ -29528,8 +29454,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # NASDAQ
         elif comboindex4 == 15:
 
-            self.plot4_clear()
-
             if NASDAQ_전저 == 0:
                 nasdaq_전저 = NASDAQ_종가
             else:
@@ -29620,8 +29544,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_ovc_high_line.setValue(nasdaq_고가)            
 
         elif comboindex4 == 16:
-
-            self.plot4_clear()
 
             if HANGSENG_전저 == 0:
                 hangseng_전저 = HANGSENG_종가
@@ -29715,8 +29637,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # WTI    
         elif comboindex4 == 17:
 
-            self.plot4_clear()
-
             if WTI_전저 == 0:
                 wti_전저 = WTI_종가
             else:
@@ -29807,8 +29727,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_ovc_high_line.setValue(wti_고가)
         
         elif comboindex4 == 18:
-
-            self.plot4_clear()
 
             if GOLD_전저 == 0:
                 gold_전저 = GOLD_종가
@@ -29901,8 +29819,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         elif comboindex4 == 19:
 
-            self.plot4_clear()
-
             if EUROFX_전저 == 0:
                 eurofx_전저 = EUROFX_종가
             else:
@@ -29994,8 +29910,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         elif comboindex4 == 20:
 
-            self.plot4_clear()
-
             if YEN_전저 == 0:
                 yen_전저 = YEN_종가
             else:
@@ -30086,8 +30000,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_ovc_high_line.setValue(yen_고가)
         
         elif comboindex4 == 21:
-
-            self.plot4_clear()
 
             if ADI_전저 == 0:
                 adi_전저 = ADI_종가
@@ -30272,6 +30184,30 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_oe_conv_curve.clear()
         self.plot5_oe_base_curve.clear()
 
+        self.label_51.setText(" - ")
+        self.label_52.setText(" - ")
+        self.label_53.setText(" - ")
+        self.label_54.setText(" - ")
+        self.label_55.setText(" - ")
+        self.label_56.setText(" - ")
+        self.label_57.setText(" - ")
+        self.label_58.setText(" - ")
+
+        self.label_p5_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_p5_1.setText(" 좌표 ")
+
+        self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_p5_2.setText(" BB Middle\n PSAR ")
+
+        self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_p5_3.setText(" OneEye ")
+
+        self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_p5_4.setText(" MAMA ")
+
+        txt = 'Plot5 Clear...\r'
+        self.parent.textBrowser.append(txt)
+
     def cb5_selectionChanged(self):
 
         global comboindex5
@@ -30279,18 +30215,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         txt = self.comboBox5.currentText()
         comboindex5 = self.comboBox5.currentIndex()
 
-        self.plot5_bollinger_upper_curve.clear()
-        self.plot5_bollinger_middle_curve.clear()
-        self.plot5_bollinger_lower_curve.clear()
-
-        self.plot5_mama_curve.clear()
-        self.plot5_fama_curve.clear()
-
-        self.plot5_oe_conv_curve.clear()
-        self.plot5_oe_base_curve.clear()
+        self.plot5_clear()
 
         if comboindex5 == 0:
             self.timer5.stop()
+
+            txt = 'Plot5 Timer Stop...\r'
+            self.parent.textBrowser.append(txt)
         else:
             if not self.timer5.isActive():
 
@@ -30321,15 +30252,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 pass
 
-        # All Plot Clear
-        if comboindex5 == 0:
-
-            self.plot5_clear()
-
         # 선물가격
-        elif comboindex5 == 2:
-
-            self.plot5_clear()
+        if comboindex5 == 2:
                         
             if 근월물_선물_전저 == 0:
                 선물_전저 = 근월물_선물_종가
@@ -30432,8 +30356,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 선옵잔량비
         elif comboindex5 == 3:
 
-            self.plot5_clear()
-
             self.label_51.setText(" - ")
             self.label_52.setText(" - ")
             self.label_53.setText(" - ")
@@ -30467,8 +30389,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 선옵체결
         elif comboindex5 == 4:
 
-            self.plot5_clear()
-
             self.label_51.setText(" - ")
             self.label_52.setText(" - ")
             self.label_53.setText(" - ")
@@ -30494,8 +30414,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         # 옵션가격
         elif comboindex5 == 5:
-
-            self.plot5_clear()
 
             self.label_51.setText(" 등가: 행사가 ")
             self.label_52.setText(" 시작 중심가 ")
@@ -30526,8 +30444,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         # 옵션잔량비    
         elif comboindex5 == 6:
-
-            self.plot5_clear()
 
             self.label_51.setText(" - ")
             self.label_52.setText(" - ")
@@ -30562,8 +30478,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 옵션미결
         elif comboindex5 == 7:
 
-            self.plot5_clear()
-
             self.label_51.setText(" - ")
             self.label_52.setText(" - ")
             self.label_53.setText(" - ")
@@ -30589,8 +30503,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         
         # 등락율비
         elif comboindex5 == 8:
-
-            self.plot5_clear()
 
             self.label_51.setText(" - ")
             self.label_52.setText(" - ")
@@ -30621,8 +30533,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 수급종합
         elif comboindex5 == 10:
 
-            self.plot5_clear()
-
             self.label_51.setText(" - ")
             self.label_52.setText(" - ")
             self.label_53.setText(" - ")
@@ -30640,8 +30550,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 외인수급
         elif comboindex5 == 11:
 
-            self.plot5_clear()
-
             self.label_51.setText(" - ")
             self.label_52.setText(" - ")
             self.label_53.setText(" - ")
@@ -30658,8 +30566,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         # SP500
         elif comboindex5 == 13:
-
-            self.plot5_clear()
 
             if SP500_전저 == 0:
                 sp500_전저 = SP500_종가
@@ -30753,8 +30659,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # DOW
         elif comboindex5 == 14:
 
-            self.plot5_clear()
-
             if DOW_전저 == 0:
                 dow_전저 = DOW_종가
             else:
@@ -30847,8 +30751,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # NASDAQ
         elif comboindex5 == 15:
 
-            self.plot5_clear()
-
             if NASDAQ_전저 == 0:
                 nasdaq_전저 = NASDAQ_종가
             else:
@@ -30939,8 +30841,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_ovc_high_line.setValue(nasdaq_고가)            
 
         elif comboindex5 == 16:
-
-            self.plot5_clear()
 
             if HANGSENG_전저 == 0:
                 hangseng_전저 = HANGSENG_종가
@@ -31034,8 +30934,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # WTI
         elif comboindex5 == 17:
 
-            self.plot5_clear()
-
             if WTI_전저 == 0:
                 wti_전저 = WTI_종가
             else:
@@ -31126,8 +31024,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_ovc_high_line.setValue(wti_고가)            
         
         elif comboindex5 == 18:
-
-            self.plot5_clear()
 
             if GOLD_전저 == 0:
                 gold_전저 = GOLD_종가
@@ -31220,8 +31116,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         elif comboindex5 == 19:
 
-            self.plot5_clear()
-
             if EUROFX_전저 == 0:
                 eurofx_전저 = EUROFX_종가
             else:
@@ -31313,8 +31207,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         elif comboindex5 == 20:
 
-            self.plot5_clear()
-
             if YEN_전저 == 0:
                 yen_전저 = YEN_종가
             else:
@@ -31405,8 +31297,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_ovc_high_line.setValue(yen_고가)
         
         elif comboindex5 == 21:
-
-            self.plot5_clear()
 
             if ADI_전저 == 0:
                 adi_전저 = ADI_종가
@@ -31591,6 +31481,30 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_oe_conv_curve.clear()
         self.plot6_oe_base_curve.clear()
 
+        self.label_61.setText(" - ")
+        self.label_62.setText(" - ")
+        self.label_63.setText(" - ")
+        self.label_64.setText(" - ")
+        self.label_65.setText(" - ")
+        self.label_66.setText(" - ")
+        self.label_67.setText(" - ")
+        self.label_68.setText(" - ")
+
+        self.label_p6_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_p6_1.setText(" 좌표 ")
+
+        self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_p6_2.setText(" BB Middle\n PSAR ")
+
+        self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_p6_3.setText(" OneEye ")
+
+        self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_p6_4.setText(" MAMA ")
+
+        txt = 'Plot6 Clear...\r'
+        self.parent.textBrowser.append(txt)
+
     def cb6_selectionChanged(self):
 
         global comboindex6
@@ -31598,18 +31512,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         txt = self.comboBox6.currentText()
         comboindex6 = self.comboBox6.currentIndex()
 
-        self.plot6_bollinger_upper_curve.clear()
-        self.plot6_bollinger_middle_curve.clear()
-        self.plot6_bollinger_lower_curve.clear()
-
-        self.plot6_mama_curve.clear()
-        self.plot6_fama_curve.clear()
-
-        self.plot6_oe_conv_curve.clear()
-        self.plot6_oe_base_curve.clear()
+        self.plot6_clear()
 
         if comboindex6 == 0:
             self.timer6.stop()
+
+            txt = 'Plot6 Timer Stop...\r'
+            self.parent.textBrowser.append(txt)
         else:
             if not self.timer6.isActive():
 
@@ -31640,15 +31549,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 pass
 
-        # All Plot Clear
-        if comboindex6 == 0:
-
-            self.plot6_clear()
-
         # 선물가격
-        elif comboindex6 == 2:
-
-            self.plot6_clear()
+        if comboindex6 == 2:
                         
             if 근월물_선물_전저 == 0:
                 선물_전저 = 근월물_선물_종가
@@ -31751,8 +31653,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 선옵잔량비
         elif comboindex6 == 3:
 
-            self.plot6_clear()
-
             self.label_61.setText(" - ")
             self.label_62.setText(" - ")
             self.label_63.setText(" - ")
@@ -31786,8 +31686,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 선옵체결
         elif comboindex6 == 4:
 
-            self.plot6_clear()
-
             self.label_61.setText(" - ")
             self.label_62.setText(" - ")
             self.label_63.setText(" - ")
@@ -31813,8 +31711,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         
         # 옵션가격
         elif comboindex6 == 5:
-
-            self.plot6_clear()
 
             self.label_61.setText(" 등가: 행사가 ")
             self.label_62.setText(" 시작 중심가 ")
@@ -31845,8 +31741,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         # 옵션잔량비    
         elif comboindex6 == 6:
-
-            self.plot6_clear()
 
             self.label_61.setText(" - ")
             self.label_62.setText(" - ")
@@ -31881,8 +31775,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 옵션미결
         elif comboindex6 == 7:
 
-            self.plot6_clear()
-
             self.label_61.setText(" - ")
             self.label_62.setText(" - ")
             self.label_63.setText(" - ")
@@ -31908,8 +31800,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         
         # 등락율비
         elif comboindex6 == 8:
-
-            self.plot6_clear()
 
             self.label_61.setText(" - ")
             self.label_62.setText(" - ")
@@ -31940,8 +31830,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 수급종합
         elif comboindex6 == 10:
 
-            self.plot6_clear()
-
             self.label_61.setText(" - ")
             self.label_62.setText(" - ")
             self.label_63.setText(" - ")
@@ -31959,8 +31847,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 외인수급
         elif comboindex6 == 11:
 
-            self.plot6_clear()
-
             self.label_61.setText(" - ")
             self.label_62.setText(" - ")
             self.label_63.setText(" - ")
@@ -31977,8 +31863,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         # SP500
         elif comboindex6 == 13:
-
-            self.plot6_clear()
 
             if SP500_전저 == 0:
                 sp500_전저 = SP500_종가
@@ -32072,8 +31956,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # DOW
         elif comboindex6 == 14:
 
-            self.plot6_clear()
-
             if DOW_전저 == 0:
                 dow_전저 = DOW_종가
             else:
@@ -32166,8 +32048,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # NASDAQ
         elif comboindex6 == 15:
 
-            self.plot6_clear()
-
             if NASDAQ_전저 == 0:
                 nasdaq_전저 = NASDAQ_종가
             else:
@@ -32258,8 +32138,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_ovc_high_line.setValue(nasdaq_고가)            
 
         elif comboindex6 == 16:
-
-            self.plot6_clear()
 
             if HANGSENG_전저 == 0:
                 hangseng_전저 = HANGSENG_종가
@@ -32353,8 +32231,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # WTI
         elif comboindex6 == 17:
 
-            self.plot6_clear()
-
             if WTI_전저 == 0:
                 wti_전저 = WTI_종가
             else:
@@ -32445,8 +32321,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_ovc_high_line.setValue(wti_고가)
         
         elif comboindex6 == 18:
-
-            self.plot6_clear()
 
             if GOLD_전저 == 0:
                 gold_전저 = GOLD_종가
@@ -32539,8 +32413,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         elif comboindex6 == 19:
 
-            self.plot6_clear()
-
             if EUROFX_전저 == 0:
                 eurofx_전저 = EUROFX_종가
             else:
@@ -32632,8 +32504,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         elif comboindex6 == 20:
 
-            self.plot6_clear()
-
             if YEN_전저 == 0:
                 yen_전저 = YEN_종가
             else:
@@ -32724,8 +32594,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_ovc_high_line.setValue(yen_고가)
         
         elif comboindex6 == 21:
-
-            self.plot6_clear()
 
             if ADI_전저 == 0:
                 adi_전저 = ADI_종가
