@@ -5099,6 +5099,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             global 콜매수, 콜매도, 풋매수, 풋매도, 손절, 익절
             global plot_drate_scale_factor
+            global flag_cm_drate_scale_factor_set, flag_nm_drate_scale_factor_set
             
             fut_txt = cell.text()            
             
@@ -5108,6 +5109,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     plot_drate_scale_factor = float(fut_txt)
                     txt = '[{0:02d}:{1:02d}:{2:02d}] Drate Scale Factor를 {3:.1f} 으로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, plot_drate_scale_factor)
                     self.parent.textBrowser.append(txt)
+
+                    flag_cm_drate_scale_factor_set = True
+                    flag_nm_drate_scale_factor_set = True
                 else:
                     pass
             else:
