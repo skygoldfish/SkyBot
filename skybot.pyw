@@ -48150,7 +48150,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 SP500_진폭 = SP500_고가 - SP500_저가
                 SP500_진폭_틱 = int(SP500_진폭 / 0.25)
                 
-                SP500_시가대비 = SP500_현재가 - SP500_시가
+                SP500_시가대비 = int((SP500_현재가 - SP500_시가) / 0.25)
 
                 df_sp500_graph.at[0, 'price'] = SP500_종가
                 df_sp500_graph.at[1, 'price'] = SP500_시가
@@ -48349,7 +48349,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         pass
 
-                    item = QTableWidgetItem('{0:.2f}'.format(SP500_시가대비))
+                    item = QTableWidgetItem('{0}'.format(SP500_시가대비))
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -48602,7 +48602,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 NASDAQ_진폭 = NASDAQ_고가 - NASDAQ_저가
                 NASDAQ_진폭_틱 = int(NASDAQ_진폭 / 0.25)
                 
-                NASDAQ_시가대비 = NASDAQ_현재가 - NASDAQ_시가                
+                NASDAQ_시가대비 = int((NASDAQ_현재가 - NASDAQ_시가) / 0.25)                
 
                 df_nasdaq_graph.at[0, 'price'] = NASDAQ_종가
                 df_nasdaq_graph.at[1, 'price'] = NASDAQ_시가
@@ -48788,7 +48788,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         pass
 
-                    item = QTableWidgetItem('{0:.2f}'.format(NASDAQ_시가대비))
+                    item = QTableWidgetItem('{0}'.format(NASDAQ_시가대비))
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -48988,7 +48988,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 WTI_진폭 = WTI_고가 - WTI_저가
                 WTI_진폭_틱 = int(WTI_진폭 / 0.01)
                 
-                WTI_시가대비 = WTI_현재가 - WTI_시가                
+                WTI_시가대비 = int((WTI_현재가 - WTI_시가) / 0.01)                
 
                 df_wti_graph.at[0, 'price'] = WTI_종가
                 df_wti_graph.at[1, 'price'] = WTI_시가
@@ -49174,7 +49174,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         pass
 
-                    item = QTableWidgetItem('{0:.2f}'.format(WTI_시가대비))
+                    item = QTableWidgetItem('{0}'.format(WTI_시가대비))
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -49207,7 +49207,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 GOLD_진폭 = GOLD_고가 - GOLD_저가
                 GOLD_진폭_틱 = int(GOLD_진폭 / 0.1)
                 
-                GOLD_시가대비 = GOLD_현재가 - GOLD_시가                
+                GOLD_시가대비 = int((GOLD_현재가 - GOLD_시가) / 0.1)                
 
                 df_gold_graph.at[0, 'price'] = GOLD_종가
                 df_gold_graph.at[1, 'price'] = GOLD_시가
@@ -49338,7 +49338,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         pass
 
-                    item = QTableWidgetItem('{0:.1f}'.format(GOLD_시가대비))
+                    item = QTableWidgetItem('{0}'.format(GOLD_시가대비))
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -49371,7 +49371,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 EUROFX_진폭 = EUROFX_고가 - EUROFX_저가
                 EUROFX_진폭_틱 = int(EUROFX_진폭 / 0.00005)
 
-                EUROFX_시가대비 = EUROFX_현재가 - EUROFX_시가                
+                EUROFX_시가대비 = int((EUROFX_현재가 - EUROFX_시가) / 0.00005)                
 
                 df_eurofx_graph.at[0, 'price'] = EUROFX_종가
                 df_eurofx_graph.at[1, 'price'] = EUROFX_시가
@@ -49502,7 +49502,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         pass                    
 
-                    item = QTableWidgetItem('{0:.5f}'.format(EUROFX_시가대비))
+                    item = QTableWidgetItem('{0}'.format(EUROFX_시가대비))
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -49535,7 +49535,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 YEN_진폭 = YEN_고가 - YEN_저가
                 YEN_진폭_틱 = int(YEN_진폭 / 0.5)
 
-                YEN_시가대비 = YEN_현재가 - YEN_시가
+                YEN_시가대비 = int((YEN_현재가 - YEN_시가) / 0.5)
 
                 df_yen_graph.at[0, 'price'] = YEN_종가
                 df_yen_graph.at[1, 'price'] = YEN_시가
@@ -49666,7 +49666,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         pass                    
 
-                    item = QTableWidgetItem('{0:.1f}'.format(YEN_시가대비))
+                    item = QTableWidgetItem('{0}'.format(YEN_시가대비))
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -49700,7 +49700,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 ADI_진폭 = ADI_고가 - ADI_저가
                 ADI_진폭_틱 = int(ADI_진폭 / 0.00005)
 
-                ADI_시가대비 = ADI_현재가 - ADI_시가
+                ADI_시가대비 = int((ADI_현재가 - ADI_시가) / 0.00005)
 
                 df_adi_graph.at[0, 'price'] = ADI_종가
                 df_adi_graph.at[1, 'price'] = ADI_시가
@@ -49829,11 +49829,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_cme.setItem(8, 7, item)                                            
                     else:
-                        pass
+                        pass                  
 
-                    ADI_시가대비 = ADI_현재가 - ADI_시가                   
-
-                    item = QTableWidgetItem('{0:.5f}'.format(ADI_시가대비))
+                    item = QTableWidgetItem('{0}'.format(ADI_시가대비))
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     item.setTextAlignment(Qt.AlignCenter)
