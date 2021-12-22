@@ -5106,9 +5106,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if row == 2 and col == Futures_column.OLOH.value:
                 
                 if float(fut_txt) != plot_drate_scale_factor:
-                    plot_drate_scale_factor = float(fut_txt)
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] Drate Scale Factor를 {3:.1f} 으로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, plot_drate_scale_factor)
+                    plot_drate_scale_factor = int(float(fut_txt) / 근월물_선물_시가등락율)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] Drate Scale Factor를 {3} (으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, plot_drate_scale_factor)
                     self.parent.textBrowser.append(txt)
+
+                    item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
 
                     flag_cm_drate_scale_factor_set = True
                     flag_nm_drate_scale_factor_set = True
