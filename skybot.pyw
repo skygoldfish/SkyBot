@@ -8381,12 +8381,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                if 시가 in FIXED_COREVAL:
-                    self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(검정색))
-                    self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(노란색))
-                else:
-                    pass
-
                 if 저가 in COREVAL:
                     self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
@@ -8526,12 +8520,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                if 시가 in FIXED_COREVAL:
-                    self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(검정색))
-                    self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(노란색))
-                else:
-                    pass
-
                 if 저가 in COREVAL:
                     self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
@@ -8583,13 +8571,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
                 else:
-                    pass     
-
-                if 시가 in FIXED_COREVAL:
-                    self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(검정색))
-                    self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(노란색))
-                else:
-                    pass           
+                    pass        
 
                 if 고가 in COREVAL:
                     self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
@@ -9518,12 +9500,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if 시가 in COREVAL:
                             self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                             self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
-                        else:
-                            pass
-
-                        if 시가 in FIXED_COREVAL:
-                            self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(검정색))
-                            self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(노란색))
                         else:
                             pass
                     else:
@@ -10475,12 +10451,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
                         else:
                             pass
-
-                        if 시가 in FIXED_COREVAL:
-                            self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(검정색))
-                            self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(노란색))
-                        else:
-                            pass
                     else:
                         pass           
                 else:
@@ -11008,12 +10978,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                if 시가 in FIXED_COREVAL:
-                    self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(검정색))
-                    self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(노란색))
-                else:
-                    pass
-
                 if 저가 in COREVAL:
                     self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
@@ -11154,12 +11118,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                if 시가 in FIXED_COREVAL:
-                    self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(검정색))
-                    self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(노란색))
-                else:
-                    pass
-
                 if 저가 in COREVAL:
                     self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
@@ -11211,13 +11169,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
                 else:
-                    pass
-
-                if 시가 in FIXED_COREVAL:
-                    self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(검정색))
-                    self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(노란색))
-                else:
-                    pass                
+                    pass             
 
                 if 고가 in COREVAL:
                     self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
@@ -16206,12 +16158,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        if 시가 in FIXED_COREVAL:
+                        if DayTime and 시가 in FIXED_COREVAL:
                             self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(검정색))
                             self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(노란색))
-
-                            if DayTime:
-                                flag_call_open_in_fixed_coreval = True
+                            flag_call_open_in_fixed_coreval = True
                         else:
                             pass
 
@@ -16551,12 +16501,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        if 시가 in FIXED_COREVAL:
+                        if DayTime and 시가 in FIXED_COREVAL:
                             self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(검정색))
                             self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(노란색))
-
-                            if DayTime:
-                                flag_put_open_in_fixed_coreval = True
+                            flag_put_open_in_fixed_coreval = True
                         else:
                             pass
 
@@ -18102,12 +18050,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        if 시가 in FIXED_COREVAL:
+                        if NightTime and 시가 in FIXED_COREVAL:
                             self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(검정색))
                             self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(노란색))
-
-                            if NightTime:
-                                flag_call_open_in_fixed_coreval = True
+                            flag_call_open_in_fixed_coreval = True
                         else:
                             pass
 
@@ -18415,12 +18361,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        if 시가 in FIXED_COREVAL:
+                        if NightTime and 시가 in FIXED_COREVAL:
                             self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(검정색))
                             self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(노란색))
-
-                            if NightTime:
-                                flag_put_open_in_fixed_coreval = True
+                            flag_put_open_in_fixed_coreval = True
                         else:
                             pass
 
