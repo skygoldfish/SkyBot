@@ -583,6 +583,9 @@ pre_high_low_list = []
 bms_node_list = []
 bms_node_frequency_list = []
 
+flag_call_open_in_fixed_coreval = False
+flag_put_open_in_fixed_coreval = False
+
 flag_call_low_in_fixed_coreval = False
 flag_call_high_in_fixed_coreval = False
 flag_put_low_in_fixed_coreval = False
@@ -6086,6 +6089,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if not dongsi_quote:
                     
                         # 진성 의미가인 경우 blinking(매우 중요 !!!)
+                        if flag_call_open_in_fixed_coreval:
+                            self.call_open_coreval_color_blink(not self.alternate_flag)
+                        else:
+                            pass
+
+                        if flag_put_open_in_fixed_coreval:
+                            self.put_open_coreval_color_blink(not self.alternate_flag)
+                        else:
+                            pass
+
                         if flag_call_low_coreval:
                             self.call_low_coreval_color_blink(self.alternate_flag)
                         else:                        
@@ -7974,6 +7987,33 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(검정색))
             self.tableWidget_fut.item(2, Futures_column.고가.value).setForeground(QBrush(대맥점색))
+
+    def call_open_coreval_color_blink(self, blink):
+
+        if self.call_open_list:
+            loop_list = self.call_open_list
+        else:
+            loop_list = self.opt_total_actval_list
+
+        for i in loop_list:
+
+            if i % 10 == 0:
+                QApplication.processEvents()
+            else:
+                pass
+
+            시가 = df_call.at[i, '시가']
+
+            if 시가 in FIXED_COREVAL:
+
+                if blink:
+                    self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(노란색))
+                    self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(적색))                    
+                else:
+                    self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(노란색))
+            else:
+                pass
 
     def call_low_coreval_color_blink(self, blink):
 
@@ -10574,6 +10614,33 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(흰색))
                 self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
+
+    def put_open_coreval_color_blink(self, blink):
+
+        if self.put_open_list:
+            loop_list = self.put_open_list
+        else:
+            loop_list = self.opt_total_actval_list
+
+        for i in loop_list:
+
+            if i % 10 == 0:
+                QApplication.processEvents()
+            else:
+                pass
+
+            시가 = df_put.at[i, '시가']
+
+            if 시가 in FIXED_COREVAL:
+
+                if blink:
+                    self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(노란색))
+                    self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(적색))                    
+                else:
+                    self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(노란색))
+            else:
+                pass
       
     def put_low_coreval_color_blink(self, blink):
 
@@ -12602,7 +12669,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_call_low_update, flag_call_high_update
         global call_gap_percent, call_db_percent, call_otm_cdb, call_otm_cdb_percent, call_otm_jdb, call_otm_jdb_percent
         global call_otm_cdb_percent_mean
-        global 콜_등가_등락율, 콜_등가_시가등락율, plot_drate_scale_factor       
+        global 콜_등가_등락율, 콜_등가_시가등락율, plot_drate_scale_factor
+        global flag_call_open_in_fixed_coreval      
 
         try:
             dt = datetime.now()
@@ -12757,6 +12825,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if 콜시가 in FIXED_COREVAL:
                     self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(검정색))
                     self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(노란색))
+                    flag_call_open_in_fixed_coreval = True
                 else:
                     pass
                 
@@ -13685,7 +13754,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_put_low_update, flag_put_high_update
         global put_gap_percent, put_db_percent, put_otm_cdb, put_otm_cdb_percent, put_otm_jdb, put_otm_jdb_percent
         global put_otm_cdb_percent_mean
-        global 풋_등가_등락율, 풋_등가_시가등락율, plot_drate_scale_factor 
+        global 풋_등가_등락율, 풋_등가_시가등락율, plot_drate_scale_factor
+        global flag_put_open_in_fixed_coreval
 
         try:
             dt = datetime.now()
@@ -13840,6 +13910,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if 풋시가 in FIXED_COREVAL:
                     self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(검정색))
                     self.tableWidget_put.item(index, Option_column.시가.value).setForeground(QBrush(노란색))
+                    flag_put_open_in_fixed_coreval = True
                 else:
                     pass
                 
@@ -15364,6 +15435,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 차월물_선물_전저, 차월물_선물_전고, 차월물_선물_종가, 차월물_선물_피봇, 차월물_선물_시가, 차월물_선물_저가, 차월물_선물_현재가, 차월물_선물_고가
         global 근월물_선물_시가등락율, 차월물_선물_시가등락율
         global FUT_당일종가
+        global flag_call_open_in_fixed_coreval, flag_put_open_in_fixed_coreval
 
         dt = datetime.now()
 
@@ -15959,7 +16031,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             szTrCode, block, df, df1 = result
 
-            global 옵션잔존일, t8416_option_pairs_count
+            global 옵션잔존일, t8416_option_pairs_count            
 
             if not self.flag_refresh:
 
@@ -16137,6 +16209,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if 시가 in FIXED_COREVAL:
                             self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(검정색))
                             self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(노란색))
+
+                            if DayTime:
+                                flag_call_open_in_fixed_coreval = True
                         else:
                             pass
 
@@ -16479,6 +16554,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if 시가 in FIXED_COREVAL:
                             self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(검정색))
                             self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(노란색))
+
+                            if DayTime:
+                                flag_put_open_in_fixed_coreval = True
                         else:
                             pass
 
@@ -18027,6 +18105,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if 시가 in FIXED_COREVAL:
                             self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(검정색))
                             self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(노란색))
+
+                            if NightTime:
+                                flag_call_open_in_fixed_coreval = True
                         else:
                             pass
 
@@ -18337,6 +18418,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if 시가 in FIXED_COREVAL:
                             self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(검정색))
                             self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(노란색))
+
+                            if NightTime:
+                                flag_put_open_in_fixed_coreval = True
                         else:
                             pass
 
