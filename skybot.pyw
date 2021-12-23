@@ -168,6 +168,9 @@ drate_scale_factor = 1
 flag_cm_drate_scale_factor_set = False
 flag_nm_drate_scale_factor_set = False
 
+flag_nm_oloh_direction_call_set = False
+flag_nm_oloh_direction_put_set = False
+
 call_scroll_depth = 19
 put_scroll_depth = 30
 
@@ -559,6 +562,11 @@ yesterday_txt = yesterday.strftime('%Y%m%d')
 current_month = int(CURRENT_MONTH[4:6])
 next_month = int(NEXT_MONTH[4:6])
 month_after_next = int(MONTH_AFTER_NEXT[4:6])
+
+if TTS:
+    flag_tts = True
+else:
+    flag_tts = False
 
 CENTER_VAL_PLUS1 = GOLDEN_RATIO
 CENTER_VAL_MINUS1 = GOLDEN_RATIO
@@ -5886,7 +5894,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print(txt)
 
                 if (t8416_loop_finish_time + 10 * 60) - system_time < 1:
-                    if TTS:
+                    if flag_tts:
                         self.parent.speaker.setText('나머지 데이타를 수신합니다.')
                     else:
                         pass
@@ -6476,7 +6484,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(t0167_hour, t0167_minute, t0167_second, vb_txt)
                 print(txt)
 
-                if TTS:
+                if flag_tts:
                     self.parent.speaker.setText('근월물 하향 변동성 출현')
                 else:
                     pass                
@@ -6487,7 +6495,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(t0167_hour, t0167_minute, t0167_second, vb_txt)
                 print(txt)
 
-                if TTS:
+                if flag_tts:
                     self.parent.speaker.setText('근월물 상향 변동성 출현')
                 else:
                     pass                                
@@ -6517,7 +6525,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(t0167_hour, t0167_minute, t0167_second, vb_txt)
                 print(txt)
 
-                if TTS:
+                if flag_tts:
                     self.parent.speaker.setText('차월물 하향 변동성 출현')
                 else:
                     pass                
@@ -6528,7 +6536,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(t0167_hour, t0167_minute, t0167_second, vb_txt)
                 print(txt)
 
-                if TTS:
+                if flag_tts:
                     self.parent.speaker.setText('차월물 상향 변동성 출현')
                 else:
                     pass                
@@ -6543,7 +6551,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.textBrowser.append(txt)
                 self.parent.textBrowser.append(txt)
 
-                if TTS:
+                if flag_tts:
                     self.parent.speaker.setText('콜 우세')
                 else:
                     pass
@@ -6556,7 +6564,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.textBrowser.append(txt)
                 self.parent.textBrowser.append(txt)
 
-                if TTS:
+                if flag_tts:
                     self.parent.speaker.setText('풋 우세')
                 else:
                     pass
@@ -12078,78 +12086,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            self.tableWidget_fut.resizeColumnToContents(Futures_column.거래량.value)
-
-            if TARGET_MONTH == 'CM':
-
-                if 근월물_선물_현재가 < volatility_breakout_downward_point:
-
-                    item = QTableWidgetItem('VDB')
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(검정색))
-                    item.setForeground(QBrush(cyan))
-                    self.tableWidget_fut.setItem(2, 0, item)               
-
-                elif 근월물_선물_현재가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
-
-                    item = QTableWidgetItem('VUB')
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(검정색))
-                    item.setForeground(QBrush(magenta))
-                    self.tableWidget_fut.setItem(2, 0, item)                               
-                else:
-                    item = QTableWidgetItem('-')
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(검정색))
-                    item.setForeground(QBrush(흰색))
-                    self.tableWidget_fut.setItem(2, 0, item)
-
-            elif TARGET_MONTH == 'NM':
-
-                if 근월물_선물_현재가 < volatility_breakout_downward_point:
-
-                    item = QTableWidgetItem('VDB')
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(검정색))
-                    item.setForeground(QBrush(cyan))
-                    self.tableWidget_fut.setItem(2, 0, item)              
-
-                elif 근월물_선물_현재가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
-
-                    item = QTableWidgetItem('VUB')
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(검정색))
-                    item.setForeground(QBrush(magenta))
-                    self.tableWidget_fut.setItem(2, 0, item)             
-                else:
-                    item = QTableWidgetItem('-')
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(검정색))
-                    item.setForeground(QBrush(흰색))
-                    self.tableWidget_fut.setItem(2, 0, item)
-
-                if call_ol_count > call_oh_count and put_ol_count < put_oh_count:
-
-                    item = QTableWidgetItem("CD")
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(적색))
-                    item.setForeground(QBrush(흰색))
-
-                elif call_ol_count < call_oh_count and put_ol_count > put_oh_count:
-
-                    item = QTableWidgetItem("PD")
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(청색))
-                    item.setForeground(QBrush(흰색))
-                else:
-                    item = QTableWidgetItem("-")
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(검정색))
-                    item.setForeground(QBrush(흰색))
-
-                self.tableWidget_fut.setItem(0, 0, item)
-            else:
-                pass
+            self.tableWidget_fut.resizeColumnToContents(Futures_column.거래량.value)            
 
         except Exception as e:
 
@@ -14842,7 +14779,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global pre_start
         global t2301_month_info
-        global 진성맥점, TTS, SEARCH_MOVING_NODE
+        global 진성맥점, SEARCH_MOVING_NODE
 
         dt = datetime.now()
         '''
@@ -14907,9 +14844,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 QTest.qWait(1000)                
             else:
-                TTS = False
-
-                #SEARCH_MOVING_NODE = not SEARCH_MOVING_NODE
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] SEARCH_MOVING_NODE = {3}\r'.format(dt.hour, dt.minute, dt.second, SEARCH_MOVING_NODE)
                 self.textBrowser.append(txt)
@@ -19859,14 +19793,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     flag_t8416_data_receive_done = True
 
-                    if new_actval_up_count > 0 and TTS:
+                    if new_actval_up_count > 0 and flag_tts:
                         txt = '새로운 상방 행사가가 {0}개 추가되었습니다.'.format(new_actval_up_count)
                         self.parent.speaker.setText(txt)
                         QTest.qWait(1500)
                     else:
                         pass
 
-                    if new_actval_down_count > 0 and TTS:
+                    if new_actval_down_count > 0 and flag_tts:
                         txt = '새로운 하방 행사가가 {0}개 추가되었습니다.'.format(new_actval_down_count)
                         self.parent.speaker.setText(txt)
                         QTest.qWait(1500)
@@ -19889,7 +19823,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.parent.textBrowser.append(txt)
                         print(txt)
 
-                        if TTS:
+                        if flag_tts:
                             speak_txt = '나머지 데이타를 10분후에 요청합니다'
                             self.parent.speaker.setText(speak_txt)
                             QTest.qWait(1500)
@@ -20525,7 +20459,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             print(txt)
 
-            if TTS:
+            if flag_tts:
                 txt = '근월물 옵션갯수는 콜 {0}개, 풋 {1}개, 차월물 옵션갯수는 콜 {2}개, 풋 {3}개 입니다.'.format(CM_OPT_LENGTH, CM_OPT_LENGTH, NM_OPT_LENGTH, NM_OPT_LENGTH)
                 self.parent.speaker.setText(txt)
             else:
@@ -21154,7 +21088,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.parent.textBrowser.append(txt)
         print(txt)
 
-        if TTS and not flag_t8416_rerequest:
+        if flag_tts and not flag_t8416_rerequest:
             QTest.qWait(1000)
             #playsound( "Resources/doorbell.wav" )
             winsound.PlaySound('Resources/doorbell.wav', winsound.SND_FILENAME)
@@ -21162,7 +21096,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
         
-        if TTS:
+        if flag_tts:
             txt = '총 {0}개 항목이 실시간 요청되었습니다.'.format(self.realdata_request_number)
             self.parent.speaker.setText(txt)
         else:
@@ -21336,6 +21270,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_adi.setChecked(ADI_CHK)        
 
         self.checkBox_periodic_plot.setChecked(flag_option_periodic_update_mode)
+        self.checkBox_tts.setChecked(flag_tts)
         self.checkBox_plot_first.setChecked(flag_plot_sync_mode)
 
         self.spinBox_call_itm.setValue(call_itm_number)
@@ -21388,6 +21323,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_news.stateChanged.connect(self.checkBox_news_checkState)
 
         self.checkBox_periodic_plot.stateChanged.connect(self.checkBox_periodic_plot_state_change)
+        self.checkBox_tts.stateChanged.connect(self.checkBox_tts_state_change)
         self.checkBox_plot_first.stateChanged.connect(self.checkBox_plot_first_state_change)
 
         self.spinBox_call_itm.valueChanged.connect(self.change_call_itm)
@@ -22384,6 +22320,25 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             self.parent.textBrowser.append(txt)
             print(txt)
 
+    def checkBox_tts_state_change(self):
+
+        dt = datetime.now()
+
+        global flag_tts
+
+        if self.checkBox_tts.isChecked() == True:
+
+            flag_tts = True
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] TTS ON (으)로 설정합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+        else:
+            flag_tts = False
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] TTS OFF (으)로 설정합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
 
     def checkBox_plot_first_state_change(self):
 
@@ -43432,6 +43387,18 @@ class Xing(object):
                             winsound.PlaySound('Resources/ring.wav', winsound.SND_FILENAME)
                         else:
                             pass
+
+                        if flag_nm_oloh_direction_call_set and flag_tts:
+                            txt = 'NM Call'
+                            self.caller.speaker.setText(txt)
+                        else:
+                            pass
+
+                        if flag_nm_oloh_direction_put_set and flag_tts:
+                            txt = 'NM Put'
+                            self.caller.speaker.setText(txt)
+                        else:
+                            pass
                     else:
                         pass
 
@@ -45236,7 +45203,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
                 self.textBrowser.append(txt)
 
-                if TTS and TARGET_MONTH == 'CM':
+                if flag_tts and TARGET_MONTH == 'CM':
                     #playsound( "Resources/doorbell.wav" )
                     winsound.PlaySound('Resources/doorbell.wav', winsound.SND_FILENAME)
                 else:
@@ -47038,6 +47005,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global df_futures_nm_graph, 차월물_선물_현재가, 차월물_선물_현재가_버퍼, flag_futures_nm_ohlc_open, fut_nm_tickdata
         global flag_cm_drate_scale_factor_set, flag_nm_drate_scale_factor_set
         global 차월물_선물_종가대비_등락율, 차월물_선물_시가대비_등락율, 차월물_선물_시가등락율
+        global flag_nm_oloh_direction_call_set, flag_nm_oloh_direction_put_set
 
         try:
             dt = datetime.now()
@@ -47312,6 +47280,83 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 self.dialog['선물옵션전광판'].fut_nm_update(tickdata)
                 self.dialog['선물옵션전광판'].fut_nm_etc_update(tickdata)    
+            else:
+                pass
+
+            if TARGET_MONTH == 'CM':
+
+                if 근월물_선물_현재가 < volatility_breakout_downward_point:
+
+                    item = QTableWidgetItem('VDB')
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(검정색))
+                    item.setForeground(QBrush(cyan))
+                    self.tableWidget_fut.setItem(2, 0, item)               
+
+                elif 근월물_선물_현재가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
+
+                    item = QTableWidgetItem('VUB')
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(검정색))
+                    item.setForeground(QBrush(magenta))
+                    self.tableWidget_fut.setItem(2, 0, item)                               
+                else:
+                    item = QTableWidgetItem('-')
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(검정색))
+                    item.setForeground(QBrush(흰색))
+                    self.tableWidget_fut.setItem(2, 0, item)
+
+            elif TARGET_MONTH == 'NM':
+
+                if 근월물_선물_현재가 < volatility_breakout_downward_point:
+
+                    item = QTableWidgetItem('VDB')
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(검정색))
+                    item.setForeground(QBrush(cyan))              
+
+                elif 근월물_선물_현재가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
+
+                    item = QTableWidgetItem('VUB')
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(검정색))
+                    item.setForeground(QBrush(magenta))            
+                else:
+                    item = QTableWidgetItem('-')
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(검정색))
+                    item.setForeground(QBrush(흰색))
+                    
+                self.tableWidget_fut.setItem(2, 0, item)
+
+                if call_ol_count > call_oh_count and put_ol_count < put_oh_count:
+
+                    item = QTableWidgetItem("CD")
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(적색))
+                    item.setForeground(QBrush(흰색))
+
+                    flag_nm_oloh_direction_call_set = True
+
+                elif call_ol_count < call_oh_count and put_ol_count > put_oh_count:
+
+                    item = QTableWidgetItem("PD")
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(청색))
+                    item.setForeground(QBrush(흰색))
+
+                    flag_nm_oloh_direction_put_set = True
+                else:
+                    item = QTableWidgetItem("-")
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(검정색))
+                    item.setForeground(QBrush(흰색))
+
+                    flag_nm_oloh_direction_call_set = False
+                    flag_nm_oloh_direction_put_set = False
+
+                self.tableWidget_fut.setItem(0, 0, item)
             else:
                 pass
 
@@ -51194,7 +51239,7 @@ if __name__ == "__main__":
         pass
     
     # TTS test...
-    if TTS:
+    if flag_tts:
         #Speak('근월물 하향 변동성 출현')
         '''
         text ="Welcome to SkyBot"
