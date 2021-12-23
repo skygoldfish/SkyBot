@@ -35,7 +35,7 @@
    <property name="flat">
     <bool>false</bool>
    </property>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -592,6 +592,19 @@
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_tts">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>28</y>
+      <width>47</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TTS</string>
+    </property>
    </widget>
   </widget>
   <widget class="QGroupBox" name="groupBox_3">
