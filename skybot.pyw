@@ -33430,7 +33430,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot1_time_line.setValue(cme_time_index)
 
-                txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
+                txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * SP500_시가대비_등락율, SP500_현재가)
                 self.label_15.setText(txt)
 
                 txt = " {0:.2f}({1}) ".format(put_otm_cdb_percent_mean, put_atm_value)
@@ -33444,7 +33444,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if DayTime:
 
-                    txt = " {0:.2f}({1}) ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가)
+                    txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * 근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_17.setText(txt)
 
                     self.plot1_fut_drate_curve.setData(df_futures_cm_graph['drate'])
@@ -35093,7 +35093,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot2_time_line.setValue(cme_time_index)
 
-                txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
+                txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * SP500_시가대비_등락율, SP500_현재가)
                 self.label_25.setText(txt)
 
                 txt = " {0:.2f}({1}) ".format(put_otm_cdb_percent_mean, put_atm_value)
@@ -35107,7 +35107,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if DayTime:
 
-                    txt = " {0:.2f}({1}) ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가)
+                    txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * 근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_27.setText(txt)
 
                     self.plot2_fut_drate_curve.setData(df_futures_cm_graph['drate'])
@@ -36752,7 +36752,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot3_time_line.setValue(cme_time_index)
 
-                txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
+                txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * SP500_시가대비_등락율, SP500_현재가)
                 self.label_35.setText(txt)
 
                 txt = " {0:.2f}({1}) ".format(put_otm_cdb_percent_mean, put_atm_value)
@@ -36766,7 +36766,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if DayTime:
 
-                    txt = " {0:.2f}({1}) ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가)
+                    txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * 근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_37.setText(txt)
 
                     self.plot3_fut_drate_curve.setData(df_futures_cm_graph['drate'])
@@ -38412,7 +38412,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot4_time_line.setValue(cme_time_index)
 
-                txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
+                txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * SP500_시가대비_등락율, SP500_현재가)
                 self.label_45.setText(txt)
 
                 txt = " {0:.2f}({1}) ".format(put_otm_cdb_percent_mean, put_atm_value)
@@ -38426,7 +38426,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if DayTime:
 
-                    txt = " {0:.2f}({1}) ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가)
+                    txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * 근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_47.setText(txt)
 
                     self.plot4_fut_drate_curve.setData(df_futures_cm_graph['drate'])
@@ -40070,7 +40070,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot5_time_line.setValue(cme_time_index)
 
-                txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
+                txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * SP500_시가대비_등락율, SP500_현재가)
                 self.label_55.setText(txt)
 
                 txt = " {0:.2f}({1}) ".format(put_otm_cdb_percent_mean, put_atm_value)
@@ -40084,7 +40084,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if DayTime:
 
-                    txt = " {0:.2f}({1}) ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가)
+                    txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * 근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_57.setText(txt)
 
                     self.plot5_fut_drate_curve.setData(df_futures_cm_graph['drate'])
@@ -41728,7 +41728,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot6_time_line.setValue(cme_time_index)
 
-                txt = " {0:.2f}({1}) ".format(DOW_등락율, DOW_현재가)
+                txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * SP500_시가대비_등락율, SP500_현재가)
                 self.label_65.setText(txt)
 
                 txt = " {0:.2f}({1}) ".format(put_otm_cdb_percent_mean, put_atm_value)
@@ -41742,7 +41742,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if DayTime:
 
-                    txt = " {0:.2f}({1}) ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가)
+                    txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * 근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_67.setText(txt)
 
                     self.plot6_fut_drate_curve.setData(df_futures_cm_graph['drate'])
