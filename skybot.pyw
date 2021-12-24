@@ -8047,13 +8047,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         call_low_node_old_count = call_low_node_count
 
-        i_count = 0              
-
         for i in loop_list:
 
-            i_count += 1
-
-            if i_count % 10 == 0:
+            if i % 10 == 0:
                 QApplication.processEvents()
             else:
                 pass
@@ -8204,13 +8200,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         call_high_node_old_count = call_high_node_count
 
-        i_count = 0        
-
         for i in loop_list:
 
-            i_count += 1
-
-            if i_count % 10 == 0:
+            if i % 10 == 0:
                 QApplication.processEvents()
             else:
                 pass
@@ -8369,13 +8361,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         count_low = 0
         count_high = 0
 
-        i_count = 0
-
         for i in loop_list:
 
-            i_count += 1
-
-            if i_count % 10 == 0:
+            if i % 10 == 0:
                 QApplication.processEvents()
             else:
                 pass
@@ -8509,13 +8497,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             loop_list = self.opt_total_actval_list
 
-        i_count = 0
-
         for i in loop_list:
 
-            i_count += 1
-
-            if i_count % 10 == 0:
+            if i % 10 == 0:
                 QApplication.processEvents()
             else:
                 pass
@@ -8562,13 +8546,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             loop_list = self.opt_total_actval_list
 
-        i_count = 0
-
         for i in loop_list:
 
-            i_count += 1
-
-            if i_count % 10 == 0:
+            if i % 10 == 0:
                 QApplication.processEvents()
             else:
                 pass
@@ -10644,13 +10624,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         put_low_node_old_count = put_low_node_count
 
-        i_count = 0        
-
         for i in loop_list:
 
-            i_count += 1
-
-            if i_count % 10 == 0:
+            if i % 10 == 0:
                 QApplication.processEvents()
             else:
                 pass
@@ -10801,13 +10777,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         put_high_node_old_count = put_high_node_count
 
-        i_count = 0        
-
         for i in loop_list:
 
-            i_count += 1
-
-            if i_count % 10 == 0:
+            if i % 10 == 0:
                 QApplication.processEvents()
             else:
                 pass
@@ -10966,13 +10938,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         count_low = 0
         count_high = 0
 
-        i_count = 0
-
         for i in loop_list:
 
-            i_count += 1
-
-            if i_count % 10 == 0:
+            if i % 10 == 0:
                 QApplication.processEvents()
             else:
                 pass
@@ -11107,13 +11075,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             loop_list = self.opt_total_actval_list
 
-        i_count = 0
-
         for i in loop_list:
 
-            i_count += 1
-
-            if i_count % 10 == 0:
+            if i % 10 == 0:
                 QApplication.processEvents()
             else:
                 pass
@@ -11160,13 +11124,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             loop_list = self.opt_total_actval_list
 
-        i_count = 0
-
         for i in loop_list:
 
-            i_count += 1
-
-            if i_count % 10 == 0:
+            if i % 10 == 0:
                 QApplication.processEvents()
             else:
                 pass
