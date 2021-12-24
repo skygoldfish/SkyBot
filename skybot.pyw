@@ -3444,13 +3444,7 @@ class RealTime_Option_Quote_MP_DataWorker(QThread):
                     elif type(self.realdata) == tuple:
 
                         tick_type, tickdata = self.realdata
-                        print(f"\r[{datetime.now()}] 옵션호가 System time : {tickdata['system_time']}, 체결시간 : {tickdata['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')
-
-                        if CSV_FILE:
-                            tickdata_lst = list(tickdata.values())
-                            handle_tick_data(tickdata_lst, tick_type)
-                        else:
-                            pass
+                        print(f"\r[{datetime.now()}] 옵션호가 System time : {tickdata['system_time']}, 체결시간 : {tickdata['수신시간']}, waiting tasks : {self.waiting_tasks}", end='')                        
 
                         if len(tickdata['system_time']) == 5:
                             systime = int(tickdata['system_time'][0:1]) * 3600 + int(tickdata['system_time'][1:3]) * 60 + int(tickdata['system_time'][3:5])
@@ -3460,6 +3454,12 @@ class RealTime_Option_Quote_MP_DataWorker(QThread):
                         szTrCode = tickdata['tr_code']
 
                         if szTrCode == 'OH0':
+
+                            if CSV_FILE:
+                                tickdata_lst = list(tickdata.values())
+                                handle_tick_data(tickdata_lst, tick_type)
+                            else:
+                                pass
 
                             self.total_option_packet_size += sys.getsizeof(tickdata)
 
@@ -3473,6 +3473,8 @@ class RealTime_Option_Quote_MP_DataWorker(QThread):
                                 realtime_sec = int(tickdata['수신시간'][4:6])                            
 
                         elif szTrCode == 'EH0':
+
+                            print('EH0 수신시간 = {0}\r'.format(tickdata['수신시간']))
 
                             if int(tickdata['수신시간'][0:2]) >= 24:
                                 realtime_hour = int(tickdata['수신시간'][0:2]) - 24
@@ -47760,9 +47762,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass            
 
-            if NightTime:
-
-                time_reference = NightTime_PreStart_Hour                
+            if NightTime:            
 
                 if CALL_ATM_DRATE_REFERENCE:
                     drate_reference = 콜_등가_시가등락율
@@ -47786,12 +47786,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
             else:
-                time_reference = DayTime_PreStart_Hour
+                pass
 
-            if len(tickdata['수신시간']) == 5:
-                cme_time_index = (int(tickdata['수신시간'][0:1]) - time_reference) * 60 + int(tickdata['수신시간'][1:3]) + 1
+            if DayTime:
+                if len(tickdata['수신시간']) == 5:
+                    cme_time_index = (int(tickdata['수신시간'][0:1]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][1:3]) + 1
+                else:
+                    cme_time_index = (int(tickdata['수신시간'][0:2]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][2:4]) + 1
             else:
-                cme_time_index = (int(tickdata['수신시간'][0:2]) - time_reference) * 60 + int(tickdata['수신시간'][2:4]) + 1
+                pass
 
             if tickdata['단축코드'][0:3] == '201':
 
@@ -47973,15 +47976,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-            if NightTime:
-                time_reference = NightTime_PreStart_Hour
+            if DayTime:
+                if len(tickdata['수신시간']) == 5:
+                    cme_time_index = (int(tickdata['수신시간'][0:1]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][1:3]) + 1
+                else:
+                    cme_time_index = (int(tickdata['수신시간'][0:2]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][2:4]) + 1
             else:
-                time_reference = DayTime_PreStart_Hour
-
-            if len(tickdata['수신시간']) == 5:
-                cme_time_index = (int(tickdata['수신시간'][0:1]) - time_reference) * 60 + int(tickdata['수신시간'][1:3]) + 1
-            else:
-                cme_time_index = (int(tickdata['수신시간'][0:2]) - time_reference) * 60 + int(tickdata['수신시간'][2:4]) + 1
+                pass
 
             if tickdata['단축코드'][0:3] == '201':
 
