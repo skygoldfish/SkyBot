@@ -1838,7 +1838,6 @@ flag_fut_cm_oloh = False
 flag_fut_nm_ol = False
 flag_fut_nm_oh = False
 fut_nm_oloh_txt = ''
-flag_fut_nm_oloh = False
 
 콜_인덱스 = 0
 콜_시가 = ''
@@ -11391,7 +11390,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     
     def fut_nm_oloh_check(self):
 
-        global flag_fut_nm_ol, flag_fut_nm_oh, fut_nm_oloh_txt, flag_fut_nm_oloh, plot_drate_scale_factor
+        global flag_fut_nm_ol, flag_fut_nm_oh, fut_nm_oloh_txt, plot_drate_scale_factor
 
         dt = datetime.now()
 
@@ -11410,13 +11409,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_fut.item(0, Futures_column.저가.value).setBackground(QBrush(적색))
             self.tableWidget_fut.item(0, Futures_column.저가.value).setForeground(QBrush(흰색))
             
-            if not flag_fut_nm_ol and not flag_fut_nm_oloh:
-                fut_nm_oloh_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OL ▲".format(t0167_hour, t0167_minute, t0167_second)
-                flag_fut_nm_oloh = True
-            else:
-                pass
-            
-            flag_fut_nm_ol = True
+            if not flag_fut_nm_ol:
+
+                flag_fut_nm_ol = True
+
+                fut_nm_oloh_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OL ▲\r".format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(fut_nm_oloh_txt)
+
+                txt = 'NM 상승'
+                self.parent.speaker.setText(txt)                
 
         elif not self.is_within_n_tick(차월물_선물_시가, 차월물_선물_저가, 10) and self.is_within_n_tick(차월물_선물_시가, 차월물_선물_고가, 10):
 
@@ -11432,19 +11433,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_fut.item(0, Futures_column.고가.value).setBackground(QBrush(청색))
             self.tableWidget_fut.item(0, Futures_column.고가.value).setForeground(QBrush(흰색))
             
-            if TARGET_MONTH == 'NM' and not flag_fut_nm_oh and not flag_fut_nm_oloh:
-                fut_nm_oloh_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OH ▼".format(t0167_hour, t0167_minute, t0167_second)
-                flag_fut_nm_oloh = True
-            else:
-                pass
-            
-            flag_fut_nm_oh = True
+            if not flag_fut_nm_oh:
 
+                flag_fut_nm_oh = True
+
+                fut_nm_oloh_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OH ▼\r".format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(fut_nm_oloh_txt)
+
+                txt = 'NM 하강'
+                self.parent.speaker.setText(txt)
         else:
-            flag_fut_nm_ol = False
-            flag_fut_nm_oh = False
+
+            if flag_fut_nm_ol:
+                flag_fut_nm_ol = False
+
+            if flag_fut_nm_oh:
+                flag_fut_nm_oh = False
+
             fut_nm_oloh_txt = ''
-            flag_fut_nm_oloh = False
             
             item = QTableWidgetItem('-')
             item.setTextAlignment(Qt.AlignCenter)
@@ -12188,8 +12194,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             # 저가 갱신
-            #fut_low = self.tableWidget_fut.item(0, Futures_column.저가.value).text()
-
             if 저가 != self.tableWidget_fut.item(0, Futures_column.저가.value).text():
 
                 txt = '{0:.2f}'.format(차월물_선물_저가)
@@ -12226,9 +12230,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            # 고가 갱신 
-            #fut_high = self.tableWidget_fut.item(0, Futures_column.고가.value).text()
-
+            # 고가 갱신
             if 고가 != self.tableWidget_fut.item(0, Futures_column.고가.value).text():
 
                 txt = '{0:.2f}'.format(차월물_선물_고가)
@@ -43360,7 +43362,7 @@ class Xing(object):
                             winsound.PlaySound('Resources/ring.wav', winsound.SND_FILENAME)
                         else:
                             pass
-
+                        '''
                         if flag_nm_oloh_direction_call_set and flag_tts:
                             txt = 'NM Call'
                             self.caller.speaker.setText(txt)
@@ -43371,7 +43373,8 @@ class Xing(object):
                             txt = 'NM Put'
                             self.caller.speaker.setText(txt)
                         else:
-                            pass
+                            pass    
+                        '''
                     else:
                         pass
 
@@ -43820,7 +43823,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # TTS 쓰레드 설정
         self.speaker = SpeakerWorker()
-        self.speaker.start()     
+        self.speaker.start()
 
         global system_server_time_gap
 
@@ -47329,7 +47332,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setBackground(QBrush(적색))
                     item.setForeground(QBrush(흰색))
 
-                    flag_nm_oloh_direction_call_set = True
+                    if not flag_nm_oloh_direction_call_set:
+
+                        flag_nm_oloh_direction_call_set = True
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 콜...\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)
+
+                        txt = '차월물 콜'
+                        self.speaker.setText(txt)
 
                 elif call_ol_count < call_oh_count and put_ol_count > put_oh_count:
 
@@ -47338,15 +47349,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setBackground(QBrush(청색))
                     item.setForeground(QBrush(흰색))
 
-                    flag_nm_oloh_direction_put_set = True
+                    if not flag_nm_oloh_direction_put_set:
+
+                        flag_nm_oloh_direction_put_set = True
+
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 풋...\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(txt)
+
+                        txt = '차월물 풋'
+                        self.speaker.setText(txt)
                 else:
                     item = QTableWidgetItem("-")
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(검정색))
                     item.setForeground(QBrush(흰색))
 
-                    flag_nm_oloh_direction_call_set = False
-                    flag_nm_oloh_direction_put_set = False
+                    if flag_nm_oloh_direction_call_set:
+                        flag_nm_oloh_direction_call_set = False
+
+                    if flag_nm_oloh_direction_put_set:
+                        flag_nm_oloh_direction_put_set = False
 
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, 0, item)
             else:
