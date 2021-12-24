@@ -45651,6 +45651,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         try:
             dt = datetime.now()
 
+            if len(tickdata['수신시간']) == 5:
+                cme_time_index = (int(tickdata['수신시간'][0:1]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][1:3]) + 1
+            else:
+                cme_time_index = (int(tickdata['수신시간'][0:2]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][2:4]) + 1
+
             if tickdata['단축코드'] == GMSHCODE:            
 
                 예상체결가격 = tickdata['예상체결가격']
@@ -46163,6 +46168,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         try:
             dt = datetime.now()
+
+            if len(tickdata['수신시간']) == 5:
+                cme_time_index = (int(tickdata['수신시간'][0:1]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][1:3]) + 1
+            else:
+                cme_time_index = (int(tickdata['수신시간'][0:2]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][2:4]) + 1 
         
             if tickdata['업종코드'] == KOSPI200:
 
@@ -46848,6 +46858,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         try:
             dt = datetime.now()
 
+            if len(tickdata['수신시간']) == 5:
+                cme_time_index = (int(tickdata['수신시간'][0:1]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][1:3]) + 1
+            else:
+                cme_time_index = (int(tickdata['수신시간'][0:2]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][2:4]) + 1
+
             if tickdata['전체순매수금액합계'] == '-':
                 프로그램_순매수 = 0
             else:
@@ -47013,7 +47028,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if pre_start:
                 pre_start = False
             else:
-                pass        
+                pass
+
+            if len(tickdata['수신시간']) == 5:
+                cme_time_index = (int(tickdata['수신시간'][0:1]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][1:3]) + 1
+            else:
+                cme_time_index = (int(tickdata['수신시간'][0:2]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][2:4]) + 1        
             
             if tickdata['단축코드'] == GMSHCODE:
 
@@ -47383,6 +47403,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
+            if len(tickdata['수신시간']) == 5:
+                cme_time_index = (int(tickdata['수신시간'][0:1]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][1:3]) + 1
+            else:
+                cme_time_index = (int(tickdata['수신시간'][0:2]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][2:4]) + 1
+
             if tickdata['단축코드'] == GMSHCODE:
 
                 # 그래프관련 처리 먼저...
@@ -47732,9 +47757,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if not flag_market_service:                
                 flag_market_service = True
             else:
-                pass
+                pass            
 
-            if NightTime:                
+            if NightTime:
+
+                time_reference = NightTime_PreStart_Hour                
 
                 if CALL_ATM_DRATE_REFERENCE:
                     drate_reference = 콜_등가_시가등락율
@@ -47758,7 +47785,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
             else:
-                pass
+                time_reference = DayTime_PreStart_Hour
+
+            if len(tickdata['수신시간']) == 5:
+                cme_time_index = (int(tickdata['수신시간'][0:1]) - time_reference) * 60 + int(tickdata['수신시간'][1:3]) + 1
+            else:
+                cme_time_index = (int(tickdata['수신시간'][0:2]) - time_reference) * 60 + int(tickdata['수신시간'][2:4]) + 1
 
             if tickdata['단축코드'][0:3] == '201':
 
@@ -47940,11 +47972,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-            if not flag_market_service:
-                pass
-                #flag_market_service = True
+            if NightTime:
+                time_reference = NightTime_PreStart_Hour
             else:
-                pass
+                time_reference = DayTime_PreStart_Hour
+
+            if len(tickdata['수신시간']) == 5:
+                cme_time_index = (int(tickdata['수신시간'][0:1]) - time_reference) * 60 + int(tickdata['수신시간'][1:3]) + 1
+            else:
+                cme_time_index = (int(tickdata['수신시간'][0:2]) - time_reference) * 60 + int(tickdata['수신시간'][2:4]) + 1
 
             if tickdata['단축코드'][0:3] == '201':
 
@@ -49042,6 +49078,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.tableWidget_cme.setItem(3, 9, item)
 
                     self.tableWidget_cme.resizeRowToContents(3)
+                    self.tableWidget_cme.resizeColumnsToContents()
                 else:
                     pass            
             
