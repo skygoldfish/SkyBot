@@ -47290,22 +47290,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item = QTableWidgetItem('VDB')
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(검정색))
-                    item.setForeground(QBrush(cyan))
-                    self.tableWidget_fut.setItem(2, 0, item)               
+                    item.setForeground(QBrush(cyan))               
 
                 elif 근월물_선물_현재가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
 
                     item = QTableWidgetItem('VUB')
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(검정색))
-                    item.setForeground(QBrush(magenta))
-                    self.tableWidget_fut.setItem(2, 0, item)                               
+                    item.setForeground(QBrush(magenta))                              
                 else:
                     item = QTableWidgetItem('-')
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(검정색))
                     item.setForeground(QBrush(흰색))
-                    self.tableWidget_fut.setItem(2, 0, item)
+                
+                self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
 
             elif TARGET_MONTH == 'NM':
 
@@ -47328,7 +47327,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setBackground(QBrush(검정색))
                     item.setForeground(QBrush(흰색))
                     
-                self.tableWidget_fut.setItem(2, 0, item)
+                self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, 0, item)
 
                 if call_ol_count > call_oh_count and put_ol_count < put_oh_count:
 
@@ -47356,7 +47355,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     flag_nm_oloh_direction_call_set = False
                     flag_nm_oloh_direction_put_set = False
 
-                self.tableWidget_fut.setItem(0, 0, item)
+                self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, 0, item)
             else:
                 pass
 
