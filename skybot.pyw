@@ -229,6 +229,7 @@ SP500_대비 = 0
 SP500_전일대비 = 0
 SP500_종가대비 = 0
 SP500_시가대비 = 0
+SP500_시가대비_등락율 = 0
 SP500_등락율 = 0
 
 SP500_고가 = 0
@@ -48182,6 +48183,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global SP500_종가대비, DOW_종가대비, NASDAQ_종가대비, HANGSENG_종가대비, WTI_종가대비, GOLD_종가대비, EUROFX_종가대비, YEN_종가대비, ADI_종가대비
         global SP500_시가대비, DOW_시가대비, NASDAQ_시가대비, HANGSENG_시가대비, WTI_시가대비, GOLD_시가대비, EUROFX_시가대비, YEN_시가대비, ADI_시가대비
         global SP500_진폭_틱, DOW_진폭_틱, NASDAQ_진폭_틱, HANGSENG_진폭_틱, WTI_진폭_틱, GOLD_진폭_틱, EUROFX_진폭_틱, YEN_진폭_틱, ADI_진폭_틱
+        global SP500_시가대비_등락율
 
         try:
             dt = datetime.now()
