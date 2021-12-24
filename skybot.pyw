@@ -426,7 +426,7 @@ NTP_Server = parser.get('Server Type', 'NTP Server')
 
 # [2]. << Month Info >>
 KSE_START_HOUR = parser.getint('Month Info', 'KSE Start Hour')
-FOREIGN_FUTURES_CLOSE_HOUR = parser.getint('Month Info', 'Foreign Futures Close Hour')
+SUMMER_TIME = parser.getboolean('Month Info', 'Summer Time')
 CURRENT_MONTH = parser.get('Month Info', 'Current Month')
 MONTH_FIRSTDAY = parser.get('Month Info', 'First Day of the Current Month')
 
@@ -1067,13 +1067,18 @@ if 7 <= dt.hour < NightTime_PreStart_Hour:
     # 오전 7시 ~ 오후 3시 59분
     DayTime = True
     NightTime = False        
-    day_timespan = 7 * 60 + 10
+    day_timespan = 6 * 60 + 45 + 10
     jugan_timespan = GuardTime + day_timespan
 else:
-    # 오후 4시 ~ 익일 오전 5시 59분
+    # 오후 4시 ~ 익일 오전 6시 or 7시
     DayTime = False
     NightTime = True
-    nighttime_timespan = 12 * 60 + 10
+
+    if SUMMER_TIME:
+        nighttime_timespan = 12 * 60 + 10
+    else:
+        nighttime_timespan = 13 * 60 + 10
+
     yagan_timespan = GuardTime + nighttime_timespan
 
 if NightTime:
@@ -6166,7 +6171,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if NightTime:                    
 
                     # 미국 주식장 종료 1분후에 프로그램을 오프라인으로 전환시킴
-                    if yagan_service_terminate or 시스템시간_분 == (FOREIGN_FUTURES_CLOSE_HOUR * 3600 + 1 * 60):
+                    if SUMMER_TIME:
+                        close_hour = 6
+                    else:
+                        close_hour = 7
+
+                    if yagan_service_terminate or 시스템시간_분 == (close_hour * 3600 + 1 * 60):
 
                         global service_terminate
                         
