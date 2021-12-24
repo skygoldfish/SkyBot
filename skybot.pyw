@@ -45512,6 +45512,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         try:
             dt = datetime.now()
 
+            if len(tickdata['수신시간']) == 5:
+                plot_time_index = (int(tickdata['수신시간'][0:1]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][1:3]) + 1
+            else:
+                plot_time_index = (int(tickdata['수신시간'][0:2]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][2:4]) + 1
+
             if tickdata['업종코드'] == KOSPI200:
 
                 kp200_yj_시가 = float(tickdata['예상지수'])
@@ -45564,9 +45569,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                #txt = '[{0:02d}:{1:02d}:{2:02d}] 선물/KOSPI200 예상시가 = {3}/{4}, 예상등가 = {5}\r'.format(t0167_hour, t0167_minute, t0167_second, 근월물_선물_시가, KP200_당일시가, atm_txt)
-                #self.dialog['선물옵션전광판'].textBrowser.append(txt)
-
                 if atm_txt in opt_actval:
                     yj_atm_index = opt_actval.index(atm_txt)
                 else:
@@ -45591,10 +45593,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
             elif tickdata['업종코드'] == KOSDAQ:
-
-                # KOSDAQ 예상시가는 안내려옴
-                #txt = '[{0:02d}:{1:02d}:{2:02d}] YJ KOSDAQ 예상시가 = {3}\r'.format(t0167_hour, t0167_minute, t0167_second, float(tickdata['예상지수']))
-                #self.dialog['선물옵션전광판'].textBrowser.append(txt)
                 pass
             else:
                 pass
@@ -47009,10 +47007,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     근월물_선물_현재가 = float(tickdata['현재가'])
 
-                # 1T OHLC 생성
                 df_futures_cm_graph.at[plot_time_index, 'ctime'] = tickdata['수신시간']
                 df_futures_cm_graph.at[plot_time_index, 'price'] = 근월물_선물_현재가
 
+                # 1T OHLC 생성
                 if plot_time_index != old_cme_time_index:
 
                     df_futures_cm_graph.at[plot_time_index, 'high'] = df_futures_cm_graph.at[plot_time_index- 1, 'high']
@@ -47091,9 +47089,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
 
-                self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.거래량.value, item)                
-
-                # 그래프관련 처리 먼저...                    
+                self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.거래량.value, item)
+                              
                 근월물_선물_종가대비_등락율 = float(tickdata['등락율'])
                 근월물_선물_시가등락율 = ((float(tickdata['시가']) - 근월물_선물_종가) / 근월물_선물_종가) * 100           
                 근월물_선물_시가대비_등락율 = ((float(tickdata['현재가']) - float(tickdata['시가'])) / float(tickdata['시가'])) * 100
@@ -47136,6 +47133,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif tickdata['단축코드'] == CMSHCODE:
 
                 # 그래프관련 처리 먼저...
+                if float(tickdata['현재가']) == float('inf') or float(tickdata['현재가']) == float('-inf'):
+                    차월물_선물_현재가 = float('nan')
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 선물 현재가 무한대 오류발생...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                else:
+                    차월물_선물_현재가 = float(tickdata['현재가'])
+
+                df_futures_nm_graph.at[plot_time_index, 'ctime'] = tickdata['수신시간']
+                df_futures_nm_graph.at[plot_time_index, 'price'] = 차월물_선물_현재가
+
                 차월물_선물_종가대비_등락율 = float(tickdata['등락율'])
                 차월물_선물_시가등락율 = ((float(tickdata['시가']) - 차월물_선물_종가) / 차월물_선물_종가) * 100            
                 차월물_선물_시가대비_등락율 = ((float(tickdata['현재가']) - float(tickdata['시가'])) / float(tickdata['시가'])) * 100
@@ -47164,17 +47171,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 df_futures_nm_graph.at[plot_time_index, 'drate'] = plot_drate_scale_factor * 차월물_선물_시가대비_등락율
 
-                if float(tickdata['현재가']) == float('inf') or float(tickdata['현재가']) == float('-inf'):
-                    차월물_선물_현재가 = float('nan')
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 선물 현재가 무한대 오류발생...\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-                else:
-                    차월물_선물_현재가 = float(tickdata['현재가'])
-
                 # 1T OHLC 생성
-                df_futures_nm_graph.at[plot_time_index, 'ctime'] = tickdata['수신시간']
-                df_futures_nm_graph.at[plot_time_index, 'price'] = 차월물_선물_현재가
-
                 if plot_time_index != old_cme_time_index:
 
                     df_futures_nm_graph.at[plot_time_index, 'high'] = df_futures_nm_graph.at[plot_time_index- 1, 'high']
