@@ -48914,7 +48914,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.tableWidget_cme.setItem(2, 9, item)
                     
                     self.tableWidget_cme.resizeRowToContents(2)
-                    self.tableWidget_cme.resizeColumnsToContents()
+                    #self.tableWidget_cme.resizeColumnsToContents()
                 else:
                     pass
             
@@ -49080,8 +49080,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(3, 9, item)
 
-                    self.tableWidget_cme.resizeRowToContents(3)
-                    self.tableWidget_cme.resizeColumnsToContents()
+                    self.tableWidget_cme.resizeRowToContents(3)                    
                 else:
                     pass            
             
@@ -49962,6 +49961,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass                
             else:
                 pass
+
+            self.tableWidget_cme.resizeColumnsToContents()
 
         except Exception as e:
 
