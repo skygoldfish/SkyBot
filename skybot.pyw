@@ -11230,7 +11230,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         # Scale Factor 계산
         if TARGET_MONTH == 'NM' and not flag_nm_drate_scale_factor_set:
-            
+
             if CALL_ATM_DRATE_REFERENCE:
                 drate_reference = 콜_등가_시가등락율
             else:
@@ -43670,6 +43670,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if system_server_time_gap > 0:
                     txt = 'PC와 타임 써버간 시간차는 {0}초 입니다'.format(system_server_time_gap)
+                    self.speaker.setText(txt)
+                elif system_server_time_gap < 0:
+                    txt = 'PC와 타임 써버간 시간차는 마이너스 {0}초 입니다'.format(abs(system_server_time_gap))
                     self.speaker.setText(txt)
                 else:
                     pass
