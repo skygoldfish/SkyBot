@@ -5900,6 +5900,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print(txt)
 
                 if (t8416_loop_finish_time + 10 * 60) - system_time < 1:
+
                     if flag_tts:
                         self.parent.speaker.setText('나머지 데이타를 수신합니다.')
                     else:
@@ -6476,117 +6477,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             flag_screen_update_is_running = False
-
-    def heartbeat_check(self):
-
-        global flag_heartbeat, vb_txt
-
-        dt = datetime.now()
-
-        flag_heartbeat = False
-
-        if TARGET_MONTH == 'CM':
-
-            pass
-            '''
-            if 근월물_선물_현재가 < volatility_breakout_downward_point:
-
-                vb_txt = 'CM Volatility Downward Breakout'
-                txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(dt.hour, dt.minute, dt.second, vb_txt)
-                print(txt)
-
-                if flag_tts:
-                    self.parent.speaker.setText('근월물 하향 변동성 출현')
-                else:
-                    pass                
-                
-            elif 근월물_선물_현재가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
-
-                vb_txt = 'CM Volatility Upward Breakout'
-                txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(dt.hour, dt.minute, dt.second, vb_txt)
-                print(txt)
-
-                if flag_tts:
-                    self.parent.speaker.setText('근월물 상향 변동성 출현')
-                else:
-                    pass                                
-            else:
-                pass
-            
-            if DayTime:
-            
-                if flag_call_dominant:
-                    txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call Strong({3:.2f}/{4:.2f}) ▲\r".format(dt.hour, dt.minute, dt.second, 근월물_선물_종가대비_등락율, DOW_등락율)
-                    self.parent.textBrowser.append(txt)
-                elif flag_put_dominant:
-                    txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Put Strong({3:.2f}/{4:.2f}) ▼\r".format(dt.hour, dt.minute, dt.second, 근월물_선물_종가대비_등락율, DOW_등락율)
-                    self.parent.textBrowser.append(txt)
-                else:
-                    pass
-            else:
-                pass
-            '''
-        elif TARGET_MONTH == 'NM':
-
-            pass
-            '''
-            if 근월물_선물_현재가 < volatility_breakout_downward_point:
-
-                vb_txt = 'NM Volatility Downward Breakout'
-                txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(dt.hour, dt.minute, dt.second, vb_txt)
-                print(txt)
-
-                if flag_tts:
-                    self.parent.speaker.setText('차월물 하향 변동성 출현')
-                else:
-                    pass                
-                
-            elif 근월물_선물_현재가 > volatility_breakout_upward_point and volatility_breakout_upward_point > 0:
-
-                vb_txt = 'NM Volatility Upward Breakout'
-                txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(dt.hour, dt.minute, dt.second, vb_txt)
-                print(txt)
-
-                if flag_tts:
-                    self.parent.speaker.setText('차월물 상향 변동성 출현')
-                else:
-                    pass                
-            else:
-                pass
-            
-            if call_ol_count > call_oh_count and put_ol_count < put_oh_count:
-
-                speak_txt = 'Call Dominant'
-
-                txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(dt.hour, dt.minute, dt.second, speak_txt)
-                self.textBrowser.append(txt)
-                self.parent.textBrowser.append(txt)
-
-                if flag_tts:
-                    self.parent.speaker.setText('콜 우세')
-                else:
-                    pass
-
-            elif call_ol_count < call_oh_count and put_ol_count > put_oh_count:
-
-                speak_txt = 'Put Dominant'
-
-                txt = '[{0:02d}:{1:02d}:{2:02d}] {3}...\r'.format(dt.hour, dt.minute, dt.second, speak_txt)
-                self.textBrowser.append(txt)
-                self.parent.textBrowser.append(txt)
-
-                if flag_tts:
-                    self.parent.speaker.setText('풋 우세')
-                else:
-                    pass
-            else:
-                pass
-            '''
-        else:
-            pass       
-        
-        self.tableWidget_fut.resizeRowsToContents()
-        self.tableWidget_fut.resizeColumnsToContents()
 
     def opt_high_low_list_update(self):
 
@@ -11193,6 +11083,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         # Scale Factor 계산
         if TARGET_MONTH == 'CM' and not flag_cm_drate_scale_factor_set:
+
             if CALL_ATM_DRATE_REFERENCE:
                 drate_reference = 콜_등가_시가등락율
             else:
@@ -11339,6 +11230,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         # Scale Factor 계산
         if TARGET_MONTH == 'NM' and not flag_nm_drate_scale_factor_set:
+            
             if CALL_ATM_DRATE_REFERENCE:
                 drate_reference = 콜_등가_시가등락율
             else:
@@ -43249,24 +43141,30 @@ class Xing(object):
                     if not self.clocktick and TARGET_MONTH == 'NM' and dt.second % 10 == 0:
 
                         if flag_fut_nm_ol and flag_nm_oloh_direction_call_set:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] All ▲ ▲...\r".format(dt.hour, dt.minute, dt.second)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM All ▲ ▲...\r".format(dt.hour, dt.minute, dt.second)
                             self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                             ToYourTelegram(send_txt)
 
-                            txt = 'Strong Call'
-                            self.caller.speaker.setText(txt)
+                            if flag_tts:
+                                txt = 'NM Strong Call'
+                                self.caller.speaker.setText(txt)
+                            else:
+                                pass
                         else:
                             pass
 
                         if flag_fut_nm_oh and flag_nm_oloh_direction_put_set:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] All ▼ ▼...\r".format(dt.hour, dt.minute, dt.second)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM All ▼ ▼...\r".format(dt.hour, dt.minute, dt.second)
                             self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                             ToYourTelegram(send_txt)
 
-                            txt = 'Strong Put'
-                            self.caller.speaker.setText(txt)
+                            if flag_tts:
+                                txt = 'NM Strong Put'
+                                self.caller.speaker.setText(txt)
+                            else:
+                                pass
                         else:
                             pass
 
