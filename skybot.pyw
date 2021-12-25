@@ -20223,12 +20223,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             CM_OPTCODE = CM_CALL_CODE[0][3:5]
             NM_OPTCODE = NM_CALL_CODE[0][3:5]
-            '''
-            print('df cm call = {0}\r'.format(df_cm_call))
-            print('df cm put = {0}\r'.format(df_cm_put))
-            print('df nm call = {0}\r'.format(df_nm_call))
-            print('df nm put = {0}\r'.format(df_nm_put))
-            '''
+            
             txt = '[{0:02d}:{1:02d}:{2:02d}] 근월물({3}) 옵션갯수 = {4}\r'.format(dt.hour, dt.minute, dt.second, CM_OPTCODE, CM_OPT_LENGTH)
             self.textBrowser.append(txt)
             print(txt)
@@ -20237,7 +20232,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             print(txt)
 
-            if flag_tts:
+            if 0:
                 txt = '근월물 옵션갯수는 콜 {0}개, 풋 {1}개, 차월물 옵션갯수는 콜 {2}개, 풋 {3}개 입니다.'.format(CM_OPT_LENGTH, CM_OPT_LENGTH, NM_OPT_LENGTH, NM_OPT_LENGTH)
                 self.parent.speaker.setText(txt)
             else:
@@ -43680,7 +43675,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 break
             else:
                 if attempts >= 3:
-                    txt = 'NTP Server 통신시도 3회 초과!\r'
+                    txt = 'NTP Server 통신시도 회수 3회 초과!\r'
                     self.textBrowser.append(txt)
                     txt = 'NTP 서버 IP를 확인해주세요.'
                     self.speaker.setText(txt)
