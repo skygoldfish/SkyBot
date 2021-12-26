@@ -7590,17 +7590,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         for i in range(call_scroll_begin_position, call_scroll_end_position):
-            '''
-            if not flag_market_service or call_scroll or refresh_coloring:
             
-                oloh_txt = ''                           
-                item = QTableWidgetItem(oloh_txt)
-                item.setBackground(QBrush(흰색))
-                item.setForeground(QBrush(검정색))
-                self.tableWidget_call.setItem(i, Option_column.OLOH.value, item)
-            else:
-                pass
-            '''
             if call_node_state['기준가']:
                 self.tableWidget_call.item(i, Option_column.기준가.value).setBackground(QBrush(흰색))
                 self.tableWidget_call.item(i, Option_column.기준가.value).setForeground(QBrush(검정색))
@@ -7804,7 +7794,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_scroll_end_position
 
         if call_scroll_end_position > option_pairs_count:
-
             call_scroll_end_position = option_pairs_count
         else:
             pass
@@ -7837,7 +7826,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global put_scroll_end_position
 
         if put_scroll_end_position > option_pairs_count:
-
             put_scroll_end_position = option_pairs_count
         else:
             pass
@@ -10163,17 +10151,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         for i in range(put_scroll_begin_position, put_scroll_end_position):
-            '''
-            if not flag_market_service or put_scroll or refresh_coloring:
             
-                oloh_txt = ''                           
-                item = QTableWidgetItem(oloh_txt)
-                item.setBackground(QBrush(흰색))
-                item.setForeground(QBrush(검정색))
-                self.tableWidget_put.setItem(i, Option_column.OLOH.value, item)
-            else:
-                pass
-            '''
             if put_node_state['기준가']:
                 self.tableWidget_put.item(i, Option_column.기준가.value).setBackground(QBrush(흰색))
                 self.tableWidget_put.item(i, Option_column.기준가.value).setForeground(QBrush(검정색))
@@ -11661,9 +11639,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             근월물_선물_피봇 = calc_pivot(근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_시가, 2)
-            피봇_과거가 = self.tableWidget_fut.item(1, Futures_column.피봇.value).text()
 
-            if 근월물_선물_피봇 != float(피봇_과거가):
+            if 근월물_선물_피봇 != float(self.tableWidget_fut.item(1, Futures_column.피봇.value).text()):
 
                 item = QTableWidgetItem("{0:.2f}".format(근월물_선물_피봇))
                 item.setTextAlignment(Qt.AlignCenter)
@@ -11892,9 +11869,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             차월물_선물_피봇 = calc_pivot(차월물_선물_전저, 차월물_선물_전고, 차월물_선물_종가, 차월물_선물_시가, 2)
-            피봇_과거가 = self.tableWidget_fut.item(0, Futures_column.피봇.value).text()
 
-            if 차월물_선물_피봇 != float(피봇_과거가):
+            if 차월물_선물_피봇 != float(self.tableWidget_fut.item(0, Futures_column.피봇.value).text()):
 
                 item = QTableWidgetItem("{0:.2f}".format(차월물_선물_피봇))
                 item.setTextAlignment(Qt.AlignCenter)
@@ -12310,7 +12286,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global call_open, call_itm_count
         global df_call
-        global df_call_price_graph, df_call_graph
+        global df_call_graph
         global atm_txt, ATM_INDEX, call_atm_value
         global call_시가, call_시가_node_list, call_피봇, call_피봇_node_list, 콜시가리스트
         global call_저가, call_저가_node_list, call_고가, call_고가_node_list
@@ -12449,8 +12425,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
 
-                    #remove_set = {0, nan, NaN}
-
                     # 시가갭 갱신
                     call_gap_percent_local = copy.deepcopy(call_gap_percent)
                     result1 = [i for i in call_gap_percent_local if i not in remove_set]
@@ -12500,9 +12474,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             피봇 = calc_pivot(콜전저, 콜전고, 콜종가, 콜시가, 2)
-            피봇_과거가 = self.tableWidget_call.item(index, Option_column.피봇.value).text()
 
-            if 피봇 != float(피봇_과거가):
+            if 피봇 != float(self.tableWidget_call.item(index, Option_column.피봇.value).text()):
 
                 df_call.at[index, '피봇'] = 피봇
 
@@ -13417,7 +13390,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global put_open, put_itm_count
         global df_put
-        global df_put_price_graph, df_put_graph
+        global df_put_graph
         global atm_txt, ATM_INDEX, put_atm_value
         global put_시가, put_시가_node_list, put_피봇, put_피봇_node_list, 풋시가리스트
         global put_저가, put_저가_node_list, put_고가, put_고가_node_list
@@ -13555,8 +13528,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
 
-                    #remove_set = {0, nan, NaN} 
-
                     # 시가갭 갱신
                     put_gap_percent_local = copy.deepcopy(put_gap_percent)
                     result1 = [i for i in put_gap_percent_local if i not in remove_set]
@@ -13606,9 +13577,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             피봇 = calc_pivot(풋전저, 풋전고, 풋종가, 풋시가, 2)
-            피봇_과거가 = self.tableWidget_put.item(index, Option_column.피봇.value).text()
 
-            if 피봇 != float(피봇_과거가):
+            if 피봇 != float(self.tableWidget_put.item(index, Option_column.피봇.value).text()):
 
                 df_put.at[index, '피봇'] = 피봇
 
@@ -15020,7 +14990,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global GMSHCODE, CMSHCODE, CCMSHCODE, fut_code
         global opt_actval
         global ATM_INDEX, old_atm_index
-        global df_call_price_graph, df_put_price_graph, df_call_information_graph, df_put_information_graph
+        global df_call_information_graph, df_put_information_graph
         global df_call_graph, df_put_graph
         global atm_txt, atm_val
 
