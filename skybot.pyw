@@ -5932,17 +5932,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         # 수정미결 표시
                         if DayTime:
-                            if call_tickdata:
+                            if call_tickdata and self.alternate_flag:
                                 self.call_oi_update()
+                                self.oi_total_update()
                             else:
                                 pass
 
-                            if put_tickdata:
+                            if put_tickdata and not self.alternate_flag:
                                 self.put_oi_update()
                             else:
-                                pass
-
-                            self.oi_total_update()
+                                pass                            
                         else:
                             pass                        
                     else:
