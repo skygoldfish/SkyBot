@@ -45415,11 +45415,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def yfc_update(self, tickdata):
 
         global flag_market_service, 근월물_선물_종가대비_등락율, 선물_진폭비
-        global flag_fut_vs_sp500_drate_direction, plot_drate_scale_factor, 근월물_선물_피봇
+        global flag_fut_vs_sp500_drate_direction, plot_drate_scale_factor
         global DOW_기준_예상시가, SP500_기준_예상시가
         global 근월물_선물_시가, 근월물_선물_현재가_버퍼, df_futures_cm_graph, flag_futures_cm_ohlc_open
         global 차월물_선물_시가, 차월물_선물_현재가_버퍼, df_futures_nm_graph, flag_futures_nm_ohlc_open
-        global 근월물_선물_저가, 근월물_선물_고가, 차월물_선물_저가, 차월물_선물_고가
+        global 근월물_선물_저가, 근월물_선물_고가, 근월물_선물_피봇
+        global 차월물_선물_저가, 차월물_선물_고가, 차월물_선물_피봇
         
         try:
             dt = datetime.now()
@@ -45625,10 +45626,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, Futures_column.대비.value, item)
                 else:
-                    pass                    
-
-                self.dialog['선물옵션전광판'].tableWidget_fut.resizeRowsToContents()
-                self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnsToContents()
+                    pass 
 
             elif tickdata['단축코드'] == CMSHCODE:
 
@@ -45719,12 +45717,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         item.setBackground(QBrush(흰색))
 
-                    self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, Futures_column.시가갭.value, item)
-
-                    self.dialog['선물옵션전광판'].tableWidget_fut.resizeRowsToContents()
-                    self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnsToContents()
+                    self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, Futures_column.시가갭.value, item)                    
                 else:
                     pass
+
+                self.dialog['선물옵션전광판'].tableWidget_fut.resizeRowsToContents()
+                self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnsToContents()
             else:
                 pass
 
