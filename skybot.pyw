@@ -1502,7 +1502,6 @@ atm_txt = ''
 atm_val = 0
 ATM_INDEX = 0
 old_atm_index = 0
-yj_atm_index = 0
 jgubun = ''
 
 start_time = 0
@@ -45317,7 +45316,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def yj_update(self, tickdata):
 
-        global df_futures_cm_graph, df_kp200_graph, yj_atm_index, kp200_yj_시가
+        global df_futures_cm_graph, df_kp200_graph, KP200_당일시가
 
         try:
             dt = datetime.now()
@@ -45329,36 +45328,36 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if tickdata['업종코드'] == KOSPI200:
 
-                kp200_yj_시가 = float(tickdata['예상지수'])
+                KP200_당일시가 = float(tickdata['예상지수'])
 
-                self.dialog['선물옵션전광판'].kp200_realdata['시가'] = kp200_yj_시가
-                self.dialog['선물옵션전광판'].fut_realdata['KP200'] = kp200_yj_시가
+                self.dialog['선물옵션전광판'].kp200_realdata['시가'] = KP200_당일시가
+                self.dialog['선물옵션전광판'].fut_realdata['KP200'] = KP200_당일시가
 
-                df_futures_cm_graph.at[plot_time_index, 'kp200'] = kp200_yj_시가
-                df_kp200_graph.at[plot_time_index, 'price'] = kp200_yj_시가
+                df_futures_cm_graph.at[plot_time_index, 'kp200'] = KP200_당일시가
+                df_kp200_graph.at[plot_time_index, 'price'] = KP200_당일시가
 
                 item = QTableWidgetItem(tickdata['예상지수'])
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(흰색))  
 
-                if kp200_yj_시가 > KP200_전일종가:
+                if KP200_당일시가 > KP200_전일종가:
                     item.setForeground(QBrush(적색))                
-                elif kp200_yj_시가 < KP200_전일종가:
+                elif KP200_당일시가 < KP200_전일종가:
                     item.setForeground(QBrush(청색))
                 else:
                     item.setForeground(QBrush(검정색))
 
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.시가.value, item)
 
-                시가갭 = kp200_yj_시가 - KP200_전일종가
+                시가갭 = KP200_당일시가 - KP200_전일종가
 
                 item = QTableWidgetItem("{0:.2f}".format(시가갭))
                 item.setTextAlignment(Qt.AlignCenter)
 
-                if kp200_yj_시가 > KP200_전일종가:
+                if KP200_당일시가 > KP200_전일종가:
                     item.setBackground(QBrush(콜기준가색))
                     item.setForeground(QBrush(검정색))
-                elif kp200_yj_시가 < KP200_전일종가:
+                elif KP200_당일시가 < KP200_전일종가:
                     item.setBackground(QBrush(풋기준가색))
                     item.setForeground(QBrush(흰색))
                 else:
@@ -45366,21 +45365,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.시가갭.value, item)
 
-                atm_txt = self.dialog['선물옵션전광판'].get_atm_txt(kp200_yj_시가)
-
-                if atm_txt[-1] == '2' or atm_txt[-1] == '7':
-
-                    atm_val = float(atm_txt) + 0.5
-                else:
-                    atm_val = float(atm_txt)
-
-                if self.dialog['선물옵션전광판'].fut_realdata['시가'] > 0 and self.dialog['선물옵션전광판'].fut_realdata['KP200'] > 0:
-                    예상_Basis = self.dialog['선물옵션전광판'].fut_realdata['시가'] - self.dialog['선물옵션전광판'].fut_realdata['KP200']                            
-                else:
-                    pass
-
-                if atm_txt in opt_actval:
-                    yj_atm_index = opt_actval.index(atm_txt)
+                if 근월물_선물_시가 > 0:
+                    예상_Basis = 근월물_선물_시가 - KP200_당일시가                            
                 else:
                     pass
 
@@ -45430,9 +45416,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 plot_time_index = (int(tickdata['수신시간'][0:2]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][2:4]) + 1
 
-            if tickdata['단축코드'] == GMSHCODE:            
+            if tickdata['단축코드'] == GMSHCODE:
 
-                예상체결가격 = tickdata['예상체결가격']
                 근월물_선물_시가 = float(tickdata['예상체결가격'])
                 근월물_선물_저가 = float(tickdata['예상체결가격'])
                 근월물_선물_고가 = float(tickdata['예상체결가격'])
