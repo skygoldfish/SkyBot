@@ -5934,12 +5934,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if DayTime:
                             if call_tickdata and self.alternate_flag:
                                 self.call_oi_update()
-                                self.oi_total_update()
                             else:
                                 pass
 
                             if put_tickdata and not self.alternate_flag:
                                 self.put_oi_update()
+                                self.oi_total_update()
                             else:
                                 pass                            
                         else:
@@ -14488,9 +14488,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass        
 
     def oi_total_update(self):
-        
-        global 콜_수정미결합, 풋_수정미결합
-        global df_call_information_graph, df_put_information_graph
 
         oi_txt = '{0}:{1}'.format(format(int(콜_수정미결합), ','), format(int(풋_수정미결합), ','))
 
