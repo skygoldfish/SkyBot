@@ -22636,7 +22636,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_put_oi_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         # 등락율비
-        self.plot1_fut_drate_curve = self.plot1.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_fut_cm_drate_curve = self.plot1.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_fut_nm_drate_curve = self.plot1.plot(pen=wpen, symbolBrush='w', symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_cme_drate_curve = self.plot1.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         self.plot1_call_drate_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_put_drate_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
@@ -22738,7 +22739,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_put_oi_curve = self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         # 등락율비
-        self.plot2_fut_drate_curve = self.plot2.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_fut_cm_drate_curve = self.plot2.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_fut_nm_drate_curve = self.plot2.plot(pen=wpen, symbolBrush='w', symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_cme_drate_curve = self.plot2.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         self.plot2_call_drate_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_put_drate_curve = self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
@@ -22840,7 +22842,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_put_oi_curve = self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         # 등락율비
-        self.plot3_fut_drate_curve = self.plot3.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_fut_cm_drate_curve = self.plot3.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_fut_nm_drate_curve = self.plot3.plot(pen=wpen, symbolBrush='w', symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_cme_drate_curve = self.plot3.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         self.plot3_call_drate_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_put_drate_curve = self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
@@ -22942,7 +22945,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_put_oi_curve = self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         # 등락율비
-        self.plot4_fut_drate_curve = self.plot4.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_fut_cm_drate_curve = self.plot4.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_fut_nm_drate_curve = self.plot4.plot(pen=wpen, symbolBrush='w', symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_cme_drate_curve = self.plot4.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         self.plot4_call_drate_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_put_drate_curve = self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
@@ -23044,7 +23048,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_put_oi_curve = self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         # 등락율비
-        self.plot5_fut_drate_curve = self.plot5.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_fut_cm_drate_curve = self.plot5.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_fut_nm_drate_curve = self.plot5.plot(pen=wpen, symbolBrush='w', symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_cme_drate_curve = self.plot5.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         self.plot5_call_drate_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_put_drate_curve = self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
@@ -23146,7 +23151,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_put_oi_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         # 등락율비
-        self.plot6_fut_drate_curve = self.plot6.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_fut_cm_drate_curve = self.plot6.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_fut_nm_drate_curve = self.plot6.plot(pen=wpen, symbolBrush='w', symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_cme_drate_curve = self.plot6.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='h', symbolSize=3)
         self.plot6_call_drate_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_put_drate_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
@@ -24736,7 +24742,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_call_oi_curve.clear()
         self.plot1_put_oi_curve.clear()
 
-        self.plot1_fut_drate_curve.clear()
+        self.plot1_fut_cm_drate_curve.clear()
+        self.plot1_fut_nm_drate_curve.clear()
         self.plot1_cme_drate_curve.clear()
         self.plot1_call_drate_curve.clear()
         self.plot1_put_drate_curve.clear()
@@ -26033,7 +26040,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_call_oi_curve.clear()
         self.plot2_put_oi_curve.clear()
 
-        self.plot2_fut_drate_curve.clear()
+        self.plot2_fut_cm_drate_curve.clear()
+        self.plot2_fut_nm_drate_curve.clear()
         self.plot2_cme_drate_curve.clear()
         self.plot2_call_drate_curve.clear()
         self.plot2_put_drate_curve.clear()
@@ -27330,7 +27338,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_call_oi_curve.clear()
         self.plot3_put_oi_curve.clear()
 
-        self.plot3_fut_drate_curve.clear()
+        self.plot3_fut_cm_drate_curve.clear()
+        self.plot3_fut_nm_drate_curve.clear()
         self.plot3_cme_drate_curve.clear()
         self.plot3_call_drate_curve.clear()
         self.plot3_put_drate_curve.clear()
@@ -28627,7 +28636,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_call_oi_curve.clear()
         self.plot4_put_oi_curve.clear()
 
-        self.plot4_fut_drate_curve.clear()
+        self.plot4_fut_cm_drate_curve.clear()
+        self.plot4_fut_nm_drate_curve.clear()
         self.plot4_cme_drate_curve.clear()
         self.plot4_call_drate_curve.clear()
         self.plot4_put_drate_curve.clear()
@@ -29924,7 +29934,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_call_oi_curve.clear()
         self.plot5_put_oi_curve.clear()
 
-        self.plot5_fut_drate_curve.clear()
+        self.plot5_fut_cm_drate_curve.clear()
+        self.plot5_fut_nm_drate_curve.clear()
         self.plot5_cme_drate_curve.clear()
         self.plot5_call_drate_curve.clear()
         self.plot5_put_drate_curve.clear()
@@ -31221,7 +31232,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_call_oi_curve.clear()
         self.plot6_put_oi_curve.clear()
 
-        self.plot6_fut_drate_curve.clear()
+        self.plot6_fut_cm_drate_curve.clear()
+        self.plot6_fut_nm_drate_curve.clear()
         self.plot6_cme_drate_curve.clear()
         self.plot6_call_drate_curve.clear()
         self.plot6_put_drate_curve.clear()
@@ -33174,7 +33186,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * 근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_17.setText(txt)
 
-                    self.plot1_fut_drate_curve.setData(df_futures_cm_graph['drate'])
+                    self.plot1_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
+                    self.plot1_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
                 else:
                     pass
 
@@ -34837,7 +34850,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * 근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_27.setText(txt)
 
-                    self.plot2_fut_drate_curve.setData(df_futures_cm_graph['drate'])
+                    self.plot2_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
+                    self.plot2_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
                 else:
                     pass
 
@@ -36496,7 +36510,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * 근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_37.setText(txt)
 
-                    self.plot3_fut_drate_curve.setData(df_futures_cm_graph['drate'])
+                    self.plot3_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
+                    self.plot3_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
                 else:
                     pass
 
@@ -38156,7 +38171,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * 근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_47.setText(txt)
 
-                    self.plot4_fut_drate_curve.setData(df_futures_cm_graph['drate'])
+                    self.plot4_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
+                    self.plot4_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
                 else:
                     pass 
 
@@ -39814,7 +39830,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * 근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_57.setText(txt)
 
-                    self.plot5_fut_drate_curve.setData(df_futures_cm_graph['drate'])
+                    self.plot5_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
+                    self.plot5_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
                 else:
                     pass
 
@@ -41472,7 +41489,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * 근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_67.setText(txt)
 
-                    self.plot6_fut_drate_curve.setData(df_futures_cm_graph['drate'])
+                    self.plot6_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
+                    self.plot6_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
                 else:
                     pass 
 
@@ -51139,13 +51157,7 @@ if __name__ == "__main__":
     logger.setLevel(loggerLevel)
     logger.info("=============================================================================")
     logger.info("LOG START")
-    '''
-    def log_except_hook(*exc_info):
-        text = "".join(traceback.format_exception(*exc_info))
-        logging.error("Unhandled exception: %s", text)
-
-    sys.excepthook = log_except_hook
-    '''
+    
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(True)
     
