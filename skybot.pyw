@@ -1331,9 +1331,6 @@ option_pairs_count = 0
 t8416_option_pairs_count = 0
 real_option_pairs_count = 0
 
-fut_cm_tickdata = dict()
-fut_nm_tickdata = dict()
-
 call_tickdata = dict()
 put_tickdata = dict()
 
@@ -11705,8 +11702,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             # 저가 갱신
-            #fut_low = self.tableWidget_fut.item(1, Futures_column.저가.value).text().split('\n')[0]            
-
             if 저가 != self.tableWidget_fut.item(1, Futures_column.저가.value).text().split('\n')[0]:
 
                 txt = '{0:.2f}'.format(근월물_선물_저가) + '\n' + '({0:.2f})'.format(volatility_breakout_downward_point)
@@ -11754,8 +11749,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             # 고가 갱신
-            #fut_high = self.tableWidget_fut.item(1, Futures_column.고가.value).text().split('\n')[0]            
-
             if 고가 != self.tableWidget_fut.item(1, Futures_column.고가.value).text().split('\n')[0]:
 
                 txt = '{0:.2f}'.format(근월물_선물_고가) + '\n' + '({0:.2f})'.format(volatility_breakout_upward_point)
@@ -11813,7 +11806,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def fut_nm_update(self, tickdata):
 
         global 차월물_선물_피봇, 차월물_선물_시가, 차월물_선물_저가, 차월물_선물_현재가, 차월물_선물_고가, 차월물_선물_진폭
-        global 차월물_선물_시가대비, 차월물_선물_종가대비 
+        global 차월물_선물_시가대비, 차월물_선물_종가대비
+        global df_futures_nm_graph
 
         try:
             dt = datetime.now()
@@ -11834,7 +11828,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             차월물_선물_종가대비 = 차월물_선물_현재가 - 차월물_선물_종가 
 
             # 시가 및 피봇 갱신
-            if 시가 != self.tableWidget_fut.item(0, Futures_column.시가.value).text():                
+            if 시가 != self.tableWidget_fut.item(0, Futures_column.시가.value).text():
+
+                df_futures_nm_graph.at[GuardTime + 1, 'open'] = 차월물_선물_시가                
 
                 item = QTableWidgetItem(시가)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -46793,8 +46789,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global pre_start, flag_fut_vs_sp500_drate_direction, plot_drate_scale_factor, fut_volume_power_energy_direction
         global fut_cm_volume_power, fut_nm_volume_power
         global 근월물_선물_종가대비_등락율, 근월물_선물_시가등락율, 근월물_선물_시가대비_등락율, kp200_시가등락율
-        global df_futures_cm_graph, 근월물_선물_현재가, 근월물_선물_현재가_버퍼, flag_futures_cm_ohlc_open, fut_cm_tickdata
-        global df_futures_nm_graph, 차월물_선물_현재가, 차월물_선물_현재가_버퍼, flag_futures_nm_ohlc_open, fut_nm_tickdata
+        global df_futures_cm_graph, 근월물_선물_현재가, 근월물_선물_현재가_버퍼, flag_futures_cm_ohlc_open
+        global df_futures_nm_graph, 차월물_선물_현재가, 차월물_선물_현재가_버퍼, flag_futures_nm_ohlc_open
         global flag_cm_drate_scale_factor_set, flag_nm_drate_scale_factor_set
         global 차월물_선물_종가대비_등락율, 차월물_선물_시가대비_등락율, 차월물_선물_시가등락율
 
@@ -46852,7 +46848,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         근월물_선물_현재가_버퍼.append(근월물_선물_현재가)              
                 else:
-                    #if df_futures_cm_graph.at[plot_time_index, 'open'] != df_futures_cm_graph.at[plot_time_index, 'open']:
                     if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'open']):
                         df_futures_cm_graph.at[plot_time_index, 'open'] = df_futures_cm_graph.at[plot_time_index - 1, 'close']
                         del 근월물_선물_현재가_버퍼[:]
@@ -46884,7 +46879,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 fut_cm_volume_power = int(tickdata['매수누적체결량']) - int(tickdata['매도누적체결량'])
                 df_futures_cm_graph.at[plot_time_index, 'volume'] = fut_cm_volume_power
 
-                #temp = format(fut_cm_volume_power, ',')
                 temp = '{0}k'.format(int(fut_cm_volume_power/1000))
 
                 item = QTableWidgetItem(temp)
@@ -46938,8 +46932,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 #df_futures_cm_graph.at[plot_time_index, 'drate'] = plot_drate_scale_factor * 근월물_선물_종가대비_등락율
                 df_futures_cm_graph.at[plot_time_index, 'drate'] = plot_drate_scale_factor * 근월물_선물_시가대비_등락율                
-
-                fut_cm_tickdata = copy.deepcopy(tickdata)
 
                 self.dialog['선물옵션전광판'].fut_cm_update(tickdata)
                 self.dialog['선물옵션전광판'].fut_cm_etc_update(tickdata)
@@ -47013,7 +47005,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         차월물_선물_현재가_버퍼.append(차월물_선물_현재가)              
                 else:
-                    #if df_futures_nm_graph.at[plot_time_index, 'open'] != df_futures_nm_graph.at[plot_time_index, 'open']:
                     if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'open']):
                         df_futures_nm_graph.at[plot_time_index, 'open'] = df_futures_nm_graph.at[plot_time_index - 1, 'close']
                         del 차월물_선물_현재가_버퍼[:]
@@ -47070,8 +47061,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     fut_volume_power_energy_direction = 'put'
                 else:
                     fut_volume_power_energy_direction = ''
-
-                fut_nm_tickdata = copy.deepcopy(tickdata)
 
                 self.dialog['선물옵션전광판'].fut_nm_update(tickdata)
                 self.dialog['선물옵션전광판'].fut_nm_etc_update(tickdata)    
@@ -47552,7 +47541,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 등락율 갱신, 근월물 기준으로 계산
                 if DayTime and index == ATM_INDEX:
                     콜_등가_등락율 = float(tickdata['등락율'])
-                    #df_call_information_graph.at[plot_time_index, 'drate'] = 콜_등가_등락율
                 else:
                     pass
 
@@ -47619,7 +47607,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 등락율 갱신, 근월물 기준으로 계산
                 if DayTime and index == ATM_INDEX:
                     풋_등가_등락율 = float(tickdata['등락율'])
-                    #df_put_information_graph.at[plot_time_index, 'drate'] = 풋_등가_등락율
                 else:
                     pass
 
@@ -47677,66 +47664,87 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # 차월물 OLOH 알람
             if TARGET_MONTH == 'NM':                
 
-                if call_ol_count > call_oh_count and put_ol_count < put_oh_count:
-
-                    item = QTableWidgetItem("CD")
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(적색))
-                    item.setForeground(QBrush(흰색))
+                if call_ol_count > call_oh_count and put_ol_count < put_oh_count:                    
 
                     if not flag_nm_oloh_direction_call_set:
+
+                        item = QTableWidgetItem("CD")
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(적색))
+                        item.setForeground(QBrush(흰색))
+                        self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, 0, item)
 
                         flag_nm_oloh_direction_call_set = True
 
                         if flag_fut_nm_ol:
                             txt = '[{0:02d}:{1:02d}:{2:02d}] All ▲ ▲...\r'.format(dt.hour, dt.minute, dt.second)
+                            self.dialog['선물옵션전광판'].textBrowser.append(txt)
                             self.textBrowser.append(txt)
 
-                            txt = 'All 콜'
+                            txt = 'NM All Up'
                             self.speaker.setText(txt)
                         else:
                             txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 콜...\r'.format(dt.hour, dt.minute, dt.second)
+                            self.dialog['선물옵션전광판'].textBrowser.append(txt)
                             self.textBrowser.append(txt)
 
-                            txt = '차월물 콜'
+                            txt = 'NM 콜'
                             self.speaker.setText(txt)
+                    else:
+                        pass
 
-                elif call_ol_count < call_oh_count and put_ol_count > put_oh_count:
-
-                    item = QTableWidgetItem("PD")
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(청색))
-                    item.setForeground(QBrush(흰색))
+                elif call_ol_count < call_oh_count and put_ol_count > put_oh_count:                    
 
                     if not flag_nm_oloh_direction_put_set:
+
+                        item = QTableWidgetItem("PD")
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(청색))
+                        item.setForeground(QBrush(흰색))
+                        self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, 0, item)
 
                         flag_nm_oloh_direction_put_set = True
 
                         if flag_fut_nm_oh:
                             txt = '[{0:02d}:{1:02d}:{2:02d}] All ▼ ▼...\r'.format(dt.hour, dt.minute, dt.second)
+                            self.dialog['선물옵션전광판'].textBrowser.append(txt)
                             self.textBrowser.append(txt)
 
-                            txt = 'All 풋'
+                            txt = 'NM All Down'
                             self.speaker.setText(txt)
                         else:
                             txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 풋...\r'.format(dt.hour, dt.minute, dt.second)
+                            self.dialog['선물옵션전광판'].textBrowser.append(txt)
                             self.textBrowser.append(txt)
 
-                            txt = '차월물 풋'
+                            txt = 'NM 풋'
                             self.speaker.setText(txt)
+                    else:
+                        pass
                 else:
-                    item = QTableWidgetItem("-")
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(검정색))
-                    item.setForeground(QBrush(흰색))
-
                     if flag_nm_oloh_direction_call_set:
+
+                        item = QTableWidgetItem("-")
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(검정색))
+                        item.setForeground(QBrush(흰색))
+                        self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, 0, item)
+
                         flag_nm_oloh_direction_call_set = False
+                    else:
+                        pass
 
                     if flag_nm_oloh_direction_put_set:
-                        flag_nm_oloh_direction_put_set = False
 
-                self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, 0, item)
+                        item = QTableWidgetItem("-")
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(검정색))
+                        item.setForeground(QBrush(흰색))
+                        self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, 0, item)
+
+                        flag_nm_oloh_direction_put_set = False
+                    else:
+                        pass                
             else:
                 pass
 
