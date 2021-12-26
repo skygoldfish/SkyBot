@@ -83,7 +83,6 @@ import qdarkstyle
 # 이베스트 모듈
 from XASessions import *
 from XAQueries import *
-from XAReals import *
 from Utils import *
 #from FileWatcher import *       
 #from xing_tick_writer import * 
@@ -51100,7 +51099,9 @@ if __name__ == "__main__":
             ovc_process = mp.Process(target=ovc_crawler, args=(ovcQ, MP_CME_HIGH_SPEED_MODE), daemon=True)
             ovc_process.start()
     else:
-        pass
+        # 멀티프로세스가 아닌 경우
+        if flag_internet:
+            from XAReals import *
     
     # TTS test...
     if flag_tts:
