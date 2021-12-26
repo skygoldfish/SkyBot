@@ -490,7 +490,6 @@ MA_TYPE = parser.getint('Moving Average Type', 'MA Type')
 
 # [8]. << Initial Value >>
 TIME_TOLERANCE = parser.getint('Initial Value', 'RealTime Tolerance(sec)')
-DOW_START = parser.get('Initial Value', 'Dow Start Time')
 MP_SEND_INTERVAL = parser.getint('Initial Value', 'MP Send Interval')
 CALL_ITM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Call ITM Request')
 CALL_OTM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Call OTM Request')
@@ -23279,14 +23278,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_time_line_jugan_start.setValue(GuardTime + 1)
             self.plot6_time_line_jugan_start.setValue(GuardTime + 1)
 
-            dow_start_time = (int(DOW_START[0:2]) - NightTime_PreStart_Hour) * 60 + int(DOW_START[2:4])
+            if SUMMER_TIME:
+                cme_start_hour = 22
+            else:
+                cme_start_hour = 23
 
-            self.plot1_time_line_yagan_start.setValue(dow_start_time)
-            self.plot2_time_line_yagan_start.setValue(dow_start_time)
-            self.plot3_time_line_yagan_start.setValue(dow_start_time)
-            self.plot4_time_line_yagan_start.setValue(dow_start_time)
-            self.plot5_time_line_yagan_start.setValue(dow_start_time)
-            self.plot6_time_line_yagan_start.setValue(dow_start_time)
+            cme_start_time = (cme_start_hour - NightTime_PreStart_Hour) * 60 + 30
+
+            self.plot1_time_line_yagan_start.setValue(cme_start_time)
+            self.plot2_time_line_yagan_start.setValue(cme_start_time)
+            self.plot3_time_line_yagan_start.setValue(cme_start_time)
+            self.plot4_time_line_yagan_start.setValue(cme_start_time)
+            self.plot5_time_line_yagan_start.setValue(cme_start_time)
+            self.plot6_time_line_yagan_start.setValue(cme_start_time)
         else:
             # 시작시간 X축 표시(index 60은 시가)
             self.plot1_time_line_jugan_start.setValue(GuardTime)
