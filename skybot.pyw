@@ -45362,6 +45362,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setForeground(QBrush(흰색))
                 else:
                     item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
 
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.시가갭.value, item)
 
@@ -45482,14 +45483,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 item.setTextAlignment(Qt.AlignCenter)
 
                 if 근월물_선물_시가 > 근월물_선물_종가:
-                    item.setForeground(QBrush(magenta))
-                    item.setBackground(QBrush(검정색))
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(적색))                    
                 elif 근월물_선물_시가 < 근월물_선물_종가:
-                    item.setForeground(QBrush(cyan))
-                    item.setBackground(QBrush(검정색))
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(청색))                    
                 else:
-                    item.setForeground(QBrush(흰색))
-                    item.setBackground(QBrush(검정색))
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))                    
 
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.시가.value, item)
 
@@ -45506,6 +45507,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setForeground(QBrush(흰색))
                 else:
                     item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
 
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
 
