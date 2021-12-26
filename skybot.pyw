@@ -43115,35 +43115,41 @@ class Xing(object):
                     else:
                         pass
 
-                    if not self.clocktick and TARGET_MONTH == 'NM' and dt.second % 10 == 0:
+                    if not self.clocktick and TARGET_MONTH == 'NM' and dt.second % 5 == 0:
 
                         if flag_fut_nm_ol and flag_nm_oloh_direction_call_set:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM All ▲ ▲...\r".format(dt.hour, dt.minute, dt.second)
-                            self.caller.textBrowser.append(send_txt)
-                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
-                            ToYourTelegram(send_txt)
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM All ▲ ▲...\r".format(dt.hour, dt.minute, dt.second)
+                            self.caller.textBrowser.append(txt)
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(txt)                            
 
-                            if flag_tts:
+                            if flag_tts and (flag_call_low_in_fixed_coreval or flag_put_high_in_fixed_coreval or flag_kp200_low_node):
                                 txt = 'NM Strong Call'
+                                self.caller.textBrowser.append(txt)
                                 self.caller.speaker.setText(txt)
+                                ToYourTelegram(txt)
                             else:
                                 pass
                         else:
                             pass
 
                         if flag_fut_nm_oh and flag_nm_oloh_direction_put_set:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM All ▼ ▼...\r".format(dt.hour, dt.minute, dt.second)
-                            self.caller.textBrowser.append(send_txt)
-                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
-                            ToYourTelegram(send_txt)
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM All ▼ ▼...\r".format(dt.hour, dt.minute, dt.second)
+                            self.caller.textBrowser.append(txt)
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(txt)
 
-                            if flag_tts:
+                            if flag_tts and (flag_call_high_in_fixed_coreval or flag_put_low_in_fixed_coreval or flag_kp200_high_node):
                                 txt = 'NM Strong Put'
+                                self.caller.textBrowser.append(txt)
                                 self.caller.speaker.setText(txt)
+                                ToYourTelegram(txt)
                             else:
                                 pass
                         else:
                             pass
+                    else:
+                        pass
+
+                    if not self.clocktick and TARGET_MONTH == 'NM' and dt.second % 10 == 0:                        
 
                         if flag_call_low_in_fixed_coreval or flag_call_high_in_fixed_coreval or flag_put_low_in_fixed_coreval or flag_put_high_in_fixed_coreval:
                             
