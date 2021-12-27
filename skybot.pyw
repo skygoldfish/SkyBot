@@ -32978,7 +32978,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot1_time_line.setValue(plot_time_index)                
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[plot_time_index, 'ms_quote'], df_put_information_graph.at[plot_time_index, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, put_quote['매수잔량'], put_quote['매도잔량'])
                 self.label_16.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), [▼: {6:.2f}, ▲: {7:.2f}] ".format(\
@@ -32995,7 +32995,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.label_17.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[plot_time_index, 'ms_quote'], df_call_information_graph.at[plot_time_index, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, call_quote['매수잔량'], call_quote['매도잔량'])
                 self.label_18.setText(txt)
 
                 self.plot1_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
@@ -33115,10 +33115,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot1_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[plot_time_index, 'ms_quote'], df_put_information_graph.at[plot_time_index, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, put_quote['매수잔량'], put_quote['매도잔량'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_16.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[plot_time_index, 'ms_quote'], df_call_information_graph.at[plot_time_index, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, call_quote['매수잔량'], call_quote['매도잔량'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_18.setText(txt)
 
                 self.plot1_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
@@ -34645,7 +34645,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot2_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[plot_time_index, 'ms_quote'], df_put_information_graph.at[plot_time_index, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, put_quote['매수잔량'], put_quote['매도잔량'])
                 self.label_26.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), [▼: {6:.2f}, ▲: {7:.2f}] ".format(\
@@ -34662,7 +34662,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.label_27.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[plot_time_index, 'ms_quote'], df_call_information_graph.at[plot_time_index, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, call_quote['매수잔량'], call_quote['매도잔량'])
                 self.label_28.setText(txt)
 
                 self.plot2_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
@@ -34782,10 +34782,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot2_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[plot_time_index, 'ms_quote'], df_put_information_graph.at[plot_time_index, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, put_quote['매수잔량'], put_quote['매도잔량'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_26.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[plot_time_index, 'ms_quote'], df_call_information_graph.at[plot_time_index, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, call_quote['매수잔량'], call_quote['매도잔량'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_28.setText(txt)
                 
                 self.plot2_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
@@ -36310,7 +36310,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot3_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[plot_time_index, 'ms_quote'], df_put_information_graph.at[plot_time_index, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, put_quote['매수잔량'], put_quote['매도잔량'])
                 self.label_36.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), [▼: {6:.2f}, ▲: {7:.2f}] ".format(\
@@ -36327,7 +36327,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.label_37.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[plot_time_index, 'ms_quote'], df_call_information_graph.at[plot_time_index, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, call_quote['매수잔량'], call_quote['매도잔량'])
                 self.label_38.setText(txt)
 
                 self.plot3_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
@@ -36445,10 +36445,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot3_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[plot_time_index, 'ms_quote'], df_put_information_graph.at[plot_time_index, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, put_quote['매수잔량'], put_quote['매도잔량'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_36.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[plot_time_index, 'ms_quote'], df_call_information_graph.at[plot_time_index, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, call_quote['매수잔량'], call_quote['매도잔량'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_38.setText(txt)
 
                 self.plot3_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
@@ -37972,7 +37972,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot4_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[plot_time_index, 'ms_quote'], df_put_information_graph.at[plot_time_index, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, put_quote['매수잔량'], put_quote['매도잔량'])
                 self.label_46.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), [▼: {6:.2f}, ▲: {7:.2f}] ".format(\
@@ -37989,7 +37989,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.label_47.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[plot_time_index, 'ms_quote'], df_call_information_graph.at[plot_time_index, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, call_quote['매수잔량'], call_quote['매도잔량'])
                 self.label_48.setText(txt)
 
                 self.plot4_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
@@ -38109,10 +38109,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot4_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[plot_time_index, 'ms_quote'], df_put_information_graph.at[plot_time_index, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, put_quote['매수잔량'], put_quote['매도잔량'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_46.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[plot_time_index, 'ms_quote'], df_call_information_graph.at[plot_time_index, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, call_quote['매수잔량'], call_quote['매도잔량'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_48.setText(txt)
 
                 self.plot4_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
@@ -39637,7 +39637,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot5_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[plot_time_index, 'ms_quote'], df_put_information_graph.at[plot_time_index, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, put_quote['매수잔량'], put_quote['매도잔량'])
                 self.label_56.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), [▼: {6:.2f}, ▲: {7:.2f}] ".format(\
@@ -39654,7 +39654,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.label_57.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[plot_time_index, 'ms_quote'], df_call_information_graph.at[plot_time_index, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, call_quote['매수잔량'], call_quote['매도잔량'])
                 self.label_58.setText(txt)
 
                 self.plot5_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
@@ -39771,10 +39771,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot5_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[plot_time_index, 'ms_quote'], df_put_information_graph.at[plot_time_index, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, put_quote['매수잔량'], put_quote['매도잔량'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_56.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[plot_time_index, 'ms_quote'], df_call_information_graph.at[plot_time_index, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, call_quote['매수잔량'], call_quote['매도잔량'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_58.setText(txt)
 
                 self.plot5_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
@@ -41299,7 +41299,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot6_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_information_graph.at[plot_time_index, 'ms_quote'], df_put_information_graph.at[plot_time_index, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, put_quote['매수잔량'], put_quote['매도잔량'])
                 self.label_66.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), [▼: {6:.2f}, ▲: {7:.2f}] ".format(\
@@ -41316,7 +41316,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.label_67.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, df_call_information_graph.at[plot_time_index, 'ms_quote'], df_call_information_graph.at[plot_time_index, 'md_quote'])
+                txt = " {0:.2f}({1:.0f}/{2:.0f}) ".format(콜잔량비, call_quote['매수잔량'], call_quote['매도잔량'])
                 self.label_68.setText(txt)
 
                 self.plot6_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
@@ -41433,10 +41433,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot6_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, df_put_information_graph.at[plot_time_index, 'ms_quote'], df_put_information_graph.at[plot_time_index, 'md_quote'], 풋_잔량비_최소, 풋_잔량비_최대)
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(풋잔량비, put_quote['매수잔량'], put_quote['매도잔량'], 풋_잔량비_최소, 풋_잔량비_최대)
                 self.label_66.setText(txt)
                 
-                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, df_call_information_graph.at[plot_time_index, 'ms_quote'], df_call_information_graph.at[plot_time_index, 'md_quote'], 콜_잔량비_최소, 콜_잔량비_최대)
+                txt = " {0:.2f}({1:.0f}/{2:.0f}), [▼: {3:.2f}, ▲: {4:.2f}] ".format(콜잔량비, call_quote['매수잔량'], call_quote['매도잔량'], 콜_잔량비_최소, 콜_잔량비_최대)
                 self.label_68.setText(txt)
 
                 self.plot6_call_quote_curve.setData(df_call_information_graph['quote_remainder_ratio'])
@@ -47813,6 +47813,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 콜_잔량비_최소, 콜_잔량비_최대, 풋_잔량비_최소, 풋_잔량비_최대
         global 옵션_잔량비_최소, 옵션_잔량비_최대
         global plot_time_index
+        global call_quote, put_quote
 
         try:
             dt = datetime.now()
