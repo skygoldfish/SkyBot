@@ -10900,7 +10900,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_fut.item(2, Futures_column.저가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_fut.item(2, Futures_column.저가.value).setForeground(QBrush(검정색))
 
-                    kp200_low_node_txt = "[{0:02d}:{1:02d}:{2:02d}] kp200 저가맥점 {3:.2f} 발생 !!!".format(dt.hour, dt.minute, dt.second, self.kp200_realdata['저가'])
+                    kp200_low_node_txt = "[{0:02d}:{1:02d}:{2:02d}] kp200 저가맥점 {3:.2f} 발생 !!!\r".format(dt.hour, dt.minute, dt.second, self.kp200_realdata['저가'])
                     self.textBrowser.append(kp200_low_node_txt)
                     self.parent.textBrowser.append(kp200_low_node_txt)
 
@@ -10927,7 +10927,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_fut.item(2, Futures_column.고가.value).setForeground(QBrush(검정색))
 
-                    kp200_high_node_txt = "[{0:02d}:{1:02d}:{2:02d}] kp200 고가맥점 {3:.2f} 발생 !!!".format(dt.hour, dt.minute, dt.second, self.kp200_realdata['고가'])
+                    kp200_high_node_txt = "[{0:02d}:{1:02d}:{2:02d}] kp200 고가맥점 {3:.2f} 발생 !!!\r".format(dt.hour, dt.minute, dt.second, self.kp200_realdata['고가'])
                     self.textBrowser.append(kp200_high_node_txt)
                     self.parent.textBrowser.append(kp200_high_node_txt)
 
